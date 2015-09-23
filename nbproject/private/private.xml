@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="IMS">
+            <file>file:/F:/xampp/htdocs/didueat/resources/views/home.blade.php</file>
+            <file>file:/F:/xampp/htdocs/didueat/app/Http/routes.php</file>
+            <file>file:/F:/xampp/htdocs/didueat/resources/views/dashboard/restaurant/info.blade.php</file>
+            <file>file:/F:/xampp/htdocs/didueat/app/Http/Controllers/HomeController.php</file>
+            <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants-menus.blade.php</file>
+            <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
+        </group>
+        <group>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/restaurant/manus.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/public/assets/global/css/custom_css.css</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/user/manage_image.blade.php</file>
+        </group>
+    </open-files>
+</project-private>
