@@ -19,6 +19,8 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
+	 
+	 
     public function index() {
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
