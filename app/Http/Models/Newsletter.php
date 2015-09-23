@@ -21,12 +21,11 @@ class Newsletter extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
-        if (array_key_exists('Email', $data)) {
-            $this->Email = $data['Email'];
-        }
-        if (array_key_exists('GUID', $data)) {
-            $this->GUID = $data['GUID'];
+        $cells = array('Email', 'GUID');
+        foreach($cells as $cell){
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
         }
     }
     

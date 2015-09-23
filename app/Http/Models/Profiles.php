@@ -21,45 +21,11 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
-        if (array_key_exists('profileType', $data)) {
-            $this->profileType = $data['profileType'];
-        }
-        if (array_key_exists('name', $data)) {
-            $this->name = $data['name'];
-        }
-        if (array_key_exists('email', $data)) {
-            $this->email = $data['email'];
-        }
-        if (array_key_exists('password', $data)) {
-            $this->generatePassword($data['password']);
-        }
-        if (array_key_exists('salt', $data)) {
-            $this->salt = $data['salt'];
-        }
-        if (array_key_exists('phone', $data)) {
-            $this->phone = $data['phone'];
-        }
-        if (array_key_exists('subscribed', $data)) {
-            $this->subscribed = $data['subscribed'];
-        }
-        if (array_key_exists('restaurantId', $data)) {
-            $this->restaurantId = $data['restaurantId'];
-        }
-        if (array_key_exists('createdBy', $data)) {
-            $this->createdBy = $data['createdBy'];
-        }
-        if (array_key_exists('status', $data)) {
-            $this->status = $data['status'];
-        }
-        if (array_key_exists('created_at', $data)) {
-            $this->created_at = $data['created_at'];
-        }
-        if (array_key_exists('updated_at', $data)) {
-            $this->updated_at = $data['updated_at'];
-        }
-        if (array_key_exists('deleted_at', $data)) {
-            $this->deleted_at = $data['deleted_at'];
+        $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantId', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
+        foreach($cells as $cell){
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
         }
     }
     

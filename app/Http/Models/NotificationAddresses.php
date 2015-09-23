@@ -21,17 +21,12 @@ class NotificationAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
-        if (array_key_exists('RestaurantID', $data)) {
-            $this->RestaurantID = $data['RestaurantID'];
+        $cells = array('RestaurantID', 'Type', 'Address');
+        foreach($cells as $cell){
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
         }
-        if (array_key_exists('Type', $data)) {
-            $this->Type = $data['Type'];
-        }
-        if (array_key_exists('Address', $data)) {
-            $this->Address = $data['Address'];
-        }
-        
     }
     
 }
