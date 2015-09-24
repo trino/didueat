@@ -21,7 +21,14 @@ class Menus extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+        $cells = array('restaurantId', 'menu_item', 'description', 'price', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order');
+        foreach($cells as $cell){
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
 
+        /*
         if (array_key_exists('restaurantId', $data)) {
             $this->restaurantId = $data['restaurantId'];
         }
@@ -63,7 +70,8 @@ class Menus extends BaseModel {
         }
         if (array_key_exists('display_order', $data)) {
             $this->display_order = $data['display_order'];
-        }
+        }*/
+
     }
     
 }

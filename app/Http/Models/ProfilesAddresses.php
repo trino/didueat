@@ -21,7 +21,13 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
+        $cells = array('UserID', 'Number', 'Apt', 'Buzz', 'PostCode', 'PhoneNo', 'Street', 'City', 'Province', 'Country', 'Notes');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
+        /*
         if (array_key_exists('UserID', $data)) {
             $this->UserID = $data['UserID'];
         }
@@ -54,7 +60,7 @@ class ProfilesAddresses extends BaseModel {
         }
         if (array_key_exists('Notes', $data)) {
             $this->Notes = $data['Notes'];
-        }
+        }*/
     }
     
 }

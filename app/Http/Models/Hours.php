@@ -21,7 +21,14 @@ class Hours extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+        $cells = array('RestaurantID', 'DayOfWeek', 'Open', 'Close');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
 
+        /*
         if (array_key_exists('RestaurantID', $data)) {
             $this->RestaurantID = $data['RestaurantID'];
         }
@@ -33,7 +40,8 @@ class Hours extends BaseModel {
         }
         if (array_key_exists('Close', $data)) {
             $this->Close = $data['Close'];
-        }
+        }*/
+
     }
     
 }

@@ -21,8 +21,14 @@ class ProfilesImages extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+        $cells = array('UserID', 'RestaurantID', 'Filename', 'Title', 'OrderID');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
 
-        if (array_key_exists('UserID', $data)) {
+        /*if (array_key_exists('UserID', $data)) {
             $this->UserID = $data['UserID'];
         }
         if (array_key_exists('RestaurantID', $data)) {
@@ -36,7 +42,7 @@ class ProfilesImages extends BaseModel {
         }
         if (array_key_exists('OrderID', $data)) {
             $this->OrderID = $data['OrderID'];
-        }
+        }*/
     }
     
 }

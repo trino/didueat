@@ -21,7 +21,13 @@ class Postalcodes extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
+        $cells = array('PostalCode', 'Number', 'Street', 'City', 'Province', 'Lattitude', 'Longitude', 'ShortStreet', 'ShortStreetType', 'ShortStreetDir');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
+        /*
         if (array_key_exists('PostalCode', $data)) {
             $this->PostalCode = $data['PostalCode'];
         }
@@ -51,7 +57,7 @@ class Postalcodes extends BaseModel {
         }
         if (array_key_exists('ShortStreetDir', $data)) {
             $this->ShortStreetDir = $data['ShortStreetDir'];
-        }
+        }*/
     }
     
 }
