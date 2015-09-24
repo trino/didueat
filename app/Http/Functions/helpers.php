@@ -1,12 +1,16 @@
 <?php
 
 function test(){
-    /*$Test = get_entry("countries", 1, "id");
+    return;
+    DB::enableQueryLog();
+
+    getColumnNames("countries");
+    $Test = getallQueries();
 
     debug($Test);
 
 
-    die();*/
+    die();
 }
 
 
@@ -79,7 +83,7 @@ function implode2($Array, $SmallGlue, $BigGlue){
 }
 function debug($Iterator){
     $Backtrace = debug_string_backtrace();
-    echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '(' . implode2($Backtrace["args"], "=", ",") . ');' ;
+    echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '(' . implode2($Backtrace["args"], "=", ",") . ');</B><BR>' ;
 
     if(is_array($Iterator)){
         var_dump($Iterator);
@@ -160,6 +164,7 @@ function select_field_where($table, $where=array(), $getcol = "", $OrderBy="", $
 
     if($OrderBy){$query = $query->orderBy($OrderBy, $Dir);}
     if($GroupBy){$query = $query->groupBy($GroupBy);}
+    if($getcol === true){return $query;}
     if($getcol === false){return $query->get();}
     if ($query->count() > 0) {
         if($getcol) {
@@ -209,8 +214,12 @@ function enum_table($Table){
     return select_query("SELECT * FROM " . $Table . " WHERE 1=1");
 }
 
+function getDatasource(){
+    return DB::connection()->getPdo();
+}
+
 function select_query($Query){
-    $con = DB::connection()->getPdo();
+    $con = getDatasource();
     return $con->query($Query);
 }
 
@@ -237,6 +246,111 @@ function my_iterator_to_array($entries, $PrimaryKey, $Key){
         }
     }
     return $data;
+}
+
+function get_row_count($Table, $Conditions = "1=1"){
+   return table_count($Table, $Conditions);
+}
+
+function remove_empties($Array){
+    foreach($Array as $Key => $Value){
+        if (!$Value){
+            unset($Array[$Key]);
+        }
+    }
+    return $Array;
+}
+
+function getallQueries(){
+    $queries = DB::getQueryLog();
+    return collapsearray($queries, "query");
+}
+function lastQuery(){
+    $queries = DB::getQueryLog();
+    $queries = end($queries);
+    if(!$queries){
+        echo 'Query log is disabled, run "DB::enableQueryLog();" first';
+    }
+    return $queries["query"];
+}
+
+function isassocarray($my_array){
+    if(!is_array($my_array)) {return false;}
+    if(count($my_array) <= 0) {return true;}
+    return !(array_unique(array_map("is_int", array_keys($my_array))) === array(true));
+}
+
+function getIterator($Objects, $Fieldname, $Value){
+    foreach($Objects as $Object){
+        if ($Object->$Fieldname == $Value){
+            return $Object;
+        }
+    }
+    return false;
+}
+
+function left($text, $length){
+    return substr($text,0,$length);
+}
+function right($text, $length){
+    return substr($text, -$length);
+}
+
+function array_to_object($Array){
+    $object = (object) $Array;
+    return $object;
+}
+
+function new_anything($Table, $Data, $Column = "ID"){
+    if(!is_array($Data)){$Data = array($Column = $Data);}
+    return DB::table($Table)->insertGetId($Data);
+}
+
+function delete_all($Table, $Conditions = ""){
+    if($Conditions){
+        DB::table($Table)->where($Conditions)->delete();
+    } else {
+        DB::table($Table)->truncate();
+    }
+}
+
+//only use when you know the primary key value exists
+function update_database($Table, $PrimaryKey, $Value, $Data){
+    DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
+    $Data[$PrimaryKey] = $Value;
+    return $Data;
+}
+
+function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = false){
+    $entry = false;
+    if($PrimaryKey && $Value) {
+        $entry = select_field($Table, $PrimaryKey, $Value);
+    }
+    if($entry) {
+        update_database($Table, $PrimaryKey, $Value, $Data);
+        $ID = $Value;
+    } else {
+        $ID = new_anything($Table, $Data);
+    }
+    if($IncludeKey) {$Data[$PrimaryKey] = $ID;}
+    return $Data;
+}
+
+function new_entry($Table, $PrimaryKey, $Data){
+    return $this->edit_database($Table, $PrimaryKey, "", $Data);
+}
+
+
+
+function getProtectedValue($obj,$name) {
+    $array = (array)$obj;
+    $prefix = chr(0).'*'.chr(0);
+    if (isset($array[$prefix.$name])) {
+        return $array[$prefix . $name];
+    }
+}
+function kill_non_numeric($text, $allowmore = ""){
+    return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
 
 ?>
