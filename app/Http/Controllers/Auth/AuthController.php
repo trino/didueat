@@ -122,11 +122,6 @@ class AuthController extends Controller {
     public function postRegister() {
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
-			
-		 \DB::getQueryLog() ;
-			 die;
-
-
             if (!isset($data['email']) || empty($data['email'])) {
                 return \Redirect::to('auth/register')->with('message', trans('messages.user_missing_email.message'))->withInput();
             }

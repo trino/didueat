@@ -21,11 +21,21 @@ class ProfilesImages extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('UserID', 'RestaurantID', 'Filename', 'Title', 'OrderID');
-        foreach($cells as $cell){
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
+
+        if (array_key_exists('UserID', $data)) {
+            $this->UserID = $data['UserID'];
+        }
+        if (array_key_exists('RestaurantID', $data)) {
+            $this->RestaurantID = $data['RestaurantID'];
+        }
+        if (array_key_exists('Filename', $data)) {
+            $this->Filename = $data['Filename'];
+        }
+        if (array_key_exists('Title', $data)) {
+            $this->Title = $data['Title'];
+        }
+        if (array_key_exists('OrderID', $data)) {
+            $this->OrderID = $data['OrderID'];
         }
     }
     

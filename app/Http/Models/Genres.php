@@ -21,12 +21,11 @@ class Genres extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('name');
-        foreach($cells as $cell){
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
+        
+        if (array_key_exists('name', $data)) {
+            $this->name = $data['name'];
         }
+        
     }
     
 }
