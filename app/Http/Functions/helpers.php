@@ -129,9 +129,39 @@ function find_profile($EmailAddress, $Password){
     return enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password))->first();
 }
 
+function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, $Phone, $RestaurantID, $Subscribed = ""){
+    $EmailAddress = is_valid_email($EmailAddress);
+    $Phone=clean_phone($Phone);
+    if(!$EmailAddress){return false;}
+    if(get_entry("profiles", $EmailAddress, "Email")){return false;}
+    if(!$Password){$Password=randomPassword();}
+    if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
+    $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => md5($Password . salt()));
+    if($CreatedBy){
+        if(!can_profile_create($CreatedBy, $ProfileType)){return false;}
+        $data["CreatedBy"] = $CreatedBy;
+    }
+    $data = edit_database("profiles", "ID", "", $data);
+    if($CreatedBy){
+        logevent("Created user: " . $data["ID"] . " (" . $data["Name"] . ")");
+    }
+    $data["Password"] = $Password;
+    handleevent($EmailAddress, "new_profile", array("Profile" => $data));
+    set_subscribed($EmailAddress,$Subscribed);
+    return $data;
+}
 
-
-
+function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed = 0, $ProfileType = 0){
+    $data = array("Name" => trim($Name), "Email" => clean_email($EmailAddress), "Phone" => clean_phone($Phone), "Subscribed" => $Subscribed);
+    if($Password){
+        $data["Password"] = md5($Password . salt());
+    }
+    if($ProfileType){
+        $data["ProfileType"] = $ProfileType;
+    }
+    set_subscribed($EmailAddress,$Subscribed);
+    return update_database("profiles", "ID", $ID, $data);
+}
 
 
 
