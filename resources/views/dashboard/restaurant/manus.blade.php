@@ -20,11 +20,12 @@
                         <div class="menu-manager">
                             <h1>Menu Manager</h1>
                             <hr>
-                            <a class="btn btn-primary add_item" data-toggle="modal" href="#basic">Add New Menu Item</a>
+                            <a class="btn btn-primary add_item" id="add_item0" data-toggle="modal" href="#basic">Add New Menu Item</a>
                             <div class="addnew" style="display: none;"></div>
                             <hr>
                             <ul class="parentinfo ui-sortable" id="sortable">
                                 @foreach($menus_list as $value)
+                                
                                 <li class="infolistwhite row marbot newmenus ui-sortable-handle" id="parent{{ $value->ID }}">
                                     <div class="col-md-4 menu_item col-sm-4 col-xs-12">
                                         <div class="col-sm-4 col-xs-12" style="padding: 0;">

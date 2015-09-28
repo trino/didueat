@@ -1,6 +1,6 @@
 var path = window.location.pathname;
-if(path.replace('Foodie','')!=path)
-var base_url = 'http://localhost/Foodie/';
+if(path.replace('didueat','')!=path)
+var base_url = 'http://localhost/didueat/public/';
 else
 var base_url = 'http://didyoueat.ca/';
 $('.add_additional').live('click',function(){

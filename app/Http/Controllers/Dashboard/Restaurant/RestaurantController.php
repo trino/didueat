@@ -188,9 +188,18 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = 'Manus Listing';
-            $data['menus_list'] = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('display_order', 'ASC')->get();
+            $data['menus_list'] = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->where('parent',0)->orderBy('display_order', 'ASC')->get();
             return view('dashboard.restaurant.manus', $data);
         }
+    }
+    
+    public function displayAddon($parent)
+    {
+        $data['menus_list'] = \App\Http\Models\Menus::where('parent',$parent)->orderBy('display_order', 'ASC')->get();
+        if($data['menus_list'])
+        return $data['menus_list'];
+        else
+        return false;
     }
 
     /**
@@ -233,6 +242,28 @@ class RestaurantController extends Controller {
      */
     public function report() {
         return view('dashboard.restaurant.report', array('title' => 'Report'));
+    }
+    public function menu_form($id)
+    {
+          //$this->layout = 'blank';
+        $data['menu_id']=$id;
+        if($id!=0) {
+            //$id = $_GET['menu_id'];
+            //$table = TableRegistry::get('menus');
+            $data['model'] = \App\Http\Models\Menus::where('ID',$id)->get()[0];
+            $data['cmodel'] = \App\Http\Models\Menus::where('parent',$id)->get();
+            $data['ccount'] = \App\Http\Models\Menus::where('parent',$id)->count();
+            
+            return view('dashboard.restaurant.menu_form', $data);
+        }
+        return view('dashboard.restaurant.menu_form', $data);
+    
+    }
+    public function getMore($id)
+    {
+        //$table = TableRegistry::get('menus');
+        return $cchild = \App\Http\Models\Menus::where('parent',$id)->get(); 
+        
     }
 
 }
