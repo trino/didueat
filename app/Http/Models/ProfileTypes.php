@@ -21,7 +21,14 @@ class ProfileTypes extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+        $cells = array('Name', 'Hierarchy', 'CanCreateProfiles', 'CanEditGlobalSettings', 'CanHireOrFire', 'CanPossess');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
 
+        /*
         if (array_key_exists('Name', $data)) {
             $this->Name = $data['Name'];
         }
@@ -39,7 +46,7 @@ class ProfileTypes extends BaseModel {
         }
         if (array_key_exists('CanPossess', $data)) {
             $this->CanPossess = $data['CanPossess'];
-        }
+        }*/
     }
     
 }

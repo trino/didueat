@@ -21,7 +21,13 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
+        $cells = array('Name', 'Slug', 'Genre', 'Email', 'Phone', 'Address', 'City', 'Province', 'Country', 'PostalCode', 'Description', 'Logo', 'DeliveryFee', 'Minimum', 'Status');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
+        /*
         if (array_key_exists('Name', $data)) {
             $this->Name = $data['Name'];
         }
@@ -66,7 +72,7 @@ class Restaurants extends BaseModel {
         }
         if (array_key_exists('Status', $data)) {
             $this->Status = $data['Status'];
-        }
+        }*/
     }
     
 }

@@ -21,7 +21,13 @@ class Eventlog extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-
+        $cells = array('UserID', 'Date', 'RestaurantID', 'Text');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
+        /*
         if (array_key_exists('UserID', $data)) {
             $this->UserID = $data['UserID'];
         }
@@ -34,7 +40,7 @@ class Eventlog extends BaseModel {
         if (array_key_exists('Text', $data)) {
             $this->Text = $data['Text'];
         }
-        
+        */
     }
     
 }

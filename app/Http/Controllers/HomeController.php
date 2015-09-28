@@ -20,6 +20,8 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
+        test();
+
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
         return view('home', $data);

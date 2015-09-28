@@ -21,7 +21,14 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+        $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantId', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
+        foreach($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
 
+        /*
         if (array_key_exists('profileType', $data)) {
             $this->profileType = $data['profileType'];
         }
@@ -60,7 +67,7 @@ class Profiles extends BaseModel {
         }
         if (array_key_exists('deleted_at', $data)) {
             $this->deleted_at = $data['deleted_at'];
-        }
+        }*/
     }
     
     /**
