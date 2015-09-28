@@ -265,5 +265,10 @@ class RestaurantController extends Controller {
         return $cchild = \App\Http\Models\Menus::where('parent',$id)->get(); 
         
     }
+    
+    public function additional()
+    {
+        return view('dashboard.restaurant.additional');
+    }
 
 }

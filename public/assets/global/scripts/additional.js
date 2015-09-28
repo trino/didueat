@@ -18,7 +18,7 @@ $('.add_additional').live('click',function(){
     });
     var ajax_load = '';
     $.ajax({
-        url:base_url+'menus/additional?menu_id='+id,
+        url:base_url+'restaurant/additional?menu_id='+id,
         success:function(res)
         {
             $('.additional'+id).append(res);

@@ -35,6 +35,7 @@ Route::get('restaurant/orders/history', 'Dashboard\Restaurant\RestaurantControll
 Route::get('restaurant/eventlog', 'Dashboard\Restaurant\RestaurantController@eventsLog');
 Route::get('restaurant/report', 'Dashboard\Restaurant\RestaurantController@report');
 Route::get('restaurant/menu_form/{id}', 'Dashboard\Restaurant\RestaurantController@menu_form');
+Route::get('restaurant/additional', 'Dashboard\Restaurant\RestaurantController@additional');
 
 Route::resource('user/addresses', 'Dashboard\User\UsersController@addresses');
 Route::get('user/uploadmeal', 'Dashboard\User\UsersController@uploadMeal');
