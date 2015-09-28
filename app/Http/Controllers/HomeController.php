@@ -119,7 +119,7 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->get();
+        $menus = \App\Http\Models\Menus::where('res_id', $res_slug->ID)->where('parent', 0)->get();
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
