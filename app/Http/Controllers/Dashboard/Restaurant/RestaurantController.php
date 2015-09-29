@@ -299,7 +299,7 @@ class RestaurantController extends Controller {
         //echo '<pre>';print_r($_POST); die;
         //$this->loadModel("Menus");
         //$this->loadComponent('Manager');
-        $arr['res_id'] =  \Session::get('session_restaurantId');
+        $arr['restaurantID'] =  \Session::get('session_restaurantId');
 
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon');
         foreach($Copy as $Key){
@@ -329,7 +329,7 @@ class RestaurantController extends Controller {
             //die('add');
             
             //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
-            $orders = \App\Http\Models\Menus::where('res_id',\Session::get('session_restaurantId'))->where('parent',0)->order('display_order','desc')->get()[0];
+            $orders = \App\Http\Models\Menus::where('restaurantID',\Session::get('session_restaurantId'))->where('parent',0)->order('display_order','desc')->get()[0];
             $arr['display_order'] = $orders->display_order + 1;
             
               $ob2 = new \App\Http\Models\Menus();
