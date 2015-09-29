@@ -23,12 +23,12 @@ var token = '';
                url: base_url+'restaurant/getToken',
                success:function(res){
                 token = res;
-                alert(token);
+                //alert(token);
                 
                // return token;
                } 
             });
-            alert(token);
+            //alert(token);
 
 
 function ajaxuploadbtn(button_id, doc) {
