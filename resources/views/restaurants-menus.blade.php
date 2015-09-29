@@ -27,7 +27,7 @@
     </div>
 
     <div class="col-md-7 col-sm-4 col-xs-12 menu_div">
-        <link rel="stylesheet" href="/Foodie/css/popstyle.css">
+        <link rel="stylesheet" href="<?php echo url('assets/frontend/layout');?>/css/popstyle.css">
 
         <div id="postswrapper">
             <div class="margin-bottom-10">
@@ -181,10 +181,10 @@
                                                              class="subin btn default btnxx">
                                                             <div style="padding:0px;border-radius: 17px 0 0 17px !important;">
                                                                 <a style="text-decoration: none;display:inline-block; padding-right: 15px;"
-                                                                   title="A" id="buttons_<?php echo $mm->ID;?>" class="buttons "
+                                                                   title="" id="buttons_<?php echo $mm->ID;?>" class="buttons "
                                                                    href="javascript:void(0);">
                                                                     <button style="border-radius: 17px!important;"
-                                                                            class="btn btn-primary">A
+                                                                            class="btn btn-primary">
                                                                     </button>
                                                                     
                                                                     <input type="<?php echo ($sub->sing_mul=='1')?'radio':'checkbox';?>" id="extra_<?php echo $mm->ID;?>" title="<?php echo $mm->ID;?>_<br/> <?php echo $mm->menu_item;?>_<?php echo $mm->price;?>_<?php echo $sub->menu_item;?>"
@@ -238,7 +238,7 @@
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div-->
-                                                        <input type="hidden" value="A,B," class="chars_<?php echo $sub->ID;?>">
+                                                        <input type="hidden" value="" class="chars_<?php echo $sub->ID;?>">
                                                     </div>
                                                 </div>
                                             </td>
@@ -763,12 +763,13 @@
                             </div>
                         </div>
                         <div class="profiles" style="display: none;">
-                            <font color="RED">Include: E:\xampp\htdocs\Foodie\webroot\common\profile.php</font><div class="form-group">
+                           <div class="form-group">
                                 <div class="col-xs-12">
                                     <h2 class="profile_delevery_type"></h2>
                                 </div>
                             </div>
                             <form id="profiles">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
                                         <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">
@@ -863,6 +864,10 @@
                                         $('.confirm_password').show();
                                         $('#confirm_password').attr('required', 'required');
                                     }
+                                    else
+                                    {
+                                        $('#confirm_password').removeAttr('required');
+                                    }
                                 }
                                 var password = document.getElementById("password1")
                                         , confirm_password = document.getElementById("confirm_password");
@@ -892,7 +897,7 @@
                                         var order_data = $('.receipt_main input').serialize();
                                         $.ajax({
                                             type: 'post',
-                                            url: 'http://localhost/Foodie/users/ajax_register',
+                                            url: '<?php echo url();?>/user/ajax_register',
                                             data: datas + '&' + order_data,
                                             success: function(msg) {
                                                 if (msg == '0')

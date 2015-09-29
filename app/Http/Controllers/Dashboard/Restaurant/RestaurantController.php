@@ -20,7 +20,9 @@ class RestaurantController extends Controller {
      * @return redirect
      */
     public function __construct() {
+        
         $this->beforeFilter(function() {
+            
             if (!\Session::has('is_logged_in')) {
                 return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
