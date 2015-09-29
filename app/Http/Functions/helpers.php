@@ -617,7 +617,7 @@ function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
 
 /////////////////////////////////Event log API////////////////////////////////////
 function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
-    $UserID = request->session()->read('Profile.ID');
+    $UserID = $this->request->session()->read('Profile.ID');
             if(!$UserID){
                 $UserID=0;
                 $DoRestaurant=false;
@@ -679,18 +679,18 @@ function approve_order($OrderID, $Status=true){
     edit_database('reservations', "ID", $OrderID, array($Status=>1));
 }
 
-function implode($Data, $Delimeter = ","){
+function implode_data($Data, $Delimeter = ","){
     if (is_array($Data)){return implode($Delimeter, $Data);}
     return $Data;
 }
 
 function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax){
     $Data = array();
-    $Data['menu_ids'] = implode($menu_ids);
-    $Data['prs'] = implode($prs);
-    $Data['qtys'] = implode($qtys);
-    $Data['extras'] = implode($extras);
-    $Data['listid'] = implode($listid);
+    $Data['menu_ids'] = implode_data($menu_ids);
+    $Data['prs'] = implode_data($prs);
+    $Data['qtys'] = implode_data($qtys);
+    $Data['extras'] = implode_data($extras);
+    $Data['listid'] = implode_data($listid);
     $Data['delivery_fee'] = $delivery_fee;
 
     date_default_timezone_set('Canada/Eastern');
@@ -856,7 +856,7 @@ function implode2($Array, $SmallGlue, $BigGlue){
     foreach($Array as $Key => $Value){
         $Array[$Key] = $Key . $SmallGlue. $Value;
     }
-    return implode($Array,$BigGlue);
+    return implode_data($Array,$BigGlue);
 }
 function debug($Iterator, $DoStacktrace = true){
     if($DoStacktrace) {
