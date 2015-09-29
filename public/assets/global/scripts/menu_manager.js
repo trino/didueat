@@ -18,14 +18,28 @@ $('.add_item').live('click',function(){
       });  
     }
 });
+var token = '';
+            $.ajax({
+               url: base_url+'restaurant/getToken',
+               success:function(res){
+                token = res;
+                alert(token);
+                
+               // return token;
+               } 
+            });
+            alert(token);
 
 
 function ajaxuploadbtn(button_id, doc) {
+            
+            
             var button = $('#' + button_id), interval;
             act = base_url+'restaurant/uploadimg';
             new AjaxUpload(button, {
                 action: act,
                 name: 'myfile',
+                data:{'_token':token},
                 onSubmit: function (file, ext) {
                     button.text('Uploading...');
                     this.disable();
@@ -39,6 +53,7 @@ function ajaxuploadbtn(button_id, doc) {
                     }, 200);
                 },
                 onComplete: function (file, response) {
+                    //alert(response);return;
                         //alert(response);
                         var resp = response.split('___');
                         var path = resp[0];

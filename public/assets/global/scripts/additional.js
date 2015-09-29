@@ -3,6 +3,15 @@ if(path.replace('didueat','')!=path)
 var base_url = 'http://localhost/didueat/public/';
 else
 var base_url = 'http://didyoueat.ca/';
+
+
+            $.ajax({
+               url: base_url+'restaurant/getToken',
+               success:function(res){
+                token = res;
+               // return token;
+               } 
+            });
 $('.add_additional').live('click',function(){
     
     var id = $(this).attr('id').replace('add_additional','').replace(';','');
@@ -88,8 +97,8 @@ $('.savebtn').live('click',function(){
     phas_addon = 1;
     //alert(id);
     $.ajax({
-       url:base_url+'menus/add/?id='+id,
-       data:'menu_item='+ptitle+'&description='+pdesc+'&price='+pprice+'&image='+img+'&has_addon='+phas_addon+'&parent=0',
+       url:base_url+'restaurant/menuadd/?id='+id,
+       data:'menu_item='+ptitle+'&description='+pdesc+'&price='+pprice+'&image='+img+'&has_addon='+phas_addon+'&parent=0&_token='+token,
        type:'post',
        success:function(res){
         //console.log(res); return;
@@ -111,7 +120,7 @@ $('.savebtn').live('click',function(){
                 else
                 var has_addon2 = '0';
                 $.ajax({
-                   url:base_url+'menus/add/',
+                   url:base_url+'restaurant/add/',
                    data:'menu_item='+ctitle+'&description='+cdescription+'&has_addon='+has_addon2+'&parent='+res+'&req_opt='+req_opt+'&sing_mul='+sing_mul+'&exact_upto='+exact_upto+'&exact_upto_qty='+exact_upto_qty,
                    type:'post',
                    success:function(res2){
@@ -124,12 +133,12 @@ $('.savebtn').live('click',function(){
                             var ccprice = $(this).find('.ccprice').val();
                             
                             $.ajax({
-                               url:base_url+'menus/add/',
+                               url:base_url+'restaurant/add/',
                                data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2,
                                type:'post',
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
-                                window.location=base_url+'restaurants/menu_manager?added';
+                                window.location=base_url+'restaurant/menu-manager?added';
                                }
                             });
                             
@@ -142,7 +151,7 @@ $('.savebtn').live('click',function(){
                 
             });
         }
-        window.location=base_url+'restaurants/menu_manager';
+        window.location=base_url+'restaurant/menu-manager';
        }
     });
 });

@@ -273,7 +273,75 @@ class RestaurantController extends Controller {
     
     public function uploadimg()
     {
-        
+        if(isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
+            $name = $_FILES['myfile']['name'];
+            $arr = explode('.', $name);
+            $ext = end($arr);
+            $file = date('YmdHis') . '.' . $ext;
+            //echo url();die();
+            
+            move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products').'/' . $file);
+            $file_path = url() . '/assets/images/products/' . $file;
+            //$this->loadComponent("Image"); $this->Image->resize($file, array("300x300", "150x150"), true);
+            echo $file_path.'___'.$file;
+            
         }
+        die();
+    }
+    public function getToken()
+    {
+        echo csrf_token();die();
+    }
+    public function menuadd()
+    {
+        //echo '<pre>';print_r($_POST); die;
+        //$this->loadModel("Menus");
+        //$this->loadComponent('Manager');
+        $arr['res_id'] =  \Session::get('session_restaurantId');
+
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon');
+        foreach($Copy as $Key){
+            if(isset($_POST[$Key])) {
+                $arr[$Key] = $_POST[$Key];
+            }
+        }
+        
+        if(isset($_GET['id']) && $_GET['id'] != false){
+            //die('update');
+            $id = $_GET['id'];
+            $table = TableRegistry::get('menus');
+            $query = $table->query();
+            $query->update()
+                ->set($arr)
+                ->where(['ID' => $id])
+                ->execute();
+
+            $child = $table->find()->where(['parent'=>$id]);
+            foreach($child as $c) {
+                $this->Menus->deleteAll(['parent'=>$c->ID]);
+            }
+            $this->Menus->deleteAll(['parent'=>$id]);
+            echo $id;
+            die();
+        } else {
+            //die('add');
+            
+            //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
+            $orders = \App\Http\Models\Menus::where('res_id',\Session::get('session_restaurantId'))->where('parent',0)->order('display_order','desc')->get()[0];
+            $arr['display_order'] = $orders->display_order + 1;
+            
+              $ob2 = new \App\Http\Models\Menus();
+            $ob2->populate($arr);
+            $ob2->save();
+            
+            echo $ob2->id;
+            
+            
+            
+            
+            die();
+        }
+        
+    }
 
 }

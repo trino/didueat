@@ -37,6 +37,11 @@ Route::get('restaurant/eventlog', 'Dashboard\Restaurant\RestaurantController@eve
 Route::get('restaurant/report', 'Dashboard\Restaurant\RestaurantController@report');
 Route::get('restaurant/menu_form/{id}', 'Dashboard\Restaurant\RestaurantController@menu_form');
 Route::get('restaurant/additional', 'Dashboard\Restaurant\RestaurantController@additional');
+Route::get('restaurant/uploadimg', 'Dashboard\Restaurant\RestaurantController@uploadimg');
+Route::post('restaurant/uploadimg', 'Dashboard\Restaurant\RestaurantController@uploadimg');
+Route::get('restaurant/getToken', 'Dashboard\Restaurant\RestaurantController@getToken');
+Route::post('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
+Route::get('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
 
 Route::resource('user/addresses', 'Dashboard\User\UsersController@addresses');
 Route::get('user/uploadmeal', 'Dashboard\User\UsersController@uploadMeal');
