@@ -22,7 +22,7 @@ $('.add_item').live('click',function(){
 
 function ajaxuploadbtn(button_id, doc) {
             var button = $('#' + button_id), interval;
-            act = base_url+'menus/uploadimg';
+            act = base_url+'restaurant/uploadimg';
             new AjaxUpload(button, {
                 action: act,
                 name: 'myfile',

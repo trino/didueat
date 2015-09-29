@@ -270,5 +270,10 @@ class RestaurantController extends Controller {
     {
         return view('dashboard.restaurant.additional');
     }
+    
+    public function uploadimg()
+    {
+        
+        }
 
 }
