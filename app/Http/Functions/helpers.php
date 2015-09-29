@@ -2,7 +2,7 @@
 
 function test(){
     DB::enableQueryLog();
-    //return;
+    return;
 
     $Test = enum_genres();
     debug($Test);
@@ -617,19 +617,19 @@ function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
 
 /////////////////////////////////Event log API////////////////////////////////////
 function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
-    $UserID = $this->request->session()->read('Profile.ID');
-            if(!$UserID){
-                $UserID=0;
-                $DoRestaurant=false;
-            }
-            if ($DoRestaurant) {
-                if (!$RestaurantID) {
-                    $RestaurantID = get_profile($UserID)->RestaurantID;
-                }
-            }
-            $Date = now();
-            new_entry("eventlog", "ID", array("UserID" => $UserID, "RestaurantID" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+    $UserID = read('ID');
+    if(!$UserID){
+        $UserID=0;
+        $DoRestaurant=false;
+    }
+    if ($DoRestaurant) {
+        if (!$RestaurantID) {
+            $RestaurantID = get_profile($UserID)->RestaurantID;
         }
+    }
+    $Date = now();
+    new_entry("eventlog", "ID", array("UserID" => $UserID, "RestaurantID" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+}
 function enum_events($RestaurantID){
     return enum_all("eventlog", array("RestaurantID" => $RestaurantID));
 }
