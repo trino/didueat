@@ -3,6 +3,7 @@
 // Frontsite Routes...
 Route::get('/', 'HomeController@index');
 Route::get('/restaurants', 'HomeController@allRestaurants');
+Route::resource('/home/test', 'HomeController@test');
 Route::resource('/restaurants/signup', 'HomeController@signupRestaurants');
 Route::get('/restaurants/{slug}/menus', 'HomeController@menusRestaurants');
 

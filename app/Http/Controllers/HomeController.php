@@ -127,5 +127,14 @@ class HomeController extends Controller {
         $data['menus_list'] = $menus;
         return view('restaurants-menus', $data);
     }
+    
+    function test()
+    {
+        if(isset($_POST))
+        {
+            var_dump($_POST);
+        }
+         return view('test');
+    }
 
 }
