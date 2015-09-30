@@ -161,7 +161,7 @@ class UsersController extends Controller {
         $Phone = $_POST['contact'];
         $Name = $_POST['ordered_by'];
         $oid = $order_id;
-        $salt = '';
+        $salt = $_POST['salt'];
         if(isset($_POST['password']) && $_POST['password']!='') {
             if (\DB::table('profiles')->where('email', $EmailAddress)->first()) {
                 echo '1';

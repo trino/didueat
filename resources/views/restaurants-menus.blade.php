@@ -770,6 +770,7 @@
                             </div>
                             <form id="profiles">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                            <input type="hidden" name="salt" value="$2a$10$A/lwkD80fNTvbR90vjMwjw=="/>
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
                                         <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">

@@ -78,6 +78,7 @@ class AuthController extends Controller {
                     }
                     $salt = $user->salt;
                     $password = \crypt(\Input::get('password'), $salt);
+                    //echo $password; die();
                     if ($user->password == $password) {
                         \Session::put('session_id', $user->ID);
                         \Session::put('session_profileType', $user->profileType);
