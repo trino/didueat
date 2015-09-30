@@ -37,9 +37,9 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <a href="#" id="add_item1" class="btn btn-success add_item">Edit Item</a>
-                                        <a href="#" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem1" class="deletecat btn btn-danger">Delete</a>
-                                        <a href="javascript:void(0)" class="expandbtn expand1"><span class="expand"></span></a>
+                                        <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success add_item">Edit Item</a>
+                                        <a href="javascript:void(0)" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn btn-danger">Delete</a>
+                                        <a href="javascript:void(0)" class="expandbtn expand{{ $value->ID }}"><span class="expand"></span></a>
                                         <div style="clear: both;"></div>
                                     </div>
                                     <div class="clearfix"></div>

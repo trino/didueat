@@ -312,18 +312,15 @@ class RestaurantController extends Controller {
         if(isset($_GET['id']) && $_GET['id']){
             //die('update');
             $id = $_GET['id'];
-            $table = TableRegistry::get('menus');
-            $query = $table->query();
-            $query->update()
-                ->set($arr)
-                ->where(['ID' => $id])
-                ->execute();
+            \App\Http\Models\Menus::where('ID', $id)
+            ->update($arr);
+            
 
-            $child = $table->find()->where(['parent'=>$id]);
+            $child = \App\Http\Models\Menus::where('parent',$id)->get();
             foreach($child as $c) {
-                $this->Menus->deleteAll(['parent'=>$c->ID]);
+                \App\Http\Models\Menus::where('parent',$c->ID)->delete();
             }
-            $this->Menus->deleteAll(['parent'=>$id]);
+            \App\Http\Models\Menus::where('parent',$id)->delete();
             echo $id;
             die();
         } else {
