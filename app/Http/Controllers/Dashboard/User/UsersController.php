@@ -163,24 +163,25 @@ class UsersController extends Controller {
         $oid = $order_id;
         $salt = '';
         if(isset($_POST['password']) && $_POST['password']!='') {
-            if (\DB::table('users')->where('email', $EmailAddress)->first()) {
-                $this->response->body('1');
-                return $this->response;
+            if (\DB::table('profiles')->where('email', $EmailAddress)->first()) {
+                echo '1';
+                die();
             } else {
-                \DB::table('users')->insert(
-                    array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, 'Password' => \crypt($password, $salt),'salt'=>$salt,' restaurantId'=>'0')
+                \DB::table('profiles')->insert(
+                    array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => \crypt($Password, $salt),'salt'=>$salt,'restaurantId'=>'0')
                     );
                 //$this->Manager->new_profile(0, $Name, $Password, 2, $EmailAddress, $Phone, 0, '0');
              }
         }
-            DB::table('reservations')
+            \DB::table('reservations')
             ->where('id', $oid)
-            ->update(array('email' => $_POST['email'],'address2'=>$_POST['address2'], 'city'=>$_POST['city'], 'ordered_by'=>$_POST['postal_code']));
+            ->update(array('email' => $_POST['email'],'address2'=>$_POST['address2'], 'city'=>$_POST['city'], 'ordered_by'=>$_POST['postal_code'],'remarks'=>$_POST['remarks'],'order_till'=>$_POST['order_till'],'province'=>$_POST['province'],'contact'=>$Phone));
         //$this->Manager->edit_order_profile($oid, $_POST['email'], $_POST['address2'], $_POST['city'], $_POST['ordered_by'], $_POST['postal_code'], $_POST['remarks'], $_POST['order_till'], $_POST['province'], $Phone);
 
-        $this->response->body('0');
-        return $this->response;
         
+        echo '0';
+          die();
     }
+  
 
 }

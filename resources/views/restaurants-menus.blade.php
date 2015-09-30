@@ -712,8 +712,8 @@
                                 <img src="<?php echo url('assets/images/restaurants')."/".$res_detail->Logo; ?>" class="img-responsive">
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 resturant-desc">
-                                <span>1</span>
-                                <span>1</span>
+                                <span><?php echo $res_detail->Address.",". $res_detail->City;?></span>
+                                <span><?php echo $res_detail->Phone;?></span>
                             </div>
                         </div>  
                     </div> 
@@ -751,7 +751,7 @@
                                         <tr>
                                             <td><strong>Total</strong>&nbsp;</td><td>&nbsp;$<div style="display: inline-block;" class="grandtotal">0</div>
                                                 <input type="hidden" name="g_total" class="grandtotal" value="0">
-                                                <input type="hidden" name="res_id" value="1">
+                                                <input type="hidden" name="res_id" value="{{$res_detail->ID}}">
                                             </td>
                                         </tr>
                                     </tbody></table>
