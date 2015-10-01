@@ -33,7 +33,7 @@
             <div class="margin-bottom-10 row">
                 
                 @foreach($menus_list as $value)
-                <div class="col-md-4 col-sm-4 col-xs-12 margin-bottom-20 nopadd">
+                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20">
                     <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view"></a>
                     <div class="product-item">
                         <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view">
@@ -306,9 +306,10 @@
             <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
         </div>
         <div class="clearfix"></div>
-        
-        <div class="col-md-12  margin-bottom-10">
+        <div class="row">
+        <div class="col-md-12  margin-bottom-10 nopadd">
             <button align="center" class="loadmore btn btn-primary">Load More</button>
+        </div>
         </div>
         
         <div class="clearfix"></div>

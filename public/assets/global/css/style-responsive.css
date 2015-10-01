@@ -2,6 +2,7 @@
 .main {
 min-height:1000px !important;
 }
+
 }
 
 @media (min-width: 2000px) and (max-width: 2200px) {
@@ -42,6 +43,7 @@ margin-bottom: 40px;
 padding: 20px;
 vertical-align: middle;
 }
+
 }
 
 @media (min-width: 1600px) and (max-width: 1799px) {
@@ -62,6 +64,8 @@ margin-bottom: 40px;
 padding: 10px;
 vertical-align: middle;
 }
+
+
 }
 
 @media (min-width: 1400px) and (max-width: 1599px) {
@@ -82,7 +86,6 @@ margin-bottom: 40px;
 padding: 5px;
 vertical-align: middle;
 }
-
 
 }
 
@@ -304,7 +307,8 @@ width: 100% !important;
 .slimScrollDiv {
     height: 165px !important;
     margin-bottom: 0;
-}	
+}
+	
 
 }
 /* END min width 1025px max width 1205 */
@@ -560,6 +564,16 @@ width: 100%;
 }
 .main {
     padding-top: 100px !important;
+}
+
+.product-item h3, .pi-price {
+  width: 100%;
+  text-align: left;
+}
+
+.steps-block-col {
+  margin: 0 0 20px 10px;
+  width: 98%;
 }
 
 

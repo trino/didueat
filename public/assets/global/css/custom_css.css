@@ -748,12 +748,6 @@ body.ecommerce {
 .menu-model-max-height {max-height: 430px; overflow: auto;}
 .cmore {margin-bottom: 5px;}
 
-
-.product-item .pi-img-wrapper .img-responsive {
-    height: 220px;
-    width: 100%;
-}
-
 .btn-primary:hover {
     background: #b30c10;
     	-webkit-transition: all 0.7s ease-in-out;
@@ -785,3 +779,10 @@ body.ecommerce {
     margin-bottom: 5px;
 }
 
+.product-item:hover h3 a {
+    color: #e02222;
+            	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
+}
