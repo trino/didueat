@@ -33,7 +33,7 @@
             <div class="margin-bottom-10 row">
                 
                 @foreach($menus_list as $value)
-                <div class="col-md-4 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20">
                     <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view"></a>
                     <div class="product-item">
                         <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view">
