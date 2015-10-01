@@ -53,7 +53,7 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-            
+
             return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant has been deleted successfully!');
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
@@ -69,16 +69,16 @@ class RestaurantController extends Controller {
         if (!isset($id) || empty($id) || $id == 0) {
             return \Redirect::to('restaurant/restaurants')->with('message', "[Restaurant Id] is missing!");
         }
-        
+
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
-            if($ob->Status == "Open"){
+            if ($ob->Status == "Open") {
                 $ob->populate(array('Status' => 'Close'));
             } else {
                 $ob->populate(array('Status' => 'Open'));
             }
             $ob->save();
-            
+
             return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant status has been changed successfully!');
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
@@ -90,29 +90,29 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurantInfo($id=0) {
+    public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Name']) || empty($post['Name'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Restaurant Name] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Restaurant Name] field is missing!");
             }
             if (!isset($post['Email']) || empty($post['Email'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Restaurant Email] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Restaurant Email] field is missing!");
             }
             if (!isset($post['Country']) || empty($post['Country'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Country] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Country] field is missing!");
             }
             if (!isset($post['City']) || empty($post['City'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[City] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[City] field is missing!");
             }
             if (!isset($post['PostalCode']) || empty($post['PostalCode'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Postal Code] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Postal Code] field is missing!");
             }
             if (!isset($post['DeliveryFee']) || empty($post['DeliveryFee'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Delivery Fee] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Delivery Fee] field is missing!");
             }
             if (!isset($post['Minimum']) || empty($post['Minimum'])) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "[Minimum Sub Total For Delivery] field is missing!");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Minimum Sub Total For Delivery] field is missing!");
             }
             try {
                 if (\Input::hasFile('logo')) {
@@ -140,15 +140,15 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', "Resturant Info updated successfully");
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "Resturant Info updated successfully");
             } catch (\Exception $e) {
-                return \Redirect::to('restaurant/info/'.$post['ID'])->with('message', $e->getMessage());
+                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', $e->getMessage());
             }
         } else {
             $data['title'] = "Resturant Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['genre_list'] = \App\Http\Models\Genres::get();
-            $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0)?$id:\Session::get('session_restaurantId'));
+            $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurantId'));
             return view('dashboard.restaurant.info', $data);
         }
     }
@@ -271,12 +271,74 @@ class RestaurantController extends Controller {
     }
 
     /**
+     * Change Order Status to Cancel
+     * @param $id
+     * @return redirect
+     */
+    public function changeOrderCancel($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+        }
+
+        try {
+            $ob = \App\Http\Models\Reservations::find($id);
+            $ob->populate(array('status' => 'cancelled'));
+            $ob->save();
+
+            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order status has been cancelled successfully!');
+        } catch (\Exception $e) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+        }
+    }
+    
+    /**
+     * Change Order Status to Approved
+     * @param $id
+     * @return redirect
+     */
+    public function changeOrderApprove($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+        }
+
+        try {
+            $ob = \App\Http\Models\Reservations::find($id);
+            $ob->populate(array('status' => 'approved'));
+            $ob->save();
+
+            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order status has been approved successfully!');
+        } catch (\Exception $e) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+        }
+    }
+    
+    /**
+     * Order Delete
+     * @param $id
+     * @return redirect
+     */
+    public function deleteOrder($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+        }
+
+        try {
+            $ob = \App\Http\Models\Reservations::find($id);
+            $ob->delete();
+
+            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order has been deleted successfully!');
+        } catch (\Exception $e) {
+            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+        }
+    }
+
+    /**
      * Pending Orders
      * @param null
      * @return view
      */
-    public function historyOrders($id=0) {
-        $resId = ($id > 0)?$id:\Session::get('session_restaurantId');
+    public function historyOrders($id = 0) {
+        $resId = ($id > 0) ? $id : \Session::get('session_restaurantId');
         $data['title'] = 'Orders History';
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', $resId)->where('status', '!=', 'pending')->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_history', $data);

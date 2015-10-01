@@ -25,6 +25,12 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
+                    @if(Session::has('message'))
+                        <div class="alert alert-info">
+                            <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
+                        </div>
+                    @endif
+                    
                     <div class="deleteme">
                         <h3 class="sidebar__title">Pending Orders Manager</h3>
                         <hr class="shop__divider">
@@ -58,36 +64,12 @@
                                             <td>{{ $value->status }}</td>
                                             <td>
                                                 <a href="#" class="btn green">View</a>
-                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn blue">Approve</a> 
-                                                <a href="#" class="btn yellow">Cancel</a>
+                                                <a href="{{ url('restaurant/orders/pending/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete this order ? ');">Delete</a>
+                                                <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
+                                                <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
                                             </td>
                                         </tr>
                                         @endforeach
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Waqar</td>
-                                            <td>8/8/15, 12:00 AM</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <a href="#" class="btn green">View</a>
-                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn blue">Approve</a> 
-                                                <a href="#" class="btn yellow">Cancel</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Waqar</td>
-                                            <td>8/8/15, 12:00 AM</td>
-                                            <td>Pending</td>
-                                            <td>
-                                                <a href="#" class="btn green">View</a>
-                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn blue">Approve</a> 
-                                                <a href="#" class="btn yellow">Cancel</a>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
