@@ -12,9 +12,8 @@
         </group>
         <group>
             <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/restaurant/manus.blade.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/public/assets/global/css/custom_css.css</file>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/user/manage_image.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/administrator/newsletter.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/AdministratorController.php</file>
         </group>
     </open-files>
 </project-private>
