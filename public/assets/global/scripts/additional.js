@@ -134,7 +134,7 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                    window.location=base_url+'restaurant/menu-manager?added';
+                                window.location=base_url+'restaurant/menu-manager?added';
                                 }
                                 
                                }
