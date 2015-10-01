@@ -61,8 +61,8 @@ Route::get('restaurant/orderCat', 'RestaurantController@orderCat');
 Route::post('restaurant/orderCat', 'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}', 'RestaurantController@deleteMenu');
 
-Route::resource('user/addresses', 'Dashboard\User\UsersController@addresses');
-Route::get('user/uploadmeal', 'Dashboard\User\UsersController@uploadMeal');
-Route::resource('user/images', 'Dashboard\User\UsersController@images');
-Route::get('user/orders', 'Dashboard\User\UsersController@viewOrders');
-Route::post('user/ajax_register', 'Dashboard\User\UsersController@ajax_register');
+Route::resource('user/addresses', 'UsersController@addresses');
+Route::get('user/uploadmeal', 'UsersController@uploadMeal');
+Route::resource('user/images', 'UsersController@images');
+Route::get('user/orders', 'UsersController@viewOrders');
+Route::post('user/ajax_register', 'UsersController@ajax_register');
