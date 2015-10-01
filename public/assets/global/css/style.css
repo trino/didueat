@@ -3514,8 +3514,9 @@ Header and header elements
   float: left;
   font: 600 14px "Open Sans",sans-serif;
   padding: 12px 10px 10px;
-  width: 50%;
+  width: 80%;
   margin-bottom: 0;
+  overflow: hidden;
 }
 
 .product-item h3 a {
@@ -3530,7 +3531,7 @@ Header and header elements
   font: 18px "PT Sans Narrow",sans-serif;
   padding: 9px 10px 5px;
   text-align: right;
-  width: 50%;
+  width: 20%;
 }
 .product-item .add2cart {
 	float: right;
