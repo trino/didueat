@@ -21,6 +21,12 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
+                    @if(Session::has('message'))
+                        <div class="alert alert-info">
+                            <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
+                        </div>
+                    @endif
+
                     <div class="deleteme">
                         <h3 class="sidebar__title">Newsletter</h3>
                         <hr class="shop__divider">
@@ -34,7 +40,7 @@
                             </div>
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
-                                <form action="#" id="form_sample_1" class="form-horizontal">
+                                {!! Form::open(array('url' => '/restaurant/newsletter', 'id'=>'newsletter-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                                     <div class="form-body">
                                         <div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button>
@@ -50,16 +56,14 @@
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 right-align">Subject <span class="required">
-                                                    * </span>
+                                            <label class="control-label col-md-3 right-align">Subject <span class="required">* </span>
                                             </label>
                                             <div class="col-md-8">
-                                                <input type="text" name="name" data-required="1" class="form-control"/>
+                                                <input type="text" name="subject" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 right-align">Message <span class="required">
-                                                    * </span>
+                                            <label class="control-label col-md-3 right-align">Message <span class="required">* </span>
                                             </label>
                                             <div class="col-md-8">
                                                 <textarea name="message" rows="6" class="form-control" required></textarea>
@@ -73,7 +77,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                {!! Form::close() !!}
                                 <!-- END FORM-->
                             </div>
                         </div>
@@ -109,7 +113,8 @@
 jQuery(document).ready(function() {
     Metronic.init(); // init metronic core components
     Demo.init(); // init demo features
-    FormValidation.init();
+    //FormValidation.init();
+    $("#newsletter-form").validate();
 });
 </script>
 @stop

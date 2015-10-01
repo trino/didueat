@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Administrator;
-
+namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 /**
@@ -111,7 +110,35 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function newsletter() {
-        return view('dashboard.administrator.newsletter', array('title' => 'Newsletter Setting'));
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['subject']) || empty($post['subject'])) {
+                return \Redirect::to('restaurant/newsletter')->with('message', "[Subject] field is missing!");
+            }
+            if (!isset($post['message']) || empty($post['message'])) {
+                return \Redirect::to('restaurant/newsletter')->with('message', "[Message] field is missing!");
+            }
+            try {
+                $ob = \App\Http\Models\Newsletter::get();
+                foreach ($ob as $value) {
+                    $ob_user = \App\Http\Models\Profiles::where('email', $value->Email)->where('status', 1)->first();
+                    if (isset($ob_user) && count($ob_user) > 0 && !is_null($ob_user)) {
+                        $array = $ob_user->toArray();
+                        $array['mail_subject'] = $post['subject'];
+                        $array['message'] = $post['message'];
+                        
+                        $this->sendEMail("emails.newsletter", $array);
+                    }
+                }
+                
+                return \Redirect::to('restaurant/newsletter')->with('message', "Newsletter sent successfully");
+            } catch (\Exception $e) {
+                return \Redirect::to('restaurant/newsletter')->with('message', $e->getMessage());
+            }
+        } else {
+            $data['title'] = 'Newsletter Send';
+            return view('dashboard.administrator.newsletter', $data);
+        }
     }
 
 }
