@@ -343,5 +343,35 @@ class RestaurantController extends Controller {
         }
         
     }
+    
+    public function orderCat()
+    {
+        
+        $_POST['ids'] = explode(',',$_POST['ids']);
+        foreach($_POST['ids'] as $k=>$id) {
+           
+           \App\Http\Models\Menus::where('ID', $id)
+            ->update(array('display_order'=>($k+1)));
+                
+        } 
+        die();
+    }
+    
+    public function deleteMenu($id)
+    {
+        //die('here');
+        \App\Http\Models\Menus::where('ID',$id)->delete();
+        
+        
+        $child = \App\Http\Models\Menus::where('parent',$id)->get();
+        foreach($child as $c) {
+            \App\Http\Models\Menus::where('parent',$c->ID)->delete();
+        }
+        \App\Http\Models\Menus::where('parent',$id)->delete();
+        return \Redirect::to('restaurant/menus-manager')->with('message', 'Item deleted successfully');
+       
+    }
+    
+    
 
 }

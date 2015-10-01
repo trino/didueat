@@ -95,7 +95,7 @@ $('.savebtn').live('click',function(){
        data:'menu_item='+ptitle+'&description='+pdesc+'&price='+pprice+'&image='+img+'&has_addon='+phas_addon+'&parent=0&_token='+token,
        type:'post',
        success:function(res){
-        alert(res);
+       // alert(res);
         //console.log(res); return;
         if($_parent.find('.menuwrapper').length > 0)
         {
@@ -134,7 +134,7 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                    //window.location=base_url+'restaurant/menu-manager?added';
+                                    window.location=base_url+'restaurant/menu-manager?added';
                                 }
                                 
                                }
@@ -149,7 +149,7 @@ $('.savebtn').live('click',function(){
                 
             });
         }
-        //window.location=base_url+'restaurant/menus-manager';
+        window.location=base_url+'restaurant/menus-manager';
        }
     });
 });

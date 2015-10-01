@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
                                         <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success add_item">Edit Item</a>
-                                        <a href="javascript:void(0)" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn btn-danger">Delete</a>
+                                        <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->ID;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn btn-danger">Delete</a>
                                         <a href="javascript:void(0)" class="expandbtn expand{{ $value->ID }}"><span class="expand"></span></a>
                                         <div style="clear: both;"></div>
                                     </div>
@@ -74,6 +74,7 @@ jQuery(document).ready(function() {
 </script>
 <script>
     $(function() {
+        /*
         function makeid(){
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -130,7 +131,7 @@ jQuery(document).ready(function() {
             if (confirm('Are you sure, you want to remove this item?')) {
                 $(this).parent().remove();
             }
-        });
+        });*/
 
         $("#sortable").sortable({
             update: function(event, ui) {
@@ -145,8 +146,8 @@ jQuery(document).ready(function() {
                     }
                 });
                 $.ajax({
-                    url: 'menus/orderCat/',
-                    data: 'ids=' + order,
+                    url: '<?php echo url('restaurant/orderCat/');?>',
+                    data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
                     type: 'post',
                     success: function() {
                         //
@@ -156,13 +157,13 @@ jQuery(document).ready(function() {
         });
         //$( "#sortable" ).disableSelection();
     });
-
+/*
     function clear_all(cat_id) {
         $('#addopt' + cat_id + ' .addopt').each(function() {
             $(this).remove();
         });
         $('#addopt' + cat_id).hide();
         $('.hasopt' + cat_id).val(0);
-    }
+    }*/
 </script>
 @stop
