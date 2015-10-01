@@ -34,8 +34,10 @@
             <li class="next disabled"><a href="" onclick="return false;">Next &gt;&gt;</a></li>  </div>
         <div id="loadmoreajaxloader" style="display:none;"><center><img src="/Foodie/img/ajax-loader.gif"></center></div>
         <div class="clearfix"></div>
+        <div class="row">
         <div class="col-md-12  margin-bottom-10">
             <button align="center" class="loadmore btn btn-primary">Load More</button>
+        </div>
         </div>
         <div class="clearfix"></div>
 

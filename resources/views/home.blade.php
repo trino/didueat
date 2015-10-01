@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="/Foodie/css/popstyle.css"/>
 
         <div id="postswrapper">
-            <div class="margin-bottom-10 clearfix">
+            <div class="margin-bottom-10 row clearfix">
                 
                 @foreach($menus_list as $value)
                 <div class="col-md-3 col-sm-6 col-xs-12 margin-bottom-20">
@@ -29,8 +29,10 @@
         </div>
         
         <div class="clearfix"></div>
+        <div class="row">
         <div class="col-md-12  margin-bottom-10">
             <button align="center" class="loadmore btn btn-primary">Load More</button>
+        </div>
         </div>
         <div class="clearfix"></div>
     </div>
