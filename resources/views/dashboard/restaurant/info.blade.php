@@ -138,9 +138,9 @@
                                     <?php
                                         $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                                         foreach ($dayofweek as $key => $value) {
-                                            $open[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Open');
-                                            $close[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Close');
-                                            $ID[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'ID');
+                                            $open[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'Open');
+                                            $close[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'Close');
+                                            $ID[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'ID');
                                     ?>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -194,7 +194,7 @@
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <input type="hidden" name="ID" value="{{ Session::get('session_restaurantId') }}" />
+                                    <input type="hidden" name="ID" value="{{ $resturant->ID }}" />
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes </button>
                                 </div>
                             </form>

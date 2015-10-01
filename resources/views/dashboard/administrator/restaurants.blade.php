@@ -25,6 +25,12 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
+                    @if(Session::has('message'))
+                        <div class="alert alert-info">
+                            <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
+                        </div>
+                    @endif
+                    
                     <div class="deleteme">
                         <h3 class="sidebar__title">Restaurants Manager</h3>
                         <hr class="shop__divider">
@@ -55,16 +61,16 @@
                                             <td>{{ $value->ID }}</td>
                                             <td>{{ $value->Name }}</td>
                                             <td>{{ $value->Email }}</td>
-                                            <td>[@if($value->Open == true) OPENED @else CLOSED @endif]</td>
+                                            <td>[@if($value->Status == 'Open') OPENED @else CLOSED @endif]</td>
                                             <td>
-                                                <a href="#" class="btn btn-info">Orders</a>
-                                                <a href="#" class="btn btn-info">Edit</a>
-                                                @if($value->Open == true)
-                                                <a href="#" class="btn btn-warning" onclick="return confirm('Are you sure you want to close Restaurant Six?');">Close</a>
+                                                <a href="{{ url('restaurant/orders/history/'.$value->ID) }}" class="btn btn-info">Orders</a>
+                                                <a href="{{ url('restaurant/info/'.$value->ID) }}" class="btn btn-info">Edit</a>
+                                                @if($value->Status == 'Open')
+                                                <a href="{{ url('restaurant/restaurants/status/'.$value->ID) }}" class="btn btn-warning" onclick="return confirm('Are you sure you want to close Restaurant Six?');">Close</a>
                                                 @else
-                                                <a href="#" class="btn btn-primary" onclick="return confirm('Are you sure you want to open Restaurant One?');">Open</a>
+                                                <a href="{{ url('restaurant/restaurants/status/'.$value->ID) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to open Restaurant One?');">Open</a> &nbsp;&nbsp;
                                                 @endif
-                                                <a href="#" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete Restaurant One?');">Delete</a>
+                                                <a href="{{ url('restaurant/restaurants/delete/'.$value->ID) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete Restaurant One?');">Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach

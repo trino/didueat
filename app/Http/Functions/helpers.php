@@ -11,7 +11,10 @@ function test(){
 
 
 
-
+//func count orders
+function countOrders($type='pending'){
+    return DB::table('reservations')->where('status', $type)->count();
+}
 
 //////////////////////////////////////////////////PROFILE TYPES API/////////////////////////////////////////////////////
 function new_profiletype($Name){

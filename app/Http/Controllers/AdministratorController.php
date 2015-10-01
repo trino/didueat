@@ -94,17 +94,6 @@ class AdministratorController extends Controller {
     }
 
     /**
-     * Restaurants List
-     * @param null
-     * @return view
-     */
-    public function restaurants() {
-        $data['title'] = 'Restaurants List';
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
-        return view('dashboard.administrator.restaurants', $data);
-    }
-
-    /**
      * Newsletter Setting
      * @param null
      * @return view

@@ -25,44 +25,32 @@ Route::post('auth/forgot-passoword', 'Auth\AuthController@postForgotPassword');
 Route::resource('dashboard', 'AdministratorController@dashboard');
 Route::get('user/info', 'AdministratorController@dashboard');
 Route::get('restaurant/users', 'AdministratorController@users');
-Route::get('restaurant/restaurants', 'AdministratorController@restaurants');
 Route::resource('restaurant/newsletter', 'AdministratorController@newsletter');
 
+//Restaurants Routes
+Route::get('restaurant/restaurants', 'RestaurantController@restaurants');
+Route::get('restaurant/restaurants/delete/{id}', 'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
+Route::get('restaurant/restaurants/status/{id}', 'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
 Route::resource('restaurant/info', 'RestaurantController@restaurantInfo');
 Route::get('restaurant/addresses', 'RestaurantController@addresses');
 Route::resource('restaurant/menus-manager', 'RestaurantController@menuManager');
 Route::get('restaurant/orders/pending', 'RestaurantController@pendingOrders');
-Route::get('restaurant/orders/history', 'RestaurantController@historyOrders');
+Route::get('restaurant/orders/history/{id}', 'RestaurantController@historyOrders')->where('id', '[0-9]+');
 Route::get('restaurant/eventlog', 'RestaurantController@eventsLog');
 Route::get('restaurant/report', 'RestaurantController@report');
 Route::get('restaurant/menu_form/{id}', 'RestaurantController@menu_form');
 Route::get('restaurant/additional', 'RestaurantController@additional');
+Route::get('restaurant/uploadimg', 'RestaurantController@uploadimg');
+Route::post('restaurant/uploadimg', 'RestaurantController@uploadimg');
+Route::get('restaurant/getToken', 'RestaurantController@getToken');
+Route::post('restaurant/menuadd', 'RestaurantController@menuadd');
+Route::get('restaurant/menuadd', 'RestaurantController@menuadd');
+Route::get('restaurant/orderCat', 'RestaurantController@orderCat');
+Route::post('restaurant/orderCat', 'RestaurantController@orderCat');
+Route::get('restaurant/deleteMenu/{id}', 'RestaurantController@deleteMenu');
 
 Route::resource('user/addresses', 'UsersController@addresses');
 Route::get('user/uploadmeal', 'UsersController@uploadMeal');
 Route::resource('user/images', 'UsersController@images');
 Route::get('user/orders', 'UsersController@viewOrders');
-
-Route::resource('restaurant/info', 'Dashboard\Restaurant\RestaurantController@restaurantInfo');
-Route::get('restaurant/addresses', 'Dashboard\Restaurant\RestaurantController@addresses');
-Route::resource('restaurant/menus-manager', 'Dashboard\Restaurant\RestaurantController@menuManager');
-Route::get('restaurant/orders/pending', 'Dashboard\Restaurant\RestaurantController@pendingOrders');
-Route::get('restaurant/orders/history', 'Dashboard\Restaurant\RestaurantController@historyOrders');
-Route::get('restaurant/eventlog', 'Dashboard\Restaurant\RestaurantController@eventsLog');
-Route::get('restaurant/report', 'Dashboard\Restaurant\RestaurantController@report');
-Route::get('restaurant/menu_form/{id}', 'Dashboard\Restaurant\RestaurantController@menu_form');
-Route::get('restaurant/additional', 'Dashboard\Restaurant\RestaurantController@additional');
-Route::get('restaurant/uploadimg', 'Dashboard\Restaurant\RestaurantController@uploadimg');
-Route::post('restaurant/uploadimg', 'Dashboard\Restaurant\RestaurantController@uploadimg');
-Route::get('restaurant/getToken', 'Dashboard\Restaurant\RestaurantController@getToken');
-Route::post('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
-Route::get('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
-Route::get('restaurant/orderCat', 'Dashboard\Restaurant\RestaurantController@orderCat');
-Route::post('restaurant/orderCat', 'Dashboard\Restaurant\RestaurantController@orderCat');
-Route::get('restaurant/deleteMenu/{id}', 'Dashboard\Restaurant\RestaurantController@deleteMenu');
-
-Route::resource('user/addresses', 'Dashboard\User\UsersController@addresses');
-Route::get('user/uploadmeal', 'Dashboard\User\UsersController@uploadMeal');
-Route::resource('user/images', 'Dashboard\User\UsersController@images');
-Route::get('user/orders', 'Dashboard\User\UsersController@viewOrders');
-Route::post('user/ajax_register', 'Dashboard\User\UsersController@ajax_register');
+Route::post('user/ajax_register', 'UsersController@ajax_register');
