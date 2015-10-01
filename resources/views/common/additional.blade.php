@@ -12,8 +12,10 @@
             
             <div class="addmore">
             <?php
+            if(isset($_GET['menu_id']))
+            $menu_id = $_GET['menu_id'];
             if(isset($child->ID)){
-                $mod  = new \App\Http\Controllers\Dashboard\Restaurant\RestaurantController;
+                $mod  = new \App\Http\Controllers\RestaurantController;
                                 $more = $mod->getMore($child->ID);
                                 //var_dump($sub);
             //$more = $this->requestAction('menus/getMore/'.$child->ID);
@@ -101,7 +103,7 @@
                     </div>
                     
                     
-                    <input type="text" id="itemno131951805" class="itemno form-control" value="<?php if(isset($child->exact_upto_qty) && $child->exact_upto_qty)echo $child->exact_upto_qty;?>">
+                    <input type="text" id="itemno<?php echo $r3;?>" class="itemno form-control" value="<?php if(isset($child->exact_upto_qty) && $child->exact_upto_qty)echo $child->exact_upto_qty;?>">
                 </div>
     
             </div>
@@ -114,9 +116,15 @@
     <div class="col-md-5 col-sm-5 col-xs-12">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="newaction">
-                <?php if(!isset($cmodel) || (isset($ccount) && $ccount==$k)){ ?>
-                    <a href="javascript:void(0)" class="btn btn-info add_additional" id="add_additional0;">Add Addons</a> 
-                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){?>id="save0"<?php }else{?>id="save<?php echo $menu_id;}?>" data-id="<?php echo (isset($menu_id))?$menu_id:0;?>" class="btn btn-info savebtn">Save</a> 
+                <?php if(!isset($cmodel) || (isset($ccount) && $ccount==$k)){ 
+                    
+                    if(!isset($menu_id))
+                {
+                    $menu_id = 0;
+                }
+                //echo $menu_id;?>
+                    <a href="javascript:void(0)" class="btn btn-info add_additional" id="add_additional<?php echo $menu_id;?>">Add Addons</a> 
+                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){?>id="save0"<?php }else{?>id="save<?php echo $menu_id;}?>" class="btn btn-info savebtn">Save</a> 
                     <?php if(isset($k) && $k!=1){?><a href="javascript:void(0)" class="btn btn-danger removelast" onclick="">Remove</a><?php }?>
                 <?php } ?>
             </div>

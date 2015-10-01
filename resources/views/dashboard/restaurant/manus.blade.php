@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
                                         <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success green add_item">Edit Item</a>
-                                        <a href="javascript:void(0)" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn red">Delete</a>
+                                        <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->ID;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn red">Delete</a>
                                         <div style="clear: both;"></div>
                                     </div>
                                     <div class="clearfix"></div>

@@ -10,6 +10,7 @@ $('.add_additional').live('click',function(){
     
     var id = $(this).attr('id').replace('add_additional','').replace(';','');
     
+    
     $('.additional'+id).show();
     var c=0;
     $('.newaction').each(function(){
@@ -78,8 +79,8 @@ $('.is_multiple').live('change',function(){
 })
 $('.savebtn').live('click',function(){
     //var $_this = $(this);
-    //var id = $(this).attr('id').replace('save','');
-    var id = $(this).attr('data-id');
+    var id = $(this).attr('id').replace('save','');
+    //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
@@ -122,8 +123,9 @@ $('.savebtn').live('click',function(){
                     var co = 0;
                     if($_this2.find('.cmore').length > 0)
                     {
-                        co++;
+                        
                         $('.cmore',$_this2).each(function(){
+                            co++;
                             var cctitle = $(this).find('.cctitle').val();
                             var ccprice = $(this).find('.ccprice').val();
                             
@@ -134,7 +136,7 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                //window.location=base_url+'restaurant/menu-manager?added';
+                                window.location=base_url+'restaurant/menus-manager';
                                 }
                                 
                                }
@@ -149,7 +151,11 @@ $('.savebtn').live('click',function(){
                 
             });
         }
-        //window.location=base_url+'restaurant/menus-manager';
+        else
+        {
+            window.location=base_url+'restaurant/menus-manager';     
+        }
+       
        }
     });
 });

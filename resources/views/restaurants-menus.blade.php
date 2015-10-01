@@ -111,7 +111,7 @@
                             </div>
                             <div class="col-sm-12 col-xs-12">
                                 <img class="popimage_{{ $value->ID }}" width="150"
-                                     src="{{ url('assets/images/products/')}} {{$value->image}}"/>
+                                     src="{{ url('assets/images/products')}}/{{$value->image}}"/>
                             </div>
                             <div class="clearfix"></div>
                 
