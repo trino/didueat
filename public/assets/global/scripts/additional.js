@@ -79,8 +79,8 @@ $('.is_multiple').live('change',function(){
 })
 $('.savebtn').live('click',function(){
     //var $_this = $(this);
-    //var id = $(this).attr('id').replace('save','');
-    var id = $(this).attr('data-id');
+    var id = $(this).attr('id').replace('save','');
+    //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
