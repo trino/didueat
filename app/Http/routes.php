@@ -42,6 +42,9 @@ Route::post('restaurant/uploadimg', 'Dashboard\Restaurant\RestaurantController@u
 Route::get('restaurant/getToken', 'Dashboard\Restaurant\RestaurantController@getToken');
 Route::post('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
 Route::get('restaurant/menuadd', 'Dashboard\Restaurant\RestaurantController@menuadd');
+Route::get('restaurant/orderCat', 'Dashboard\Restaurant\RestaurantController@orderCat');
+Route::post('restaurant/orderCat', 'Dashboard\Restaurant\RestaurantController@orderCat');
+Route::get('restaurant/deleteMenu/{id}', 'Dashboard\Restaurant\RestaurantController@deleteMenu');
 
 Route::resource('user/addresses', 'Dashboard\User\UsersController@addresses');
 Route::get('user/uploadmeal', 'Dashboard\User\UsersController@uploadMeal');
