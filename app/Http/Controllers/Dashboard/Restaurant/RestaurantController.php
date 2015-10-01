@@ -327,9 +327,14 @@ class RestaurantController extends Controller {
             //die('add');
             
             //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
-            $orders = \App\Http\Models\Menus::where('restaurantId',\Session::get('session_restaurantId'))->where('parent',0)->orderBy('display_order','desc')->get()[0];
-            $arr['display_order'] = $orders->display_order + 1;
+            $orders_mod = \App\Http\Models\Menus::where('restaurantId',\Session::get('session_restaurantId'))->where('parent',0)->orderBy('display_order','desc')->get();
+            if(is_array($orders_mod) && count($orders_mod)){
+            $orders = $orders_mod[0];
             
+            $arr['display_order'] = $orders->display_order + 1;
+            }
+            else
+            $arr['display_order'] = 1;
               $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
