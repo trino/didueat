@@ -123,8 +123,9 @@ $('.savebtn').live('click',function(){
                     var co = 0;
                     if($_this2.find('.cmore').length > 0)
                     {
-                        co++;
+                        
                         $('.cmore',$_this2).each(function(){
+                            co++;
                             var cctitle = $(this).find('.cctitle').val();
                             var ccprice = $(this).find('.ccprice').val();
                             
@@ -135,7 +136,7 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                window.location=base_url+'restaurant/menu-manager?added';
+                                window.location=base_url+'restaurant/menus-manager';
                                 }
                                 
                                }
@@ -150,7 +151,11 @@ $('.savebtn').live('click',function(){
                 
             });
         }
-        window.location=base_url+'restaurant/menus-manager';
+        else
+        {
+            window.location=base_url+'restaurant/menus-manager';     
+        }
+       
        }
     });
 });
