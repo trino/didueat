@@ -187,7 +187,7 @@
                                                 <img id="picture" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
                                                 @endif
                                                 <br>
-                                                <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success" onclick="document.getElementById('hiddenLogo').click(); return false">Change Image</a>
+                                                <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success blue" onclick="document.getElementById('hiddenLogo').click(); return false">Change Image</a>
                                                 <input type="file" name="logo" id="hiddenLogo" style="display: none;" />
                                             </div>
                                         </div>

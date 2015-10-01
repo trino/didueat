@@ -1,16 +1,16 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="margin-bottom-40">
+<div class="margin-bottom-40 index-page clearfix">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-10 col-sm-8 col-xs-7">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <link rel="stylesheet" href="/Foodie/css/popstyle.css"/>
 
         <div id="postswrapper">
-            <div class="margin-bottom-10">
+            <div class="margin-bottom-10 clearfix">
                 
                 @foreach($menus_list as $value)
-                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="col-md-3 col-sm-6 col-xs-12 margin-bottom-20">
                     <a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurantId, 'Slug').'/menus') }}">
                         <div class="product-item">
                             <div class="pi-img-wrapper">

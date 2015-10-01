@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="margin-bottom-40">
+<div class="margin-bottom-40 clearfix">
     <!-- BEGIN CONTENT -->
     <div class="col-md-2 col-sm-4 col-xs-12">
 
@@ -30,10 +30,10 @@
         <link rel="stylesheet" href="<?php echo url('assets/frontend/layout');?>/css/popstyle.css">
 
         <div id="postswrapper">
-            <div class="margin-bottom-10">
+            <div class="margin-bottom-10 row">
                 
                 @foreach($menus_list as $value)
-                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="col-md-4 col-sm-4 col-xs-12 margin-bottom-20 nopadd">
                     <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view"></a>
                     <div class="product-item">
                         <a href="#product-pop-up_{{ $value->ID }}" class="fancybox-fast-view">

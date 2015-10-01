@@ -57,10 +57,10 @@
                                             <td>{{ date('d M, Y H:i A', strtotime($value->order_time)) }}</td>
                                             <td>{{ $value->status }}</td>
                                             <td>
-                                                <a href="#" class="btn btn-success">View</a>
-                                                <a href="#" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn btn-info">Approve</a> 
-                                                <a href="#" class="btn btn-warning">Cancel</a>
+                                                <a href="#" class="btn green">View</a>
+                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
+                                                <a href="#" class="btn blue">Approve</a> 
+                                                <a href="#" class="btn yellow">Cancel</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -70,10 +70,10 @@
                                             <td>8/8/15, 12:00 AM</td>
                                             <td>Pending</td>
                                             <td>
-                                                <a href="#" class="btn btn-success">View</a>
-                                                <a href="#" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn btn-info">Approve</a> 
-                                                <a href="#" class="btn btn-warning">Cancel</a>
+                                                <a href="#" class="btn green">View</a>
+                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
+                                                <a href="#" class="btn blue">Approve</a> 
+                                                <a href="#" class="btn yellow">Cancel</a>
                                             </td>
                                         </tr>
                                         <tr>
@@ -82,10 +82,10 @@
                                             <td>8/8/15, 12:00 AM</td>
                                             <td>Pending</td>
                                             <td>
-                                                <a href="#" class="btn btn-success">View</a>
-                                                <a href="#" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
-                                                <a href="#" class="btn btn-info">Approve</a> 
-                                                <a href="#" class="btn btn-warning">Cancel</a>
+                                                <a href="#" class="btn green">View</a>
+                                                <a href="#" class="btn red" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
+                                                <a href="#" class="btn blue">Approve</a> 
+                                                <a href="#" class="btn yellow">Cancel</a>
                                             </td>
                                         </tr>
                                     </tbody>

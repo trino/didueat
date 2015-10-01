@@ -402,14 +402,18 @@ button:hover {
 .top-cart-block {
     position: fixed;
     right: 0;
-    top: 70px;
+    top: 86px;
     z-index: 9;
     background: #fcfafb;
     padding: 10px 0;
 }
 .main {
-    padding-top: 75px;
-    min-height: 400px;
+    padding-top: 115px;
+    min-height: 700px;
+}
+
+.index-page {
+    margin-left: 12px;
 }
 
 .top-cart-content-wrapper {
@@ -493,14 +497,15 @@ button:hover {
 }
 
 .add-sidebar {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
-    border: 1px solid #dfdfdf !important;
-    border-radius: 5px !important;
-    padding: 0 !important;
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #dfdfdf !important;
+  border-radius: 5px !important;
+  padding: 5px !important;
 }
 
 .add-sidebar .img-responsive {
     border-radius: 5px 5px 0 0 !important;
+    margin-bottom: 15px;
 }
 
 .deleteme .top-cart-content-wrapper {
@@ -712,7 +717,6 @@ body.ecommerce {
 .receipt_main .text-right > input:hover {
     background: #ce0b10;
 }
-.hide {display: none;}
 .new_headernav{
     background: #fff url("../../images/icons/toggler.png") no-repeat scroll 6px 8px;
     border: 1px solid #d8d8d8;
@@ -743,3 +747,41 @@ body.ecommerce {
 /*.img-responsive {height: 290px;}*/
 .menu-model-max-height {max-height: 430px; overflow: auto;}
 .cmore {margin-bottom: 5px;}
+
+
+.product-item .pi-img-wrapper .img-responsive {
+    height: 220px;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #b30c10;
+    	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
+}
+
+.add-sidebar address {
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 10px;
+  margin-bottom: 12px !important;
+}
+
+.add-sidebar address:last-child {
+  border-bottom: none !important;
+  padding-bottom: 0px !important;
+}
+
+.add-sidebar a:hover {
+        	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
+    color: #000;
+}
+
+.infolistwhite div div {
+    margin-bottom: 5px;
+}
+

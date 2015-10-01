@@ -20,7 +20,7 @@
                     <div class="row margin-bottom-20 resturant-grid">
                         @foreach ($restaurants_list as $value) 
                         
-                        <div class="col-md-3 col-sm-3">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
                             <h2>
                                 <a href="{{ url('restaurants/'.$value->Slug.'/menus') }}">{!! $value->Name !!} </a>
                             </h2>

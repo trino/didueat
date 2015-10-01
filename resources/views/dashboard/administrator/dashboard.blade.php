@@ -14,7 +14,7 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
             <div class="col-xs-12">
                 <div class="">
@@ -22,11 +22,11 @@
                 </div>
             </div>
 
-            <div class="col-md-12 no-padding">
-
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9  col-sm-8 no-padding">
+                <div class="col-xs-12 col-md-9 col-sm-8 no-padding">
                     
                     @if(Session::has('message'))
                         <div class="alert alert-info">
@@ -137,10 +137,11 @@
                             <p>
                                 Receive a $5 credit just for uploading a photo of your meal to our site! Remember, the meal has to be from one of our prestigious restaurants listed
                             </p>
-                            <a href="{{ url('user/images') }}" class="btn btn-success">Upload Image</a>            
+                            <a href="{{ url('user/images') }}" class="btn red">Upload Image</a>            
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>                

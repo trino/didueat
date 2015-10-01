@@ -7,6 +7,7 @@
         <div class="row content-page">
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
@@ -20,7 +21,7 @@
                         <div class="menu-manager">
                             <h1>Menu Manager</h1>
                             <hr>
-                            <a class="btn btn-primary add_item" id="add_item0" href="javascript:void(0)">Add New Menu Item</a>
+                            <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add New Menu Item</a>
                             <div class="addnew" style="display: none;"></div>
                             <hr>
                             <ul class="parentinfo ui-sortable" id="sortable">
@@ -37,8 +38,8 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success add_item">Edit Item</a>
-                                        <a href="javascript:void(0)" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn btn-danger">Delete</a>
+                                        <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success green add_item">Edit Item</a>
+                                        <a href="javascript:void(0)" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn red">Delete</a>
                                         <a href="javascript:void(0)" class="expandbtn expand{{ $value->ID }}"><span class="expand"></span></a>
                                         <div style="clear: both;"></div>
                                     </div>
@@ -53,6 +54,7 @@
                     <div class="clearfix  hidden-xs"></div>
                 </div>
 
+            </div>
             </div>
         </div>
     </div>
