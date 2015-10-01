@@ -472,13 +472,13 @@ body.page-header-fixed {
   display: none;
   margin: 25px 0 0 30px;
   position: relative;
-  background: #fff url(../img/icons/toggler.png) no-repeat 6px 8px;
+  background: #fff url(../../images/icons/toggler.png) no-repeat 6px 8px;
 }
 .header .mobi-toggler i {
   display: none;
 }
 .header .mobi-toggler:hover, .fixed-header .mobi-toggler:hover {
-  background: #e34f00 url(../img/icons/toggler.png) no-repeat 6px -28px;
+  background: #e34f00 url(../../images/icons/toggler.png) no-repeat 6px -28px;
   border-color: #e34f00;
   color: #fff;
 }
@@ -709,7 +709,7 @@ body.page-header-fixed {
 	cursor: pointer;
 	position: relative;
 	top: -6px;
-	/*background: url(../img/icons/top-search-icon.png) no-repeat;*/
+	/*background: url(../../images/icons/top-search-icon.png) no-repeat;*/
 	width: 15px;
 	height: 15px;
 	opacity: 0.6;
@@ -813,16 +813,16 @@ body.page-header-fixed {
 	text-indent: -100000px;
 }
 .owl-buttons .owl-prev {
-    background: #fff url(../img/fa-angles.png) no-repeat 8px 8px;
+    background: #fff url(../../images/fa-angles.png) no-repeat 8px 8px;
 }
 .owl-buttons .owl-next {
-    background: #fff url(../img/fa-angles.png) no-repeat -33px 8px;
+    background: #fff url(../../images/fa-angles.png) no-repeat -33px 8px;
 }
 .owl-buttons .owl-prev:hover {
-    background: #e84d1c url(../img/fa-angles.png) no-repeat 8px -31px;
+    background: #e84d1c url(../../images/fa-angles.png) no-repeat 8px -31px;
 }
 .owl-buttons .owl-next:hover {
-    background: #e84d1c url(../img/fa-angles.png) no-repeat -33px -31px;
+    background: #e84d1c url(../../images/fa-angles.png) no-repeat -33px -31px;
 }
 
 /*  */
@@ -959,7 +959,7 @@ Sidebar
 .sidebar .fa-angle-down {
 	width: 11px;
 	height: 11px;
-	background: url(../img/icons/sidebar-toggle-icons.png) no-repeat 0 0;
+	background: url(../../images/icons/sidebar-toggle-icons.png) no-repeat 0 0;
 	position: absolute;
 	top: 12px;
 	right: 10px;
@@ -999,20 +999,20 @@ Brands
 }
 .brands .owl-buttons .owl-prev {
     left: 0;
-    background: #fff url(../img/fa-angle-brands.png) no-repeat 18px 18px;
+    background: #fff url(../../images/fa-angle-brands.png) no-repeat 18px 18px;
     margin-left: 0;
 }
 .brands .owl-buttons .owl-prev:hover {
-    background: #fff url(../img/fa-angle-brands.png) no-repeat 18px -217px;
+    background: #fff url(../../images/fa-angle-brands.png) no-repeat 18px -217px;
 }
 .brands .owl-buttons .owl-next {
     left: auto;
     right: 0;
-    background: #fff url(../img/fa-angle-brands.png) no-repeat -249px 18px;
+    background: #fff url(../../images/fa-angle-brands.png) no-repeat -249px 18px;
     margin-right: 0;
 }
 .brands .owl-buttons .owl-next:hover {
-    background: #fff url(../img/fa-angle-brands.png) no-repeat -249px -217px;
+    background: #fff url(../../images/fa-angle-brands.png) no-repeat -249px -217px;
 }
 .bottom-cart {
     display: none;
@@ -1048,7 +1048,7 @@ steps block and steps block elements
 	display: block;
 	width: 36px;
 	height: 71px;
-	background: url(../img/step3-angle-right.png) no-repeat 100% 50%;
+	background: url(../../images/step3-angle-right.png) no-repeat 100% 50%;
 	position: absolute;
 	top: 0;
 	right: 10px;
@@ -2209,7 +2209,7 @@ Demo Utils
   position: absolute;
   right: 0;
   bottom: 0;
-  background: #E6400C url(../img/blockquote-corner.png) no-repeat;
+  background: #E6400C url(../../images/blockquote-corner.png) no-repeat;
 }
 
 .testimonials-v1 .carousel-info img {
@@ -2250,16 +2250,16 @@ Demo Utils
 }
 .testimonials-v1 .left-btn {
 	right: 30px;
-    background: url(../img/fa-angles.png) no-repeat 8px 8px;
+    background: url(../../images/fa-angles.png) no-repeat 8px 8px;
 }
 .testimonials-v1 .right-btn {
-    background: url(../img/fa-angles.png) no-repeat -33px 8px;
+    background: url(../../images/fa-angles.png) no-repeat -33px 8px;
 }
 .testimonials-v1 .left-btn:hover {
-    background: #e84d1c url(../img/fa-angles.png) no-repeat 8px -31px;
+    background: #e84d1c url(../../images/fa-angles.png) no-repeat 8px -31px;
 }
 .testimonials-v1 .right-btn:hover {
-    background: #e84d1c url(../img/fa-angles.png) no-repeat -33px -31px;
+    background: #e84d1c url(../../images/fa-angles.png) no-repeat -33px -31px;
 }
 
 /* our clients */
@@ -2967,14 +2967,14 @@ Styler Panel
   margin: 0;
 }
 .color-panel .icon-color {
-  background: #c9c9c9 url(../img/icon-color.png) center no-repeat;
+  background: #c9c9c9 url(../../images/icon-color.png) center no-repeat;
 }
 .color-panel .icon-color:hover {
   background-color: #3d3d3d;
 }
 .color-panel .icon-color-close {
   display: none;
-  background: #3d3d3d url(../img/icon-color-close.png) center no-repeat;
+  background: #3d3d3d url(../../images/icon-color-close.png) center no-repeat;
 }
 .color-panel .icon-color-close:hover {
   background-color: #222;
@@ -3385,16 +3385,16 @@ Header and header elements
 	text-decoration: none;
 }
 .del-goods {
-	background: #d7dde3 url(../img/icons/del-goods.png) no-repeat 50% 50%;
+	background: #d7dde3 url(../../images/icons/del-goods.png) no-repeat 50% 50%;
 }
 .del-goods:hover {
-	background: #E94D1C url(../img/icons/del-goods.png) no-repeat 50% 50%;
+	background: #E94D1C url(../../images/icons/del-goods.png) no-repeat 50% 50%;
 }
 .add-goods {
-	background: #7bdd00 url(../img/icons/add-goods.png) no-repeat 50% 50%;
+	background: #7bdd00 url(../../images/icons/add-goods.png) no-repeat 50% 50%;
 }
 .add-goods:hover {
-	background: #E94D1C url(../img/icons/add-goods.png) no-repeat 50% 50%;
+	background: #E94D1C url(../../images/icons/add-goods.png) no-repeat 50% 50%;
 }
 
 .top-cart-content .text-right {
@@ -3470,10 +3470,10 @@ Header and header elements
 	height: 63px;
 }
 .sticker-sale {
-	background: url(../img/sale.png) no-repeat;
+	background: url(../../images/sale.png) no-repeat;
 }
 .sticker-new {
-	background: url(../img/new.png) no-repeat;
+	background: url(../../images/new.png) no-repeat;
 	left: auto;
 	right: 0;
 }
