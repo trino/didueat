@@ -3,13 +3,6 @@
 min-height:1000px !important;
 }
 
-.index-page .pi-img-wrapper {
-  height: 400px !important;
-}
-
-.pi-img-wrapper {
-    height: 300px !important;
-
 }
 
 @media (min-width: 2000px) and (max-width: 2200px) {
@@ -31,15 +24,6 @@ padding: 12px;
 vertical-align: middle;
 }
 
-.index-page .pi-img-wrapper {
-  height: 400px !important;
-}
-
-.pi-img-wrapper {
-    height: 300px !important;
-
-}
-
 }
 
 @media (min-width: 1800px) and (max-width: 1999px) {
@@ -58,10 +42,6 @@ margin-bottom: 40px;
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 padding: 20px;
 vertical-align: middle;
-}
-
-.index-page .pi-img-wrapper {
-  height: 350px !important;
 }
 
 }
@@ -85,9 +65,6 @@ padding: 10px;
 vertical-align: middle;
 }
 
-.index-page .pi-img-wrapper {
-  height: 350px !important;
-}
 
 }
 
@@ -108,10 +85,6 @@ margin-bottom: 40px;
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 padding: 5px;
 vertical-align: middle;
-}
-
-.index-page .pi-img-wrapper {
-  height: 300px !important;
 }
 
 }
@@ -335,15 +308,7 @@ width: 100% !important;
     height: 165px !important;
     margin-bottom: 0;
 }
-
-.index-page .pi-img-wrapper {
-  height: 195px !important;
-  width: 100%;
-}	
-
-.pi-img-wrapper {
-  height: 175px !important;
-}
+	
 
 }
 /* END min width 1025px max width 1205 */
@@ -387,15 +352,6 @@ width: 100% !important;
 .slimScrollDiv {
     height: 165px !important;
     margin-bottom: 0;
-}
-
-.index-page .pi-img-wrapper {
-  height: 195px !important;
-  width: 100%;
-}
-
-.product-item .pi-img-wrapper {
-  height: 150px !important;
 }	
 
 }
@@ -620,10 +576,6 @@ width: 100%;
   width: 98%;
 }
 
-.index-page .pi-img-wrapper {
-  height: 425px !important;
-  width: 100%;
-}
 
 }
 /* END max width 992px */
@@ -661,11 +613,6 @@ width: 96% !important;
 
 .main {
     padding-top: 100px !important;
-}
-
-.index-page .pi-img-wrapper {
-  height: 280px !important;
-  width: 100%;
 }
 
 }
@@ -1303,11 +1250,6 @@ width: 15% !important;
 
 .product-item .pi-img-wrapper .img-responsive {
   height: 100%;
-  width: 100%;
-}
-
-.index-page .pi-img-wrapper {
-  height: 100% !important;
   width: 100%;
 }
 

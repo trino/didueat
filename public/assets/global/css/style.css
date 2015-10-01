@@ -3478,7 +3478,16 @@ Header and header elements
 	right: 0;
 }
 .pi-img-wrapper {
-	position: relative;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.pi-img-wrapper img {
+    width: 100% !important;
+}
+.index-page .pi-img-wrapper {
+    width: 100%;
 }
 .pi-img-wrapper div {
 	background: rgba(0,0,0,0.3);
