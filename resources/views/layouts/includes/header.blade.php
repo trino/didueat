@@ -17,7 +17,7 @@
 <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
 <div class="header">
     <div class="container-fluid">
-        <a class="site-logo" href="{{ url('/') }}"><img src="{{ url('assets/images/logos/logo.png') }}" alt="didueat?" style="height: 64px; position: relative; top: 2px;"></a>
+        <a class="site-logo" href="{{ url('/') }}"><img src="{{ url('assets/images/logos/logo.png') }}" alt="didueat?" style="height: 55px; position: relative; top: 2px;"></a>
         <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
         
         <!-- BEGIN NAVIGATION -->

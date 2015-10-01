@@ -14,7 +14,7 @@
             <div class="col-md-12 no-padding">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12  col-sm-8">
+                <div class="col-xs-12 col-md-9  col-sm-9">
                     <div class="deleteme">
                         <div class="toprint">
                             
@@ -355,7 +355,7 @@
                             </style>        
                         </div>
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-primary noprint" onclick="window.print();">Print Receipt</a>
+                    <a href="javascript:void(0);" class="btn red noprint" onclick="window.print();">Print Receipt</a>
                     <hr class="shop__divider">
                 </div>
 

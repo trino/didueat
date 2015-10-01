@@ -20,9 +20,12 @@ class UsersController extends Controller {
      * @return redirect
      */
     public function __construct() {
+          
         $this->beforeFilter(function() {
-            if (!\Session::has('is_logged_in')) {
-                return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
+            $act = str_replace('user.','',\Route::currentRouteName());
+        $act = str_replace('.store','',$act); 
+            if (!\Session::has('is_logged_in')&& $act != 'ajax_register') {
+                //return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
         });
     }
@@ -129,5 +132,56 @@ class UsersController extends Controller {
             return view('dashboard.user.manage_image', $data);
         }
     }
+    public function ajax_register() {
+        $res['order_type'] = $_POST['order_type'];
+        $res['delivery_fee'] = $_POST['delivery_fee'];
+        $res['res_id'] = $_POST['res_id'];
+        $res['subtotal'] = $_POST['subtotal'];
+        $res['g_total'] = $_POST['g_total'];
+        $res['tax'] = $_POST['tax'];
+      // echo $id = \DB::table('reservations')->insertGetId(
+       //         array($res)
+       //     ); die();
+     
+            $res['listid'] = implode(',',$_POST['listid']);
+            $res['prs'] =implode(',',$_POST['prs']);
+            $res['qtys'] =implode(',',$_POST['qtys']);
+            $res['extras'] = implode(',',$_POST['extras']);
+            $res['menu_ids'] = implode(',',$_POST['menu_ids']);
+            $res['restaurantId'] = $_POST['res_id'];
+            $ob2 = new \App\Http\Models\Reservations();
+            $ob2->populate($res);
+            $ob2->save();
+            $order_id =  $ob2->id;
+       
+        //$order_id = $this->Manager->new_order($_POST['menu_ids'], $_POST['prs'], $_POST['qtys'], $_POST['extras'], $_POST['listid'], $_POST['order_type'], $_POST['delivery_fee'], $_POST['res_id'], $_POST['subtotal'], $_POST['g_total'], $_POST['tax']);
+     
+        $EmailAddress =  $_POST['email'];
+        $Password = $_POST['password'];
+        $Phone = $_POST['contact'];
+        $Name = $_POST['ordered_by'];
+        $oid = $order_id;
+        $salt = $_POST['salt'];
+        if(isset($_POST['password']) && $_POST['password']!='') {
+            if (\DB::table('profiles')->where('email', $EmailAddress)->first()) {
+                echo '1';
+                die();
+            } else {
+                \DB::table('profiles')->insert(
+                    array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => \crypt($Password, $salt),'salt'=>$salt,'restaurantId'=>'0')
+                    );
+                //$this->Manager->new_profile(0, $Name, $Password, 2, $EmailAddress, $Phone, 0, '0');
+             }
+        }
+            \DB::table('reservations')
+            ->where('id', $oid)
+            ->update(array('email' => $_POST['email'],'address2'=>$_POST['address2'], 'city'=>$_POST['city'], 'ordered_by'=>$_POST['postal_code'],'remarks'=>$_POST['remarks'],'order_till'=>$_POST['order_till'],'province'=>$_POST['province'],'contact'=>$Phone));
+        //$this->Manager->edit_order_profile($oid, $_POST['email'], $_POST['address2'], $_POST['city'], $_POST['ordered_by'], $_POST['postal_code'], $_POST['remarks'], $_POST['order_till'], $_POST['province'], $Phone);
+
+        
+        echo '0';
+          die();
+    }
+  
 
 }

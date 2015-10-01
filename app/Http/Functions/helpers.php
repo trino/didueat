@@ -4,13 +4,9 @@ function test(){
     DB::enableQueryLog();
     return;
 
-    $Test = get_profile_type(1);
+    $Test = enum_genres();
     debug($Test);
     die();
-}
-
-function logevent($Text, $IdontKNOW){
-
 }
 
 
@@ -64,6 +60,9 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
     return Session::get('Profile.' . $Name);
+}
+function write($Name, $Value){
+    Session::put('Profile.' . $Name, $Value);
 }
 function salt(){
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
@@ -163,6 +162,611 @@ function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed 
     return update_database("profiles", "ID", $ID, $data);
 }
 
+function login($Profile){
+    if (is_numeric($Profile)){
+        $Profile = get_profile($Profile);
+    } else if (is_array($Profile)){
+        $Profile = (object) $Profile;
+    }
+    write('ID',            $Profile->ID);
+    write('Name',          $Profile->Name);
+    write('Email',         $Profile->Email);
+    write('Type',          $Profile->ProfileType);
+    write('Restaurant',    $Profile->RestaurantID);
+    return $Profile->ID;
+}
+
+function forgot_password($Email){
+    $Email = clean_email($Email);
+    $Profile = get_entry("profiles", $Email, "Email");
+    if ($Profile){
+        $Password = randomPassword();
+        update_database("profiles", "ID", $Profile->ID, array("Password" => md5($Password . salt())));
+        return $Password;
+    }
+}
+
+
+
+////////////////////////////////////////Profile Address API ////////////////////////////////////
+function enum_profile_addresses($ProfileID){
+    return enum_all("profiles_addresses", array("UserID" => $ProfileID));
+}
+function delete_profile_address($ID){
+    delete_all("profiles_addresses", array("ID" => $ID));
+}
+function get_profile_address($ID){
+    return get_entry("profiles_addresses", $ID);
+}
+function edit_profile_address($ID, $UserID, $Name, $Phone, $Number, $Street, $Apt, $Buzz, $City, $Province, $PostalCode, $Country, $Notes){
+    $Data = array("UserID" => $UserID, "Name" => $Name, "Phone" => clean_phone($Phone), "Number" => $Number, "Street" => $Street, "Apt" => $Apt, "Buzz" => $Buzz, "City" => $City, "Province" => $Province, "PostalCode" => clean_postalcode($PostalCode), "Country" =>$Country, "Notes" =>$Notes);
+    return edit_database("profiles_addresses", "ID", $ID, $Data);
+}
+
+function check_permission($Permission, $UserID = ""){
+    if(!$UserID){$UserID = read("ID");}
+    return get_profile_type($UserID)->$Permission;
+}
+
+
+////////////////////////////////////profile image API///////////////////////////////////
+function get_profile_image($Filename, $UserID = ""){
+    if(!$UserID){$UserID = read("ID");}
+    if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
+    return enum_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename))->first();
+}
+
+function delete_profile_image($Filename, $UserID = "") {
+    if (!$UserID) {$UserID = read("ID");}
+    if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
+    $dir = "img/users/" . $UserID . "/" . $Filename;
+    if (file_exists($dir)) {unlink($dir);}
+    delete_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename));
+}
+
+function edit_profile_image($UserID, $Filename, $RestaurantID, $Title, $OrderID){
+    $Entry = get_profile_image($Filename, $UserID);
+    $Data = array("RestaurantID" => $RestaurantID, "Title" => $Title, "OrderID" => $OrderID);
+    if($Entry){
+        edit_database("profiles_images", "ID", $Entry->ID, $Data);
+    } else {
+        $Data["UserID"] = $UserID;
+        $Data["Filename"] = $Filename;
+        new_entry("profiles_images", "ID", $Data);
+    }
+}
+
+
+////////////////////////////////////Newsletter API//////////////////////////////////
+function add_subscriber($EmailAddress, $authorized = false){
+    $EmailAddress = clean_email($EmailAddress);
+    if(is_valid_email($EmailAddress)) {
+        $Entry = get_entry("newsletter", $EmailAddress, "Email");
+        $GUID="";
+        if ($Entry) {
+            if (!$Entry->GUID) { return true; }
+            if(!$authorized){$GUID = $Entry->GUID;}
+            update_database("newsletter", "ID", $Entry->ID, array("GUID" => $GUID));
+        } else {
+            if(!$authorized){$GUID = com_create_guid();}
+            new_entry("newsletter", "ID", array("GUID" => $GUID, "Email" => $EmailAddress));
+        }
+        $path = '<A HREF="' . webroot() . "cuisine?action=subscribe&key=" . $GUID . '">Click here to finish registration</A>';
+        return handleevent($EmailAddress, "subscribe", array("Path" => $path));
+    }
+}
+
+function remove_subscriber($EmailAddress){
+    $EmailAddress = clean_email($EmailAddress);
+    delete_all("newsletter", array("Email" => $EmailAddress));
+}
+
+function is_subscribed($EmailAddress){
+    $EmailAddress = clean_email($EmailAddress);
+    return get_entry("newsletter", $EmailAddress, "Email");
+}
+
+function finish_subscription($Key){
+    $Entry = get_entry("newsletter", $Key, "GUID");
+    if($Entry){
+        update_database("newsletter", "ID", $Entry->ID, array("GUID" => ""));
+        update_database("profiles", "Email", $Entry->Email, array("subscribed" => 1));
+        return $Entry->Email;
+    }
+}
+
+function set_subscribed($EmailAddress, $Status){
+    $EmailAddress = clean_email($EmailAddress);
+    $is_subscribed = is_subscribed($EmailAddress);
+    if($is_subscribed != $Status){
+        if($Status){
+            add_subscriber($EmailAddress, True);
+        } else {
+            remove_subscriber($EmailAddress);
+        }
+    }
+}
+function enum_subscribers(){
+    $Data = enum_all("newsletter", array("GUID" => ""));
+    return my_iterator_to_array($Data, "ID", "Email");
+}
+
+function webroot(){
+    return URL::to('/');
+}
+
+//////////////////////////////////////Genre API//////////////////////////////////////
+function add_genre($Name){
+    if(is_array($Name)){
+        $Ret=array();
+        foreach($Name as $Key => $Genre){
+            $Ret[$Genre] = add_genre($Genre);
+        }
+        return $Ret;
+    } else {
+        if(genre_exists($Name)){return false;}//don't allow duplicates
+        new_anything("genres", $Name);
+        return true;
+    }
+}
+
+function genre_exists($Name){
+    if(get_entry("genres", $Name, "Name")){return true;}
+}
+
+function rename_genre($ID, $NewName){
+    if(genre_exists($NewName)){return false;}
+    update_database('genres', "ID", $ID, array("Name" => $NewName));
+    return true;
+}
+function enum_restaurants($Genre = ""){
+    if($Genre) {
+        return enum_anything("restaurants", "Genre", $Genre);
+    }
+    return enum_table("restaurants");
+}
+
+function enum_genres(){
+    $entries = enum_all('genres');
+    return my_iterator_to_array($entries, "ID", "Name");
+}
+
+//////////////////////////////////////Restaurant API/////////////////////////////////
+
+function blank_restaurant(){
+    $Restaurant = (object) ['ID' => 0, 'Name' => '', 'Email' => '', 'Phone' => '', 'Address' => '', 'PostalCode' => '', 'City' => 'HAMILTON', 'Province' => 'ON', 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array(), 'DeliveryFee' => 0, 'Minimum' => 0, 'Description' => ''];
+    return $Restaurant;
+}
+
+function get_restaurant($ID = "", $IncludeHours = False, $IncludeAddresses = False){
+    if(!$ID){$ID = get_current_restaurant();}
+    if (is_numeric($ID)) {
+        $restaurant = get_entry("restaurants", $ID);
+    } else {
+        $restaurant = get_entry('restaurants', $ID, 'Slug');
+    }
+    if($restaurant){
+        if($IncludeHours) {$restaurant->Hours = get_hours($ID);}
+        if($IncludeAddresses){$restaurant->Addresses = iterator_to_array(enum_notification_addresses($ID), "", "Address");}
+    }
+    return $restaurant;
+}
+
+function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, $Province, $Country, $PostalCode, $Description, $DeliveryFee, $Minimum){
+    if(!$ID){$ID = new_anything("restaurants", $Name);}
+    $C = ', ';
+    $PostalCode = clean_postalcode($PostalCode);
+    logevent("Edited restaurant: " . $Name .$C. $GenreID .$C. $Email .$C. clean_phone($Phone) .$C. $Address .$C. $City .$C. $Province .$C. $Country .$C. $PostalCode .$C. $Description .$C. $DeliveryFee .$C. $Minimum);
+    $data = array("Name" => $Name, "Genre" => $GenreID, "Email" => $Email, "Phone" => clean_phone($Phone), "Address" => $Address, "City" => $City, "Province" => $Province, "Country" => $Country, "PostalCode" => $PostalCode, "Description" => $Description, "DeliveryFee" => $DeliveryFee, "Minimum" => $Minimum);
+    update_database("restaurants", "ID", $ID, $data);
+    return $ID;
+}
+
+function enum_employees($ID = "", $Hierarchy = ""){
+    if(!$ID){
+        $ID = get_current_restaurant();
+    }
+    if($Hierarchy){
+        return enum_all("Profiles", array("RestaurantID" => $ID, "Hierarchy >" => $Hierarchy));
+    }
+    return enum_profiles("RestaurantID", $ID);//->order("Hierarchy" , "ASC");
+}
+
+function get_current_restaurant(){
+    $Profile = read('ID');
+    if($Profile) {
+        if (isset($_GET["RestaurantID"])) {
+            $ProfileType = get_profile_type($Profile);
+            if ($ProfileType->CanEditGlobalSettings) {
+                return $_GET["RestaurantID"];
+            }
+        }
+        return get_profile($Profile)->RestaurantID;
+    }
+}
+
+function hire_employee($UserID, $RestaurantID = 0, $ProfileType = ""){
+    if(!check_permission("CanHireOrFire")){return false;}
+
+    $Profile = get_profile($UserID);
+    if(!$ProfileType){$ProfileType=$Profile->ProfileType;}
+    $Name = "";
+    if($RestaurantID){//hire
+        if (!$Profile->RestaurantID) { $Name = "Hired"; }
+    } else {//fire
+        if ($Profile->RestaurantID) { $Name = "Fired"; }
+    }
+    if($Name){
+        update_database("profiles", "ID", $UserID, array("RestaurantID" => $RestaurantID, "ProfileType" => $ProfileType));
+        logevent($Name . ": " . $Profile->ID . " (" . $Profile->Name . ")" );
+        return true;
+    }
+}
+
+function openclose_restaurant($RestaurantID, $Status = false){
+    if($Status){$Status=1;} else {$Status = 0;}
+    logevent("Set status to: " . $Status, true, $RestaurantID);
+    update_database("restaurants", "ID", $RestaurantID, array("Open" => $Status));
+}
+
+function delete_restaurant($RestaurantID, $NewProfileType = 2){
+    logevent("Deleted restaurant", true, $RestaurantID);
+    delete_all("restaurants", array("ID" => $RestaurantID));
+    update_database("profiles", "RestaurantID", $RestaurantID, array("RestaurantID" => 0, "ProfileType" => $NewProfileType));
+}
+
+/////////////////////////////////////days off API////////////////////////////////////
+function add_day_off($RestaurantID, $Day, $Month, $Year){
+    delete_day_off($RestaurantID, $Day, $Month, $Year, false);
+    logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
+    new_entry("daysoff", "ID", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
+}
+function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
+    if ($IsNew){
+        logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
+    }
+    delete_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
+}
+function enum_days_off($RestaurantID){
+
+}
+function is_day_off($RestaurantID, $Day, $Month, $Year){
+    return enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))->first();
+}
+
+
+
+////////////////////////////////////////Menus API/////////////////////////////////
+function enum_menus($RestaurantID = "", $Sort = ""){
+    if($RestaurantID=="all"){
+        return enum_all('menus',['parent'=>'0','image <> "undefined"']);
+    }
+    if(!$RestaurantID) {$RestaurantID = get_current_restaurant();}
+    if($Sort){$order = array('display_order' => $Sort);} else {$order = "";}
+    return enum_all("menus", array('res_id' => $RestaurantID, 'parent' => '0','image<>"undefined"'), $order);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////Date API////////////////////////////////////////
+function now(){
+    return date("Y-m-d H:i:s");
+}
+
+//returns date stamp
+function parse_date($Date){
+    if(strpos($Date, "-")) {
+        return strtotime($Date);
+    }
+    return $Date;
+}
+
+function get_day_of_week($Date){//0 is sunday, 6=saturday
+    return date('w', parse_date($Date));
+}
+function get_time($Date){//800
+    return date('Gi', parse_date($Date));
+}
+function get_year($Date){//2015
+    return date('Y', parse_date($Date));
+}
+function get_month($Date){//01-12
+    return date('m', parse_date($Date));
+}
+function get_day($Date){//3 (no leading zero)
+    return date('j', parse_date($Date));
+}
+
+
+/////////////////////////////////////Notification addresses API///////////////////////
+function enum_notification_addresses($RestaurantID = "", $Type = ""){
+    if(!$RestaurantID){$RestaurantID = get_current_restaurant();}
+    $conditions = array("RestaurantID" => $RestaurantID);
+    if (is_numeric($Type)){$conditions["Type"] = $Type;}
+    return enum_all("notification_addresses", $conditions);
+}
+function count_notification_addresses($RestaurantID = "", $Type = "") {
+    if (!$RestaurantID) {$RestaurantID = get_current_restaurant();}
+    $conditions = array("RestaurantID" => $RestaurantID);
+    if (is_numeric($Type)){$conditions["Type"] = $Type;}
+    return get_row_count("notification_addresses", $conditions);
+}
+
+function sort_notification_addresses($RestaurantID = ""){
+    if(!$RestaurantID){$RestaurantID = get_current_restaurant();}
+    $Addresses = enum_notification_addresses($RestaurantID);
+    if($Addresses) {
+        $Types = array("Email", "Phone");
+        $Data = array();
+        foreach ($Types as $Type) {
+            $Data[$Type] = array();
+        }
+        foreach ($Addresses as $Address) {
+            $Data[$Types[$Address->Type]][] = $Address->Address;
+        }
+        return $Data;
+    }
+}
+function find_notification_address($RestaurantID, $Address){
+    $Type = data_type($Address);
+    if ($Type == 0 || $Type == 1) {//email and phone whitelisted
+        $Address = clean_data($Address);
+        return enum_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address))->first();
+    }
+}
+function delete_notification_address($RestaurantID, $Address = "") {
+    if(!$RestaurantID){$RestaurantID = get_current_restaurant();}
+    if($Address) {
+        $Type = data_type($Address);
+        if ($Type == 0 || $Type == 1) {//email and phone whitelisted
+            $Address = clean_data($Address);
+            delete_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address));
+        }
+    } else {//delete all
+        delete_all("notification_addresses", array("RestaurantID" => $RestaurantID));
+    }
+}
+
+function add_notification_addresses($RestaurantID, $Address){
+    $Type = data_type($Address);
+    if ($Type == 0 || $Type == 1){//email and phone whitelisted
+        $Address = clean_data($Address);
+        if(!find_notification_address($RestaurantID, $Address)){
+            $Data = array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address);
+            new_entry("notification_addresses", "ID", $Data);
+            return true;
+        }
+    }
+}
+
+
+/////////////////////////////////////Hours API///////////////////////////////////////
+
+function to_time($Time){
+    if($Time){
+        if (substr_count($Time, ":") == 2) {
+            $Time = left($Time, strlen($Time) - 3);
+        }
+        return str_replace(":", "", $Time);
+    }
+}
+
+function edit_hours($RestaurantID, $Data){
+    $Days = array();
+    for ($DayOfWeek = 1; $DayOfWeek < 8; $DayOfWeek++){
+        $Open = to_time($Data[$DayOfWeek . "_Open"]);
+        $Close = to_time($Data[$DayOfWeek . "_Close"]);
+        $Days[$DayOfWeek] = $Open . " to " . $Close;
+        edit_hour($RestaurantID, $DayOfWeek, $Open, $Close);
+    }
+    logevent("Edited hours: " . print_r($Days, true));
+}
+
+
+function is_restaurant_open_now($RestaurantID, $date = ""){
+    if(!$date){ $date = now();}
+    if(strpos($date, "-")){$date = strtotime($date);}
+    if(!is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
+        $dayofweek = date('w', $date);
+        $time = date('Gi', $date);
+        return is_restaurant_open($RestaurantID, $dayofweek, $time);
+    }
+}
+
+function get_hours($RestaurantID){
+    $ret = array();
+    $Data = enum_all('hours', ['RestaurantID' => $RestaurantID], 'DayOfWeek');
+    $HasHours = false;
+    foreach($Data as $Day){
+        $ret[$Day->DayOfWeek . ".Open"] = $Day->Open;
+        $ret[$Day->DayOfWeek . ".Close"] = $Day->Close;
+        if($Day->Open <> 0 || $Day->Close <> 2359){$HasHours=true;}
+    }
+    $ret["HasHours"] = $HasHours;
+    return $ret;
+}
+
+function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
+    $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=>$DayOfWeek);
+    delete_all('hours', $data);
+    if(!$Open){$Open = "";}
+    if(!$Close){$Close = "";}
+    $data["Open"] = $Open;
+    $data["Close"] = $Close;
+    if($Open && $Close) {new_entry("hours", "ID", $data);}
+}
+
+function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
+    if (get_restaurant($RestaurantID)->Open) {
+        $Data = enum_all('hours', ['RestaurantID' => $RestaurantID, "DayOfWeek" => $DayOfWeek])->first();
+        if ($Data) {
+            return $Data->Open <= $Time && $Data->Close >= $Time;
+        }
+    }
+}
+
+
+/////////////////////////////////Event log API////////////////////////////////////
+function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
+    $UserID = read('ID');
+    if(!$UserID){
+        $UserID=0;
+        $DoRestaurant=false;
+    }
+    if ($DoRestaurant) {
+        if (!$RestaurantID) {
+            $RestaurantID = get_profile($UserID)->RestaurantID;
+        }
+    }
+    $Date = now();
+    new_entry("eventlog", "ID", array("UserID" => $UserID, "RestaurantID" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+}
+function enum_events($RestaurantID){
+    return enum_all("eventlog", array("RestaurantID" => $RestaurantID));
+}
+
+/////////////////////////////////Orders API/////////////////////////////////////
+function enum_orders($ID = "", $IsUser = false, $Approved = false){
+    $Conditions = array();
+    $OrderBy = array('order_time'=>'desc');
+    if($IsUser){
+        if(!$ID){$ID = read("ID");}
+        $Conditions["ordered_by"] = $ID;
+    } else {
+        if(!$ID){$ID = get_current_restaurant();}
+        $Conditions["res_id"] = $ID;
+    }
+    if (strtolower($Approved != "any")) {
+        if ($Approved) {
+            $Conditions[] = '(approved = 1 OR cancelled=1)';
+        } else {
+            $Conditions['approved'] = 0;
+            $Conditions['cancelled'] = 0;
+        }
+    }
+    return enum_all("reservations", $Conditions, $OrderBy);
+}
+function delete_order($ID){
+    delete_all("reservations", array('id' => $ID));
+}
+function pending_order_count($RestaurantID = ""){
+    return iterator_count(enum_orders($RestaurantID, false, false));
+}
+function get_order($ID){
+    return get_entry("reservations", $ID, "id");
+}
+function order_status($Order){
+    if (!is_object($Order)){$Order = get_order($Order);}
+    if($Order->cancelled == 1) {
+        return 'Cancelled';
+    }else if($Order->approved == 1) {
+        return 'Approved';
+    }else {
+        return 'Pending';
+    }
+}
+function approve_order($OrderID, $Status=true){
+    if($Status){$Status = 'approved';} else {$Status = 'cancelled';}
+    edit_database('reservations', "ID", $OrderID, array($Status=>1));
+}
+
+function implode_data($Data, $Delimeter = ","){
+    if (is_array($Data)){return implode($Delimeter, $Data);}
+    return $Data;
+}
+
+function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax){
+    $Data = array();
+    $Data['menu_ids'] = implode_data($menu_ids);
+    $Data['prs'] = implode_data($prs);
+    $Data['qtys'] = implode_data($qtys);
+    $Data['extras'] = implode_data($extras);
+    $Data['listid'] = implode_data($listid);
+    $Data['delivery_fee'] = $delivery_fee;
+
+    date_default_timezone_set('Canada/Eastern');
+    $Data['order_time'] = new \DateTime('NOW');
+    $Data['res_id'] = $res_id;
+    $Data['subtotal'] = $subtotal;
+    $Data['g_total'] = $g_total;
+    $Data['tax'] = $tax;
+
+    if ($order_type == '0'){$order_type = "0.00";}
+    $Data['order_type'] = $order_type;
+
+    //convert to a Manager API call
+    $ord = TableRegistry::get('reservations');
+    $att = $ord->newEntity($Data);
+    $ord->save($att);
+    return $att->id;
+}
+function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $postal_code, $remarks, $order_till, $province, $Phone){
+    $Data = array();
+    $Data['email'] = $email;
+    $Data['address2'] = $address2;
+    $Data['city'] = $city;
+    $Data['ordered_by'] = $ordered_by;
+    $Data['postal_code'] = $postal_code;
+    $Data['remarks'] = $remarks;
+    $Data['order_till'] = $order_till;
+    $Data['province'] = $province;
+    $Data['contact'] = $Phone;
+
+    edit_database('reservations', 'id', $OrderID, $Data);
+}
+
+////////////////////////////////////////////////////menu API////////////////////////////////////////////////////
+function get_menu($RestaurantID){
+    return enum_all('menus', array('res_id'=>$RestaurantID));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function data_type_name($Type){
+    $Values = array("Email Address", "Phone Number", "Postal Code");
+    if ($Type <0 or $Type >= count($Values)){ return "Unknown";}
+    return $Values[$Type];
+}
+function data_type($Data){
+    if (strpos($Data, "@")){return 0;} //email
+    if (clean_postalcode($Data)) { return 2;}//postal code
+    if(clean_phone($Data)) { return 1;} //phone number
+
+    return -1;
+}
+function clean_data($Data){
+    switch(data_type($Data)){
+        case -1: return trim($Data); break;
+        case 0: return clean_email($Data); break;
+        case 1: return clean_phone($Data); break;
+        case 2: return clean_postalcode($Data); break;
+    }
+}
+
+
+
 
 
 
@@ -252,7 +856,7 @@ function implode2($Array, $SmallGlue, $BigGlue){
     foreach($Array as $Key => $Value){
         $Array[$Key] = $Key . $SmallGlue. $Value;
     }
-    return implode($Array,$BigGlue);
+    return implode_data($Array,$BigGlue);
 }
 function debug($Iterator, $DoStacktrace = true){
     if($DoStacktrace) {
@@ -368,8 +972,8 @@ function select_field_where($table, $where=array(), $getcol = "", $OrderBy="", $
 
 
 
-function enum_all($Table, $conditions = "1=1", $order = ""){
-    return select_field_where($Table, $conditions, false, $order);
+function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC"){
+    return select_field_where($Table, $conditions, false, $order, $Dir);
 }
 function enum_anything($Table, $Key, $Value){
     return select_field_where($Table, array($Key => $Value), false);

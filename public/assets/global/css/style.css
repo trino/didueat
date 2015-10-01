@@ -458,9 +458,8 @@ body.page-header-fixed {
   float: left;
   font-size: 23px;
   font-weight: 400;
-
   margin-right: 27px;
-
+  padding: 15px 0;
 }
 
 .header .mobi-toggler, .fixed-header .mobi-toggler {
@@ -510,8 +509,8 @@ body.page-header-fixed {
 .header-navigation ul > li.open > a,
 .header-navigation ul > li.open > a:hover,
 .header-navigation ul > li.open > a:focus {
-	color: #e02222;
-	background: #fcfcfc;
+	color: #fff;
+	background: #b30c10;
 	text-decoration: none;
 }
 .header-navigation ul > li.active > a {
@@ -1441,7 +1440,7 @@ Pre-Footer and pre-footer elements
 	padding-top: 45px;
 }
 .pre-footer a {
-	color: #57c8eb;
+	color: #c2c1c1;
 }
 .pre-footer h2,
 .ecommerce .pre-footer h2 {
@@ -3118,7 +3117,7 @@ Header and header elements
 }
 
 .ecommerce .header-navigation li.menu-search {
-	top: 20px;
+	top: 29px;
 }
 .ecommerce .header-navigation li.menu-search i {
 	color: #fff;
@@ -3132,15 +3131,7 @@ Header and header elements
 }
 .ecommerce .header-navigation > ul > li > a {
 	color: #fff;
-	padding: 22px 12px 22px;
-}
-.ecommerce .header-navigation ul > li.active > a,
-.ecommerce .header-navigation ul > li > a:hover,
-.ecommerce .header-navigation ul > li > a:focus,
-.ecommerce .header-navigation ul > li.open > a,
-.ecommerce .header-navigation ul > li.open > a:hover,
-.ecommerce .header-navigation ul > li.open > a:focus {
-	color: #e02222;
+	padding: 30px 12px;
 }
 .ecommerce .header-navigation .dropdown-menu > li > a:hover,
 .ecommerce .header-navigation .dropdown-menu > li.active > a,
@@ -3438,15 +3429,23 @@ Header and header elements
 
 /* Catalogue styles */
 .product-item {
-	padding: 12px 12px 16px;
-	background: #fff;
-	position: relative;
+    background: #f7f7f7 none repeat scroll 0 0;
+    box-shadow: 0 0 3px #ddd;
+    position: relative;
 }
 .owl-item.active .product-item {
 	margin-right: 10px;
+    -webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
 }
 .product-item:hover {
 	box-shadow: 5px 5px rgba(234, 234, 234, 0.9);
+    -webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
 }
 .product-item:after {
 	content: ".";
@@ -3510,10 +3509,13 @@ Header and header elements
 }
 
 .product-item h3 {
-	font: 300 14px 'Open Sans', sans-serif;
-	padding-top: 10px;
-	padding-bottom: 4px;
+  float: left;
+  font: 600 14px "Open Sans",sans-serif;
+  padding: 12px 10px 10px;
+  width: 50%;
+  margin-bottom: 0;
 }
+
 .product-item h3 a {
 	color: #3e4d5c;
 }
@@ -3521,10 +3523,12 @@ Header and header elements
 	color: #E02222;
 }
 .pi-price {
-	color: #e84d1c;
-	font: 18px 'PT Sans Narrow', sans-serif;
-	float: left;
-	padding-top: 1px;
+  color: #e84d1c;
+  float: left;
+  font: 18px "PT Sans Narrow",sans-serif;
+  padding: 9px 10px 5px;
+  text-align: right;
+  width: 50%;
 }
 .product-item .add2cart {
 	float: right;
@@ -4308,23 +4312,24 @@ Shop Stype Buttons
 
 a {
 	color: #E02222;
+    	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
 }
 a:hover {
 	color: #E02222;
+    text-decoration: none;
+    	-webkit-transition: all 0.7s ease-in-out;
+	-moz-transition: all 0.7s ease-in-out;
+	-o-transition: all 0.7s ease-in-out;
+	transition: all 0.7s ease-in-out;
 }
 .pre-header a:hover {
 	color: #E02222;
 }
 .shop-currencies a.current {
 	color: #E02222;
-}
-.header-navigation ul > li.active > a,
-.header-navigation ul > li > a:hover,
-.header-navigation ul > li > a:focus,
-.header-navigation ul > li.open > a,
-.header-navigation ul > li.open > a:hover,
-.header-navigation ul > li.open > a:focus {
-	color: #e02222;
 }
 .header-navigation li.menu-search i:hover {
 	color: #e02222;
@@ -4373,7 +4378,7 @@ a:hover {
 .ecommerce .header-navigation ul > li.open > a,
 .ecommerce .header-navigation ul > li.open > a:hover,
 .ecommerce .header-navigation ul > li.open > a:focus {
-	color: #e02222;
+	color: #fff;
 }
 .product-item h3 a:hover {
 	color: #E02222;
@@ -4637,11 +4642,7 @@ a:hover {
 }
 
 @media (max-width: 1024px) {
-	.header .header-navigation li > a:hover,
-	.header .header-navigation li.active > a,
-	.header .header-navigation li.open > a:hover {
-		color: #dd4632 !important;
-	}
+
 }
 
 .faq-tabbable {

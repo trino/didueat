@@ -6,7 +6,7 @@
     <p>&nbsp;</p>
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12 nopadd">
-            <div class="menuimg menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="{{ url('scripts/img/products/<?php echo $model->image;?>') }}" /><input type="hidden" class="hiddenimg" value="<?php echo $model->image;?>" /><?php }?></div>
+            <div class="menuimg menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="<?php echo url('assets/images/products/'.$model->image) ?>" /><input type="hidden" class="hiddenimg" value="<?php echo $model->image;?>" /><?php }?></div>
             <br />
             <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse<?php echo $menu_id?>_1">Image</a>
         </div>
@@ -40,7 +40,7 @@
                 foreach($cmodel as $child){
                     $k++;
                     ?>
-                    @include('common.additional');
+                    @include('common.additional')
                     <?php
                 }
             }

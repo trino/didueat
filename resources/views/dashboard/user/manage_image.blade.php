@@ -25,6 +25,7 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-10 col-sm-9">
@@ -98,6 +99,7 @@
                     <hr class="shop__divider">
                 </div>
 
+            </div>
             </div>
         </div>
     </div>                

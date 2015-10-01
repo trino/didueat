@@ -20,7 +20,7 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
-        test();
+        
 
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
@@ -119,13 +119,22 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('res_id', $res_slug->ID)->where('parent', 0)->get();
+        $menus = \App\Http\Models\Menus::where('restaurantID', $res_slug->ID)->where('parent', 0)->get();
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
         $data['res_detail'] = $res_slug;
         $data['menus_list'] = $menus;
         return view('restaurants-menus', $data);
+    }
+    
+    function test()
+    {
+        if(isset($_POST))
+        {
+            var_dump($_POST);
+        }
+         return view('test');
     }
 
 }
