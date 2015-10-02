@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('content')
+@section('content') 
 
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
