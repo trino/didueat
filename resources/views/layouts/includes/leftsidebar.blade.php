@@ -1,4 +1,4 @@
-<div class="sidebar col-md-3 col-sm-4 col-xs-12">
+<div class="sidebar col-md-2 col-sm-4 col-xs-12">
     <aside class="sidebar  sidebar--shop">
         <div class="shop-filter">
             <h4>Administrator</h4>
@@ -15,7 +15,7 @@
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}" class="<?php if(Request::path() == 'restaurant/addresses'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Notifications Addresses</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/menus-manager') }}" class="<?php if(Request::path() == 'restaurant/menus-manager'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Menu Manager</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/pending') }}" class="<?php if(Request::path() == 'restaurant/orders/pending'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Pending Orders <span class="notification">({{ countOrders('pending') }})</span></a></li>
-                <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/history/'.\Session::get('session_restaurantId')) }}" class="<?php if(Request::path() == 'restaurant/orders/history/'.\Session::get('session_restaurantId')){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Order History</a></li>
+                <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/history') }}" class="<?php if(Request::path() == 'restaurant/orders/history/'.\Session::get('session_restaurantId')){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Order History</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if(Request::path() == 'restaurant/eventlog'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/report') }}" class="<?php if(Request::path() == 'restaurant/report'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Print Report</a></li>
             </ul>

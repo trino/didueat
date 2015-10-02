@@ -32,7 +32,7 @@
                     <?php }?>
                         <div class="col-md-10 col-sm-10 col-xs-10 nopadd">
                         	<input class="form-control cctitle" type="text" placeholder="Item" value="<?php echo $cc->menu_item;?>" />
-                        	<input class="form-control ccprice" type="text" placeholder="Price" value="<?php echo $cc->price;?>" style="margin-left:10px;" />  
+                        	<input class="form-control ccprice pricechk" type="text" placeholder="Price" value="<?php echo $cc->price;?>" style="margin-left:10px;" />  
                         </div>
                     <div class="col-md-2 col-sm-2 col-xs-2 no-padding" <?php if($i==1){?>style="display: none;"<?php }?>>
                         <a href="javascript:void(0);" class="btn btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a> 

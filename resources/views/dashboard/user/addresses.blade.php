@@ -22,9 +22,10 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9 col-sm-8">
+                <div class="col-xs-12 col-md-10 col-sm-8">
                     <div class="deleteme">
                         <h3 class="sidebar__title">Addresses Manager</h3>
                         <hr class="shop__divider">
@@ -191,7 +192,7 @@
                                             <div class="col-md-6">
                                                 <div class="row">
                                                     <div class="col-md-offset-3 col-md-9">
-                                                        <button type="submit" class="btn green">Submit</button>
+                                                        <button type="submit" class="btn red">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,6 +208,7 @@
                         <hr class="shop__divider">
                     </div>        
                 </div>
+            </div>
             </div>
         </div>
     </div>                

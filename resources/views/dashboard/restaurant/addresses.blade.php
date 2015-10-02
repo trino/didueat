@@ -22,6 +22,7 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
@@ -70,6 +71,7 @@
                 </div>
                 
 
+            </div>
             </div>
         </div>
     </div>                

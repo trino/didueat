@@ -80,7 +80,7 @@ class HomeController extends Controller {
                     $image->move($destinationPath, $newName);
                     $post['Logo'] = $newName;
                 }
-                
+                $post['Slug']= $this->createslug($post['Name']);
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($post);
                 $ob->save();
@@ -135,6 +135,44 @@ class HomeController extends Controller {
             var_dump($_POST);
         }
          return view('test');
+    }
+    
+    function createslug($text)
+    { 
+      // replace non letter or digits by -
+          $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+        
+          // trim
+          $text = trim($text, '-');
+        
+          // transliterate
+          $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+        
+          // lowercase
+          $text = strtolower($text);
+        
+          // remove unwanted characters
+          $text = preg_replace('~[^-\w]+~', '', $text);
+        
+          if (empty($text))
+          {
+            return 'n-a';
+          }
+          //test for same slug in db
+          $text = $this->chkSlug($text);
+          
+    
+      return $text;
+    }
+    
+    function chkSlug($txt)
+    {
+        if(\App\Http\Models\Restaurants::where('slug',$txt)->first())
+        {
+            $txt = $txt.rand(0,9);
+        }
+        
+            return $txt;
     }
 
 }
