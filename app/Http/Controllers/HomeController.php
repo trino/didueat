@@ -171,13 +171,16 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurantID', $res_slug->ID)->where('parent', 0)->get();
-
+        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->paginate(8);
+        
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
         $data['res_detail'] = $res_slug;
         $data['menus_list'] = $menus;
-        return view('restaurants-menus', $data);
+        if(isset($_GET['page']))
+            return view('menus', $data);
+        else
+            return view('restaurants-menus', $data);
     }
 
     function test() {
