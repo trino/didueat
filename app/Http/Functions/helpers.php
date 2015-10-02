@@ -1297,8 +1297,9 @@ function handle_upload($Dir){
         $ext = end($arr);
         $file = date('YmdHis') . '.' . $ext;//unique filename
         move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/' . $Dir . $file);
-        // make it work
+
         //$file_path = request->webroot . $Dir . $file;
+
             return $file_path;
         }
 }
