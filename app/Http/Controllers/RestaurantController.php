@@ -483,5 +483,12 @@ class RestaurantController extends Controller {
         \App\Http\Models\Menus::where('parent', $id)->delete();
         return \Redirect::to('restaurant/menus-manager')->with('message', 'Item deleted successfully');
     }
+    public function order_detail($ID) {
+        $data['order'] = \App\Http\Models\Reservations::where('id', $ID)->first();
+        $data['title'] = 'Orders Detail';
+        return view('dashboard.restaurant.orders_detail', $data);
+        //$this->set('order',\App\Http\Models\Reservations::where('id', $ID)->get());
+        //$this->set('type','detail');
+    }
 
 }
