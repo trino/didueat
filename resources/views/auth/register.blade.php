@@ -29,6 +29,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="phone" class="col-md-2 control-label">Phone</label>
+                        <div class="col-md-10">
+                            <div class="input-icon">
+                                <i class="fa fa-phone"></i>
+                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="email" class="col-md-2 control-label">Email</label>
                         <div class="col-md-10">
                             <div class="input-icon">
@@ -56,19 +65,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone" class="col-md-2 control-label">Phone</label>
-                        <div class="col-md-10">
-                            <div class="input-icon">
-                                <i class="fa fa-phone"></i>
-                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone" class="col-md-2 control-label">&nbsp;</label>
+                        <label for="subscribed" class="col-md-2 control-label">&nbsp;</label>
                         <div class="col-md-10">
                             <label>
-                                <input type="checkbox" name="subscribed" value="1" />
+                                <input type="checkbox" name="subscribed" id="subscribed" value="1" />
                                 Sign up for our Newsletter
                             </label>
                         </div>

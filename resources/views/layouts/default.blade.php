@@ -75,28 +75,27 @@
 
         <!-- BEGIN TOP BAR -->
         <div id="registration-form"class="col-md-12" style="display: none;">
-            <form action="" class="form-horizontal" method="post">
-                <INPUT TYPE="hidden" name="action" value="signup">
+            {!! Form::open(array('url' => '/auth/register', 'id'=>'registeration-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                 <fieldset>
                     <legend>Your personal details</legend>
                     <div class="form-group">
-                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="Name">Name <span class="require">*</span></label>
+                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                          <input type="text" name="Name" class="form-control" value="">
+                            <input type="text" name="name" id="name" class="form-control" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="Email">Email <span class="require">*</span></label>
+                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="email">Email <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                          <input type="text" name="Email" class="form-control" value="">
+                            <input type="text" name="email" id="email" class="form-control" value="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="Phone">Phone<span class="require">*</span></label>
+                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="phone">Phone<span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                          <input type="phone" name="Phone" class="form-control" value="">
+                            <input type="phone" name="phone" id="phone" class="form-control" value="">
                         </div>
                     </div>
                 </fieldset>
@@ -104,15 +103,15 @@
                 <fieldset>
                     <legend>Your password</legend>
                     <div class="form-group">
-                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="Password">Password <span class="require">*</span></label>
+                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="password">Password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                          <input type="text" name="Password" class="form-control">
+                            <input type="text" name="password" id="password" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="Confirm-Password">Confirm password <span class="require">*</span></label>
+                        <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="confirm_password">Confirm password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                          <input type="text" name="Confirm-Password" class="form-control">
+                            <input type="text" name="confirm_password" id="confirm_password" class="form-control">
                         </div>
                     </div>
                 </fieldset>
@@ -120,11 +119,13 @@
                 <fieldset>
                     <legend>Newsletter</legend>
                     <div class="checkbox form-group">
-                        <label class="col-lg-4 col-sm-4 control-label" for="newsletter">Sign up for our Newsletter</label>
+                        <label class="col-lg-4 col-sm-4 control-label" for="subscribed2">Sign up for our Newsletter</label>
                         <div class="col-lg-8 col-sm-8">
-                            <div class="checker"><span>
-                                <input type="checkbox" name="newsletter" id="newsletter" class="form-control" >
-                            </span></div>
+                            <div class="checker">
+                                <span>
+                                    <input type="checkbox" name="subscribed" id="subscribed2" class="form-control" >
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -134,7 +135,7 @@
                         <button class="btn btn-primary" type="submit">Create an account</button>
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
         
         <div id="login-pop-up" style="display:none;">
@@ -161,7 +162,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0">
-                                    <a href="{{ url('auth/forgot-passoword') }}" class="fancybox-fast-view">Forgot Password?</a>
+                                    <a href="#forget-passsword" class="fancybox-fast-view">Forgot Password?</a>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -171,7 +172,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
-                                    <a href="{{ url('auth/register') }}" class="btn btn-primary fancybox-fast-view" type="button">Sign Up</a>
+                                    <a href="#registration-form" class="btn btn-primary fancybox-fast-view" type="button">Sign Up</a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -182,27 +183,25 @@
 
             </div>
         </div>
-
-
-
+        
+        
         <div id="forget-passsword" style="display: none;">
             <h1>Forgot Your Password?</h1>
             <DIV ID="forgot-message" align="center"></DIV>
-            <form role="form" class="form-horizontal form-without-legend" method="post">
+            {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div class="form-group col-md-12">
-                    <label class="col-lg-4 control-label" for="email">Email</label>
+                    <label class="col-lg-4 control-label" for="forgot-email">Email</label>
                     <div class="col-lg-8">
-                        <input type="hidden" Name="action" value="forgotpass">
-                        <input type="text" Name="Email" id="forgot-email" class="form-control">
+                        <input type="text" name="email" id="forgot-email" class="form-control">
                     </div>
                 </div>
-
+                
                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-5">
-                    <button class="btn btn-primary" type="button" onclick="forgotpass();">Send</button>
+                    <button class="btn btn-primary" type="submit">Send</button>
                 </div>
-
-            </form>
+            {!! Form::close() !!}
         </div>
+        
         <!-- END TOP BAR -->
         <script type="text/javascript">
             function getvalue(ElementID){

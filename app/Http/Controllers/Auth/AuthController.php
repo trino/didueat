@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use Auth;
@@ -221,10 +220,23 @@ class AuthController extends Controller {
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $user->status = 1;
             $user->save();
+            
+            \Session::put('session_id', $user->ID);
+            \Session::put('session_profileType', $user->profileType);
+            \Session::put('session_name', $user->name);
+            \Session::put('session_email', $user->email);
+            \Session::put('session_phone', $user->phone);
+            \Session::put('session_subscribed', $user->subscribed);
+            \Session::put('session_restaurantId', $user->restaurantId);
+            \Session::put('session_createdBy', $user->createdBy);
+            \Session::put('session_status', $user->status);
+            \Session::put('session_created_at', $user->created_at);
+            \Session::put('is_logged_in', true);
 
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
-            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
+            //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
+            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. You has been logged in into our system. Please <a href='" . url('restaurant/menus-manager') . "'><b>click here</b></a> to start uploading items. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";

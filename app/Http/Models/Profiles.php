@@ -24,10 +24,9 @@ class Profiles extends BaseModel {
         $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantId', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
                 if(isset($data['password'])){
                     $this->generatePassword($data['password']);
-                } else {
-                    $this->$cell = $data[$cell];
                 }
             }
         }

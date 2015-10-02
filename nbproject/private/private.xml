@@ -11,8 +11,10 @@
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
         </group>
         <group>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/UsersController.php</file>
             <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/administrator/newsletter.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/RestaurantController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/restaurant/orders_pending.blade.php</file>
             <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/AdministratorController.php</file>
         </group>
     </open-files>
