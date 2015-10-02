@@ -2,12 +2,12 @@
 @section('content')
 
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/clockface/css/clockface.css') }}"/>
+<?php /*<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/clockface/css/clockface.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/datepicker3.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
+<!--<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/><?php */?>
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
@@ -148,10 +148,10 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 padding-top-5"><?php echo $value; ?></label>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo $open[$key]; ?>" data-format="hh:mm A" class="form-control clockface_1"/>
+                                                    <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo $open[$key]; ?>" class="form-control time"/>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo $close[$key]; ?>" data-format="hh:mm A" class="form-control clockface_1"/>
+                                                    <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo $close[$key]; ?>" class="form-control time"/>
                                                     <input type="hidden" name="DayOfWeek[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
                                                     <input type="hidden" name="IDD[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>" />
                                                 </div>
@@ -216,28 +216,74 @@
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
+<!--
 <script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/clockface/js/clockface.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>-->
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>
+<!--<script src="{{ asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>-->
 <script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/form-samples.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
+<script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 <script>
 jQuery(document).ready(function() {
     Metronic.init();
     Demo.init();
-    ComponentsPickers.init();
+    //ComponentsPickers.init();
     $("#resturantForm").validate();
     FormSamples.init();
+    $('.time').timepicker();
+    $('.time').click(function(){
+    $('.ui-timepicker-hour-cell .ui-state-default').each(function(){
+        var t = parseFloat($(this).text());
+       if(t>12)
+       {
+        if(t<22)
+        $(this).text('0'+(t-12));
+        else
+        $(this).text(t-12);
+       } 
+    });
+    });
+    $('.time').change(function(){
+       //$('.time_real').val($(this).val());
+       var t = $(this).val();
+       var arr = t.split(':');
+       var h = arr[0];
+       var t = parseFloat(h);
+       if(t>11)
+       {
+        var format = 'PM';
+        if(t<22){
+            if(t!=12)
+        var ho = '0'+(t-12);
+        else
+        var ho = 12;
+        }
+        else{
+            
+        var ho = t-12;
+        
+        }
+       } 
+       else
+       {
+        var ho = arr[0];
+        var format = 'AM';
+        if(arr[0] == '00')
+        var ho = '12';
+       }
+       var tm = ho+':'+arr[1]+' '+format;
+       $(this).val(tm);        
+    });
 });
 </script>
 

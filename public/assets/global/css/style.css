@@ -4683,3 +4683,5 @@ a:hover {
 .ecommerce .header-navigation ul > li.active > a*/ {
 	border-bottom: 2px solid #e64f00;
 }
+.ui-timepicker{height:124px!important;}
+.ui-timepicker-title{background: #CCC!important;border:#CCC 1px solid!important;padding:5px}
