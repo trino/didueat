@@ -26,7 +26,7 @@
                 <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9 col-sm-8 no-padding">
+                <div class="col-xs-12 col-md-10 col-sm-8 no-padding">
                     
                     @if(Session::has('message'))
                         <div class="alert alert-info">
@@ -94,7 +94,7 @@
                                     </div>
 
                                     <h3 class="form-section">Newsletter Setting</h3>
-                                    <div class="checkbox form-group">
+                                    <div class="checkbox form-group margin-bottom-20">
                                         <label class="col-md-2 control-label" for="newsletter"></label>
                                         <div class="col-md-10">
                                             <div class="checker">

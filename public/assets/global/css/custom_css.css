@@ -781,8 +781,18 @@ body.ecommerce {
 
 .product-item:hover h3 a {
     color: #e02222;
-            	-webkit-transition: all 0.7s ease-in-out;
+    -webkit-transition: all 0.7s ease-in-out;
 	-moz-transition: all 0.7s ease-in-out;
 	-o-transition: all 0.7s ease-in-out;
 	transition: all 0.7s ease-in-out;
+}
+
+.form-section {
+  margin-bottom: 20px !important;
+  margin-top: 0 !important;
+  padding-bottom: 10px !important;
+}
+
+.sidebar-menu .list-group-item a {
+  font-size: 14px;
 }

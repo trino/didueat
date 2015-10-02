@@ -20,6 +20,7 @@
         <div class="row content-page">
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-sm-9">
@@ -203,6 +204,7 @@
                     </div>
                 </div>
 
+            </div>
             </div>
         </div>
     </div>

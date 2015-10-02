@@ -24,7 +24,7 @@
             <div class="col-md-12 no-padding">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9 col-sm-8">
+                <div class="col-xs-12 col-md-10 col-sm-8">
                     @if(Session::has('message'))
                         <div class="alert alert-info">
                             <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
