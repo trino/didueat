@@ -7,7 +7,7 @@ Route::resource('/home/test', 'HomeController@test');
 Route::resource('/restaurants/signup', 'HomeController@signupRestaurants');
 Route::get('/restaurants/{slug}/menus', 'HomeController@menusRestaurants');
 
-// Authentication routes...
+//Authentication routes...
 Route::post('auth/login/ajax', 'Auth\AuthController@authenticateAjax');
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@authenticate');

@@ -248,6 +248,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                
                                 <div class="clearfix"></div>
                                 <div style="line-height:45px;" class="col-xs-12 add-btn">
                                 <div class="add-minus-btn" style="float:left;">
@@ -297,10 +298,11 @@
                     }
                 </script>
                 @endforeach
+                
             </div>
         </div>
         <div style="display: none;" class="nxtpage">
-            <li class="next disabled"><a href="" onclick="return false;">Next &gt;&gt;</a></li>  
+            <li class="next"><a href="{{$menus_list->nextPageUrl()}}" >Next &gt;&gt;</a></li>  
         </div>
         <div id="loadmoreajaxloader" style="display:none;">
             <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
@@ -318,23 +320,28 @@
             $(function() {
                 $('.loadmore').click(function() {
                     $('div#loadmoreajaxloader').show();
+                    ur = $('.next a').attr('href');
+                    if(ur!=''){
+                    url1 = ur.replace('/?','?');
                     $.ajax({
-                        url: $('.next a').attr('href'),
+                        url: url1,
                         success: function(html) {
-                            if (!$('.next').hasClass('disabled')) {
+                            
                                 if (html) {
                                     $('.nxtpage').remove();
                                     $("#postswrapper").append(html);
                                     $('div#loadmoreajaxloader').hide();
-                                } else {
+                                } else 
                                     $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-                                }
-                            } else {
-                                $('.loadmore').hide();
-                                $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-                            }
+                            
                         }
                     });
+                    }
+                    else
+                    {
+                        $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
+                        $(this).parent().remove();
+                    }
                 });
 
                 $('.modal').on('shown.bs.modal', function() {
