@@ -12,7 +12,7 @@
         </div>
         <div class="col-sm-7 col-xs-12 lowheight">
             <input class="form-control newtitle" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br />
-            <input class="form-control newprice" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br />
+            <input class="form-control newprice pricechk" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br />
             <textarea class="form-control newdesc" placeholder="Description"><?php if(isset($model->description)){echo $model->description; }?></textarea>
         </div> 
         <div class="clearfix"></div>   
