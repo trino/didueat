@@ -59,6 +59,7 @@
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
+    
     <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->

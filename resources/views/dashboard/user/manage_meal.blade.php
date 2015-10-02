@@ -22,6 +22,7 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-md-4">
@@ -97,6 +98,7 @@
                         <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
 
+            </div>
             </div>
         </div>
     </div>                

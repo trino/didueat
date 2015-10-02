@@ -22,9 +22,10 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9 col-sm-8">
+                <div class="col-xs-12 col-md-10 col-sm-8">
                     @if(Session::has('message'))
                         <div class="alert alert-info">
                             <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
@@ -32,7 +33,7 @@
                     @endif
                     
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Pending Orders Manager</h3>
+                        <h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
                         <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -56,6 +57,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    
+                                        <?php
+                                        /*if (isset($orders_list) && $orders_list) {
+                                            foreach($orders_list as $Order){
+                                                $status= $Manager->order_status($Order);
+                                                //$Profile = $Manager->get_profile($Order->UserID);
+                                                echo '<tr><td>' . ucfirst($Order->ordered_by) . '</td><td>' . $Order->order_time . '</td>';
+                                                echo '<td><a href="'. $this->request->webroot.'restaurants/order_detail/'. $Order->id . '" class="btn btn-success">View</a>';
+                                                echo '<a href="'. $this->request->webroot.'restaurants/delete_order/'. $Order->id . '/'.$type.'" class="btn btn-danger" ';
+                                                echo 'onclick="return confirm(\' Are you sure you want to delete order\');">Delete</a>';
+                                                if($type!='pending') {
+                                                    echo '</td><td>' . $status . '</TD></TR>';
+                                                }else {
+                                                    echo '<a href="' . $this->request->webroot . 'restaurants/approve_order/' . $Order->id . '" class="btn btn-info">Approve</a> <a href="' . $this->request->webroot . 'restaurants/cancel_order/' . $Order->id . '" class="btn btn-warning">Cancel</a></td><td>' . $status . '</TD></TR>';
+                                                }
+                                            }
+                                        } else {
+                                            echo '<TR><TD colspan="4"><DIV align="center">No orders found</DIV></TD></TR>';
+                                        }*/
+                                        ?>
+                                    
                                         @foreach($orders_list as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
@@ -63,10 +85,12 @@
                                             <td>{{ date('d M, Y H:i A', strtotime($value->order_time)) }}</td>
                                             <td>{{ $value->status }}</td>
                                             <td>
-                                                <a href="#" class="btn green">View</a>
+                                                <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}" class="btn green">View</a>
                                                 <a href="{{ url('restaurant/orders/pending/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete this order ? ');">Delete</a>
-                                                <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
-                                                <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
+                                                <?php if($type=='Pending'){?>
+                                                    <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
+                                                    <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
+                                                <?php }?>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -80,6 +104,7 @@
                     </div>        
                 </div>
 
+            </div>
             </div>
         </div>
     </div>                

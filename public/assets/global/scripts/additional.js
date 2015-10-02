@@ -65,7 +65,7 @@ $('.addmorebtn').live('click',function(){
     $(this).closest('.aitems').find('.addmore').append(
     '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-10 nopadd">'+
     '<input class="form-control cctitle" type="text" placeholder="Item" />'+
-    '<input class="form-control ccprice" type="text" placeholder="Price" style="margin-left:10px;" />'+   
+    '<input class="form-control ccprice pricechk" type="text" placeholder="Price" style="margin-left:10px;" />'+   
     '</div>'+ 
     '<div class="col-md-2">'+
     '<a href="javascript:void(0);" class="btn btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>'+  
@@ -76,12 +76,33 @@ $('.is_multiple').live('change',function(){
     $(this).parent().parent().find('.exact').show();
     else
     $(this).parent().parent().find('.exact').hide();
-})
+});
+
 $('.savebtn').live('click',function(){
+    
     //var $_this = $(this);
     var id = $(this).attr('id').replace('save','');
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
+    var checkprc = 0;
+    $_parent.find('.pricechk').each(function(){
+       if(isNaN($(this).val()))
+       {
+        if($(this).attr('style')=='margin-left:10px;')
+        $(this).attr('style','border:1px solid red;margin-left:10px;');
+        else
+        $(this).attr('style','border:1px solid red;');
+        if($(this).attr('placeholder')=='Price')
+        {
+            $('html,body').animate({ scrollTop: $(this).parent().parent().parent().parent().parent().parent().offset().top}, 'slow');
+        }
+        else
+        $('html,body').animate({ scrollTop: $(this).parent().parent().parent().offset().top}, 'slow');
+        checkprc = 1;
+       } 
+    });
+    if(checkprc)
+    return false;
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
     var ptitle = $_parent.find('.newtitle').val();
