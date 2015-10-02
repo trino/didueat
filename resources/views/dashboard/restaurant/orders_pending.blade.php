@@ -33,7 +33,7 @@
                     @endif
                     
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Pending Orders Manager</h3>
+                        <h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
                         <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -87,8 +87,10 @@
                                             <td>
                                                 <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}" class="btn green">View</a>
                                                 <a href="{{ url('restaurant/orders/pending/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete this order ? ');">Delete</a>
-                                                <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
-                                                <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
+                                                <?php if($type=='Pending'){?>
+                                                    <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
+                                                    <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
+                                                <?php }?>
                                             </td>
                                         </tr>
                                         @endforeach
