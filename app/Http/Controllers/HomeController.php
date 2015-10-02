@@ -169,7 +169,7 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
-    public function menusRestaurants($slug) {
+    public function menusRestaurants($slug) { 
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
         $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->paginate(8);
         

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @author     Skp Software Technologies
  * @developer  Waqar Javed
  * @date       20 September, 2015
- */
+ */ 
 class Profiles extends BaseModel {
 
     protected $table = 'Profiles';

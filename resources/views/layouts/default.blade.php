@@ -2,7 +2,7 @@
 <html lang="en">
 <!--<![endif]-->
 <!-- Head BEGIN -->
-<head>
+<head> 
     <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

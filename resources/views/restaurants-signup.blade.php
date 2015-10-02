@@ -12,7 +12,7 @@
 <!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
+<!-- END THEME STYLES --> 
 
 <div class="margin-bottom-40">
     <div class="slide">

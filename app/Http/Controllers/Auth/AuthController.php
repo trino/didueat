@@ -6,7 +6,7 @@ use \Input;
 //use Illuminate\Routing\Controller;
 //use App\Models\Profiles;
 //use Validator;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 
 class AuthController extends Controller {
 

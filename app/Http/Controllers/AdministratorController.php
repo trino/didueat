@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
-/**
+/** 
  * Administrator
  * @package    Laravel 5.1.11
  * @subpackage Controller
