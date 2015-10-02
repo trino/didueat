@@ -1,7 +1,7 @@
 <?php
 
 // Frontsite Routes...
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index'); 
 Route::get('/restaurants', 'HomeController@allRestaurants');
 Route::resource('/home/test', 'HomeController@test');
 Route::resource('/restaurants/signup', 'HomeController@signupRestaurants');
@@ -40,7 +40,7 @@ Route::get('restaurant/orders/pending/cancel/{id}', 'RestaurantController@change
 Route::get('restaurant/orders/pending/approve/{id}', 'RestaurantController@changeOrderApprove')->where('id', '[0-9]+');
 Route::get('restaurant/orders/pending/delete/{id}', 'RestaurantController@deleteOrder')->where('id', '[0-9]+');
 Route::get('restaurant/orders/order_detail/{id}', 'RestaurantController@order_detail')->where('id', '[0-9]+');
-Route::get('restaurant/orders/history', 'RestaurantController@history');
+Route::get('restaurant/orders/history/{id}', 'RestaurantController@history')->where('id', '[0-9]+');
 Route::get('restaurant/eventlog', 'RestaurantController@eventsLog');
 Route::get('restaurant/report', 'RestaurantController@report');
 Route::get('restaurant/menu_form/{id}', 'RestaurantController@menu_form');

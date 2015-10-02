@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('content')
+@section('content') 
 
 <!-- BEGIN PAGE LEVEL STYLES -->
 <?php /*<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/clockface/css/clockface.css') }}"/>
