@@ -11,9 +11,10 @@
             </div>
 
             <div class="col-md-12 no-padding">
+            <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-9 col-sm-8">
+                <div class="col-xs-12 col-md-10 col-sm-8">
                     @if(Session::has('message'))
                         <div class="alert alert-info">
                             <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
@@ -37,7 +38,7 @@
                                 <?php
                                 
                                     $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurantId)->first();    ?>
-                                      <div class="infolist noprint"><strong>RESTAURANT NAME: </strong><?= $restaurant->Name;?></div>
+                                      <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $restaurant->Name;?></div>
                                       <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
                                       <div class="infolist noprint"><strong>EMAIL: </strong><?= $order->email;?></div>
                                       <div class="infolist noprint"><strong>CONTACT: </strong><?= $order->contact;?></div>
@@ -46,7 +47,7 @@
                                       <div class="infolist noprint"><strong>ORDER READY: </strong><?= $order->order_till;?></div>
                                     <?php
                                     if ($order->remarks!='') {
-                                        echo '<div class="infolist noprint"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
+                                        echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
                                     }
                                         //echo  $this->element('receipt');
                                 ?>
@@ -56,10 +57,11 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
                         
-                        <hr class="shop__divider">
+                        
                     </div>        
                 </div>
 
+            </div>
             </div>
         </div>
     </div>                

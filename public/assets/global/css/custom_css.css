@@ -444,7 +444,8 @@ button:hover {
 }
 
 .infolist.noprint {
-    margin-bottom: 12px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 .infolistwhite {
@@ -516,6 +517,7 @@ button:hover {
     font-weight: 700;
     padding-right: 3px;
     padding-top: 0 !important;
+    text-transform: capitalize;
 }
 
 .deleteme .receipt_image > img {
@@ -540,7 +542,7 @@ button:hover {
 .deleteme .top-cart-content-wrapper {
     border-top: 1px solid #dfdfdf;
     margin-top: 20px;
-    padding-top: 20px;
+    padding-top: 5px;
 }
 
 .deleteme .receipt_image {
@@ -795,4 +797,37 @@ body.ecommerce {
 
 .sidebar-menu .list-group-item a {
   font-size: 14px;
+}
+
+.deleteme #cartsz .top-cart-content {
+  background: none;
+}
+
+.deleteme .portlet #cartsz .top-cart-content .receipt_main .infolist:last-child {
+  border-bottom: medium none;  
+}
+
+.deleteme .portlet #cartsz .top-cart-content .receipt_main .infolist {
+  padding: 9px 0 15px;  
+}
+
+.deleteme .portlet #cartsz .top-cart-content {
+  margin-top: 0;
+  padding: 0;
+}
+
+.deleteme .portlet #cartsz .top-cart-content strong {
+  font-size: 14px;
+  font-weight: normal;
+  width: 55%;
+}
+
+.deleteme #cartsz .table tr td {
+  text-align: right;
+}
+
+#resturantForm .profilepic > img {
+  border: 1px solid #dfdfdf;
+  margin-bottom: 10px;
+  padding: 10px;
 }

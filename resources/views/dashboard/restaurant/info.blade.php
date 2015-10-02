@@ -23,7 +23,7 @@
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-sm-9">
+                <div class="col-xs-12 col-sm-9 col-md-10">
 
                     <div class="portlet box red">
                         <div class="portlet-title">
