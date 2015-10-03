@@ -143,7 +143,6 @@ class AuthController extends Controller {
                 try {
                     $data['status'] = 0;
                     $data['profileType'] = 1;
-                    $data['restaurantId'] = \Session::get('TempRestaurantID');
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
@@ -153,8 +152,6 @@ class AuthController extends Controller {
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
-                    
-                    \Session::forget('TempRestaurantID');
                     
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
@@ -173,6 +170,79 @@ class AuthController extends Controller {
         }
     }
     
+    /**
+     * Ajax Post Registration
+     * @param  array
+     * @return redirect
+     */
+    public function postAjaxRegister() {
+        $data = \Input::all();
+        if (isset($data) && count($data) > 0 && !is_null($data)) {
+            if (!isset($data['email']) || empty($data['email'])) {
+                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message'))); die;
+            }
+
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
+            if ($is_email > 0) {
+                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
+            }
+            if (!isset($data['password']) || empty($data['password'])) {
+                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_pass_field_missing.message'))); die;
+            }
+            if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
+                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_confim_pass_field_missing.message'))); die;
+            }
+            if ($data['password'] != $data['confirm_password']) {
+                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_passwords_mismatched.message'))); die;
+            } else {
+                \DB::beginTransaction();
+                try {
+                    $data['status'] = 0;
+                    $data['profileType'] = 1;
+
+                    $user = new \App\Http\Models\Profiles();
+                    $user->populate($data);
+                    $user->save();
+                    
+                    $userArray = $user->toArray();
+                    $userArray['mail_subject'] = 'Thank you for registration.';
+                    $this->sendEMail("emails.registration_welcome", $userArray);
+                    \DB::commit();
+                    
+                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [". $user->email ."]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
+                } catch (\Illuminate\Database\QueryException $e) {
+                    \DB::rollback();
+                    echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
+                } catch (\Exception $e) {
+                    \DB::rollback();
+                    echo json_encode(array('type' => 'error', 'message' => $e->getMessage())); die;
+                }
+            }
+        } else {
+            echo json_encode(array('type' => 'error', 'message' => trans('messages.user_invalid_data_parse.message'))); die;
+        }
+    }
+    
+    
+    /**
+     * Ajax Resend Activation email
+     * @param  $id
+     * @return message
+     */
+    public function resendPostEmail($email = 0) {
+        $email = base64_decode($email);
+        $user = \App\Http\Models\Profiles::where('email', $email)->first();
+        
+        if (isset($user) && count($user) > 0 && !is_null($user)) {
+            $userArray = $user->toArray();
+            $userArray['mail_subject'] = 'Thank you for registration.';
+            $this->sendEMail("emails.registration_welcome", $userArray);
+            
+            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
+        } else {
+            echo json_encode(array('type' => 'error', 'message' => "Invalid code found. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.")); die;
+        }
+    }
     
     /**
      * Resend Activation email
@@ -292,6 +362,42 @@ class AuthController extends Controller {
             }
         } else {
             return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_missing_email.message'));
+        }
+    }
+    
+    /**
+     * Ajax Forgot Password Post
+     * @param  array
+     * @return message
+     */
+    public function postAjaxForgotPassword() {
+        if (\Input::has('email')) {
+            try {
+                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                if (!is_null($user) && count($user) > 0) {
+                    if ($user->status == 0) {
+                        echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message'))); die;
+                    }
+                    $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
+                    $salt = $user->salt;
+                    $password = \crypt($newpass, $salt);
+                    $user->password = $password;
+                    $user->save();
+                    
+                    $userArray = $user->toArray();
+                    $userArray['mail_subject'] = 'New password request for your didueat account.';
+                    $userArray['new_pass'] = $newpass;
+                    $this->sendEMail("emails.forgot", $userArray);
+                    
+                    echo json_encode(array('type' => 'success', 'message' => 'Your password has been has been reset successfully. We send you an email at ['.$user->email.']. Please check your inbox for your new password. If you still face difficulties please contact us. thanks')); die;
+                } else {
+                    echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_not_verify.message'))); die;
+                }
+            } catch (Exception $e) {
+                echo json_encode(array('type' => 'error', 'message' => $e->getMessage())); die;
+            }
+        } else {
+            echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message'))); die;
         }
     }
 

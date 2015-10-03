@@ -75,9 +75,15 @@
             }(document, 'script', 'facebook-jssdk'));*/</script>
 
         <!-- BEGIN TOP BAR -->
-        <div id="registration-form"class="col-md-12" style="display: none;">
-            {!! Form::open(array('url' => '/auth/register', 'id'=>'registeration-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+        <div id="registration-form" class="col-md-12" style="display: none;">
+            <div id="registration-success" class="note note-success" style="display: none;">
+                <h1 class="block">success</h1>
+                <p></p>
+            </div>
+            {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                 <fieldset>
+                    <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
+                    
                     <legend>Your personal details</legend>
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span class="require">*</span></label>
@@ -106,13 +112,13 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="password">Password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="confirm_password">Confirm password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="confirm_password" id="confirm_password" class="form-control">
+                            <input type="password" name="confirm_password" id="confirm_password" class="form-control">
                         </div>
                     </div>
                 </fieldset>
@@ -124,7 +130,7 @@
                         <div class="col-lg-8 col-sm-8">
                             <div class="checker">
                                 <span>
-                                    <input type="checkbox" name="subscribed" id="subscribed2" class="form-control" >
+                                    <input type="checkbox" name="subscribed" id="subscribed2" class="form-control" value="1">
                                 </span>
                             </div>
                         </div>
@@ -133,7 +139,8 @@
 
                 <div class="row">
                     <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
-                        <button class="btn btn-primary" type="submit">Create an account</button>
+                        <button id="regButton" class="btn btn-primary" type="submit">Create an account</button>
+                        <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                     </div>
                 </div>
             {!! Form::close() !!}
@@ -188,8 +195,12 @@
         
         <div id="forget-passsword" style="display: none;">
             <h1>Forgot Your Password?</h1>
-            <DIV ID="forgot-message" align="center"></DIV>
+            <div id="forgot-pass-success" class="note note-success" style="display: none;">
+                <h1 class="block">success</h1>
+                <p></p>
+            </div>
             {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
+                <div id="error" class="alert alert-danger" style="display: none;"></div>
                 <div class="form-group col-md-12">
                     <label class="col-lg-4 control-label" for="forgot-email">Email</label>
                     <div class="col-lg-8">
@@ -198,7 +209,8 @@
                 </div>
                 
                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-5">
-                    <button class="btn btn-primary" type="submit">Send</button>
+                    <button id="regButton" class="btn btn-primary" type="submit">Send</button>
+                    <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 </div>
             {!! Form::close() !!}
         </div>
@@ -217,21 +229,29 @@
                 return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             }
             
-            function forgotpass(){
-                $.ajax({
-                    url: "/Foodie/",
-                    data: "action=forgotpass&Email=" + escapechars(getvalue("forgot-email")),
-                    type: "post",
-                    success: function (msg) {
-                        setvalue("forgot-message", msg);
-                    },
-                    failure: function (msg){
-                        setvalue("forgot-message", "ERROR: " + msg);
+            $('body').on('submit', '#forgot-pass-form', function(e){
+                var token = $("#forgot-pass-form input[name=_token]").val();
+                var email = $("#forgot-pass-form input[name=email]").val();
+                
+                $("#forgot-pass-form #regButton").hide();
+                $("#forgot-pass-form #regLoader").show();
+                $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token:token, email:email}, function(result){
+                    $("#forgot-pass-form #regButton").show();
+                    $("#forgot-pass-form #regLoader").hide();
+                    
+                    var json = jQuery.parseJSON(result);
+                    if(json.type == "error"){
+                        $('#forgot-pass-form #error').show();
+                        $('#forgot-pass-form #error').html(json.message);
+                    } else {
+                        $('#forgot-pass-form').hide();
+                        $('#forgot-pass-success').show();
+                        $('#forgot-pass-success p').html(json.message);
                     }
                 });
-                return false;
-            }
-
+                e.preventDefault();
+            });
+            
             function trylogin(){
                 var data = $('#login-ajax-form').serialize();
                 $.ajax({
@@ -256,6 +276,44 @@
                 });
                 return false;
             }
+            
+            $('body').on('click', '#resendMeEmail', function(e){
+                var url = $(this).attr('href');
+                $('#registration-success p').html('Please wait email is being send...');
+                $.get(url, {}, function(result){
+                    var json = jQuery.parseJSON(result);
+                    $('#registration-success p').html(json.message);
+                });
+                e.preventDefault();
+            });
+            
+            $('body').on('submit', '#register-form', function(e){
+                var token = $("#register-form input[name=_token]").val();
+                var name = $("#register-form input[name=name]").val();
+                var email = $("#register-form input[name=email]").val();
+                var phone = $("#register-form input[name=phone]").val();
+                var password = $("#register-form input[name=password]").val();
+                var confirm_password = $("#register-form input[name=confirm_password]").val();
+                var subscribed = $("#register-form input[name=subscribed]").val();
+                
+                $("#regButton").hide();
+                $("#regLoader").show();
+                $.post("{{ url('auth/register/ajax') }}", {_token:token, name:name, email:email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
+                    $("#regButton").show();
+                    $("#regLoader").hide();
+                    
+                    var json = jQuery.parseJSON(result);
+                    if(json.type == "error"){
+                        $('#register-form #registration-error').show();
+                        $('#register-form #registration-error').html(json.message);
+                    } else {
+                        $('#register-form').hide();
+                        $('#registration-success').show();
+                        $('#registration-success p').html(json.message);
+                    }
+                });
+                e.preventDefault();
+            });
 
             function ValidURL(textval) {
                 var urlregex = new RegExp(

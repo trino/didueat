@@ -16,10 +16,13 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::post('auth/register/ajax', 'Auth\AuthController@postAjaxRegister');
 Route::get('auth/resend_email/{email}', 'Auth\AuthController@resendEmail');
+Route::get('auth/resend_email/ajax/{email}', 'Auth\AuthController@resendPostEmail');
 Route::get('auth/verify_email/{email}', 'Auth\AuthController@verifyEmail');
 Route::get('auth/forgot-passoword', 'Auth\AuthController@forgotPassword');
 Route::post('auth/forgot-passoword', 'Auth\AuthController@postForgotPassword');
+Route::post('auth/forgot-passoword/ajax', 'Auth\AuthController@postAjaxForgotPassword');
 
 // Dashboard After Authentication routes...
 Route::resource('dashboard', 'AdministratorController@dashboard');
