@@ -13,20 +13,20 @@ use App\Http\Controllers\Controller;
  * @date       10 September, 2015
  */
 class HomeController extends Controller {
-
+    
     /**
      * Home Page
      * @param null
      * @return view
      */
     public function index() {
-
+        
 
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
         return view('home', $data);
     }
-
+    
     /**
      * All Restaurants Lists
      * @param null
@@ -37,17 +37,24 @@ class HomeController extends Controller {
         $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
         return view('restaurants', $data);
     }
-
+    
     /**
      * Signup Restaurants
      * @param null
      * @return view
      */
     public function signupRestaurants() {
-        $post = \Input::all();
+         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Name']) || empty($post['Name'])) {
                 return \Redirect::to('/restaurants/signup')->with('message', "[Restaurant Name] field is missing!")->withInput();
+            }
+            if (!isset($post['Email']) || empty($post['Email'])) {
+                return \Redirect::to('/restaurants/signup')->with('message', "[Restaurant Email] field is missing!")->withInput();
+            }
+            $is_email = \App\Http\Models\Restaurants::where('Email', '=', $post['Email'])->count();
+            if ($is_email > 0) {
+                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
             }
             if (!isset($post['Country']) || empty($post['Country'])) {
                 return \Redirect::to('/restaurants/signup')->with('message', "[Country] field is missing!")->withInput();
@@ -64,96 +71,37 @@ class HomeController extends Controller {
             if (!isset($post['Minimum']) || empty($post['Minimum'])) {
                 return \Redirect::to('/restaurants/signup')->with('message', "[Minimum Sub Total For Delivery] field is missing!")->withInput();
             }
-            
-            if (!isset($post['full_name']) || empty($post['full_name'])) {
-                return \Redirect::to('restaurants/signup')->with('message', '[Full Name] field is missing!')->withInput();
-            }
-            if (!isset($post['email']) || empty($post['email'])) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_missing_email.message'))->withInput();
-            }
-
-            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
-            if ($is_email > 0) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
-            }
-            if (!isset($post['password']) || empty($post['password'])) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_pass_field_missing.message'))->withInput();
-            }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_confim_pass_field_missing.message'))->withInput();
-            }
-            if ($post['password'] != $post['confirm_password']) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_passwords_mismatched.message'))->withInput();
-            } else {
-                \DB::beginTransaction();
-                try {
-                    $post1['Name'] = $post['Name'];
-                    $post1['Slug'] = str_replace('&nbsp;', '-', strtolower($post['Name']));
-                    $post1['Phone'] = $post['Phone'];
-                    $post1['Description'] = $post['Description'];
-                    $post1['Country'] = $post['Country'];
-                    $post1['Province'] = $post['Province'];
-                    $post1['Address'] = $post['Address'];
-                    $post1['City'] = $post['City'];
-                    $post1['PostalCode'] = $post['PostalCode'];
-                    $post1['Genre'] = $post['Genre'];
-                    $post1['DeliveryFee'] = $post['DeliveryFee'];
-                    $post1['Minimum'] = $post['Minimum'];
-                    
-                    if (\Input::hasFile('logo')) {
-                        $image = \Input::file('logo');
-                        $ext = $image->getClientOriginalExtension();
-                        $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
-                        $destinationPath = public_path('assets/images/restaurants');
-                        $image->move($destinationPath, $newName);
-                        $post1['Logo'] = $newName;
-                    }
-
-                    $ob = new \App\Http\Models\Restaurants();
-                    $ob->populate($post1);
-                    $ob->save();
-
-                    foreach ($post['Open'] as $key => $value) {
-                        if (!empty($value)) {
-                            $hour['RestaurantID'] = $ob->ID;
-                            $hour['Open'] = $value;
-                            $hour['Close'] = $post['Close'][$key];
-                            $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
-                            $ob2 = new \App\Http\Models\Hours();
-                            $ob2->populate($hour);
-                            $ob2->save();
-                        }
-                    }
-
-                    $post2['status'] = 0;
-                    $post2['profileType'] = 1;
-                    $post2['restaurantId'] = $ob->ID;
-                    $post2['name'] = $post['full_name'];
-                    $post2['email'] = $post['email'];
-                    $post2['phone'] = $post['Phone'];
-                    $post2['password'] = $post['password'];
-                    $post2['subscribed'] = $post['subscribed'];
-
-                    $user = new \App\Http\Models\Profiles();
-                    $user->populate($post2);
-                    $user->save();
-
-                    $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'Thank you for registration.';
-                    $this->sendEMail("emails.registration_welcome", $userArray);
-                    \DB::commit();
-
-                    $message['title'] = "Registration Success";
-                    $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
-                    return view('messages.message', $message);
-                } catch (\Illuminate\Database\QueryException $e) {
-                    \DB::rollback();
-                    return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
-                } catch (\Exception $e) {
-                    \DB::rollback();
-                    return \Redirect::to('restaurants/signup')->with('message', $e->getMessage())->withInput();
+            try {
+                if (\Input::hasFile('logo')) {
+                    $image = \Input::file('logo');
+                    $ext = $image->getClientOriginalExtension();
+                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+                    $destinationPath = public_path('assets/images/restaurants');
+                    $image->move($destinationPath, $newName);
+                    $post['Logo'] = $newName;
                 }
+                $post['Slug']= $this->createslug($post['Name']);
+                $ob = new \App\Http\Models\Restaurants();
+                $ob->populate($post);
+                $ob->save();
+                
+                foreach ($post['Open'] as $key => $value) {
+                    if(!empty($value)){
+                        $hour['RestaurantID'] = $ob->ID;
+                        $hour['Open'] = $value;
+                        $hour['Close'] = $post['Close'][$key];
+                        $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
+                        $ob2 = new \App\Http\Models\Hours();
+                        $ob2->populate($hour);
+                        $ob2->save();
+                    }
+                }
+                
+                \Session::put('TempRestaurantID', $ob->ID);
+
+                return \Redirect::to('/auth/register')->with('message', "Resturant created successfully");
+            } catch (\Exception $e) {
+                return \Redirect::to('/restaurants/signup')->with('message', $e->getMessage());
             }
         } else {
             $data['title'] = "Signup Restaurants Page";
@@ -169,9 +117,9 @@ class HomeController extends Controller {
      * @param null
      * @return view
      */
-    public function menusRestaurants($slug) { 
+    public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->paginate(8);
+        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->paginate(2);
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
@@ -182,12 +130,14 @@ class HomeController extends Controller {
         else
             return view('restaurants-menus', $data);
     }
-
-    function test() {
-        if (isset($_POST)) {
+    
+    function test()
+    {
+        if(isset($_POST))
+        {
             var_dump($_POST);
         }
-        return view('test');
+         return view('test');
     }
     
     function createslug($text)
