@@ -14,10 +14,10 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
@@ -52,28 +52,28 @@
                                             Your form validation is successful!
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 right-align">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 right-align">
                                                 There are 1 subscriber(s).
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 right-align">Subject <span class="required">* </span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 right-align">Subject <span class="required">* </span>
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 col-sm-8">
                                                 <input type="text" name="subject" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 right-align">Message <span class="required">* </span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 right-align">Message <span class="required">* </span>
                                             </label>
-                                            <div class="col-md-8">
+                                            <div class="col-md-8 col-sm-8 col-xs-12">
                                                 <textarea name="message" rows="6" class="form-control" required></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
-                                            <div class="col-md-offset-3 col-md-9">
+                                            <div class="col-md-offset-3 col-md-9 col-sm-9 col-xs-12">
                                                 <button type="submit" class="btn red">Send</button>
                                             </div>
                                         </div>
