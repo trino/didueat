@@ -16,14 +16,14 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-sm-9 col-md-10">
+                <div class="col-xs-12 col-sm-8 col-md-10">
 
                     <div class="portlet box red">
                         <div class="portlet-title">
@@ -43,14 +43,14 @@
                                      @endif
                                     <h3 class="form-section">Restaurant Info</h3>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Name <span class="required">*</span></label>
                                                 <input type="text" name="Name" class="form-control" placeholder="Restaurant Name" value="{{ $resturant->Name }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Email <span class="required">*</span></label>
                                                 <input type="email" name="Email" class="form-control" placeholder="Restaurant Email" value="{{ $resturant->Email }}" required>
@@ -59,14 +59,14 @@
                                     </div>
                                     <!--/row-->
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Phone Number</label>
                                                 <input type="text" name="Phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->Phone }}">
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Description</label>
                                                 <input type="text" name="Description" class="form-control" placeholder="Description" value="{{ $resturant->Description }}">
@@ -77,7 +77,7 @@
 
                                     <h3 class="form-section">Address</h3>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country <span class="required">*</span></label>
                                                 <select name="Country" class="form-control" required>
@@ -88,7 +88,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Genre</label>
                                                 <select name="Genre" class="form-control">
@@ -101,14 +101,14 @@
                                         </div>
                                     </div>        
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
                                                 <input type="text" class="form-control" name="Province" placeholder="Province Name" value="{{ $resturant->Province }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Street Address <span class="required">*</span></label>
                                                 <input type="text" name="Address" class="form-control" placeholder="Street Address" value="{{ $resturant->Address }}" required>
@@ -118,14 +118,14 @@
                                     </div>
                                     <!--/row-->
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>City <span class="required">*</span></label>
                                                 <input type="text" name="City" class="form-control" placeholder="City" value="{{ $resturant->City }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Postal Code <span class="required">*</span></label>
                                                 <input type="text" name="PostalCode" class="form-control" placeholder="Postal Code" value="{{ $resturant->PostalCode }}" required>
@@ -144,13 +144,13 @@
                                             $ID[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'ID');
                                     ?>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 padding-top-5"><?php echo $value; ?></label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 col-sm-4 col-xs-12">
                                                     <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo $open[$key]; ?>" class="form-control time"/>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 col-sm-4 col-xs-12">
                                                     <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo $close[$key]; ?>" class="form-control time"/>
                                                     <input type="hidden" name="DayOfWeek[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
                                                     <input type="hidden" name="IDD[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>" />
@@ -163,13 +163,13 @@
                                     
                                     <h3 class="form-section">Delivery</h3>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
                                                 <input type="text" name="DeliveryFee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->DeliveryFee }}" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Minimum Sub Total For Delivery <span class="required">*</span></label>
                                                 <input type="text" name="Minimum" class="form-control" placeholder="Minimum Sub Total For Delivery" value="{{ $resturant->Minimum }}" required>
@@ -179,8 +179,8 @@
                                     <!--/row-->
                                     <h3 class="form-section">Restaurant Image</h3>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-4 col-sm-4 profilepic">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-md-4 col-sm-4 col-xs-12 col-sm-4 profilepic">
                                                 <strong>Restaurant Image</strong><br><br>
                                                 @if($resturant->Logo)
                                                 <img id="picture" src="{{ asset('assets/images/restaurants/'.$resturant->Logo) }}" title="" style="width: 100%;">

@@ -352,6 +352,17 @@ width: 100% !important;
 .slimScrollDiv {
     height: 165px !important;
     margin-bottom: 0;
+}
+
+.sidebar-menu .list-group-item a {
+  font-size: 11px !important;
+}
+.ecommerce .sidebar .list-group-item {
+  padding: 8px 0 6px;
+}
+
+.sidebar-menu .fa-angle-right {
+  margin-right: -4px;
 }	
 
 }
@@ -1260,6 +1271,10 @@ width: 15% !important;
   padding: 0 15px !important;
 }
 
+.sidebar-menu .list-group-item a {
+  font-size: 14px !important;
+}
+
 }
 /* END max width 767px */
 
@@ -1279,6 +1294,10 @@ width: 215px !important;
 
 .newbrowse {
 width: auto !important;
+}
+
+.deleteme .infolist.noprint > strong {
+  width: 40% !important;
 }
 
 }
@@ -1599,6 +1618,15 @@ width: 60px !important;
 .ecommerce .main .top-cart-block .fa-shopping-cart, .ecommerce .main .bottom-cart .fa-shopping-cart {
   right: 30px !important;
   top: -84px;
+}
+
+.tabletools-dropdown-on-portlet .btn {
+  font-size: 8px;
+  margin-right: 2px !important;
+}
+
+.deleteme .infolist.noprint > strong {
+  width: 50% !important;
 }
 
 }

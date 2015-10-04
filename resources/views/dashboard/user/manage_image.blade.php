@@ -16,19 +16,19 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
-            <div class="col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="">
 
                 </div>
             </div>
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-10 col-sm-8 col-md-10 ">
+                <div class="col-xs-12 col-sm-8 col-md-10 ">
                     <div class="portlet box red">
                         <div class="portlet-title">
                             <div class="caption">
@@ -80,7 +80,7 @@
                         </ul>
                         <div class="row mix-grid" style="">
                             @foreach($images_list as $value)
-                            <div class="col-md-3 col-sm-4 mix category_1 mix_all" style=" display: block; opacity: 1;">
+                            <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
                                 <div class="mix-inner">
                                     <img class="img-responsive" src="{{ url('assets/images/users/'.$value->Filename) }}" alt="">
                                     <div class="mix-details">

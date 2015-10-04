@@ -13,15 +13,15 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
-            <div class="col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="">
 
                 </div>
             </div>
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
@@ -87,18 +87,18 @@
                                         
                                         <h3 class="form-section">Person Info</h3>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Street Address <span class="required">*</span></label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Street Address <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Street" class="form-control" placeholder="Street address" required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Postal Code</label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Postal Code</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="PostCode" class="form-control" placeholder="Postal Code">
                                                     </div>
                                                 </div>
@@ -106,18 +106,18 @@
                                         </div>
                                         <!--/row-->
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Apartment/Unit/ Room <span class="required">*</span></label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Apartment/Unit/ Room <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Apt" class="form-control" placeholder="Name of the address" required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Buzz code/door bell number</label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Buzz code/door bell number</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Buzz" class="form-control" placeholder="Buzz code or door bell number">
                                                     </div>
                                                 </div>
@@ -125,18 +125,18 @@
                                         </div>
                                         <!--/row-->
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Mobile Number</label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mobile Number</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Number" class="form-control" placeholder="Mobile Number">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Phone Number</label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="PhoneNo" class="form-control" placeholder="Phone Number">
                                                     </div>
                                                 </div>
@@ -144,18 +144,18 @@
                                         </div>
                                         <!--/row-->
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">City <span class="required">*</span></label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="City" class="form-control" placeholder="City" required>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Province <span class="required">*</span></label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Province <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Province" class="form-control" placeholder="Province" required>
                                                     </div>
                                                 </div>
@@ -163,10 +163,10 @@
                                         </div>
                                         <!--/row-->
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Country <span class="required">*</span></label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="required">*</span></label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <select name="Country" class="form-control" required>
                                                             <option value="">-Select One-</option>
                                                             @foreach($countries_list as $value)
@@ -176,10 +176,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Notes</label>
-                                                    <div class="col-md-9">
+                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Notes</label>
+                                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                                         <input type="text" name="Notes" class="form-control" placeholder="Notes">
                                                     </div>
                                                 </div>
@@ -189,14 +189,14 @@
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="row">
-                                                    <div class="col-md-offset-3 col-md-9">
+                                                    <div class="col-md-offset-3 col-md-9 col-sm-9 col-xs-12">
                                                         <button type="submit" class="btn red">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                             </div>
                                         </div>
                                     </div>

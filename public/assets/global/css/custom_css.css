@@ -537,6 +537,7 @@ button:hover {
 .deleteme .infolist.noprint > strong {
     display: inline-block;
     width: 20%;
+    vertical-align: top;
 }
 
 .deleteme .top-cart-content-wrapper {

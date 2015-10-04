@@ -13,19 +13,19 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
-            <div class="col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="">
 
                 </div>
             </div>
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="portlet box red">
                         <div class="portlet-title">
                             <div class="caption">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 
-                <div class="col-md-5 col-sm-8">
+                <div class="col-md-5 col-sm-8 col-xs-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red-intense">
                             <div class="portlet-title">
