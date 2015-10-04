@@ -20,12 +20,13 @@
                         <div class="toprint">
                             
                             <div class="noprint">
-                                <h3 class="sidebar__title">Order Report</h3>
+                                <h3 class="sidebar__title">Print Order Report</h3>
                                 <hr class="shop__divider">
                                 <div>
                                     <strong>FILTER BY DATE</strong>
-                                    <form class="col-xs-12" style="height: auto!important;padding:0!important" method="get" action="/charlies/orders/report">
-                                        <input type="text" class="datepicker date1 form-control--contact hasDatepicker" name="from" placeholder="FROM (Date)" value="2014-11-02" id="dp1438605049626"> <input type="text" class="datepicker date2 form-control--contact hasDatepicker" name="to" placeholder="TO (Date)" value="2015-08-13" id="dp1438605049627">
+                                    <form class="col-xs-12" style="height: auto!important;padding:0!important" method="get" action="">
+                                        <input type="text" class="datepicker  form-control--contact " name="from" placeholder="FROM (Date)" value="<?php echo $_GET['from'];?>">
+                                        <input type="text" class="datepicker  form-control--contact " name="to" placeholder="TO (Date)" value="<?php echo $_GET['to'];?>" >
                                         <input type="submit" style="padding:10px;margin-top:-1px;" class="btn btn-primary" value="Go" onclick="return checkFilter();">
                                         <div class="clearfix"></div>
 
@@ -34,7 +35,47 @@
                                 </div>
                                 <hr class="shop__divider">
                             </div>
-
+                            <?php if(count($orders)>0){?>
+                                @foreach($orders as $order)
+                                  <div class="portlet box red-intense">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-globe"></i>Orders List
+                                </div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                                <div class="portlet-body">
+                                <?php
+                                
+                                    //$restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurantId)->first();    ?>
+                                      <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $order->Name;?></div>
+                                      <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
+                                      <div class="infolist noprint"><strong>EMAIL: </strong><?= $order->email;?></div>
+                                      <div class="infolist noprint"><strong>CONTACT: </strong><?= $order->contact;?></div>
+                                      <div class="infolist noprint"><strong>ORDER TYPE: </strong><?= ($order->order_type=='1')?'Delivery':'Pickup'?></div>
+                                      <div class="infolist noprint"><strong>ORDERED ON: </strong><?php $date = new DateTime($order->order_time);echo $date->format('l jS \of F Y h:i:s A'); ?></div>
+                                      <div class="infolist noprint"><strong>ORDER READY: </strong><?= $order->order_till;?></div>
+                                    <?php
+                                    if ($order->remarks!='') {
+                                        echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
+                                    }
+                                        //echo  $this->element('receipt');
+                                ?>
+                                    @include('common.receipt')
+                                    <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <?php }
+                            else
+                            {
+                                
+                                echo "Sorry! No Results Found.";
+                            }
+                        ?>
+                        <div class="clearfix"></div>
+                            <!--
                             <div class="dashboard toprint">
                                 <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>  
                                 <div class="infolist noprint"><strong>ORDERED BY: </strong>Brian Le</div>                  
@@ -321,6 +362,7 @@
                                 <span style="float: right;"><strong>GRAND TOTAL FOR REPORT: </strong>$405.13</span>
                                 <div class="clearfix"></div>
                             </div>
+-->
 
                             <div class="clearfix  hidden-xs"></div>
                             <script>
@@ -366,5 +408,10 @@
     </div>                
     <!-- END CONTENT -->
 </div>
-
+<script>
+$(function(){
+    $( ".datepicker" ).datepicker({"dateFormat":'yy-mm-dd'});
+    
+})
+</script>
 @stop

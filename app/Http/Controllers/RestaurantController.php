@@ -370,7 +370,15 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function report() {
-        return view('dashboard.restaurant.report', array('title' => 'Report'));
+        
+        $order = \App\Http\Models\Reservations::where('restaurantId',  \Session::get('session_restaurantId'))->leftJoin('Restaurants','Reservations.restaurantId','=','Restaurants.ID');
+        if(isset($_GET['from']))
+            $order = $order->where('order_till','>=',$_GET['from']);
+        if(isset($_GET['to']))
+            $order = $order->where('order_till','<=',$_GET['to']);
+        $data['orders'] = $order->get();
+        $data['title'] =  'Report';
+        return view('dashboard.restaurant.report',$data);
     }
 
     public function menu_form($id) {

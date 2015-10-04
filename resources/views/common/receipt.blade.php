@@ -17,11 +17,11 @@
                <div class="col-md-12 col-sm-12 col-xs-12">
                    <div class="row">
                       <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
-                        <img src="<?php echo url('assets/images/restaurants/'.$restaurant->Logo);?>" class='img-responsive' />
+                        <img src="<?php echo url('assets/images/restaurants/'.$order->Logo);?>" class='img-responsive' />
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 resturant-desc">
-                        <span><?php echo $restaurant->Address.",". $restaurant->City;?></span>
-                        <span><?php echo $restaurant->Phone;?></span>
+                        <span><?php echo $order->Address.",". $order->City;?></span>
+                        <span><?php echo $order->Phone;?></span>
                       </div>
                    </div>  
                </div> 
