@@ -493,10 +493,22 @@ class RestaurantController extends Controller {
         return \Redirect::to('restaurant/menus-manager')->with('message', 'Item deleted successfully');
     }
     public function order_detail($ID) {
-        $data['order'] = \App\Http\Models\Reservations::where('id', $ID)->first();
-        $data['title'] = 'Orders Detail';
+        if($data['order'] = \App\Http\Models\Reservations::where('Reservations.id', $ID)->leftJoin('Restaurants','Reservations.restaurantId','=','Restaurants.ID')->first())
+        {
+            if(is_null($data['order']['restaurantId']))
+                return back()->with('status', 'Restaurant Not Found!');
+            else
+            {
+                $data['title'] = 'Orders Detail';
+                return view('dashboard.restaurant.orders_detail', $data);
+            }
+        }
+        else
+        {
+             
+        }
         
-        return view('dashboard.restaurant.orders_detail', $data);
+        
         //$this->set('order',\App\Http\Models\Reservations::where('id', $ID)->get());
         //$this->set('type','detail');
     }

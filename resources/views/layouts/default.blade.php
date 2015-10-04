@@ -337,6 +337,11 @@
         <div class="main">
             <!-- BEGIN SIDEBAR & CONTENT -->
             <!-- Dynamic Content -->
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             @yield('content')                       
             <!-- End Dynamic Content -->
             <!-- END SIDEBAR & CONTENT -->
