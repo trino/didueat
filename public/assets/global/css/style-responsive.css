@@ -1275,6 +1275,10 @@ width: 15% !important;
   font-size: 14px !important;
 }
 
+.index-page {
+  margin-left: 0 !important;
+}
+
 }
 /* END max width 767px */
 
