@@ -74,7 +74,7 @@
         <div class="row margin-bottom-40" style="margin-top: 50px; padding: 30px;">
             <!-- Pricing -->
 
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-4 col-xs-12">
                 <div class="pricing pricing-active hover-effect">
                     <div class="pricing-head pricing-head-active">
                         <h3>Expert
@@ -109,14 +109,14 @@
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
                         </p>
-                        <a href="#" class="btn btn-primary">
+                        <a href="#" class="btn btn-primary red">
                             Sign Up <i class="m-icon-swapright m-icon-white"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-9 col-sm-8 col-xs-12">
                 @if(Session::has('message'))
                 <div class="alert alert-danger">
                     <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
@@ -125,14 +125,14 @@
 
                 {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                 <div class="row margin-bottom-20">
-                    <div class="col-md-4 col-sm-4 profilepic">
+                    <div class="col-md-4 col-sm-4 col-xs-12 profilepic">
                         <h3 class="form-section">Restaurant Image</h3>
                         <img id="picture" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;"><br>
-                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success" onclick="document.getElementById('hiddenLogo').click();
+                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red" onclick="document.getElementById('hiddenLogo').click();
                                 return false">Change Image</a>
                         <input type="file" name="logo" id="hiddenLogo" style="display: none;" />
                     </div>
-                    <div class="col-md-8 col-sm-8">
+                    <div class="col-md-8 col-sm-8 col-xs-12">
                         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                             <h3 class="form-section">Restaurant Info</h3>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -233,13 +233,13 @@
                             $close[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Close');
                             ?>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 padding-top-5"><?php echo $value; ?></label>
-                                        <div class="col-md-4">
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 padding-top-5"><?php echo $value; ?></label>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <input type="text" name="Open[<?php echo $key; ?>]" value="" data-format="hh:mm A" class="form-control clockface_1"/>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
                                             <input type="text" name="Close[<?php echo $key; ?>]" value="" data-format="hh:mm A" class="form-control clockface_1"/>
                                             <input type="hidden" name="DayOfWeek[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
                                         </div>
@@ -250,13 +250,13 @@
 <?php } ?>
 
                         <h3 class="form-section">Delivery</h3>
-                        <div class="col-md-5">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
                                 <input type="text" name="DeliveryFee" class="form-control" placeholder="Delivery Fee" value="{{ old('DeliveryFee') }}" required>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-5 col-sm-5 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Minimum Sub Total For Delivery <span class="required">*</span></label>
                                 <input type="text" name="Minimum" class="form-control" placeholder="Minimum Sub Total For Delivery" value="{{ old('Minimum') }}" required>
@@ -267,8 +267,8 @@
 
                         <h3 class="form-section">Create username & password</h3>
                         <div class="form-group">
-                            <label for="full_name" class="col-md-3 control-label">Full Name <span class="required">*</span></label>
-                            <div class="col-md-7">
+                            <label for="full_name" class="col-md-3 col-sm-3 col-xs-12 control-label">Full Name <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-user"></i>
                                     <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
@@ -276,8 +276,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="col-md-3 control-label">Email <span class="required">*</span></label>
-                            <div class="col-md-7">
+                            <label for="email" class="col-md-3 col-sm-3 col-xs-12 control-label">Email <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-envelope"></i>
                                     <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
@@ -285,8 +285,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="col-md-3 control-label">Password <span class="required">*</span></label>
-                            <div class="col-md-7">
+                            <label for="password" class="col-md-3 col-sm-3 col-xs-12 control-label">Password <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-key"></i>
                                     <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
@@ -294,8 +294,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="confirm_password" class="col-md-3 control-label">Re-type Password <span class="required">*</span></label>
-                            <div class="col-md-7">
+                            <label for="confirm_password" class="col-md-3 col-sm-3 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-key"></i>
                                     <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required>
@@ -303,8 +303,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="subscribed" class="col-md-3 control-label">&nbsp;</label>
-                            <div class="col-md-7">
+                            <label for="subscribed" class="col-md-3 col-sm-3 col-xs-12 control-label">&nbsp;</label>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
                                 <label>
                                     <input type="checkbox" name="subscribed" id="subscribed" value="1" />
                                     Sign up for our Newsletter
@@ -313,8 +313,8 @@
                         </div>
 
                         <div class="clearfix"></div>
-                        <hr class="shop__divider">
-                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                        <hr class="shop__divider" />
+                        <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
                     <br><br>
                 </div>

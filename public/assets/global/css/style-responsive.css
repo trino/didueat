@@ -1293,6 +1293,17 @@ width: 15% !important;
   width: 100%;
 }
 
+.slide {
+  margin-top: -44px !important;
+}
+
+.intro .text {
+  line-height: 23px;
+  max-width: 520px !important;
+  padding-top: 120px !important;
+}
+
+
 }
 /* END max width 767px */
 
@@ -1316,6 +1327,29 @@ width: auto !important;
 
 .deleteme .infolist.noprint > strong {
   width: 40% !important;
+}
+
+.slide .text {
+  color: #fff;
+  font: 40px "PT Sans Narrow",sans-serif !important;
+  padding-top: 125px !important;
+  text-align: center;
+  text-transform: uppercase;
+  top: 40% !important;
+}
+
+.slide .text > h3 {
+  font-size: 20px !important;
+}
+
+.intro .text {
+  line-height: 23px;
+  max-width: 100% !important;
+  padding: 20px !important;
+}
+
+.intro {
+  height: auto !important;
 }
 
 }
