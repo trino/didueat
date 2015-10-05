@@ -62,23 +62,29 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        echo trans('messages.user_inactive.message'); die;
+                        echo trans('messages.user_inactive.message');
+                        die;
                     }
                     $password = encryptpassword(\Input::get('password'));
                     //echo $password; die();
                     if ($user->password == $password) {
                         login($user);
                     } else {
-                        echo trans('messages.user_login_invalid.message'); die;
+                        //echo $user->password . " != " . $password ; die();
+                        echo trans('messages.user_login_invalid.message');
+                        die;
                     }
                 } else {
-                    echo trans('messages.user_not_registered.message'); die;
+                    echo trans('messages.user_not_registered.message');
+                    die;
                 }
             } catch (Exception $e) {
-                echo $e->getMessage(); die;
+                echo $e->getMessage();
+                die;
             }
         } else {
-            echo trans('messages.user_missing_email.message'); die;
+            echo trans('messages.user_missing_email.message');
+            die;
         }
     }
 
