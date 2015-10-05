@@ -18,8 +18,8 @@ function handle_action($Action = ""){
     if($Action) {
         switch ($Action) {
             case "test":
-                write("TEST", "TESTING VALUE");
-                $Test = "FAIL> " . read("TEST") . "<FAIL";
+                write("TEST", "TESTING");
+                $Test = read("TEST");
                 debug($Test);
                 die();
                 break;
@@ -92,9 +92,11 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
 function read($Name){
     return \Session::get('session_' . $Name);
 }
-function write($Name, $Value){
+function write($Name, $Value, $Save = false){
     \Session::put('session_' . $Name, $Value);
+    if($Save){\Session::save();}
 }
+
 function salt(){
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
 }
@@ -236,8 +238,6 @@ function forgot_password($Email, $Password=""){
         return $Password;
     }
 }
-
-
 
 ////////////////////////////////////////Profile Address API ////////////////////////////////////
 function enum_profile_addresses($ProfileID){
