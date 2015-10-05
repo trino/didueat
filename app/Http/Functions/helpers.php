@@ -18,8 +18,7 @@ function handle_action($Action = ""){
     if($Action) {
         switch ($Action) {
             case "test":
-                // write("TEST", "TESTING", true);
-                $Test = get_current_restaurant();
+                $Test = edit_hour(1, 1, "09:00 AM", "09:00 PM");
                 debug($Test);
                 die();
 
@@ -575,13 +574,9 @@ function sort_notification_addresses($RestaurantID = ""){
     if(!$RestaurantID){$RestaurantID = get_current_restaurant();}
     $Addresses = enum_notification_addresses($RestaurantID);
     if($Addresses) {
-        $Types = array("Email", "Phone");
-        $Data = array();
-        foreach ($Types as $Type) {
-            $Data[$Type] = array();
-        }
+        $Data = array("Email" => array(), "Phone" => array());
         foreach ($Addresses as $Address) {
-            $Data[$Types[$Address->Type]][] = $Address->Address;
+            $Data[$Address->Type][] = $Address->Address;
         }
         return $Data;
     }
@@ -590,7 +585,8 @@ function find_notification_address($RestaurantID, $Address){
     $Type = data_type($Address);
     if ($Type == 0 || $Type == 1) {//email and phone whitelisted
         $Address = clean_data($Address);
-        return enum_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address))->first();
+        $Data = enum_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Address" => $Address));
+        return first($Data);
     }
 }
 function delete_notification_address($RestaurantID, $Address = "") {
@@ -599,7 +595,7 @@ function delete_notification_address($RestaurantID, $Address = "") {
         $Type = data_type($Address);
         if ($Type == 0 || $Type == 1) {//email and phone whitelisted
             $Address = clean_data($Address);
-            delete_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address));
+            delete_all("notification_addresses", array("RestaurantID" => $RestaurantID, "Address" => $Address));
         }
     } else {//delete all
         delete_all("notification_addresses", array("RestaurantID" => $RestaurantID));
@@ -645,15 +641,28 @@ function is_restaurant_open_now($RestaurantID, $date = ""){
     if(!$date){ $date = now();}
     if(strpos($date, "-")){$date = strtotime($date);}
     if(!is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
-        $dayofweek = date('w', $date);
+        $dayofweek = get_name_of_weekday($date);
         $time = date('Gi', $date);
         return is_restaurant_open($RestaurantID, $dayofweek, $time);
     }
 }
 
-function get_hours($RestaurantID){
+function get_name_of_weekday($DayOfWeek = ""){
+    if(!$DayOfWeek){
+        $DayOfWeek = now();
+        $DayOfWeek = date('w', $DayOfWeek);
+    }
+    $Days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+    return $Days[$DayOfWeek];
+}
+function get_hours($RestaurantID, $DayOfWeek = ""){
     $ret = array();
-    $Data = enum_all('hours', ['RestaurantID' => $RestaurantID], 'DayOfWeek');
+    $Params = array('RestaurantID' => $RestaurantID);
+    if($DayOfWeek){
+        if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+        $Params['DayOfWeek'] = $DayOfWeek;
+    }
+    $Data = enum_all('hours', $Params, 'DayOfWeek');
     $HasHours = false;
     foreach($Data as $Day){
         $ret[$Day->DayOfWeek . ".Open"] = $Day->Open;
@@ -665,24 +674,49 @@ function get_hours($RestaurantID){
 }
 
 function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
-    $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=>$DayOfWeek);
+    if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+    $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=> $DayOfWeek);
     delete_all('hours', $data);
     if(!$Open){$Open = "";}
     if(!$Close){$Close = "";}
     $data["Open"] = $Open;
     $data["Close"] = $Close;
+
+    debug($data);
+    die();
+
     if($Open && $Close) {new_entry("hours", "ID", $data);}
 }
 
 function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
     if (get_restaurant($RestaurantID)->Open) {
-        $Data = enum_all('hours', ['RestaurantID' => $RestaurantID, "DayOfWeek" => $DayOfWeek])->first();
-        if ($Data) {
-            return $Data->Open <= $Time && $Data->Close >= $Time;
+        if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+        $Data = get_hours($RestaurantID, $DayOfWeek);
+        if ($Data["HasHours"]) {
+            $Open = parsetime($Data[$DayOfWeek . ".Open"]);
+            $Close = parsetime($Data[$DayOfWeek . ".Close"]);
+            return $Open <= $Time && $Close >= $Time;
         }
     }
 }
 
+function parsetime($Time){
+    $TheTime = 0;
+    $Time = strtoupper($Time);
+    if( right($Time, 2) == "PM" || right($Time, 2) == "AM"){//12 hour time
+        if(right($Time, 2) == "PM"){
+            $TheTime = 1200;
+        }
+        $Time = left($Time, strlen($Time) - 3);
+    }
+    $Time = explode(":", $Time);
+    debug($TheTime);
+    debug($Time);
+    if(count($Time)==2) {
+        $TheTime = $TheTime + ($Time[0] * 100) + $Time[1];
+    }
+    return $TheTime;
+}
 
 /////////////////////////////////Event log API////////////////////////////////////
 function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
@@ -699,7 +733,8 @@ function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
     $Date = now();
     new_entry("eventlog", "ID", array("UserID" => $UserID, "RestaurantID" => $RestaurantID, "Date" => $Date, "Text" => $Event));
 }
-function enum_events($RestaurantID){
+function enum_events($RestaurantID = false){
+    if(!$RestaurantID){ $RestaurantID = get_current_restaurant(); }
     return enum_all("eventlog", array("RestaurantID" => $RestaurantID));
 }
 
@@ -945,7 +980,7 @@ function debug($Iterator, $DoStacktrace = true){
         }
     } else {
         echo '(value)<BR>';
-        echo $Iterator;
+        echo $Iterator . "<BR>";
     }
 }
 function is_iterable($var) {
