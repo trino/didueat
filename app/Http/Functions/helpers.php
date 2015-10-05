@@ -3,11 +3,11 @@
 function initialize(){
     DB::enableQueryLog();
 
-    //  test();
+    //test();
 }
 
 function test(){
-    $Test = find_profile("skpsoftech@gmail.com", "5Hma0X3q");
+    $Test = webroot(true);
     debug($Test);
     die();
 }
@@ -305,7 +305,10 @@ function enum_subscribers(){
     return my_iterator_to_array($Data, "ID", "Email");
 }
 
-function webroot(){
+function webroot($Local = false){
+    if($Local){
+        return app_path() . "/";
+    }
     return URL::to('/');
 }
 
@@ -348,7 +351,13 @@ function enum_genres(){
 //////////////////////////////////////Restaurant API/////////////////////////////////
 
 function blank_restaurant(){
-    $Restaurant = (object) ['ID' => 0, 'Name' => '', 'Email' => '', 'Phone' => '', 'Address' => '', 'PostalCode' => '', 'City' => 'HAMILTON', 'Province' => 'ON', 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array(), 'DeliveryFee' => 0, 'Minimum' => 0, 'Description' => ''];
+    $Restaurant = getColumnNames("restaurants");
+    $Restaurant = array_flip($Restaurant);
+    foreach($Restaurant as $Key => $Value){
+        $Restaurant[$Key] = "";
+    }
+    $Data = array("ID" => 0, "City" => "HAMILTON", "Province" => "ON", 'DeliveryFee' => 0, 'Minimum' => 0, 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array());
+    $Restaurant = array_merge($Restaurant, $Data);
     return $Restaurant;
 }
 
@@ -564,7 +573,6 @@ function add_notification_addresses($RestaurantID, $Address){
 
 
 /////////////////////////////////////Hours API///////////////////////////////////////
-
 function to_time($Time){
     if($Time){
         if (substr_count($Time, ":") == 2) {
@@ -1312,9 +1320,7 @@ function handle_upload($Dir){
         $ext = end($arr);
         $file = date('YmdHis') . '.' . $ext;//unique filename
         move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/' . $Dir . $file);
-
-        //$file_path = request->webroot . $Dir . $file;
-
+            $file_path = webroot(true) . $Dir . $file;
             return $file_path;
         }
 }
