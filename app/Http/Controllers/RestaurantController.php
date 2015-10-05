@@ -398,7 +398,7 @@ class RestaurantController extends Controller {
 
     public function getMore($id) {
         //$table = TableRegistry::get('menus');
-        return $cchild = \App\Http\Models\Menus::where('parent', $id)->get();
+        return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->get();
     }
 
     public function additional() {
