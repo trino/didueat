@@ -27,9 +27,9 @@ class UsersController extends Controller {
             if (!\Session::has('is_logged_in')&& $act != 'ajax_register') {
                 //return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
+            initialize("users");
         });
     }
-
     /**
      * Addresses
      * @param null

@@ -9,6 +9,11 @@ use \Input;
 use App\Http\Controllers\Controller; 
 
 class AuthController extends Controller {
+    public function __construct() {
+        $this->beforeFilter(function() {
+            initialize("auth");
+        });
+    }
 
     /**
      * Login page

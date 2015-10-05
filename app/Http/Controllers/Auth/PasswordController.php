@@ -18,15 +18,20 @@ class PasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
-
     /**
      * Create a new password controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
+        $this->beforeFilter(function() {
+            initialize("pass");
+        });
         $this->middleware('guest');
     }
+
+    use ResetsPasswords;
+
+
+
 }

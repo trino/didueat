@@ -24,6 +24,7 @@ class AdministratorController extends Controller {
             if (!\Session::has('is_logged_in')) {
                 return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
+            initialize("admin");
         });
     }
 

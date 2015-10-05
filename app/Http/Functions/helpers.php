@@ -1,6 +1,6 @@
 <?php
 
-function initialize(){
+function initialize($Source= ""){
     DB::enableQueryLog();
     handle_action();
 }
@@ -18,20 +18,22 @@ function handle_action($Action = ""){
     if($Action) {
         switch ($Action) {
             case "test":
-                write("TEST", "TESTING");
-                $Test = read("TEST");
+                // write("TEST", "TESTING", true);
+                $Test = enum_profile_addresses(1);
                 debug($Test);
                 die();
+
                 break;
             case "user_possess":
                 login(getpost("ID"));
+                break;
             case "user_fire":
                 hire_employee(getpost("ID"), 0, 999);
-
+                break;
 
             default:
-                echo $Action . " is unhandled";
-                die();
+                //echo $Action . " is unhandled";
+                //die();
         }
     }
 }
@@ -224,7 +226,7 @@ function login($Profile){
     \Session::put('session_status',         $Profile->status);
     \Session::put('session_created_at',     $Profile->created_at);
     \Session::put('is_logged_in',           true);
-
+    \Session::save();
     return $Profile->ID;
 }
 

@@ -13,7 +13,11 @@ use App\Http\Controllers\Controller;
  * @date       10 September, 2015
  */
 class HomeController extends Controller {
-    
+    public function __construct() {
+        $this->beforeFilter(function() {
+            initialize("home");
+        });
+    }
     /**
      * Home Page
      * @param null

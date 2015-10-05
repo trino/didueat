@@ -16,4 +16,10 @@ abstract class Controller extends BaseController
             $messages->to($array['email'])->subject($array['mail_subject']);
         });
     }
+
+    public function __construct() {
+        $this->beforeFilter(function() {
+            initialize("cont");
+        });
+    }
 }
