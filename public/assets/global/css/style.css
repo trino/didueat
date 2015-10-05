@@ -3513,10 +3513,11 @@ Header and header elements
 .product-item h3 {
   float: left;
   font: 600 14px "Open Sans",sans-serif;
-  padding: 12px 10px 10px;
-  width: 72%;
   margin-bottom: 0;
+  min-height: 50px;
   overflow: hidden;
+  padding: 5px 10px;
+  width: 65%;
 }
 
 .product-item h3 a {
@@ -3531,7 +3532,9 @@ Header and header elements
   font: 18px "PT Sans Narrow",sans-serif;
   padding: 9px 10px 5px;
   text-align: right;
-  width: 28%;
+  width: 35%;
+  min-height: 50px;
+  overflow: hidden;
 }
 .product-item .add2cart {
 	float: right;
