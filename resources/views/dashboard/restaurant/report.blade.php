@@ -35,7 +35,7 @@
                                 </div>
                                 <hr class="shop__divider">
                             </div>
-                            <?php if(count($orders)>0){?>
+                            <?php if(isset($orders) && count($orders)>0){?>
                                 @foreach($orders as $order)
                                   <div class="portlet box red-intense">
                             <div class="portlet-title">
