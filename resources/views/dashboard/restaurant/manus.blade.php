@@ -75,65 +75,7 @@ jQuery(document).ready(function() {
 </script>
 <script>
     $(function() {
-        /*
-        function makeid(){
-            var text = "";
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-            for( var i=0; i < 5; i++ ){
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
-            }
-            return text;
-        }
-
-        $('body').on('click', '.add_additional', function() {
-            if (!$('.menuwrapper').is(':visible')) {
-                $('.menuwrapper').show();
-            } else {
-                var addons = '<div class="menuwrapper">' + $('#menuRapperContents').html() + '</div>';
-                $('#menu_addons_wrapper').append(addons);
-                $('.menuwrapper:last').find('.removeAddonBtn').show();
-            }
-            var numItems = parseInt($('.addmore').length)-1;
-            $('.addmore:last').find('.sub_menu_item').attr('name', 'sub_menu_item['+numItems+'][]');
-            $('.addmore:last').find('.sub_price').attr('name', 'sub_price['+numItems+'][]');
-            
-            var number1 = makeid();
-            var number2 = makeid();
-            var number3 = makeid();
-            $('.radio_req_opt:last').find('input[type=radio]').attr('name', number1);
-            $('.radio_sing_mul:last').find('input[type=radio]').attr('name', number2);
-            $('.radio_exact_upto:last').find('input[type=radio]').attr('name', number3);
-        });
-
-        $('body').on('click', '.removeAddonBtn', function() {
-            if (confirm('Are you sure, you want to remove this addon?')) {
-                $(this).parent().parent().remove();
-            }
-        });
-
-        $('body').on('change', '.is_multiple', function() {
-            if ($(this).val() == 0) {
-                $(this).parent().parent().find('.exact').show();
-            } else {
-                $(this).parent().parent().find('.exact').hide();
-            }
-        });
-
-        $('body').on('click', '.addmorebtn', function() {
-            var content = $(this).parent().siblings('.addmore').children('#addmorerow').html();
-            //alert(content)
-            var row = '<div class="cmore">' + content + '</div>';
-            $(this).parent().siblings('.addmore').append(row);
-            $(this).parent().siblings('.addmore').children('.cmore:last').find('.no-padding').show();
-        });
-
-        $('body').on('click', '.itemRemove', function() {
-            if (confirm('Are you sure, you want to remove this item?')) {
-                $(this).parent().remove();
-            }
-        });*/
-
+        
         $("#sortable").sortable({
             update: function(event, ui) {
                 var order = '';// array to hold the id of all the child li of the selected parent

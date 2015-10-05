@@ -35,17 +35,51 @@
         <div class="col-md-12"><h2>Addons</h2></div>
         <div class="clearfix"></div>
         <?php
+        $k=0;
             if(isset($cmodel)){
-                $k=0;
+                
                 foreach($cmodel as $child){
                     $k++;
+                    if($k==1)
+                    echo "<div id='subcat".$menu_id."'>";
                     ?>
                     @include('common.additional');
                     <?php
                 }
+                if($k>0)
+                echo "</div>";
             }
         ?>
     </div>
     <div class="clearfix"></div>
 </div>
+<script>
+$(function(){
+        $('#subcat<?php echo $menu_id;?>').sortable({
+            update: function(event, ui) {
+                var order = '';// array to hold the id of all the child li of the selected parent
+                $('#subcat<?php echo $menu_id?> .menuwrapper').each(function(index) {
+                    var val = $(this).attr('id').replace('sub', '');
+                    //var val=item[1];
+                    if (order == '') {
+                        order = val;
+                    } else {
+                        order = order + ',' + val;
+                    }
+                });
+                $.ajax({
+                    url: '<?php echo url('restaurant/orderCat/');?>',
+                    data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
+                    type: 'post',
+                    success: function() {
+                        //
+                    }
+                });
+            },
+            items : ':not(.col-md-12)',
+            items : ':not(.clearfix)',
+        });
+        
+    })
+</script>
 

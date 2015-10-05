@@ -388,7 +388,7 @@ class RestaurantController extends Controller {
             //$id = $_GET['menu_id'];
             //$table = TableRegistry::get('menus');
             $data['model'] = \App\Http\Models\Menus::where('ID', $id)->get()[0];
-            $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->get();
+            $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->get();
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
 
             return view('dashboard.restaurant.menu_form', $data);
@@ -462,8 +462,7 @@ class RestaurantController extends Controller {
                 $orders = $orders_mod[0];
 
                 $arr['display_order'] = $orders->display_order + 1;
-            } else
-                $arr['display_order'] = 1;
+            } 
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
@@ -487,6 +486,7 @@ class RestaurantController extends Controller {
         }
         die();
     }
+    
 
     public function deleteMenu($id) {
         //die('here');
