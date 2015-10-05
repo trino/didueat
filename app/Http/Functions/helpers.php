@@ -3,11 +3,11 @@
 function initialize(){
     DB::enableQueryLog();
 
-    test();
+    //  test();
 }
 
 function test(){
-    $Test = edit_profile(12, "Super Admin", "neotechni@gmail.com", "905-512-3067", "admin", 1);
+    $Test = find_profile("skpsoftech@gmail.com", "5Hma0X3q");
     debug($Test);
     die();
 }
@@ -134,11 +134,11 @@ function is_valid_email($EmailAddress){
     }
 }
 
-function find_profile($EmailAddress, $Password){//unable to test due to salted codes.
-    //echo salt();die();
+function find_profile($EmailAddress, $Password){
     $EmailAddress = clean_email($EmailAddress);
     $Password = md5($Password . salt());
-    return enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password))->first();
+    $ProfileMatch = enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password));
+    return first($ProfileMatch);
 }
 
 function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, $Phone, $RestaurantID, $Subscribed = ""){
@@ -183,18 +183,18 @@ function login($Profile){
         $Profile = (object) $Profile;
     }
     write('ID',            $Profile->ID);
-    write('Name',          $Profile->Name);
-    write('Email',         $Profile->Email);
-    write('Type',          $Profile->ProfileType);
-    write('Restaurant',    $Profile->RestaurantID);
+    write('Name',          $Profile->name);
+    write('Email',         $Profile->email);
+    write('Type',          $Profile->profileType);
+    write('Restaurant',    $Profile->restaurantId);
     return $Profile->ID;
 }
 
-function forgot_password($Email){
+function forgot_password($Email, $Password=""){
     $Email = clean_email($Email);
     $Profile = get_entry("profiles", $Email, "Email");
     if ($Profile){
-        $Password = randomPassword();
+        if(!$Password) {$Password = randomPassword();}
         update_database("profiles", "ID", $Profile->ID, array("Password" => md5($Password . salt())));
         return $Password;
     }
@@ -1028,6 +1028,10 @@ function select_query($Query){
 }
 
 function first($query) {
+    if (is_array($query)){
+        if(count($query)){return $query[0];}
+        return false;
+    }
     $result = select_query($query);
     if($result) {
         foreach($result as $Data){
