@@ -105,6 +105,7 @@ vertical-align: bottom !important;
 
 .main {
     padding-top: 115px !important;
+    min-height: 1800px !important;
 }
 
 }

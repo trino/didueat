@@ -3514,7 +3514,7 @@ Header and header elements
   float: left;
   font: 600 14px "Open Sans",sans-serif;
   padding: 12px 10px 10px;
-  width: 80%;
+  width: 72%;
   margin-bottom: 0;
   overflow: hidden;
 }
@@ -3531,7 +3531,7 @@ Header and header elements
   font: 18px "PT Sans Narrow",sans-serif;
   padding: 9px 10px 5px;
   text-align: right;
-  width: 20%;
+  width: 28%;
 }
 .product-item .add2cart {
 	float: right;

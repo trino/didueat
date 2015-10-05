@@ -38,7 +38,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="row">
-        <div class="col-md-12  margin-bottom-10 nopadd">
+        <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10" style="margin-left: 15px;">
             <button align="center" class="loadmore btn btn-primary">Load More</button>
         </div>
         </div>
@@ -872,5 +872,5 @@
     </div>
     <!-- END SIDEBAR & CONTENT -->
 </div>
-
+</div>
 @stop

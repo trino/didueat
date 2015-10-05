@@ -1,13 +1,13 @@
    <?php if(!isset($order)){?>
    <div class="top-cart-info">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6 col-xs-12">
             <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6 col-xs-12">
             <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
         </div>
         <div class="clearfix"></div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-3 col-xs-12">
             <a href="#cartsz" class="fancybox-fast-view" ><i class="fa fa-shopping-cart" onclick="#cartsz" ></i></a>
         </div>
    </div>
@@ -51,7 +51,7 @@
                             <input type="hidden" value="<?php echo (isset($order))?$order->tax:'0';?>" name="tax" class="tax"/></td>
                         </tr>
     
-                        <tr <?php echo (isset($order)&& $order->order_type == '1')?'style="display: block;"':'style="display: none;"';?> id="df">
+                        <tr <?php echo (isset($order)&& $order->order_type == '1')?'style="display: table-column;"':'style="display: none;"';?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td><td>&nbsp;$<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>
                                 <input type="hidden" value="<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>" class="df" name="delivery_fee" />
                                 <input type="hidden" value="0" id="delivery_flag" name="order_type"  />

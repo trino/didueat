@@ -832,3 +832,8 @@ body.ecommerce {
   margin-bottom: 10px;
   padding: 10px;
 }
+
+.toprint #cartsz .slimScrollDiv {
+  height: auto !important;
+  margin-bottom: 15px;
+}
