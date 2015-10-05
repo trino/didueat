@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 
-/** 
+/**
  * Administrator
  * @package    Laravel 5.1.11
  * @subpackage Controller
@@ -34,7 +35,7 @@ class AdministratorController extends Controller {
     public function dashboard() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            
+
             if (!isset($post['name']) || empty($post['name'])) {
                 return \Redirect::to('dashboard')->with('message', "[Name] field is missing!");
             }
@@ -71,7 +72,7 @@ class AdministratorController extends Controller {
                 \Session::put('session_email', $ob->email);
                 \Session::put('session_phone', $ob->phone);
                 \Session::put('session_subscribed', $ob->subscribed);
-                
+
                 return \Redirect::to('dashboard')->with('message', "Profile updated successfully");
             } catch (\Exception $e) {
                 return \Redirect::to('dashboard')->with('message', $e->getMessage());
@@ -83,14 +84,84 @@ class AdministratorController extends Controller {
     }
 
     /**
+     * Users Action
+     * @param $type
+     * @param $id
+     * @return redirect
+     */
+    public function usersAction($type='', $id=0) {
+        if (!isset($type) || empty($type)) {
+            return \Redirect::to('restaurant/users')->with('message', "[Type] is missing!");
+        }
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('restaurant/users')->with('message', "[Order Id] is missing!");
+        }
+        
+        try {
+            $ob = \App\Http\Models\Profiles::find($id);
+            //$ob->populate(array('status' => 'approved'));
+            //$ob->save();
+            
+            return \Redirect::to('restaurant/users')->with('message', 'Status has been changed successfully!');
+        } catch (\Exception $e) {
+            return \Redirect::to('restaurant/users')->with('message', $e->getMessage());
+        }
+    }
+
+    /**
      * Users List
      * @param null
      * @return view
      */
     public function users() {
-        $data['title'] = 'Users List';
-        $data['users_list'] = \App\Http\Models\Profiles::where('ProfileType', 2)->orWhere('ProfileType', 4)->orWhere('ProfileType', 1)->get();
-        return view('dashboard.administrator.users', $data);
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['name']) || empty($post['name'])) {
+                return \Redirect::to('restaurant/users')->with('message', '[Name] field is missing')->withInput();
+            }
+            if (!isset($post['email']) || empty($post['email'])) {
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_missing_email.message'))->withInput();
+            }
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
+            if ($is_email > 0) {
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+            }
+            if (!isset($post['password']) || empty($post['password'])) {
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_pass_field_missing.message'))->withInput();
+            }
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_confim_pass_field_missing.message'))->withInput();
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_passwords_mismatched.message'))->withInput();
+            }
+
+            \DB::beginTransaction();
+            try {
+                $post['status'] = 0;
+
+                $user = new \App\Http\Models\Profiles();
+                $user->populate($post);
+                $user->save();
+
+                $userArray = $user->toArray();
+                $userArray['mail_subject'] = 'Thank you for registration.';
+                $this->sendEMail("emails.registration_welcome", $userArray);
+                \DB::commit();
+
+                return \Redirect::to('restaurant/users')->with('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.')->withInput();
+            } catch (\Illuminate\Database\QueryException $e) {
+                \DB::rollback();
+                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                return \Redirect::to('restaurant/users')->with('message', $e->getMessage())->withInput();
+            }
+        } else {
+            $data['title'] = 'Users List';
+            $data['users_list'] = \App\Http\Models\Profiles::where('ProfileType', 2)->orWhere('ProfileType', 4)->orWhere('ProfileType', 1)->orderBy('ID', 'DESC')->get();
+            return view('dashboard.administrator.users', $data);
+        }
     }
 
     /**
@@ -115,11 +186,11 @@ class AdministratorController extends Controller {
                         $array = $ob_user->toArray();
                         $array['mail_subject'] = $post['subject'];
                         $array['message'] = $post['message'];
-                        
+
                         $this->sendEMail("emails.newsletter", $array);
                     }
                 }
-                
+
                 return \Redirect::to('restaurant/newsletter')->with('message', "Newsletter sent successfully");
             } catch (\Exception $e) {
                 return \Redirect::to('restaurant/newsletter')->with('message', $e->getMessage());

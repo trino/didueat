@@ -840,3 +840,4 @@ body.ecommerce {
   height: auto !important;
   margin-bottom: 15px;
 }
+.clearfix {clear: both; margin: 5px 0px;}

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Http\Controllers\Controller;
 
 /**
@@ -159,9 +159,42 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function addresses() {
-        $data['title'] = 'Addresses List';
-        $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurantId', \Session::get('session_restaurantId'))->get();
-        return view('dashboard.restaurant.addresses', $data);
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            try {
+                $post['RestaurantID'] = \Session::get('session_restaurantId');
+                $ob = new \App\Http\Models\NotificationAddresses();
+                $ob->populate($post);
+                $ob->save();
+                return \Redirect::to('restaurant/addresses')->with('message', "Address added successfully!");
+            } catch (Exception $e) {
+                return \Redirect::to('restaurant/addresses')->with('message', $e->getMessage());
+            }
+        } else {
+            $data['title'] = 'Addresses List';
+            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurantId', \Session::get('session_restaurantId'))->get();
+            return view('dashboard.restaurant.addresses', $data);
+        }
+    }
+    
+    /**
+     * Delete Addresses
+     * @param $id
+     * @return redirect
+     */
+    public function deleteAddresses($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('restaurant/addresses')->with('message', "[Address Id] is missing!");
+        }
+
+        try {
+            $ob = \App\Http\Models\NotificationAddresses::find($id);
+            $ob->delete();
+            
+            return \Redirect::to('restaurant/addresses')->with('message', "Address has been deleted successfully!");
+        } catch (\Exception $e) {
+            return \Redirect::to('restaurant/addresses')->with('message', $e->getMessage());
+        }
     }
 
     /**
@@ -271,11 +304,12 @@ class RestaurantController extends Controller {
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
-     public function history() {
+
+    public function history() {
 
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status','<>','pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', '<>', 'pending')->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
@@ -299,7 +333,7 @@ class RestaurantController extends Controller {
             return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
         }
     }
-    
+
     /**
      * Change Order Status to Approved
      * @param $id
@@ -320,7 +354,7 @@ class RestaurantController extends Controller {
             return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
         }
     }
-    
+
     /**
      * Order Delete
      * @param $id
@@ -370,15 +404,15 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function report() {
-        
-        $order = \App\Http\Models\Reservations::where('restaurantId',  \Session::get('session_restaurantId'))->leftJoin('Restaurants','Reservations.restaurantId','=','Restaurants.ID');
-        if(isset($_GET['from']))
-            $order = $order->where('order_till','>=',$_GET['from']);
-        if(isset($_GET['to']))
-            $order = $order->where('order_till','<=',$_GET['to']);
+
+        $order = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID');
+        if (isset($_GET['from']))
+            $order = $order->where('order_till', '>=', $_GET['from']);
+        if (isset($_GET['to']))
+            $order = $order->where('order_till', '<=', $_GET['to']);
         $data['orders'] = $order->get();
-        $data['title'] =  'Report';
-        return view('dashboard.restaurant.report',$data);
+        $data['title'] = 'Report';
+        return view('dashboard.restaurant.report', $data);
     }
 
     public function menu_form($id) {
@@ -500,23 +534,20 @@ class RestaurantController extends Controller {
         \App\Http\Models\Menus::where('parent', $id)->delete();
         return \Redirect::to('restaurant/menus-manager')->with('message', 'Item deleted successfully');
     }
+
     public function order_detail($ID) {
-        if($data['order'] = \App\Http\Models\Reservations::where('Reservations.id', $ID)->leftJoin('Restaurants','Reservations.restaurantId','=','Restaurants.ID')->first())
-        {
-            if(is_null($data['order']['restaurantId']))
+        if ($data['order'] = \App\Http\Models\Reservations::where('Reservations.id', $ID)->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID')->first()) {
+            if (is_null($data['order']['restaurantId']))
                 return back()->with('status', 'Restaurant Not Found!');
-            else
-            {
+            else {
                 $data['title'] = 'Orders Detail';
                 return view('dashboard.restaurant.orders_detail', $data);
             }
+        } else {
+            
         }
-        else
-        {
-             
-        }
-        
-        
+
+
         //$this->set('order',\App\Http\Models\Reservations::where('id', $ID)->get());
         //$this->set('type','detail');
     }

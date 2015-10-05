@@ -27,7 +27,8 @@ Route::post('auth/forgot-passoword/ajax', 'Auth\AuthController@postAjaxForgotPas
 // Dashboard After Authentication routes...
 Route::resource('dashboard', 'AdministratorController@dashboard');
 Route::get('user/info', 'AdministratorController@dashboard');
-Route::get('restaurant/users', 'AdministratorController@users');
+Route::resource('restaurant/users', 'AdministratorController@users');
+Route::get('restaurant/users/action/{type}/{id}', 'AdministratorController@usersAction');
 Route::resource('restaurant/newsletter', 'AdministratorController@newsletter');
 
 //Restaurants Routes
@@ -35,8 +36,9 @@ Route::get('restaurant/restaurants', 'RestaurantController@restaurants');
 Route::get('restaurant/restaurants/delete/{id}', 'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
 Route::get('restaurant/restaurants/status/{id}', 'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
 Route::resource('restaurant/info', 'RestaurantController@restaurantInfo');
-Route::get('restaurant/addresses', 'RestaurantController@addresses');
 Route::resource('restaurant/menus-manager', 'RestaurantController@menuManager');
+Route::resource('restaurant/addresses', 'RestaurantController@addresses');
+Route::get('restaurant/addresses/delete/{id}', 'RestaurantController@deleteAddresses')->where('id', '[0-9]+');
 Route::get('restaurant/orders/pending', 'RestaurantController@pendingOrders');
 Route::get('restaurant/orders/view/{id}', 'RestaurantController@viewOrder')->where('id', '[0-9]+');
 Route::get('restaurant/orders/pending/cancel/{id}', 'RestaurantController@changeOrderCancel')->where('id', '[0-9]+');
