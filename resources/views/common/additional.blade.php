@@ -2,11 +2,11 @@
     <div class="menuwrapper">
     <div class="col-md-7 col-sm-7 col-xs-12">
         
-        <div class="col-sm-12 col-md-12 col-xs-12 lowheight row">
+        <div class="col-sm-12 lowheight row">
             <input class="form-control ctitle" type="text" placeholder="Title" value="<?php if(isset($child->menu_item)){echo $child->menu_item;}?>" /><br />
             <textarea class="form-control cdescription" placeholder="description"><?php if(isset($child->description)){echo $child->description;}?></textarea>    
         </div> 
-        <div class="col-sm-12 col-md-12 col-xs-12 additionalitems">
+        <div class="col-sm-12 additionalitems">
         <div class="aitems row">
             
             
@@ -91,7 +91,7 @@
                 <br />
                     <div>
                         <div style="padding-left:0;" class="col-xs-12 col-sm-4"><strong>Enter # of items</strong></div>
-                        <div class="col-xs-12 col-sm-8 col-md-8">
+                        <div class="col-xs-12 col-sm-8">
                         <?php
                         $r3 = rand('1000000','999999999');
                         ?>
