@@ -528,8 +528,6 @@ class RestaurantController extends Controller {
                 $data['title'] = 'Orders Detail';
                 return view('dashboard.restaurant.orders_detail', $data);
             }
-        } else {
-            
         }
     }
 

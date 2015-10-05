@@ -64,14 +64,14 @@
                                     <tbody>
                                         @foreach($users_list as $value)
                                         <tr>
-                                            <td>{{ $value->ID }}</td>
-                                            <td>{{ $value->name }}</td>
-                                            <td>{{ $value->email }}</td>
-                                            <td>{{ $value->phone }}</td>
-                                            <td>{{ select_field('profiletypes', 'ID', $value->profileType, 'Name') }}</td>
+                                            <td><?= $value->ID; ?></td>
+                                            <td><?= $value->name; ?></td>
+                                            <td><?= $value->email; ?></td>
+                                            <td><?= $value->phone; ?></td>
+                                            <td><?= select_field('profiletypes', 'ID', $value->profileType, 'Name'); ?></td>
                                             <td>
-                                                <a href="{{ url('restaurant/users/action/fire/'.$value->ID) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire Waqar Javed?');">Fire</a>
-                                                <a href="{{ url('restaurant/users/action/possess/'.$value->ID) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess Waqar Javed?');">Possess</a>
+                                                <a href="<?= url('restaurant/users?action=user_fire&ID='.$value->ID); ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                                <a href="<?= url('restaurant/users?action=user_possess&ID='.$value->ID); ?>" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                             </td>
                                         </tr>
                                         @endforeach

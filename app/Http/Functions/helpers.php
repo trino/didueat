@@ -2,22 +2,39 @@
 
 function initialize(){
     DB::enableQueryLog();
-
-    //test();
-    forgot_password("roy@trinoweb.com", "admin");
-}
-
-function test(){
-    $Test = rename_genre("TEST", "Japanese");
-    debug($Test);
-    die();
+    handle_action();
 }
 
 function handleevent($EventName, $Variables, $DirectEmail = ""){
+    //handle emails
+}
+
+function sendemail($To, $Subject, $Message, $Raw = true){
 
 }
 
+function handle_action($Action = ""){
+    if(!$Action){$Action=getpost("action");}
+    if($Action) {
+        switch ($Action) {
+            case "test":
+                write("TEST", "TESTING VALUE");
+                $Test = "FAIL> " . read("TEST") . "<FAIL";
+                debug($Test);
+                die();
+                break;
+            case "user_possess":
+                login(getpost("ID"));
+            case "user_fire":
+                hire_employee(getpost("ID"), 0, 999);
 
+
+            default:
+                echo $Action . " is unhandled";
+                die();
+        }
+    }
+}
 
 //func count orders
 function countOrders($type='pending'){
@@ -73,10 +90,10 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
-    return Session::get('session_' . $Name);
+    return \Session::get('session_' . $Name);
 }
 function write($Name, $Value){
-    Session::put('session_' . $Name, $Value);
+    \Session::put('session_' . $Name, $Value);
 }
 function salt(){
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
@@ -239,6 +256,7 @@ function edit_profile_address($ID, $UserID, $Name, $Phone, $Number, $Street, $Ap
 
 function check_permission($Permission, $UserID = ""){
     if(!$UserID){$UserID = read("ID");}
+    if(!$UserID){ echo 'You are not logged in';die();}
     return get_profile_type($UserID)->$Permission;
 }
 
@@ -1365,5 +1383,11 @@ function resolve_path($str){
     }
 
     return $domain . '/' . implode( '/', $parents);
+}
+
+function getpost($Key, $Default = ""){
+    if(isset($_GET[$Key])){return $_GET[$Key];}
+    if(isset($_POST[$Key])){return $_POST[$Key];}
+    return $Default;
 }
 ?>
