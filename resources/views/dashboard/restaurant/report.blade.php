@@ -25,8 +25,8 @@
                                 <div>
                                     <strong>FILTER BY DATE</strong>
                                     <form class="col-xs-12" style="height: auto!important;padding:0!important" method="get" action="">
-                                        <input type="text" class="datepicker  form-control--contact " name="from" placeholder="FROM (Date)" value="<?php echo $_GET['from'];?>">
-                                        <input type="text" class="datepicker  form-control--contact " name="to" placeholder="TO (Date)" value="<?php echo $_GET['to'];?>" >
+                                        <input type="text" class="datepicker  form-control--contact " name="from" placeholder="FROM (Date)" value="<?php if(isset($_GET['from']))echo $_GET['from'];?>">
+                                        <input type="text" class="datepicker  form-control--contact " name="to" placeholder="TO (Date)" value="<?php if(isset($_GET['to']))echo $_GET['to'];?>" >
                                         <input type="submit" style="padding:10px;margin-top:-1px;" class="btn btn-primary" value="Go" onclick="return checkFilter();">
                                         <div class="clearfix"></div>
 
