@@ -278,18 +278,8 @@ class AuthController extends Controller {
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $user->status = 1;
             $user->save();
-            
-            \Session::put('session_id', $user->ID);
-            \Session::put('session_profileType', $user->profileType);
-            \Session::put('session_name', $user->name);
-            \Session::put('session_email', $user->email);
-            \Session::put('session_phone', $user->phone);
-            \Session::put('session_subscribed', $user->subscribed);
-            \Session::put('session_restaurantId', $user->restaurantId);
-            \Session::put('session_createdBy', $user->createdBy);
-            \Session::put('session_status', $user->status);
-            \Session::put('session_created_at', $user->created_at);
-            \Session::put('is_logged_in', true);
+
+            login($user);
 
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
@@ -327,8 +317,7 @@ class AuthController extends Controller {
                         return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_inactive.message'));
                     }
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
-                    $salt = $user->salt;
-                    $password = \crypt($newpass, $salt);
+                    $password = encrypt($newpass);
                     $user->password = $password;
                     $user->save();
                     
@@ -367,8 +356,7 @@ class AuthController extends Controller {
                         echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message'))); die;
                     }
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
-                    $salt = $user->salt;
-                    $password = \crypt($newpass, $salt);
+                    $password = encryptpassword($newpass);
                     $user->password = $password;
                     $user->save();
                     
