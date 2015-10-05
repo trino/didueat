@@ -1,12 +1,19 @@
 <?php
 
-function test(){
+function initialize(){
     DB::enableQueryLog();
-    return;
 
-    $Test = enum_genres();
+    test();
+}
+
+function test(){
+    $Test = edit_profile(12, "Super Admin", "neotechni@gmail.com", "905-512-3067", "admin", 1);
     debug($Test);
     die();
+}
+
+function handleevent($EventName, $Variables, $DirectEmail = ""){
+
 }
 
 
@@ -19,7 +26,7 @@ function countOrders($type='pending'){
 //////////////////////////////////////////////////PROFILE TYPES API/////////////////////////////////////////////////////
 function new_profiletype($Name){
     logevent("Made a new profile type: " . $Name, false);
-    return new_anything("profiletypes", $Name);
+    return new_anything("profiletypes", array("Name" => $Name));
 }
 
 function get_profile_permissions(){//lists all permissions
@@ -51,6 +58,9 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
     if ($Permissions == "ALL"){
         $Permissions = get_profile_permissions();
     }
+    if (!is_array($Permissions) && $Permissions) {
+        $Permissions = array($Permissions);
+    }
     if (is_array($Permissions)) {
         foreach ($Permissions as $Permission) {
             $data[$Permission] = "1";
@@ -72,7 +82,7 @@ function salt(){
 }
 
 function enum_profiles($Key, $Value){
-    return enum_all('profiles', $Key, $Value);
+    return enum_all('profiles', array($Key => $Value));
 }
 
 function get_profile($ID = ""){
@@ -124,7 +134,7 @@ function is_valid_email($EmailAddress){
     }
 }
 
-function find_profile($EmailAddress, $Password){
+function find_profile($EmailAddress, $Password){//unable to test due to salted codes.
     //echo salt();die();
     $EmailAddress = clean_email($EmailAddress);
     $Password = md5($Password . salt());
@@ -140,14 +150,15 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
     $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => md5($Password . salt()));
     if($CreatedBy){
-        if(!can_profile_create($CreatedBy, $ProfileType)){return false;}
+        //if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
         $data["CreatedBy"] = $CreatedBy;
     }
     $data = edit_database("profiles", "ID", "", $data);
+    $data["Password"] = $Password;
     if($CreatedBy){
         logevent("Created user: " . $data["ID"] . " (" . $data["Name"] . ")");
     }
-    $data["Password"] = $Password;
+
     handleevent($EmailAddress, "new_profile", array("Profile" => $data));
     set_subscribed($EmailAddress,$Subscribed);
     return $data;
@@ -278,9 +289,9 @@ function finish_subscription($Key){
     }
 }
 
-function set_subscribed($EmailAddress, $Status){
+function set_subscribed($EmailAddress, $Status = false){
     $EmailAddress = clean_email($EmailAddress);
-    $is_subscribed = is_subscribed($EmailAddress);
+    $is_subscribed = is_subscribed($EmailAddress) == true;
     if($is_subscribed != $Status){
         if($Status){
             add_subscriber($EmailAddress, True);
@@ -1114,7 +1125,7 @@ function update_database($Table, $PrimaryKey, $Value, $Data){
     return $Data;
 }
 
-function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = false){
+function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true){
     $entry = false;
     if($PrimaryKey && $Value) {
         $entry = select_field($Table, $PrimaryKey, $Value);
@@ -1130,7 +1141,7 @@ function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = false){
 }
 
 function new_entry($Table, $PrimaryKey, $Data){
-    return $this->edit_database($Table, $PrimaryKey, "", $Data);
+    return edit_database($Table, $PrimaryKey, "", $Data);
 }
 
 

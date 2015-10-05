@@ -20,8 +20,6 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
-        
-
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
         return view('home', $data);
@@ -125,23 +123,21 @@ class HomeController extends Controller {
         $data['slug'] = $slug;
         $data['res_detail'] = $res_slug;
         $data['menus_list'] = $menus;
-        if(isset($_GET['page']))
+        if(isset($_GET['page'])) {
             return view('menus', $data);
-        else
+        }else {
             return view('restaurants-menus', $data);
+        }
     }
     
-    function test()
-    {
-        if(isset($_POST))
-        {
+    function test() {
+        if(isset($_POST)) {
             var_dump($_POST);
         }
          return view('test');
     }
     
-    function createslug($text)
-    { 
+    function createslug($text) {
       // replace non letter or digits by -
           $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
         
@@ -157,9 +153,8 @@ class HomeController extends Controller {
           // remove unwanted characters
           $text = preg_replace('~[^-\w]+~', '', $text);
         
-          if (empty($text))
-          {
-            return 'n-a';
+          if (empty($text)) {
+                return 'n-a';
           }
           //test for same slug in db
           $text = $this->chkSlug($text);
@@ -168,14 +163,11 @@ class HomeController extends Controller {
       return $text;
     }
     
-    function chkSlug($txt)
-    {
-        if(\App\Http\Models\Restaurants::where('slug',$txt)->first())
-        {
+    function chkSlug($txt) {
+        if(\App\Http\Models\Restaurants::where('slug',$txt)->first()) {
             $txt = $txt.rand(0,9);
         }
-        
-            return $txt;
+        return $txt;
     }
 
 }

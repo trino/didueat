@@ -1,4 +1,5 @@
 <?php
+initialize();
 
 // Frontsite Routes...
 Route::get('/', 'HomeController@index'); 
@@ -62,3 +63,4 @@ Route::get('user/uploadmeal', 'UsersController@uploadMeal');
 Route::resource('user/images', 'UsersController@images');
 Route::get('user/orders', 'UsersController@viewOrders');
 Route::post('user/ajax_register', 'UsersController@ajax_register');
+

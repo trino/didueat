@@ -23,7 +23,7 @@ class UsersController extends Controller {
           
         $this->beforeFilter(function() {
             $act = str_replace('user.','',\Route::currentRouteName());
-        $act = str_replace('.store','',$act); 
+            $act = str_replace('.store','',$act);
             if (!\Session::has('is_logged_in')&& $act != 'ajax_register') {
                 //return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
