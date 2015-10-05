@@ -32,20 +32,9 @@ class AuthController extends Controller {
                     if ($user->status == 0) {
                         return \Redirect::to('auth/login')->with('message', trans('messages.user_inactive.message'));
                     }
-                    $salt = $user->salt;
-                    $password = \crypt(\Input::get('password'), $salt);
+                    $password = encryptpassword(\Input::get('password'));
                     if ($user->password == $password) {
-                        \Session::put('session_id', $user->ID);
-                        \Session::put('session_profileType', $user->profileType);
-                        \Session::put('session_name', $user->name);
-                        \Session::put('session_email', $user->email);
-                        \Session::put('session_phone', $user->phone);
-                        \Session::put('session_subscribed', $user->subscribed);
-                        \Session::put('session_restaurantId', $user->restaurantId);
-                        \Session::put('session_createdBy', $user->createdBy);
-                        \Session::put('session_status', $user->status);
-                        \Session::put('session_created_at', $user->created_at);
-                        \Session::put('is_logged_in', true);
+                        login($user);
                         return redirect()->intended('dashboard');
                     } else {
                         return \Redirect::to('auth/login')->with('message', trans('messages.user_login_invalid.message'));
@@ -75,22 +64,10 @@ class AuthController extends Controller {
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message'); die;
                     }
-                    $salt = $user->salt;
-                    $password = \crypt(\Input::get('password'), $salt);
+                    $password = encryptpassword(\Input::get('password'));
                     //echo $password; die();
                     if ($user->password == $password) {
-                        \Session::put('session_id', $user->ID);
-                        \Session::put('session_profileType', $user->profileType);
-                        \Session::put('session_name', $user->name);
-                        \Session::put('session_email', $user->email);
-                        \Session::put('session_phone', $user->phone);
-                        \Session::put('session_subscribed', $user->subscribed);
-                        \Session::put('session_restaurantId', $user->restaurantId);
-                        \Session::put('session_createdBy', $user->createdBy);
-                        \Session::put('session_status', $user->status);
-                        \Session::put('session_created_at', $user->created_at);
-                        \Session::put('is_logged_in', true);
-                        
+                        login($user);
                     } else {
                         echo trans('messages.user_login_invalid.message'); die;
                     }

@@ -4,10 +4,11 @@ function initialize(){
     DB::enableQueryLog();
 
     //test();
+    forgot_password("roy@trinoweb.com", "admin");
 }
 
 function test(){
-    $Test = webroot(true);
+    $Test = rename_genre("TEST", "Japanese");
     debug($Test);
     die();
 }
@@ -72,10 +73,10 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
-    return Session::get('Profile.' . $Name);
+    return Session::get('session_' . $Name);
 }
 function write($Name, $Value){
-    Session::put('Profile.' . $Name, $Value);
+    Session::put('session_' . $Name, $Value);
 }
 function salt(){
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
@@ -136,7 +137,7 @@ function is_valid_email($EmailAddress){
 
 function find_profile($EmailAddress, $Password){
     $EmailAddress = clean_email($EmailAddress);
-    $Password = md5($Password . salt());
+    $Password =  encryptpassword($Password);
     $ProfileMatch = enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password));
     return first($ProfileMatch);
 }
@@ -148,7 +149,8 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     if(get_entry("profiles", $EmailAddress, "Email")){return false;}
     if(!$Password){$Password=randomPassword();}
     if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
-    $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => md5($Password . salt()));
+    $Encrypted =  encryptpassword($Password);
+    $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => $Encrypted);
     if($CreatedBy){
         //if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
         $data["CreatedBy"] = $CreatedBy;
@@ -164,10 +166,14 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     return $data;
 }
 
+function encryptpassword($Password){
+    return  \crypt($Password, salt());
+}
+
 function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed = 0, $ProfileType = 0){
     $data = array("Name" => trim($Name), "Email" => clean_email($EmailAddress), "Phone" => clean_phone($Phone), "Subscribed" => $Subscribed);
     if($Password){
-        $data["Password"] = md5($Password . salt());
+        $data["Password"] = encryptpassword($Password);
     }
     if($ProfileType){
         $data["ProfileType"] = $ProfileType;
@@ -187,6 +193,19 @@ function login($Profile){
     write('Email',         $Profile->email);
     write('Type',          $Profile->profileType);
     write('Restaurant',    $Profile->restaurantId);
+
+    \Session::put('session_id',             $Profile->ID);
+    \Session::put('session_profileType',    $Profile->profileType);
+    \Session::put('session_name',           $Profile->name);
+    \Session::put('session_email',          $Profile->email);
+    \Session::put('session_phone',          $Profile->phone);
+    \Session::put('session_subscribed',     $Profile->subscribed);
+    \Session::put('session_restaurantId',   $Profile->restaurantId);
+    \Session::put('session_createdBy',      $Profile->createdBy);
+    \Session::put('session_status',         $Profile->status);
+    \Session::put('session_created_at',     $Profile->created_at);
+    \Session::put('is_logged_in',           true);
+
     return $Profile->ID;
 }
 
@@ -195,7 +214,8 @@ function forgot_password($Email, $Password=""){
     $Profile = get_entry("profiles", $Email, "Email");
     if ($Profile){
         if(!$Password) {$Password = randomPassword();}
-        update_database("profiles", "ID", $Profile->ID, array("Password" => md5($Password . salt())));
+        $Encrypted = encryptpassword($Password);
+        update_database("profiles", "ID", $Profile->ID, array("Password" => $Encrypted));
         return $Password;
     }
 }
@@ -322,7 +342,7 @@ function add_genre($Name){
         return $Ret;
     } else {
         if(genre_exists($Name)){return false;}//don't allow duplicates
-        new_anything("genres", $Name);
+        new_anything("genres", array("Name" => $Name));
         return true;
     }
 }
