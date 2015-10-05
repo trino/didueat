@@ -19,7 +19,7 @@ function handle_action($Action = ""){
         switch ($Action) {
             case "test":
                 // write("TEST", "TESTING", true);
-                $Test = enum_profile_addresses(1);
+                $Test = get_current_restaurant();
                 debug($Test);
                 die();
 
@@ -44,15 +44,19 @@ function countOrders($type='pending'){
 }
 
 //////////////////////////////////////////////////PROFILE TYPES API/////////////////////////////////////////////////////
+
+//creates a new profile type with the name of $Name
 function new_profiletype($Name){
     logevent("Made a new profile type: " . $Name, false);
     return new_anything("profiletypes", array("Name" => $Name));
 }
 
-function get_profile_permissions(){//lists all permissions
+//returns an array of permissions available for profile types
+function get_profile_permissions(){
     return getColumnNames("profiletypes", array("ID", "Name", "Hierarchy"));
 }
 
+//returns an array of all the profile types with a hierarchy above $Hierarchy
 function enum_profiletypes($Hierarchy = "", $toArray = true){
     $Condition = "1=1";
     if($Hierarchy){
@@ -63,6 +67,7 @@ function enum_profiletypes($Hierarchy = "", $toArray = true){
     return $entries;
 }
 
+//shows what file is currently open in red text, use __FILE__ for $Filename
 function fileinclude($Filename){//pass __FILE__
     if ($_SERVER["SERVER_NAME"]){
         return '<FONT COLOR="RED">Include: ' . $Filename . '</FONT>';
@@ -123,7 +128,7 @@ function is_email_in_use($EmailAddress, $NotByUserID=0){
 
 function get_profile_type($ProfileID, $GetByType = false){
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
-    $profiletype = get_entry("profiles", $ProfileID, "ID")->profileType;
+    $profiletype = get_entry("profiles", $ProfileID, "ID")->ProfileType;
     return get_entry("profiletypes", $profiletype);
 }
 
@@ -210,20 +215,20 @@ function login($Profile){
         $Profile = (object) $Profile;
     }
     write('ID',            $Profile->ID);
-    write('Name',          $Profile->name);
-    write('Email',         $Profile->email);
-    write('Type',          $Profile->profileType);
-    write('Restaurant',    $Profile->restaurantId);
+    write('Name',          $Profile->Name);
+    write('Email',         $Profile->Email);
+    write('Type',          $Profile->ProfileType);
+    write('Restaurant',    $Profile->RestaurantID);
 
     \Session::put('session_id',             $Profile->ID);
-    \Session::put('session_profileType',    $Profile->profileType);
-    \Session::put('session_name',           $Profile->name);
-    \Session::put('session_email',          $Profile->email);
-    \Session::put('session_phone',          $Profile->phone);
-    \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantId',   $Profile->restaurantId);
-    \Session::put('session_createdBy',      $Profile->createdBy);
-    \Session::put('session_status',         $Profile->status);
+    \Session::put('session_profileType',    $Profile->ProfileType);
+    \Session::put('session_name',           $Profile->Name);
+    \Session::put('session_email',          $Profile->Email);
+    \Session::put('session_phone',          $Profile->Phone);
+    \Session::put('session_subscribed',     $Profile->Subscribed);
+    \Session::put('session_restaurantId',   $Profile->RestaurantID);
+    \Session::put('session_createdBy',      $Profile->CreatedBy);
+    \Session::put('session_status',         $Profile->Status);
     \Session::put('session_created_at',     $Profile->created_at);
     \Session::put('is_logged_in',           true);
     \Session::save();
@@ -410,7 +415,7 @@ function get_restaurant($ID = "", $IncludeHours = False, $IncludeAddresses = Fal
     }
     if($restaurant){
         if($IncludeHours) {$restaurant->Hours = get_hours($ID);}
-        if($IncludeAddresses){$restaurant->Addresses = iterator_to_array(enum_notification_addresses($ID), "", "Address");}
+        if($IncludeAddresses){$restaurant->Addresses = my_iterator_to_array(enum_notification_addresses($ID), "", "Address");}
     }
     return $restaurant;
 }
@@ -425,14 +430,14 @@ function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, 
     return $ID;
 }
 
-function enum_employees($ID = "", $Hierarchy = ""){
-    if(!$ID){
-        $ID = get_current_restaurant();
+function enum_employees($RestaurantID = "", $Hierarchy = ""){
+    if(!$RestaurantID){
+        $RestaurantID = get_current_restaurant();
     }
     if($Hierarchy){
-        return enum_all("Profiles", array("RestaurantID" => $ID, "Hierarchy >" => $Hierarchy));
+        return enum_all("Profiles", array("RestaurantID" => $RestaurantID, "Hierarchy >" => $Hierarchy));
     }
-    return enum_profiles("RestaurantID", $ID);//->order("Hierarchy" , "ASC");
+    return enum_profiles("RestaurantID", $RestaurantID);//->order("Hierarchy" , "ASC");
 }
 
 function get_current_restaurant(){
@@ -491,10 +496,10 @@ function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
     delete_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
 }
 function enum_days_off($RestaurantID){
-
+    return enum_all("daysoff", array("RestaurantID" => $RestaurantID));
 }
 function is_day_off($RestaurantID, $Day, $Month, $Year){
-    return enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))->first();
+    return first(enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))) == true;
 }
 
 
@@ -508,7 +513,9 @@ function enum_menus($RestaurantID = "", $Sort = ""){
     if($Sort){$order = array('display_order' => $Sort);} else {$order = "";}
     return enum_all("menus", array('res_id' => $RestaurantID, 'parent' => '0','image<>"undefined"'), $order);
 }
-
+function get_menu($RestaurantID){
+    return enum_all('menus', array('res_id'=>$RestaurantID));
+}
 
 
 
@@ -786,10 +793,7 @@ function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $po
     edit_database('reservations', 'id', $OrderID, $Data);
 }
 
-////////////////////////////////////////////////////menu API////////////////////////////////////////////////////
-function get_menu($RestaurantID){
-    return enum_all('menus', array('res_id'=>$RestaurantID));
-}
+
 
 
 

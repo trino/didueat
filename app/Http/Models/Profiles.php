@@ -80,8 +80,7 @@ class Profiles extends BaseModel {
      * @return encrypted string
      */
     public function generatePassword($password) {
-        $this->salt = \App\Http\Models\Profiles::getSalt();
-        $this->password = crypt($password, $this->salt);
+        $this->password = encrypt($password);
     }
     
     /**
@@ -91,6 +90,8 @@ class Profiles extends BaseModel {
      * @return encrypted string
      */
     public static function getSalt() {
+        return salt();
+
         $cost = 10;
         $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
         $salt = sprintf("$2a$%02d$", $cost) . $salt;

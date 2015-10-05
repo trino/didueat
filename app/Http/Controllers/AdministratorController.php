@@ -50,8 +50,8 @@ class AdministratorController extends Controller {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
 
                 if (isset($post['old_password']) && !empty($post['old_password'])) {
-                    $password = \crypt($post['old_password'], $ob->salt);
-                    if ($ob->password != $password) {
+                    $password = encrypt($post['old_password']);
+                    if ($ob->Password != $password) {
                         return \Redirect::to('dashboard')->with('message', "[Old Password] is incorrect!");
                     }
                     if (empty($post['new_password'])) {
@@ -69,10 +69,7 @@ class AdministratorController extends Controller {
                 $ob->populate($post);
                 $ob->save();
 
-                \Session::put('session_name', $ob->name);
-                \Session::put('session_email', $ob->email);
-                \Session::put('session_phone', $ob->phone);
-                \Session::put('session_subscribed', $ob->subscribed);
+                login($ob);
 
                 return \Redirect::to('dashboard')->with('message', "Profile updated successfully");
             } catch (\Exception $e) {
