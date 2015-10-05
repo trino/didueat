@@ -1,12 +1,19 @@
 <?php
 
-function test(){
+function initialize(){
     DB::enableQueryLog();
-    return;
 
-    $Test = enum_genres();
+    //test();
+}
+
+function test(){
+    $Test = webroot(true);
     debug($Test);
     die();
+}
+
+function handleevent($EventName, $Variables, $DirectEmail = ""){
+
 }
 
 
@@ -19,7 +26,7 @@ function countOrders($type='pending'){
 //////////////////////////////////////////////////PROFILE TYPES API/////////////////////////////////////////////////////
 function new_profiletype($Name){
     logevent("Made a new profile type: " . $Name, false);
-    return new_anything("profiletypes", $Name);
+    return new_anything("profiletypes", array("Name" => $Name));
 }
 
 function get_profile_permissions(){//lists all permissions
@@ -51,6 +58,9 @@ function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
     if ($Permissions == "ALL"){
         $Permissions = get_profile_permissions();
     }
+    if (!is_array($Permissions) && $Permissions) {
+        $Permissions = array($Permissions);
+    }
     if (is_array($Permissions)) {
         foreach ($Permissions as $Permission) {
             $data[$Permission] = "1";
@@ -72,7 +82,7 @@ function salt(){
 }
 
 function enum_profiles($Key, $Value){
-    return enum_all('profiles', $Key, $Value);
+    return enum_all('profiles', array($Key => $Value));
 }
 
 function get_profile($ID = ""){
@@ -125,10 +135,10 @@ function is_valid_email($EmailAddress){
 }
 
 function find_profile($EmailAddress, $Password){
-    //echo salt();die();
     $EmailAddress = clean_email($EmailAddress);
     $Password = md5($Password . salt());
-    return enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password))->first();
+    $ProfileMatch = enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password));
+    return first($ProfileMatch);
 }
 
 function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, $Phone, $RestaurantID, $Subscribed = ""){
@@ -140,14 +150,15 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
     $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => md5($Password . salt()));
     if($CreatedBy){
-        if(!can_profile_create($CreatedBy, $ProfileType)){return false;}
+        //if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
         $data["CreatedBy"] = $CreatedBy;
     }
     $data = edit_database("profiles", "ID", "", $data);
+    $data["Password"] = $Password;
     if($CreatedBy){
         logevent("Created user: " . $data["ID"] . " (" . $data["Name"] . ")");
     }
-    $data["Password"] = $Password;
+
     handleevent($EmailAddress, "new_profile", array("Profile" => $data));
     set_subscribed($EmailAddress,$Subscribed);
     return $data;
@@ -172,18 +183,18 @@ function login($Profile){
         $Profile = (object) $Profile;
     }
     write('ID',            $Profile->ID);
-    write('Name',          $Profile->Name);
-    write('Email',         $Profile->Email);
-    write('Type',          $Profile->ProfileType);
-    write('Restaurant',    $Profile->RestaurantID);
+    write('Name',          $Profile->name);
+    write('Email',         $Profile->email);
+    write('Type',          $Profile->profileType);
+    write('Restaurant',    $Profile->restaurantId);
     return $Profile->ID;
 }
 
-function forgot_password($Email){
+function forgot_password($Email, $Password=""){
     $Email = clean_email($Email);
     $Profile = get_entry("profiles", $Email, "Email");
     if ($Profile){
-        $Password = randomPassword();
+        if(!$Password) {$Password = randomPassword();}
         update_database("profiles", "ID", $Profile->ID, array("Password" => md5($Password . salt())));
         return $Password;
     }
@@ -278,9 +289,9 @@ function finish_subscription($Key){
     }
 }
 
-function set_subscribed($EmailAddress, $Status){
+function set_subscribed($EmailAddress, $Status = false){
     $EmailAddress = clean_email($EmailAddress);
-    $is_subscribed = is_subscribed($EmailAddress);
+    $is_subscribed = is_subscribed($EmailAddress) == true;
     if($is_subscribed != $Status){
         if($Status){
             add_subscriber($EmailAddress, True);
@@ -294,7 +305,10 @@ function enum_subscribers(){
     return my_iterator_to_array($Data, "ID", "Email");
 }
 
-function webroot(){
+function webroot($Local = false){
+    if($Local){
+        return app_path() . "/";
+    }
     return URL::to('/');
 }
 
@@ -337,7 +351,13 @@ function enum_genres(){
 //////////////////////////////////////Restaurant API/////////////////////////////////
 
 function blank_restaurant(){
-    $Restaurant = (object) ['ID' => 0, 'Name' => '', 'Email' => '', 'Phone' => '', 'Address' => '', 'PostalCode' => '', 'City' => 'HAMILTON', 'Province' => 'ON', 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array(), 'DeliveryFee' => 0, 'Minimum' => 0, 'Description' => ''];
+    $Restaurant = getColumnNames("restaurants");
+    $Restaurant = array_flip($Restaurant);
+    foreach($Restaurant as $Key => $Value){
+        $Restaurant[$Key] = "";
+    }
+    $Data = array("ID" => 0, "City" => "HAMILTON", "Province" => "ON", 'DeliveryFee' => 0, 'Minimum' => 0, 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array());
+    $Restaurant = array_merge($Restaurant, $Data);
     return $Restaurant;
 }
 
@@ -553,7 +573,6 @@ function add_notification_addresses($RestaurantID, $Address){
 
 
 /////////////////////////////////////Hours API///////////////////////////////////////
-
 function to_time($Time){
     if($Time){
         if (substr_count($Time, ":") == 2) {
@@ -1017,6 +1036,10 @@ function select_query($Query){
 }
 
 function first($query) {
+    if (is_array($query)){
+        if(count($query)){return $query[0];}
+        return false;
+    }
     $result = select_query($query);
     if($result) {
         foreach($result as $Data){
@@ -1114,7 +1137,7 @@ function update_database($Table, $PrimaryKey, $Value, $Data){
     return $Data;
 }
 
-function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = false){
+function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true){
     $entry = false;
     if($PrimaryKey && $Value) {
         $entry = select_field($Table, $PrimaryKey, $Value);
@@ -1130,7 +1153,7 @@ function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = false){
 }
 
 function new_entry($Table, $PrimaryKey, $Data){
-    return $this->edit_database($Table, $PrimaryKey, "", $Data);
+    return edit_database($Table, $PrimaryKey, "", $Data);
 }
 
 
@@ -1297,9 +1320,7 @@ function handle_upload($Dir){
         $ext = end($arr);
         $file = date('YmdHis') . '.' . $ext;//unique filename
         move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/' . $Dir . $file);
-
-        //$file_path = request->webroot . $Dir . $file;
-
+            $file_path = webroot(true) . $Dir . $file;
             return $file_path;
         }
 }

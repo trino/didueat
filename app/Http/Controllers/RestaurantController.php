@@ -20,9 +20,7 @@ class RestaurantController extends Controller {
      * @return redirect
      */
     public function __construct() {
-
         $this->beforeFilter(function() {
-
             if (!\Session::has('is_logged_in')) {
                 return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
@@ -53,7 +51,6 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-
             return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant has been deleted successfully!');
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
@@ -176,7 +173,7 @@ class RestaurantController extends Controller {
             return view('dashboard.restaurant.addresses', $data);
         }
     }
-    
+
     /**
      * Delete Addresses
      * @param $id
@@ -190,7 +187,7 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\NotificationAddresses::find($id);
             $ob->delete();
-            
+
             return \Redirect::to('restaurant/addresses')->with('message', "Address has been deleted successfully!");
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/addresses')->with('message', $e->getMessage());
@@ -286,10 +283,10 @@ class RestaurantController extends Controller {
 
     public function displayAddon($parent) {
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', $parent)->orderBy('display_order', 'ASC')->get();
-        if ($data['menus_list'])
+        if ($data['menus_list']) {
             return $data['menus_list'];
-        else
-            return false;
+        }
+        return false;
     }
 
     /**
@@ -298,7 +295,6 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function pendingOrders() {
-
         $data['title'] = 'Pending History';
         $data['type'] = 'Pending';
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
@@ -306,7 +302,6 @@ class RestaurantController extends Controller {
     }
 
     public function history() {
-
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', '<>', 'pending')->orderBy('order_time', 'DESC')->get();
@@ -322,12 +317,10 @@ class RestaurantController extends Controller {
         if (!isset($id) || empty($id) || $id == 0) {
             return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
         }
-
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'cancelled'));
             $ob->save();
-
             return \Redirect::to('restaurant/orders/pending')->with('message', 'Order status has been cancelled successfully!');
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
@@ -343,7 +336,6 @@ class RestaurantController extends Controller {
         if (!isset($id) || empty($id) || $id == 0) {
             return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
         }
-
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'approved'));
@@ -404,12 +396,14 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function report() {
-
         $order = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID');
-        if (isset($_GET['from']))
+        if (isset($_GET['from'])) {
             $order = $order->where('order_till', '>=', $_GET['from']);
-        if (isset($_GET['to']))
+        }
+        if (isset($_GET['to'])) {
             $order = $order->where('order_till', '<=', $_GET['to']);
+        }
+
         $data['orders'] = $order->get();
         $data['title'] = 'Report';
         return view('dashboard.restaurant.report', $data);
@@ -422,7 +416,7 @@ class RestaurantController extends Controller {
             //$id = $_GET['menu_id'];
             //$table = TableRegistry::get('menus');
             $data['model'] = \App\Http\Models\Menus::where('ID', $id)->get()[0];
-            $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->get();
+            $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
 
             return view('dashboard.restaurant.menu_form', $data);
@@ -432,7 +426,7 @@ class RestaurantController extends Controller {
 
     public function getMore($id) {
         //$table = TableRegistry::get('menus');
-        return $cchild = \App\Http\Models\Menus::where('parent', $id)->get();
+        return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
     }
 
     public function additional() {
@@ -477,8 +471,7 @@ class RestaurantController extends Controller {
         if (isset($_GET['id']) && $_GET['id']) {
             //die('update');
             $id = $_GET['id'];
-            \App\Http\Models\Menus::where('ID', $id)
-                    ->update($arr);
+            \App\Http\Models\Menus::where('ID', $id)->update($arr);
 
 
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
@@ -496,28 +489,20 @@ class RestaurantController extends Controller {
                 $orders = $orders_mod[0];
 
                 $arr['display_order'] = $orders->display_order + 1;
-            } else
-                $arr['display_order'] = 1;
+            }
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
 
             echo $ob2->ID;
-
-
-
-
             die();
         }
     }
 
     public function orderCat() {
-
         $_POST['ids'] = explode(',', $_POST['ids']);
         foreach ($_POST['ids'] as $k => $id) {
-
-            \App\Http\Models\Menus::where('ID', $id)
-                    ->update(array('display_order' => ($k + 1)));
+            \App\Http\Models\Menus::where('ID', $id)->update(array('display_order' => ($k + 1)));
         }
         die();
     }
@@ -537,19 +522,15 @@ class RestaurantController extends Controller {
 
     public function order_detail($ID) {
         if ($data['order'] = \App\Http\Models\Reservations::where('Reservations.id', $ID)->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID')->first()) {
-            if (is_null($data['order']['restaurantId']))
+            if (is_null($data['order']['restaurantId'])) {
                 return back()->with('status', 'Restaurant Not Found!');
-            else {
+            } else {
                 $data['title'] = 'Orders Detail';
                 return view('dashboard.restaurant.orders_detail', $data);
             }
         } else {
             
         }
-
-
-        //$this->set('order',\App\Http\Models\Reservations::where('id', $ID)->get());
-        //$this->set('type','detail');
     }
 
 }
