@@ -32,7 +32,7 @@
     <hr />
     
     <div class="additional additional<?php echo $menu_id;?>" style="<?php if(isset($cmodel)&& $cmodel){?>display:block;<?php }?>">
-        <div class="col-md-12"><h2>Addons</h2></div>
+        <div class="col-md-12 col-sm-12 col-xs-12"><h2>Addons</h2></div>
         <div class="clearfix"></div>
         <?php
             if(isset($cmodel)){

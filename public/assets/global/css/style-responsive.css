@@ -105,7 +105,6 @@ vertical-align: bottom !important;
 
 .main {
     padding-top: 115px !important;
-    min-height: 1800px !important;
 }
 
 }
@@ -625,6 +624,13 @@ width: 96% !important;
 
 .main {
     padding-top: 100px !important;
+}
+
+.deleteme .receipt_image > img {
+  display: inline-block;
+  float: none;
+  height: 100%  !important;
+  width: 100% !important;
 }
 
 }
@@ -1280,6 +1286,13 @@ width: 15% !important;
   margin-left: 0 !important;
 }
 
+.deleteme .receipt_image > img {
+  display: inline-block;
+  float: none;
+  height: 100%;
+  width: 100%;
+}
+
 }
 /* END max width 767px */
 
@@ -1461,6 +1474,12 @@ width: 100%;
 .top-cart-info-count {
   right: 78px;
   top: -39px;
+}
+.deleteme .receipt_image > img {
+  display: inline-block;
+  float: none;
+  height: 100%;
+  width: 100%;
 }
 
 }

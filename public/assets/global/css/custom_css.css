@@ -393,7 +393,7 @@ button:hover {
 .aitems input[type="text"]{float: left;
                            height: 26px;
                            padding: 4px;
-                           width: 46%;}
+                           width: 45%;}
 .itemno{width:100%!important;}
 .aitems a{padding:4px;}
 
@@ -579,7 +579,10 @@ button:hover {
     color: #1c94c4;
     font-size: 14px;
     font-weight: normal !important;
-    padding: 5px;}
+    padding: 5px;
+    text-align: center;
+    width: 30px !important;
+    }
 
 .ui-timepicker-table th.periods {
     color: #919191;

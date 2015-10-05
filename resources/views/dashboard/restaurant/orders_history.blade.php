@@ -13,15 +13,15 @@
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
-            <div class="col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="">
 
                 </div>
             </div>
 
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
