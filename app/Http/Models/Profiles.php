@@ -80,7 +80,7 @@ class Profiles extends BaseModel {
      * @return encrypted string
      */
     public function generatePassword($password) {
-        $this->password = encrypt($password);
+        $this->password = encryptpassword($password);
     }
     
     /**
