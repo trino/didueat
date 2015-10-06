@@ -844,4 +844,9 @@ body.ecommerce {
   height: auto !important;
   margin-bottom: 15px;
 }
+
+.ecommerce .main #cartsz .top-cart-content {
+    padding-top: 0 !important;
+}
+
 .clearfix {clear: both; margin: 5px 0px;}

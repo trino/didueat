@@ -461,7 +461,7 @@
                     <div class="top-cart-content ">
                         <div class="receipt_main">
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 220px;">
-                                <ul class="scroller orders" style="height: 220px; overflow: hidden; width: auto;">
+                                <ul class="scroller orders" style="height: 220px; overflow-y: scroll; width: auto;">
                                    
                                 </ul>
                                 <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(187, 187, 187);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>                    <div class="totals col-md-12 col-sm-12 col-xs-12">
