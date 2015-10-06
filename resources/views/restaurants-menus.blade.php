@@ -37,41 +37,19 @@
             <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
         </div>
         <div class="clearfix"></div>
+          <?php if($menus_list->hasMorePages()){?>
         <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10" style="margin-left: 15px;">
             <button align="center" class="loadmore btn btn-primary">Load More</button>
         </div>
         </div>
+        <?php }?>
         
         <div class="clearfix"></div>
 
         <script>
             $(function() {
-                $('.loadmore').click(function() {
-                    $('div#loadmoreajaxloader').show();
-                    ur = $('.next a').attr('href');
-                    if(ur!=''){
-                    url1 = ur.replace('/?','?');
-                    $.ajax({
-                        url: url1,
-                        success: function(html) {
-                            
-                                if (html) {
-                                    $('.nxtpage').remove();
-                                    $("#postswrapper").append(html);
-                                    $('div#loadmoreajaxloader').hide();
-                                } else 
-                                    $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-                            
-                        }
-                    });
-                    }
-                    else
-                    {
-                        $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-                        $(this).parent().remove();
-                    }
-                });
+             
 
                 $('.modal').on('shown.bs.modal', function() {
                     $('input:text:visible:first', this).focus();

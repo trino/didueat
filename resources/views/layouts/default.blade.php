@@ -327,6 +327,36 @@
                 else
                 return false;
             }
+          //loadmore
+          $(function(){
+               $('.loadmore').click(function() {
+                    $('div#loadmoreajaxloader').show();
+                    ur = $('.next a').attr('href');
+                    if(ur!=''){
+                    url1 = ur.replace('/?','?');
+                    $.ajax({
+                        url: url1,
+                        success: function(html) {
+                            
+                                if (html) {
+                                    $('.nxtpage').remove();
+                                    $("#postswrapper").append(html);
+                                    $('div#loadmoreajaxloader').hide();
+                                } else 
+                                    $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
+                            
+                        }
+                    });
+                    }
+                    else
+                    {
+                        $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
+                        $(this).parent().remove();
+                    }
+                });
+            
+        })  
+            
         </script>
 
         <!-- Header -->

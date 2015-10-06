@@ -25,8 +25,13 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'Home Page';
-        $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->get();
-        return view('home', $data);
+        $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
+        if(isset($_GET['page'])) {
+            return view('menus', $data);
+        }else {
+            return view('home', $data);
+        }
+       
     }
     
     /**
@@ -36,8 +41,14 @@ class HomeController extends Controller {
      */
     public function allRestaurants() {
         $data['title'] = 'All Restaurants Page';
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
-        return view('restaurants', $data);
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::paginate(4);
+        
+        if(isset($_GET['page'])) {
+            return view('loadrestaurants', $data);
+        }else {
+            return view('restaurants', $data);
+        }
+       
     }
     
     /**
@@ -121,7 +132,7 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->paginate(2);
+        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->orderBy('display_order', 'ASC')->paginate(4);
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
