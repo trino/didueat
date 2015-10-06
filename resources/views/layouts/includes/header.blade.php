@@ -44,9 +44,9 @@
                     <div class="search-box">
                         <form action="#">
                             <div class="input-group" valign="center">
-                                <input type="text" placeholder="Search" class="form-control">
+                                <input type="text" placeholder="Search" class="form-control" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <button class="btn btn-primary red" type="submit">Search</button>
                                 </span>
                             </div>
                         </form>

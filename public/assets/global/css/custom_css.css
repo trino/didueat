@@ -849,4 +849,13 @@ body.ecommerce {
     padding-top: 0 !important;
 }
 
+.intro .text .btn-3 {
+  border: medium none !important;
+  color: #fff;
+}
+
+.intro .text .btn-3:hover {
+  background: #be2627;
+}
+
 .clearfix {clear: both; margin: 5px 0px;}
