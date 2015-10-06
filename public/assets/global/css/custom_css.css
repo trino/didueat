@@ -836,6 +836,10 @@ body.ecommerce {
   padding: 10px;
 }
 
+#cartsz .profiles #profiles .form-group {
+    margin-bottom: 5px;
+}
+
 .toprint #cartsz .slimScrollDiv {
   height: auto !important;
   margin-bottom: 15px;
