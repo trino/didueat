@@ -14,7 +14,7 @@
                         <div class="sticker sticker-new"></div>
                     </div>
                 </div>
-                
+                  
                 <!-- BEGIN fast view of a product -->
                 <!--div id="product-pop-up_{{ $value->ID }}" style="display: none; width: 500px;">
                     <div class="product-page product-pop-up">

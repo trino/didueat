@@ -313,11 +313,13 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
+                   
                     if ($user->Status == 0) {
                         return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_inactive.message'));
                     }
+                    
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
-                    $password = encrypt($newpass);
+                    $password = encryptpassword($newpass);
                     $user->Password = $password;
                     $user->save();
                     

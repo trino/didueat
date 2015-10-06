@@ -1,14 +1,17 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
     <aside class="sidebar  sidebar--shop">
         <div class="shop-filter">
-            <h4>Administrator</h4>
+            @if(\Session::get('session_profileType')=='1')
+            <h4>Administrator </h4>
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <li class="list-group-item clearfix"><a href="{{ url('dashboard') }}" class="<?php if(Request::path() == 'dashboard'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Dashboard</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}" class="<?php if(Request::path() == 'restaurant/users'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Users Manager</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if(Request::path() == 'restaurant/newsletter'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li>
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/restaurants') }}" class="<?php if(Request::path() == 'restaurant/restaurants'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a></li>
             </ul>
-            <hr class="shop__divider">
+            <hr class="shop__divider"/>
+            @endif
+            @if(\Session::get('session_restaurantId'))
             <h4>Restaurant</h4>
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}" class="<?php if(Request::path() == 'restaurant/info'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a></li>
@@ -20,6 +23,7 @@
                 <li class="list-group-item clearfix"><a href="{{ url('restaurant/report') }}" class="<?php if(Request::path() == 'restaurant/report'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Print Report</a></li>
             </ul>
             <hr class="shop__divider">
+            @endif
             <h4>User</h4>
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <li class="list-group-item clearfix"><a href="{{ url('user/info') }}" class="<?php if(Request::path() == 'user/info'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Info</a></li>
