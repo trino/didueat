@@ -13,7 +13,6 @@ use App\Http\Controllers\Controller;
  * @date       15 September, 2015
  */
 class RestaurantController extends Controller {
-
     /**
      * Constructor
      * @param null
@@ -24,7 +23,7 @@ class RestaurantController extends Controller {
             if (!\Session::has('is_logged_in')) {
                 return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
-            initialize("rests");
+            initialize("restaurants");
         });
     }
 

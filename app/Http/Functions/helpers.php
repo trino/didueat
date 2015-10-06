@@ -177,7 +177,7 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     $Encrypted =  encryptpassword($Password);
     $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => $Encrypted);
     if($CreatedBy){
-        //if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
+        if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
         $data["CreatedBy"] = $CreatedBy;
     }
     $data = edit_database("profiles", "ID", "", $data);
@@ -681,10 +681,6 @@ function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
     if(!$Close){$Close = "";}
     $data["Open"] = $Open;
     $data["Close"] = $Close;
-
-    debug($data);
-    die();
-
     if($Open && $Close) {new_entry("hours", "ID", $data);}
 }
 
@@ -710,8 +706,6 @@ function parsetime($Time){
         $Time = left($Time, strlen($Time) - 3);
     }
     $Time = explode(":", $Time);
-    debug($TheTime);
-    debug($Time);
     if(count($Time)==2) {
         $TheTime = $TheTime + ($Time[0] * 100) + $Time[1];
     }
