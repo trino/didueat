@@ -106,6 +106,7 @@ function write($Name, $Value, $Save = false){
 function salt(){
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
 }
+//list all profiles where key = value
 
 function enum_profiles($Key, $Value){
     return enum_all('profiles', array($Key => $Value));
@@ -167,6 +168,8 @@ function find_profile($EmailAddress, $Password){
     return first($ProfileMatch);
 }
 
+
+    // dont use these 2 following - use laravel instead....
 function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, $Phone, $RestaurantID, $Subscribed = ""){
     $EmailAddress = is_valid_email($EmailAddress);
     $Phone=clean_phone($Phone);
@@ -191,21 +194,25 @@ function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, 
     return $data;
 }
 
+    function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed = 0, $ProfileType = 0){
+        $data = array("Name" => trim($Name), "Email" => clean_email($EmailAddress), "Phone" => clean_phone($Phone), "Subscribed" => $Subscribed);
+        if($Password){
+            $data["Password"] = encryptpassword($Password);
+        }
+        if($ProfileType){
+            $data["ProfileType"] = $ProfileType;
+        }
+        set_subscribed($EmailAddress,$Subscribed);
+        return update_database("profiles", "ID", $ID, $data);
+    }
+
+
+
 function encryptpassword($Password){
     return  \crypt($Password, salt());
 }
 
-function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed = 0, $ProfileType = 0){
-    $data = array("Name" => trim($Name), "Email" => clean_email($EmailAddress), "Phone" => clean_phone($Phone), "Subscribed" => $Subscribed);
-    if($Password){
-        $data["Password"] = encryptpassword($Password);
-    }
-    if($ProfileType){
-        $data["ProfileType"] = $ProfileType;
-    }
-    set_subscribed($EmailAddress,$Subscribed);
-    return update_database("profiles", "ID", $ID, $data);
-}
+
 
 function login($Profile){
     if (is_numeric($Profile)){
@@ -349,12 +356,15 @@ function enum_subscribers(){
     return my_iterator_to_array($Data, "ID", "Email");
 }
 
+   // USE URL FUNCTION FOR THIS INSTEAD
+
 function webroot($Local = false){
     if($Local){
         return app_path() . "/";
     }
     return URL::to('/');
 }
+
 
 //////////////////////////////////////Genre API//////////////////////////////////////
 function add_genre($Name){
@@ -418,6 +428,10 @@ function get_restaurant($ID = "", $IncludeHours = False, $IncludeAddresses = Fal
     }
     return $restaurant;
 }
+/// DONT USE --- USE LARAVEL
+/// DONT USE --- USE LARAVEL
+/// DONT USE --- USE LARAVEL
+/// DONT USE --- USE LARAVEL
 
 function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, $Province, $Country, $PostalCode, $Description, $DeliveryFee, $Minimum){
     if(!$ID){$ID = new_anything("restaurants", $Name);}
@@ -469,7 +483,7 @@ function hire_employee($UserID, $RestaurantID = 0, $ProfileType = ""){
         return true;
     }
 }
-
+// VAN REVISIT
 function openclose_restaurant($RestaurantID, $Status = false){
     if($Status){$Status=1;} else {$Status = 0;}
     logevent("Set status to: " . $Status, true, $RestaurantID);
@@ -1108,7 +1122,12 @@ function select_query($Query){
     return $con->query($Query);
 }
 
-function first($query) {
+
+
+//$data['model'] = \App\Http\Models\Menus::where('ID', $id)->get()[0];
+//this does the same thing
+
+    function first($query) {
     if (is_array($query)){
         if(count($query)){return $query[0];}
         return false;
