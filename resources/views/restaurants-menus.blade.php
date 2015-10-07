@@ -483,20 +483,32 @@
                                     <h2 class="profile_delevery_type"></h2>
                                 </div>
                             </div>
+                            <?php
+                            if(\Session::get('session_id'))
+                                $profile = \DB::table('Profiles')->select('Profiles.Name','Profiles.Phone','Profiles.Email','Profiles_addresses.Street as Street','Profiles_addresses.PostalCode','Profiles_addresses.City','Profiles_addresses.Province')->where('Profiles.ID',\Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.ID', '=', 'Profiles_addresses.UserID')->first();
+                            else
+                                {?>
+                                <div class="form-group reservation_signin">
+                                    <div class="col-xs-12">
+                                    <a href="#login-pop-up" class="btn btn-danger fancybox-fast-view"  onclick="$('#login_type').val('reservation')" >Sign In</a>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            <?php }?>
                             <form id="profiles">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                            <input type="hidden" name="salt" value="$2a$10$A/lwkD80fNTvbR90vjMwjw=="/>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
-                                        <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">
+                                        <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" value="<?php if(isset($profile))echo $profile->Name;?>" required="">
                                     </div>                        
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-xs-12 col-sm-6 margin-bottom-10">
-                                        <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="">                        
+                                    <div class="col-xs-12 col-sm-6 margin-<ins></ins>bottom-10">
+                                        <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="" value="<?php if(isset($profile))echo $profile->Email;?>">                        
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                        <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="">
+                                        <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="" value="<?php if(isset($profile))echo $profile->Phone;?>">
                                     </div>
                                     <div class="clearfix"></div>                        
                                 </div>
@@ -528,33 +540,33 @@
                                     <div class="form-group margin-bottom-10">
                                         <!--textarea placeholder="Address 2" name="address2"></textarea-->   
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                            <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2">
+                                            <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="<?php if(isset($profile))echo $profile->Street;?>">
                                         </div>                        
 
 
 
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">                        
-                                            <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city">                        
+                                            <input type="text" placeholder="City" id="ordered_city" class="form-control  form-control--contact" name="city" id="city" value="<?php if(isset($profile))echo $profile->City;?>">                        
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-xs-12 col-sm-6">
-                                            <select class="form-control form-control--contact" name="province">
-                                                <option value="Alberta">Alberta</option>
-                                                <option value="British Columbia">British Columbia</option>
-                                                <option value="Manitoba">Manitoba</option>
-                                                <option value="New Brunswick">New Brunswick</option>
-                                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                                                <option value="Nova Scotia">Nova Scotia</option>
-                                                <option selected="selected" value="Ontario">Ontario</option>
-                                                <option value="Prince Edward Island">Prince Edward Island</option>
-                                                <option value="Quebec">Quebec</option>
-                                                <option value="Saskatchewan">Saskatchewan</option>
+                                            <select class="form-control form-control--contact" name="province" id="ordered_province">
+                                                <option value="Alberta" <?php if(isset($profile) && $profile->Province=='Alberta')echo "selected='selected'";?>>Alberta</option>
+                                                <option value="British Columbia" <?php if(isset($profile) && $profile->Province=='British Columbia')echo "selected='selected'";?>>British Columbia</option>
+                                                <option value="Manitoba" <?php if(isset($profile) && $profile->Province=='Manitoba')echo "selected='selected'";?>>Manitoba</option>
+                                                <option value="New Brunswick" <?php if(isset($profile) && $profile->Province=='New Brunswick')echo "selected='selected'";?>>New Brunswick</option>
+                                                <option value="Newfoundland and Labrador" <?php if(isset($profile) && $profile->Province=='Newfoundland and Labrador"')echo "selected='selected'";?>>Newfoundland and Labrador</option>
+                                                <option value="Nova Scotia" <?php if(isset($profile) && $profile->Province=='Nova Scotia')echo "selected='selected'";?>>Nova Scotia</option>
+                                                <option value="Ontario" <?php if((isset($profile) && $profile->Province=='Ontario')||!isset($profile))echo "selected='selected'";?>>Ontario</option>
+                                                <option value="Prince Edward Island" <?php if(isset($profile) && $profile->Province=='Prince Edward Island')echo "selected='selected'";?>>Prince Edward Island</option>
+                                                <option value="Quebec" <?php if(isset($profile) && $profile->Province=='Quebec')echo "selected='selected'";?>>Quebec</option>
+                                                <option value="Saskatchewan" <?php if(isset($profile) && $profile->Province=='Saskatchewan')echo "selected='selected'";?>>Saskatchewan</option>
                                             </select>
 
                                         </div>
                                         <div class="col-xs-12 col-sm-6">
-                                            <input type="text" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code">
+                                            <input type="text" id="ordered_code" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code" value="<?php if(isset($profile))echo $profile->PostalCode;?>">
                                         </div>                        
                                         <div class="clearfix"></div>
                                     </div>

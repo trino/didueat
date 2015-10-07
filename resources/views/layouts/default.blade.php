@@ -155,6 +155,7 @@
                         <form role="form" action="" id="login-ajax-form" method="post" class="form-horizontal form-without-legend">
                             {!! csrf_field() !!}
                             <input type="hidden" name="action" value="login">
+                            <input type="hidden" name="type" id="login_type" value="" />
                             <p style="display: none;text-align:center; color: red;" id="invalid"></p>
                             <div class="form-group">
                                 <label class="col-lg-4 control-label" for="email">Email <span class="require">*</span></label>
@@ -259,16 +260,46 @@
                     data: data,
                     type: "post",
                     success: function (msg) {
-                        if(msg) {
+                       
+                        if(isNaN(Number(msg))){
                             if(checkUrl(msg)){
                                 window.location = msg;
                             } else {
                                 $('#invalid').text(msg);
                                 $('#invalid').show();
                             }
-                        } else {
-                            window.location = "{{ url('dashboard') }}";
                         }
+                        else
+                        {
+                            if($('#login_type').val()== 'reservation')
+                            {
+                                
+                                $.ajax({
+                                    url:"{{url('/user/json_data')}}",
+                                    type: "post",
+                                    data:"id="+msg+'&_token={{csrf_token()}}',
+                                    dataType:"json",
+                                    success:function(arr)
+                                    {
+                                        $('#fullname').val(arr.Name);
+                                        $('#ordered_email').val(arr.Email);
+                                        $('#ordered_contact').val(arr.Phone);
+                                        $('#ordered_province').val(arr.Province);
+                                        $('#ordered_street').val(arr.Street);
+                                        $('#ordered_city').val(arr.City);
+                                        $('#ordered_code').val(arr.PostalCode);
+                                        $('.reservation_signin').hide();
+                                        $('.fancybox-close').click();
+                                    }
+                                })
+                                
+                            }
+                                
+                            else
+                                 window.location = "{{ url('dashboard') }}";  
+                        }
+                        
+                        
                     },
                     failure: function (msg){
                         setvalue("message", "ERROR: " + msg);

@@ -204,6 +204,15 @@ class UsersController extends Controller {
         echo '0';
           die();
     }
+    
+    
+    function json_data()
+    {
+        $id = $_POST['id'];
+        $user = \DB::table('Profiles')->select('Profiles.Name','Profiles.Phone','Profiles.Email','Profiles_addresses.Street as Street','Profiles_addresses.PostalCode','Profiles_addresses.City','Profiles_addresses.Province')->where('Profiles.ID',\Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.ID', '=', 'Profiles_addresses.UserID')->first();
+       
+        return json_encode($user);
+    }
   
 
 }
