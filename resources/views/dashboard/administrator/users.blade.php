@@ -36,7 +36,7 @@
                         <h3 class="sidebar__title">Users Manager</h3>
                         <hr class="shop__divider">
                         
-                        <a class="btn btn-danger pull-right" data-toggle="modal" href="#basic">Add New</a>
+                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
                         <div class="clearfix"></div>
                         <hr class="shop__divider">
 
@@ -62,19 +62,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($users_list as $value){ ?>
+                                        @foreach($users_list as $value)
                                         <tr>
-                                            <td><?= $value->ID; ?></td>
-                                            <td><?= $value->Name; ?></td>
-                                            <td><?= $value->Email; ?></td>
-                                            <td><?= $value->Phone; ?></td>
-                                            <td><?= select_field('profiletypes', 'ID', $value->ProfileType, 'Name'); ?></td>
+                                            <td>{{ $value->ID }}</td>
+                                            <td>{{ $value->name }}</td>
+                                            <td>{{ $value->email }}</td>
+                                            <td>{{ $value->phone }}</td>
+                                            <td>{{ select_field('profiletypes', 'ID', $value->profileType, 'name') }}</td>
                                             <td>
-                                                <a href="<?= url('restaurant/users?action=user_fire&ID='.$value->ID); ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->Name); ?>?');">Fire</a>
-                                                <a href="<?= url('restaurant/users?action=user_possess&ID='.$value->ID); ?>" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->Name); ?>?');">Possess</a>
+                                                <a href="{{ url('restaurant/users?action=user_fire&ID='.$value->ID) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                                <a href="{{ url('restaurant/users?action=user_possess&ID='.$value->ID) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                             </td>
                                         </tr>
-                                        <?php } ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -92,11 +92,10 @@
     <!-- END CONTENT -->
 </div>
 
-<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+<div id="addNewUser" class="col-md-12" style="display: none;" >
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="fancy-modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Add New</h4>
             </div>
             {!! Form::open(array('url' => '/restaurant/users', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
@@ -171,7 +170,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn blue">Save changes</button>
             </div>
             {!! Form::close() !!}

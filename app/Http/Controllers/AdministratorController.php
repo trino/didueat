@@ -50,7 +50,7 @@ class AdministratorController extends Controller {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
 
                 if (isset($post['old_password']) && !empty($post['old_password'])) {
-                    $password = encrypt($post['old_password']);
+                    $password = encryptpassword($post['old_password']);
                     if ($ob->Password != $password) {
                         return \Redirect::to('dashboard')->with('message', "[Old Password] is incorrect!");
                     }
@@ -157,7 +157,7 @@ class AdministratorController extends Controller {
             }
         } else {
             $data['title'] = 'Users List';
-            $data['users_list'] = \App\Http\Models\Profiles::where('ProfileType', 2)->orWhere('ProfileType', 4)->orWhere('ProfileType', 1)->orderBy('ID', 'DESC')->get();
+            $data['users_list'] = \App\Http\Models\Profiles::where('profileType', 2)->orWhere('profileType', 4)->orWhere('profileType', 1)->orderBy('ID', 'DESC')->get();
             return view('dashboard.administrator.users', $data);
         }
     }

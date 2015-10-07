@@ -34,11 +34,11 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->Status == 0) {
+                    if ($user->status == 0) {
                         return \Redirect::to('auth/login')->with('message', trans('messages.user_inactive.message'));
                     }
                     $password = encryptpassword(\Input::get('password'));
-                    if ($user->Password == $password) {
+                    if ($user->password == $password) {
                         login($user);
                         return redirect()->intended('dashboard');
                     } else {
@@ -66,13 +66,13 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->Status == 0) {
+                    if ($user->status == 0) {
                         echo trans('messages.user_inactive.message');
                         die;
                     }
                     $password = encryptpassword(\Input::get('password'));
                     //echo $password; die();
-                    if ($user->Password == $password) {
+                    if ($user->password == $password) {
                         login($user);
                     } else {
                         //echo $user->password . " != " . $password ; die();
@@ -314,7 +314,7 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                    
-                    if ($user->Status == 0) {
+                    if ($user->status == 0) {
                         return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_inactive.message'));
                     }
                     
@@ -354,7 +354,7 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->Status == 0) {
+                    if ($user->status == 0) {
                         echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message'))); die;
                     }
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);

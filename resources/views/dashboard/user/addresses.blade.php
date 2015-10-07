@@ -220,6 +220,48 @@
     <!-- END CONTENT -->
 </div>
 
+<div id="addNewUser" class="col-md-12" style="display: none;" >
+    <div class="modal-dialog">
+        <div class="fancy-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New</h4>
+            </div>
+            {!! Form::open(array('url' => '/restaurant/addresses', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Phone / Email</label>
+                            <div class="col-md-9">
+                                <input type="text" name="Address" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Type</label>
+                            <div class="col-md-9">
+                                <select name="Type" class="form-control">
+                                    <option value="Email">Email</option>
+                                    <option value="Phone">Phone</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn blue">Save changes</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>

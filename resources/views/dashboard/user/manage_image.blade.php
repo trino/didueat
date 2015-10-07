@@ -25,86 +25,95 @@
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="row">
-                @include('layouts.includes.leftsidebar')
+                <div class="row">
+                    @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-sm-8 col-md-10 ">
-                    <div class="portlet box red">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-gift"></i> Image Upload
-                            </div>
-                        </div>
-                        <div class="portlet-body form">
-                            {!! Form::open(array('url' => '/user/images', 'id'=>'imageForm','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-                                <div class="form-body">
-                                    
-                                    @if(Session::has('message'))
-                                        <div class="alert alert-info">
-                                            <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
+                    <div class="col-xs-12 col-sm-8 col-md-10 ">
+
+                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+                        <div class="clearfix"></div>
+                        <hr class="shop__divider">
+
+                        <div class="margin-top-10">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-red" data-filter="all">
+                                    <h3 class="sidebar__title">Images List</h3>
+                                </li>
+                            </ul>
+                            <div class="row mix-grid" style="">
+                                @foreach($images_list as $value)
+                                <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="{{ url('assets/images/users/'.$value->Filename) }}" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto odio</h4>
+                                            <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
+                                            <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->Filename) }}" title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
                                         </div>
-                                    @endif
-                                    
-                                    <div class="form-group">
-                                        <label>Restaurant Name <span class="required">*</span></label>
-                                        <select name="RestaurantID" class="form-control input-lg" required>
-                                            <option value="">Select One</option>
-                                            @foreach($restaurants_list as $value)
-                                                <option value="{{ $value->ID }}">{{ $value->Name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Title <span class="required">*</span></label>
-                                        <input type="text" name="Title" class="form-control" placeholder="Title" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Image <span class="required">*</span></label>
-                                        <input type="file" name="image" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn green">Save Changes</button>
-                                </div>
-                            {!! Form::close() !!}
-                        </div>
-                    </div>
-                    <hr class="shop__divider">
-
-
-                    <div class="margin-top-10">
-                        <ul class="list-group">
-                            <li class="list-group-item bg-red" data-filter="all">
-                                <h3 class="sidebar__title">Images List</h3>
-                            </li>
-                        </ul>
-                        <div class="row mix-grid" style="">
-                            @foreach($images_list as $value)
-                            <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="{{ url('assets/images/users/'.$value->Filename) }}" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
-                                        <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->Filename) }}" title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
+
+                        <hr class="shop__divider">
                     </div>
 
-                    <hr class="shop__divider">
                 </div>
-
-            </div>
             </div>
         </div>
     </div>                
     <!-- END CONTENT -->
 </div>
+
+
+
+<div id="addNewUser" class="col-md-12" style="display: none;" >
+    <div class="modal-dialog">
+        <div class="fancy-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Image Upload</h4>
+            </div>
+            <br />
+            {!! Form::open(array('url' => '/user/images', 'id'=>'imageForm','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+            <div class="form-body">
+
+                @if(Session::has('message'))
+                <div class="alert alert-info">
+                    <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
+                </div>
+                @endif
+
+                <div class="form-group">
+                    <label>Restaurant Name <span class="required">*</span></label>
+                    <select name="RestaurantID" class="form-control input-lg" required>
+                        <option value="">Select One</option>
+                        @foreach($restaurants_list as $value)
+                        <option value="{{ $value->ID }}">{{ $value->Name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Title <span class="required">*</span></label>
+                    <input type="text" name="Title" class="form-control" placeholder="Title" required>
+                </div>
+                <div class="form-group">
+                    <label>Image <span class="required">*</span></label>
+                    <input type="file" name="image" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn green">Save Changes</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS -->

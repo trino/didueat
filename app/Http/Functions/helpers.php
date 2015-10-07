@@ -214,20 +214,20 @@ function login($Profile){
         $Profile = (object) $Profile;
     }
     write('ID',            $Profile->ID);
-    write('Name',          $Profile->Name);
-    write('Email',         $Profile->Email);
-    write('Type',          $Profile->ProfileType);
-    write('Restaurant',    $Profile->RestaurantID);
-
+    write('Name',          $Profile->name);
+    write('Email',         $Profile->email);
+    write('Type',          $Profile->profileType);
+    write('Restaurant',    $Profile->restaurantID);
+    
     \Session::put('session_id',             $Profile->ID);
-    \Session::put('session_profileType',    $Profile->ProfileType);
-    \Session::put('session_name',           $Profile->Name);
-    \Session::put('session_email',          $Profile->Email);
-    \Session::put('session_phone',          $Profile->Phone);
-    \Session::put('session_subscribed',     $Profile->Subscribed);
-    \Session::put('session_restaurantId',   $Profile->RestaurantID);
-    \Session::put('session_createdBy',      $Profile->CreatedBy);
-    \Session::put('session_status',         $Profile->Status);
+    \Session::put('session_profileType',    $Profile->profileType);
+    \Session::put('session_name',           $Profile->name);
+    \Session::put('session_email',          $Profile->email);
+    \Session::put('session_phone',          $Profile->phone);
+    \Session::put('session_subscribed',     $Profile->subscribed);
+    \Session::put('session_restaurantId',   $Profile->restaurantID);
+    \Session::put('session_createdBy',      $Profile->createdBy);
+    \Session::put('session_status',         $Profile->status);
     \Session::put('session_created_at',     $Profile->created_at);
     \Session::put('is_logged_in',           true);
     \Session::save();

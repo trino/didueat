@@ -1,7 +1,7 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
     <aside class="sidebar  sidebar--shop">
         <div class="shop-filter">
-            @if(\Session::get('session_profileType')=='1')
+            @if(\Session::get('session_profileType') == 1)
             <h4>Administrator </h4>
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <li class="list-group-item clearfix"><a href="{{ url('dashboard') }}" class="<?php if(Request::path() == 'dashboard'){ echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Dashboard</a></li>

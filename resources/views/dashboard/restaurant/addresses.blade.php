@@ -31,7 +31,7 @@
                             <h3 class="sidebar__title">Notifications Addresses</h3>
                             <hr class="shop__divider">
 
-                            <a class="btn btn-danger pull-right" data-toggle="modal" href="#basic">Add New</a>
+                            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
                             <div class="clearfix"></div>
                             <hr class="shop__divider">
 
@@ -83,11 +83,10 @@
 </div>
 
 
-<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+<div id="addNewUser" class="col-md-12" style="display: none;" >
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="fancy-modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Add New</h4>
             </div>
             {!! Form::open(array('url' => '/restaurant/addresses', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
@@ -118,7 +117,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn blue">Save changes</button>
             </div>
             {!! Form::close() !!}
