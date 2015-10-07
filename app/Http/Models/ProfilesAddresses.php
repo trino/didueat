@@ -62,5 +62,27 @@ class ProfilesAddresses extends BaseModel {
             $this->Notes = $data['Notes'];
         }*/
     }
-    
+
+    ////////////////////////////////////////Profile Address API ////////////////////////////////////
+    function enum_profile_addresses($ProfileID){
+        return enum_all("profiles_addresses", array("UserID" => $ProfileID));
+    }
+    function delete_profile_address($ID){
+        delete_all("profiles_addresses", array("ID" => $ID));
+    }
+    function get_profile_address($ID){
+        return get_entry("profiles_addresses", $ID);
+    }
+    function edit_profile_address($ID, $UserID, $Name, $Phone, $Number, $Street, $Apt, $Buzz, $City, $Province, $PostalCode, $Country, $Notes){
+        $Data = array("UserID" => $UserID, "Name" => $Name, "Phone" => clean_phone($Phone), "Number" => $Number, "Street" => $Street, "Apt" => $Apt, "Buzz" => $Buzz, "City" => $City, "Province" => $Province, "PostalCode" => clean_postalcode($PostalCode), "Country" =>$Country, "Notes" =>$Notes);
+        return edit_database("profiles_addresses", "ID", $ID, $Data);
+    }
+
+    function check_permission($Permission, $UserID = ""){
+        if(!$UserID){$UserID = read("ID");}
+        if(!$UserID){ echo 'You are not logged in';die();}
+        return get_profile_type($UserID)->$Permission;
+    }
+
+
 }

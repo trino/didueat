@@ -43,5 +43,103 @@ class Hours extends BaseModel {
         }*/
 
     }
-    
+
+
+/////////////////////////////////////Hours API///////////////////////////////////////
+    function to_time($Time){
+        if($Time){
+            if (substr_count($Time, ":") == 2) {
+                $Time = left($Time, strlen($Time) - 3);
+            }
+            return str_replace(":", "", $Time);
+        }
+    }
+
+    function edit_hours($RestaurantID, $Data){
+        $Days = array();
+        for ($DayOfWeek = 1; $DayOfWeek < 8; $DayOfWeek++){
+            $Open = to_time($Data[$DayOfWeek . "_Open"]);
+            $Close = to_time($Data[$DayOfWeek . "_Close"]);
+            $Days[$DayOfWeek] = $Open . " to " . $Close;
+            edit_hour($RestaurantID, $DayOfWeek, $Open, $Close);
+        }
+        logevent("Edited hours: " . print_r($Days, true));
+    }
+
+
+    function is_restaurant_open_now($RestaurantID, $date = ""){
+        if(!$date){ $date = now();}
+        if(strpos($date, "-")){$date = strtotime($date);}
+        if(!is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
+            $dayofweek = get_name_of_weekday($date);
+            $time = date('Gi', $date);
+            return is_restaurant_open($RestaurantID, $dayofweek, $time);
+        }
+    }
+
+    function get_name_of_weekday($DayOfWeek = ""){
+        if(!$DayOfWeek){
+            $DayOfWeek = now();
+            $DayOfWeek = date('w', $DayOfWeek);
+        }
+        $Days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        return $Days[$DayOfWeek];
+    }
+    function get_hours($RestaurantID, $DayOfWeek = ""){
+        $ret = array();
+        $Params = array('RestaurantID' => $RestaurantID);
+        if($DayOfWeek){
+            if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+            $Params['DayOfWeek'] = $DayOfWeek;
+        }
+        $Data = enum_all('hours', $Params, 'DayOfWeek');
+        $HasHours = false;
+        foreach($Data as $Day){
+            $ret[$Day->DayOfWeek . ".Open"] = $Day->Open;
+            $ret[$Day->DayOfWeek . ".Close"] = $Day->Close;
+            if($Day->Open <> 0 || $Day->Close <> 2359){$HasHours=true;}
+        }
+        $ret["HasHours"] = $HasHours;
+        return $ret;
+    }
+
+    function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
+        if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+        $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=> $DayOfWeek);
+        delete_all('hours', $data);
+        if(!$Open){$Open = "";}
+        if(!$Close){$Close = "";}
+        $data["Open"] = $Open;
+        $data["Close"] = $Close;
+        if($Open && $Close) {new_entry("hours", "ID", $data);}
+    }
+
+    function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
+        if (get_restaurant($RestaurantID)->Open) {
+            if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+            $Data = get_hours($RestaurantID, $DayOfWeek);
+            if ($Data["HasHours"]) {
+                $Open = parsetime($Data[$DayOfWeek . ".Open"]);
+                $Close = parsetime($Data[$DayOfWeek . ".Close"]);
+                return $Open <= $Time && $Close >= $Time;
+            }
+        }
+    }
+
+    function parsetime($Time){
+        $TheTime = 0;
+        $Time = strtoupper($Time);
+        if( right($Time, 2) == "PM" || right($Time, 2) == "AM"){//12 hour time
+            if(right($Time, 2) == "PM"){
+                $TheTime = 1200;
+            }
+            $Time = left($Time, strlen($Time) - 3);
+        }
+        $Time = explode(":", $Time);
+        if(count($Time)==2) {
+            $TheTime = $TheTime + ($Time[0] * 100) + $Time[1];
+        }
+        return $TheTime;
+    }
+
 }

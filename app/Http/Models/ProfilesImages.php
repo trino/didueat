@@ -44,5 +44,33 @@ class ProfilesImages extends BaseModel {
             $this->OrderID = $data['OrderID'];
         }*/
     }
-    
+
+    ////////////////////////////////////profile image API///////////////////////////////////
+    function get_profile_image($Filename, $UserID = ""){
+        if(!$UserID){$UserID = read("ID");}
+        if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
+        return enum_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename))->first();
+    }
+
+    function delete_profile_image($Filename, $UserID = "") {
+        if (!$UserID) {$UserID = read("ID");}
+        if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
+        $dir = "img/users/" . $UserID . "/" . $Filename;
+        if (file_exists($dir)) {unlink($dir);}
+        delete_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename));
+    }
+
+    function edit_profile_image($UserID, $Filename, $RestaurantID, $Title, $OrderID){
+        $Entry = get_profile_image($Filename, $UserID);
+        $Data = array("RestaurantID" => $RestaurantID, "Title" => $Title, "OrderID" => $OrderID);
+        if($Entry){
+            edit_database("profiles_images", "ID", $Entry->ID, $Data);
+        } else {
+            $Data["UserID"] = $UserID;
+            $Data["Filename"] = $Filename;
+            new_entry("profiles_images", "ID", $Data);
+        }
+    }
+
+
 }

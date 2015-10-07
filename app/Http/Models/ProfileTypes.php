@@ -48,5 +48,32 @@ class ProfileTypes extends BaseModel {
             $this->CanPossess = $data['CanPossess'];
         }*/
     }
-    
+
+    function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
+        if(!$ID){
+            $ID = new_profiletype($Name);
+        }
+        logevent("Changed profile type: " . $ID . " (" . $Name . ", " . $Hierarchy . ", " . print_r($Permissions, true) . ")", false);
+        $data = array("Name" => $Name, "Hierarchy" => $Hierarchy);
+        if ($Permissions == "ALL"){
+            $Permissions = get_profile_permissions();
+        }
+        if (!is_array($Permissions) && $Permissions) {
+            $Permissions = array($Permissions);
+        }
+        if (is_array($Permissions)) {
+            foreach ($Permissions as $Permission) {
+                $data[$Permission] = "1";
+            }
+        }
+        update_database("profiletypes", "ID", $ID, $data);
+        return $ID;
+    }
+
+    //creates a new profile type with the name of $Name
+    function new_profiletype($Name){
+        logevent("Made a new profile type: " . $Name, false);
+        return new_anything("profiletypes", array("Name" => $Name));
+    }
+
 }
