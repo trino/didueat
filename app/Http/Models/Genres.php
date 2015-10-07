@@ -50,7 +50,7 @@ class Genres extends BaseModel {
         }
     }
 
-    function genre_exists($Name){
+    public static function genre_exists($Name){
         if(get_entry("genres", $Name, "Name")){return true;}
     }
 
@@ -59,14 +59,14 @@ class Genres extends BaseModel {
         update_database('genres', "ID", $ID, array("Name" => $NewName));
         return true;
     }
-    function enum_restaurants($Genre = ""){
+    public static function enum_restaurants($Genre = ""){
         if($Genre) {
             return enum_anything("restaurants", "Genre", $Genre);
         }
         return enum_table("restaurants");
     }
 
-    function enum_genres(){
+    public static function enum_genres(){
         $entries = enum_all('genres');
         return my_iterator_to_array($entries, "ID", "Name");
     }

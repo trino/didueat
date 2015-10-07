@@ -6,9 +6,9 @@
     <p>&nbsp;</p>
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12 nopadd">
-            <div class="menuimg menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="<?php echo url('assets/images/products/'.$model->image) ?>" /><input type="hidden" class="hiddenimg" value="<?php echo $model->image;?>" /><?php }?></div>
+            <div class="menuimg menuimg<?= $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="<?= url('assets/images/products/'.$model->image) ?>" /><input type="hidden" class="hiddenimg" value="<?= $model->image;?>" /><?php }?></div>
             <br />
-            <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse<?php echo $menu_id?>_1">Image</a>
+            <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse<?= $menu_id?>_1">Image</a>
         </div>
         <div class="col-sm-7 col-xs-12 lowheight">
             <input class="form-control newtitle" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br />
@@ -21,8 +21,8 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <?php if(!isset($ccount) || (isset($ccount) && $ccount==0)){ ?>
             <div class="newaction">
-                <a href="javascript:void(0)" class="btn btn-info add_additional" id="add_additional<?php echo $menu_id;?>">Add Addons</a>
-                <a href="javascript:void(0)" id="save0" data-id="<?php echo $menu_id;?>" class="btn btn-info savebtn">Save</a>
+                <a href="javascript:void(0)" class="btn btn-info add_additional" id="add_additional<?= $menu_id;?>">Add Addons</a>
+                <a href="javascript:void(0)" id="save0" data-id="<?= $menu_id;?>" class="btn btn-info savebtn">Save</a>
             </div>
             <?php } ?>
         </div>
@@ -31,7 +31,7 @@
     
     <hr />
     
-    <div class="additional additional<?php echo $menu_id;?>" style="<?php if(isset($cmodel)&& $cmodel){?>display:block;<?php }?>">
+    <div class="additional additional<?= $menu_id;?>" style="<?php if(isset($cmodel)&& $cmodel){?>display:block;<?php }?>">
         <div class="col-md-12 col-sm-12 col-xs-12"><h2>Addons</h2></div>
         <div class="clearfix"></div>
         <?php
@@ -68,8 +68,8 @@ $(function(){
                     }
                 });
                 $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/');?>',
-                    data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
+                    url: '<?= url('restaurant/orderCat/');?>',
+                    data: 'ids=' + order +'&_token=<?= csrf_token();?>',
                     type: 'post',
                     success: function() {
                         //

@@ -77,7 +77,7 @@
                         <div class="col-md-offset-2 col-md-10">
                             <button type="submit" class="btn red">Sign up</button>
                             &nbsp;
-                            <span>Already have account ? </span>
+                            <span>Already have an account? </span>
                             <a href="{{ url('auth/login') }}">Login here</a>
                         </div>
                     </div>

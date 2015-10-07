@@ -388,4 +388,7 @@ class AuthController extends Controller {
         return \Redirect::to('auth/login')->with('message', 'You are logout successfully!');
     }
 
+    function test(){
+        return view('auth.test', array('title' => 'Testing'));
+    }
 }

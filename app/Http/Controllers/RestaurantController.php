@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Restaurants;
 
 /**
  * Restaurant
@@ -49,8 +50,11 @@ class RestaurantController extends Controller {
         }
 
         try {
-            $ob = \App\Http\Models\Restaurants::find($id);
-            $ob->delete();
+            \App\Http\Models\Restaurants::delete_restaurant($id);
+            //$ob->delete();
+            //$ob = new \App\Http\Models\Restaurants();
+            //$ob->delete_restaurant($id);
+
             return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant has been deleted successfully!');
         } catch (\Exception $e) {
             return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
@@ -385,7 +389,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function eventsLog() {
-        $data['title'] = 'Evens Log';
+        $data['title'] = 'Events Log';
         $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('Date', 'DESC')->get();
         return view('dashboard.restaurant.events_log', $data);
     }

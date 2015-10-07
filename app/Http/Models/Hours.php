@@ -85,6 +85,7 @@ class Hours extends BaseModel {
         $Days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         return $Days[$DayOfWeek];
     }
+
     function get_hours($RestaurantID, $DayOfWeek = ""){
         $ret = array();
         $Params = array('RestaurantID' => $RestaurantID);
@@ -104,7 +105,7 @@ class Hours extends BaseModel {
     }
 
     function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
-        if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+        if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
         $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=> $DayOfWeek);
         delete_all('hours', $data);
         if(!$Open){$Open = "";}

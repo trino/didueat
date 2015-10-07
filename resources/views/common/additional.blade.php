@@ -11,41 +11,37 @@
             
             <div class="addmore ignore" id="addmore<?php if(isset($child))echo $child->ID;else echo '0';?>">
             <?php
-            if(isset($_GET['menu_id']))
-            $menu_id = $_GET['menu_id'];
+            if(isset($_GET['menu_id'])){
+                $menu_id = $_GET['menu_id'];
+            }
             if(isset($child->ID)){
                 $mod  = new \App\Http\Controllers\RestaurantController;
                                 $more = $mod->getMore($child->ID);
                                 //var_dump($sub);
-            //$more = $this->requestAction('menus/getMore/'.$child->ID);
-            if($more)
-            {
-                $i=0;
-                foreach($more as $cc)
-                {
-                    $i++;
-                    ?>
-                    <div class="cmore ignore ignore1" id="cmore<?php echo $cc->ID;?>">
-                    <?php if($i!=1){?>
-                    	<p style="margin-bottom:0;height:7px;" class="ignore ignore2 ignore1">&nbsp;</p>
-                    <?php }?>
-                        <div class="col-md-10 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
-                        	<input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="<?php echo $cc->menu_item;?>" />
-                        	<input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="<?php echo $cc->price;?>" style="margin-left:10px;" />  
+                //$more = $this->requestAction('menus/getMore/'.$child->ID);
+                if($more){
+                    $i=0;
+                    foreach($more as $cc){
+                        $i++;
+                        ?>
+                        <div class="cmore ignore ignore1" id="cmore<?php echo $cc->ID;?>">
+                        <?php if($i!=1){?>
+                            <p style="margin-bottom:0;height:7px;" class="ignore ignore2 ignore1">&nbsp;</p>
+                        <?php }?>
+                            <div class="col-md-10 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
+                                <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="<?php echo $cc->menu_item;?>" />
+                                <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="<?php echo $cc->price;?>" style="margin-left:10px;" />
+                            </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 ignore no-padding ignore2" <?php if($i==1){?>style="display: none;"<?php }?>>
+                            <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
-                    <div class="col-md-2 col-sm-2 col-xs-2 ignore no-padding ignore2" <?php if($i==1){?>style="display: none;"<?php }?>>
-                        <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a> 
-                    </div>
-                    <div class="clearfix ignore ignore2 ignore1"></div>
-                    </div>
-                    <?php
+                        <div class="clearfix ignore ignore2 ignore1"></div>
+                        </div>
+                        <?php
+                    }
                 }
-            }
-            }
-            else
-            {
+            } else {
                 ?>
-                
                 <div class="cmore ignore ignore2 ignore1">
                 <div class="col-md-10 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
                     <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" />
@@ -144,17 +140,17 @@
     <div class="col-md-5 col-sm-5 col-xs-12 ignore ignore2 ignore1">
         <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore2 ignore1">
             <div class="newaction ignore ignore2 ignore1">
-                <?php if(!isset($cmodel) || (isset($ccount) && $ccount==$k)){ 
-                    
-                    if(!isset($menu_id))
-                {
-                    $menu_id = 0;
-                }
-                //echo $menu_id;?>
-                    <a href="javascript:void(0)" class="btn btn-info add_additional ignore ignore2 ignore1" id="add_additional<?php echo $menu_id;?>">Add Addons</a> 
-                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){?>id="save0"<?php }else{?>id="save<?php echo $menu_id;}?>" class="btn btn-info savebtn ignore ignore2 ignore1">Save</a> 
-                    <?php if(isset($k) && $k!=1){?><a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a><?php }?>
-                <?php } ?>
+                <?php if(!isset($cmodel) || (isset($ccount) && $ccount==$k)){
+                    if(!isset($menu_id)) {
+                        $menu_id = 0;
+                    }
+                    ?>
+                    <a href="javascript:void(0)" class="btn btn-info add_additional ignore ignore2 ignore1" id="add_additional<?= $menu_id;?>">Add Addons</a>
+                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){ echo 'id="save0"'; }else{ echo 'id="save' . $menu_id;} ?>" class="btn btn-info savebtn ignore ignore2 ignore1">Save</a>
+                    <?php if(isset($k) && $k!=1){
+                        echo '<a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>';
+                    }
+                } ?>
             </div>
         </div>
     </div>

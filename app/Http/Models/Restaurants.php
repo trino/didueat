@@ -147,13 +147,13 @@ class Restaurants extends BaseModel {
         }
     }
 
-    function openclose_restaurant($RestaurantID, $Status = false){
+    public static function openclose_restaurant($RestaurantID, $Status = false){
         if($Status){$Status=1;} else {$Status = 0;}
         logevent("Set status to: " . $Status, true, $RestaurantID);
         update_database("restaurants", "ID", $RestaurantID, array("Open" => $Status));
     }
 
-    function delete_restaurant($RestaurantID, $NewProfileType = 2){
+    public static function delete_restaurant($RestaurantID, $NewProfileType = 2){
         logevent("Deleted restaurant", true, $RestaurantID);
         delete_all("restaurants", array("ID" => $RestaurantID));
         update_database("profiles", "RestaurantID", $RestaurantID, array("RestaurantID" => 0, "ProfileType" => $NewProfileType));
@@ -165,16 +165,16 @@ class Restaurants extends BaseModel {
         logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
         new_entry("daysoff", "ID", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
     }
-    function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
+    public static function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
         if ($IsNew){
             logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
         }
         delete_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
     }
-    function enum_days_off($RestaurantID){
+    public static function enum_days_off($RestaurantID){
         return enum_all("daysoff", array("RestaurantID" => $RestaurantID));
     }
-    function is_day_off($RestaurantID, $Day, $Month, $Year){
+    public static function is_day_off($RestaurantID, $Day, $Month, $Year){
         return first(enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))) == true;
     }
 

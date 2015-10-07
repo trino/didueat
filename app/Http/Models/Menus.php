@@ -76,7 +76,7 @@ class Menus extends BaseModel {
 
 
 ////////////////////////////////////////Menus API/////////////////////////////////
-    function enum_menus($RestaurantID = "", $Sort = ""){
+    public static function enum_menus($RestaurantID = "", $Sort = ""){
         if($RestaurantID=="all"){
             return enum_all('menus',['parent'=>'0','image <> "undefined"']);
         }
@@ -84,7 +84,7 @@ class Menus extends BaseModel {
         if($Sort){$order = array('display_order' => $Sort);} else {$order = "";}
         return enum_all("menus", array('res_id' => $RestaurantID, 'parent' => '0','image<>"undefined"'), $order);
     }
-    function get_menu($RestaurantID){
+    public static function get_menu($RestaurantID){
         return enum_all('menus', array('res_id'=>$RestaurantID));
     }
 
