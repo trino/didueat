@@ -35,7 +35,7 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function addresses() {
+    public function addresses($id=0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Street']) || empty($post['Street'])) {
@@ -55,11 +55,13 @@ class UsersController extends Controller {
             }
             try {
                 $post['UserID'] = \Session::get('session_id');
-                $ob = new \App\Http\Models\ProfilesAddresses();
+                
+                $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
                 $ob->populate($post);
                 $ob->save();
-
-                return \Redirect::to('user/addresses')->with('message', "Address created successfully");
+                
+                $idd = ($post['ID'])?'/'.$post['ID']:'';
+                return \Redirect::to('user/addresses'.$idd)->with('message', "Address created successfully");
             } catch (\Exception $e) {
                 return \Redirect::to('user/addresses')->with('message', $e->getMessage());
             }
@@ -67,7 +69,27 @@ class UsersController extends Controller {
             $data['title'] = "Addresses Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::get();
+            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             return view('dashboard.user.addresses', $data);
+        }
+    }
+    
+    /**
+     * Addresses Delete
+     * @param $id
+     * @return redirect
+     */
+    public function addressesDelete($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            return \Redirect::to('user/addresses')->with('message', "[Id] is missing!");
+        }
+
+        try {
+            $ob = \App\Http\Models\ProfilesAddresses::find($id);
+            $ob->delete();
+            return \Redirect::to('user/addresses')->with('message', 'Address has been deleted successfully!');
+        } catch (\Exception $e) {
+            return \Redirect::to('user/addresses')->with('message', $e->getMessage());
         }
     }
 
@@ -181,6 +203,15 @@ class UsersController extends Controller {
         
         echo '0';
           die();
+    }
+    
+    
+    function json_data()
+    {
+        $id = $_POST['id'];
+        $user = \DB::table('Profiles')->select('Profiles.Name','Profiles.Phone','Profiles.Email','Profiles_addresses.Street as Street','Profiles_addresses.PostalCode','Profiles_addresses.City','Profiles_addresses.Province')->where('Profiles.ID',\Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.ID', '=', 'Profiles_addresses.UserID')->first();
+       
+        return json_encode($user);
     }
   
 

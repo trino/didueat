@@ -57,16 +57,16 @@
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 right-align">Subject <span class="required">* </span>
+                                            <label class="control-label col-md-5 col-sm-5 col-xs-12 right-align">Subject <span class="required">* </span>
                                             </label>
-                                            <div class="col-md-8 col-sm-8">
+                                            <div class="col-md-5 col-sm-5 col-xs-12">
                                                 <input type="text" name="subject" class="form-control" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12 right-align">Message <span class="required">* </span>
+                                            <label class="control-label col-md-5 col-sm-5 col-xs-12 right-align">Message <span class="required">* </span>
                                             </label>
-                                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <div class="col-md-5 col-sm-5 col-xs-12">
                                                 <textarea name="message" rows="6" class="form-control" required></textarea>
                                             </div>
                                         </div>

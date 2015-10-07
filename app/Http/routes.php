@@ -61,7 +61,9 @@ Route::post('restaurant/orderCat', 'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}', 'RestaurantController@deleteMenu');
 
 Route::resource('user/addresses', 'UsersController@addresses');
+Route::get('user/addresses/delete/{id}', 'UsersController@addressesDelete')->where('id', '[0-9]+');
 Route::get('user/uploadmeal', 'UsersController@uploadMeal');
 Route::resource('user/images', 'UsersController@images');
 Route::get('user/orders', 'UsersController@viewOrders');
 Route::post('user/ajax_register', 'UsersController@ajax_register');
+Route::resource('user/json_data', 'UsersController@json_data');

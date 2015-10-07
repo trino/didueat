@@ -14,11 +14,12 @@ function sendemail($To, $Subject, $Message, $Raw = true){
 }
 
 function handle_action($Action = ""){
+    //http://localhost/didueat/public/restaurant/users?action=test
     if(!$Action){$Action=getpost("action");}
     if($Action) {
         switch ($Action) {
             case "test":
-                $Test = edit_hour(1, 1, "09:00 AM", "09:00 PM");
+                $Test = \App\Http\Models\Profiles::getSalt();
                 debug($Test);
                 die();
 

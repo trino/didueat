@@ -21,7 +21,7 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantId', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
+        $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantID', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

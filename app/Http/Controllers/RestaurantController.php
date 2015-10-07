@@ -20,10 +20,10 @@ class RestaurantController extends Controller {
      */
     public function __construct() {
         $this->beforeFilter(function() {
+            initialize("restaurants");
             if (!\Session::has('is_logged_in')) {
                 return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
             }
-            initialize("restaurants");
         });
     }
 
@@ -304,7 +304,7 @@ class RestaurantController extends Controller {
     public function history() {
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', '<>', 'pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
@@ -375,7 +375,7 @@ class RestaurantController extends Controller {
     public function historyOrders($id = 0) {
         $resId = ($id > 0) ? $id : \Session::get('session_restaurantId');
         $data['title'] = 'Orders History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', $resId)->where('status', '!=', 'pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', $resId)->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_history', $data);
     }
 

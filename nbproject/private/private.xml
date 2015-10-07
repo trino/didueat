@@ -12,6 +12,10 @@
         </group>
         <group>
             <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/RestaurantController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Functions/helpers.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/administrator/users.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/AdministratorController.php</file>
         </group>
     </open-files>
 </project-private>

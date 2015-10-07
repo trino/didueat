@@ -73,7 +73,7 @@ class AuthController extends Controller {
                     $password = encryptpassword(\Input::get('password'));
                     //echo $password; die();
                     if ($user->Password == $password) {
-                        login($user);
+                        echo login($user);
                     } else {
                         //echo $user->password . " != " . $password ; die();
                         echo trans('messages.user_login_invalid.message');

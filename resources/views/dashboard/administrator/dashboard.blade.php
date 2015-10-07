@@ -55,48 +55,48 @@
                                     
                                     <h3 class="form-section">Person Info</h3>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Full Name <span class="required">*</span></label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Full Name <span class="required">*</span></label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ Session::get('session_name') }}" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Email Address <span class="required">*</span></label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Email Address <span class="required">*</span></label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="email" name="email" class="form-control" placeholder="Email Address" value="{{ Session::get('session_email') }}" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Phone <span class="required">*</span></label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone <span class="required">*</span></label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="tel" name="phone" class="form-control" placeholder="Phone" value="{{ Session::get('session_phone') }}" required />
                                         </div>
                                     </div>
 
                                     <h3 class="form-section">Change Password</h3>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Old Password</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Old Password</label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="password" name="old_password" class="form-control" placeholder="Old Password">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">New Password</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">New Password</label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="password" name="new_password" class="form-control" placeholder="New Password">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Confirm password</label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Confirm password</label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password">
                                         </div>
                                     </div>
 
                                     <h3 class="form-section">Newsletter Setting</h3>
                                     <div class="checkbox form-group margin-bottom-20">
-                                        <label class="col-md-2 col-sm-3 col-xs-12 control-label" for="newsletter"></label>
-                                        <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <label class="col-md-5 col-sm-5 col-xs-12 control-label" for="newsletter"></label>
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <div class="checker">
                                                 <span>
                                                     <label class="control-label" id="newsletter_label" for="newsletter">

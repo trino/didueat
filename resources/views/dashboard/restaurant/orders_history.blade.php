@@ -60,6 +60,10 @@
                                             <td>
                                                 <a href="#" class="btn btn-success">View</a>
                                                 <a href="#" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete order');">Delete</a>
+                                                <?php if(strtolower($value->status)=='pending'){?>
+                                                    <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel this order');">Cancel</a>
+                                                    <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve this order ? ');">Approve</a>
+                                                <?php }?>
                                             </td>
                                         </tr>
                                         @endforeach
