@@ -13,13 +13,21 @@ function sendemail($To, $Subject, $Message, $Raw = true){
 
 }
 
+function call($controller, $action, $parameters = array()) {
+    $app = app();
+    $controller = $app->make($controller);
+    return $controller->callAction($app, $app['router'], $action, $parameters);
+}
+
 function handle_action($Action = ""){
     //http://localhost/didueat/public/restaurant/users?action=test
     if(!$Action){$Action=getpost("action");}
     if($Action) {
         switch ($Action) {
             case "test":
-                $Test = \App\Http\Models\Profiles::getSalt();
+                $Test = call("UsersController", "test");
+                //$Test = App::make('UsersController')->test();
+                //$Test = \App\Http\Controllers\UsersController::test();//static method in a model
                 debug($Test);
                 die();
 
