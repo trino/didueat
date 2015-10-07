@@ -89,7 +89,12 @@ class Restaurants extends BaseModel {
         return $Restaurant;
     }
 
-    function get_restaurant($ID = "", $IncludeHours = False, $IncludeAddresses = False){
+    function get_hours($RestaurantID){
+        $ob = new \App\Http\Models\Hours();
+        return $ob->get_hours($RestaurantID);
+    }
+
+    function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False){
         if(!$ID){$ID = get_current_restaurant();}
         if (is_numeric($ID)) {
             $restaurant = get_entry("restaurants", $ID);
@@ -97,7 +102,7 @@ class Restaurants extends BaseModel {
             $restaurant = get_entry('restaurants', $ID, 'Slug');
         }
         if($restaurant){
-            if($IncludeHours) {$restaurant->Hours = get_hours($ID);}
+            if($IncludeHours) {$restaurant->Hours = $this->get_hours($ID);}
             if($IncludeAddresses){$restaurant->Addresses = my_iterator_to_array(enum_notification_addresses($ID), "", "Address");}
         }
         return $restaurant;
@@ -123,18 +128,6 @@ class Restaurants extends BaseModel {
         return enum_profiles("RestaurantID", $RestaurantID);//->order("Hierarchy" , "ASC");
     }
 
-    function get_current_restaurant(){
-        $Profile = read('ID');
-        if($Profile) {
-            if (isset($_GET["RestaurantID"])) {
-                $ProfileType = get_profile_type($Profile);
-                if ($ProfileType->CanEditGlobalSettings) {
-                    return $_GET["RestaurantID"];
-                }
-            }
-            return get_profile($Profile)->RestaurantID;
-        }
-    }
 
     function hire_employee($UserID, $RestaurantID = 0, $ProfileType = ""){
         if(!check_permission("CanHireOrFire")){return false;}
@@ -168,7 +161,7 @@ class Restaurants extends BaseModel {
 
 /////////////////////////////////////days off API////////////////////////////////////
     function add_day_off($RestaurantID, $Day, $Month, $Year){
-        delete_day_off($RestaurantID, $Day, $Month, $Year, false);
+        $this->delete_day_off($RestaurantID, $Day, $Month, $Year, false);
         logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
         new_entry("daysoff", "ID", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
     }

@@ -179,13 +179,13 @@ class Reservations extends BaseModel {
         delete_all("reservations", array('id' => $ID));
     }
     function pending_order_count($RestaurantID = ""){
-        return iterator_count(enum_orders($RestaurantID, false, false));
+        return iterator_count($this->enum_orders($RestaurantID, false, false));
     }
     function get_order($ID){
         return get_entry("reservations", $ID, "id");
     }
     function order_status($Order){
-        if (!is_object($Order)){$Order = get_order($Order);}
+        if (!is_object($Order)){$Order = $this->get_order($Order);}
         if($Order->cancelled == 1) {
             return 'Cancelled';
         }else if($Order->approved == 1) {
@@ -199,10 +199,6 @@ class Reservations extends BaseModel {
         edit_database('reservations', "ID", $OrderID, array($Status=>1));
     }
 
-    function implode_data($Data, $Delimeter = ","){
-        if (is_array($Data)){return implode($Delimeter, $Data);}
-        return $Data;
-    }
 
 
 }

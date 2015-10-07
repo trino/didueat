@@ -21,15 +21,6 @@ class Countries extends BaseModel {
      * @return Array
      */
 
-    public function test()
-    {
-      echo $this->test2();
-    }
-
-    public function test2()
-    {
-        return 23;
-    }
 
 
 

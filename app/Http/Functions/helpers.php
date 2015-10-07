@@ -25,7 +25,11 @@ function handle_action($Action = ""){
     if($Action) {
         switch ($Action) {
             case "test":
-                $Test = call("UsersController", "test");
+
+                $ob = new \App\Http\Models\Hours();
+                $Test = $ob->get_restaurant(1);
+
+                //$Test = call("UsersController", "test");
                 //$Test = App::make('UsersController')->test();
                 //$Test = \App\Http\Controllers\UsersController::test();//static method in a model
                 debug($Test);
@@ -44,6 +48,7 @@ function handle_action($Action = ""){
                 //die();
         }
     }
+    return false;
 }
 
 //func count orders
@@ -51,10 +56,6 @@ function countOrders($type='pending'){
     return DB::table('reservations')->where('status', $type)->count();
 }
 
-//returns an array of permissions available for profile types
-function get_profile_permissions(){
-    return getColumnNames("profiletypes", array("ID", "Name", "Hierarchy"));
-}
 
 //returns an array of all the profile types with a hierarchy above $Hierarchy
 function enum_profiletypes($Hierarchy = "", $toArray = true){
@@ -74,6 +75,12 @@ function fileinclude($Filename){//pass __FILE__
     }
 }
 
+function webroot($Local = false){
+    if($Local){
+        return app_path() . "/";
+    }
+    return URL::to('/');
+}
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
@@ -112,13 +119,7 @@ function get_profile_type($ProfileID, $GetByType = false){
     return get_entry("profiletypes", $profiletype);
 }
 
-function can_profile_create($ProfileID, $ProfileType){
-    $creatorprofiletype = get_profile_type($ProfileID);
-    if($creatorprofiletype->CanCreateProfiles){
-        $ProfileType = get_profile_type($ProfileType, true);
-        return $creatorprofiletype->Hierarchy < $ProfileType->Hierarchy;
-    }
-}
+
 
 function randomPassword($Length=8) {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -173,8 +174,24 @@ function login($Profile){
     return $Profile->ID;
 }
 
+function get_current_restaurant(){
+    $Profile = read('ID');
+    if($Profile) {
+        if (isset($_GET["RestaurantID"])) {
+            $ProfileType = get_profile_type($Profile);
+            if ($ProfileType->CanEditGlobalSettings) {
+                return $_GET["RestaurantID"];
+            }
+        }
+        return get_profile($Profile)->RestaurantID;
+    }
+}
 
-
+function check_permission($Permission, $UserID = ""){
+    if(!$UserID){$UserID = read("ID");}
+    if(!$UserID){ echo 'You are not logged in';die();}
+    return get_profile_type($UserID)->$Permission;
+}
 
 
 
@@ -361,6 +378,11 @@ function implode2($Array, $SmallGlue, $BigGlue){
     }
     return implode_data($Array,$BigGlue);
 }
+function implode_data($Data, $Delimeter = ","){
+    if (is_array($Data)){return implode($Delimeter, $Data);}
+    return $Data;
+}
+
 function debug($Iterator, $DoStacktrace = true){
     if($DoStacktrace) {
         $Backtrace = debug_string_backtrace();

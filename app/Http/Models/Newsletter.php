@@ -77,12 +77,12 @@ class Newsletter extends BaseModel {
 
     function set_subscribed($EmailAddress, $Status = false){
         $EmailAddress = clean_email($EmailAddress);
-        $is_subscribed = is_subscribed($EmailAddress) == true;
+        $is_subscribed = $this->is_subscribed($EmailAddress) == true;
         if($is_subscribed != $Status){
             if($Status){
-                add_subscriber($EmailAddress, True);
+                $this->add_subscriber($EmailAddress, True);
             } else {
-                remove_subscriber($EmailAddress);
+                $this->remove_subscriber($EmailAddress);
             }
         }
     }
@@ -91,10 +91,5 @@ class Newsletter extends BaseModel {
         return my_iterator_to_array($Data, "ID", "Email");
     }
 
-    function webroot($Local = false){
-        if($Local){
-            return app_path() . "/";
-        }
-        return URL::to('/');
-    }
+
 }

@@ -51,12 +51,12 @@ class ProfileTypes extends BaseModel {
 
     function edit_profiletype($ID = "", $Name, $Hierarchy, $Permissions = ""){
         if(!$ID){
-            $ID = new_profiletype($Name);
+            $ID = $this->new_profiletype($Name);
         }
         logevent("Changed profile type: " . $ID . " (" . $Name . ", " . $Hierarchy . ", " . print_r($Permissions, true) . ")", false);
         $data = array("Name" => $Name, "Hierarchy" => $Hierarchy);
         if ($Permissions == "ALL"){
-            $Permissions = get_profile_permissions();
+            $Permissions = $this->get_profile_permissions();
         }
         if (!is_array($Permissions) && $Permissions) {
             $Permissions = array($Permissions);
@@ -76,4 +76,8 @@ class ProfileTypes extends BaseModel {
         return new_anything("profiletypes", array("Name" => $Name));
     }
 
+    //returns an array of permissions available for profile types
+    function get_profile_permissions(){
+        return getColumnNames("profiletypes", array("ID", "Name", "Hierarchy"));
+    }
 }
