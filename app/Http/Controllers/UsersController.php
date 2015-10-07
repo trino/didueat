@@ -183,15 +183,21 @@ class UsersController extends Controller {
         $Phone = $_POST['contact'];
         $Name = $_POST['ordered_by'];
         $oid = $order_id;
-        $salt = $_POST['salt'];
+       
         if(isset($_POST['password']) && $_POST['password']!='') {
             if (\DB::table('profiles')->where('email', $EmailAddress)->first()) {
                 echo '1';
                 die();
             } else {
-                \DB::table('profiles')->insert(
-                    array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => \crypt($Password, $salt),'salt'=>$salt,'restaurantId'=>'0')
+                $uid = \DB::table('profiles')->insertGetId(
+                    array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => encryptpassword($Password),'restaurantId'=>'0')
                     );
+                   
+                  $user = \DB::table('profiles')->where('ID',$uid)->first();  
+                    $userArray = (array) $user;
+                    //var_dump($userArray); die();
+                    $userArray['mail_subject'] = 'Thank you for registration.';
+                    $this->sendEMail("emails.registration_welcome", $userArray);
                 //$this->Manager->new_profile(0, $Name, $Password, 2, $EmailAddress, $Phone, 0, '0');
              }
         }
@@ -203,6 +209,15 @@ class UsersController extends Controller {
         
         echo '0';
           die();
+    }
+    
+    
+    function json_data()
+    {
+        $id = $_POST['id'];
+        $user = \DB::table('Profiles')->select('Profiles.Name','Profiles.Phone','Profiles.Email','Profiles_addresses.Street as Street','Profiles_addresses.PostalCode','Profiles_addresses.City','Profiles_addresses.Province')->where('Profiles.ID',\Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.ID', '=', 'Profiles_addresses.UserID')->first();
+       
+        return json_encode($user);
     }
   
 

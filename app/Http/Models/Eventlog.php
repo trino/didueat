@@ -42,5 +42,11 @@ class Eventlog extends BaseModel {
         }
         */
     }
-    
+
+    function enum_events($RestaurantID = false){
+        if(!$RestaurantID){ $RestaurantID = get_current_restaurant(); }
+        return enum_all("eventlog", array("RestaurantID" => $RestaurantID));
+    }
+
+
 }

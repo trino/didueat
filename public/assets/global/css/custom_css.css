@@ -683,7 +683,7 @@ body.ecommerce {
 }
 
 .form-horizontal .control-label {
-    text-align: left !important;
+    text-align: right !important;
 }
 
 .prov-country {
@@ -807,7 +807,7 @@ body.ecommerce {
   background: none;
 }
 
-#signupForm input, #signupForm textarea, #signupForm select {
+#signupForm input, #signupForm textarea, #signupForm select, #profileForm input, #profileForm textarea, #profileForm select {
   background: none;
   border: medium none !important;
   border-bottom: 2px solid #aaa !important;
@@ -817,7 +817,43 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
-#signupForm input:focus, #signupForm textarea:focus, #signupForm select:focus {
+#signupForm input:focus, #signupForm textarea:focus, #signupForm select:focus, #profileForm input:focus, #profileForm textarea:focus, #profileForm select:focus {
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#newsletter-form input, #newsletter-form textarea, #newsletter-form select, #addressesForm input, #addressesForm textarea, #addressesForm select {
+  background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#newsletter-form input:focus, #newsletter-form textarea:focus, #newsletter-form select:focus, #addressesForm input:focus, #addressesForm textarea:focus, #addressesForm select:focus {
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#imageForm input, #imageForm textarea, #imageForm select {
+    background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;  
+}
+
+#imageForm input:focus, #imageForm textarea:focus, #imageForm select:focus {
   border-bottom: 2px solid #ce0b10 !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;

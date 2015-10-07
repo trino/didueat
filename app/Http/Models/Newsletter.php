@@ -35,5 +35,66 @@ class Newsletter extends BaseModel {
             $this->GUID = $data['GUID'];
         }*/
     }
-    
+
+
+////////////////////////////////////Newsletter API//////////////////////////////////
+    function add_subscriber($EmailAddress, $authorized = false){
+        $EmailAddress = clean_email($EmailAddress);
+        if(is_valid_email($EmailAddress)) {
+            $Entry = get_entry("newsletter", $EmailAddress, "Email");
+            $GUID="";
+            if ($Entry) {
+                if (!$Entry->GUID) { return true; }
+                if(!$authorized){$GUID = $Entry->GUID;}
+                update_database("newsletter", "ID", $Entry->ID, array("GUID" => $GUID));
+            } else {
+                if(!$authorized){$GUID = com_create_guid();}
+                new_entry("newsletter", "ID", array("GUID" => $GUID, "Email" => $EmailAddress));
+            }
+            $path = '<A HREF="' . webroot() . "cuisine?action=subscribe&key=" . $GUID . '">Click here to finish registration</A>';
+            return handleevent($EmailAddress, "subscribe", array("Path" => $path));
+        }
+    }
+
+    function remove_subscriber($EmailAddress){
+        $EmailAddress = clean_email($EmailAddress);
+        delete_all("newsletter", array("Email" => $EmailAddress));
+    }
+
+    function is_subscribed($EmailAddress){
+        $EmailAddress = clean_email($EmailAddress);
+        return get_entry("newsletter", $EmailAddress, "Email");
+    }
+
+    function finish_subscription($Key){
+        $Entry = get_entry("newsletter", $Key, "GUID");
+        if($Entry){
+            update_database("newsletter", "ID", $Entry->ID, array("GUID" => ""));
+            update_database("profiles", "Email", $Entry->Email, array("subscribed" => 1));
+            return $Entry->Email;
+        }
+    }
+
+    function set_subscribed($EmailAddress, $Status = false){
+        $EmailAddress = clean_email($EmailAddress);
+        $is_subscribed = is_subscribed($EmailAddress) == true;
+        if($is_subscribed != $Status){
+            if($Status){
+                add_subscriber($EmailAddress, True);
+            } else {
+                remove_subscriber($EmailAddress);
+            }
+        }
+    }
+    function enum_subscribers(){
+        $Data = enum_all("newsletter", array("GUID" => ""));
+        return my_iterator_to_array($Data, "ID", "Email");
+    }
+
+    function webroot($Local = false){
+        if($Local){
+            return app_path() . "/";
+        }
+        return URL::to('/');
+    }
 }
