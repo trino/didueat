@@ -20,6 +20,19 @@ class Countries extends BaseModel {
      * @param array
      * @return Array
      */
+
+    public function test()
+    {
+      echo $this->test2();
+    }
+
+    public function test2()
+    {
+        return 23;
+    }
+
+
+
     public function populate($data) {
         $cells = array('name', 'alpha_2', 'alpha_3');
         foreach($cells as $cell) {

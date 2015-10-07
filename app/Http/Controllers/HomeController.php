@@ -24,6 +24,12 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
+
+        $ob = new \App\Http\Models\Countries();
+        echo $ob->test();
+        die();
+
+
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         if(isset($_GET['page'])) {
