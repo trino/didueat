@@ -508,11 +508,12 @@
                                         <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="" value="<?php if(isset($profile))echo $profile->Email;?>">                        
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                        <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="" value="<?php if(isset($profile))echo $profile->Phone;?>">
+                                        <input type="number" pattern="[0-9]*" maxlength="10" min="10" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="" value="<?php if(isset($profile))echo $profile->Phone;?>">
                                     </div>
                                     <div class="clearfix"></div>                        
                                 </div>
-                                <div class="form-group">
+                                
+                                <div class="form-group" <?php if(isset($profile))echo 'style="display:none;"'?>>
                                     <div class="col-xs-12">
                                         <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);">
                                     </div>
@@ -566,7 +567,7 @@
 
                                         </div>
                                         <div class="col-xs-12 col-sm-6">
-                                            <input type="text" id="ordered_code" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code" value="<?php if(isset($profile))echo $profile->PostalCode;?>">
+                                            <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code" value="<?php if(isset($profile))echo $profile->PostalCode;?>">
                                         </div>                        
                                         <div class="clearfix"></div>
                                     </div>
@@ -630,7 +631,7 @@
                                             success: function(msg) {
                                                 if (msg == '0')
                                                 {
-                                                    $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');
+                                                    $('.top-cart-content ').html('<span class="thankyou"> Thank you, for your order <br/>OR <br/> creating an account.<br/> (an email has been sent to u).</span>');
                                                 }
                                                 else if (msg == '1')
                                                     alert('Email Already Registred.');
