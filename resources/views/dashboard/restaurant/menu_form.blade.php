@@ -32,8 +32,8 @@
     <hr />
     
     <div class="additional additional<?php echo $menu_id;?>" style="<?php if(isset($cmodel)&& $cmodel){?>display:block;<?php }?>">
-        <div class="col-md-12"><h2>Addons</h2></div>
-        <div class="clearfix"></div>
+        <div class="col-md-12 ignore"><h2>Addons</h2></div>
+        <div class="clearfix ignore"></div>
         <?php
         $k=0;
             if(isset($cmodel)){
@@ -76,8 +76,8 @@ $(function(){
                     }
                 });
             },
-            items : ':not(.col-md-12)',
-            items : ':not(.clearfix)',
+            items : ':not(.ignore)',
+            
         });
         
     })

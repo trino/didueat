@@ -24,27 +24,27 @@
                             <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add New Menu Item</a>
                             <div class="addnew" style="display: none;"></div>
                             <hr>
-                            <ul class="parentinfo ui-sortable" id="sortable">
+                            <ul class="parentinfo" id="sortable">
                                 @foreach($menus_list as $value)
                                 
-                                <li class="infolistwhite row marbot newmenus ui-sortable-handle" id="parent{{ $value->ID }}">
-                                    <div class="col-md-4 menu_item col-sm-4 col-xs-12">
-                                        <div class="col-sm-4 col-xs-12" style="padding: 0;">
-                                            <img class="itemimg4 itemimg" src="{{ asset('assets/images/products') }}/<?php echo ($value->image) ? $value->image : 'default.jpg'; ?>" />
+                                <li class="infolistwhite row marbot newmenus" id="parent{{ $value->ID }}">
+                                    <div class="col-md-4 menu_item col-sm-4 col-xs-12 ignore">
+                                        <div class="col-sm-4 col-xs-12 ignore" style="padding: 0;">
+                                            <img class="itemimg4 itemimg ignore" src="{{ asset('assets/images/products') }}/<?php echo ($value->image) ? $value->image : 'default.jpg'; ?>" />
                                         </div>
-                                        <div class="col-sm-8 col-xs-12">
-                                            <h4>{{ $value->menu_item }}</h4>
+                                        <div class="col-sm-8 col-xs-12 ignore">
+                                            <h4 class="ignore">{{ $value->menu_item }}</h4>
                                         </div>
-                                        <div class="clearfix"></div>
+                                        <div class="clearfix ignore"></div>
                                     </div>
-                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                        <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn btn-success green add_item">Edit Item</a>
-                                        <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->ID;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn red">Delete</a>
-                                        <div style="clear: both;"></div>
+                                    <div class="col-md-8 col-sm-8 col-xs-12 ignore">
+                                        <a href="javascript:void(0)" id="add_item{{ $value->ID }}" class="btn ignore btn-success green add_item">Edit Item</a>
+                                        <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->ID;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->ID }}" class="deletecat btn red ignore">Delete</a>
+                                        <div style="clear: both;" class="ignore"></div>
                                     </div>
-                                    <div class="clearfix"></div>
+                                    <div class="clearfix ignore"></div>
                                 </li>
-                                <hr class="blog-post-sep ui-sortable-handle">
+                                <hr class="blog-post-sep ignore">
                                 @endforeach
                             </ul>
                         </div>
@@ -96,7 +96,8 @@ jQuery(document).ready(function() {
                         //
                     }
                 });
-            }
+            },
+            items : ':not(.ignore)'
         });
         //$( "#sortable" ).disableSelection();
     });
