@@ -120,10 +120,10 @@
             </div>
 
             <div class="col-md-9 col-sm-8 col-xs-12">
-                @if(Session::has('message'))
-                <div class="alert alert-danger">
-                    <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
-                </div>
+                @if(\Session::has('message'))
+                    <div class="alert {!! Session::get('message-type') !!}">
+                        <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                    </div>
                 @endif
 
                 {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}

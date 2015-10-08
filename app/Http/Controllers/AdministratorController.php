@@ -22,7 +22,10 @@ class AdministratorController extends Controller {
     public function __construct() {
         $this->beforeFilter(function() {
             if (!\Session::has('is_logged_in')) {
-                return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
+                \Session::flash('message', trans('messages.user_session_exp.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/login');
             }
             initialize("admin");
         });
@@ -38,13 +41,22 @@ class AdministratorController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
 
             if (!isset($post['name']) || empty($post['name'])) {
-                return \Redirect::to('dashboard')->with('message', "[Name] field is missing!");
+                \Session::flash('message', "[Name] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('dashboard');
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return \Redirect::to('dashboard')->with('message', "[Email] field is missing!");
+                \Session::flash('message', "[Email] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('dashboard');
             }
             if (!isset($post['phone']) || empty($post['phone'])) {
-                return \Redirect::to('dashboard')->with('message', "[Phone] field is missing!");
+                \Session::flash('message', "[Phone] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('dashboard');
             }
             try {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
@@ -52,16 +64,28 @@ class AdministratorController extends Controller {
                 if (isset($post['old_password']) && !empty($post['old_password'])) {
                     $password = encryptpassword($post['old_password']);
                     if ($ob->Password != $password) {
-                        return \Redirect::to('dashboard')->with('message', "[Old Password] is incorrect!");
+                        \Session::flash('message', "[Old Password] is incorrect!");
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('dashboard');
                     }
                     if (empty($post['new_password'])) {
-                        return \Redirect::to('dashboard')->with('message', "[New Password] is missing!");
+                        \Session::flash('message', "[New Password] is missing!");
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('dashboard');
                     }
                     if (empty($post['confirm_password'])) {
-                        return \Redirect::to('dashboard')->with('message', "[Confirm Password] is missing!");
+                        \Session::flash('message', "[Confirm Password] is missing!");
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('dashboard');
                     }
                     if ($post['new_password'] != $post['confirm_password']) {
-                        return \Redirect::to('dashboard')->with('message', "[Passwords] are mis-matched!");
+                        \Session::flash('message', "[Passwords] are mis-matched!");
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('dashboard');
                     }
                     $post['password'] = $post['confirm_password'];
                 }
@@ -70,10 +94,16 @@ class AdministratorController extends Controller {
                 $ob->save();
 
                 login($ob);
-
-                return \Redirect::to('dashboard')->with('message', "Profile updated successfully");
+                
+                \Session::flash('message', "Profile updated successfully");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('dashboard');
             } catch (\Exception $e) {
-                return \Redirect::to('dashboard')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('dashboard');
             }
         } else {
             $data['title'] = 'Dashboard';
@@ -89,10 +119,16 @@ class AdministratorController extends Controller {
      */
     public function usersAction($type='', $id=0) {
         if (!isset($type) || empty($type)) {
-            return \Redirect::to('restaurant/users')->with('message', "[Type] is missing!");
+            \Session::flash('message', "[Type] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/users');
         }
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/users')->with('message', "[Order Id] is missing!");
+            \Session::flash('message', "[Order Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/users');
         }
         
         try {
@@ -100,9 +136,15 @@ class AdministratorController extends Controller {
             //$ob->populate(array('status' => 'approved'));
             //$ob->save();
             
-            return \Redirect::to('restaurant/users')->with('message', 'Status has been changed successfully!');
+            \Session::flash('message', 'Status has been changed successfully!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/users');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/users')->with('message', $e->getMessage());
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/users');
         }
     }
 
@@ -115,23 +157,41 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
-                return \Redirect::to('restaurant/users')->with('message', '[Name] field is missing')->withInput();
+                \Session::flash('message', '[Name] field is missing');
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_missing_email.message'))->withInput();
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_pass_field_missing.message'))->withInput();
+                \Session::flash('message', trans('messages.user_pass_field_missing.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_confim_pass_field_missing.message'))->withInput();
+                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
             if ($post['password'] != $post['confirm_password']) {
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_passwords_mismatched.message'))->withInput();
+                \Session::flash('message', trans('messages.user_passwords_mismatched.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
 
             \DB::beginTransaction();
@@ -146,14 +206,23 @@ class AdministratorController extends Controller {
                 $userArray['mail_subject'] = 'Thank you for registration.';
                 $this->sendEMail("emails.registration_welcome", $userArray);
                 \DB::commit();
-
-                return \Redirect::to('restaurant/users')->with('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.')->withInput();
+                
+                \Session::flash('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                return \Redirect::to('restaurant/users')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             } catch (\Exception $e) {
                 \DB::rollback();
-                return \Redirect::to('restaurant/users')->with('message', $e->getMessage())->withInput();
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
             }
         } else {
             $data['title'] = 'Users List';
@@ -171,10 +240,16 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['subject']) || empty($post['subject'])) {
-                return \Redirect::to('restaurant/newsletter')->with('message', "[Subject] field is missing!");
+                \Session::flash('message', "[Subject] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/newsletter');
             }
             if (!isset($post['message']) || empty($post['message'])) {
-                return \Redirect::to('restaurant/newsletter')->with('message', "[Message] field is missing!");
+                \Session::flash('message', "[Message] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/newsletter');
             }
             try {
                 $ob = \App\Http\Models\Newsletter::get();
@@ -188,10 +263,16 @@ class AdministratorController extends Controller {
                         $this->sendEMail("emails.newsletter", $array);
                     }
                 }
-
-                return \Redirect::to('restaurant/newsletter')->with('message', "Newsletter sent successfully");
+                
+                \Session::flash('message', "Newsletter sent successfully");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/newsletter');
             } catch (\Exception $e) {
-                return \Redirect::to('restaurant/newsletter')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/newsletter');
             }
         } else {
             $data['title'] = 'Newsletter Send';

@@ -25,7 +25,10 @@ class UsersController extends Controller {
             $act = str_replace('user.','',\Route::currentRouteName());
             $act = str_replace('.store','',$act);
             if (!\Session::has('is_logged_in')&& $act != 'ajax_register') {
-                //return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
+                //\Session::flash('message', trans('messages.user_session_exp.message')); 
+                //\Session::flash('message-type', 'alert-danger');
+                //\Session::flash('message-short', 'Oops!');
+                //return \Redirect::to('auth/login');
             }
             initialize("users");
         });
@@ -39,19 +42,34 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Street']) || empty($post['Street'])) {
-                return \Redirect::to('user/addresses')->with('message', "[Street address] field is missing!");
+                \Session::flash('message', "[Street address] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
             if (!isset($post['Apt']) || empty($post['Apt'])) {
-                return \Redirect::to('user/addresses')->with('message', "[Apartment/Unit/ Room] field is missing!");
+                \Session::flash('message', "[Apartment/Unit/ Room] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
             if (!isset($post['City']) || empty($post['City'])) {
-                return \Redirect::to('user/addresses')->with('message', "[City] field is missing!");
+                \Session::flash('message', "[City] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
             if (!isset($post['Province']) || empty($post['Province'])) {
-                return \Redirect::to('user/addresses')->with('message', "[Province] field is missing!");
+                \Session::flash('message', "[Province] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
             if (!isset($post['Country']) || empty($post['Country'])) {
-                return \Redirect::to('user/addresses')->with('message', "[Country] field is missing!");
+                \Session::flash('message', "[Country] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
             try {
                 $post['UserID'] = \Session::get('session_id');
@@ -61,9 +79,15 @@ class UsersController extends Controller {
                 $ob->save();
                 
                 $idd = ($post['ID'])?'/'.$post['ID']:'';
-                return \Redirect::to('user/addresses'.$idd)->with('message', "Address created successfully");
+                \Session::flash('message', "Address created successfully"); 
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses'.$idd);
             } catch (\Exception $e) {
-                return \Redirect::to('user/addresses')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage()); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/addresses');
             }
         } else {
             $data['title'] = "Addresses Manage";
@@ -81,15 +105,26 @@ class UsersController extends Controller {
      */
     public function addressesDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('user/addresses')->with('message', "[Id] is missing!");
+            \Session::flash('message', "[Id] is missing!"); 
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('user/addresses');
         }
 
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
             $ob->delete();
-            return \Redirect::to('user/addresses')->with('message', 'Address has been deleted successfully!');
+            
+            \Session::flash('message', "Address has been deleted successfully!"); 
+            \Session::flash('message-type', 'alert-sucess');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('user/addresses');
         } catch (\Exception $e) {
-            return \Redirect::to('user/addresses')->with('message', $e->getMessage());
+            
+            \Session::flash('message', $e->getMessage()); 
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('user/addresses');
         }
     }
 
@@ -120,13 +155,22 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['RestaurantID']) || empty($post['RestaurantID'])) {
-                return \Redirect::to('user/images')->with('message', "[Restaurant] field is missing!");
+                \Session::flash('message', "[Restaurant] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/images');
             }
             if (!isset($post['Title']) || empty($post['Title'])) {
-                return \Redirect::to('user/images')->with('message', "[Title] field is missing!");
+                \Session::flash('message', "[Title] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/images');
             }
             if (!\Input::hasFile('image')) {
-                return \Redirect::to('user/images')->with('message', "[Image] field is missing!");
+                \Session::flash('message', "[Image] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/images');
             }
             try {
                 if (\Input::hasFile('image')) {
@@ -143,9 +187,16 @@ class UsersController extends Controller {
                 $ob->populate($post);
                 $ob->save();
                 
-                return \Redirect::to('user/images')->with('message', "Image uploaded successfully");
+                \Session::flash('message', "Image uploaded successfully");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/images');
             } catch (\Exception $e) {
-                return \Redirect::to('user/images')->with('message', $e->getMessage());
+                
+                \Session::flash('message', $e->getMessage()); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('user/images');
             }
         } else {
             $data['title'] = 'Images Manage';
@@ -154,6 +205,7 @@ class UsersController extends Controller {
             return view('dashboard.user.manage_image', $data);
         }
     }
+    
     public function ajax_register() {
         $res['order_type'] = $_POST['order_type'];
         $res['delivery_fee'] = $_POST['delivery_fee'];

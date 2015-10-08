@@ -60,29 +60,53 @@ class HomeController extends Controller {
          $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Name']) || empty($post['Name'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Restaurant Name] field is missing!")->withInput();
+                \Session::flash('message', "[Restaurant Name] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             if (!isset($post['Email']) || empty($post['Email'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Restaurant Email] field is missing!")->withInput();
+                \Session::flash('message', "[Restaurant Email] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             $is_email = \App\Http\Models\Restaurants::where('Email', '=', $post['Email'])->count();
             if ($is_email > 0) {
-                return \Redirect::to('restaurants/signup')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                \Session::flash('message', trans('messages.user_email_already_exist.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurants/signup')->withInput();
             }
             if (!isset($post['Country']) || empty($post['Country'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Country] field is missing!")->withInput();
+                \Session::flash('message', "[Country] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             if (!isset($post['City']) || empty($post['City'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[City] field is missing!")->withInput();
+                \Session::flash('message', "[City] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             if (!isset($post['PostalCode']) || empty($post['PostalCode'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Postal Code] field is missing!")->withInput();
+                \Session::flash('message', "[Postal Code] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             if (!isset($post['DeliveryFee']) || empty($post['DeliveryFee'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Delivery Fee] field is missing!")->withInput();
+                \Session::flash('message', "[Delivery Fee] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             if (!isset($post['Minimum']) || empty($post['Minimum'])) {
-                return \Redirect::to('/restaurants/signup')->with('message', "[Minimum Sub Total For Delivery] field is missing!")->withInput();
+                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!"); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
             }
             try {
                 if (\Input::hasFile('logo')) {
@@ -111,10 +135,15 @@ class HomeController extends Controller {
                 }
                 
                 \Session::put('TempRestaurantID', $ob->ID);
-
-                return \Redirect::to('/auth/register')->with('message', "Resturant created successfully");
+                \Session::flash('message', "Resturant created successfully"); 
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
-                return \Redirect::to('/restaurants/signup')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage()); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup');
             }
         } else {
             $data['title'] = "Signup Restaurants Page";

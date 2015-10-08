@@ -11,10 +11,10 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-md-10 col-sm-8 col-xs-12 no-padding">
-                    @if(Session::has('message'))
-                    <div class="alert alert-info">
-                        <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
-                    </div>
+                    @if(\Session::has('message'))
+                        <div class="alert {!! Session::get('message-type') !!}">
+                            <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                        </div>
                     @endif
 
                     <div class="dashboard">

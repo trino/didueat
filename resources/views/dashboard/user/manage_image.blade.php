@@ -29,7 +29,12 @@
                     @include('layouts.includes.leftsidebar')
 
                     <div class="col-xs-12 col-sm-8 col-md-10 ">
-
+                        @if(\Session::has('message'))
+                            <div class="alert {!! Session::get('message-type') !!}">
+                                <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                            </div>
+                        @endif
+                        
                         <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
                         <div class="clearfix"></div>
                         <hr class="shop__divider">
@@ -79,13 +84,6 @@
             <br />
             {!! Form::open(array('url' => '/user/images', 'id'=>'imageForm','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
             <div class="form-body">
-
-                @if(Session::has('message'))
-                <div class="alert alert-info">
-                    <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
-                </div>
-                @endif
-
                 <div class="form-group">
                     <label>Restaurant Name <span class="required">*</span></label>
                     <select name="RestaurantID" class="form-control input-lg" required>

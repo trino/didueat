@@ -35,24 +35,39 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        return \Redirect::to('auth/login')->with('message', trans('messages.user_inactive.message'));
+                        \Session::flash('message', trans('messages.user_inactive.message')); 
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('auth/login');
                     }
                     $password = encryptpassword(\Input::get('password'));
                     if ($user->password == $password) {
                         login($user);
                         return redirect()->intended('dashboard');
                     } else {
-                        return \Redirect::to('auth/login')->with('message', trans('messages.user_login_invalid.message'));
+                        \Session::flash('message', trans('messages.user_login_invalid.message')); 
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('auth/login');
                     }
                 } else {
+                    \Session::flash('message', trans('messages.user_not_registered.message')); 
+                    \Session::flash('message-type', 'alert-danger');
+                    \Session::flash('message-short', 'Oops!');
                     //return redirect()->intended('auth/login');
-                    return \Redirect::to('auth/login')->with('message', trans('messages.user_not_registered.message'));
+                    return \Redirect::to('auth/login');
                 }
             } catch (Exception $e) {
-                return \Redirect::to('auth/login')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage()); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/login');
             }
         } else {
-            return \Redirect::to('auth/login')->with('message', trans('messages.user_missing_email.message'));
+            \Session::flash('message', trans('messages.user_missing_email.message')); 
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('auth/login');
         }
     }
 
@@ -67,28 +82,23 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        echo trans('messages.user_inactive.message');
-                        die;
+                        echo trans('messages.user_inactive.message'); die;
                     }
                     $password = encryptpassword(\Input::get('password'));
                     if ($user->password == $password) {
                         login($user);
                     } else {
                         //echo $user->password . " != " . $password ; die();
-                        echo trans('messages.user_login_invalid.message');
-                        die;
+                        echo trans('messages.user_login_invalid.message');die;
                     }
                 } else {
-                    echo trans('messages.user_not_registered.message');
-                    die;
+                    echo trans('messages.user_not_registered.message');die;
                 }
             } catch (Exception $e) {
-                echo $e->getMessage();
-                die;
+                echo $e->getMessage();die;
             }
         } else {
-            echo trans('messages.user_missing_email.message');
-            die;
+            echo trans('messages.user_missing_email.message');die;
         }
     }
 
@@ -110,21 +120,36 @@ class AuthController extends Controller {
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
             if (!isset($data['email']) || empty($data['email'])) {
-                return \Redirect::to('auth/register')->with('message', trans('messages.user_missing_email.message'))->withInput();
+                \Session::flash('message', trans('messages.user_missing_email.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/register')->withInput();
             }
 
             $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
             if ($is_email > 0) {
-                return \Redirect::to('auth/register')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                \Session::flash('message', trans('messages.user_email_already_exist.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/register')->withInput();
             }
             if (!isset($data['password']) || empty($data['password'])) {
-                return \Redirect::to('auth/register')->with('message', trans('messages.user_pass_field_missing.message'))->withInput();
+                \Session::flash('message', trans('messages.user_pass_field_missing.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/register')->withInput();
             }
             if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
-                return \Redirect::to('auth/register')->with('message', trans('messages.user_confim_pass_field_missing.message'))->withInput();
+                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/register')->withInput();
             }
             if ($data['password'] != $data['confirm_password']) {
-                return \Redirect::to('auth/register')->with('message', trans('messages.user_passwords_mismatched.message'))->withInput();
+                \Session::flash('message', trans('messages.user_passwords_mismatched.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/register')->withInput();
             } else {
                 \DB::beginTransaction();
                 try {
@@ -146,14 +171,23 @@ class AuthController extends Controller {
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
-                    return \Redirect::to('auth/register')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                    \Session::flash('message', trans('messages.user_email_already_exist.message')); 
+                    \Session::flash('message-type', 'alert-danger');
+                    \Session::flash('message-short', 'Oops!');
+                    return \Redirect::to('auth/register')->withInput();
                 } catch (\Exception $e) {
                     \DB::rollback();
-                    return \Redirect::to('auth/register')->with('message', $e->getMessage())->withInput();
+                    \Session::flash('message', $e->getMessage()); 
+                    \Session::flash('message-type', 'alert-danger');
+                    \Session::flash('message-short', 'Oops!');
+                    return \Redirect::to('auth/register')->withInput();
                 }
             }
         } else {
-            return \Redirect::to('auth/register')->with('message', trans('messages.user_invalid_data_parse.message'))->withInput();
+            \Session::flash('message', trans('messages.user_invalid_data_parse.message')); 
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('auth/register')->withInput();
         }
     }
     
@@ -314,7 +348,10 @@ class AuthController extends Controller {
                 if (!is_null($user) && count($user) > 0) {
                    
                     if ($user->status == 0) {
-                        return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_inactive.message'));
+                        \Session::flash('message', trans('messages.user_inactive.message')); 
+                        \Session::flash('message-type', 'alert-danger');
+                        \Session::flash('message-short', 'Oops!');
+                        return \Redirect::to('auth/forgot-passoword');
                     }
                     
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
@@ -333,13 +370,22 @@ class AuthController extends Controller {
                     return view('messages.message', $message);
 
                 } else {
-                    return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_email_not_verify.message'));
+                    \Session::flash('message', trans('messages.user_email_not_verify.message')); 
+                    \Session::flash('message-type', 'alert-danger');
+                    \Session::flash('message-short', 'Oops!');
+                    return \Redirect::to('auth/forgot-passoword');
                 }
             } catch (Exception $e) {
-                return \Redirect::to('auth/forgot-passoword')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage()); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/forgot-passoword');
             }
         } else {
-            return \Redirect::to('auth/forgot-passoword')->with('message', trans('messages.user_missing_email.message'));
+            \Session::flash('message', trans('messages.user_missing_email.message')); 
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('auth/forgot-passoword');
         }
     }
     
@@ -385,7 +431,10 @@ class AuthController extends Controller {
      */
     public function getLogout() {
         \Session::flush();
-        return \Redirect::to('auth/login')->with('message', 'You are logout successfully!');
+        \Session::flash('message', trans('messages.user_logout.message')); 
+        \Session::flash('message-type', 'alert-danger');
+        \Session::flash('message-short', 'Oops!');
+        return \Redirect::to('auth/login');
     }
 
 }

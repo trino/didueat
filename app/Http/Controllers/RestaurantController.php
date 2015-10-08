@@ -22,7 +22,10 @@ class RestaurantController extends Controller {
         $this->beforeFilter(function() {
             initialize("restaurants");
             if (!\Session::has('is_logged_in')) {
-                return \Redirect::to('auth/login')->with('message', 'Session expired please relogin!');
+                \Session::flash('message', trans('messages.user_session_exp.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('auth/login');
             }
         });
     }
@@ -45,15 +48,26 @@ class RestaurantController extends Controller {
      */
     public function restaurantDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/restaurants')->with('message', "[Restaurant Id] is missing!");
+            \Session::flash('message', "[Restaurant Id] field is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants');
         }
 
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-            return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant has been deleted successfully!');
+            
+            \Session::flash('message', "Restaurant has been deleted successfully!");
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
+            
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants'); 
         }
     }
 
@@ -64,7 +78,11 @@ class RestaurantController extends Controller {
      */
     public function restaurantStatus($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/restaurants')->with('message', "[Restaurant Id] is missing!");
+            
+            \Session::flash('message', "[Restaurant Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants');
         }
 
         try {
@@ -75,10 +93,17 @@ class RestaurantController extends Controller {
                 $ob->populate(array('Status' => 'Open'));
             }
             $ob->save();
-
-            return \Redirect::to('restaurant/restaurants')->with('message', 'Restaurant status has been changed successfully!');
+            
+            \Session::flash('message', 'Restaurant status has been changed successfully!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/restaurants')->with('message', $e->getMessage());
+            
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/restaurants');
         }
     }
 
@@ -91,25 +116,46 @@ class RestaurantController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['Name']) || empty($post['Name'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Restaurant Name] field is missing!");
+                \Session::flash('message', "[Restaurant Name] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['Email']) || empty($post['Email'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Restaurant Email] field is missing!");
+                \Session::flash('message', "[Restaurant Email] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['Country']) || empty($post['Country'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Country] field is missing!");
+                \Session::flash('message', "[Country] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['City']) || empty($post['City'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[City] field is missing!");
+                \Session::flash('message', "[City] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['PostalCode']) || empty($post['PostalCode'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Postal Code] field is missing!");
+                \Session::flash('message', "[Postal Code] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['DeliveryFee']) || empty($post['DeliveryFee'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Delivery Fee] field is missing!");
+                \Session::flash('message', "[Delivery Fee] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             if (!isset($post['Minimum']) || empty($post['Minimum'])) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "[Minimum Sub Total For Delivery] field is missing!");
+                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
             try {
                 if (\Input::hasFile('logo')) {
@@ -136,10 +182,16 @@ class RestaurantController extends Controller {
                         $ob2->save();
                     }
                 }
-
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', "Resturant Info updated successfully");
+                
+                \Session::flash('message', "Resturant Info updated successfully");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             } catch (\Exception $e) {
-                return \Redirect::to('restaurant/info/' . $post['ID'])->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/info/' . $post['ID']);
             }
         } else {
             $data['title'] = "Resturant Manage";
@@ -163,9 +215,17 @@ class RestaurantController extends Controller {
                 $ob = new \App\Http\Models\NotificationAddresses();
                 $ob->populate($post);
                 $ob->save();
-                return \Redirect::to('restaurant/addresses')->with('message', "Address added successfully!");
+                
+                \Session::flash('message', "Address added successfully!");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/addresses');
             } catch (Exception $e) {
-                return \Redirect::to('restaurant/addresses')->with('message', $e->getMessage());
+                
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/addresses');
             }
         } else {
             $data['title'] = 'Addresses List';
@@ -181,16 +241,25 @@ class RestaurantController extends Controller {
      */
     public function deleteAddresses($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/addresses')->with('message', "[Address Id] is missing!");
+            \Session::flash('message', "[Address Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/addresses');
         }
 
         try {
             $ob = \App\Http\Models\NotificationAddresses::find($id);
             $ob->delete();
-
-            return \Redirect::to('restaurant/addresses')->with('message', "Address has been deleted successfully!");
+            
+            \Session::flash('message', "Address has been deleted successfully!");
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/addresses');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/addresses')->with('message', $e->getMessage());
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/addresses');
         }
     }
 
@@ -204,16 +273,28 @@ class RestaurantController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //echo '<pre>'; print_r($post); die;
             if (!isset($post['menu_item']) || empty($post['menu_item'])) {
-                return \Redirect::to('restaurant/menus-manager')->with('message', "[Menu Item] field is missing!");
+                \Session::flash('message', "[Menu Item] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             }
             if (!isset($post['price']) || empty($post['price'])) {
-                return \Redirect::to('restaurant/menus-manager')->with('message', "[Price] field is missing!");
+                \Session::flash('message', "[Price] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             }
             if (!isset($post['description']) || empty($post['description'])) {
-                return \Redirect::to('restaurant/menus-manager')->with('message', "[Description] field is missing!");
+                \Session::flash('message', "[Description] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             }
             if (!\Input::hasFile('menu_image')) {
-                return \Redirect::to('restaurant/menus-manager')->with('message', "[Image] field is missing!");
+                \Session::flash('message', "[Image] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             }
 
             try {
@@ -269,10 +350,16 @@ class RestaurantController extends Controller {
                         $ob3->save();
                     }
                 }
-
-                return \Redirect::to('restaurant/menus-manager')->with('message', "Item menus added successfully");
+                
+                \Session::flash('message', "Item menus added successfully");
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             } catch (\Exception $e) {
-                return \Redirect::to('restaurant/menus-manager')->with('message', $e->getMessage());
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/menus-manager');
             }
         } else {
             $data['title'] = 'Manus Listing';
@@ -315,15 +402,25 @@ class RestaurantController extends Controller {
      */
     public function changeOrderCancel($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+            \Session::flash('message', "[Order Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'cancelled'));
             $ob->save();
-            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order status has been cancelled successfully!');
+            
+            \Session::flash('message', 'Order status has been cancelled successfully!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
     }
 
@@ -334,16 +431,25 @@ class RestaurantController extends Controller {
      */
     public function changeOrderApprove($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+            \Session::flash('message', "[Order Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'approved'));
             $ob->save();
-
-            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order status has been approved successfully!');
+            
+            \Session::flash('message', 'Order status has been approved successfully!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
     }
 
@@ -354,16 +460,25 @@ class RestaurantController extends Controller {
      */
     public function deleteOrder($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', "[Order Id] is missing!");
+            \Session::flash('message', "[Order Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
 
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->delete();
-
-            return \Redirect::to('restaurant/orders/pending')->with('message', 'Order has been deleted successfully!');
+            
+            \Session::flash('message', 'Order has been deleted successfully!');
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
-            return \Redirect::to('restaurant/orders/pending')->with('message', $e->getMessage());
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/pending');
         }
     }
 
@@ -508,16 +623,17 @@ class RestaurantController extends Controller {
     }
 
     public function deleteMenu($id) {
-        //die('here');
         \App\Http\Models\Menus::where('ID', $id)->delete();
-
-
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
             \App\Http\Models\Menus::where('parent', $c->ID)->delete();
         }
         \App\Http\Models\Menus::where('parent', $id)->delete();
-        return \Redirect::to('restaurant/menus-manager')->with('message', 'Item deleted successfully');
+        
+        \Session::flash('message', 'Item deleted successfully');
+        \Session::flash('message-type', 'alert-success');
+        \Session::flash('message-short', 'Oops!');
+        return \Redirect::to('restaurant/menus-manager');
     }
 
     public function order_detail($ID) {

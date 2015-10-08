@@ -3,8 +3,9 @@
 //echo trans('messages.logout.code');
 return [
 
+    "user_logout" => array('message' => "You are logout successfully!"),
+    "user_session_exp" => array('message' => "Session expired please relogin!"),
     "exception" => array('code' => '100', 'message' => "Unexpected error occurs."),
-    "user_logout" => array('message' => "You are logout successfully."),
     "user_inactive" => array('code' => '101', 'message' => "This account has been blocked. Contact us for more detail"),
     "user_login" => array('message' => "Login successfully."),
     "user_login_invalid" => array('code' => '102', 'message' => "Invalid username and password."),

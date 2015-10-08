@@ -4,9 +4,9 @@
 <div class="container">
     <div class="row"> 
         <div class="col-md-6 col-md-offset-3">
-            @if(Session::has('message'))
-                <div class="alert alert-danger">
-                    <strong>Error!</strong> &nbsp; {!! Session::get('message') !!}
+            @if(\Session::has('message'))
+                <div class="alert {!! Session::get('message-type') !!}">
+                    <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                 </div>
             @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->

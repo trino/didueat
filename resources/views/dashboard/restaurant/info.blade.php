@@ -36,11 +36,12 @@
                             {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                                 <div class="form-body">
                                     
-                                    @if(Session::has('message'))
-                                           <div class="alert alert-info">
-                                               <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
-                                           </div>
-                                     @endif
+                                    @if(\Session::has('message'))
+                                        <div class="alert {!! Session::get('message-type') !!}">
+                                            <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                                        </div>
+                                    @endif
+                                     
                                     <h3 class="form-section">Restaurant Info</h3>
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
