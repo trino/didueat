@@ -496,6 +496,7 @@
                                 <div class="form-group reservation_signin">
                                     <div class="col-xs-12">
                                     <a href="#login-pop-up" class="btn btn-danger fancybox-fast-view"  onclick="$('#login_type').val('reservation')" >Sign In</a>
+                                    <span>(Provide Password to Create a Profile.)</span>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -642,6 +643,8 @@
                                                 }
                                                 else if (msg == '1')
                                                     alert('Email Already Registred.');
+                                                else 
+                                                    alert(msg);
                                             }
                                         })
                                     });

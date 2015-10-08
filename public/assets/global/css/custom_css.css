@@ -408,7 +408,7 @@ button:hover {
     padding: 10px 0;
 }
 .main {
-    padding-top: 95px;
+    padding-top: 62px;
     min-height: 700px;
 }
 
@@ -1033,8 +1033,19 @@ body.ecommerce {
 }
 
 .reservation_signin .btn {
-    padding: 4px;
-    width: 65px;
+  float: left;
+  margin-right: 15px;
+  padding: 4px;
+  width: 65px;
+}
+
+.reservation_signin > div span {
+  color: #ce0b10;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 600;
+  padding-top: 3px !important;
+  text-shadow: 0 0 3px #dfdfdf;
 }
 
 .well.add-sidebar a {
@@ -1113,4 +1124,4 @@ body.ecommerce {
   margin-left: 5px;
 }
 
-.clearfix {clear: both; margin: 5px 0px;}
+.clearfix {clear: both;}

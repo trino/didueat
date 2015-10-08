@@ -156,20 +156,21 @@ class UsersController extends Controller {
     }
     public function ajax_register() {
         if(isset($_POST)){
-            $res['order_type'] = $_POST['order_type'];
-            $res['delivery_fee'] = $_POST['delivery_fee'];
-            $res['res_id'] = $_POST['res_id'];
-            $res['subtotal'] = $_POST['subtotal'];
-            $res['g_total'] = $_POST['g_total'];
-            $res['tax'] = $_POST['tax'];
-            $res['listid'] = implode(',',$_POST['listid']);
-            $res['prs'] =implode(',',$_POST['prs']);
-            $res['qtys'] =implode(',',$_POST['qtys']);
-            $res['extras'] = implode(',',$_POST['extras']);
-            $res['menu_ids'] = implode(',',$_POST['menu_ids']);
-            $res['restaurantId'] = $_POST['res_id'];
+           
             \DB::beginTransaction();
             try {
+                    $res['order_type'] = $_POST['order_type'];
+                    $res['delivery_fee'] = $_POST['delivery_fee'];
+                    $res['res_id'] = $_POST['res_id'];
+                    $res['subtotal'] = $_POST['subtotal'];
+                    $res['g_total'] = $_POST['g_total'];
+                    $res['tax'] = $_POST['tax'];
+                    $res['listid'] = implode(',',$_POST['listid']);
+                    $res['prs'] =implode(',',$_POST['prs']);
+                    $res['qtys'] =implode(',',$_POST['qtys']);
+                    $res['extras'] = implode(',',$_POST['extras']);
+                    $res['menu_ids'] = implode(',',$_POST['menu_ids']);
+                    $res['restaurantId'] = $_POST['res_id'];
                     $ob2 = new \App\Http\Models\Reservations();
                     $ob2->populate($res);
                     $ob2->save();
@@ -178,10 +179,10 @@ class UsersController extends Controller {
                 }
                  catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
-                    return \Redirect::to('auth/register')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                    echo "Some Error occured. Please Try Again.";die();
                 } catch (\Exception $e) {
                     \DB::rollback();
-                    return \Redirect::to('auth/register')->with('message', $e->getMessage())->withInput();
+                    echo $e->getMessage();die();
                 }
        
         //$order_id = $this->Manager->new_order($_POST['menu_ids'], $_POST['prs'], $_POST['qtys'], $_POST['extras'], $_POST['listid'], $_POST['order_type'], $_POST['delivery_fee'], $_POST['res_id'], $_POST['subtotal'], $_POST['g_total'], $_POST['tax']);
