@@ -1109,4 +1109,8 @@ body.ecommerce {
   padding: 3px 5px;
 }
 
+#login-form label .require {
+  margin-left: 5px;
+}
+
 .clearfix {clear: both; margin: 5px 0px;}

@@ -20,7 +20,7 @@
                     <h4>Please enter all the required fields to proceed!</h4>
                     {!! Form::open(array('url' => '/auth/register', 'id'=>'login-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div class="form-group">
-                        <label for="name" class="col-md-2 control-label">Name</label>
+                        <label for="name" class="col-md-2 control-label">Name<span class="require">*</span></label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-user"></i>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone" class="col-md-2 control-label">Phone</label>
+                        <label for="phone" class="col-md-2 control-label">Phone<span class="require">*</span></label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-phone"></i>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="col-md-2 control-label">Email</label>
+                        <label for="email" class="col-md-2 control-label">Email<span class="require">*</span></label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="col-md-2 control-label">Password</label>
+                        <label for="password" class="col-md-2 control-label">Password<span class="require">*</span></label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="confirm_password" class="col-md-2 control-label">Re-type Password</label>
+                        <label for="confirm_password" class="col-md-2 control-label">Re-type Password<span class="require">*</span></label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
