@@ -150,7 +150,7 @@
                                 <div class="row">
                                     <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Phone">Phone Number</label>
                                     <div class="col-lg-12 col-sm-12 col-xs-12">
-                                        <input type="text" name="Phone" class="form-control" value="{{ old('Phone') }}" placeholder="i.e.905 555 5555">
+                                        <input type="number" name="Phone" class="form-control" value="{{ old('Phone') }}" placeholder="i.e.905 555 5555">
                                     </div>
                                 </div>
                             </div>
