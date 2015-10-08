@@ -14,7 +14,7 @@
                         </tr>
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
-                                <h2>Dear {{ $name }},</h2>
+                                <h2>Dear {{ $Name }},</h2>
                                 <br /><br />
                                 We received a request to change your account password. Please use below code as your new password. 
                                 <br /><br />

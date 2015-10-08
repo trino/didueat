@@ -24,7 +24,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-user"></i>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ old('name') }}">
+                                <input type="text" name="Name" class="form-control" id="name" placeholder="Full Name" value="{{ old('name') }}" required="">
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-phone"></i>
-                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}">
+                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}">
+                                <input type="email" name="email" class="form-control" id="Email" placeholder="Email Address" value="{{ old('email') }}"required="">
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-key"></i>
-                                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
+                                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password"required="">
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         <label for="subscribed" class="col-md-2 control-label">&nbsp;</label>
                         <div class="col-md-10">
                             <label>
-                                <input type="checkbox" name="subscribed" id="subscribed" value="1" />
+                                <input type="checkbox" name="subscribed" id="subscribed" value="1"required="" />
                                 Sign up for our Newsletter
                             </label>
                         </div>
