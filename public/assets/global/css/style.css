@@ -459,7 +459,7 @@ body.page-header-fixed {
   font-size: 23px;
   font-weight: 400;
   margin-right: 27px;
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .header .mobi-toggler, .fixed-header .mobi-toggler {
@@ -3117,7 +3117,7 @@ Header and header elements
 }
 
 .ecommerce .header-navigation li.menu-search {
-	top: 29px;
+	top: 20px;
 }
 .ecommerce .header-navigation li.menu-search i {
 	color: #fff;
@@ -3131,7 +3131,7 @@ Header and header elements
 }
 .ecommerce .header-navigation > ul > li > a {
 	color: #fff;
-	padding: 30px 12px;
+	padding: 22px 12px;
 }
 .ecommerce .header-navigation .dropdown-menu > li > a:hover,
 .ecommerce .header-navigation .dropdown-menu > li.active > a,
