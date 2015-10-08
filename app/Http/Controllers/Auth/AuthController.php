@@ -143,7 +143,7 @@ class AuthController extends Controller {
                     
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
