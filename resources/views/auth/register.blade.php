@@ -33,7 +33,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-phone"></i>
-                                <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
+                                <input type="number" name="phone" min="9" max="10" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                         <label for="subscribed" class="col-md-2 control-label">&nbsp;</label>
                         <div class="col-md-10">
                             <label>
-                                <input type="checkbox" name="subscribed" id="subscribed" value="1"required="" />
+                                <input type="checkbox" name="subscribed" id="subscribed" value="1" />
                                 Sign up for our Newsletter
                             </label>
                         </div>

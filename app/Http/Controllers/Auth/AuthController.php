@@ -32,7 +32,7 @@ class AuthController extends Controller {
     public function authenticate() {
         if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->Status == 0) {
                         return \Redirect::to('auth/login')->with('message', trans('messages.user_inactive.message'));
@@ -62,9 +62,9 @@ class AuthController extends Controller {
      * @return view
      */
     public function authenticateAjax() {
-        if (\Input::has('email')) {
+        if (\Input::has('Email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('Email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->Status == 0) {
                         echo trans('messages.user_inactive.message');
