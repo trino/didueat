@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Hours extends BaseModel {
 
     protected $table = 'hours';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
     /**
@@ -21,7 +21,7 @@ class Hours extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('RestaurantID', 'DayOfWeek', 'Open', 'Close');
+        $cells = array('restaurant_id', 'day_of_week', 'open', 'close');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -29,11 +29,11 @@ class Hours extends BaseModel {
         }
 
         /*
-        if (array_key_exists('RestaurantID', $data)) {
-            $this->RestaurantID = $data['RestaurantID'];
+        if (array_key_exists('restaurant_id', $data)) {
+            $this->restaurant_id = $data['restaurant_id'];
         }
-        if (array_key_exists('DayOfWeek', $data)) {
-            $this->DayOfWeek = $data['DayOfWeek'];
+        if (array_key_exists('day_of_week', $data)) {
+            $this->day_of_week = $data['day_of_week'];
         }
         if (array_key_exists('Open', $data)) {
             $this->Open = $data['Open'];
@@ -55,78 +55,78 @@ class Hours extends BaseModel {
         }
     }
 
-    function edit_hours($RestaurantID, $Data){
+    function edit_hours($restaurant_id, $Data){
         $Days = array();
-        for ($DayOfWeek = 1; $DayOfWeek < 8; $DayOfWeek++){
-            $Open = $this->to_time($Data[$DayOfWeek . "_Open"]);
-            $Close = $this->to_time($Data[$DayOfWeek . "_Close"]);
-            $Days[$DayOfWeek] = $Open . " to " . $Close;
-            $this->edit_hour($RestaurantID, $DayOfWeek, $Open, $Close);
+        for ($day_of_week = 1; $day_of_week < 8; $day_of_week++){
+            $Open = $this->to_time($Data[$day_of_week . "_open"]);
+            $Close = $this->to_time($Data[$day_of_week . "_close"]);
+            $Days[$day_of_week] = $Open . " to " . $Close;
+            $this->edit_hour($restaurant_id, $day_of_week, $Open, $Close);
         }
         logevent("Edited hours: " . print_r($Days, true));
     }
 
 
-    function is_restaurant_open_now($RestaurantID, $date = ""){
+    function is_restaurant_open_now($restaurant_id, $date = ""){
         if(!$date){ $date = now();}
         if(strpos($date, "-")){$date = strtotime($date);}
-        if(!$this->is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
+        if(!$this->is_day_off($restaurant_id, get_day($date), get_month($date), get_year($date))) {
             $dayofweek = $this->get_name_of_weekday($date);
             $time = date('Gi', $date);
-            return $this->is_restaurant_open($RestaurantID, $dayofweek, $time);
+            return $this->is_restaurant_open($restaurant_id, $dayofweek, $time);
         }
     }
 
-    function get_name_of_weekday($DayOfWeek = ""){
-        if(!$DayOfWeek){
-            $DayOfWeek = now();
-            $DayOfWeek = date('w', $DayOfWeek);
+    function get_name_of_weekday($day_of_week = ""){
+        if(!$day_of_week){
+            $day_of_week = now();
+            $day_of_week = date('w', $day_of_week);
         }
         $Days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-        return $Days[$DayOfWeek];
+        return $Days[$day_of_week];
     }
 
-    function get_hours($RestaurantID, $DayOfWeek = ""){
+    function get_hours($restaurant_id, $day_of_week = ""){
         $ret = array();
-        $Params = array('RestaurantID' => $RestaurantID);
-        if($DayOfWeek){
-            if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
-            $Params['DayOfWeek'] = $DayOfWeek;
+        $Params = array('restaurant_id' => $restaurant_id);
+        if($day_of_week){
+            if(is_numeric($day_of_week)){$day_of_week = $this->get_name_of_weekday($day_of_week);}
+            $Params['day_of_week'] = $day_of_week;
         }
-        $Data = enum_all('hours', $Params, 'DayOfWeek');
+        $Data = enum_all('hours', $Params, 'day_of_week');
         $HasHours = false;
         foreach($Data as $Day){
-            $ret[$Day->DayOfWeek . ".Open"] = $Day->Open;
-            $ret[$Day->DayOfWeek . ".Close"] = $Day->Close;
-            if($Day->Open <> 0 || $Day->Close <> 2359){$HasHours=true;}
+            $ret[$Day->day_of_week . ".open"] = $Day->open;
+            $ret[$Day->day_of_week . ".close"] = $Day->close;
+            if($Day->open <> 0 || $Day->close <> 2359){$HasHours=true;}
         }
         $ret["HasHours"] = $HasHours;
         return $ret;
     }
 
-    function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
-        if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
-        $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=> $DayOfWeek);
+    function edit_hour($restaurant_id, $day_of_week, $Open, $Close){
+        if(is_numeric($day_of_week)){$day_of_week = $this->get_name_of_weekday($day_of_week);}
+        $data = array('restaurant_id'=>$restaurant_id, 'day_of_week'=> $day_of_week);
         delete_all('hours', $data);
         if(!$Open){$Open = "";}
         if(!$Close){$Close = "";}
-        $data["Open"] = $Open;
-        $data["Close"] = $Close;
-        if($Open && $Close) {new_entry("hours", "ID", $data);}
+        $data["open"] = $Open;
+        $data["close"] = $Close;
+        if($Open && $Close) {new_entry("hours", "id", $data);}
     }
 
-    function get_restaurant($RestaurantID){
+    function get_restaurant($restaurant_id){
         $ob = new \App\Http\Models\Restaurants();
-        return $ob->get_restaurant($RestaurantID);
+        return $ob->get_restaurant($restaurant_id);
     }
 
-    function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
-        if ($this->get_restaurant($RestaurantID)->Open) {
-            if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
-            $Data = $this->get_hours($RestaurantID, $DayOfWeek);
-            if ($Data["HasHours"]) {
-                $Open = $this->parsetime($Data[$DayOfWeek . ".Open"]);
-                $Close = $this->parsetime($Data[$DayOfWeek . ".Close"]);
+    function is_restaurant_open($restaurant_id, $day_of_week, $Time){
+        if ($this->get_restaurant($restaurant_id)->open) {
+            if(is_numeric($day_of_week)){$day_of_week = $this->get_name_of_weekday($day_of_week);}
+            $Data = $this->get_hours($restaurant_id, $day_of_week);
+            if ($Data["has_hours"]) {
+                $Open = $this->parsetime($Data[$day_of_week . ".open"]);
+                $Close = $this->parsetime($Data[$day_of_week . ".close"]);
                 return $Open <= $Time && $Close >= $Time;
             }
         }

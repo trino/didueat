@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Menus extends BaseModel {
 
     protected $table = 'menus';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
     /**
@@ -21,7 +21,7 @@ class Menus extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('restaurantId', 'menu_item', 'description', 'price', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order');
+        $cells = array('restaurant_id', 'menu_item', 'description', 'price', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order');
         foreach($cells as $cell){
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -29,8 +29,8 @@ class Menus extends BaseModel {
         }
 
         /*
-        if (array_key_exists('restaurantId', $data)) {
-            $this->restaurantId = $data['restaurantId'];
+        if (array_key_exists('restaurant_id', $data)) {
+            $this->restaurant_id = $data['restaurant_id'];
         }
         if (array_key_exists('menu_item', $data)) {
             $this->menu_item = $data['menu_item'];
@@ -76,16 +76,16 @@ class Menus extends BaseModel {
 
 
 ////////////////////////////////////////Menus API/////////////////////////////////
-    public static function enum_menus($RestaurantID = "", $Sort = ""){
-        if($RestaurantID=="all"){
+    public static function enum_menus($restaurant_id = "", $Sort = ""){
+        if($restaurant_id=="all"){
             return enum_all('menus',['parent'=>'0','image <> "undefined"']);
         }
-        if(!$RestaurantID) {$RestaurantID = get_current_restaurant();}
+        if(!$restaurant_id) {$restaurant_id = get_current_restaurant();}
         if($Sort){$order = array('display_order' => $Sort);} else {$order = "";}
-        return enum_all("menus", array('res_id' => $RestaurantID, 'parent' => '0','image<>"undefined"'), $order);
+        return enum_all("menus", array('res_id' => $restaurant_id, 'parent' => '0','image<>"undefined"'), $order);
     }
-    public static function get_menu($RestaurantID){
-        return enum_all('menus', array('res_id'=>$RestaurantID));
+    public static function get_menu($restaurant_id){
+        return enum_all('menus', array('res_id'=>$restaurant_id));
     }
 
 

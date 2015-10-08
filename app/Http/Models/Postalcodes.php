@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Postalcodes extends BaseModel {
 
     protected $table = 'postalcodes';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = true;
     
     /**
@@ -21,7 +21,7 @@ class Postalcodes extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('PostalCode', 'Number', 'Street', 'City', 'Province', 'Lattitude', 'Longitude', 'ShortStreet', 'ShortStreetType', 'ShortStreetDir');
+        $cells = array('postal_code', 'number', 'street', 'city', 'province', 'lattitude', 'longitude', 'short_street', 'short_street_type', 'short_street_dir');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

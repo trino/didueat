@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProfilesImages extends BaseModel {
 
     protected $table = 'profiles_images';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
     /**
@@ -21,21 +21,21 @@ class ProfilesImages extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('UserID', 'RestaurantID', 'Filename', 'Title', 'OrderID');
+        $cells = array('user_id', 'restaurant_id', 'filename', 'title', 'order_id');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
         }
 
-        /*if (array_key_exists('UserID', $data)) {
-            $this->UserID = $data['UserID'];
+        /*if (array_key_exists('user_id', $data)) {
+            $this->user_id = $data['user_id'];
         }
         if (array_key_exists('RestaurantID', $data)) {
             $this->RestaurantID = $data['RestaurantID'];
         }
-        if (array_key_exists('Filename', $data)) {
-            $this->Filename = $data['Filename'];
+        if (array_key_exists('filename', $data)) {
+            $this->filename = $data['filename'];
         }
         if (array_key_exists('Title', $data)) {
             $this->Title = $data['Title'];
@@ -46,28 +46,28 @@ class ProfilesImages extends BaseModel {
     }
 
     ////////////////////////////////////profile image API///////////////////////////////////
-    function get_profile_image($Filename, $UserID = ""){
-        if(!$UserID){$UserID = read("ID");}
-        if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
-        return enum_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename))->first();
+    function get_profile_image($filename, $user_id = ""){
+        if(!$user_id){$user_id = read("ID");}
+        if (strpos($filename, "/")){$filename = pathinfo($filename, PATHINFO_BASENAME);}
+        return enum_all("profiles_images", array("user_id" => $user_id, "filename" => $filename))->first();
     }
 
-    function delete_profile_image($Filename, $UserID = "") {
-        if (!$UserID) {$UserID = read("ID");}
-        if (strpos($Filename, "/")){$Filename = pathinfo($Filename, PATHINFO_BASENAME);}
-        $dir = "img/users/" . $UserID . "/" . $Filename;
+    function delete_profile_image($filename, $user_id = "") {
+        if (!$user_id) {$user_id = read("ID");}
+        if (strpos($filename, "/")){$filename = pathinfo($filename, PATHINFO_BASENAME);}
+        $dir = "img/users/" . $user_id . "/" . $filename;
         if (file_exists($dir)) {unlink($dir);}
-        delete_all("profiles_images", array("UserID" => $UserID, "Filename" => $Filename));
+        delete_all("profiles_images", array("user_id" => $user_id, "filename" => $filename));
     }
 
-    function edit_profile_image($UserID, $Filename, $RestaurantID, $Title, $OrderID){
-        $Entry = $this->get_profile_image($Filename, $UserID);
+    function edit_profile_image($user_id, $filename, $RestaurantID, $Title, $OrderID){
+        $Entry = $this->get_profile_image($filename, $user_id);
         $Data = array("RestaurantID" => $RestaurantID, "Title" => $Title, "OrderID" => $OrderID);
         if($Entry){
             edit_database("profiles_images", "ID", $Entry->ID, $Data);
         } else {
-            $Data["UserID"] = $UserID;
-            $Data["Filename"] = $Filename;
+            $Data["user_id"] = $user_id;
+            $Data["filename"] = $filename;
             new_entry("profiles_images", "ID", $Data);
         }
     }

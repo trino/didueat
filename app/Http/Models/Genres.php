@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Genres extends BaseModel {
 
     protected $table = 'genres';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = true;
     
     /**
@@ -36,39 +36,39 @@ class Genres extends BaseModel {
 
 
     //////////////////////////////////////Genre API//////////////////////////////////////
-    function add_genre($Name){
-        if(is_array($Name)){
+    function add_genre($name){
+        if(is_array($name)){
             $Ret=array();
-            foreach($Name as $Key => $Genre){
+            foreach($name as $Key => $Genre){
                 $Ret[$Genre] = $this->add_genre($Genre);
             }
             return $Ret;
         } else {
-            if($this->genre_exists($Name)){return false;}//don't allow duplicates
-            new_anything("genres", array("Name" => $Name));
+            if($this->genre_exists($name)){return false;}//don't allow duplicates
+            new_anything("genres", array("name" => $name));
             return true;
         }
     }
 
-    public static function genre_exists($Name){
-        if(get_entry("genres", $Name, "Name")){return true;}
+    public static function genre_exists($name){
+        if(get_entry("genres", $name, "name")){return true;}
     }
 
-    function rename_genre($ID, $NewName){
-        if($this->genre_exists($NewName)){return false;}
-        update_database('genres', "ID", $ID, array("Name" => $NewName));
+    function rename_genre($id, $new_name){
+        if($this->genre_exists($new_name)){return false;}
+        update_database('genres', "id", $id, array("name" => $new_name));
         return true;
     }
     public static function enum_restaurants($Genre = ""){
         if($Genre) {
-            return enum_anything("restaurants", "Genre", $Genre);
+            return enum_anything("restaurants", "genre", $Genre);
         }
         return enum_table("restaurants");
     }
 
     public static function enum_genres(){
         $entries = enum_all('genres');
-        return my_iterator_to_array($entries, "ID", "Name");
+        return my_iterator_to_array($entries, "id", "name");
     }
 
 }

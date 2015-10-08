@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Newsletter extends BaseModel {
 
     protected $table = 'newsletter';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
     /**
@@ -21,74 +21,74 @@ class Newsletter extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('Email', 'GUID');
+        $cells = array('email', 'guid');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
         }
         /*
-        if (array_key_exists('Email', $data)) {
-            $this->Email = $data['Email'];
+        if (array_key_exists('email', $data)) {
+            $this->email = $data['email'];
         }
-        if (array_key_exists('GUID', $data)) {
-            $this->GUID = $data['GUID'];
+        if (array_key_exists('guid', $data)) {
+            $this->guid = $data['guid'];
         }*/
     }
 
 
 ////////////////////////////////////Newsletter API//////////////////////////////////
-    public static function add_subscriber($EmailAddress, $authorized = false){
-        $EmailAddress = clean_email($EmailAddress);
-        if(is_valid_email($EmailAddress)) {
-            $Entry = get_entry("newsletter", $EmailAddress, "Email");
-            $GUID="";
+    public static function add_subscriber($email, $authorized = false){
+        $email = clean_email($email);
+        if(is_valid_email($email)) {
+            $Entry = get_entry("newsletter", $email, "email");
+            $guid="";
             if ($Entry) {
-                if (!$Entry->GUID) { return true; }
-                if(!$authorized){$GUID = $Entry->GUID;}
-                update_database("newsletter", "ID", $Entry->ID, array("GUID" => $GUID));
+                if (!$Entry->guid) { return true; }
+                if(!$authorized){$guid = $Entry->guid;}
+                update_database("newsletter", "id", $Entry->ID, array("guid" => $guid));
             } else {
-                if(!$authorized){$GUID = com_create_guid();}
-                new_entry("newsletter", "ID", array("GUID" => $GUID, "Email" => $EmailAddress));
+                if(!$authorized){$guid = com_create_guid();}
+                new_entry("newsletter", "id", array("guid" => $guid, "email" => $email));
             }
-            $path = '<A HREF="' . webroot() . "cuisine?action=subscribe&key=" . $GUID . '">Click here to finish registration</A>';
-            return handleevent($EmailAddress, "subscribe", array("Path" => $path));
+            $path = '<A HREF="' . webroot() . "cuisine?action=subscribe&key=" . $guid . '">Click here to finish registration</A>';
+            return handleevent($email, "subscribe", array("Path" => $path));
         }
     }
 
-    public static function remove_subscriber($EmailAddress){
-        $EmailAddress = clean_email($EmailAddress);
-        delete_all("newsletter", array("Email" => $EmailAddress));
+    public static function remove_subscriber($email){
+        $email = clean_email($email);
+        delete_all("newsletter", array("email" => $email));
     }
 
-    public static function is_subscribed($EmailAddress){
-        $EmailAddress = clean_email($EmailAddress);
-        return get_entry("newsletter", $EmailAddress, "Email");
+    public static function is_subscribed($email){
+        $email = clean_email($email);
+        return get_entry("newsletter", $email, "email");
     }
 
     public static function finish_subscription($Key){
-        $Entry = get_entry("newsletter", $Key, "GUID");
+        $Entry = get_entry("newsletter", $Key, "guid");
         if($Entry){
-            update_database("newsletter", "ID", $Entry->ID, array("GUID" => ""));
-            update_database("profiles", "Email", $Entry->Email, array("subscribed" => 1));
-            return $Entry->Email;
+            update_database("newsletter", "id", $Entry->ID, array("guid" => ""));
+            update_database("profiles", "email", $Entry->email, array("subscribed" => 1));
+            return $Entry->email;
         }
     }
 
-    function set_subscribed($EmailAddress, $Status = false){
-        $EmailAddress = clean_email($EmailAddress);
-        $is_subscribed = $this->is_subscribed($EmailAddress) == true;
+    function set_subscribed($email, $Status = false){
+        $email = clean_email($email);
+        $is_subscribed = $this->is_subscribed($email) == true;
         if($is_subscribed != $Status){
             if($Status){
-                $this->add_subscriber($EmailAddress, True);
+                $this->add_subscriber($email, True);
             } else {
-                $this->remove_subscriber($EmailAddress);
+                $this->remove_subscriber($email);
             }
         }
     }
     public static function enum_subscribers(){
-        $Data = enum_all("newsletter", array("GUID" => ""));
-        return my_iterator_to_array($Data, "ID", "Email");
+        $Data = enum_all("newsletter", array("guid" => ""));
+        return my_iterator_to_array($Data, "id", "email");
     }
 
 

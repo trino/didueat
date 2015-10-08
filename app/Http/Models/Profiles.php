@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profiles extends BaseModel {
 
     protected $table = 'Profiles';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = true;
     
     /**
@@ -21,7 +21,7 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('ProfileType', 'Name', 'Email', 'Password', 'Salt', 'Phone', 'Subscribed', 'RestaurantID', 'CreatedBy', 'Status', 'Created_at', 'Updated_at', 'Deleted_at');
+        $cells = array('profile_type', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurant_id', 'created_by', 'status', 'created_at', 'updated_at', 'deleted_at');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -100,70 +100,70 @@ class Profiles extends BaseModel {
 
 
 
-    function edit_profile($ID, $Name, $EmailAddress, $Phone, $Password, $Subscribed = 0, $ProfileType = 0){
-        $data = array("Name" => trim($Name), "Email" => clean_email($EmailAddress), "Phone" => clean_phone($Phone), "Subscribed" => $Subscribed);
-        if($Password){
-            $data["Password"] = encryptpassword($Password);
+    function edit_profile($id, $name, $email_address, $phone, $password, $subscribed = 0, $profile_type = 0){
+        $data = array("name" => trim($name), "email" => clean_email($email_address), "phone" => clean_phone($phone), "subscribed" => $subscribed);
+        if($password){
+            $data["password"] = encryptpassword($password);
         }
-        if($ProfileType){
-            $data["ProfileType"] = $ProfileType;
+        if($profile_type){
+            $data["profile_type"] = $profile_type;
         }
-        $this->set_subscribed($EmailAddress,$Subscribed);
-        return update_database("profiles", "ID", $ID, $data);
+        $this->set_subscribed($email_address,$subscribed);
+        return update_database("profiles", "id", $id, $data);
     }
 
-    function set_subscribed($EmailAddress, $Status = false){
+    function set_subscribed($email_address, $status = false){
         $ob = new \App\Http\Models\Newsletter();
-        $ob->set_subscribed($EmailAddress, $Status);
+        $ob->set_subscribed($email_address, $status);
     }
 
-    function forgot_password($Email, $Password=""){
-        $Email = clean_email($Email);
-        $Profile = get_entry("profiles", $Email, "Email");
-        if ($Profile){
-            if(!$Password) {$Password = randomPassword();}
-            $Encrypted = encryptpassword($Password);
-            update_database("profiles", "ID", $Profile->ID, array("Password" => $Encrypted));
-            return $Password;
+    function forgot_password($email, $password=""){
+        $email = clean_email($email);
+        $profile = get_entry("profiles", $email, "email");
+        if ($profile){
+            if(!$password) {$password = randomPassword();}
+            $Encrypted = encryptpassword($password);
+            update_database("profiles", "id", $profile->ID, array("password" => $Encrypted));
+            return $password;
         }
     }
 
-    function find_profile($EmailAddress, $Password){
-        $EmailAddress = clean_email($EmailAddress);
-        $Password = encryptpassword($Password);
-        $ProfileMatch = enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password));
+    function find_profile($email_address, $password){
+        $email_address = clean_email($email_address);
+        $password = encryptpassword($password);
+        $ProfileMatch = enum_all("profiles", array("email" => $email_address, "password" => $password));
         return first($ProfileMatch);
     }
 
-    function new_profile($CreatedBy, $Name, $Password, $ProfileType, $EmailAddress, $Phone, $RestaurantID, $Subscribed = ""){
-        $EmailAddress = is_valid_email($EmailAddress);
-        $Phone=clean_phone($Phone);
-        if(!$EmailAddress){return false;}
-        if(get_entry("profiles", $EmailAddress, "Email")){return false;}
-        if(!$Password){$Password=randomPassword();}
-        if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
-        $Encrypted = encryptpassword($Password);
-        $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => $Encrypted);
-        if($CreatedBy){
-            if(!$this->can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
-            $data["CreatedBy"] = $CreatedBy;
+    function new_profile($created_by, $name, $password, $profile_type, $email_address, $phone, $restaurant_id, $subscribed = ""){
+        $email_address = is_valid_email($email_address);
+        $phone=clean_phone($phone);
+        if(!$email_address){return false;}
+        if(get_entry("profiles", $email_address, "email")){return false;}
+        if(!$password){$password=randomPassword();}
+        if($subscribed){$subscribed=1;} else {$subscribed =0;}
+        $Encrypted = encryptpassword($password);
+        $data = array("Name" => trim($name), "ProfileType" => $profile_type, "phone" => $phone, "email" => $email_address, "created_by" => 0, "restaurant_id" => $restaurant_id, "subscribed" => $subscribed, "password" => $Encrypted);
+        if($created_by){
+            if(!$this->can_profile_create($created_by, $profile_type)){return false;}//blocks users from creating users of the same type
+            $data["created_by"] = $created_by;
         }
-        $data = edit_database("profiles", "ID", "", $data);
-        $data["Password"] = $Password;
-        if($CreatedBy){
-            logevent("Created user: " . $data["ID"] . " (" . $data["Name"] . ")");
+        $data = edit_database("profiles", "id", "", $data);
+        $data["password"] = $password;
+        if($created_by){
+            logevent("Created user: " . $data["id"] . " (" . $data["name"] . ")");
         }
 
-        handleevent($EmailAddress, "new_profile", array("Profile" => $data));
-        $this->set_subscribed($EmailAddress,$Subscribed);
+        handleevent($email_address, "new_profile", array("Profile" => $data));
+        $this->set_subscribed($email_address,$subscribed);
         return $data;
     }
 
-    function can_profile_create($ProfileID, $ProfileType){
+    function can_profile_create($ProfileID, $profile_type){
         $creatorprofiletype = get_profile_type($ProfileID);
-        if($creatorprofiletype->CanCreateProfiles){
-            $ProfileType = get_profile_type($ProfileType, true);
-            return $creatorprofiletype->Hierarchy < $ProfileType->Hierarchy;
+        if($creatorprofiletype->can_create_profiles){
+            $profile_type = get_profile_type($profile_type, true);
+            return $creatorprofiletype->hierarchy < $profile_type->hierarchy;
         }
     }
 }

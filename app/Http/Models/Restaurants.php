@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Restaurants extends BaseModel {
 
     protected $table = 'restaurants';
-    protected $primaryKey = 'ID';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     
     /**
@@ -21,7 +21,7 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('Name', 'Slug', 'Genre', 'Email', 'Phone', 'Address', 'City', 'Province', 'Country', 'PostalCode', 'Description', 'Logo', 'DeliveryFee', 'Minimum', 'Status');
+        $cells = array('name', 'slug', 'genre', 'email', 'phone', 'address', 'city', 'province', 'country', 'postal_code', 'description', 'logo', 'delivery_fee', 'minimum', 'status');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
