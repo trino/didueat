@@ -153,42 +153,42 @@ function login($Profile){
     } else if (is_array($Profile)){
         $Profile = (object) $Profile;
     }
-    write('ID',            $Profile->ID);
+    write('ID',            $Profile->id);
     write('Name',          $Profile->name);
     write('Email',         $Profile->email);
-    write('Type',          $Profile->profileType);
-    write('Restaurant',    $Profile->restaurantID);
+    write('Type',          $Profile->profile_type);
+    write('Restaurant',    $Profile->restaurant_id);
     
-    \Session::put('session_id',             $Profile->ID);
-    \Session::put('session_profileType',    $Profile->profileType);
+    \Session::put('session_id',             $Profile->id);
+    \Session::put('session_profileType',    $Profile->profile_type);
     \Session::put('session_name',           $Profile->name);
     \Session::put('session_email',          $Profile->email);
-    \Session::put('session_phone',          $Profile->Phone);
+    \Session::put('session_phone',          $Profile->phone);
     \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantId',   $Profile->restaurantID);
-    \Session::put('session_createdBy',      $Profile->CreatedBy);
-    \Session::put('session_status',         $Profile->Status);
-    \Session::put('session_created_at',     $Profile->Created_at);
+    \Session::put('session_restaurantId',   $Profile->restaurant_id);
+    \Session::put('session_createdBy',      $Profile->created_by);
+    \Session::put('session_status',         $Profile->status);
+    \Session::put('session_created_at',     $Profile->created_at);
     \Session::put('is_logged_in',           true);
     \Session::save();
-    return $Profile->ID;
+    return $Profile->id;
 }
 
 function get_current_restaurant(){
-    $Profile = read('ID');
+    $Profile = read('id');
     if($Profile) {
-        if (isset($_GET["RestaurantID"])) {
+        if (isset($_GET["restaurant_id"])) {
             $ProfileType = get_profile_type($Profile);
-            if ($ProfileType->CanEditGlobalSettings) {
-                return $_GET["RestaurantID"];
+            if ($ProfileType->can_edit_global_settings) {
+                return $_GET["restaurant_id"];
             }
         }
-        return get_profile($Profile)->RestaurantID;
+        return get_profile($Profile)->restaurant_id;
     }
 }
 
 function check_permission($Permission, $UserID = ""){
-    if(!$UserID){$UserID = read("ID");}
+    if(!$UserID){$UserID = read("id");}
     if(!$UserID){ echo 'You are not logged in';die();}
     return get_profile_type($UserID)->$Permission;
 }
@@ -247,7 +247,7 @@ function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
         }
     }
     $Date = now();
-    new_entry("eventlog", "ID", array("UserID" => $UserID, "RestaurantID" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+    new_entry("eventlog", "ID", array("UserID" => $UserID, "restaurant_id" => $RestaurantID, "Date" => $Date, "Text" => $Event));
 }
 
 

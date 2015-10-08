@@ -108,6 +108,24 @@ class HomeController extends Controller {
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
+            if (!isset($post['password']) || empty($post['password'])) {
+                \Session::flash('message', trans('messages.user_pass_field_missing.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                \Session::flash('message', trans('messages.user_passwords_mismatched.message')); 
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
             try {
                 if (\Input::hasFile('logo')) {
                     $image = \Input::file('logo');
@@ -124,7 +142,6 @@ class HomeController extends Controller {
                 
                 foreach ($post['open'] as $key => $value) {
                     if(!empty($value)){
-                        
                         $hour['restaurant_id'] = $ob->id;
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
@@ -135,11 +152,29 @@ class HomeController extends Controller {
                     }
                 }
                 
-                //\Session::put('TempRestaurantID', $ob->ID);
-                \Session::flash('message', "Resturant created successfully"); 
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/auth/register');
+                $data['restaurant_id'] = $ob->id;
+                $data['status'] = 0;
+                $data['profile_type'] = 1;
+                $data['name'] = $post['full_name'];
+                $data['email'] = $post['email'];
+                $data['password'] = $post['password'];
+                $data['subscribed'] = $post['subscribed'];
+                $data['phone'] = $post['phone'];
+
+                $user = new \App\Http\Models\Profiles();
+                $user->populate($data);
+                $user->save();
+
+                $userArray = $user->toArray();
+                $userArray['mail_subject'] = 'Thank you for registration.';
+                $this->sendEMail("emails.registration_welcome", $userArray);
+                \DB::commit();
+
+                $message['title'] = "Registration Success";
+                $message['msg_type'] = "success";
+                $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+                return view('messages.message', $message);
+                //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage()); 
                 \Session::flash('message-type', 'alert-danger');
@@ -154,6 +189,7 @@ class HomeController extends Controller {
             return view('restaurants-signup', $data);
         }
     }
+    
     public function cleanTime($time)
     {
         if(!$time)

@@ -21,7 +21,7 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('profile_type', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurant_id', 'created_by', 'status', 'created_at', 'updated_at', 'deleted_at');
+        $cells = array('profile_type', 'name', 'email', 'password', 'phone', 'subscribed', 'restaurant_id', 'created_by', 'status', 'created_at', 'updated_at', 'deleted_at');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -80,30 +80,13 @@ class Profiles extends BaseModel {
      * @return encrypted string
      */
     public function generatePassword($password) {
-        $this->password = encryptpassword($password);
+        $this->password = \bcrypt($password);
     }
-    
-    /**
-     * Function getSalt
-     * This function will generate a random string
-     * @param empty
-     * @return encrypted string
-     */
-    public static function getSalt() {
-        return salt();
-
-        $cost = 10;
-        $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
-        $salt = sprintf("$2a$%02d$", $cost) . $salt;
-        return $salt;
-    }
-
-
 
     function edit_profile($id, $name, $email_address, $phone, $password, $subscribed = 0, $profile_type = 0){
         $data = array("name" => trim($name), "email" => clean_email($email_address), "phone" => clean_phone($phone), "subscribed" => $subscribed);
         if($password){
-            $data["password"] = encryptpassword($password);
+            $data["password"] = \bcrypt($password);
         }
         if($profile_type){
             $data["profile_type"] = $profile_type;
@@ -122,7 +105,7 @@ class Profiles extends BaseModel {
         $profile = get_entry("profiles", $email, "email");
         if ($profile){
             if(!$password) {$password = randomPassword();}
-            $Encrypted = encryptpassword($password);
+            $Encrypted = \bcrypt($password);
             update_database("profiles", "id", $profile->ID, array("password" => $Encrypted));
             return $password;
         }
@@ -130,7 +113,7 @@ class Profiles extends BaseModel {
 
     function find_profile($email_address, $password){
         $email_address = clean_email($email_address);
-        $password = encryptpassword($password);
+        $password = \bcrypt($password);
         $ProfileMatch = enum_all("profiles", array("email" => $email_address, "password" => $password));
         return first($ProfileMatch);
     }
@@ -142,7 +125,7 @@ class Profiles extends BaseModel {
         if(get_entry("profiles", $email_address, "email")){return false;}
         if(!$password){$password=randomPassword();}
         if($subscribed){$subscribed=1;} else {$subscribed =0;}
-        $Encrypted = encryptpassword($password);
+        $Encrypted = \bcrypt($password);
         $data = array("Name" => trim($name), "ProfileType" => $profile_type, "phone" => $phone, "email" => $email_address, "created_by" => 0, "restaurant_id" => $restaurant_id, "subscribed" => $subscribed, "password" => $Encrypted);
         if($created_by){
             if(!$this->can_profile_create($created_by, $profile_type)){return false;}//blocks users from creating users of the same type

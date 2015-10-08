@@ -40,8 +40,8 @@ class AuthController extends Controller {
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('auth/login');
                     }
-                    $password = encryptpassword(\Input::get('password'));
-                    if ($user->Password == $password) {
+                    $password = \Input::get('password');
+                    if (\Hash::check($password, $user->password)) {
                         login($user);
                         return redirect()->intended('dashboard');
                     } else {
@@ -84,11 +84,10 @@ class AuthController extends Controller {
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message'); die;
                     }
-                    $password = encryptpassword(\Input::get('password'));
-                    if ($user->password == $password) {
+                    $password = \Input::get('password');
+                    if (\Hash::check($password, $user->password)) {
                         login($user);
                     } else {
-                        //echo $user->password . " != " . $password ; die();
                         echo trans('messages.user_login_invalid.message');die;
                     }
                 } else {
@@ -168,7 +167,7 @@ class AuthController extends Controller {
                     
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
@@ -233,7 +232,7 @@ class AuthController extends Controller {
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
                     
-                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [". $user->Email ."]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
+                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [". $user->email ."]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
                     echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
@@ -357,8 +356,7 @@ class AuthController extends Controller {
                     }
                     
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
-                    $password = encryptpassword($newpass);
-                    $user->password = $password;
+                    $user->password = \bcrypt($newpass);;
                     $user->save();
                     
                     $userArray = $user->toArray();
@@ -405,8 +403,7 @@ class AuthController extends Controller {
                         echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message'))); die;
                     }
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
-                    $password = encryptpassword($newpass);
-                    $user->password = $password;
+                    $user->password = \bcrypt($newpass);
                     $user->save();
                     
                     $userArray = $user->toArray();
