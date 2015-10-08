@@ -465,7 +465,7 @@ class RestaurantController extends Controller {
         //$this->loadComponent('Manager');
         $arr['restaurantId'] = \Session::get('session_restaurantId');
 
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon','display_order');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -491,9 +491,10 @@ class RestaurantController extends Controller {
             $orders_mod = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {
                 $orders = $orders_mod[0];
-
+                if(!isset($arr['display_order']))
                 $arr['display_order'] = $orders->display_order + 1;
             }
+            
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
