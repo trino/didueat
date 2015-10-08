@@ -148,10 +148,10 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 padding-top-5"><?php echo $value; ?></label>
                                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                                    <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo $open[$key]; ?>" class="form-control time"/>
+                                                    <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                                    <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo $close[$key]; ?>" class="form-control time"/>
+                                                    <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
                                                     <input type="hidden" name="DayOfWeek[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
                                                     <input type="hidden" name="IDD[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>" />
                                                 </div>
@@ -288,3 +288,27 @@ jQuery(document).ready(function() {
 </script>
 
 @stop
+<?php
+function getTime($time)
+{
+    if(!$time)
+    return $time;
+    else
+    $arr = explode(':',$time);
+    $hour = $arr[0];
+    $min = $arr[1];
+    $sec = $arr[2];
+    if($hour>=12){
+    $hour = $hour-12;
+    $suffix = 'PM';
+    
+    }
+    else
+    $suffix = 'AM';
+    if(strlen($hour)==1)
+    $hour = '0'.$hour;
+    return $hour.':'.$min.' '.$suffix;
+    
+}
+
+?>

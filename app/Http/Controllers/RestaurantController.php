@@ -130,9 +130,9 @@ class RestaurantController extends Controller {
 
                 foreach ($post['Open'] as $key => $value) {
                     if (!empty($value)) {
-                        $hour['Open'] = $value;
+                        $hour['Open'] = $this->cleanTime($value);
                         $hour['RestaurantID'] = $ob->ID;
-                        $hour['Close'] = $post['Close'][$key];
+                        $hour['Close'] = $this->cleanTime($post['Close'][$key]);
                         $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
                         $hour['ID'] = $post['IDD'][$key];
                         $ob2 = \App\Http\Models\Hours::findOrNew($hour['ID']);
@@ -152,6 +152,29 @@ class RestaurantController extends Controller {
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurantId'));
             return view('dashboard.restaurant.info', $data);
         }
+    }
+    public function cleanTime($time)
+    {
+        if(!$time)
+        return $time;
+        if(str_replace('AM','',$time) != $time)
+        {
+            $suffix = 'AM';
+        }
+        else
+        $suffix = 'PM';
+        $time = str_replace(array(' AM',' PM'),array('',''),$time);
+        
+        $arr_time = explode(':',$time);
+        $hour = $arr_time[0];
+        $min = $arr_time[1];
+        $sec = '00';
+        
+        if($hour<12 && $suffix=='PM')
+        $hour = $hour+12;
+        
+        return $hour.':'.$min.':'.$sec;
+        
     }
 
     /**
