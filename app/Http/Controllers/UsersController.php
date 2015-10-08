@@ -160,6 +160,7 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {
                     $res['order_type'] = $_POST['order_type'];
+                    $res['order_time'] = date('Y-m-d h:i:s');
                     $res['delivery_fee'] = $_POST['delivery_fee'];
                     $res['res_id'] = $_POST['res_id'];
                     $res['subtotal'] = $_POST['subtotal'];
@@ -171,6 +172,7 @@ class UsersController extends Controller {
                     $res['extras'] = implode(',',$_POST['extras']);
                     $res['menu_ids'] = implode(',',$_POST['menu_ids']);
                     $res['restaurantId'] = $_POST['res_id'];
+                    $res['order_till'] = $_POST['order_till'];
                     $ob2 = new \App\Http\Models\Reservations();
                     $ob2->populate($res);
                     $ob2->save();
