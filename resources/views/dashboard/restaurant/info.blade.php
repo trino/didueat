@@ -47,14 +47,14 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                                                <input type="text" name="Name" class="form-control" placeholder="Restaurant Name" value="{{ $resturant->Name }}" required>
+                                                <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ $resturant->name }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Email <span class="required">*</span></label>
-                                                <input type="email" name="Email" class="form-control" placeholder="Restaurant Email" value="{{ $resturant->Email }}" required>
+                                                <input type="email" name="email" class="form-control" placeholder="Restaurant Email" value="{{ $resturant->email }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -63,14 +63,14 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Phone Number</label>
-                                                <input type="text" name="Phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->Phone }}">
+                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->phone }}">
                                             </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Description</label>
-                                                <input type="text" name="Description" class="form-control" placeholder="Description" value="{{ $resturant->Description }}">
+                                                <input type="text" name="description" class="form-control" placeholder="Description" value="{{ $resturant->description }}">
                                             </div>
                                         </div>
                                     </div>
@@ -81,10 +81,10 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country <span class="required">*</span></label>
-                                                <select name="Country" class="form-control" required>
+                                                <select name="country" id="country" class="form-control" required>
                                                     <option value="">-Select One-</option>
                                                             @foreach($countries_list as $value)
-                                                                <option value="{{ $value->id }}" @if($resturant->Country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                                <option value="{{ $value->id }}" @if($resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
                                                             @endforeach
                                                 </select>
                                             </div>
@@ -92,10 +92,10 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Genre</label>
-                                                <select name="Genre" class="form-control">
+                                                <select name="genre" id="genre" class="form-control">
                                                      <option value="">-Select One-</option>
                                                             @foreach($genre_list as $value)
-                                                                <option value="{{ $value->ID }}" @if($resturant->Genre == $value->ID) selected @endif>{{ $value->Name }}</option>
+                                                                <option value="{{ $value->id }}" @if($resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
                                                             @endforeach
                                                 </select>
                                             </div>
@@ -105,14 +105,14 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <input type="text" class="form-control" name="Province" placeholder="Province Name" value="{{ $resturant->Province }}" required>
+                                                <input type="text" class="form-control" name="province" placeholder="Province Name" value="{{ $resturant->province }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Street Address <span class="required">*</span></label>
-                                                <input type="text" name="Address" class="form-control" placeholder="Street Address" value="{{ $resturant->Address }}" required>
+                                                <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ $resturant->address }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
@@ -122,14 +122,14 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>City <span class="required">*</span></label>
-                                                <input type="text" name="City" class="form-control" placeholder="City" value="{{ $resturant->City }}" required>
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ $resturant->city }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label>Postal Code <span class="required">*</span></label>
-                                                <input type="text" name="PostalCode" class="form-control" placeholder="Postal Code" value="{{ $resturant->PostalCode }}" required>
+                                                <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ $resturant->postal_code }}" required>
                                             </div>
                                         </div>
                                         <!--/span-->
@@ -138,23 +138,23 @@
                                     
                                     <h3 class="form-section">Hours of Operation</h3>
                                     <?php
-                                        $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                                        foreach ($dayofweek as $key => $value) {
-                                            $open[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'Open');
-                                            $close[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'Close');
-                                            $ID[$key] = select_field_where('hours', array('RestaurantID' => $resturant->ID, 'DayOfWeek' => $value), 'ID');
+                                        $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                                        foreach ($day_of_week as $key => $value) {
+                                            $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
+                                            $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
+                                            $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
                                     ?>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label col-md-2 padding-top-5"><?php echo $value; ?></label>
                                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                                    <input type="text" name="Open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
+                                                    <input type="text" name="open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-xs-12">
-                                                    <input type="text" name="Close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
-                                                    <input type="hidden" name="DayOfWeek[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
-                                                    <input type="hidden" name="IDD[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>" />
+                                                    <input type="text" name="close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
+                                                    <input type="hidden" name="day_of_week[<?php echo $key; ?>]" value="<?php echo $value; ?>" />
+                                                    <input type="hidden" name="idd[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>" />
                                                 </div>
                                             </div>
                                         </div>
@@ -167,13 +167,13 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                                <input type="text" name="DeliveryFee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->DeliveryFee }}" required>
+                                                <input type="text" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Minimum Sub Total For Delivery <span class="required">*</span></label>
-                                                <input type="text" name="Minimum" class="form-control" placeholder="Minimum Sub Total For Delivery" value="{{ $resturant->Minimum }}" required>
+                                                <input type="text" name="minimum" class="form-control" placeholder="Minimum Sub Total For Delivery" value="{{ $resturant->minimum }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -183,8 +183,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-md-4 col-sm-4 col-xs-12 col-sm-4 profilepic">
                                                 <strong>Restaurant Image</strong><br><br>
-                                                @if($resturant->Logo)
-                                                <img id="picture" src="{{ asset('assets/images/restaurants/'.$resturant->Logo) }}" title="" style="width: 100%;">
+                                                @if($resturant->logo)
+                                                <img id="picture" src="{{ asset('assets/images/restaurants/'.$resturant->logo) }}" title="" style="width: 100%;">
                                                 @else
                                                 <img id="picture" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
                                                 @endif
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <input type="hidden" name="ID" value="{{ $resturant->ID }}" />
+                                    <input type="hidden" name="id" value="{{ $resturant->id }}" />
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes </button>
                                 </div>
                             </form>
