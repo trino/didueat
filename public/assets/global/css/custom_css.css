@@ -896,6 +896,24 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
+#resturantForm input, #resturantForm textarea, #resturantForm select{
+    background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;  
+}
+
+#resturantForm input:focus, #resturantForm textarea:focus, #resturantForm select:focus{
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
 #signupForm .control-label {
   text-align: left !important;
 }
