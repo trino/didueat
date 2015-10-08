@@ -613,6 +613,15 @@ class RestaurantController extends Controller {
             \App\Http\Models\Menus::where('ID', $id)->update($arr);
 
 
+
+/*
+
+            $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
+            $ob->populate($post);
+            $ob->save();
+  */
+
+
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {
                 \App\Http\Models\Menus::where('parent', $c->ID)->delete();

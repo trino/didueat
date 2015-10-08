@@ -77,9 +77,11 @@ class AuthController extends Controller {
      * @return view
      */
     public function authenticateAjax() {
-        if (\Input::has('Email')) {
+        if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('Email'))->first();
+                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                login($user);
+die();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message'); die;

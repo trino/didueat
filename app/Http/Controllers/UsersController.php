@@ -252,10 +252,10 @@ class UsersController extends Controller {
                 echo '1';
                 die();
             } else {
-                $uid = \DB::table('profiles')->insertGetId(
-                    array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => encryptpassword($Password),'restaurantId'=>'0')
-                    );
-                   
+$uid = \DB::table('profiles')->insertGetId(
+array("Name" => trim($Name), "ProfileType" => 2, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "Subscribed" => 0, 'Password' => encryptpassword($Password),'restaurantId'=>'0')
+);
+
                   $user = \DB::table('profiles')->where('ID',$uid)->first();  
                     $userArray = (array) $user;
                     //var_dump($userArray); die();
