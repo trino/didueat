@@ -85,11 +85,11 @@ CREATE TABLE `hours` (
   `open` time DEFAULT NULL,
   `close` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `hours` */
 
-insert  into `hours`(`id`,`restaurant_id`,`day_of_week`,`open`,`close`) values (15,1,'1','00:16:45','00:09:20'),(16,1,'2','00:00:00','00:23:59'),(17,1,'3','00:00:00','00:23:59'),(18,1,'4','00:00:00','00:23:59'),(19,1,'5','00:03:45','00:04:45'),(20,1,'6','00:02:45','00:23:59'),(21,1,'7','00:00:00','00:23:59'),(22,6,'1','00:17:10','00:17:10'),(23,6,'5','00:17:10','00:17:10'),(24,7,'Sunday','04:20:00','12:00:00'),(25,7,'Monday','08:40:00','12:00:00'),(26,7,'Tuesday','09:45:00','08:40:00'),(27,7,'Wednesday','09:45:00','09:45:00'),(28,7,'Thursday','12:00:00','11:55:00'),(29,7,'Friday','11:55:00','11:55:00'),(30,7,'Saturday','12:00:00','12:00:00'),(31,8,'Sunday','00:00:00','00:00:00'),(32,8,'Monday','00:00:00','00:00:00'),(33,8,'Tuesday','00:00:00','00:00:00'),(34,8,'Wednesday','00:00:00','00:00:00'),(35,8,'Thursday','00:00:00','00:00:00'),(36,8,'Friday','00:00:00','00:00:00'),(37,8,'Saturday','00:00:00','00:00:00'),(38,9,'Sunday','00:00:00','00:00:00'),(39,9,'Monday','00:00:00','00:00:00'),(40,9,'Tuesday','00:00:00','00:00:00'),(41,9,'Wednesday','00:00:00','00:00:00'),(42,9,'Thursday','00:00:00','00:00:00'),(43,9,'Friday','00:00:00','00:00:00'),(44,9,'Saturday','00:00:00','00:00:00'),(45,10,'Sunday','00:00:00','00:00:00'),(46,10,'Monday','00:00:00','00:00:00'),(47,10,'Tuesday','00:00:00','00:00:00'),(48,10,'Wednesday','00:00:00','00:00:00'),(49,10,'Thursday','00:00:00','00:00:00'),(50,10,'Friday','00:00:00','00:00:00'),(51,10,'Saturday','00:00:00','00:00:00');
+insert  into `hours`(`id`,`restaurant_id`,`day_of_week`,`open`,`close`) values (1,1,'Monday','02:30:00','03:30:00');
 
 /*Table structure for table `menus` */
 
@@ -180,7 +180,6 @@ CREATE TABLE `profiles` (
   `name` varchar(150) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
-  `salt` varchar(100) DEFAULT NULL,
   `phone` varchar(32) DEFAULT NULL,
   `subscribed` tinyint(4) DEFAULT NULL,
   `restaurant_id` int(11) DEFAULT NULL,
@@ -191,11 +190,11 @@ CREATE TABLE `profiles` (
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles` */
 
-insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`salt`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','18Qr/j9fx/qBc','$2a$10$47X1TbNbxW2gnUN4MGFglw==','123456789',0,10,NULL,1,'2015-09-16 12:54:59','2015-10-07 14:26:43',NULL),(2,2,'Waqar2','waqar2@example.com','$2a$10$47X1TbNbxW2gnUN4MGFglui5cegPbvHP/hzv30g6n63Obxcl449yq','$2a$10$47X1TbNbxW2gnUN4MGFglw==','123456789',0,1,NULL,1,'2015-09-16 12:54:59','2015-09-20 12:26:20',NULL),(3,4,'Waqar3','waqar3@example.com','$2a$10$47X1TbNbxW2gnUN4MGFglui5cegPbvHP/hzv30g6n63Obxcl449yq','$2a$10$47X1TbNbxW2gnUN4MGFglw==','123456789',0,1,NULL,1,'2015-09-16 12:54:59','2015-09-20 12:26:20',NULL),(9,1,'Mohsan Iqbal','mohsaniqbal387@gmail.com','$2a$10$P/QlIosZyJ7p3zDo8oOAmuUjgzh3STjrffSSxczDnQIpbcn37YWF2','$2a$10$P/QlIosZyJ7p3zDo8oOAmw==','03124046616',1,10,NULL,1,'2015-09-22 14:09:26','2015-09-22 14:09:50',NULL),(13,2,'asda','warriorqbik@gmail.com','$1$ge4.pB..$TmhSOQE8E0gNfgDTPjjab0','$2a$10$A/lwkD80fNTvbR90vjMwjw==','123123',0,0,0,1,NULL,NULL,NULL),(14,2,'asda','asd@asd.com','$1$Pg4.sG..$I4C15SgfidXMbbkHsB2Fo1','$2a$10$A/lwkD80fNTvbR90vjMwjw==','123123',0,0,0,1,NULL,NULL,NULL),(15,2,'asdasd','a@a.com','$2a$10$A/lwkD80fNTvbR90vjMwjuWMiNbzczpOJHxRCSMN8tW6fC2lC3DJC','$2a$10$A/lwkD80fNTvbR90vjMwjw==','123123',0,1,0,1,NULL,NULL,NULL),(16,1,'warrior','justdoit.2045@yahoo.com','a',NULL,'123',NULL,NULL,NULL,0,'2015-09-30 15:13:52','2015-09-30 15:13:52',NULL),(17,2,'asdasd','a1@a.com','$2a$10$A/lwkD80fNTvbR90vjMwjufCzhyIACxICHJeW/VsZ5ntHw0v11uCa','$2a$10$A/lwkD80fNTvbR90vjMwjw==','112312',0,0,0,1,NULL,NULL,NULL),(18,1,'test','justdoist.2045@yahoo.com','18PWu2V7tXYLA',NULL,'2222222222',1,NULL,NULL,0,'2015-10-06 05:15:30','2015-10-06 05:15:30',NULL),(19,1,'warrior','warriorbik@gmail.com','18PWu2V7tXYLA',NULL,'2222222222',1,19,NULL,1,'2015-10-06 05:28:15','2015-10-06 05:28:38',NULL),(23,1,'d','info@trinoweb.com','18uEDhWDJwpoQ',NULL,'d',1,1,NULL,1,'2015-10-07 13:56:01','2015-10-07 13:58:12',NULL),(24,4,'test','test123@example.com','18GgKcb2FFBHM',NULL,'123456',NULL,NULL,NULL,0,'2015-10-07 15:27:02','2015-10-07 15:27:02',NULL);
+insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','$2y$10$EtnpP8EFIb0c9MjMGyjCce3wWSiCh0OR2iY3iWS80jnyV7JD1oIUK','123456789',1,1,NULL,1,'2015-10-08 22:31:39','2015-10-08 22:34:58',NULL);
 
 /*Table structure for table `profiles_addresses` */
 
@@ -319,11 +318,11 @@ CREATE TABLE `restaurants` (
   `minimum` decimal(2,0) DEFAULT NULL,
   `open` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `restaurants` */
 
-insert  into `restaurants`(`id`,`name`,`slug`,`genre`,`email`,`phone`,`address`,`city`,`province`,`country`,`postal_code`,`description`,`logo`,`delivery_fee`,`minimum`,`open`) values (1,'Restaurant One','one-restaurant',1,'skpsoftech@gmail.com','123456789',NULL,'1','','CA',NULL,'1','','1','1',1),(2,'Restaurant Two','two-restaurant',1,'skpsoftech@yahoo.com','123456789',NULL,'1',NULL,'CA',NULL,'1',NULL,'1','1',1),(3,'Restaurant Three','three-restaurant',1,'skpsoftech@yahoo.com','123456789',NULL,'1',NULL,'CA',NULL,'1',NULL,'1','1',1),(4,'Restaurant Four','four-restaurant',1,'skpsoftech@yahoo.com','123456789',NULL,'1',NULL,'CA',NULL,'1',NULL,'1','1',1),(5,'Restaurant Five','five-restaurant',1,'skpsoftech@yahoo.com','123456789',NULL,'1',NULL,'CA',NULL,'1',NULL,'1','1',1),(6,'Restaurant Six','',1,'skpsoftech@example.com','123456789','1230 Main Street East','HAMILTON','ON','CA','L9A1V7','',NULL,'2','2',1),(7,'pho','pho',0,'info@trinoweb.com','2342342344','123 anywhere st','anytown','on','1','l8e3z2','234','16de2823.png','99','99',1),(8,'Beverly Hills','',1,'bhills_2144@mailinator.com','3105552144','2144 Beverly Dr','Beverly Hills','CA','183','90210','Kgcxhl lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0','0',1),(9,'Beverly Hills','',1,'bhills_3568@mailinator.com','3105553568','3568 Beverly Dr','Beverly Hills','CA','183','90210','Gwmajl lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0','0',1),(10,'Beverly Hills','beverly hills',1,NULL,'3105559944','9944 Beverly Dr','Beverly Hills','CA','183','90210','Rujmvg lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0','0',1);
+insert  into `restaurants`(`id`,`name`,`slug`,`genre`,`email`,`phone`,`address`,`city`,`province`,`country`,`postal_code`,`description`,`logo`,`delivery_fee`,`minimum`,`open`) values (1,'Restaurant Seven','restaurant-seven',0,'skpsoftech@gmail.com','123456789','Gulberg 3','Lahore','Punja','168','54606','ajdsklfajsdklfa\r\nsdfasd\r\nf\r\nasdf\r\nasd',NULL,'99','99',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
