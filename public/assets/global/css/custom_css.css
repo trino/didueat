@@ -919,4 +919,9 @@ body.ecommerce {
   background: #be2627;
 }
 
+.reservation_signin .btn {
+    padding: 4px;
+    width: 65px;
+}
+
 .clearfix {clear: both; margin: 5px 0px;}
