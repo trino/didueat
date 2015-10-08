@@ -402,7 +402,7 @@ button:hover {
 .top-cart-block {
     position: fixed;
     right: 0;
-    top: 86px;
+    top: 70px;
     z-index: 9;
     background: #fcfafb;
     padding: 10px 0;
@@ -942,6 +942,10 @@ body.ecommerce {
 .reservation_signin .btn {
     padding: 4px;
     width: 65px;
+}
+
+.well.add-sidebar a {
+    word-wrap: break-word;
 }
 
 .clearfix {clear: both; margin: 5px 0px;}
