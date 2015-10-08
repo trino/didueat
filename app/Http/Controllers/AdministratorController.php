@@ -61,8 +61,8 @@ class AdministratorController extends Controller {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
 
                 if (isset($post['old_password']) && !empty($post['old_password'])) {
-                    $password = encryptpassword($post['old_password']);
-                    if ($ob->Password != $password) {
+                    $password = \Input::get('old_password');
+                    if (!\Hash::check($password, $ob->password)) {
                         \Session::flash('message', "[Old Password] is incorrect!");
                         \Session::flash('message-type', 'alert-danger');
                         \Session::flash('message-short', 'Oops!');
@@ -86,7 +86,7 @@ class AdministratorController extends Controller {
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    $post['password'] = encryptpassword ($post['confirm_password']);
+                    $post['password'] = $post['confirm_password'];
                 }
 
                 $ob->populate($post);
