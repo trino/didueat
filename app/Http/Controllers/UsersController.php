@@ -75,7 +75,7 @@ class UsersController extends Controller {
             try {
                 $post['user_id'] = \Session::get('session_id');
 
-                $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
+                $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['id']);
                 $ob->populate($post);
                 $ob->save();
 

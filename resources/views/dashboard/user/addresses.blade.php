@@ -60,14 +60,14 @@
                                     <tbody>
                                         @foreach($addresses_list as $value)
                                         <tr>
-                                            <td>{{ $value->ID }}</td>
-                                            <td>{{ $value->Number }}</td>
-                                            <td>{{ $value->Apt }}</td>
-                                            <td>{{ $value->Buzz }}</td>
-                                            <td>{{ $value->Street.', '.$value->City.', '.$value->Province.', '.$value->PostCode.', '.select_field('countries', 'ID', $value->Country, 'Name') }}</td>
+                                            <td>{{ $value->id }}</td>
+                                            <td>{{ $value->number }}</td>
+                                            <td>{{ $value->apt }}</td>
+                                            <td>{{ $value->buzz }}</td>
+                                            <td>{{ $value->street.', '.$value->city.', '.$value->province.', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
-                                                <a href="{{ url('user/addresses/'.$value->ID) }}" class="btn btn-danger">Edit</a>
-                                                <a href="{{ url('user/addresses/delete/'.$value->ID) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                                <a href="{{ url('user/addresses/'.$value->id) }}" class="btn btn-danger">Edit</a>
+                                                <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -95,7 +95,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Street Address <span class="required">*</span></label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Street" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->Street))?$addresse_detail->Street:'' }}" required>
+                                                        <input type="text" name="street" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->street))?$addresse_detail->street:'' }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,7 +103,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Postal Code</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="PostCode" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->PostCode))?$addresse_detail->PostCode:'' }}">
+                                                        <input type="text" name="post_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->post_code))?$addresse_detail->post_code:'' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +114,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Apartment/Unit/ Room <span class="required">*</span></label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Apt" class="form-control" placeholder="Name of the address" value="{{ (isset($addresse_detail->Apt))?$addresse_detail->Apt:'' }}" required>
+                                                        <input type="text" name="apt" class="form-control" placeholder="Name of the address" value="{{ (isset($addresse_detail->apt))?$addresse_detail->apt:'' }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Buzz code/door bell number</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Buzz" class="form-control" placeholder="Buzz code or door bell number" value="{{ (isset($addresse_detail->Buzz))?$addresse_detail->Buzz:'' }}">
+                                                        <input type="text" name="buzz" class="form-control" placeholder="Buzz code or door bell number" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:'' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Mobile Number</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Number" class="form-control" placeholder="Mobile Number" value="{{ (isset($addresse_detail->Number))?$addresse_detail->Number:'' }}">
+                                                        <input type="text" name="number" class="form-control" placeholder="Mobile Number" value="{{ (isset($addresse_detail->number))?$addresse_detail->number:'' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="PhoneNo" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->PhoneNo))?$addresse_detail->PhoneNo:'' }}">
+                                                        <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no:'' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,7 +152,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="City" class="form-control" placeholder="City" value="{{ (isset($addresse_detail->City))?$addresse_detail->City:'' }}" required>
+                                                        <input type="text" name="city" class="form-control" placeholder="City" value="{{ (isset($addresse_detail->city))?$addresse_detail->city:'' }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Province" class="form-control" placeholder="Province" value="{{ (isset($addresse_detail->Province))?$addresse_detail->Province:'' }}" required>
+                                                        <input type="text" name="province" class="form-control" placeholder="Province" value="{{ (isset($addresse_detail->province))?$addresse_detail->province:'' }}" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,10 +171,10 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <select name="Country" class="form-control" required>
+                                                        <select name="country" class="form-control" required>
                                                             <option value="">-Select One-</option>
                                                             @foreach($countries_list as $value)
-                                                                <option value="{{ $value->id }}" {{ (isset($addresse_detail->Country) && $addresse_detail->Country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
+                                                                <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -184,7 +184,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-5 col-sm-5 col-xs-12">Notes</label>
                                                     <div class="col-md-7 col-sm-7 col-xs-12">
-                                                        <input type="text" name="Notes" class="form-control" placeholder="Notes" value="{{ (isset($addresse_detail->Notes))?$addresse_detail->Notes:'' }}">
+                                                        <input type="text" name="notes" class="form-control" placeholder="Notes" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:'' }}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +197,7 @@
                                                 <div class="row">
                                                     <div class="col-md-offset-3 col-md-9 col-sm-9 col-xs-12">
                                                         <button type="submit" class="btn red">Submit</button>
-                                                        <input type="hidden" name="ID" value="{{ (isset($addresse_detail->ID))?$addresse_detail->ID:'' }}" />
+                                                        <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}" />
                                                     </div>
                                                 </div>
                                             </div>

@@ -49,11 +49,11 @@
                                 @foreach($images_list as $value)
                                 <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
                                     <div class="mix-inner">
-                                        <img class="img-responsive" src="{{ url('assets/images/users/'.$value->Filename) }}" alt="">
+                                        <img class="img-responsive" src="{{ url('assets/images/users/'.$value->filename) }}" alt="">
                                         <div class="mix-details">
                                             <h4>Cascusamus et iusto odio</h4>
                                             <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
-                                            <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->Filename) }}" title="Project Name" data-rel="fancybox-button">
+                                            <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->filename) }}" title="Project Name" data-rel="fancybox-button">
                                                 <i class="fa fa-search"></i>
                                             </a>
                                         </div>
@@ -86,16 +86,16 @@
             <div class="form-body">
                 <div class="form-group">
                     <label>Restaurant Name <span class="required">*</span></label>
-                    <select name="RestaurantID" class="form-control input-lg" required>
+                    <select name="restaurant_id" class="form-control input-lg" required>
                         <option value="">Select One</option>
                         @foreach($restaurants_list as $value)
-                        <option value="{{ $value->ID }}">{{ $value->Name }}</option>
+                        <option value="{{ $value->id }}">{{ $value->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Title <span class="required">*</span></label>
-                    <input type="text" name="Title" class="form-control" placeholder="Title" required>
+                    <input type="text" name="title" class="form-control" placeholder="Title" required>
                 </div>
                 <div class="form-group">
                     <label>Image <span class="required">*</span></label>
