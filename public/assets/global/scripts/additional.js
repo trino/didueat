@@ -162,7 +162,7 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                window.location=base_url+'restaurant/menus-manager';
+                                window.location=base_url+'restaurant/red/menus-manager';
                                 }
                                 
                                }
@@ -179,7 +179,7 @@ $('.savebtn').live('click',function(){
         }
         else
         {
-            window.location=base_url+'restaurant/menus-manager';     
+            window.location=base_url+'restaurant/red/menus-manager';     
         }
        
        }

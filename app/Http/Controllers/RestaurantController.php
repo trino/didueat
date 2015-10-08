@@ -535,5 +535,9 @@ class RestaurantController extends Controller {
             }
         }
     }
+    public function red($path)
+    {
+        return \Redirect::to('restaurant/'.$path)->with('message', 'Restaurant menu successfully updated');
+    }
 
 }
