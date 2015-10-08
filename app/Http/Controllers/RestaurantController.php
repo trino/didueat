@@ -14,6 +14,7 @@ use App\Http\Models\Restaurants;
  * @date       15 September, 2015
  */
 class RestaurantController extends Controller {
+
     /**
      * Constructor
      * @param null
@@ -23,7 +24,7 @@ class RestaurantController extends Controller {
         $this->beforeFilter(function() {
             initialize("restaurants");
             if (!\Session::has('is_logged_in')) {
-                \Session::flash('message', trans('messages.user_session_exp.message')); 
+                \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('auth/login');
@@ -58,17 +59,17 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-            
+
             \Session::flash('message', "Restaurant has been deleted successfully!");
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/restaurants');
         } catch (\Exception $e) {
-            
+
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/restaurants'); 
+            return \Redirect::to('restaurant/restaurants');
         }
     }
 
@@ -79,7 +80,7 @@ class RestaurantController extends Controller {
      */
     public function restaurantStatus($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            
+
             \Session::flash('message', "[Restaurant Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
@@ -88,19 +89,19 @@ class RestaurantController extends Controller {
 
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
-            if ($ob->Status == "Open") {
-                $ob->populate(array('Status' => 'Close'));
+            if ($ob->status == "open") {
+                $ob->populate(array('status' => 'close'));
             } else {
-                $ob->populate(array('Status' => 'Open'));
+                $ob->populate(array('status' => 'open'));
             }
             $ob->save();
-            
+
             \Session::flash('message', 'Restaurant status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/restaurants');
         } catch (\Exception $e) {
-            
+
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
@@ -116,47 +117,47 @@ class RestaurantController extends Controller {
     public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['Name']) || empty($post['Name'])) {
+            if (!isset($post['name']) || empty($post['name'])) {
                 \Session::flash('message', "[Restaurant Name] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['Email']) || empty($post['Email'])) {
+            if (!isset($post['email']) || empty($post['email'])) {
                 \Session::flash('message', "[Restaurant Email] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['Country']) || empty($post['Country'])) {
+            if (!isset($post['country']) || empty($post['country'])) {
                 \Session::flash('message', "[Country] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['City']) || empty($post['City'])) {
+            if (!isset($post['city']) || empty($post['city'])) {
                 \Session::flash('message', "[City] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['PostalCode']) || empty($post['PostalCode'])) {
+            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
                 \Session::flash('message', "[Postal Code] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['DeliveryFee']) || empty($post['DeliveryFee'])) {
+            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
                 \Session::flash('message', "[Delivery Fee] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['Minimum']) || empty($post['Minimum'])) {
+            if (!isset($post['minimum']) || empty($post['minimum'])) {
                 \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
             try {
                 if (\Input::hasFile('logo')) {
@@ -165,34 +166,34 @@ class RestaurantController extends Controller {
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
-                    $post['Logo'] = $newName;
+                    $post['logo'] = $newName;
                 }
-                $ob = \App\Http\Models\Restaurants::findOrNew($post['ID']);
+                $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($post);
                 $ob->save();
 
-                foreach ($post['Open'] as $key => $value) {
+                foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
-                        $hour['Open'] = $this->cleanTime($value);
-                        $hour['RestaurantID'] = $ob->ID;
-                        $hour['Close'] = $this->cleanTime($post['Close'][$key]);
-                        $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
-                        $hour['ID'] = $post['IDD'][$key];
-                        $ob2 = \App\Http\Models\Hours::findOrNew($hour['ID']);
+                        $hour['open'] = $this->cleanTime($value);
+                        $hour['restaurant_id'] = $ob->id;
+                        $hour['close'] = $this->cleanTime($post['close'][$key]);
+                        $hour['day_of_week'] = $post['day_of_week'][$key];
+                        $hour['id'] = $post['idd'][$key];
+                        $ob2 = \App\Http\Models\Hours::findOrNew($hour['id']);
                         $ob2->populate($hour);
                         $ob2->save();
                     }
                 }
-                
+
                 \Session::flash('message', "Resturant Info updated successfully");
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['ID']);
+                return \Redirect::to('restaurant/info/' . $post['id']);
             }
         } else {
             $data['title'] = "Resturant Manage";
@@ -202,28 +203,25 @@ class RestaurantController extends Controller {
             return view('dashboard.restaurant.info', $data);
         }
     }
-    public function cleanTime($time)
-    {
-        if(!$time)
-        return $time;
-        if(str_replace('AM','',$time) != $time)
-        {
+
+    public function cleanTime($time) {
+        if (!$time)
+            return $time;
+        if (str_replace('AM', '', $time) != $time) {
             $suffix = 'AM';
-        }
-        else
-        $suffix = 'PM';
-        $time = str_replace(array(' AM',' PM'),array('',''),$time);
-        
-        $arr_time = explode(':',$time);
+        } else
+            $suffix = 'PM';
+        $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
+
+        $arr_time = explode(':', $time);
         $hour = $arr_time[0];
         $min = $arr_time[1];
         $sec = '00';
-        
-        if($hour<12 && $suffix=='PM')
-        $hour = $hour+12;
-        
-        return $hour.':'.$min.':'.$sec;
-        
+
+        if ($hour < 12 && $suffix == 'PM')
+            $hour = $hour + 12;
+
+        return $hour . ':' . $min . ':' . $sec;
     }
 
     /**
@@ -235,17 +233,17 @@ class RestaurantController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $post['RestaurantID'] = \Session::get('session_restaurantId');
+                $post['restaurant_id'] = \Session::get('session_restaurantId');
                 $ob = new \App\Http\Models\NotificationAddresses();
                 $ob->populate($post);
                 $ob->save();
-                
+
                 \Session::flash('message', "Address added successfully!");
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
+                \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/addresses');
             } catch (Exception $e) {
-                
+
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
@@ -253,7 +251,7 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = 'Addresses List';
-            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurantId', \Session::get('session_restaurantId'))->get();
+            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurant_id', \Session::get('session_restaurantId'))->get();
             return view('dashboard.restaurant.addresses', $data);
         }
     }
@@ -274,10 +272,10 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\NotificationAddresses::find($id);
             $ob->delete();
-            
+
             \Session::flash('message', "Address has been deleted successfully!");
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/addresses');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
@@ -332,7 +330,7 @@ class RestaurantController extends Controller {
                     $post['image'] = $newName;
                 }
 
-                $item['restaurantId'] = \Session::get('session_restaurantId');
+                $item['restaurant_id'] = \Session::get('session_restaurantId');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
                 $item['description'] = $post['description'];
@@ -346,7 +344,7 @@ class RestaurantController extends Controller {
                 $ob->save();
 
                 foreach ($post['addon_menu_item'] as $key => $value) {
-                    $addon['restaurantId'] = \Session::get('session_restaurantId');
+                    $addon['restaurant_id'] = \Session::get('session_restaurantId');
                     $addon['menu_item'] = $value;
                     $addon['description'] = $post['addon_description'][$key];
                     $addon['req_opt'] = $post['req_opt'][$key];
@@ -362,7 +360,7 @@ class RestaurantController extends Controller {
                     $ob2->save();
 
                     foreach ($post['sub_menu_item'][$key] as $key2 => $value2) {
-                        $subitem['restaurantId'] = \Session::get('session_restaurantId');
+                        $subitem['restaurant_id'] = \Session::get('session_restaurantId');
                         $subitem['menu_item'] = $value2;
                         $subitem['price'] = $post['sub_price'][$key][$key2];
                         $subitem['has_addon'] = 0;
@@ -374,10 +372,10 @@ class RestaurantController extends Controller {
                         $ob3->save();
                     }
                 }
-                
+
                 \Session::flash('message', "Item menus added successfully");
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
+                \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/menus-manager');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
@@ -387,7 +385,7 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = 'Manus Listing';
-            $data['menus_list'] = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'ASC')->get();
+            $data['menus_list'] = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'ASC')->get();
             return view('dashboard.restaurant.manus', $data);
         }
     }
@@ -408,14 +406,14 @@ class RestaurantController extends Controller {
     public function pendingOrders() {
         $data['title'] = 'Pending History';
         $data['type'] = 'Pending';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
     public function history() {
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
@@ -435,10 +433,10 @@ class RestaurantController extends Controller {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'cancelled'));
             $ob->save();
-            
+
             \Session::flash('message', 'Order status has been cancelled successfully!');
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
@@ -464,10 +462,10 @@ class RestaurantController extends Controller {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->populate(array('status' => 'approved'));
             $ob->save();
-            
+
             \Session::flash('message', 'Order status has been approved successfully!');
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
@@ -493,10 +491,10 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Reservations::find($id);
             $ob->delete();
-            
+
             \Session::flash('message', 'Order has been deleted successfully!');
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/orders/pending');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
@@ -514,7 +512,7 @@ class RestaurantController extends Controller {
     public function historyOrders($id = 0) {
         $resId = ($id > 0) ? $id : \Session::get('session_restaurantId');
         $data['title'] = 'Orders History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurantId', $resId)->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', $resId)->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_history', $data);
     }
 
@@ -525,7 +523,7 @@ class RestaurantController extends Controller {
      */
     public function eventsLog() {
         $data['title'] = 'Events Log';
-        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('Date', 'DESC')->get();
+        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('date', 'DESC')->get();
         return view('dashboard.restaurant.events_log', $data);
     }
 
@@ -535,7 +533,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function report() {
-        $order = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID');
+        $order = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
         if (isset($_GET['from'])) {
             $order = $order->where('order_time', '>=', $_GET['from']);
         }
@@ -554,7 +552,7 @@ class RestaurantController extends Controller {
         if ($id != 0) {
             //$id = $_GET['menu_id'];
             //$table = TableRegistry::get('menus');
-            $data['model'] = \App\Http\Models\Menus::where('ID', $id)->get()[0];
+            $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
 
@@ -598,9 +596,9 @@ class RestaurantController extends Controller {
         //echo '<pre>';print_r($_POST); die;
         //$this->loadModel("Menus");
         //$this->loadComponent('Manager');
-        $arr['restaurantId'] = \Session::get('session_restaurantId');
+        $arr['restaurant_id'] = \Session::get('session_restaurantId');
 
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon','display_order');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -610,21 +608,17 @@ class RestaurantController extends Controller {
         if (isset($_GET['id']) && $_GET['id']) {
             //die('update');
             $id = $_GET['id'];
-            \App\Http\Models\Menus::where('ID', $id)->update($arr);
+            \App\Http\Models\Menus::where('id', $id)->update($arr);
 
-
-
-/*
-
-            $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
-            $ob->populate($post);
-            $ob->save();
-  */
-
+            /*
+              $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
+              $ob->populate($post);
+              $ob->save();
+             */
 
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {
-                \App\Http\Models\Menus::where('parent', $c->ID)->delete();
+                \App\Http\Models\Menus::where('parent', $c->id)->delete();
             }
             \App\Http\Models\Menus::where('parent', $id)->delete();
             echo $id;
@@ -632,13 +626,13 @@ class RestaurantController extends Controller {
         } else {
             //die('add');
             //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
-            $orders_mod = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
+            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {
                 $orders = $orders_mod[0];
-                if(!isset($arr['display_order']))
-                $arr['display_order'] = $orders->display_order + 1;
+                if (!isset($arr['display_order']))
+                    $arr['display_order'] = $orders->display_order + 1;
             }
-            
+
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
@@ -651,28 +645,28 @@ class RestaurantController extends Controller {
     public function orderCat() {
         $_POST['ids'] = explode(',', $_POST['ids']);
         foreach ($_POST['ids'] as $k => $id) {
-            \App\Http\Models\Menus::where('ID', $id)->update(array('display_order' => ($k + 1)));
+            \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
         die();
     }
 
     public function deleteMenu($id) {
-        \App\Http\Models\Menus::where('ID', $id)->delete();
+        \App\Http\Models\Menus::where('id', $id)->delete();
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
-            \App\Http\Models\Menus::where('parent', $c->ID)->delete();
+            \App\Http\Models\Menus::where('parent', $c->id)->delete();
         }
         \App\Http\Models\Menus::where('parent', $id)->delete();
-        
+
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Oops!');
+        \Session::flash('message-short', 'Congratulations!');
         return \Redirect::to('restaurant/menus-manager');
     }
 
     public function order_detail($ID) {
-        if ($data['order'] = \App\Http\Models\Reservations::where('Reservations.id', $ID)->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID')->first()) {
-            if (is_null($data['order']['restaurantId'])) {
+        if ($data['order'] = \App\Http\Models\Reservations::where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first()) {
+            if (is_null($data['order']['restaurant_id'])) {
                 return back()->with('status', 'Restaurant Not Found!');
             } else {
                 $data['title'] = 'Orders Detail';
@@ -680,9 +674,9 @@ class RestaurantController extends Controller {
             }
         }
     }
-    public function red($path)
-    {
-        return \Redirect::to('restaurant/'.$path)->with('message', 'Restaurant menu successfully updated');
+
+    public function red($path) {
+        return \Redirect::to('restaurant/' . $path)->with('message', 'Restaurant menu successfully updated');
     }
 
 }

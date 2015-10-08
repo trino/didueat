@@ -13,7 +13,7 @@ abstract class Controller extends BaseController
     
     public function sendEMail($template_name="", $array=array()) {
         \Mail::send($template_name, $array, function($messages) use ($array) {
-            $messages->to($array['Email'])->subject($array['mail_subject']);
+            $messages->to($array['email'])->subject($array['mail_subject']);
         });
     }
 

@@ -86,7 +86,7 @@ class AdministratorController extends Controller {
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    $post['Password'] = encryptpassword ($post['confirm_password']);
+                    $post['password'] = encryptpassword ($post['confirm_password']);
                 }
 
                 $ob->populate($post);
@@ -208,7 +208,7 @@ class AdministratorController extends Controller {
                 
                 \Session::flash('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.');
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
+                \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/users')->withInput();
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
@@ -225,7 +225,7 @@ class AdministratorController extends Controller {
             }
         } else {
             $data['title'] = 'Users List';
-            $data['users_list'] = \App\Http\Models\Profiles::where('profileType', 2)->orWhere('profileType', 4)->orWhere('profileType', 1)->orderBy('ID', 'DESC')->get();
+            $data['users_list'] = \App\Http\Models\Profiles::where('profile_type', 2)->orWhere('profile_type', 4)->orWhere('profile_type', 1)->orderBy('id', 'DESC')->get();
             return view('dashboard.administrator.users', $data);
         }
     }
@@ -253,7 +253,7 @@ class AdministratorController extends Controller {
             try {
                 $ob = \App\Http\Models\Newsletter::get();
                 foreach ($ob as $value) {
-                    $ob_user = \App\Http\Models\Profiles::where('email', $value->Email)->where('status', 1)->first();
+                    $ob_user = \App\Http\Models\Profiles::where('email', $value->email)->where('status', 1)->first();
                     if (isset($ob_user) && count($ob_user) > 0 && !is_null($ob_user)) {
                         $array = $ob_user->toArray();
                         $array['mail_subject'] = $post['subject'];
@@ -265,7 +265,7 @@ class AdministratorController extends Controller {
                 
                 \Session::flash('message', "Newsletter sent successfully");
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
+                \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/newsletter');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());

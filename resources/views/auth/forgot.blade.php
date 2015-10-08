@@ -20,7 +20,7 @@
                     <h4>Enter your email address</h4>
                     {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'login-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div class="form-group">
-                        <label for="inputEmail12" class="col-md-2 control-label">Email</label>
+                        <label for="email" class="col-md-2 control-label">Email</label>
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>

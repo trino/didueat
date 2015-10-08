@@ -88,14 +88,14 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="Name" id="name" class="form-control" value="" required="">
+                            <input type="text" name="name" id="name" class="form-control" value="" required="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="email">Email <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="Email" id="emailz" class="form-control" value="" required="">
+                            <input type="text" name="email" id="email" class="form-control" value="" required="">
                         </div>
                     </div>
 
@@ -160,7 +160,7 @@
                             <div class="form-group">
                                 <label class="col-lg-4 control-label" for="email">Email <span class="require">*</span></label>
                                 <div class="col-lg-8">
-                                    <input type="text" id="email" name="Email" class="form-control"required="">
+                                    <input type="text" id="email" name="email" class="form-control"required="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -205,7 +205,7 @@
                 <div class="form-group col-md-12">
                     <label class="col-lg-4 control-label" for="forgot-email">Email</label>
                     <div class="col-lg-8">
-                        <input type="text" name="Email" id="forgot-email" class="form-control">
+                        <input type="text" name="email" id="forgot-email" class="form-control">
                     </div>
                 </div>
                 
@@ -281,13 +281,13 @@
                                     dataType:"json",
                                     success:function(arr)
                                     {
-                                        $('#fullname').val(arr.Name);
-                                        $('#ordered_email').val(arr.Email);
-                                        $('#ordered_contact').val(arr.Phone);
-                                        $('#ordered_province').val(arr.Province);
-                                        $('#ordered_street').val(arr.Street);
-                                        $('#ordered_city').val(arr.City);
-                                        $('#ordered_code').val(arr.PostalCode);
+                                        $('#fullname').val(arr.name);
+                                        $('#ordered_email').val(arr.email);
+                                        $('#ordered_contact').val(arr.phone);
+                                        $('#ordered_province').val(arr.province);
+                                        $('#ordered_street').val(arr.street);
+                                        $('#ordered_city').val(arr.city);
+                                        $('#ordered_code').val(arr.postal_code);
                                         $('.reservation_signin').hide();
                                         $('.fancybox-close').click();
                                     }
@@ -320,16 +320,16 @@
             
             $('body').on('submit', '#register-form', function(e){
                 var token = $("#register-form input[name=_token]").val();
-                var Name = $("#register-form input[name=Name]").val();
-                var Email = $("#register-form input[name=Email]").val();
-                var phone = $("#register-form input[name=Phone]").val();
+                var Name = $("#register-form input[name=name]").val();
+                var Email = $("#register-form input[name=email]").val();
+                var phone = $("#register-form input[name=phone]").val();
                 var password = $("#register-form input[name=password]").val();
                 var confirm_password = $("#register-form input[name=confirm_password]").val();
                 var subscribed = $("#register-form input[name=subscribed]").val();
                 
                 $("#regButton").hide();
                 $("#regLoader").show();
-                $.post("{{ url('auth/register/ajax') }}", {_token:token, Name:Name, Email:Email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
+                $.post("{{ url('auth/register/ajax') }}", {_token:token, name:Name, email:Email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
                     $("#regButton").show();
                     $("#regLoader").hide();
                     

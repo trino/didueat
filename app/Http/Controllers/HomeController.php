@@ -59,50 +59,50 @@ class HomeController extends Controller {
     public function signupRestaurants() {
          $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['Name']) || empty($post['Name'])) {
+            if (!isset($post['name']) || empty($post['name'])) {
                 \Session::flash('message', "[Restaurant Name] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['Email']) || empty($post['Email'])) {
+            if (!isset($post['email']) || empty($post['email'])) {
                 \Session::flash('message', "[Restaurant Email] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            $is_email = \App\Http\Models\Restaurants::where('Email', '=', $post['Email'])->count();
+            $is_email = \App\Http\Models\Restaurants::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
                 \Session::flash('message', trans('messages.user_email_already_exist.message')); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
             }
-            if (!isset($post['Country']) || empty($post['Country'])) {
+            if (!isset($post['country']) || empty($post['country'])) {
                 \Session::flash('message', "[Country] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['City']) || empty($post['City'])) {
+            if (!isset($post['city']) || empty($post['city'])) {
                 \Session::flash('message', "[City] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['PostalCode']) || empty($post['PostalCode'])) {
+            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
                 \Session::flash('message', "[Postal Code] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['DeliveryFee']) || empty($post['DeliveryFee'])) {
+            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
                 \Session::flash('message', "[Delivery Fee] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['Minimum']) || empty($post['Minimum'])) {
+            if (!isset($post['minimum']) || empty($post['minimum'])) {
                 \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!"); 
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
@@ -115,27 +115,27 @@ class HomeController extends Controller {
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
-                    $post['Logo'] = $newName;
+                    $post['logo'] = $newName;
                 }
-                $post['Slug']= $this->createslug($post['Name']);
+                $post['slug']= $this->createslug($post['name']);
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($post);
                 $ob->save();
                 
-                foreach ($post['Open'] as $key => $value) {
+                foreach ($post['open'] as $key => $value) {
                     if(!empty($value)){
                         
-                        $hour['RestaurantID'] = $ob->ID;
-                        $hour['Open'] = $this->cleanTime($value);
-                        $hour['Close'] = $this->cleanTime($post['Close'][$key]);
-                        $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
+                        $hour['restaurant_id'] = $ob->id;
+                        $hour['open'] = $this->cleanTime($value);
+                        $hour['close'] = $this->cleanTime($post['close'][$key]);
+                        $hour['day_of_week'] = $post['day_of_week'][$key];
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);
                         $ob2->save();
                     }
                 }
                 
-                \Session::put('TempRestaurantID', $ob->ID);
+                //\Session::put('TempRestaurantID', $ob->ID);
                 \Session::flash('message', "Resturant created successfully"); 
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Oops!');
@@ -150,7 +150,7 @@ class HomeController extends Controller {
             $data['title'] = "Signup Restaurants Page";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['genre_list'] = \App\Http\Models\Genres::get();
-            //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurantId'));
+            //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
             return view('restaurants-signup', $data);
         }
     }
@@ -184,8 +184,8 @@ class HomeController extends Controller {
      * @return view
      */
     public function menusRestaurants($slug) {
-        $res_slug = \App\Http\Models\Restaurants::where('Slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurantId', $res_slug->ID)->where('parent', 0)->orderBy('display_order', 'ASC')->paginate(4);
+        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
+        $menus = \App\Http\Models\Menus::where('restaurant_id', $res_slug->id)->where('parent', 0)->orderBy('display_order', 'ASC')->paginate(4);
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
