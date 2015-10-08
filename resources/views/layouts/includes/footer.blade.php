@@ -43,7 +43,7 @@
                     <li><i class="fa fa-angle-right"></i> <a href="#">Customer Service</a></li>
                     <li><i class="fa fa-angle-right"></i> <a href="#">Order Tracking</a></li>
                     <li><i class="fa fa-angle-right"></i> <a href="#">Shipping &amp; Returns</a></li>
-                    <li><i class="fa fa-angle-right"></i> <a href="/Foodie/pages/contact">Contact Us</a></li>
+                    <li><i class="fa fa-angle-right"></i> <a href="#">Contact Us</a></li>
                     <li><i class="fa fa-angle-right"></i> <a href="#">Careers</a></li>
                     <li><i class="fa fa-angle-right"></i> <a href="#">Payment Methods</a></li>
 
