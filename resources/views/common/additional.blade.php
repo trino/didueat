@@ -1,5 +1,5 @@
     <div class="menuwrapper" id="sub<?php if(isset($child))echo $child->ID;else echo '0';?>">
-    <div class="col-md-7 col-sm-7 col-xs-12 ignore">
+    <div class="col-md-12 col-sm-12 col-xs-12 ignore">
         
         <div class="col-sm-12 lowheight row ignore">
             <input class="form-control ctitle ignore" type="text" placeholder="Title" value="<?php if(isset($child->menu_item)){echo $child->menu_item;}?>" /><br class="ignore" />
@@ -137,7 +137,7 @@
         </div>
         <div class="clearfix ignore ignore2 ignore1"></div>   
     </div>
-    <div class="col-md-5 col-sm-5 col-xs-12 ignore ignore2 ignore1">
+    <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore2 ignore1">
         <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore2 ignore1">
             <div class="newaction ignore ignore2 ignore1">
                 <?php if(!isset($cmodel) || (isset($ccount) && $ccount==$k)){

@@ -404,7 +404,6 @@
 
     <!-- BEGIN CART -->
     <div class="top-cart-block col-md-3 col-sm-4" id="printableArea" style="height: 599px;">
-
         
             <div class="top-cart-info" >
                 <div class="col-md-6">
@@ -435,7 +434,12 @@
                 </div>  
 
                 <div class="top-cart-content-wrapper">
-
+                     <div class="overlay">
+      <div class="clearfix"></div>
+        <div id="loadmoreajaxloader" style="display:none;">
+            <center><img src="{{ asset('assets/images/ajax-loading.gif') }}"></center>
+        </div>
+     </div>
                     <div class="top-cart-content ">
                         <div class="receipt_main">
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 220px;">

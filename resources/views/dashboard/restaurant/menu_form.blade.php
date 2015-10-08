@@ -17,7 +17,7 @@
         </div> 
         <div class="clearfix ignore ignore1"></div>   
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12 ignore ignore1">
+    <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
         <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
             <?php if(!isset($ccount) || (isset($ccount) && $ccount==0)){ ?>
             <div class="newaction ignore ignore1">

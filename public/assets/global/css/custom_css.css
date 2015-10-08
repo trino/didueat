@@ -402,7 +402,7 @@ button:hover {
 .top-cart-block {
     position: fixed;
     right: 0;
-    top: 70px;
+    top: 62px;
     z-index: 9;
     background: #fcfafb;
     padding: 10px 0;
@@ -419,6 +419,7 @@ button:hover {
 .top-cart-content-wrapper {
     border-top: 1px solid #dfdfdf;
     margin-top: 10px;
+    position: relative;
 }
 
 .pricing-content blockquote {
@@ -914,6 +915,42 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
+.menuwrapper input, .menuwrapper textarea, .menuwrapper select{
+    background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;  
+}
+
+.menuwrapper input:focus, .menuwrapper textarea:focus, .menuwrapper select:focus{
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.newmenus input, .newmenus textarea, .newmenus select{
+    background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;  
+}
+
+.newmenus input:focus, .newmenus textarea:focus, .newmenus select:focus{
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
 #signupForm .control-label {
   text-align: left !important;
 }
@@ -984,6 +1021,74 @@ body.ecommerce {
 
 .well.add-sidebar a {
     word-wrap: break-word;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.1) url("../../../assets/images/grid.png") no-repeat;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 9;
+    display: none;
+}
+
+.overlay > div {
+  left: 44%;
+  position: absolute;
+  top: 30%;
+}
+
+.additional .ignore .menuwrapper {
+  display: inline-block;
+  width: 47.7%;
+  margin-top: 10px;
+  padding: 10px 0;
+  vertical-align: top;
+}
+
+.additional .cmore .menuwrapper .lowheight {
+    line-height: 10px;
+    padding-bottom: 5px;
+}
+
+.additional .additional {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.additional .newaction {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.addmore .cmore .nopadd {
+  margin-bottom: -5px;
+}
+
+
+
+.aitems .btn {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 5px;
+  width: auto;
+}
+
+.col-md-12.col-sm-12.col-xs-12.nopadd.ignore.ignore2.ignore1.ui-sortable-handle {
+  margin-bottom: -15px;
+  margin-top: -15px;
+}
+
+.itemno.form-control.ignore.ignore2.ignore1.ui-sortable-handle {
+  margin-top: -15px;
+}
+
+.newaction a.btn {
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 5px;
 }
 
 .clearfix {clear: both; margin: 5px 0px;}
