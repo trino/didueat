@@ -155,26 +155,34 @@ class UsersController extends Controller {
         }
     }
     public function ajax_register() {
-        $res['order_type'] = $_POST['order_type'];
-        $res['delivery_fee'] = $_POST['delivery_fee'];
-        $res['res_id'] = $_POST['res_id'];
-        $res['subtotal'] = $_POST['subtotal'];
-        $res['g_total'] = $_POST['g_total'];
-        $res['tax'] = $_POST['tax'];
-      // echo $id = \DB::table('reservations')->insertGetId(
-       //         array($res)
-       //     ); die();
-     
+        if(isset($_POST)){
+            $res['order_type'] = $_POST['order_type'];
+            $res['delivery_fee'] = $_POST['delivery_fee'];
+            $res['res_id'] = $_POST['res_id'];
+            $res['subtotal'] = $_POST['subtotal'];
+            $res['g_total'] = $_POST['g_total'];
+            $res['tax'] = $_POST['tax'];
             $res['listid'] = implode(',',$_POST['listid']);
             $res['prs'] =implode(',',$_POST['prs']);
             $res['qtys'] =implode(',',$_POST['qtys']);
             $res['extras'] = implode(',',$_POST['extras']);
             $res['menu_ids'] = implode(',',$_POST['menu_ids']);
             $res['restaurantId'] = $_POST['res_id'];
-            $ob2 = new \App\Http\Models\Reservations();
-            $ob2->populate($res);
-            $ob2->save();
-            $order_id =  $ob2->id;
+            \DB::beginTransaction();
+            try {
+                    $ob2 = new \App\Http\Models\Reservations();
+                    $ob2->populate($res);
+                    $ob2->save();
+                    $order_id =  $ob2->id;
+                    \DB::commit();
+                }
+                 catch (\Illuminate\Database\QueryException $e) {
+                    \DB::rollback();
+                    return \Redirect::to('auth/register')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
+                } catch (\Exception $e) {
+                    \DB::rollback();
+                    return \Redirect::to('auth/register')->with('message', $e->getMessage())->withInput();
+                }
        
         //$order_id = $this->Manager->new_order($_POST['menu_ids'], $_POST['prs'], $_POST['qtys'], $_POST['extras'], $_POST['listid'], $_POST['order_type'], $_POST['delivery_fee'], $_POST['res_id'], $_POST['subtotal'], $_POST['g_total'], $_POST['tax']);
      
@@ -207,7 +215,8 @@ class UsersController extends Controller {
         //$this->Manager->edit_order_profile($oid, $_POST['email'], $_POST['address2'], $_POST['city'], $_POST['ordered_by'], $_POST['postal_code'], $_POST['remarks'], $_POST['order_till'], $_POST['province'], $Phone);
 
         
-        echo '0';
+            echo '0';
+        }
           die();
     }
     
