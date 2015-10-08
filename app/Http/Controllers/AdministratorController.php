@@ -37,13 +37,13 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
 
-            if (!isset($post['name']) || empty($post['name'])) {
+            if (!isset($post['Name']) || empty($post['Name'])) {
                 return \Redirect::to('dashboard')->with('message', "[Name] field is missing!");
             }
-            if (!isset($post['email']) || empty($post['email'])) {
+            if (!isset($post['Email']) || empty($post['Email'])) {
                 return \Redirect::to('dashboard')->with('message', "[Email] field is missing!");
             }
-            if (!isset($post['phone']) || empty($post['phone'])) {
+            if (!isset($post['Phone']) || empty($post['Phone'])) {
                 return \Redirect::to('dashboard')->with('message', "[Phone] field is missing!");
             }
             try {
@@ -63,7 +63,7 @@ class AdministratorController extends Controller {
                     if ($post['new_password'] != $post['confirm_password']) {
                         return \Redirect::to('dashboard')->with('message', "[Passwords] are mis-matched!");
                     }
-                    $post['password'] = $post['confirm_password'];
+                    $post['Password'] = encryptpassword ($post['confirm_password']);
                 }
 
                 $ob->populate($post);
