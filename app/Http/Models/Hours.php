@@ -58,10 +58,10 @@ class Hours extends BaseModel {
     function edit_hours($RestaurantID, $Data){
         $Days = array();
         for ($DayOfWeek = 1; $DayOfWeek < 8; $DayOfWeek++){
-            $Open = to_time($Data[$DayOfWeek . "_Open"]);
-            $Close = to_time($Data[$DayOfWeek . "_Close"]);
+            $Open = $this->to_time($Data[$DayOfWeek . "_Open"]);
+            $Close = $this->to_time($Data[$DayOfWeek . "_Close"]);
             $Days[$DayOfWeek] = $Open . " to " . $Close;
-            edit_hour($RestaurantID, $DayOfWeek, $Open, $Close);
+            $this->edit_hour($RestaurantID, $DayOfWeek, $Open, $Close);
         }
         logevent("Edited hours: " . print_r($Days, true));
     }
@@ -70,10 +70,10 @@ class Hours extends BaseModel {
     function is_restaurant_open_now($RestaurantID, $date = ""){
         if(!$date){ $date = now();}
         if(strpos($date, "-")){$date = strtotime($date);}
-        if(!is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
-            $dayofweek = get_name_of_weekday($date);
+        if(!$this->is_day_off($RestaurantID, get_day($date), get_month($date), get_year($date))) {
+            $dayofweek = $this->get_name_of_weekday($date);
             $time = date('Gi', $date);
-            return is_restaurant_open($RestaurantID, $dayofweek, $time);
+            return $this->is_restaurant_open($RestaurantID, $dayofweek, $time);
         }
     }
 
@@ -85,11 +85,12 @@ class Hours extends BaseModel {
         $Days = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
         return $Days[$DayOfWeek];
     }
+
     function get_hours($RestaurantID, $DayOfWeek = ""){
         $ret = array();
         $Params = array('RestaurantID' => $RestaurantID);
         if($DayOfWeek){
-            if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+            if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
             $Params['DayOfWeek'] = $DayOfWeek;
         }
         $Data = enum_all('hours', $Params, 'DayOfWeek');
@@ -104,7 +105,7 @@ class Hours extends BaseModel {
     }
 
     function edit_hour($RestaurantID, $DayOfWeek, $Open, $Close){
-        if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
+        if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
         $data = array('RestaurantID'=>$RestaurantID, 'DayOfWeek'=> $DayOfWeek);
         delete_all('hours', $data);
         if(!$Open){$Open = "";}
@@ -114,13 +115,18 @@ class Hours extends BaseModel {
         if($Open && $Close) {new_entry("hours", "ID", $data);}
     }
 
+    function get_restaurant($RestaurantID){
+        $ob = new \App\Http\Models\Restaurants();
+        return $ob->get_restaurant($RestaurantID);
+    }
+
     function is_restaurant_open($RestaurantID, $DayOfWeek, $Time){
-        if (get_restaurant($RestaurantID)->Open) {
-            if(is_numeric($DayOfWeek)){$DayOfWeek = get_name_of_weekday($DayOfWeek);}
-            $Data = get_hours($RestaurantID, $DayOfWeek);
+        if ($this->get_restaurant($RestaurantID)->Open) {
+            if(is_numeric($DayOfWeek)){$DayOfWeek = $this->get_name_of_weekday($DayOfWeek);}
+            $Data = $this->get_hours($RestaurantID, $DayOfWeek);
             if ($Data["HasHours"]) {
-                $Open = parsetime($Data[$DayOfWeek . ".Open"]);
-                $Close = parsetime($Data[$DayOfWeek . ".Close"]);
+                $Open = $this->parsetime($Data[$DayOfWeek . ".Open"]);
+                $Close = $this->parsetime($Data[$DayOfWeek . ".Close"]);
                 return $Open <= $Time && $Close >= $Time;
             }
         }

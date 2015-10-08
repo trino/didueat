@@ -89,7 +89,12 @@ class Restaurants extends BaseModel {
         return $Restaurant;
     }
 
-    function get_restaurant($ID = "", $IncludeHours = False, $IncludeAddresses = False){
+    function get_hours($RestaurantID){
+        $ob = new \App\Http\Models\Hours();
+        return $ob->get_hours($RestaurantID);
+    }
+
+    function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False){
         if(!$ID){$ID = get_current_restaurant();}
         if (is_numeric($ID)) {
             $restaurant = get_entry("restaurants", $ID);
@@ -97,7 +102,7 @@ class Restaurants extends BaseModel {
             $restaurant = get_entry('restaurants', $ID, 'Slug');
         }
         if($restaurant){
-            if($IncludeHours) {$restaurant->Hours = get_hours($ID);}
+            if($IncludeHours) {$restaurant->Hours = $this->get_hours($ID);}
             if($IncludeAddresses){$restaurant->Addresses = my_iterator_to_array(enum_notification_addresses($ID), "", "Address");}
         }
         return $restaurant;
@@ -123,18 +128,6 @@ class Restaurants extends BaseModel {
         return enum_profiles("RestaurantID", $RestaurantID);//->order("Hierarchy" , "ASC");
     }
 
-    function get_current_restaurant(){
-        $Profile = read('ID');
-        if($Profile) {
-            if (isset($_GET["RestaurantID"])) {
-                $ProfileType = get_profile_type($Profile);
-                if ($ProfileType->CanEditGlobalSettings) {
-                    return $_GET["RestaurantID"];
-                }
-            }
-            return get_profile($Profile)->RestaurantID;
-        }
-    }
 
     function hire_employee($UserID, $RestaurantID = 0, $ProfileType = ""){
         if(!check_permission("CanHireOrFire")){return false;}
@@ -154,13 +147,13 @@ class Restaurants extends BaseModel {
         }
     }
 
-    function openclose_restaurant($RestaurantID, $Status = false){
+    public static function openclose_restaurant($RestaurantID, $Status = false){
         if($Status){$Status=1;} else {$Status = 0;}
         logevent("Set status to: " . $Status, true, $RestaurantID);
         update_database("restaurants", "ID", $RestaurantID, array("Open" => $Status));
     }
 
-    function delete_restaurant($RestaurantID, $NewProfileType = 2){
+    public static function delete_restaurant($RestaurantID, $NewProfileType = 2){
         logevent("Deleted restaurant", true, $RestaurantID);
         delete_all("restaurants", array("ID" => $RestaurantID));
         update_database("profiles", "RestaurantID", $RestaurantID, array("RestaurantID" => 0, "ProfileType" => $NewProfileType));
@@ -168,20 +161,20 @@ class Restaurants extends BaseModel {
 
 /////////////////////////////////////days off API////////////////////////////////////
     function add_day_off($RestaurantID, $Day, $Month, $Year){
-        delete_day_off($RestaurantID, $Day, $Month, $Year, false);
+        $this->delete_day_off($RestaurantID, $Day, $Month, $Year, false);
         logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
         new_entry("daysoff", "ID", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
     }
-    function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
+    public static function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
         if ($IsNew){
             logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
         }
         delete_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
     }
-    function enum_days_off($RestaurantID){
+    public static function enum_days_off($RestaurantID){
         return enum_all("daysoff", array("RestaurantID" => $RestaurantID));
     }
-    function is_day_off($RestaurantID, $Day, $Month, $Year){
+    public static function is_day_off($RestaurantID, $Day, $Month, $Year){
         return first(enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))) == true;
     }
 

@@ -404,8 +404,12 @@
 
     <!-- BEGIN CART -->
     <div class="top-cart-block col-md-3 col-sm-4" id="printableArea" style="height: 599px;">
-
-        
+                           <div class="overlay overlay_reservation">
+                  <div class="clearfix"></div>
+                    <div id="loadmoreajaxloader" >
+                        <center><img src="{{ asset('assets/images/ajax-loading.gif') }}"></center>
+                    </div>
+                 </div>
             <div class="top-cart-info" >
                 <div class="col-md-6">
                     <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
@@ -428,6 +432,7 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 resturant-desc">
                                 <span><?php echo $res_detail->Address.",". $res_detail->City;?></span>
+                                <br />
                                 <span><?php echo $res_detail->Phone;?></span>
                             </div>
                         </div>  
@@ -435,7 +440,7 @@
                 </div>  
 
                 <div class="top-cart-content-wrapper">
-
+  
                     <div class="top-cart-content ">
                         <div class="receipt_main">
                             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 220px;">
@@ -491,6 +496,7 @@
                                 <div class="form-group reservation_signin">
                                     <div class="col-xs-12">
                                     <a href="#login-pop-up" class="btn btn-danger fancybox-fast-view"  onclick="$('#login_type').val('reservation')" >Sign In</a>
+                                    <span>(Provide Password to Create a Profile.)</span>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -622,6 +628,7 @@
                                     });
                                     $('#profiles').submit(function(e) {
                                         e.preventDefault();
+                                        $('.overlay_reservation').show();
                                         var datas = $('#profiles input, select, textarea').serialize();
                                         var order_data = $('.receipt_main input').serialize();
                                         $.ajax({
@@ -629,12 +636,15 @@
                                             url: '<?php echo url();?>/user/ajax_register',
                                             data: datas + '&' + order_data,
                                             success: function(msg) {
+                                                $('.overlay_reservation').hide();
                                                 if (msg == '0')
                                                 {
                                                     $('.top-cart-content ').html('<span class="thankyou"> Thank you, for your order <br/>OR <br/> creating an account.<br/> (an email has been sent to u).</span>');
                                                 }
                                                 else if (msg == '1')
                                                     alert('Email Already Registred.');
+                                                else 
+                                                    alert(msg);
                                             }
                                         })
                                     });

@@ -13,13 +13,25 @@ function sendemail($To, $Subject, $Message, $Raw = true){
 
 }
 
+function call($controller, $action, $parameters = array()) {
+    $app = app();
+    $controller = $app->make($controller);
+    return $controller->callAction($app, $app['router'], $action, $parameters);
+}
+
 function handle_action($Action = ""){
     //http://localhost/didueat/public/restaurant/users?action=test
     if(!$Action){$Action=getpost("action");}
     if($Action) {
         switch ($Action) {
             case "test":
-                $Test = \App\Http\Models\Profiles::getSalt();
+
+                $ob = new \App\Http\Models\Hours();
+                $Test = $ob->get_restaurant(1);
+
+                //$Test = call("UsersController", "test");
+                //$Test = App::make('UsersController')->test();
+                //$Test = \App\Http\Controllers\UsersController::test();//static method in a model
                 debug($Test);
                 die();
 
@@ -36,6 +48,7 @@ function handle_action($Action = ""){
                 //die();
         }
     }
+    return false;
 }
 
 //func count orders
@@ -43,10 +56,6 @@ function countOrders($type='pending'){
     return DB::table('reservations')->where('status', $type)->count();
 }
 
-//returns an array of permissions available for profile types
-function get_profile_permissions(){
-    return getColumnNames("profiletypes", array("ID", "Name", "Hierarchy"));
-}
 
 //returns an array of all the profile types with a hierarchy above $Hierarchy
 function enum_profiletypes($Hierarchy = "", $toArray = true){
@@ -66,6 +75,12 @@ function fileinclude($Filename){//pass __FILE__
     }
 }
 
+function webroot($Local = false){
+    if($Local){
+        return app_path() . "/";
+    }
+    return URL::to('/');
+}
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
@@ -104,13 +119,7 @@ function get_profile_type($ProfileID, $GetByType = false){
     return get_entry("profiletypes", $profiletype);
 }
 
-function can_profile_create($ProfileID, $ProfileType){
-    $creatorprofiletype = get_profile_type($ProfileID);
-    if($creatorprofiletype->CanCreateProfiles){
-        $ProfileType = get_profile_type($ProfileType, true);
-        return $creatorprofiletype->Hierarchy < $ProfileType->Hierarchy;
-    }
-}
+
 
 function randomPassword($Length=8) {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -145,28 +154,44 @@ function login($Profile){
         $Profile = (object) $Profile;
     }
     write('ID',            $Profile->ID);
-    write('Name',          $Profile->name);
-    write('Email',         $Profile->email);
-    write('Type',          $Profile->profileType);
-    write('Restaurant',    $Profile->restaurantID);
+    write('Name',          $Profile->Name);
+    write('Email',         $Profile->Email);
+    write('Type',          $Profile->ProfileType);
+    write('Restaurant',    $Profile->RestaurantID);
     
     \Session::put('session_id',             $Profile->ID);
-    \Session::put('session_profileType',    $Profile->profileType);
-    \Session::put('session_name',           $Profile->name);
-    \Session::put('session_email',          $Profile->email);
-    \Session::put('session_phone',          $Profile->phone);
-    \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantId',   $Profile->restaurantID);
-    \Session::put('session_createdBy',      $Profile->createdBy);
-    \Session::put('session_status',         $Profile->status);
-    \Session::put('session_created_at',     $Profile->created_at);
+    \Session::put('session_profileType',    $Profile->ProfileType);
+    \Session::put('session_name',           $Profile->Name);
+    \Session::put('session_email',          $Profile->Email);
+    \Session::put('session_phone',          $Profile->Phone);
+    \Session::put('session_subscribed',     $Profile->Subscribed);
+    \Session::put('session_restaurantId',   $Profile->RestaurantID);
+    \Session::put('session_createdBy',      $Profile->CreatedBy);
+    \Session::put('session_status',         $Profile->Status);
+    \Session::put('session_created_at',     $Profile->Created_at);
     \Session::put('is_logged_in',           true);
     \Session::save();
     return $Profile->ID;
 }
 
+function get_current_restaurant(){
+    $Profile = read('ID');
+    if($Profile) {
+        if (isset($_GET["RestaurantID"])) {
+            $ProfileType = get_profile_type($Profile);
+            if ($ProfileType->CanEditGlobalSettings) {
+                return $_GET["RestaurantID"];
+            }
+        }
+        return get_profile($Profile)->RestaurantID;
+    }
+}
 
-
+function check_permission($Permission, $UserID = ""){
+    if(!$UserID){$UserID = read("ID");}
+    if(!$UserID){ echo 'You are not logged in';die();}
+    return get_profile_type($UserID)->$Permission;
+}
 
 
 
@@ -353,6 +378,11 @@ function implode2($Array, $SmallGlue, $BigGlue){
     }
     return implode_data($Array,$BigGlue);
 }
+function implode_data($Data, $Delimeter = ","){
+    if (is_array($Data)){return implode($Delimeter, $Data);}
+    return $Data;
+}
+
 function debug($Iterator, $DoStacktrace = true){
     if($DoStacktrace) {
         $Backtrace = debug_string_backtrace();

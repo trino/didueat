@@ -39,7 +39,6 @@ class AdministratorController extends Controller {
     public function dashboard() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-
             if (!isset($post['name']) || empty($post['name'])) {
                 \Session::flash('message', "[Name] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
@@ -87,7 +86,7 @@ class AdministratorController extends Controller {
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    $post['password'] = $post['confirm_password'];
+                    $post['Password'] = encryptpassword ($post['confirm_password']);
                 }
 
                 $ob->populate($post);

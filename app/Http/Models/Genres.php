@@ -40,33 +40,33 @@ class Genres extends BaseModel {
         if(is_array($Name)){
             $Ret=array();
             foreach($Name as $Key => $Genre){
-                $Ret[$Genre] = add_genre($Genre);
+                $Ret[$Genre] = $this->add_genre($Genre);
             }
             return $Ret;
         } else {
-            if(genre_exists($Name)){return false;}//don't allow duplicates
+            if($this->genre_exists($Name)){return false;}//don't allow duplicates
             new_anything("genres", array("Name" => $Name));
             return true;
         }
     }
 
-    function genre_exists($Name){
+    public static function genre_exists($Name){
         if(get_entry("genres", $Name, "Name")){return true;}
     }
 
     function rename_genre($ID, $NewName){
-        if(genre_exists($NewName)){return false;}
+        if($this->genre_exists($NewName)){return false;}
         update_database('genres', "ID", $ID, array("Name" => $NewName));
         return true;
     }
-    function enum_restaurants($Genre = ""){
+    public static function enum_restaurants($Genre = ""){
         if($Genre) {
             return enum_anything("restaurants", "Genre", $Genre);
         }
         return enum_table("restaurants");
     }
 
-    function enum_genres(){
+    public static function enum_genres(){
         $entries = enum_all('genres');
         return my_iterator_to_array($entries, "ID", "Name");
     }

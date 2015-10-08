@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Restaurants;
 
 /**
  * Restaurant
@@ -172,9 +173,9 @@ class RestaurantController extends Controller {
 
                 foreach ($post['Open'] as $key => $value) {
                     if (!empty($value)) {
-                        $hour['Open'] = $value;
+                        $hour['Open'] = $this->cleanTime($value);
                         $hour['RestaurantID'] = $ob->ID;
-                        $hour['Close'] = $post['Close'][$key];
+                        $hour['Close'] = $this->cleanTime($post['Close'][$key]);
                         $hour['DayOfWeek'] = $post['DayOfWeek'][$key];
                         $hour['ID'] = $post['IDD'][$key];
                         $ob2 = \App\Http\Models\Hours::findOrNew($hour['ID']);
@@ -200,6 +201,29 @@ class RestaurantController extends Controller {
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurantId'));
             return view('dashboard.restaurant.info', $data);
         }
+    }
+    public function cleanTime($time)
+    {
+        if(!$time)
+        return $time;
+        if(str_replace('AM','',$time) != $time)
+        {
+            $suffix = 'AM';
+        }
+        else
+        $suffix = 'PM';
+        $time = str_replace(array(' AM',' PM'),array('',''),$time);
+        
+        $arr_time = explode(':',$time);
+        $hour = $arr_time[0];
+        $min = $arr_time[1];
+        $sec = '00';
+        
+        if($hour<12 && $suffix=='PM')
+        $hour = $hour+12;
+        
+        return $hour.':'.$min.':'.$sec;
+        
     }
 
     /**
@@ -500,7 +524,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function eventsLog() {
-        $data['title'] = 'Evens Log';
+        $data['title'] = 'Events Log';
         $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurantId', \Session::get('session_restaurantId'))->orderBy('Date', 'DESC')->get();
         return view('dashboard.restaurant.events_log', $data);
     }
@@ -576,7 +600,7 @@ class RestaurantController extends Controller {
         //$this->loadComponent('Manager');
         $arr['restaurantId'] = \Session::get('session_restaurantId');
 
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon','display_order');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -602,9 +626,10 @@ class RestaurantController extends Controller {
             $orders_mod = \App\Http\Models\Menus::where('restaurantId', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {
                 $orders = $orders_mod[0];
-
+                if(!isset($arr['display_order']))
                 $arr['display_order'] = $orders->display_order + 1;
             }
+            
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();
@@ -645,6 +670,10 @@ class RestaurantController extends Controller {
                 return view('dashboard.restaurant.orders_detail', $data);
             }
         }
+    }
+    public function red($path)
+    {
+        return \Redirect::to('restaurant/'.$path)->with('message', 'Restaurant menu successfully updated');
     }
 
 }

@@ -57,19 +57,19 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Full Name <span class="required">*</span></label>
                                         <div class="col-md-5 col-sm-5 col-xs-12">
-                                            <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ Session::get('session_name') }}" required />
+                                            <input type="text" name="Name" class="form-control" placeholder="Full Name" value="{{ Session::get('session_name') }}" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Email Address <span class="required">*</span></label>
                                         <div class="col-md-5 col-sm-5 col-xs-12">
-                                            <input type="email" name="email" class="form-control" placeholder="Email Address" value="{{ Session::get('session_email') }}" required />
+                                            <input type="email" name="Email" class="form-control" placeholder="Email Address" value="{{ Session::get('session_email') }}" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone <span class="required">*</span></label>
                                         <div class="col-md-5 col-sm-5 col-xs-12">
-                                            <input type="tel" name="phone" class="form-control" placeholder="Phone" value="{{ Session::get('session_phone') }}" required />
+                                            <input type="tel" name="Phone" class="form-control" placeholder="Phone" value="{{ Session::get('session_phone') }}" required />
                                         </div>
                                     </div>
 
@@ -100,7 +100,7 @@
                                             <div class="checker">
                                                 <span>
                                                     <label class="control-label" id="newsletter_label" for="newsletter">
-                                                        <input type="checkbox" name="subscribed" id="newsletter" class="form-control" @if(Session::has('session_subscribed') && Session::get('session_subscribed') == true) checked @endif> Sign up for our Newsletter
+                                                        <input type="checkbox" name="Subscribed" id="newsletter" class="form-control" @if(Session::has('session_subscribed') && Session::get('session_subscribed') == true) checked @endif> Sign up for our Newsletter
                                                     </label>
                                                 </span>
                                             </div>

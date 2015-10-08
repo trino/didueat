@@ -38,7 +38,7 @@ class Newsletter extends BaseModel {
 
 
 ////////////////////////////////////Newsletter API//////////////////////////////////
-    function add_subscriber($EmailAddress, $authorized = false){
+    public static function add_subscriber($EmailAddress, $authorized = false){
         $EmailAddress = clean_email($EmailAddress);
         if(is_valid_email($EmailAddress)) {
             $Entry = get_entry("newsletter", $EmailAddress, "Email");
@@ -56,17 +56,17 @@ class Newsletter extends BaseModel {
         }
     }
 
-    function remove_subscriber($EmailAddress){
+    public static function remove_subscriber($EmailAddress){
         $EmailAddress = clean_email($EmailAddress);
         delete_all("newsletter", array("Email" => $EmailAddress));
     }
 
-    function is_subscribed($EmailAddress){
+    public static function is_subscribed($EmailAddress){
         $EmailAddress = clean_email($EmailAddress);
         return get_entry("newsletter", $EmailAddress, "Email");
     }
 
-    function finish_subscription($Key){
+    public static function finish_subscription($Key){
         $Entry = get_entry("newsletter", $Key, "GUID");
         if($Entry){
             update_database("newsletter", "ID", $Entry->ID, array("GUID" => ""));
@@ -77,24 +77,19 @@ class Newsletter extends BaseModel {
 
     function set_subscribed($EmailAddress, $Status = false){
         $EmailAddress = clean_email($EmailAddress);
-        $is_subscribed = is_subscribed($EmailAddress) == true;
+        $is_subscribed = $this->is_subscribed($EmailAddress) == true;
         if($is_subscribed != $Status){
             if($Status){
-                add_subscriber($EmailAddress, True);
+                $this->add_subscriber($EmailAddress, True);
             } else {
-                remove_subscriber($EmailAddress);
+                $this->remove_subscriber($EmailAddress);
             }
         }
     }
-    function enum_subscribers(){
+    public static function enum_subscribers(){
         $Data = enum_all("newsletter", array("GUID" => ""));
         return my_iterator_to_array($Data, "ID", "Email");
     }
 
-    function webroot($Local = false){
-        if($Local){
-            return app_path() . "/";
-        }
-        return URL::to('/');
-    }
+
 }

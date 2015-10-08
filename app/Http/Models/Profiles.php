@@ -21,7 +21,7 @@ class Profiles extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('profileType', 'name', 'email', 'password', 'salt', 'phone', 'subscribed', 'restaurantID', 'createdBy', 'status', 'created_at', 'updated_at', 'deleted_at');
+        $cells = array('ProfileType', 'Name', 'Email', 'Password', 'Salt', 'Phone', 'Subscribed', 'RestaurantID', 'CreatedBy', 'Status', 'Created_at', 'Updated_at', 'Deleted_at');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -108,8 +108,13 @@ class Profiles extends BaseModel {
         if($ProfileType){
             $data["ProfileType"] = $ProfileType;
         }
-        set_subscribed($EmailAddress,$Subscribed);
+        $this->set_subscribed($EmailAddress,$Subscribed);
         return update_database("profiles", "ID", $ID, $data);
+    }
+
+    function set_subscribed($EmailAddress, $Status = false){
+        $ob = new \App\Http\Models\Newsletter();
+        $ob->set_subscribed($EmailAddress, $Status);
     }
 
     function forgot_password($Email, $Password=""){
@@ -125,7 +130,7 @@ class Profiles extends BaseModel {
 
     function find_profile($EmailAddress, $Password){
         $EmailAddress = clean_email($EmailAddress);
-        $Password =  encryptpassword($Password);
+        $Password = encryptpassword($Password);
         $ProfileMatch = enum_all("profiles", array("Email" => $EmailAddress, "Password" => $Password));
         return first($ProfileMatch);
     }
@@ -137,10 +142,10 @@ class Profiles extends BaseModel {
         if(get_entry("profiles", $EmailAddress, "Email")){return false;}
         if(!$Password){$Password=randomPassword();}
         if($Subscribed){$Subscribed=1;} else {$Subscribed =0;}
-        $Encrypted =  encryptpassword($Password);
+        $Encrypted = encryptpassword($Password);
         $data = array("Name" => trim($Name), "ProfileType" => $ProfileType, "Phone" => $Phone, "Email" => $EmailAddress, "CreatedBy" => 0, "RestaurantID" => $RestaurantID, "Subscribed" => $Subscribed, "Password" => $Encrypted);
         if($CreatedBy){
-            if(!can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
+            if(!$this->can_profile_create($CreatedBy, $ProfileType)){return false;}//blocks users from creating users of the same type
             $data["CreatedBy"] = $CreatedBy;
         }
         $data = edit_database("profiles", "ID", "", $data);
@@ -150,8 +155,15 @@ class Profiles extends BaseModel {
         }
 
         handleevent($EmailAddress, "new_profile", array("Profile" => $data));
-        set_subscribed($EmailAddress,$Subscribed);
+        $this->set_subscribed($EmailAddress,$Subscribed);
         return $data;
     }
 
+    function can_profile_create($ProfileID, $ProfileType){
+        $creatorprofiletype = get_profile_type($ProfileID);
+        if($creatorprofiletype->CanCreateProfiles){
+            $ProfileType = get_profile_type($ProfileType, true);
+            return $creatorprofiletype->Hierarchy < $ProfileType->Hierarchy;
+        }
+    }
 }

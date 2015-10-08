@@ -121,15 +121,18 @@ $('.savebtn').live('click',function(){
         //console.log(res); return;
         if($_parent.find('.menuwrapper').length > 0)
         {
+            var d_o =0;
             var $_this = $(this);
             $_parent.find('.menuwrapper').each(function(){
+                d_o++;
                 var $_this2 = $(this);
                 var ctitle = $_this2.find('.ctitle').val();
                 var cdescription = $_this2.find('.cdescription').val();
                 var req_opt = $_this2.find('.is_req').val();
                 var sing_mul = $_this2.find('.is_mul').val();
                 var exact_upto = $_this2.find('.up_t').val();
-                exact_upto_qty = $_this2.find('.itemno').val();
+                var exact_upto_qty = $_this2.find('.itemno').val();
+                
                 if($_this2.find('cmore').length > 0)
                 {
                     var has_addon2 = '2';
@@ -138,26 +141,28 @@ $('.savebtn').live('click',function(){
                 var has_addon2 = '0';
                 $.ajax({
                    url:base_url+'restaurant/menuadd',
-                   data:'menu_item='+ctitle+'&description='+cdescription+'&has_addon='+has_addon2+'&parent='+res+'&req_opt='+req_opt+'&sing_mul='+sing_mul+'&exact_upto='+exact_upto+'&exact_upto_qty='+exact_upto_qty+'&_token='+token,
+                   data:'menu_item='+ctitle+'&description='+cdescription+'&has_addon='+has_addon2+'&parent='+res+'&req_opt='+req_opt+'&sing_mul='+sing_mul+'&exact_upto='+exact_upto+'&exact_upto_qty='+exact_upto_qty+'&_token='+token+'&display_order='+d_o,
                    type:'post',
                    success:function(res2){
+                    var di_o = 0;
                     var co = 0;
                     if($_this2.find('.cmore').length > 0)
                     {
                         
                         $('.cmore',$_this2).each(function(){
                             co++;
+                            di_o++;
                             var cctitle = $(this).find('.cctitle').val();
                             var ccprice = $(this).find('.ccprice').val();
                             
                             $.ajax({
                                url:base_url+'restaurant/menuadd',
-                               data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2+'&_token='+token,
+                               data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2+'&_token='+token+'&display_order='+di_o,
                                type:'post',
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
-                                window.location=base_url+'restaurant/menus-manager';
+                                window.location=base_url+'restaurant/red/menus-manager';
                                 }
                                 
                                }
@@ -174,7 +179,7 @@ $('.savebtn').live('click',function(){
         }
         else
         {
-            window.location=base_url+'restaurant/menus-manager';     
+            window.location=base_url+'restaurant/red/menus-manager';     
         }
        
        }

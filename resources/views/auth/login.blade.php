@@ -47,7 +47,7 @@
                         <div class="col-md-offset-2 col-md-10">
                             <button type="submit" class="btn red">Sign in</button>
                             &nbsp;
-                            <span>Don't have account ? </span>
+                            <span>Don't have account? </span>
                             <a href="{{ url('auth/register') }}">Create here</a>
                         </div>
                     </div>

@@ -32,7 +32,7 @@ class AuthController extends Controller {
     public function authenticate() {
         if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
                         \Session::flash('message', trans('messages.user_inactive.message')); 
@@ -41,7 +41,7 @@ class AuthController extends Controller {
                         return \Redirect::to('auth/login');
                     }
                     $password = encryptpassword(\Input::get('password'));
-                    if ($user->password == $password) {
+                    if ($user->Password == $password) {
                         login($user);
                         return redirect()->intended('dashboard');
                     } else {
@@ -77,15 +77,15 @@ class AuthController extends Controller {
      * @return view
      */
     public function authenticateAjax() {
-        if (\Input::has('email')) {
+        if (\Input::has('Email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('Email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message'); die;
                     }
                     $password = encryptpassword(\Input::get('password'));
-                    if ($user->password == $password) {
+                    if ($user->Password == $password) {
                         login($user);
                     } else {
                         //echo $user->password . " != " . $password ; die();
@@ -117,6 +117,7 @@ class AuthController extends Controller {
      * @return redirect
      */
     public function postRegister() {
+        
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
             if (!isset($data['email']) || empty($data['email'])) {
@@ -126,7 +127,7 @@ class AuthController extends Controller {
                 return \Redirect::to('auth/register')->withInput();
             }
 
-            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['Email'])->count();
             if ($is_email > 0) {
                 \Session::flash('message', trans('messages.user_email_already_exist.message')); 
                 \Session::flash('message-type', 'alert-danger');
@@ -153,8 +154,8 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
-                    $data['profileType'] = 1;
+                    $data['Status'] = 0;
+                    $data['ProfileType'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
@@ -167,7 +168,7 @@ class AuthController extends Controller {
                     
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+                    $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
@@ -197,13 +198,16 @@ class AuthController extends Controller {
      * @return redirect
      */
     public function postAjaxRegister() {
+        
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
-            if (!isset($data['email']) || empty($data['email'])) {
+           
+            if (!isset($data['Email']) || empty($data['Email'])) {
+               
                 echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message'))); die;
             }
 
-            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('Email', '=', $data['Email'])->count();
             if ($is_email > 0) {
                 echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
             }
@@ -218,8 +222,8 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
-                    $data['profileType'] = 1;
+                    $data['Status'] = 0;
+                    $data['ProfileType'] = 1;
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
@@ -230,7 +234,7 @@ class AuthController extends Controller {
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
                     
-                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [". $user->email ."]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
+                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [". $user->Email ."]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
                     echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
@@ -252,14 +256,14 @@ class AuthController extends Controller {
      */
     public function resendPostEmail($email = 0) {
         $email = base64_decode($email);
-        $user = \App\Http\Models\Profiles::where('email', $email)->first();
+        $user = \App\Http\Models\Profiles::where('Email', $email)->first();
         
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $userArray = $user->toArray();
             $userArray['mail_subject'] = 'Thank you for registration.';
             $this->sendEMail("emails.registration_welcome", $userArray);
             
-            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
+            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks")); die;
         } else {
             echo json_encode(array('type' => 'error', 'message' => "Invalid code found. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.")); die;
         }
@@ -272,7 +276,7 @@ class AuthController extends Controller {
      */
     public function resendEmail($email = 0) {
         $email = base64_decode($email);
-        $user = \App\Http\Models\Profiles::where('email', $email)->first();
+        $user = \App\Http\Models\Profiles::where('Email', $email)->first();
         
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $userArray = $user->toArray();
@@ -281,7 +285,7 @@ class AuthController extends Controller {
 
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";
-            $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+            $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->Email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->Email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
@@ -298,8 +302,8 @@ class AuthController extends Controller {
      */
     public function verifyEmail($email = "") {
         $email = base64_decode($email);
-        $count = \App\Http\Models\Profiles::where('email', $email)->where('status', 1)->count();
-        $user = \App\Http\Models\Profiles::where('email', $email)->first();
+        $count = \App\Http\Models\Profiles::where('Email', $email)->where('Status', 1)->count();
+        $user = \App\Http\Models\Profiles::where('Email', $email)->first();
 
         if ($count > 0) {
             $message['title'] = "Email verification";
@@ -309,7 +313,7 @@ class AuthController extends Controller {
         }
 
         if (isset($user) && count($user) > 0 && !is_null($user)) {
-            $user->status = 1;
+            $user->Status = 1;
             $user->save();
 
             login($user);
@@ -317,7 +321,7 @@ class AuthController extends Controller {
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
             //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
-            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. You has been logged in into our system. Please <a href='" . url('restaurant/menus-manager') . "'><b>click here</b></a> to start uploading items. ";
+            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. You has been logged in into our system. Please <a href='" . url('user/info') . "'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
@@ -346,7 +350,6 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                   
                     if ($user->status == 0) {
                         \Session::flash('message', trans('messages.user_inactive.message')); 
                         \Session::flash('message-type', 'alert-danger');
@@ -366,7 +369,7 @@ class AuthController extends Controller {
                     
                     $message['title'] = "Forgot Password";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Your password has been has been reset successfully. We send you an email at [$user->email]. Please check your inbox for your new password. If you still face difficulties please contact us. thanks";
+                    $message['msg_desc'] = "Your password has been has been reset successfully. We send you an email at [$user->Email]. Please check your inbox for your new password. If you still face difficulties please contact us. thanks";
                     return view('messages.message', $message);
 
                 } else {
@@ -397,9 +400,9 @@ class AuthController extends Controller {
     public function postAjaxForgotPassword() {
         if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('Email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->status == 0) {
+                    if ($user->Status == 0) {
                         echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message'))); die;
                     }
                     $newpass = substr(dechex(round(rand(0,999999999999999))),0,8);
@@ -412,7 +415,7 @@ class AuthController extends Controller {
                     $userArray['new_pass'] = $newpass;
                     $this->sendEMail("emails.forgot", $userArray);
                     
-                    echo json_encode(array('type' => 'success', 'message' => 'Your password has been has been reset successfully. We send you an email at ['.$user->email.']. Please check your inbox for your new password. If you still face difficulties please contact us. thanks')); die;
+                    echo json_encode(array('type' => 'success', 'message' => 'Your password has been has been reset successfully. We send you an email at ['.$user->Email.']. Please check your inbox for your new password. If you still face difficulties please contact us. thanks')); die;
                 } else {
                     echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_not_verify.message'))); die;
                 }
@@ -437,4 +440,7 @@ class AuthController extends Controller {
         return \Redirect::to('auth/login');
     }
 
+    function test(){
+        return view('auth.test', array('title' => 'Testing'));
+    }
 }

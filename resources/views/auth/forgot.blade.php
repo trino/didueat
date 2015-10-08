@@ -24,7 +24,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}"required>
                             </div>
                         </div>
                     </div>

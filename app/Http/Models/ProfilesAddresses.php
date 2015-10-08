@@ -78,11 +78,6 @@ class ProfilesAddresses extends BaseModel {
         return edit_database("profiles_addresses", "ID", $ID, $Data);
     }
 
-    function check_permission($Permission, $UserID = ""){
-        if(!$UserID){$UserID = read("ID");}
-        if(!$UserID){ echo 'You are not logged in';die();}
-        return get_profile_type($UserID)->$Permission;
-    }
 
 
 }

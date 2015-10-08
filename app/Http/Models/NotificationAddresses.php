@@ -57,7 +57,7 @@ class NotificationAddresses extends BaseModel {
 
     function sort_notification_addresses($RestaurantID = ""){
         if(!$RestaurantID){$RestaurantID = get_current_restaurant();}
-        $Addresses = enum_notification_addresses($RestaurantID);
+        $Addresses = $this->enum_notification_addresses($RestaurantID);
         if($Addresses) {
             $Data = array("Email" => array(), "Phone" => array());
             foreach ($Addresses as $Address) {
@@ -91,7 +91,7 @@ class NotificationAddresses extends BaseModel {
         $Type = data_type($Address);
         if ($Type == 0 || $Type == 1){//email and phone whitelisted
             $Address = clean_data($Address);
-            if(!find_notification_address($RestaurantID, $Address)){
+            if(!$this->find_notification_address($RestaurantID, $Address)){
                 $Data = array("RestaurantID" => $RestaurantID, "Type" => $Type, "Address" => $Address);
                 new_entry("notification_addresses", "ID", $Data);
                 return true;

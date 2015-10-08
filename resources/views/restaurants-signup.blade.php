@@ -142,7 +142,7 @@
                                 <div class="row">
                                     <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Name">Restaurant Name <span class="require">*</span></label>
                                     <div class="col-lg-12 col-sm-12 col-xs-12">
-                                        <input type="text" name="Name" class="form-control" value="{{ old('Name') }}" placeholder="i.e. Pho" required>
+                                        <input type="text" name="Name" class="form-control required" value="{{ old('Name') }}" placeholder="i.e. Pho" required>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                 <div class="row">
                                     <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Phone">Phone Number</label>
                                     <div class="col-lg-12 col-sm-12 col-xs-12">
-                                        <input type="text" name="Phone" class="form-control" value="{{ old('Phone') }}" placeholder="i.e.905 555 5555">
+                                        <input type="text" name="Phone" class="form-control" id="Phone" value="{{ old('Phone') }}" placeholder="i.e.905 555 5555">
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +168,7 @@
                             <h3 class="form-section">Address</h3>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <div class="row">
-                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Postal_Code">Country <span class="require">*</span></label>
+                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required" for="Postal_Code">Country <span class="require">*</span></label>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <select name="Country" class="form-control" required>
                                             <option value="">-Select One-</option>
@@ -181,7 +181,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <div class="row">
-                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Postal_Code">Province <span class="require">*</span></label>
+                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required" for="Postal_Code">Province <span class="require">*</span></label>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <input type="text" name="Province" class="form-control" placeholder="Province Name" value="{{ old('Province') }}" required>
                                     </div>
@@ -189,7 +189,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <div class="row">
-                                    <label class="col-lg-12 col-sm-12 col-md-12 control-label col-xs-12 margin-bottom-10" for="Street_Address">Street Address <span class="require">*</span></label>
+                                    <label class="col-lg-12 col-sm-12 col-md-12 control-label col-xs-12 margin-bottom-10 required" for="Street_Address">Street Address <span class="require">*</span></label>
                                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                         <input type="text" name="Address" class="form-control" value="{{ old('Address') }}" placeholder="i.e. 1230 Main Street East" required>
                                     </div>
@@ -197,7 +197,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <div class="row">
-                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="City">City <span class="require">*</span></label>
+                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required" for="City">City <span class="require">*</span></label>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <input type="text" name="City" class="form-control" placeholder="i.e. Hamilton" value="{{ old('City') }}" required>
                                     </div>
@@ -205,9 +205,9 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <div class="row">
-                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10" for="Postal_Code">Postal Code <span class="require">*</span></label>
+                                    <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required" for="Postal_Code">Postal Code <span class="require">*</span></label>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <input type="text" name="PostalCode" class="form-control" value="{{ old('PostalCode') }}" placeholder="i.e. L9A 1V7" required>
+                                        <input type="text" name="PostalCode" id="PostalCode" class="form-control" value="{{ old('PostalCode') }}" placeholder="i.e. L9A 1V7" required>
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +232,7 @@
                         <?php
                         $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                         foreach ($dayofweek as $key => $value) {
-                            $open[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Open');
+                            echo $open[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Open');
                             $close[$key] = select_field_where('hours', array('RestaurantID' => \Session::get('session_restaurantId'), 'DayOfWeek' => $value), 'Close');
                             ?>
                             <div class="row">
@@ -256,13 +256,13 @@
                         <div class="col-md-5 col-sm-5 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                <input type="text" name="DeliveryFee" class="form-control" placeholder="Delivery Fee" value="{{ old('DeliveryFee') }}" required>
+                                <input type="text" name="DeliveryFee" class="form-control required" placeholder="Delivery Fee" value="{{ old('DeliveryFee') }}" required>
                             </div>
                         </div>
                         <div class="col-md-5 col-sm-5 col-xs-12">
                             <div class="form-group">
                                 <label class="control-label">Minimum Sub Total For Delivery <span class="required">*</span></label>
-                                <input type="text" name="Minimum" class="form-control" placeholder="Minimum Sub Total For Delivery" value="{{ old('Minimum') }}" required>
+                                <input type="text" name="Minimum" class="form-control required" placeholder="Minimum Sub Total For Delivery" value="{{ old('Minimum') }}" required>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -274,7 +274,7 @@
                             <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-user"></i>
-                                    <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+                                    <input type="text" name="full_name" class="form-control required" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                             <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-envelope"></i>
-                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
+                                    <input type="email" name="email" class="form-control required" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +292,7 @@
                             <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-key"></i>
-                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control required" id="password" placeholder="Password" required>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +301,7 @@
                             <div class="col-md-7 col-sm-7 col-xs-12">
                                 <div class="input-icon">
                                     <i class="fa fa-key"></i>
-                                    <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required>
+                                    <input type="password" name="confirm_password" class="form-control required" id="confirm_password" placeholder="Re-type Password" required>
                                 </div>
                             </div>
                         </div>
@@ -401,7 +401,59 @@
        var tm = ho+':'+arr[1]+' '+format;
        $(this).val(tm);        
     });
-        $("#signupForm").validate();
+    
+    jQuery.validator.addMethod("matchPattern", function(value, element) {
+    var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
+    //alert(value.replace(' ','').length);
+    if(value.replace(' ','').length == 6){
+        //alert('1');
+       return true;
+       
+       }
+       else{
+        //alert(value);
+       return false;
+       }
+});
+        $("#signupForm").validate({
+			rules: {
+				
+				Phone: {
+					required: true,
+					minlength: 10,
+                    maxlength:10,
+                    number:true
+                    
+				},
+				
+				email: {
+					required: true,
+					email: true
+				},
+                PostalCode:{
+                    matchPattern:true
+                }
+                    
+                    
+                    
+                
+				
+			},
+			messages: {
+				
+				Phone: {
+					required: "Please enter a phone number",
+					minlength: "Your phone number must consist of at least 10 Number",
+                    maxlength: "Your phone number must consist of at most 10 Number",
+				},
+				
+				email: "Please enter a valid email address",
+                PostalCode: {
+					matchPattern: "Invalid Postal Code"
+				},
+			
+			}
+		});
         //FormSamples.init();
     });
 </script>
