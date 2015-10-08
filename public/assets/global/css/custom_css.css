@@ -896,6 +896,9 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
+#signupForm .control-label {
+  text-align: left !important;
+}
 
 #signupForm .red, #login-ajax-form .btn  {
     background: #ce0b10 !important;
