@@ -107,13 +107,14 @@ class AuthController extends Controller {
      * @return redirect
      */
     public function postRegister() {
+        
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
-            if (!isset($data['email']) || empty($data['email'])) {
+            if (!isset($data['Email']) || empty($data['Email'])) {
                 return \Redirect::to('auth/register')->with('message', trans('messages.user_missing_email.message'))->withInput();
             }
 
-            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['Email'])->count();
             if ($is_email > 0) {
                 return \Redirect::to('auth/register')->with('message', trans('messages.user_email_already_exist.message'))->withInput();
             }
@@ -129,12 +130,12 @@ class AuthController extends Controller {
                 \DB::beginTransaction();
                 try {
                     $data['Status'] = 0;
-                    $data['ProfileType'] = 1;
+                    $data['ProfileType'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
                     $user->save();
-                    debug($user);die();
+                    
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
@@ -163,13 +164,16 @@ class AuthController extends Controller {
      * @return redirect
      */
     public function postAjaxRegister() {
+        
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
-            if (!isset($data['email']) || empty($data['email'])) {
+           
+            if (!isset($data['Email']) || empty($data['Email'])) {
+               
                 echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message'))); die;
             }
 
-            $is_email = \App\Http\Models\Profiles::where('Email', '=', $data['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('Email', '=', $data['Email'])->count();
             if ($is_email > 0) {
                 echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message'))); die;
             }
@@ -283,7 +287,7 @@ class AuthController extends Controller {
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
             //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
-            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. You has been logged in into our system. Please <a href='" . url('restaurant/menus-manager') . "'><b>click here</b></a> to start uploading items. ";
+            $message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. You has been logged in into our system. Please <a href='" . url('user/info') . "'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";

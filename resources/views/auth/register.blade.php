@@ -33,7 +33,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-phone"></i>
-                                <input type="number" name="phone" min="9" max="10" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
+                                <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="Email" placeholder="Email Address" value="{{ old('email') }}"required="">
+                                <input type="email" name="Email" class="form-control" id="Email" placeholder="Email Address" value="{{ old('email') }}"required="">
                             </div>
                         </div>
                     </div>

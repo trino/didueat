@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="email">Email <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="Email" id="email" class="form-control" value="" required="">
+                            <input type="text" name="Email" id="emailz" class="form-control" value="" required="">
                         </div>
                     </div>
 
@@ -112,13 +112,13 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="password">Password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="password" name="password" id="password" class="form-control"required="">
+                            <input type="password" name="password" id="passwords" class="form-control"required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="confirm_password">Confirm password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="password" name="confirm_password" id="confirm_password" class="form-control"required="">
+                            <input type="password" name="confirm_password" id="confirm_passwords" class="form-control"required="">
                         </div>
                     </div>
                 </fieldset>
@@ -320,16 +320,16 @@
             
             $('body').on('submit', '#register-form', function(e){
                 var token = $("#register-form input[name=_token]").val();
-                var name = $("#register-form input[name=name]").val();
-                var email = $("#register-form input[name=email]").val();
-                var phone = $("#register-form input[name=phone]").val();
+                var Name = $("#register-form input[name=Name]").val();
+                var Email = $("#register-form input[name=Email]").val();
+                var phone = $("#register-form input[name=Phone]").val();
                 var password = $("#register-form input[name=password]").val();
                 var confirm_password = $("#register-form input[name=confirm_password]").val();
                 var subscribed = $("#register-form input[name=subscribed]").val();
                 
                 $("#regButton").hide();
                 $("#regLoader").show();
-                $.post("{{ url('auth/register/ajax') }}", {_token:token, name:name, email:email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
+                $.post("{{ url('auth/register/ajax') }}", {_token:token, Name:Name, Email:Email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
                     $("#regButton").show();
                     $("#regLoader").hide();
                     
