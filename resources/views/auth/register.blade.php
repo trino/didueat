@@ -33,7 +33,7 @@
                         <div class="col-md-10">
                             <div class="input-icon">
                                 <i class="fa fa-phone"></i>
-                                <input type="tel" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
+                                <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
                             </div>
                         </div>
                     </div>

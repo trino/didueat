@@ -88,21 +88,21 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="Name" id="name" class="form-control" value="">
+                            <input type="text" name="Name" id="name" class="form-control" value="" required="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="email">Email <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="text" name="Email" id="email" class="form-control" value="">
+                            <input type="text" name="Email" id="email" class="form-control" value="" required="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="phone">Phone<span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="phone" name="phone" id="phone" class="form-control" value="">
+                            <input type="number" name="phone" id="phone" class="form-control" value=""required="">
                         </div>
                     </div>
                 </fieldset>
@@ -112,13 +112,13 @@
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="password">Password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control"required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="confirm_password">Confirm password <span class="require">*</span></label>
                         <div class="col-lg-8 col-sm-8 col-xs-12">
-                            <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                            <input type="password" name="confirm_password" id="confirm_password" class="form-control"required="">
                         </div>
                     </div>
                 </fieldset>
