@@ -842,7 +842,7 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
-#imageForm input, #imageForm textarea, #imageForm select, #profiles input, #profiles textarea, #profiles select {
+#imageForm input, #imageForm textarea, #imageForm select, #profiles input, #profiles textarea, #profiles select, #login-form input, #login-form textarea, #login-form select {
     background: none;
   border: medium none !important;
   border-bottom: 2px solid #aaa !important;
@@ -852,7 +852,7 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;  
 }
 
-#imageForm input:focus, #imageForm textarea:focus, #imageForm select:focus, #profiles input:focus, #profiles textarea:focus, #profiles select:focus {
+#imageForm input:focus, #imageForm textarea:focus, #imageForm select:focus, #profiles input:focus, #profiles textarea:focus, #profiles select:focus, #login-form input:focus, #login-form textarea:focus, #login-form select:focus {
   border-bottom: 2px solid #ce0b10 !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -860,11 +860,31 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
-#signupForm .red {
+#login-ajax-form input, #login-ajax-form textarea, #login-ajax-form select{
+    background: none;
+  border: medium none !important;
+  border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;  
+}
+
+#login-ajax-form input:focus, #login-ajax-form textarea:focus, #login-ajax-form select:focus{
+  border-bottom: 2px solid #ce0b10 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+
+
+#signupForm .red, #login-ajax-form .btn  {
     background: #ce0b10 !important;
 } 
 
-#signupForm .red:hover {
+#signupForm .red:hover, #login-ajax-form .btn:hover {
     background: #b30c10 !important;
 } 
 
