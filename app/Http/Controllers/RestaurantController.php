@@ -537,10 +537,10 @@ class RestaurantController extends Controller {
     public function report() {
         $order = \App\Http\Models\Reservations::where('restaurantId', \Session::get('session_restaurantId'))->leftJoin('Restaurants', 'Reservations.restaurantId', '=', 'Restaurants.ID');
         if (isset($_GET['from'])) {
-            $order = $order->where('order_till', '>=', $_GET['from']);
+            $order = $order->where('order_time', '>=', $_GET['from']);
         }
         if (isset($_GET['to'])) {
-            $order = $order->where('order_till', '<=', $_GET['to']);
+            $order = $order->where('order_time', '<=', $_GET['to']);
         }
 
         $data['orders'] = $order->get();
