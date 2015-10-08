@@ -951,7 +951,7 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;
 }
 
-#addNewForm input, #addNewForm textarea, #addNewForm select, .addnew input, .addnew textarea, .addnew select{
+#addNewForm input, #addNewForm textarea, #addNewForm select, .addnew input, .addnew textarea, .addnew select,.deleteme .datepicker {
     background: none;
   border: medium none !important;
   border-bottom: 2px solid #aaa !important;
@@ -961,7 +961,7 @@ body.ecommerce {
   transition: all 0.5s ease-in-out;  
 }
 
-#addNewForm input:focus, #addNewForm textarea:focus, #addNewForm select:focus, .addnew input:focus, .addnew textarea:focus, .addnew select:focus {
+#addNewForm input:focus, #addNewForm textarea:focus, #addNewForm select:focus, .addnew input:focus, .addnew textarea:focus, .addnew select:focus,.deleteme .datepicker:focus {
   border-bottom: 2px solid #ce0b10 !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
