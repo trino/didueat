@@ -7,7 +7,7 @@
                         <div class="product-item">
                             <a href="<?php echo (Request::is('restaurants/*'))? '#product-pop-up_'.$value->ID : url('restaurants/'.select_field('restaurants', 'ID',$value->restaurantId,'Slug').'/menus'); ?>" class="fancybox-fast-view">
                                 <div class="pi-img-wrapper">
-                                    <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default.jpg' }}" class="img-responsive" alt="{{ $value->menu_item }}">
+                                    <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}" class="img-responsive" alt="{{ $value->menu_item }}">
                                 </div>
                             </a>
                             <h3><a href="<?php echo (Request::is('restaurants/*'))? '#product-pop-up_'.$value->ID : url('restaurants/'.select_field('restaurants', 'ID',$value->restaurantId,'Slug').'/menus'); ?>" class="fancybox-fast-view"></a><a href="#">{{ $value->menu_item }}</a></h3>
