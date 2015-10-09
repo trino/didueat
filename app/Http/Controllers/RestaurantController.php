@@ -637,7 +637,7 @@ class RestaurantController extends Controller {
             $ob2->populate($arr);
             $ob2->save();
 
-            echo $ob2->ID;
+            echo $ob2->id;
             die();
         }
     }
