@@ -89,10 +89,10 @@ class RestaurantController extends Controller {
 
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
-            if ($ob->status == "open") {
-                $ob->populate(array('status' => 'close'));
+            if ($ob->open == 1) {
+                $ob->populate(array('open' => 0));
             } else {
-                $ob->populate(array('status' => 'open'));
+                $ob->populate(array('open' => 1));
             }
             $ob->save();
 

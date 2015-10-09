@@ -96,7 +96,7 @@ class AdministratorController extends Controller {
                 
                 \Session::flash('message', "Profile updated successfully");
                 \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Oops!');
+                \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('dashboard');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
@@ -137,7 +137,7 @@ class AdministratorController extends Controller {
             
             \Session::flash('message', 'Status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Oops!');
+            \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/users');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
@@ -196,6 +196,9 @@ class AdministratorController extends Controller {
             \DB::beginTransaction();
             try {
                 $post['status'] = 0;
+                $post['subscribed'] = 0;
+                $post['created_by'] = \Session::get('session_id');
+                $post['restaurant_id'] = \Session::get('session_restaurantId');
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($post);

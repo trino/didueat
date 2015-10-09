@@ -56,11 +56,11 @@
                                         <tbody>
                                             @foreach($addresses_list as $value)
                                             <tr>
-                                                <td>{{ $value->ID }}</td>
-                                                <td>{{ $value->Address }}</td>
-                                                <td>{{ $value->Type }}</td>
+                                                <td>{{ $value->id }}</td>
+                                                <td>{{ $value->address }}</td>
+                                                <td>{{ $value->type }}</td>
                                                 <td>
-                                                    <a href="{{ url('restaurant/addresses/delete/'.$value->ID) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                                    <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
                                                 </td>
                                             </tr>
                                             @endforeach

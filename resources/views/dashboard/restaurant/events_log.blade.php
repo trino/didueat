@@ -52,10 +52,10 @@
                                     <tbody>
                                         @foreach($logs_list as $value)
                                         <tr>
-                                            <td>{{ $value->ID }}</td>
-                                            <td>{{ select_field("profiles", 'ID', $value->UserID, "Name") }}</td>
-                                            <td>{{ $value->Date }}</td>
-                                            <td>{{ $value->Text }}</td>
+                                            <td>{{ $value->id }}</td>
+                                            <td>{{ select_field("profiles", 'id', $value->user_id, "name") }}</td>
+                                            <td>{{ $value->date }}</td>
+                                            <td>{{ $value->text }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

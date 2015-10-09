@@ -21,7 +21,7 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('name', 'slug', 'genre', 'email', 'phone', 'address', 'city', 'province', 'country', 'postal_code', 'description', 'logo', 'delivery_fee', 'minimum', 'status');
+        $cells = array('name', 'slug', 'genre', 'email', 'phone', 'address', 'city', 'province', 'country', 'postal_code', 'description', 'logo', 'delivery_fee', 'minimum', 'open');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

@@ -54,7 +54,7 @@ CREATE TABLE `eventlog` (
   `restaurant_id` int(11) NOT NULL,
   `text` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `eventlog` */
 
@@ -68,7 +68,7 @@ CREATE TABLE `genres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `genres` */
 
@@ -85,7 +85,7 @@ CREATE TABLE `hours` (
   `open` time DEFAULT NULL,
   `close` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `hours` */
 
@@ -112,7 +112,7 @@ CREATE TABLE `menus` (
   `exact_upto_qty` varchar(255) DEFAULT NULL,
   `display_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `menus` */
 
@@ -127,7 +127,7 @@ CREATE TABLE `newsletter` (
   `email` varchar(255) NOT NULL,
   `guid` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `newsletter` */
 
@@ -143,7 +143,7 @@ CREATE TABLE `notification_addresses` (
   `address` varchar(255) DEFAULT NULL,
   `type` enum('Email','Phone') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `notification_addresses` */
 
@@ -190,11 +190,11 @@ CREATE TABLE `profiles` (
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles` */
 
-insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','$2y$10$EtnpP8EFIb0c9MjMGyjCce3wWSiCh0OR2iY3iWS80jnyV7JD1oIUK','123456789',1,1,NULL,1,'2015-10-08 22:31:39','2015-10-08 22:34:58',NULL);
+insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','$2y$10$c7RHum8L2bsSleb2UTv6sejCRdYenCoz/AN7tMH5p4j1hgiIDhQxK','12345678',0,1,0,1,'2015-10-08 22:31:39','2015-10-09 12:20:52',NULL),(3,2,'Testing Name','testing@gmail.com','$2y$10$SrIKzcEgiqv2XntSwpdt0eRcUm2xoIwy5zGDwZsDxE6Of0LVamfKq','123456',0,1,1,0,'2015-10-09 12:29:01','2015-10-09 12:29:01',NULL);
 
 /*Table structure for table `profiles_addresses` */
 
@@ -214,11 +214,11 @@ CREATE TABLE `profiles_addresses` (
   `country` int(11) DEFAULT NULL,
   `notes` varchar(2048) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles_addresses` */
 
-insert  into `profiles_addresses`(`id`,`user_id`,`number`,`street`,`apt`,`buzz`,`post_code`,`phone_no`,`city`,`province`,`country`,`notes`) values (1,1,'132456','Street Address','Street Address','123465','123456','897987','Hamilton','Province',40,'notes here');
+insert  into `profiles_addresses`(`id`,`user_id`,`number`,`street`,`apt`,`buzz`,`post_code`,`phone_no`,`city`,`province`,`country`,`notes`) values (1,1,'123456','Street Address1','Street Address1','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(2,1,'1234567','Street Address2','Street Address2','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(3,1,'123456','Street Address3','Street Address3','123456','123456','123654','Hamilton','Province',168,'Notes here...');
 
 /*Table structure for table `profiles_images` */
 
@@ -232,11 +232,11 @@ CREATE TABLE `profiles_images` (
   `title` varchar(255) DEFAULT NULL,
   `order_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles_images` */
 
-insert  into `profiles_images`(`id`,`user_id`,`restaurant_id`,`filename`,`title`,`order_id`) values (1,1,1,'69318f40.jpg','Testing image 1',NULL),(2,1,2,'20680777.jpg','Testing image 2',NULL),(3,1,3,'484ed3b2.jpg','Testing image 3',NULL),(4,1,4,'ad6994b7.jpg','Testing image 4',NULL),(5,1,5,'4763f359.jpg','Testing image 5',NULL),(6,1,6,'fbae66f2.jpg','Testing image 6',NULL),(7,11,2,'957ecfd5.png','567',NULL),(8,10,6,'ff49444a.png','34253543543',NULL),(9,1,1,'3f23a153.jpg','Testing image 1',NULL),(10,1,2,'34a6a025.jpg','Testing image',NULL);
+insert  into `profiles_images`(`id`,`user_id`,`restaurant_id`,`filename`,`title`,`order_id`) values (1,1,1,'69318f40.jpg','Testing image 1',NULL),(2,1,2,'20680777.jpg','Testing image 2',NULL),(3,1,3,'484ed3b2.jpg','Testing image 3',NULL),(4,1,4,'ad6994b7.jpg','Testing image 4',NULL),(5,1,5,'4763f359.jpg','Testing image 5',NULL),(6,1,6,'fbae66f2.jpg','Testing image 6',NULL),(7,11,2,'957ecfd5.png','567',NULL),(8,10,6,'ff49444a.png','34253543543',NULL),(9,1,1,'3f23a153.jpg','Testing image 1',NULL),(10,1,2,'34a6a025.jpg','Testing image',NULL),(11,1,1,'09c74d90.jpg','tests3',NULL);
 
 /*Table structure for table `profiletypes` */
 
@@ -251,7 +251,7 @@ CREATE TABLE `profiletypes` (
   `can_hire_or_fire` tinyint(4) NOT NULL,
   `can_possess` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiletypes` */
 
@@ -318,11 +318,11 @@ CREATE TABLE `restaurants` (
   `minimum` decimal(2,0) DEFAULT NULL,
   `open` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `restaurants` */
 
-insert  into `restaurants`(`id`,`name`,`slug`,`genre`,`email`,`phone`,`address`,`city`,`province`,`country`,`postal_code`,`description`,`logo`,`delivery_fee`,`minimum`,`open`) values (1,'Restaurant Seven','restaurant-seven',0,'skpsoftech@gmail.com','123456789','Gulberg 3','Lahore','Punja','168','54606','ajdsklfajsdklfa\r\nsdfasd\r\nf\r\nasdf\r\nasd',NULL,'99','99',0);
+insert  into `restaurants`(`id`,`name`,`slug`,`genre`,`email`,`phone`,`address`,`city`,`province`,`country`,`postal_code`,`description`,`logo`,`delivery_fee`,`minimum`,`open`) values (1,'Restaurant Seven','restaurant-seven',1,'skpsoftech@gmail.com','123456789','Gulberg 3','Lahore','Punja','17','54606','ajdsklfajsdklfasdfasdfasdfasd',NULL,'99','99',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

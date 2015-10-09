@@ -74,16 +74,20 @@ class UsersController extends Controller {
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
-
-                $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['id']);
+                $idd = (isset($post['id']))?$post['id']:'';
+                
+                if($idd){
+                    $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
+                } else {
+                    $ob = new \App\Http\Models\ProfilesAddresses();
+                }
                 $ob->populate($post);
                 $ob->save();
-
-                $idd = ($post['id']) ? '/' . $post['id'] : '';
+                
                 \Session::flash('message', "Address created successfully");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/addresses' . $idd);
+                return \Redirect::to('user/addresses/' . $ob->id);
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');

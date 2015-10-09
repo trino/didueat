@@ -70,8 +70,8 @@
                                             <td>{{ $value->phone }}</td>
                                             <td>{{ select_field('profiletypes', 'ID', $value->profileType, 'name') }}</td>
                                             <td>
-                                                <a href="{{ url('restaurant/users?action=user_fire&ID='.$value->ID) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
-                                                <a href="{{ url('restaurant/users?action=user_possess&ID='.$value->ID) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
+                                                <a href="{{ url('restaurant/users?action=user_fire&ID='.$value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                                <a href="{{ url('restaurant/users?action=user_possess&ID='.$value->id) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -138,7 +138,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Type</label>
                             <div class="col-md-9">
-                                <select name="profileType" class="form-control">
+                                <select name="profile_type" class="form-control">
                                     <option value="2">User</option>
                                     <option value="4">Employee</option>
                                 </select>
