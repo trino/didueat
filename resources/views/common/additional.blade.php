@@ -1,4 +1,4 @@
-    <div class="menuwrapper" id="sub<?php if(isset($child))echo $child->ID;else echo '0';?>" class="ignore ignore1">
+    <div class="menuwrapper" id="sub<?php if(isset($child))echo $child->id;else echo '0';?>" class="ignore ignore1">
     <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
         
         <div class="col-sm-12 lowheight row ignore ignore1">
@@ -9,22 +9,22 @@
         <div class="aitems row ignore ignore1">
             
             
-            <div class="addmore ignore ignore1" id="addmore<?php if(isset($child))echo $child->ID;else echo '0';?>">
+            <div class="addmore ignore ignore1" id="addmore<?php if(isset($child))echo $child->id;else echo '0';?>">
             <?php
             if(isset($_GET['menu_id'])){
                 $menu_id = $_GET['menu_id'];
             }
-            if(isset($child->ID)){
+            if(isset($child->id)){
                 $mod  = new \App\Http\Controllers\RestaurantController;
-                                $more = $mod->getMore($child->ID);
+                                $more = $mod->getMore($child->id);
                                 //var_dump($sub);
-                //$more = $this->requestAction('menus/getMore/'.$child->ID);
+                //$more = $this->requestAction('menus/getMore/'.$child->id);
                 if($more){
                     $i=0;
                     foreach($more as $cc){
                         $i++;
                         ?>
-                        <div class="cmore ignore ignore1" id="cmore<?php echo $cc->ID;?>">
+                        <div class="cmore ignore ignore1" id="cmore<?php echo $cc->id;?>">
                         <?php if($i!=1){?>
                             <p style="margin-bottom:0;height:7px;" class="ignore ignore2 ignore1">&nbsp;</p>
                         <?php }?>
@@ -59,7 +59,7 @@
             <script class="ignore ignore2 ignore1">
             $(function(){
                 
-               $('#addmore<?php if(isset($child))echo $child->ID;else echo '0';?>').sortable({
+               $('#addmore<?php if(isset($child))echo $child->id;else echo '0';?>').sortable({
             update: function(event, ui) {
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('#subcat<?php echo $menu_id?> .cmore').each(function(index) {
@@ -146,7 +146,7 @@
                     }
                     ?>
                     <a href="javascript:void(0)" class="btn btn-info add_additional ignore ignore2 ignore1" id="add_additional<?= $menu_id;?>">Add Addons</a>
-                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){ echo 'id="save0"'; }else{ echo 'id="save' . $menu_id;} ?> class="btn btn-info savebtn ignore ignore2 ignore1">Save</a>
+                    <a href="javascript:void(0)" <?php if(!isset($menu_id) || (isset($menu_id) && !$menu_id)){ echo 'id="save0"'; }else{ echo 'id="save' . $menu_id.'"';} ?> class="btn btn-info savebtn ignore ignore2 ignore1">Save</a>
                     <?php if(isset($k) && $k!=1){
                         echo '<a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>';
                     }
