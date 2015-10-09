@@ -158,28 +158,28 @@
                             <input type="hidden" name="type" id="login_type" value="" />
                             <p style="display: none;text-align:center; color: red;" id="invalid"></p>
                             <div class="form-group">
-                                <label class="col-lg-4 control-label" for="email">Email <span class="require">*</span></label>
-                                <div class="col-lg-8">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="email">Email <span class="require">*</span></label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                     <input type="text" id="email" name="email" class="form-control"required="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-lg-4 control-label" for="password">Password <span class="require">*</span></label>
-                                <div class="col-lg-8">
+                                <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="password">Password <span class="require">*</span></label>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                     <input type="password" id="password" name="password" class="form-control"required="">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-8 col-md-offset-4 padding-left-0">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0">
                                     <a href="#forget-passsword" class="fancybox-fast-view">Forgot Password?</a>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
                                     <input class="btn btn-primary" type="button" Value="Login" onclick="trylogin(); return false;">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-6 col-xs-6">
                                 <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
                                     <a href="#registration-form" class="btn btn-primary fancybox-fast-view" type="button">Sign Up</a>
                                 </div>
@@ -202,14 +202,14 @@
             </div>
             {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div id="error" class="alert alert-danger" style="display: none;"></div>
-                <div class="form-group col-md-12">
-                    <label class="col-lg-4 control-label" for="forgot-email">Email</label>
-                    <div class="col-lg-8">
+                <div class="form-group col-md-12 col-sm-124 col-xs-12">
+                    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="forgot-email">Email</label>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                         <input type="text" name="email" id="forgot-email" class="form-control">
                     </div>
                 </div>
                 
-                <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-5">
+                <div class="col-lg-8  col-md-8 col-sm-8 col-xs-12col-md-offset-4 padding-left-0 padding-top-5">
                     <button id="regButton" class="btn btn-primary" type="submit">Send</button>
                     <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 </div>
