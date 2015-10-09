@@ -92,10 +92,12 @@ vertical-align: middle;
 /* BEGIN max width 1400px */
 @media (max-width: 1400px) {
 .ecommerce .main .top-cart-content strong {
-font-weight: normal;
-width: 45%;
-font-size: 14px;
-}  
+  font-size: 14px;
+  font-weight: normal;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 44%;
+} 
 
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 padding: 5px !important;
