@@ -32,8 +32,7 @@
                     @endif
                     
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Restaurants Manager</h3>
-                        <hr class="shop__divider">
+
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red-intense">

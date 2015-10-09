@@ -33,8 +33,8 @@
                     @endif
                     
                     <div class="deleteme">
-                        <h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
-                        <hr class="shop__divider">
+                        <!--h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
+                        <hr class="shop__divider"-->
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red-intense">

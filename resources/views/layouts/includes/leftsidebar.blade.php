@@ -1,35 +1,67 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
-    <aside class="sidebar  sidebar--shop">
+    <aside class="sidebar sidebar--shop">
         <div class="shop-filter">
             @if(\Session::get('session_profileType') == 1)
-                <h4>Administrator </h4>
-                <ul class="list-group margin-bottom-25 sidebar-menu">
-                    <li class="list-group-item clearfix"><a href="{{ url('dashboard') }}"
-                                                            class="<?php if (Request::path() == 'dashboard') {
-                                                                echo 'active';
-                                                            } ?>"><i class="fa fa-angle-right"></i> Dashboard</a></li>
-                    <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}"
-                                                            class="<?php if (Request::path() == 'restaurant/users') {
-                                                                echo 'active';
-                                                            } ?>"><i class="fa fa-angle-right"></i> Users</a></li>
-                    <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') {
-                        echo 'active';
-                    } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
-                    <li class="list-group-item clearfix"><a href="{{ url('restaurant/restaurants') }}"
-                                                            class="<?php if (Request::path() == 'restaurant/restaurants') {
-                                                                echo 'active';
-                                                            } ?>"><i class="fa fa-angle-right"></i> Restaurants</a></li>
 
-                    <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}"
-                                                            class="<?php if (Request::path() == 'restaurant/eventlog') {
-                                                                echo 'active';
-                                                            } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
 
-                </ul>
-                <hr class="shop__divider"/>
+
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>Administrator
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <ul class="list-group margin-bottom-25 sidebar-menu">
+                            <li class="list-group-item clearfix"><a href="{{ url('dashboard') }}"
+                                                                    class="<?php if (Request::path() == 'dashboard') {
+                                                                        echo 'active';
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Dashboard</a></li>
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}"
+                                                                    class="<?php if (Request::path() == 'restaurant/users') {
+                                                                        echo 'active';
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Users</a></li>
+                            <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') {
+                                echo 'active';
+                            } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/restaurants') }}"
+                                                                    class="<?php if (Request::path() == 'restaurant/restaurants') {
+                                                                        echo 'active';
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Restaurants</a></li>
+
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}"
+                                                                    class="<?php if (Request::path() == 'restaurant/eventlog') {
+                                                                        echo 'active';
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
+
+                        </ul>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
             @endif
             @if(\Session::get('session_restaurantId'))
-                <h4>Restaurant</h4>
+
+
+
+                    <div class="portlet box red">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>Restaurant
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+
                 <ul class="list-group margin-bottom-25 sidebar-menu">
 
                     <li class="list-group-item clearfix"><a
@@ -64,9 +96,26 @@
                         echo 'active';
                     } ?>"><i class="fa fa-angle-right"></i> Print Report</a></li>-->
                 </ul>
-                <hr class="shop__divider">
+                            </div></div>
+
+
+
             @endif
-            <h4>User</h4>
+
+
+
+
+
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>User
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+
+
             <ul class="list-group margin-bottom-25 sidebar-menu">
                 <li class="list-group-item clearfix"><a href="{{ url('user/info') }}"
                                                         class="<?php if (Request::path() == 'user/info') {
@@ -85,7 +134,8 @@
                                                             echo 'active';
                                                         } ?>"><i class="fa fa-angle-right"></i> Logout</a></li>
             </ul>
-            <hr class="shop__divider">
+        </div>
+        </div>
         </div>
     </aside>
 </div>

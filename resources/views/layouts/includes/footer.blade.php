@@ -138,13 +138,13 @@
             <!-- END COPYRIGHT -->
             <!-- BEGIN PAYMENTS -->
             <div class="col-md-4 col-sm-4">
-                <ul class="list-unstyled list-inline pull-right">
+                <!--ul class="list-unstyled list-inline pull-right">
                     <li><img src="{{ url('assets/images/payments/western-union.jpg') }}" alt="We accept Western Union" title="We accept Western Union"></li>
                     <li><img src="{{ url('assets/images/payments/american-express.jpg') }}" alt="We accept American Express" title="We accept American Express"></li>
                     <li><img src="{{ url('assets/images/payments/MasterCard.jpg') }}" alt="We accept MasterCard" title="We accept MasterCard"></li>
                     <li><img src="{{ url('assets/images/payments/PayPal.jpg') }}" alt="We accept PayPal" title="We accept PayPal"></li>
                     <li><img src="{{ url('assets/images/payments/visa.jpg') }}" alt="We accept Visa" title="We accept Visa"></li>
-                </ul>
+                </ul-->
             </div>
             <!-- END PAYMENTS -->
         </div>
