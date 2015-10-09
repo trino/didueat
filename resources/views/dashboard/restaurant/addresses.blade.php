@@ -20,26 +20,28 @@
                 <div class="row">
                     @include('layouts.includes.leftsidebar')
 
-                    <div class="col-xs-12 col-md-10 col-sm-8">
+
+
+
+
+                    <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+
+
+
+                    <div class="col-xs-12 col-md-10 col-sm-8 no-padding">
                         @if(\Session::has('message'))
                             <div class="alert {!! Session::get('message-type') !!}">
                                 <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                             </div>
                         @endif
-                        
-                        <div class="deleteme">
-                            <h3 class="sidebar__title">Notifications Addresses</h3>
-                            <hr class="shop__divider">
 
-                            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                            <div class="clearfix"></div>
-                            <hr class="shop__divider">
+                            <div class="deleteme">
 
                             <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                            <div class="portlet box red-intense">
+                            <div class="portlet box red">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-globe"></i>Addresses List
+                                        <i class="fa fa-globe"></i>MY NOTIFICATIONS
                                     </div>
                                     <div class="tools"></div>
                                 </div>
@@ -70,8 +72,7 @@
                             </div>
                             <!-- END EXAMPLE TABLE PORTLET-->
 
-                            <hr class="shop__divider">
-                        </div>        
+                        </div>
                     </div>
 
 

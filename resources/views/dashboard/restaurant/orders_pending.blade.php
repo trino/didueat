@@ -31,16 +31,21 @@
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                         </div>
                     @endif
-                    
+
+
+                         <a href="{{ url('restaurant/report') }}" class="btn btn-info">Print Report</a>
+
+
+
                     <div class="deleteme">
                         <!--h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
                         <hr class="shop__divider"-->
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Orders List &nbsp; <a href="{{ url('restaurant/report') }}" class="btn btn-info">Print Report</a>
+                                    <i class="fa fa-globe"></i>MY ORDERS
                                 </div>
                                 <div class="tools">
                                 

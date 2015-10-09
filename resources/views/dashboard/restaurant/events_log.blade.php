@@ -27,14 +27,12 @@
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Event Logs</h3>
-                        <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Logs List
+                                    <i class="fa fa-globe"></i>Event Log
                                 </div>
                                 <div class="tools">
                                 </div>

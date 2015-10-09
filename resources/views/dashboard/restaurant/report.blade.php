@@ -37,7 +37,7 @@
                             </div>
                             <?php if(isset($orders) && count($orders)>0){?>
                                 @foreach($orders as $order)
-                                  <div class="portlet box red-intense">
+                                  <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Orders List

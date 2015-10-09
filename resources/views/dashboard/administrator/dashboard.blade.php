@@ -12,28 +12,20 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}" />
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row content-page">
-            <div class="col-xs-12">
-                <div class="">
-
-                </div>
-            </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8 no-padding">
-                    
+
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                         </div>
                     @endif
-                    
+
                     <div class="portlet box red">
                         <div class="portlet-title">
                             <div class="caption">
@@ -52,7 +44,7 @@
                                         <button class="close" data-close="alert"></button>
                                         Your form validation is successful!
                                     </div>
-                                    
+
                                     <h3 class="form-section">Person Info</h3>
                                     <div class="form-group">
                                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Full Name <span class="required">*</span></label>
@@ -126,7 +118,7 @@
                     </div>
 
 
-                    
+
                     <hr class="shop__divider">
                     <div class="row margin-bottom-30">
                         <div class="col-md-5 col-sm-5 col-xs-12">
@@ -137,16 +129,17 @@
                             <p>
                                 Receive a $5 credit just for uploading a photo of your meal to our site! Remember, the meal has to be from one of our prestigious restaurants listed
                             </p>
-                            <a href="{{ url('user/images') }}" class="btn red">Upload Image</a>            
+                            <a href="{{ url('user/images') }}" class="btn red">Upload Image</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
             </div>
         </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
+
 
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -171,7 +164,7 @@ jQuery(document).ready(function() {
     Demo.init();
     //FormValidation.init();
     FormSamples.init();
-    
+
     $("#profileForm").validate();
 });
 </script>

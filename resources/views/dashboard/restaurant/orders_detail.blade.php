@@ -28,7 +28,7 @@
                         <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Orders List

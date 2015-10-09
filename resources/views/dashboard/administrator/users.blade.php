@@ -21,6 +21,14 @@
                 </div>
             </div>
 
+
+
+
+            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+
+
+
+
             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
@@ -33,15 +41,9 @@
                     @endif
 
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Users Manager</h3>
-                        <hr class="shop__divider">
-                        
-                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                        <div class="clearfix"></div>
-                        <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Users List

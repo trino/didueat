@@ -2,7 +2,7 @@
 <html lang="en">
 <!--<![endif]-->
 <!-- Head BEGIN -->
-<head> 
+<head>
     <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -50,22 +50,31 @@
     <!--[if lt IE 9]>
     <script src="{{ asset('assets/plugins/respond.min.js') }}"></script>
     <![endif]-->
-    
+
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-    
+
     <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    
+
     <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->
 <!-- Body BEGIN -->
     <body class="ecommerce">
+
+
+
+
+
+
         <div id="fb-root"></div>
+
+
+
         <script>/*(function(d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
                 if (d.getElementById(id)) return;
@@ -74,7 +83,15 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));*/</script>
 
-        <!-- BEGIN TOP BAR -->
+
+
+
+
+
+
+
+
+
         <div id="registration-form" class="col-md-12" style="display: none;">
             <div id="registration-success" class="note note-success" style="display: none;">
                 <h1 class="block">success</h1>
@@ -83,7 +100,7 @@
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                 <fieldset>
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
-                    
+
                     <legend>Your personal details</legend>
                     <div class="form-group">
                         <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span class="require">*</span></label>
@@ -145,7 +162,13 @@
                 </div>
             {!! Form::close() !!}
         </div>
-        
+
+
+
+
+
+
+
         <div id="login-pop-up" style="display:none;">
             <div class="login-pop-up">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -192,8 +215,7 @@
 
             </div>
         </div>
-        
-        
+
         <div id="forget-passsword" style="display: none;">
             <h1>Forgot Your Password?</h1>
             <div id="forgot-pass-success" class="note note-success" style="display: none;">
@@ -208,38 +230,38 @@
                         <input type="text" name="email" id="forgot-email" class="form-control">
                     </div>
                 </div>
-                
+
                 <div class="col-lg-8  col-md-8 col-sm-8 col-xs-12col-md-offset-4 padding-left-0 padding-top-5">
                     <button id="regButton" class="btn btn-primary" type="submit">Send</button>
                     <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 </div>
             {!! Form::close() !!}
         </div>
-        
+
         <!-- END TOP BAR -->
         <script type="text/javascript">
             function getvalue(ElementID){
                 return document.getElementById(ElementID).value;
             }
-            
+
             function setvalue(ElementID, Value){
                 document.getElementById(ElementID).innerHTML = Value;
             }
-            
+
             function escapechars(text){
                 return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
             }
-            
+
             $('body').on('submit', '#forgot-pass-form', function(e){
                 var token = $("#forgot-pass-form input[name=_token]").val();
                 var email = $("#forgot-pass-form input[name=email]").val();
-                
+
                 $("#forgot-pass-form #regButton").hide();
                 $("#forgot-pass-form #regLoader").show();
                 $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token:token, email:email}, function(result){
                     $("#forgot-pass-form #regButton").show();
                     $("#forgot-pass-form #regLoader").hide();
-                    
+
                     var json = jQuery.parseJSON(result);
                     if(json.type == "error"){
                         $('#forgot-pass-form #error').show();
@@ -252,7 +274,7 @@
                 });
                 e.preventDefault();
             });
-            
+
             function trylogin(){
                 var data = $('#login-ajax-form').serialize();
                 $.ajax({
@@ -260,7 +282,7 @@
                     data: data,
                     type: "post",
                     success: function (msg) {
-                       
+
                         if(isNaN(Number(msg))){
                             if(checkUrl(msg)){
                                 window.location = msg;
@@ -273,7 +295,7 @@
                         {
                             if($('#login_type').val()== 'reservation')
                             {
-                                
+
                                 $.ajax({
                                     url:"{{url('/user/json_data')}}",
                                     type: "post",
@@ -292,14 +314,14 @@
                                         $('.fancybox-close').click();
                                     }
                                 })
-                                
+
                             }
-                                
+
                             else
-                                 window.location = "{{ url('dashboard') }}";  
+                                 window.location = "{{ url('dashboard') }}";
                         }
-                        
-                        
+
+
                     },
                     failure: function (msg){
                         setvalue("message", "ERROR: " + msg);
@@ -307,7 +329,7 @@
                 });
                 return false;
             }
-            
+
             $('body').on('click', '#resendMeEmail', function(e){
                 var url = $(this).attr('href');
                 $('#registration-success p').html('Please wait email is being send...');
@@ -317,7 +339,7 @@
                 });
                 e.preventDefault();
             });
-            
+
             $('body').on('submit', '#register-form', function(e){
                 var token = $("#register-form input[name=_token]").val();
                 var Name = $("#register-form input[name=name]").val();
@@ -326,13 +348,13 @@
                 var password = $("#register-form input[name=password]").val();
                 var confirm_password = $("#register-form input[name=confirm_password]").val();
                 var subscribed = $("#register-form input[name=subscribed]").val();
-                
+
                 $("#regButton").hide();
                 $("#regLoader").show();
                 $.post("{{ url('auth/register/ajax') }}", {_token:token, name:Name, email:Email, phone:phone, password:password, confirm_password:confirm_password, subscribed:subscribed}, function(result){
                     $("#regButton").show();
                     $("#regLoader").hide();
-                    
+
                     var json = jQuery.parseJSON(result);
                     if(json.type == "error"){
                         $('#register-form #registration-error').show();
@@ -368,14 +390,14 @@
                     $.ajax({
                         url: url1,
                         success: function(html) {
-                            
+
                                 if (html) {
                                     $('.nxtpage').remove();
                                     $("#postswrapper").append(html);
                                     $('div#loadmoreajaxloader').hide();
-                                } else 
+                                } else
                                     $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-                            
+
                         }
                     });
                     }
@@ -385,34 +407,33 @@
                         $(this).parent().remove();
                     }
                 });
-            
-        })  
-            
+
+        })
+
         </script>
 
         <!-- Header -->
         @include('layouts.includes.header')
         <!-- End Header -->
-
         <!-- BEGIN MAIN -->
         <div class="main">
-            <!-- BEGIN SIDEBAR & CONTENT -->
             <!-- Dynamic Content -->
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
-            @yield('content')                       
+
+            @yield('content')
+
             <!-- End Dynamic Content -->
-            <!-- END SIDEBAR & CONTENT -->
         </div>
         <!-- END MAIN -->
-        
+
         <!-- Footer -->
         @include('layouts.includes.footer')
         <!-- End Footer -->
-        
+
     </body>
     <!-- END BODY -->
 </html>
