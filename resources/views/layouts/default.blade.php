@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--<![endif]-->
-<!-- Head BEGIN -->
+
 <head>
     <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
@@ -17,9 +16,7 @@
     <meta property="og:description" content="-CUSTOMER VALUE-">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
-    <!-- link to image for socio -->
     <meta property="og:url" content="-CUSTOMER VALUE-">
-
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- Fonts START -->
@@ -28,28 +25,25 @@
     <!--link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
           rel="stylesheet" type="text/css"-->
     <!-- Fonts END -->
-
     <!-- Global styles START -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <!-- Global styles END -->
 
-    <!-- Page level plugin styles START -->
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-    <!-- Page level plugin styles END -->
-
-    <!-- Theme styles START -->
     <link href="{{ asset('assets/global/css/components.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
 
     <!-- MAKE ALL CSS CHANGES TO HERE -->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
+
+
+
+    <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
     <!-- Theme styles END -->
 
     <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
-
     <!--[if lt IE 9]>
     <script src="{{ asset('assets/plugins/respond.min.js') }}"></script>
     <![endif]-->
@@ -57,28 +51,21 @@
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
-
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
 
-    <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->
 <!-- Body BEGIN -->
 <body class="ecommerce">
 
 
-
-
-
-
-
 <div id="registration-form" class="col-md-12" style="display: none;">
     <div id="registration-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
+
         <p></p>
     </div>
     {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
@@ -160,20 +147,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="login-pop-up" style="display:none;">
     <div class="login-pop-up">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -232,15 +205,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
 <div id="forget-passsword" style="display: none;">
     <h1>Forgot Your Password?</h1>
 
@@ -265,15 +229,6 @@
     </div>
     {!! Form::close() !!}
 </div>
-
-
-
-
-
-
-
-
-
 
 
 <!-- END TOP BAR -->
@@ -366,9 +321,6 @@
     }
 
 
-
-
-
     $('body').on('click', '#resendMeEmail', function (e) {
         var url = $(this).attr('href');
         $('#registration-success p').html('Please wait email is being send...');
@@ -378,10 +330,6 @@
         });
         e.preventDefault();
     });
-
-
-
-
 
 
     $('body').on('submit', '#register-form', function (e) {
@@ -421,12 +369,6 @@
     });
 
 
-
-
-
-
-
-
     function ValidURL(textval) {
         var urlregex = new RegExp(
                 "^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
@@ -438,11 +380,6 @@
         else
             return false;
     }
-
-
-
-
-
 
 
     //loadmore
@@ -475,15 +412,7 @@
     })
 
 
-
-
-
-
 </script>
-
-
-
-
 
 
 @include('layouts.includes.header')
@@ -498,10 +427,6 @@
 
 </div>
 @include('layouts.includes.footer')
-
-
-
-
 
 
 </body>
