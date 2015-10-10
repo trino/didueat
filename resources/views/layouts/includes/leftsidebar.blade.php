@@ -1,10 +1,10 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
     <aside class="sidebar sidebar--shop">
         <div class="shop-filter">
+
+
+
             @if(\Session::get('session_profileType') == 1)
-
-
-
                 <div class="portlet box red">
                     <div class="portlet-title">
                         <div class="caption">
@@ -42,11 +42,11 @@
                         </ul>
                     </div>
                 </div>
+                         @endif
 
 
 
 
-            @endif
             @if(\Session::get('session_restaurantId'))
 
                 <div class="portlet box red">
@@ -76,7 +76,8 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}"
                                                                     class="<?php if (Request::path() == 'restaurant/addresses') {
                                                                         echo 'active';
-                                                                    } ?>"><i class="fa fa-angle-right"></i> Notifications
+                                                                    } ?>"><i class="fa fa-angle-right"></i>
+                                    Notifications
                                 </a></li>
 
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}"
@@ -98,6 +99,12 @@
                 </div>
 
             @endif
+
+
+
+
+
+
 
             <div class="portlet box red">
                 <div class="portlet-title">
@@ -130,21 +137,26 @@
                         </li>
 
 
-
                         <li class="list-group-item clearfix"><a href="{{ url('user/info') }}"
                                                                 class="<?php if (Request::path() == 'user/info') {
                                                                     echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i> My Info</a>
+                                                                } ?>"><i class="fa fa-angle-right"></i> My Profile</a>
                         </li>
 
 
                         <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}"
                                                                 class="<?php if (Request::path() == 'logout') {
-                                                                    echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
+                            echo 'active';
+                        } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
                     </ul>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
     </aside>
 </div>

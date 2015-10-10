@@ -1,237 +1,349 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN THEME STYLES -->
+        <!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
+
 
 <div class="content-page">
     <div class="row">
 
         @include('layouts.includes.leftsidebar')
 
-        <div class="col-xs-12 col-sm-8 col-md-10">
+        <div class="col-md-10 col-sm-8 col-xs-12 ">
 
-            <div class="portlet box red">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-gift"></i> Restaurant Detail
+
+            <p>
+                <strong>Scroll is hidden</strong><br>
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor
+                ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis,
+                est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
+                consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
+            </p>
+
+
+            <div class="row ">
+
+
+                <!-- BEGIN FORM-->
+                {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+
+
+                @if(\Session::has('message'))
+                    <div class="alert {!! Session::get('message-type') !!}">
+                        <strong>{!! Session::get('message-short') !!}</strong>
+                        &nbsp; {!! Session::get('message') !!}
                     </div>
-                </div>
-                <div class="portlet-body form">
-                    <!-- BEGIN FORM-->
-                    {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-                    <div class="form-body">
+                @endif
 
-                        @if(\Session::has('message'))
-                            <div class="alert {!! Session::get('message-type') !!}">
-                                <strong>{!! Session::get('message-short') !!}</strong>
-                                &nbsp; {!! Session::get('message') !!}
-                            </div>
-                        @endif
 
-                        <h3 class="form-section">Restaurant Info</h3>
+                <div class="col-md-4 ">
 
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                                    <input type="text" name="name" class="form-control" placeholder="Restaurant Name"
-                                           value="{{ $resturant->name }}" required>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label class="control-label">Restaurant Email <span
-                                                class="required">*</span></label>
-                                    <input type="email" name="email" class="form-control" placeholder="Restaurant Email"
-                                           value="{{ $resturant->email }}" required>
-                                </div>
+
+                    <div class="portlet box red ">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> RESTAURANT PROFILE
                             </div>
                         </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label class="control-label">Phone Number</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number"
-                                           value="{{ $resturant->phone }}">
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label class="control-label">Description</label>
-                                    <input type="text" name="description" class="form-control" placeholder="Description"
-                                           value="{{ $resturant->description }}">
-                                </div>
-                            </div>
-                        </div>
-                        <!--/row-->
-
-                        <h3 class="form-section">Address</h3>
-
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select name="country" id="country" class="form-control" required>
-                                        <option value="">-Select One-</option>
-                                        @foreach($countries_list as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if($resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label>Genre</label>
-                                    <select name="genre" id="genre" class="form-control">
-                                        <option value="">-Select One-</option>
-                                        @foreach($genre_list as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if($resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label class="control-label">Province <span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="province" placeholder="Province Name"
-                                           value="{{ $resturant->province }}" required>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label>Street Address <span class="required">*</span></label>
-                                    <input type="text" name="address" class="form-control" placeholder="Street Address"
-                                           value="{{ $resturant->address }}" required>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label>City <span class="required">*</span></label>
-                                    <input type="text" name="city" class="form-control" placeholder="City"
-                                           value="{{ $resturant->city }}" required>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group">
-                                    <label>Postal Code <span class="required">*</span></label>
-                                    <input type="text" name="postal_code" class="form-control" placeholder="Postal Code"
-                                           value="{{ $resturant->postal_code }}" required>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
+                        <div class="portlet-body form">
 
 
-                        <h3 class="form-section">Hours of Operation</h3>
-                        <?php
-                        $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                        foreach ($day_of_week as $key => $value) {
-                            $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
-                            $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
-                            $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
-                        ?>
-                        <div class="row">
-                            <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
-                                <div class="form-group">
-                                    <label class="control-label col-md-2"><?php echo $value; ?></label>
+                            <div class="form-body">
 
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input type="text" name="open[<?php echo $key; ?>]"
-                                               value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
-                                    </div>
-
-                                    <div class="col-md-1" style="vertical-align: bottom;text-align: center;font-size: 14px;">
-                                        to
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Restaurant Name <span
+                                                        class="required">*</span></label>
+                                            <input type="text" name="name" class="form-control"
+                                                   placeholder="Restaurant Name"
+                                                   value="{{ $resturant->name }}" required>
                                         </div>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input type="text" name="close[<?php echo $key; ?>]"
-                                               value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
-                                        <input type="hidden" name="day_of_week[<?php echo $key; ?>]"
-                                               value="<?php echo $value; ?>"/>
-                                        <input type="hidden" name="idd[<?php echo $key; ?>]"
-                                               value="<?php echo $ID[$key]; ?>"/>
                                     </div>
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Cusine Type</label>
+                                            <select name="genre" id="genre" class="form-control">
+                                                <option value="">-Select One-</option>
+                                                @foreach($genre_list as $value)
+                                                    <option value="{{ $value->id }}"
+                                                            @if($resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Phone Number</label>
+                                            <input type="text" name="phone" class="form-control"
+                                                   placeholder="Phone Number"
+                                                   value="{{ $resturant->phone }}">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Restaurant Email <span
+                                                        class="required">*</span></label>
+                                            <input type="email" name="email" class="form-control"
+                                                   placeholder="Restaurant Email"
+                                                   value="{{ $resturant->email }}" required>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Description</label>
+                                            <textarea type="text" name="description" class="form-control"
+                                                   placeholder="Description"
+                                                   value="{{ $resturant->description }}"></textarea>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-12">
+                                        <h3 class="form-section">Delivery</h3>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Delivery Fee <span
+                                                        class="required">*</span></label>
+                                            <input type="text" name="delivery_fee" class="form-control"
+                                                   placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}"
+                                                   required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Min. Subtotal before Delivery <span
+                                                        class="required">*</span></label>
+                                            <input type="text" name="minimum" class="form-control"
+                                                   placeholder="Minimum Subtotal For Delivery"
+                                                   value="{{ $resturant->minimum }}" required>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+
+                                        @if($resturant->logo)
+                                            <img id="picture"
+                                                 src="{{ asset('assets/images/restaurants/'.$resturant->logo) }}"
+                                                 title=""
+                                                 style="width: 100%;">
+                                        @else
+                                            <img id="picture" src="{{ asset('assets/images/default.png') }}" title=""
+                                                 style="width: 100%;">
+                                        @endif
+
+
+                                        <br>
+                                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success blue"
+                                           onclick="document.getElementById('hiddenLogo').click(); return false">Change
+                                            Image</a>
+                                        <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>
+
+
+                                    </div>
+
+
+
+
+
+
                                 </div>
+
+
                             </div>
+
+
+                            <div class="form-actions">
+                                <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                            </div>
+
+
                         </div>
-
-                        <?php } ?>
-
-                        <h3 class="form-section">Delivery</h3>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <div class="form-group">
-                                    <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                    <input type="text" name="delivery_fee" class="form-control"
-                                           placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                <div class="form-group">
-                                    <label class="control-label">Min. Subtotal before Delivery <span
-                                                class="required">*</span></label>
-                                    <input type="text" name="minimum" class="form-control"
-                                           placeholder="Minimum Subtotal For Delivery"
-                                           value="{{ $resturant->minimum }}" required>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--/row-->
-                        <h3 class="form-section">RESTAURANT LOGO</h3>
-
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 col-xs-12 col-sm-4 profilepic ">
-
-
-                                @if($resturant->logo)
-                                    <img id="picture"
-                                         src="{{ asset('assets/images/restaurants/'.$resturant->logo) }}" title=""
-                                         style="width: 100%;">
-                                @else
-                                    <img id="picture" src="{{ asset('assets/images/default.png') }}" title=""
-                                         style="width: 100%;">
-                                @endif
-
-
-                                <br>
-                                <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success blue"
-                                   onclick="document.getElementById('hiddenLogo').click(); return false">Change
-                                    Image</a>
-                                <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>
-                            </div>
-                        </div>
-
-
                     </div>
-                    <div class="form-actions">
-                        <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                        <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
-                    </div>
-                    {!! Form::close() !!}
-                    <!-- END FORM-->
                 </div>
-            </div>
-        </div>
 
+
+                <div class="col-md-4 ">
+
+
+                    <div class="portlet box red">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> ADDRESS
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+
+
+                            <div class="form-body">
+
+                                <div class="row">
+
+
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <input type="text" name="address" class="form-control"
+                                                   placeholder="Street Address"
+                                                   value="{{ $resturant->address }}" required>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>City</label>
+                                            <input type="text" name="city" class="form-control" placeholder="City"
+                                                   value="{{ $resturant->city }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Province <span
+                                                        class="required">*</span></label>
+                                            <input type="text" class="form-control" name="province"
+                                                   placeholder="Province Name"
+                                                   value="{{ $resturant->province }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Postal Code</label>
+                                            <input type="text" name="postal_code" class="form-control"
+                                                   placeholder="Postal Code"
+                                                   value="{{ $resturant->postal_code }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <select name="country" id="country" class="form-control" required>
+                                                <option value="">-Select One-</option>
+                                                @foreach($countries_list as $value)
+                                                    <option value="{{ $value->id }}"
+                                                            @if($resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-actions">
+                                <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 ">
+
+                    <div class="portlet box red">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> HOURS OF OPERATION
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+
+
+                            <div class="form-body">
+
+                                <?php
+                                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                                foreach ($day_of_week as $key => $value) {
+                                $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
+                                $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
+                                $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
+                                ?>
+                                <div class="row">
+                                    <div class="form-group">
+
+
+                                        <label class="control-label col-md-3"><?php echo $value; ?></label>
+
+
+                                        <div class=" col-md-3">
+                                            <input type="text" name="open[<?php echo $key; ?>]"
+                                                   value="<?php echo getTime($open[$key]); ?>"
+                                                   class="form-control time"/>
+                                        </div>
+
+
+                                        <div class=" col-md-3"
+                                             style="vertical-align: bottom;text-align: center;font-size: 14px;">
+                                            to
+                                        </div>
+
+                                        <div class=" col-md-3">
+                                            <input type="text" name="close[<?php echo $key; ?>]"
+                                                   value="<?php echo getTime($close[$key]); ?>"
+                                                   class="form-control time"/>
+                                            <input type="hidden" name="day_of_week[<?php echo $key; ?>]"
+                                                   value="<?php echo $value; ?>"/>
+                                            <input type="hidden" name="idd[<?php echo $key; ?>]"
+                                                   value="<?php echo $ID[$key]; ?>"/>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
+                                <?php } ?>
+                            </div>
+
+
+                            <div class="form-actions">
+                                <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {!! Form::close() !!}
+            </div>
+
+        </div>
     </div>
+</div>
 </div>
 
 
@@ -240,18 +352,7 @@
         src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript"
         src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
-
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<!--
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/clockface/js/clockface.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>-->
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 <!--<script src="{{ asset('assets/admin/pages/scripts/components-pickers.js') }}"></script>-->
@@ -259,6 +360,8 @@
 <script src="{{ asset('assets/admin/pages/scripts/form-samples.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+
+
 <script>
     jQuery(document).ready(function () {
         Metronic.init();
@@ -266,7 +369,7 @@
         //ComponentsPickers.init();
         $("#resturantForm").validate();
         FormSamples.init();
-        
+
         $('.time').timepicker();
         $('.time').click(function () {
             $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
@@ -294,9 +397,7 @@
                         var ho = 12;
                 }
                 else {
-
                     var ho = t - 12;
-
                 }
             }
             else {
@@ -311,7 +412,10 @@
     });
 </script>
 
+
 @stop
+
+
 <?php
 function getTime($time)
 {
@@ -331,7 +435,5 @@ function getTime($time)
     if (strlen($hour) == 1)
         $hour = '0' . $hour;
     return $hour . ':' . $min . ' ' . $suffix;
-
 }
-
 ?>

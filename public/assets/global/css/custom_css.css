@@ -48,7 +48,7 @@ a.btn{color:#FFF;}
 }
 
 .heading {
-    background: #ce0b10;
+    background: #cf0a1c;
     height: 100px;
     width: 100%;
     text-align: center;
@@ -74,7 +74,7 @@ a.btn{color:#FFF;}
     text-align: center;
     padding: 0px 10px;
     background: #fff;
-    color: #ce0b10;
+    color: #cf0a1c;
     font-weight: 400;
     font-size: 37px;
 
@@ -90,21 +90,21 @@ a.btn{color:#FFF;}
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-size: 35px;
-    border-top: 3px solid #ce0b10;
-    border-bottom: 3px solid #ce0b10;
+    border-top: 3px solid #cf0a1c;
+    border-bottom: 3px solid #cf0a1c;
     padding-top: 3px;
     width: 100%;
     display: inline;
-    border-right: 3px solid #ce0b10;
+    border-right: 3px solid #cf0a1c;
     padding-right: 6px;
-    color: #ce0b10;
+    color: #cf0a1c;
     text-align: center;
 }
 
 .eyes b {
     text-align: center;
     padding: 0px 10px;
-    background: #ce0b10;
+    background: #cf0a1c;
     color: #fff;
     font-weight: 400;
     font-size: 37px;
@@ -141,7 +141,7 @@ a.btn{color:#FFF;}
 .simple b {
     text-align: center;
     padding: 0px 10px;
-    background: #ce0b10;
+    background: #cf0a1c;
     color: #fff;
     font-weight: 400;
     font-size: 31px;
@@ -161,8 +161,8 @@ button::after {
 }
 
 button {
-    background: #ce0b10;
-    border: 3px solid #ce0b10;
+    background: #cf0a1c;
+    border: 3px solid #cf0a1c;
     border-radius: 5px;
     color: #fff;
     display: block;
@@ -176,7 +176,7 @@ button {
 
 button::before,
 button::after {
-    background: #ce0b10;
+    background: #cf0a1c;
     content: '';
     position: absolute;
     z-index: -1;
@@ -230,7 +230,7 @@ button:hover {
 
 
 .grid h3 {
-    color: #ce0b10;
+    color: #cf0a1c;
     font-family: Lato;
     font-weight: 700;
     font-size: 16px;
@@ -286,7 +286,7 @@ button:hover {
 
 .module img {
     margin-bottom: 30px;
-    border: 1px solid #ce0b10;
+    border: 1px solid #cf0a1c;
     padding: 8px;
 }
 
@@ -364,7 +364,7 @@ button:hover {
 
 .nine img {
     border-radius: 50% !important;
-    border: 2px dashed #ce0b10;
+    border: 2px dashed #cf0a1c;
 }
 
 .nine {
@@ -378,7 +378,7 @@ button:hover {
 }
 
 .nine b {
-    color: #ce0b10;
+    color: #cf0a1c;
     text-transform: uppercase;
     padding: 0px 3px;
     letter-spacing: 1px;
@@ -424,7 +424,7 @@ button:hover {
 }
 
 .pricing-content blockquote {
-    border-left: 5px solid #ce0b10;
+    border-left: 5px solid #cf0a1c;
     background: #eee none repeat scroll 0 0;
     color: #000;
     margin-top: 8px;
@@ -566,7 +566,7 @@ button:hover {
 }
 
 .thankyou {
-    color: #ce0b10;
+    color: #cf0a1c;
     font-size: 24px;
     font-style: italic;
     font-weight: 500;
@@ -636,7 +636,7 @@ button:hover {
 }
 
 .rating-details .btn.btn-success:hover {
-    background: #ce0b10 !important;
+    background: #cf0a1c !important;
     color: #fff !important;
 }
 
@@ -722,7 +722,7 @@ body.ecommerce {
 }
 
 .receipt_main .text-right > input:hover {
-    background: #ce0b10;
+    background: #cf0a1c;
 }
 .new_headernav{
     background: #fff url("../../images/icons/toggler.png") no-repeat scroll 6px 8px;
@@ -819,7 +819,7 @@ body.ecommerce {
 }
 
 #signupForm input:focus, #signupForm textarea:focus, #signupForm select:focus, #profileForm input:focus, #profileForm textarea:focus, #profileForm select:focus {
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -837,7 +837,7 @@ body.ecommerce {
 }
 
 #newsletter-form input:focus, #newsletter-form textarea:focus, #newsletter-form select:focus, #addressesForm input:focus, #addressesForm textarea:focus, #addressesForm select:focus {
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -855,7 +855,7 @@ body.ecommerce {
 }
 
 #imageForm input:focus, #imageForm textarea:focus, #imageForm select:focus, #profiles input:focus, #profiles textarea:focus, #profiles select:focus, #login-form input:focus, #login-form textarea:focus, #login-form select:focus {
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -873,7 +873,7 @@ body.ecommerce {
 }
 
 #login-ajax-form input:focus, #login-ajax-form textarea:focus, #login-ajax-form select:focus{
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -891,7 +891,7 @@ body.ecommerce {
 }
 
 #registration-form input:focus, #registration-form textarea:focus, #registration-form select:focus{
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -909,7 +909,7 @@ body.ecommerce {
 }
 
 #resturantForm input:focus, #resturantForm textarea:focus, #resturantForm select:focus{
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -927,7 +927,7 @@ body.ecommerce {
 }
 
 .menuwrapper input:focus, .menuwrapper textarea:focus, .menuwrapper select:focus{
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -945,7 +945,7 @@ body.ecommerce {
 }
 
 .newmenus input:focus, .newmenus textarea:focus, .newmenus select:focus{
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -963,7 +963,7 @@ body.ecommerce {
 }
 
 #addNewForm input:focus, #addNewForm textarea:focus, #addNewForm select:focus, .addnew input:focus, .addnew textarea:focus, .addnew select:focus,.deleteme .datepicker:focus {
-  border-bottom: 2px solid #ce0b10 !important;
+  border-bottom: 2px solid #cf0a1c !important;
     -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -975,7 +975,7 @@ body.ecommerce {
 }
 
 #signupForm .red, #login-ajax-form .btn  {
-    background: #ce0b10 !important;
+    background: #cf0a1c !important;
 }
 
 #signupForm .red:hover, #login-ajax-form .btn:hover {
@@ -1039,7 +1039,7 @@ body.ecommerce {
 }
 
 .reservation_signin > div span {
-  color: #ce0b10;
+  color: #cf0a1c;
   font-size: 14px;
   font-style: italic;
   font-weight: 600;

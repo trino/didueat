@@ -1,5 +1,5 @@
 .product-pop-up .title {
-background: #ce0b10 none repeat scroll 0 0;
+background: #cf0a1c none repeat scroll 0 0;
 }
 
 .product-pop-up .title h2 {
@@ -49,7 +49,7 @@ background-color: #f9f9f9 !important;
 }
 
 .infolist .limit-options {
-background: #ce0b10 none repeat scroll 0 0;
+background: #cf0a1c none repeat scroll 0 0;
 border-right: 3px none;
 color: #ffffff;
 display: inline-block;
@@ -73,7 +73,7 @@ background-color: #f9f9f9 !important;
 }
 
 .add_menu_profile.add_end {
-background: #ce0b10 none repeat scroll 0 0 !important;
+background: #cf0a1c none repeat scroll 0 0 !important;
 border: medium none !important;
 -webkit-transition: all 0.7s ease-in-out;
 -moz-transition: all 0.7s ease-in-out;
@@ -90,7 +90,7 @@ line-height: 20px;
 
 .add_menu_profile.add_end:hover {
 background: #fff !important;
-color: #ce0b10 !important;
+color: #cf0a1c !important;
 -webkit-transition: all 0.7s ease-in-out;
 -moz-transition: all 0.7s ease-in-out;
 -o-transition: all 0.7s ease-in-out;

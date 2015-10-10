@@ -25,7 +25,7 @@
 
 
 
-                        <div class="row margin-bottom-20">
+                        <!--div class="row margin-bottom-20">
                             <div class="col-md-5 col-sm-5 col-xs-12">
                                 <img class="img-responsive" alt="" src="{{ asset('assets/images/works/img4.jpg') }}">
                             </div>
@@ -34,13 +34,14 @@
                                 <p>
                                     Receive a $5 credit just for uploading a photo of your meal to our site! Remember, the meal has to be from one of our prestigious restaurants listed
                                 </p>
-                                <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
                             </div>
-                        </div>
+                        </div-->
 
 
 
-
+                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+                        <div class="clearfix"></div>
+                        <hr class="shop__divider">
 
                         @if(\Session::has('message'))
                             <div class="alert {!! Session::get('message-type') !!}">
