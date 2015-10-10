@@ -247,7 +247,12 @@ class HomeController extends Controller {
             return view('restaurants-menus', $data);
         }
     }
-    
+    function contactus() {
+        $data['title'] = 'Contact';
+     //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
+        return view('contactus', $data);
+
+    }
     function test() {
         if(isset($_POST)) {
             var_dump($_POST);

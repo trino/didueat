@@ -1,3 +1,5 @@
+<style></style>
+
 @extends('layouts.default')
 @section('content')
 
