@@ -71,7 +71,7 @@ class HomeController extends Controller {
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            $is_email = \App\Http\Models\Restaurants::where('email', '=', $post['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
                 \Session::flash('message', trans('messages.user_email_already_exist.message')); 
                 \Session::flash('message-type', 'alert-danger');
