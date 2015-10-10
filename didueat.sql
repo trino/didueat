@@ -33,7 +33,7 @@ insert  into `countries`(`id`,`name`,`alpha_2`,`alpha_3`) values (1,'Afghanistan
 DROP TABLE IF EXISTS `daysoff`;
 
 CREATE TABLE `daysoff` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(11) NOT NULL,
   `day` int(11) NOT NULL,
   `month` int(11) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE `eventlog` (
   `restaurant_id` int(11) NOT NULL,
   `text` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `eventlog` */
 
@@ -68,7 +68,7 @@ CREATE TABLE `genres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `genres` */
 
@@ -85,11 +85,11 @@ CREATE TABLE `hours` (
   `open` time DEFAULT NULL,
   `close` time DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `hours` */
 
-insert  into `hours`(`id`,`restaurant_id`,`day_of_week`,`open`,`close`) values (1,1,'Monday','02:30:00','03:30:00');
+insert  into `hours`(`id`,`restaurant_id`,`day_of_week`,`open`,`close`) values (1,1,'Monday','02:30:00','03:30:00'),(2,1,'Saturday','12:10:00','01:10:00');
 
 /*Table structure for table `menus` */
 
@@ -112,11 +112,11 @@ CREATE TABLE `menus` (
   `exact_upto_qty` varchar(255) DEFAULT NULL,
   `display_order` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1;
 
 /*Data for the table `menus` */
 
-insert  into `menus`(`id`,`restaurant_id`,`menu_item`,`description`,`price`,`additional`,`has_addon`,`image`,`type`,`parent`,`req_opt`,`sing_mul`,`exact_upto`,`exact_upto_qty`,`display_order`) values (1,1,'Menu 1','Menu 1 Description Here...',50,NULL,1,'20151007135957.jpg',NULL,0,NULL,NULL,NULL,NULL,1),(32,2,'Menu 2','Menu 2 Description Here...',60,NULL,1,'80cf1bb1.jpg',NULL,0,NULL,NULL,NULL,NULL,5),(33,2,'Addon Menu 2 Title 1','Addon Menu 2 Description 1',0,NULL,0,NULL,NULL,32,1,0,1,'6',6),(34,2,'sub item 1',NULL,5,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(35,2,'sub item 2',NULL,10,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(36,2,'sub item 3',NULL,15,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(37,2,'Addon Menu 2 Title 2','Addon Menu 2 Description 2',0,NULL,0,NULL,NULL,32,1,0,0,'7',6),(38,2,'sub item 4',NULL,20,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(39,2,'sub item 5',NULL,25,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(40,2,'sub item 3',NULL,30,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(46,7,'test','sdf',234,NULL,1,'20151001160959.png',NULL,0,NULL,NULL,NULL,NULL,1),(51,7,'test','test',0,NULL,0,NULL,NULL,46,0,1,0,'',1),(52,7,'tets','345',0,NULL,0,NULL,NULL,46,1,0,0,'',1),(53,7,'test',NULL,345,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(54,7,'yrdfgfdg',NULL,0,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(55,7,'dfgdfg',NULL,456,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(56,7,'345',NULL,345,NULL,0,NULL,NULL,52,NULL,NULL,NULL,NULL,1),(57,7,'345',NULL,435,NULL,0,NULL,NULL,52,NULL,NULL,NULL,NULL,1),(58,7,'pop','',1,NULL,1,'20151002004724.jpeg',NULL,0,NULL,NULL,NULL,NULL,1),(63,7,'type','',0,NULL,0,NULL,NULL,58,0,1,0,'',1),(64,7,'sprite',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(65,7,'pepsi',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(66,7,'coke',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(67,7,'big mac comb','',8.99,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(68,7,'big mac comb','',8.99,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(69,7,'','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(70,7,'side','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(71,7,'side','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(72,7,'drink','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(73,7,'','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(74,7,'drink','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(75,7,'','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(76,7,'','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(77,7,'salad',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(78,7,'fries',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(79,7,'rice',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(80,7,'',NULL,0,NULL,0,NULL,NULL,69,NULL,NULL,NULL,NULL,1),(81,7,'salad',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(82,7,'fries',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(83,7,'rice',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(84,7,'pepsi',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(85,7,'coke',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(86,7,'sprite',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(87,7,'sprite',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(88,7,'coke',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(89,7,'',NULL,0,NULL,0,NULL,NULL,75,NULL,NULL,NULL,NULL,1),(90,7,'',NULL,0,NULL,0,NULL,NULL,73,NULL,NULL,NULL,NULL,1),(91,7,'pepsi',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(92,7,'',NULL,0,NULL,0,NULL,NULL,76,NULL,NULL,NULL,NULL,1),(93,NULL,'','',0,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(94,NULL,'','',0,NULL,0,NULL,NULL,93,0,1,0,'',1),(95,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(96,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(97,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(98,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(99,NULL,'345','345',345,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,2),(100,NULL,'','',0,NULL,0,NULL,NULL,99,0,1,0,'',1),(101,NULL,'hjk',NULL,567,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(102,NULL,'',NULL,567,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(103,NULL,'',NULL,345,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(111,1,'Addon Title','Addon Description',0,NULL,0,NULL,NULL,1,0,0,1,'5',1),(112,1,'34','5435',0,NULL,0,NULL,NULL,1,0,1,0,'',2),(113,1,'345345',NULL,345,NULL,0,NULL,NULL,112,NULL,NULL,NULL,NULL,4),(114,1,'Sub Item 2',NULL,20,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,3),(115,1,'Sub Item 3',NULL,30,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,1),(116,1,'Sub Item 1',NULL,10,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,2),(117,1,'345',NULL,345,NULL,0,NULL,NULL,112,NULL,NULL,NULL,NULL,5);
+insert  into `menus`(`id`,`restaurant_id`,`menu_item`,`description`,`price`,`additional`,`has_addon`,`image`,`type`,`parent`,`req_opt`,`sing_mul`,`exact_upto`,`exact_upto_qty`,`display_order`) values (1,1,'Menu 1','Menu 1 Description Here...',50,NULL,1,'20151007135957.jpg',NULL,0,NULL,NULL,NULL,NULL,1),(32,2,'Menu 2','Menu 2 Description Here...',60,NULL,1,'80cf1bb1.jpg',NULL,0,NULL,NULL,NULL,NULL,5),(33,2,'Addon Menu 2 Title 1','Addon Menu 2 Description 1',0,NULL,0,NULL,NULL,32,1,0,1,'6',6),(34,2,'sub item 1',NULL,5,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(35,2,'sub item 2',NULL,10,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(36,2,'sub item 3',NULL,15,NULL,0,NULL,NULL,33,NULL,NULL,NULL,NULL,7),(37,2,'Addon Menu 2 Title 2','Addon Menu 2 Description 2',0,NULL,0,NULL,NULL,32,1,0,0,'7',6),(38,2,'sub item 4',NULL,20,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(39,2,'sub item 5',NULL,25,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(40,2,'sub item 3',NULL,30,NULL,0,NULL,NULL,37,NULL,NULL,NULL,NULL,7),(46,7,'test','sdf',234,NULL,1,'20151001160959.png',NULL,0,NULL,NULL,NULL,NULL,1),(51,7,'test','test',0,NULL,0,NULL,NULL,46,0,1,0,'',1),(52,7,'tets','345',0,NULL,0,NULL,NULL,46,1,0,0,'',1),(53,7,'test',NULL,345,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(54,7,'yrdfgfdg',NULL,0,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(55,7,'dfgdfg',NULL,456,NULL,0,NULL,NULL,51,NULL,NULL,NULL,NULL,1),(56,7,'345',NULL,345,NULL,0,NULL,NULL,52,NULL,NULL,NULL,NULL,1),(57,7,'345',NULL,435,NULL,0,NULL,NULL,52,NULL,NULL,NULL,NULL,1),(58,7,'pop','',1,NULL,1,'20151002004724.jpeg',NULL,0,NULL,NULL,NULL,NULL,1),(63,7,'type','',0,NULL,0,NULL,NULL,58,0,1,0,'',1),(64,7,'sprite',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(65,7,'pepsi',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(66,7,'coke',NULL,0,NULL,0,NULL,NULL,63,NULL,NULL,NULL,NULL,1),(67,7,'big mac comb','',8.99,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(68,7,'big mac comb','',8.99,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(69,7,'','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(70,7,'side','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(71,7,'side','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(72,7,'drink','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(73,7,'','',0,NULL,0,NULL,NULL,67,0,1,0,'',1),(74,7,'drink','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(75,7,'','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(76,7,'','',0,NULL,0,NULL,NULL,68,0,1,0,'',1),(77,7,'salad',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(78,7,'fries',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(79,7,'rice',NULL,0,NULL,0,NULL,NULL,70,NULL,NULL,NULL,NULL,1),(80,7,'',NULL,0,NULL,0,NULL,NULL,69,NULL,NULL,NULL,NULL,1),(81,7,'salad',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(82,7,'fries',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(83,7,'rice',NULL,0,NULL,0,NULL,NULL,71,NULL,NULL,NULL,NULL,1),(84,7,'pepsi',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(85,7,'coke',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(86,7,'sprite',NULL,0,NULL,0,NULL,NULL,72,NULL,NULL,NULL,NULL,1),(87,7,'sprite',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(88,7,'coke',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(89,7,'',NULL,0,NULL,0,NULL,NULL,75,NULL,NULL,NULL,NULL,1),(90,7,'',NULL,0,NULL,0,NULL,NULL,73,NULL,NULL,NULL,NULL,1),(91,7,'pepsi',NULL,0,NULL,0,NULL,NULL,74,NULL,NULL,NULL,NULL,1),(92,7,'',NULL,0,NULL,0,NULL,NULL,76,NULL,NULL,NULL,NULL,1),(93,NULL,'','',0,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,1),(94,NULL,'','',0,NULL,0,NULL,NULL,93,0,1,0,'',1),(95,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(96,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(97,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(98,NULL,'',NULL,0,NULL,0,NULL,NULL,94,NULL,NULL,NULL,NULL,1),(99,NULL,'345','345',345,NULL,1,'undefined',NULL,0,NULL,NULL,NULL,NULL,2),(100,NULL,'','',0,NULL,0,NULL,NULL,99,0,1,0,'',1),(101,NULL,'hjk',NULL,567,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(102,NULL,'',NULL,567,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(103,NULL,'',NULL,345,NULL,0,NULL,NULL,100,NULL,NULL,NULL,NULL,1),(111,1,'Addon Title','Addon Description',0,NULL,0,NULL,NULL,1,0,0,1,'5',1),(112,1,'34','5435',0,NULL,0,NULL,NULL,1,0,1,0,'',2),(113,1,'345345',NULL,345,NULL,0,NULL,NULL,112,NULL,NULL,NULL,NULL,4),(114,1,'Sub Item 2',NULL,20,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,3),(115,1,'Sub Item 3',NULL,30,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,1),(116,1,'Sub Item 1',NULL,10,NULL,0,NULL,NULL,111,NULL,NULL,NULL,NULL,2),(117,1,'345',NULL,345,NULL,0,NULL,NULL,112,NULL,NULL,NULL,NULL,5),(118,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(119,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(120,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(121,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(122,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(123,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(124,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0),(125,1,'Test2','testafnajdfan',10,NULL,0,'20151010114624.jpg',NULL,0,NULL,NULL,NULL,NULL,0);
 
 /*Table structure for table `newsletter` */
 
@@ -124,10 +124,10 @@ DROP TABLE IF EXISTS `newsletter`;
 
 CREATE TABLE `newsletter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `guid` varchar(64) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `guid` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `newsletter` */
 
@@ -143,11 +143,11 @@ CREATE TABLE `notification_addresses` (
   `address` varchar(255) DEFAULT NULL,
   `type` enum('Email','Phone') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Data for the table `notification_addresses` */
 
-insert  into `notification_addresses`(`id`,`restaurant_id`,`address`,`type`) values (1,1,'32424234234','Phone'),(2,1,'skpsoftech@gmail.com','Email'),(3,1,'1234','Phone');
+insert  into `notification_addresses`(`id`,`restaurant_id`,`address`,`type`) values (1,1,'32424234234','Phone'),(2,1,'skpsoftech@gmail.com','Email'),(5,1,'12346546579','Phone');
 
 /*Table structure for table `postalcodes` */
 
@@ -155,15 +155,15 @@ DROP TABLE IF EXISTS `postalcodes`;
 
 CREATE TABLE `postalcodes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `postal_code` varchar(8) NOT NULL,
-  `number` int(11) NOT NULL,
-  `street` varchar(1024) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `province` varchar(4) NOT NULL,
-  `lattitude` double NOT NULL,
-  `longitude` double NOT NULL,
-  `short_street` varchar(1024) NOT NULL,
-  `short_street_type` varchar(255) NOT NULL,
+  `postal_code` varchar(8) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `street` varchar(1024) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `province` varchar(4) DEFAULT NULL,
+  `lattitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `short_street` varchar(1024) DEFAULT NULL,
+  `short_street_type` varchar(255) DEFAULT NULL,
   `short_street_dir` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -190,11 +190,11 @@ CREATE TABLE `profiles` (
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles` */
 
-insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','$2y$10$c7RHum8L2bsSleb2UTv6sejCRdYenCoz/AN7tMH5p4j1hgiIDhQxK','12345678',0,1,0,1,'2015-10-08 22:31:39','2015-10-09 12:20:52',NULL),(3,2,'Testing Name','testing@gmail.com','$2y$10$SrIKzcEgiqv2XntSwpdt0eRcUm2xoIwy5zGDwZsDxE6Of0LVamfKq','123456',0,1,1,0,'2015-10-09 12:29:01','2015-10-09 12:29:01',NULL);
+insert  into `profiles`(`id`,`profile_type`,`name`,`email`,`password`,`phone`,`subscribed`,`restaurant_id`,`created_by`,`status`,`created_at`,`updated_at`,`deleted_at`) values (1,1,'Waqar Javed','skpsoftech@gmail.com','$2y$10$c7RHum8L2bsSleb2UTv6sejCRdYenCoz/AN7tMH5p4j1hgiIDhQxK','12345678',0,1,0,1,'2015-10-08 22:31:39','2015-10-10 11:22:32',NULL),(3,2,'Testing Name','testing@gmail.com','$2y$10$SrIKzcEgiqv2XntSwpdt0eRcUm2xoIwy5zGDwZsDxE6Of0LVamfKq','123456',0,1,1,0,'2015-10-09 12:29:01','2015-10-09 12:29:01',NULL),(4,2,'Testing Name2','test@example.com','$2y$10$crclmMUv37jYXXtQ00wnNuzfGu.SpYFE6mavC0qq/FMBQeQeG55Me','123456',0,1,1,0,'2015-10-10 11:23:31','2015-10-10 11:23:31',NULL);
 
 /*Table structure for table `profiles_addresses` */
 
@@ -218,7 +218,7 @@ CREATE TABLE `profiles_addresses` (
 
 /*Data for the table `profiles_addresses` */
 
-insert  into `profiles_addresses`(`id`,`user_id`,`number`,`street`,`apt`,`buzz`,`post_code`,`phone_no`,`city`,`province`,`country`,`notes`) values (1,1,'123456','Street Address1','Street Address1','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(2,1,'1234567','Street Address2','Street Address2','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(3,1,'123456','Street Address3','Street Address3','123456','123456','123654','Hamilton','Province',168,'Notes here...');
+insert  into `profiles_addresses`(`id`,`user_id`,`number`,`street`,`apt`,`buzz`,`post_code`,`phone_no`,`city`,`province`,`country`,`notes`) values (1,1,'1234566','Street Address1','Street Address1','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(2,1,'1234567','Street Address2','Street Address2','123456','123456','123654','Hamilton','Province',40,'Notes here...'),(3,1,'1234568','Street Address3','Street Address3','123456','123456','123654','Hamilton','Province',168,'Notes here...');
 
 /*Table structure for table `profiles_images` */
 
@@ -232,11 +232,11 @@ CREATE TABLE `profiles_images` (
   `title` varchar(255) DEFAULT NULL,
   `order_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiles_images` */
 
-insert  into `profiles_images`(`id`,`user_id`,`restaurant_id`,`filename`,`title`,`order_id`) values (1,1,1,'69318f40.jpg','Testing image 1',NULL),(2,1,2,'20680777.jpg','Testing image 2',NULL),(3,1,3,'484ed3b2.jpg','Testing image 3',NULL),(4,1,4,'ad6994b7.jpg','Testing image 4',NULL),(5,1,5,'4763f359.jpg','Testing image 5',NULL),(6,1,6,'fbae66f2.jpg','Testing image 6',NULL),(7,11,2,'957ecfd5.png','567',NULL),(8,10,6,'ff49444a.png','34253543543',NULL),(9,1,1,'3f23a153.jpg','Testing image 1',NULL),(10,1,2,'34a6a025.jpg','Testing image',NULL),(11,1,1,'09c74d90.jpg','tests3',NULL);
+insert  into `profiles_images`(`id`,`user_id`,`restaurant_id`,`filename`,`title`,`order_id`) values (1,1,1,'69318f40.jpg','Testing image 1',NULL),(2,1,2,'20680777.jpg','Testing image 2',NULL),(3,1,3,'484ed3b2.jpg','Testing image 3',NULL),(4,1,4,'ad6994b7.jpg','Testing image 4',NULL),(5,1,5,'4763f359.jpg','Testing image 5',NULL),(6,1,6,'fbae66f2.jpg','Testing image 6',NULL),(7,11,2,'957ecfd5.png','567',NULL),(8,10,6,'ff49444a.png','34253543543',NULL),(9,1,1,'3f23a153.jpg','Testing image 1',NULL),(10,1,2,'34a6a025.jpg','Testing image',NULL),(11,1,1,'09c74d90.jpg','tests3',NULL),(12,1,1,'d34d9670.png','tests213',NULL);
 
 /*Table structure for table `profiletypes` */
 
@@ -244,14 +244,14 @@ DROP TABLE IF EXISTS `profiletypes`;
 
 CREATE TABLE `profiletypes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
-  `hierarchy` int(11) NOT NULL,
-  `can_create_profiles` tinyint(4) NOT NULL,
-  `can_edit_global_settings` tinyint(4) NOT NULL,
-  `can_hire_or_fire` tinyint(4) NOT NULL,
-  `can_possess` tinyint(4) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `hierarchy` int(11) DEFAULT NULL,
+  `can_create_profiles` tinyint(4) DEFAULT NULL,
+  `can_edit_global_settings` tinyint(4) DEFAULT NULL,
+  `can_hire_or_fire` tinyint(4) DEFAULT NULL,
+  `can_possess` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Data for the table `profiletypes` */
 
@@ -294,7 +294,7 @@ CREATE TABLE `reservations` (
 
 /*Data for the table `reservations` */
 
-insert  into `reservations`(`id`,`restaurant_id`,`menu_ids`,`prs`,`qtys`,`extras`,`listid`,`subtotal`,`g_total`,`cash_type`,`ordered_by`,`email`,`contact`,`payment_mode`,`address1`,`address2`,`city`,`province`,`postal_code`,`remarks`,`order_time`,`order_till`,`order_now`,`delivery_fee`,`tax`,`order_type`,`status`) values (3,19,'72,123','12210.00,16.00','111,1',' ccc: bb:bbb-% ccc: bb:bbb-% ccc:<br/> c%<br/> d% bb:<br/> b, Type:<br/> Milk% Flavors:<br/> Strawberry%<br/> Vanilla% Toppings:<br/> Honey','_72_72_72_117_119_120,_123_137_139_141_142',12226,13818.88,1,'aaa','aaa@aaa.com','33333','','','','','Ontario','','aaa','2015-08-08 00:00:00','2015-08-08 00:00:00',0,3.5,1589.38,'0.00','pending'),(4,19,'146','0.00','9','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'0.00','pending'),(5,1,'146','0.00','9','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(6,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(7,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(8,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(9,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(10,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(11,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(12,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(13,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(14,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(15,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(16,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(17,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(18,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(19,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(20,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(21,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(22,1,'148','4.00','1','','_148',4,8.02,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'0.00','pending'),(23,1,'148','4.00','1','','_148',4,8.02,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'1','pending'),(24,1,'148','4.00','1','','_148',4,4.52,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'0.00','pending'),(26,1,'72','37.00','1',' ccc:<br/> a% bb:<br/> c','_72_118_121',37,41.81,1,'','','','','','','','','','','2015-08-26 09:30:16',NULL,0,1,4.81,'0.00','pending'),(27,1,'72','37.00','1',' ccc:<br/> a% bb:<br/> c','_72_118_121',37,42.81,1,'Waqar','','','','','','','','','','2015-08-26 09:40:48',NULL,0,1,4.81,'1','approved'),(28,1,'122,72','12.00,78.00','3,2',', ccc:<br/> c%<br/> d','_122,_72_117_119',90,102.7,1,'Annonimus','','','','','','','','','','2015-08-26 14:21:41',NULL,0,1,11.7,'1','cancelled'),(29,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(30,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(31,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(32,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(33,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(34,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(35,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(36,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(37,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(38,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(39,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(40,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(41,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(42,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(43,7,'46','2106.00','9','','_46',2106,2380.78,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,273.78,'1','pending'),(45,7,'46','2772.00','3',' test:<br/> test% tets:<br/> 345','_46_53_56',2772,3132.36,1,'90210','bhills_7903@mailinator.com','Iegqn',NULL,NULL,'7903 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Twuszt lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,360.36,'0','pending'),(46,7,'46','669.00','1','% tets:<br/> 345','_46_57',669,755.97,1,'90210','bhills_8662@mailinator.com','Naiee',NULL,NULL,'8662 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Wxlcnm lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,86.97,'0','pending'),(47,7,'58','1.00','1','','_58',1,1.13,1,'','8@234.com','8',NULL,NULL,'','','Ontario',NULL,'8',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(48,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,1.13,1,'90210','bhills_5985@mailinator.com','Tgvbw',NULL,NULL,'5985 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Mfdhrj lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(49,7,'58','4.00','4',' type:<br/> sprite','_58_64',4,4.52,1,'90210','bhills_9863@mailinator.com','Lfqwt',NULL,NULL,'9863 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Gbyome lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.52,'0','pending'),(50,7,'58','1.00','1',' type:<br/> sprite','_58_64',1,1.13,1,'90210','bhills_1349@mailinator.com','Qappk',NULL,NULL,'1349 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Dpfpni lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(51,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,2.13,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0.13,'1','pending'),(52,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,2.13,1,'1','info+1234@trinoweb.com','1',NULL,NULL,'1','1','Ontario',NULL,'1',NULL,'0000-00-00 00:00:00',0,1,0.13,'1','pending'),(53,7,'58,58','1.00,1.00','1,1',', type:<br/> pepsi','_58,_58_65',2,2.26,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0.26,'0','pending'),(54,7,'58,58','1.00,1.00','1,1',', type:<br/> pepsi','_58,_58_65',2,2.26,1,'','info@trinoweb.com','3',NULL,NULL,'','','Ontario',NULL,'3',NULL,'0000-00-00 00:00:00',0,1,0.26,'0','pending');
+insert  into `reservations`(`id`,`restaurant_id`,`menu_ids`,`prs`,`qtys`,`extras`,`listid`,`subtotal`,`g_total`,`cash_type`,`ordered_by`,`email`,`contact`,`payment_mode`,`address1`,`address2`,`city`,`province`,`postal_code`,`remarks`,`order_time`,`order_till`,`order_now`,`delivery_fee`,`tax`,`order_type`,`status`) values (3,19,'72,123','12210.00,16.00','111,1',' ccc: bb:bbb-% ccc: bb:bbb-% ccc:<br/> c%<br/> d% bb:<br/> b, Type:<br/> Milk% Flavors:<br/> Strawberry%<br/> Vanilla% Toppings:<br/> Honey','_72_72_72_117_119_120,_123_137_139_141_142',12226,13818.88,1,'aaa','aaa@aaa.com','33333','','','','','Ontario','','aaa','2015-08-08 00:00:00','2015-08-08 00:00:00',0,3.5,1589.38,'0.00','pending'),(4,19,'146','0.00','9','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'0.00','pending'),(6,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(7,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(8,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(9,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(10,1,'146','0.00','8','','_146',0,3.5,1,'','','','','','','','','','',NULL,NULL,0,3.5,0,'1','pending'),(11,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(12,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(13,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(14,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(15,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(16,1,'148','20.00','5','','_148',20,26.1,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'1','pending'),(17,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(18,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(19,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(20,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(21,1,'148','20.00','5','','_148',20,22.6,1,'','','','','','','','','','',NULL,NULL,0,3.5,2.6,'0.00','pending'),(22,1,'148','4.00','1','','_148',4,8.02,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'0.00','pending'),(23,1,'148','4.00','1','','_148',4,8.02,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'1','pending'),(24,1,'148','4.00','1','','_148',4,4.52,1,'','','','','','','','','','',NULL,NULL,0,3.5,0.52,'0.00','pending'),(26,1,'72','37.00','1',' ccc:<br/> a% bb:<br/> c','_72_118_121',37,41.81,1,'','','','','','','','','','','2015-08-26 09:30:16',NULL,0,1,4.81,'0.00','pending'),(27,1,'72','37.00','1',' ccc:<br/> a% bb:<br/> c','_72_118_121',37,42.81,1,'Waqar','','','','','','','','','','2015-08-26 09:40:48',NULL,0,1,4.81,'1','approved'),(28,1,'122,72','12.00,78.00','3,2',', ccc:<br/> c%<br/> d','_122,_72_117_119',90,102.7,1,'Annonimus','','','','','','','','','','2015-08-26 14:21:41',NULL,0,1,11.7,'1','cancelled'),(29,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(30,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(31,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(32,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(33,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(34,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(35,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(36,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(37,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(38,1,'1','100.00','7','','_1',350,395.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,45.5,'0','pending'),(39,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(40,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(41,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(42,1,'1','50.00','1','','_1',50,56.5,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,6.5,'0','pending'),(43,7,'46','2106.00','9','','_46',2106,2380.78,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,273.78,'1','pending'),(45,7,'46','2772.00','3',' test:<br/> test% tets:<br/> 345','_46_53_56',2772,3132.36,1,'90210','bhills_7903@mailinator.com','Iegqn',NULL,NULL,'7903 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Twuszt lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,360.36,'0','pending'),(46,7,'46','669.00','1','% tets:<br/> 345','_46_57',669,755.97,1,'90210','bhills_8662@mailinator.com','Naiee',NULL,NULL,'8662 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Wxlcnm lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,86.97,'0','pending'),(47,7,'58','1.00','1','','_58',1,1.13,1,'','8@234.com','8',NULL,NULL,'','','Ontario',NULL,'8',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(48,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,1.13,1,'90210','bhills_5985@mailinator.com','Tgvbw',NULL,NULL,'5985 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Mfdhrj lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(49,7,'58','4.00','4',' type:<br/> sprite','_58_64',4,4.52,1,'90210','bhills_9863@mailinator.com','Lfqwt',NULL,NULL,'9863 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Gbyome lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.52,'0','pending'),(50,7,'58','1.00','1',' type:<br/> sprite','_58_64',1,1.13,1,'90210','bhills_1349@mailinator.com','Qappk',NULL,NULL,'1349 Beverly Dr','Beverly Hills','Nova Scotia',NULL,'Dpfpni lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',NULL,'0000-00-00 00:00:00',0,1,0.13,'0','pending'),(51,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,2.13,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0.13,'1','pending'),(52,7,'58','1.00','1',' type:<br/> pepsi','_58_65',1,2.13,1,'1','info+1234@trinoweb.com','1',NULL,NULL,'1','1','Ontario',NULL,'1',NULL,'0000-00-00 00:00:00',0,1,0.13,'1','pending'),(53,7,'58,58','1.00,1.00','1,1',', type:<br/> pepsi','_58,_58_65',2,2.26,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,1,0.26,'0','pending'),(54,7,'58,58','1.00,1.00','1,1',', type:<br/> pepsi','_58,_58_65',2,2.26,1,'','info@trinoweb.com','3',NULL,NULL,'','','Ontario',NULL,'3',NULL,'0000-00-00 00:00:00',0,1,0.26,'0','pending');
 
 /*Table structure for table `restaurants` */
 
@@ -318,7 +318,7 @@ CREATE TABLE `restaurants` (
   `minimum` decimal(2,0) DEFAULT NULL,
   `open` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `restaurants` */
 
