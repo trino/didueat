@@ -75,8 +75,8 @@
                 <h1 class="block">success</h1>
                 <p></p>
             </div>
-            <h1>Sign up</h1>
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+            <h1>Sign up</h1>
             <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
             <div class="form-group">
@@ -137,8 +137,8 @@
             <div class="row">
                 <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-2 padding-left-0 padding-top-20">
                     <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
-                    <span>&nbsp;&nbsp;Already have an account? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
                     <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+                    <span>&nbsp;&nbsp;Already have an account? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
                 </div>
             </div>
             {!! Form::close() !!}
@@ -231,16 +231,6 @@
             {!! Form::close() !!}
         </div>
 
-
-
-
-
-
-
-
-
-
-
         <!-- END TOP BAR -->
         <script type="text/javascript">
             function getvalue(ElementID) {
@@ -329,11 +319,7 @@
                 });
                 return false;
             }
-
-
-
-
-
+            
             $('body').on('click', '#resendMeEmail', function(e) {
                 var url = $(this).attr('href');
                 $('#registration-success p').html('Please wait email is being send...');
@@ -344,11 +330,7 @@
                 e.preventDefault();
             });
 
-
-
-
-
-
+            
             $('body').on('submit', '#register-form', function(e) {
                 var token = $("#register-form input[name=_token]").val();
                 var Name = $("#register-form input[name=name]").val();
@@ -358,8 +340,8 @@
                 var confirm_password = $("#register-form input[name=confirm_password]").val();
                 var subscribed = $("#register-form input[name=subscribed]").val();
 
-                $("#regButton").hide();
-                $("#regLoader").show();
+                $("#register-form #regButton").hide();
+                $("#register-form #regLoader").show();
                 $.post("{{ url('auth/register/ajax') }}", {
                     _token: token,
                     name: Name,
@@ -369,8 +351,8 @@
                     confirm_password: confirm_password,
                     subscribed: subscribed
                 }, function(result) {
-                    $("#regButton").show();
-                    $("#regLoader").hide();
+                    $("#register-form #regButton").show();
+                    $("#register-form #regLoader").hide();
 
                     var json = jQuery.parseJSON(result);
                     if (json.type == "error") {

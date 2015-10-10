@@ -172,7 +172,7 @@ class HomeController extends Controller {
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
-                $data['subscribed'] = $post['subscribed'];
+                $data['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
                 $data['phone'] = $post['phone'];
 
                 $user = new \App\Http\Models\Profiles();
