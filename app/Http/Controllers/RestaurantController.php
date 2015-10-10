@@ -170,6 +170,7 @@ class RestaurantController extends Controller {
                 }
                 
                 $update['name'] = $post['name'];
+                $update['slug']= $this->createslug($post['name']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];

@@ -71,7 +71,7 @@ class HomeController extends Controller {
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            $is_email = \App\Http\Models\Restaurants::where('email', '=', $post['email'])->count();
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
                 \Session::flash('message', trans('messages.user_email_already_exist.message')); 
                 \Session::flash('message-type', 'alert-danger');
@@ -135,9 +135,23 @@ class HomeController extends Controller {
                     $image->move($destinationPath, $newName);
                     $post['logo'] = $newName;
                 }
-                $post['slug']= $this->createslug($post['name']);
+                
+                $update['name'] = $post['name'];
+                $update['slug']= $this->createslug($post['name']);
+                $update['email'] = $post['email'];
+                $update['phone'] = $post['phone'];
+                $update['description'] = $post['description'];
+                $update['country'] = $post['country'];
+                $update['genre'] = $post['genre'];
+                $update['province'] = $post['province'];
+                $update['address'] = $post['address'];
+                $update['city'] = $post['city'];
+                $update['postal_code'] = $post['postal_code'];
+                $update['delivery_fee'] = $post['delivery_fee'];
+                $update['minimum'] = $post['minimum'];
+                
                 $ob = new \App\Http\Models\Restaurants();
-                $ob->populate($post);
+                $ob->populate($update);
                 $ob->save();
                 
                 foreach ($post['open'] as $key => $value) {

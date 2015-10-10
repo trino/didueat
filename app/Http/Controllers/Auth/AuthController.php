@@ -433,7 +433,7 @@ class AuthController extends Controller {
         \Session::flash('message', trans('messages.user_logout.message')); 
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
-        return \Redirect::to('auth/login');
+        return \Redirect::to('/');
     }
 
     function test(){

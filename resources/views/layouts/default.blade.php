@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>{{ $title." | didueat" }}</title>
+<!--<![endif]-->
+<!-- Head BEGIN -->
+<head>  <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -55,91 +55,80 @@
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-
+    <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->
 <!-- Body BEGIN -->
 <body class="ecommerce">
 
-
-<div id="registration-form" class="col-md-12" style="display: none;">
+<div id="registration-form" class="col-md-12" style="display: none; width: 650px;">
     <div id="registration-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
-
         <p></p>
     </div>
+    <h1>Sign up</h1>
     {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-    <fieldset>
-        <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
+    <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-        <legend>Your personal details</legend>
-        <div class="form-group">
-            <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="name">Name <span
-                        class="require">*</span></label>
-
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <input type="text" name="name" id="name" class="form-control" value="" required="">
+    <div class="form-group">
+        <label for="name" class="col-md-2 col-sm-2 col-xs-4 control-label">Name<span class="require">*</span></label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ old('name') }}" required="">
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="email">Email <span
-                        class="require">*</span></label>
-
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <input type="text" name="email" id="email" class="form-control" value="" required="">
+    </div>
+    <div class="form-group">
+        <label for="phone" class="col-md-2 col-sm-2 col-xs-4 control-label">Phone<span class="require">*</span></label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <div class="input-icon">
+                <i class="fa fa-phone"></i>
+                <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone number" value="{{ old('phone') }}"required="">
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="phone">Phone<span
-                        class="require">*</span></label>
-
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <input type="number" name="phone" id="phone" class="form-control" value="" required="">
+    </div>
+    <div class="form-group">
+        <label for="email" class="col-md-2 col-sm-2 col-xs-4 control-label">Email<span class="require">*</span></label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <div class="input-icon">
+                <i class="fa fa-envelope"></i>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}"required="">
             </div>
         </div>
-    </fieldset>
-
-    <fieldset>
-        <legend>Your password</legend>
-        <div class="form-group">
-            <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="password">Password <span
-                        class="require">*</span></label>
-
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <input type="password" name="password" id="passwords" class="form-control" required="">
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-md-2 col-sm-2 col-xs-4 control-label">Password<span class="require">*</span></label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <div class="input-icon">
+                <i class="fa fa-key"></i>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-lg-4 col-sm-4 control-label col-xs-12" for="confirm_password">Confirm password <span
-                        class="require">*</span></label>
-
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <input type="password" name="confirm_password" id="confirm_passwords" class="form-control" required="">
+    </div>
+    <div class="form-group">
+        <label for="confirm_password" class="col-md-2 col-sm-2 col-xs-4 control-label">Re-type Password<span class="require">*</span></label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <div class="input-icon">
+                <i class="fa fa-key"></i>
+                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password"required="">
             </div>
         </div>
-    </fieldset>
-
-    <fieldset>
-        <legend>Newsletter</legend>
-        <div class="checkbox form-group">
-            <label class="col-lg-4 col-sm-4 control-label" for="subscribed2">Sign up for our Newsletter</label>
-
-            <div class="col-lg-8 col-sm-8">
-                <div class="checker">
-                                <span>
-                                    <input type="checkbox" name="subscribed" id="subscribed2" class="form-control"
-                                           value="1">
-                                </span>
-                </div>
-            </div>
+    </div>
+    <div class="form-group">
+        <label for="subscribed" class="col-md-2 col-sm-2 col-xs-4 control-label">&nbsp;</label>
+        <div class="col-md-10 col-sm-10 col-xs-8">
+            <label>
+                <input type="checkbox" name="subscribed" id="subscribed" value="1" />
+                Sign up for our Newsletter
+            </label>
         </div>
-    </fieldset>
+    </div>
 
     <div class="row">
-        <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
-            <button id="regButton" class="btn btn-primary" type="submit">Create an account</button>
+        <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-2 padding-left-0 padding-top-20">
+            <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
+            <span>&nbsp;&nbsp;Already have an account? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
             <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
         </div>
     </div>
@@ -147,7 +136,7 @@
 </div>
 
 
-<div id="login-pop-up" style="display:none;">
+<div id="login-pop-up" style="display:none; width: 650px;">
     <div class="login-pop-up">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="login-form">
@@ -163,36 +152,35 @@
                     <p style="display: none;text-align:center; color: red;" id="invalid"></p>
 
                     <div class="form-group">
-                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="email">Email <span
-                                    class="require">*</span></label>
-
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <input type="text" id="email" name="email" class="form-control" required="">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label" for="email">
+                            Email <span class="require">*</span>
+                        </label>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <div class="input-icon">
+                                <i class="fa fa-envelope"></i>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="password">Password <span
-                                    class="require">*</span></label>
-
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                            <input type="password" id="password" name="password" class="form-control" required="">
+                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label" for="password">Password <span class="require">*</span></label>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                            <div class="input-icon">
+                                <i class="fa fa-lock"></i>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0">
+                    <div class="form-group">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-3 padding-left-10">
+                            <span>Forgot your account password? </span>
                             <a href="#forget-passsword" class="fancybox-fast-view">Forgot Password?</a>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
-                            <input class="btn btn-primary" type="button" Value="Login"
-                                   onclick="trylogin(); return false;">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
-                            <a href="#registration-form" class="btn btn-primary fancybox-fast-view" type="button">Sign
-                                Up</a>
+                    <div class="form-group">
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-3 padding-left-10 padding-top-10">
+                            <input class="btn btn-primary" type="button" Value="Login" onclick="trylogin(); return false;">
+                            <span>Don't have account? </span> <a href="#registration-form" class="fancybox-fast-view" type="button">Sign Up</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -210,25 +198,38 @@
 
     <div id="forgot-pass-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
-
         <p></p>
     </div>
+
     {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
     <div id="error" class="alert alert-danger" style="display: none;"></div>
     <div class="form-group col-md-12 col-sm-124 col-xs-12">
         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="forgot-email">Email</label>
 
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <input type="text" name="email" id="forgot-email" class="form-control">
+            <div class="input-icon">
+                <i class="fa fa-envelope"></i>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
+            </div>
         </div>
     </div>
 
-    <div class="col-lg-8  col-md-8 col-sm-8 col-xs-12col-md-offset-4 padding-left-0 padding-top-5">
+    <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
         <button id="regButton" class="btn btn-primary" type="submit">Send</button>
+        <span>&nbsp;&nbsp;Already have account credentials? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
         <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
     </div>
     {!! Form::close() !!}
 </div>
+
+
+
+
+
+
+
+
+
 
 
 <!-- END TOP BAR -->
@@ -245,13 +246,13 @@
         return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    $('body').on('submit', '#forgot-pass-form', function (e) {
+    $('body').on('submit', '#forgot-pass-form', function(e) {
         var token = $("#forgot-pass-form input[name=_token]").val();
         var email = $("#forgot-pass-form input[name=email]").val();
 
         $("#forgot-pass-form #regButton").hide();
         $("#forgot-pass-form #regLoader").show();
-        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
+        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function(result) {
             $("#forgot-pass-form #regButton").show();
             $("#forgot-pass-form #regLoader").hide();
 
@@ -274,7 +275,7 @@
             url: "{{ url('auth/login/ajax') }}",
             data: data,
             type: "post",
-            success: function (msg) {
+            success: function(msg) {
 
                 if (isNaN(Number(msg))) {
                     if (checkUrl(msg)) {
@@ -292,7 +293,7 @@
                             type: "post",
                             data: "id=" + msg + '&_token={{csrf_token()}}',
                             dataType: "json",
-                            success: function (arr) {
+                            success: function(arr) {
                                 $('#fullname').val(arr.name);
                                 $('#ordered_email').val(arr.email);
                                 $('#ordered_contact').val(arr.phone);
@@ -313,7 +314,7 @@
 
 
             },
-            failure: function (msg) {
+            failure: function(msg) {
                 setvalue("message", "ERROR: " + msg);
             }
         });
@@ -321,10 +322,13 @@
     }
 
 
-    $('body').on('click', '#resendMeEmail', function (e) {
+
+
+
+    $('body').on('click', '#resendMeEmail', function(e) {
         var url = $(this).attr('href');
         $('#registration-success p').html('Please wait email is being send...');
-        $.get(url, {}, function (result) {
+        $.get(url, {}, function(result) {
             var json = jQuery.parseJSON(result);
             $('#registration-success p').html(json.message);
         });
@@ -332,7 +336,11 @@
     });
 
 
-    $('body').on('submit', '#register-form', function (e) {
+
+
+
+
+    $('body').on('submit', '#register-form', function(e) {
         var token = $("#register-form input[name=_token]").val();
         var Name = $("#register-form input[name=name]").val();
         var Email = $("#register-form input[name=email]").val();
@@ -351,7 +359,7 @@
             password: password,
             confirm_password: confirm_password,
             subscribed: subscribed
-        }, function (result) {
+        }, function(result) {
             $("#regButton").show();
             $("#regLoader").hide();
 
@@ -369,6 +377,12 @@
     });
 
 
+
+
+
+
+
+
     function ValidURL(textval) {
         var urlregex = new RegExp(
                 "^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
@@ -382,16 +396,21 @@
     }
 
 
+
+
+
+
+
     //loadmore
-    $(function () {
-        $('.loadmore').click(function () {
+    $(function() {
+        $('.loadmore').click(function() {
             $('div#loadmoreajaxloader').show();
             ur = $('.next a').attr('href');
             if (ur != '') {
                 url1 = ur.replace('/?', '?');
                 $.ajax({
                     url: url1,
-                    success: function (html) {
+                    success: function(html) {
 
                         if (html) {
                             $('.nxtpage').remove();
@@ -412,7 +431,15 @@
     })
 
 
+
+
+
+
 </script>
+
+
+
+
 
 
 @include('layouts.includes.header')
@@ -427,6 +454,10 @@
 
 </div>
 @include('layouts.includes.footer')
+
+
+
+
 
 
 </body>

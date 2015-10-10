@@ -11,7 +11,7 @@ Route::resource('/home/test',                       'HomeController@test');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');
-Route::get('auth/login',                            'Auth\AuthController@getLogin');
+Route::get('auth/login',                         'Auth\AuthController@getLogin');
 Route::post('auth/login',                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                           'Auth\AuthController@getLogout');
 
