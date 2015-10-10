@@ -108,7 +108,7 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9 col-sm-9 col-xs-12">
-                                                    <button type="submit" class="btn red">Update</button>
+                                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
                                                 </div>
                                             </div>
                                         </div>

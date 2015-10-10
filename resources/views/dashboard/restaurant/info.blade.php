@@ -147,16 +147,13 @@
 
 
                         <h3 class="form-section">Hours of Operation</h3>
-
                         <?php
                         $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                         foreach ($day_of_week as $key => $value) {
-                        $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
-                        $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
-                        $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
+                            $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
+                            $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
+                            $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
                         ?>
-
-
                         <div class="row">
                             <div class="col-md-9 col-sm-9 col-xs-9 no-padding">
                                 <div class="form-group">
@@ -182,11 +179,9 @@
                             </div>
                         </div>
 
-
                         <?php } ?>
 
                         <h3 class="form-section">Delivery</h3>
-
                         <div class="row">
                             <div class="col-md-3 col-sm-3 col-xs-3">
                                 <div class="form-group">
@@ -238,7 +233,7 @@
                         <input type="hidden" name="id" value="{{ $resturant->id }}"/>
                         <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
                     </div>
-                    </form>
+                    {!! Form::close() !!}
                     <!-- END FORM-->
                 </div>
             </div>
@@ -279,6 +274,7 @@
         //ComponentsPickers.init();
         $("#resturantForm").validate();
         FormSamples.init();
+        
         $('.time').timepicker();
         $('.time').click(function () {
             $('.ui-timepicker-hour-cell .ui-state-default').each(function () {

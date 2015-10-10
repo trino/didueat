@@ -132,8 +132,13 @@ class AdministratorController extends Controller {
         
         try {
             $ob = \App\Http\Models\Profiles::find($id);
-            //$ob->populate(array('status' => 'approved'));
-            //$ob->save();
+            if($type == "user_fire"){
+                $ob->delete();
+            } else {
+                $ob->populate(array('profile_type' => 1));
+                $ob->save();
+            }
+            
             
             \Session::flash('message', 'Status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');

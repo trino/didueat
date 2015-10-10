@@ -11,42 +11,20 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-
-
 <div class="content-page">
     <div class="row">
-
-
-
         @include('layouts.includes.leftsidebar')
-
-
-
                 <div class="col-xs-12 col-md-10 col-sm-8">
-
-
-
-
-
-                @if(\Session::has('message'))
+                    @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                         </div>
                     @endif
-
+                    
                     <div class="deleteme">
-
-
-
-
                         <a class="btn red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
                         <div class="clearfix"></div>
                         <hr class="shop__divider">
-
-
-
-
-
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red">
                             <div class="portlet-title">
@@ -75,10 +53,10 @@
                                             <td>{{ $value->name }}</td>
                                             <td>{{ $value->email }}</td>
                                             <td>{{ $value->phone }}</td>
-                                            <td>{{ select_field('profiletypes', 'ID', $value->profileType, 'name') }}</td>
+                                            <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                             <td>
-                                                <a href="{{ url('restaurant/users?action=user_fire&ID='.$value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
-                                                <a href="{{ url('restaurant/users?action=user_possess&ID='.$value->id) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
+                                                <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                             </td>
                                         </tr>
                                         @endforeach

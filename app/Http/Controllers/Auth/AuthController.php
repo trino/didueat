@@ -431,8 +431,8 @@ class AuthController extends Controller {
     public function getLogout() {
         \Session::flush();
         \Session::flash('message', trans('messages.user_logout.message')); 
-        \Session::flash('message-type', 'alert-danger');
-        \Session::flash('message-short', 'Oops!');
+        \Session::flash('message-type', 'alert-success');
+        \Session::flash('message-short', 'Congratulations!');
         return \Redirect::to('auth/login');
     }
 

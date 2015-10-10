@@ -6,21 +6,21 @@
         <div class="col-md-2 col-sm-4 col-xs-12">
 
             <div class="well add-sidebar">
-                @if(!empty($res_detail->Logo))
-                    <img class="img-responsive" alt="" src="{{ url('assets/images/restaurants/'.$res_detail->Logo) }}">
+                @if(!empty($res_detail->logo))
+                    <img class="img-responsive" alt="" src="{{ url('assets/images/restaurants/'.$res_detail->logo) }}">
                 @else
                     <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
                 @endif
                 <address>
-                    <strong>{!! $res_detail->Name !!}.</strong><br>
-                    {!! $res_detail->Address.' , '.$res_detail->City !!}<br>
-                    {!! $res_detail->Province.' , '.$res_detail->Country !!}<br>
-                    <abbr title="Phone">P:</abbr> {!! $res_detail->Phone !!}
+                    <strong>{!! $res_detail->name !!}.</strong><br>
+                    {!! $res_detail->address.' , '.$res_detail->city !!}<br>
+                    {!! $res_detail->province.' , '.$res_detail->country !!}<br>
+                    <abbr title="Phone">P:</abbr> {!! $res_detail->phone !!}
                 </address>
                 <address>
                     <strong>Email</strong><br>
-                    <a href="{!! $res_detail->Email !!}">
-                        {!! $res_detail->Email !!}
+                    <a href="{{ $res_detail->email }}">
+                        {!! $res_detail->email !!}
                     </a>
                 </address>
             </div>
@@ -429,13 +429,13 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
-                                    <img src="<?php echo url('assets/images/restaurants') . "/" . $res_detail->Logo; ?>"
+                                    <img src="<?php echo url('assets/images/restaurants') . "/" . $res_detail->logo; ?>"
                                          class="img-responsive">
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 resturant-desc">
-                                    <span><?php echo $res_detail->Address . "," . $res_detail->City;?></span>
+                                    <span><?php echo $res_detail->address . "," . $res_detail->city;?></span>
                                     <br/>
-                                    <span><?php echo $res_detail->Phone;?></span>
+                                    <span><?php echo $res_detail->phone;?></span>
                                 </div>
                             </div>
                         </div>
@@ -494,7 +494,7 @@
                                             <td>&nbsp;$
                                                 <div style="display: inline-block;" class="grandtotal">0</div>
                                                 <input type="hidden" name="g_total" class="grandtotal" value="0">
-                                                <input type="hidden" name="res_id" value="{{$res_detail->ID}}">
+                                                <input type="hidden" name="res_id" value="{{ $res_detail->id }}">
                                             </td>
                                         </tr>
                                         </tbody>

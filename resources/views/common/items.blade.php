@@ -1,4 +1,4 @@
-<ul class="scroller orders" <?php if(!isset($order)){?>style="height: 220px;"<?php }?>>
+<ul class="scroller orders" <?php if(!isset($order)){?>style="height: 220px;"<?php } ?>>
     <?php
         if(isset($order)){
             $menu_ids = $order->menu_ids;
@@ -17,12 +17,14 @@
                 }
                 if (is_numeric($me)) {
                     $m = \App\Http\Models\Menus::where('id',$me)->first();
-                    $tt = $m->menu_item;
+                    $tt = (isset($m->menu_item))?$m->menu_item:'';
                 }
+                $menu_item = (isset($m->menu_item))?$m->menu_item:'';
+                $image = (isset($m->image))?$m->image:'';
                 ?>
                 <li id="list<?= $order->listid;?>" class="infolist" >
                   <span class="receipt_image">
-                  <img src='{{url("assets/images/products/$m->image")}}' alt="{{$m->menu_item}}" width="37" height="34">
+                  <img src='{{ url("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34">
                   <span class="count">x <?= $arr_qty[$k];?></span><input type="hidden" class="count" name="qtys[]" value="1" />
                   </span>
                   <strong><?php echo "<span class='menu_bold'>".  $tt . "</span>:" . str_replace('<br/>','',$extz);?></strong>

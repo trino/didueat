@@ -168,8 +168,22 @@ class RestaurantController extends Controller {
                     $image->move($destinationPath, $newName);
                     $post['logo'] = $newName;
                 }
+                
+                $update['name'] = $post['name'];
+                $update['email'] = $post['email'];
+                $update['phone'] = $post['phone'];
+                $update['description'] = $post['description'];
+                $update['country'] = $post['country'];
+                $update['genre'] = $post['genre'];
+                $update['province'] = $post['province'];
+                $update['address'] = $post['address'];
+                $update['city'] = $post['city'];
+                $update['postal_code'] = $post['postal_code'];
+                $update['delivery_fee'] = $post['delivery_fee'];
+                $update['minimum'] = $post['minimum'];
+                
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
-                $ob->populate($post);
+                $ob->populate($update);
                 $ob->save();
 
                 foreach ($post['open'] as $key => $value) {
@@ -243,7 +257,6 @@ class RestaurantController extends Controller {
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/addresses');
             } catch (Exception $e) {
-
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
@@ -670,6 +683,7 @@ class RestaurantController extends Controller {
                 return back()->with('status', 'Restaurant Not Found!');
             } else {
                 $data['title'] = 'Orders Detail';
+                //echo '<pre>'; print_r($data['order']->toArray()); die;
                 return view('dashboard.restaurant.orders_detail', $data);
             }
         }

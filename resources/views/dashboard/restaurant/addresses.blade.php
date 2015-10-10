@@ -14,81 +14,62 @@
 
 <div class="content-page">
     <div class="row">
-                    @include('layouts.includes.leftsidebar')
-
-
-
-
-
-
-
+        @include('layouts.includes.leftsidebar')
 
         <div class="col-xs-12 col-md-10 col-sm-8">
-                        @if(\Session::has('message'))
-                            <div class="alert {!! Session::get('message-type') !!}">
-                                <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-                            </div>
-                        @endif
-
-
-
-                            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                            <div class="clearfix"></div>
-                            <hr class="shop__divider">
-
-
-
-
-
-                            <div class="deleteme">
-
-                            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                            <div class="portlet box red">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-globe"></i>MY NOTIFICATIONS
-                                    </div>
-                                    <div class="tools">
-
-
-
-
-
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <table class="table table-striped table-bordered table-hover" id="sample_1">
-                                        <thead>
-                                            <tr>
-                                                <th width="10%">ID</th>
-                                                <th width="50%">Phone Number/Email Address</th>
-                                                <th width="20%">Type</th>
-                                                <th width="20%">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($addresses_list as $value)
-                                            <tr>
-                                                <td>{{ $value->id }}</td>
-                                                <td>{{ $value->address }}</td>
-                                                <td>{{ $value->type }}</td>
-                                                <td>
-                                                    <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- END EXAMPLE TABLE PORTLET-->
-
-                        </div>
-                    </div>
-
-
-                </div>
+            @if(\Session::has('message'))
+            <div class="alert {!! Session::get('message-type') !!}">
+                <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
             </div>
+            @endif
+
+            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+            <div class="clearfix"></div>
+            <hr class="shop__divider">
+
+            <div class="deleteme">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-globe"></i>MY NOTIFICATIONS
+                        </div>
+                        <div class="tools"></div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-bordered table-hover" id="sample_1">
+                            <thead>
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th width="50%">Phone Number/Email Address</th>
+                                    <th width="20%">Type</th>
+                                    <th width="20%">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($addresses_list as $value)
+                                <tr>
+                                    <td>{{ $value->id }}</td>
+                                    <td>{{ $value->address }}</td>
+                                    <td>{{ $value->type }}</td>
+                                    <td>
+                                        <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
 
 
 <div id="addNewUser" class="col-md-12" style="display: none;" >
@@ -104,7 +85,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Phone / Email</label>
                             <div class="col-md-9">
-                                <input type="text" name="Address" class="form-control" required>
+                                <input type="text" name="address" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -115,7 +96,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Type</label>
                             <div class="col-md-9">
-                                <select name="Type" class="form-control">
+                                <select name="type" class="form-control">
                                     <option value="Email">Email</option>
                                     <option value="Phone">Phone</option>
                                 </select>
@@ -151,11 +132,11 @@
 <script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
 <script>
-jQuery(document).ready(function() {
-    Metronic.init(); // init metronic core components
-    Demo.init(); // init demo features
-    TableAdvanced.init();
-    $("#addNewForm").validate();
-});
+                                                        jQuery(document).ready(function() {
+                                                            Metronic.init(); // init metronic core components
+                                                            Demo.init(); // init demo features
+                                                            TableAdvanced.init();
+                                                            $("#addNewForm").validate();
+                                                        });
 </script>
 @stop

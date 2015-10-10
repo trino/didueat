@@ -11,17 +11,17 @@
             <a href="#cartsz" class="fancybox-fast-view" ><i class="fa fa-shopping-cart" onclick="#cartsz" ></i></a>
         </div>
    </div>
-   <?php }?>
+   <?php } ?>
     <div id="cartsz">
             <div class="row  resturant-logo-desc">
                <div class="col-md-12 col-sm-12 col-xs-12">
                    <div class="row">
                       <div class="col-md-6 col-sm-6 col-xs-12 no-padding">
-                        <img src="<?php echo url('assets/images/restaurants/'.$order->Logo);?>" class='img-responsive' />
+                        <img src="{{ url('assets/images/restaurants/'.$order->logo) }}" class='img-responsive' />
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-12 resturant-desc">
-                        <span><?php echo $order->Address.",". $order->City;?></span>
-                        <span><?php echo $order->Phone;?></span>
+                        <span><?php echo $order->address.",". $order->city;?></span>
+                        <span><?php echo $order->phone;?></span>
                       </div>
                    </div>
                </div>
@@ -52,7 +52,7 @@
                         </tr>
 
                         <tr <?php echo (isset($order)&& $order->order_type == '1')?'style="display: table-column;"':'style="display: none;"';?> id="df">
-                            <td><strong>Delivery Fee&nbsp;</strong></td><td>&nbsp;$<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>
+                            <td><strong>Delivery Fee&nbsp;</strong></td><td>&nbsp;$<?php echo (isset($order))?$order->delivery_fee:$restaurant->delivery_fee;?>
                                 <input type="hidden" value="<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>" class="df" name="delivery_fee" />
                                 <input type="hidden" value="0" id="delivery_flag" name="order_type"  />
                             </td>
