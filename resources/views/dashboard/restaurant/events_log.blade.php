@@ -55,8 +55,7 @@
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
-                        
-                        <hr class="shop__divider">
+
                     </div>        
                 </div>
 

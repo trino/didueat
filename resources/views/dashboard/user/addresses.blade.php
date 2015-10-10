@@ -12,8 +12,9 @@
 <!-- END THEME STYLES -->
 
 
-
 <div class="content-page">
+    <div class="row">
+
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
@@ -200,6 +201,7 @@
 
                     </div>        
                 </div>
+            </div>
             </div>
 
 

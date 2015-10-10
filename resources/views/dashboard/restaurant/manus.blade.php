@@ -1,17 +1,37 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="row">
+    <div class="content-page">
+        <div class="row">
+
+
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-md-10 col-sm-8 col-xs-12 no-padding">
-                    @if(\Session::has('message'))
+
+
+
+
+            <div class="col-xs-12 col-sm-8 col-md-10">
+
+
+
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-gift"></i> MENU MANAGER
+                    </div>
+                </div>
+                <div class="portlet-body form">
+
+
+
+
+                    <div class="form-body">
+
+
+
+                @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                         </div>
@@ -19,14 +39,18 @@
 
                     <div class="dashboard">
                         <div class="menu-manager">
-                            <h1>Menu Manager</h1>
-                            <hr>
-                            <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add New Menu Item</a>
+
+
+
+                            <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                             <div class="addnew" style="display: none;"></div>
-                            <hr>
+
+
+
+
                             <ul class="parentinfo" id="sortable">
                                 @foreach($menus_list as $value)
-                                
+
                                 <li class="infolistwhite row marbot newmenus" id="parent{{ $value->id }}">
                                     <div class="col-md-4 menu_item col-sm-4 col-xs-12 ignore">
                                         <div class="col-sm-4 col-xs-12 ignore" style="padding: 0;">
@@ -44,21 +68,25 @@
                                     </div>
                                     <div class="clearfix ignore"></div>
                                 </li>
-                                <hr class="blog-post-sep ignore">
                                 @endforeach
                             </ul>
+
+
+
                         </div>
 
                     </div>
-                    <div class="clearfix  hidden-xs"></div>
+
                 </div>
 
             </div>
             </div>
-        </div>
-    </div>
-    <!-- END CONTENT -->
-</div>
+            </div>
+            </div>
+            </div>
+
+
+
 
 
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
@@ -75,7 +103,7 @@ jQuery(document).ready(function() {
 </script>
 <script>
     $(function() {
-        
+
         $("#sortable").sortable({
             update: function(event, ui) {
                 var order = '';// array to hold the id of all the child li of the selected parent

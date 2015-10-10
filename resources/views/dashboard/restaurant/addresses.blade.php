@@ -11,29 +11,34 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                <div class="row">
+<div class="content-page">
+    <div class="row">
                     @include('layouts.includes.leftsidebar')
 
 
 
 
 
-                    <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
 
 
 
-                    <div class="col-xs-12 col-md-10 col-sm-8 no-padding">
+        <div class="col-xs-12 col-md-10 col-sm-8">
                         @if(\Session::has('message'))
                             <div class="alert {!! Session::get('message-type') !!}">
                                 <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                             </div>
                         @endif
+
+
+
+                            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+                            <div class="clearfix"></div>
+                            <hr class="shop__divider">
+
+
+
+
 
                             <div class="deleteme">
 
@@ -84,10 +89,6 @@
 
                 </div>
             </div>
-        </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
 
 
 <div id="addNewUser" class="col-md-12" style="display: none;" >

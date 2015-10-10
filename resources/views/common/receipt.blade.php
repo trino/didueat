@@ -23,15 +23,15 @@
                         <span><?php echo $order->Address.",". $order->City;?></span>
                         <span><?php echo $order->Phone;?></span>
                       </div>
-                   </div>  
-               </div> 
-           </div>  
-                        
+                   </div>
+               </div>
+           </div>
+
           <div class="top-cart-content-wrapper">
-         
+
             <div class="top-cart-content "  >
                 <div class="receipt_main">
-                
+
                   @include('common.items')
                     <div class="totals col-md-12 col-sm-12 col-xs-12">
                     <table class="table">
@@ -50,7 +50,7 @@
                             <td><strong>Tax&nbsp;</strong></td><td>&nbsp;$<div class="tax" style="display: inline-block;"><?php echo (isset($order))?$order->tax:'0';?></div>&nbsp;(<div id="tax" style="display: inline-block;">13</div>%)
                             <input type="hidden" value="<?php echo (isset($order))?$order->tax:'0';?>" name="tax" class="tax"/></td>
                         </tr>
-    
+
                         <tr <?php echo (isset($order)&& $order->order_type == '1')?'style="display: table-column;"':'style="display: none;"';?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td><td>&nbsp;$<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>
                                 <input type="hidden" value="<?php echo (isset($order))?$order->delivery_fee:$restaurant->DeliveryFee;?>" class="df" name="delivery_fee" />
@@ -78,7 +78,7 @@
                </div>
             </div>
         </div>
-            
+
      </div>
 <script>
 
@@ -94,5 +94,5 @@ function printDiv(divName) {
      document.body.innerHTML = originalContents;
 }
 
-    
+
 </script>

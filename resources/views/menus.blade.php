@@ -1,7 +1,7 @@
 
       
                 @foreach($menus_list as $value)
-                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20">
+                <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20 ">
                     <a href="<?php echo (Request::is('restaurants/*'))? '#product-pop-up_'.$value->ID : url('restaurants/'.select_field('restaurants', 'id',$value->restaurant_id,'slug').'/menus'); ?>" class="<?php echo (Request::is('restaurants/*'))?'fancybox-fast-view':'';?>">
                     
                         <div class="product-item">

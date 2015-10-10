@@ -123,19 +123,6 @@
 
 
 
-                    <hr class="shop__divider">
-                    <div class="row margin-bottom-30">
-                        <div class="col-md-5 col-sm-5 col-xs-12">
-                            <img class="img-responsive" alt="" src="{{ asset('assets/images/works/img4.jpg') }}">
-                        </div>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                            <h2>Our Money For Your Meal!</h2>
-                            <p>
-                                Receive a $5 credit just for uploading a photo of your meal to our site! Remember, the meal has to be from one of our prestigious restaurants listed
-                            </p>
-                            <a href="{{ url('user/images') }}" class="btn red">Upload Image</a>
-                        </div>
-                    </div>
                 </div>
 
         </div>

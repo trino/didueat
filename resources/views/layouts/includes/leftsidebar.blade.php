@@ -76,8 +76,7 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}"
                                                                     class="<?php if (Request::path() == 'restaurant/addresses') {
                                                                         echo 'active';
-                                                                    } ?>"><i class="fa fa-angle-right"></i> Order
-                                    Notifications
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Notifications
                                 </a></li>
 
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}"
@@ -108,25 +107,41 @@
                 </div>
                 <div class="portlet-body">
                     <ul class="list-group margin-bottom-25 sidebar-menu">
-                        <li class="list-group-item clearfix"><a href="{{ url('user/info') }}"
-                                                                class="<?php if (Request::path() == 'user/info') {
-                                                                    echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i> User Info</a>
-                        </li>
-                        <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}"
-                                                                class="<?php if (Request::path() == 'user/addresses') {
-                                                                    echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i>My Address</a>
-                        </li>
+
+
+                        <li class="list-group-item clearfix"><a
+                                    href="{{ url('restaurant/orders/history/'.\Session::get('session_restaurantId')) }}"
+                                    class="<?php if (Request::path() == 'restaurant/orders/history/' . \Session::get('session_restaurantId')) {
+                                        echo 'active';
+                                    } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
+
+
                         <li class="list-group-item clearfix"><a href="{{ url('user/images') }}"
                                                                 class="<?php if (Request::path() == 'user/images') {
                                                                     echo 'active';
                                                                 } ?>"><i class="fa fa-angle-right"></i> My Uploads</a>
                         </li>
-                        <li class="list-group-item clearfix"><a href="{{ url('logout') }}"
+
+
+                        <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}"
+                                                                class="<?php if (Request::path() == 'user/addresses') {
+                                                                    echo 'active';
+                                                                } ?>"><i class="fa fa-angle-right"></i>My Address</a>
+                        </li>
+
+
+
+                        <li class="list-group-item clearfix"><a href="{{ url('user/info') }}"
+                                                                class="<?php if (Request::path() == 'user/info') {
+                                                                    echo 'active';
+                                                                } ?>"><i class="fa fa-angle-right"></i> My Info</a>
+                        </li>
+
+
+                        <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}"
                                                                 class="<?php if (Request::path() == 'logout') {
                                                                     echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i> Logout</a></li>
+                                                                } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
                     </ul>
                 </div>
             </div>

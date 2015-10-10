@@ -501,10 +501,9 @@
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <input type="button" onclick="printDiv('printableArea')" value="Print">
-                                    <a href="javascript:void(0)" class="btn btn-default">Clear</a>
-                                    <a href="javascript:void(0)" class="btn btn-primary"
-                                       onclick="checkout();">Checkout</a>
+                                    <a href="#" type="button" onclick="printDiv('printableArea')" class="btn btn-warning">Print</a>
+                                    <a href="javascript:void(0)" class="btn btn-warning">Restart</a>
+                                    <a href="javascript:void(0)"  class="btn btn-primary"onclick="checkout();">Checkout</a>
                                 </div>
                             </div>
                             <div class="profiles" style="display: none;">

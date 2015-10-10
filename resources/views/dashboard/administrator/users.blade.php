@@ -12,9 +12,6 @@
 <!-- END THEME STYLES -->
 
 
-<a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-
-
 
 <div class="content-page">
     <div class="row">
@@ -39,8 +36,19 @@
 
                     <div class="deleteme">
 
+
+
+
+                        <a class="btn red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+                        <div class="clearfix"></div>
+                        <hr class="shop__divider">
+
+
+
+
+
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Users List

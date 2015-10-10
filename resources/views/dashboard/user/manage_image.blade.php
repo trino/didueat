@@ -14,37 +14,53 @@
 <link href="{{ asset('assets/admin/pages/css/portfolio.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
 
-                </div>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                <div class="row">
+<div class="content-page">
+    <div class="row">
                     @include('layouts.includes.leftsidebar')
 
                     <div class="col-xs-12 col-sm-8 col-md-10 ">
+
+
+
+
+
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <img class="img-responsive" alt="" src="{{ asset('assets/images/works/img4.jpg') }}">
+                            </div>
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <h2>Our Money For Your Meal!</h2>
+                                <p>
+                                    Receive a $5 credit just for uploading a photo of your meal to our site! Remember, the meal has to be from one of our prestigious restaurants listed
+                                </p>
+                                <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+                            </div>
+                        </div>
+
+
+
+
+
                         @if(\Session::has('message'))
                             <div class="alert {!! Session::get('message-type') !!}">
                                 <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                             </div>
                         @endif
-                        
-                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                        <div class="clearfix"></div>
-                        <hr class="shop__divider">
 
-                        <div class="margin-top-10">
-                            <ul class="list-group">
-                                <li class="list-group-item bg-red" data-filter="all">
-                                    <h3 class="sidebar__title">Images List</h3>
-                                </li>
-                            </ul>
+
+                            <div class="portlet box red">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-globe"></i>MY UPLOADS
+                                    </div>
+                                    <div class="tools">
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+
+
+
                             <div class="row mix-grid" style="">
                                 @foreach($images_list as $value)
                                 <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
@@ -62,16 +78,13 @@
                                 @endforeach
                             </div>
                         </div>
+                        </div>
 
-                        <hr class="shop__divider">
+
                     </div>
 
                 </div>
             </div>
-        </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
 
 
 

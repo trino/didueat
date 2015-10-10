@@ -41,9 +41,9 @@
                                         <tr>
                                             <th width="5%">ID</th>
                                             <th width="20%">Name</th>
-                                            <th width="30%">Email</th>
+                                            <th width="20%">Email</th>
                                             <th width="10%">Type</th>
-                                            <th width="35%">Actions</th>
+                                            <th width="15%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

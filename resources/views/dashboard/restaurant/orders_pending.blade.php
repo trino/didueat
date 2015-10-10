@@ -11,18 +11,8 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
-
-                </div>
-            </div>
-
-            <div class="col-md-12  col-sm-12 col-xs-12 no-padding">
-            <div class="row">
+<div class="content-page">
+    <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
@@ -33,22 +23,27 @@
                     @endif
 
 
-                         <a href="{{ url('restaurant/report') }}" class="btn btn-info">Print Report</a>
 
 
 
                     <div class="deleteme">
-                        <!--h3 class="sidebar__title"><?php if($type =='Pending') echo 'Pending Orders Manager';else echo 'Orders History';?></h3>
-                        <hr class="shop__divider"-->
 
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+
+
+                        <a href="{{ url('restaurant/report') }}" class="btn btn-danger pull-right fancybox-fast-view">Print Report</a>
+                        <div class="clearfix"></div>
+                        <hr class="shop__divider">
+
+
+
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>MY ORDERS
                                 </div>
                                 <div class="tools">
-                                
+
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -59,11 +54,11 @@
                                             <th width="20%">Ordered By</th>
                                             <th width="30%">Date/Time</th>
                                             <th width="10%">Status</th>
-                                            <th width="35%">Actions</th>
+                                            <th width="15%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+
                                         <?php
                                         /*if (isset($orders_list) && $orders_list) {
                                             foreach($orders_list as $Order){
@@ -83,7 +78,7 @@
                                             echo '<TR><TD colspan="4"><DIV align="center">No orders found</DIV></TD></TR>';
                                         }*/
                                         ?>
-                                    
+
                                         @foreach($orders_list as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
@@ -105,17 +100,13 @@
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
-                        
+
                         <hr class="shop__divider">
-                    </div>        
+                    </div>
                 </div>
 
             </div>
             </div>
-        </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
 
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
