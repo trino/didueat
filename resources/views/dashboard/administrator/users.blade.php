@@ -11,30 +11,27 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="row content-page">
-            <div class="col-xs-12 col-md-12 col-sm-12">
-                <div class="">
 
-                </div>
-            </div>
+<a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
 
 
 
-
-            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-
-
+<div class="content-page">
+    <div class="row">
 
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="row">
-                @include('layouts.includes.leftsidebar')
+
+        @include('layouts.includes.leftsidebar')
+
+
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
-                    @if(\Session::has('message'))
+
+
+
+
+
+                @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                         </div>
@@ -43,7 +40,7 @@
                     <div class="deleteme">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red">
+                        <div class="portlet box red-intense">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Users List
@@ -82,17 +79,30 @@
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
-                        
-                        <hr class="shop__divider">
-                    </div>        
+
+                    </div>
                 </div>
 
-            </div>
-        </div>
-        </div>
-    </div>                
+
+    </div>
+    </div>
     <!-- END CONTENT -->
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id="addNewUser" class="col-md-12" style="display: none;" >
     <div class="modal-dialog">
@@ -176,10 +186,9 @@
             </div>
             {!! Form::close() !!}
         </div>
+        </div>
+        </div>
         <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 
 
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>

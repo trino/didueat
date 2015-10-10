@@ -11,18 +11,9 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="row content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
 
-                </div>
-            </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="row">
+<div class="content-page">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
@@ -33,14 +24,12 @@
                     @endif
 
                     <div class="deleteme">
-                        <h3 class="sidebar__title">Addresses Manager</h3>
-                        <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red-intense">
+                        <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Addresses List
+                                    <i class="fa fa-globe"></i>MY ADDRESSES
                                 </div>
                                 <div class="tools">
                                 </div>
@@ -77,12 +66,11 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
 
-                        <hr class="shop__divider">
 
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-gift"></i> Add Address
+                                    <i class="fa fa-gift"></i> ADD ADDRESS
                                 </div>
                             </div>
                             <div class="portlet-body form">
@@ -210,15 +198,10 @@
                             </div>
                         </div>
 
-                        <hr class="shop__divider">
                     </div>        
                 </div>
             </div>
-            </div>
-        </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
+
 
 <div id="addNewUser" class="col-md-12" style="display: none;" >
     <div class="modal-dialog">

@@ -12,13 +12,17 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}" />
 <!-- END THEME STYLES -->
 
-        <div class="row content-page">
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                <div class="row">
+
+
+
+
+        <div class="content-page">
+        <div class="row">
+
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-10 col-sm-8 no-padding">
+                <div class="col-xs-12 col-md-10 col-sm-8">
 
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
@@ -133,11 +137,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-
-            </div>
+        </div>
         </div>
 
 
