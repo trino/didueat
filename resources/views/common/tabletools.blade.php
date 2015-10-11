@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/global/scripts/table-advanced.js') }}"></script>
 
 <script>
     jQuery(document).ready(function() {

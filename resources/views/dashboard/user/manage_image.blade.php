@@ -11,7 +11,7 @@
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('assets/admin/pages/css/portfolio.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('assets/global/css/portfolio.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
 
@@ -134,9 +134,9 @@
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
-<script src="{{ asset('assets/admin/pages/scripts/portfolio.js') }}"></script>
+<script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+<script src="{{ asset('assets/global/pages/scripts/portfolio.js') }}"></script>
 <script>
     jQuery(document).ready(function() {
         Metronic.init();

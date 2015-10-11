@@ -398,7 +398,7 @@ class RestaurantController extends Controller {
                 return \Redirect::to('restaurant/menus-manager');
             }
         } else {
-            $data['title'] = 'Manus Listing';
+            $data['title'] = 'Menus';
             $data['menus_list'] = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'ASC')->get();
             return view('dashboard.restaurant.manus', $data);
         }

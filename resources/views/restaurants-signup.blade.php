@@ -404,7 +404,7 @@
             src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
     <script type="text/javascript">

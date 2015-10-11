@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo url('assets/frontend/layout');?>/css/popstyle.css">
+<link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
 
 
 @foreach($menus_list as $value)

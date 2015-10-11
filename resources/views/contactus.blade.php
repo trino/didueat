@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-    534534543
+  delete me  534534543
 @stop
 
 

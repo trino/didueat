@@ -93,8 +93,8 @@
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
+<script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script>
 jQuery(document).ready(function() {
     Metronic.init();

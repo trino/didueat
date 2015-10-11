@@ -20,6 +20,10 @@
     <link rel="shortcut icon" href="favicon.ico">
 
 
+
+
+
+
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
           rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -31,20 +35,18 @@
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/components.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
+
+
+
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
 
 
 
-    <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
-    <!--[if lt IE 9]>
-    <script src="{{ asset('assets/plugins/respond.min.js') }}"></script>
-    <![endif]-->
-
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script>
+    <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script-->
     <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
