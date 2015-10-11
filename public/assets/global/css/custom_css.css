@@ -1136,3 +1136,7 @@ body.ecommerce {
 }
 
 .clearfix {clear: both;}
+
+.btn{
+    color:#fff !important;
+}
