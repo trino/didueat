@@ -19,29 +19,23 @@
     <meta property="og:url" content="-CUSTOMER VALUE-">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <!-- Fonts START -->
+
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
           rel="stylesheet" type="text/css">
-    <!--link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
-          rel="stylesheet" type="text/css"-->
-    <!-- Fonts END -->
-    <!-- Global styles START -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Global styles END -->
 
+
+
+    <!-- MAKE ALL CSS CHANGES TO HERE -->
+    <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/components.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
 
-    <!-- MAKE ALL CSS CHANGES TO HERE -->
-    <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
-
-
-    <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
-    <!-- Theme styles END -->
 
     <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
     <!--[if lt IE 9]>
@@ -55,6 +49,9 @@
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
+
+
+
     <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->
@@ -360,7 +357,7 @@
                 "^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
         return urlregex.test(textval);
     }
-    
+
     function checkUrl(textval) {
         if (textval.replace('/dashboard', '') != textval)
             return true;

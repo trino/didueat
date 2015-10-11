@@ -100,44 +100,11 @@
             </div>
             {!! Form::close() !!}
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 
-
-
-
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
-<script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
-
-<script>
-    jQuery(document).ready(function() {
-        Metronic.init(); // init metronic core components
-        Demo.init(); // init demo features
-        TableAdvanced.init();
-        $("#addNewForm").validate();
-    });
-</script>
-
-
-
+@include('common.tabletools')
 
 
 @stop

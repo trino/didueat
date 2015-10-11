@@ -1,14 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/datepicker.css') }}"/>
-<link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}" />
-
-
+delete me 576456456
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -91,6 +84,13 @@
     </div>                
     <!-- END CONTENT -->
 </div>
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/datepicker.css') }}"/>
+<link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}" />
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>

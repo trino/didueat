@@ -46,9 +46,12 @@
                                     <td>{{ $value->email }}</td>
                                     <td>[@if($value->open == true) OPENED @else CLOSED @endif]</td>
                                     <td>
+
                                         <a href="{{ url('restaurant/orders/history/'.$value->id) }}"
                                            class="btn btn-info">Orders</a>
+
                                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info">Edit</a>
+
                                         @if($value->open == true)
                                             <a href="{{ url('restaurant/restaurants/status/'.$value->id) }}"
                                                class="btn btn-warning"
@@ -57,11 +60,11 @@
                                             <a href="{{ url('restaurant/restaurants/status/'.$value->id) }}"
                                                class="btn btn-primary"
                                                onclick="return confirm('Are you sure you want to open this Restaurant ?');">Open</a>
-                                            &nbsp;&nbsp;
                                         @endif
                                         <a href="{{ url('restaurant/restaurants/delete/'.$value->id) }}"
-                                           class="btn btn-danger"
+                                           class="btn btn-primary"
                                            onclick="return confirm('Are you sure you want to delete Restaurant One?');">Delete</a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -83,33 +86,7 @@
 
 
 
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css"
-      href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css"
-      href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css"
-      href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
+@include('common.tabletools')
 
-<script>
-    jQuery(document).ready(function () {
-        Demo.init(); // init demo features
-        TableAdvanced.init();
-    });
-</script>
+
 @stop

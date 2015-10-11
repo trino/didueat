@@ -1,5 +1,3 @@
-<style></style>
-
 @extends('layouts.default')
 @section('content')
 
@@ -129,7 +127,7 @@
                             </div>
                         </div>
                         {!! Form::close() !!}
-                                <!-- END FORM-->
+
                     </div>
                 </div>
 
@@ -138,50 +136,6 @@
 
         </div>
     </div>
-
-
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/datepicker.css') }}"/>
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}"/>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/ckeditor/ckeditor.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/bootstrap-markdown/lib/markdown.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
-    <script src="{{ asset('assets/admin/pages/scripts/form-samples.js') }}"></script>
-
-    <script>
-        jQuery(document).ready(function () {
-            Metronic.init();
-            Demo.init();
-            //FormValidation.init();
-            FormSamples.init();
-            $("#profileForm").validate();
-        });
-    </script>
-
-
 
 
 @stop

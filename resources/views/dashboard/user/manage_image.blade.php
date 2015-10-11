@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
@@ -17,15 +17,15 @@
 
 <div class="content-page">
     <div class="row">
-                    @include('layouts.includes.leftsidebar')
+        @include('layouts.includes.leftsidebar')
 
-                    <div class="col-xs-12 col-sm-8 col-md-10 ">
-
-
+        <div class="col-xs-12 col-sm-8 col-md-10 ">
 
 
 
-                        <!--div class="row margin-bottom-20">
+
+
+            <!--div class="row margin-bottom-20">
                             <div class="col-md-5 col-sm-5 col-xs-12">
                                 <img class="img-responsive" alt="" src="{{ asset('assets/images/works/img4.jpg') }}">
                             </div>
@@ -39,53 +39,53 @@
 
 
 
-                        <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                        <div class="clearfix"></div>
-                        <hr class="shop__divider">
+            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+            <div class="clearfix"></div>
+            <hr class="shop__divider">
 
-                        @if(\Session::has('message'))
-                            <div class="alert {!! Session::get('message-type') !!}">
-                                <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-                            </div>
-                        @endif
-
-
-                            <div class="portlet box red">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-globe"></i>MY UPLOADS
-                                    </div>
-                                    <div class="tools">
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
+            @if(\Session::has('message'))
+                <div class="alert {!! Session::get('message-type') !!}">
+                    <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                </div>
+            @endif
 
 
-
-                            <div class="row mix-grid" style="">
-                                @foreach($images_list as $value)
-                                <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
-                                    <div class="mix-inner">
-                                        <img class="img-responsive" src="{{ url('assets/images/users/'.$value->filename) }}" alt="">
-                                        <div class="mix-details">
-                                            <h4>Cascusamus et iusto odio</h4>
-                                            <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
-                                            <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->filename) }}" title="Project Name" data-rel="fancybox-button">
-                                                <i class="fa fa-search"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        </div>
-
-
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>MY UPLOADS
                     </div>
+                    <div class="tools">
+                    </div>
+                </div>
+                <div class="portlet-body">
 
+
+
+                    <div class="row mix-grid" style="">
+                        @foreach($images_list as $value)
+                            <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
+                                <div class="mix-inner">
+                                    <img class="img-responsive" src="{{ url('assets/images/users/'.$value->filename) }}" alt="">
+                                    <div class="mix-details">
+                                        <h4>Cascusamus et iusto odio</h4>
+                                        <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
+                                        <a class="mix-preview fancybox-button" href="{{ url('assets/images/users/'.$value->filename) }}" title="Project Name" data-rel="fancybox-button">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
+
+
+        </div>
+
+    </div>
+</div>
 
 
 
@@ -103,7 +103,7 @@
                     <select name="restaurant_id" class="form-control input-lg" required>
                         <option value="">Select One</option>
                         @foreach($restaurants_list as $value)
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -138,11 +138,11 @@
 <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/portfolio.js') }}"></script>
 <script>
-jQuery(document).ready(function() {
-    Metronic.init();
-    Demo.init();
-    Portfolio.init();
-    $("#imageForm").validate();
-});
+    jQuery(document).ready(function() {
+        Metronic.init();
+        Demo.init();
+        Portfolio.init();
+        $("#imageForm").validate();
+    });
 </script>
 @stop
