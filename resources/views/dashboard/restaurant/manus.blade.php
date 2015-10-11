@@ -14,6 +14,7 @@
 
             <div class="col-xs-12 col-sm-8 col-md-10">
 
+                <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
 
 
             <div class="portlet box red">
@@ -42,7 +43,6 @@
 
 
 
-                            <a class="btn btn-primary red add_item" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                             <div class="addnew" style="display: none;"></div>
 
 

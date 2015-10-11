@@ -1,16 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<!-- END PAGE LEVEL STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-
 
 <div class="content-page">
     <div class="row">
@@ -18,9 +8,9 @@
 
         <div class="col-xs-12 col-md-10 col-sm-8">
             @if(\Session::has('message'))
-            <div class="alert {!! Session::get('message-type') !!}">
-                <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-            </div>
+                <div class="alert {!! Session::get('message-type') !!}">
+                    <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                </div>
             @endif
 
             <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
@@ -40,15 +30,15 @@
                     <div class="portlet-body">
                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                             <thead>
-                                <tr>
-                                    <th width="10%">ID</th>
-                                    <th width="50%">Phone Number/Email Address</th>
-                                    <th width="20%">Type</th>
-                                    <th width="20%">Actions</th>
-                                </tr>
+                            <tr>
+                                <th width="10%">ID</th>
+                                <th width="50%">Phone Number/Email Address</th>
+                                <th width="20%">Type</th>
+                                <th width="20%">Actions</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach($addresses_list as $value)
+                            @foreach($addresses_list as $value)
                                 <tr>
                                     <td>{{ $value->id }}</td>
                                     <td>{{ $value->address }}</td>
@@ -57,7 +47,7 @@
                                         <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
                                     </td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -116,27 +106,38 @@
 </div>
 
 
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
-<!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
 <script src="{{ asset('assets/admin/pages/scripts/form-validation.js') }}"></script>
+
 <script>
-                                                        jQuery(document).ready(function() {
-                                                            Metronic.init(); // init metronic core components
-                                                            Demo.init(); // init demo features
-                                                            TableAdvanced.init();
-                                                            $("#addNewForm").validate();
-                                                        });
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Demo.init(); // init demo features
+        TableAdvanced.init();
+        $("#addNewForm").validate();
+    });
 </script>
+
+
+
+
+
 @stop

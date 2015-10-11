@@ -2,19 +2,16 @@
 @section('content')
 
 <div class="margin-bottom-40">
-    <!-- BEGIN SIDEBAR -->
-    <!-- END SIDEBAR -->
-    <!-- BEGIN CONTENT -->
     <div class="col-md-2 col-sm-4 col-xs-12">
 
         <div class="well add-sidebar">
-            <img class="img-responsive margin-bottom-10" alt="" src="/Foodie//img/works/img4.jpg">
+            <!--img class="img-responsive margin-bottom-10" alt="" src="/Foodie//img/works/img4.jpg"-->
 
             <address>
                 <strong>Loop, Inc.</strong><br>
                 795 Park Ave, Suite 120<br>
                 San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (234) 145-1810 
+                <abbr title="Phone">P:</abbr> (234) 145-1810
             </address>
             <address>
                 <strong>Full Name</strong><br>
@@ -26,7 +23,7 @@
     </div>
 
     <div class="col-md-7 col-sm-4 col-xs-12 menu_div">
-        <link rel="stylesheet" href="/Foodie/css/popstyle.css">
+        <!--link rel="stylesheet" href="/Foodie/css/popstyle.css"-->
 
         <div id="postswrapper">
         </div>
@@ -67,7 +64,7 @@
                 $('.modal').on('shown.bs.modal', function() {
                     $('input:text:visible:first', this).focus();
                 });
-                
+
                 $('.clearall , .close').click(function() {
                     var menu = $(this).attr('id');
                     menu = menu.replace('clear_', '');
@@ -343,7 +340,7 @@
                             '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                             '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
                             '<a href="javascript:void(0);" class="del-goods" onclick="">&nbsp;</a>');
-                    
+
                     price = parseFloat(price);
                     var subtotal = "";
                     var ccc = 0;
@@ -447,9 +444,9 @@
                                 <span>1</span>
                                 <span>1</span>
                             </div>
-                        </div>  
-                    </div> 
-                </div>  
+                        </div>
+                    </div>
+                </div>
 
                 <div class="top-cart-content-wrapper">
 
@@ -504,16 +501,16 @@
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
                                         <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">
-                                    </div>                        
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12 col-sm-6 margin-bottom-10">
-                                        <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="">                        
+                                        <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="">
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="">
                                     </div>
-                                    <div class="clearfix"></div>                        
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
@@ -533,20 +530,20 @@
 
                                         <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                             <option value="ASAP">ASAP</option>
-                                            <option value="Sep 30, 07:51 - 08:21">Sep 30, 07:51 - 08:21</option><option value="Sep 30, 08:21 - 08:51">Sep 30, 08:21 - 08:51</option><option value="Sep 30, 08:51 - 09:21">Sep 30, 08:51 - 09:21</option><option value="Sep 30, 09:21 - 09:51">Sep 30, 09:21 - 09:51</option><option value="Sep 30, 09:51 - 10:21">Sep 30, 09:51 - 10:21</option><option value="Sep 30, 10:21 - 10:51">Sep 30, 10:21 - 10:51</option><option value="Sep 30, 10:51 - 11:21">Sep 30, 10:51 - 11:21</option><option value="Sep 30, 11:21 - 11:51">Sep 30, 11:21 - 11:51</option><option value="Sep 30, 11:51 - 12:21">Sep 30, 11:51 - 12:21</option><option value="Sep 30, 12:21 - 12:51">Sep 30, 12:21 - 12:51</option><option value="Sep 30, 12:51 - 01:21">Sep 30, 12:51 - 01:21</option><option value="Sep 30, 01:21 - 01:51">Sep 30, 01:21 - 01:51</option><option value="Sep 30, 01:51 - 02:21">Sep 30, 01:51 - 02:21</option><option value="Sep 30, 02:21 - 02:51">Sep 30, 02:21 - 02:51</option><option value="Sep 30, 02:51 - 03:21">Sep 30, 02:51 - 03:21</option><option value="Sep 30, 03:21 - 03:51">Sep 30, 03:21 - 03:51</option><option value="Sep 30, 03:51 - 04:21">Sep 30, 03:51 - 04:21</option><option value="Sep 30, 04:21 - 04:51">Sep 30, 04:21 - 04:51</option>        
+                                            <option value="Sep 30, 07:51 - 08:21">Sep 30, 07:51 - 08:21</option><option value="Sep 30, 08:21 - 08:51">Sep 30, 08:21 - 08:51</option><option value="Sep 30, 08:51 - 09:21">Sep 30, 08:51 - 09:21</option><option value="Sep 30, 09:21 - 09:51">Sep 30, 09:21 - 09:51</option><option value="Sep 30, 09:51 - 10:21">Sep 30, 09:51 - 10:21</option><option value="Sep 30, 10:21 - 10:51">Sep 30, 10:21 - 10:51</option><option value="Sep 30, 10:51 - 11:21">Sep 30, 10:51 - 11:21</option><option value="Sep 30, 11:21 - 11:51">Sep 30, 11:21 - 11:51</option><option value="Sep 30, 11:51 - 12:21">Sep 30, 11:51 - 12:21</option><option value="Sep 30, 12:21 - 12:51">Sep 30, 12:21 - 12:51</option><option value="Sep 30, 12:51 - 01:21">Sep 30, 12:51 - 01:21</option><option value="Sep 30, 01:21 - 01:51">Sep 30, 01:21 - 01:51</option><option value="Sep 30, 01:51 - 02:21">Sep 30, 01:51 - 02:21</option><option value="Sep 30, 02:21 - 02:51">Sep 30, 02:21 - 02:51</option><option value="Sep 30, 02:51 - 03:21">Sep 30, 02:51 - 03:21</option><option value="Sep 30, 03:21 - 03:51">Sep 30, 03:21 - 03:51</option><option value="Sep 30, 03:51 - 04:21">Sep 30, 03:51 - 04:21</option><option value="Sep 30, 04:21 - 04:51">Sep 30, 04:21 - 04:51</option>
                                         </select>
                                     </div>
-                                    <div class="clearfix"></div> 
+                                    <div class="clearfix"></div>
 
                                 </div>
                                 <div class="profile_delivery_detail" style="display: none;">
                                     <div class="form-group margin-bottom-10">
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                             <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2">
-                                        </div>                        
-                                        
-                                        <div class="col-xs-12 col-sm-6  margin-bottom-10">                        
-                                            <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city">                        
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-6  margin-bottom-10">
+                                            <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -567,22 +564,22 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-6">
                                             <input type="text" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code">
-                                        </div>                        
+                                        </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <textarea placeholder="Additional Notes" class="form-control  form-control--contact" name="remarks"></textarea>
-                                    </div> 
-                                    <div class="clearfix"></div>                       
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <a href="javascript:void(0)" class="btn btn-default back">Back</a>
                                         <button type="submit" class="btn btn-primary">Checkout</button>
                                     </div>
-                                    <div class="clearfix"></div>  
+                                    <div class="clearfix"></div>
                                 </div>
                             </form>
                             <script>
@@ -687,7 +684,7 @@
                     var headr_ht = $('.container-fluid').height();
                     var htt = Number(ht) - Number(headr_ht);
                     $('.top-cart-block').css({'height': htt});
-                    
+
                     if (wd <= '767') {
                         $('.top-cart-info').show();
                         $('.header-navigation-wrap').hide();
@@ -868,11 +865,11 @@
                 }
 
 
-            </script>    
+            </script>
 
         </div>
 
-        <!--END CART -->                
+        <!--END CART -->
         <!-- END CONTENT -->
     </div>
     <!-- END SIDEBAR & CONTENT -->

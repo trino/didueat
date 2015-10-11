@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
+
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="content-page">
             <div class="row margin-bottom-10">
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <!-- END CONTENT -->
+
 </div>
 <script>
     

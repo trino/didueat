@@ -1,16 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/datepicker.css') }}"/>
-<!-- END PAGE LEVEL STYLES -->
-<!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/global/css/plugins.css') }}" />
-<!-- END THEME STYLES -->
+
 
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
@@ -94,7 +91,6 @@
     </div>                
     <!-- END CONTENT -->
 </div>
-
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>

@@ -1,16 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<!-- END PAGE LEVEL STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-
 <div class="content-page">
     <div class="row">
                 @include('layouts.includes.leftsidebar')
@@ -62,7 +52,7 @@
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
-                        
+
                     </div>
                 </div>
 
@@ -71,15 +61,17 @@
 
 
 
-<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
 <script>
@@ -88,4 +80,10 @@
         TableAdvanced.init();
     });
 </script>
+
+
+
+
+
+
 @stop

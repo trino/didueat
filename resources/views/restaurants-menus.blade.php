@@ -27,14 +27,13 @@
         </div>
 
         <div class="col-md-7 col-sm-4 col-xs-12 menu_div">
-            <link rel="stylesheet" href="<?php echo url('assets/frontend/layout');?>/css/popstyle.css">
 
             <div id="postswrapper">
                 @include('menus')
             </div>
             <div class="clearfix"></div>
             <div id="loadmoreajaxloader" style="display:none;">
-                <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
+                <img src="{{ asset('assets/images/ajax-loader.gif') }}">
             </div>
             <div class="clearfix"></div>
             <?php if($menus_list->hasMorePages()){?>

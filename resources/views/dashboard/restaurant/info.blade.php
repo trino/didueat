@@ -15,30 +15,41 @@
         <div class="col-md-10 col-sm-8 col-xs-12 ">
 
 
-            <p>
-                <strong>Scroll is hidden</strong><br>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
-                mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor
-                ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis,
-                est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-            </p>
-
-
             <div class="row ">
+
+
+
+                <div class="col-md-12 ">
+
+
+                    @if(\Session::has('message'))
+                        <div class="alert {!! Session::get('message-type') !!}">
+                            <strong>{!! Session::get('message-short') !!}</strong>
+                            &nbsp; {!! Session::get('message') !!}
+                        </div>
+                    @endif
+
+                </div>
+
+
+                <div class="col-md-12 ">
+
+                <p>
+                    <strong>Scroll is hidden</strong><br>
+                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                    mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor
+                    ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis,
+                    est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
+                    consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
+                </p>
+</div>
+
 
 
                 <!-- BEGIN FORM-->
                 {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
-
-                @if(\Session::has('message'))
-                    <div class="alert {!! Session::get('message-type') !!}">
-                        <strong>{!! Session::get('message-short') !!}</strong>
-                        &nbsp; {!! Session::get('message') !!}
-                    </div>
-                @endif
 
 
                 <div class="col-md-4 ">
@@ -47,7 +58,7 @@
                     <div class="portlet box red ">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> RESTAURANT PROFILE
+                                <i class="fa fa-gift"></i>ABOUT RESTAURANT
                             </div>
                         </div>
                         <div class="portlet-body form">
@@ -139,6 +150,9 @@
 
 
 
+                                    <div class="col-md-12">
+                                        <h3 class="form-section">Logo</h3>
+                                    </div>
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
@@ -176,7 +190,7 @@
 
                             <div class="form-actions">
                                 <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                             </div>
 
 
@@ -261,7 +275,7 @@
 
                             <div class="form-actions">
                                 <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                             </div>
 
                         </div>
@@ -274,7 +288,7 @@
                     <div class="portlet box red">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> HOURS OF OPERATION
+                                <i class="fa fa-gift"></i> HOURS
                             </div>
                         </div>
                         <div class="portlet-body form">
@@ -293,22 +307,22 @@
                                     <div class="form-group">
 
 
-                                        <label class="control-label col-md-3"><?php echo $value; ?></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-3"><?php echo $value; ?></label>
 
 
-                                        <div class=" col-md-3">
+                                        <div class=" col-md-3 col-sm-3 col-xs-3">
                                             <input type="text" name="open[<?php echo $key; ?>]"
                                                    value="<?php echo getTime($open[$key]); ?>"
                                                    class="form-control time"/>
                                         </div>
 
 
-                                        <div class=" col-md-3"
+                                        <div class="  col-md-3 col-sm-3 col-xs-3"
                                              style="vertical-align: bottom;text-align: center;font-size: 14px;">
                                             to
                                         </div>
 
-                                        <div class=" col-md-3">
+                                        <div class=" col-md-3 col-sm-3 col-xs-3">
                                             <input type="text" name="close[<?php echo $key; ?>]"
                                                    value="<?php echo getTime($close[$key]); ?>"
                                                    class="form-control time"/>
@@ -329,7 +343,7 @@
 
                             <div class="form-actions">
                                 <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                             </div>
 
 

@@ -1,21 +1,14 @@
 @extends('layouts.default')
 @section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<!-- END PAGE LEVEL STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
-
 <div class="content-page">
     <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
+
+
+
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
@@ -28,10 +21,9 @@
 
                     <div class="deleteme">
 
+                            <a type="button"   href="{{ url('restaurant/report') }}" class="btn green">Print Report</a>
 
 
-
-                        <a href="{{ url('restaurant/report') }}" class="btn btn-danger pull-right fancybox-fast-view">Print Report</a>
                         <div class="clearfix"></div>
                         <hr class="shop__divider">
 
@@ -47,14 +39,17 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
+
+
+
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                         <tr>
                                             <th width="5%">Order #</th>
                                             <th width="20%">Ordered By</th>
-                                            <th width="30%">Date/Time</th>
+                                            <th width="20%">Date/Time</th>
                                             <th width="10%">Status</th>
-                                            <th width="15%">Actions</th>
+                                            <th width="20%">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,7 +96,7 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
 
-                        <hr class="shop__divider">
+
                     </div>
                 </div>
 
@@ -109,21 +104,31 @@
             </div>
 
 
-<!-- BEGIN PAGE LEVEL PLUGINS -->
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
-<!-- END PAGE LEVEL PLUGINS -->
-<!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/admin/layout/scripts/demo.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/admin/pages/scripts/table-advanced.js') }}"></script>
+
+
 <script>
     jQuery(document).ready(function() {
         Demo.init(); // init demo features
         TableAdvanced.init();
     });
 </script>
+
+
+
 @stop

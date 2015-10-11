@@ -1,15 +1,6 @@
 @extends('layouts.default')
-@section('content') 
+@section('content')
 
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
-<!-- END PAGE LEVEL STYLES -->
-<!-- BEGIN THEME STYLES -->
-<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-<!-- END THEME STYLES -->
 
 
 <div class="content-page">
@@ -77,8 +68,7 @@
                             <div class="portlet-body form">
                                 <!-- BEGIN FORM-->
                                 {!! Form::open(array('url' => 'user/addresses', 'id'=>'addressesForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                                    <div class="form-body">                                        
-                                        <h3 class="form-section">Person Info</h3>
+                                    <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="form-group">
@@ -199,7 +189,7 @@
                             </div>
                         </div>
 
-                    </div>        
+                    </div>
                 </div>
             </div>
             </div>
@@ -248,7 +238,17 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!-- BEGIN PAGE LEVEL PLUGINS -->
+
+
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/select2/select2.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css') }}"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>

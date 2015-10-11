@@ -458,7 +458,9 @@ button:hover {
 }
 
 .table .btn {
+    /*
     margin: 0 5px 5px 0;
+    */
 }
 
 .table-striped input, .table-striped select {
