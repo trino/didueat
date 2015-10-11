@@ -47,8 +47,8 @@
                                             <td>{{ $value->buzz }}</td>
                                             <td>{{ $value->street.', '.$value->city.', '.$value->province.', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
-                                                <a href="{{ url('user/addresses/'.$value->id) }}" class="btn btn-danger">Edit</a>
-                                                <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                                <a href="{{ url('user/addresses/'.$value->id) }}" class="btn red">Edit</a>
+                                                <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -229,7 +229,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn blue">Save changes</button>
+                <button type="submit" class="btn red">Save changes</button>
             </div>
             {!! Form::close() !!}
         </div>

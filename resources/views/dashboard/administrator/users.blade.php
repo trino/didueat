@@ -46,8 +46,8 @@
                                             <td>{{ $value->phone }}</td>
                                             <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                             <td>
-                                                <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
-                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn btn-info" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
+                                                <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                             </td>
                                         </tr>
                                         @endforeach

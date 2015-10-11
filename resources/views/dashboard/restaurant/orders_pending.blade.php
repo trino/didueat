@@ -23,7 +23,7 @@
 
                     <div class="deleteme">
 
-                            <a type="button"   href="{{ url('restaurant/report') }}" class="btn green">Print Report</a>
+                            <a type="button"   href="{{ url('restaurant/report') }}" class="btn red pull-right">Print Report</a>
 
 
                         <div class="clearfix"></div>

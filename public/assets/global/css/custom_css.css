@@ -266,6 +266,7 @@ button:hover {
 
 .col-1-3 {
     width: 33.33%;
+    float: left;
 }
 
 .col-1-2 {
@@ -1123,6 +1124,11 @@ body.ecommerce {
 
 #login-form label .require {
   margin-left: 5px;
+}
+
+.pre-footer-subscribe-box .input-group-btn .btn.red {
+  margin-top: 0;
+  border-radius: 0;
 }
 
 .clearfix {clear: both;}
