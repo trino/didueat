@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button type="submit" class="btn green">Submit</button>
+                                    <button type="submit" class="btn red">Submit</button>
                                 </div>
                             </form>
                         </div>

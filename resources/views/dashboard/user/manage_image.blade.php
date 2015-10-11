@@ -39,7 +39,7 @@
 
 
 
-            <a class="btn btn-danger pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+            <a class="btn red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
             <div class="clearfix"></div>
             <hr class="shop__divider">
 
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn green">Save Changes</button>
+                <button type="submit" class="btn red">Save Changes</button>
             </div>
             {!! Form::close() !!}
         </div>

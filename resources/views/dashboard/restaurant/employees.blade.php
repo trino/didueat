@@ -75,14 +75,14 @@
                                             <td>Internet Explorer 4.0</td>
                                             <td>Win 95+</td>
                                             <td>4</td>
-                                            <td><a href="#" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire Waqar Javed?');">Fire</a><a href="?action=possess&amp;ID=7" class="btn btn-info" onclick="return confirm('Are you sure you want to possess Waqar Javed?');">Possess</a></td>
+                                            <td><a href="#" class="btn btn-danger red" onclick="return confirm('Are you sure you want to fire Waqar Javed?');">Fire</a><a href="?action=possess&amp;ID=7" class="btn btn-info" onclick="return confirm('Are you sure you want to possess Waqar Javed?');">Possess</a></td>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>Internet Explorer 4.0</td>
                                             <td>Win 95+</td>
                                             <td>4</td>
-                                            <td><a href="#" class="btn btn-danger" onclick="return confirm('Are you sure you want to fire Waqar Javed?');">Fire</a><a href="?action=possess&amp;ID=7" class="btn btn-info" onclick="return confirm('Are you sure you want to possess Waqar Javed?');">Possess</a></td>
+                                            <td><a href="#" class="btn btn-danger red" onclick="return confirm('Are you sure you want to fire Waqar Javed?');">Fire</a><a href="?action=possess&amp;ID=7" class="btn btn-info" onclick="return confirm('Are you sure you want to possess Waqar Javed?');">Possess</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

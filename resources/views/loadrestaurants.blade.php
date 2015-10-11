@@ -22,7 +22,7 @@
                                         <li><i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}</li>
                                         <li><i class="fa fa-tags"></i>{!! $value->phone !!}</li>
                                     </ul>
-                                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success">Order Online</a>
+                                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order Online</a>
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,6 @@
                     </div>
                 @endif
 
-
                 <div class="deleteme">
 
                     <a type="button" href="{{ url('restaurant/report') }}" class="btn green">Print Report</a>

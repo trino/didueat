@@ -125,11 +125,11 @@
 
 
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h3 class="form-section">Delivery</h3>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="control-label">Delivery Fee <span
                                                         class="required">*</span></label>
@@ -138,7 +138,7 @@
                                                    required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="control-label">Min. Subtotal before Delivery <span
                                                         class="required">*</span></label>
@@ -158,18 +158,18 @@
 
 
                                         @if($resturant->logo)
-                                            <img id="picture"
+                                            <img id="picture" class="margin-bottom-10"
                                                  src="{{ asset('assets/images/restaurants/'.$resturant->logo) }}"
                                                  title=""
                                                  style="width: 100%;">
                                         @else
-                                            <img id="picture" src="{{ asset('assets/images/default.png') }}" title=""
+                                            <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title=""
                                                  style="width: 100%;">
                                         @endif
 
 
-                                        <br>
-                                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success blue"
+                                        <br/>
+                                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red"
                                            onclick="document.getElementById('hiddenLogo').click(); return false">Change
                                             Image</a>
                                         <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>

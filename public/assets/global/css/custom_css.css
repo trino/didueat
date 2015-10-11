@@ -266,6 +266,7 @@ button:hover {
 
 .col-1-3 {
     width: 33.33%;
+    float: left;
 }
 
 .col-1-2 {
@@ -489,7 +490,7 @@ button:hover {
 }
 
 .top-cart-content::after {
-    display: none;
+    display: none !important;
 }
 
 .steps-block, .pre-footer, .footer {
@@ -1037,15 +1038,15 @@ body.ecommerce {
   float: left;
   margin-right: 10px;
   padding: 4px;
-  width: 52px;
+  width: 65px;
 }
 
 .reservation_signin > div span {
   color: #cf0a1c;
-  font-size: 14px;
+  font-size: 12px;
   font-style: italic;
   font-weight: 600;
-  padding-top: 3px !important;
+  padding-top: 5px !important;
   text-shadow: 0 0 3px #dfdfdf;
 }
 
@@ -1125,4 +1126,21 @@ body.ecommerce {
   margin-left: 5px;
 }
 
+.pre-footer-subscribe-box .input-group-btn .btn.red {
+  margin-top: 0;
+  border-radius: 0;
+}
+
+.top-cart-content #profiles .btn.btn-primary {
+  margin-top: 0;
+}
+
+.search-box .btn {
+  margin-top: 0;
+}
+
 .clearfix {clear: both;}
+
+.btn{
+    color:#fff !important;
+}
