@@ -490,7 +490,7 @@ button:hover {
 }
 
 .top-cart-content::after {
-    display: none;
+    display: none !important;
 }
 
 .steps-block, .pre-footer, .footer {
@@ -1129,6 +1129,10 @@ body.ecommerce {
 .pre-footer-subscribe-box .input-group-btn .btn.red {
   margin-top: 0;
   border-radius: 0;
+}
+
+.top-cart-content #profiles .btn.btn-primary {
+  margin-top: 0;
 }
 
 .clearfix {clear: both;}
