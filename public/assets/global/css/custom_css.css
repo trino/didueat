@@ -1038,15 +1038,15 @@ body.ecommerce {
   float: left;
   margin-right: 10px;
   padding: 4px;
-  width: 52px;
+  width: 65px;
 }
 
 .reservation_signin > div span {
   color: #cf0a1c;
-  font-size: 14px;
+  font-size: 12px;
   font-style: italic;
   font-weight: 600;
-  padding-top: 3px !important;
+  padding-top: 5px !important;
   text-shadow: 0 0 3px #dfdfdf;
 }
 
