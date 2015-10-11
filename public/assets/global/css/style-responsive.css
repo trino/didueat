@@ -1661,12 +1661,16 @@ padding-right: 3px !important;
 }
 
 .main {
-  padding-top: 100px !important;
+  padding-top: 80px !important;
 }
 
 .ecommerce .main .top-cart-block .fa-shopping-cart, .ecommerce .main .bottom-cart .fa-shopping-cart {
   right: 118px !important;
   top: -56px;
+}
+
+.portlet > .portlet-title > .caption {
+  font-size: 11px !important;
 }
 
 }

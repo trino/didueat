@@ -1135,6 +1135,10 @@ body.ecommerce {
   margin-top: 0;
 }
 
+.search-box .btn {
+  margin-top: 0;
+}
+
 .clearfix {clear: both;}
 
 .btn{
