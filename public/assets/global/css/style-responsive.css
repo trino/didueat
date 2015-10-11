@@ -368,6 +368,10 @@ width: 100% !important;
 
 .sidebar-menu .fa-angle-right {
   margin-right: -4px;
+}
+
+.portlet > .portlet-title > .caption {
+  font-size: 13px !important;
 }	
 
 }
@@ -1256,7 +1260,7 @@ width: 15% !important;
 }
 
 .main {
-    padding-top: 155px !important;
+    padding-top: 80px !important;
 }
 
 .header .container-fluid .hide {
@@ -1648,12 +1652,12 @@ padding-right: 3px !important;
 }
 
 .top-cart-info-value {
-  top: -78px;
+  top: -89px;
 }
 
 .top-cart-info-count {
-  right: 78px;
-  top: -78px;
+  right: 145px;
+  top: -79px;
 }
 
 .main {
@@ -1661,8 +1665,8 @@ padding-right: 3px !important;
 }
 
 .ecommerce .main .top-cart-block .fa-shopping-cart, .ecommerce .main .bottom-cart .fa-shopping-cart {
-  right: 22px !important;
-  top: -50px;
+  right: 118px !important;
+  top: -56px;
 }
 
 }
@@ -1687,18 +1691,18 @@ width: 60px !important;
 }
 
 .top-cart-info-count {
-  right: 67px;
+  right: 144px;
   top: -78px;
 }
 
 .top-cart-info-value {
   right: 96px;
-  top: -78px;
+  top: -88px;
 }
 
 .ecommerce .main .top-cart-block .fa-shopping-cart, .ecommerce .main .bottom-cart .fa-shopping-cart {
-  right: 22px !important;
-  top: -50px;
+  right: 120px !important;
+  top: -59px;
 }
 
 .tabletools-dropdown-on-portlet .btn {
