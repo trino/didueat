@@ -125,11 +125,11 @@
 
 
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h3 class="form-section">Delivery</h3>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="control-label">Delivery Fee <span
                                                         class="required">*</span></label>
@@ -138,7 +138,7 @@
                                                    required>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="control-label">Min. Subtotal before Delivery <span
                                                         class="required">*</span></label>
