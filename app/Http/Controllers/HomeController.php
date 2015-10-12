@@ -239,7 +239,7 @@ class HomeController extends Controller {
         
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
-        $data['res_detail'] = $res_slug;
+        $data['restaurant'] = $res_slug;
         $data['menus_list'] = $menus;
         if(isset($_GET['page'])) {
             return view('menus', $data);

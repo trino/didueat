@@ -60,7 +60,7 @@
                                             class="required">*</span></label>
 
                                 <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="tel" name="phone" class="form-control" placeholder="Phone"
+                                    <input type="number" name="phone" class="form-control" placeholder="Phone"
                                            value="{{ Session::get('session_phone') }}" required/>
                                 </div>
                             </div>
