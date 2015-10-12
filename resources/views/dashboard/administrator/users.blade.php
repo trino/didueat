@@ -157,7 +157,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn blue">Save changes</button>
+                <button type="submit" class="btn red">Save changes</button>
             </div>
             {!! Form::close() !!}
         </div>

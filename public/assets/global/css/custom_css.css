@@ -474,8 +474,8 @@ button:hover {
 .table-striped .btn {
     border: medium none;
     display: inline-block !important;
-    font-size: 12px;
-    padding: 5px 10px;
+    font-size: 11px;
+    padding: 5px 6px;
     /*width: 65px;*/
 }
 

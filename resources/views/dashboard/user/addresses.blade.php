@@ -16,7 +16,9 @@
                     @endif
 
                     <div class="deleteme">
-
+                    
+                         <a type="button" href="#addAddressForm" class="btn red pull-right fancybox-fast-view">Add address</a> 
+                          <div class="clear"></div><hr />
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red">
                             <div class="portlet-title">
@@ -59,13 +61,13 @@
                         <!-- END EXAMPLE TABLE PORTLET-->
 
 
-                        <div class="portlet box red">
-                            <div class="portlet-title">
+                        <div class="portlet box red" style="display: none;">
+                            <div class="portlet-title" >
                                 <div class="caption">
                                     <i class="fa fa-gift"></i> ADD ADDRESS
                                 </div>
                             </div>
-                            <div class="portlet-body form">
+                            <div class="portlet-body form" id="addAddressForm">
                                 <!-- BEGIN FORM-->
                                 {!! Form::open(array('url' => 'user/addresses', 'id'=>'addressesForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                                     <div class="form-body">

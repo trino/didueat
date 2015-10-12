@@ -43,7 +43,7 @@
                                         <td>
 
                                             <a href="{{ url('restaurant/orders/history/'.$value->id) }}"
-                                               class="btn btn-info">Orders</a>
+                                               class="btn blue">Orders</a>
 
                                             <a href="{{ url('restaurant/info/'.$value->id) }}"
                                                class="btn btn-info">Edit</a>
@@ -54,7 +54,7 @@
                                                    onclick="return confirm('Are you sure you want to close this Restaurant ?');">Close</a>
                                             @else
                                                 <a href="{{ url('restaurant/restaurants/status/'.$value->id) }}"
-                                                   class="btn btn-primary"
+                                                   class="btn green"
                                                    onclick="return confirm('Are you sure you want to open this Restaurant ?');">Open</a>
                                             @endif
                                             <a href="{{ url('restaurant/restaurants/delete/'.$value->id) }}"
