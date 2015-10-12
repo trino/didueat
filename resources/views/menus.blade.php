@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div-->
-    <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 500px;">
+    <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 800px;">
 
         <div class="product-page product-pop-up">
             <!--div class="modal-header">

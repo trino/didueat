@@ -29,7 +29,7 @@
                             {!! $restaurant->province.' , '.$restaurant->country !!}<br>
                             <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}
                             <abbr title="Email">E:</abbr>
-                            <a href="{{ $restaurant->email }}">
+                            <a href="javascript:void(0);">
                                 {!! $restaurant->email !!}
                             </a>
                         </address>

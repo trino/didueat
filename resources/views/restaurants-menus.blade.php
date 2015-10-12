@@ -16,10 +16,6 @@
             </div>
 
 
-
-
-
-
             <div class="clearfix"></div>
             <div id="loadmoreajaxloader" style="display:none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}">
@@ -44,12 +40,6 @@
 
         <!-- BEGIN CART -->
         <div class="top-cart-block col-md-3 col-sm-3" id="printableArea" style="height: 599px;">
-
-
-
-
-
-
 
 
 
@@ -239,7 +229,7 @@
                     success: function (msg) {
                         $('.overlay_reservation').hide();
                         if (msg == '0') {
-                            $('.top-cart-content ').html('<span class="thankyou"> Thank you, for your order <br/>OR <br/> creating an account.<br/> (an email has been sent to u).</span>');
+                            $('.top-cart-content ').html('<span class="thankyou"> Thank you, for your order <br/>or <br/> creating an account.<br/> (an email has been sent to you).</span>');
                         }
                         else if (msg == '1')
                             alert('Email Already Registred.');
@@ -626,8 +616,15 @@
     <script>
         function checkout() {
             var del = $('#delivery_flag').val();
-            $('.receipt_main').hide();
-            $('.profiles').show();
+            
+            if($('.subtotal').text()=='0'){
+                alert('Please select an item.');
+            }
+            else
+            {
+               $('.receipt_main').hide();
+                $('.profiles').show(); 
+            }
             /*var datas = $('.top-cart-content input').serialize();
              $.ajax({
              type:'post',
@@ -837,40 +834,4 @@
 
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @stop

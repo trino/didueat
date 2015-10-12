@@ -409,7 +409,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Metronic.init();
+          
             Demo.init();
             $('.time').timepicker();
             $('.time').click(function () {
