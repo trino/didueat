@@ -39,7 +39,7 @@
 
 
         <!-- BEGIN CART -->
-        <div class="top-cart-block col-md-3 col-sm-3" id="printableArea" style="height: 599px;">
+        <div class="top-cart-block col-md-3 col-sm-3" id="printableArea">
 
 
 

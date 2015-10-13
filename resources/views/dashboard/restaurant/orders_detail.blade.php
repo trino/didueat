@@ -23,7 +23,7 @@
                         </div>
                     @endif
                     
-                    <div class="deleteme">
+                    <div class="deleteme orders_details">
                         <h3 class="sidebar__title">Pending Orders Manager</h3>
                         <hr class="shop__divider">
 

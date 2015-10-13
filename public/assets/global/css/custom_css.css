@@ -449,8 +449,8 @@ button:hover {
 }
 
 .infolist.noprint {
-  font-size: 14px;
-  margin-bottom: 15px;
+    font-size: 13px;
+    margin-bottom: 7px;
 }
 
 .infolistwhite {
@@ -458,6 +458,12 @@ button:hover {
     border-top: 1px solid #dfdfdf;
     box-shadow: 0 0 3px #aaa;
     padding: 0 10px;
+}
+
+.orders_details .portlet #cartsz .top-cart-content strong {
+  font-size: 14px;
+  font-weight: normal;
+  width: 52%;
 }
 
 .table .btn {
@@ -650,11 +656,31 @@ button:hover {
 }
 
 .resturant-logo-desc .img-responsive {
-    margin: 0 auto;
-    width: 50%;
+  border: 1px solid #dfdfdf;
+  margin: 0 auto;
+  padding: 15px;
+  width: 50%;
 }
 
-.resturant-logo-desc .resturant-desc {
+.orders_details .resturant-logo-desc address {
+  margin-top: 45px;
+}
+
+.orders_details .slimScrollDiv .scroller.orders {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.orders_details .slimScrollDiv{
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.menu_managers_edits .menu-manager ul .infolistwhite {
+  background: #fff none repeat scroll 0 0;
+  border-bottom: 1px solid #dfdfdf !important;
+  box-shadow: 0 0 3px #aaa !important;
+  padding: 30px 10px !important;
 }
 
 .totals #df strong {
@@ -1000,12 +1026,6 @@ body.ecommerce {
   padding: 0;
 }
 
-.deleteme .portlet #cartsz .top-cart-content strong {
-  font-size: 14px;
-  font-weight: normal;
-  width: 55%;
-}
-
 .deleteme #cartsz .table tr td {
   text-align: right;
 }
@@ -1146,4 +1166,9 @@ body.ecommerce {
 .btn{
     color:#fff !important;
     margin-top: 0 !important;
+}
+
+.deleteme #cartsz {
+  border-top: 1px solid #dfdfdf;
+  padding-top: 30px;
 }
