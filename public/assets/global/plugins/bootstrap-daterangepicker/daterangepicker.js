@@ -887,7 +887,7 @@
 
             var daysInLastMonth = moment([lastYear, lastMonth]).daysInMonth();
 
-            var dayOfWeek = firstDay.day();
+            var day_of_week = firstDay.day();
 
             var i;
 
@@ -901,11 +901,11 @@
             }
 
             //populate the calendar with date objects
-            var startDay = daysInLastMonth - dayOfWeek + this.locale.firstDay + 1;
+            var startDay = daysInLastMonth - day_of_week + this.locale.firstDay + 1;
             if (startDay > daysInLastMonth)
                 startDay -= 7;
 
-            if (dayOfWeek == this.locale.firstDay)
+            if (day_of_week == this.locale.firstDay)
                 startDay = daysInLastMonth - 6;
 
             var curDate = moment([lastYear, lastMonth, startDay, 12, minute]);
@@ -990,8 +990,8 @@
             if (this.showWeekNumbers)
                 html += '<th class="week">' + this.locale.weekLabel + '</th>';
 
-            $.each(this.locale.daysOfWeek, function (index, dayOfWeek) {
-                html += '<th>' + dayOfWeek + '</th>';
+            $.each(this.locale.daysOfWeek, function (index, day_of_week) {
+                html += '<th>' + day_of_week + '</th>';
             });
 
             html += '</tr>';

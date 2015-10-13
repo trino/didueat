@@ -64,7 +64,7 @@ function enum_profiletypes($Hierarchy = "", $toArray = true){
         $Condition = "Hierarchy > " . $Hierarchy;
     }
     $entries = enum_all("profiletypes", $Condition);
-    if($toArray) {return my_iterator_to_array($entries, "ID", "Name");}
+    if($toArray) {return my_iterator_to_array($entries, "id", "name");}
     return $entries;
 }
 
@@ -84,7 +84,9 @@ function webroot($Local = false){
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
-    return \Session::get('session_' . $Name);
+    if (\Session::has('session_' . $Name)) {
+        return \Session::get('session_' . $Name);
+    }
 }
 function write($Name, $Value, $Save = false){
     \Session::put('session_' . $Name, $Value);
@@ -109,13 +111,15 @@ function is_email_in_use($EmailAddress, $NotByUserID=0){
     if($NotByUserID) {
         return first("SELECT * FROM profiles WHERE Email = '" . $EmailAddress. "' AND ID != " . $NotByUserID);
     } else {
-        return get_entry("profiles",$EmailAddress, "Email");
+        return get_entry("profiles",$EmailAddress, "email");
     }
 }
 
-function get_profile_type($ProfileID, $GetByType = false){
+function get_profile_type($ProfileID = false, $GetByType = false){
+    if(!$ProfileID && $GetByType){$ProfileID = get_entry("profiles", read("ID"), "id")->profiletype;}
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
-    $profiletype = get_entry("profiles", $ProfileID, "ID")->ProfileType;
+    if(!$ProfileID){$ProfileID=read("ID");}
+    $profiletype = get_entry("profiles", $ProfileID, "id")->profiletype;
     return get_entry("profiletypes", $profiletype);
 }
 
@@ -160,12 +164,12 @@ function login($Profile){
     write('Restaurant',    $Profile->restaurant_id);
     
     \Session::put('session_id',             $Profile->id);
-    \Session::put('session_profileType',    $Profile->profile_type);
+    \Session::put('session_profiletype',    $Profile->profile_type);
     \Session::put('session_name',           $Profile->name);
     \Session::put('session_email',          $Profile->email);
     \Session::put('session_phone',          $Profile->phone);
     \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantId',   $Profile->restaurant_id);
+    \Session::put('session_restaurant_id',   $Profile->restaurant_id);
     \Session::put('session_createdBy',      $Profile->created_by);
     \Session::put('session_status',         $Profile->status);
     \Session::put('session_created_at',     $Profile->created_at);
@@ -190,7 +194,11 @@ function get_current_restaurant(){
 function check_permission($Permission, $UserID = ""){
     if(!$UserID){$UserID = read("id");}
     if(!$UserID){ echo 'You are not logged in';die();}
-    return get_profile_type($UserID)->$Permission;
+    $Permission=strtolower($Permission);
+    $PType = get_profile_type($UserID);
+    if (isset($PType->$Permission)) {
+        return $PType->$Permission;
+    }
 }
 
 
@@ -235,19 +243,19 @@ function get_day($Date){//3 (no leading zero)
 
 
 /////////////////////////////////Event log API////////////////////////////////////
-function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
+function logevent($Event, $DoRestaurant = true, $restaurant_id = 0){
     $UserID = read('ID');
     if(!$UserID){
         $UserID=0;
         $DoRestaurant=false;
     }
     if ($DoRestaurant) {
-        if (!$RestaurantID) {
-            $RestaurantID = get_profile($UserID)->RestaurantID;
+        if (!$restaurant_id) {
+            $restaurant_id = get_profile($UserID)->restaurant_id;
         }
     }
     $Date = now();
-    new_entry("eventlog", "ID", array("UserID" => $UserID, "restaurant_id" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+    new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $restaurant_id, "date" => $Date, "text" => $Event));
 }
 
 
@@ -503,7 +511,7 @@ function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC"){
 function enum_anything($Table, $Key, $Value){
     return select_field_where($Table, array($Key => $Value), false);
 }
-function get_entry($Table, $Value, $PrimaryKey = "ID"){
+function get_entry($Table, $Value, $PrimaryKey = "id"){
     if(!$PrimaryKey){$PrimaryKey = get_primary_key($Table);}
     return select_field_where($Table, array($PrimaryKey => $Value));
 }

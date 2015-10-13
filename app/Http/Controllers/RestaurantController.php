@@ -214,7 +214,7 @@ class RestaurantController extends Controller {
             $data['title'] = "Resturant Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['genre_list'] = \App\Http\Models\Genres::get();
-            $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurantId'));
+            $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             return view('dashboard.restaurant.info', $data);
         }
     }
@@ -248,7 +248,7 @@ class RestaurantController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $post['restaurant_id'] = \Session::get('session_restaurantId');
+                $post['restaurant_id'] = \Session::get('session_restaurant_id');
                 $ob = new \App\Http\Models\NotificationAddresses();
                 $ob->populate($post);
                 $ob->save();
@@ -265,7 +265,7 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = 'Addresses List';
-            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurant_id', \Session::get('session_restaurantId'))->get();
+            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurant_id', \Session::get('session_restaurant_id'))->get();
             return view('dashboard.restaurant.addresses', $data);
         }
     }
@@ -344,7 +344,7 @@ class RestaurantController extends Controller {
                     $post['image'] = $newName;
                 }
 
-                $item['restaurant_id'] = \Session::get('session_restaurantId');
+                $item['restaurant_id'] = \Session::get('session_restaurant_id');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
                 $item['description'] = $post['description'];
@@ -358,7 +358,7 @@ class RestaurantController extends Controller {
                 $ob->save();
 
                 foreach ($post['addon_menu_item'] as $key => $value) {
-                    $addon['restaurant_id'] = \Session::get('session_restaurantId');
+                    $addon['restaurant_id'] = \Session::get('session_restaurant_id');
                     $addon['menu_item'] = $value;
                     $addon['description'] = $post['addon_description'][$key];
                     $addon['req_opt'] = $post['req_opt'][$key];
@@ -374,7 +374,7 @@ class RestaurantController extends Controller {
                     $ob2->save();
 
                     foreach ($post['sub_menu_item'][$key] as $key2 => $value2) {
-                        $subitem['restaurant_id'] = \Session::get('session_restaurantId');
+                        $subitem['restaurant_id'] = \Session::get('session_restaurant_id');
                         $subitem['menu_item'] = $value2;
                         $subitem['price'] = $post['sub_price'][$key][$key2];
                         $subitem['has_addon'] = 0;
@@ -399,7 +399,7 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = 'Menus';
-            $data['menus_list'] = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'ASC')->get();
+            $data['menus_list'] = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'ASC')->get();
             return view('dashboard.restaurant.manus', $data);
         }
     }
@@ -420,14 +420,14 @@ class RestaurantController extends Controller {
     public function pendingOrders() {
         $data['title'] = 'Pending History';
         $data['type'] = 'Pending';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
     public function history() {
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
@@ -524,7 +524,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function historyOrders($id = 0) {
-        $resId = ($id > 0) ? $id : \Session::get('session_restaurantId');
+        $resId = ($id > 0) ? $id : \Session::get('session_restaurant_id');
         $data['title'] = 'Orders History';
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', $resId)->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_history', $data);
@@ -537,7 +537,7 @@ class RestaurantController extends Controller {
      */
     public function eventsLog() {
         $data['title'] = 'Events Log';
-        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('date', 'DESC')->get();
+        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('date', 'DESC')->get();
         return view('dashboard.restaurant.events_log', $data);
     }
 
@@ -547,7 +547,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function report() {
-        $order = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurantId'))->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
+        $order = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
         if (isset($_GET['from'])) {
             $order = $order->where('order_time', '>=', $_GET['from']);
         }
@@ -610,7 +610,7 @@ class RestaurantController extends Controller {
         //echo '<pre>';print_r($_POST); die;
         //$this->loadModel("Menus");
         //$this->loadComponent('Manager');
-        $arr['restaurant_id'] = \Session::get('session_restaurantId');
+        $arr['restaurant_id'] = \Session::get('session_restaurant_id');
 
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order');
         foreach ($Copy as $Key) {
@@ -640,7 +640,7 @@ class RestaurantController extends Controller {
         } else {
             //die('add');
             //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
-            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurantId'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
+            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {
                 $orders = $orders_mod[0];
                 if (!isset($arr['display_order']))
@@ -700,9 +700,9 @@ class RestaurantController extends Controller {
         $data['type'] = ucfirst($type);
        $orders = new \App\Http\Models\Reservations();
        if($type == 'user')
-            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurantId'))->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurant_id'))->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
        elseif($type == 'restaurant')
-            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
        else
             $data['orders_list'] =$orders->orderBy('order_time', 'DESC')->get();       
         return view('dashboard.restaurant.orders_pending', $data);

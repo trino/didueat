@@ -15,7 +15,7 @@ namespace Cron;
  * number between one and five. It allows you to specify constructs such as
  * "the second Friday" of a given month.
  */
-class DayOfWeekField extends AbstractField
+class day_of_weekField extends AbstractField
 {
     public function isSatisfiedBy(\DateTime $date, $value)
     {

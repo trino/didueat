@@ -185,7 +185,7 @@ class DateTime extends \Faker\Provider\Base
      * @return string
      * @example 'Tuesday'
      */
-    public static function dayOfWeek($max = 'now')
+    public static function day_of_week($max = 'now')
     {
         return static::dateTime($max)->format('l');
     }

@@ -31,8 +31,8 @@ class ProfilesImages extends BaseModel {
         /*if (array_key_exists('user_id', $data)) {
             $this->user_id = $data['user_id'];
         }
-        if (array_key_exists('RestaurantID', $data)) {
-            $this->RestaurantID = $data['RestaurantID'];
+        if (array_key_exists('restaurant_id', $data)) {
+            $this->restaurant_id = $data['restaurant_id'];
         }
         if (array_key_exists('filename', $data)) {
             $this->filename = $data['filename'];
@@ -60,9 +60,9 @@ class ProfilesImages extends BaseModel {
         delete_all("profiles_images", array("user_id" => $user_id, "filename" => $filename));
     }
 
-    function edit_profile_image($user_id, $filename, $RestaurantID, $Title, $OrderID){
+    function edit_profile_image($user_id, $filename, $restaurant_id, $Title, $OrderID){
         $Entry = $this->get_profile_image($filename, $user_id);
-        $Data = array("RestaurantID" => $RestaurantID, "Title" => $Title, "OrderID" => $OrderID);
+        $Data = array("restaurant_id" => $restaurant_id, "title" => $Title, "order_id" => $OrderID);
         if($Entry){
             edit_database("profiles_images", "ID", $Entry->ID, $Data);
         } else {

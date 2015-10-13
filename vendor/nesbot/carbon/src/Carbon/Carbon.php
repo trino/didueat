@@ -34,7 +34,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property      DateTimeZone $timezone the current timezone
  * @property      DateTimeZone $tz alias of timezone
  * @property-read integer $micro
- * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
+ * @property-read integer $day_of_week 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
  * @property-read integer $weekOfMonth 1 through 5
  * @property-read integer $weekOfYear ISO-8601 week number of year, weeks starting on Monday
@@ -474,7 +474,7 @@ class Carbon extends DateTime
                 'minute' => 'i',
                 'second' => 's',
                 'micro' => 'u',
-                'dayOfWeek' => 'w',
+                'day_of_week' => 'w',
                 'dayOfYear' => 'z',
                 'weekOfYear' => 'W',
                 'daysInMonth' => 't',
@@ -1293,7 +1293,7 @@ class Carbon extends DateTime
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, self::$weekendDays);
+        return in_array($this->day_of_week, self::$weekendDays);
     }
 
     /**
@@ -1374,7 +1374,7 @@ class Carbon extends DateTime
      */
     public function isSunday()
     {
-        return $this->dayOfWeek === static::SUNDAY;
+        return $this->day_of_week === static::SUNDAY;
     }
 
     /**
@@ -1384,7 +1384,7 @@ class Carbon extends DateTime
      */
     public function isMonday()
     {
-        return $this->dayOfWeek === static::MONDAY;
+        return $this->day_of_week === static::MONDAY;
     }
 
     /**
@@ -1394,7 +1394,7 @@ class Carbon extends DateTime
      */
     public function isTuesday()
     {
-        return $this->dayOfWeek === static::TUESDAY;
+        return $this->day_of_week === static::TUESDAY;
     }
 
     /**
@@ -1404,7 +1404,7 @@ class Carbon extends DateTime
      */
     public function isWednesday()
     {
-        return $this->dayOfWeek === static::WEDNESDAY;
+        return $this->day_of_week === static::WEDNESDAY;
     }
 
     /**
@@ -1414,7 +1414,7 @@ class Carbon extends DateTime
      */
     public function isThursday()
     {
-        return $this->dayOfWeek === static::THURSDAY;
+        return $this->day_of_week === static::THURSDAY;
     }
 
     /**
@@ -1424,7 +1424,7 @@ class Carbon extends DateTime
      */
     public function isFriday()
     {
-        return $this->dayOfWeek === static::FRIDAY;
+        return $this->day_of_week === static::FRIDAY;
     }
 
     /**
@@ -1434,7 +1434,7 @@ class Carbon extends DateTime
      */
     public function isSaturday()
     {
-        return $this->dayOfWeek === static::SATURDAY;
+        return $this->day_of_week === static::SATURDAY;
     }
     
     ///////////////////////////////////////////////////////////////////
@@ -2306,7 +2306,7 @@ class Carbon extends DateTime
      */
     public function startOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekStartsAt) {
+        if ($this->day_of_week != static::$weekStartsAt) {
             $this->previous(static::$weekStartsAt);
         }
 
@@ -2320,7 +2320,7 @@ class Carbon extends DateTime
      */
     public function endOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekEndsAt) {
+        if ($this->day_of_week != static::$weekEndsAt) {
             $this->next(static::$weekEndsAt);
         }
 
@@ -2329,199 +2329,199 @@ class Carbon extends DateTime
 
     /**
      * Modify to the next occurence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurence
+     * If no day_of_week is provided, modify to the next occurence
      * of the current day of the week.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function next($dayOfWeek = null)
+    public function next($day_of_week = null)
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
+        if ($day_of_week === null) {
+            $day_of_week = $this->day_of_week;
         }
 
-        return $this->startOfDay()->modify('next '.static::$days[$dayOfWeek]);
+        return $this->startOfDay()->modify('next '.static::$days[$day_of_week]);
     }
 
     /**
      * Modify to the previous occurence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurence
+     * If no day_of_week is provided, modify to the previous occurence
      * of the current day of the week.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function previous($dayOfWeek = null)
+    public function previous($day_of_week = null)
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
+        if ($day_of_week === null) {
+            $day_of_week = $this->day_of_week;
         }
 
-        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
+        return $this->startOfDay()->modify('last '.static::$days[$day_of_week]);
     }
 
     /**
      * Modify to the first occurence of a given day of the week
-     * in the current month. If no dayOfWeek is provided, modify to the
+     * in the current month. If no day_of_week is provided, modify to the
      * first day of the current month.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function firstOfMonth($dayOfWeek = null)
+    public function firstOfMonth($day_of_week = null)
     {
         $this->startOfDay();
 
-        if ($dayOfWeek === null) {
+        if ($day_of_week === null) {
             return $this->day(1);
         }
 
-        return $this->modify('first '.static::$days[$dayOfWeek].' of '.$this->format('F').' '.$this->year);
+        return $this->modify('first '.static::$days[$day_of_week].' of '.$this->format('F').' '.$this->year);
     }
 
     /**
      * Modify to the last occurence of a given day of the week
-     * in the current month. If no dayOfWeek is provided, modify to the
+     * in the current month. If no day_of_week is provided, modify to the
      * last day of the current month.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function lastOfMonth($dayOfWeek = null)
+    public function lastOfMonth($day_of_week = null)
     {
         $this->startOfDay();
 
-        if ($dayOfWeek === null) {
+        if ($day_of_week === null) {
             return $this->day($this->daysInMonth);
         }
 
-        return $this->modify('last '.static::$days[$dayOfWeek].' of '.$this->format('F').' '.$this->year);
+        return $this->modify('last '.static::$days[$day_of_week].' of '.$this->format('F').' '.$this->year);
     }
 
     /**
      * Modify to the given occurence of a given day of the week
      * in the current month. If the calculated occurence is outside the scope
      * of the current month, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied consts to indicate the desired day_of_week, ex. static::MONDAY.
      *
      * @param int $nth
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function nthOfMonth($nth, $dayOfWeek)
+    public function nthOfMonth($nth, $day_of_week)
     {
         $dt = $this->copy()->firstOfMonth();
         $check = $dt->format('Y-m');
-        $dt->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $dt->modify('+'.$nth.' '.static::$days[$day_of_week]);
 
         return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
     }
 
     /**
      * Modify to the first occurence of a given day of the week
-     * in the current quarter. If no dayOfWeek is provided, modify to the
+     * in the current quarter. If no day_of_week is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function firstOfQuarter($dayOfWeek = null)
+    public function firstOfQuarter($day_of_week = null)
     {
-        return $this->day(1)->month($this->quarter * 3 - 2)->firstOfMonth($dayOfWeek);
+        return $this->day(1)->month($this->quarter * 3 - 2)->firstOfMonth($day_of_week);
     }
 
     /**
      * Modify to the last occurence of a given day of the week
-     * in the current quarter. If no dayOfWeek is provided, modify to the
+     * in the current quarter. If no day_of_week is provided, modify to the
      * last day of the current quarter.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function lastOfQuarter($dayOfWeek = null)
+    public function lastOfQuarter($day_of_week = null)
     {
-        return $this->day(1)->month($this->quarter * 3)->lastOfMonth($dayOfWeek);
+        return $this->day(1)->month($this->quarter * 3)->lastOfMonth($day_of_week);
     }
 
     /**
      * Modify to the given occurence of a given day of the week
      * in the current quarter. If the calculated occurence is outside the scope
      * of the current quarter, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied consts to indicate the desired day_of_week, ex. static::MONDAY.
      *
      * @param int $nth
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function nthOfQuarter($nth, $dayOfWeek)
+    public function nthOfQuarter($nth, $day_of_week)
     {
         $dt = $this->copy()->day(1)->month($this->quarter * 3);
         $last_month = $dt->month;
         $year = $dt->year;
-        $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$day_of_week]);
 
         return ($last_month < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
     }
 
     /**
      * Modify to the first occurence of a given day of the week
-     * in the current year. If no dayOfWeek is provided, modify to the
+     * in the current year. If no day_of_week is provided, modify to the
      * first day of the current year.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function firstOfYear($dayOfWeek = null)
+    public function firstOfYear($day_of_week = null)
     {
-        return $this->month(1)->firstOfMonth($dayOfWeek);
+        return $this->month(1)->firstOfMonth($day_of_week);
     }
 
     /**
      * Modify to the last occurence of a given day of the week
-     * in the current year. If no dayOfWeek is provided, modify to the
+     * in the current year. If no day_of_week is provided, modify to the
      * last day of the current year.  Use the supplied consts
-     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * to indicate the desired day_of_week, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function lastOfYear($dayOfWeek = null)
+    public function lastOfYear($day_of_week = null)
     {
-        return $this->month(static::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
+        return $this->month(static::MONTHS_PER_YEAR)->lastOfMonth($day_of_week);
     }
 
     /**
      * Modify to the given occurence of a given day of the week
      * in the current year. If the calculated occurence is outside the scope
      * of the current year, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied consts to indicate the desired day_of_week, ex. static::MONDAY.
      *
      * @param int $nth
-     * @param int $dayOfWeek
+     * @param int $day_of_week
      *
      * @return mixed
      */
-    public function nthOfYear($nth, $dayOfWeek)
+    public function nthOfYear($nth, $day_of_week)
     {
-        $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$day_of_week]);
 
         return $this->year == $dt->year ? $this->modify($dt) : false;
     }

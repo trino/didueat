@@ -203,7 +203,7 @@ class AdministratorController extends Controller {
                 $post['status'] = 0;
                 $post['subscribed'] = 0;
                 $post['created_by'] = \Session::get('session_id');
-                $post['restaurant_id'] = \Session::get('session_restaurantId');
+                $post['restaurant_id'] = \Session::get('session_restaurant_id');
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($post);
@@ -233,7 +233,11 @@ class AdministratorController extends Controller {
             }
         } else {
             $data['title'] = 'Users List';
-            $data['users_list'] = \App\Http\Models\Profiles::where('profile_type', 2)->orWhere('profile_type', 4)->orWhere('profile_type', 1)->orderBy('id', 'DESC')->get();
+
+            $MyHierarchy = get_profile_type(false, true)->hierarchy;
+            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profiletype', '=', 'profiletypes.id')->where('profiletypes.hierarchy' , '> ', $MyHierarchy)->get();
+            // \App\Http\Models\Profiles::where('profiletype', 2)->orWhere('profiletype', 4)->orWhere('profiletype', 1)->orderBy('id', 'DESC')->get();
+            //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
             return view('dashboard.administrator.users', $data);
         }
     }

@@ -53,8 +53,8 @@ class Profiles extends BaseModel {
         if (array_key_exists('subscribed', $data)) {
             $this->subscribed = $data['subscribed'];
         }
-        if (array_key_exists('restaurantId', $data)) {
-            $this->restaurantId = $data['restaurantId'];
+        if (array_key_exists('restaurant_id', $data)) {
+            $this->restaurant_id = $data['restaurant_id'];
         }
         if (array_key_exists('createdBy', $data)) {
             $this->createdBy = $data['createdBy'];

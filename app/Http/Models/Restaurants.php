@@ -84,14 +84,14 @@ class Restaurants extends BaseModel {
         foreach($Restaurant as $Key => $Value){
             $Restaurant[$Key] = "";
         }
-        $Data = array("ID" => 0, "City" => "HAMILTON", "Province" => "ON", 'DeliveryFee' => 0, 'Minimum' => 0, 'Country' => 'Canada', 'Genre' => 0, 'Hours' => array());
+        $Data = array("id" => 0, "city" => "HAMILTON", "province" => "ON", 'delivery_fee' => 0, 'minimum' => 0, 'country' => 'Canada', 'genre' => 0, 'hours' => array());
         $Restaurant = array_merge($Restaurant, $Data);
         return $Restaurant;
     }
 
-    function get_hours($RestaurantID){
+    function get_hours($restaurant_id){
         $ob = new \App\Http\Models\Hours();
-        return $ob->get_hours($RestaurantID);
+        return $ob->get_hours($restaurant_id);
     }
 
     function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False){
@@ -113,69 +113,69 @@ class Restaurants extends BaseModel {
         $C = ', ';
         $PostalCode = clean_postalcode($PostalCode);
         logevent("Edited restaurant: " . $Name .$C. $GenreID .$C. $Email .$C. clean_phone($Phone) .$C. $Address .$C. $City .$C. $Province .$C. $Country .$C. $PostalCode .$C. $Description .$C. $DeliveryFee .$C. $Minimum);
-        $data = array("Name" => $Name, "Genre" => $GenreID, "Email" => $Email, "Phone" => clean_phone($Phone), "Address" => $Address, "City" => $City, "Province" => $Province, "Country" => $Country, "PostalCode" => $PostalCode, "Description" => $Description, "DeliveryFee" => $DeliveryFee, "Minimum" => $Minimum);
-        update_database("restaurants", "ID", $ID, $data);
+        $data = array("name" => $Name, "genre" => $GenreID, "email" => $Email, "phone" => clean_phone($Phone), "address" => $Address, "city" => $City, "province" => $Province, "country" => $Country, "post_code" => $PostalCode, "description" => $Description, "delivery_fee" => $DeliveryFee, "minimum" => $Minimum);
+        update_database("restaurants", "id", $ID, $data);
         return $ID;
     }
 
-    function enum_employees($RestaurantID = "", $Hierarchy = ""){
-        if(!$RestaurantID){
-            $RestaurantID = get_current_restaurant();
+    function enum_employees($restaurant_id = "", $Hierarchy = ""){
+        if(!$restaurant_id){
+            $restaurant_id = get_current_restaurant();
         }
         if($Hierarchy){
-            return enum_all("Profiles", array("RestaurantID" => $RestaurantID, "Hierarchy >" => $Hierarchy));
+            return enum_all("profiles", array("restaurant_id" => $restaurant_id, "hierarchy >" => $Hierarchy));
         }
-        return enum_profiles("RestaurantID", $RestaurantID);//->order("Hierarchy" , "ASC");
+        return enum_profiles("restaurant_id", $restaurant_id);//->order("Hierarchy" , "ASC");
     }
 
 
-    function hire_employee($UserID, $RestaurantID = 0, $ProfileType = ""){
+    function hire_employee($UserID, $restaurant_id = 0, $ProfileType = ""){
         if(!check_permission("CanHireOrFire")){return false;}
 
         $Profile = get_profile($UserID);
         if(!$ProfileType){$ProfileType=$Profile->ProfileType;}
         $Name = "";
-        if($RestaurantID){//hire
-            if (!$Profile->RestaurantID) { $Name = "Hired"; }
+        if($restaurant_id){//hire
+            if (!$Profile->restaurant_id) { $Name = "Hired"; }
         } else {//fire
-            if ($Profile->RestaurantID) { $Name = "Fired"; }
+            if ($Profile->restaurant_id) { $Name = "Fired"; }
         }
         if($Name){
-            update_database("profiles", "ID", $UserID, array("RestaurantID" => $RestaurantID, "ProfileType" => $ProfileType));
+            update_database("profiles", "id", $UserID, array("restaurant_id" => $restaurant_id, "profiletype" => $ProfileType));
             logevent($Name . ": " . $Profile->ID . " (" . $Profile->Name . ")" );
             return true;
         }
     }
 
-    public static function openclose_restaurant($RestaurantID, $Status = false){
+    public static function openclose_restaurant($restaurant_id, $Status = false){
         if($Status){$Status=1;} else {$Status = 0;}
-        logevent("Set status to: " . $Status, true, $RestaurantID);
-        update_database("restaurants", "ID", $RestaurantID, array("Open" => $Status));
+        logevent("Set status to: " . $Status, true, $restaurant_id);
+        update_database("restaurants", "id", $restaurant_id, array("open" => $Status));
     }
 
-    public static function delete_restaurant($RestaurantID, $NewProfileType = 2){
-        logevent("Deleted restaurant", true, $RestaurantID);
-        delete_all("restaurants", array("ID" => $RestaurantID));
-        update_database("profiles", "RestaurantID", $RestaurantID, array("RestaurantID" => 0, "ProfileType" => $NewProfileType));
+    public static function delete_restaurant($restaurant_id, $NewProfileType = 2){
+        logevent("Deleted restaurant", true, $restaurant_id);
+        delete_all("restaurants", array("id" => $restaurant_id));
+        update_database("profiles", "restaurant_id", $restaurant_id, array("restaurant_id" => 0, "profiletype" => $NewProfileType));
     }
 
 /////////////////////////////////////days off API////////////////////////////////////
-    function add_day_off($RestaurantID, $Day, $Month, $Year){
-        $this->delete_day_off($RestaurantID, $Day, $Month, $Year, false);
+    function add_day_off($restaurant_id, $Day, $Month, $Year){
+        $this->delete_day_off($restaurant_id, $Day, $Month, $Year, false);
         logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
-        new_entry("daysoff", "ID", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
+        new_entry("daysoff", "ID", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
     }
-    public static function delete_day_off($RestaurantID, $Day, $Month, $Year, $IsNew = true){
+    public static function delete_day_off($restaurant_id, $Day, $Month, $Year, $IsNew = true){
         if ($IsNew){
             logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
         }
-        delete_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year));
+        delete_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
     }
-    public static function enum_days_off($RestaurantID){
-        return enum_all("daysoff", array("RestaurantID" => $RestaurantID));
+    public static function enum_days_off($restaurant_id){
+        return enum_all("daysoff", array("restaurant_id" => $restaurant_id));
     }
-    public static function is_day_off($RestaurantID, $Day, $Month, $Year){
-        return first(enum_all("daysoff", array("RestaurantID" => $RestaurantID, "Day" => $Day, "Month" => $Month, "Year" => $Year))) == true;
+    public static function is_day_off($restaurant_id, $Day, $Month, $Year){
+        return first(enum_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year))) == true;
     }
 
 }

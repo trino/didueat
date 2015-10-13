@@ -158,7 +158,7 @@ Each of the generator properties (like `name`, `address`, and `lorem`) are calle
     dateTimeThisMonth($max = 'now')       // DateTime('2011-10-23 13:46:23')
     amPm($max = 'now')                    // 'pm'
     dayOfMonth($max = 'now')              // '04'
-    dayOfWeek($max = 'now')               // 'Friday'
+    day_of_week($max = 'now')               // 'Friday'
     month($max = 'now')                   // '06'
     monthName($max = 'now')               // 'January'
     year($max = 'now')                    // '1993'
@@ -811,7 +811,7 @@ echo $faker->region; // "Saint-Pierre-et-Miquelon"
 echo $faker->kanaName; // "アオタ ミノル"
 
 // Generates a 'kana' first name
-echo $faker->firstKanaName; // "ハルカ"
+echo $faker->firstKanaName; // "�?ルカ"
 
 // Generates a 'kana' last name
 echo $faker->lastKanaName; // "ナカジマ"

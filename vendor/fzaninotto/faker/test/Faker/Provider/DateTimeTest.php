@@ -91,7 +91,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $dateTimeThisMonth = DateTimeProvider::dateTimeThisMonth($max);
         $amPm = DateTimeProvider::amPm($max);
         $dayOfMonth = DateTimeProvider::dayOfMonth($max);
-        $dayOfWeek = DateTimeProvider::dayOfWeek($max);
+        $day_of_week = DateTimeProvider::day_of_week($max);
         $month = DateTimeProvider::month($max);
         $monthName = DateTimeProvider::monthName($max);
         $year = DateTimeProvider::year($max);
@@ -112,7 +112,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($dateTimeThisMonth, DateTimeProvider::dateTimeThisMonth($max));
         $this->assertEquals($amPm, DateTimeProvider::amPm($max));
         $this->assertEquals($dayOfMonth, DateTimeProvider::dayOfMonth($max));
-        $this->assertEquals($dayOfWeek, DateTimeProvider::dayOfWeek($max));
+        $this->assertEquals($day_of_week, DateTimeProvider::day_of_week($max));
         $this->assertEquals($month, DateTimeProvider::month($max));
         $this->assertEquals($monthName, DateTimeProvider::monthName($max));
         $this->assertEquals($year, DateTimeProvider::year($max));

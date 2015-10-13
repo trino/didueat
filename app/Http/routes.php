@@ -63,7 +63,7 @@ Route::get('restaurant/menuadd',                    'RestaurantController@menuad
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
 Route::post('restaurant/orderCat',                  'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
-Route::get('restaurant/red/{path}',            'RestaurantController@red');
+Route::get('restaurant/red/{path}',                 'RestaurantController@red');
 
 Route::resource('user/addresses',                   'UsersController@addresses');
 Route::get('user/addresses/edit/{id}',            'UsersController@addressesUpdate');

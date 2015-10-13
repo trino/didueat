@@ -19,97 +19,14 @@
                 <div class="portlet box red">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i>Profile Manage
+                            <i class="fa fa-gift"></i>Profile Manager
                         </div>
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                         <div class="form-body">
-                            <div class="alert alert-danger display-hide">
-                                <button class="close" data-close="alert"></button>
-                                You have some form errors. Please check below.
-                            </div>
-                            <div class="alert alert-success display-hide">
-                                <button class="close" data-close="alert"></button>
-                                Your form validation is successful!
-                            </div>
-
-                            <h3 class="form-section">Person Info</h3>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Full Name <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="text" name="name" class="form-control" placeholder="Full Name"
-                                           value="{{ Session::get('session_name') }}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Email Address <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="email" name="email" class="form-control" placeholder="Email Address"
-                                           value="{{ Session::get('session_email') }}" required/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="number" name="phone" class="form-control" placeholder="Phone"
-                                           value="{{ Session::get('session_phone') }}" required/>
-                                </div>
-                            </div>
-
-                            <h3 class="form-section">Change Password</h3>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Old Password</label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="password" name="old_password" class="form-control"
-                                           placeholder="Old Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">New Password</label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="password" name="new_password" class="form-control"
-                                           placeholder="New Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Confirm password</label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <input type="password" name="confirm_password" class="form-control"
-                                           placeholder="Confirm password">
-                                </div>
-                            </div>
-
-                            <h3 class="form-section">Newsletter Setting</h3>
-
-                            <div class="checkbox form-group margin-bottom-20">
-                                <label class="col-md-5 col-sm-5 col-xs-12 control-label" for="newsletter"></label>
-
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <div class="checker">
-                                                <span>
-                                                    <label class="control-label" id="newsletter_label" for="newsletter">
-                                                        <input type="checkbox" name="subscribed" id="newsletter"
-                                                               class="form-control"
-                                                               @if(Session::has('session_subscribed') && Session::get('session_subscribed') == true) checked @endif>
-                                                        Sign up for our Newsletter
-                                                    </label>
-                                                </span>
-                                    </div>
-                                </div>
-                            </div>
+                            @include('common.signupform')
                         </div>
                         <div class="form-actions">
                             <div class="row">

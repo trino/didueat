@@ -38,7 +38,7 @@ class FieldFactory
                     $this->fields[$position] = new MonthField();
                     break;
                 case 4:
-                    $this->fields[$position] = new DayOfWeekField();
+                    $this->fields[$position] = new day_of_weekField();
                     break;
                 case 5:
                     $this->fields[$position] = new YearField();

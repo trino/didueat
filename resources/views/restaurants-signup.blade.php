@@ -274,10 +274,10 @@
 
                             <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Hours of Operation</h3>
                             <?php
-                            $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                            foreach ($dayofweek as $key => $value) {
-                            $open[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurantId'), 'day_of_week' => $value), 'open');
-                            $close[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurantId'), 'day_of_week' => $value), 'close');
+                            $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                            foreach ($day_of_week as $key => $value) {
+                            $open[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'open');
+                            $close[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'close');
                             ?>
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -323,65 +323,7 @@
 
                             <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Create username & password</h3>
 
-                            <div class="">
-                                <label for="full_name" class="col-md-3 col-sm-3 col-xs-12 control-label">Full Name <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="input-icon">
-                                        <i class="fa fa-user"></i>
-                                        <input type="text" name="full_name" class="form-control required" id="full_name"
-                                               placeholder="Full Name" value="{{ old('full_name') }}" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <label for="email" class="col-md-3 col-sm-3 col-xs-12 control-label">Email <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="input-icon">
-                                        <i class="fa fa-envelope"></i>
-                                        <input type="email" name="email" class="form-control required" id="email"
-                                               placeholder="Email Address" value="{{ old('email') }}" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <label for="password" class="col-md-3 col-sm-3 col-xs-12 control-label">Password <span
-                                            class="required">*</span></label>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="input-icon">
-                                        <i class="fa fa-key"></i>
-                                        <input type="password" name="password" class="form-control required"
-                                               id="password"
-                                               placeholder="Password" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <label for="confirm_password" class="col-md-3 col-sm-3 col-xs-12 control-label">Re-type
-                                    Password <span class="required">*</span></label>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="input-icon">
-                                        <i class="fa fa-key"></i>
-                                        <input type="password" name="confirm_password" class="form-control required"
-                                               id="confirm_password" placeholder="Re-type Password" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <label for="subscribed" class="col-md-3 col-sm-3 col-xs-12 control-label">&nbsp;</label>
-
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <label>
-                                        <input type="checkbox" name="subscribed" id="subscribed" value="1"/>
-                                        Sign up for our Newsletter
-                                    </label>
-                                </div>
-                            </div>
+                            @include('common.signupform')
 
                             <div class="clearfix"></div>
                             <hr class="shop__divider"/>
