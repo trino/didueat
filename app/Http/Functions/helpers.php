@@ -84,7 +84,9 @@ function webroot($Local = false){
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 function read($Name){
-    return \Session::get('session_' . $Name);
+    if (\Session::has('session_' . $Name)) {
+        return \Session::get('session_' . $Name);
+    }
 }
 function write($Name, $Value, $Save = false){
     \Session::put('session_' . $Name, $Value);
