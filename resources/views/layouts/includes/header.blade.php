@@ -42,14 +42,14 @@
                     <span class="sep"></span>
                     <i class="fa fa-search search-btn"></i>
                     <div class="search-box">
-                        <form action="#">
+                        {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                             <div class="input-group" valign="center">
-                                <input type="text" placeholder="Search" class="form-control" />
+                                <input type="text" name="search_term" placeholder="Search" class="form-control" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary red" type="submit">Search</button>
                                 </span>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </li>
                 <!-- END TOP SEARCH -->

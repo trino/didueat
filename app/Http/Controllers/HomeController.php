@@ -18,6 +18,7 @@ class HomeController extends Controller {
             initialize("home");
         });
     }
+    
     /**
      * Home Page
      * @param null
@@ -32,6 +33,59 @@ class HomeController extends Controller {
             return view('home', $data);
         }
        
+    }
+    
+    /**
+     * Search Menus
+     * @param $term
+     * @param $per_page
+     * @param $start
+     * @return view
+     */
+    public function searchMenus($term='') {
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
+        $data['start'] = 0;
+        $data['term'] = $term;
+        $data['title'] = "Search Menus";
+        
+        return view('searchmenus', $data);
+    }
+    
+    /**
+     * Search Menus Ajax
+     * @param null
+     * @return view
+     */
+    public function searchMenusAjax() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['term']) || empty($post['term'])) {
+                return \Response::json(array('type' => 'error', 'response' => '[Search Term] field is missing!'), 400);
+            }
+            if (!isset($post['start']) || empty($post['start'])) {
+                return \Response::json(array('type' => 'error', 'response' => '[Start] field is missing!'), 400);
+            }
+            
+            try {
+                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 10, $post['start'], 'list')->get();
+                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 10, $post['start'], 'count')->count();
+                $data['start'] = $start;
+                $data['term'] = $term;
+                
+                ob_start();
+                view('ajax.search_menus', $data);
+                $html = ob_get_contents();
+                ob_get_flush();
+                
+                return \Response::json(array('type' => 'success', 'response' => $html), 200);
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+        }
+        
     }
     
     /**
@@ -57,7 +111,7 @@ class HomeController extends Controller {
      * @return view
      */
     public function signupRestaurants() {
-         $post = \Input::all();
+        $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
                 \Session::flash('message', "[Restaurant Name] field is missing!"); 

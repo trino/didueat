@@ -117,7 +117,7 @@ class UsersController extends Controller {
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             ob_start();
-            return view('dashboard.ajax.addresse_edit', $data);
+            return view('ajax.addresse_edit', $data);
             ob_get_contents();
             ob_get_flush();
         } catch (\Exception $e) {
