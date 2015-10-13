@@ -63,7 +63,8 @@ Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@delete
 Route::get('restaurant/red/{path}',            'RestaurantController@red');
 
 Route::resource('user/addresses',                   'UsersController@addresses');
-Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete'           )->where('id', '[0-9]+');
+Route::resource('user/addresses/edit/{id}',            'UsersController@addressesUpdate');
+Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
 Route::get('user/uploadmeal',                       'UsersController@uploadMeal');
 Route::resource('user/images',                      'UsersController@images');
 Route::get('user/orders',                           'UsersController@viewOrders');

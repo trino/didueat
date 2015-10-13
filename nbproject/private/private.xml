@@ -12,9 +12,8 @@
         </group>
         <group>
             <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/RestaurantController.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/administrator/restaurants.blade.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/AdministratorController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/HomeController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/layouts/default.blade.php</file>
         </group>
     </open-files>
 </project-private>

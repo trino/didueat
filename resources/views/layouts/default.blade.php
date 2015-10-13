@@ -2,7 +2,8 @@
 <html lang="en">
 <!--<![endif]-->
 <!-- Head BEGIN -->
-<head>  <title>{{ $title." | didueat" }}</title>
+<head>  
+    <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -18,41 +19,21 @@
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="-CUSTOMER VALUE-">
     <link rel="shortcut icon" href="favicon.ico">
-
-
-
-
-
-
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
-          rel="stylesheet" type="text/css">
+    
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-
-
-
-
-
     <link href='https://fonts.googleapis.com/css?family=Roboto:500italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
-
-
-
-
-
-
+    
     <!-- MAKE ALL CSS CHANGES TO HERE -->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
-
-
-
+    
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
-
-
-
+    
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script-->
@@ -60,9 +41,6 @@
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-
-
-
     <!-- END CORE PLUGINS -->
 </head>
 <!-- Head END -->

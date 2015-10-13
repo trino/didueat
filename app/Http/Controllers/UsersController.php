@@ -104,6 +104,28 @@ class UsersController extends Controller {
     }
 
     /**
+     * Addresse Update
+     * @param $id
+     * @return response
+     */
+    public function addressesUpdate($id = 0) {
+        if (!isset($id) || empty($id) || $id == 0) {
+            echo json_encode(array('type' => 'error', 'message' => "[Id] is missing!")); die;
+        }
+
+        try {
+            $data['countries_list'] = \App\Http\Models\Countries::get();
+            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            ob_start();
+            return view('dashboard.ajax.addresse_edit', $data);
+            ob_get_contents();
+            ob_get_flush();
+        } catch (\Exception $e) {
+            echo json_encode(array('type' => 'error', 'message' => $e->getMessage())); die;
+        }
+    }
+
+    /**
      * Addresses Delete
      * @param $id
      * @return redirect
