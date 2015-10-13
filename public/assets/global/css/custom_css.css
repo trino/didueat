@@ -1188,3 +1188,15 @@ body.ecommerce {
 #printableArea .totals #df strong {
   width: 100%;
 }
+
+.menu_managers_edits .infolistwhite div div {
+  margin-bottom: 0;
+}
+
+.menu_managers_edits .ignore img {
+  border: 1px solid #dfdfdf;
+}
+
+.resturant-grid .table td {
+  vertical-align: middle !important;
+}
