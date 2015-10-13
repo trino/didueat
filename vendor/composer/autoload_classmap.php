@@ -65,7 +65,7 @@ return array(
     'Cron\\AbstractField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
     'Cron\\CronExpression' => $vendorDir . '/mtdowling/cron-expression/src/Cron/CronExpression.php',
     'Cron\\DayOfMonthField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/DayOfMonthField.php',
-    'Cron\\DayOfWeekField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/DayOfWeekField.php',
+    'Cron\\day_of_weekField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/day_of_weekField.php',
     'Cron\\FieldFactory' => $vendorDir . '/mtdowling/cron-expression/src/Cron/FieldFactory.php',
     'Cron\\FieldInterface' => $vendorDir . '/mtdowling/cron-expression/src/Cron/FieldInterface.php',
     'Cron\\HoursField' => $vendorDir . '/mtdowling/cron-expression/src/Cron/HoursField.php',

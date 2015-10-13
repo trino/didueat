@@ -19,12 +19,12 @@
 
 @foreach($menus_list as $value)
 <div class="col-md-3 col-sm-6 col-xs-12 margin-bottom-20">
-<a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurantId, 'Slug').'/menus') }}">
+<a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurant_id, 'Slug').'/menus') }}">
 <div class="product-item">
 <div class="pi-img-wrapper">
 <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default.jpg' }}" class="img-responsive" alt="Menu6"/>
 </div>
-<h3><a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurantId, 'Slug').'/menus') }}">{{ $value->menu_item }}</a></h3>
+<h3><a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurant_id, 'Slug').'/menus') }}">{{ $value->menu_item }}</a></h3>
 <div class="pi-price">${{ $value->price }}</div>
 
 <div class="sticker sticker-new"></div>

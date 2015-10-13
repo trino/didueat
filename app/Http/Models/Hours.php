@@ -71,9 +71,9 @@ class Hours extends BaseModel {
         if(!$date){ $date = now();}
         if(strpos($date, "-")){$date = strtotime($date);}
         if(!$this->is_day_off($restaurant_id, get_day($date), get_month($date), get_year($date))) {
-            $dayofweek = $this->get_name_of_weekday($date);
+            $day_of_week = $this->get_name_of_weekday($date);
             $time = date('Gi', $date);
-            return $this->is_restaurant_open($restaurant_id, $dayofweek, $time);
+            return $this->is_restaurant_open($restaurant_id, $day_of_week, $time);
         }
     }
 

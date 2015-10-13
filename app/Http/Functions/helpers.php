@@ -113,8 +113,10 @@ function is_email_in_use($EmailAddress, $NotByUserID=0){
     }
 }
 
-function get_profile_type($ProfileID, $GetByType = false){
+function get_profile_type($ProfileID = false, $GetByType = false){
+    if(!$ProfileID && $GetByType){$ProfileID = get_entry("profiles", read("ID"), "id")->profiletype;}
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
+    if(!$ProfileID){$ProfileID=read("ID");}
     $profiletype = get_entry("profiles", $ProfileID, "id")->profiletype;
     return get_entry("profiletypes", $profiletype);
 }
@@ -165,7 +167,7 @@ function login($Profile){
     \Session::put('session_email',          $Profile->email);
     \Session::put('session_phone',          $Profile->phone);
     \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantid',   $Profile->restaurantid);
+    \Session::put('session_restaurant_id',   $Profile->restaurant_id);
     \Session::put('session_createdBy',      $Profile->created_by);
     \Session::put('session_status',         $Profile->status);
     \Session::put('session_created_at',     $Profile->created_at);
@@ -239,19 +241,19 @@ function get_day($Date){//3 (no leading zero)
 
 
 /////////////////////////////////Event log API////////////////////////////////////
-function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
+function logevent($Event, $DoRestaurant = true, $restaurant_id = 0){
     $UserID = read('ID');
     if(!$UserID){
         $UserID=0;
         $DoRestaurant=false;
     }
     if ($DoRestaurant) {
-        if (!$RestaurantID) {
-            $RestaurantID = get_profile($UserID)->RestaurantID;
+        if (!$restaurant_id) {
+            $restaurant_id = get_profile($UserID)->restaurant_id;
         }
     }
     $Date = now();
-    new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $RestaurantID, "date" => $Date, "text" => $Event));
+    new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $restaurant_id, "date" => $Date, "text" => $Event));
 }
 
 

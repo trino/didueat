@@ -9,7 +9,7 @@ class DateTime extends \Faker\Provider\DateTime
         return static::dateTime($max)->format('a') === 'am' ? 'öö' : 'ös';
     }
 
-    public static function dayOfWeek($max = 'now')
+    public static function day_of_week($max = 'now')
     {
         $map = array(
             'Sunday' => 'Pazar',

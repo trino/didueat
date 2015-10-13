@@ -274,10 +274,10 @@
 
                             <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Hours of Operation</h3>
                             <?php
-                            $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                            foreach ($dayofweek as $key => $value) {
-                            $open[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurantId'), 'day_of_week' => $value), 'open');
-                            $close[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurantId'), 'day_of_week' => $value), 'close');
+                            $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                            foreach ($day_of_week as $key => $value) {
+                            $open[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'open');
+                            $close[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'close');
                             ?>
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">

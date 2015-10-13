@@ -29,8 +29,8 @@ class Reservations extends BaseModel {
         }
 
         /*
-        if (array_key_exists('restaurantId', $data)) {
-            $this->restaurantId = $data['restaurantId'];
+        if (array_key_exists('restaurant_id', $data)) {
+            $this->restaurant_id = $data['restaurant_id'];
         }
         if (array_key_exists('menu_ids', $data)) {
             $this->menu_ids = $data['menu_ids'];
@@ -178,8 +178,8 @@ class Reservations extends BaseModel {
     function delete_order($ID){
         delete_all("reservations", array('id' => $ID));
     }
-    function pending_order_count($RestaurantID = ""){
-        return iterator_count($this->enum_orders($RestaurantID, false, false));
+    function pending_order_count($restaurant_id = ""){
+        return iterator_count($this->enum_orders($restaurant_id, false, false));
     }
     function get_order($ID){
         return get_entry("reservations", $ID, "id");

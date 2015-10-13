@@ -90,7 +90,7 @@ namespace Faker;
  * @property \DateTime $dateTimeThisMonth
  * @property string    $amPm
  * @property int       $dayOfMonth
- * @property int       $dayOfWeek
+ * @property int       $day_of_week
  * @property int       $month
  * @property string    $monthName
  * @property int       $year

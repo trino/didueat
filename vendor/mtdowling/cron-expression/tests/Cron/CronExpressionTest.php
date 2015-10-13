@@ -179,7 +179,7 @@ class CronExpressionTest extends \PHPUnit_Framework_TestCase
      * @covers Cron\CronExpression::isDue
      * @covers Cron\CronExpression::getNextRunDate
      * @covers Cron\DayOfMonthField
-     * @covers Cron\DayOfWeekField
+     * @covers Cron\day_of_weekField
      * @covers Cron\MinutesField
      * @covers Cron\HoursField
      * @covers Cron\MonthField

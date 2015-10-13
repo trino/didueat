@@ -19,7 +19,7 @@ class FieldFactoryTest extends \PHPUnit_Framework_TestCase
             1 => 'Cron\HoursField',
             2 => 'Cron\DayOfMonthField',
             3 => 'Cron\MonthField',
-            4 => 'Cron\DayOfWeekField',
+            4 => 'Cron\day_of_weekField',
             5 => 'Cron\YearField'
         );
 
