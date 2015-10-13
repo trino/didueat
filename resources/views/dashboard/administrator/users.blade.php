@@ -86,7 +86,7 @@
                 <h4 class="modal-title">Add New</h4>
             </div>
             {!! Form::open(array('url' => '/restaurant/users', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-               
+
                         <div class="form-group">
                             <label class="col-md-2 col-sm-2 col-xs-4 control-label" for="profile_type">Type</label>
                             <div class="col-md-10 col-sm-10 col-xs-8">
@@ -96,7 +96,7 @@
                                 </select>
                             </div>
                         </div>
-                  
+
                 <div class="clearfix"></div>
                 @include('common.signupform')
             <!--div class="modal-body">

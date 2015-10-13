@@ -1,57 +1,61 @@
-@foreach ($restaurants_list as $value)
+<div class="col-md-6">
+    <table class="table table-bordered table-hover">
+        <!--thead>
+        <tr role="row" class="heading">
+            <th width="1%">
+                Image
+            </th>
 
-    <div class="col-md-3 col-sm-3 col-xs-12">
+            <th width="8%">
+                Sort Order
+            </th>
 
-        <!-- BEGIN Portlet PORTLET-->
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-puzzle font-grey-gallery"></i>
-								<span class="caption-subject bold font-grey-gallery uppercase">
-								            <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{!! $value->name !!} </a>
- </span>
-                </div>
-                <div class="tools">
-                    <a href="" class="remove" data-original-title="" title="">
+            <th width="10%">
+            </th>
+        </tr>
+        </thead-->
+        <tbody>
+
+        @foreach ($restaurants_list as $value)
+
+            <tr>
+                <td width="15%">
+
+                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
+                        @if(!empty($value->logo))
+                            <img style="width:100%;" class="img-responsive" alt=""
+                                 src="{{ url('assets/images/restaurants/'.$value->logo) }}">
+                        @else
+                            <img style="width:100%;" class="img-responsive" alt=""
+                                 src="{{ url('assets/images/default.png') }}">
+                        @endif
                     </a>
-                </div>
-            </div>
-            <div class="portlet-body">
-
-                <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-12">
-
-
-                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
-                            @if(!empty($value->logo))
-                                <img class="img-responsive" alt=""
-                                     src="{{ url('assets/images/restaurants/'.$value->logo) }}">
-                            @else
-                                <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
-                            @endif
-                        </a>
-                    </div>
-
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-
-                        <ul class="blog-info">
-                            <li>
-                                <i class="fa fa-map-marker"></i>{!! $value->address.' , '.$value->city.' , '.$value->province.' , '.$value->country !!}
-                            </li>
-                            <li><i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}</li>
-                            <li><i class="fa fa-tags"></i>{!! $value->phone !!}</li>
-                        </ul>
-                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order
-                            Online</a>
-                    </div>
+                </td>
+                <td width="80%">
+                    <h2>
+                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{!! $value->name !!} </a>
+                    </h2>
+                    <ul class="blog-info">
+                        <li>
+                            <i class="fa fa-map-marker"></i>{!! $value->address.' , '.$value->city.' , '.$value->province.' , '.$value->country !!}
+                            <i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}<i class="fa fa-tags"></i>{!! $value->phone !!}</li>
+                    </ul>
 
 
-                </div>
-            </div>
-        </div>
-        <!-- END GRID PORTLET-->
-    </div>
-@endforeach
+                <td>
+                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order
+                        Online</a></td>
+                </td>
+            </tr>
+
+
+        @endforeach
+
+
+        </tbody>
+    </table>
+</div>
+
 <div style="display: none;" class="nxtpage">
     <li class="next"><a href="{{$restaurants_list->nextPageUrl()}}">Next &gt;&gt;</a></li>
 </div>

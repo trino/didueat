@@ -31,6 +31,15 @@
 
 
 
+
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
+
+
+
+
+
+
     <!-- MAKE ALL CSS CHANGES TO HERE -->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">

@@ -1,6 +1,30 @@
 @extends('layouts.default')
 @section('content')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="margin-bottom-40">
     <div class="col-md-2 col-sm-4 col-xs-12">
 

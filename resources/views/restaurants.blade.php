@@ -3,12 +3,11 @@
 
     <div class="margin-bottom-40">
 
-        <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="content-page">
                 <div class="row margin-bottom-10">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-9 col-sm-9 col-xs-9">
                         <h1 class="">
-                            <a href="#"></a> Local Restaurants
+                            Local Restaurants
                         </h1>
 
                         <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
@@ -40,12 +39,26 @@
 
                     </div>
 
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
 
+                        <div class="portlet box red">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-globe"></i>Logs List
+                                </div>
+                                <div class="tools">
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                456<br>
+                                456<br>
+                                456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>456<br>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
 
     </div>
     <script>
