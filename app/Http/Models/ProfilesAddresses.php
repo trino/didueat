@@ -21,7 +21,7 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('user_id', 'number', 'apt', 'buzz', 'post_code', 'phone_no', 'street', 'city', 'province', 'country', 'notes');
+        $cells = array('userid', 'number', 'apt', 'buzz', 'postalcode', 'phone', 'street', 'city', 'province', 'country', 'notes');
         foreach($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -65,7 +65,7 @@ class ProfilesAddresses extends BaseModel {
 
     ////////////////////////////////////////Profile Address API ////////////////////////////////////
     function enum_profile_addresses($profile_id){
-        return enum_all("profiles_addresses", array("user_id" => $profile_id));
+        return enum_all("profiles_addresses", array("userid" => $profile_id));
     }
     function delete_profile_address($id){
         delete_all("profiles_addresses", array("id" => $id));
@@ -74,7 +74,7 @@ class ProfilesAddresses extends BaseModel {
         return get_entry("profiles_addresses", $id);
     }
     function edit_profile_address($id, $user_id, $name, $phone, $number, $street, $apt, $buzz, $city, $province, $postal_code, $country, $notes){
-        $Data = array("user_id" => $user_id, "name" => $name, "phone" => clean_phone($phone), "number" => $number, "street" => $street, "apt" => $apt, "buzz" => $buzz, "city" => $city, "province" => $province, "postal_code" => clean_postalcode($postal_code), "country" =>$country, "notes" =>$notes);
+        $Data = array("userid" => $user_id, "name" => $name, "phone" => clean_phone($phone), "number" => $number, "street" => $street, "apt" => $apt, "buzz" => $buzz, "city" => $city, "province" => $province, "postalcode" => clean_postalcode($postal_code), "country" =>$country, "notes" =>$notes);
         return edit_database("profiles_addresses", "id", $id, $Data);
     }
 
