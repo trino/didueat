@@ -64,7 +64,7 @@ function enum_profiletypes($Hierarchy = "", $toArray = true){
         $Condition = "Hierarchy > " . $Hierarchy;
     }
     $entries = enum_all("profiletypes", $Condition);
-    if($toArray) {return my_iterator_to_array($entries, "ID", "Name");}
+    if($toArray) {return my_iterator_to_array($entries, "id", "name");}
     return $entries;
 }
 
@@ -109,13 +109,13 @@ function is_email_in_use($EmailAddress, $NotByUserID=0){
     if($NotByUserID) {
         return first("SELECT * FROM profiles WHERE Email = '" . $EmailAddress. "' AND ID != " . $NotByUserID);
     } else {
-        return get_entry("profiles",$EmailAddress, "Email");
+        return get_entry("profiles",$EmailAddress, "email");
     }
 }
 
 function get_profile_type($ProfileID, $GetByType = false){
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
-    $profiletype = get_entry("profiles", $ProfileID, "ID")->ProfileType;
+    $profiletype = get_entry("profiles", $ProfileID, "id")->ProfileType;
     return get_entry("profiletypes", $profiletype);
 }
 
@@ -190,6 +190,7 @@ function get_current_restaurant(){
 function check_permission($Permission, $UserID = ""){
     if(!$UserID){$UserID = read("id");}
     if(!$UserID){ echo 'You are not logged in';die();}
+    $Permission=strtolower($Permission);
     return get_profile_type($UserID)->$Permission;
 }
 
@@ -247,7 +248,7 @@ function logevent($Event, $DoRestaurant = true, $RestaurantID = 0){
         }
     }
     $Date = now();
-    new_entry("eventlog", "ID", array("UserID" => $UserID, "restaurant_id" => $RestaurantID, "Date" => $Date, "Text" => $Event));
+    new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $RestaurantID, "date" => $Date, "text" => $Event));
 }
 
 
@@ -503,7 +504,7 @@ function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC"){
 function enum_anything($Table, $Key, $Value){
     return select_field_where($Table, array($Key => $Value), false);
 }
-function get_entry($Table, $Value, $PrimaryKey = "ID"){
+function get_entry($Table, $Value, $PrimaryKey = "id"){
     if(!$PrimaryKey){$PrimaryKey = get_primary_key($Table);}
     return select_field_where($Table, array($PrimaryKey => $Value));
 }

@@ -54,7 +54,7 @@ class ProfileTypes extends BaseModel {
             $id = $this->new_profiletype($name);
         }
         logevent("Changed profile type: " . $id . " (" . $name . ", " . $hierarchy . ", " . print_r($permissions, true) . ")", false);
-        $data = array("Name" => $name, "hierarchy" => $hierarchy);
+        $data = array("name" => $name, "hierarchy" => $hierarchy);
         if ($permissions == "ALL"){
             $permissions = $this->get_profile_permissions();
         }
