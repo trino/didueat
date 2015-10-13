@@ -115,7 +115,7 @@ function is_email_in_use($EmailAddress, $NotByUserID=0){
 
 function get_profile_type($ProfileID, $GetByType = false){
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
-    $profiletype = get_entry("profiles", $ProfileID, "id")->ProfileType;
+    $profiletype = get_entry("profiles", $ProfileID, "id")->profiletype;
     return get_entry("profiletypes", $profiletype);
 }
 
@@ -160,12 +160,12 @@ function login($Profile){
     write('Restaurant',    $Profile->restaurant_id);
     
     \Session::put('session_id',             $Profile->id);
-    \Session::put('session_profileType',    $Profile->profile_type);
+    \Session::put('session_profiletype',    $Profile->profile_type);
     \Session::put('session_name',           $Profile->name);
     \Session::put('session_email',          $Profile->email);
     \Session::put('session_phone',          $Profile->phone);
     \Session::put('session_subscribed',     $Profile->subscribed);
-    \Session::put('session_restaurantId',   $Profile->restaurant_id);
+    \Session::put('session_restaurantid',   $Profile->restaurantid);
     \Session::put('session_createdBy',      $Profile->created_by);
     \Session::put('session_status',         $Profile->status);
     \Session::put('session_created_at',     $Profile->created_at);
@@ -191,7 +191,10 @@ function check_permission($Permission, $UserID = ""){
     if(!$UserID){$UserID = read("id");}
     if(!$UserID){ echo 'You are not logged in';die();}
     $Permission=strtolower($Permission);
-    return get_profile_type($UserID)->$Permission;
+    $PType = get_profile_type($UserID);
+    if (isset($PType->$Permission)) {
+        return $PType->$Permission;
+    }
 }
 
 

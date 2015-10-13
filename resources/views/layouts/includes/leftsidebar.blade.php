@@ -28,7 +28,7 @@
                         <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}"
                                                                 class="<?php if (Request::path() == 'user/addresses') {
                                                                     echo 'active';
-                                                                } ?>"><i class="fa fa-angle-right"></i>My Address</a>
+                                                                } ?>"><i class="fa fa-angle-right"></i>My Addresses</a>
                         </li>
 
 
@@ -46,7 +46,7 @@
 
 
 
-                        @if(\Session::get('session_profileType') == 1)
+                        @if(check_permission("caneditglobalsettings"))
                             <div class="portlet box red">
                                 <div class="portlet-title">
                                     <div class="caption">
