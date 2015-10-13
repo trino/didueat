@@ -19,7 +19,7 @@
                 <div class="portlet box red">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i>Profile Manage
+                            <i class="fa fa-gift"></i>Profile Manager
                         </div>
                     </div>
                     <div class="portlet-body form">
