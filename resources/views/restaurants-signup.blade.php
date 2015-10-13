@@ -152,9 +152,9 @@
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-                                <h3 class="form-section">Restaurant Info</h3>
+                                <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Restaurant Info</h3>
 
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10"
                                                for="name">Restaurant Name <span class="require">*</span></label>
@@ -165,7 +165,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10"
                                                for="phone">Phone Number</label>
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-11 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="row">
                                         <p class="inputs">
                                             <label class="col-lg-12 col-sm-12 control-label col-xs-12 margin-bottom-10"
@@ -190,9 +190,9 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <h3 class="form-section">Address</h3>
+                                <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Address</h3>
 
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required"
                                                for="country">Country <span class="require">*</span></label>
@@ -208,7 +208,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required"
                                                for="province">Province <span class="require">*</span></label>
@@ -219,7 +219,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-sm-12 col-md-12 control-label col-xs-12 margin-bottom-10 required"
                                                for="address">Street Address <span class="require">*</span></label>
@@ -231,7 +231,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required"
                                                for="city">City <span class="require">*</span></label>
@@ -242,7 +242,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10 required"
                                                for="postal_code">Postal Code <span class="require">*</span></label>
@@ -254,7 +254,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="row">
                                         <label class="col-lg-12 col-md-12 col-sm-12 control-label col-xs-12 margin-bottom-10"
                                                for="genre">Genre</label>
@@ -272,7 +272,7 @@
                                 </div>
                             </div>
 
-                            <h3 class="form-section">Hours of Operation</h3>
+                            <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Hours of Operation</h3>
                             <?php
                             $dayofweek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                             foreach ($dayofweek as $key => $value) {
@@ -281,14 +281,14 @@
                             ?>
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group">
+                                    <div class="">
                                         <label class="control-label col-md-2 col-sm-2 col-xs-12 padding-top-5"><?php echo $value; ?></label>
 
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="text" name="open[<?php echo $key; ?>]" value=""
                                                    data-format="hh:mm A" class="form-control time"/>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
                                             <input type="text" name="close[<?php echo $key; ?>]" value=""
                                                    data-format="hh:mm A" class="form-control time"/>
                                             <input type="hidden" name="day_of_week[<?php echo $key; ?>]"
@@ -300,17 +300,17 @@
                             <hr class="shop__divider">
                             <?php } ?>
 
-                            <h3 class="form-section">Delivery</h3>
+                            <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Delivery</h3>
 
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="">
                                     <label class="control-label">Delivery Fee <span class="required">*</span></label>
                                     <input type="text" name="delivery_fee" class="form-control required"
                                            placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" required>
                                 </div>
                             </div>
-                            <div class="col-md-5 col-sm-5 col-xs-12">
-                                <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="">
                                     <label class="control-label">Minimum Sub Total For Delivery <span
                                                 class="required">*</span></label>
                                     <input type="text" name="minimum" class="form-control required"
@@ -321,13 +321,13 @@
                             <div class="clearfix"></div>
                             <hr class="shop__divider">
 
-                            <h3 class="form-section">Create username & password</h3>
+                            <h3 class="form-section col-md-12 col-sm-12 col-xs-12">Create username & password</h3>
 
-                            <div class="form-group">
+                            <div class="">
                                 <label for="full_name" class="col-md-3 col-sm-3 col-xs-12 control-label">Full Name <span
                                             class="required">*</span></label>
 
-                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <div class="input-icon">
                                         <i class="fa fa-user"></i>
                                         <input type="text" name="full_name" class="form-control required" id="full_name"
@@ -335,11 +335,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="">
                                 <label for="email" class="col-md-3 col-sm-3 col-xs-12 control-label">Email <span
                                             class="required">*</span></label>
 
-                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <div class="input-icon">
                                         <i class="fa fa-envelope"></i>
                                         <input type="email" name="email" class="form-control required" id="email"
@@ -347,11 +347,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="">
                                 <label for="password" class="col-md-3 col-sm-3 col-xs-12 control-label">Password <span
                                             class="required">*</span></label>
 
-                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <div class="input-icon">
                                         <i class="fa fa-key"></i>
                                         <input type="password" name="password" class="form-control required"
@@ -360,11 +360,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="">
                                 <label for="confirm_password" class="col-md-3 col-sm-3 col-xs-12 control-label">Re-type
                                     Password <span class="required">*</span></label>
 
-                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <div class="input-icon">
                                         <i class="fa fa-key"></i>
                                         <input type="password" name="confirm_password" class="form-control required"
@@ -372,10 +372,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="">
                                 <label for="subscribed" class="col-md-3 col-sm-3 col-xs-12 control-label">&nbsp;</label>
 
-                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="col-md-9 col-sm-9 col-xs-12">
                                     <label>
                                         <input type="checkbox" name="subscribed" id="subscribed" value="1"/>
                                         Sign up for our Newsletter
