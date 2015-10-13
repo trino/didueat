@@ -48,6 +48,7 @@ Route::get('restaurant/orders/pending/approve/{id}','RestaurantController@change
 Route::get('restaurant/orders/pending/delete/{id}', 'RestaurantController@deleteOrder'          )->where('id', '[0-9]+');
 Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail'         )->where('id', '[0-9]+');
 Route::get('restaurant/orders/history/{id}',        'RestaurantController@history'              )->where('id', '[0-9]+');
+Route::get('restaurant/orders/{type}',              'RestaurantController@orderslist'           )->where('slug', '[a-z]+');
 Route::get('restaurant/eventlog',                   'RestaurantController@eventsLog');
 Route::get('restaurant/report',                     'RestaurantController@report');
 Route::get('restaurant/menu_form/{id}',             'RestaurantController@menu_form');

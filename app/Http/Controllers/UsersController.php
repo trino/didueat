@@ -215,6 +215,7 @@ class UsersController extends Controller {
         if (isset($_POST)) {
             \DB::beginTransaction();
             try {
+                $res['user_id'] = $_POST['user_id'];
                 $res['order_type'] = $_POST['order_type'];
                 $res['order_time'] = date('Y-m-d h:i:s');
                 $res['delivery_fee'] = $_POST['delivery_fee'];

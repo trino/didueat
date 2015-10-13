@@ -14,8 +14,8 @@
 
 
                         <li class="list-group-item clearfix"><a
-                                    href="{{ url('restaurant/orders/history/'.\Session::get('session_restaurantId')) }}"
-                                    class="<?php if (Request::path() == 'restaurant/orders/history/' . \Session::get('session_restaurantId')) {
+                                    href="{{ url('restaurant/orders/user') }}"
+                                    class="<?php if (Request::path() == 'restaurant/orders/user') {
                                         echo 'active';
                                     } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
 
@@ -57,8 +57,8 @@
 
                                     <ul class="list-group margin-bottom-25 sidebar-menu">
                                         <li class="list-group-item clearfix"><a
-                                                    href="{{ url('restaurant/orders/history/'.\Session::get('session_restaurantId')) }}"
-                                                    class="<?php if (Request::path() == 'restaurant/orders/history/' . \Session::get('session_restaurantId')) {
+                                                    href="{{ url('restaurant/orders/admin') }}"
+                                                    class="<?php if (Request::path() == 'restaurant/orders/admin') {
                                                         echo 'active';
                                                     } ?>"><i class="fa fa-angle-right"></i> Orders</a></li>
 
@@ -113,8 +113,8 @@
 
 
                             <li class="list-group-item clearfix"><a
-                                        href="{{ url('restaurant/orders/history/'.\Session::get('session_restaurantId')) }}"
-                                        class="<?php if (Request::path() == 'restaurant/orders/history/' . \Session::get('session_restaurantId')) {
+                                        href="{{ url('restaurant/orders/restaurant') }}"
+                                        class="<?php if (Request::path() == 'restaurant/orders/restaurant') {
                                             echo 'active';
                                         } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/menus-manager') }}"

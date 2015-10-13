@@ -28,7 +28,7 @@
                     <div class="portlet box red">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>MY ORDERS
+                                <i class="fa fa-globe"></i>MY ORDERS ({{ strtoupper($type) }})
                             </div>
                             <div class="tools">
 
