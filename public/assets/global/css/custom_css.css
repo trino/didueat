@@ -1168,7 +1168,23 @@ body.ecommerce {
     margin-top: 0 !important;
 }
 
-.deleteme #cartsz {
+.orders_details #cartsz {
   border-top: 1px solid #dfdfdf;
   padding-top: 30px;
+}
+
+#addNewUser .modal-header, .login-form h1, #forget-passsword h1, #register-form h1 {
+  background: #d50000 none repeat scroll 0 0;
+  color: #fff;
+  padding: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+#addNewUser .modal-header h4 {
+  margin-bottom: 0 !important;
+  font-weight: 600 !important;
+}
+
+#printableArea .totals #df strong {
+  width: 100%;
 }
