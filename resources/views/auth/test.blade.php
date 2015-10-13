@@ -1,3 +1,6 @@
+<?php
+        $APIkey = "AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,7 +155,65 @@
     }
     // [END region_geolocation]
 
+    //FUNCTION TO LOAD THE GOOGLE MAPS API
+    function loadScript() {
+        var script  = document.createElement("script");
+        script.type = "text/javascript";
+        script.src  = "http://maps.googleapis.com/maps/api/js?key=<?= $APIkey; ?>&sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    }
+    //FUNCTION TO INITIALIZE THE GOOGLE MAP
+    function initialize() {
+        var mapOptions = {
+            zoom:      8,
+            center:    new google.maps.LatLng(43.2500, -79.8667),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    }
+
+    function getdistance(PointA, PointB){
+        //INITIALIZE GLOBAL VARIABLES
+        var zipCodesToLookup = new Array(PointA, PointB);
+        var output           = '<tr><th scope="col">From</th><th scope="col">To</th><th scope="col">KM</th></tr>';
+
+        //EXECUTE THE DISTANCE MATRIX QUERY
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix({
+            origins:      zipCodesToLookup,
+            destinations: zipCodesToLookup,
+            travelMode:   google.maps.TravelMode.DRIVING,
+            unitSystem:   google.maps.UnitSystem.METRIC
+        }, function(response, status) {
+            //...response processed here...//
+            if(status == google.maps.DistanceMatrixStatus.OK) {
+                var origins = response.originAddresses;
+                var destinations = response.destinationAddresses;
+                var distance = 0;
+                for(var i=0; i < origins.length; i++) {
+                    var results = response.rows[i].elements;
+                    for(var j=0; j < results.length; j++) {
+                        output += '<tr><td>' + origins[i] + '</td><td>' + destinations[j] + '</td><td>' + results[j].distance.text + '</td></tr>';
+                        distance += results[j].distance.value;
+                    }
+                }
+                distance = distance/1000;//convert to KM
+                document.getElementById('zip_code_output').innerHTML = '<table cellpadding="5">' + output + '<TR><TD COLSPAN=2>Total Distance</TD><TD>' + distance.toFixed(2) + ' km</TD></TR></table>';
+            }
+        });
+    }
+
+    function getvalue(ID){
+        return document.getElementById(ID).value;
+    }
+
+    window.onload = loadScript;
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<?= $APIkey; ?>&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+
+<div id="zip_code_output"></div><div id="map_canvas" style="width:650px; height:600px;"></div>
+<INPUT TYPE="TEXT" ID="pointa" placeholder="Start" value="L8L6V6"><INPUT TYPE="TEXT" ID="pointb" placeholder="End" value="L7P3C3">
+<INPUT TYPE="BUTTON" VALUE="Get Distance" ONCLICK="getdistance(getvalue('pointa'), getvalue('pointb'));" />
+
 </body>
 </html>
