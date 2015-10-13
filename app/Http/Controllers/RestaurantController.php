@@ -693,5 +693,19 @@ class RestaurantController extends Controller {
     public function red($path) {
         return \Redirect::to('restaurant/' . $path)->with('message', 'Restaurant menu successfully updated');
     }
+    
+    public function orderslist($type='')
+    {
+        $data['title'] = 'Orders';
+        $data['type'] = ucfirst($type);
+       $orders = new \App\Http\Models\Reservations();
+       if($type == 'user')
+            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurantId'))->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
+       elseif($type == 'restaurant')
+            $data['orders_list'] =$orders->where('restaurant_id', \Session::get('session_restaurantId'))->orderBy('order_time', 'DESC')->get();
+       else
+            $data['orders_list'] =$orders->orderBy('order_time', 'DESC')->get();       
+        return view('dashboard.restaurant.orders_pending', $data);
+    }
 
 }

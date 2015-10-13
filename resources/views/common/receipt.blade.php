@@ -105,7 +105,7 @@
                             <?php }?>
                             <form id="profiles">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-
+                                <input type="hidden" name="user_id" value="<?php echo (isset($profile))?$profile->id:'0';?>"/>
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
                                         <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name"
