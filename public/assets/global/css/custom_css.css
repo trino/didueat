@@ -1200,3 +1200,7 @@ body.ecommerce {
 .resturant-grid .table td {
   vertical-align: middle !important;
 }
+
+.form-restaurants .form-section {
+  margin-top: 10px !important;
+}
