@@ -14,11 +14,11 @@ $('.add_additional').live('click',function(){
     $('.additional'+id).show();
     var c=0;
     $('.newaction').each(function(){
-        c++;
-        if(c!=1)
+        //c++;
+        //if(c!=1)
        $(this).html('<a href="javascript:void(0)" class="btn btn-danger removenormal">Remove</a>'); 
-       else
-       $(this).hide();
+       //else
+       //$(this).hide();
     });
     var ajax_load = '';
     $.ajax({
@@ -63,11 +63,11 @@ $('.removelast').live('click',function(){
 });
 $('.addmorebtn').live('click',function(){
     $(this).closest('.aitems').find('.addmore').append(
-    '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-10 nopadd">'+
+    '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-8 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1">'+
     '<input class="form-control cctitle" type="text" placeholder="Item" />'+
     '<input class="form-control ccprice pricechk" type="text" placeholder="Price" style="margin-left:10px;" />'+   
     '</div>'+ 
-    '<div class="col-md-2">'+
+    '<div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">'+
     '<a href="javascript:void(0);" class="btn btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>'+  
     '</div><div class="clearfix"></div></div>');
 });
