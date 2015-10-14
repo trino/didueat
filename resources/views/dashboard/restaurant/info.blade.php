@@ -158,7 +158,7 @@
 
                                         @if($resturant->logo)
                                             <img id="picture" class="margin-bottom-10"
-                                                 src="{{ asset('assets/images/restaurants/'.$resturant->logo) }}"
+                                                 src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo) }}"
                                                  title=""
                                                  style="width: 100%;">
                                         @else

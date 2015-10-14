@@ -161,15 +161,24 @@ class RestaurantController extends Controller {
             }
             try {
                 if (\Input::hasFile('logo')) {
-                    
+                    $image_file = \App\Http\Models\Restaurants::select('logo')->where('id',$post['id'])->get()[0]->logo;
+                    //die();
                     $image = \Input::file('logo');
                     $ext = $image->getClientOriginalExtension();
-                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
-                    $destinationPath = public_path('assets/images/restaurants');
+                    if($image_file =='')
+                        $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+                    else
+                        $newName = $image_file;
+                    if (!file_exists(public_path('assets/images/restaurants/'.$post['id']))) {
+                        mkdir('assets/images/restaurants/'.$post['id'], 0777, true);
+                    }
+                    $destinationPath = public_path('assets/images/restaurants/'.$post['id']);
                     $image->move($destinationPath, $newName);
-                    $sizes = ['assets/images/restaurants/thumb/'=>'500x380','assets/images/restaurants/thumb1/'=>'37x32'];
+                    $sizes = ['assets/images/restaurants/'.$post['id'].'/thumb_'=>'500x380','assets/images/restaurants/'.$post['id'].'/thumb1_'=>'37x32'];
                     $filename = $destinationPath."/".$newName;
                     copyimages($sizes,$filename, $newName);
+                    
+                    
                     
                     $update['logo'] = $newName;
                 }

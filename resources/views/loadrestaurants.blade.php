@@ -24,7 +24,7 @@
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         @if(!empty($value->logo))
                             <img style="width:100%;" class="img-responsive" alt=""
-                                 src="{{ url('assets/images/restaurants/'.$value->logo) }}">
+                                 src="{{ url('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
                         @else
                             <img style="width:100%;" class="img-responsive" alt=""
                                  src="{{ url('assets/images/default.png') }}">
