@@ -40,7 +40,7 @@
                                     <tbody>
                                         @foreach($users_list as $value)
                                         <tr>
-                                            <td>{{ $value->ID }}</td>
+                                            <td>{{ $value->id }}</td>
                                             <td>{{ $value->name }}</td>
                                             <td>{{ $value->email }}</td>
                                             <td>{{ $value->phone }}</td>

@@ -109,7 +109,7 @@
                             <tbody>
                             <?php
                             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
-                            //$submenus = $Manager->enum_all('Menus',['parent'=>$menu->ID]);
+                            //$submenus = $Manager->enum_all('Menus',['parent'=>$menu->id]);
                             foreach($submenus as $sub){
                             ?>
                             <tr class="zxcx">

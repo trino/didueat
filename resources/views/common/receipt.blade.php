@@ -16,6 +16,8 @@
             <div class="row  resturant-logo-desc">
                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="col-md-6">
+
+
                      @if(!empty($res_detail->logo))
                             <img class="img-responsive" alt=""
                                  src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
@@ -91,7 +93,7 @@
                             </div>
                             <?php
                             if(\Session::get('session_id'))
-                            $profile = \DB::table('Profiles')->select('Profiles.name', 'Profiles.phone', 'Profiles.email', 'Profiles_addresses.street as street', 'Profiles_addresses.post_code', 'Profiles_addresses.city', 'Profiles_addresses.province')->where('Profiles.id', \Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.id', '=', 'Profiles_addresses.user_id')->first();
+                            $profile = \DB::table('Profiles')->select('Profiles.id', 'Profiles.name', 'Profiles.phone', 'Profiles.email', 'Profiles_addresses.street as street', 'Profiles_addresses.post_code', 'Profiles_addresses.city', 'Profiles_addresses.province')->where('Profiles.id', \Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.id', '=', 'Profiles_addresses.user_id')->first();
                             else
                             {?>
                             <div class="form-group reservation_signin">

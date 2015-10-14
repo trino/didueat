@@ -1,12 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-    <style>div {
-            border: 0px solid green;
-        }</style>
     <div class="margin-bottom-40 clearfix">
-        <!-- BEGIN CONTENT -->
-
 
         <div class="col-md-9 col-sm-4 col-xs-12 menu_div">
 
@@ -30,17 +25,13 @@
             <?php }?>
             <div class="clearfix"></div>
 
-
-
-
-
-
         </div>
+
+
 
 
         <!-- BEGIN CART -->
         <div class="top-cart-block col-md-3 col-sm-3" id="printableArea">
-
 
 
             <div class="overlay overlay_reservation">
@@ -62,8 +53,15 @@
                                                                     onclick="#cartsz"></i></a>
                 </div>
             </div>
+
+
+
             @include('common.receipt')
-            <!--
+
+
+
+
+                    <!--
 <div id="cartsz">
 
 
@@ -73,59 +71,59 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
 
                         @if(!empty($restaurant->logo))
-                            <img class="img-responsive" alt=""
-                                 src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
+                    <img class="img-responsive" alt=""
+                         src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
                         @else
-                            <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
+                    <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
                         @endif
-                        <address>
-                            <strong>{!! $restaurant->name !!}.</strong><br>
+                    <address>
+                        <strong>{!! $restaurant->name !!}.</strong><br>
                             {!! $restaurant->address.' , '.$restaurant->city !!}
-                            {!! $restaurant->province.' , '.$restaurant->country !!}<br>
+            {!! $restaurant->province.' , '.$restaurant->country !!}<br>
                             <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}
-                            <abbr title="Email">E:</abbr>
-                            <a href="{{ $restaurant->email }}">
+                    <abbr title="Email">E:</abbr>
+                    <a href="{{ $restaurant->email }}">
                                 {!! $restaurant->email !!}
-                            </a>
-                        </address>
+                    </a>
+                </address>
 
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+
+        <div class="top-cart-content-wrapper">
+
+            <div class="top-cart-content ">
+                <div class="receipt_main">
+                    <div class="slimScrollDiv"
+                         style="position: relative; overflow: hidden; width: auto; height: 220px;">
+                        <ul class="scroller orders" style="height: 220px; overflow-y: scroll; width: auto;">
+
+                        </ul>
+                        <div class="slimScrollBar"
+                             style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
+                        <div class="slimScrollRail"
+                             style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px;"></div>
                     </div>
 
-                    <div class="clearfix"></div>
 
-                </div>
-
-
-                <div class="top-cart-content-wrapper">
-
-                    <div class="top-cart-content ">
-                        <div class="receipt_main">
-                            <div class="slimScrollDiv"
-                                 style="position: relative; overflow: hidden; width: auto; height: 220px;">
-                                <ul class="scroller orders" style="height: 220px; overflow-y: scroll; width: auto;">
-
-                                </ul>
-                                <div class="slimScrollBar"
-                                     style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
-                                <div class="slimScrollRail"
-                                     style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px;"></div>
-                            </div>
-
-
-                            <div class="totals col-md-12 col-sm-12 col-xs-12 no-padding">
-                                <table class="table">
-                                    <tbody>
-                                    <tr>
-                                        <td><label class="radio-inline"><input type="radio" name="delevery_type"
-                                                                               checked="checked"
-                                                                               onclick="delivery('hide');">Pickup</label>
-                                        </td>
-                                        <td><label class="radio-inline"><input type="radio" name="delevery_type"
-                                                                               onclick="delivery('show');">Delivery</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Subtotal&nbsp;</strong></td>
+                    <div class="totals col-md-12 col-sm-12 col-xs-12 no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><label class="radio-inline"><input type="radio" name="delevery_type"
+                                                                       checked="checked"
+                                                                       onclick="delivery('hide');">Pickup</label>
+                                </td>
+                                <td><label class="radio-inline"><input type="radio" name="delevery_type"
+                                                                       onclick="delivery('show');">Delivery</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Subtotal&nbsp;</strong></td>
                                         <td>&nbsp;$<div class="subtotal" style="display: inline-block;">0</div>
                                             <input type="hidden" name="subtotal" class="subtotal" value="0"></td>
                                     </tr>
@@ -167,7 +165,7 @@
                                    onclick="checkout();">Checkout</a>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -616,14 +614,13 @@
     <script>
         function checkout() {
             var del = $('#delivery_flag').val();
-            
-            if($('.subtotal').text()=='0'){
+
+            if ($('.subtotal').text() == '0') {
                 alert('Please select an item.');
             }
-            else
-            {
-               $('.receipt_main').hide();
-                $('.profiles').show(); 
+            else {
+                $('.receipt_main').hide();
+                $('.profiles').show();
             }
             /*var datas = $('.top-cart-content input').serialize();
              $.ajax({
@@ -661,10 +658,10 @@
             } else {
                 $('.profile_delevery_type').text('Pickup Detail');
                 $('.profile_delivery_detail').hide();
-                if($('#pickup1').hasClass("deliverychecked")){
+                if ($('#pickup1').hasClass("deliverychecked")) {
                     //alert('sss');
                 }
-                else{
+                else {
                     var grandtotal = $('input.grandtotal').val();
                     grandtotal = Number(grandtotal) - Number(df);
                     $('.grandtotal').text(grandtotal.toFixed(2));
@@ -834,4 +831,10 @@
 
 
     </script>
+
+
+
+
+
+
 @stop

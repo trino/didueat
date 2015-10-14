@@ -235,7 +235,7 @@ class AdministratorController extends Controller {
             $data['title'] = 'Users List';
 
             $MyHierarchy = get_profile_type(false, true)->hierarchy;
-            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profiletype', '=', 'profiletypes.id')->where('profiletypes.hierarchy' , '> ', $MyHierarchy)->get();
+            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy' , '> ', $MyHierarchy)->get();
             // \App\Http\Models\Profiles::where('profiletype', 2)->orWhere('profiletype', 4)->orWhere('profiletype', 1)->orderBy('id', 'DESC')->get();
             //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
             return view('dashboard.administrator.users', $data);

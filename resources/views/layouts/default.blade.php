@@ -2,7 +2,7 @@
 <html lang="en">
 <!--<![endif]-->
 <!-- Head BEGIN -->
-<head>  
+<head>
     <title>{{ $title." | didueat" }}</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -19,25 +19,28 @@
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="-CUSTOMER VALUE-">
     <link rel="shortcut icon" href="favicon.ico">
-    
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all"
+          rel="stylesheet" type="text/css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:500italic&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
-    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:500italic&subset=latin,vietnamese' rel='stylesheet'
+          type='text/css'>
+
     <!-- MAKE ALL CSS CHANGES TO HERE -->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
-    
+
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
-    
+
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <!--script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" type="text/javascript"></script-->
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
@@ -47,113 +50,38 @@
 <!-- Body BEGIN -->
 <body class="ecommerce">
 
-<div id="registration-form" class="col-md-12" style="display: none; width: 650px;">
-    <div id="registration-success" class="note note-success" style="display: none;">
-        <h1 class="block">success</h1>
-        <p></p>
-    </div>
-    {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-    <h1>Sign up</h1>
-    <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
-
-    @include('common.signupform')
-
-    <div class="row">
-        <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-2 padding-left-0 padding-top-20">
-            <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
-            <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-            <span>&nbsp;&nbsp;Already have an account? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
-        </div>
-    </div>
-    {!! Form::close() !!}
-</div>
 
 
-<div id="login-pop-up" style="display:none; width: 650px;">
-    <div class="login-pop-up">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="login-form">
-                <h1>Login</h1>
-
-                <DIV ID="message" align="center"></DIV>
-                <form role="form" action="" id="login-ajax-form" method="post"
-                      class="form-horizontal form-without-legend">
-                    {!! csrf_field() !!}
-                    <input type="hidden" name="action" value="login">
-                    <input type="hidden" name="type" id="login_type" value=""/>
-
-                    <p style="display: none;text-align:center; color: red;" id="invalid"></p>
-
-                    <div class="form-group">
-                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label" for="email">
-                            Email <span class="require">*</span>
-                        </label>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label" for="password">Password <span class="require">*</span></label>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-lock"></i>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-3 padding-left-10">
-                            <span>Forgot your account password? </span>
-                            <a href="#forget-passsword" class="fancybox-fast-view">Forgot Password?</a>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-3 padding-left-10 padding-top-10">
-                            <input class="btn btn-primary" type="button" Value="Login" onclick="trylogin(); return false;">
-                            <span>Don't have account? </span> <a href="#registration-form" class="fancybox-fast-view" type="button">Sign Up</a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </form>
-            </div>
-
-        </div>
-
-    </div>
-</div>
 
 
-<div id="forget-passsword" style="display: none;">
-    <h1>Forgot Your Password?</h1>
 
-    <div id="forgot-pass-success" class="note note-success" style="display: none;">
-        <h1 class="block">success</h1>
-        <p></p>
-    </div>
 
-    {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
-    <div id="error" class="alert alert-danger" style="display: none;"></div>
-    <div class="form-group col-md-12 col-sm-124 col-xs-12">
-        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="forgot-email">Email</label>
 
-        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-            <div class="input-icon">
-                <i class="fa fa-envelope"></i>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
-            </div>
-        </div>
-    </div>
 
-    <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
-        <button id="regButton" class="btn btn-primary" type="submit">Send</button>
-        <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-        <span>&nbsp;&nbsp;Already have account credentials? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
-    </div>
-    {!! Form::close() !!}
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@include('popups.login')
+@include('popups.signup')
+@include('popups.forgotpassword')
+
+
+
+
+
+
 
 
 <!-- END TOP BAR -->
@@ -170,13 +98,13 @@
         return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    $('body').on('submit', '#forgot-pass-form', function(e) {
+    $('body').on('submit', '#forgot-pass-form', function (e) {
         var token = $("#forgot-pass-form input[name=_token]").val();
         var email = $("#forgot-pass-form input[name=email]").val();
 
         $("#forgot-pass-form #regButton").hide();
         $("#forgot-pass-form #regLoader").show();
-        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function(result) {
+        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
             $("#forgot-pass-form #regButton").show();
             $("#forgot-pass-form #regLoader").hide();
 
@@ -199,7 +127,7 @@
             url: "{{ url('auth/login/ajax') }}",
             data: data,
             type: "post",
-            success: function(msg) {
+            success: function (msg) {
 
                 if (isNaN(Number(msg))) {
                     if (checkUrl(msg)) {
@@ -217,7 +145,7 @@
                             type: "post",
                             data: "id=" + msg + '&_token={{csrf_token()}}',
                             dataType: "json",
-                            success: function(arr) {
+                            success: function (arr) {
                                 $('#fullname').val(arr.name);
                                 $('#ordered_email').val(arr.email);
                                 $('#ordered_contact').val(arr.phone);
@@ -235,24 +163,24 @@
                         window.location = "{{ url('dashboard') }}";
                 }
             },
-            failure: function(msg) {
+            failure: function (msg) {
                 setvalue("message", "ERROR: " + msg);
             }
         });
         return false;
     }
 
-    $('body').on('click', '#resendMeEmail', function(e) {
+    $('body').on('click', '#resendMeEmail', function (e) {
         var url = $(this).attr('href');
         $('#registration-success p').html('Please wait email is being send...');
-        $.get(url, {}, function(result) {
+        $.get(url, {}, function (result) {
             var json = jQuery.parseJSON(result);
             $('#registration-success p').html(json.message);
         });
         e.preventDefault();
     });
 
-    $('body').on('submit', '#register-form', function(e) {
+    $('body').on('submit', '#register-form', function (e) {
         var token = $("#register-form input[name=_token]").val();
         var Name = $("#register-form input[name=name]").val();
         var Email = $("#register-form input[name=email]").val();
@@ -271,7 +199,7 @@
             password: password,
             confirm_password: confirm_password,
             subscribed: subscribed
-        }, function(result) {
+        }, function (result) {
             $("#register-form #regButton").show();
             $("#register-form #regLoader").hide();
 
@@ -303,15 +231,15 @@
     }
 
     //loadmore
-    $(function() {
-        $('.loadmore').click(function() {
+    $(function () {
+        $('.loadmore').click(function () {
             $('div#loadmoreajaxloader').show();
             ur = $('.next a').attr('href');
             if (ur != '') {
                 url1 = ur.replace('/?', '?');
                 $.ajax({
                     url: url1,
-                    success: function(html) {
+                    success: function (html) {
 
                         if (html) {
                             $('.nxtpage').remove();
@@ -334,6 +262,9 @@
 
 
 @include('layouts.includes.header')
+
+
+
 <div class="main">
     @if (session('status'))
         <div class="alert alert-success">
@@ -344,7 +275,11 @@
     @yield('content')
 
 </div>
+
+
+
 @include('layouts.includes.footer')
+
 
 </body>
 </html>

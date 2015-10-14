@@ -46,7 +46,7 @@ class Newsletter extends BaseModel {
             if ($Entry) {
                 if (!$Entry->guid) { return true; }
                 if(!$authorized){$guid = $Entry->guid;}
-                update_database("newsletter", "id", $Entry->ID, array("guid" => $guid));
+                update_database("newsletter", "id", $Entry->id, array("guid" => $guid));
             } else {
                 if(!$authorized){$guid = com_create_guid();}
                 new_entry("newsletter", "id", array("guid" => $guid, "email" => $email));
@@ -69,7 +69,7 @@ class Newsletter extends BaseModel {
     public static function finish_subscription($Key){
         $Entry = get_entry("newsletter", $Key, "guid");
         if($Entry){
-            update_database("newsletter", "id", $Entry->ID, array("guid" => ""));
+            update_database("newsletter", "id", $Entry->id, array("guid" => ""));
             update_database("profiles", "email", $Entry->email, array("subscribed" => 1));
             return $Entry->email;
         }

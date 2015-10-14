@@ -263,7 +263,7 @@
                                             <select name="genre" id="genre" class="form-control">
                                                 <option value="">-Select One-</option>
                                                 @foreach($genre_list as $value)
-                                                    <option value="{{ $value->ID }}"
+                                                    <option value="{{ $value->id }}"
                                                             @if(old('genre') == $value->id) selected @endif>{{ $value->name }}</option>
                                                 @endforeach
                                             </select>

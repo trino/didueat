@@ -366,7 +366,7 @@ class RestaurantController extends Controller {
                     $addon['exact_upto'] = $post['exact_upto'][$key];
                     $addon['exact_upto_qty'] = $post['exact_upto_qty'][$key];
                     $addon['has_addon'] = 0;
-                    $addon['parent'] = $ob->ID;
+                    $addon['parent'] = $ob->id;
                     $addon['display_order'] = $ob->display_order + 1;
 
                     $ob2 = new \App\Http\Models\Menus();
@@ -378,7 +378,7 @@ class RestaurantController extends Controller {
                         $subitem['menu_item'] = $value2;
                         $subitem['price'] = $post['sub_price'][$key][$key2];
                         $subitem['has_addon'] = 0;
-                        $subitem['parent'] = $ob2->ID;
+                        $subitem['parent'] = $ob2->id;
                         $subitem['display_order'] = $ob2->display_order + 1;
 
                         $ob3 = new \App\Http\Models\Menus();

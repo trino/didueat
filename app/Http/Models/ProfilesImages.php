@@ -64,7 +64,7 @@ class ProfilesImages extends BaseModel {
         $Entry = $this->get_profile_image($filename, $user_id);
         $Data = array("restaurant_id" => $restaurant_id, "title" => $Title, "order_id" => $OrderID);
         if($Entry){
-            edit_database("profiles_images", "ID", $Entry->ID, $Data);
+            edit_database("profiles_images", "ID", $Entry->id, $Data);
         } else {
             $Data["user_id"] = $user_id;
             $Data["filename"] = $filename;
