@@ -615,7 +615,7 @@
         function checkout() {
             var del = $('#delivery_flag').val();
 
-            if ($('.subtotal').text() == '0') {
+            if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0') {
                 alert('Please select an item.');
             }
             else {

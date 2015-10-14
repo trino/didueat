@@ -50,13 +50,13 @@
                         <tbody>
                         <?php if(!isset($order)){?>
                         <tr>
-                            <td><label class="radio-inline"><input type="radio" id="pickup1" name="delevery_type" checked='checked' onclick="delivery('hide'); $(this).addClass('deliverychecked');">Pickup</label></td>
+                            <td><label class="radio-inline"><input type="radio" id="pickup1" name="delevery_type" class="deliverychecked" checked='checked' onclick="delivery('hide'); $(this).addClass('deliverychecked');">Pickup</label></td>
                             <td><label class="radio-inline"><input type="radio" id="delivery1" name="delevery_type" onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">Delivery</label></td>
                         </tr>
                         <?php }?>
                         <tr>
                             <td><strong>Subtotal&nbsp;</strong></td><td>&nbsp;$<div class="subtotal" style="display: inline-block;"><?php echo (isset($order))?$order->subtotal:'0';?></div>
-                            <input type="hidden" name="subtotal" class="subtotal" value="<?php echo (isset($order))?$order->subtotal:'0';?>"></td>
+                            <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="<?php echo (isset($order))?$order->subtotal:'0';?>"></td>
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td><td>&nbsp;$<div class="tax" style="display: inline-block;"><?php echo (isset($order))?$order->tax:'0';?></div>&nbsp;(<div id="tax" style="display: inline-block;">13</div>%)
@@ -80,7 +80,7 @@
             <?php if(!isset($order)){?>
               <div class="text-right">
                 <input type="button" onclick="printDiv('printableArea')" value="Print" />
-                <a href="javascript:void(0)" class="btn btn-default">Clear</a>
+                <a href="javascript:void(0)" class="btn btn-default clearitems">Clear</a>
                 <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
               </div>
               <?php }?>
@@ -257,7 +257,29 @@
      </div>
 
    <script>
-
+    $(function(){
+        $('.clearitems').click(function(){
+            $('.orders').html('');
+            $('.tax input').val('0');
+            var tax = 0;
+            var df = $('.df').val();
+            $('#subtotal1').val('0');
+            $('.subtotal').first().text('0.00');
+            
+            var subtotal = 0;
+             if ($('#pickup1').hasClass("deliverychecked")) {
+                grandtotal = 0;
+            }
+            else
+                grandtotal = Number(df) + Number(subtotal) + Number(tax);
+            
+            $('.grandtotal').text(grandtotal.toFixed(2));
+            $('.grandtotal').val(grandtotal.toFixed(2));
+            
+            $('#cart-total').text('$' + grandtotal.toFixed(2));
+        })
+        
+    })
 function printDiv(divName) {
      var printContents = document.getElementById(divName).innerHTML;
      var originalContents = document.body.innerHTML;
