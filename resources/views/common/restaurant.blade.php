@@ -12,9 +12,11 @@
     $Genre = priority2($resturant, "genre");
     $RestID = "";
     $Country = "";
+    $Field = "restname";
     if(isset($resturant->id)){
         $RestID = '<input type="hidden" name="id" value="' . $resturant->id . '"/>';
         $Country = $resturant->country;
+        $Field = "name";
     }
 
     function getTime($time) {
@@ -59,9 +61,9 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                            <input type="text" name="name" class="form-control"
+                            <input type="text" name="<?=$Field; ?>" class="form-control"
                                    placeholder="Restaurant Name"
-                                   value="<?= priority2($resturant, "name"); ?>" required>
+                                   value="<?= priority2($resturant, "name", $Field); ?>" required>
                         </div>
                     </div>
 
