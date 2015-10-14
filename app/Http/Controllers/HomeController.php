@@ -43,9 +43,9 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchMenus($term='') {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
-        $data['start'] = 0;
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 2, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 2, 0, 'count')->count();
+        $data['start'] = $data['query']->count();
         $data['term'] = $term;
         $data['title'] = "Search Menus";
         
@@ -68,17 +68,15 @@ class HomeController extends Controller {
             }
             
             try {
-                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 10, $post['start'], 'list')->get();
-                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 10, $post['start'], 'count')->count();
-                $data['start'] = $start;
-                $data['term'] = $term;
+                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 2, $post['start'], 'list')->get();
+                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 2, $post['start'], 'count')->count();
+                $data['start'] = $data['query']->count()+$post['start'];
+                $data['term'] = $post['term'];
                 
-                ob_start();
-                view('ajax.search_menus', $data);
-                $html = ob_get_contents();
-                ob_get_flush();
+                if (!is_null($data['query']) && count($data['query']) > 0) {
+                    return view('ajax.search_menus', $data);
+                }
                 
-                return \Response::json(array('type' => 'success', 'response' => $html), 200);
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
             }
