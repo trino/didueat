@@ -140,12 +140,11 @@
                         </div>
                     @endif
 
-                    {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-
-                    {!! Form::close() !!}
+                    {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                             <!--//End Pricing -->
                         <?php $Layout = "rows"; ?>
                         @include('common.restaurant')
+                        {!! Form::close() !!}
                 </div>
             </div>
             <div class="clearfix"></div>
