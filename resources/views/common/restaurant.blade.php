@@ -23,6 +23,7 @@
         if (strpos($time, "AM") !== false || strpos($time, "PM") !== false){
             return $time;
         }
+        return "12:00 AM";
         if (!$time){
             return $time;
         }else {

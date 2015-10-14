@@ -235,12 +235,14 @@ class RestaurantController extends Controller {
     }
 
     public function cleanTime($time) {
-        if (!$time)
+        if (!$time) {
             return $time;
+        }
         if (str_replace('AM', '', $time) != $time) {
             $suffix = 'AM';
-        } else
+        } else {
             $suffix = 'PM';
+        }
         $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
 
         $arr_time = explode(':', $time);
