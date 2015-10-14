@@ -72,8 +72,8 @@
                                         class="fa fa-close ignore"></span></a>
                         </div>
                              <div class="resturant-arrows col-md-2 col-sm-2 col-xs-2">
-                                        <a href="javascript:void(0)" id="child_up_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-up"></i></a>
-                                        <a href="javascript:void(0)" id="child_down_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-down"></i></a>
+                                        <a href="javascript:void(0)" id="child_up_<?php if(isset($cc))echo $cc->id;else echo '0';?>" class="sorting_child"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" id="child_down_<?php if(isset($cc))echo $cc->id;else echo '0';?>" class="sorting_child"><i class="fa fa-angle-down"></i></a>
                                         </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
