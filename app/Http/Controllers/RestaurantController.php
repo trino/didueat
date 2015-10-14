@@ -167,6 +167,10 @@ class RestaurantController extends Controller {
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
+                    $sizes = ['assets/images/restaurants/thumb/'=>'500x380','assets/images/restaurants/thumb1/'=>'37x32'];
+                    $filename = $destinationPath."/".$newName;
+                    copyimages($sizes,$filename, $newName);
+                    
                     $update['logo'] = $newName;
                 }
                 

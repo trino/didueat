@@ -631,6 +631,56 @@ function kill_non_numeric($text, $allowmore = ""){
     return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
 
+function get_resize_details($case)
+{
+    switch($case){
+         case "restaurants":
+            return array(
+                0=>array(
+                    "width"=>"120",
+                    "height"=>"120",
+                    "new_path"=>public_path('assets/images/restaurants/thumb'),
+                    "crop"=>"true",
+                    "crop_type"=>"center",
+                ),
+                1=>array(
+                    "width"=>"400",
+                    "height"=>"300",
+                    "new_path"=>public_path('assets/images/restaurants/thumb1'),
+                    "crop"=>"true",
+                    "crop_type"=>"center",
+                ),
+                
+            );
+        break;
+        
+        case "menues":
+            return array(
+                0=>array(
+                    "width"=>"37",
+                    "height"=>"34",
+                    "new_path"=>public_path('assets/images/products/thumb'),
+                    "crop"=>"true",
+                    "crop_type"=>"center",
+                ),
+                 1=>array(
+                    "width"=>"500",
+                    "height"=>"380",
+                    "new_path"=>public_path('assets/images/products/thumb1'),
+                    "crop"=>"true",
+                    "crop_type"=>"center",
+                ),
+                2=>array(
+                    "width"=>"700",
+                    "height"=>"600",
+                    "new_path"=>public_path('assets/images/restaurants'),
+                    "crop"=>"false",
+                )
+            );
+        break;
+       
+    }
+}
 function resize($file, $sizes, $CropToFit = false, $delimeter = "x"){
     if (is_array($sizes)){
         $images = array();
@@ -714,7 +764,13 @@ function imagecreatefrombmp($filename) {
     }
     return $image;
 }
-
+function copyimages($sizes, $file,$name){
+    foreach($sizes as $path=>$size){
+        $rsize = resize($file,$size);
+        copy(public_path($rsize),public_path($path.$name));
+        @unlink(public_path($rsize));
+    }
+}
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
 function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = false) {
