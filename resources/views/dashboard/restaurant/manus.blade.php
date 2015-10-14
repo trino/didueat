@@ -63,9 +63,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-12 ignore" style="padding-right: 0px;">
+                                    <div class="row">
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
                                         <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
                                         <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->id;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->id }}" class="deletecat btn red ignore">Delete</a>
                                         <div style="clear: both;" class="ignore"></div>
+                                        </div>
+                                        <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
+                                        <a href="javascript:void(0);" id="up_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0);" id="down_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-down"></i></a>
+                                        </div>
+                                        </div>
                                     </div>
                                     <div class="clearfix ignore"></div>
                                 </li>
@@ -105,8 +113,16 @@ jQuery(document).ready(function() {
 <script>
     $(function() {
 
-        $("#sortable").sortable({
-            update: function(event, ui) {
+        $(".sorting_parent").live('click',function(){
+            //alert('test');
+            var pid = $(this).attr('id').replace('up_parent_','').replace('down_parent_','');
+            if($(this).attr('id') == 'up_parent_'+pid)
+            {
+                var sort = 'up';
+            }
+            else
+            var sort = 'down';
+            
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('.parentinfo li').each(function(index) {
                     var val = $(this).attr('id').replace('parent', '');
@@ -118,15 +134,14 @@ jQuery(document).ready(function() {
                     }
                 });
                 $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/');?>',
+                    url: '<?php echo url('restaurant/orderCat/');?>/'+pid+'/'+sort,
                     data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
                     type: 'post',
                     success: function() {
-                        //
+                        location.reload();
                     }
                 });
-            },
-            items : ':not(.ignore)'
+            
         });
         //$( "#sortable" ).disableSelection();
     });

@@ -197,7 +197,7 @@
 </div>
 
 
-<div id="editNewUser" class="col-md-12" style="display: none; width: 900px;">
+<div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width: 630px;">
     <div id="loading" style="display: none; text-align: center;">
         <img src="{{ asset('assets/images/loader.gif') }}" />
     </div>

@@ -45,8 +45,10 @@
 
 
 
-
                         @if(check_permission("can_edit_global_settings"))
+
+
+
                             <div class="portlet box red">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -87,6 +89,8 @@
                                     </ul>
                                 </div>
                             </div>
+
+
                         @endif
 
 

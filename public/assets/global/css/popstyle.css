@@ -80,7 +80,7 @@ border: medium none !important;
 -o-transition: all 0.7s ease-in-out;
 transition: all 0.7s ease-in-out;
 font-weight: 600;
-margin-top: 6px;
+margin-top: 6px !important;
 }
 
 .product-titles > h2 {
@@ -99,7 +99,7 @@ transition: all 0.7s ease-in-out;
 
 .add-minus-btn > div {
 background: #fff none repeat scroll 0 0;
-border: 1px solid #8c8c8c;
+box-shadow: 0 0 3px #dfdfdf;
 display: inline-block;
 height: 36px;
 line-height: 36px;

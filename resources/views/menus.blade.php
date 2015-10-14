@@ -2,22 +2,18 @@
 
 
 @foreach($menus_list as $value)
-    <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20 ">
+    <div class="col-md-3 col-sm-4 col-xs-12 margin-bottom-20 ">
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
             <div class="product-item">
-                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
-                   class="fancybox-fast-view">
                     <div class="pi-img-wrapper">
                         <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}"
-                             class="img-responsive" alt="{{ $value->menu_item }}">
+                             class="img-responsive" alt="{{ $value->menu_item }}" />
                     </div>
-                </a>
-
+                
                 <h3>
-                    <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
-                       class="fancybox-fast-view"></a><a href="#">{{ $value->menu_item }}</a></h3>
+                   <a href="#">{{ $value->menu_item }}</a></h3>
 
                 <div class="pi-price">${{ $value->price }}</div>
                 <div class="sticker sticker-new"></div>
@@ -109,7 +105,7 @@
                             <tbody>
                             <?php
                             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
-                            //$submenus = $Manager->enum_all('Menus',['parent'=>$menu->ID]);
+                            //$submenus = $Manager->enum_all('Menus',['parent'=>$menu->id]);
                             foreach($submenus as $sub){
                             ?>
                             <tr class="zxcx">

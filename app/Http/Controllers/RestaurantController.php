@@ -161,15 +161,21 @@ class RestaurantController extends Controller {
             }
             try {
                 if (\Input::hasFile('logo')) {
+                    
                     $image = \Input::file('logo');
                     $ext = $image->getClientOriginalExtension();
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
-                    $post['logo'] = $newName;
+                    $sizes = ['assets/images/restaurants/thumb/'=>'500x380','assets/images/restaurants/thumb1/'=>'37x32'];
+                    $filename = $destinationPath."/".$newName;
+                    copyimages($sizes,$filename, $newName);
+                    
+                    $update['logo'] = $newName;
                 }
                 
                 $update['name'] = $post['name'];
+                if($post['id']=='')
                 $update['slug']= $this->createslug($post['name']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
@@ -366,7 +372,7 @@ class RestaurantController extends Controller {
                     $addon['exact_upto'] = $post['exact_upto'][$key];
                     $addon['exact_upto_qty'] = $post['exact_upto_qty'][$key];
                     $addon['has_addon'] = 0;
-                    $addon['parent'] = $ob->ID;
+                    $addon['parent'] = $ob->id;
                     $addon['display_order'] = $ob->display_order + 1;
 
                     $ob2 = new \App\Http\Models\Menus();
@@ -378,7 +384,7 @@ class RestaurantController extends Controller {
                         $subitem['menu_item'] = $value2;
                         $subitem['price'] = $post['sub_price'][$key][$key2];
                         $subitem['has_addon'] = 0;
-                        $subitem['parent'] = $ob2->ID;
+                        $subitem['parent'] = $ob2->id;
                         $subitem['display_order'] = $ob2->display_order + 1;
 
                         $ob3 = new \App\Http\Models\Menus();
@@ -577,6 +583,7 @@ class RestaurantController extends Controller {
 
     public function getMore($id) {
         //$table = TableRegistry::get('menus');
+        
         return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
     }
 
@@ -656,8 +663,27 @@ class RestaurantController extends Controller {
         }
     }
 
-    public function orderCat() {
+    public function orderCat($cid,$sort) {
         $_POST['ids'] = explode(',', $_POST['ids']);
+        $key = array_search($cid, $_POST['ids']);
+        if(($key == 0 && $sort == 'up') || ($key == (count($_POST['ids'])-1) && $sort == 'down'))
+        {
+            //do nothing
+        }
+        else{
+            if($sort == 'down')
+            $new = $key+1;
+            else
+            $new = $key-1;
+            //echo $new.'_'.
+            $temp = $_POST['ids'][$new];
+            $_POST['ids'][$new] = $cid;
+            $_POST['ids'][$key] = $temp;
+            
+            
+        }
+        $child = \App\Http\Models\Menus::where('id', $cid)->get()[0]; 
+        echo $child->parent;       
         foreach ($_POST['ids'] as $k => $id) {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
@@ -706,6 +732,14 @@ class RestaurantController extends Controller {
        else
             $data['orders_list'] =$orders->orderBy('order_time', 'DESC')->get();       
         return view('dashboard.restaurant.orders_pending', $data);
+    }
+    public function loadChild($id,$isaddon=0)
+    {
+        $data['child'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->get();
+        if($isaddon == 0)
+        return view('dashboard.restaurant.load_child', $data);
+        else
+        return view('dashboard.restaurant.load_addon', $data); 
     }
 
 }

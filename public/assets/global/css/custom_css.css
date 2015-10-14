@@ -1173,7 +1173,7 @@ body.ecommerce {
   padding-top: 30px;
 }
 
-#addNewUser .modal-header, .login-form h1, #forget-passsword h1, #register-form h1 {
+#addNewUser .modal-header, .login-form h1, #forget-passsword h1, #register-form h1, #editNewUser h4 {
   background: #d50000 none repeat scroll 0 0;
   color: #fff;
   padding: 15px !important;
@@ -1181,8 +1181,18 @@ body.ecommerce {
 }
 
 #addNewUser .modal-header h4 {
+  margin-bottom: 10px !important;
+  font-weight: 600 !important;
+}
+
+ #editNewUser h4 {
   margin-bottom: 0 !important;
   font-weight: 600 !important;
+}
+
+#editNewUser .modal-header {
+    padding: 0 !important;
+    margin-bottom: 10px !important;
 }
 
 #printableArea .totals #df strong {
@@ -1205,4 +1215,28 @@ body.ecommerce {
   margin-top: 10px !important;
 }
 
+.services .pricing-footer .btn > i {
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-top: 3px;
+}
 
+.deleteme #cartsz .top-cart-content .scroller {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.deleteme #cartsz {
+  border-top: 1px dotted #dfdfdf;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.resturant-arrows i {
+  display: block !important;
+  width: 100% !important;
+}
+
+.resturant-arrows > a {
+  padding: 0 !important;
+}

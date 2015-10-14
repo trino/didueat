@@ -142,7 +142,7 @@ class Restaurants extends BaseModel {
         }
         if($Name){
             update_database("profiles", "id", $UserID, array("restaurant_id" => $restaurant_id, "profiletype" => $ProfileType));
-            logevent($Name . ": " . $Profile->ID . " (" . $Profile->Name . ")" );
+            logevent($Name . ": " . $Profile->id . " (" . $Profile->Name . ")" );
             return true;
         }
     }

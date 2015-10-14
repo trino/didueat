@@ -650,6 +650,10 @@ width: 96% !important;
   width: 100%;
 }
 
+.fancybox-inner > div {
+  width: 500px !important;
+}
+
 }
 
 
@@ -1257,6 +1261,7 @@ width: 15% !important;
 .top-cart-block {
     position: absolute !important;
     z-index: 99999 !important;
+    box-shadow: none !important;
 }
 
 .main {
@@ -1359,6 +1364,14 @@ width: auto !important;
 }
 
 .intro {
+  height: auto !important;
+}
+
+.fancybox-inner > div {
+  width: 300px !important;
+}
+
+.top-cart-block {
   height: auto !important;
 }
 

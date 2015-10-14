@@ -363,7 +363,11 @@ var Metronic = function() {
     var lastPopedPopover;
 
     var handlePopovers = function() {
+        if (typeof popover == 'function') { 
+  
         $('.popovers').popover();
+        
+}
 
         // close last displayed popover
 

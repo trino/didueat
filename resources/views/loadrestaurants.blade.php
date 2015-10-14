@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12 col-sm-12 col-xs-12">
     <table class="table table-bordered table-hover">
         <!--thead>
         <tr role="row" class="heading">
@@ -19,7 +19,7 @@
         @foreach ($restaurants_list as $value)
 
             <tr>
-                <td width="15%">
+                <td width="10%">
 
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         @if(!empty($value->logo))
@@ -42,7 +42,7 @@
                     </ul>
 
 
-                <td>
+                <td width="10%">
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order
                         Online</a></td>
                 </td>
