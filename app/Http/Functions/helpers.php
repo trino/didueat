@@ -765,7 +765,9 @@ function imagecreatefrombmp($filename) {
     return $image;
 }
 function copyimages($sizes, $file,$name){
-    foreach($sizes as $path=>$size){
+    
+    foreach($sizes as $path=>$size)
+    {
         $rsize = resize($file,$size);
         copy(public_path($rsize),public_path($path.$name));
         @unlink(public_path($rsize));
