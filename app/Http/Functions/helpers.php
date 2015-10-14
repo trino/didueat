@@ -123,8 +123,6 @@ function get_profile_type($ProfileID = false, $GetByType = false){
     return get_entry("profiletypes", $profiletype);
 }
 
-
-
 function randomPassword($Length=8) {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = "";
