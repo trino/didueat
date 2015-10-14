@@ -2,7 +2,7 @@
 
 
 @foreach($menus_list as $value)
-    <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-20 ">
+    <div class="col-md-3 col-sm-4 col-xs-12 margin-bottom-20 ">
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
@@ -13,14 +13,14 @@
                         <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}"
                              class="img-responsive" alt="{{ $value->menu_item }}">
                     </div>
-                </a>
-
+                
                 <h3>
                     <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
                        class="fancybox-fast-view"></a><a href="#">{{ $value->menu_item }}</a></h3>
 
                 <div class="pi-price">${{ $value->price }}</div>
                 <div class="sticker sticker-new"></div>
+                </a>
             </div>
         </a>
     </div>
