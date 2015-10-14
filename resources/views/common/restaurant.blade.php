@@ -170,10 +170,9 @@
             </div>
 
 
-            <div class="form-actions">
-                <?= $RestID; ?>
-                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-            </div>
+            <?php if($RestID){
+                echo '<div class="form-actions">' . $RestID . '<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button></div>';
+            } ?>
 
 
         </div>
@@ -255,10 +254,9 @@
             </div>
 
 
-            <div class="form-actions">
-                <?= $RestID; ?>
-                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-            </div>
+            <?php if($RestID){
+                echo '<div class="form-actions">' . $RestID . '<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button></DIV>';
+            } ?>
 
         </div>
     </div>
@@ -327,13 +325,32 @@
                 <?php } ?>
             </div>
 
-
-            <div class="form-actions">
-                <?= $RestID; ?>
-                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-            </div>
+            <?php if($RestID){
+                echo '<div class="form-actions">' . $RestID . '<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button></div>';
+            } ?>
 
 
         </div>
     </div>
 </div>
+<?php if(!$RestID){ ?>
+<div class="col-md-4 ">
+    <div class="portlet box red ">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>CREATE USERNAME & PASSWORD
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <DIV CLASS="form-body">
+                <div class="row">
+                    @include('common.signupform')
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input type="submit" class="btn btn-primary red" value="Save Changes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</DIV>
+<?php } ?>
