@@ -3878,6 +3878,7 @@ Header and header elements
 .ecommerce .main .top-cart-content strong {
 	width: 45%;
 	font-weight: normal;
+    word-wrap: break-word;
 }
 
 .ecommerce .main .top-cart-block.col-md-2.col-sm-2, .ecommerce .main .bottom-cart {

@@ -24,6 +24,9 @@
                 <a href="javascript:void(0)" class="btn btn-info add_additional ignore blue" id="add_additional<?php echo $menu_id;?>">Add Addons</a>
                 <a href="javascript:void(0)" id="save0" data-id="<?php echo $menu_id;?>" class="btn btn-info blue savebtn ignore">Save</a>
             </div>
+            
+           
+            
             <?php } ?>
         </div>
     </div>

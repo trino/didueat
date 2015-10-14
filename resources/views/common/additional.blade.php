@@ -50,6 +50,10 @@
                                onclick="$(this).parent().parent().remove();"><span
                                         class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
+                         <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
+                                        <i class="fa fa-angle-up"></i>
+                                        <i class="fa fa-angle-down"></i>
+                                        </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
                     <?php
@@ -59,7 +63,7 @@
                         else {
                     ?>
                     <div class="cmore ignore ignore2 ignore1">
-                        <div class="col-md-10 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
+                        <div class="col-md-8 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1">
                             <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item"/>
                             <input class="form-control ccprice ignore ignore2 ignore1" type="text" placeholder="Price"
                                    style="margin-left:10px;"/>
@@ -69,7 +73,10 @@
                             <a href="javascript:void(0);" class="btn btn-danger btn-small ignore ignore2 ignore1"><span
                                         class="fa fa-close ignore"></span></a>
                         </div>
-
+                             <div class="resturant-arrows col-md-2 col-sm-2 col-xs-2">
+                                        <a href=""><i class="fa fa-angle-up"></i></a>
+                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                                        </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
                     <?php
@@ -199,7 +206,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore2 ignore1">
         <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore2 ignore1">
             <div class="newaction ignore ignore2 ignore1">
-                <?php if(!isset($cmodel) || (isset($ccount) && $ccount == $k)){
+                <div class="newaction_wrap col-md-9 col-sm-9 col-xs-12"><?php if(!isset($cmodel) || (isset($ccount) && $ccount == $k)){
                 if (!isset($menu_id)) {
                     $menu_id = 0;
                 }
@@ -215,6 +222,11 @@
                     echo '<a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>';
                 }
                 } ?>
+                </div>
+                 <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
+                                        <a href=""><i class="fa fa-angle-up"></i></a>
+                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                                        </div>
             </div>
         </div>
     </div>

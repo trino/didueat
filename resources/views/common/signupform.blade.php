@@ -80,7 +80,7 @@
         <label>
             <input type="checkbox" name="subscribed" id="subscribed" value="1" <?php
                 if(read('subscribed')) { echo ' checked';}
-            ?>>
+            ?> />
             Sign up for our Newsletter
         </label>
     </div>

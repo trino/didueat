@@ -1220,3 +1220,23 @@ body.ecommerce {
   margin-right: 3px;
   margin-top: 3px;
 }
+
+.deleteme #cartsz .top-cart-content .scroller {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.deleteme #cartsz {
+  border-top: 1px dotted #dfdfdf;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.resturant-arrows i {
+  display: block !important;
+  width: 100% !important;
+}
+
+.resturant-arrows > a {
+  padding: 0 !important;
+}
