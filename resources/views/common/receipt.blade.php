@@ -18,7 +18,7 @@
                     <div class="col-md-6">
 
 
-                     @if(!empty($res_detail->logo))
+                     @if(!empty($restaurant->logo))
                             <img class="img-responsive" alt=""
                                  src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
                         @else

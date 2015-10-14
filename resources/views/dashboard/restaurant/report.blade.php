@@ -48,8 +48,8 @@
                                 <div class="portlet-body">
                                 <?php
                                 
-                                    //$restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first();    ?>
-                                      <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $order->Name;?></div>
+                                    $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first();    ?>
+                                      <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $restaurant->name;?></div>
                                       <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
                                       <div class="infolist noprint"><strong>EMAIL: </strong><?= $order->email;?></div>
                                       <div class="infolist noprint"><strong>CONTACT: </strong><?= $order->contact;?></div>

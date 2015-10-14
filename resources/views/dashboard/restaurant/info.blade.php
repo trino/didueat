@@ -116,9 +116,8 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
-                                            <textarea type="text" name="description" class="form-control"
-                                                   placeholder="Description"
-                                                   value="{{ $resturant->description }}"></textarea>
+                                            <textarea name="description" class="form-control"
+                                                   placeholder="Description">{{ $resturant->description }}</textarea>
                                         </div>
                                     </div>
 

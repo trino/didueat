@@ -161,15 +161,17 @@ class RestaurantController extends Controller {
             }
             try {
                 if (\Input::hasFile('logo')) {
+                    
                     $image = \Input::file('logo');
                     $ext = $image->getClientOriginalExtension();
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
-                    $post['logo'] = $newName;
+                    $update['logo'] = $newName;
                 }
                 
                 $update['name'] = $post['name'];
+                if($post['id']=='')
                 $update['slug']= $this->createslug($post['name']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];

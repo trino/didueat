@@ -259,19 +259,6 @@ function logevent($Event, $DoRestaurant = true, $restaurant_id = 0){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function data_type_name($Type){
     $Values = array("Email Address", "Phone Number", "Postal Code");
     if ($Type <0 or $Type >= count($Values)){ return "Unknown";}
@@ -292,17 +279,6 @@ function clean_data($Data){
         case 2: return clean_postalcode($Data); break;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 function tableexists($Table, $Column = ""){
     if($Column){
@@ -328,29 +304,6 @@ function getColumnNames($Table, $Ignore ="", $Full = false){
     }
     return $Columns;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function clean_phone($Phone){
