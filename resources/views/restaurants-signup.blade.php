@@ -171,7 +171,7 @@
                                                for="phone">Phone Number</label>
 
                                         <div class="col-lg-12 col-sm-12 col-xs-12">
-                                            <input type="text" name="phone" id="phone" class="form-control" id="Phone"
+                                            <input type="number" name="phone" id="phone" class="form-control" id="Phone"
                                                    value="{{ old('phone') }}" placeholder="i.e.905 555 5555">
                                         </div>
                                     </div>

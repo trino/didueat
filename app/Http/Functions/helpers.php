@@ -633,10 +633,6 @@ function kill_non_numeric($text, $allowmore = ""){
     return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
 
-
-
-
-
 function resize($file, $sizes, $CropToFit = false, $delimeter = "x"){
     if (is_array($sizes)){
         $images = array();
@@ -816,4 +812,6 @@ function getpost($Key, $Default = ""){
     if(isset($_POST[$Key])){return $_POST[$Key];}
     return $Default;
 }
+
+
 ?>
