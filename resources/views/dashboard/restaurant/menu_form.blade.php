@@ -1,4 +1,12 @@
-<?php //$Manager->fileinclude(__FILE__); ?>
+<?php //$Manager->fileinclude(__FILE__); 
+if(!$menu_id)
+{
+    
+    ?>
+    <style>.resturant-arrows{display:none;}</style>
+    <?php
+}
+?>
 <script src="{{ url('assets/global/scripts/additional.js') }}" class="ignore"></script>
 
 <div class="newmenu ignore" id="newmenu0">

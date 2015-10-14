@@ -188,8 +188,8 @@ class HomeController extends Controller {
                     $post['logo'] = $newName;
                 }
                 
-                $update['name'] = $post['name'];
-                $update['slug']= $this->createslug($post['name']);
+                $update['name'] = $post['restname'];
+                $update['slug']= $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
@@ -221,7 +221,7 @@ class HomeController extends Controller {
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 0;
                 $data['profile_type'] = 1;
-                $data['name'] = $post['full_name'];
+                $data['name'] = $post['name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
                 $data['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;

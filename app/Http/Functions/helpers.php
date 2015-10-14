@@ -119,8 +119,12 @@ function get_profile_type($ProfileID = false, $GetByType = false){
     if(!$ProfileID && $GetByType){$ProfileID = get_entry("profiles", read("ID"), "id")->profile_type;}
     if($GetByType){return get_entry("profiletypes", $ProfileID);}
     if(!$ProfileID){$ProfileID=read("ID");}
-    $profiletype = get_entry("profiles", $ProfileID, "id")->profile_type;
-    return get_entry("profiletypes", $profiletype);
+    if(!$ProfileID){return -1;}
+    $profiletype = get_entry("profiles", $ProfileID, "id");
+    if($profiletype) {
+        $profiletype = $profiletype->profile_type;
+        return get_entry("profiletypes", $profiletype);
+    }
 }
 
 function randomPassword($Length=8) {

@@ -42,8 +42,7 @@
                             <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text"
                                    placeholder="Price" value="<?php echo $cc->price;?>" style="margin-left:10px;"/>
                         </div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 ignore no-padding ignore2"
-                             <?php if($i == 1){?>style="display: none;"<?php }?>>
+                        <div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">
                             <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2"
                                onclick="$(this).parent().parent().remove();"><span
                                         class="fa fa-close ignore ignore2 ignore1"></span></a>
@@ -70,6 +69,11 @@
                              style="display: none;">
                             <a href="javascript:void(0);" class="btn btn-danger btn-small ignore ignore2 ignore1"><span
                                         class="fa fa-close ignore"></span></a>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">
+                            <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2"
+                               onclick="$(this).parent().parent().remove();"><span
+                                        class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
                              <div class="resturant-arrows col-md-2 col-sm-2 col-xs-2">
                                         <a href="javascript:void(0)" id="child_up_<?php if(isset($cc))echo $cc->id;else echo '0';?>" class="sorting_child"><i class="fa fa-angle-up"></i></a>
@@ -188,10 +192,11 @@
                 } else {
                     echo 'id="save' . $menu_id . '"';
                 } ?> class="btn btn-info savebtn ignore ignore2 ignore1">Save</a>
-                <?php if (isset($k) && $k != 1) {
-                    echo '<a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>';
-                }
+                
+                <?php
+                
                 } ?>
+                <a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>
                  <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
                                         <a href="javascript:void(0)" class="addon_sorting" id="addon_up_<?php if (isset($child)) echo $child->id; else echo '0';?>"><i class="fa fa-angle-up"></i></a>

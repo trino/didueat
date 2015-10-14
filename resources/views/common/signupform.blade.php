@@ -35,7 +35,7 @@
     <div class="col-md-9 col-sm-9 col-xs-8">
         <div class="input-icon">
             <i class="fa fa-phone"></i>
-            <input type="number" name="phone" class="form-control" id="phone" placeholder="Phone number" value="<?= $phonenumber; ?>" required="">
+            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone number" value="<?= $phonenumber; ?>" required="">
         </div>
     </div>
 </div>
