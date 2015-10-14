@@ -729,10 +729,13 @@ class RestaurantController extends Controller {
             $data['orders_list'] =$orders->orderBy('order_time', 'DESC')->get();       
         return view('dashboard.restaurant.orders_pending', $data);
     }
-    public function loadChild($id)
+    public function loadChild($id,$isaddon=0)
     {
         $data['child'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->get();
-        return view('dashboard.restaurant.load_child', $data); 
+        if($isaddon == 0)
+        return view('dashboard.restaurant.load_child', $data);
+        else
+        return view('dashboard.restaurant.load_addon', $data); 
     }
 
 }

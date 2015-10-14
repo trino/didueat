@@ -194,8 +194,8 @@
                 } ?>
                 </div>
                  <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                        <a href=""><i class="fa fa-angle-up"></i></a>
-                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                                        <a href="javascript:void(0)" class="addon_sorting" id="addon_up_<?php if (isset($child)) echo $child->id; else echo '0';?>"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" class="addon_sorting" id="addon_down_<?php if (isset($child)) echo $child->id; else echo '0';?>"><i class="fa fa-angle-down"></i></a>
                                         </div>
             </div>
         </div>
