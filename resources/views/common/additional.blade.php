@@ -51,8 +51,8 @@
                                         class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
                          <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                        <i class="fa fa-angle-up"></i>
-                                        <i class="fa fa-angle-down"></i>
+                                        <a href=""><i class="fa fa-angle-up"></i></a>
+                                        <a href=""><i class="fa fa-angle-down"></i></a>
                                         </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>

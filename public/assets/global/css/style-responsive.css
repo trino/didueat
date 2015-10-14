@@ -1371,6 +1371,10 @@ width: auto !important;
   width: 300px !important;
 }
 
+.top-cart-block {
+  height: auto !important;
+}
+
 }
 /* END max width 600px */
 

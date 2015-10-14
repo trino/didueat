@@ -70,8 +70,8 @@
                                         <div style="clear: both;" class="ignore"></div>
                                         </div>
                                         <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                        <i class="fa fa-angle-up"></i>
-                                        <i class="fa fa-angle-down"></i>
+                                        <a href=""><i class="fa fa-angle-up"></i></a>
+                                        <a href=""><i class="fa fa-angle-down"></i></a>
                                         </div>
                                         </div>
                                     </div>
