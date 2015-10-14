@@ -114,7 +114,7 @@ jQuery(document).ready(function() {
     $(function() {
 
         $(".sorting_parent").live('click',function(){
-            alert('test');
+            //alert('test');
             var pid = $(this).attr('id').replace('up_parent_','').replace('down_parent_','');
             if($(this).attr('id') == 'up_parent_'+pid)
             {

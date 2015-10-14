@@ -579,6 +579,7 @@ class RestaurantController extends Controller {
 
     public function getMore($id) {
         //$table = TableRegistry::get('menus');
+        
         return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
     }
 
@@ -677,6 +678,8 @@ class RestaurantController extends Controller {
             
             
         }
+        $child = \App\Http\Models\Menus::where('id', $cid)->get()[0]; 
+        echo $child->parent;       
         foreach ($_POST['ids'] as $k => $id) {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
@@ -725,6 +728,11 @@ class RestaurantController extends Controller {
        else
             $data['orders_list'] =$orders->orderBy('order_time', 'DESC')->get();       
         return view('dashboard.restaurant.orders_pending', $data);
+    }
+    public function loadChild($id)
+    {
+        $data['child'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order','ASC')->get();
+        return view('dashboard.restaurant.load_child', $data); 
     }
 
 }

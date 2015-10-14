@@ -21,9 +21,7 @@
                 <div class="addmore ignore ignore1"
                      id="addmore<?php if (isset($child)) echo $child->id; else echo '0';?>">
                     <?php
-                    if (isset($_GET['menu_id'])) {
-                        $menu_id = $_GET['menu_id'];
-                    }
+                    
                     if(isset($child->id)){
                     $mod = new \App\Http\Controllers\RestaurantController;
                     $more = $mod->getMore($child->id);
@@ -38,7 +36,7 @@
                         <?php if($i != 1){?>
                         <p style="margin-bottom:0;height:7px;" class="ignore ignore2 ignore1">&nbsp;</p>
                         <?php }?>
-                        <div class="col-md-10 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
+                        <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
                             <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item"
                                    value="<?php echo $cc->menu_item;?>"/>
                             <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text"
@@ -50,9 +48,9 @@
                                onclick="$(this).parent().parent().remove();"><span
                                         class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
-                         <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                        <a href=""><i class="fa fa-angle-up"></i></a>
-                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                         <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
+                                        <a href="javascript:void(0)" id="child_up_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" id="child_down_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-down"></i></a>
                                         </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
@@ -74,43 +72,15 @@
                                         class="fa fa-close ignore"></span></a>
                         </div>
                              <div class="resturant-arrows col-md-2 col-sm-2 col-xs-2">
-                                        <a href=""><i class="fa fa-angle-up"></i></a>
-                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                                        <a href="javascript:void(0)" id="child_up_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" id="child_down_<?php echo $cc->id;?>" class="sorting_child"><i class="fa fa-angle-down"></i></a>
                                         </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
                     <?php
                     }
                     ?>
-                    <script class="ignore ignore2 ignore1">
-                        $(function () {
-
-                            $('#addmore<?php if(isset($child))echo $child->id;else echo '0';?>').sortable({
-                                update: function (event, ui) {
-                                    var order = '';// array to hold the id of all the child li of the selected parent
-                                    $('#subcat<?php echo $menu_id?> .cmore').each(function (index) {
-                                        var val = $(this).attr('id').replace('cmore', '');
-                                        //var val=item[1];
-                                        if (order == '') {
-                                            order = val;
-                                        } else {
-                                            order = order + ',' + val;
-                                        }
-                                    });
-                                    $.ajax({
-                                        url: '<?php echo url('restaurant/orderCat/');?>',
-                                        data: 'ids=' + order + '&_token=<?php echo csrf_token();?>',
-                                        type: 'post',
-                                        success: function () {
-                                            //
-                                        }
-                                    });
-                                },
-                                items: ':not(.ignore2)',
-
-                            });
-                        });
-                    </script>
+                    
                 </div>
 
                 <div class="col-md-12 col-sm-12 col-xs-12 nopadd ignore ignore2 ignore1">
