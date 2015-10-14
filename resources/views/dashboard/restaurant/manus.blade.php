@@ -70,8 +70,8 @@
                                         <div style="clear: both;" class="ignore"></div>
                                         </div>
                                         <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                        <a href=""><i class="fa fa-angle-up"></i></a>
-                                        <a href=""><i class="fa fa-angle-down"></i></a>
+                                        <a href="javascript:void(0);" id="up_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0);" id="down_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-down"></i></a>
                                         </div>
                                         </div>
                                     </div>
@@ -113,8 +113,16 @@ jQuery(document).ready(function() {
 <script>
     $(function() {
 
-        $("#sortable").sortable({
-            update: function(event, ui) {
+        $(".sorting_parent").live('click',function(){
+            alert('test');
+            var pid = $(this).attr('id').replace('up_parent_','').replace('down_parent_','');
+            if($(this).attr('id') == 'up_parent_'+pid)
+            {
+                var sort = 'up';
+            }
+            else
+            var sort = 'down';
+            
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('.parentinfo li').each(function(index) {
                     var val = $(this).attr('id').replace('parent', '');
@@ -126,15 +134,14 @@ jQuery(document).ready(function() {
                     }
                 });
                 $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/');?>',
+                    url: '<?php echo url('restaurant/orderCat/');?>/'+pid+'/'+sort,
                     data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
                     type: 'post',
                     success: function() {
-                        //
+                        location.reload();
                     }
                 });
-            },
-            items : ':not(.ignore)'
+            
         });
         //$( "#sortable" ).disableSelection();
     });

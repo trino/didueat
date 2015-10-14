@@ -61,7 +61,7 @@ Route::get('restaurant/getToken',                   'RestaurantController@getTok
 Route::post('restaurant/menuadd',                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                    'RestaurantController@menuadd');
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
-Route::post('restaurant/orderCat',                  'RestaurantController@orderCat');
+Route::post('restaurant/orderCat/{id}/{sort}',                  'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                 'RestaurantController@red');
 

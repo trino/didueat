@@ -658,8 +658,25 @@ class RestaurantController extends Controller {
         }
     }
 
-    public function orderCat() {
+    public function orderCat($cid,$sort) {
         $_POST['ids'] = explode(',', $_POST['ids']);
+        $key = array_search($cid, $_POST['ids']);
+        if(($key == 0 && $sort == 'up') || ($key == (count($_POST['ids'])-1) && $sort == 'down'))
+        {
+            //do nothing
+        }
+        else{
+            if($sort == 'down')
+            $new = $key+1;
+            else
+            $new = $key-1;
+            //echo $new.'_'.
+            $temp = $_POST['ids'][$new];
+            $_POST['ids'][$new] = $cid;
+            $_POST['ids'][$key] = $temp;
+            
+            
+        }
         foreach ($_POST['ids'] as $k => $id) {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
