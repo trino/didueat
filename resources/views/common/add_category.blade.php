@@ -1,8 +1,9 @@
-<h2>Add Category</h2>
-<strong>Category Title</strong> : <input type="text" class="form-control cat_title" />
+<div class="add_category_popup"><h2>Add Category</h2>
+<div class="category_titles margin-bottom-10"><strong>Category Title :</strong>  <input type="text" class="form-control cat_title" /></div>
 <p>
 <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Save</a>
 </p>
+</div>
 
 <script>
 $(function(){
