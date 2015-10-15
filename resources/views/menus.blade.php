@@ -9,25 +9,25 @@
 
 
 
-    <div class="col-md-4 no-padding" style="">
-    <div class="product-item" style="margin:3px;background: white;height: 80px">
+    <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
+    <div class="product-item" style="margin:3px;background: white;height: 80px; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
-            <div class="col-md-9 ">
+            <div class="col-md-8 col-sm-7 col-xs-6 ">
                 <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
                 <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
             </div>
 
 
 
-            <div class="col-md-1 padding-top-5 " style="padding:0;">
+            <div class="col-md-2 col-sm-3 col-xs-3 padding-top-5 " style="padding:0;">
                 <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
             </div>
 
 
-            <div class="col-md-2  " style="padding:0;">
+            <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">
 
 
                 <img style="max-height:100%;"

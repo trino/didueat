@@ -1318,6 +1318,10 @@ width: 15% !important;
   padding-top: 120px !important;
 }
 
+.product-item {
+  height: auto !important;
+}
+
 
 }
 /* END max width 767px */

@@ -82,7 +82,7 @@ a.btn{color:#FFF;}
 
 .eyes {
     text-align: center;
-    padding-top: 57px;
+    padding-top: 37px;
 }
 
 
@@ -1004,6 +1004,7 @@ body.ecommerce {
 
 #signupForm .red, #login-ajax-form .btn  {
     background: #D50000 !important;
+    font-size: 12px  !important;
 }
 
 #signupForm .red:hover, #login-ajax-form .btn:hover {
@@ -1237,3 +1238,22 @@ body.ecommerce {
 .resturant-arrows > a {
   padding: 0 !important;
 }
+
+.resturant-logo-desc a {
+  word-wrap: break-word;
+}
+
+.form-body #uploadbtn, .form-body #picture {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#uploadbtn {
+  margin-top: 20px !important;
+}
+
+.ecommerce .main .top-cart-content .table strong {
+  width: 100%;
+}
+
+

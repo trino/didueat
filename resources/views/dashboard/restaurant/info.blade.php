@@ -15,11 +15,11 @@
         <div class="col-md-10 col-sm-8 col-xs-12 ">
 
 
-            <div class="row ">
+            <div class="row">
 
 
 
-                <div class="col-md-12 ">
+                <div class="col-md-12 col-sm-12 col-xs-12">
 
 
                     @if(\Session::has('message'))
@@ -32,7 +32,7 @@
                 </div>
 
 
-                <div class="col-md-12 ">
+                <div class="col-md-12  col-sm-12 col-xs-12">
 
                 <p>
                     <strong>Scroll is hidden</strong><br>
@@ -52,7 +52,7 @@
 
 
 
-                <div class="col-md-4 ">
+                <div class="col-md-4  col-sm-4 col-xs-12">
 
 
                     <div class="portlet box red ">

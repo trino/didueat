@@ -87,7 +87,7 @@
                 <div class="texted"><b>Our</b> Services</div>
             </div>
 
-            <div class="row margin-bottom-40" style="margin-top: 50px; padding: 30px;">
+            <div class="row margin-bottom-10" style="margin-top: 20px; padding: 30px;">
                 <!-- Pricing -->
 
                 <div class="col-md-3 col-sm-4 col-xs-12">
