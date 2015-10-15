@@ -16,7 +16,7 @@
                     </div>
 
                 </div>
-                <div class="portlet-body">
+                <div class="portlet-body no-padding">
 
 
                     <div id="postswrapper">
