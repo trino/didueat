@@ -13,7 +13,7 @@ if(!$menu_id)
     
     <p>&nbsp;</p>
     <div class="col-md-6 col-sm-12 col-xs-12 ignore">
-        <div class="col-sm-5 col-xs-12 nopadd ignore">
+        <div class="col-sm-3 col-xs-12 nopadd ignore">
             <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
                 <?php if(isset($model) && $model->image){?>
                     <img src="<?php echo url('assets/images/restaurants/'.$model->restaurant_id."/menus/".$model->id.'/thumb_'.$model->image) ?>" class="ignore" />
@@ -22,7 +22,7 @@ if(!$menu_id)
             <br class="ignore" />
             <a href="javascript:void(0)" class="btn btn-success blue newbrowse ignore" id="newbrowse<?php echo $menu_id?>_1">Image</a>
         </div>
-        <div class="col-sm-7 col-xs-12 lowheight ignore">
+        <div class="col-sm-9 col-xs-12 lowheight ignore">
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
             <textarea class="form-control newdesc ignore" placeholder="Description"><?php if(isset($model->description)){echo $model->description; }?></textarea>
