@@ -3,11 +3,6 @@
 @foreach($menus_list as $value)
 
 
-
-
-
-
-
     <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
     <div class="product-item" style="margin:3px;background: white;height: 110px; padding: 10px;">
 
@@ -30,7 +25,7 @@
 
 
                 <img style="max-height:100%;"
-                     src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}"
+                     src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb1_'.$value->image:'default_menus.png' }}"
                      class="img-responsive" alt="{{ $value->menu_item }}"/>
 
             </div>
@@ -71,7 +66,7 @@
                 </div>
                 <div class="col-sm-12 col-xs-12">
                     <img class="popimage_{{ $value->id }}" width="150"
-                         src="{{ url('assets/images/products')}}/{{$value->image}}"/>
+                         src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb_'.$value->image:'default_menus.png' }}"/>
                 </div>
                 <div class="clearfix"></div>
 
@@ -237,70 +232,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 @endforeach
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
