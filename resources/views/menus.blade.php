@@ -10,7 +10,7 @@
 
 
     <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
-    <div class="product-item" style="margin:3px;background: white;height: 80px; padding: 10px;">
+    <div class="product-item" style="margin:3px;background: white;height: 80px; padding: 10px 0;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
