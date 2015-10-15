@@ -231,12 +231,13 @@ class HomeController extends Controller {
             }
             try {
                 if (\Input::hasFile('logo')) {
+                   
                     $image = \Input::file('logo');
                     $ext = $image->getClientOriginalExtension();
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
-                    $post['logo'] = $newName;
+                    $update['logo'] = $newName;
                 }
                 
                 $update['name'] = $post['restname'];
@@ -257,6 +258,29 @@ class HomeController extends Controller {
                 $ob->populate($update);
                 $ob->save();
                 
+                $image_file = \App\Http\Models\Restaurants::select('logo')->where('id',$ob->id)->get()[0]->logo;
+                if($image_file !='')
+                {
+                   
+                    $arr = explode('.', $image_file);
+                    $ext = end($arr);
+                    $newName = $ob->slug. '.' . $ext;
+                   
+                    if (!file_exists(public_path('assets/images/restaurants/'.$ob->id))) {
+                        mkdir('assets/images/restaurants/'.$ob->id, 0777, true);
+                    }
+                    $destinationPath = public_path('assets/images/restaurants/'.$ob->id);
+                    $filename = $destinationPath."/".$newName;
+                    copy(public_path('assets/images/restaurants/'.$image_file),$filename);
+                    @unlink(public_path('assets/images/restaurants/'.$image_file));
+                    $sizes = ['assets/images/restaurants/'.$ob->id.'/thumb_'=>'145x100','assets/images/restaurants/'.$ob->id.'/thumb1_'=>'120x85'];
+                    copyimages($sizes,$filename, $newName);
+                    $res = new \App\Http\Models\Restaurants();
+                    $res->where('id',$ob->id)->update(['logo'=>$newName]);
+                    
+                    
+               }
+                    
                 foreach ($post['open'] as $key => $value) {
                     if(!empty($value)){
                         $hour['restaurant_id'] = $ob->id;
