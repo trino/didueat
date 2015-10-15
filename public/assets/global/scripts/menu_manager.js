@@ -21,7 +21,6 @@ $('.add_item').live('click',function(){
 $('.additem').live('click',function(){
     
     var id = $(this).attr('id').replace('add_item','');
-    alert(id);
     if(id==0){
     $('.overlay_loader').show();
     $('#menumanager2').load(base_url+'restaurant/menu_form/0',function(){
