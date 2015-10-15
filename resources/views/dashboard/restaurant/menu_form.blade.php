@@ -30,6 +30,7 @@ if(!$menu_id)
         <div class="clearfix ignore"></div>   
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore">
+    <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 ignore">
             <?php if(!isset($ccount) || (isset($ccount) && $ccount==0)){ ?>
             <div class="newaction ignore">
@@ -41,6 +42,7 @@ if(!$menu_id)
             
             <?php } ?>
         </div>
+    </div>
     </div>
     <div class="clearfix ignore"></div> 
     
