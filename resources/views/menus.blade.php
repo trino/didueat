@@ -9,42 +9,40 @@
 
 
 
-    <div class="product-item" style="float:left;width:48%;margin:.3%;padding-right:0px;background: white;">
+    <div class="col-md-4 no-padding" style="">
+    <div class="product-item" style="margin:3px;background: white;height: 65px">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
-
-            <img style="float:right;height:90px;"
-                 src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}"
-                 class="img-responsive" alt="{{ $value->menu_item }}"/>
-
-
-            <div class="col-md-8">
-
-                <h1 style="color: black;">{{ $value->menu_item }}</h1>
-
-                <p style="">{{ $value->description }}</p>
-
-
+            <div class="col-md-9 ">
+                <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
+                <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
             </div>
 
 
 
-            <div class="col-md-1">
-
-
-                <h1 class="margin-top-5" style="color: black">${{ $value->price }}</h1>
-
+            <div class="col-md-1 padding-top-5 " style="padding:0;">
+                <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
             </div>
 
 
+            <div class="col-md-2  " style="padding:0;">
 
 
-            <div class="sticker sticker-new"></div>
+                <img style="max-height:100%;"
+                     src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default_menus.png' }}"
+                     class="img-responsive" alt="{{ $value->menu_item }}"/>
+
+            </div>
+
+            <!--div class="sticker sticker-new"></div-->
+
+
+
+
         </a>
-
-
+    </div>
     </div>
 
 

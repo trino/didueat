@@ -6,9 +6,28 @@
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
 
-            <div id="postswrapper">
-                @include('menus')
+
+
+
+            <div class="portlet box red">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-spoon"></i>This is a category
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+
+
+                    <div id="postswrapper">
+                        @include('menus')
+
+                    </div><br style="clear: both;">
+                </div>
             </div>
+
+
+
 
 
             <div class="clearfix"></div>
@@ -18,7 +37,7 @@
             <div class="clearfix"></div>
             <?php if($menus_list->hasMorePages()){?>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10" style="margin-left: 15px;">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="">
                     <button align="center" class="loadmore btn btn-primary">Load More</button>
                 </div>
             </div>

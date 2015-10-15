@@ -412,7 +412,7 @@ background: white !important;
     border: 0 !important;
 }
 .main {
-    padding-top: 85px;
+    padding-top: 80px;
     min-height: 700px;
 }
 
@@ -656,10 +656,7 @@ background: white !important;
 }
 
 .resturant-logo-desc .img-responsive {
-  border: 1px solid #dfdfdf;
   margin: 0 auto;
-  padding: 15px;
-  width: 50%;
 }
 
 .orders_details .resturant-logo-desc address {
