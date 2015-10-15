@@ -554,7 +554,7 @@
                     pre_cnt = Number(n);
                 }
                 var img = $('.popimage_' + menu_id).attr('src');
-                img = img.replace('thumb1','thumb2');
+                img = img.replace('thumb','thumb2');
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');
