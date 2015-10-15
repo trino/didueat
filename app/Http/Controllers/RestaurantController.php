@@ -165,9 +165,10 @@ class RestaurantController extends Controller {
                     //die();
                     $image = \Input::file('logo');
                     $ext = $image->getClientOriginalExtension();
-                    $image_file = \App\Http\Models\Restaurants::select('logo')->where('id',$post['id'])->get()[0]->logo;
+                    $res = \App\Http\Models\Restaurants::where('id',$post['id'])->get()[0];
+                    $image_file = $res->logo;
                     if($image_file =='')
-                        $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+                        $newName = $res->slug . '.' . $ext;
                     else
                         $newName = $image_file;
                     if (!file_exists(public_path('assets/images/restaurants/'.$post['id']))) {
@@ -664,24 +665,25 @@ class RestaurantController extends Controller {
             if($mns->parent == '0')
             {
                 $image_file = $mns->image;
-                if($image_file =='')
+                $destinationPath = public_path('assets/images/products');
+                $filename = $destinationPath."/".$image_file;
+                if($image_file !='' && file_exists($filename))
                 {
                     $arr = explode('.', $image_file);
                     $ext = end($arr);
-                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+                    $newName = $id . '.' . $ext;
+                    if (!file_exists(public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id))) {
+                        mkdir('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id, 0777, true);
+                    }
+                    
+                    copy($filename, public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName));
+                    unlink($filename);
+                    $sizes = ['assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb_'=>'150x145','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb1_'=>'70x65','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb2_'=>'40x35'];
+                    $filename = public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName);
+                    copyimages($sizes,$filename, $newName);
+                    $men = new \App\Http\Models\Menus();
+                    $men->where('id',$id)->update(['image'=>$newName]);
                 }
-                else
-                    $newName = $image_file;
-                if (!file_exists(public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id))) {
-                    mkdir('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id, 0777, true);
-                }
-                $destinationPath = public_path('assets/images/products');
-                $filename = $destinationPath."/".$newName;
-                copy($filename, public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName));
-                unlink($filename);
-                $sizes = ['assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb_'=>'150x145','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb1_'=>'70x65','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb2_'=>'40x35'];
-                $filename = public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName);
-                copyimages($sizes,$filename, $newName);
             }
             die();
         } else {
@@ -703,24 +705,26 @@ class RestaurantController extends Controller {
             if($mns->parent == '0')
             {
                 $image_file = $mns->image;
-                if($image_file =='')
+                $destinationPath = public_path('assets/images/products');
+                $filename = $destinationPath."/".$image_file;
+                if($image_file !='' && file_exists($filename))
                 {
                     $arr = explode('.', $image_file);
                     $ext = end($arr);
-                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+                    $newName = $id . '.' . $ext;
+              
+                    if (!file_exists(public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id))) {
+                        mkdir('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id, 0777, true);
+                    }
+                    
+                    copy($filename, public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName));
+                    unlink($filename);
+                    $sizes = ['assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb_'=>'150x145','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb1_'=>'70x65','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb2_'=>'40x35'];
+                    $filename = public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName);
+                    copyimages($sizes,$filename, $newName);
+                    $men = new \App\Http\Models\Menus();
+                    $men->where('id',$id)->update(['image'=>$newName]);
                 }
-                else
-                    $newName = $image_file;
-                if (!file_exists(public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id))) {
-                    mkdir('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id, 0777, true);
-                }
-                $destinationPath = public_path('assets/images/products');
-                $filename = $destinationPath."/".$newName;
-                copy($filename, public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName));
-                unlink($filename);
-                $sizes = ['assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb_'=>'150x145','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb1_'=>'70x65','assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/thumb2_'=>'40x35'];
-                $filename = public_path('assets/images/restaurants/'.$mns->restaurant_id.'/menus/'.$id.'/'.$newName);
-                copyimages($sizes,$filename, $newName);
             }
             die();
         }
