@@ -16,10 +16,14 @@ class Category extends BaseModel {
     protected $primaryKey = 'id';
     public $timestamps = false;
     
-    /**
-     * @param array
-     * @return Array
-     */
+     public function populate($data) {
+        $cells = array('title', 'display_order', 'res_id');
+        foreach ($cells as $cell) {
+            if (array_key_exists($cell, $data)) {
+                $this->$cell = $data[$cell];
+            }
+        }
+        }
     
 
 }

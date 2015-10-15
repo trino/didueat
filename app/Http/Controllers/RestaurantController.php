@@ -806,7 +806,12 @@ class RestaurantController extends Controller {
     }
     public function saveCat()
     {
-        
+        $arr['title'] = $_POST['title'];
+        $arr['res_id'] = $_POST['res_id'];
+            $ob2 = new \App\Http\Models\Category();
+            $ob2->populate($arr);
+            $ob2->save();
+            die();
     }
 
 }
