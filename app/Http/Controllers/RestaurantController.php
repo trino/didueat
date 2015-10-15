@@ -578,6 +578,7 @@ class RestaurantController extends Controller {
     public function menu_form($id) {
         //$this->layout = 'blank';
         $data['menu_id'] = $id;
+        $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             //$id = $_GET['menu_id'];
             //$table = TableRegistry::get('menus');
@@ -749,6 +750,10 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.load_child', $data);
         else
         return view('dashboard.restaurant.load_addon', $data); 
+    }
+    public function saveCat()
+    {
+        
     }
 
 }

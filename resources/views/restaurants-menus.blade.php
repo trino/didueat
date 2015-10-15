@@ -8,8 +8,12 @@
 
 
 <div class="category_btns" style="margin-bottom: 15px;">
-        <a href="" class="btn red fancybox-fast-view">Add Category</a>
-<a href="" class="btn red fancybox-fast-view">Remove Category</a>
+        <a href="#add_category" class="btn red fancybox-fast-view">Add Category</a>
+<a href="" class="btn red fancybox-fast-view">Add Menu Item</a>
+</div>
+
+<div id="add_category" style="display: none;">
+@include('common.add_category')
 </div>
 
             <div class="portlet box red">
@@ -548,6 +552,7 @@
                     pre_cnt = Number(n);
                 }
                 var img = $('.popimage_' + menu_id).attr('src');
+                img = img.replace('thumb1','thumb2');
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');

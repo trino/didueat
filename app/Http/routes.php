@@ -65,6 +65,8 @@ Route::post('restaurant/orderCat/{id}/{sort}',                  'RestaurantContr
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                 'RestaurantController@red');
 Route::get('restaurant/loadChild/{id}/{flag}',                 'RestaurantController@loadChild');
+Route::get('restaurant/saveCat',                 'RestaurantController@saveCat');
+Route::post('restaurant/saveCat',                 'RestaurantController@saveCat');
 
 Route::resource('user/addresses',                   'UsersController@addresses');
 Route::get('user/addresses/edit/{id}',            'UsersController@addressesUpdate');

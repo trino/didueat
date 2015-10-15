@@ -108,13 +108,14 @@ $('.savebtn').live('click',function(){
     var ptitle = $_parent.find('.newtitle').val();
     var pprice = $_parent.find('.newprice').val();
     var pdesc = $_parent.find('.newdesc').val();
+    var cat_id = $_parent.find('.cat_id').val();
     
     if($_parent.find('.menuwrapper').length > 0)
     phas_addon = 1;
     //alert(id);
     $.ajax({
        url:base_url+'restaurant/menuadd?id='+id,
-       data:'menu_item='+ptitle+'&description='+pdesc+'&price='+pprice+'&image='+img+'&has_addon='+phas_addon+'&parent=0&_token='+token,
+       data:'menu_item='+ptitle+'&description='+pdesc+'&price='+pprice+'&image='+img+'&has_addon='+phas_addon+'&parent=0&_token='+token+'&cat_id='+cat_id,
        type:'post',
        success:function(res){
        // alert(res);
@@ -141,7 +142,7 @@ $('.savebtn').live('click',function(){
                 var has_addon2 = '0';
                 $.ajax({
                    url:base_url+'restaurant/menuadd',
-                   data:'menu_item='+ctitle+'&description='+cdescription+'&has_addon='+has_addon2+'&parent='+res+'&req_opt='+req_opt+'&sing_mul='+sing_mul+'&exact_upto='+exact_upto+'&exact_upto_qty='+exact_upto_qty+'&_token='+token+'&display_order='+d_o,
+                   data:'menu_item='+ctitle+'&description='+cdescription+'&has_addon='+has_addon2+'&parent='+res+'&req_opt='+req_opt+'&sing_mul='+sing_mul+'&exact_upto='+exact_upto+'&exact_upto_qty='+exact_upto_qty+'&_token='+token+'&display_order='+d_o+'&cat_id=0',
                    type:'post',
                    success:function(res2){
                     var di_o = 0;
@@ -157,7 +158,7 @@ $('.savebtn').live('click',function(){
                             
                             $.ajax({
                                url:base_url+'restaurant/menuadd',
-                               data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2+'&_token='+token+'&display_order='+di_o,
+                               data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2+'&_token='+token+'&display_order='+di_o+'&cat_id=0',
                                type:'post',
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
