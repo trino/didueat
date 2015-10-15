@@ -6,7 +6,7 @@
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
 
-
+<?php if(Session::has('is_logged_in')){?>
 <div class="category_btns" style="margin-bottom: 15px;">
         <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
@@ -17,7 +17,7 @@
 </div>
 <div id="menumanager2" style="display: none;width:800px;">
 </div>
-
+<?php }?>
             <div class="portlet box red">
                 <div class="portlet-title">
                     <div class="caption">
