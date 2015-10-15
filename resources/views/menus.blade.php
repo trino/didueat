@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
 
-
 @foreach($menus_list as $value)
 
 
@@ -10,7 +9,7 @@
 
 
     <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
-    <div class="product-item" style="margin:3px;background: white;height: 80px; padding: 10px;">
+    <div class="product-item" style="margin:3px;background: white;height: 110px; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
@@ -38,10 +37,11 @@
 
             <!--div class="sticker sticker-new"></div-->
 
-
-
-
         </a>
+        <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
+        <a href="" class="btn red">Remove</a>
+        <a href="" class="btn blue">Edit</a>
+</div>
     </div>
     </div>
 

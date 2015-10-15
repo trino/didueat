@@ -7,7 +7,10 @@
 
 
 
-
+<div class="category_btns" style="margin-bottom: 15px;">
+        <a href="" class="btn red fancybox-fast-view">Add Category</a>
+<a href="" class="btn red fancybox-fast-view">Remove Category</a>
+</div>
 
             <div class="portlet box red">
                 <div class="portlet-title">

@@ -1256,4 +1256,10 @@ body.ecommerce {
   width: 100%;
 }
 
+.category_detail_btn a {
+  float: right;
+  margin-left: 5px;
+  padding: 4px 10px;
+}
+
 
