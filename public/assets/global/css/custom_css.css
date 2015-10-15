@@ -1280,3 +1280,6 @@ body.ecommerce {
   top: 30%;
 }
 
+.product-item > a > div > .img-responsive {
+  box-shadow: 0 0 3px #aaa;
+}
