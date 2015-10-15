@@ -772,7 +772,7 @@ function copyimages($sizes, $file,$name){
     
     foreach($sizes as $path=>$size)
     {
-        $rsize = resize($file,$size);
+        $rsize = resize($file,$size,true);
         copy(public_path($rsize),public_path($path.$name));
         @unlink(public_path($rsize));
     }
@@ -806,7 +806,7 @@ function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = 
                 $thumb_h = $new_height;
             }
             $dst_img = ImageCreateTrueColor($new_width, $new_height);
-            imagecopyresampled($dst_img, $src_img, $new_width / 2 - $thumb_w / 2, $new_height / 2 - $thumb_h / 2, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+            imagecopyresampled($dst_img, $src_img, $new_width / 2 - $thumb_w / 2, 0, $new_height / 2 - $thumb_h / 2,0, $thumb_w, $thumb_h, $old_x, $old_y);
         } else {
             $dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
             imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
