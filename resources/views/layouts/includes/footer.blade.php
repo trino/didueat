@@ -280,6 +280,18 @@
             e.preventDefault();
         });
 
+        $('body').on('submit', '#searchMenuForm2', function(e){
+            var term = $('#searchMenuForm2 input[name=search_term]').val();
+            window.location.href = "{{ url('/search/menus') }}/"+term;
+            e.preventDefault();
+        });
+
+        $('body').on('submit', '#searchRestaurantForm2', function(e){
+            var term = $('#searchRestaurantForm2 input[name=search_term]').val();
+            window.location.href = "{{ url('/search/restaurants') }}/"+term;
+            e.preventDefault();
+        });
+
     })
 </script>
 <!-- END PAGE LEVEL JAVASCRIPTS -->

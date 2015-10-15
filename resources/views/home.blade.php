@@ -2,31 +2,22 @@
 @section('content')
 
 <div class="content-page">
+
     <div class="row">
 
         <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
+            {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+            <div class="input-group" valign="center">
+                <input type="text" name="search_term" placeholder="Search Menus" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary red" type="submit">Search</button>
+                                </span>
+            </div>
+            {!! Form::close() !!}
+            <br />
+
             <div id="postswrapper" class="margin-bottom-20 clearfix">
                 @include('menus')
-
-                <!--div class="margin-bottom-10 row clearfix">
-                
-                @foreach($menus_list as $value)
-                <div class="col-md-3 col-sm-6 col-xs-12 margin-bottom-20">
-                <a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurantId, 'Slug').'/menus') }}">
-                <div class="product-item">
-                <div class="pi-img-wrapper">
-                <img src="{{ url('assets/images/products') }}/{{ ($value->image)?$value->image:'default.jpg' }}" class="img-responsive" alt="Menu6"/>
-                </div>
-                <h3><a href="{{ url('restaurants/'.select_field('restaurants', 'ID', $value->restaurantId, 'Slug').'/menus') }}">{{ $value->menu_item }}</a></h3>
-                <div class="pi-price">${{ $value->price }}</div>
-                
-                <div class="sticker sticker-new"></div>
-                </div>
-                </a>
-                </div>
-                @endforeach
-                
-                </div-->
             </div>
 
             <div class="clearfix"></div>
