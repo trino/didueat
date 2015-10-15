@@ -18,6 +18,25 @@ $('.add_item').live('click',function(){
       });  
     }
 });
+$('.additem').live('click',function(){
+    
+    var id = $(this).attr('id').replace('add_item','');
+    alert(id);
+    if(id==0){
+    $('.overlay_loader').show();
+    $('#menumanager').load(base_url+'restaurant/menu_form/0',function(){
+        $('.overlay_loader').hide();
+        ajaxuploadbtn('newbrowse0_1');
+    });
+    }
+    else
+    {
+    $('#parent'+id).load(base_url+'restaurant/menu_form/'+id,function(){
+        $('.overlay_loader').hide();
+        ajaxuploadbtn('newbrowse'+id+'_1');
+      });  
+    }
+});
 var token = '';
             $.ajax({
                url: base_url+'restaurant/getToken',

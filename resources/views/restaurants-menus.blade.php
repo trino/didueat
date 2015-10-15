@@ -8,11 +8,11 @@
 
 
 <div class="category_btns" style="margin-bottom: 15px;">
-        <a href="#add_category" class="btn red fancybox-fast-view">Add Category</a>
-<a href="" class="btn red fancybox-fast-view">Add Menu Item</a>
+        <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
+<a href="#menumanager" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
-<div id="add_category" style="display: none;">
+<div id="menumanager" style="display: none;width:800px;">
 @include('common.add_category')
 </div>
 

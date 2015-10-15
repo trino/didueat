@@ -30,7 +30,7 @@ if(!$menu_id)
                 foreach($category as $cat)
                 {
                     ?>
-                    <option value="<?php echo $cat->id?>" <?php if($cat->id == $model->cat_id){?>selected="selected"<?php }?>><?php echo $cat->title;?></option>
+                    <option value="<?php echo $cat->id?>" <?php if(isset($model->cat_id) && $cat->id == $model->cat_id){?>selected="selected"<?php }?>><?php echo $cat->title;?></option>
                     <?php
                 }
                 ?>
