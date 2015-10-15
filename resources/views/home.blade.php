@@ -5,7 +5,7 @@
     <div class="row">
 
         <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
-            <div id="postswrapper">
+            <div id="postswrapper" class="margin-bottom-20 clearfix">
                 @include('menus')
 
                 <!--div class="margin-bottom-10 row clearfix">

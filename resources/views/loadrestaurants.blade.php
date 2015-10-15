@@ -19,7 +19,7 @@
         @foreach ($restaurants_list as $value)
 
             <tr>
-                <td width="20%">
+                <td width="10%">
 
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         @if(!empty($value->logo))
@@ -31,7 +31,7 @@
                         @endif
                     </a>
                 </td>
-                <td width="70%">
+                <td width="80%">
                     <h2>
                         <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{!! $value->name !!} </a>
                     </h2>

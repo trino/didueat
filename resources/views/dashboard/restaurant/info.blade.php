@@ -52,7 +52,7 @@
 
 
 
-                <div class="col-md-4  col-sm-4 col-xs-12">
+                <div class="col-md-4 col-sm-4 col-xs-12">
 
 
                     <div class="portlet box red ">
@@ -149,13 +149,13 @@
 
 
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h3 class="form-section">Logo</h3>
                                     </div>
 
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
 
-
+                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                         @if($resturant->logo)
                                             <img id="picture" class="margin-bottom-10"
                                                  src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo) }}"
@@ -165,12 +165,11 @@
                                             <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title=""
                                                  style="width: 100%;">
                                         @endif
-
-
-                                        <br/>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
                                         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red"
                                            onclick="document.getElementById('hiddenLogo').click(); return false">Change
-                                            Image</a>
+                                            Image</a></div>
                                         <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>
 
 
