@@ -44,7 +44,16 @@
                     <div class="search-box">
                         {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                             <div class="input-group" valign="center">
-                                <input type="text" name="search_term" placeholder="Search" class="form-control" />
+                                <input type="text" name="search_term" placeholder="Search Menus" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary red" type="submit">Search</button>
+                                </span>
+                            </div>
+                        {!! Form::close() !!}
+                        <br />
+                        {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+                            <div class="input-group" valign="center">
+                                <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary red" type="submit">Search</button>
                                 </span>

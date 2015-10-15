@@ -36,6 +36,58 @@ class HomeController extends Controller {
     }
     
     /**
+     * Search Restaurants
+     * @param $term
+     * @param $per_page
+     * @param $start
+     * @return view
+     */
+    public function searchRestaurants($term='') {
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 2, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 2, 0, 'count')->count();
+        $data['start'] = $data['query']->count();
+        $data['term'] = $term;
+        $data['title'] = "Search Menus";
+        
+        return view('searchrestaurants', $data);
+    }
+    
+    
+    /**
+     * Search Restaurants Ajax
+     * @param null
+     * @return view
+     */
+    public function searchRestaurantsAjax() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['term']) || empty($post['term'])) {
+                return \Response::json(array('type' => 'error', 'response' => '[Search Term] field is missing!'), 400);
+            }
+            if (!isset($post['start']) || empty($post['start'])) {
+                return \Response::json(array('type' => 'error', 'response' => '[Start] field is missing!'), 400);
+            }
+            
+            try {
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 2, $post['start'], 'list')->get();
+                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 2, $post['start'], 'count')->count();
+                $data['start'] = $data['query']->count()+$post['start'];
+                $data['term'] = $post['term'];
+                
+                if (!is_null($data['query']) && count($data['query']) > 0) {
+                    return view('ajax.search_restaurants', $data);
+                }
+                
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+        }
+        
+    }
+    
+    /**
      * Search Menus
      * @param $term
      * @param $per_page

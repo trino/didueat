@@ -10,6 +10,8 @@ Route::resource('/restaurants/signup',              'HomeController@signupRestau
 Route::resource('/home/test',                       'HomeController@test');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
+Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
+Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');

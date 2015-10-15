@@ -273,6 +273,12 @@
             window.location.href = "{{ url('/search/menus') }}/"+term;
             e.preventDefault();
         });
+        
+        $('body').on('submit', '#searchRestaurantForm', function(e){
+            var term = $('#searchRestaurantForm input[name=search_term]').val();
+            window.location.href = "{{ url('/search/restaurants') }}/"+term;
+            e.preventDefault();
+        });
 
     })
 </script>
