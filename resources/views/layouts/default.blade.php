@@ -51,37 +51,9 @@
 <body class="ecommerce">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @include('popups.login')
 @include('popups.signup')
 @include('popups.forgotpassword')
-
-
-
-
-
-
 
 
 <!-- END TOP BAR -->
@@ -280,6 +252,13 @@
 
 @include('layouts.includes.footer')
 
+
+ <div class="overlay_loader">
+                <div class="clearfix"></div>
+                <div id="loadmoreajaxloader">
+                    <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+                </div>
+ </div>
 
 </body>
 </html>
