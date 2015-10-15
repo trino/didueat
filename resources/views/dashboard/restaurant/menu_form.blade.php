@@ -14,7 +14,11 @@ if(!$menu_id)
     <p>&nbsp;</p>
     <div class="col-md-6 col-sm-12 col-xs-12 ignore">
         <div class="col-sm-5 col-xs-12 nopadd ignore">
-            <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="<?php echo url('assets/images/products/'.$model->image) ?>" class="ignore" /><input type="hidden" class="hiddenimg ignore" value="<?php echo $model->image;?>" /><?php }?></div>
+            <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
+                <?php if(isset($model) && $model->image){?>
+                    <img src="<?php echo url('assets/images/restaurants/'.$model->restaurant_id."/menus/".$model->id.'/thumb_'.$model->image) ?>" class="ignore" />
+                <input type="hidden" class="hiddenimg ignore" value="<?php echo $model->image;?>" /><?php }?>
+            </div>
             <br class="ignore" />
             <a href="javascript:void(0)" class="btn btn-success blue newbrowse ignore" id="newbrowse<?php echo $menu_id?>_1">Image</a>
         </div>

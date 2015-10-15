@@ -20,7 +20,7 @@
 
                      @if(!empty($restaurant->logo))
                             <img class="img-responsive" alt=""
-                                 src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
+                                 src="{{ url('assets/images/restaurants/'.$restaurant->id.'/thumb1_'.$restaurant->logo) }}">
                         @else
                             <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
                         @endif

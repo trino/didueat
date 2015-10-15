@@ -54,7 +54,16 @@
                                     <div class="col-md-4 menu_item col-sm-4 col-xs-12 ignore">
                                     <div class="row">
                                         <div class="col-sm-4 col-xs-12 ignore" style="padding: 0;">
-                                            <img class="itemimg4 itemimg ignore" src="{{ asset('assets/images/products') }}/<?php echo ($value->image) ? $value->image : 'default.jpg'; ?>" />
+                                            
+                                             @if(!empty($value->image))
+                                                    <img class="itemimg4 itemimg ignore" alt=""
+                                                         src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb_'.$value->image) }}">
+                                                @else
+                                                    <img class="itemimg4 itemimg ignore" alt="" src="{{ url('assets/images/default.png') }}">
+                                                @endif
+                                            <!--
+<img class="itemimg4 itemimg ignore" src="{{ asset('assets/images/products') }}/<?php echo ($value->image) ? $value->image : 'default.jpg'; ?>" />
+-->
                                         </div>
                                         <div class="col-sm-8 col-xs-12 ignore">
                                             <h4 class="ignore">{{ $value->menu_item }}</h4>
@@ -105,7 +114,7 @@
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script>
 jQuery(document).ready(function() {
-    Metronic.init();
+    //Metronic.init();
     Demo.init();
     $("#menuForm").validate();
 });
