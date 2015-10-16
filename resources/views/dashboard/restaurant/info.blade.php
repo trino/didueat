@@ -158,7 +158,7 @@
                                          <div class="col-md-6 col-sm-6 col-xs-12">
                                         @if($resturant->logo)
                                             <img id="picture" class="margin-bottom-10"
-                                                 src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo) }}"
+                                                 src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo). '?'.mt_rand() }}"
                                                  title=""
                                                  style="width: 100%;">
                                         @else
