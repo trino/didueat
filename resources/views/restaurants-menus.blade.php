@@ -1,7 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="margin-bottom-40 clearfix">
+    <div class="content-page">
+
+        <div class="row default_page_padd">
 
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
@@ -12,10 +14,13 @@
     <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
-<div id="menumanager" style="display: none;width:800px;">
+<div id="menumanager" style="display: none;width:500px;">
 @include('common.add_category')
 </div>
-<div id="menumanager2" style="display: none;width:800px;"></div>
+
+<div id="menumanager2" style="display: none;width:500px;">
+</div>
+
 <?php }?>
     <?php foreach($category as $cat)
           { $catid = $cat->id; ?>
@@ -65,7 +70,7 @@
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                 </div>
             </div>
-            <div class="top-cart-info">
+            <!--<div class="top-cart-info">
                 <div class="col-md-6">
                     <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
                 </div>
@@ -77,7 +82,7 @@
                     <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"
                                                                     onclick="#cartsz"></i></a>
                 </div>
-            </div>
+            </div>-->
 
 
 
@@ -202,6 +207,7 @@
     <!-- END SIDEBAR & CONTENT -->
 
 
+    </div>
     </div>
 
 

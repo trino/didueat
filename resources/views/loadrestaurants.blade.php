@@ -37,7 +37,7 @@
                     </h2>
                     <ul class="blog-info">
                         <li>
-                            <i class="fa fa-map-marker"></i>{!! $value->address.' , '.$value->city.' , '.$value->province.' , '.$value->country !!}
+                            <i class="fa fa-map-marker"></i>{!! $value->address.' , '.$value->city.' , '.$value->province.' , '. select_field("countries", 'id', $value->country, 'name') !!}
                             <i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}<i class="fa fa-tags"></i>{!! $value->phone !!}</li>
                     </ul>
 

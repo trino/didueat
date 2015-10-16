@@ -50,10 +50,10 @@
                             <ul class="parentinfo" id="sortable" style="padding-left: 0;">
                                 @foreach($menus_list as $value)
 
-                                <li class="infolistwhite marbot newmenus" id="parent{{ $value->id }}" style="padding: 10px 0;border-top:none;box-shadow: 0 0 0px #fff; ">
+                                <li class="infolistwhite marbot newmenus no-margin" id="parent{{ $value->id }}" style="">
                                     <div class="col-md-4 menu_item col-sm-4 col-xs-12 ignore">
                                     <div class="row">
-                                        <div class="col-sm-4 col-xs-12 ignore" style="padding: 0;">
+                                        <div class="col-sm-1 col-xs-12 ignore" style="padding: 0;">
                                             
                                              @if(!empty($value->image))
                                                     <img class="itemimg4 itemimg ignore" alt=""

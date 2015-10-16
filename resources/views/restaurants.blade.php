@@ -10,14 +10,19 @@
                             Local Restaurants
                         </h1>
 
-                        <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
+                        {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+                        <div class="input-group col-md-3" valign="center">
+                            <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary red" type="submit">Search</button>
+                                </span>
+                        </div>
+                        {!! Form::close() !!}
+                        <br />
+
+                        <div class="row margin-bottom-20 resturant-grid" id="postswrapper" style="">
                             @include('loadrestaurants')
                         </div>
-
-
-
-
-
 
                         <div class="clearfix"></div>
                         <div id="loadmoreajaxloader" style="display:none;">
@@ -30,13 +35,7 @@
                                 <button align="" class="loadmore btn btn-primary">Load More</button>
                             </div>
                         </div>
-                        <?php }?>
-
-
-
-
-
-
+                        <?php } ?>
                     </div>
 
                     <div class="col-md-3 col-sm-3 col-xs-12">
@@ -44,7 +43,7 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Logs List
+                                    <i class="fa fa-globe"></i>Filter By Restaurants
                                 </div>
                                 <div class="tools">
                                 </div>
@@ -59,10 +58,6 @@
                 </div>
             </div>
 
-
     </div>
-    <script>
-
-    </script>
 
 @stop

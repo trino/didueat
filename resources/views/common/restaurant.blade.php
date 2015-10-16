@@ -44,7 +44,7 @@
     }
 ?>
 
-<div class="col-md-4 col-sm-4 col-xs-12 ">
+<div class="col-md-4 col-sm-12 col-xs-12 ">
 
 
     <div class="portlet box red ">
@@ -182,7 +182,7 @@
 </div>
 
 
-<div class="col-md-4 col-sm-4 col-xs-12 ">
+<div class="col-md-4 col-sm-12 col-xs-12 ">
 
 
     <div class="portlet box red">
@@ -265,7 +265,7 @@
 </div>
 
 
-<div class="col-md-4  col-sm-4 col-xs-12">
+<div class="col-md-4  col-sm-12 col-xs-12">
 
     <div class="portlet box red">
         <div class="portlet-title">
@@ -336,7 +336,7 @@
     </div>
 </div>
 <?php if(!$RestID){ ?>
-<div class="col-md-4 col-sm-4 col-xs-12">
+<div class="col-md-4 col-sm-12 col-xs-12">
     <div class="portlet box red ">
         <div class="portlet-title">
             <div class="caption">

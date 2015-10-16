@@ -26,7 +26,7 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'Home Page';
-        $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
+        $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(9);
         if(isset($_GET['page'])) {
             return view('menus', $data);
         }else {
@@ -152,7 +152,6 @@ class HomeController extends Controller {
         }else {
             return view('restaurants', $data);
         }
-       
     }
     
     /**
@@ -366,7 +365,6 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
-        
         $category = \App\Http\Models\Category::get();
         $data['category'] = $category; 
         $data['title'] = 'Menus Restaurant Page';
