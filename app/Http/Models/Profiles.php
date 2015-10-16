@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */ 
 class Profiles extends BaseModel {
 
-    protected $table = 'Profiles';
+    protected $table = 'profiles';
     protected $primaryKey = 'id';
     public $timestamps = true;
     
