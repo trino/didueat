@@ -5,7 +5,7 @@
     <div class="content-page">
         <div class="row">
 
-            <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
+            <div class="col-md-9 col-sm-8 col-xs-12">
                 {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                 <div class="input-group" valign="center">
                     <input type="text" name="search_term" placeholder="Search Menus" class="form-control" value="{{ $term }}" required />
@@ -15,12 +15,14 @@
                 </div>
                 {!! Form::close() !!}
 
+                <br /><h1>[<span id="countRows">{{ $count }}</span>] Local Menus Found</h1>
+
                 <div id="menus_bar" class="margin-bottom-20 clearfix">
                     @include('ajax.search_menus')
                 </div>
 
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary btn-lg loadMoreMenus" data-offset="{{ $start }}">Load more</button>
+                <button type="button" class="btn btn-primary btn-lg loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
                 <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 {!! csrf_field() !!}
                 <div class="clearfix"></div>
@@ -147,6 +149,7 @@
             $('.loadMoreMenus').show();
             $('#loadingbar').hide();
             $('#menus_bar').html(result);
+            $('#countRows').text($('div#menus_bar div.parentDiv').length);
         });
     }
 
@@ -154,9 +157,16 @@
         var search = "{{ $term }}";
         var offset = $('#menus_bar .parentDiv:last').attr('id');
         var token = $('input[name=_token]').val();
+        var sortType = $('#filterType #sortType').val();
+        var sortBy = $('#filterType #sortBy').val();
+        var priceFrom = $('#filterPriceRange #priceFrom').val();
+        var priceTo = $('#filterPriceRange #priceTo').val();
+        var singleMultiple = $('#filterSingleMultiple #selected_singleMultiple').val();
+        var hasAddon = $('#filterAddon #selected_hasAddon').val();
+        var hasImage = $('#filterImage #selected_hasImage').val();
 
         $('.loadingbar').show();
-        $.post("{{ url('/search/menus/ajax') }}", {start:offset, term:search, _token:token}, function(result){
+        $.post("{{ url('/search/menus/ajax') }}", {start:offset, term:search, _token:token, sortType:sortType, sortBy:sortBy, priceFrom:priceFrom, priceTo:priceTo, singleMultiple:singleMultiple, hasAddon:hasAddon, hasImage:hasImage}, function(result){
             $('.loadingbar').hide();
             $('#menus_bar').append(result);
             if(!result){

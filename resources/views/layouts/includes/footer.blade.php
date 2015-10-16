@@ -2,6 +2,9 @@
 <div class="steps-block steps-block-red">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-1"></div>
+            <div class=" col-md-10 col-sm-12 col-xs-12">
+
             <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                 <i class="fa fa-search"></i>
                 <div>
@@ -25,6 +28,9 @@
                     <em>No setup fees, hidden costs, or contracts</em>
                 </div>
             </div>
+            </div>
+            <div class="col-md-1"></div>
+
         </div>
     </div>
 </div>
@@ -153,7 +159,7 @@
 <!-- END FOOTER -->
 
 <!-- BEGIN fast view of a product -->
-<div id="product-pop-up" style="display: none; width: 700px;">
+<div id="product-pop-up" style="display: none; width: 500px;">
     <div class="product-page product-pop-up">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-3">

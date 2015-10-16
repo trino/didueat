@@ -159,9 +159,14 @@
             var search = "{{ $term }}";
             var offset = $('#tableRestuarant tr:last').attr('id');
             var token = $('input[name=_token]').val();
+            var sortType = $('#filterType #sortType').val();
+            var sortBy = $('#filterType #sortBy').val();
+            var city = $('#filterCity #selected_city').val();
+            var province = $('#filterProvince #selected_province').val();
+            var country = $('#filterCountry #selected_country').val();
 
             $('.loadingbar').show();
-            $.post("{{ url('/search/restaurants/ajax') }}", {start:offset, term:search, _token:token, sortType:'', sortBy:'', city:'', province:'', country:''}, function(result){
+            $.post("{{ url('/search/restaurants/ajax') }}", {start:offset, term:search, _token:token, sortType:sortType, sortBy:sortBy, city:city, province:province, country:country}, function(result){
                 $('.loadingbar').hide();
                 $('#restuarant_bar').append(result);
 
