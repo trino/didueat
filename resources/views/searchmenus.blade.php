@@ -5,7 +5,7 @@
     <div class="content-page">
         <div class="row">
 
-            <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
+            <div class="col-md-9 col-sm-8 col-xs-12">
                 {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                 <div class="input-group" valign="center">
                     <input type="text" name="search_term" placeholder="Search Meals" class="form-control" value="{{ $term }}" />
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary btn-lg loadMoreMenus" data-offset="{{ $start }}">Load more</button>
+                <button type="button" class="btn btn-primary btn-lg loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
                 <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 {!! csrf_field() !!}
                 <div class="clearfix"></div>

@@ -1101,6 +1101,7 @@ body.ecommerce {
 
 .deleteme #cartsz .table tr td {
   text-align: right;
+  padding: 10px 0 !important;
 }
 
 #resturantForm .profilepic > img {
@@ -1254,8 +1255,9 @@ body.ecommerce {
 }
 
 #addNewUser .modal-header h4 {
-  margin-bottom: 10px !important;
+  font-size: 23px;
   font-weight: 600 !important;
+  margin-bottom: 0 !important;
 }
 
  #editNewUser h4 {
@@ -1376,4 +1378,15 @@ body.ecommerce {
 
 .orders_details table tr td {
   padding: 10px 0 !important;
+}
+
+.add_address_form .portlet-title {
+    background-color: #d50000;
+}
+
+.add_address_form .portlet-title .caption {
+    color: #fff;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 23px;
 }

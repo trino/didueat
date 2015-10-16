@@ -372,6 +372,10 @@ width: 100% !important;
 
 .portlet > .portlet-title > .caption {
   font-size: 13px !important;
+}
+
+#menus_bar .parentDiv .product-item {
+  height: 140px !important;
 }	
 
 }
@@ -652,6 +656,18 @@ width: 96% !important;
 
 .fancybox-inner > div {
   width: 500px !important;
+}
+
+.top-cart-content .btn {
+  font-size: 10px;
+  padding: 4px 7px;
+}
+
+.receipt_main .text-right > input {
+  font-size: 10px;
+  height: 22px;
+  line-height: 22px;
+  padding: 1px 4px 0;
 }
 
 }
@@ -1149,7 +1165,7 @@ width: 100% !important;
 
 .top-cart-content strong {
 font-weight: normal;
-width: 380px !important;
+width: 240px !important;
 }
 
 .top-cart-content em {
@@ -1326,6 +1342,14 @@ width: 15% !important;
   padding: 0 !important;
 }
 
+#menus_bar .parentDiv {
+  padding: 0 !important;
+}
+
+#menus_bar .parentDiv .product-item {
+  height: auto !important;
+}
+
 
 }
 /* END max width 767px */
@@ -1341,7 +1365,7 @@ width: 68% !important;
 }
 .top-cart-content strong {
 font-weight: normal;
-width: 215px !important;
+width: 25% !important;
 }
 
 .newbrowse {
@@ -1546,6 +1570,14 @@ width: 100%;
   width: 100%;
 }
 
+.resturant-grid .table td:first-child {
+  width: 50% !important;
+}
+
+.resturant-grid .table .btn {
+  font-size: 9px;
+}
+
 }
 /* END max width 480px */
 
@@ -1564,6 +1596,11 @@ width: 165px !important;
 }
 .site-logo > img {
   height: 40px !important;
+}
+
+.tabletools-dropdown-on-portlet {
+  margin-bottom: 10px !important;
+  margin-top: 0 !important;
 }
 
 }
@@ -1602,6 +1639,7 @@ width: 145px !important;
 .heading {
   height: 80px !important;
 }
+
 
 }
 /* END max width 405px */

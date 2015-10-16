@@ -79,7 +79,7 @@
 
 
 
-<div id="addNewUser" class="col-md-12" style="display: none;" >
+<div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;" >
     <div class="modal-dialog">
         <div class="fancy-modal-content">
             <div class="modal-header">

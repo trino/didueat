@@ -6,7 +6,7 @@
 
         <div class="content-page">
             <div class="row margin-bottom-10">
-                <div class="col-md-9 col-sm-9 col-xs-9">
+                <div class="col-md-9 col-sm-9 col-xs-12">
                     <h1 class="">
                         [{{ $count }}] Local Restaurants Founds
                     </h1>
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <button type="button" class="btn btn-primary btn-lg loadMoreRestaurants">Load more</button>
+                    <button type="button" class="btn btn-primary btn-lg loadMoreRestaurants margin-bottom-15">Load more</button>
                     <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                     {!! csrf_field() !!}
                 </div>
