@@ -93,7 +93,7 @@
                             </div>
                             <?php
                             if(\Session::get('session_id'))
-                            $profile = \DB::table('Profiles')->select('Profiles.id', 'Profiles.name', 'Profiles.phone', 'Profiles.email', 'Profiles_addresses.street as street', 'Profiles_addresses.post_code', 'Profiles_addresses.city', 'Profiles_addresses.province')->where('Profiles.id', \Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.id', '=', 'Profiles_addresses.user_id')->first();
+                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                             else
                             {?>
                             <div class="form-group reservation_signin">
