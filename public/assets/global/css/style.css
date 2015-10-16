@@ -4699,7 +4699,8 @@ a:hover {
 .tabletools-dropdown-on-portlet .btn:hover,
 .tabletools-dropdown-on-portlet .btn:focus,
 .tabletools-dropdown-on-portlet .btn:active
-.tabletools-dropdown-on-portlet .btn:active{
+{
     background: #2386ca !important;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.26)!important;
+    cursor: pointer;
 }
