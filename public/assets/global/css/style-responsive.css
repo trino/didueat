@@ -376,6 +376,14 @@ width: 100% !important;
 
 #menus_bar .parentDiv .product-item {
   height: 140px !important;
+}
+
+.form-body #uploadbtn, .form-body #picture {
+  display: inline-block;
+  font-size: 9px !important;
+  padding: 2px 5px;
+  vertical-align: middle;
+  width: 80px;
 }	
 
 }
@@ -1350,6 +1358,10 @@ width: 15% !important;
   height: auto !important;
 }
 
+#signupForm > div {
+  padding: 0 !important;
+}
+
 
 }
 /* END max width 767px */
@@ -1640,6 +1652,19 @@ width: 145px !important;
   height: 80px !important;
 }
 
+.module img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.grid h3 {
+  font-size: 12px;
+}
+
+.module > p {
+  font-size: 12px;
+  line-height: 18px;
+}
 
 }
 /* END max width 405px */
