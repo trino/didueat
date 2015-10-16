@@ -8,50 +8,47 @@
 
 <?php if(Session::has('is_logged_in')){?>
 <div class="category_btns" style="margin-bottom: 15px;">
-        <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
-<a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+    <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
+    <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
 <div id="menumanager" style="display: none;width:800px;">
 @include('common.add_category')
 </div>
-<div id="menumanager2" style="display: none;width:800px;">
-</div>
+<div id="menumanager2" style="display: none;width:800px;"></div>
 <?php }?>
-            <div class="portlet box red">
+    <?php foreach($category as $cat)
+          { $catid = $cat->id; ?>
+              <div class="portlet box red">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-spoon"></i>This is a category
+                        <i class="fa fa-spoon"></i>{{$cat->title}}
                     </div>
 
                 </div>
                 <div class="portlet-body no-padding">
-
-
-                    <div id="postswrapper">
+                    <div id="postswrapper_{{$cat->id}}" class="loadcontent">
+                        <?php 
+                            $menus_list = \App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id',$cat->id)->paginate(2);?>
                         @include('menus')
 
                     </div><br style="clear: both;">
+                    
                 </div>
             </div>
-
-
-
-
-
-            <div class="clearfix"></div>
-            <div id="loadmoreajaxloader" style="display:none;">
-                <img src="{{ asset('assets/images/ajax-loader.gif') }}">
-            </div>
-            <div class="clearfix"></div>
-            <?php if($menus_list->hasMorePages()){?>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12" style="">
-                    <button align="center" class="loadmore btn btn-primary">Load More</button>
-                </div>
-            </div>
-            <?php }?>
-            <div class="clearfix"></div>
+        <div id="loadmoreajaxloader" style="display:none;">
+            <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+        </div>
+        <div class="clearfix"></div>
+    <?php if($menus_list->hasMorePages()){?>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="">
+            <button align="center" class="loadmore btn btn-primary">Load More</button>
+        </div>
+    </div>
+    <?php }?>
+    <div class="clearfix"></div>
+    <?php }?>
 
         </div>
 

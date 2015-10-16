@@ -231,6 +231,7 @@ class HomeController extends Controller {
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
             try {
+                /*
                 if (\Input::hasFile('logo')) {
                    
                     $image = \Input::file('logo');
@@ -239,7 +240,9 @@ class HomeController extends Controller {
                     $destinationPath = public_path('assets/images/restaurants');
                     $image->move($destinationPath, $newName);
                     $update['logo'] = $newName;
-                }
+                }*/
+                if($post['logo']!='')
+                    $update['logo'] = $post['logo'];
                 
                 $update['name'] = $post['restname'];
                 $update['slug']= $this->createslug($post['restname']);
@@ -363,12 +366,13 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
-        $menus = \App\Http\Models\Menus::where('restaurant_id', $res_slug->id)->where('parent', 0)->orderBy('display_order', 'ASC')->paginate(4);
         
+        $category = \App\Http\Models\Category::get();
+        $data['category'] = $category; 
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
-        $data['menus_list'] = $menus;
+        //$data['menus_list'] = $menus;
         if(isset($_GET['page'])) {
             return view('menus', $data);
         }else {
@@ -419,6 +423,37 @@ class HomeController extends Controller {
             $txt = $txt.rand(0,9);
         }
         return $txt;
+    }
+    public function uploadimg($type='') {
+        if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
+            $name = $_FILES['myfile']['name'];
+            $arr = explode('.', $name);
+            $ext = end($arr);
+            $file = date('YmdHis') . '.' . $ext;
+            if($type=='restaurant')
+            {
+                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/restaurants') . '/' . $file);
+                $file_path = url() . '/assets/images/restaurants/' . $file;
+            }
+            else
+            {   
+                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
+                $file_path = url() . '/assets/images/products/' . $file;
+            }
+            //$this->loadComponent("Image"); $this->Image->resize($file, array("300x300", "150x150"), true);
+            echo $file_path . '___' . $file;
+        }
+        die();
+    }
+    
+    function loadmenus($catid,$resid)
+    {
+        $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
+         $data['restaurant'] = $res_slug;
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id',$catid)->paginate(2);
+        $data['menus_list'] = $menus_list;
+        $data['catid']= $catid;
+        return view('menus', $data);
     }
 
 }

@@ -59,7 +59,18 @@ class RestaurantController extends Controller {
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
-
+            $menus = \App\Http\Models\Menus::where('restaurant_id',$id)->get();
+            foreach($menus as $menu)
+            {
+                \App\Http\Models\Menus::where('id', $menu->id)->delete();
+                if($menu->parent == '0'){
+                     $dir = public_path('assets/images/restaurants/'.$id."/menus/".$menu->id);
+                     $this->deleteDir($dir);
+                 }
+            }
+           
+            $dir = public_path('assets/images/restaurants/'.$id);
+            $this->deleteDir($dir);
             \Session::flash('message', "Restaurant has been deleted successfully!");
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
@@ -160,13 +171,11 @@ class RestaurantController extends Controller {
                 return \Redirect::to('restaurant/info/' . $post['id']);
             }
             try {
-                if (\Input::hasFile('logo')) {
-                    
-                    //die();
-                    $image = \Input::file('logo');
-                    $ext = $image->getClientOriginalExtension();
+                if ($post['logo']!='') {
                     $res = \App\Http\Models\Restaurants::where('id',$post['id'])->get()[0];
                     $image_file = $res->logo;
+                    $im = explode($post['logo'],'.');
+                    $ext = end($im);
                     if($image_file =='')
                         $newName = $res->slug . '.' . $ext;
                     else
@@ -175,9 +184,11 @@ class RestaurantController extends Controller {
                         mkdir('assets/images/restaurants/'.$post['id'], 0777, true);
                     }
                     $destinationPath = public_path('assets/images/restaurants/'.$post['id']);
-                    $image->move($destinationPath, $newName);
-                    $sizes = ['assets/images/restaurants/'.$post['id'].'/thumb_'=>'145x100','assets/images/restaurants/'.$post['id'].'/thumb1_'=>'120x85'];
                     $filename = $destinationPath."/".$newName;
+                    copy(public_path('assets/images/restaurants/'.$post['logo']),$filename);
+                    @unlink(public_path('assets/images/restaurants/'.$post['logo']));
+                    $sizes = ['assets/images/restaurants/'.$post['id'].'/thumb_'=>'145x100','assets/images/restaurants/'.$post['id'].'/thumb1_'=>'120x85'];
+                   
                     copyimages($sizes,$filename, $newName);
                     
                     $update['logo'] = $newName;
@@ -603,16 +614,22 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.additional');
     }
 
-    public function uploadimg() {
+    public function uploadimg($type='') {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
-            //echo url();die();
-
-            move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
-            $file_path = url() . '/assets/images/products/' . $file;
+            if($type=='restaurant')
+            {
+                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/restaurants') . '/' . $file);
+                $file_path = url() . '/assets/images/restaurants/' . $file;
+            }
+            else
+            {   
+                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
+                $file_path = url() . '/assets/images/products/' . $file;
+            }
             //$this->loadComponent("Image"); $this->Image->resize($file, array("300x300", "150x150"), true);
             echo $file_path . '___' . $file;
         }
@@ -758,19 +775,49 @@ class RestaurantController extends Controller {
     }
 
     public function deleteMenu($id) {
+        $res_id = \App\Http\Models\Menus::where('id',$id)->get()[0]->restaurant_id;
         \App\Http\Models\Menus::where('id', $id)->delete();
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
+            /*$dir = public_path('assets/images/restaurants/'.$c->restaurant_id."/menus/".$c->id);
+            $this->deleteDir($dir);*/
             \App\Http\Models\Menus::where('parent', $c->id)->delete();
         }
         \App\Http\Models\Menus::where('parent', $id)->delete();
-
+        $dir = public_path('assets/images/restaurants/'.$res_id."/menus/".$id);
+        $this->deleteDir($dir);
+            /*$it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
+            $files = new RecursiveIteratorIterator($it,
+                         RecursiveIteratorIterator::CHILD_FIRST);
+            foreach($files as $file) {
+                if ($file->isDir()){
+                    rmdir($file->getRealPath());
+                } else {
+                    unlink($file->getRealPath());
+                }
+            }
+            rmdir($dir);*/
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
         return \Redirect::to('restaurant/menus-manager');
+    } 
+    
+   function deleteDir($dirPath) {
+  
+    if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+        $dirPath .= '/';
     }
-
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            self::deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+    @rmdir($dirPath);
+}
     public function order_detail($ID) {
         if ($data['order'] = \App\Http\Models\Reservations::where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first()) {
             if (is_null($data['order']['restaurant_id'])) {

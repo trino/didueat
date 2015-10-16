@@ -168,9 +168,9 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red"
-                                           onclick="document.getElementById('hiddenLogo').click(); return false">Change
+                                           >Change
                                             Image</a></div>
-                                        <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>
+                                        <input type="hidden" name="logo" id="hiddenLogo" />
 
 
                                     </div>
@@ -374,10 +374,50 @@
 
 
 <script>
+function ajaxuploadbtn(button_id) {
+            var button = $('#' + button_id), interval;
+            act = base_url+'restaurant/uploadimg/restaurant';
+            new AjaxUpload(button, {
+                action: act,
+                name: 'myfile',
+                data:{'_token':token},
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    //alert(response);return;
+                        //alert(response);
+                        var resp = response.split('___');
+                        var path = resp[0];
+                        var img = resp[1];
+                        button.html('Change Image');
+                    
+                    window.clearInterval(interval);
+                    this.enable();
+                        $('#picture').attr('src',path);
+                        $('#hiddenLogo').val(img);
+                        //$("."+button_id.replace('newbrowse','menuimg')).html('<img src="'+path+'" /><input type="hidden" class="hiddenimg" value="'+img+'" />');
+                        //$("."+button_id.replace('newbrowse','menuimg')).attr('style','min-height:0px!important;')
+                        //$('#client_img').val(response);
+                    
+//$('.flashimg').show();
+                }
+            });
+        }
+
     jQuery(document).ready(function () {
         //ComponentsPickers.init();
         $("#resturantForm").validate();
-
+            ajaxuploadbtn('uploadbtn');
 
         $('.time').timepicker();
         $('.time').click(function () {
