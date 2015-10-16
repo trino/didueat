@@ -2,8 +2,8 @@
 <div class="steps-block steps-block-red">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class=" col-md-8 col-sm-12 col-xs-12">
+            <div class="col-md-1"></div>
+            <div class=" col-md-10 col-sm-12 col-xs-12">
 
             <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                 <i class="fa fa-search"></i>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
 
         </div>
     </div>
