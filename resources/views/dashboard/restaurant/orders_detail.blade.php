@@ -24,8 +24,6 @@
                     @endif
                     
                     <div class="deleteme orders_details">
-                        <h3 class="sidebar__title">Pending Orders Manager</h3>
-                        <hr class="shop__divider">
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red">

@@ -18,11 +18,14 @@
 
                 <div class="deleteme">
 
-                    <a type="button" href="{{ url('restaurant/report') }}" class="btn red pull-right">Print Report</a>
 
 
-                    <div class="clearfix"></div>
-                    <hr class="shop__divider">
+                    <div class="btn_wrapper margin-bottom-20 clearfix">
+
+                        <a type="button" href="{{ url('restaurant/report') }}" class="btn red pull-right">Print Report</a>
+
+                    </div>
+
 
 
                     <div class="portlet box red">

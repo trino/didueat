@@ -17,8 +17,12 @@
 
             <div class="deleteme">
 
-                <a type="button" href="#addAddressForm" class="btn red pull-right fancybox-fast-view">Add address</a> 
-                <div class="clear"></div><hr />
+                <div class="btn_wrapper margin-bottom-20 clearfix">
+
+                    <a type="button" href="#addAddressForm" class="btn red pull-right fancybox-fast-view">Add address</a>
+
+                </div>
+
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box red">
                     <div class="portlet-title">
