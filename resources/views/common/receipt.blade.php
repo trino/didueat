@@ -15,7 +15,7 @@
     <div id="cartsz">
             <div class="row  resturant-logo-desc padding-top-5">
                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
 
 
                      @if(!empty($restaurant->logo))
@@ -25,11 +25,11 @@
                             <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
                         @endif
                         </div>
-                        <address class="col-md-8">
+                        <address class="col-md-8 col-sm-8 col-xs-8">
                             <h3>{!! $restaurant->name !!}</h3>
                             {!! $restaurant->address.' , '.$restaurant->city !!}
                             {!! $restaurant->province.' , '.$restaurant->country !!}<br>
-                            <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}
+                            <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}<br>
                             <abbr title="Email">E:</abbr>
                             <a href="javascript:void(0);">
                                 {!! $restaurant->email !!}
@@ -79,8 +79,8 @@
                 </div>
             <?php if(!isset($order)){?>
               <div class="text-right">
-                <input class="btn btn-default" type="button" onclick="printDiv('printableArea')" value="Print" style="margin: 0;"/>
-                <a href="javascript:void(0)" class="btn btn-default clearitems">Clear</a>
+                <input class="btn red" type="button" onclick="printDiv('printableArea')" value="Print" style="margin: 0;"/>
+                <a href="javascript:void(0)" class="btn blue clearitems">Clear</a>
                 <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
               </div>
               <?php }?>

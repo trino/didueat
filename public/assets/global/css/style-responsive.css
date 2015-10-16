@@ -646,7 +646,7 @@ width: 96% !important;
   width: 100% !important;
 }
 
-.additional .ignore .menuwrapper, .additional .menuwrapper {
+.additional .ignore .menuwrapper, .additional .menuwrapper, #menumanager2 .additional .ignore .menuwrapper, #menumanager2 .additional .menuwrapper {
   width: 100%;
 }
 
@@ -1322,6 +1322,10 @@ width: 15% !important;
   height: auto !important;
 }
 
+.default_page_padd > div > #postswrapper > div, .default_page_padd > .menu_div > .portlet > .portlet-body > #postswrapper > div {
+  padding: 0 !important;
+}
+
 
 }
 /* END max width 767px */
@@ -1372,7 +1376,7 @@ width: auto !important;
 }
 
 .fancybox-inner > div {
-  width: 300px !important;
+  width: 254px !important;
 }
 
 .top-cart-block {

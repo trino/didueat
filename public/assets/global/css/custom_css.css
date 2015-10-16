@@ -564,9 +564,9 @@ background: white !important;
     padding-top: 0 !important;
 }
 
-.deleteme li > strong, .deleteme li > em {
+/*.deleteme li > strong, .deleteme li > em {
     margin-top: 50px !important;
-}
+}*/
 
 .deleteme li > .del-goods {
     margin-top: 60px !important;
@@ -661,7 +661,7 @@ background: white !important;
 }
 
 .orders_details .resturant-logo-desc address {
-  margin-top: 45px;
+  margin-top: 0px;
 }
 
 .orders_details .slimScrollDiv .scroller.orders {
@@ -733,10 +733,58 @@ body.ecommerce {
     .top-cart-content .btn-default, .top-cart-content .btn {
         display: none;
     }
+    
+    .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+  float: left;
+}
+
+.col-md-2 {
+  width: 16.6667%;
+}
+
+.col-md-3 {
+  width: 25%;
+}
+
+.col-md-4 {
+  width: 33.3333%;
+}
+
+.col-md-5 {
+  width: 41.6667%;
+}
+
+.col-md-6 {
+  width: 50%;
+}
+
+.col-md-7 {
+  width: 58.3333%;
+}
+
+.col-md-8 {
+  width: 66.6667%;
+}
+
+.col-md-9 {
+  width: 75%;
+}
+
+.col-md-10 {
+  width: 83.3333%;
+}
+
+.col-md-11 {
+  width: 91.6667%;
+}
+
+.col-md-12 {
+  width: 100%;
+}
+
 }
 
 .receipt_main .text-right > input {
-    background: #aaa none repeat scroll 0 0;
     border: medium none;
     color: #fff;
     font-size: 11px;
@@ -1022,7 +1070,7 @@ body.ecommerce {
   margin-top: 10px;
   padding: 10px 0;
   vertical-align: top;
-  width: 46.7%;
+  width: 45.3%;
 }
 
 #signupForm .control-label {
@@ -1320,4 +1368,12 @@ body.ecommerce {
 .category_titles > strong {
   display: block;
   margin-bottom: 10px;
+}
+
+.resturant-logo-desc div address > h3 {
+  padding-top: 0 !important;
+}
+
+.orders_details table tr td {
+  padding: 10px 0 !important;
 }

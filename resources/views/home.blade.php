@@ -3,7 +3,7 @@
 
     <div class="content-page">
 
-        <div class="row">
+        <div class="row default_page_padd">
 
             <div class="col-md-9 col-sm-8 col-xs-12">
 
@@ -31,7 +31,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <?php if ($menus_list->hasMorePages()) { ?>
-                <div class="row">
+                <div class="row margin-bottom-15">
                     <div class="col-md-12 col-sm-12 col-xs-12" style="">
                         <button align="center" class="loadmore btn btn-primary">Load More</button>
                     </div>

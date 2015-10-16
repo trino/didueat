@@ -3,7 +3,7 @@
 
     <div class="content-page">
 
-        <div class="row">
+        <div class="row default_page_padd">
 
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
@@ -14,10 +14,10 @@
 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
-<div id="menumanager" style="display: none;width:800px;">
+<div id="menumanager" style="display: none;width:500px;">
 @include('common.add_category')
 </div>
-<div id="menumanager2" style="display: none;width:800px;">
+<div id="menumanager2" style="display: none;width:500px;">
 </div>
 <?php }?>
             <div class="portlet box red">

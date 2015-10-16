@@ -24,6 +24,11 @@
                     @endif
                     
                     <div class="deleteme orders_details">
+                    <div class="btn_wrapper margin-bottom-20 clearfix">
+
+                        <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('portlet')" class="btn red pull-right" />
+
+                    </div>
 
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
                         <div class="portlet box red">
