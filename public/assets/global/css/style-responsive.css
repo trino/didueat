@@ -28,7 +28,7 @@ vertical-align: middle;
 
 @media (min-width: 1800px) and (max-width: 1999px) {
 .main {
-min-height:900px !important;
+min-height:600px !important;
 }
 
 .slimScrollDiv {
@@ -48,7 +48,7 @@ vertical-align: middle;
 
 @media (min-width: 1600px) and (max-width: 1799px) {
 .main {
-min-height:900px !important;
+min-height:800px !important;
 }
 
 .slimScrollDiv {
@@ -70,7 +70,7 @@ vertical-align: middle;
 
 @media (min-width: 1400px) and (max-width: 1599px) {
 .main {
-min-height:870px !important;
+min-height:670px !important;
 }
 
 .slimScrollDiv {

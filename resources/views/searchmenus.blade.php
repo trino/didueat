@@ -8,14 +8,14 @@
             <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
                 {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                 <div class="input-group" valign="center">
-                    <input type="text" name="search_term" placeholder="Search Menus" class="form-control" value="{{ $term }}" />
+                    <input type="text" name="search_term" placeholder="Search Meals" class="form-control" value="{{ $term }}" />
                     <span class="input-group-btn">
                         <button class="btn btn-primary red" type="submit">Search</button>
                     </span>
                 </div>
                 {!! Form::close() !!}
 
-                <br /><h1>[{{ $count }}] Menus Found</h1><br />
+                <br /><h1>[{{ $count }}] Meals Found</h1><br />
 
                 <div id="menus_bar" class="margin-bottom-20 clearfix">
                     @include('ajax.search_menus')

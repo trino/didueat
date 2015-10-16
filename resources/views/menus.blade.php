@@ -2,18 +2,18 @@
 
 @foreach($menus_list as $value)
     <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
-    <div class="product-item" style="margin:3px;background: white;height: 120px; padding: 10px;">
+    <div class="product-item" style="margin:0 10px 10px 0;background: white; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
             <div class="col-md-8 col-sm-7 col-xs-6 ">
-                <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
-                <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
+                <h2 class="padding-top-5" style="color: #D50000;margin:0px;">{{ $value->menu_item }}</h2>
+                <p style="overflow: hidden;font-size: 11px;color:#666;margin-bottom:0px;">{{ $value->description }}</p>
             </div>
 
-            <div class="col-md-2 col-sm-3 col-xs-3 padding-top-5 " style="padding:0;">
-                <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
+            <div class="col-md-2 col-sm-3 col-xs-3" style="padding:0;">
+                <h2 class="padding-top-5" style="float:right;color: black;font-weight: 500;margin:0 10px 0 0;">${{ $value->price }}</h2>
             </div>
 
             <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">

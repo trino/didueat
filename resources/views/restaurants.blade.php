@@ -11,7 +11,7 @@
                         </h1>
 
                         {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
-                        <div class="input-group" valign="center">
+                        <div class="input-group col-md-3" valign="center">
                             <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary red" type="submit">Search</button>
@@ -20,7 +20,7 @@
                         {!! Form::close() !!}
                         <br />
 
-                        <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
+                        <div class="row margin-bottom-20 resturant-grid" id="postswrapper" style="">
                             @include('loadrestaurants')
                         </div>
 
@@ -43,7 +43,7 @@
                         <div class="portlet box red">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>Logs List
+                                    <i class="fa fa-globe"></i>Filter By Restaurants
                                 </div>
                                 <div class="tools">
                                 </div>

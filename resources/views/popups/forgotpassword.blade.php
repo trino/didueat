@@ -1,7 +1,3 @@
-
-
-
-
 <div id="forget-passsword" style="display: none;">
     <h1>Forgot Your Password?</h1>
 
