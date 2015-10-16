@@ -81,14 +81,28 @@ class Menus extends BaseModel {
      * @param $start
      * @return response
      */
-    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '') {
+    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '') {
         $query = \App\Http\Models\Menus::where('parent', 0)
-                        ->Where(function($query) use ($term) {
+                        ->Where(function($query) use ($term, $priceFrom, $priceTo, $hasAddon, $hasImage) {
                             if ($term != "") {
-                                $query->where('menu_item', 'LIKE', "%$term%")
-                                ->orWhere('description', 'LIKE', "%$term%");
+                                $query->where('menu_item', 'LIKE', "%$term%");
                             }
-                        })->orderBy('display_order', 'ASC');
+                            if ($hasAddon != "") {
+                                $query->where('has_addon', '=', "$hasAddon");
+                            }
+                            if ($hasImage != "" && $hasImage == 1) {
+                                $query->whereNotNull('image');
+                            }
+                            if ($hasImage != "" && $hasImage == 0) {
+                                $query->whereNull('image');
+                            }
+                            if ($priceFrom != "") {
+                                $query->where('price', '>=', $priceFrom);
+                            }
+                            if ($priceTo != "") {
+                                $query->where('price', '<=', $priceTo);
+                            }
+                        })->orderBy($sortType, $sortBy);
 
         if ($type == "list") {
             $query->take($per_page);

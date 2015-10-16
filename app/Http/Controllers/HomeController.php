@@ -27,6 +27,7 @@ class HomeController extends Controller {
     public function index() {
         $data['title'] = 'Home Page';
         $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
+        $data['term'] = '';
         if(isset($_GET['page'])) {
             return view('menus', $data);
         }else {
@@ -34,59 +35,7 @@ class HomeController extends Controller {
         }
        
     }
-    
-    /**
-     * Search Restaurants
-     * @param $term
-     * @param $per_page
-     * @param $start
-     * @return view
-     */
-    public function searchRestaurants($term='') {
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 2, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 2, 0, 'count')->count();
-        $data['start'] = $data['query']->count();
-        $data['term'] = $term;
-        $data['title'] = "Search Menus";
-        
-        return view('searchrestaurants', $data);
-    }
-    
-    
-    /**
-     * Search Restaurants Ajax
-     * @param null
-     * @return view
-     */
-    public function searchRestaurantsAjax() {
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['term']) || empty($post['term'])) {
-                return \Response::json(array('type' => 'error', 'response' => '[Search Term] field is missing!'), 400);
-            }
-            if (!isset($post['start']) || empty($post['start'])) {
-                return \Response::json(array('type' => 'error', 'response' => '[Start] field is missing!'), 400);
-            }
-            
-            try {
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 2, $post['start'], 'list')->get();
-                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 2, $post['start'], 'count')->count();
-                $data['start'] = $data['query']->count()+$post['start'];
-                $data['term'] = $post['term'];
-                
-                if (!is_null($data['query']) && count($data['query']) > 0) {
-                    return view('ajax.search_restaurants', $data);
-                }
-                
-            } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
-            }
-        } else {
-            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
-        }
-        
-    }
-    
+
     /**
      * Search Menus
      * @param $term
@@ -95,8 +44,8 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchMenus($term='') {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 2, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 2, 0, 'count')->count();
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 8, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 8, 0, 'count')->count();
         $data['start'] = $data['query']->count();
         $data['term'] = $term;
         $data['title'] = "Search Menus";
@@ -112,16 +61,9 @@ class HomeController extends Controller {
     public function searchMenusAjax() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['term']) || empty($post['term'])) {
-                return \Response::json(array('type' => 'error', 'response' => '[Search Term] field is missing!'), 400);
-            }
-            if (!isset($post['start']) || empty($post['start'])) {
-                return \Response::json(array('type' => 'error', 'response' => '[Start] field is missing!'), 400);
-            }
-            
             try {
-                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 2, $post['start'], 'list')->get();
-                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 2, $post['start'], 'count')->count();
+                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->get();
+                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->count();
                 $data['start'] = $data['query']->count()+$post['start'];
                 $data['term'] = $post['term'];
                 
@@ -137,6 +79,54 @@ class HomeController extends Controller {
         }
         
     }
+
+    /**
+     * Search Restaurants
+     * @param $term
+     * @param $per_page
+     * @param $start
+     * @return view
+     */
+    public function searchRestaurants($term='') {
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 8, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 8, 0, 'count')->count();
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
+        $data['countries'] = \App\Http\Models\Countries::get();
+        $data['start'] = $data['query']->count();
+        $data['term'] = $term;
+        $data['title'] = "Search Menus";
+
+        return view('searchrestaurants', $data);
+    }
+
+
+    /**
+     * Search Restaurants Ajax
+     * @param null
+     * @return view
+     */
+    public function searchRestaurantsAjax() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            try {
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->get();
+                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 8, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->count();
+                $data['start'] = $data['query']->count()+$post['start'];
+                $data['term'] = $post['term'];
+
+                if (!is_null($data['query']) && count($data['query']) > 0) {
+                    return view('ajax.search_restaurants', $data);
+                }
+
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+        }
+
+    }
     
     /**
      * All Restaurants Lists
@@ -145,13 +135,15 @@ class HomeController extends Controller {
      */
     public function allRestaurants() {
         $data['title'] = 'All Restaurants Page';
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::paginate(4);
-        
-        if(isset($_GET['page'])) {
-            return view('loadrestaurants', $data);
-        }else {
-            return view('restaurants', $data);
-        }
+        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
+        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
+        $data['countries'] = \App\Http\Models\Countries::get();
+        $data['start'] = $data['query']->count();
+        $data['term'] = '';
+
+        return view('restaurants', $data);
     }
     
     /**

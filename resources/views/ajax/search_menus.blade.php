@@ -1,3 +1,4 @@
+<br /><h1>[{{ $count }}] Menus Found</h1><br />
 @foreach($query as $value)
     <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12 no-padding parentDiv">
         <div class="product-item" style="margin:3px;background: white;height: 120px; padding: 10px;">
