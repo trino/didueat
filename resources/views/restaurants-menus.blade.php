@@ -9,25 +9,19 @@
 
 
 <?php if(Session::has('is_logged_in')){?>
-<div class="category_btns" style="margin-bottom: 15px;">
-<<<<<<< HEAD
-        
+<div class="category_btns" style="margin-bottom: 15px;">       
 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
 
-<div id="menumanager2" style="display: none;width:800px;">
-=======
-    <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
-    <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
-</div>
+
 
 <div id="menumanager" style="display: none;width:500px;">
 @include('common.add_category')
 </div>
 
 <div id="menumanager2" style="display: none;width:500px;">
->>>>>>> b8f16a4cf13f89e2d95868faf90b951bd0a4bf4c
+
 </div>
 
 <?php }?>
