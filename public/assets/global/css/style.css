@@ -3351,7 +3351,7 @@ Header and header elements
 	padding-top: 10px;
 }
 .top-cart-content span {
-	
+
 }
 .top-cart-content strong {
 	width: 165px;
@@ -4348,7 +4348,7 @@ a:hover {
 .sidebar-menu .dropdown-menu li > a:hover, .sidebar-menu .dropdown-menu li > a:focus, .sidebar-menu li.active > a, .sidebar-menu li.active > a:hover {
 	color: #E02222;
 }
-.content-page a:hover, 
+.content-page a:hover,
 .sidebar2 a:hover {
 	color: #E02222;
 }
@@ -4393,10 +4393,10 @@ a:hover {
 }
 
 
-.langs-block-others:after { 
+.langs-block-others:after {
 	border-bottom: 8px solid #D50000;
 }
-.header-navigation > ul > li.dropdown:hover > a:after { 
+.header-navigation > ul > li.dropdown:hover > a:after {
   border-bottom: 8px solid #D50000;
 }
 .header-navigation .dropdown-menu > li > a:hover,
@@ -4411,7 +4411,7 @@ a:hover {
   background: #fff;
   color: #D50000;
 }
-.header-navigation .search-box:after { 
+.header-navigation .search-box:after {
 	border-bottom: 8px solid #D50000;
 }
 .header-navigation .search-box {
@@ -4438,7 +4438,7 @@ a:hover {
 .recent-work .recent-work-item:hover a.recent-work-description {
 	background: #D50000;
 }
-.testimonials-v1 blockquote:after { 
+.testimonials-v1 blockquote:after {
   background-color: #D50000;
 }
 .testimonials-v1 span.testimonials-name {
@@ -4447,7 +4447,7 @@ a:hover {
 .search-result-item h4 a {
 	color: #D50000;
 }
-.top-cart-content:after { 
+.top-cart-content:after {
 	border-bottom: 8px solid #D50000;
 }
 .goods-data a,
@@ -4575,7 +4575,7 @@ a:hover {
 	background: #D50000 !important;
 	border-color: #D50000;
 }
-.goods-page-price strong, 
+.goods-page-price strong,
 .goods-page-total strong,
 .checkout-price strong,
 .checkout-total strong {
@@ -4668,7 +4668,7 @@ a:hover {
 .mix-grid .mix .mix-details {
 	background: #e44f00;
 }
-.mix-grid .mix a.mix-link, 
+.mix-grid .mix a.mix-link,
 .mix-grid .mix a.mix-preview {
   background: #DB3A1B;
 }
