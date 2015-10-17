@@ -44,7 +44,7 @@
     }
 ?>
 
-<div class="col-md-4 col-sm-4 col-xs-12 ">
+<div class="col-md-4 col-sm-12 col-xs-12 ">
 
 
     <div class="portlet box red ">
@@ -145,20 +145,20 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-6 col-sm-6 col-xs-12"><img id="picture" class="margin-bottom-10" style="width: 100%;" src="<?php
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <img id="picture" class="margin-bottom-10" style="width: 100%;" src="<?php
                             if(isset($resturant->logo) && $resturant->logo){
                                 echo asset('assets/images/restaurants/'.$resturant->logo);
                             } else {
                                 echo asset('assets/images/default.png');
                             }
-                        ?>">
+                        echo '?'.mt_rand(); ?>" />
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red"
-                           onclick="document.getElementById('hiddenLogo').click(); return false">Change
-                            Image</a></div>
-                        <input type="file" name="logo" id="hiddenLogo" style="display: none;"/>
-
+                       <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red"
+                                           >Change
+                                            Image</a></div>
+                                        <input type="hidden" name="logo" id="hiddenLogo" />
 
                     </div>
 
@@ -183,7 +183,7 @@
 </div>
 
 
-<div class="col-md-4 col-sm-4 col-xs-12 ">
+<div class="col-md-4 col-sm-12 col-xs-12 ">
 
 
     <div class="portlet box red">
@@ -266,7 +266,7 @@
 </div>
 
 
-<div class="col-md-4  col-sm-4 col-xs-12">
+<div class="col-md-4  col-sm-12 col-xs-12">
 
     <div class="portlet box red">
         <div class="portlet-title">
@@ -337,7 +337,7 @@
     </div>
 </div>
 <?php if(!$RestID){ ?>
-<div class="col-md-4 col-sm-4 col-xs-12">
+<div class="col-md-4 col-sm-12 col-xs-12">
     <div class="portlet box red ">
         <div class="portlet-title">
             <div class="caption">
@@ -357,3 +357,49 @@
     </div>
 </DIV>
 <?php } ?>
+
+<script>
+function ajaxuploadbtn(button_id) {
+            var button = $('#' + button_id), interval;
+            act = base_url+'uploadimg/restaurant';
+            new AjaxUpload(button, {
+                action: act,
+                name: 'myfile',
+                data:{'_token':'{{csrf_token()}}'},
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    //alert(response);return;
+                        //alert(response);
+                        var resp = response.split('___');
+                        var path = resp[0];
+                        var img = resp[1];
+                        button.html('Change Image');
+                    
+                    window.clearInterval(interval);
+                    this.enable();
+                        $('#picture').attr('src',path);
+                        $('#hiddenLogo').val(img);
+                        //$("."+button_id.replace('newbrowse','menuimg')).html('<img src="'+path+'" /><input type="hidden" class="hiddenimg" value="'+img+'" />');
+                        //$("."+button_id.replace('newbrowse','menuimg')).attr('style','min-height:0px!important;')
+                        //$('#client_img').val(response);
+                    
+//$('.flashimg').show();
+                }
+            });
+        }
+$(function(){
+    ajaxuploadbtn('uploadbtn');
+})
+
+</script>

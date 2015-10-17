@@ -413,7 +413,7 @@ background: white !important;
     border: 0 !important;
 }
 .main {
-    padding-top: 80px;
+    padding-top: 60px;
     min-height: 700px;
 }
 
@@ -564,9 +564,9 @@ background: white !important;
     padding-top: 0 !important;
 }
 
-.deleteme li > strong, .deleteme li > em {
+/*.deleteme li > strong, .deleteme li > em {
     margin-top: 50px !important;
-}
+}*/
 
 .deleteme li > .del-goods {
     margin-top: 60px !important;
@@ -661,7 +661,7 @@ background: white !important;
 }
 
 .orders_details .resturant-logo-desc address {
-  margin-top: 45px;
+  margin-top: 0px;
 }
 
 .orders_details .slimScrollDiv .scroller.orders {
@@ -733,10 +733,58 @@ body.ecommerce {
     .top-cart-content .btn-default, .top-cart-content .btn {
         display: none;
     }
+    
+    .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9 {
+  float: left;
+}
+
+.col-md-2 {
+  width: 16.6667%;
+}
+
+.col-md-3 {
+  width: 25%;
+}
+
+.col-md-4 {
+  width: 33.3333%;
+}
+
+.col-md-5 {
+  width: 41.6667%;
+}
+
+.col-md-6 {
+  width: 50%;
+}
+
+.col-md-7 {
+  width: 58.3333%;
+}
+
+.col-md-8 {
+  width: 66.6667%;
+}
+
+.col-md-9 {
+  width: 75%;
+}
+
+.col-md-10 {
+  width: 83.3333%;
+}
+
+.col-md-11 {
+  width: 91.6667%;
+}
+
+.col-md-12 {
+  width: 100%;
+}
+
 }
 
 .receipt_main .text-right > input {
-    background: #aaa none repeat scroll 0 0;
     border: medium none;
     color: #fff;
     font-size: 11px;
@@ -1022,7 +1070,7 @@ body.ecommerce {
   margin-top: 10px;
   padding: 10px 0;
   vertical-align: top;
-  width: 46.7%;
+  width: 45.3%;
 }
 
 #signupForm .control-label {
@@ -1053,6 +1101,7 @@ body.ecommerce {
 
 .deleteme #cartsz .table tr td {
   text-align: right;
+  padding: 10px 0 !important;
 }
 
 #resturantForm .profilepic > img {
@@ -1206,8 +1255,9 @@ body.ecommerce {
 }
 
 #addNewUser .modal-header h4 {
-  margin-bottom: 10px !important;
+  font-size: 23px;
   font-weight: 600 !important;
+  margin-bottom: 0 !important;
 }
 
  #editNewUser h4 {
@@ -1320,4 +1370,190 @@ body.ecommerce {
 .category_titles > strong {
   display: block;
   margin-bottom: 10px;
+}
+
+.resturant-logo-desc div address > h3 {
+  padding-top: 0 !important;
+}
+
+.orders_details table tr td {
+  padding: 10px 0 !important;
+}
+
+.add_address_form .portlet-title {
+    background-color: #d50000;
+}
+
+.add_address_form .portlet-title .caption {
+    color: #fff;
+    padding: 15px;
+    font-weight: 600;
+    font-size: 23px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+    margin:6px;
+    background-color: #fff;
+    border-right:1px solid #efefef;
+    border-bottom:1px solid #efefef;
+}
+
+.card .card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.card .card-title.activator {
+    cursor: pointer;
+}
+
+.card.small, .card.medium, .card.large {
+    position: relative;
+}
+
+.card.small .card-image, .card.medium .card-image, .card.large .card-image {
+    overflow: hidden;
+}
+
+.card.small .card-content, .card.medium .card-content, .card.large .card-content {
+    overflow: hidden;
+}
+
+.card.small .card-action, .card.medium .card-action, .card.large .card-action {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.card.small {
+    height: 300px;
+}
+
+.card.small .card-image {
+    height: 150px;
+}
+
+.card.small .card-content {
+    height: 150px;
+}
+
+.card.medium {
+    height: 400px;
+}
+
+.card.medium .card-image {
+    height: 250px;
+}
+
+.card.medium .card-content {
+    height: 150px;
+}
+
+.card.large {
+    height: 500px;
+}
+
+.card.large .card-image {
+    height: 330px;
+}
+
+.card.large .card-content {
+    height: 170px;
+}
+
+.card .card-image {
+    position: relative;
+}
+
+.card .card-image img {
+    display: block;
+    border-radius: 2px 2px 0 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.card .card-image .card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+}
+
+.card .card-content {
+    padding: 15px;
+    border-radius: 0 0 2px 2px;
+}
+
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+
+.card .card-content .card-title {
+    line-height: 48px;
+}
+
+.card .card-action {
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
+    padding: 15px;
+}
+
+.card .card-action a {
+    color: #ffab40;
+    margin-right: 15px;
+    -webkit-transition: color .3s ease;
+    -moz-transition: color .3s ease;
+    -o-transition: color .3s ease;
+    -ms-transition: color .3s ease;
+    transition: color .3s ease;
+    text-transform: uppercase;
+}
+
+.card .card-action a:hover {
+    color: #ffd8a6;
+}
+
+.card .card-reveal {
+    padding: 15px;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    overflow-y: auto;
+    top: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+}
+
+.card .card-reveal .card-title {
+    cursor: pointer;
+    display: block;
 }

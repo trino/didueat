@@ -13,11 +13,15 @@
                 </div>
             @endif
 
-            <a class="btn btn-danger red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-            <div class="clearfix"></div>
-            <hr class="shop__divider">
 
-            <div class="deleteme">
+                <div class="btn_wrapper margin-bottom-20 clearfix">
+
+                    <a class="btn btn-danger red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
+
+                </div>
+
+
+                <div class="deleteme">
 
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box red">

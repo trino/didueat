@@ -7,9 +7,13 @@ Route::get('/contactus',                            'HomeController@contactus');
 Route::get('/restaurants',                          'HomeController@allRestaurants');
 Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
+//Route::resource('/restaurants/loadmenus/{catid}/{resid}',         'HomeController@loadmenus');
 Route::resource('/home/test',                       'HomeController@test');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
+Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
+Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
+Route::post('/uploadimg/{type}',                    'HomeController@uploadimg')->where('type','[a-z]+');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');
@@ -57,21 +61,25 @@ Route::get('restaurant/menu_form/{id}',             'RestaurantController@menu_f
 Route::get('restaurant/additional',                 'RestaurantController@additional');
 Route::get('restaurant/uploadimg',                  'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg',                 'RestaurantController@uploadimg');
+Route::post('restaurant/uploadimg/{type}',          'RestaurantController@uploadimg')->where('type','[a-z]+');
 Route::get('restaurant/getToken',                   'RestaurantController@getToken');
 Route::post('restaurant/menuadd',                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                    'RestaurantController@menuadd');
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
-Route::post('restaurant/orderCat/{id}/{sort}',                  'RestaurantController@orderCat');
+Route::post('restaurant/orderCat/{id}/{sort}',      'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/deleteMenu/{id}/{slug}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                 'RestaurantController@red');
+
 Route::get('restaurant/redfront/{path}/{slug}/{path2}',                 'RestaurantController@redfront');
 Route::get('restaurant/loadChild/{id}/{flag}',                 'RestaurantController@loadChild');
 Route::get('restaurant/saveCat',                 'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                 'RestaurantController@saveCat');
 
+
+
 Route::resource('user/addresses',                   'UsersController@addresses');
-Route::get('user/addresses/edit/{id}',            'UsersController@addressesUpdate');
+Route::get('user/addresses/edit/{id}',              'UsersController@addressesUpdate');
 Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
 Route::get('user/uploadmeal',                       'UsersController@uploadMeal');
 Route::resource('user/images',                      'UsersController@images');
@@ -80,6 +88,8 @@ Route::post('user/ajax_register',                   'UsersController@ajax_regist
 Route::resource('user/json_data',                   'UsersController@json_data');
 
 Route::get('auth/test',                             'Auth\AuthController@test');
+
+
 
 Route::any('admin/(:any)/add/(:any?)', function($controller,$params=null) {
     return Controller::call('admin.'.$controller.'@edit', (array) $params);

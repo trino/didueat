@@ -74,6 +74,36 @@ class Restaurants extends BaseModel {
             $this->Status = $data['Status'];
         }*/
     }
+    
+    /**
+     * @param $term
+     * @param $per_page
+     * @param $start
+     * @return response
+     */
+    public static function searchRestaurants($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'id', $sortBy = 'DESC', $city = '', $province = '', $country = '') {
+        $query = \App\Http\Models\Restaurants::where('open', 1)
+                        ->Where(function($query) use ($term, $city, $province, $country) {
+                            if ($term != ""){
+                                $query->where('name', 'LIKE', "%$term%");
+                            }
+                            if($city != ""){
+                                $query->where('city', '=', "$city");
+                            }
+                            if($province != ""){
+                                $query->where('province', '=', "$province");
+                            }
+                            if($country != ""){
+                                $query->where('country', '=', "$country");
+                            }
+                        })->orderBy($sortType, $sortBy);
+        //print_r($query->toSql()); die;
+        if ($type == "list") {
+            $query->take($per_page);
+            $query->skip($start);
+        }
+        return $query;
+    }
 
 
 //////////////////////////////////////Restaurant API/////////////////////////////////

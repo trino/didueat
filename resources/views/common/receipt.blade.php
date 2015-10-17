@@ -13,9 +13,9 @@
    </div>
    <?php } ?>
     <div id="cartsz">
-            <div class="row  resturant-logo-desc">
+            <div class="row  resturant-logo-desc padding-top-5">
                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="col-md-6">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
 
 
                      @if(!empty($restaurant->logo))
@@ -25,11 +25,11 @@
                             <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
                         @endif
                         </div>
-                        <address class="col-md-6">
-                            <strong>{!! $restaurant->name !!}.</strong><br>
+                        <address class="col-md-8 col-sm-8 col-xs-8">
+                            <h3>{!! $restaurant->name !!}</h3>
                             {!! $restaurant->address.' , '.$restaurant->city !!}
                             {!! $restaurant->province.' , '.$restaurant->country !!}<br>
-                            <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}
+                            <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}<br>
                             <abbr title="Email">E:</abbr>
                             <a href="javascript:void(0);">
                                 {!! $restaurant->email !!}
@@ -79,8 +79,8 @@
                 </div>
             <?php if(!isset($order)){?>
               <div class="text-right">
-                <input type="button" onclick="printDiv('printableArea')" value="Print" />
-                <a href="javascript:void(0)" class="btn btn-default clearitems">Clear</a>
+                <input class="btn red" type="button" onclick="printDiv('printableArea')" value="Print" style="margin: 0;"/>
+                <a href="javascript:void(0)" class="btn blue clearitems">Clear</a>
                 <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
               </div>
               <?php }?>
@@ -93,7 +93,7 @@
                             </div>
                             <?php
                             if(\Session::get('session_id'))
-                            $profile = \DB::table('Profiles')->select('Profiles.id', 'Profiles.name', 'Profiles.phone', 'Profiles.email', 'Profiles_addresses.street as street', 'Profiles_addresses.post_code', 'Profiles_addresses.city', 'Profiles_addresses.province')->where('Profiles.id', \Session::get('session_id'))->LeftJoin('Profiles_addresses', 'Profiles.id', '=', 'Profiles_addresses.user_id')->first();
+                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                             else
                             {?>
                             <div class="form-group reservation_signin">

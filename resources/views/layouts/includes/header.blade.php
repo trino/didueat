@@ -7,14 +7,26 @@
 <script src='{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}' type="text/javascript"></script><!-- product zoom -->
 <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script><!-- Quantity -->
 
+<? if(true){?>
 <!-- BEGIN LayerSlider -->
 <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script><!-- External libraries: GreenSock -->
 <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script><!-- LayerSlider script files -->
 <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script><!-- LayerSlider script files -->
 <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
 <!-- END LayerSlider -->
+<?}?>
+
 
 <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+
 <div class="header">
     <div class="container-fluid">
         <a class="site-logo" href="{{ url('/') }}"><img src="{{ url('assets/images/logos/logo.png') }}" alt="didueat?" style="height: 40px; position: relative; top: 2px;" /></a>
@@ -25,11 +37,12 @@
         <div class="header-navigation" >
             <ul>
                 <!-- BEGIN TOP BAR MENU -->
-                <li><a href="{{ url('restaurants') }}">Local Restaurants</a></li>
+                <li><a href="{{ url('/') }}">Meals</a></li>
+                <li><a href="{{ url('restaurants') }}">Restaurants</a></li>
                 @if(Session::has('is_logged_in'))
                 <li><a href="{{ url('dashboard') }}">Admin's Dashboard</a></li>
                 @else
-                <li><a href="{{ url('restaurants/signup') }}">Sign Up Restaurants</a></li>
+                <li><a href="{{ url('restaurants/signup') }}">Restaurant Owner</a></li>
                 @endif
                 <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca our name address phone number">Email</a></li>
                 @if(Session::has('is_logged_in'))
@@ -44,7 +57,16 @@
                     <div class="search-box">
                         {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                             <div class="input-group" valign="center">
-                                <input type="text" name="search_term" placeholder="Search" class="form-control" />
+                                <input type="text" name="search_term" placeholder="Search Menus" class="form-control" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary red" type="submit">Search</button>
+                                </span>
+                            </div>
+                        {!! Form::close() !!}
+                        <br />
+                        {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+                            <div class="input-group" valign="center">
+                                <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" />
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary red" type="submit">Search</button>
                                 </span>

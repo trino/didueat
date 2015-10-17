@@ -1,8 +1,4 @@
-
-
-
-
-<div id="forget-passsword" style="display: none;">
+<div id="forget-passsword" style="display: none;width: 500px;">
     <h1>Forgot Your Password?</h1>
 
     <div id="forgot-pass-success" class="note note-success" style="display: none;">

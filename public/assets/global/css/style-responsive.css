@@ -28,7 +28,7 @@ vertical-align: middle;
 
 @media (min-width: 1800px) and (max-width: 1999px) {
 .main {
-min-height:900px !important;
+min-height:600px !important;
 }
 
 .slimScrollDiv {
@@ -48,7 +48,7 @@ vertical-align: middle;
 
 @media (min-width: 1600px) and (max-width: 1799px) {
 .main {
-min-height:900px !important;
+min-height:800px !important;
 }
 
 .slimScrollDiv {
@@ -70,7 +70,7 @@ vertical-align: middle;
 
 @media (min-width: 1400px) and (max-width: 1599px) {
 .main {
-min-height:870px !important;
+min-height:670px !important;
 }
 
 .slimScrollDiv {
@@ -372,6 +372,18 @@ width: 100% !important;
 
 .portlet > .portlet-title > .caption {
   font-size: 13px !important;
+}
+
+#menus_bar .parentDiv .product-item {
+  height: 140px !important;
+}
+
+.form-body #uploadbtn, .form-body #picture {
+  display: inline-block;
+  font-size: 9px !important;
+  padding: 2px 5px;
+  vertical-align: middle;
+  width: 80px;
 }	
 
 }
@@ -646,12 +658,24 @@ width: 96% !important;
   width: 100% !important;
 }
 
-.additional .ignore .menuwrapper, .additional .menuwrapper {
+.additional .ignore .menuwrapper, .additional .menuwrapper, #menumanager2 .additional .ignore .menuwrapper, #menumanager2 .additional .menuwrapper {
   width: 100%;
 }
 
 .fancybox-inner > div {
   width: 500px !important;
+}
+
+.top-cart-content .btn {
+  font-size: 10px;
+  padding: 4px 7px;
+}
+
+.receipt_main .text-right > input {
+  font-size: 10px;
+  height: 22px;
+  line-height: 22px;
+  padding: 1px 4px 0;
 }
 
 }
@@ -1149,7 +1173,7 @@ width: 100% !important;
 
 .top-cart-content strong {
 font-weight: normal;
-width: 380px !important;
+width: 240px !important;
 }
 
 .top-cart-content em {
@@ -1322,6 +1346,22 @@ width: 15% !important;
   height: auto !important;
 }
 
+.default_page_padd > div > #postswrapper > div, .default_page_padd > .menu_div > .portlet > .portlet-body > #postswrapper > div {
+  padding: 0 !important;
+}
+
+#menus_bar .parentDiv {
+  padding: 0 !important;
+}
+
+#menus_bar .parentDiv .product-item {
+  height: auto !important;
+}
+
+#signupForm > div {
+  padding: 0 !important;
+}
+
 
 }
 /* END max width 767px */
@@ -1337,7 +1377,7 @@ width: 68% !important;
 }
 .top-cart-content strong {
 font-weight: normal;
-width: 215px !important;
+width: 25% !important;
 }
 
 .newbrowse {
@@ -1372,7 +1412,7 @@ width: auto !important;
 }
 
 .fancybox-inner > div {
-  width: 300px !important;
+  width: 254px !important;
 }
 
 .top-cart-block {
@@ -1542,6 +1582,14 @@ width: 100%;
   width: 100%;
 }
 
+.resturant-grid .table td:first-child {
+  width: 50% !important;
+}
+
+.resturant-grid .table .btn {
+  font-size: 9px;
+}
+
 }
 /* END max width 480px */
 
@@ -1560,6 +1608,11 @@ width: 165px !important;
 }
 .site-logo > img {
   height: 40px !important;
+}
+
+.tabletools-dropdown-on-portlet {
+  margin-bottom: 10px !important;
+  margin-top: 0 !important;
 }
 
 }
@@ -1597,6 +1650,20 @@ width: 145px !important;
 
 .heading {
   height: 80px !important;
+}
+
+.module img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.grid h3 {
+  font-size: 12px;
+}
+
+.module > p {
+  font-size: 12px;
+  line-height: 18px;
 }
 
 }
