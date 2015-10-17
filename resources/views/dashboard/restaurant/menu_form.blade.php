@@ -23,7 +23,7 @@ if(!$menu_id)
             <a href="javascript:void(0)" class="btn btn-success blue newbrowse ignore" id="newbrowse<?php echo $menu_id?>_1">Image</a>
         </div>
 
-        <div class="col-sm-5 col-xs-12 lowheight ignore">
+        <div class="col-sm-10 col-xs-12 lowheight ignore">
             <select class="cat_id">
                 <option value="">Choose Category</option>
                 <?php
@@ -34,9 +34,11 @@ if(!$menu_id)
                     <?php
                 }
                 ?>
-            </select> OR <strong>Add New Category</strong> <input type="text" class="form-control cat_title" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Save</a>
-
-            
+            </select> <strong> &nbsp;  &nbsp; OR</strong> &nbsp;  &nbsp; <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
+            <div class="catblock" style="display: none;">
+            <input type="text" class="form-control cat_title" placeholder="Add new category" style="width: 80%;float:left" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat" style="width: 20%;float:left">Create</a>
+            </div>
+            <hr />
                         
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
@@ -188,9 +190,11 @@ $(function(){
 
 <script>
 $(function(){
-   $('#save_cat').click(function(){
+   $('#save_cat').live('click',function(){
+    //alert('test');
     $('.overlay_loader').show();
     var cat = $('.cat_title').val();
+    //alert(cat);
     if(cat=='')
     {
       $('.overlay_loader').hide();
@@ -203,10 +207,12 @@ $(function(){
         url:'<?php echo url('restaurant/saveCat/')?>',
         data:'title='+cat+'&_token=<?php echo csrf_token();?>&res_id=<?php if(isset($restaurant->id))echo $restaurant->id;else echo $res_id;?>',
         type:'post',
-        success:function(){
+        success:function(res){
             $('.overlay_loader').hide();
             alert('Category added successfully');
+            $('.cat_id').append('<option value="'+res+'" selected="selected">'+cat+'</option>');
             $('.cat_title').val('');
+            $('.catblock').fadeOut('slow');
             
         }
     });

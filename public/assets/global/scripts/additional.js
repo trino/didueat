@@ -84,6 +84,28 @@ $('.savebtn').live('click',function(){
     var id = $(this).attr('id').replace('save','');
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
+    var cat_id = $_parent.find('.cat_id').val();
+    if(!cat_id || cat_id=='')
+    {
+        alert('Please select a category');
+        $_parent.find('.cat_id').focus();
+        return false;        
+    }
+    var ptitle = $_parent.find('.newtitle').val();
+    if(ptitle=='')
+    {
+        alert('Title cannot be blank');
+        $_parent.find('.newtitle').focus(); 
+        return false;       
+    }
+    var pprice = $_parent.find('.newprice').val();
+    if(pprice=='')
+    {
+        alert('Price cannot be blank');
+        $_parent.find('.newprice').focus(); 
+        return false;       
+    }
+    
     var checkprc = 0;
     $_parent.find('.pricechk').each(function(){
        if(isNaN($(this).val()))
@@ -105,10 +127,11 @@ $('.savebtn').live('click',function(){
     return false;
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
-    var ptitle = $_parent.find('.newtitle').val();
-    var pprice = $_parent.find('.newprice').val();
+    
     var pdesc = $_parent.find('.newdesc').val();
-    var cat_id = $_parent.find('.cat_id').val();
+    
+    var pprice = $_parent.find('.newprice').val();
+    
     
     if($_parent.find('.menuwrapper').length > 0)
     phas_addon = 1;

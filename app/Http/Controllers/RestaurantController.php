@@ -878,7 +878,9 @@ class RestaurantController extends Controller {
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arr);
             $ob2->save();
+            echo $ob2->id;
             die();
+        
     }
 
 }

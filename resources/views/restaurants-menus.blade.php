@@ -15,13 +15,7 @@
 </div>
 
 
-
-
-<div id="menumanager" style="display: none;width:500px;">
-@include('common.add_category')
-</div>
-
-<div id="menumanager2" style="display: none;width:500px;">
+<div id="menumanager2" style="display: none;width:780px;">
 
 </div>
 

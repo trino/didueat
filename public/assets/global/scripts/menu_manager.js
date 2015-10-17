@@ -31,7 +31,7 @@ $('.additem').live('click',function(){
     var res_id = $("#res_id").val();
     if(id==0){
     $('.overlay_loader').show();
-    $('#menumanager2').load(base_url+'restaurant/menu_form/0'+res_id,function(){
+    $('#menumanager2').load(base_url+'restaurant/menu_form/0/'+res_id,function(){
         $('.overlay_loader').hide();
         ajaxuploadbtn('newbrowse0_1');
     });
