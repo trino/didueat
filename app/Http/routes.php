@@ -63,7 +63,9 @@ Route::get('restaurant/menuadd',                    'RestaurantController@menuad
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
 Route::post('restaurant/orderCat/{id}/{sort}',                  'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
+Route::get('restaurant/deleteMenu/{id}/{slug}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                 'RestaurantController@red');
+Route::get('restaurant/redfront/{path}/{slug}/{path2}',                 'RestaurantController@redfront');
 Route::get('restaurant/loadChild/{id}/{flag}',                 'RestaurantController@loadChild');
 Route::get('restaurant/saveCat',                 'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                 'RestaurantController@saveCat');

@@ -35,7 +35,7 @@
         </a>
         <?php if(Session::has('is_logged_in')){?>
         <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
-        <a href="" class="btn red">Remove</a>
+        <a href="<?php echo url('restaurant/deleteMenu/'.$value->id.'/'.$restaurant->slug);?>" class="btn red">Remove</a>
         <a href="" class="btn blue">Edit</a>
         </div>
         <?php }?>

@@ -753,7 +753,7 @@ class RestaurantController extends Controller {
         die();
     }
 
-    public function deleteMenu($id) {
+    public function deleteMenu($id,$slug='') {
         \App\Http\Models\Menus::where('id', $id)->delete();
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
@@ -764,7 +764,11 @@ class RestaurantController extends Controller {
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
+        if(!$slug)
         return \Redirect::to('restaurant/menus-manager');
+        else
+        return \Redirect::to('restaurants/'.$slug.'/menus');
+        
     }
 
     public function order_detail($ID) {
@@ -781,6 +785,11 @@ class RestaurantController extends Controller {
 
     public function red($path) {
         return \Redirect::to('restaurant/' . $path)->with('message', 'Restaurant menu successfully updated');
+    }
+    public function redfront($path,$slug,$path2)
+    {
+        //$path = urldecode($path);
+        return \Redirect::to($path.'/'.$slug.'/'.$path2)->with('message', 'Restaurant menu successfully updated');
     }
     
     public function orderslist($type='')

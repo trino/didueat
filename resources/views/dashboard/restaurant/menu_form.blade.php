@@ -34,7 +34,10 @@ if(!$menu_id)
                     <?php
                 }
                 ?>
-            </select>
+            </select> OR <strong>Add New Category</strong> <input type="text" class="form-control cat_title" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Save</a>
+
+            
+                        
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
             <textarea class="form-control newdesc ignore" placeholder="Description"><?php if(isset($model->description)){echo $model->description; }?></textarea>
@@ -181,5 +184,34 @@ $(function(){
         
         
     })
+</script>
+
+<script>
+$(function(){
+   $('#save_cat').click(function(){
+    $('.overlay_loader').show();
+    var cat = $('.cat_title').val();
+    if(cat=='')
+    {
+      $('.overlay_loader').hide();
+      alert('Please enter category title');
+      return false;  
+    }
+    else
+    {
+    $.ajax({
+        url:'<?php echo url('restaurant/saveCat/')?>',
+        data:'title='+cat+'&_token=<?php echo csrf_token();?>&res_id=<?php echo $restaurant->id;?>',
+        type:'post',
+        success:function(){
+            $('.overlay_loader').hide();
+            alert('Category added successfully');
+            $('.cat_title').val('');
+            
+        }
+    });
+    }
+   }); 
+});
 </script>
 
