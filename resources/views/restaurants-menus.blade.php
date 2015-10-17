@@ -11,6 +11,7 @@
 <?php if(Session::has('is_logged_in')){?>
 <div class="category_btns" style="margin-bottom: 15px;">       
 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+
 </div>
 
 

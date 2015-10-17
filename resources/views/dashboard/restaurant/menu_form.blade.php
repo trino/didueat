@@ -201,7 +201,7 @@ $(function(){
     {
     $.ajax({
         url:'<?php echo url('restaurant/saveCat/')?>',
-        data:'title='+cat+'&_token=<?php echo csrf_token();?>&res_id=<?php echo $restaurant->id;?>',
+        data:'title='+cat+'&_token=<?php echo csrf_token();?>&res_id=<?php if(isset($restaurant->id))echo $restaurant->id;else echo $res_id;?>',
         type:'post',
         success:function(){
             $('.overlay_loader').hide();

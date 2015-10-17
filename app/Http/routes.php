@@ -58,6 +58,7 @@ Route::get('restaurant/orders/{type}',              'RestaurantController@orders
 Route::get('restaurant/eventlog',                   'RestaurantController@eventsLog');
 Route::get('restaurant/report',                     'RestaurantController@report');
 Route::get('restaurant/menu_form/{id}',             'RestaurantController@menu_form');
+Route::get('restaurant/menu_form/{id}/{rid}',             'RestaurantController@menu_form');
 Route::get('restaurant/additional',                 'RestaurantController@additional');
 Route::get('restaurant/uploadimg',                  'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg',                 'RestaurantController@uploadimg');

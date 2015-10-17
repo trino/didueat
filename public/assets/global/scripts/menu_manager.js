@@ -5,8 +5,10 @@ else
 var base_url = 'http://didyoueat.ca/';
 $('.add_item').live('click',function(){
     var id = $(this).attr('id').replace('add_item','');
+    
     if(id==0){
     $('.addnew').show();
+    
     $('.addnew').load(base_url+'restaurant/menu_form/0',function(){
         ajaxuploadbtn('newbrowse0_1');
     });
@@ -19,18 +21,24 @@ $('.add_item').live('click',function(){
     }
 });
 $('.additem').live('click',function(){
-    
+    //('TEST');
     var id = $(this).attr('id').replace('add_item','');
+    if($("#res_id").length == 0) {
+      
+      var res_id=0;
+    }
+    else
+    var res_id = $("#res_id").val();
     if(id==0){
     $('.overlay_loader').show();
-    $('#menumanager2').load(base_url+'restaurant/menu_form/0',function(){
+    $('#menumanager2').load(base_url+'restaurant/menu_form/0'+res_id,function(){
         $('.overlay_loader').hide();
         ajaxuploadbtn('newbrowse0_1');
     });
     }
     else
     {
-    $('#parent'+id).load(base_url+'restaurant/menu_form/'+id,function(){
+    $('#menumanager2').load(base_url+'restaurant/menu_form/'+id+'/'+res_id,function(){
         $('.overlay_loader').hide();
         ajaxuploadbtn('newbrowse'+id+'_1');
       });  

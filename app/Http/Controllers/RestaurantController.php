@@ -588,9 +588,10 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.report', $data);
     }
 
-    public function menu_form($id) {
+    public function menu_form($id,$res_id=0) {
         //$this->layout = 'blank';
         $data['menu_id'] = $id;
+        $data['res_id'] = $res_id;
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             //$id = $_GET['menu_id'];
@@ -601,6 +602,7 @@ class RestaurantController extends Controller {
 
             return view('dashboard.restaurant.menu_form', $data);
         }
+        
         return view('dashboard.restaurant.menu_form', $data);
     }
 
