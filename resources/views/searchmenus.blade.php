@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary btn-lg loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
+                <button type="button" class="btn btn-primary loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
                 <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 {!! csrf_field() !!}
                 <div class="clearfix"></div>

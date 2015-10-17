@@ -66,15 +66,15 @@ Route::get('restaurant/getToken',                   'RestaurantController@getTok
 Route::post('restaurant/menuadd',                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                    'RestaurantController@menuadd');
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
-Route::post('restaurant/orderCat/{id}/{sort}',                  'RestaurantController@orderCat');
+Route::post('restaurant/orderCat/{id}/{sort}',      'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',            'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                 'RestaurantController@red');
-Route::get('restaurant/loadChild/{id}/{flag}',                 'RestaurantController@loadChild');
-Route::get('restaurant/saveCat',                 'RestaurantController@saveCat');
-Route::post('restaurant/saveCat',                 'RestaurantController@saveCat');
+Route::get('restaurant/loadChild/{id}/{flag}',      'RestaurantController@loadChild');
+Route::get('restaurant/saveCat',                    'RestaurantController@saveCat');
+Route::post('restaurant/saveCat',                   'RestaurantController@saveCat');
 
 Route::resource('user/addresses',                   'UsersController@addresses');
-Route::get('user/addresses/edit/{id}',            'UsersController@addressesUpdate');
+Route::get('user/addresses/edit/{id}',              'UsersController@addressesUpdate');
 Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
 Route::get('user/uploadmeal',                       'UsersController@uploadMeal');
 Route::resource('user/images',                      'UsersController@images');
@@ -83,6 +83,8 @@ Route::post('user/ajax_register',                   'UsersController@ajax_regist
 Route::resource('user/json_data',                   'UsersController@json_data');
 
 Route::get('auth/test',                             'Auth\AuthController@test');
+
+
 
 Route::any('admin/(:any)/add/(:any?)', function($controller,$params=null) {
     return Controller::call('admin.'.$controller.'@edit', (array) $params);

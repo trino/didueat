@@ -18,20 +18,20 @@
                     {!! Form::close() !!}
                     <br />
 
-                    <h1>[<span id="countRows">{{ $count }}</span>] Local Restaurants Founds</h1>
+                    <h1><span id="countRows">{{ $count }}</span> Restaurants Found</h1>
 
                     <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <table id="tableRestuarant" class="table table-bordered table-hover">
-                                <tbody id="restuarant_bar">
+                                <div id="restuarant_bar">
                                 @include('ajax.search_restaurants')
-                                </tbody>
+                                </div>
                             </table>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
-                    <button type="button" class="btn btn-primary btn-lg loadMoreRestaurants">Load more</button>
+                    <button type="button" class="btn btn-primary loadMoreRestaurants">Load more</button>
                     <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                     {!! csrf_field() !!}
                 </div>
@@ -151,7 +151,7 @@
             $.post("{{ url('/search/restaurants/ajax') }}", {start:0, term:search, _token:token, sortType:sortType, sortBy:sortBy, city:city, province:province, country:country}, function(result){
                 $('#loadingbar').hide();
                 $('#restuarant_bar').html(result);
-                $('#countRows').text($('#restuarant_bar tr').length);
+                $('#countRows').text($('#restuarant_bar span').length);
             });
         }
 

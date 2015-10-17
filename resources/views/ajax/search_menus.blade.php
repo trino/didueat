@@ -1,34 +1,43 @@
+
+
+
+
 @foreach($query as $value)
-    <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12 no-padding parentDiv">
-        <div class="product-item" style="margin:3px;background: white;height: 120px; padding: 10px;">
+    <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12  parentDiv no-padding " style="">
 
-            <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
-               class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
-                <div class="col-md-8 col-sm-7 col-xs-6 ">
-                    <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
-                    <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
+        <div class="card ">
+            <div class="sticker sticker-new" style="z-index: 9999999;"></div>
+
+                <div class="col-md-9 no-padding">
+                    <div class="card-content">
+                        <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
+                           class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
+
+                        <strong>{{ $value->menu_item }}</strong>
+                            {{ $value->description }}
+                        </a>
+                    </div>
+                    <div class="card-action">
+                        <a href="" class="">McDonalds Eastgate</a>
+
+                    <?php if(Session::has('is_logged_in')){?>
+                        <a href="" class="">Remove</a>
+                        <a href="" class="">Edit</a>
+                        <?php }?>
+                    </div>
+                    </div>
+                    <div class="col-md-3 no-padding">
+
+                    <div class="card-image">
+                        <img style="" src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb_'.$value->image:'default_menus.png' }}">
+                        <span class="card-title"><span style="color:red;">${{ $value->price }}</span></span>
+                    </div>
                 </div>
+                <div style="clear: both;"></div>
 
-                <div class="col-md-2 col-sm-3 col-xs-3 padding-top-5 " style="padding:0;">
-                    <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
-                </div>
-
-                <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">
-                    <img src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb1_'.$value->image:'default_menus.png' }}"
-                         class="img-responsive" alt="{{ $value->menu_item }}"/>
-                </div>
-            </a>
-            <?php if(Session::has('is_logged_in')){?>
-            <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
-                <a href="" class="btn red">Remove</a>
-                <a href="" class="btn blue">Edit</a>
-            </div>
-            <?php }?>
         </div>
     </div>
-
-
 
 
     <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 800px;">

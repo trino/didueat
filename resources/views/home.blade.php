@@ -5,7 +5,7 @@
 
         <div class="row default_page_padd">
 
-            <div class="col-md-9 col-sm-8 col-xs-12 no-padding">
+            <div class="col-md-9 col-sm-8 col-xs-12">
                 {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                 <div class="input-group" valign="center">
                     <input type="text" name="search_term" placeholder="Search Menus" class="form-control" required />
@@ -35,14 +35,14 @@
                 <?php }*/ ?>
                 <div class="clearfix"></div>-->
 
-                <h1>[<span id="countRows">{{ $count }}</span>] Local Menus Found</h1>
+                <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 
                 <div id="menus_bar" class="margin-bottom-20 clearfix">
                     @include('ajax.search_menus')
                 </div>
 
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary btn-lg loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
+                <button type="button" class="btn btn-primary loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
                 <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                 {!! csrf_field() !!}
                 <div class="clearfix"></div>
