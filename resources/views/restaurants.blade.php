@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="portlet box red">
+                    <div class="">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Filter Search
@@ -48,7 +48,7 @@
                             <ul id="filterType">
                                 <li>
                                     Sort
-                                    <select name="sortType" id="sortType">
+                                    <select name="sortType" id="sortType" class="browser-default">
                                         <option value="id">ID</option>
                                         <option value="name">Name</option>
                                         <option value="address">Address</option>
@@ -58,7 +58,7 @@
                                         <option value="delivery_fee">Delivery Fee</option>
                                     </select>
                                     - By
-                                    <select name="sortBy" id="sortBy">
+                                    <select name="sortBy" id="sortBy" class="browser-default">
                                         <option value="ASC">ASC</option>
                                         <option value="DESC">DESC</option>
                                     </select>

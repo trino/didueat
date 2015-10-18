@@ -30,7 +30,7 @@
 
             <div class="col-md-3 col-sm-4 col-xs-12">
 
-                <div class="portlet box red">
+                <div class="">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>Filter Search
@@ -43,7 +43,7 @@
                         <ul id="filterType">
                             <li>
                                 Sort
-                                <select name="sortType" id="sortType">
+                                <select name="sortType" id="sortType" class="browser-default" class="browser-default">
                                     <option value="id">ID</option>
                                     <option value="menu_item">Name</option>
                                     <option value="price">Price</option>

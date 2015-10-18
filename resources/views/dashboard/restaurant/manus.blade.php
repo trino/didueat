@@ -16,7 +16,7 @@
                 <div class="btn_wrapper margin-bottom-20 clearfix">
                 <a class="btn btn-primary red add_item pull-right" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                 </div>
-            <div class="portlet box red">
+            <div class="">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-gift"></i> MENU MANAGER

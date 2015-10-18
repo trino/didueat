@@ -49,8 +49,16 @@
             </div>
 
 
-            <div class="col-md-3 col-sm-4 col-xs-12">
-                <div class="portlet box red">
+            <div class="col-md-3 col-sm-4 col-xs-12">123
+
+                <label>Browser Select</label>
+
+
+
+
+
+
+                <div class="">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>Filter Search
@@ -61,7 +69,8 @@
                         <ul id="filterType">
                             <li>
                                 Sort
-                                <select name="sortType" id="sortType">
+                                <div class="input-field col s12">
+                                <select name="sortType" id="sortType" class="browser-default">
                                     <option value="id">ID</option>
                                     <option value="menu_item">Name</option>
                                     <option value="price">Price</option>
@@ -69,10 +78,11 @@
                                     <option value="image">Image</option>
                                 </select>
                                 - By
-                                <select name="sortBy" id="sortBy">
+                                <select name="sortBy" id="sortBy" class="browser-default">
                                     <option value="ASC">ASC</option>
                                     <option value="DESC">DESC</option>
                                 </select>
+                                    </div>
                             </li>
                         </ul>
                         <h4>Price Range</h4>

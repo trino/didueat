@@ -10,7 +10,7 @@
                 </div>
             @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->
-            <div class="portlet box red">
+            <div class="">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-table"></i> Forgot Password

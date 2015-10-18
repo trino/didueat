@@ -22,7 +22,7 @@
 <?php }?>
     <?php foreach($category as $cat)
           { $catid = $cat->id; ?>
-              <div class="portlet box red">
+              <div class="">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-spoon"></i>{{$cat->title}}

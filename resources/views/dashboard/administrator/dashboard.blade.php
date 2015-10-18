@@ -16,7 +16,7 @@
                     </div>
                 @endif
 
-                <div class="portlet box red">
+                <div class="">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-gift"></i>Profile Manager

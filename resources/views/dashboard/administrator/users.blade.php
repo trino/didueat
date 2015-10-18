@@ -17,7 +17,7 @@
                         <div class="clearfix"></div>
                         <hr class="shop__divider">
                         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="portlet box red">
+                        <div class="">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Users List

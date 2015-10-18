@@ -24,7 +24,7 @@
                 </div>
 
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="portlet box red">
+                <div class="">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>MY ADDRESSES
@@ -65,7 +65,7 @@
                 <!-- END EXAMPLE TABLE PORTLET-->
 
 
-                <div class="portlet box red" style="display: none;">
+                <div class="" style="display: none;">
                     <div class="portlet-title" >
                         <div class="caption">
                             <i class="fa fa-gift"></i> ADD ADDRESS
