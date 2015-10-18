@@ -22,23 +22,33 @@
 
 
 
+
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 
 
 
+
+    
+
+
+
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
+
+
+
+
+
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet"-->
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
