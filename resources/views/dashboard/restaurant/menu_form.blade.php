@@ -35,10 +35,11 @@ if(!$menu_id)
                 }
                 ?>
             </select> <strong> &nbsp;  &nbsp; OR</strong> &nbsp;  &nbsp; <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
-            <div class="catblock" style="display: none;">
-            <input type="text" class="form-control cat_title" placeholder="Add new category" style="width: 80%;float:left" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat" style="width: 20%;float:left">Create</a>
+            <div class="catblock" style="display: none;padding:5px 0 10px 0">
+            <input type="text" class="form-control cat_title" placeholder="Add new category" style="width: 75%;float:left" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat" style="width: 20%;float:left">Create</a>
+            <div class="clearfix"></div>
             </div>
-            <hr />
+            
                         
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
@@ -220,4 +221,5 @@ $(function(){
    }); 
 });
 </script>
+<style>.cat_id{display:inline-block!important;width:60%;}</style>
 

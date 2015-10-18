@@ -33,8 +33,12 @@
         </a>
         <?php if(Session::has('is_logged_in')){?>
         <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
-        <a href="" class="btn red">Remove</a>
-        <a href="" class="btn blue">Edit</a>
+
+        <a href="<?php echo url('restaurant/deleteMenu/'.$value->id.'/'.$restaurant->slug);?>" class="btn red">Remove</a>
+        <a href="#menumanager2" id="add_item<?php echo $value->id;?>" class="btn blue fancybox-fast-view additem">Edit</a>
+        <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
+        <input type="hidden" id="res_slug" value="<?php echo $restaurant->slug;?>" />
+
         </div>
         <?php }?>
     </div>
