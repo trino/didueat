@@ -49,7 +49,9 @@
             </div>
 
 
-            <div class="col-md-3 col-sm-4 col-xs-12">123
+            <div class="col-md-3 col-sm-4 col-xs-12">
+            
+            123
 
                 <label>Browser Select</label>
 
@@ -58,7 +60,7 @@
 
 
 
-                <div class="">
+                <div class="portlet red box">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>Filter Search
@@ -66,7 +68,7 @@
                     </div>
                     <div class="portlet-body">
                         <h4>Sort By</h4>
-                        <ul id="filterType">
+                        <ul id="filterType" class="margin-bottom-10 clearfix">
                             <li>
                                 Sort
                                 <div class="input-field col s12">

@@ -1034,7 +1034,7 @@ input.form-control, textarea.form-control, input, button, select, textarea {
     box-shadow: none;
     color: #777;
     font: 14px Arial,sans-serif;
-    padding: 5px 10px;
+    padding: 2px 10px;
 }
 
 body.ecommerce {

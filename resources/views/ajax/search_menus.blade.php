@@ -7,7 +7,7 @@
 
 
         <div class="card ">
-            <div class="sticker sticker-new" style="z-index: 9999999;"></div>
+            <div class="sticker sticker-new" style="z-index: 99;"></div>
 
                 <div class="col-md-9 no-padding">
                     <div class="card-content">

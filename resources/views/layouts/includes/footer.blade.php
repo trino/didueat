@@ -1,10 +1,10 @@
 <footer class="page-footer red accent-4">
-    <div class="container">
-        <div class="row">
+    <div class="container pre-footer">
+        <div class="row steps-block steps-block-red">
 
 
                 <div class="col-md-1"></div>
-                <div class=" col-md-10 col-sm-12 col-xs-12">
+                <div class=" col-md-10 col-sm-12 col-xs-12 margin-bottom-30">
 
                     <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                         <i class="fa fa-search"></i>
@@ -48,10 +48,10 @@
 
 
             </div>
-            <div class="col l4 s12">
+            <div class="col l4 s12 pre-footer-subscribe-box">
 
 
-                <h2>Newsletter</h2>
+                <h2 class="margin-bottom-10">Newsletter</h2>
                 <form action="#" method="post">
                     <input type="hidden" name="action" value="subscribe">
                     <div class="input-group">

@@ -33,6 +33,7 @@
 
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/css/components.css') }}" rel="stylesheet">
 
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">

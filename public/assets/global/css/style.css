@@ -1090,7 +1090,7 @@ steps block and steps block elements
 	height: 60px;
 	text-align: center;
 	vertical-align: middle;
-	padding-top: 22px;
+	padding-top: 14px;
 	margin-right: 11px;
 	float: left;
 }
@@ -1430,10 +1430,7 @@ div.content-form-page .checkbox-list {
 /***
 Pre-Footer and pre-footer elements
 ***/
-.pre-footer {
-	background: #313030;
-	color: #b0b0b0;
-}
+
 .pre-footer .container {
 	padding-top: 45px;
 }
@@ -4608,11 +4605,13 @@ a:hover {
 
 .btn-primary {
 	background: #D50000 ;
+    border-color: #D50000;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
 	background: #cc3304;
+    border-color: #D50000;    
 }
 
 .header-navigation .dropdown-menu > li:first-child {
