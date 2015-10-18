@@ -16,24 +16,6 @@
                 {!! Form::close() !!}
                 <br />
 
-                <!--<div id="postswrapper" class="margin-bottom-10 clearfix">
-                    {{-- @include('menus') --}}
-                </div>
-
-                <div class="clearfix"></div>
-                <div id="loadmoreajaxloader" style="display:none;">
-                    <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
-                </div>
-                <div class="clearfix"></div>
-                <?php /*if ($menus_list->hasMorePages()) { ?>
-                <div class="row margin-bottom-15">
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="">
-                        <button align="center" class="loadmore btn btn-primary">Load More</button>
-                        <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
-                    </div>
-                </div>
-                <?php }*/ ?>
-                <div class="clearfix"></div>-->
 
                 <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 
@@ -50,12 +32,6 @@
 
 
             <div class="col-md-3 col-sm-4 col-xs-12">
-            
-            123
-
-                <label>Browser Select</label>
-
-
 
 
 
