@@ -79,7 +79,7 @@ $('.is_multiple').live('change',function(){
 });
 
 $('.savebtn').live('click',function(){
-    
+    $(this).attr('disabled','disabled');
     //var $_this = $(this);
     var id = $(this).attr('id').replace('save','');
     //var id = $(this).attr('data-id');
@@ -89,20 +89,23 @@ $('.savebtn').live('click',function(){
     {
         alert('Please select a category');
         $_parent.find('.cat_id').focus();
+        $_parent.find('.savebtn').removeAttr('disabled');
         return false;        
     }
     var ptitle = $_parent.find('.newtitle').val();
     if(ptitle=='')
     {
         alert('Title cannot be blank');
-        $_parent.find('.newtitle').focus(); 
+        $_parent.find('.newtitle').focus();
+        $_parent.find('.savebtn').removeAttr('disabled');
         return false;       
     }
     var pprice = $_parent.find('.newprice').val();
     if(pprice=='')
     {
         alert('Price cannot be blank');
-        $_parent.find('.newprice').focus(); 
+        $_parent.find('.newprice').focus();
+        $_parent.find('.savebtn').removeAttr('disabled');
         return false;       
     }
     
@@ -123,8 +126,10 @@ $('.savebtn').live('click',function(){
         checkprc = 1;
        } 
     });
-    if(checkprc)
+    if(checkprc){
+       $_parent.find('.savebtn').removeAttr('disabled');
     return false;
+    }
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
     
@@ -186,8 +191,9 @@ $('.savebtn').live('click',function(){
                                success:function(res2){
                                 if($_this2.find('.cmore').length == co)
                                 {
+                                 
                                 //window.location=base_url+'restaurant/red/menus-manager';
-                                window.location=base_url+'restaurants/redfront/'+window.location.pathname;
+                                window.location=base_url+'restaurants/redfront/restaurant/'+$('#res_slug').val()+'/menus';
                                 }
                                 
                                }
@@ -205,7 +211,7 @@ $('.savebtn').live('click',function(){
         else
         {
             //window.location=base_url+'restaurant/red/menus-manager';
-            window.location=base_url+'restaurants/redfront/'+window.location.pathname;     
+            window.location=base_url+'restaurants/redfront/restaurant/'+$('#res_slug').val()+'/menus';     
         }
        
        }
