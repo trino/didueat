@@ -7,7 +7,7 @@ Route::get('/contactus',                            'HomeController@contactus');
 Route::get('/restaurants',                          'HomeController@allRestaurants');
 Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
-//Route::resource('/restaurants/loadmenus/{catid}/{resid}',         'HomeController@loadmenus');
+Route::resource('/restaurants/loadmenus/{catid}/{resid}/', 'HomeController@loadmenus');
 Route::resource('/home/test',                       'HomeController@test');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');

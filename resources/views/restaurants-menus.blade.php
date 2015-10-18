@@ -1,28 +1,25 @@
 @extends('layouts.default')
 @section('content')
-
-    <div class="content-page">
-
-        <div class="row default_page_padd">
+<link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
+    <div class="margin-bottom-40 clearfix">
 
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
 
 <?php if(Session::has('is_logged_in')){?>
-<div class="category_btns" style="margin-bottom: 15px;">       
-<a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
-
+<div class="category_btns" style="margin-bottom: 15px;">
+    <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
+    <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
-
-<div id="menumanager2" style="display: none;width:780px;">
-
+<div id="menumanager" style="display: none;width:800px;">
+@include('common.add_category')
 </div>
-
+<div id="menumanager2" style="display: none;width:800px;"></div>
 <?php }?>
     <?php foreach($category as $cat)
-          { $catid = $cat->id; ?>
-              <div class="">
+          {?>
+              <div class="portlet box red">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-spoon"></i>{{$cat->title}}
@@ -31,26 +28,27 @@
                 </div>
                 <div class="portlet-body no-padding">
                     <div id="postswrapper_{{$cat->id}}" class="loadcontent">
-                        <?php 
-                            $menus_list = \App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id',$cat->id)->paginate(2);?>
-                        @include('menus')
-
-                    </div><br style="clear: both;">
+                      
+                    </div>
+                    
+            
+                <div class="clearfix"></div>
+                        <div id="loadmoreajaxloader_{{$cat->id}}" style="display:none;">
+                            <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                   
+                    <br style="clear: both;">
                     
                 </div>
             </div>
-        <div id="loadmoreajaxloader" style="display:none;">
-            <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-        </div>
-        <div class="clearfix"></div>
-    <?php if($menus_list->hasMorePages()){?>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12" style="">
-            <button align="center" class="loadmore btn btn-primary">Load More</button>
-        </div>
-    </div>
-    <?php }?>
-    <div class="clearfix"></div>
+
+    <script>
+    $(function(){
+       $('#postswrapper_{{$cat->id}}').load('<?php echo url('/restaurants/loadmenus/'.$cat->id.'/'.$restaurant->id);?>');
+    });
+    </script>
+    
     <?php }?>
 
         </div>
@@ -68,7 +66,7 @@
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                 </div>
             </div>
-            <!--<div class="top-cart-info">
+            <div class="top-cart-info">
                 <div class="col-md-6">
                     <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
                 </div>
@@ -80,7 +78,7 @@
                     <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"
                                                                     onclick="#cartsz"></i></a>
                 </div>
-            </div>-->
+            </div>
 
 
 
@@ -205,7 +203,6 @@
     <!-- END SIDEBAR & CONTENT -->
 
 
-    </div>
     </div>
 
 
@@ -704,8 +701,8 @@
         }
 
         $(function () {
-
-
+            
+            
             $('.decrease').live('click', function () {
                 //alert('test');
                 var menuid = $(this).attr('id');
@@ -863,7 +860,39 @@
     </script>
 
 
+<script>
+$(function () {
+      $(document).on('click','.loadmore',function () {
+            var catid = $(this).attr('title');
+            
+            $('div#loadmoreajaxloader_'+catid).show();
+            ur = $('.next_'+catid+' a').attr('href');
+            if (ur != '') {
+                url1 = ur.replace('/?', '?');
+                $.ajax({
+                    url: url1,
+                    success: function (html) {
 
+                        if (html) {
+                            $('.nxtpage_'+catid).remove();
+                            $("#loadmenus_"+catid).append(html);
+                            $('div#loadmoreajaxloader_'+catid).hide();
+                        } else
+                            $('div#loadmoreajaxloader_'+catid).html('<center>No more menus to show.</center>');
+
+                    }
+                });
+            }
+            else {
+                $('div#loadmoreajaxloader_'+catid).html('<center>No more menus to show.</center>');
+                $(this).parent().remove();
+            }
+        });
+
+    });
+
+</script>
+ 
 
 
 

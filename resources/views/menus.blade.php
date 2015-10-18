@@ -1,33 +1,40 @@
-<link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
-
+<?php if(!isset($_GET['page'])){?>
+<div id="loadmenus_{{$catid}}"><?php }?>
 @foreach($menus_list as $value)
-    <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
-    <div class="product-item" style="margin:0 10px 10px 0;background: white; padding: 10px;">
+  <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
+    <div class="product-item" style="margin:3px;background: white;height: 120px; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
 
             <div class="col-md-8 col-sm-7 col-xs-6 ">
-                <h2 class="padding-top-5" style="color: #D50000;margin:0px;">{{ $value->menu_item }}</h2>
-                <p style="overflow: hidden;font-size: 11px;color:#666;margin-bottom:0px;">{{ $value->description }}</p>
+                <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
+                <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
             </div>
 
-            <div class="col-md-2 col-sm-3 col-xs-3" style="padding:0;">
-                <h2 class="padding-top-5" style="float:right;color: black;font-weight: 500;margin:0 10px 0 0;">${{ $value->price }}</h2>
+
+
+            <div class="col-md-2 col-sm-3 col-xs-3 padding-top-5 " style="padding:0;">
+                <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
             </div>
+
 
             <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">
+
+
                 <img style="max-height:100%;"
                      src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb1_'.$value->image:'default_menus.png' }}"
                      class="img-responsive" alt="{{ $value->menu_item }}"/>
+
             </div>
+
             <!--div class="sticker sticker-new"></div-->
+
         </a>
         <?php if(Session::has('is_logged_in')){?>
         <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
-        <a href="<?php echo url('restaurant/deleteMenu/'.$value->id.'/'.$restaurant->slug);?>" class="btn red">Remove</a>
-        <a href="#menumanager2" id="add_item<?php echo $value->id;?>" class="btn blue fancybox-fast-view additem">Edit</a>
-        <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
+        <a href="" class="btn red">Remove</a>
+        <a href="" class="btn blue">Edit</a>
         </div>
         <?php }?>
     </div>
@@ -36,16 +43,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-    <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 500px;">
+    <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 800px;">
 
         <div class="product-page product-pop-up">
             <!--div class="modal-header">
@@ -220,16 +218,25 @@
             </div>
         </div>
     </div>
+
+
 @endforeach
-
-
-
-
-
-<div style="display: none;" class="nxtpage">
-    <li class="next"><a href="{{$menus_list->nextPageUrl()}}">Next &gt;&gt;</a></li>
+<?php if(!isset($_GET['page'])){?>
 </div>
-
+<?php }?>
+    <div style="display: none;" class="nxtpage_{{$catid}}">
+        <li class="next_{{$catid}}"><a href="{{$menus_list->nextPageUrl()}}">Next &gt;&gt;</a></li>
+    </div>
+  <?php if(!isset($_GET['page'])){?>              
+ <?php if($menus_list->hasMorePages()){?>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" >
+            <button align="center" class="loadmore btn btn-primary" title="{{$catid}}">Load More</button>
+        </div>
+    </div>
+    <?php }?>
+    <div class="clearfix"></div>
+<?php }?>
 
 <? if(false){?>
 
@@ -295,7 +302,7 @@
                                                                     </button>
                                                                     <input type="radio" id="extra_5051"
                                                                            title="5051_<br/> Milk Tea_0_Choose Type"
-                                                                           class="extra-<?php //echo $sub->id;?>" name="extra_<?php //echo $sub->id;?>" value=""
+                                                                           class="extra-<?php echo $sub->id;?>" name="extra_<?php echo $sub->id;?>" value=""
                                                                           />
                                                                     &nbsp;&nbsp;Milk Tea <b style="display:none;">
                                                                     </b></a><b style="display:none;"><a onclick=""
@@ -316,3 +323,4 @@
 
 
 <?} ?>
+
