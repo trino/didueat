@@ -8,13 +8,13 @@
 
 <?php if(Session::has('is_logged_in')){?>
 <div class="category_btns" style="margin-bottom: 15px;">
-    <a href="#menumanager" class="btn red fancybox-fast-view">Add Category</a>
+    
     <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
 </div>
 
-<div id="menumanager" style="display: none;width:800px;">
+<!--<div id="menumanager" style="display: none;width:800px;">
 @include('common.add_category')
-</div>
+</div>-->
 <div id="menumanager2" style="display: none;width:800px;"></div>
 <?php }?>
     <?php foreach($category as $cat)
