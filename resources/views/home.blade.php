@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="content-page">
-
+<div class="container-fluid">
         <div class="row default_page_padd">
 
             <div class="col-md-9 col-sm-8 col-xs-12">
@@ -84,6 +84,7 @@
             </div>
 
         </div>
+    </div>
     </div>
 
     <script type="text/javascript">

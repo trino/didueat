@@ -37,6 +37,7 @@
 
     <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 

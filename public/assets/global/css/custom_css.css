@@ -1099,6 +1099,7 @@ button::after {
 
 button:hover {
     color: #fff;
+    border-color: #cf102d !important;
 }
 
 /* BUTTON 3 */
@@ -1631,7 +1632,7 @@ input.form-control, textarea.form-control, input, button, select, textarea {
     border-radius: 0;
     box-shadow: none;
     color: #777;
-    padding: 5px 10px;
+    padding: 5px 10px !important;
 }
 
 body.ecommerce {
@@ -2209,6 +2210,8 @@ body.ecommerce {
 .btn {
     color: #fff !important;
     margin-top: 0 !important;
+    background: #cf102d;
+    border-color: #cf102d;
 }
 
 .orders_details #cartsz {
@@ -5051,4 +5054,13 @@ Portlets
 .footer {
   background: #9e0822 none repeat scroll 0 0;
   padding: 25px 0;
+}
+
+.box-shadow .portlet-body {
+  font-size: 14px;
+  padding: 10px;
+}
+
+#searchMenuForm2 input {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
