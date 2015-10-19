@@ -5,6 +5,7 @@
     <div class="margin-bottom-40">
 
         <div class="content-page">
+        <div class="container-fluid">
             <div class="row margin-bottom-10">
                 <div class="col-md-8 col-sm-8 col-xs-8">
 
@@ -37,7 +38,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Filter Search
@@ -91,6 +92,7 @@
             </div>
         </div>
 
+    </div>
     </div>
 
 

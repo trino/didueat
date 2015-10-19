@@ -3,14 +3,14 @@
 
 <div class="container"> 
     <div class="row">
-        <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2">
+        <div class="col-md-8 col-sm-12 col-xs-12 col-md-offset-2 margin-bottom-20">
             @if(Session::has('message'))
             <div class="alert alert-info">
                 <strong>Alert!</strong> &nbsp; {!! Session::get('message') !!}
             </div>
             @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->
-            <div class="box-shadow">
+            <div class="box-shadow clearfix">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-table"></i> Registration Form

@@ -15,15 +15,15 @@
 
 <td>
 
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="card small">
-                    <div class="card-image">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="card row">
+                    <div class="card-image col-md-4 col-sm-4 col-xs-12">
                         <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                             <img style="width:100%;" class="img-responsive" alt=""
                                  src="{{ asset('assets/images/restaurants/' . $value->id .'/'.$logo) }}">
                         </a> <span class="card-title">{{ $value->name }}</span>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content col-md-4 col-sm-4 col-xs-12">
                         <p>
                             <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }}</a>
                         </p>
@@ -33,8 +33,8 @@
                           <BR> {{ $value->phone }}
                         </p>
                     </div>
-                    <div class="card-action">
-                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }}</a>
+                    <div class="card-action col-md-4 col-sm-4 col-xs-12">
+                        <a class="red btn" href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }}</a>
 
                     </div>
                 </div>

@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <button type="button" class="btn btn-primary btn-lg loadMoreRestaurants margin-bottom-15">Load more</button>
+                    <button type="button" class="btn btn-primary red btn-lg loadMoreRestaurants margin-bottom-15">Load more</button>
                     <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
                     {!! csrf_field() !!}
                 </div>

@@ -19,14 +19,14 @@
 
                 <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 
-                <div id="menus_bar" class="margin-bottom-20 clearfix">
+                <div id="menus_bar" class="margin-bottom-20 row clearfix">
                     @include('ajax.search_menus')
                 </div>
 
                 <div class="clearfix"></div>
-                <button type="button" class="btn btn-primary loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
+                <div class="col-md-12 col-sm-12 col-xs-12"><button type="button" class="btn btn-primary red loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
                 <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
-                {!! csrf_field() !!}
+                {!! csrf_field() !!}</div>
                 <div class="clearfix"></div>
             </div>
 

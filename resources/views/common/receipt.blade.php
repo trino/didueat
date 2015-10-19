@@ -107,7 +107,7 @@
                     <input class="btn red" type="button" onclick="printDiv('printableArea')" value="Print"
                            style="margin: 0;"/>
                     <a href="javascript:void(0)" class="btn blue clearitems">Clear</a>
-                    <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
+                    <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
                 </div>
                 <?php }?>
             </div>

@@ -33,7 +33,7 @@
         <div class="clearfix"></div>
         <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10">
-            <button align="center" class="loadmore btn btn-primary">Load More</button>
+            <button align="center" class="loadmore red btn btn-primary">Load More</button>
         </div>
         </div>
         <div class="clearfix"></div>

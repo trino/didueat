@@ -1726,7 +1726,6 @@ body.ecommerce {
     color: #fff;
     font-size: 11px;
     height: 32px;
-    line-height: 32px;
     margin-right: 5px;
     padding: 1px 10px 0;
     position: relative;
@@ -2351,7 +2350,13 @@ body.ecommerce {
 }
 
 .resturant-logo-desc div address > h3 {
-    padding-top: 0 !important;
+  font-size: 15px;
+  font-weight: 600;
+  padding-top: 0 !important;
+}
+
+.resturant-logo-desc div address {
+  font-size: 13px;
 }
 
 .orders_details table tr td {
@@ -5027,12 +5032,12 @@ Portlets
 /* END max width 320px */
 
 .box-shadow {
-  background: #fff4de none repeat scroll 0 0;
+  background: #f7f7f7 none repeat scroll 0 0;
   box-shadow: 0 0 3px #888888;
 }
 
 .box-shadow .caption, .pricing-head.pricing-head-active > h3 {
-  background: #f6a800 none repeat scroll 0 0;
+  background: #df4500;
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -5053,12 +5058,13 @@ Portlets
 }
 
 .pre-footer-col .list-unstyled a {
-  color: #fff;
+  color: #a0a0a0;
 }
 
 .footer {
-  background: #9e0822 none repeat scroll 0 0;
+  background: #cf102d;
   padding: 25px 0;
+  color: #fff;
 }
 
 .box-shadow .portlet-body {
@@ -5068,6 +5074,14 @@ Portlets
 
 #searchMenuForm2 input {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.pricing-content.list-unstyled {
+  padding-left: 12px;
+}
+
+.pricing-content.list-unstyled > li {
+  padding-bottom: 10px;
 }
 
 .steps-block .fa {
@@ -5120,7 +5134,7 @@ Portlets
 }
 
 .pre-footer {
-    background: url(../../images/newfooter.jpg) no-repeat;
+    background: #003e6c;
 }
 
 .pre-footer hr {
@@ -5128,6 +5142,80 @@ Portlets
 }
 
 .filter_search h4 {
-  font-size: 14px !important;
+  border-top: 1px solid #dfdfdf;
+  font-size: 13px !important;
   font-weight: 600;
 }
+
+.filter_search h4:first-child {
+  border-top: none;
+}
+
+.box-shadow .portlet-title .fa {
+  margin-right: 5px;
+}
+
+a {
+    color: #cf102d;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #f6a800;
+    text-decoration: none;
+}
+
+#filterType input, #filterType textarea, #filterType select, #filterPriceRange input, #filterPriceRange textarea, #filterPriceRange select  {
+    background: none;
+    border: medium none !important;
+    border-bottom: 2px solid #aaa !important;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+#filterType input:focus, #filterType textarea:focus, #filterType select:focus, #filterPriceRange input:focus, #filterPriceRange textarea:focus, #filterPriceRange select:focus {
+    border-bottom: 2px solid #D50000 !important;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.pre-footer-subscribe-box input {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.social-icons > li {
+  list-style: outside none none;
+}
+
+.loadcontent .product-item {
+  box-shadow: 0 0 3px #aaa;
+}
+
+ul li a {
+  color: #000;
+}
+
+.card-image .img-responsive {
+  border-radius: 0 !important;
+  box-shadow: 0 0 3px #aaa;
+  margin: 12px 0;
+  padding: 10px;
+}
+
+.btn.red:hover {
+    background: #b30c10;
+} 
+
+.btn.blue {
+  background: #003e6c;
+}
+
+.btn.blue:hover {
+  background: #032c4b;
+}
+

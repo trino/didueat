@@ -239,7 +239,7 @@
  <?php if($menus_list->hasMorePages()){?>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12" >
-            <button align="center" class="loadmore btn btn-primary" title="{{$catid}}">Load More</button>
+            <button align="center" class="loadmore red btn btn-primary" title="{{$catid}}">Load More</button>
         </div>
     </div>
     <?php }?>
