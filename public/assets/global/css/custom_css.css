@@ -1222,7 +1222,7 @@ button:hover {
 }
 
 .pricing {
-    background-color: #fff;
+    background-color: #fff4de;
 }
 
 .test {
@@ -2286,6 +2286,7 @@ body.ecommerce {
 .form-body #uploadbtn, .form-body #picture {
     display: inline-block;
     vertical-align: middle;
+    font-weight: 600;
 }
 
 #uploadbtn {
@@ -5010,3 +5011,24 @@ Portlets
 }
 
 /* END max width 320px */
+
+.box-shadow {
+  background: #fff4de none repeat scroll 0 0;
+  box-shadow: 0 0 3px #888888;
+}
+
+.box-shadow .caption, .pricing-head.pricing-head-active > h3 {
+  background: #f6a800 none repeat scroll 0 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.pricing-head h4 {
+  padding: 12px;
+}
+
+.pricing-footer > p {
+  padding: 12px;
+}
