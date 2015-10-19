@@ -10,7 +10,7 @@
             </div>
             @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->
-            <div class="">
+            <div class="box-shadow">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-table"></i> Registration Form
