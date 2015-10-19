@@ -9168,12 +9168,12 @@ Red Default
 /* Button */
 .red.btn {
   color: white;
-  background-color: #d84a38;
+  background-color: #9e0822;
   border-color: "";
 }
 .red.btn:hover, .red.btn:focus, .red.btn:active, .red.btn.active {
   color: white;
-  background-color: #c63927;
+  background-color: #78061a;
 }
 .open .red.btn.dropdown-toggle {
   color: white;

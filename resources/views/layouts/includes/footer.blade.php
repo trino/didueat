@@ -1,5 +1,5 @@
 <!-- BEGIN STEPS -->
-<div class="steps-block steps-block-red" style="border-top:5px solid #D50000;background:#cf0a2c;">
+<div class="steps-block steps-block-red" style="color:#FFF;background:#f6a800;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
@@ -37,8 +37,8 @@
 <!-- END STEPS -->
 
 <!-- BEGIN PRE-FOOTER -->
-<div class="pre-footer" style="background: #d50000;">
-    <div class="container-fluid">  <hr>
+<div class="pre-footer" style="background: #cf102d;color: #fff;">
+    <div class="container-fluid">
         <div class="row">
             <!-- END BOTTOM ABOUT BLOCK -->
             <!-- BEGIN BOTTOM INFO BLOCK -->
