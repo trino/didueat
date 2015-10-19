@@ -2465,7 +2465,7 @@ body.ecommerce {
 
 .card .card-image .card-title {
     position: absolute;
-    top: 0;
+    bottom: -80px;
     left: 0;
     padding: 15px;
 }

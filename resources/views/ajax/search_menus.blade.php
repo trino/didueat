@@ -21,10 +21,7 @@
                     <div class="card-action">
                         <a href="" class="">McDonalds Eastgate</a>
 
-                    <?php if(Session::has('is_logged_in')){?>
-                        <a href="" class="">Remove</a>
-                        <a href="" class="">Edit</a>
-                        <?php }?>
+                    
                     </div>
                     </div>
                     <div class="col-md-3 no-padding">
