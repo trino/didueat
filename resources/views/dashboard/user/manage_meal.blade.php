@@ -34,7 +34,7 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-gift"></i> Meal Upload Form
@@ -66,7 +66,7 @@
 
                 <div class="col-md-5 col-sm-8 col-xs-12">
                     <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="">
+                        <div class="box-shadow">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-globe"></i>Meal Upload History

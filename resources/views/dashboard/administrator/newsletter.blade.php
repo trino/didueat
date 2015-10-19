@@ -23,7 +23,7 @@ delete me 576456456
                         <hr class="shop__divider">
 
                         <!-- BEGIN VALIDATION STATES-->
-                        <div class="">
+                        <div class="box-shadow">
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-gift"></i>Send Newsletter
