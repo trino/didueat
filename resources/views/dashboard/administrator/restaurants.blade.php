@@ -12,8 +12,8 @@
                     </div>
                 @endif
 
-                <div class="deleteme">
-
+                <div class="container-fluid">
+                    
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">

@@ -15,7 +15,7 @@
             </div>
             @endif
 
-            <div class="deleteme">
+            <div class="container-fluid">
 
                 <div class="btn_wrapper margin-bottom-20 clearfix">
 

@@ -48,9 +48,9 @@
                     <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                 </div>
             @endif
-
-
-            <div class="">
+            <div class="container-fluid">
+            
+            <div class="box-shadow">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-globe"></i>MY UPLOADS
@@ -80,6 +80,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+            
 
 
         </div>
