@@ -30,7 +30,9 @@
                     <div class="col-md-3 no-padding">
 
                     <div class="card-image">
-                        <img style="" src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb_'.$value->image:'default_menus.png' }}">
+                        <img style="" src="<?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image)))
+            echo url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image);
+                  else echo url('assets/images/default_menu.jpg'); ?>">
                         <span class="card-title"><span style="color:red;">${{ $value->price }}</span></span>
                     </div>
                 </div>
@@ -49,7 +51,9 @@
                 </div>
                 <div class="col-sm-12 col-xs-12">
                     <img class="popimage_{{ $value->id }}" width="150"
-                         src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id) }}/{{ ($value->image)?'thumb_'.$value->image:'default_menus.png' }}"/>
+                         src="<?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image)))
+            echo url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image);
+                  else echo url('assets/images/default_menu.jpg'); ?>"/>
                 </div>
                 <div class="clearfix"></div>
 
