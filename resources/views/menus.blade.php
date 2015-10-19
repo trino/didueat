@@ -1,8 +1,8 @@
 <?php if(!isset($_GET['page'])){?>
 <div id="loadmenus_{{$catid}}"><?php }?>
 @foreach($menus_list as $value)
-  <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="">
-    <div class="product-item" style="margin:3px;background: white;height: 120px; padding: 10px;">
+  <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="margin-bottom: 20px;">
+    <div class="product-item" style="margin:3px;background: #f7f7f7;height: 130px; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
@@ -34,13 +34,19 @@
 
         </a>
         <?php if(Session::has('is_logged_in')){?>
-        <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin-top: 10px;">
+        <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin: 10px 0;padding-right: 0;">
 
         <a href="<?php echo url('restaurant/deleteMenu/'.$value->id.'/'.$restaurant->slug);?>" class="btn red">Remove</a>
         <a href="#menumanager2" id="add_item<?php echo $value->id;?>" class="btn blue fancybox-fast-view additem">Edit</a>
         <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
         <input type="hidden" id="res_slug" value="<?php echo $restaurant->slug;?>" />
 
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;" >
+        <div class="pull-right">
+        <a href=""><i class="fa fa-angle-left"></i></a>
+        <a href=""><i class="fa fa-angle-right"></i></a>
+        </div>
         </div>
         <?php }?>
     </div>
@@ -239,7 +245,9 @@
  <?php if($menus_list->hasMorePages()){?>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12" >
+        <div class="col-md-12 col-sm-12 col-xs-12" >
             <button align="center" class="loadmore red btn btn-primary" title="{{$catid}}">Load More</button>
+        </div>
         </div>
     </div>
     <?php }?>

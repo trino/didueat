@@ -1725,7 +1725,7 @@ body.ecommerce {
     border: medium none;
     color: #fff;
     font-size: 11px;
-    height: 32px;
+    height: 38px;
     margin-right: 5px;
     padding: 1px 10px 0;
     position: relative;
@@ -5219,3 +5219,16 @@ ul li a {
   background: #032c4b;
 }
 
+.category_detail_btn .btn {
+  border-radius: 0 !important;
+  padding: 1px 12px;
+  font-size: 14px;
+}
+
+.product-item .pull-right > a {
+  margin-left: 5px;
+}
+
+li {
+    list-style: none;
+}
