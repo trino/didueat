@@ -2,7 +2,7 @@
 <div id="loadmenus_{{$catid}}"><?php }?>
 @foreach($menus_list as $value)
   <div class="col-md-4 col-sm-6 col-xs-12 no-padding" style="margin-bottom: 20px;">
-    <div class="product-item" style="margin:3px;background: #f7f7f7;height: 130px; padding: 10px;">
+    <div class="product-item" style="margin:3px;background: #f7f7f7;height: 155px; padding: 10px;">
 
         <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
            class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
@@ -25,7 +25,7 @@
                 <img style="max-height:100%;"
                  src="<?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image)))
             echo url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image);
-                  else echo url('assets/images/default_menu.jpg'); ?>"
+                  else echo url('assets/images/default_menu.png'); ?>"
                      class="img-responsive" alt="{{ $value->menu_item }}"/>
 
             </div>
