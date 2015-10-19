@@ -30,9 +30,11 @@
                     <div class="col-md-3 no-padding">
 
                     <div class="card-image">
+                    <?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image))){?>
                         <img style="" src="<?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image)))
             echo url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb1_'.$value->image);
                   else echo url('assets/images/default_menu.jpg'); ?>">
+                  <?php }?>                  
                         <span class="card-title"><span style="color:red;">${{ $value->price }}</span></span>
                     </div>
                 </div>
