@@ -2334,7 +2334,7 @@ body.ecommerce {
 }
 
 .product-item > a > div > .img-responsive {
-    box-shadow: 0 0 3px #aaa;
+  width: 80%;
 }
 
 .add_category_popup > h2 {
