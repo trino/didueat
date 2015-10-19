@@ -1,5 +1,5 @@
 <!-- BEGIN STEPS -->
-<div class="steps-block steps-block-red" style="color:#FFF;background:#f6a800;">
+<div class="steps-block steps-block-red" style="color:#FFF;background:#f6a800;padding:25px 0;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
