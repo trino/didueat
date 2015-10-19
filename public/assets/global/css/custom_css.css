@@ -2210,6 +2210,11 @@ body.ecommerce {
 .btn {
     color: #fff !important;
     margin-top: 0 !important;
+}
+
+.btn.red {
+    color: #fff !important;
+    margin-top: 0 !important;
     background: #cf102d;
     border-color: #cf102d;
 }
@@ -5081,4 +5086,31 @@ Portlets
 .steps-block .steps-block-col div {
   margin-left: 70px;
   margin-right: 40px;
+}
+
+.sidebar-menu .list-group-item {
+  background: none;
+  border: medium none;
+  padding: 10px;
+}
+
+.sidebar-menu .list-group-item a {
+  color: #777;
+  -webkit-transition: all 0.5s ease-in-out;
+          -moz-transition: all 0.5s ease-in-out;
+          -o-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.sidebar-menu .list-group-item a:hover {
+  color: #cf102d;
+  text-decoration: none !important;
+  -webkit-transition: all 0.5s ease-in-out;
+          -moz-transition: all 0.5s ease-in-out;
+          -o-transition: all 0.5s ease-in-out;
+          transition: all 0.5s ease-in-out;
+}
+
+.content-page {
+  margin-bottom: 25px;
 }

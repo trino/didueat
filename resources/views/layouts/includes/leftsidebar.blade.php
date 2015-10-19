@@ -3,7 +3,7 @@
         <div class="">
 
 
-            <div class="">
+            <div class="box-shadow">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-gift"></i>User
@@ -49,7 +49,7 @@
 
 
 
-                            <div class="">
+                            <div class="box-shadow">
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="fa fa-gift"></i>Administrator
@@ -104,7 +104,7 @@
 
 
             @if(\Session::get('session_restaurant_id'))
-                <div class="">
+                <div class="box-shadow">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-gift"></i>Restaurant
