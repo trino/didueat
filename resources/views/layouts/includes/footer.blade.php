@@ -37,7 +37,7 @@
 <!-- END STEPS -->
 
 <!-- BEGIN PRE-FOOTER -->
-<div class="pre-footer" style="background: #cf102d;color: #fff;">
+<div class="pre-footer" style="color: #fff;">
     <div class="container-fluid">
         <div class="row">
             <!-- END BOTTOM ABOUT BLOCK -->

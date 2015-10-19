@@ -36,7 +36,7 @@
 
 
 
-                <div class="box-shadow">
+                <div class="box-shadow filter_search">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>Filter Search
