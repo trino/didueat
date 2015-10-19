@@ -55,7 +55,7 @@
                 <div class="col-md-4 col-sm-4 col-xs-12">
 
 
-                    <div class=" ">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-gift"></i>ABOUT RESTAURANT
@@ -200,7 +200,7 @@
                 <div class="col-md-4 ">
 
 
-                    <div class="">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-gift"></i> ADDRESS
@@ -283,7 +283,7 @@
 
                 <div class="col-md-4 ">
 
-                    <div class="">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-gift"></i> HOURS

@@ -24,7 +24,7 @@
                 <div class="deleteme">
 
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                <div class="">
+                <div class="box-shadow">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>MY NOTIFICATIONS

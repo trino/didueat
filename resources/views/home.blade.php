@@ -36,7 +36,7 @@
 
 
 
-                <div class="portlet red box">
+                <div class="box-shadow">
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-globe"></i>Filter Search

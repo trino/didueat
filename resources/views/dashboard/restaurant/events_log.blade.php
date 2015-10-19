@@ -10,7 +10,7 @@
             <div class="col-xs-12 col-md-10 col-sm-8">
                 <div class="deleteme">
 
-                    <div class="">
+                    <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-globe"></i>Logs List
