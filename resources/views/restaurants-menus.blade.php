@@ -10,6 +10,7 @@
 <div class="category_btns" style="margin-bottom: 15px;">
     
     <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+    <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
 </div>
 
 <!--<div id="menumanager" style="display: none;width:800px;">

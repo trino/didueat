@@ -40,7 +40,7 @@
 
         <a href="<?php echo url('restaurant/deleteMenu/'.$value->id.'/'.$restaurant->slug);?>" class="btn red">Remove</a>
         <a href="#menumanager2" id="add_item<?php echo $value->id;?>" class="btn blue fancybox-fast-view additem">Edit</a>
-        <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
+        
        
 
         </div>

@@ -726,7 +726,7 @@ class RestaurantController extends Controller {
             $ob2->save();
 
             echo $id = $ob2->id;
-            die();
+            
             $mns = \App\Http\Models\Menus::where('id',$id)->get()[0];
             if($mns->parent == '0')
             {

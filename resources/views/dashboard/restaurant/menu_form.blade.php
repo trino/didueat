@@ -55,7 +55,7 @@ if(!$menu_id)
             <?php if(!isset($ccount) || (isset($ccount) && $ccount==0)){ ?>
             <div class="newaction ignore">
                 <a href="javascript:void(0)" class="btn btn-info add_additional ignore blue" id="add_additional<?php echo $menu_id;?>">Add Addons</a>
-                <a href="javascript:void(0)" id="save0" data-id="<?php echo $menu_id;?>" class="btn btn-info blue savebtn ignore">Save</a>
+                <a href="javascript:void(0)" id="save<?php echo $menu_id;?>" data-id="<?php echo $menu_id;?>" class="btn btn-info blue savebtn ignore">Save</a>
             </div>
             
            
