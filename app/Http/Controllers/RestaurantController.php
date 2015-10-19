@@ -592,6 +592,11 @@ class RestaurantController extends Controller {
         //$this->layout = 'blank';
         $data['menu_id'] = $id;
         $data['res_id'] = $res_id;
+        if($res_id){
+        $data['res_slug'] = \App\Http\Models\restaurants::where('id', $res_id)->get()[0]->slug;
+        }
+        else
+        $data['res_slug'] = '';
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             //$id = $_GET['menu_id'];
@@ -649,14 +654,14 @@ class RestaurantController extends Controller {
         //$this->loadModel("Menus");
         //$this->loadComponent('Manager');
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
-
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order');
+       // echo $_POST['cat_id'];die();
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order','cat_id');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
             }
         }
-            
+          //echo $arr['cat_id'];die();  
            //sample for find or New 
           /*$ob2 = \App\Http\Models\Menus::findOrNew($_GET['id']);
                         $ob2->populate($arr);
@@ -716,10 +721,12 @@ class RestaurantController extends Controller {
             }
 
             $ob2 = new \App\Http\Models\Menus();
+           // var_dump($arr);die();
             $ob2->populate($arr);
             $ob2->save();
 
             echo $id = $ob2->id;
+            die();
             $mns = \App\Http\Models\Menus::where('id',$id)->get()[0];
             if($mns->parent == '0')
             {

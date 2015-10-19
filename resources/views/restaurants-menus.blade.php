@@ -892,8 +892,52 @@ $(function () {
     });
 
 </script>
- 
+<script>
+    $(function() {
 
-
-
+        $(".sorting_parent").live('click',function(){
+            $('.overlay_loader').show();
+            //alert('test');
+            var pid = $(this).attr('id').replace('up_parent_','').replace('down_parent_','');
+            var arr_pid = pid.split('_');
+            pid = arr_pid[0];
+            var cid = arr_pid[1];
+            if($(this).attr('id') == 'up_parent_'+pid)
+            {
+                var sort = 'up';
+            }
+            else
+            var sort = 'down';
+            
+                var order = '';// array to hold the id of all the child li of the selected parent
+                $('#loadmenus_'+cid+' .parents').each(function(index) {
+                    var val = $(this).attr('id').replace('parent', '');
+                    //var val=item[1];
+                    if (order == '') {
+                        order = val;
+                    } else {
+                        order = order + ',' + val;
+                    }
+                });
+                $.ajax({
+                    url: '<?php echo url('restaurant/orderCat/');?>/'+pid+'/'+sort,
+                    data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
+                    type: 'post',
+                    success: function() {
+                        location.reload();
+                    }
+                });
+            
+        });
+        //$( "#sortable" ).disableSelection();
+    });
+/*
+    function clear_all(cat_id) {
+        $('#addopt' + cat_id + ' .addopt').each(function() {
+            $(this).remove();
+        });
+        $('#addopt' + cat_id).hide();
+        $('.hasopt' + cat_id).val(0);
+    }*/
+</script>
 @stop

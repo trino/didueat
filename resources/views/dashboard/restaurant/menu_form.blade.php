@@ -44,6 +44,8 @@ if(!$menu_id)
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
             <textarea class="form-control newdesc ignore" placeholder="Description"><?php if(isset($model->description)){echo $model->description; }?></textarea>
+            
+            <input type="hidden" id="res_slug" value="<?php echo $res_slug;?>" />
         </div> 
         <div class="clearfix ignore"></div>   
     </div>
