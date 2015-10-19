@@ -3,6 +3,7 @@
 
 
     <div class="content-page">
+    <div class="container-fluid">
         <div class="row">
 
 
@@ -97,6 +98,7 @@
 
                 </div>
 
+            </div>
             </div>
             </div>
             </div>
