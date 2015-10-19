@@ -2334,7 +2334,7 @@ body.ecommerce {
 }
 
 .product-item > a > div > .img-responsive {
-    box-shadow: 0 0 3px #aaa;
+  width: 80%;
 }
 
 .add_category_popup > h2 {
@@ -5231,4 +5231,24 @@ ul li a {
 
 li {
     list-style: none;
+}
+
+.btn.green {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+    color: #fff;
+}
+
+.btn.green:hover {
+    background-color: #3f803f;
+}
+
+.btn.yellow{
+    background: #ffb848;
+  color: #574500;
+    color: #fff;
+}
+
+.btn.yellow:hover, .btn.yellow:focus {
+  background: #b37c26;
 }

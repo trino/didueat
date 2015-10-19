@@ -16,6 +16,7 @@
 
 
 <div class="content-page">
+<div class="container-fluid">
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -48,7 +49,7 @@
                     <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
                 </div>
             @endif
-            <div class="container-fluid">
+           
             
             <div class="box-shadow">
                 <div class="portlet-title">
@@ -80,13 +81,14 @@
                     </div>
                 </div>
             </div>
-            </div>
+           
             
 
 
         </div>
 
     </div>
+</div>
 </div>
 
 

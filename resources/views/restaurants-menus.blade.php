@@ -19,7 +19,7 @@
 <?php }?>
     <?php foreach($category as $cat)
           {?>
-              <div class="box-shadow">
+              <div class="box-shadow margin-bottom-20 clearfix">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-spoon"></i>{{$cat->title}}
