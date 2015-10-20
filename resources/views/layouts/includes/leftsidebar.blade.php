@@ -2,7 +2,6 @@
     <aside class="">
         <div class="">
 
-
             <div class="box-shadow">
                 <div class="portlet-title">
                     <div class="caption">
@@ -11,7 +10,6 @@
                 </div>
                 <div class="portlet-body">
                     <ul class="list-group margin-bottom-25 sidebar-menu">
-
 
                         <li class="list-group-item clearfix"><a
                                     href="{{ url('restaurant/orders/user') }}"
@@ -41,8 +39,6 @@
                                                                 class="<?php if (Request::path() == 'logout') {
                             echo 'active';
                         } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
-
-
 
 
                         @if(check_permission("can_edit_global_settings"))
@@ -94,10 +90,6 @@
                         @endif
 
 
-
-
-
-
                     </ul>
                 </div>
             </div>
@@ -117,8 +109,8 @@
 
 
                             <li class="list-group-item clearfix"><a
-                                        href="{{ url('restaurant/orders/restaurant') }}"
-                                        class="<?php if (Request::path() == 'restaurant/orders/restaurant') {
+                                        href="{{ url('restaurant/orders/pending') }}"
+                                        class="<?php if (Request::path() == 'restaurant/orders/pending') {
                                             echo 'active';
                                         } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/menus-manager') }}"
@@ -136,7 +128,9 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}"
                                                                     class="<?php if (Request::path() == 'restaurant/info') {
                                                                         echo 'active';
-                                                                    } ?>"><i class="fa fa-angle-right"></i> Restaurant
+                                                                    } ?>"><i class="fa fa-angle-right"></i> Restaura
+
+                                    nt
                                     Info</a>
                             </li>
                             <!--<li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/pending') }}" class="<?php if (Request::path() == 'restaurant/orders/pending') {
@@ -146,7 +140,6 @@
                             <!--<li class="list-group-item clearfix"><a href="{{ url('restaurant/report') }}" class="<?php if (Request::path() == 'restaurant/report') {
                                 echo 'active';
                             } ?>"><i class="fa fa-angle-right"></i> Print Report</a></li>-->
-
 
 
                         </ul>

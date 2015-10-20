@@ -5252,3 +5252,17 @@ li {
 .btn.yellow:hover, .btn.yellow:focus {
   background: #b37c26;
 }
+
+
+.restaurentsList .restaurentDetail {
+    border: 1px solid #df4500;
+    margin-bottom: 20px;
+}
+.restaurentsList .portlet-title {
+    background: #df4500;
+    color: #FFFFFF;
+    padding: 5px;
+}
+.restaurentsList .portlet-body {
+    padding: 6px;
+}

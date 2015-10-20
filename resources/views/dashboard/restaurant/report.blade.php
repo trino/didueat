@@ -1,84 +1,100 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
+    <div class="margin-bottom-40">
+        <!-- BEGIN CONTENT -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="content-page">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
 
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="row">
-                @include('layouts.includes.leftsidebar')
+                <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="row">
+                        @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-10 col-sm-8">
-                    <div class="deleteme">
-                        <div class="toprint">
-                            
-                            <div class="noprint">
-                                <h3 class="sidebar__title">Print Order Report</h3>
-                                <hr class="shop__divider">
-                                <div>
-                                    <strong>FILTER BY DATE</strong>
-                                    <form class="col-xs-12" style="height: auto!important;padding:0!important" method="get" action="">
-                                        <input type="text" class="datepicker  form-control--contact " name="from" placeholder="FROM (Date)" value="<?php if(isset($_GET['from']))echo $_GET['from'];?>">
-                                        <input type="text" class="datepicker  form-control--contact " name="to" placeholder="TO (Date)" value="<?php if(isset($_GET['to']))echo $_GET['to'];?>" >
-                                        <input type="submit" style="padding:10px;margin-top:-1px;" class="btn btn-primary" value="Go" onclick="return checkFilter();">
-                                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-md-10 col-sm-8">
+                            <div class="restaurentsList deleteme">
+                                <div class="toprint">
 
-                                    </form>
-                                    <div class="clearfix"></div> 
-                                </div>
-                                <hr class="shop__divider">
-                            </div>
-                            <?php if(isset($orders) && count($orders)>0){?>
-                                @foreach($orders as $order)
-                                  <div class="">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-globe"></i>Orders List
-                                </div>
-                                <div class="tools">
-                                </div>
-                            </div>
-                                <div class="portlet-body">
-                                <?php
-                                
-                                    $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first();    ?>
-                                      <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $restaurant->name;?></div>
-                                      <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
-                                      <div class="infolist noprint"><strong>EMAIL: </strong><?= $order->email;?></div>
-                                      <div class="infolist noprint"><strong>CONTACT: </strong><?= $order->contact;?></div>
-                                      <div class="infolist noprint"><strong>ORDER TYPE: </strong><?= ($order->order_type=='1')?'Delivery':'Pickup'?></div>
-                                      <div class="infolist noprint"><strong>ORDERED ON: </strong><?php $date = new DateTime($order->order_time);echo $date->format('l jS \of F Y h:i:s A'); ?></div>
-                                      <div class="infolist noprint"><strong>ORDER READY: </strong><?= $order->order_till;?></div>
-                                    <?php
-                                    if ($order->remarks!='') {
-                                        echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
+                                    <div class="noprint">
+                                        <h3 class="sidebar__title">Print Order Report</h3>
+                                        <hr class="shop__divider">
+                                        <div>
+                                            <strong>FILTER BY DATE</strong>
+
+                                            <form class="col-xs-12" style="height: auto!important;padding:0!important"
+                                                  method="get" action="">
+                                                <input type="text" class="datepicker  form-control--contact "
+                                                       name="from" placeholder="FROM (Date)"
+                                                       value="<?php if (isset($_GET['from'])) echo $_GET['from'];?>">
+                                                <input type="text" class="datepicker  form-control--contact " name="to"
+                                                       placeholder="TO (Date)"
+                                                       value="<?php if (isset($_GET['to'])) echo $_GET['to'];?>">
+                                                <input type="submit" style="padding:10px;margin-top:-1px;"
+                                                       class="btn btn-primary" value="Go"
+                                                       onclick="return checkFilter();">
+
+                                                <div class="clearfix"></div>
+
+                                            </form>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <hr class="shop__divider">
+                                    </div>
+                                    <?php if(isset($orders) && count($orders) > 0){?>
+                                    @foreach($orders as $order)
+                                        <div class="restaurentDetail">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-globe"></i> Orders List
+                                                </div>
+                                                <div class="tools">
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <?php
+                                                $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first();    ?>
+                                                <div class="infolist noprint margin-top-10"><strong>RESTAURANT
+                                                        NAME: </strong><?= $restaurant->name;?></div>
+                                                <div class="infolist noprint"><strong>ORDERED
+                                                        BY: </strong><?= $order->ordered_by;?></div>
+                                                <div class="infolist noprint">
+                                                    <strong>EMAIL: </strong><?= $order->email;?></div>
+                                                <div class="infolist noprint">
+                                                    <strong>CONTACT: </strong><?= $order->contact;?></div>
+                                                <div class="infolist noprint"><strong>ORDER
+                                                        TYPE: </strong><?= ($order->order_type == '1') ? 'Delivery' : 'Pickup'?>
+                                                </div>
+                                                <div class="infolist noprint"><strong>ORDERED
+                                                        ON: </strong><?php $date = new DateTime($order->order_time);echo $date->format('l jS \of F Y h:i:s A'); ?>
+                                                </div>
+                                                <div class="infolist noprint"><strong>ORDER
+                                                        READY: </strong><?= $order->order_till;?></div>
+                                                <?php
+                                                if ($order->remarks != '') {
+                                                    echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
+                                                }
+                                                //echo  $this->element('receipt');
+                                                ?>
+                                                @include('common.receipt')
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <?php }
+                                    else {
+
+                                        echo "Sorry! No Results Found.";
                                     }
-                                        //echo  $this->element('receipt');
-                                ?>
-                                    @include('common.receipt')
+                                    ?>
                                     <div class="clearfix"></div>
-                            </div>
-                        </div>
-                        @endforeach
-                        <?php }
-                            else
-                            {
-                                
-                                echo "Sorry! No Results Found.";
-                            }
-                        ?>
-                        <div class="clearfix"></div>
-                            <!--
+                                    <!--
                             <div class="dashboard toprint">
-                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>  
-                                <div class="infolist noprint"><strong>ORDERED BY: </strong>Brian Le</div>                  
+                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>
+                                <div class="infolist noprint"><strong>ORDERED BY: </strong>Brian Le</div>
                                 <div class="infolist noprint"><strong>EMAIL: </strong>khanggle@gmail.com</div>
                                 <div class="infolist noprint"><strong>CONTACT: </strong>2898084976</div>
                                 <div class="infolist noprint"><strong>ORDERED ON: </strong>Saturday 18th of July 2015 05:24:20 PM</div>
@@ -91,13 +107,13 @@
                                             Saturday 18th of July 2015 05:24:20 PM
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
-                                            <strong>Order Type: </strong> Pickup                    
+                                            <strong>Order Type: </strong> Pickup
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
                                             <strong>
                                                 Order City:
                                             </strong>
-                                            Hamilton                        
+                                            Hamilton
                                             <br><br>
                                         </div>
                                         <div class="clearfix"></div>
@@ -118,16 +134,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3"><hr></td>
-                                                </tr> 
-                                                <tr>                         
-                                                    <td></td>                    
-                                                    <td><strong>Total</strong></td>
-                                                    <td><strong>$11.88</strong></td>                        
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
+                                                    <td><strong>Total</strong></td>
+                                                    <td><strong>$11.88</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
                                                     <td><strong>Tax (13%)</strong></td>
-                                                    <td><strong>$1.54</strong></td>                        
+                                                    <td><strong>$1.54</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
@@ -135,14 +151,14 @@
                                                     <td><strong>$13.42</strong></td>
                                                 </tr>
                                             </tbody>
-                                        </table>                    
+                                        </table>
 
                                     </div>
                                 </div>
                                 <p>&nbsp;</p>
 
-                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>  
-                                <div class="infolist noprint"><strong>ORDERED BY: </strong>Brendan Thompson</div>                  
+                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>
+                                <div class="infolist noprint"><strong>ORDERED BY: </strong>Brendan Thompson</div>
                                 <div class="infolist noprint"><strong>EMAIL: </strong>brendanjamesthompson@gmail.com</div>
                                 <div class="infolist noprint"><strong>CONTACT: </strong>2898206559</div>
                                 <div class="infolist noprint"><strong>ORDERED ON: </strong>Sunday 19th of July 2015 04:42:16 PM</div>
@@ -155,13 +171,13 @@
                                             Sunday 19th of July 2015 04:42:16 PM
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
-                                            <strong>Order Type: </strong> Pickup                    
+                                            <strong>Order Type: </strong> Pickup
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
                                             <strong>
                                                 Order City:
                                             </strong>
-                                            Welland                        
+                                            Welland
                                             <br><br>
                                         </div>
                                         <div class="clearfix"></div>
@@ -187,19 +203,19 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3"><hr></td>
-                                                </tr> 
-                                                <tr>                         
-                                                    <td></td>                    
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td><strong>$27.76</strong></td>                        
+                                                    <td><strong>$27.76</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Tax (13%)</strong></td>
-                                                    <td><strong>$3.61</strong></td>                        
+                                                    <td><strong>$3.61</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Grand Total</strong></td>
                                                     <td><strong>$31.37</strong></td>
                                                 </tr>
@@ -208,8 +224,8 @@
                                     </div>
                                 </div>
                                 <p>&nbsp;</p>
-                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>  
-                                <div class="infolist noprint"><strong>ORDERED BY: </strong>dennie</div>                  
+                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>
+                                <div class="infolist noprint"><strong>ORDERED BY: </strong>dennie</div>
                                 <div class="infolist noprint"><strong>EMAIL: </strong>dennienguyen24@gmail.com</div>
                                 <div class="infolist noprint"><strong>CONTACT: </strong>2894422401</div>
                                 <div class="infolist noprint"><strong>ORDERED ON: </strong>Monday 20th of July 2015 12:01:36 PM</div>
@@ -223,13 +239,13 @@
                                             Monday 20th of July 2015 12:01:36 PM
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
-                                            <strong>Order Type: </strong> Delivery                    
+                                            <strong>Order Type: </strong> Delivery
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
                                             <strong>
                                                 Order City:
                                             </strong>
-                                            Hamilton                        
+                                            Hamilton
                                             <br><br>
                                         </div>
                                         <div class="clearfix"></div>
@@ -250,24 +266,24 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3"><hr></td>
-                                                </tr> 
-                                                <tr>                         
-                                                    <td></td>                    
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td><strong>$5.88</strong></td>                        
+                                                    <td><strong>$5.88</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Tax (13%)</strong></td>
-                                                    <td><strong>$0.76</strong></td>                        
+                                                    <td><strong>$0.76</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Delivery</strong></td>
-                                                    <td><strong>$3.50</strong></td>                        
+                                                    <td><strong>$3.50</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Grand Total</strong></td>
                                                     <td><strong>$10.14</strong></td>
                                                 </tr>
@@ -275,15 +291,15 @@
                                                     <td colspan="3"><strong>Donate to : Vietnam</strong></td>
                                                 </tr>
                                             </tbody>
-                                        </table>                    
+                                        </table>
 
                                     </div>
                                 </div>
 
                                 <p>&nbsp;</p>
 
-                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>  
-                                <div class="infolist noprint"><strong>ORDERED BY: </strong>alyssa ritchie</div>                  
+                                <div class="infolist noprint"><strong>RESTAURANT NAME: </strong>Charlie's Chopsticks</div>
+                                <div class="infolist noprint"><strong>ORDERED BY: </strong>alyssa ritchie</div>
                                 <div class="infolist noprint"><strong>EMAIL: </strong>alyssa_ritchiee@yahoo.ca</div>
                                 <div class="infolist noprint"><strong>CONTACT: </strong>2894568737</div>
                                 <div class="infolist noprint"><strong>ORDERED ON: </strong>Wednesday 22nd of July 2015 02:30:30 PM</div>
@@ -296,13 +312,13 @@
                                             Wednesday 22nd of July 2015 02:30:30 PM
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
-                                            <strong>Order Type: </strong> Delivery                    
+                                            <strong>Order Type: </strong> Delivery
                                         </div>
                                         <div class="col-xs-12" style="padding: 0;">
                                             <strong>
                                                 Order City:
                                             </strong>
-                                            Hamilton                        
+                                            Hamilton
                                             <br><br>
                                         </div>
                                         <div class="clearfix"></div>
@@ -332,22 +348,22 @@
                                                     <td>$6.36</td>
                                                 </tr>
 
-                                                <tr><td colspan="3"><hr></td></tr> 
-                                                <tr>                         
-                                                    <td></td>                    
+                                                <tr><td colspan="3"><hr></td></tr>
+                                                <tr>
+                                                    <td></td>
                                                     <td><strong>Total</strong></td>
-                                                    <td><strong>$17.72</strong></td>                        
+                                                    <td><strong>$17.72</strong></td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Tax (13%)</strong></td>
-                                                    <td><strong>$2.30</strong></td>                        
+                                                    <td><strong>$2.30</strong></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td></td>                    
+                                                    <td></td>
                                                     <td><strong>Delivery</strong></td>
-                                                    <td><strong>$3.50</strong></td>                        
+                                                    <td><strong>$3.50</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
@@ -364,54 +380,54 @@
                             </div>
 -->
 
-                            <div class="clearfix  hidden-xs"></div>
-                            <script>
-                                function checkFilter()
-                                {
-                                    var date1 = $('.date1').val();
-                                    var date2 = $('.date2').val();
-                                    if (date1 == '' || date2 == '')
-                                    {
-                                        alert('Date can\'t be blank');
-                                        return false;
-                                    }
-                                    else {
-                                        date1 = date1.replace('-', '').replace('-', '');
-                                        date2 = date2.replace('-', '').replace('-', '');
+                                    <div class="clearfix  hidden-xs"></div>
+                                    <script>
+                                        function checkFilter() {
+                                            var date1 = $('.date1').val();
+                                            var date2 = $('.date2').val();
+                                            if (date1 == '' || date2 == '') {
+                                                alert('Date can\'t be blank');
+                                                return false;
+                                            }
+                                            else {
+                                                date1 = date1.replace('-', '').replace('-', '');
+                                                date2 = date2.replace('-', '').replace('-', '');
 
-                                        date1 = parseFloat(date1);
-                                        date2 = parseFloat(date2);
+                                                date1 = parseFloat(date1);
+                                                date2 = parseFloat(date2);
 
-                                        if (date1 > date2)
-                                        {
-                                            alert('Starting date cannot be greater than end date');
-                                            return false;
+                                                if (date1 > date2) {
+                                                    alert('Starting date cannot be greater than end date');
+                                                    return false;
+                                                }
+                                                else
+                                                    return true;
+
+                                            }
                                         }
-                                        else
-                                            return true;
-
-                                    }
-                                }
-                            </script>
-                            <style>
-                                .date1,.date2{padding-left:5px;}
-                            </style>        
+                                    </script>
+                                    <style>
+                                        .date1, .date2 {
+                                            padding-left: 5px;
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+                            <a href="javascript:void(0);" class="btn red noprint" onclick="window.print();">Print
+                                Receipt</a>
+                            <hr class="shop__divider">
                         </div>
-                    </div>
-                    <a href="javascript:void(0);" class="btn red noprint" onclick="window.print();">Print Receipt</a>
-                    <hr class="shop__divider">
-                </div>
 
-            </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>                
-    <!-- END CONTENT -->
-</div>
-<script>
-$(function(){
-    $( ".datepicker" ).datepicker({"dateFormat":'yy-mm-dd'});
-    
-})
-</script>
+        <!-- END CONTENT -->
+    </div>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
+
+        })
+    </script>
 @stop

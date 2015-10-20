@@ -49,8 +49,8 @@ Route::resource('restaurant/addresses',             'RestaurantController@addres
 Route::get('restaurant/addresses/delete/{id}',      'RestaurantController@deleteAddresses'      )->where('id', '[0-9]+');
 Route::get('restaurant/orders/pending',             'RestaurantController@pendingOrders');
 Route::get('restaurant/orders/view/{id}',           'RestaurantController@viewOrder'            )->where('id', '[0-9]+');
-Route::get('restaurant/orders/pending/cancel/{id}', 'RestaurantController@changeOrderCancel'    )->where('id', '[0-9]+');
-Route::get('restaurant/orders/pending/approve/{id}','RestaurantController@changeOrderApprove'   )->where('id', '[0-9]+');
+Route::post('restaurant/orders/pending/cancel', 'RestaurantController@changeOrderCancel'    );
+Route::post('restaurant/orders/pending/approve','RestaurantController@changeOrderApprove'   );
 Route::get('restaurant/orders/pending/delete/{id}', 'RestaurantController@deleteOrder'          )->where('id', '[0-9]+');
 Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail'         )->where('id', '[0-9]+');
 Route::get('restaurant/orders/history/{id}',        'RestaurantController@history'              )->where('id', '[0-9]+');

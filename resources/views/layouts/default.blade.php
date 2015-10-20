@@ -20,7 +20,6 @@
     <meta property="og:url" content="-CUSTOMER VALUE-">
     <link rel="shortcut icon" href="favicon.ico">
 
-
     <!--link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script-->
     <!--link href="{{ asset('assets/global/css/components-md.css') }}" rel="stylesheet">
@@ -28,95 +27,79 @@
     <!--link href="{{ asset('assets/global/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/style-responsive.css') }}" rel="stylesheet"-->
 
-
     <!--link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script-->
 
-
     <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-
-
-
-
-
 
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
 
-
-
-
-
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script><!-- pop up -->
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script><!-- slider for products -->
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
+            type="text/javascript"></script>
+    <!-- pop up -->
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+            type="text/javascript"></script>
+    <!-- slider for products -->
     <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script><!-- Quantity -->
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script><!-- External libraries: GreenSock -->
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script><!-- LayerSlider script files -->
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script><!-- LayerSlider script files -->
+    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
+            type="text/javascript"></script>
+    <!-- Quantity -->
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
+            type="text/javascript"></script>
+    <!-- External libraries: GreenSock -->
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
+            type="text/javascript"></script>
+    <!-- LayerSlider script files -->
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
+            type="text/javascript"></script>
+    <!-- LayerSlider script files -->
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
-
-
 </head>
 
 
 <body class="ecommerce">
 
+    @include('popups.login')
+    @include('popups.signup')
+    @include('popups.forgotpassword')
 
-@include('popups.login')
-@include('popups.signup')
-@include('popups.forgotpassword')
+    @include('layouts.includes.header')
 
-@include('layouts.includes.header')
+    <div class="main">
 
-<div class="main">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
 
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+        @yield('content')
 
-    @yield('content')
-
-</div>
-
-@include('layouts.includes.footer')
-
-<div class="overlay_loader">
-    <div class="clearfix"></div>
-    <div id="loadmoreajaxloader">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}">
     </div>
-</div>
 
+    @include('layouts.includes.footer')
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="overlay_loader">
+        <div class="clearfix"></div>
+        <div id="loadmoreajaxloader">
+            <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+        </div>
+    </div>
 
 
 <script type="text/javascript">
@@ -200,9 +183,6 @@
 
     });
 </script>
-
-
-
 
 
 <!-- END TOP BAR -->

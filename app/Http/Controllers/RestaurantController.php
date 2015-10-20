@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Profiles;
 use App\Http\Models\Restaurants;
 
 /**
@@ -464,24 +465,44 @@ class RestaurantController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function changeOrderCancel($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
-            \Session::flash('message', "[Order Id] is missing!");
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
-        }
-        try {
-            $ob = \App\Http\Models\Reservations::find($id);
-            $ob->populate(array('status' => 'cancelled'));
-            $ob->save();
+    public function changeOrderCancel() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['id']) || empty($post['id'])) {
+                \Session::flash('message', "[Order Id] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
+            if (!isset($post['note']) || empty($post['note'])) {
+                \Session::flash('message', "[Note Field] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
 
-            \Session::flash('message', 'Order status has been cancelled successfully!');
-            \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/orders/pending');
-        } catch (\Exception $e) {
-            \Session::flash('message', $e->getMessage());
+            try {
+                $ob = \App\Http\Models\Reservations::find($post['id']);
+                $ob->populate(array('status' => 'cancelled', 'note' => $post['note']));
+                $ob->save();
+
+                $userArray = Profiles::find($ob->user_id)->toArray();
+                $userArray['mail_subject'] = 'Your order has been cancelled.';
+                $userArray['note'] = $post['note'];
+                $this->sendEMail("emails.order_cancel", $userArray);
+
+                \Session::flash('message', 'Order status has been cancelled successfully!');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('restaurant/orders/pending');
+            } catch (\Exception $e) {
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
+        } else {
+            \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
             return \Redirect::to('restaurant/orders/pending');
@@ -493,24 +514,44 @@ class RestaurantController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function changeOrderApprove($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
-            \Session::flash('message', "[Order Id] is missing!");
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
-        }
-        try {
-            $ob = \App\Http\Models\Reservations::find($id);
-            $ob->populate(array('status' => 'approved'));
-            $ob->save();
+    public function changeOrderApprove() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['id']) || empty($post['id'])) {
+                \Session::flash('message', "[Order Id] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
+            if (!isset($post['note']) || empty($post['note'])) {
+                \Session::flash('message', "[Note Field] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
 
-            \Session::flash('message', 'Order status has been approved successfully!');
-            \Session::flash('message-type', 'alert-success');
-            \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/orders/pending');
-        } catch (\Exception $e) {
-            \Session::flash('message', $e->getMessage());
+            try {
+                $ob = \App\Http\Models\Reservations::find($post['id']);
+                $ob->populate(array('status' => 'approved', 'note' => $post['note']));
+                $ob->save();
+
+                $userArray = Profiles::find($ob->user_id)->toArray();
+                $userArray['mail_subject'] = 'Your order has been approved.';
+                $userArray['note'] = $post['note'];
+                $this->sendEMail("emails.order_approve", $userArray);
+
+                \Session::flash('message', 'Order status has been approved successfully!');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('restaurant/orders/pending');
+            } catch (\Exception $e) {
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/pending');
+            }
+        } else {
+            \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
             return \Redirect::to('restaurant/orders/pending');

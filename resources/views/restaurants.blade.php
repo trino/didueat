@@ -23,11 +23,9 @@
 
                     <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <table id="tableRestuarant" class="table table-bordered table-hover">
-                                <div id="restuarant_bar">
+                            <div id="restuarant_bar">
                                 @include('ajax.search_restaurants')
-                                </div>
-                            </table>
+                            </div>
                         </div>
                     </div>
 
@@ -159,7 +157,7 @@
 
         $('body').on('click', '.loadMoreRestaurants', function(){
             var search = "{{ $term }}";
-            var offset = $('#tableRestuarant tr:last').attr('id');
+            var offset = $('#restuarant_bar .startRow:last').attr('id');
             var token = $('input[name=_token]').val();
             var sortType = $('#filterType #sortType').val();
             var sortBy = $('#filterType #sortBy').val();
