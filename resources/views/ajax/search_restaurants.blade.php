@@ -1,6 +1,6 @@
 @foreach($query as $value)
     <?php
-    $logo = ($value->logo) ? '/' . $value->logo : 'default.png';
+    $logo = ($value->logo != "") ? 'restaurants/'.$value->id .'/'. $value->logo : 'default.png';
     ?>
     <div class="row startRow" id="{{ $start }}">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -8,7 +8,7 @@
                 <div class="card-image col-md-4 col-sm-4 col-xs-12">
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         <img style="width:100%;" class="img-responsive" alt=""
-                             src="{{ asset('assets/images/restaurants/' . $value->id .'/'.$logo) }}">
+                             src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                     <span class="card-title">{{ $value->name }}</span>
                 </div>

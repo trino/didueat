@@ -184,7 +184,6 @@
                                             </div>
                                             <?php endforeach;?>
 
-
                                             <input type="hidden" value="" class="chars_<?php echo $sub->id;?>">
                                         </div>
                                     </div>

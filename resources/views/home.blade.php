@@ -55,7 +55,7 @@
                                     <option value="sing_mul">S or M</option>
                                     <option value="image">Image</option>
                                 </select>
-                                - By
+                                By
                                 <select name="sortBy" id="sortBy" class="browser-default">
                                     <option value="ASC">ASC</option>
                                     <option value="DESC">DESC</option>
@@ -65,18 +65,18 @@
                         </ul>
                         <h4>Price Range</h4>
                         <ul id="filterPriceRange">
-                            <li>From <input type="text" name="priceFrom" id="priceFrom" size="3" value="" /> - To <input type="text" name="priceTo" id="priceTo" size="3" value="" /></li>
+                            <li>From <input type="text" name="priceFrom" id="priceFrom" size="3" value="" /> To <input type="text" name="priceTo" id="priceTo" size="3" value="" /></li>
                         </ul>
                         <h4>Has Addon?</h4>
                         <ul id="filterAddon">
-                            <li><a class="hasAddon" data-name="1">Yes</a></li>
-                            <li><a class="hasAddon" data-name="0">No</a></li>
+                            <li><a class="hasAddon" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
+                            <li><a class="hasAddon" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
                             <input type="hidden" name="selected_hasAddon" id="selected_hasAddon" value="" />
                         </ul>
                         <h4>Has Image?</h4>
                         <ul id="filterImage">
-                            <li><a class="hasImage" data-name="1">Yes</a></li>
-                            <li><a class="hasImage" data-name="0">No</a></li>
+                            <li><a class="hasImage" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
+                            <li><a class="hasImage" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
                             <input type="hidden" name="selected_hasImage" id="selected_hasImage" value="" />
                         </ul>
                     </div>
@@ -98,6 +98,8 @@
             var hasAddon = $('#filterAddon #selected_hasAddon').val();
             var hasImage = $('#filterImage #selected_hasImage').val();
 
+            $('#filterAddon li a').children('i').removeClass('fa-square').removeClass('fa-square-o').addClass('fa-square-o');
+            $(this).children('i').addClass('fa-square');
             return filterFunc(sortType, sortBy, priceFrom, priceTo, singleMultiple, hasAddon, hasImage);
         });
 
@@ -111,6 +113,8 @@
             var hasAddon = $('#filterAddon #selected_hasAddon').val();
             var hasImage = $('#filterImage #selected_hasImage').val();
 
+            $('#filterImage li a').children('i').removeClass('fa-square').removeClass('fa-square-o').addClass('fa-square-o');
+            $(this).children('i').addClass('fa-square');
             return filterFunc(sortType, sortBy, priceFrom, priceTo, singleMultiple, hasAddon, hasImage);
         });
 

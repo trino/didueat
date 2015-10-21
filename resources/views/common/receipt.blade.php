@@ -30,10 +30,8 @@
                 {!! $restaurant->address.' , '.$restaurant->city !!}
                 {!! $restaurant->province.' , '.$restaurant->country !!}<br>
                 <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}<br>
-                <abbr title="Email">E:</abbr>
-                <a href="javascript:void(0);">
-                    {!! $restaurant->email !!}
-                </a>
+                <abbr title="Email">E:</abbr> <a href="javascript:void(0);"> {!! $restaurant->email !!} </a><br />
+                <abbr title="Phone">Views:</abbr> {!! $total_views !!}
             </address>
             <div class="clearfix"></div>
         </div>

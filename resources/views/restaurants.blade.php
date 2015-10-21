@@ -56,31 +56,31 @@
                                         <option value="country">Country</option>
                                         <option value="delivery_fee">Delivery Fee</option>
                                     </select>
-                                    - By
+                                    By
                                     <select name="sortBy" id="sortBy" class="browser-default">
                                         <option value="ASC">ASC</option>
                                         <option value="DESC">DESC</option>
                                     </select>
                                 </li>
                             </ul>
-                            <h4>City</h4>
-                            <ul id="filterCity">
+                            <h4><a class="filterTitle"><i class="fa fa-plus-square"></i> City</a></h4>
+                            <ul id="filterCity" style="display: none;">
                                 @foreach($cities as $city)
-                                    <li><a class="cities" data-name="{{ $city->city }}">{{ $city->city }}</a></li>
+                                    <li><a class="cities" data-name="{{ $city->city }}"><i class="fa fa-square-o"></i> &nbsp; {{ $city->city }}</a></li>
                                 @endforeach
                                 <input type="hidden" name="selected_city" id="selected_city" value="" />
                             </ul>
-                            <h4>Provice</h4>
-                            <ul id="filterProvince">
+                            <h4><a class="filterTitle"><i class="fa fa-plus-square"></i> Provice</a></h4>
+                            <ul id="filterProvince" style="display: none;">
                                 @foreach($provinces as $province)
-                                    <li><a class="provinces" data-name="{{ $province->province }}">{{ $province->province }}</a></li>
+                                    <li><a class="provinces" data-name="{{ $province->province }}"><i class="fa fa-square-o"></i> &nbsp; {{ $province->province }}</a></li>
                                 @endforeach
                                 <input type="hidden" name="selected_province" id="selected_province" value="" />
                             </ul>
-                            <h4>Country</h4>
-                            <ul id="filterCountry">
+                            <h4><a class="filterTitle"><i class="fa fa-plus-square"></i> Country</a></h4>
+                            <ul id="filterCountry" style="display: none;">
                                 @foreach($countries as $country)
-                                    <li><a class="countries" data-name="{{ $country->id }}">{{ $country->name }}</a></li>
+                                    <li><a class="countries" data-name="{{ $country->id }}"><i class="fa fa-square-o"></i> &nbsp; {{ $country->name }}</a></li>
                                 @endforeach
                                 <input type="hidden" name="selected_country" id="selected_country" value="" />
                             </ul>
@@ -95,6 +95,17 @@
 
 
     <script type="text/javascript">
+        $('body').on('click', '.filterTitle', function(){
+            if($(this).children('i.fa-plus-square').length > 0){
+                $(this).children('i').removeClass('fa-plus-square').addClass('fa-minus-square');
+                $(this).parent().next().show();
+            } else {
+                $(this).children('i').removeClass('fa-minus-square').addClass('fa-plus-square');
+                $(this).parent().next().hide();
+            }
+        });
+
+
         $('body').on('click', '#filterCity a.cities', function(){
             $('#selected_city').val($(this).attr('data-name'));
             var sortType = $('#filterType #sortType').val();
@@ -102,6 +113,9 @@
             var city = $('#filterCity #selected_city').val();
             var province = $('#filterProvince #selected_province').val();
             var country = $('#filterCountry #selected_country').val();
+
+            $('#filterCity li a').children('i').removeClass('fa-square').removeClass('fa-square-o').addClass('fa-square-o');
+            $(this).children('i').addClass('fa-square');
 
             return filterFunc(sortType, sortBy, city, province, country);
         });
@@ -114,7 +128,8 @@
             var province = $('#filterProvince #selected_province').val();
             var country = $('#filterCountry #selected_country').val();
 
-
+            $('#filterProvince li a').children('i').removeClass('fa-square').removeClass('fa-square-o').addClass('fa-square-o');
+            $(this).children('i').addClass('fa-square');
             return filterFunc(sortType, sortBy, city, province, country);
         });
 
@@ -126,6 +141,8 @@
             var province = $('#filterProvince #selected_province').val();
             var country = $('#filterCountry #selected_country').val();
 
+            $('#filterCountry li a').children('i').removeClass('fa-square').removeClass('fa-square-o').addClass('fa-square-o');
+            $(this).children('i').addClass('fa-square');
             return filterFunc(sortType, sortBy, city, province, country);
         });
 

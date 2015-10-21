@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\PageViews;
 
 /**
  * Home
@@ -360,6 +361,9 @@ class HomeController extends Controller {
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
+        $data['total_views'] = \App\Http\Models\PageViews::getView($res_slug->id);
+        \App\Http\Models\PageViews::insertView($res_slug->id);
+
         //$data['menus_list'] = $menus;
         if(isset($_GET['page'])) {
             return view('menus', $data);
@@ -367,12 +371,14 @@ class HomeController extends Controller {
             return view('restaurants-menus', $data);
         }
     }
+
     function contactus() {
         $data['title'] = 'Contact';
      //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
 
     }
+    
     function test() {
         if(isset($_POST)) {
             var_dump($_POST);
