@@ -256,6 +256,9 @@
                                 $('#ordered_code').val(arr.postal_code);
                                 $('.reservation_signin').hide();
                                 $('.fancybox-close').click();
+                                //only loads header
+                                $('#header-nav').load(document.URL +  ' #header-nav>div:first-child');
+                                
                             }
                         })
 

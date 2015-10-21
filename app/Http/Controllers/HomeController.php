@@ -15,6 +15,8 @@ use App\Http\Models\PageViews;
  */
 class HomeController extends Controller {
     public function __construct() {
+        date_default_timezone_set('America/Toronto');
+       
         $this->beforeFilter(function() {
             initialize("home");
         });

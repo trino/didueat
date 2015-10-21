@@ -22,6 +22,8 @@ class RestaurantController extends Controller {
      * @return redirect
      */
     public function __construct() {
+        date_default_timezone_set('America/Toronto');
+       
         $this->beforeFilter(function() {
             initialize("restaurants");
             if (!\Session::has('is_logged_in')) {
@@ -701,6 +703,15 @@ class RestaurantController extends Controller {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
             }
+        }
+        if(!is_numeric($arr['cat_id']))
+        {
+            $arrs['title'] = $arr['cat_id'];
+            $arrs['res_id'] = $arr['restaurant_id'];
+            $ob2 = new \App\Http\Models\Category();
+            $ob2->populate($arrs);
+            $ob2->save();
+            $arr['cat_id'] = $ob2->id;
         }
           //echo $arr['cat_id'];die();  
            //sample for find or New 

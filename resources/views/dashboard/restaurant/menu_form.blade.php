@@ -24,6 +24,12 @@ if(!$menu_id)
         </div>
 
         <div class="col-sm-10 col-xs-12 lowheight ignore">
+        <?php
+        if(count($category))
+        {
+            //var_dump($category->items);
+            ?>
+            
             <select class="cat_id">
                 <option value="">Choose Category</option>
                 <?php
@@ -35,11 +41,20 @@ if(!$menu_id)
                 }
                 ?>
             </select> <strong> &nbsp;  &nbsp; OR</strong> &nbsp;  &nbsp; <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
+            
             <div class="catblock" style="display: none;padding:5px 0 10px 0">
             <input type="text" class="form-control cat_title" placeholder="Add new category" style="width: 75%;float:left" /> <a href="javascript:void(0);" class="btn btn-primary" id="save_cat" style="width: 20%;float:left">Create</a>
             <div class="clearfix"></div>
             </div>
-            
+            <?php
+        }
+        else
+        {
+            ?>
+            <input type="text" placeholder="Add new category" class="form-control cat_id"/>
+            <?php
+        }
+        ?>
                         
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if(isset($model->menu_item)){echo $model->menu_item; }?>" /><br class="ignore" />
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if(isset($model->price)){echo $model->price; }?>" /><br class="ignore" />
