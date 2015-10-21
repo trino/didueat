@@ -704,6 +704,15 @@ class RestaurantController extends Controller {
                 $arr[$Key] = $_POST[$Key];
             }
         }
+        if(!is_numeric($arr['cat_id']))
+        {
+            $arrs['title'] = $arr['cat_id'];
+            $arrs['res_id'] = $arr['restaurant_id'];
+            $ob2 = new \App\Http\Models\Category();
+            $ob2->populate($arrs);
+            $ob2->save();
+            $arr['cat_id'] = $ob2->id;
+        }
           //echo $arr['cat_id'];die();  
            //sample for find or New 
           /*$ob2 = \App\Http\Models\Menus::findOrNew($_GET['id']);
