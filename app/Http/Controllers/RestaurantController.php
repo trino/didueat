@@ -22,6 +22,8 @@ class RestaurantController extends Controller {
      * @return redirect
      */
     public function __construct() {
+        date_default_timezone_set('America/Toronto');
+       
         $this->beforeFilter(function() {
             initialize("restaurants");
             if (!\Session::has('is_logged_in')) {

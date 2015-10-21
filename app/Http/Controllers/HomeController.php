@@ -14,6 +14,8 @@ use App\Http\Controllers\Controller;
  */
 class HomeController extends Controller {
     public function __construct() {
+        date_default_timezone_set('America/Toronto');
+       
         $this->beforeFilter(function() {
             initialize("home");
         });

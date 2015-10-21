@@ -21,5 +21,7 @@ abstract class Controller extends BaseController
         $this->beforeFilter(function() {
             initialize("cont");
         });
+        
+        
     }
 }
