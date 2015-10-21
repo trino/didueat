@@ -31,7 +31,7 @@
                 {!! $restaurant->province.' , '.$restaurant->country !!}<br>
                 <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}<br>
                 <abbr title="Email">E:</abbr> <a href="javascript:void(0);"> {!! $restaurant->email !!} </a><br />
-                <abbr title="Phone">Views:</abbr> {!! $total_views !!}
+                <abbr title="Phone">Views:</abbr> {!! (isset($total_views))?$total_views:0 !!}
             </address>
             <div class="clearfix"></div>
         </div>
@@ -315,43 +315,3 @@
     }
 
 </script>
-<?php 
-function get_time_interval()
-{
-    
-    $min = date('i');
-    
-    $mod = $min%15;
-    $diff = 15-$mod;
-    
-    $date = date('Y-m-d H:i:s');
-    
-    $currentDate = strtotime($date);
-    $futureDate = $currentDate+(60*$diff);
-    $start = date("Y-m-d H:i:s", $futureDate);
-    $start_format = date('M d, H:i',$futureDate);
-    for($i=0;$i<15;$i++)
-    {
-        if($i==0)
-        {
-            $start = $start;
-            $start_format = $start_format;
-            
-            
-            
-        }
-        else
-        {
-            $start = $end;
-            $start_format = $end_format;
-        }
-        $currentDate = strtotime($start);
-        $futureDate = $currentDate+(60*15);
-        $end = date("Y-m-d H:i:s", $futureDate);
-        $end_format = date('M d, H:i',$futureDate);
-        echo "<option value='".$start_format." - ".$end_format."'>".$start_format." - ".$end_format."</option>";
-    } 
-     
-    
-}
-?>
