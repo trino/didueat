@@ -67,7 +67,7 @@
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                 </div>
             </div>
-            <div class="top-cart-info">
+            <!--div class="top-cart-info">
                 <div class="col-md-6">
                     <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
                 </div>
@@ -79,7 +79,7 @@
                     <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"
                                                                     onclick="#cartsz"></i></a>
                 </div>
-            </div>
+            </div-->
 
 
 
