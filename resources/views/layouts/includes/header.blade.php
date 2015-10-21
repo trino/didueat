@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <a class="site-logo" href="{{ url('/') }}"><img src="{{ url('assets/images/logos/logo.png') }}" alt="didueat?"
                                                         style="height: 40px; position: relative; top: 2px;"/></a>
         <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
@@ -68,6 +68,6 @@
 </div>
 
 
-<a href="#header-nav" class="fancybox-fast-view new_headernav hide" style="display: block !important;"></a>
+<a href="#header-nav" class="fancybox-fast-view new_headernav hide" style="display: none !important;"></a>
 <div id="header-nav">
 </div>
