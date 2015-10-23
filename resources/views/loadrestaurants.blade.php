@@ -1,28 +1,9 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
 
 
-
-
-
     <table class="table table-bordered table-hover">
-        <!--thead>
-        <tr role="row" class="heading">
-            <th width="1%">
-                Image
-            </th>
-
-            <th width="8%">
-                Sort Order
-            </th>
-
-            <th width="10%">
-            </th>
-        </tr>
-        </thead-->
         <tbody>
-
         @foreach ($restaurants_list as $value)
-
             <tr>
                 <td width="10%">
 
@@ -43,20 +24,15 @@
                     <ul class="blog-info">
                         <li>
                             <i class="fa fa-map-marker"></i>{!! $value->address.' , '.$value->city.' , '.$value->province.' , '. select_field("countries", 'id', $value->country, 'name') !!}
-                            <i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}<i class="fa fa-tags"></i>{!! $value->phone !!}</li>
+                            <i class="fa fa-truck"></i>{!!  $value->delivery_fee.' , '.$value->minimum !!}<i class="fa fa-tags"></i>{!! $value->phone !!}
+                        </li>
                     </ul>
-
-
                 <td width="10%">
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order
                         Online</a></td>
                 </td>
             </tr>
-
-
         @endforeach
-
-
         </tbody>
     </table>
 </div>

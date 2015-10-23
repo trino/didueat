@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,21 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class Countries extends BaseModel {
+class Countries extends BaseModel
+{
 
     protected $table = 'countries';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    
+
     /**
      * @param array
      * @return Array
      */
 
 
-    public function populate($data) {
+    public function populate($data)
+    {
         $cells = array('name', 'alpha_2', 'alpha_3');
-        foreach($cells as $cell) {
+        foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
@@ -40,5 +43,5 @@ class Countries extends BaseModel {
             $this->alpha_3 = $data['alpha_3'];
         }*/
     }
-    
+
 }

@@ -13,6 +13,7 @@
                     </div>
                     <span>&nbsp;</span>
                 </div>
+
                 <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                     <i class="fa fa-shopping-cart"></i>
                     <div>
@@ -21,6 +22,7 @@
                     </div>
                     <span>&nbsp;</span>
                 </div>
+
                 <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                     <i class="fa fa-spoon"></i>
                     <div>
@@ -30,7 +32,6 @@
                 </div>
             </div>
             <div class="col-md-1"></div>
-
         </div>
     </div>
 </div>
@@ -47,9 +48,6 @@
                 <ul class="list-unstyled">
                     <li><i class="fa fa-angle-right"></i> <a href="#">Delivery Information</a></li>
                     <li><i class="fa fa-angle-right"></i> <a href="#">Customer Service</a></li>
-
-
-
                     <li><i class="fa fa-angle-right"></i> <a href="/Foodie/pages/disclaimers">Disclaimers</a></li>
                 </ul>
             </div>
@@ -58,7 +56,7 @@
             <!-- BEGIN TWITTER BLOCK -->
             <div class="col-md-3 col-sm-6 pre-footer-col">
                 <h2 class="margin-bottom-15">Latest Tweets</h2>
-                <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes...</a>
+                <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes ...</a>
             </div>
             <!-- END TWITTER BLOCK -->
 
@@ -75,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <div class="pull-right">
-                                <input class="btn red" type="submit" value="Submit" />
+                                <input class="btn red" type="submit" value="Submit"/>
                             </div>
                         </div>
                     </fieldset>
@@ -95,7 +93,6 @@
             <div class="col-md-6 col-sm-6">
                 <ul class="social-icons">
                     <li><a class="rss" data-original-title="rss" href="#"></a></li>
-
                 </ul>
             </div>
             <!-- END SOCIAL ICONS -->
@@ -105,8 +102,9 @@
                     <h2>Newsletter</h2>
                     <form action="#" method="post">
                         <input type="hidden" name="action" value="subscribe">
+
                         <div class="input-group">
-                            <input type="text" name="email" placeholder="youremail@mail.com" class="form-control" >
+                            <input type="text" name="email" placeholder="youremail@mail.com" class="form-control">
                             <span class="input-group-btn">
                                 <button class="btn red" type="submit">Subscribe</button>
                             </span>
@@ -117,9 +115,6 @@
             <!-- END NEWLETTER -->
         </div>
     </div>
-
-
-
 
 
     <!-- BEGIN FOOTER -->
@@ -143,7 +138,6 @@
         </div>
     </div>
     <!-- END FOOTER -->
-
 
 </div>
 <!-- END PRE-FOOTER -->

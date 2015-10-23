@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,19 +11,21 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class Reservations extends BaseModel {
+class Reservations extends BaseModel
+{
 
     protected $table = 'reservations';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    
+
     /**
      * @param array
      * @return Array
      */
-    public function populate($data) {
-        $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'email', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee','tax', 'order_type', 'status', 'note');
-        foreach($cells as $cell) {
+    public function populate($data)
+    {
+        $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'email', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note');
+        foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
@@ -113,7 +116,8 @@ class Reservations extends BaseModel {
     }
 
 
-    function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax){
+    function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax)
+    {
         $Data = array();
         $Data['menu_ids'] = implode_data($menu_ids);
         $Data['prs'] = implode_data($prs);
@@ -129,7 +133,9 @@ class Reservations extends BaseModel {
         $Data['g_total'] = $g_total;
         $Data['tax'] = $tax;
 
-        if ($order_type == '0'){$order_type = "0.00";}
+        if ($order_type == '0') {
+            $order_type = "0.00";
+        }
         $Data['order_type'] = $order_type;
 
         //convert to a Manager API call
@@ -138,7 +144,9 @@ class Reservations extends BaseModel {
         $ord->save($att);
         return $att->id;
     }
-    function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $postal_code, $remarks, $order_till, $province, $Phone){
+
+    function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $postal_code, $remarks, $order_till, $province, $Phone)
+    {
         $Data = array();
         $Data['email'] = $email;
         $Data['address2'] = $address2;
@@ -155,14 +163,19 @@ class Reservations extends BaseModel {
 
 
 /////////////////////////////////Orders API/////////////////////////////////////
-    function enum_orders($ID = "", $IsUser = false, $Approved = false){
+    function enum_orders($ID = "", $IsUser = false, $Approved = false)
+    {
         $Conditions = array();
-        $OrderBy = array('order_time'=>'desc');
-        if($IsUser){
-            if(!$ID){$ID = read("ID");}
+        $OrderBy = array('order_time' => 'desc');
+        if ($IsUser) {
+            if (!$ID) {
+                $ID = read("ID");
+            }
             $Conditions["ordered_by"] = $ID;
         } else {
-            if(!$ID){$ID = get_current_restaurant();}
+            if (!$ID) {
+                $ID = get_current_restaurant();
+            }
             $Conditions["res_id"] = $ID;
         }
         if (strtolower($Approved != "any")) {
@@ -175,30 +188,45 @@ class Reservations extends BaseModel {
         }
         return enum_all("reservations", $Conditions, $OrderBy);
     }
-    function delete_order($ID){
+
+    function delete_order($ID)
+    {
         delete_all("reservations", array('id' => $ID));
     }
-    function pending_order_count($restaurant_id = ""){
+
+    function pending_order_count($restaurant_id = "")
+    {
         return iterator_count($this->enum_orders($restaurant_id, false, false));
     }
-    function get_order($ID){
+
+    function get_order($ID)
+    {
         return get_entry("reservations", $ID, "id");
     }
-    function order_status($Order){
-        if (!is_object($Order)){$Order = $this->get_order($Order);}
-        if($Order->cancelled == 1) {
+
+    function order_status($Order)
+    {
+        if (!is_object($Order)) {
+            $Order = $this->get_order($Order);
+        }
+        if ($Order->cancelled == 1) {
             return 'Cancelled';
-        }else if($Order->approved == 1) {
+        } else if ($Order->approved == 1) {
             return 'Approved';
-        }else {
+        } else {
             return 'Pending';
         }
     }
-    function approve_order($OrderID, $Status=true){
-        if($Status){$Status = 'approved';} else {$Status = 'cancelled';}
-        edit_database('reservations', "ID", $OrderID, array($Status=>1));
-    }
 
+    function approve_order($OrderID, $Status = true)
+    {
+        if ($Status) {
+            $Status = 'approved';
+        } else {
+            $Status = 'cancelled';
+        }
+        edit_database('reservations', "ID", $OrderID, array($Status => 1));
+    }
 
 
 }

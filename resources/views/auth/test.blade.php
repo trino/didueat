@@ -1,6 +1,4 @@
-<?php
-        $APIkey = "AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids";
-?>
+<?php $APIkey = "AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids"; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +11,7 @@
             margin: 0;
             padding: 0;
         }
-        #map {
-            height: 100%;
-        }
+        #map { height: 100%; }
     </style>
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
     <style>
@@ -88,9 +84,6 @@
 </table>
 
 <script>
-    // This example displays an address form, using the autocomplete feature
-    // of the Google Places API to help users fill in the information.
-
     var placeSearch, autocomplete;
     var componentForm = {
         street_number: 'short_name',
@@ -107,9 +100,6 @@
         autocomplete = new google.maps.places.Autocomplete(
                 /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
                 {types: ['geocode']});
-
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
         autocomplete.addListener('place_changed', fillInAddress);
     }
 
@@ -206,14 +196,11 @@
     function getvalue(ID){
         return document.getElementById(ID).value;
     }
-
     window.onload = loadScript;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?= $APIkey; ?>&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
-
 <div id="zip_code_output"></div><div id="map_canvas" style="width:650px; height:600px;"></div>
 <INPUT TYPE="TEXT" ID="pointa" placeholder="Start" value="L8L6V6"><INPUT TYPE="TEXT" ID="pointb" placeholder="End" value="L7P3C3">
 <INPUT TYPE="BUTTON" VALUE="Get Distance" ONCLICK="getdistance(getvalue('pointa'), getvalue('pointb'));" />
-
 </body>
 </html>

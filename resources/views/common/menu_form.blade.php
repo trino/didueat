@@ -1,12 +1,13 @@
-<?php //$Manager->fileinclude(__FILE__); ?>
-<!--script src="{{ url('scripts/additional.js') }}"></script-->
-
 <div class="newmenu" id="newmenu0">
-
     <p>&nbsp;</p>
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12 nopadd">
-            <div class="menuimg menuimg<?= $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>><?php if(isset($model) && $model->image){?><img src="<?= url('assets/images/products/'.$model->image) ?>" /><input type="hidden" class="hiddenimg" value="<?= $model->image;?>" /><?php }?></div>
+            <div class="menuimg menuimg<?= $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
+                <?php if(isset($model) && $model->image){?>
+                    <img src="<?= url('assets/images/products/'.$model->image) ?>" />
+                    <input type="hidden" class="hiddenimg" value="<?= $model->image;?>" />
+                <?php } ?>
+            </div>
             <br />
             <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse<?= $menu_id?>_1">Image</a>
         </div>
@@ -17,6 +18,7 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <?php if(!isset($ccount) || (isset($ccount) && $ccount==0)){ ?>
@@ -79,8 +81,7 @@ $(function(){
             items : ':not(.col-md-12)',
             items : ':not(.clearfix)',
         });
-
-    })
+    });
 </script>
 
 

@@ -1,9 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-
     <div class="margin-bottom-40">
-
         <div class="content-page">
         <div class="container-fluid">
             <div class="row margin-bottom-10">

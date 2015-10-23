@@ -23,8 +23,7 @@
     <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-4 padding-left-0 padding-top-20">
         <button id="regButton" class="btn btn-primary" type="submit">Send</button>
         <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-        <span>&nbsp;&nbsp;Already have account credentials? <a href="#login-pop-up" class="fancybox-fast-view">Login
-                here</a></span>
+        <span>&nbsp;&nbsp;Already have account credentials? <a href="#login-pop-up" class="fancybox-fast-view">Login here</a></span>
     </div>
     {!! Form::close() !!}
 </div>

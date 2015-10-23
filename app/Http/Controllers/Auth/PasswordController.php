@@ -23,15 +23,15 @@ class PasswordController extends Controller
      *
      * @return void
      */
-    public function __construct() {
-        $this->beforeFilter(function() {
+    public function __construct()
+    {
+        $this->beforeFilter(function () {
             initialize("pass");
         });
         $this->middleware('guest');
     }
 
     use ResetsPasswords;
-
 
 
 }

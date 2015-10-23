@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,19 +11,21 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class Eventlog extends BaseModel {
+class Eventlog extends BaseModel
+{
 
     protected $table = 'eventlog';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    
+
     /**
      * @param array
      * @return Array
      */
-    public function populate($data) {
+    public function populate($data)
+    {
         $cells = array('user_id', 'date', 'restaurant_id', 'text');
-        foreach($cells as $cell) {
+        foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
@@ -43,8 +46,11 @@ class Eventlog extends BaseModel {
         */
     }
 
-    public static function enum_events($restaurant_id = false){
-        if(!$restaurant_id){ $restaurant_id = get_current_restaurant(); }
+    public static function enum_events($restaurant_id = false)
+    {
+        if (!$restaurant_id) {
+            $restaurant_id = get_current_restaurant();
+        }
         return enum_all("eventlog", array("restaurant_id" => $restaurant_id));
     }
 

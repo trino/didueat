@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,19 +11,21 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class Postalcodes extends BaseModel {
+class Postalcodes extends BaseModel
+{
 
     protected $table = 'postalcodes';
     protected $primaryKey = 'id';
     public $timestamps = true;
-    
+
     /**
      * @param array
      * @return Array
      */
-    public function populate($data) {
+    public function populate($data)
+    {
         $cells = array('postal_code', 'number', 'street', 'city', 'province', 'lattitude', 'longitude', 'short_street', 'short_street_type', 'short_street_dir');
-        foreach($cells as $cell) {
+        foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
@@ -59,5 +62,5 @@ class Postalcodes extends BaseModel {
             $this->ShortStreetDir = $data['ShortStreetDir'];
         }*/
     }
-    
+
 }

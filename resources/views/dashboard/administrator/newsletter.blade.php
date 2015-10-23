@@ -1,7 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
-delete me 576456456
+    DELETE ME ASDSAD32432432
+
+
 <div class="margin-bottom-40">
     <!-- BEGIN CONTENT -->
     <div class="col-md-12 col-sm-12 col-xs-12">

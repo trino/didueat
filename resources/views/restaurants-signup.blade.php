@@ -1,16 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
-
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-
-
-
-
-
 
     <div class="margin-bottom-40">
         <div class="slide">
@@ -138,12 +131,12 @@
                             <strong>{!! Session::get('message-short') !!}</strong>
                             &nbsp; {!! Session::get('message') !!}
                         </div>
-                    @endif
+                        @endif
 
-                    {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+                        {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                             <!--//End Pricing -->
-                        <?php $Layout = "rows"; ?>
-                        @include('common.restaurant')
+                            <?php $Layout = "rows"; ?>
+                            @include('common.restaurant')
                         {!! Form::close() !!}
                 </div>
             </div>
@@ -163,7 +156,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-          
             Demo.init();
             $('.time').timepicker();
             $('.time').click(function () {
@@ -192,9 +184,7 @@
                             var ho = 12;
                     }
                     else {
-
                         var ho = t - 12;
-
                     }
                 }
                 else {
@@ -209,20 +199,15 @@
 
             jQuery.validator.addMethod("matchPattern", function (value, element) {
                 var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
-                //alert(value.replace(' ','').length);
                 if (value.replace(' ', '').length == 6) {
-                    //alert('1');
                     return true;
-
                 }
                 else {
-                    //alert(value);
                     return false;
                 }
             });
             $("#signupForm").validate({
                 rules: {
-
                     Phone: {
                         required: true,
                         minlength: 10,
@@ -238,11 +223,8 @@
                     PostalCode: {
                         matchPattern: true
                     }
-
-
                 },
                 messages: {
-
                     Phone: {
                         required: "Please enter a phone number",
                         minlength: "Your phone number must consist of at least 10 Number",
@@ -253,10 +235,8 @@
                     PostalCode: {
                         matchPattern: "Invalid Postal Code"
                     },
-
                 }
             });
-            //FormSamples.init();
         });
     </script>
 @stop

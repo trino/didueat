@@ -1,5 +1,4 @@
 <?php
-
 function initialize($Source = "")
 {
     DB::enableQueryLog();
@@ -1039,35 +1038,30 @@ function getpost($Key, $Default = "")
 function get_time_interval()
 {
     $min = date('i');
-    $mod = $min%15;
-    $diff = 15-$mod;
+    $mod = $min % 15;
+    $diff = 15 - $mod;
 
     $date = date('Y-m-d H:i:s');
 
     $currentDate = strtotime($date);
-    $futureDate = $currentDate+(60*$diff);
+    $futureDate = $currentDate + (60 * $diff);
     $start = date("Y-m-d H:i:s", $futureDate);
-    $start_format = date('M d, H:i',$futureDate);
-    for($i=0;$i<15;$i++)
-    {
-        if($i==0)
-        {
+    $start_format = date('M d, H:i', $futureDate);
+    for ($i = 0; $i < 15; $i++) {
+        if ($i == 0) {
             $start = $start;
             $start_format = $start_format;
 
 
-
-        }
-        else
-        {
+        } else {
             $start = $end;
             $start_format = $end_format;
         }
         $currentDate = strtotime($start);
-        $futureDate = $currentDate+(60*15);
+        $futureDate = $currentDate + (60 * 15);
         $end = date("Y-m-d H:i:s", $futureDate);
-        $end_format = date('M d, H:i',$futureDate);
-        echo "<option value='".$start_format." - ".$end_format."'>".$start_format." - ".$end_format."</option>";
+        $end_format = date('M d, H:i', $futureDate);
+        echo "<option value='" . $start_format . " - " . $end_format . "'>" . $start_format . " - " . $end_format . "</option>";
     }
 
 }

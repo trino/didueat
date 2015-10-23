@@ -10,18 +10,20 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    
-    public function sendEMail($template_name="", $array=array()) {
-        \Mail::send($template_name, $array, function($messages) use ($array) {
+
+    public function sendEMail($template_name = "", $array = array())
+    {
+        \Mail::send($template_name, $array, function ($messages) use ($array) {
             $messages->to($array['email'])->subject($array['mail_subject']);
         });
     }
 
-    public function __construct() {
-        $this->beforeFilter(function() {
+    public function __construct()
+    {
+        $this->beforeFilter(function () {
             initialize("cont");
         });
-        
-        
+
+
     }
 }

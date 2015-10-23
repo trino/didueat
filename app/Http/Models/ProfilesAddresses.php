@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,19 +11,21 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class ProfilesAddresses extends BaseModel {
+class ProfilesAddresses extends BaseModel
+{
 
     protected $table = 'profiles_addresses';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    
+
     /**
      * @param array
      * @return Array
      */
-    public function populate($data) {
+    public function populate($data)
+    {
         $cells = array('user_id', 'number', 'apt', 'buzz', 'post_code', 'phone_no', 'street', 'city', 'province', 'country', 'notes');
-        foreach($cells as $cell) {
+        foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
@@ -64,20 +67,26 @@ class ProfilesAddresses extends BaseModel {
     }
 
     ////////////////////////////////////////Profile Address API ////////////////////////////////////
-    function enum_profile_addresses($profile_id){
+    function enum_profile_addresses($profile_id)
+    {
         return enum_all("profiles_addresses", array("user_id" => $profile_id));
     }
-    function delete_profile_address($id){
+
+    function delete_profile_address($id)
+    {
         delete_all("profiles_addresses", array("id" => $id));
     }
-    function get_profile_address($id){
+
+    function get_profile_address($id)
+    {
         return get_entry("profiles_addresses", $id);
     }
-    function edit_profile_address($id, $user_id, $name, $phone, $number, $street, $apt, $buzz, $city, $province, $postal_code, $country, $notes){
-        $Data = array("user_id" => $user_id, "name" => $name, "phone_no" => clean_phone($phone), "number" => $number, "street" => $street, "apt" => $apt, "buzz" => $buzz, "city" => $city, "province" => $province, "post_code" => clean_postalcode($postal_code), "country" =>$country, "notes" =>$notes);
+
+    function edit_profile_address($id, $user_id, $name, $phone, $number, $street, $apt, $buzz, $city, $province, $postal_code, $country, $notes)
+    {
+        $Data = array("user_id" => $user_id, "name" => $name, "phone_no" => clean_phone($phone), "number" => $number, "street" => $street, "apt" => $apt, "buzz" => $buzz, "city" => $city, "province" => $province, "post_code" => clean_postalcode($postal_code), "country" => $country, "notes" => $notes);
         return edit_database("profiles_addresses", "id", $id, $Data);
     }
-
 
 
 }

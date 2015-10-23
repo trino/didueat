@@ -3,10 +3,7 @@
 
 <div class="margin-bottom-40">
     <div class="col-md-2 col-sm-4 col-xs-12">
-
         <div class="well add-sidebar">
-            <!--img class="img-responsive margin-bottom-10" alt="" src="/Foodie//img/works/img4.jpg"-->
-
             <address>
                 <strong>Loop, Inc.</strong><br>
                 795 Park Ave, Suite 120<br>
@@ -23,18 +20,16 @@
     </div>
 
     <div class="col-md-7 col-sm-4 col-xs-12 menu_div">
-        <!--link rel="stylesheet" href="/Foodie/css/popstyle.css"-->
-
-        <div id="postswrapper">
-        </div>
+        <div id="postswrapper"></div>
         <div style="display: none;" class="nxtpage">
-            <li class="next disabled"><a href="" onclick="return false;">Next &gt;&gt;</a></li>  </div>
+            <li class="next disabled"><a href="" onclick="return false;">Next &gt;&gt;</a></li>
+        </div>
         <div id="loadmoreajaxloader" style="display:none;"><center><img src="/Foodie/img/ajax-loader.gif"></center></div>
         <div class="clearfix"></div>
         <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10">
-            <button align="center" class="loadmore red btn btn-primary">Load More</button>
-        </div>
+            <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10">
+                <button align="center" class="loadmore red btn btn-primary">Load More</button>
+            </div>
         </div>
         <div class="clearfix"></div>
 
@@ -412,13 +407,9 @@
                 $('.number' + id).text(num);
             }
         </script>
-
-
-
     </div>
     <!-- BEGIN CART -->
     <div class="top-cart-block col-md-3 col-sm-4" id="printableArea" style="height: 601px;">
-
         <div class="top-cart-info" style="display: none;">
             <div class="top-cart-info" style="display: none;">
                 <div class="col-md-6">
@@ -863,12 +854,8 @@
                     window.print();
                     document.body.innerHTML = originalContents;
                 }
-
-
             </script>
-
         </div>
-
         <!--END CART -->
         <!-- END CONTENT -->
     </div>

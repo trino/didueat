@@ -7,8 +7,7 @@
             <div class="card row">
                 <div class="card-image col-md-4 col-sm-4 col-xs-12">
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
-                        <img style="width:100%;" class="img-responsive" alt=""
-                             src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="width:100%;" class="img-responsive" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                     <span class="card-title">{{ $value->name }}</span>
                 </div>
@@ -16,7 +15,6 @@
                     <p>
                         <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }}</a>
                     </p>
-
                     <p>
                         {{ $value->address }}, {{ $value->city }}, {{ $value->province }}
                         , {{ select_field("countries", 'id', $value->country, 'name') }}

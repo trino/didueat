@@ -12,16 +12,18 @@ use App\Http\Controllers\Controller;
  * @developer  Waqar Javed
  * @date       15 September, 2015
  */
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct() {
+    public function __construct()
+    {
 
-        $this->beforeFilter(function() {
+        $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
             if (!\Session::has('is_logged_in') && $act != 'ajax_register') {
@@ -39,7 +41,8 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function addresses($id = 0) {
+    public function addresses($id = 0)
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['street']) || empty($post['street'])) {
@@ -74,16 +77,16 @@ class UsersController extends Controller {
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
-                $idd = (isset($post['id']))?$post['id']:'';
-                
-                if($idd){
+                $idd = (isset($post['id'])) ? $post['id'] : '';
+
+                if ($idd) {
                     $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
                 } else {
                     $ob = new \App\Http\Models\ProfilesAddresses();
                 }
                 $ob->populate($post);
                 $ob->save();
-                
+
                 \Session::flash('message', "Address created successfully");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
@@ -108,9 +111,11 @@ class UsersController extends Controller {
      * @param $id
      * @return response
      */
-    public function addressesUpdate($id = 0) {
+    public function addressesUpdate($id = 0)
+    {
         if (!isset($id) || empty($id) || $id == 0) {
-            echo json_encode(array('type' => 'error', 'message' => "[Id] is missing!")); die;
+            echo json_encode(array('type' => 'error', 'message' => "[Id] is missing!"));
+            die;
         }
 
         try {
@@ -121,7 +126,8 @@ class UsersController extends Controller {
             ob_get_contents();
             ob_get_flush();
         } catch (\Exception $e) {
-            echo json_encode(array('type' => 'error', 'message' => $e->getMessage())); die;
+            echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+            die;
         }
     }
 
@@ -130,7 +136,8 @@ class UsersController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function addressesDelete($id = 0) {
+    public function addressesDelete($id = 0)
+    {
         if (!isset($id) || empty($id) || $id == 0) {
             \Session::flash('message', "[Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
@@ -160,7 +167,8 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function viewOrders() {
+    public function viewOrders()
+    {
         return view('dashboard.user.orders_view', array('title' => 'View Orders'));
     }
 
@@ -169,7 +177,8 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function uploadMeal() {
+    public function uploadMeal()
+    {
         return view('dashboard.user.manage_meal', array('title' => 'Upload Meal'));
     }
 
@@ -178,7 +187,8 @@ class UsersController extends Controller {
      * @param null
      * @return view
      */
-    public function images() {
+    public function images()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
@@ -233,7 +243,8 @@ class UsersController extends Controller {
         }
     }
 
-    public function ajax_register() {
+    public function ajax_register()
+    {
         if (isset($_POST)) {
             \DB::beginTransaction();
             try {
@@ -279,11 +290,11 @@ class UsersController extends Controller {
                     die();
                 } else {
                     $uid = \DB::table('profiles')->insertGetId(
-                            array("name" => trim($name), "profile_type" => 2, "phone" => $phone, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0')
+                        array("name" => trim($name), "profile_type" => 2, "phone" => $phone, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0')
                     );
 
                     $user = \DB::table('profiles')->where('id', $uid)->first();
-                    $userArray = (array) $user;
+                    $userArray = (array)$user;
                     //var_dump($userArray); die();
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
@@ -291,14 +302,15 @@ class UsersController extends Controller {
                 }
             }
             \DB::table('reservations')
-                    ->where('id', $oid)
-                    ->update(array('email' => $_POST['email'], 'address2' => $_POST['address2'], 'city' => $_POST['city'], 'ordered_by' => $_POST['postal_code'], 'remarks' => $_POST['remarks'], 'order_till' => $_POST['order_till'], 'province' => $_POST['province'], 'contact' => $phone));
+                ->where('id', $oid)
+                ->update(array('email' => $_POST['email'], 'address2' => $_POST['address2'], 'city' => $_POST['city'], 'ordered_by' => $_POST['postal_code'], 'remarks' => $_POST['remarks'], 'order_till' => $_POST['order_till'], 'province' => $_POST['province'], 'contact' => $phone));
             echo '0';
         }
         die();
     }
 
-    function json_data() {
+    function json_data()
+    {
         $id = $_POST['id'];
         $user = \App\Http\Models\Profiles::select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         //$user = \DB::table('profiles')->select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();

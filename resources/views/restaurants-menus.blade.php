@@ -1,213 +1,62 @@
 @extends('layouts.default')
 @section('content')
-<link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
+    <link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
     <div class="margin-bottom-40 clearfix">
-
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
+            <?php if(Session::has('is_logged_in')){?>
+            <div class="category_btns" style="margin-bottom: 15px;">
+                <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+                <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>"/>
+            </div>
 
-<?php if(Session::has('is_logged_in')){?>
-<div class="category_btns" style="margin-bottom: 15px;">
-    
-    <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
-    <input type="hidden" id="res_id" value="<?php echo $restaurant->id;?>" />
-</div>
-
-<!--<div id="menumanager" style="display: none;width:800px;">
-@include('common.add_category')
-</div>-->
-<div id="menumanager2" style="display: none;width:800px;"></div>
-<?php }?>
-    <?php foreach($category as $cat)
-          {?>
-              <div class="box-shadow margin-bottom-20 clearfix">
+            <div id="menumanager2" style="display: none;width:800px;"></div>
+            <?php } ?>
+            <?php foreach($category as $cat) { ?>
+            <div class="box-shadow margin-bottom-20 clearfix">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="fa fa-spoon"></i>{{$cat->title}}
                     </div>
-
                 </div>
                 <div class="portlet-body no-padding">
                     <div id="postswrapper_{{$cat->id}}" class="loadcontent">
-                      
+
                     </div>
-                    
-            
-                <div class="clearfix"></div>
-                        <div id="loadmoreajaxloader_{{$cat->id}}" style="display:none;">
-                            <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-                        </div>
-                        <div class="clearfix"></div>
-                   
+                    <div class="clearfix"></div>
+                    <div id="loadmoreajaxloader_{{$cat->id}}" style="display:none;">
+                        <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                    </div>
+                    <div class="clearfix"></div>
+
                     <br style="clear: both;">
-                    
                 </div>
             </div>
 
-    <script>
-    $(function(){
-       $('#postswrapper_{{$cat->id}}').load('<?php echo url('/restaurants/loadmenus/'.$cat->id.'/'.$restaurant->id);?>');
-    });
-    </script>
-    
-    <?php }?>
+            <script>
+                $(function () {
+                    $('#postswrapper_{{ $cat->id }}').load('<?php echo url('/restaurants/loadmenus/'.$cat->id.'/'.$restaurant->id);?>');
+                });
+            </script>
 
+            <?php } ?>
         </div>
-
-
 
 
         <!-- BEGIN CART -->
         <div class="top-cart-block col-md-3 col-sm-3" id="printableArea">
-
-
             <div class="overlay overlay_reservation">
                 <div class="clearfix"></div>
                 <div id="loadmoreajaxloader">
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                 </div>
             </div>
-            <!--div class="top-cart-info">
-                <div class="col-md-6">
-                    <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
-                </div>
-                <div class="col-md-6">
-                    <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-3">
-                    <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"
-                                                                    onclick="#cartsz"></i></a>
-                </div>
-            </div-->
-
-
 
             @include('common.receipt')
 
-
-
-
-                    <!--
-<div id="cartsz">
-
-
-                <div class="resturant-logo-desc">
-
-
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-
-                        @if(!empty($restaurant->logo))
-                    <img class="img-responsive" alt=""
-                         src="{{ url('assets/images/restaurants/'.$restaurant->logo) }}">
-                        @else
-                    <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
-                        @endif
-                    <address>
-                        <strong>{!! $restaurant->name !!}.</strong><br>
-                            {!! $restaurant->address.' , '.$restaurant->city !!}
-            {!! $restaurant->province.' , '.$restaurant->country !!}<br>
-                            <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}
-                    <abbr title="Email">E:</abbr>
-                    <a href="{{ $restaurant->email }}">
-                                {!! $restaurant->email !!}
-                    </a>
-                </address>
-
-            </div>
-
-            <div class="clearfix"></div>
-
-        </div>
-
-
-        <div class="top-cart-content-wrapper">
-
-            <div class="top-cart-content ">
-                <div class="receipt_main">
-                    <div class="slimScrollDiv"
-                         style="position: relative; overflow: hidden; width: auto; height: 220px;">
-                        <ul class="scroller orders" style="height: 220px; overflow-y: scroll; width: auto;">
-
-                        </ul>
-                        <div class="slimScrollBar"
-                             style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px;"></div>
-                        <div class="slimScrollRail"
-                             style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px;"></div>
-                    </div>
-
-
-                    <div class="totals col-md-12 col-sm-12 col-xs-12 no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><label class="radio-inline"><input type="radio" name="delevery_type"
-                                                                       checked="checked"
-                                                                       onclick="delivery('hide');">Pickup</label>
-                                </td>
-                                <td><label class="radio-inline"><input type="radio" name="delevery_type"
-                                                                       onclick="delivery('show');">Delivery</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Subtotal&nbsp;</strong></td>
-                                        <td>&nbsp;$<div class="subtotal" style="display: inline-block;">0</div>
-                                            <input type="hidden" name="subtotal" class="subtotal" value="0"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td><strong>Tax&nbsp;</strong></td>
-
-                                        <td>&nbsp;$<div class="tax" style="display: inline-block;">0</div>
-                                            &nbsp;(<div id="tax" style="display: inline-block;">13</div> %)
-                                            <input type="hidden" value="0" name="tax" class="tax">
-                                        </td>
-
-                                    </tr>
-
-                                    <tr style="display: none;" id="df">
-                                        <td><strong>Delivery Fee&nbsp;</strong></td>
-                                        <td>&nbsp;$1 <input type="hidden" value="1" class="df" name="delivery_fee">
-                                            <input type="hidden" value="0" id="delivery_flag" name="order_type">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Total</strong>&nbsp;</td>
-                                        <td>&nbsp;$<div style="display: inline-block;" class="grandtotal">0</div>
-                                            <input type="hidden" name="g_total" class="grandtotal" value="0">
-                                            <input type="hidden" name="res_id" value="{{ $restaurant->id }}">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-
-                            <div class="text-right">
-                                <a href="#" type="button" onclick="printDiv('printableArea')"
-                                   class="btn btn-warning">Print</a>
-                                <a href="javascript:void(0)" class="btn btn-warning">Restart</a>
-                                <a href="javascript:void(0)" class="btn btn-primary"
-                                   onclick="checkout();">Checkout</a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
--->
         </div>
     </div>
-
-
     <!-- END SIDEBAR & CONTENT -->
-
-
-    </div>
-
-
-    </div>
 
 
     <script>
@@ -267,25 +116,8 @@
         });
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
         $(function () {
-
-
             $('.modal').on('shown.bs.modal', function () {
                 $('input:text:visible:first', this).focus();
             });
@@ -553,7 +385,7 @@
                     pre_cnt = Number(n);
                 }
                 var img = $('.popimage_' + menu_id).attr('src');
-                img = img.replace('thumb','thumb2');
+                img = img.replace('thumb', 'thumb2');
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');
@@ -650,19 +482,6 @@
                 $('.receipt_main').hide();
                 $('.profiles').show();
             }
-            /*var datas = $('.top-cart-content input').serialize();
-             $.ajax({
-             type:'post',
-             url:'/Foodie/restaurants/order_ajax',
-             data: datas,
-             success:function(id){
-             if(del == '0') {
-             $('.top-cart-content').load('/Foodie/common/profile.php?order_id='+id);
-             } else {
-             $('.top-cart-content').load('/Foodie/common/profile.php?delivery&order_id='+id);
-             }
-             }
-             })*/
         }
 
         function delivery(t) {
@@ -702,8 +521,8 @@
         }
 
         $(function () {
-            
-            
+
+
             $('.decrease').live('click', function () {
                 //alert('test');
                 var menuid = $(this).attr('id');
@@ -861,57 +680,56 @@
     </script>
 
 
-<script>
-$(function () {
-      $(document).on('click','.loadmore',function () {
-            var catid = $(this).attr('title');
-            
-            $('div#loadmoreajaxloader_'+catid).show();
-            ur = $('.next_'+catid+' a').attr('href');
-            if (ur != '') {
-                url1 = ur.replace('/?', '?');
-                $.ajax({
-                    url: url1,
-                    success: function (html) {
+    <script>
+        $(function () {
+            $(document).on('click', '.loadmore', function () {
+                var catid = $(this).attr('title');
 
-                        if (html) {
-                            $('.nxtpage_'+catid).remove();
-                            $("#loadmenus_"+catid).append(html);
-                            $('div#loadmoreajaxloader_'+catid).hide();
-                        } else
-                            $('div#loadmoreajaxloader_'+catid).html('<center>No more menus to show.</center>');
+                $('div#loadmoreajaxloader_' + catid).show();
+                ur = $('.next_' + catid + ' a').attr('href');
+                if (ur != '') {
+                    url1 = ur.replace('/?', '?');
+                    $.ajax({
+                        url: url1,
+                        success: function (html) {
 
-                    }
-                });
-            }
-            else {
-                $('div#loadmoreajaxloader_'+catid).html('<center>No more menus to show.</center>');
-                $(this).parent().remove();
-            }
+                            if (html) {
+                                $('.nxtpage_' + catid).remove();
+                                $("#loadmenus_" + catid).append(html);
+                                $('div#loadmoreajaxloader_' + catid).hide();
+                            } else
+                                $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
+
+                        }
+                    });
+                }
+                else {
+                    $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
+                    $(this).parent().remove();
+                }
+            });
+
         });
 
-    });
+    </script>
+    <script>
+        $(function () {
 
-</script>
-<script>
-    $(function() {
+            $(".sorting_parent").live('click', function () {
+                $('.overlay_loader').show();
+                //alert('test');
+                var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
+                var arr_pid = pid.split('_');
+                pid = arr_pid[0];
+                var cid = arr_pid[1];
+                if ($(this).attr('id') == 'up_parent_' + pid) {
+                    var sort = 'up';
+                }
+                else
+                    var sort = 'down';
 
-        $(".sorting_parent").live('click',function(){
-            $('.overlay_loader').show();
-            //alert('test');
-            var pid = $(this).attr('id').replace('up_parent_','').replace('down_parent_','');
-            var arr_pid = pid.split('_');
-            pid = arr_pid[0];
-            var cid = arr_pid[1];
-            if($(this).attr('id') == 'up_parent_'+pid)
-            {
-                var sort = 'up';
-            }
-            else
-            var sort = 'down';
-            
                 var order = '';// array to hold the id of all the child li of the selected parent
-                $('#loadmenus_'+cid+' .parents').each(function(index) {
+                $('#loadmenus_' + cid + ' .parents').each(function (index) {
                     var val = $(this).attr('id').replace('parent', '');
                     //var val=item[1];
                     if (order == '') {
@@ -921,24 +739,16 @@ $(function () {
                     }
                 });
                 $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/');?>/'+pid+'/'+sort,
-                    data: 'ids=' + order +'&_token=<?php echo csrf_token();?>',
+                    url: '<?php echo url('restaurant/orderCat/');?>/' + pid + '/' + sort,
+                    data: 'ids=' + order + '&_token=<?php echo csrf_token();?>',
                     type: 'post',
-                    success: function() {
+                    success: function () {
                         location.reload();
                     }
                 });
-            
+
+            });
+            //$( "#sortable" ).disableSelection();
         });
-        //$( "#sortable" ).disableSelection();
-    });
-/*
-    function clear_all(cat_id) {
-        $('#addopt' + cat_id + ' .addopt').each(function() {
-            $(this).remove();
-        });
-        $('#addopt' + cat_id).hide();
-        $('.hasopt' + cat_id).val(0);
-    }*/
-</script>
+    </script>
 @stop

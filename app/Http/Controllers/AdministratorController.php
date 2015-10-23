@@ -12,17 +12,19 @@ use App\Http\Controllers\Controller;
  * @developer  Waqar Javed
  * @date       15 September, 2015
  */
-class AdministratorController extends Controller {
+class AdministratorController extends Controller
+{
 
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct() {
-        $this->beforeFilter(function() {
+    public function __construct()
+    {
+        $this->beforeFilter(function () {
             if (!\Session::has('is_logged_in')) {
-                \Session::flash('message', trans('messages.user_session_exp.message')); 
+                \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('auth/login');
@@ -36,7 +38,8 @@ class AdministratorController extends Controller {
      * @param null
      * @return view
      */
-    public function dashboard() {
+    public function dashboard()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
@@ -93,7 +96,7 @@ class AdministratorController extends Controller {
                 $ob->save();
 
                 login($ob);
-                
+
                 \Session::flash('message', "Profile updated successfully");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
@@ -116,7 +119,8 @@ class AdministratorController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function usersAction($type='', $id=0) {
+    public function usersAction($type = '', $id = 0)
+    {
         if (!isset($type) || empty($type)) {
             \Session::flash('message', "[Type] is missing!");
             \Session::flash('message-type', 'alert-danger');
@@ -129,17 +133,17 @@ class AdministratorController extends Controller {
             \Session::flash('message-short', 'Oops!');
             return \Redirect::to('restaurant/users');
         }
-        
+
         try {
             $ob = \App\Http\Models\Profiles::find($id);
-            if($type == "user_fire"){
+            if ($type == "user_fire") {
                 $ob->delete();
             } else {
                 $ob->populate(array('profile_type' => 1));
                 $ob->save();
             }
-            
-            
+
+
             \Session::flash('message', 'Status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
@@ -157,7 +161,8 @@ class AdministratorController extends Controller {
      * @param null
      * @return view
      */
-    public function users() {
+    public function users()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
@@ -213,7 +218,7 @@ class AdministratorController extends Controller {
                 $userArray['mail_subject'] = 'Thank you for registration.';
                 $this->sendEMail("emails.registration_welcome", $userArray);
                 \DB::commit();
-                
+
                 \Session::flash('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
@@ -235,7 +240,7 @@ class AdministratorController extends Controller {
             $data['title'] = 'Users List';
 
             $MyHierarchy = get_profile_type(false, true)->hierarchy;
-            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy' , '> ', $MyHierarchy)->get();
+            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
             // \App\Http\Models\Profiles::where('profiletype', 2)->orWhere('profiletype', 4)->orWhere('profiletype', 1)->orderBy('id', 'DESC')->get();
             //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
             return view('dashboard.administrator.users', $data);
@@ -247,7 +252,8 @@ class AdministratorController extends Controller {
      * @param null
      * @return view
      */
-    public function newsletter() {
+    public function newsletter()
+    {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['subject']) || empty($post['subject'])) {
@@ -274,7 +280,7 @@ class AdministratorController extends Controller {
                         $this->sendEMail("emails.newsletter", $array);
                     }
                 }
-                
+
                 \Session::flash('message', "Newsletter sent successfully");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
