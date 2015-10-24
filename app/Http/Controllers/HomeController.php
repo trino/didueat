@@ -164,21 +164,27 @@ class HomeController extends Controller
     {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['name']) || empty($post['name'])) {
+            if (!isset($post['restname']) || empty($post['restname'])) {
                 \Session::flash('message', "[Restaurant Name] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
+            if (!isset($post['full_name']) || empty($post['full_name'])) {
+                \Session::flash('message', "[Full Name] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
             if (!isset($post['email']) || empty($post['email'])) {
-                \Session::flash('message', "[Restaurant Email] field is missing!");
+                \Session::flash('message', "[Email] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message', "Email address [".$post['email']."] already exist!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
@@ -242,9 +248,9 @@ class HomeController extends Controller
                     $image->move($destinationPath, $newName);
                     $update['logo'] = $newName;
                 }*/
-                if ($post['logo'] != '')
+                if ($post['logo'] != '') {
                     $update['logo'] = $post['logo'];
-
+                }
                 $update['name'] = $post['restname'];
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
@@ -300,7 +306,7 @@ class HomeController extends Controller
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 0;
                 $data['profile_type'] = 1;
-                $data['name'] = $post['name'];
+                $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;

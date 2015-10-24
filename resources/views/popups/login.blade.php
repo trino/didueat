@@ -14,13 +14,11 @@
 
                     <div class="form-group">
                         <div class="input-icon">
-                            <i class="fa fa-envelope"></i>
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-icon">
-                            <i class="fa fa-lock"></i>
                             <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
                         </div>
                     </div>

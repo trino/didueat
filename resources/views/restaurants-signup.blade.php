@@ -48,27 +48,21 @@
             <div class="col-1-3">
                 <div class="module">
                     <img src="{{ url('assets/images/click.png') }}">
-
                     <h3>Sign Up</h3>
-
                     <p>Sign up or contact us today to book an appointment with one of our team members.</p>
                 </div>
             </div>
             <div class="col-1-3">
                 <div class="module">
                     <img src="{{ url('assets/images/clip.png') }}">
-
                     <h3>Create Menu</h3>
-
                     <p>Do it yourself menu creation, update anytime.</p>
                 </div>
             </div>
             <div class="col-1-3">
                 <div class="module">
                     <img src="{{ url('assets/images/box.png') }}">
-
                     <h3>Receive Orders</h3>
-
                     <p>Start receiving orders in as little as 10 minutes.</p>
                 </div>
             </div>
@@ -82,45 +76,25 @@
 
             <div class="row margin-bottom-10" style="margin-top: 20px; padding: 30px;">
                 <!-- Pricing -->
-
                 <div class="col-md-3 col-sm-4 col-xs-12">
                     <div class="pricing pricing-active hover-effect">
                         <div class="pricing-head pricing-head-active">
-                            <h3>Expert
-                            <span>
-                                Officia deserunt mollitia
-                            </span>
-                            </h3>
-                            <h4><i>$</i>13<i>.99</i>
-                            <span>
-                                Per Month
-                            </span>
+                            <h3>Expert <span>Officia deserunt mollitia</span></h3>
+                            <h4>
+                                <i>$</i>13<i>.99</i>
+                                <span>Per Month</span>
                             </h4>
                         </div>
                         <ul class="pricing-content list-unstyled">
-                            <li>
-                                <i class="fa fa-tags"></i> At vero eos
-                            </li>
-                            <li>
-                                <i class="fa fa-asterisk"></i> No Support
-                            </li>
-                            <li>
-                                <i class="fa fa-heart"></i> Fusce condimentum
-                            </li>
-                            <li>
-                                <i class="fa fa-star"></i> Ut non libero
-                            </li>
-                            <li>
-                                <i class="fa fa-shopping-cart"></i> Consecte adiping elit
-                            </li>
+                            <li><i class="fa fa-tags"></i> At vero eos</li>
+                            <li><i class="fa fa-asterisk"></i> No Support</li>
+                            <li><i class="fa fa-heart"></i> Fusce condimentum</li>
+                            <li><i class="fa fa-star"></i> Ut non libero</li>
+                            <li><i class="fa fa-shopping-cart"></i> Consecte adiping elit</li>
                         </ul>
                         <div class="pricing-footer">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor .
-                            </p>
-                            <a href="#" class="btn btn-primary red">
-                                Sign Up <i class="m-icon-swapright m-icon-white"></i>
-                            </a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor.</p>
+                            <a href="#" class="btn btn-primary red">Sign Up <i class="m-icon-swapright m-icon-white"></i></a>
                         </div>
                     </div>
                 </div>
@@ -145,14 +119,12 @@
     </div>
 
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/scripts/metronic.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/scripts/demo.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

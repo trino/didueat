@@ -71,7 +71,7 @@ class AdministratorController extends Controller
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    if (empty($post['new_password'])) {
+                    if (empty($post['password'])) {
                         \Session::flash('message', "[New Password] is missing!");
                         \Session::flash('message-type', 'alert-danger');
                         \Session::flash('message-short', 'Oops!');
@@ -83,7 +83,7 @@ class AdministratorController extends Controller
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    if ($post['new_password'] != $post['confirm_password']) {
+                    if ($post['password'] != $post['confirm_password']) {
                         \Session::flash('message', "[Passwords] are mis-matched!");
                         \Session::flash('message-type', 'alert-danger');
                         \Session::flash('message-short', 'Oops!');
