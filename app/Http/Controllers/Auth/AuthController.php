@@ -174,6 +174,11 @@ class AuthController extends Controller
                     $user->populate($data);
                     $user->save();
 
+                    $add = new \App\Http\Models\ProfilesAddresses();
+                    $data['user_id'] = $user->id;
+                    $add->populate($data);
+                    $add->save();
+
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
@@ -215,7 +220,6 @@ class AuthController extends Controller
 
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
-
             if (!isset($data['email']) || empty($data['email'])) {
                 echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message')));
                 die;
@@ -246,6 +250,11 @@ class AuthController extends Controller
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
                     $user->save();
+
+                    $add = new \App\Http\Models\ProfilesAddresses();
+                    $data['user_id'] = $user->id;
+                    $add->populate($data);
+                    $add->save();
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';

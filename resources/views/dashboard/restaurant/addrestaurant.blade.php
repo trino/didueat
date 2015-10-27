@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- BEGIN FORM-->
-                    {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+                    {!! Form::open(array('url' => 'restaurant/add/new', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="box-shadow">
                             <div class="portlet-title">
@@ -56,7 +56,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                                                <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ $resturant->name }}" required>
+                                                <input type="text" name="restname" class="form-control" placeholder="Restaurant Name" value="{{ old('name') }}" required>
                                             </div>
                                         </div>
 
@@ -66,7 +66,7 @@
                                                 <select name="genre" id="genre" class="form-control">
                                                     <option value="">-Select One-</option>
                                                     @foreach($genre_list as $value)
-                                                        <option value="{{ $value->id }}" @if($resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if(old('genre') == $value->id) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -74,15 +74,8 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Restaurant Email <span class="required">*</span></label>
-                                                <input type="email" name="email" class="form-control" placeholder="Restaurant Email" value="{{ $resturant->email }}" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
                                                 <label class="control-label">Description</label>
-                                                <textarea name="description" class="form-control" placeholder="Description">{{ $resturant->description }}</textarea>
+                                                <textarea name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
                                             </div>
                                         </div>
 
@@ -93,14 +86,14 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}" required />
+                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" required />
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
-                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ $resturant->minimum }}" required />
+                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ old('minimum') }}" required />
                                             </div>
                                         </div>
 
@@ -110,11 +103,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @if($resturant->logo)
-                                                    <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo). '?'.mt_rand() }}" title="" style="width: 100%;">
-                                                @else
-                                                    <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
-                                                @endif
+                                                <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
@@ -125,7 +114,6 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                                 </div>
 
@@ -146,58 +134,52 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ $resturant->address }}" required>
+                                                <label>Address <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ $resturant->city }}" required>
+                                                <label>City <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <input type="text" class="form-control" name="province" placeholder="Province Name" value="{{ $resturant->province }}" required>
+                                                <input type="text" class="form-control" name="province" placeholder="Province Name" value="{{ old('province') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ $resturant->postal_code }}" required>
+                                                <label>Postal Code <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Phone Number</label>
-                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->phone }}">
+                                                <label class="control-label">Phone Number <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Country</label>
+                                                <label>Country <span class="required" aria-required="true">*</span></label>
                                                 <select name="country" id="country" class="form-control" required>
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
-                                                        <option value="{{ $value->id }}" @if($resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -216,9 +198,9 @@
                                     <?php
                                         $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                                         foreach ($day_of_week as $key => $value) {
-                                        $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
-                                        $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
-                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
+                                        $open[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'open');
+                                        $close[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'close');
+                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'id');
                                     ?>
                                     <div class="row">
                                         <div class="form-group">
@@ -227,9 +209,9 @@
                                                 <input type="text" name="open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
                                             </div>
 
-                                            <div class="  col-md-3 col-sm-3 col-xs-3" style="vertical-align: bottom;text-align: center;font-size: 14px;">to</div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3" style="vertical-align: bottom;text-align: center;font-size: 14px;">to</div>
 
-                                            <div class=" col-md-3 col-sm-3 col-xs-3">
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
                                                 <input type="text" name="close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
                                                 <input type="hidden" name="day_of_week[<?php echo $key; ?>]" value="<?php echo $value; ?>"/>
                                                 <input type="hidden" name="idd[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>"/>
@@ -237,11 +219,6 @@
                                         </div>
                                     </div>
                                     <?php } ?>
-                                </div>
-
-                                <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
-                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                                 </div>
 
                             </div>

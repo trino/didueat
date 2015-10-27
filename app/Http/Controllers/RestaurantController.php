@@ -128,6 +128,140 @@ class RestaurantController extends Controller
     }
 
     /**
+     * Add New Restaurants
+     * @param null
+     * @return view
+     */
+    public function addRestaurants()
+    {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['restname']) || empty($post['restname'])) {
+                \Session::flash('message', "[Restaurant Name] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
+                \Session::flash('message', "[Delivery Fee] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['minimum']) || empty($post['minimum'])) {
+                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['address']) || empty($post['address'])) {
+                \Session::flash('message', "[Address] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['city']) || empty($post['city'])) {
+                \Session::flash('message', "[City] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['province']) || empty($post['province'])) {
+                \Session::flash('message', "[Province] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
+                \Session::flash('message', "[Postal Code] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['phone']) || empty($post['phone'])) {
+                \Session::flash('message', "[Phone] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            if (!isset($post['country']) || empty($post['country'])) {
+                \Session::flash('message', "[Country] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new')->withInput();
+            }
+            try {
+                if ($post['logo'] != '') {
+                    $update['logo'] = $post['logo'];
+                }
+                $update['name'] = $post['restname'];
+                $update['slug'] = $this->createslug($post['restname']);
+                $update['phone'] = $post['phone'];
+                $update['description'] = $post['description'];
+                $update['country'] = $post['country'];
+                $update['genre'] = $post['genre'];
+                $update['province'] = $post['province'];
+                $update['address'] = $post['address'];
+                $update['city'] = $post['city'];
+                $update['postal_code'] = $post['postal_code'];
+                $update['delivery_fee'] = $post['delivery_fee'];
+                $update['minimum'] = $post['minimum'];
+
+                $ob = new \App\Http\Models\Restaurants();
+                $ob->populate($update);
+                $ob->save();
+
+                $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
+                if ($image_file != '') {
+                    $arr = explode('.', $image_file);
+                    $ext = end($arr);
+                    $newName = $ob->slug . '.' . $ext;
+
+                    if (!file_exists(public_path('assets/images/restaurants/' . $ob->id))) {
+                        mkdir('assets/images/restaurants/' . $ob->id, 0777, true);
+                    }
+                    $destinationPath = public_path('assets/images/restaurants/' . $ob->id);
+                    $filename = $destinationPath . "/" . $newName;
+                    copy(public_path('assets/images/restaurants/' . $image_file), $filename);
+                    @unlink(public_path('assets/images/restaurants/' . $image_file));
+                    $sizes = ['assets/images/restaurants/' . $ob->id . '/thumb_' => '145x100', 'assets/images/restaurants/' . $ob->id . '/thumb1_' => '120x85'];
+                    copyimages($sizes, $filename, $newName);
+                    $res = new \App\Http\Models\Restaurants();
+                    $res->where('id', $ob->id)->update(['logo' => $newName]);
+                }
+
+                foreach ($post['open'] as $key => $value) {
+                    if (!empty($value)) {
+                        $hour['restaurant_id'] = $ob->id;
+                        $hour['open'] = $this->cleanTime($value);
+                        $hour['close'] = $this->cleanTime($post['close'][$key]);
+                        $hour['day_of_week'] = $post['day_of_week'][$key];
+
+                        $ob2 = new \App\Http\Models\Hours();
+                        $ob2->populate($hour);
+                        $ob2->save();
+                    }
+                }
+
+                \Session::flash('message', 'Restaurant created successfully!');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulation!');
+                return \Redirect::to('/restaurant/list');
+            } catch (\Exception $e) {
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurant/add/new');
+            }
+        } else {
+            $data['title'] = "Add New Restaurants";
+            $data['countries_list'] = \App\Http\Models\Countries::get();
+            $data['genre_list'] = \App\Http\Models\Genres::get();
+            return view('dashboard.restaurant.addrestaurant', $data);
+        }
+    }
+
+    /**
      * Dashboard
      * @param null
      * @return view
@@ -961,7 +1095,41 @@ class RestaurantController extends Controller
         $ob2->save();
         echo $ob2->id;
         die();
+    }
 
+    function createslug($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+        //test for same slug in db
+        $text = $this->chkSlug($text);
+
+
+        return $text;
+    }
+
+    function chkSlug($txt)
+    {
+        if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
+            $txt = $txt . rand(0, 9);
+        }
+        return $txt;
     }
 
 }

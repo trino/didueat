@@ -36,14 +36,17 @@ Route::post('auth/forgot-passoword/ajax',           'Auth\AuthController@postAja
 Route::resource('dashboard',                        'AdministratorController@dashboard');
 Route::get('user/info',                             'AdministratorController@dashboard');
 Route::resource('restaurant/users',                 'AdministratorController@users');
+Route::get('restaurant/users/edit/{id}',            'AdministratorController@ajaxEditUserForm');
+Route::post('restaurant/users/update',            'AdministratorController@userUpdate');
 Route::get('restaurant/users/action/{type}/{id}',   'AdministratorController@usersAction');
 Route::resource('restaurant/newsletter',            'AdministratorController@newsletter');
 
 //Restaurants Routes
-Route::get('restaurant/restaurants',                'RestaurantController@restaurants');
+Route::get('restaurant/list',                'RestaurantController@restaurants');
 Route::get('restaurant/restaurants/delete/{id}',    'RestaurantController@restaurantDelete'     )->where('id', '[0-9]+');
 Route::get('restaurant/restaurants/status/{id}',    'RestaurantController@restaurantStatus'     )->where('id', '[0-9]+');
 Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
+Route::resource('restaurant/add/new',                  'RestaurantController@addRestaurants');
 Route::resource('restaurant/menus-manager',         'RestaurantController@menuManager');
 Route::resource('restaurant/addresses',             'RestaurantController@addresses');
 Route::get('restaurant/addresses/delete/{id}',      'RestaurantController@deleteAddresses'      )->where('id', '[0-9]+');

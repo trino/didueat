@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-primary" type="button" Value="Login" onclick="trylogin(); return false;"><br>
+                        <input class="btn btn-primary" type="submit" Value="Login"><br>
                     </div>
                     <div class="form-group">
                         <a href="#forget-passsword" class="fancybox-fast-view">Forgot Password?</a><br>

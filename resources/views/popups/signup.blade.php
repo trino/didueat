@@ -5,9 +5,6 @@
         <p></p>
     </div>
     {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-    <h1>Sign up</h1>
-
-    <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
     @include('common.signupform')
 

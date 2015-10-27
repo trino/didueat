@@ -47,12 +47,9 @@
                                         <td>{{ $value->phone }}</td>
                                         <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                         <td>
-                                            <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}"
-                                               class="btn red"
-                                               onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
-                                            <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}"
-                                               class="btn blue"
-                                               onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
+                                            <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                            <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire <?= addslashes($value->name); ?>?');">Fire</a>
+                                            <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess <?= addslashes($value->name); ?>?');">Possess</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -77,100 +74,22 @@
                     <h4 class="modal-title">Add New</h4>
                 </div>
                 {!! Form::open(array('url' => '/restaurant/users', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    @include('common.edituser')
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-content -->
 
-                <div class="form-group">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <select name="profile_type" class="form-control">
-                            <option value="1">Super</option>
-                            <option value="2">User</option>
-                            <option value="3">Owner</option>
-                            <option value="4">Employee</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="clearfix"></div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name<span class="require">*</span></label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-user"></i>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="" required="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="phone" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone<span class="require">*</span></label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-phone"></i>
-                                <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone number" value="" required="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email<span class="require">*</span></label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="" required="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="clearfix"></div>
+    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;">
+        <div class="modal-dialog2">
+            <div class="fancy-modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Change Password</h4>
+                    <h4 class="modal-title">Update</h4>
                 </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">New Password<span class="require">*</span></label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-key"></i>
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password<span class="require">*</span></label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div class="input-icon">
-                                <i class="fa fa-key"></i>
-                                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group clearfix">
-                        <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <label>
-                                <input type="checkbox" name="subscribed" id="subscribed" value="1" checked />
-                                Sign up for our Newsletter
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-
-                <div class="modal-footer">
-                    <button type="submit" class="btn red">Save changes</button>
-                </div>
+                {!! Form::open(array('url' => '/restaurant/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    <div id="editContents"></div>
                 {!! Form::close() !!}
             </div>
         </div>
@@ -179,10 +98,14 @@
 
 
 
-
-
-
     @include('common.tabletools')
-
+    <script>
+        $('body').on('click', '.editUser', function(){
+            var id = $(this).attr('data-id');
+            $.get("{{ url("restaurant/users/edit") }}/"+id, {}, function(result){
+                $('#editContents').html(result);
+            });
+        });
+    </script>
 
 @stop

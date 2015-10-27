@@ -126,7 +126,12 @@
                     2015 &copy; didueat.ca / ALL Rights Reserved.
                 </div>
                 <div class="col-md-4 col-sm-4 padding-top-10" align="center">
-                    This page took 0.09 seconds to generate
+                    <?php
+                    $start = microtime(true);
+                    $end = microtime(true);
+
+                    printf("Page was generated in %f seconds", $end - $start);
+                    ?>
                 </div>
                 <!-- END COPYRIGHT -->
                 <!-- BEGIN PAYMENTS -->
@@ -141,9 +146,3 @@
 
 </div>
 <!-- END PRE-FOOTER -->
-
-
-
-
-
-

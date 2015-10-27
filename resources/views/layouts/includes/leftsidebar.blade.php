@@ -27,7 +27,7 @@
                                         <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/admin') }}" class="<?php if (Request::path() == 'restaurant/orders/admin') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Orders</a></li>
                                         <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}" class="<?php if (Request::path() == 'restaurant/users') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Users</a> </li>
                                         <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/restaurants') }}" class="<?php if (Request::path() == 'restaurant/restaurants') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
+                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/list') }}" class="<?php if (Request::path() == 'restaurant/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
                                         <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
                                     </ul>
                                 </div>

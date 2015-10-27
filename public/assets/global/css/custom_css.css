@@ -2230,7 +2230,7 @@ body.ecommerce {
     margin-bottom: 15px !important;
 }
 
-#addNewUser .modal-header h4 {
+#addNewUser .modal-header h4, #editNewUser .modal-header h4 {
     font-size: 23px;
     font-weight: 600 !important;
     margin-bottom: 0 !important;
@@ -5042,6 +5042,7 @@ Portlets
   font-size: 14px;
   font-weight: 600;
   padding: 10px;
+  clear: both;
 }
 
 .pricing-head h4 {

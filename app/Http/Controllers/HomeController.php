@@ -189,8 +189,20 @@ class HomeController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-                \Session::flash('message', "[Country] field is missing!");
+            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
+                \Session::flash('message', "[Delivery Fee] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
+            if (!isset($post['minimum']) || empty($post['minimum'])) {
+                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
+            if (!isset($post['address']) || empty($post['address'])) {
+                \Session::flash('message', "[Address] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
@@ -201,20 +213,26 @@ class HomeController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
+            if (!isset($post['province']) || empty($post['province'])) {
+                \Session::flash('message', "[Province] field is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('/restaurants/signup')->withInput();
+            }
             if (!isset($post['postal_code']) || empty($post['postal_code'])) {
                 \Session::flash('message', "[Postal Code] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-                \Session::flash('message', "[Delivery Fee] field is missing!");
+            if (!isset($post['phone']) || empty($post['phone'])) {
+                \Session::flash('message', "[Phone] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['minimum']) || empty($post['minimum'])) {
-                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+            if (!isset($post['country']) || empty($post['country'])) {
+                \Session::flash('message', "[Country] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
@@ -271,7 +289,6 @@ class HomeController extends Controller
 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
                 if ($image_file != '') {
-
                     $arr = explode('.', $image_file);
                     $ext = end($arr);
                     $newName = $ob->slug . '.' . $ext;
@@ -287,8 +304,6 @@ class HomeController extends Controller
                     copyimages($sizes, $filename, $newName);
                     $res = new \App\Http\Models\Restaurants();
                     $res->where('id', $ob->id)->update(['logo' => $newName]);
-
-
                 }
 
                 foreach ($post['open'] as $key => $value) {

@@ -54,12 +54,7 @@ class AdministratorController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('dashboard');
             }
-            if (!isset($post['phone']) || empty($post['phone'])) {
-                \Session::flash('message', "[Phone] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('dashboard');
-            }
+
             try {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
 
@@ -95,6 +90,10 @@ class AdministratorController extends Controller
                 $ob->populate($post);
                 $ob->save();
 
+                $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
+                $add->populate($post);
+                $add->save();
+
                 login($ob);
 
                 \Session::flash('message', "Profile updated successfully");
@@ -109,6 +108,8 @@ class AdministratorController extends Controller
             }
         } else {
             $data['title'] = 'Dashboard';
+            $data['user_detail'] = \App\Http\Models\Profiles::find(\Session::get('session_id'));
+            $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
             return view('dashboard.administrator.dashboard', $data);
         }
     }
@@ -214,6 +215,11 @@ class AdministratorController extends Controller
                 $user->populate($post);
                 $user->save();
 
+                $add = new \App\Http\Models\ProfilesAddresses();
+                $post['user_id'] = $user->id;
+                $add->populate($post);
+                $add->save();
+
                 $userArray = $user->toArray();
                 $userArray['mail_subject'] = 'Thank you for registration.';
                 $this->sendEMail("emails.registration_welcome", $userArray);
@@ -240,10 +246,118 @@ class AdministratorController extends Controller
             $data['title'] = 'Users List';
 
             $MyHierarchy = get_profile_type(false, true)->hierarchy;
-            $data['users_list'] = \App\Http\Models\Profiles::join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
+            $data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
             // \App\Http\Models\Profiles::where('profiletype', 2)->orWhere('profiletype', 4)->orWhere('profiletype', 1)->orderBy('id', 'DESC')->get();
             //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
+            //echo "<pre>"; print_r($data['users_list']->toArray()); die;
             return view('dashboard.administrator.users', $data);
+        }
+    }
+
+    /**
+     * Edit User Form
+     * @param $id
+     * @return view
+     */
+    public function ajaxEditUserForm($id=0)
+    {
+        $data['user_detail'] = \App\Http\Models\Profiles::find($id);
+        $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        return view('common.edituser', $data);
+    }
+
+    /**
+     * Users List
+     * @param null
+     * @return view
+     */
+    public function userUpdate()
+    {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['id']) || empty($post['id'])) {
+                \Session::flash('message', '[ID] field is missing');
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            if (!isset($post['name']) || empty($post['name'])) {
+                \Session::flash('message', '[Name] field is missing');
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            if (!isset($post['email']) || empty($post['email'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->where('id', '!=', $post['id'])->count();
+            if ($is_email > 0) {
+                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            if (!isset($post['password']) || empty($post['password'])) {
+                \Session::flash('message', trans('messages.user_pass_field_missing.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                \Session::flash('message', trans('messages.user_passwords_mismatched.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+
+            \DB::beginTransaction();
+            try {
+                $post['status'] = 0;
+                $post['subscribed'] = 0;
+                $post['created_by'] = \Session::get('session_id');
+                $post['restaurant_id'] = \Session::get('session_restaurant_id');
+
+                $user = \App\Http\Models\Profiles::find($post['id']);
+                $user->populate($post);
+                $user->save();
+
+                $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
+                $add->populate($post);
+                $add->save();
+
+                \DB::commit();
+
+                \Session::flash('message', 'User has been updated successfully.');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('restaurant/users')->withInput();
+            } catch (\Illuminate\Database\QueryException $e) {
+                \DB::rollback();
+                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/users')->withInput();
+            }
+        } else {
+            \Session::flash('message', "Invalid parsed data!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/users')->withInput();
         }
     }
 

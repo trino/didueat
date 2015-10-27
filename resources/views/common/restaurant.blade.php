@@ -48,7 +48,7 @@
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>RESTAURANT INFO
+                <i class="fa fa-long-arrow-right"></i>RESTAURANT INFO
             </div>
         </div>
         <div class="portlet-body form">
@@ -76,13 +76,6 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Phone Number</label>
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}">
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
                             <label class="control-label">Description</label>
                             <textarea name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
                         </div>
@@ -95,13 +88,13 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                            <input type="text" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" required>
+                            <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
-                            <input type="text" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ old('minimum') }}" required>
+                            <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ old('minimum') }}" required>
                         </div>
                     </div>
 
@@ -135,7 +128,7 @@
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i> ADDRESS
+                <i class="fa fa-long-arrow-right"></i> ADDRESS
             </div>
         </div>
         <div class="portlet-body form">
@@ -143,13 +136,13 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label>Address</label>
+                            <label class="control-label">Address <span class="required">*</span></label>
                             <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label>City</label>
+                            <label class="control-label">City <span class="required">*</span></label>
                             <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
                         </div>
                     </div>
@@ -161,13 +154,19 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label>Postal Code</label>
+                            <label class="control-label">Postal Code <span class="required">*</span></label>
                             <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label>Country</label>
+                            <label class="control-label">Phone Number <span class="required">*</span></label>
+                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Country <span class="required">*</span></label>
                             <select name="country" id="country" class="form-control" required>
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
@@ -186,7 +185,7 @@
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i> HOURS
+                <i class="fa fa-long-arrow-right"></i> HOURS
             </div>
         </div>
         <div class="portlet-body form">
@@ -232,7 +231,7 @@
     <div class=" box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-gift"></i>CREATE USERNAME & PASSWORD
+                <i class="fa fa-long-arrow-right"></i>CREATE USERNAME & PASSWORD
             </div>
         </div>
         <div class="portlet-body form">
@@ -265,7 +264,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> Change Password
+                                <i class="fa fa-long-arrow-right"></i> Choose Password
                             </div>
                         </div>
                     </div>

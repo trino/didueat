@@ -528,14 +528,14 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
     if ($getcol) {
         $query = $query->select($getcol);
     }
-    if (!is_array($where)) {
-        $where = array($where);
-    }
-    foreach ($where as $key => $value) {
-        if (is_numeric($key)) {
-            $query->whereRaw($value);
-        } else {
-            $query->where($key, $value);
+
+    if (is_array($where) && $where != "") {
+        foreach ($where as $key => $value) {
+            if (is_numeric($key)) {
+                $query->whereRaw($value);
+            } else {
+                $query->where($key, $value);
+            }
         }
     }
 

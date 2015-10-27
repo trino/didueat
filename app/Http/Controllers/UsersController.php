@@ -45,14 +45,8 @@ class UsersController extends Controller
     {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['street']) || empty($post['street'])) {
+            if (!isset($post['address']) || empty($post['address'])) {
                 \Session::flash('message', "[Street address] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
-            }
-            if (!isset($post['apt']) || empty($post['apt'])) {
-                \Session::flash('message', "[Apartment/Unit/ Room] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('user/addresses');
@@ -100,7 +94,7 @@ class UsersController extends Controller
         } else {
             $data['title'] = "Addresses Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::get();
+            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::orderBy('id', 'DESC')->get();
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             return view('dashboard.user.addresses', $data);
         }

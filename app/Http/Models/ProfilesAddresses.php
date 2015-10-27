@@ -24,7 +24,7 @@ class ProfilesAddresses extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('user_id', 'number', 'apt', 'buzz', 'post_code', 'phone_no', 'street', 'city', 'province', 'country', 'notes');
+        $cells = array('user_id', 'address', 'phone_no', 'post_code', 'city', 'province', 'country');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -82,9 +82,9 @@ class ProfilesAddresses extends BaseModel
         return get_entry("profiles_addresses", $id);
     }
 
-    function edit_profile_address($id, $user_id, $name, $phone, $number, $street, $apt, $buzz, $city, $province, $postal_code, $country, $notes)
+    function edit_profile_address($id, $user_id, $address, $phone_no, $address, $city, $province, $post_code, $country)
     {
-        $Data = array("user_id" => $user_id, "name" => $name, "phone_no" => clean_phone($phone), "number" => $number, "street" => $street, "apt" => $apt, "buzz" => $buzz, "city" => $city, "province" => $province, "post_code" => clean_postalcode($postal_code), "country" => $country, "notes" => $notes);
+        $Data = array("user_id" => $user_id, "address" => $address, "phone_no" => clean_phone($phone_no), "address" => $address, "city" => $city, "province" => $province, "post_code" => clean_postalcode($post_code), "country" => $country);
         return edit_database("profiles_addresses", "id", $id, $Data);
     }
 

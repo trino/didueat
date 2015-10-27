@@ -35,9 +35,8 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">ID</th>
-                                        <th width="15%">Mobile #</th>
-                                        <th width="20%">Apartment/Unit/Room</th>
-                                        <th width="20%">Buzz code/doorbell number</th>
+                                        <th width="15%">Name</th>
+                                        <th width="20%">Mobile #</th>
                                         <th width="25%">Address</th>
                                         <th width="15%">Action</th>
                                     </tr>
@@ -46,10 +45,9 @@
                                     @foreach($addresses_list as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
-                                            <td>{{ $value->number }}</td>
-                                            <td>{{ $value->apt }}</td>
-                                            <td>{{ $value->buzz }}</td>
-                                            <td>{{ $value->street.', '.$value->city.', '.$value->province.', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                                            <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
+                                            <td>{{ $value->phone_no }}</td>
+                                            <td>{{ $value->address.', '.$value->city.', '.$value->province.', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
                                                 <a href="#editNewUser" class="btn red fancybox-fast-view editRow"
                                                    data-id="{{ $value->id }}">Edit</a>
@@ -78,26 +76,41 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Street Address
-                                                    <span class="required">*</span></label>
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Street Address <span class="required">*</span></label>
 
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="street" class="form-control"
-                                                           placeholder="Street address"
-                                                           value="{{ (isset($addresse_detail->street))?$addresse_detail->street:'' }}"
-                                                           required>
+                                                    <input type="text" name="address" class="form-control" placeholder="Street address" value="" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Postal
-                                                    Code</label>
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Postal Code</label>
 
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="post_code" class="form-control"
-                                                           placeholder="Postal Code"
-                                                           value="{{ (isset($addresse_detail->post_code))?$addresse_detail->post_code:'' }}">
+                                                    <input type="text" name="post_code" class="form-control" placeholder="Postal Code" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/row-->
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
+
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <input type="text" name="city" class="form-control" placeholder="City" value="" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
+
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -106,117 +119,31 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Apartment/Unit/
-                                                    Room <span class="required">*</span></label>
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
 
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="apt" class="form-control"
-                                                           placeholder="Name of the address"
-                                                           value="{{ (isset($addresse_detail->apt))?$addresse_detail->apt:'' }}"
-                                                           required>
+                                                    <input type="text" name="province" class="form-control" placeholder="Province" value="" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Buzz code/door
-                                                    bell number</label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="buzz" class="form-control"
-                                                           placeholder="Buzz code or door bell number"
-                                                           value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:'' }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/row-->
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Mobile
-                                                    Number</label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="number" class="form-control"
-                                                           placeholder="Mobile Number"
-                                                           value="{{ (isset($addresse_detail->number))?$addresse_detail->number:'' }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone
-                                                    Number</label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="phone_no" class="form-control"
-                                                           placeholder="Phone Number"
-                                                           value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no:'' }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/row-->
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span
-                                                            class="required">*</span></label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="city" class="form-control"
-                                                           placeholder="City"
-                                                           value="{{ (isset($addresse_detail->city))?$addresse_detail->city:'' }}"
-                                                           required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span
-                                                            class="required">*</span></label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="province" class="form-control"
-                                                           placeholder="Province"
-                                                           value="{{ (isset($addresse_detail->province))?$addresse_detail->province:'' }}"
-                                                           required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/row-->
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span
-                                                            class="required">*</span></label>
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
 
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
                                                     <select name="country" class="form-control" required>
                                                         <option value="">-Select One-</option>
                                                         @foreach($countries_list as $value)
-                                                            <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Notes</label>
-
-                                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="notes" class="form-control"
-                                                           placeholder="Notes"
-                                                           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:'' }}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--/row-->
                                 </div>
+                                <br /><br />
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -244,7 +171,7 @@
     </div>
 
 
-    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width: 630px;">
+    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:900px;">
         <div id="loading" style="display: none; text-align: center;">
             <img src="{{ asset('assets/images/loader.gif') }}"/>
         </div>

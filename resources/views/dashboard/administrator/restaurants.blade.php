@@ -13,6 +13,9 @@
                 @endif
 
                 <div class="container-fluid">
+                    <a class="btn red pull-right fancybox-fast-view" href="{{ url('restaurant/add/new') }}">Add New</a>
+                    <div class="clearfix"></div><br />
+
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">

@@ -198,7 +198,7 @@
         e.preventDefault();
     });
 
-    function trylogin() {
+    $('body').on('submit', '#login-ajax-form', function(e){
         var data = $('#login-ajax-form').serialize();
         $.ajax({
             url: "{{ url('auth/login/ajax') }}",
@@ -234,7 +234,7 @@
                                 $('.fancybox-close').click();
                                 //only loads header
                                 $('#header-nav').load(document.URL +  ' #header-nav>div:first-child');
-                                
+
                             }
                         });
                     }
@@ -246,8 +246,8 @@
                 setvalue("message", "ERROR: " + msg);
             }
         });
-        return false;
-    }
+        e.preventDefault();
+    });
 
     $('body').on('click', '#resendMeEmail', function (e) {
         var url = $(this).attr('href');
@@ -263,7 +263,12 @@
         var token = $("#register-form input[name=_token]").val();
         var Name = $("#register-form input[name=name]").val();
         var Email = $("#register-form input[name=email]").val();
-        var phone = $("#register-form input[name=phone]").val();
+        var address = $("#register-form input[name=address]").val();
+        var post_code = $("#register-form input[name=post_code]").val();
+        var city = $("#register-form input[name=city]").val();
+        var phone_no = $("#register-form input[name=phone_no]").val();
+        var province = $("#register-form input[name=province]").val();
+        var country = $("#register-form select[name=country]").val();
         var password = $("#register-form input[name=password]").val();
         var confirm_password = $("#register-form input[name=confirm_password]").val();
         var subscribed = $("#register-form input[name=subscribed]").val();
@@ -274,7 +279,12 @@
             _token: token,
             name: Name,
             email: Email,
-            phone: phone,
+            address: address,
+            post_code: post_code,
+            city: city,
+            phone_no: phone_no,
+            province: province,
+            country: country,
             password: password,
             confirm_password: confirm_password,
             subscribed: subscribed
