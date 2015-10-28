@@ -100,7 +100,7 @@
             <div class="col-md-6 col-sm-6">
                 <div class="pre-footer-subscribe-box pull-right">
                     <h2>Newsletter</h2>
-                    <form action="#" method="post">
+                    {!! Form::open(array('url' => '/newsleter/subscribe', 'id'=>'subscribe-email','class'=>'','method'=>'post','role'=>'form')) !!}
                         <input type="hidden" name="action" value="subscribe">
 
                         <div class="input-group">
@@ -109,7 +109,7 @@
                                 <button class="btn red" type="submit">Subscribe</button>
                             </span>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
             <!-- END NEWLETTER -->
@@ -146,3 +146,29 @@
 
 </div>
 <!-- END PRE-FOOTER -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('body').on('submit', '#subscribe-email', function(e){
+            var email = $('#subscribe-email input[name=email]').val();
+            var token = $('#subscribe-email input[name=_token]').val();
+
+            if($.trim(email) == "" || email == null){
+                alert('Please type your email! thanks');
+                $('#subscribe-email input[name=email]').focus();
+                return false;
+            }
+
+            $.post("{{ url('newsletter/subscribe') }}", {email:email, _token:token}, function(jason){
+                //var jason = $.parseJSON(result);
+                if (jason.type == "error") {
+                    alert(jason.message);
+                    $('#subscribe-email input[name=email]').focus();
+                } else {
+                    $('#subscribe-email input[name=email]').val('');
+                    alert(jason.message);
+                }
+            });
+            e.preventDefault();
+        });
+    });
+</script>

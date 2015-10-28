@@ -157,5 +157,7 @@
 <div class="modal-footer">
     <button type="submit" class="btn red">Save changes</button>
     <input type="hidden" name="id" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
+    <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}" />
+    <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}" />
     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}" />
 </div>

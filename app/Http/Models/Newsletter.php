@@ -16,7 +16,7 @@ class Newsletter extends BaseModel
 
     protected $table = 'newsletter';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * @param array
@@ -24,7 +24,7 @@ class Newsletter extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('email', 'guid');
+        $cells = array('email', 'status', 'guid');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

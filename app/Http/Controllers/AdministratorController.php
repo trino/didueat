@@ -207,9 +207,8 @@ class AdministratorController extends Controller
             \DB::beginTransaction();
             try {
                 $post['status'] = 0;
-                $post['subscribed'] = 0;
+                $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
                 $post['created_by'] = \Session::get('session_id');
-                $post['restaurant_id'] = \Session::get('session_restaurant_id');
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($post);
@@ -321,11 +320,6 @@ class AdministratorController extends Controller
 
             \DB::beginTransaction();
             try {
-                $post['status'] = 0;
-                $post['subscribed'] = 0;
-                $post['created_by'] = \Session::get('session_id');
-                $post['restaurant_id'] = \Session::get('session_restaurant_id');
-
                 $user = \App\Http\Models\Profiles::find($post['id']);
                 $user->populate($post);
                 $user->save();
@@ -410,5 +404,18 @@ class AdministratorController extends Controller
             return view('dashboard.administrator.newsletter', $data);
         }
     }
+
+    /**
+     * Subscribers List
+     * @param null
+     * @return view
+     */
+    public function subscribers()
+    {
+        $data['title'] = 'Subscribers List';
+        $data['list'] = \App\Http\Models\Newsletter::get();
+        return view('dashboard.administrator.subscribers', $data);
+    }
+
 
 }

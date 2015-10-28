@@ -14,6 +14,7 @@ Route::post('/search/menus/ajax',                   'HomeController@searchMenusA
 Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
 Route::post('/uploadimg/{type}',                    'HomeController@uploadimg')->where('type','[a-z]+');
+Route::post('/newsletter/subscribe',                 'HomeController@newsletterSubscribe');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');
@@ -40,6 +41,7 @@ Route::get('restaurant/users/edit/{id}',            'AdministratorController@aja
 Route::post('restaurant/users/update',            'AdministratorController@userUpdate');
 Route::get('restaurant/users/action/{type}/{id}',   'AdministratorController@usersAction');
 Route::resource('restaurant/newsletter',            'AdministratorController@newsletter');
+Route::resource('restaurant/subscribers',            'AdministratorController@subscribers');
 
 //Restaurants Routes
 Route::get('restaurant/list',                'RestaurantController@restaurants');

@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 @section('content')
 
@@ -62,7 +63,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="{{ $address_detail->address }}">
+                                                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="{{ (isset($address_detail->address))?$address_detail->address:'' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -74,7 +75,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="post_code" class="form-control" id="post_code" placeholder="Postal Code" value="{{ $address_detail->post_code }}">
+                                                <input type="text" name="post_code" class="form-control" id="post_code" placeholder="Postal Code" value="{{ (isset($address_detail->post_code))?$address_detail->post_code:'' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -86,7 +87,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ $address_detail->city }}">
+                                                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ (isset($address_detail->city))?$address_detail->city:'' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +99,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="{{ $address_detail->phone_no }}">
+                                                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="{{ (isset($address_detail->phone_no))?$address_detail->phone_no:'' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +111,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="province" class="form-control" id="province" placeholder="Province" value="{{ $address_detail->province }}">
+                                                <input type="text" name="province" class="form-control" id="province" placeholder="Province" value="{{ (isset($address_detail->province))?$address_detail->province:'' }}">
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +126,7 @@
                                                 <select name="country" id="country" class="form-control">
                                                     <option value="">-Select One-</option>
                                                     @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
-                                                        <option value="{{ $value->id }}" @if($address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -190,15 +191,38 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-gift"></i> Change Photo
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <br />
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        @if($user_detail->photo)
+                                            <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/users/'.$user_detail->photo). '?'.mt_rand() }}" title="" style="width: 100%;">
+                                        @else
+                                            <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+                                    </div>
+                                    <input type="hidden" name="photo" id="hiddenLogo"/>
+                                </div>
                             </div>
 
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="row">
-                                            <div class="col-xs-offset-1 col-md-9 col-sm-9 col-xs-12">
+                                        <div class="row margin-top-20">
+                                            <div class="col-xs-offset-0 col-md-9 col-sm-9 col-xs-12">
                                                 <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
-                                                <input type="hidden" name="adid" value="{{ $address_detail->id }}" />
+                                                <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}" />
+                                                <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}" />
+                                                <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}" />
                                             </div>
                                         </div>
                                     </div>
@@ -216,4 +240,45 @@
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            ajaxuploadbtn('uploadbtn');
+
+        });
+        function ajaxuploadbtn(button_id) {
+            var button = $('#' + button_id), interval;
+            act = base_url + 'restaurant/uploadimg/user';
+            new AjaxUpload(button, {
+                action: act,
+                name: 'myfile',
+                data: {'_token': $('#profileForm input[name=_token]').val()},
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    //alert(response);return;
+                    var resp = response.split('___');
+                    var path = resp[0];
+                    var img = resp[1];
+                    button.html('Change Image');
+
+                    window.clearInterval(interval);
+                    this.enable();
+                    $('#picture').attr('src', path);
+                    $('#hiddenLogo').val(img);
+                }
+            });
+        }
+    </script>
 @stop

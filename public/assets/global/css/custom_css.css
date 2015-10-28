@@ -5267,3 +5267,5 @@ li {
 .restaurentsList .portlet-body {
     padding: 6px;
 }
+#avatarImage {width: 40px; border-radius: 50%;}
+.margin-top-20 {margin-top:20px;}

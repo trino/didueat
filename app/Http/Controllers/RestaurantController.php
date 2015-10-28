@@ -828,6 +828,9 @@ class RestaurantController extends Controller
             if ($type == 'restaurant') {
                 move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/restaurants') . '/' . $file);
                 $file_path = url() . '/assets/images/restaurants/' . $file;
+            } else if ($type == 'user') {
+                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/users') . '/' . $file);
+                $file_path = url() . '/assets/images/users/' . $file;
             } else {
                 move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
                 $file_path = url() . '/assets/images/products/' . $file;

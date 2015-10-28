@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Models\Newsletter;
 use App\Http\Models\PageViews;
 
 /**
@@ -38,6 +39,38 @@ class HomeController extends Controller
         $data['term'] = '';
 
         return view('home', $data);
+    }
+
+    /**
+     * Subscriber Newsletter
+     * @param null
+     * @return response
+     */
+    public function newsletterSubscribe()
+    {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['email']) || empty($post['email'])) {
+                return \Response::json(array('type' => 'error', 'message' => '[Email] field is required!'), 200);
+            }
+            $count = \App\Http\Models\Newsletter::where('email', $post['email'])->count();
+            if ($count > 0) {
+                return \Response::json(array('type' => 'error', 'message' => '['.$post['email'].'] already subscribed!'), 200);
+            }
+
+            $post['status'] = 1;
+            try {
+                $ob = new \App\Http\Models\Newsletter();
+                $ob->populate($post);
+                $ob->save();
+
+                return \Response::json(array('type' => 'success', 'message' => "You are subscribed successfully!"), 200);
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'message' => $e->getMessage()), 200);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'message' => 'Invalid request made!'), 200);
+        }
     }
 
     /**

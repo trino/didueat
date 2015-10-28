@@ -18,8 +18,8 @@
                     <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca our name address phone number">Email</a>
                     </li>
                     @if(Session::has('is_logged_in'))
-                        <li><a href="{{ url('dashboard') }}" class="fancybox-fast-view">{{ Session::get('session_name') }}</a></li>
-                        <li><a href="{{ url('auth/logout') }}" class="fancybox-fast-view">Log Out</a></li>
+                        <li><a href="{{ url('dashboard') }}"><img src="{{ asset('assets/images/default.png') }}" id="avatarImage"> {{ explode(' ', Session::get('session_name'))[0] }}</a></li>
+                        <li><a href="{{ url('auth/logout') }}">Log Out</a></li>
                     @else
                         <li><a href="#login-pop-up" class="fancybox-fast-view">Log In</a></li>
                     @endif
