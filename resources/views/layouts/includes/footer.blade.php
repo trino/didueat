@@ -127,10 +127,9 @@
                 </div>
                 <div class="col-md-4 col-sm-4 padding-top-10" align="center">
                     <?php
-                    $start = microtime(true);
-                    $end = microtime(true);
+                    $end_timer435345345 = microtime(true);
 
-                    printf("Page was generated in %f seconds", $end - $start);
+                    printf("Page was generated in %f seconds",  $end_timer435345345 - $start_timer435435);
                     ?>
                 </div>
                 <!-- END COPYRIGHT -->
@@ -145,6 +144,9 @@
     <!-- END FOOTER -->
 
 </div>
+
+
+
 <!-- END PRE-FOOTER -->
 <script type="text/javascript">
     $(document).ready(function(){

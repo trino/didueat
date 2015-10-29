@@ -1,3 +1,7 @@
+<?
+    $start_timer435435 = microtime(true);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!--<![endif]-->
