@@ -217,6 +217,7 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
+                    
                     <div class="form-group">
                         <div class="col-xs-12">
                             <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
