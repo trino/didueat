@@ -87,12 +87,15 @@ class AdministratorController extends Controller
                     $post['password'] = $post['confirm_password'];
                 }
 
-                $ob->populate($post);
+                $ob->populate(array_filter($post));
                 $ob->save();
 
-                $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
-                $add->populate($post);
-                $add->save();
+                if(isset($post['phone_no']) && !empty($post['phone_no'])){
+                    $post['user_id'] = $ob->id;
+                    $add = \App\Http\Models\ProfilesAddresses::findOrNew($post['adid']);
+                    $add->populate(array_filter($post));
+                    $add->save();
+                }
 
                 login($ob);
 
@@ -207,22 +210,25 @@ class AdministratorController extends Controller
             \DB::beginTransaction();
             try {
                 $post['status'] = 0;
+                $data['profile_type'] = 2;
                 $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
                 $post['created_by'] = \Session::get('session_id');
 
                 $user = new \App\Http\Models\Profiles();
-                $user->populate($post);
+                $user->populate(array_filter($post));
                 $user->save();
 
-                $add = new \App\Http\Models\ProfilesAddresses();
-                $post['user_id'] = $user->id;
-                $add->populate($post);
-                $add->save();
+                if(isset($user->id)){
+                    $add = new \App\Http\Models\ProfilesAddresses();
+                    $post['user_id'] = $user->id;
+                    $add->populate(array_filter($post));
+                    $add->save();
 
-                $userArray = $user->toArray();
-                $userArray['mail_subject'] = 'Thank you for registration.';
-                $this->sendEMail("emails.registration_welcome", $userArray);
-                \DB::commit();
+                    $userArray = $user->toArray();
+                    $userArray['mail_subject'] = 'Thank you for registration.';
+                    $this->sendEMail("emails.registration_welcome", $userArray);
+                    \DB::commit();
+                }
 
                 \Session::flash('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.');
                 \Session::flash('message-type', 'alert-success');
@@ -321,14 +327,16 @@ class AdministratorController extends Controller
             \DB::beginTransaction();
             try {
                 $user = \App\Http\Models\Profiles::find($post['id']);
-                $user->populate($post);
+                $user->populate(array_filter($post));
                 $user->save();
 
-                $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
-                $add->populate($post);
-                $add->save();
+                if(isset($post['adid']) && !empty($post['adid'])){
+                    $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
+                    $add->populate(array_filter($post));
+                    $add->save();
 
-                \DB::commit();
+                    \DB::commit();
+                }
 
                 \Session::flash('message', 'User has been updated successfully.');
                 \Session::flash('message-type', 'alert-success');

@@ -82,19 +82,6 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Type</label>
-                                <div class="col-md-9">
-                                    <select name="type" class="form-control">
-                                        <option value="Email">Email</option>
-                                        <option value="Phone">Phone</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn blue">Save changes</button>

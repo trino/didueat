@@ -20,7 +20,7 @@
                 $tt = (isset($m->menu_item)) ? $m->menu_item : '';
             }
             $menu_item = (isset($m->menu_item)) ? $m->menu_item : '';
-            $image = (isset($m->image)) ? $m->image : '';
+            $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.jpg';
     ?>
     <li id="list<?= $order->listid;?>" class="infolist">
         <span class="receipt_image">

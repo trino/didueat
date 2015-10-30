@@ -567,7 +567,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <a href="javascript:void(0)" class="btn btn-default back">Back</a>
+                                        <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
                                         <button type="submit" class="btn btn-primary">Checkout</button>
                                     </div>
                                     <div class="clearfix"></div>

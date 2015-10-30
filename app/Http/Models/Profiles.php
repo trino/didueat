@@ -27,9 +27,10 @@ class Profiles extends BaseModel
         $cells = array('profile_type', 'name', 'email', 'password', 'photo', 'subscribed', 'restaurant_id', 'created_by', 'status', 'created_at', 'updated_at', 'deleted_at');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-                if (isset($data['password'])) {
+                if (isset($data['password']) && $data[$cell] == $data['password'] && trim($data['password']) != "") {
                     $this->generatePassword($data['password']);
+                } else {
+                    $this->$cell = $data[$cell];
                 }
             }
         }
@@ -128,10 +129,10 @@ class Profiles extends BaseModel
         return first($ProfileMatch);
     }
 
-    function new_profile($created_by, $name, $password, $profile_type, $email_address, $phone, $restaurant_id, $subscribed = "")
+    function new_profile($created_by, $name, $password, $profile_type, $email_address, $photo, $restaurant_id, $subscribed = "")
     {
         $email_address = is_valid_email($email_address);
-        $phone = clean_phone($phone);
+        $photo = clean_phone($photo);
         if (!$email_address) {
             return false;
         }
@@ -147,7 +148,7 @@ class Profiles extends BaseModel
             $subscribed = 0;
         }
         $Encrypted = \bcrypt($password);
-        $data = array("Name" => trim($name), "ProfileType" => $profile_type, "phone" => $phone, "email" => $email_address, "created_by" => 0, "restaurant_id" => $restaurant_id, "subscribed" => $subscribed, "password" => $Encrypted);
+        $data = array("Name" => trim($name), "ProfileType" => $profile_type, "photo" => $photo, "email" => $email_address, "created_by" => 0, "restaurant_id" => $restaurant_id, "subscribed" => $subscribed, "password" => $Encrypted);
         if ($created_by) {
             if (!$this->can_profile_create($created_by, $profile_type)) {
                 return false;

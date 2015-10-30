@@ -54,10 +54,10 @@
                                 </div>
 
                                 <div class="caption">
-                                    <i class="fa fa-gift"></i> Addressing Information
+                                    <i class="fa fa-gift"></i> Contact Information
                                 </div>
 
-                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <!--<div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
                                         <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address</label>
 
@@ -91,7 +91,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
@@ -105,7 +105,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                <!--<div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
                                         <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province</label>
 
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="portlet-title">
                                     <div class="caption">

@@ -10,9 +10,7 @@
                     <!-- BEGIN TOP BAR MENU -->
                     <li><a href="{{ url('/') }}">Meals</a></li>
                     <li><a href="{{ url('restaurants') }}">Restaurants</a></li>
-                    @if(Session::has('is_logged_in'))
-                        <li><a href="{{ url('dashboard') }}">Admin's Dashboard</a></li>
-                    @else
+                    @if(!Session::has('is_logged_in'))
                         <li><a href="{{ url('restaurants/signup') }}">Restaurant Owner</a></li>
                     @endif
                     <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca our name address phone number">Email</a>

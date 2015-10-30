@@ -257,10 +257,55 @@ class UsersController extends Controller
                 $res['menu_ids'] = implode(',', $_POST['menu_ids']);
                 $res['restaurant_id'] = $_POST['res_id'];
                 $res['order_till'] = $_POST['order_till'];
+
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res);
                 $ob2->save();
                 $order_id = $ob2->id;
+
+                $email_address = $_POST['email'];
+                $password = $_POST['password'];
+                $phone = $_POST['contact'];
+                $name = $_POST['ordered_by'];
+                $oid = $order_id;
+
+                if (isset($_POST['password']) && $_POST['password'] != '') {
+                    if (\DB::table('profiles')->where('email', $email_address)->first()) {
+                        echo '1';
+                        die();
+                    } else {
+                        $data = array("name" => trim($name), "profile_type" => 2, "phone" => $phone, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0');
+                        $uid = new \App\Http\Models\Profiles();
+                        $uid->populate($data);
+                        $uid->save();
+
+                        if($uid->id){
+                            $data2 = array("phone" => $phone, "user_id" => $uid->id);
+                            $ad = new \App\Http\Models\ProfilesAddresses();
+                            $ad->populate($data2);
+                            $ad->save();
+
+                            $userArray = $uid->toArray();
+                            $userArray['mail_subject'] = 'Thank you for registration.';
+                            $this->sendEMail("emails.registration_welcome", $userArray);
+                        }
+                    }
+                }
+
+                $res_data = array('email' => $_POST['email'], 'address2' => $_POST['address2'], 'city' => $_POST['city'], 'ordered_by' => $_POST['postal_code'], 'remarks' => $_POST['remarks'], 'order_till' => $_POST['order_till'], 'contact' => $phone);
+                $res = \App\Http\Models\Reservations::find($oid);
+                $res->populate($res_data);
+                $res->save();
+
+                if($res->user_id){
+                    $u2 = \App\Http\Models\Profiles::find($res->user_id);
+                    $userArray2 = $u2->toArray();
+                    $userArray2['mail_subject'] = 'New Order received successfully!';
+                    $this->sendEMail("emails.order_new", $userArray2);
+                }
+
+                echo '0';
+
                 \DB::commit();
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
@@ -271,34 +316,6 @@ class UsersController extends Controller
                 echo $e->getMessage();
                 die();
             }
-
-            $email_address = $_POST['email'];
-            $password = $_POST['password'];
-            $phone = $_POST['contact'];
-            $name = $_POST['ordered_by'];
-            $oid = $order_id;
-
-            if (isset($_POST['password']) && $_POST['password'] != '') {
-                if (\DB::table('profiles')->where('email', $email_address)->first()) {
-                    echo '1';
-                    die();
-                } else {
-                    $uid = \DB::table('profiles')->insertGetId(
-                        array("name" => trim($name), "profile_type" => 2, "phone" => $phone, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0')
-                    );
-
-                    $user = \DB::table('profiles')->where('id', $uid)->first();
-                    $userArray = (array)$user;
-                    //var_dump($userArray); die();
-                    $userArray['mail_subject'] = 'Thank you for registration.';
-                    $this->sendEMail("emails.registration_welcome", $userArray);
-                    //$this->Manager->new_profile(0, $name, $password, 2, $email_address, $phone, 0, '0');
-                }
-            }
-            \DB::table('reservations')
-                ->where('id', $oid)
-                ->update(array('email' => $_POST['email'], 'address2' => $_POST['address2'], 'city' => $_POST['city'], 'ordered_by' => $_POST['postal_code'], 'remarks' => $_POST['remarks'], 'order_till' => $_POST['order_till'], 'province' => $_POST['province'], 'contact' => $phone));
-            echo '0';
         }
         die();
     }
@@ -306,7 +323,7 @@ class UsersController extends Controller
     function json_data()
     {
         $id = $_POST['id'];
-        $user = \App\Http\Models\Profiles::select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+        $user = \App\Http\Models\Profiles::select('profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         //$user = \DB::table('profiles')->select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
 
         return json_encode($user);

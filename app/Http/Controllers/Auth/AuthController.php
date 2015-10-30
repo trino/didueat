@@ -171,13 +171,15 @@ class AuthController extends Controller
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
-                    $user->populate($data);
+                    $user->populate(array_filter($data));
                     $user->save();
 
-                    $add = new \App\Http\Models\ProfilesAddresses();
-                    $data['user_id'] = $user->id;
-                    $add->populate($data);
-                    $add->save();
+                    if($user->id){
+                        $add = new \App\Http\Models\ProfilesAddresses();
+                        $data['user_id'] = $user->id;
+                        $add->populate(array_filter($data));
+                        $add->save();
+                    }
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
@@ -245,16 +247,18 @@ class AuthController extends Controller
                 \DB::beginTransaction();
                 try {
                     $data['status'] = 0;
-                    $data['profile_type'] = 1;
+                    $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
-                    $user->populate($data);
+                    $user->populate(array_filter($data));
                     $user->save();
 
-                    $add = new \App\Http\Models\ProfilesAddresses();
-                    $data['user_id'] = $user->id;
-                    $add->populate($data);
-                    $add->save();
+                    if($user->id){
+                        $add = new \App\Http\Models\ProfilesAddresses();
+                        $data['user_id'] = $user->id;
+                        $add->populate(array_filter($data));
+                        $add->save();
+                    }
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';

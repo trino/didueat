@@ -26,11 +26,11 @@
 
                             <div class="deleteme orders_details">
                                 <div class="btn_wrapper margin-bottom-20 clearfix">
-                                    <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('portlet')" class="btn red pull-right" />
+                                    <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('toPrintDetail')" class="btn red pull-right" />
                                 </div>
 
                                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                                <div class="box-shadow">
+                                <div id="toPrintDetail" class="box-shadow">
                                     <div class="portlet-title">
                                         <div class="caption">
                                             <i class="fa fa-globe"></i>Orders List
@@ -39,8 +39,6 @@
                                         </div>
                                     </div>
                                     <div class="portlet-body">
-                                        <?php
-                                        $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first(); ?>
                                         <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $restaurant->name;?></div>
                                         <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
                                         <div class="infolist noprint"><strong>EMAIL: </strong><?= $order->email;?></div>
@@ -67,5 +65,42 @@
         </div>
         <!-- END CONTENT -->
     </div>
+
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
+        });
+
+        $(function () {
+            $('.clearitems').click(function () {
+                $('.orders').html('');
+                $('.tax input').val('0');
+                var tax = 0;
+                var df = $('.df').val();
+                $('#subtotal1').val('0');
+                $('.subtotal').first().text('0.00');
+
+                var subtotal = 0;
+                if ($('#pickup1').hasClass("deliverychecked")) {
+                    grandtotal = 0;
+                }
+                else
+                    grandtotal = Number(df) + Number(subtotal) + Number(tax);
+
+                $('.grandtotal').text(grandtotal.toFixed(2));
+                $('.grandtotal').val(grandtotal.toFixed(2));
+
+                $('#cart-total').text('$' + grandtotal.toFixed(2));
+            })
+
+        });
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 
 @stop

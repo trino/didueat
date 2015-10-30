@@ -26,7 +26,7 @@
                 <h3>{!! $restaurant->name !!}</h3>
                 {!! $restaurant->address.' , '.$restaurant->city !!}
                 {!! $restaurant->province.' , '.$restaurant->country !!}<br>
-                <abbr title="Phone">P:</abbr> {!! $restaurant->phone !!}<br>
+                <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
                 <abbr title="Email">E:</abbr> <a href="javascript:void(0);"> {!! $restaurant->email !!} </a><br />
                 <abbr title="Phone">Views:</abbr> {!! (isset($total_views))?$total_views:0 !!}
             </address>
@@ -40,6 +40,8 @@
             <div class="receipt_main">
 
                 @include('common.items')
+
+
                 <div class="totals col-md-12 col-sm-12 col-xs-12">
                     <table class="table">
                         <tbody>
@@ -91,7 +93,7 @@
                 </div>
                 <?php if(!isset($order)){ ?>
                     <div class="text-right">
-                        <input class="btn red" type="button" onclick="printDiv('printableArea')" value="Print" style="margin: 0;"/>
+                        <input class="btn red" type="button" onclick="printDiv('toprint')" value="Print" style="margin: 0;"/>
                         <a href="javascript:void(0)" class="btn blue clearitems">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
@@ -105,7 +107,7 @@
                 </div>
                 <?php
                 if(\Session::get('session_id'))
-                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                 else
                 {?>
                 <div class="form-group reservation_signin">
@@ -151,7 +153,6 @@
 
                     <div class="form-group">
                         <div class="col-xs-12">
-
                             <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                 <option value="ASAP">ASAP</option>
                                 <?php get_time_interval();?>
@@ -218,7 +219,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <a href="javascript:void(0)" class="btn btn-default back">Back</a>
+                            <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
                             <button type="submit" class="btn btn-primary">Checkout</button>
                         </div>
                         <div class="clearfix"></div>
@@ -229,37 +230,3 @@
     </div>
 
 </div>
-
-
-<script>
-    $(function () {
-        $('.clearitems').click(function () {
-            $('.orders').html('');
-            $('.tax input').val('0');
-            var tax = 0;
-            var df = $('.df').val();
-            $('#subtotal1').val('0');
-            $('.subtotal').first().text('0.00');
-
-            var subtotal = 0;
-            if ($('#pickup1').hasClass("deliverychecked")) {
-                grandtotal = 0;
-            }
-            else
-                grandtotal = Number(df) + Number(subtotal) + Number(tax);
-
-            $('.grandtotal').text(grandtotal.toFixed(2));
-            $('.grandtotal').val(grandtotal.toFixed(2));
-
-            $('#cart-total').text('$' + grandtotal.toFixed(2));
-        })
-
-    })
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-</script>

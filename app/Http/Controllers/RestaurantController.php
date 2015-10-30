@@ -208,7 +208,7 @@ class RestaurantController extends Controller
                 $update['minimum'] = $post['minimum'];
 
                 $ob = new \App\Http\Models\Restaurants();
-                $ob->populate($update);
+                $ob->populate(array_filter($update));
                 $ob->save();
 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
@@ -352,7 +352,7 @@ class RestaurantController extends Controller
                 $update['minimum'] = $post['minimum'];
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
-                $ob->populate($update);
+                $ob->populate(array_filter($update));
                 $ob->save();
 
                 foreach ($post['open'] as $key => $value) {
@@ -421,6 +421,10 @@ class RestaurantController extends Controller
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $post['restaurant_id'] = \Session::get('session_restaurant_id');
+                $post['type'] = "Phone";
+                if(filter_var($post['address'], FILTER_VALIDATE_EMAIL)) {
+                    $post['type'] = "Email";
+                }
                 $ob = new \App\Http\Models\NotificationAddresses();
                 $ob->populate($post);
                 $ob->save();
@@ -635,10 +639,12 @@ class RestaurantController extends Controller
                 $ob->populate(array('status' => 'cancelled', 'note' => $post['note']));
                 $ob->save();
 
-                $userArray = Profiles::find($ob->user_id)->toArray();
-                $userArray['mail_subject'] = 'Your order has been cancelled.';
-                $userArray['note'] = $post['note'];
-                $this->sendEMail("emails.order_cancel", $userArray);
+                if ($ob->user_id) {
+                    $userArray = Profiles::find($ob->user_id)->toArray();
+                    $userArray['mail_subject'] = 'Your order has been cancelled.';
+                    $userArray['note'] = $post['note'];
+                    $this->sendEMail("emails.order_cancel", $userArray);
+                }
 
                 \Session::flash('message', 'Order status has been cancelled successfully!');
                 \Session::flash('message-type', 'alert-success');
@@ -681,14 +687,17 @@ class RestaurantController extends Controller
             }
 
             try {
+
                 $ob = \App\Http\Models\Reservations::find($post['id']);
                 $ob->populate(array('status' => 'approved', 'note' => $post['note']));
                 $ob->save();
 
-                $userArray = Profiles::find($ob->user_id)->toArray();
-                $userArray['mail_subject'] = 'Your order has been approved.';
-                $userArray['note'] = $post['note'];
-                $this->sendEMail("emails.order_approve", $userArray);
+                if ($ob->user_id){
+                    $userArray = Profiles::find($ob->user_id)->toArray();
+                    $userArray['mail_subject'] = 'Your order has been approved.';
+                    $userArray['note'] = $post['note'];
+                    $this->sendEMail("emails.order_approve", $userArray);
+                }
 
                 \Session::flash('message', 'Order status has been approved successfully!');
                 \Session::flash('message-type', 'alert-success');
@@ -1044,14 +1053,14 @@ class RestaurantController extends Controller
 
     public function order_detail($ID)
     {
-        if ($data['order'] = \App\Http\Models\Reservations::where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first()) {
-            if (is_null($data['order']['restaurant_id'])) {
-                return back()->with('status', 'Restaurant Not Found!');
-            } else {
-                $data['title'] = 'Orders Detail';
-                //echo '<pre>'; print_r($data['order']->toArray()); die;
-                return view('dashboard.restaurant.orders_detail', $data);
-            }
+        $data['order'] = \App\Http\Models\Reservations::where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
+        if(is_null($data['order']['restaurant_id'])) {
+            return back()->with('status', 'Restaurant Not Found!');
+        } else {
+            $data['title'] = 'Orders Detail';
+            $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);
+            //echo '<pre>'; print_r($data['order']->toArray()); die;
+            return view('dashboard.restaurant.orders_detail', $data);
         }
     }
 

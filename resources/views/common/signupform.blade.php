@@ -45,13 +45,8 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="clearfix"></div>
 <h1>Addressing Information</h1>
-<div class="portlet-title">
-    <div class="caption">
-        <i class="fa fa-gift"></i> Addressing Information
-    </div>
-</div>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
+<!--<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
         <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address <span class="require">*</span></label>
 
@@ -85,21 +80,21 @@ $phonenumber = priority(old('phone'), read('phone'));
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number <span class="require">*</span></label>
+        <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number</label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="" required>
+                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="">
             </div>
         </div>
     </div>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
+<!--<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
         <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province <span class="require">*</span></label>
 
@@ -126,7 +121,7 @@ $phonenumber = priority(old('phone'), read('phone'));
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <div class="clearfix"></div>
 <h1>Create Password</h1>
@@ -176,7 +171,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <label>
-                <input type="checkbox" name="subscribed" id="subscribed" value="1" <?php if (read('subscribed')) { echo ' checked'; } ?> />
+                <input type="checkbox" name="subscribed" id="subscribed" value="1" />
                 Sign up for our Newsletter
             </label>
         </div>

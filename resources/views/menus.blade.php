@@ -44,7 +44,7 @@
                         <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
                     </div>
                     <div class="col-sm-12 col-xs-12">
-                        <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo url('assets/images/default_menu.jpg'); ?>" />
+                        <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo url('assets/images/default_menus.jpg'); ?>" />
                     </div>
                     <div class="clearfix"></div>
 

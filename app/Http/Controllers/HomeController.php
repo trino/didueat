@@ -353,7 +353,7 @@ class HomeController extends Controller
 
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 0;
-                $data['profile_type'] = 1;
+                $data['profile_type'] = 2;
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
