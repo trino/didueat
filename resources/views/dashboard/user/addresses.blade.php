@@ -47,7 +47,7 @@
                                             <td>{{ $value->id }}</td>
                                             <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
                                             <td>{{ $value->phone_no }}</td>
-                                            <td>{{ $value->address.', '.$value->city.', '.$value->province.', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                                            <td>{{ $value->address.', '.$value->city.', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
                                                 <a href="#editNewUser" class="btn red fancybox-fast-view editRow"
                                                    data-id="{{ $value->id }}">Edit</a>
@@ -66,13 +66,24 @@
                             <div class="portlet-body form add_address_form">
                                 <div class="portlet-title margin-bottom-10">
                                     <div class="caption">
-                                        ADD ADDRESS
+                                        ADD Location
                                     </div>
                                 </div>
                                 <br />
                                 <!-- BEGIN FORM-->
                                 {!! Form::open(array('url' => 'user/addresses', 'id'=>'addressesForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                                 <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Location Name</label>
+                                                <div class="col-md-7 col-sm-7 col-xs-12">
+                                                    <input type="text" name="location" class="form-control" placeholder="Location Name" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/row-->
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
@@ -120,9 +131,13 @@
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
-
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="province" class="form-control" placeholder="Province" value="" required>
+                                                    <select name="province" class="form-control" required>
+                                                        <option value="">-Select One-</option>
+                                                        @foreach($states_list as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

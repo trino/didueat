@@ -1,10 +1,21 @@
 <div class="modal-dialog2">
     <div class="fancy-modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Update Address</h4>
+            <h4 class="modal-title">Update Location</h4>
         </div>
         {!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
         <div class="form-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Location Name</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <input type="text" name="location" class="form-control" placeholder="Location Name" value="{{ (isset($addresse_detail->location))?$addresse_detail->location:'' }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
@@ -37,7 +48,12 @@
                     <div class="form-group">
                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <input type="text" name="province" class="form-control" placeholder="Province" value="{{ (isset($addresse_detail->province))?$addresse_detail->province:'' }}" required>
+                            <select name="province" class="form-control" required>
+                                <option value="">-Select One-</option>
+                                @foreach($states_list as $value)
+                                    <option value="{{ $value->id }}" {{ (isset($addresse_detail->province) && $addresse_detail->province == $value->id)?'selected':'' }}>{{ $value->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

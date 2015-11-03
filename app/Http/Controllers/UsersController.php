@@ -94,6 +94,7 @@ class UsersController extends Controller
         } else {
             $data['title'] = "Addresses Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
+            $data['states_list'] = \App\Http\Models\States::get();
             $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::orderBy('id', 'DESC')->get();
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             return view('dashboard.user.addresses', $data);
@@ -114,6 +115,7 @@ class UsersController extends Controller
 
         try {
             $data['countries_list'] = \App\Http\Models\Countries::get();
+            $data['states_list'] = \App\Http\Models\States::get();
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             ob_start();
             return view('ajax.addresse_edit', $data);

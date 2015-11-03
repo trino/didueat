@@ -45,18 +45,19 @@ Route::resource('restaurant/subscribers',            'AdministratorController@su
 
 //Restaurants Routes
 Route::get('restaurant/list',                'RestaurantController@restaurants');
-Route::get('restaurant/restaurants/delete/{id}',    'RestaurantController@restaurantDelete'     )->where('id', '[0-9]+');
-Route::get('restaurant/restaurants/status/{id}',    'RestaurantController@restaurantStatus'     )->where('id', '[0-9]+');
+Route::get('restaurant/list/delete/{id}',    'RestaurantController@restaurantDelete'     )->where('id', '[0-9]+');
+Route::get('restaurant/list/status/{id}',    'RestaurantController@restaurantStatus'     )->where('id', '[0-9]+');
 Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
 Route::resource('restaurant/add/new',                  'RestaurantController@addRestaurants');
 Route::resource('restaurant/menus-manager',         'RestaurantController@menuManager');
 Route::resource('restaurant/addresses',             'RestaurantController@addresses');
 Route::get('restaurant/addresses/delete/{id}',      'RestaurantController@deleteAddresses'      )->where('id', '[0-9]+');
-Route::get('restaurant/orders/pending',             'RestaurantController@pendingOrders');
+Route::get('restaurant/addresses/default/{id}',      'RestaurantController@defaultAddresses'      )->where('id', '[0-9]+');
+Route::get('restaurant/orders/list',             'RestaurantController@pendingOrders');
 Route::get('restaurant/orders/view/{id}',           'RestaurantController@viewOrder'            )->where('id', '[0-9]+');
-Route::post('restaurant/orders/pending/cancel', 'RestaurantController@changeOrderCancel'    );
-Route::post('restaurant/orders/pending/approve','RestaurantController@changeOrderApprove'   );
-Route::get('restaurant/orders/pending/delete/{id}', 'RestaurantController@deleteOrder'          )->where('id', '[0-9]+');
+Route::post('restaurant/orders/list/cancel', 'RestaurantController@changeOrderCancel'    );
+Route::post('restaurant/orders/list/approve','RestaurantController@changeOrderApprove'   );
+Route::get('restaurant/orders/list/delete/{id}', 'RestaurantController@deleteOrder'          )->where('id', '[0-9]+');
 Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail'         )->where('id', '[0-9]+');
 Route::get('restaurant/orders/history/{id}',        'RestaurantController@history'              )->where('id', '[0-9]+');
 Route::get('restaurant/orders/{type}',              'RestaurantController@orderslist'           )->where('slug', '[a-z]+');

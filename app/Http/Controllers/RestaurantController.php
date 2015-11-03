@@ -60,7 +60,7 @@ class RestaurantController extends Controller
             \Session::flash('message', "[Restaurant Id] field is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         }
 
         try {
@@ -80,13 +80,13 @@ class RestaurantController extends Controller
             \Session::flash('message', "Restaurant has been deleted successfully!");
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         } catch (\Exception $e) {
 
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         }
     }
 
@@ -102,7 +102,7 @@ class RestaurantController extends Controller
             \Session::flash('message', "[Restaurant Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         }
 
         try {
@@ -117,13 +117,13 @@ class RestaurantController extends Controller
             \Session::flash('message', 'Restaurant status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         } catch (\Exception $e) {
 
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/restaurants');
+            return \Redirect::to('restaurant/list');
         }
     }
 
@@ -314,14 +314,16 @@ class RestaurantController extends Controller
             }
             try {
                 if ($post['logo'] != '') {
-                    $res = \App\Http\Models\Restaurants::where('id', $post['id'])->get()[0];
-                    $image_file = $res->logo;
-                    $im = explode($post['logo'], '.');
+                    $im = explode('.', $post['logo']);
                     $ext = end($im);
-                    if ($image_file == '')
+                    $res = \App\Http\Models\Restaurants::find($post['id']);
+                    $newName = $res->logo;
+                    if ($newName != $post['logo']){
                         $newName = $res->slug . '.' . $ext;
-                    else
-                        $newName = $image_file;
+                        if(file_exists(public_path('assets/images/restaurants/'.$post['id'].'/'.$newName))){
+                            @unlink(public_path('assets/images/restaurants/'.$post['id'].'/'.$newName));
+                        }
+                    }
                     if (!file_exists(public_path('assets/images/restaurants/' . $post['id']))) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
                     }
@@ -330,15 +332,14 @@ class RestaurantController extends Controller
                     copy(public_path('assets/images/restaurants/' . $post['logo']), $filename);
                     @unlink(public_path('assets/images/restaurants/' . $post['logo']));
                     $sizes = ['assets/images/restaurants/' . $post['id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['id'] . '/thumb1_' => '120x85'];
-
                     copyimages($sizes, $filename, $newName);
-
                     $update['logo'] = $newName;
                 }
 
                 $update['name'] = $post['name'];
-                if ($post['id'] == '')
+                if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
+                }
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
@@ -420,14 +421,31 @@ class RestaurantController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $post['restaurant_id'] = \Session::get('session_restaurant_id');
+                $post['user_id'] = \Session::get('session_id');
                 $post['type'] = "Phone";
+                $post['is_default'] = 1;
                 if(filter_var($post['address'], FILTER_VALIDATE_EMAIL)) {
                     $post['type'] = "Email";
                 }
                 $ob = new \App\Http\Models\NotificationAddresses();
                 $ob->populate($post);
                 $ob->save();
+
+                if($ob->type == "Email"){
+                    $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Email')->get();
+                    foreach($ob2 as $value1){
+                        $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                        $in2->populate(array("is_default" => 0));
+                        $in2->save();
+                    }
+                } else {
+                    $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Phone')->get();
+                    foreach($ob2 as $value1){
+                        $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                        $in2->populate(array("is_default" => 0));
+                        $in2->save();
+                    }
+                }
 
                 \Session::flash('message', "Address added successfully!");
                 \Session::flash('message-type', 'alert-success');
@@ -441,7 +459,7 @@ class RestaurantController extends Controller
             }
         } else {
             $data['title'] = 'Addresses List';
-            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('restaurant_id', \Session::get('session_restaurant_id'))->get();
+            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->get();
             return view('dashboard.restaurant.addresses', $data);
         }
     }
@@ -465,6 +483,54 @@ class RestaurantController extends Controller
             $ob->delete();
 
             \Session::flash('message', "Address has been deleted successfully!");
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Congratulations!');
+            return \Redirect::to('restaurant/addresses');
+        } catch (\Exception $e) {
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/addresses');
+        }
+    }
+
+    /**
+     * Default Addresse
+     * @param $id
+     * @return redirect
+     */
+    public function defaultAddresses($id = 0)
+    {
+        if (!isset($id) || empty($id) || $id == 0) {
+            \Session::flash('message', "[Address Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/addresses');
+        }
+
+        try {
+            $ob = \App\Http\Models\NotificationAddresses::find($id);
+            $ob->populate(array("is_default" => 1));
+            $ob->save();
+
+            if($ob->type == "Email"){
+                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Email')->get();
+                foreach($ob2 as $value1){
+                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                    $in2->populate(array("is_default" => 0));
+                    $in2->save();
+                }
+            } else {
+                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Phone')->get();
+                foreach($ob2 as $value1){
+                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                    $in2->populate(array("is_default" => 0));
+                    $in2->save();
+                }
+            }
+
+
+            \Session::flash('message', "Address has beed default successfully!");
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/addresses');
@@ -598,9 +664,9 @@ class RestaurantController extends Controller
      */
     public function pendingOrders()
     {
-        $data['title'] = 'Pending History';
+        $data['title'] = 'Orders History';
         $data['type'] = 'Pending';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->where('status', 'pending')->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
@@ -625,13 +691,13 @@ class RestaurantController extends Controller
                 \Session::flash('message', "[Order Id] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
             if (!isset($post['note']) || empty($post['note'])) {
                 \Session::flash('message', "[Note Field] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
 
             try {
@@ -640,7 +706,7 @@ class RestaurantController extends Controller
                 $ob->save();
 
                 if ($ob->user_id) {
-                    $userArray = Profiles::find($ob->user_id)->toArray();
+                    $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
                     $userArray['mail_subject'] = 'Your order has been cancelled.';
                     $userArray['note'] = $post['note'];
                     $this->sendEMail("emails.order_cancel", $userArray);
@@ -649,18 +715,18 @@ class RestaurantController extends Controller
                 \Session::flash('message', 'Order status has been cancelled successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
         } else {
             \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
+            return \Redirect::to('restaurant/orders/list');
         }
     }
 
@@ -677,13 +743,13 @@ class RestaurantController extends Controller
                 \Session::flash('message', "[Order Id] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
             if (!isset($post['note']) || empty($post['note'])) {
                 \Session::flash('message', "[Note Field] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
 
             try {
@@ -693,7 +759,7 @@ class RestaurantController extends Controller
                 $ob->save();
 
                 if ($ob->user_id){
-                    $userArray = Profiles::find($ob->user_id)->toArray();
+                    $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
                     $userArray['mail_subject'] = 'Your order has been approved.';
                     $userArray['note'] = $post['note'];
                     $this->sendEMail("emails.order_approve", $userArray);
@@ -702,18 +768,18 @@ class RestaurantController extends Controller
                 \Session::flash('message', 'Order status has been approved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/pending');
+                return \Redirect::to('restaurant/orders/list');
             }
         } else {
             \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
+            return \Redirect::to('restaurant/orders/list');
         }
     }
 
@@ -728,7 +794,7 @@ class RestaurantController extends Controller
             \Session::flash('message', "[Order Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
+            return \Redirect::to('restaurant/orders/list');
         }
 
         try {
@@ -738,12 +804,12 @@ class RestaurantController extends Controller
             \Session::flash('message', 'Order has been deleted successfully!');
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/orders/pending');
+            return \Redirect::to('restaurant/orders/list');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/pending');
+            return \Redirect::to('restaurant/orders/list');
         }
     }
 
@@ -1053,7 +1119,7 @@ class RestaurantController extends Controller
 
     public function order_detail($ID)
     {
-        $data['order'] = \App\Http\Models\Reservations::where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
+        $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
         if(is_null($data['order']['restaurant_id'])) {
             return back()->with('status', 'Restaurant Not Found!');
         } else {

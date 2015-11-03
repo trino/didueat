@@ -253,11 +253,19 @@ class AuthController extends Controller
                     $user->populate(array_filter($data));
                     $user->save();
 
+                    $nd1 = new \App\Http\Models\NotificationAddresses();
+                    $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
+                    $nd1->save();
+
                     if($user->id){
                         $add = new \App\Http\Models\ProfilesAddresses();
                         $data['user_id'] = $user->id;
                         $add->populate(array_filter($data));
                         $add->save();
+
+                        $nd2 = new \App\Http\Models\NotificationAddresses();
+                        $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone_no));
+                        $nd2->save();
                     }
 
                     $userArray = $user->toArray();

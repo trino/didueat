@@ -358,11 +358,27 @@ class HomeController extends Controller
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
-                $data['phone'] = $post['phone'];
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
                 $user->save();
+
+                $nd1 = new \App\Http\Models\NotificationAddresses();
+                $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
+                $nd1->save();
+
+                if($user->id){
+                    $add = new \App\Http\Models\ProfilesAddresses();
+                    $update['user_id'] = $user->id;
+                    $update['phone_no'] = $post['phone'];
+                    $update['post_code'] = $post['postal_code'];
+                    $add->populate(array_filter($update));
+                    $add->save();
+
+                    $nd2 = new \App\Http\Models\NotificationAddresses();
+                    $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone_no));
+                    $nd2->save();
+                }
 
                 $userArray = $user->toArray();
                 $userArray['mail_subject'] = 'Thank you for registration.';
@@ -383,6 +399,7 @@ class HomeController extends Controller
         } else {
             $data['title'] = "Signup Restaurants Page";
             $data['countries_list'] = \App\Http\Models\Countries::get();
+            $data['states_list'] = \App\Http\Models\States::get();
             $data['genre_list'] = \App\Http\Models\Genres::get();
             //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
             return view('restaurants-signup', $data);

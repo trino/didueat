@@ -34,16 +34,19 @@
                                     <tr>
                                         <th width="10%">ID</th>
                                         <th width="50%">Phone Number/Email Address</th>
-                                        <th width="20%">Type</th>
-                                        <th width="20%">Actions</th>
+                                        <th width="15%">Type</th>
+                                        <th width="15%">Status</th>
+                                        <th width="10%">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($addresses_list as $value)
+                                        <?php $status = "<a href='". url('restaurant/addresses/default/'.$value->id) ."' class='btn btn-danger red'>Make Default</a>"; ?>
                                         <tr>
                                             <td>{{ $value->id }}</td>
                                             <td>{{ $value->address }}</td>
                                             <td>{{ $value->type }}</td>
+                                            <td>{!! ($value->is_default == 1)?'Default':$status !!}</td>
                                             <td>
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
                                             </td>

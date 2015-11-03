@@ -250,9 +250,11 @@ class AdministratorController extends Controller
         } else {
             $data['title'] = 'Users List';
 
-            $MyHierarchy = get_profile_type(false, true)->hierarchy;
-            $data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
-            // \App\Http\Models\Profiles::where('profiletype', 2)->orWhere('profiletype', 4)->orWhere('profiletype', 1)->orderBy('id', 'DESC')->get();
+            //$MyHierarchy = get_profile_type(false, true)->hierarchy;
+            //$data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
+            $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+            $data['states_list'] = \App\Http\Models\States::get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
             //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
             //echo "<pre>"; print_r($data['users_list']->toArray()); die;
             return view('dashboard.administrator.users', $data);
@@ -268,6 +270,8 @@ class AdministratorController extends Controller
     {
         $data['user_detail'] = \App\Http\Models\Profiles::find($id);
         $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+        $data['states_list'] = \App\Http\Models\States::get();
         return view('common.edituser', $data);
     }
 

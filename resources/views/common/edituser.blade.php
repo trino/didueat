@@ -32,6 +32,22 @@
     </div>
 </div>
 
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group clearfix">
+        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Restaurant</label>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="input-icon">
+                <select name="restaurant_id" id="restaurant_id" class="form-control">
+                    <option value="">-Select-</option>
+                    @foreach($restaurants_list as $value)
+                        <option value="{{ $value->id }}" @if(isset($user_detail->restaurant_id) && $value->id == $user_detail->restaurant_id) selected @endif>{{ $value->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="clearfix"></div>
 <div class="modal-header">
     <h4 class="modal-title">Addressing Information</h4>
@@ -91,7 +107,12 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <input type="text" name="province" class="form-control" id="province" placeholder="Province" value="{{ (isset($address_detail->province))?$address_detail->province:'' }}" required>
+                <select name="province" class="form-control" required>
+                    <option value="">-Select One-</option>
+                    @foreach($states_list as $value)
+                        <option value="{{ $value->id }}" @if(isset($address_detail->province) && $address_detail->province == $value->id) selected @endif>{{ $value->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
@@ -157,7 +178,6 @@
 <div class="modal-footer">
     <button type="submit" class="btn red">Save changes</button>
     <input type="hidden" name="id" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
-    <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}" />
     <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}" />
     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}" />
 </div>

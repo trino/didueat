@@ -148,12 +148,6 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Province <span class="required">*</span></label>
-                            <input type="text" class="form-control" name="province" placeholder="Province Name" value="{{ old('province') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
                             <label class="control-label">Postal Code <span class="required">*</span></label>
                             <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                         </div>
@@ -162,6 +156,17 @@
                         <div class="form-group">
                             <label class="control-label">Phone Number <span class="required">*</span></label>
                             <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Province <span class="required">*</span></label>
+                            <select name="province" class="form-control" required>
+                                <option value="">-Select One-</option>
+                                @foreach($states_list as $value)
+                                    <option value="{{ $value->id }}" @if(old('province') == $value->id) selected @endif>{{ $value->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">

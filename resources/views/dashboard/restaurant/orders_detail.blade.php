@@ -27,6 +27,10 @@
                             <div class="deleteme orders_details">
                                 <div class="btn_wrapper margin-bottom-20 clearfix">
                                     <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('toPrintDetail')" class="btn red pull-right" />
+                                    @if(strtolower($order->status) == 'pending')
+                                        <a href="#cancel-popup" class="btn yellow pull-right fancybox-fast-view cancel-popup" data-id="{{ $order->id }}" style="margin: 0px 10px;">Cancel</a>
+                                        <a href="#approve-popup" class="btn blue pull-right fancybox-fast-view approve-popup" data-id="{{ $order->id }}">Approve</a>
+                                    @endif
                                 </div>
 
                                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -65,6 +69,8 @@
         </div>
         <!-- END CONTENT -->
     </div>
+
+    @include('popups.approve_cancel')
 
     <script>
         $(function () {
