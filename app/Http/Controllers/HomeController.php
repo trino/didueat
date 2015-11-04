@@ -441,8 +441,8 @@ class HomeController extends Controller
         $data['title'] = 'Menus Restaurant Page';
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
-        $data['total_views'] = \App\Http\Models\PageViews::getView($res_slug->id);
-        \App\Http\Models\PageViews::insertView($res_slug->id);
+        \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");
+        $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
 
         //$data['menus_list'] = $menus;
         if (isset($_GET['page'])) {
@@ -530,7 +530,14 @@ class HomeController extends Controller
         $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(2);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
+
         return view('menus', $data);
+    }
+
+    function countStatus($id=0)
+    {
+        \App\Http\Models\PageViews::insertView($id, 'menu');
+        return \App\Http\Models\PageViews::getView($id, "menu");
     }
 
 }

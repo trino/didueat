@@ -20,9 +20,7 @@
                     </div>
                 </div>
                 <div class="portlet-body no-padding">
-                    <div id="postswrapper_{{$cat->id}}" class="loadcontent">
-
-                    </div>
+                    <div id="postswrapper_{{$cat->id}}" class="loadcontent"></div>
                     <div class="clearfix"></div>
                     <div id="loadmoreajaxloader_{{$cat->id}}" style="display:none;">
                         <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
@@ -59,6 +57,17 @@
     <!-- END SIDEBAR & CONTENT -->
 
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('body').on('click', '.insert-stats', function(){
+                var id = $(this).attr('data-id');
+                $.get("{{ url('restaurants/menu/stats') }}/"+id, {}, function(result){
+                    $('#product-pop-up_'+id+" #stats_block").show();
+                    $('#product-pop-up_'+id+" #stats_block #view_stats").text(result);
+                });
+            });
+        });
+    </script>
     <script>
         function check_val(v) {
             if (v != '') {
@@ -102,13 +111,15 @@
                     data: datas + '&' + order_data,
                     success: function (msg) {
                         $('.overlay_reservation').hide();
-                        if (msg == '0') {
-                            $('.top-cart-content ').html('<span class="thankyou"> Thank you, for your order <br/>or <br/> creating an account.<br/> (an email has been sent to you).</span>');
-                        }
-                        else if (msg == '1')
+                        if (msg == '1') {
                             alert('Email Already Registred.');
-                        else
+                        } else if (msg == '6') {
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
+                        } else if (msg == '786') {
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly.</span>");
+                        } else {
                             alert(msg);
+                        }
                     }
                 })
             });

@@ -276,12 +276,6 @@ class RestaurantController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['email']) || empty($post['email'])) {
-                \Session::flash('message', "[Restaurant Email] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['id']);
-            }
             if (!isset($post['country']) || empty($post['country'])) {
                 \Session::flash('message', "[Country] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
@@ -340,7 +334,7 @@ class RestaurantController extends Controller
                 if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
                 }
-                $update['email'] = $post['email'];
+                //$update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
@@ -766,6 +760,59 @@ class RestaurantController extends Controller
                 }
 
                 \Session::flash('message', 'Order status has been approved successfully!');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('restaurant/orders/list');
+            } catch (\Exception $e) {
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/list');
+            }
+        } else {
+            \Session::flash('message', 'Invalid request made!');
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('restaurant/orders/list');
+        }
+    }
+
+    /**
+     * Change Order Status to Disapproved
+     * @param $id
+     * @return redirect
+     */
+    public function changeOrderDisapprove()
+    {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['id']) || empty($post['id'])) {
+                \Session::flash('message', "[Order Id] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/list');
+            }
+            if (!isset($post['note']) || empty($post['note'])) {
+                \Session::flash('message', "[Note Field] is missing!");
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('restaurant/orders/list');
+            }
+
+            try {
+
+                $ob = \App\Http\Models\Reservations::find($post['id']);
+                $ob->populate(array('status' => 'pending', 'note' => $post['note']));
+                $ob->save();
+
+                if ($ob->user_id){
+                    $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
+                    $userArray['mail_subject'] = 'Your order has been disapproved.';
+                    $userArray['note'] = $post['note'];
+                    $this->sendEMail("emails.order_disapprove", $userArray);
+                }
+
+                \Session::flash('message', 'Order status has been disapproved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/orders/list');

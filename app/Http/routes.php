@@ -8,6 +8,7 @@ Route::get('/restaurants',                          'HomeController@allRestauran
 Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/', 'HomeController@loadmenus');
+Route::get('/restaurants/menu/stats/{id}',    'HomeController@countStatus');
 Route::resource('/home/test',                       'HomeController@test');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
@@ -46,7 +47,7 @@ Route::resource('restaurant/subscribers',            'AdministratorController@su
 //Restaurants Routes
 Route::get('restaurant/list',                'RestaurantController@restaurants');
 Route::get('restaurant/list/delete/{id}',    'RestaurantController@restaurantDelete'     )->where('id', '[0-9]+');
-Route::get('restaurant/list/status/{id}',    'RestaurantController@restaurantStatus'     )->where('id', '[0-9]+');
+Route::get('restaurant/list/status/{id}',    'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
 Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
 Route::resource('restaurant/add/new',                  'RestaurantController@addRestaurants');
 Route::resource('restaurant/menus-manager',         'RestaurantController@menuManager');
@@ -57,6 +58,7 @@ Route::get('restaurant/orders/list',             'RestaurantController@pendingOr
 Route::get('restaurant/orders/view/{id}',           'RestaurantController@viewOrder'            )->where('id', '[0-9]+');
 Route::post('restaurant/orders/list/cancel', 'RestaurantController@changeOrderCancel'    );
 Route::post('restaurant/orders/list/approve','RestaurantController@changeOrderApprove'   );
+Route::post('restaurant/orders/list/disapprove','RestaurantController@changeOrderDisapprove'   );
 Route::get('restaurant/orders/list/delete/{id}', 'RestaurantController@deleteOrder'          )->where('id', '[0-9]+');
 Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail'         )->where('id', '[0-9]+');
 Route::get('restaurant/orders/history/{id}',        'RestaurantController@history'              )->where('id', '[0-9]+');

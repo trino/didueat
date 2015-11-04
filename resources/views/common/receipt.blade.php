@@ -28,7 +28,7 @@
                 {!! $restaurant->province.' , '.$restaurant->country !!}<br>
                 <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
                 <abbr title="Email">E:</abbr> <a href="javascript:void(0);"> {!! $restaurant->email !!} </a><br />
-                <abbr title="Phone">Views:</abbr> {!! (isset($total_views))?$total_views:0 !!}
+                <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
             </address>
             <div class="clearfix"></div>
         </div>
@@ -121,7 +121,7 @@
                 <?php } ?>
                 <form id="profiles">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="user_id" value="<?php echo (isset($profile)) ? $profile->id : '0';?>"/>
+                    <input type="hidden" name="user_id" id="ordered_user_id" value="<?php echo (isset($profile)) ? $profile->id : '0';?>"/>
 
                     <div class="form-group">
                         <div class="col-xs-12 margin-bottom-10">
@@ -160,7 +160,8 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="profile_delivery_detail" style="display: none;">
+
+                    <!--<div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                 <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="<?php if (isset($profile)) echo $profile->street;?>">
@@ -210,7 +211,7 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <div class="col-xs-12">
                             <textarea placeholder="Additional Notes" class="form-control  form-control--contact" name="remarks"></textarea>

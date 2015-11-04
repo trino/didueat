@@ -54,6 +54,8 @@
                                                 @if(strtolower($value->status) == 'pending')
                                                     <a href="#cancel-popup" class="btn yellow fancybox-fast-view cancel-popup" data-id="{{ $value->id }}">Cancel</a>
                                                     <a href="#approve-popup" class="btn blue fancybox-fast-view approve-popup" data-id="{{ $value->id }}">Approve</a>
+                                                @else
+                                                    <a href="#disapprove-popup" class="btn red fancybox-fast-view disapprove-popup" data-id="{{ $value->id }}">Disapprove</a>
                                                 @endif
                                             </td>
                                         </tr>

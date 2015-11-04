@@ -30,8 +30,7 @@
                                 <tr>
                                     <th width="5%">ID</th>
                                     <th width="10%">Logo</th>
-                                    <th width="15%">Name</th>
-                                    <th width="15%">Email</th>
+                                    <th width="30%">Name</th>
                                     <th width="10%">Type</th>
                                     <th width="15%">Actions</th>
                                 </tr>
@@ -43,7 +42,6 @@
                                         <td>{{ $value->id }}</td>
                                         <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90" /></td>
                                         <td>{{ $value->name }}</td>
-                                        <td>{{ $value->email }}</td>
                                         <td>[@if($value->open == true) OPENED @else CLOSED @endif]</td>
                                         <td>
                                             <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn blue">Orders</a>

@@ -74,13 +74,6 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Restaurant Email <span class="required">*</span></label>
-                                                <input type="email" name="email" class="form-control" placeholder="Restaurant Email" value="{{ $resturant->email }}" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
                                                 <label class="control-label">Description</label>
                                                 <textarea name="description" class="form-control" placeholder="Description">{{ $resturant->description }}</textarea>
                                             </div>

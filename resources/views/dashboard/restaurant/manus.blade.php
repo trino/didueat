@@ -53,10 +53,7 @@
                                                          style="padding-right: 0px;">
                                                         <div class="row">
                                                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                                                <a href="javascript:void(0)"
-                                                                   id="add_item{{ $value->id }}"
-                                                                   class="btn ignore btn-success green add_item">Edit
-                                                                    Item</a>
+                                                                <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
                                                                 <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->id;?>" onclick="return confirm('Are you sure you want to delete this item?');" id="deleteitem{{ $value->id }}" class="deletecat btn red ignore">Delete</a>
                                                                 <div style="clear: both;" class="ignore"></div>
                                                             </div>

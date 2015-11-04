@@ -28,7 +28,7 @@ class PageViews extends BaseModel
         }
     }
 
-    public static function insertView($restaurant_id = 0)
+    public static function insertView($id = 0, $type = "")
     {
         $browser_info = getBrowser();
         $browser_name = $browser_info['name'];
@@ -36,14 +36,14 @@ class PageViews extends BaseModel
         $browser_platform = $browser_info['platform'];
 
         $data['user_id'] = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
-        $data['target_id'] = $restaurant_id;
+        $data['target_id'] = $id;
         $data['ip_address'] = get_client_ip_server();
         $data['browser_name'] = $browser_name;
         $data['browser_version'] = $browser_version;
         $data['browser_platform'] = $browser_platform;
-        $data['type'] = 'restaurant';
+        $data['type'] = $type;
 
-        $count = \App\Http\Models\PageViews::where('ip_address', $data['ip_address'])->where('browser_name', $data['browser_name'])->where('target_id', $restaurant_id)->where('type', 'restaurant')->count();
+        $count = \App\Http\Models\PageViews::where('ip_address', $data['ip_address'])->where('browser_name', $data['browser_name'])->where('target_id', $id)->where('user_id', $data['user_id'])->where('type', $type)->count();
         if ($count == 0) {
             $ob = new PageViews();
             $ob->populate($data);
@@ -51,9 +51,9 @@ class PageViews extends BaseModel
         }
     }
 
-    public static function getView($restaurant_id = 0)
+    public static function getView($id = 0, $type = "")
     {
-        return \App\Http\Models\PageViews::where('target_id', $restaurant_id)->where('type', 'restaurant')->count();
+        return \App\Http\Models\PageViews::where('target_id', $id)->where('type', $type)->count();
     }
 
 

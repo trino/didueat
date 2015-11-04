@@ -5,10 +5,9 @@
         <div class="col-md-4 col-sm-6 col-xs-12 no-padding parents" id="parent<?php echo $value->id;?>" style="margin-bottom: 20px;">
             <div class="product-item" style="margin:3px;background: #f7f7f7;height: 155px; padding: 10px;">
 
-                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
+                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" data-id="{{ $value->id }}" class="insert-stats <?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
                     <div class="col-md-8 col-sm-7 col-xs-6 ">
                         <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
-
                         <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
                     </div>
 
@@ -42,6 +41,9 @@
                 <div style=" font-family:mainfont;" class="modal-body">
                     <div style="text-align: left;padding:0px;" class="col-sm-12 col-xs-12 title">
                         <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
+                    </div>
+                    <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
+                        <strong>Menu Views:</strong> <span id="view_stats"></span>
                     </div>
                     <div class="col-sm-12 col-xs-12">
                         <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo url('assets/images/default_menus.jpg'); ?>" />

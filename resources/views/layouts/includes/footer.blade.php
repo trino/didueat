@@ -283,6 +283,7 @@
                                 dataType: "json",
                                 success: function (arr) {
                                     $('#fullname').val(arr.name);
+                                    $('#ordered_user_id').val(arr.user_id);
                                     $('#ordered_email').val(arr.email);
                                     $('#ordered_contact').val(arr.phone);
                                     $('#ordered_province').val(arr.province);
