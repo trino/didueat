@@ -54,7 +54,7 @@
                                                 <a href="#editNewUser" class="btn red fancybox-fast-view editRow"
                                                    data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
-                                                   onclick="return confirm(' Are you sure you want to delete <?= addslashes("'" . $value->location . "'"); ?>? ');">Delete</a>
+                                                   onclick="return confirm('Are you sure you want to delete <?= addslashes("'" . $value->location . "'"); ?>?');">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
