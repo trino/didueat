@@ -7,6 +7,10 @@ Header and header elements
     color: red;
 }
 
+.nowrap{
+    white-space: nowrap;
+}
+
 .no-overflow{
     overflow: hidden;
 }
