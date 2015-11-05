@@ -18,7 +18,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             @if(check_permission("can_edit_global_settings"))
                 <div class="box-shadow">
                     <div class="portlet-title">

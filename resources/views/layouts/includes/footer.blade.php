@@ -67,7 +67,7 @@
                 <form class="form">
                     <fieldset>
                         <div class="form-group margin-bottom-10">
-                            <label class="col-lg-12 col-sm-12 control-label col-xs-12 no-padding margin-bottom-10" for="Message">Message <span class="require">*</span></label>
+                            <label class="col-lg-12 col-sm-12 control-label col-xs-12 no-padding margin-bottom-10" for="Message">Message  <span class="required">*</span></label>
                             <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
                                 <textarea style="height:150px" name="Message" class="form-control margin-bottom-10"></textarea>
                                 <div class="pull-right">
