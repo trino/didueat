@@ -50,7 +50,7 @@
                     <div style="display:none;">
                         <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id }}_<?php echo $value->menu_item;?>-_<?php echo $value->price;?>_" value="" class="chk">
                     </div>
-                    <div style="overflow: hidden;" class="banner bannerz">
+                    <div class="banner bannerz no-overflow">
                         <table width="100%">
                             <tbody>
                             <?php
@@ -79,7 +79,7 @@
                                             <span><em> </em></span>
 
 
-                                                        <span class="limit-options" style="float: right;">
+                                                        <span class="limit-options right-float">
                                                         <?php
                                                             if ($sub->exact_upto == 0)
                                                                 $upto = "up to ";
@@ -99,8 +99,7 @@
                                                         </span>
 
                                             <div class="clearfix"></div>
-                                            <span class="error_<?php echo $sub->id;?>"
-                                                  style="color: red; font-weight: bold;"></span>
+                                            <span class="error_<?php echo $sub->id;?> strong-error"></span>
 
                                             <div class="list clearfix">
                                                 <?php
@@ -109,17 +108,16 @@
                                                 foreach($mini_menus as $mm):
                                                 ?>
                                                 <div class="col-xs-6 col-md-6"
-                                                     style="padding: 0px;border-radius: 17px 0 0 17px !important;"
-                                                     class="subin btn default btnxx">
-                                                    <div style="padding:0px;border-radius: 17px 0 0 17px !important;">
-                                                        <a style="text-decoration: none;display:inline-block; padding-right: 15px;" title="" id="buttons_<?php echo $mm->id;?>" class="buttons" href="javascript:void(0);">
-                                                            <button style="border-radius: 17px!important;" class="btn btn-primary"></button>
+                                                     class="subin btn default btnxx pad-17">
+                                                    <div class="pad-17">
+                                                        <a title="" id="buttons_<?php echo $mm->id;?>" class="buttons btn-plain" href="javascript:void(0);">
+                                                            <button class="btn btn-primary btn-curved"></button>
                                                             <input type="<?php echo ($sub->sing_mul == '1') ? 'radio' : 'checkbox';?>" id="extra_<?php echo $mm->id;?>" title="<?php echo $mm->id;?>_<br/> <?php echo $mm->menu_item;?>_<?php echo $mm->price;?>_<?php echo $sub->menu_item;?>" class="extra-<?php echo $sub->id;?>" name="extra_<?php echo $sub->id;?>" value="post"/> &nbsp;&nbsp;<?php echo $mm->menu_item;?> &nbsp;&nbsp;<?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                             <b style="display:none;"></b>
                                                         </a>
-                                                        <b style="display:none;"><a onclick="" style="text-decoration: none; color: #000;" id="remspan_<?php echo $mm->id;?>" class="remspan" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                                        <b style="display:none;"><a onclick="" id="remspan_<?php echo $mm->id;?>" class="remspan plain" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
                                                             <span id="sprice_0" class="span_<?php echo $mm->id;?> allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
-                                                            <a style="text-decoration: none; color: #000;" onclick="" id="addspan_<?php echo $mm->id;?>" class="addspan" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                                            <a onclick="" id="addspan_<?php echo $mm->id;?>" class="addspan plain" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
                                                         </b>
                                                     </div>
                                                     <div class="clearfix"></div>
@@ -137,13 +135,13 @@
 
                     <div class="clearfix"></div>
                     <div style="line-height:45px;" class="col-xs-12 add-btn">
-                        <div class="add-minus-btn" style="float:left;">
+                        <div class="add-minus-btn left-float">
                             <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
                             <div class="number{{ $value->id }}">1</div>
                             <a class="btn btn-primary add" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>
                         </div>
-                        <a style="float: right; margin-left: 10px;" id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end" href="javascript:void(0);">Add</a>
-                        <button id="clear_{{ $value->id }}" style="opacity: 1; text-shadow:none;margin-left: 10px;float: right;margin-left: 10px;display:none;" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
+                        <a id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end btn-spc right-float" href="javascript:void(0);">Add</a>
+                        <button id="clear_{{ $value->id }}" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
                             RESET
                         </button>
                         <div class="clearfix"></div>

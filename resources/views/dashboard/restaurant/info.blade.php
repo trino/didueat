@@ -63,7 +63,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Cusine Type</label>
+                                                <label>Cuisine Type</label>
                                                 <select name="genre" id="genre" class="form-control">
                                                     <option value="">-Select One-</option>
                                                     @foreach($genre_list as $value)
@@ -84,14 +84,14 @@
                                             <h3 class="form-section">Delivery</h3>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
                                                 <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}" required />
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
                                                 <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ $resturant->minimum }}" required />
@@ -159,14 +159,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
                                                 <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ $resturant->postal_code }}" required>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Phone Number</label>
                                                 <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->phone }}">

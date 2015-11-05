@@ -65,7 +65,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label>Cusine Type</label>
+                            <label>Cuisine Type</label>
                             <select name="genre" id="genre" class="form-control">
                                 <option value="">-Select One-</option>
                                 @foreach($genre_list as $value)

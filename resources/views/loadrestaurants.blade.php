@@ -9,11 +9,9 @@
 
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         @if(!empty($value->logo))
-                            <img style="width:100%;" class="img-responsive" alt=""
-                                 src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
+                            <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
                         @else
-                            <img style="width:100%;" class="img-responsive" alt=""
-                                 src="{{ asset('assets/images/default.png') }}">
+                            <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/default.png') }}">
                         @endif
                     </a>
                 </td>
