@@ -4,7 +4,7 @@
         <div class="col-sm-5 col-xs-12 nopadd">
             <div class="menuimg menuimg<?= $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
                 <?php if(isset($model) && $model->image){?>
-                    <img src="<?= url('assets/images/products/'.$model->image) ?>" />
+                    <img src="<?= asset('assets/images/products/'.$model->image) ?>" />
                     <input type="hidden" class="hiddenimg" value="<?= $model->image;?>" />
                 <?php } ?>
             </div>

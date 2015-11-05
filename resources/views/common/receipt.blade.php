@@ -17,9 +17,9 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-4 col-sm-4 col-xs-4">
                 @if(!empty($restaurant->logo))
-                    <img class="img-responsive" alt="" src="{{ url('assets/images/restaurants/'.$restaurant->id.'/thumb1_'.$restaurant->logo) }}">
+                    <img class="img-responsive" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/thumb1_'.$restaurant->logo) }}">
                 @else
-                    <img class="img-responsive" alt="" src="{{ url('assets/images/default.png') }}">
+                    <img class="img-responsive" alt="" src="{{ asset('assets/images/default.png') }}">
                 @endif
             </div>
             <address class="col-md-8 col-sm-8 col-xs-8">

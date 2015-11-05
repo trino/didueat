@@ -48,21 +48,21 @@
         <div class="grid">
             <div class="col-1-3">
                 <div class="module">
-                    <img src="{{ url('assets/images/click.png') }}">
+                    <img src="{{ asset('assets/images/click.png') }}">
                     <h3>Sign Up</h3>
                     <p>Sign up or contact us today to book an appointment with one of our team members.</p>
                 </div>
             </div>
             <div class="col-1-3">
                 <div class="module">
-                    <img src="{{ url('assets/images/clip.png') }}">
+                    <img src="{{ asset('assets/images/clip.png') }}">
                     <h3>Create Menu</h3>
                     <p>Do it yourself menu creation, update anytime.</p>
                 </div>
             </div>
             <div class="col-1-3">
                 <div class="module">
-                    <img src="{{ url('assets/images/box.png') }}">
+                    <img src="{{ asset('assets/images/box.png') }}">
                     <h3>Receive Orders</h3>
                     <p>Start receiving orders in as little as 10 minutes.</p>
                 </div>

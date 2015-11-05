@@ -51,13 +51,13 @@
                                      style=" display: block; opacity: 1;">
                                     <div class="mix-inner">
                                         <img class="img-responsive"
-                                             src="{{ url('assets/images/users/'.$value->filename) }}" alt="">
+                                             src="{{ asset('assets/images/users/'.$value->filename) }}" alt="">
 
                                         <div class="mix-details">
                                             <h4>Cascusamus et iusto odio</h4>
                                             <!--<a class="mix-link"><i class="fa fa-link"></i></a>-->
                                             <a class="mix-preview fancybox-button"
-                                               href="{{ url('assets/images/users/'.$value->filename) }}"
+                                               href="{{ asset('assets/images/users/'.$value->filename) }}"
                                                title="Project Name" data-rel="fancybox-button">
                                                 <i class="fa fa-search"></i>
                                             </a>

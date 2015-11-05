@@ -3,7 +3,7 @@
     .resturant-arrows { display: none; }
 </style>
 <?php } ?>
-<script src="{{ url('assets/global/scripts/additional.js') }}" class="ignore"></script>
+<script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
 
 <div class="newmenu ignore" id="newmenu0">
     <p>&nbsp;</p>
@@ -11,7 +11,7 @@
         <div class="col-sm-2 col-xs-12 nopadd ignore">
             <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
                 <?php if(isset($model) && $model->image){ ?>
-                    <img src="<?php echo url('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) ?>" class="ignore"/>
+                    <img src="<?php echo asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) ?>" class="ignore"/>
                     <input type="hidden" class="hiddenimg ignore" value="<?php echo $model->image;?>"/>
                 <?php } ?>
             </div>

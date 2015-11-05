@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">
-                        <img style="max-height:100%;" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image); else echo url('assets/images/default_menu.png'); ?>" class="img-responsive" alt="{{ $value->menu_item }}" />
+                        <img style="max-height:100%;" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image); else echo asset('assets/images/default_menu.png'); ?>" class="img-responsive" alt="{{ $value->menu_item }}" />
                     </div>
                 </a>
 
@@ -46,7 +46,7 @@
                         <strong>Menu Views:</strong> <span id="view_stats"></span>
                     </div>
                     <div class="col-sm-12 col-xs-12">
-                        <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo url('assets/images/default_menus.jpg'); ?>" />
+                        <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo asset('assets/images/default_menus.jpg'); ?>" />
                     </div>
                     <div class="clearfix"></div>
 

@@ -17,8 +17,8 @@
                 <div class="card-image">
                     <?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))){?>
                     <img style="" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))){
-                        echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
-                     } else { echo url('assets/images/default_menu.jpg'); } ?>">
+                        echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
+                     } else { echo asset('assets/images/default_menu.jpg'); } ?>">
                     <?php } ?>
                     <span class="card-title"><span style="color:red;">${{ $value->price }}</span></span>
                 </div>
@@ -36,8 +36,8 @@
                 <div class="col-sm-12 col-xs-12">
                     <img class="popimage_{{ $value->id }}" width="150"
                          src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image)))
-                             echo url('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
-                         else echo url('assets/images/default_menu.jpg'); ?>"/>
+                             echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
+                         else echo asset('assets/images/default_menu.jpg'); ?>"/>
                 </div>
                 <div class="clearfix"></div>
 

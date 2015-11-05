@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-    <link rel="stylesheet" href="<?php echo url('assets');?>/global/css/popstyle.css">
+    <link rel="stylesheet" href="<?php echo asset('assets');?>/global/css/popstyle.css">
     <div class="margin-bottom-40 clearfix">
         <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
 
