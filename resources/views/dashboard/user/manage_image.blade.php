@@ -46,7 +46,9 @@
                     <div class="portlet-body">
 
                         <div class="row mix-grid" style="">
+                            <?php $count = 0; ?>
                             @foreach($images_list as $value)
+                                <?php $count++; ?>
                                 <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all"
                                      style=" display: block; opacity: 1;">
                                     <div class="mix-inner">
@@ -65,6 +67,9 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <?php if($count==0){
+                                echo '<DIV ALIGN="CENTER">No files have been uploaded</DIV>';
+                            } ?>
                         </div>
                     </div>
                 </div>

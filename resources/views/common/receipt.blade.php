@@ -68,9 +68,7 @@
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
                             <td>&nbsp;$ <div class="tax" style="display: inline-block;"><?php echo (isset($order)) ? $order->tax : '0';?></div>
-                                &nbsp;(
-                                <div id="tax" style="display: inline-block;">13</div>
-                                %)
+                                &nbsp;(<div id="tax" style="display: inline-block;">13</div>%)
                                 <input type="hidden" value="<?php echo (isset($order)) ? $order->tax : '0';?>" name="tax" class="tax"/>
                             </td>
                         </tr>

@@ -136,9 +136,9 @@
                 var subtotal = 0;
                 if ($('#pickup1').hasClass("deliverychecked")) {
                     grandtotal = 0;
-                }
-                else
+                } else {
                     grandtotal = Number(df) + Number(subtotal) + Number(tax);
+                }
 
                 $('.grandtotal').text(grandtotal.toFixed(2));
                 $('.grandtotal').val(grandtotal.toFixed(2));
