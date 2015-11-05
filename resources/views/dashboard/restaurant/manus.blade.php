@@ -38,9 +38,9 @@
                                                         <div class="row">
                                                             <div class="col-sm-1 col-xs-12 ignore" style="padding: 0;">
                                                                 @if(!empty($value->image))
-                                                                    <img class="itemimg4 itemimg ignore" alt="" src="{{ url('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb_'.$value->image) }}">
+                                                                    <img class="itemimg4 itemimg ignore" alt="" src="{{ asset('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb_'.$value->image) }}">
                                                                 @else
-                                                                    <img class="itemimg4 itemimg ignore" alt="" src="{{ url('assets/images/default.png') }}">
+                                                                    <img class="itemimg4 itemimg ignore" alt="" src="{{ asset('assets/images/default.png') }}">
                                                                 @endif
                                                             </div>
                                                             <div class="col-sm-8 col-xs-12 ignore">

@@ -81,7 +81,10 @@
                         <?php
                         $r1 = rand('1000000', '999999999');
                         ?>
-                        <input type="radio" onclick="$(this).parent().find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="<?php echo $r1;?>" <?php if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)){?> checked="checked"<?php }?>> Optional&nbsp; &nbsp; OR&nbsp; &nbsp; <input type="radio" value="1" onclick="$(this).parent().find('.is_req').val(1);" class="is_required ignore" name="<?php echo $r1;?>" <?php if(isset($child->req_opt) && $child->req_opt == 1){?> checked="checked"<?php }?>> Required <input type="hidden" class="is_req ignore ignore2 ignore1" <?php if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)){?>value="0"<?php }else{ ?>value="1"<?php } ?> />
+                        <LABEL><input type="radio" onclick="$(this).parent().find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="<?php echo $r1;?>" <?php if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)){?> checked="checked"<?php }?>> Optional</LABEL>
+                            &nbsp; &nbsp; OR&nbsp; &nbsp;
+                        <LABEL><input type="radio" value="1" onclick="$(this).parent().find('.is_req').val(1);" class="is_required ignore" name="<?php echo $r1;?>" <?php if(isset($child->req_opt) && $child->req_opt == 1){?> checked="checked"<?php }?>> Required</LABEL>
+                        <input type="hidden" class="is_req ignore ignore2 ignore1" <?php if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)){?>value="0"<?php }else{ ?>value="1"<?php } ?> />
                     </div>
                     <br class="ignore ignore2 ignore1"/>
                     <strong class="ignore ignore2 ignore1">Customer can select:</strong>
@@ -90,7 +93,9 @@
                         <?php
                             $r2 = rand('1000000', '999999999');
                         ?>
-                        <input type="radio" onclick="$(this).parent().find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="<?php echo $r2;?>" <?php if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)){?> checked="checked"<?php }?>> Single&nbsp; &nbsp; OR&nbsp; &nbsp; <input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().find('.is_mul').val(0);" name="<?php echo $r2;?>" <?php if((isset($child->sing_mul) && $child->sing_mul == 0)){?> checked="checked"<?php }?>> Multiple
+                        <LABEL><input type="radio" onclick="$(this).parent().find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="<?php echo $r2;?>" <?php if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)){?> checked="checked"<?php }?>> Single</LABEL>
+                            &nbsp; &nbsp; OR&nbsp; &nbsp;
+                        <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().find('.is_mul').val(0);" name="<?php echo $r2;?>" <?php if((isset($child->sing_mul) && $child->sing_mul == 0)){?> checked="checked"<?php }?>> Multiple</LABEL>
                         <input type="hidden" class="is_mul ignore ignore2 ignore1" <?php if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)){?> value="1" <?php }else{?>value="0"<?php } ?> />
                     </div>
                     <div <?php if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)){?>style="display: none;" <?php } ?> class="infolist exact ignore ignore2 ignore1">
