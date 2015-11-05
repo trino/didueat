@@ -1,6 +1,6 @@
 <div class="header">
     <div class="container-fluid" >
-        <a class="site-logo" href="{{ url('/') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="didueat?" style="height: 40px; position: relative; top: 2px;"/></a>
+        <a class="site-logo" href="{{ url('/') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="height: 40px; position: relative; top: 2px;"/></a>
         <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
 
         <!-- BEGIN NAVIGATION -->
@@ -13,7 +13,7 @@
                     @if(!Session::has('is_logged_in'))
                         <li><a href="{{ url('restaurants/signup') }}">Restaurant Owner</a></li>
                     @endif
-                    <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca our name address phone number">Email</a>
+                    <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca">Email</a>
                     </li>
                     @if(Session::has('is_logged_in'))
                         <li><a href="{{ url('dashboard') }}"><img src="<?php

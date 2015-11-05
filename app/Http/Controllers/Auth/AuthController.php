@@ -182,7 +182,7 @@ class AuthController extends Controller {
 
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating an account with didueat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+                    $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
@@ -267,7 +267,7 @@ class AuthController extends Controller {
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
 
-                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with didueat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
+                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
                     die;
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
@@ -301,7 +301,7 @@ class AuthController extends Controller {
             $userArray['mail_subject'] = 'Thank you for registration.';
             $this->sendEMail("emails.registration_welcome", $userArray);
 
-            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with didueat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
+            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
             die;
         } else {
             echo json_encode(array('type' => 'error', 'message' => "Invalid code found. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login."));
@@ -326,7 +326,7 @@ class AuthController extends Controller {
 
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";
-            $message['msg_desc'] = "Thank you for creating an account with didueat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+            $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
@@ -363,7 +363,7 @@ class AuthController extends Controller {
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
             //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
-            $message['msg_desc'] = "Thank you for activating your account with didueat.com. Your email has been confirmed successfully. You have been logged in into our system. Please <a href='" . url('user/info') . "'><b>click here</b></a> to change your info. ";
+            $message['msg_desc'] = "Thank you for activating your account with DidUEat.com. Your email has been confirmed successfully. You have been logged in into our system. Please <a href='" . url('user/info') . "'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
@@ -406,7 +406,7 @@ class AuthController extends Controller {
                     $user->save();
 
                     $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'New password request for your didueat account.';
+                    $userArray['mail_subject'] = 'New password request for your DidUEat account.';
                     $userArray['new_pass'] = $newpass;
                     $this->sendEMail("emails.forgot", $userArray);
 
@@ -455,7 +455,7 @@ class AuthController extends Controller {
                     $user->save();
 
                     $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'New password request for your didueat account.';
+                    $userArray['mail_subject'] = 'New password request for your DidUEat account.';
                     $userArray['new_pass'] = $newpass;
                     $this->sendEMail("emails.forgot", $userArray);
 
