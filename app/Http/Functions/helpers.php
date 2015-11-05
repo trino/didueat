@@ -211,6 +211,8 @@ function login($Profile)
     \Session::put('session_createdBy', $Profile->created_by);
     \Session::put('session_status', $Profile->status);
     \Session::put('session_created_at', $Profile->created_at);
+    \Session::put('session_photo', $Profile->photo);
+
     \Session::put('is_logged_in', true);
     \Session::save();
     return $Profile->id;
