@@ -217,7 +217,7 @@ class HomeController extends Controller
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                \Session::flash('message', "Email address [".$post['email']."] already exist!");
+                \Session::flash('message', "Email address [".$post['email']."] already exists!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
@@ -387,7 +387,7 @@ class HomeController extends Controller
 
                 $message['title'] = "Registration Success";
                 $message['msg_type'] = "success";
-                $message['msg_desc'] = "Thank you for creating account with didueat.com. An confirmation email has been sent to your email address [$user->email]. Please verify the link. If you did't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resent confirmation email. thanks";
+                $message['msg_desc'] = "Thank you for creating account with didueat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
                 return view('messages.message', $message);
                 //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {

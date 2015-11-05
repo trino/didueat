@@ -230,7 +230,7 @@ class AdministratorController extends Controller
                     \DB::commit();
                 }
 
-                \Session::flash('message', 'User has been added successfully. An confirmation email has been sent to the selected email address for verification.');
+                \Session::flash('message', 'User has been added successfully. A confirmation email has been sent to the selected email address for verification.');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/users')->withInput();

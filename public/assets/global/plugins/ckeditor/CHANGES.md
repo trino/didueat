@@ -10,10 +10,10 @@ New Features:
 Fixed Issues:
 
 * [#12423](http://dev.ckeditor.com/ticket/12423): [Safari7.1+] Fixed: *Enter* key moved cursor to a strange position.
-* [#12381](http://dev.ckeditor.com/ticket/12381): [iOS] Fixed: Selection issue. Thanks to [Remiremi](https://github.com/Remiremi)!
-* [#10804](http://dev.ckeditor.com/ticket/10804): Fixed: `CKEDITOR_GETURL` is not used with some plugins where it should be used. Thanks to [Thomas Andraschko](https://github.com/tandraschko)!
-* [#9137](http://dev.ckeditor.com/ticket/9137): Fixed: The `<base>` tag is not created when `<head>` has an attribute. Thanks to [naoki.fujikawa](https://github.com/naoki-fujikawa)!
-* [#12377](http://dev.ckeditor.com/ticket/12377): Fixed: Errors thrown in the [Image](http://ckeditor.com/addon/image) plugin when removing preview from the dialog window definition. Thanks to [Axinet](https://github.com/Axinet)!
+* [#12381](http://dev.ckeditor.com/ticket/12381): [iOS] Fixed: Selection issue. Thank you. to [Remiremi](https://github.com/Remiremi)!
+* [#10804](http://dev.ckeditor.com/ticket/10804): Fixed: `CKEDITOR_GETURL` is not used with some plugins where it should be used. Thank you. to [Thomas Andraschko](https://github.com/tandraschko)!
+* [#9137](http://dev.ckeditor.com/ticket/9137): Fixed: The `<base>` tag is not created when `<head>` has an attribute. Thank you. to [naoki.fujikawa](https://github.com/naoki-fujikawa)!
+* [#12377](http://dev.ckeditor.com/ticket/12377): Fixed: Errors thrown in the [Image](http://ckeditor.com/addon/image) plugin when removing preview from the dialog window definition. Thank you. to [Axinet](https://github.com/Axinet)!
 * [#12162](http://dev.ckeditor.com/ticket/12162): Fixed: Auto paragraphing and *Enter* key in nested editables.
 * [#12315](http://dev.ckeditor.com/ticket/12315): Fixed: Marked [`config.autoParagraph`](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-autoParagraph) as deprecated.
 * [#12113](http://dev.ckeditor.com/ticket/12113): Fixed: A [code snippet](http://ckeditor.com/addon/codesnippet) should be presented in the [elements path](http://ckeditor.com/addon/elementspath) as "code snippet" (translatable).
@@ -33,9 +33,9 @@ Fixed Issues:
 
 Fixed Issues:
 
-* [#12268](http://dev.ckeditor.com/ticket/12268): Cleanup of [UI Color](http://ckeditor.com/addon/uicolor) YUI styles. Thanks to [CasherWest](https://github.com/CasherWest)!
-* [#12263](http://dev.ckeditor.com/ticket/12263): Fixed: [Paste from Word]((http://ckeditor.com/addon/pastefromword)) filter does not properly normalize semicolons style text. Thanks to [Alin Purcaru](https://github.com/mesmerizero)!
-* [#12243](http://dev.ckeditor.com/ticket/12243): Fixed: Text formatting lost when pasting from Word. Thanks to [Alin Purcaru](https://github.com/mesmerizero)!
+* [#12268](http://dev.ckeditor.com/ticket/12268): Cleanup of [UI Color](http://ckeditor.com/addon/uicolor) YUI styles. Thank you. to [CasherWest](https://github.com/CasherWest)!
+* [#12263](http://dev.ckeditor.com/ticket/12263): Fixed: [Paste from Word]((http://ckeditor.com/addon/pastefromword)) filter does not properly normalize semicolons style text. Thank you. to [Alin Purcaru](https://github.com/mesmerizero)!
+* [#12243](http://dev.ckeditor.com/ticket/12243): Fixed: Text formatting lost when pasting from Word. Thank you. to [Alin Purcaru](https://github.com/mesmerizero)!
 * [#111739](http://dev.ckeditor.com/ticket/11739): Fixed: `keypress` listeners should not be used in the undo manager. A complete rewrite of keyboard handling in the undo manager was made. Numerous smaller issues were fixed, among others:
   * [#10926](http://dev.ckeditor.com/ticket/10926): [Chrome@Android] Fixed: Typing does not record snapshots and does not fire the [`editor.change`](http://docs.ckeditor.com/#!/api/CKEDITOR.editor-event-change) event.
   * [#11611](http://dev.ckeditor.com/ticket/11611): [Firefox] Fixed: The [`editor.change`](http://docs.ckeditor.com/#!/api/CKEDITOR.editor-event-change) event is fired when pressing Arrow keys.
@@ -74,8 +74,8 @@ New Features:
 
 Fixed Issues:
 
-* [#12110](http://dev.ckeditor.com/ticket/12110): Fixed: Editor crash after deleting a table. Thanks to [Alin Purcaru](https://github.com/mesmerizero)!
-* [#11897](http://dev.ckeditor.com/ticket/11897): Fixed: **Enter** key used in an empty list item creates a new line instead of breaking the list. Thanks to [noam-si](https://github.com/noam-si)!
+* [#12110](http://dev.ckeditor.com/ticket/12110): Fixed: Editor crash after deleting a table. Thank you. to [Alin Purcaru](https://github.com/mesmerizero)!
+* [#11897](http://dev.ckeditor.com/ticket/11897): Fixed: **Enter** key used in an empty list item creates a new line instead of breaking the list. Thank you. to [noam-si](https://github.com/noam-si)!
 * [#12140](http://dev.ckeditor.com/ticket/12140): Fixed: Double-clicking linked widgets opens two dialog windows.
 * [#12132](http://dev.ckeditor.com/ticket/12132): Fixed: Image is inserted with `width` and `height` styles even when they are not allowed.
 * [#9317](http://dev.ckeditor.com/ticket/9317): [IE] Fixed: [`config.disableObjectResizing`](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-disableObjectResizing) does not work on IE. **Note**: We were not able to fix this issue on IE11+ because necessary events stopped working. See a [last resort workaround](http://dev.ckeditor.com/ticket/9317#comment:16) and make sure to [support our complaint to Microsoft](https://connect.microsoft.com/IE/feedback/details/742593/please-respect-execcommand-enableobjectresizing-in-contenteditable-elements).
@@ -96,8 +96,8 @@ New Features:
 
 Fixed Issues:
 
-* [#11757](http://dev.ckeditor.com/ticket/11757): Fixed: Imperfections in the [Moono](http://ckeditor.com/addon/moono) skin. Thanks to [danyaPostfactum](https://github.com/danyaPostfactum)!
-* [#10091](http://dev.ckeditor.com/ticket/10091): Blockquote should be treated like an object by the styles system. Thanks to [dan-james-deeson](https://github.com/dan-james-deeson)!
+* [#11757](http://dev.ckeditor.com/ticket/11757): Fixed: Imperfections in the [Moono](http://ckeditor.com/addon/moono) skin. Thank you. to [danyaPostfactum](https://github.com/danyaPostfactum)!
+* [#10091](http://dev.ckeditor.com/ticket/10091): Blockquote should be treated like an object by the styles system. Thank you. to [dan-james-deeson](https://github.com/dan-james-deeson)!
 * [#11478](http://dev.ckeditor.com/ticket/11478): Fixed: Issue with passing jQuery objects to [adapter](http://docs.ckeditor.com/#!/guide/dev_jquery) configuration.
 * [#10867](http://dev.ckeditor.com/ticket/10867): Fixed: Issue with setting encoded URI as image link.
 * [#11983](http://dev.ckeditor.com/ticket/11983): Fixed: Clicking a nested widget does not focus it. Additionally, performance of the [`widget.repository.getByElement()`](http://docs.ckeditor.com/#!/api/CKEDITOR.plugins.widget.repository-method-getByElement) method was improved.
@@ -128,8 +128,8 @@ New Features:
 Fixed Issues:
 
 * [#11861](http://dev.ckeditor.com/ticket/11861): [Webkit/Blink] Fixed: Span elements created while joining adjacent elements. **Note:** This patch only covers cases when *Backspace* or *Delete* is pressed on a collapsed (empty) selection. The remaining case, with a non-empty selection, will be fixed in the next release.
-* [#10714](http://dev.ckeditor.com/ticket/10714): [iOS] Fixed: Selection and drop-downs are broken if a touch event listener is used due to a [Webkit bug](https://bugs.webkit.org/show_bug.cgi?id=128924). Thanks to [Arty Gus](https://github.com/artygus)!
-* [#11911](http://dev.ckeditor.com/ticket/11911): Fixed setting the `dir` attribute for a preloaded language in [CKEDITOR.lang](http://docs.ckeditor.com/#!/api/CKEDITOR.lang). Thanks to [Akash Mohapatra](https://github.com/akashmohapatra)!
+* [#10714](http://dev.ckeditor.com/ticket/10714): [iOS] Fixed: Selection and drop-downs are broken if a touch event listener is used due to a [Webkit bug](https://bugs.webkit.org/show_bug.cgi?id=128924). Thank you. to [Arty Gus](https://github.com/artygus)!
+* [#11911](http://dev.ckeditor.com/ticket/11911): Fixed setting the `dir` attribute for a preloaded language in [CKEDITOR.lang](http://docs.ckeditor.com/#!/api/CKEDITOR.lang). Thank you. to [Akash Mohapatra](https://github.com/akashmohapatra)!
 * [#11926](http://dev.ckeditor.com/ticket/11926): Fixed: [Code Snippet](http://ckeditor.com/addon/codesnippet) does not decode HTML entities when loading code from the `<code>` element.
 * [#11223](http://dev.ckeditor.com/ticket/11223): Fixed: Issue when [Protected Source](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-protectedSource) was not working in the `<title>` element.
 * [#11859](http://dev.ckeditor.com/ticket/11859): Fixed: Removed the [Source Dialog](http://ckeditor.com/addon/sourcedialog) plugin dependency from the [Code Snippet](http://ckeditor.com/addon/codesnippet) sample.

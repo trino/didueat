@@ -706,7 +706,7 @@ class RestaurantController extends Controller
                     $this->sendEMail("emails.order_cancel", $userArray);
                 }
 
-                \Session::flash('message', 'Order status has been cancelled successfully!');
+                \Session::flash('message', 'Order has been cancelled successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/orders/list');
@@ -759,7 +759,7 @@ class RestaurantController extends Controller
                     $this->sendEMail("emails.order_approve", $userArray);
                 }
 
-                \Session::flash('message', 'Order status has been approved successfully!');
+                \Session::flash('message', 'Order has been approved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/orders/list');
@@ -812,7 +812,7 @@ class RestaurantController extends Controller
                     $this->sendEMail("emails.order_disapprove", $userArray);
                 }
 
-                \Session::flash('message', 'Order status has been disapproved successfully!');
+                \Session::flash('message', 'Order has been disapproved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/orders/list');

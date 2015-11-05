@@ -57,7 +57,7 @@
             <!-- BEGIN TWITTER BLOCK -->
             <div class="col-md-3 col-sm-6 pre-footer-col">
                 <h2 class="margin-bottom-15">Latest Tweets</h2>
-                <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes ...</a>
+                <a class="twitter-timeline" href="https://twitter.com/didueat" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @didueat ...</a>
             </div>
             <!-- END TWITTER BLOCK -->
 
@@ -84,7 +84,7 @@
             <div class="col-md-2 col-sm-6 pre-footer-col">
                 <h2 class="margin-bottom-15">Cities</h2>
                 <ul class="list-unstyled">
-                    <li>Hamilton Delivery</li>
+                    <li>Hamilton Ontario</li>
                 </ul>
             </div>
         </div>
@@ -417,7 +417,7 @@
             <div class="row">
                 <!-- BEGIN COPYRIGHT -->
                 <div class="col-md-4 col-sm-4 padding-top-10">
-                    2015 &copy; didueat.ca / ALL Rights Reserved.
+                    2016 &copy; didueat.ca / ALL Rights Reserved.
                 </div>
                 <div class="col-md-4 col-sm-4 padding-top-10" align="center">
                     <?php
