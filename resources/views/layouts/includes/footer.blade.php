@@ -70,11 +70,9 @@
                             <label class="col-lg-12 col-sm-12 control-label col-xs-12 no-padding margin-bottom-10" for="Message">Message <span class="require">*</span></label>
                             <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
                                 <textarea style="height:150px" name="Message" class="form-control margin-bottom-10"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="pull-right">
-                                <input class="btn red" type="submit" value="Submit"/>
+                                <div class="pull-right">
+                                    <input class="btn red" type="submit" value="Submit"/>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
