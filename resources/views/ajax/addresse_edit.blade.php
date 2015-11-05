@@ -1,3 +1,5 @@
+<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<meta name="_token" content="{{ csrf_token() }}"/>
 <div class="modal-dialog2">
     <div class="fancy-modal-content">
         <div class="modal-header">
@@ -48,7 +50,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <select name="province" class="form-control" required>
+                            <select name="province" class="form-control" id="province2" required>
                                 <option value="">-Select One-</option>
                                 @foreach($states_list as $value)
                                     <option value="{{ $value->id }}" {{ (isset($addresse_detail->province) && $addresse_detail->province == $value->id)?'selected':'' }}>{{ $value->name }}</option>
@@ -72,7 +74,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <select name="country" class="form-control" required>
+                            <select name="country" class="form-control" id="country2" required onchange="provinces('<?= addslashes(url("ajax")); ?>', '<?= $addresse_detail->province; ?>');">
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
                                     <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>

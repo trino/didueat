@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
-
+<meta name="_token" content="{{ csrf_token() }}"/>
+<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
 <!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
@@ -149,7 +150,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <input type="text" class="form-control" name="province" placeholder="Province Name" value="{{ old('province') }}" required>
+                                                <SELECT name="province" id="province"></SELECT>
                                             </div>
                                         </div>
 
@@ -170,7 +171,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country <span class="required" aria-required="true">*</span></label>
-                                                <select name="country" id="country" class="form-control" required>
+                                                <select name="country" id="country" class="form-control" required onchange="provinces('<?= addslashes(url("ajax")); ?>', 'ON');">
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
                                                         <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>

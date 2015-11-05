@@ -3,6 +3,8 @@
 
 // Frontsite Routes...
 Route::get('/',                                     'HomeController@index');
+Route::get('/ajax',                                 'HomeController@ajax');
+Route::post('/ajax',                                'HomeController@ajax');
 Route::get('/contactus',                            'HomeController@contactus');
 Route::get('/restaurants',                          'HomeController@allRestaurants');
 Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');

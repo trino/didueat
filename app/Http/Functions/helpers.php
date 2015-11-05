@@ -517,16 +517,17 @@ function message($msgtype, $description)
 }
 
 
-function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "")
-{
+function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
     return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
 }
 
-function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "")
-{
+//$getcol = false, returns all results after the get(), true returns before the get()
+function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
     $query = DB::table($table);
     if ($getcol) {
-        $query = $query->select($getcol);
+        if($getcol !== true) {
+            $query = $query->select($getcol);
+        }
     }
 
     if (is_array($where) && $where != "") {
@@ -560,18 +561,15 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
 }
 
 
-function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC")
-{
+function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC") {
     return select_field_where($Table, $conditions, false, $order, $Dir);
 }
 
-function enum_anything($Table, $Key, $Value)
-{
+function enum_anything($Table, $Key, $Value) {
     return select_field_where($Table, array($Key => $Value), false);
 }
 
-function get_entry($Table, $Value, $PrimaryKey = "id")
-{
+function get_entry($Table, $Value, $PrimaryKey = "id") {
     if (!$PrimaryKey) {
         $PrimaryKey = get_primary_key($Table);
     }

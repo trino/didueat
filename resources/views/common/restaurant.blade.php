@@ -43,7 +43,8 @@
         return $hour . ':' . $min . ' ' . $suffix;
     }
 ?>
-
+<meta name="_token" content="{{ csrf_token() }}"/>
+<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
 <div class="col-md-4 col-sm-12 col-xs-12 ">
     <div class="box-shadow">
         <div class="portlet-title">
@@ -161,7 +162,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Province <span class="required">*</span></label>
-                            <select name="province" class="form-control" required>
+                            <select name="province" id="province" class="form-control" id="province" required>
                                 <option value="">-Select One-</option>
                                 @foreach($states_list as $value)
                                     <option value="{{ $value->id }}" @if(old('province') == $value->id) selected @endif>{{ $value->name }}</option>
@@ -172,7 +173,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Country <span class="required">*</span></label>
-                            <select name="country" id="country" class="form-control" required>
+                            <select name="country" id="country" class="form-control" required onchange="provinces('<?= addslashes(url("ajax")); ?>', '<?= old('province'); ?>');">
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
                                     <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
