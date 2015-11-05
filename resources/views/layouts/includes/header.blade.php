@@ -34,7 +34,7 @@
                             <span class="sep"></span>
                             <i class="fa fa-search search-btn"></i>
 
-                            <div class="search-box">
+                            <div class="search-box" style="width: 300px;">
                                 {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                                 <div class="input-group" valign="center">
                                     <input type="text" name="search_term" placeholder="Search Menus" class="form-control"/>
