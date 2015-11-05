@@ -348,16 +348,14 @@ function clean_data($Data)
     }
 }
 
-function tableexists($Table, $Column = "")
-{
+function tableexists($Table, $Column = "") {
     if ($Column) {
         return \Schema::hasColumn($Table, $Column);
     }
     return \Schema::hasTable($Table);
 }
 
-function getColumnNames($Table, $Ignore = "", $Full = false)
-{
+function getColumnNames($Table, $Ignore = "", $Full = false) {
     if (!is_array($Ignore)) {
         $Ignore = array($Ignore);
     }

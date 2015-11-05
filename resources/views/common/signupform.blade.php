@@ -1,19 +1,18 @@
 <?php
-if (!function_exists("priority")) {
-    function priority($Alpha, $Beta = false)
-    {
-        if ($Alpha) {
-            return $Alpha;
+    if (!function_exists("priority")) {
+        function priority($Alpha, $Beta = false) {
+            if ($Alpha) {
+                return $Alpha;
+            }
+            if ($Beta) {
+                return $Beta;
+            }
+            return "";
         }
-        if ($Beta) {
-            return $Beta;
-        }
-        return "";
     }
-}
-$fullname = priority(old('name'), read('name'));
-$emailaddress = priority(old('email'), read('email'));
-$phonenumber = priority(old('phone'), read('phone'));
+    $fullname =     priority(old('name'), read('name'));
+    $emailaddress = priority(old('email'), read('email'));
+    $phonenumber =  priority(old('phone'), read('phone'));
 ?>
 <h1>Sign up</h1>
 
@@ -21,7 +20,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="require">*</span></label>
+        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -33,7 +32,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="require">*</span></label>
+        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -48,7 +47,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <!--<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address <span class="require">*</span></label>
+        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -60,7 +59,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code <span class="require">*</span></label>
+        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -72,7 +71,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City <span class="require">*</span></label>
+        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -96,7 +95,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <!--<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province <span class="require">*</span></label>
+        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -108,7 +107,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country <span class="require">*</span></label>
+        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -129,7 +128,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 @if(Session::has('session_id'))
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Old Password<span class="require">*</span></label>
+        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Old Password <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -142,7 +141,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Choose Password<span class="require">*</span></label>
+        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Choose Password <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -154,7 +153,7 @@ $phonenumber = priority(old('phone'), read('phone'));
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password<span class="require">*</span></label>
+        <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">

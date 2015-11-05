@@ -31,7 +31,7 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="require">*</span></label>
+                                        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name  <span class="required">*</span></label>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
@@ -43,7 +43,7 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="require">*</span></label>
+                                        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email  <span class="required">*</span></label>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
@@ -143,7 +143,7 @@
                                 @if(Session::has('session_id'))
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group clearfix">
-                                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Old Password<span class="require">*</span></label>
+                                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Old Password <span class="required">*</span></label>
 
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="input-icon">
@@ -156,7 +156,7 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Choose Password<span class="require">*</span></label>
+                                        <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Choose Password <span class="required">*</span></label>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
@@ -168,7 +168,7 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password<span class="require">*</span></label>
+                                        <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">

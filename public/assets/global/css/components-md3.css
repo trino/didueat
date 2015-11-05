@@ -3158,7 +3158,7 @@ Form Layouts
   margin-top: 1px;
 }
 .control-label .required {
-  color: #e02222;
+  color: red;
   font-size: 12px;
   padding-left: 2px;
 }
