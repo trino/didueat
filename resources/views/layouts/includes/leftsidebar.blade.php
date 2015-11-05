@@ -15,29 +15,29 @@
                         <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}" class="<?php if (Request::path() == 'user/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i>My Addresses</a> </li>
                         <li class="list-group-item clearfix"><a href="{{ url('user/info') }}" class="<?php if (Request::path() == 'user/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Profile</a> </li>
                         <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}" class="<?php if (Request::path() == 'logout') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
-                        @if(check_permission("can_edit_global_settings"))
-                            <div class="box-shadow">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-gift"></i>Administrator
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <ul class="list-group margin-bottom-25 sidebar-menu">
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/admin') }}" class="<?php if (Request::path() == 'restaurant/orders/admin') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Orders</a></li>
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}" class="<?php if (Request::path() == 'restaurant/users') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Users</a> </li>
-                                        <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/list') }}" class="<?php if (Request::path() == 'restaurant/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/subscribers') }}" class="<?php if (Request::path() == 'restaurant/subscribers') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Subscribers</a> </li>
-                                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        @endif
                     </ul>
                 </div>
             </div>
-
+            
+            @if(check_permission("can_edit_global_settings"))
+                <div class="box-shadow">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>Administrator
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <ul class="list-group margin-bottom-25 sidebar-menu">
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/admin') }}" class="<?php if (Request::path() == 'restaurant/orders/admin') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Orders</a></li>
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}" class="<?php if (Request::path() == 'restaurant/users') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Users</a> </li>
+                            <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/list') }}" class="<?php if (Request::path() == 'restaurant/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/subscribers') }}" class="<?php if (Request::path() == 'restaurant/subscribers') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Subscribers</a> </li>
+                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
+                        </ul>
+                    </div>
+                </div>
+            @endif
 
             @if(\Session::get('session_restaurant_id'))
                 <div class="box-shadow">
