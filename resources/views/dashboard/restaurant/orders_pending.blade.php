@@ -50,7 +50,7 @@
                                             <td>{{ $value->status }}</td>
                                             <td>
                                                 <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}" class="btn green">View</a>
-                                                <a href="{{ url('restaurant/orders/list/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete this order ? ');">Delete</a>
+                                                <a href="{{ url('restaurant/orders/list/delete/'.$value->id) }}" class="btn red" onclick="return confirm(' Are you sure you want to delete order # <?= $value->id; ?>? ');">Delete</a>
                                                 @if(strtolower($value->status) == 'pending')
                                                     <a href="#cancel-popup" class="btn yellow fancybox-fast-view cancel-popup" data-id="{{ $value->id }}">Cancel</a>
                                                     <a href="#approve-popup" class="btn blue fancybox-fast-view approve-popup" data-id="{{ $value->id }}">Approve</a>

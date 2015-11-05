@@ -35,7 +35,8 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">ID</th>
-                                        <th width="15%">Name</th>
+                                        <th width="15%">User Name</th>
+                                        <th width="15%">Address Name</th>
                                         <th width="20%">Mobile #</th>
                                         <th width="25%">Address</th>
                                         <th width="15%">Action</th>
@@ -46,13 +47,14 @@
                                         <tr>
                                             <td>{{ $value->id }}</td>
                                             <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
+                                            <td>{{ $value->location }}</td>
                                             <td>{{ $value->phone_no }}</td>
                                             <td>{{ $value->address.', '.$value->city.', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
                                                 <a href="#editNewUser" class="btn red fancybox-fast-view editRow"
                                                    data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
-                                                   onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                                   onclick="return confirm(' Are you sure you want to delete <?= addslashes("'" . $value->location . "'"); ?>? ');">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -48,7 +48,7 @@
                                             <td>{{ $value->type }}</td>
                                             <td>{!! ($value->is_default == 1)?'Default':$status !!}</td>
                                             <td>
-                                                <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm(' Are you sure you want to delete this ? ');">Delete</a>
+                                                <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm(' Are you sure you want to delete <?= addslashes("'" . $value->address . "'"); ?>? ');">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
