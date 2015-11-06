@@ -30,8 +30,8 @@ var TableAdvanced = function () {
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
+                "lengthMenu": "<DIV class='nowrap'>Show _MENU_ entries</DIV>",
+                "search": "",
                 "zeroRecords": "No matching records found"
             },
 
@@ -43,7 +43,7 @@ var TableAdvanced = function () {
             "order": [
                 [0, 'asc']
             ],
-            
+
             "lengthMenu": [
                 [10, 20, 50, -1],
                 [10, 20, 50, "All"] // change per page values here
@@ -54,8 +54,8 @@ var TableAdvanced = function () {
             "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
 
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
             //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "tableTools": {
@@ -110,8 +110,8 @@ var TableAdvanced = function () {
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
+                "lengthMenu": "<DIV class='nowrap'>Show _MENU_ entries</DIV>",
+                "search": "",
                 "zeroRecords": "No matching records found"
             },
 
@@ -128,8 +128,8 @@ var TableAdvanced = function () {
             "dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
 
             // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
-            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
-            // So when dropdowns used the scrollable div should be removed. 
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js).
+            // So when dropdowns used the scrollable div should be removed.
             //"dom": "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "tableTools": {
@@ -207,8 +207,8 @@ var TableAdvanced = function () {
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
+                "lengthMenu": "<DIV class='nowrap'>Show _MENU_ entries</DIV>",
+                "search": "",
                 "zeroRecords": "No matching records found"
             },
 
@@ -269,7 +269,7 @@ var TableAdvanced = function () {
          */
         var nCloneTh = document.createElement('th');
         nCloneTh.className = "table-checkbox";
-        
+
         var nCloneTd = document.createElement('td');
         nCloneTd.innerHTML = '<span class="row-details row-details-close"></span>';
 
@@ -293,8 +293,8 @@ var TableAdvanced = function () {
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
+                "lengthMenu": "<DIV class='nowrap'>Show _MENU_ entries</DIV>",
+                "search": "",
                 "zeroRecords": "No matching records found"
             },
 
@@ -362,7 +362,7 @@ var TableAdvanced = function () {
                 [5, 15, 20, -1],
                 [5, 15, 20, "All"] // change per page values here
             ],
-            "pageLength": 10 // set the initial value            
+            "pageLength": 10 // set the initial value
         });
 
 
@@ -387,8 +387,8 @@ var TableAdvanced = function () {
                 "info": "Showing _START_ to _END_ of _TOTAL_ entries",
                 "infoEmpty": "No entries found",
                 "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "Show _MENU_ entries",
-                "search": "Search:",
+                "lengthMenu": "<DIV class='nowrap'>Show _MENU_ entries</DIV>",
+                "search": "",
                 "zeroRecords": "No matching records found"
             },
             "order": [

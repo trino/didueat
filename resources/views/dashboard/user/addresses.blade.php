@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
-
+    <meta name="_token" content="{{ csrf_token() }}"/>
+    <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
     <div class="content-page">
         <div class="container-fluid">
             <div class="row">
@@ -134,7 +135,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <select name="province" class="form-control" required>
+                                                    <select name="province" class="form-control" id="province" required>
                                                         <option value="">-Select One-</option>
                                                         @foreach($states_list as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -148,7 +149,7 @@
                                                 <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
 
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <select name="country" class="form-control" required>
+                                                    <select name="country" class="form-control" required id="country" onchange="provinces('<?= addslashes(url("ajax")); ?>', 'ON');">
                                                         <option value="">-Select One-</option>
                                                         @foreach($countries_list as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>

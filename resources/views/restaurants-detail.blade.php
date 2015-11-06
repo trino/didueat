@@ -1,6 +1,8 @@
 @extends('layouts.default')
 @section('content')
 
+<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+
 <div class="margin-bottom-40">
     <div class="col-md-2 col-sm-4 col-xs-12">
         <div class="well add-sidebar">
@@ -538,16 +540,7 @@
                                     <div class="form-group">
                                         <div class="col-xs-12 col-sm-6">
                                             <select class="form-control form-control--contact" name="province">
-                                                <option value="Alberta">Alberta</option>
-                                                <option value="British Columbia">British Columbia</option>
-                                                <option value="Manitoba">Manitoba</option>
-                                                <option value="New Brunswick">New Brunswick</option>
-                                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                                                <option value="Nova Scotia">Nova Scotia</option>
-                                                <option selected="selected" value="Ontario">Ontario</option>
-                                                <option value="Prince Edward Island">Prince Edward Island</option>
-                                                <option value="Quebec">Quebec</option>
-                                                <option value="Saskatchewan">Saskatchewan</option>
+                                                <OPTION>GET THE LIST OF PROVINCES!</OPTION>
                                             </select>
                                         </div>
                                         <div class="col-xs-12 col-sm-6">

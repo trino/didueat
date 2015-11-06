@@ -541,4 +541,37 @@ class HomeController extends Controller
         return \App\Http\Models\PageViews::getView($id, "menu");
     }
 
+
+    function ajax(){
+        if (!isset($_POST["type"])) {$_POST = $_GET;}
+        if (isset($_POST["type"])) {
+            switch (strtolower($_POST["type"])) {
+                case "provinces":
+                    $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
+                    foreach($Provinces as $Province){
+                        $HasProvinces = true;
+                        echo '<OPTION VALUE="' . $Province->id . '"';
+                        if ( $Province->id == $_POST["value"] || $Province->abbreviation == $_POST["value"]){
+                            echo ' SELECTED';
+                        }
+                        echo '>' . $Province->name . '</OPTION>' . "\r\n";
+                    }
+                    if(!isset($HasProvinces)){
+                        $Provinces = get_entry("countries", $_POST["country"]);
+                        if($Provinces) {
+                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Provinces->name . ' has no provinces/states</OPTION>';
+                        } else {
+                            echo '<OPTION SELECTED DISABLED VALUE="">Country: ' . $_POST["country"] . ' not found</OPTION>';
+                        }
+                    }
+                    break;
+
+                default:
+                    echo $_POST["type"] . " is not handled";
+            }
+        } else {
+            echo "type not specified";
+        }
+        die();
+    }
 }
