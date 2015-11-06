@@ -241,41 +241,57 @@ class UsersController extends Controller
 
     public function ajax_register()
     {
-        if (isset($_POST)) {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
             try {
                 $msg = "";
-                $res['user_id'] = $_POST['user_id'];
-                $res['order_type'] = $_POST['order_type'];
+                $res['restaurant_id'] = $post['hidden_rest_id'];
+                $res['user_id'] = $post['user_id'];
+                $res['order_type'] = $post['order_type'];
                 $res['order_time'] = date('Y-m-d h:i:s');
-                $res['delivery_fee'] = $_POST['delivery_fee'];
-                $res['res_id'] = $_POST['res_id'];
-                $res['subtotal'] = $_POST['subtotal'];
-                $res['g_total'] = $_POST['g_total'];
-                $res['tax'] = $_POST['tax'];
-                $res['listid'] = implode(',', $_POST['listid']);
-                $res['prs'] = implode(',', $_POST['prs']);
-                $res['qtys'] = implode(',', $_POST['qtys']);
-                $res['extras'] = implode(',', $_POST['extras']);
-                $res['menu_ids'] = implode(',', $_POST['menu_ids']);
-                $res['restaurant_id'] = $_POST['res_id'];
-                $res['order_till'] = $_POST['order_till'];
+                $res['delivery_fee'] = $post['delivery_fee'];
+                $res['res_id'] = $post['res_id'];
+                $res['subtotal'] = $post['subtotal'];
+                $res['g_total'] = $post['g_total'];
+                $res['tax'] = $post['tax'];
+                $res['listid'] = implode(',', $post['listid']);
+                $res['prs'] = implode(',', $post['prs']);
+                $res['qtys'] = implode(',', $post['qtys']);
+                $res['extras'] = implode(',', $post['extras']);
+                $res['menu_ids'] = implode(',', $post['menu_ids']);
+                //$res['restaurant_id'] = $post['res_id'];
+                $res['order_till'] = $post['order_till'];
+
+                if(\Input::has('address2')){
+                    $res['address2'] = $post['address2'];
+                }
+                if(\Input::has('city')){
+                    $res['city'] = $post['city'];
+                }
+                if(\Input::has('province')){
+                    $res['province'] = $post['province'];
+                }
+                if(\Input::has('postal_code')){
+                    $res['postal_code'] = $post['postal_code'];
+                }
+
 
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res);
                 $ob2->save();
                 $oid = $ob2->id;
 
-                $data['email'] = $_POST['email'];
-                $data['password'] = encryptpassword($_POST['password']);
-                $data['phone_no'] = $_POST['contact'];
-                $data['name'] = trim($_POST['ordered_by']);
+                $data['email'] = $post['email'];
+                $data['password'] = encryptpassword($post['password']);
+                $data['phone_no'] = $post['contact'];
+                $data['name'] = trim($post['ordered_by']);
                 $data['profile_type'] = 2;
                 $data['created_by'] = 0;
                 $data['subscribed'] = 0;
                 $data['restaurant_id'] = 0;
 
-                if (isset($_POST['password']) && $_POST['password'] != '') {
+                if (isset($post['password']) && $post['password'] != '') {
                     if (\App\Http\Models\Profiles::where('email', $data['email'])->first()) {
                         echo '1';
                         die();
@@ -308,11 +324,13 @@ class UsersController extends Controller
                     }
                 }
 
-                $data['remarks'] = $_POST['remarks'];
-                $data['order_till'] = $_POST['order_till'];
-                $data['contact'] = $_POST['contact'];
+                $data['restaurant_id'] = $res['restaurant_id'];
+                $data['remarks'] = $post['remarks'];
+                $data['order_till'] = $post['order_till'];
+                $data['contact'] = $post['contact'];
+                $data['ordered_by'] = $data['name'];
 
-                //$res_data = array('email' => $_POST['email'], /*'address2' => $_POST['address2'], 'city' => $_POST['city'], 'ordered_by' => $_POST['postal_code'],*/ 'remarks' => $_POST['remarks'], 'order_till' => $_POST['order_till'], 'contact' => $phone);
+                //$res_data = array('email' => $post['email'], /*'address2' => $post['address2'], 'city' => $post['city'], 'ordered_by' => $post['postal_code'],*/ 'remarks' => $post['remarks'], 'order_till' => $post['order_till'], 'contact' => $phone);
                 $res = \App\Http\Models\Reservations::find($oid);
                 $res->populate($data);
                 $res->save();
@@ -320,8 +338,20 @@ class UsersController extends Controller
                 if($res->user_id){
                     $u2 = \App\Http\Models\Profiles::find($res->user_id);
                     $userArray2 = $u2->toArray();
-                    $userArray2['mail_subject'] = 'New Order received!';
-                    $this->sendEMail("emails.order_user_new", $userArray2);
+                    $userArray2['mail_subject'] = 'Your order has been received!';
+                    $this->sendEMail("emails.order_user_notification", $userArray2);
+
+                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res->restaurant_id)->where('is_default', 1);
+                    if($notificationEmail->count() > 0){
+                        foreach($notificationEmail->get() as $resValue){
+                            if($resValue->type == "Email"){
+                                $userArray3['name'] = $resValue->name;
+                                $userArray3['email'] = $resValue->address;
+                                $userArray3['mail_subject'] = '['.$u2->name.'] placed a new order!';
+                                $this->sendEMail("emails.order_owner_notification", $userArray3);
+                            }
+                        }
+                    }
                 }
 
                 echo $msg.'6';
@@ -336,6 +366,8 @@ class UsersController extends Controller
                 echo $e->getMessage();
                 die();
             }
+        } else {
+            echo "Invalid request!";
         }
         die();
     }

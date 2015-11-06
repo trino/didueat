@@ -32,7 +32,8 @@ class RestaurantController extends Controller
                 \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/login');
+                return \Redirect::to('/');
+                //return \Redirect::to('auth/login');
             }
         });
     }
@@ -685,13 +686,13 @@ class RestaurantController extends Controller
                 \Session::flash('message', "[Order Id] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
             if (!isset($post['note']) || empty($post['note'])) {
                 \Session::flash('message', "[Note Field] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
 
             try {
@@ -709,18 +710,18 @@ class RestaurantController extends Controller
                 \Session::flash('message', 'Order has been cancelled successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
         } else {
             \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         }
     }
 
@@ -737,13 +738,13 @@ class RestaurantController extends Controller
                 \Session::flash('message', "[Order Id] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
             if (!isset($post['note']) || empty($post['note'])) {
                 \Session::flash('message', "[Note Field] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
 
             try {
@@ -762,18 +763,18 @@ class RestaurantController extends Controller
                 \Session::flash('message', 'Order has been approved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
         } else {
             \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         }
     }
 
@@ -790,13 +791,13 @@ class RestaurantController extends Controller
                 \Session::flash('message', "[Order Id] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
             if (!isset($post['note']) || empty($post['note'])) {
                 \Session::flash('message', "[Note Field] is missing!");
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
 
             try {
@@ -815,18 +816,18 @@ class RestaurantController extends Controller
                 \Session::flash('message', 'Order has been disapproved successfully!');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/orders/list');
+                return \Redirect::to('restaurant/orders/admin');
             }
         } else {
             \Session::flash('message', 'Invalid request made!');
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         }
     }
 
@@ -841,7 +842,7 @@ class RestaurantController extends Controller
             \Session::flash('message', "[Order Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         }
 
         try {
@@ -851,12 +852,12 @@ class RestaurantController extends Controller
             \Session::flash('message', 'Order has been deleted successfully!');
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('restaurant/orders/list');
+            return \Redirect::to('restaurant/orders/admin');
         }
     }
 
@@ -1172,7 +1173,7 @@ class RestaurantController extends Controller
         } else {
             $data['title'] = 'Orders Detail';
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);
-            //echo '<pre>'; print_r($data['order']->toArray()); die;
+            $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);
             return view('dashboard.restaurant.orders_detail', $data);
         }
     }

@@ -37,7 +37,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($restaurants_list as $value)
-                                    <?php $resLogo = (isset($value->logo) && $value->logo != "")?'restaurants/'.$value->logo:'default.png'; ?>
+                                    <?php $resLogo = (isset($value->logo) && $value->logo != "")?'restaurants/'.$value->id.'/thumb_'.$value->logo:'default.png'; ?>
                                     <tr>
                                         <td>{{ $value->id }}</td>
                                         <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90" /></td>

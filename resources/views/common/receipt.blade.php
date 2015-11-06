@@ -16,31 +16,41 @@
     <div class="row  resturant-logo-desc padding-top-5">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="col-md-4 col-sm-4 col-xs-4">
-                @if(!empty($restaurant->logo))
+                @if(isset($restaurant->logo) && !empty($restaurant->logo))
                     <img class="img-responsive" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/thumb1_'.$restaurant->logo) }}">
                 @else
                     <img class="img-responsive" alt="" src="{{ asset('assets/images/default.png') }}">
                 @endif
             </div>
             <address class="col-md-8 col-sm-8 col-xs-8">
-                <h3>{!! $restaurant->name !!}</h3>
-                {!! $restaurant->address.' , '.$restaurant->city !!}
-                {!! $restaurant->province.' , '.$restaurant->country !!}<br>
+                <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
+                {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}<br>
                 <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
-                <abbr title="Email">E:</abbr> <a href="javascript:void(0);"> {!! $restaurant->email !!} </a><br />
+                <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a><br />
                 <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
             </address>
             <div class="clearfix"></div>
         </div>
     </div>
 
+
     <div class="top-cart-content-wrapper">
+
+        @if(isset($order))
+        <div class="portlet-title">
+            <div class="caption">
+                Items Information
+            </div>
+        </div>
+
+        <br />
+        @endif
 
         <div class="top-cart-content ">
             <div class="receipt_main">
 
                 @include('common.items')
-
 
                 <div class="totals col-md-12 col-sm-12 col-xs-12">
                     <table class="table">
@@ -74,8 +84,8 @@
                         </tr>
                         <tr <?php echo (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"';?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
-                            <td>&nbsp;$<?php echo (isset($order)) ? $order->delivery_fee : $restaurant->delivery_fee;?>
-                                <input type="hidden" value="<?php echo (isset($order)) ? $order->delivery_fee : $restaurant->delivery_fee;?>" class="df" name="delivery_fee"/>
+                            <td>&nbsp;$<?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}
+                                <input type="hidden" value="<?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}" class="df" name="delivery_fee"/>
                                 <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
                             </td>
                         </tr>
@@ -83,7 +93,7 @@
                             <td><strong>Total</strong>&nbsp;</td>
                             <td>&nbsp;$ <div style="display: inline-block;" class="grandtotal"><?php echo (isset($order)) ? $order->g_total : '0';?></div>
                                 <input type="hidden" name="g_total" class="grandtotal" value="<?php echo (isset($order)) ? $order->g_total : '0';?>"/>
-                                <input type="hidden" name="res_id" value="<?php if (isset($restaurant)) echo $restaurant->id;?>"/>
+                                <input type="hidden" name="res_id" value="<?php if (isset($restaurant->id)) echo $restaurant->id;?>"/>
                             </td>
                         </tr>
                         </tbody>
@@ -159,7 +169,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <!--<div class="profile_delivery_detail" style="display: none;">
+                    <div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                 <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="<?php if (isset($profile)) echo $profile->street;?>">
@@ -172,44 +182,18 @@
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-6">
                                 <select class="form-control form-control--contact" name="province" id="ordered_province">
-                                    <option value="Alberta" <?php if (isset($profile) && $profile->province == 'Alberta') echo "selected='selected'";?>>
-                                        Alberta
-                                    </option>
-                                    <option value="British Columbia" <?php if (isset($profile) && $profile->province == 'British Columbia') echo "selected='selected'";?>>
-                                        British Columbia
-                                    </option>
-                                    <option value="Manitoba" <?php if (isset($profile) && $profile->province == 'Manitoba') echo "selected='selected'";?>>
-                                        Manitoba
-                                    </option>
-                                    <option value="New Brunswick" <?php if (isset($profile) && $profile->province == 'New Brunswick') echo "selected='selected'";?>>
-                                        New Brunswick
-                                    </option>
-                                    <option value="Newfoundland and Labrador" <?php if (isset($profile) && $profile->province == 'Newfoundland and Labrador"') echo "selected='selected'";?>>
-                                        Newfoundland and Labrador
-                                    </option>
-                                    <option value="Nova Scotia" <?php if (isset($profile) && $profile->province == 'Nova Scotia') echo "selected='selected'";?>>
-                                        Nova Scotia
-                                    </option>
-                                    <option value="Ontario" <?php if ((isset($profile) && $profile->province == 'Ontario') || !isset($profile)) echo "selected='selected'";?>>
-                                        Ontario
-                                    </option>
-                                    <option value="Prince Edward Island" <?php if (isset($profile) && $profile->province == 'Prince Edward Island') echo "selected='selected'";?>>
-                                        Prince Edward Island
-                                    </option>
-                                    <option value="Quebec" <?php if (isset($profile) && $profile->province == 'Quebec') echo "selected='selected'";?>>
-                                        Quebec
-                                    </option>
-                                    <option value="Saskatchewan" <?php if (isset($profile) && $profile->province == 'Saskatchewan') echo "selected='selected'";?>>
-                                        Saskatchewan
-                                    </option>
+                                    <option value="">-Select One-</option>
+                                    @foreach($states_list as $value)
+                                        <option value="{{ $value->id }}" @if(isset($profile->province) && $profile->province == $value->id) selected @endif>{{ $value->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact" name="postal_code" id="postal_code" value="<?php if (isset($profile)) echo $profile->post_code;?>">
+                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact" name="postal_code" id="postal_code" value="{{ (isset($profile->post_code))?$profile->post_code:'' }}">
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         <div class="col-xs-12">
                             <textarea placeholder="Additional Notes" class="form-control  form-control--contact" name="remarks"></textarea>
@@ -221,6 +205,7 @@
                         <div class="col-xs-12">
                             <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
                             <button type="submit" class="btn btn-primary">Checkout</button>
+                            <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}" />
                         </div>
                         <div class="clearfix"></div>
                     </div>

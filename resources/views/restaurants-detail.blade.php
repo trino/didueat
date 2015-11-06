@@ -518,14 +518,12 @@
 
                                 <div class="form-group">
                                     <div class="col-xs-12">
-
                                         <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                             <option value="ASAP">ASAP</option>
                                             <option value="Sep 30, 07:51 - 08:21">Sep 30, 07:51 - 08:21</option><option value="Sep 30, 08:21 - 08:51">Sep 30, 08:21 - 08:51</option><option value="Sep 30, 08:51 - 09:21">Sep 30, 08:51 - 09:21</option><option value="Sep 30, 09:21 - 09:51">Sep 30, 09:21 - 09:51</option><option value="Sep 30, 09:51 - 10:21">Sep 30, 09:51 - 10:21</option><option value="Sep 30, 10:21 - 10:51">Sep 30, 10:21 - 10:51</option><option value="Sep 30, 10:51 - 11:21">Sep 30, 10:51 - 11:21</option><option value="Sep 30, 11:21 - 11:51">Sep 30, 11:21 - 11:51</option><option value="Sep 30, 11:51 - 12:21">Sep 30, 11:51 - 12:21</option><option value="Sep 30, 12:21 - 12:51">Sep 30, 12:21 - 12:51</option><option value="Sep 30, 12:51 - 01:21">Sep 30, 12:51 - 01:21</option><option value="Sep 30, 01:21 - 01:51">Sep 30, 01:21 - 01:51</option><option value="Sep 30, 01:51 - 02:21">Sep 30, 01:51 - 02:21</option><option value="Sep 30, 02:21 - 02:51">Sep 30, 02:21 - 02:51</option><option value="Sep 30, 02:51 - 03:21">Sep 30, 02:51 - 03:21</option><option value="Sep 30, 03:21 - 03:51">Sep 30, 03:21 - 03:51</option><option value="Sep 30, 03:51 - 04:21">Sep 30, 03:51 - 04:21</option><option value="Sep 30, 04:21 - 04:51">Sep 30, 04:21 - 04:51</option>
                                         </select>
                                     </div>
                                     <div class="clearfix"></div>
-
                                 </div>
                                 <div class="profile_delivery_detail" style="display: none;">
                                     <div class="form-group margin-bottom-10">
@@ -551,7 +549,6 @@
                                                 <option value="Quebec">Quebec</option>
                                                 <option value="Saskatchewan">Saskatchewan</option>
                                             </select>
-
                                         </div>
                                         <div class="col-xs-12 col-sm-6">
                                             <input type="text" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code">

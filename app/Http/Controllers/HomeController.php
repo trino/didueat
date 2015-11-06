@@ -443,8 +443,9 @@ class HomeController extends Controller
         $data['restaurant'] = $res_slug;
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
-
+        $data['states_list'] = \App\Http\Models\States::get();
         //$data['menus_list'] = $menus;
+        //echo '<pre>'; print_r($data['restaurant']); die;
         if (isset($_GET['page'])) {
             return view('menus', $data);
         } else {

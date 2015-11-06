@@ -53,47 +53,6 @@
     </div>
     <!-- END CONTENT -->
 
-
-
-    <div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;">
-        <div class="modal-dialog2">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add New</h4>
-                </div>
-                {!! Form::open(array('url' => '/restaurant/users', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    @include('common.edituser')
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-    <!-- /.modal-content -->
-
-
-    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;">
-        <div class="modal-dialog2">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Update</h4>
-                </div>
-                {!! Form::open(array('url' => '/restaurant/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    <div id="editContents"></div>
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-    <!-- /.modal-content -->
-
-
-
     @include('common.tabletools')
-    <script>
-        $('body').on('click', '.editUser', function(){
-            var id = $(this).attr('data-id');
-            $.get("{{ url("restaurant/users/edit") }}/"+id, {}, function(result){
-                $('#editContents').html(result);
-            });
-        });
-    </script>
 
 @stop

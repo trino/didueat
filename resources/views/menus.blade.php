@@ -5,7 +5,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12 no-padding parents" id="parent<?php echo $value->id;?>" style="margin-bottom: 20px;">
             <div class="product-item" style="margin:3px;background: #f7f7f7;height: 155px; padding: 10px;">
 
-                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" data-id="{{ $value->id }}" class="insert-stats <?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
+                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats <?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
                     <div class="col-md-8 col-sm-7 col-xs-6 ">
                         <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
                         <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>

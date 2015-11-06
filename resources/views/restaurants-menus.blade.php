@@ -61,6 +61,9 @@
         $(document).ready(function(){
             $('body').on('click', '.insert-stats', function(){
                 var id = $(this).attr('data-id');
+                /*var res_id = $(this).attr('data-res-id');
+                $('#selected_restaurant_id_'+id).val($('#selected_restaurant_id_'+id).val()+res_id+', ');*/
+
                 $.get("{{ url('restaurants/menu/stats') }}/"+id, {}, function(result){
                     $('#product-pop-up_'+id+" #stats_block").show();
                     $('#product-pop-up_'+id+" #stats_block #view_stats").text(result);
@@ -116,7 +119,7 @@
                         } else if (msg == '6') {
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
                         } else if (msg == '786') {
-                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly.</span>");
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.</span>");
                         } else {
                             alert(msg);
                         }

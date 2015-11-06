@@ -285,9 +285,9 @@
                                     $('#ordered_email').val(arr.email);
                                     $('#ordered_contact').val(arr.phone);
                                     $('#ordered_province').val(arr.province);
+                                    $('#ordered_code').val(arr.post_code);
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
-                                    $('#ordered_code').val(arr.postal_code);
                                     $('.reservation_signin').hide();
                                     $('.fancybox-close').click();
                                     //only loads header
