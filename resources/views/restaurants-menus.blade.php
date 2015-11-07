@@ -486,6 +486,19 @@
 
 
     <script>
+        function clearCartItems() {
+            $('.receipt_main ul.orders li').remove();
+            $('.subtotal').val(0);
+            $('.subtotal').text('0');
+            $('.tax').val(0);
+            $('.tax').text('0');
+            $('.df').val(0);
+            $('.df').text('0');
+            $('#delivery_flag').val(0);
+            $('.grandtotal').val(0);
+            $('.grandtotal').text('0');
+        }
+
         function checkout() {
             var del = $('#delivery_flag').val();
 

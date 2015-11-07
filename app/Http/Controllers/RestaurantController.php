@@ -902,6 +902,7 @@ class RestaurantController extends Controller
         }
 
         $data['orders'] = $order->get();
+        $data['states_list'] = \App\Http\Models\States::get();
         $data['title'] = 'Report';
         return view('dashboard.restaurant.report', $data);
     }
@@ -1174,6 +1175,7 @@ class RestaurantController extends Controller
             $data['title'] = 'Orders Detail';
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);
             $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);
+            $data['states_list'] = \App\Http\Models\States::get();
             return view('dashboard.restaurant.orders_detail', $data);
         }
     }

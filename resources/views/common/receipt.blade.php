@@ -72,7 +72,7 @@
                         <tr>
                             <td><strong>Subtotal&nbsp;</strong></td>
                             <td>&nbsp;$ <div class="subtotal" style="display: inline-block;"><?php echo (isset($order)) ? $order->subtotal : '0';?></div>
-                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="<?php echo (isset($order)) ? $order->subtotal : '0';?>">
+                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="<?php echo (isset($order)) ? $order->subtotal : '0';?>" />
                             </td>
                         </tr>
                         <tr>
@@ -84,7 +84,7 @@
                         </tr>
                         <tr <?php echo (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"';?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
-                            <td>&nbsp;$<?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}
+                            <td>&nbsp;$ <span class="df"><?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
                                 <input type="hidden" value="<?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}" class="df" name="delivery_fee"/>
                                 <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
                             </td>
@@ -101,8 +101,8 @@
                 </div>
                 <?php if(!isset($order)){ ?>
                     <div class="text-right">
-                        <input class="btn red" type="button" onclick="printDiv('toprint')" value="Print" style="margin: 0;"/>
-                        <a href="javascript:void(0)" class="btn blue clearitems">Clear</a>
+                        <input class="btn red" type="button" onclick="printDiv('cartsz')" value="Print" style="margin: 0;"/>
+                        <a href="javascript:void(0)" class="btn blue clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
                 <?php } ?>

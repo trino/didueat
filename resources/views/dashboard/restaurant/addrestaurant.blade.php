@@ -245,6 +245,7 @@
     function ajaxuploadbtn(button_id) {
         var button = $('#' + button_id), interval;
         act = base_url + 'restaurant/uploadimg/restaurant';
+        var token = $('#resturantForm input[name=_token]').val();
         new AjaxUpload(button, {
             action: act,
             name: 'myfile',
