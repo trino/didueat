@@ -5,42 +5,25 @@
         <div class="content-page">
         <div class="container-fluid">
             <div class="row margin-bottom-10">
-                <div class="col-md-8 col-sm-8 col-xs-8">
 
-                    {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
-                    <div class="input-group" valign="center">
-                        <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" value="{{ $term }}" required />
+
+                <div class="col-md-4 col-sm-4 col-xs-12  top-cart-block">
+                    <div class="box-shadow">
+
+                        <div class="portlet-body">
+
+                            {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+                            <div class="input-group" valign="center">
+                                <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" value="{{ $term }}" required />
                         <span class="input-group-btn">
                             <button class="btn btn-primary red" type="submit">Search</button>
                         </span>
-                    </div>
-                    {!! Form::close() !!}
-                    <br />
-
-                    <h1><span id="countRows">{{ $count }}</span> Restaurants Found</h1>
-
-                    <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div id="restuarant_bar">
-                                @include('ajax.search_restaurants')
                             </div>
-                        </div>
-                    </div>
+                            {!! Form::close() !!}
+                            <br />
 
-                    <div class="clearfix"></div>
-                    <button type="button" class="btn btn-primary red loadMoreRestaurants">Load more</button>
-                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
-                    {!! csrf_field() !!}
-                </div>
 
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Filter Search
-                            </div>
-                        </div>
-                        <div class="portlet-body">
+
                             <h4>Sort By</h4>
                             <ul id="filterType">
                                 <li>
@@ -85,6 +68,32 @@
                         </div>
                     </div>
                 </div>
+
+
+
+                <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-4">
+
+
+
+                    <h1><span id="countRows">{{ $count }}</span> Restaurants Found</h1>
+
+                    <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div id="restuarant_bar">
+                                @include('ajax.search_restaurants')
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <button type="button" class="btn btn-primary red loadMoreRestaurants">Load more</button>
+                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
+                    {!! csrf_field() !!}
+                </div>
+
+
+
+
             </div>
         </div>
 

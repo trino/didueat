@@ -37,7 +37,7 @@
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> Meal Upload Form
+                                 Meal Upload Form
                             </div>
                         </div>
                         <div class="portlet-body form">

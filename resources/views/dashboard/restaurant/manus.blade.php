@@ -13,7 +13,7 @@
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> MENU MANAGER
+                                 MENU MANAGER
                             </div>
                         </div>
                         <div class="portlet-body form">

@@ -2,7 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="<?php echo asset('assets');?>/global/css/popstyle.css">
     <div class="margin-bottom-40 clearfix">
-        <div class="col-md-9 col-sm-9 col-xs-12 menu_div">
+        <div class="col-md-9 col-md-offset-3 col-sm-9 col-xs-12 menu_div">
 
             <?php if(Session::has('is_logged_in')){?>
             <div class="category_btns" style="margin-bottom: 15px;">
@@ -13,10 +13,10 @@
             <div id="menumanager2" style="display: none;width:800px;"></div>
             <?php } ?>
             <?php foreach($category as $cat) { ?>
-            <div class="box-shadow margin-bottom-20 clearfix">
+            <div class="box-shadow clearfix">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-spoon"></i>{{$cat->title}}
+                        {{$cat->title}}
                     </div>
                 </div>
                 <div class="portlet-body no-padding">

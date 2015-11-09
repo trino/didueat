@@ -20,7 +20,7 @@
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> Profile Manager
+                                 Profile Manager
                             </div>
                         </div>
                         <div class="portlet-body form">
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <div class="caption">
-                                    <i class="fa fa-gift"></i> Contact Information
+                                     Contact Information
                                 </div>
 
                                 <!--<div class="col-md-12 col-sm-12 col-xs-12">
@@ -136,7 +136,7 @@
 
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-gift"></i> Create Password
+                                         Create Password
                                     </div>
                                 </div>
 
@@ -194,7 +194,7 @@
 
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-gift"></i> Change Photo
+                                         Change Photo
                                     </div>
                                 </div>
 

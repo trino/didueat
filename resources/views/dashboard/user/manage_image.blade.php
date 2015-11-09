@@ -27,7 +27,6 @@
                 <a href="#addNewUser" class="btn red pull-right fancybox-fast-view">Add New</a>
 
                 <div class="clearfix"></div>
-                <hr class="shop__divider">
 
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">

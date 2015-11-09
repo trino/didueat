@@ -57,7 +57,7 @@ Header and header elements
 
 .header {
     box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
-    background: #cf102d;
+    background: #000;
     border-radius: 0;
     z-index: 999;
     position: fixed !important;
@@ -608,8 +608,7 @@ Header and header elements
 
 /* Top cart block */
 .header .top-cart-block, .fixed-header .top-cart-block {
-    float: right;
-    margin-top: 30px;
+    float: left;
     position: relative;
 }
 
@@ -619,7 +618,7 @@ Header and header elements
 
 .ecommerce .reduce-header .mobi-toggler,
 .reduce-header .top-cart-block {
-    margin-top: 19px;
+
 }
 
 /***
@@ -1061,11 +1060,11 @@ a.btn {
 }
 
 .eyes .texted {
-    border-bottom: 3px solid #003e6c;
-    border-right: 3px solid #003e6c;
-    border-top: 3px solid #003e6c;
-    box-shadow: 0 0 3px #444;
-    color: #003e6c;
+    border-bottom: 3px solid #000;
+    border-right: 3px solid #000;
+    border-top: 3px solid #000;
+    box-shadow: 0 0 3px #000;
+    color: #000;
     display: inline;
     font-family: "Oswald",sans-serif;
     font-size: 40px;
@@ -1079,7 +1078,7 @@ a.btn {
 .eyes b {
     text-align: center;
     padding: 0px 10px;
-    background: #003e6c;
+    background: #000;
     color: #fff;
     font-weight: 400;
     font-size: 40px;
@@ -1394,12 +1393,11 @@ button:hover {
 /* here you can put your own css to customize and override the theme */
 .top-cart-block {
     position: fixed;
-    right: 0;
-    top: 62px;
+    left: 0;
+    top: 50px;
     z-index: 9;
     padding: 10px 0;
     background: white !important;
-    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
     border: 0 !important;
 }
 
@@ -1448,7 +1446,6 @@ button:hover {
 .infolistwhite {
     background: #fff none repeat scroll 0 0;
     border-top: 1px solid #dfdfdf;
-    box-shadow: 0 0 3px #aaa;
     padding: 0 10px;
 }
 
@@ -2141,7 +2138,6 @@ body.ecommerce {
 
 .intro .text .btn-3 {
     border: medium none !important;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     color: #fff;
     height: 44px;
     padding: 0 12px;
@@ -2269,7 +2265,6 @@ body.ecommerce {
     margin-top: 0 !important;
     background: #cf102d;
     border-color: #cf102d;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .orders_details #cartsz {
@@ -5086,16 +5081,16 @@ Portlets
 /* END max width 320px */
 
 .box-shadow {
-    background: #f7f7f7 none repeat scroll 0 0;
-    box-shadow: 0 0 3px #888888;
+
+
 }
 
 .box-shadow .caption, .pricing-head.pricing-head-active > h3 {
-    background: #df4500;
-    color: #fff;
-    font-size: 14px;
+    border-bottom:4px solid #cf102d;
+    color: #000;
+    font-size: 18px;
     font-weight: 600;
-    padding: 10px;
+
     clear: both;
 }
 
@@ -5124,11 +5119,10 @@ Portlets
 
 .box-shadow .portlet-body {
     font-size: 14px;
-    padding: 10px;
+
 }
 
 #searchMenuForm2 input {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .pricing-content.list-unstyled {
@@ -5188,10 +5182,6 @@ Portlets
     margin-bottom: 20px !important;
 }
 
-.pre-footer {
-    background: #003e6c;
-}
-
 .pre-footer hr {
     background: #dfdfdf none repeat scroll 0 0;
 }
@@ -5240,7 +5230,6 @@ a:hover {
 }
 
 .pre-footer-subscribe-box input {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .social-icons > li {
@@ -5310,7 +5299,7 @@ li {
 
 
 .restaurentsList .restaurentDetail {
-    border: 1px solid #df4500;
+    border: 1px solid #cf102d;
     margin-bottom: 20px;
 }
 .restaurentsList .portlet-title {

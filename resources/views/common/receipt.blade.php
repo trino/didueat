@@ -13,23 +13,31 @@
 </div>
 <?php } ?>
 <div id="cartsz">
-    <div class="row  resturant-logo-desc padding-top-5">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="col-md-4 col-sm-4 col-xs-4">
+    <div class="row  resturant-logo-desc">
+        <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 0;padding: 0;">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                    <img class="img-responsive" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/thumb1_'.$restaurant->logo) }}">
+                    <img style="height: 100px;width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
-                    <img class="img-responsive" alt="" src="{{ asset('assets/images/default.png') }}">
+                    <img  style="height: 100px;width:100%;"class=" no-padding" alt="" src="{{ asset('assets/images/default.png') }}">
                 @endif
             </div>
-            <address class="col-md-8 col-sm-8 col-xs-8">
+
+            <div class="col-md-12 col-sm-12 col-xs-12" style="background:red;color:white;padding: 20px;">
+
+                <div  class="col-md-1 col-sm-1 col-xs-1">
+                    <span style="font-size: 50px;"><</span>
+                </div>
+                <div  class="col-md-11 col-sm-11 col-xs-11">
+
                 <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
                 {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
-                {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}<br>
+                {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}
                 <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
-                <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a><br />
+                <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
                 <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-            </address>
+            </div>
+            </div>
             <div class="clearfix"></div>
         </div>
     </div>

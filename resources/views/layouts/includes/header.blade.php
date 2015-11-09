@@ -1,6 +1,32 @@
+
+
 <div class="header">
     <div class="container-fluid" >
-        <a class="site-logo" href="{{ url('/') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="height: 40px; position: relative; top: 2px;"/></a>
+        <div class="header-navigation-wrap pull-left" id="header-nav" style="background: red;padding: 5px;">
+            <div class="header-navigation">
+        <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="height: 30px; position: relative; top: 2px;"/></a>
+</div>
+</div>
+        <!-- BEGIN NAVIGATION -->
+        <div class="header-navigation-wrap pull-left" id="header-nav">
+            <div class="header-navigation">
+                <ul>
+                    <!-- BEGIN TOP BAR MENU -->
+                    <li><a href="{{ url('/') }}"></a></li>
+
+                    <li style="padding-top: 17px;">
+
+                    <input name="address_display" value="" type="text" id="address-autocomplete-input" class="form-control address-input" placeholder="Hamilton L8E" autocomplete="off">
+
+                    </li>
+
+                    </ul>
+                </div>
+                </div>
+
+
+
+
         <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
 
         <!-- BEGIN NAVIGATION -->
@@ -8,15 +34,18 @@
             <div class="header-navigation">
                 <ul>
                     <!-- BEGIN TOP BAR MENU -->
-                    <li><a href="{{ url('/') }}">Meals</a></li>
+                    <!--li><a href="{{ url('/') }}">Meals</a></li>
                     <li><a href="{{ url('restaurants') }}">Restaurants</a></li>
                     @if(!Session::has('is_logged_in'))
                         <li><a href="{{ url('restaurants/signup') }}">Restaurant Owner</a></li>
                     @endif
                     <li><a style="" href="mailto:info@trinoweb.com?cc=info@didueat.ca">Email</a>
-                    </li>
+                    </li-->
                     @if(Session::has('is_logged_in'))
-                        <li><a href="{{ url('dashboard') }}"><img src="<?php
+                        <li><a href="{{ url('dashboard') }}">
+
+                                Hi,  {{ explode(' ', Session::get('session_name'))[0] }}
+                                <img src="<?php
                                 $Image = asset('assets/images/default.png');
                                 if (Session::has('session_photo')){
                                     if(Session::get('session_photo')){
@@ -24,8 +53,10 @@
                                     }
                                 }
                                 echo $Image;
-                                ?>" id="avatarImage" style="max-height: 20px;"> {{ explode(' ', Session::get('session_name'))[0] }}</a></li>
+                                ?>" id="avatarImage" style="max-height: 20px;"></a>
                         <li><a href="{{ url('auth/logout') }}">Log Out</a></li>
+
+                        </li>
                     @else
                         <li><a href="#login-pop-up" class="fancybox-fast-view">Log In</a></li>
                     @endif

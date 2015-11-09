@@ -2,36 +2,56 @@
 <div id="loadmenus_{{$catid}}"><?php }?>
     @foreach($menus_list as $value)
 
-        <div class="col-md-4 col-sm-6 col-xs-12 no-padding parents" id="parent<?php echo $value->id;?>" style="margin-bottom: 20px;">
-            <div class="product-item" style="margin:3px;background: #f7f7f7;height: 155px; padding: 10px;">
+        <div class="col-md-6 col-sm-6 col-xs-12 parents" id="parent<?php echo $value->id;?>"
+             style="background: #fff;padding:10px;">
+            <div class="product-item" style="">
 
-                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats <?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
-                    <div class="col-md-8 col-sm-7 col-xs-6 ">
+                <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>"
+                   data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}"
+                   class="insert-stats <?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
+                    <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
                         <h2 class="padding-top-5" style="color: black;margin:0px;">{{ $value->menu_item }}</h2>
+
                         <p style="overflow: hidden;font-size: 11px;color:#666;">{{ $value->description }}</p>
+
+
+                        <?php if(Session::has('is_logged_in')){ ?>
+                        <div class="pull-left">
+
+                            <a href="<?php echo url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug);?>"
+                               class="btn-sm red">Remove</a>
+
+                            <a href="#menumanager2" id="add_item<?php echo $value->id;?>"
+                               class="btn-small blue fancybox-fast-view additem">Edit</a>
+
+                            <a id="up_parent_<?php echo $value->id;?>_<?php echo $catid;?>" class="sorting_parent"
+                               href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
+
+                            <a id="down_parent_<?php echo $value->id;?>_<?php echo $catid;?>" class="sorting_parent"
+                               href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
+                        </div>
+
+                        <?php } ?>
+
+
                     </div>
 
-                    <div class="col-md-2 col-sm-3 col-xs-3 padding-top-5 " style="padding:0;">
-                        <h2 class="" style="color: black;font-weight: 300;">${{ $value->price }}</h2>
-                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-3"
+                         style="margin-top:0px;background:#ffdd00 ;color: black;font-weight: 600;padding: 10px;">
+                        ${{ $value->price }}</div>
+
 
                     <div class="col-md-2 col-sm-2 col-xs-3" style="padding:0;">
-                        <img style="max-height:100%;" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image); else echo asset('assets/images/default_menu.png'); ?>" class="img-responsive" alt="{{ $value->menu_item }}" />
+
+                        <img style="height:60px;"
+                             src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
+                             else echo asset('assets/images/default_menu.png'); ?>" class="img-responsive"
+                             alt="{{ $value->menu_item }}"/>
+
+
                     </div>
                 </a>
 
-                <?php if(Session::has('is_logged_in')){ ?>
-                <div class="col-md-12 col-sm-12 col-xs-12 category_detail_btn no-padding" style="margin: 10px 0;padding-right: 0;">
-                    <a href="<?php echo url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug);?>" class="btn red">Remove</a>
-                    <a href="#menumanager2" id="add_item<?php echo $value->id;?>" class="btn blue fancybox-fast-view additem">Edit</a>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12" style="padding-right: 0;">
-                    <div class="pull-right">
-                        <a id="up_parent_<?php echo $value->id;?>_<?php echo $catid;?>" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
-                        <a id="down_parent_<?php echo $value->id;?>_<?php echo $catid;?>" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
-                    </div>
-                </div>
-                <?php } ?>
             </div>
         </div>
 
@@ -46,7 +66,8 @@
                         <strong>Menu Views:</strong> <span id="view_stats"></span>
                     </div>
                     <div class="col-sm-12 col-xs-12">
-                        <img class="popimage_{{ $value->id }}" width="150" src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo asset('assets/images/default_menus.jpg'); ?>" />
+                        <img class="popimage_{{ $value->id }}" width="150"
+                             src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); else echo asset('assets/images/default_menus.jpg'); ?>"/>
                     </div>
                     <div class="clearfix"></div>
 
@@ -57,63 +78,91 @@
                     <div class="subitems_{{ $value->id }} optionals">
                         <div class="clearfix space10"></div>
                         <div style="display:none;">
-                            <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id }}_<?php echo $value->menu_item;?>-_<?php echo $value->price;?>_" value="" class="chk">
+                            <input type="checkbox" style="display: none;" checked="checked"
+                                   title="{{ $value->id }}_<?php echo $value->menu_item;?>-_<?php echo $value->price;?>_"
+                                   value="" class="chk">
                         </div>
                         <div style="overflow: hidden;" class="banner bannerz">
                             <table width="100%">
                                 <tbody>
                                 <?php
-                                    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
-                                    foreach($submenus as $sub){
+                                $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+                                foreach($submenus as $sub){
                                 ?>
                                 <tr class="zxcx">
                                     <td width="100%" id="td_<?php echo $sub->id;?>" style="vertical-align: top;">
-                                        <input type="hidden" value="<?php echo $sub->exact_upto_qty;?>" id="extra_no_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->req_opt;?>" id="required_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->sing_mul;?>" id="multiple_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->exact_upto;?>" id="upto_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->exact_upto_qty;?>"
+                                               id="extra_no_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->req_opt;?>"
+                                               id="required_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->sing_mul;?>"
+                                               id="multiple_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->exact_upto;?>"
+                                               id="upto_<?php echo $sub->id;?>">
 
                                         <div style="" class="infolist col-xs-12">
                                             <div style="display: none;">
-                                                <input type="checkbox" value="<?php echo $sub->menu_item;?>" title="___" id="<?php echo $sub->id;?>" style="display: none;" checked="checked" class="chk">
+                                                <input type="checkbox" value="<?php echo $sub->menu_item;?>" title="___"
+                                                       id="<?php echo $sub->id;?>" style="display: none;"
+                                                       checked="checked" class="chk">
                                             </div>
                                             <a href="javascript:void(0);"><strong><?php echo $sub->menu_item;?></strong></a>
                                             <span><em> </em></span>
                                             <span class="limit-options" style="float: right;">
                                                 <?php
-                                                    if ($sub->exact_upto == 0)
-                                                        $upto = "up to ";
-                                                    else
-                                                        $upto = "exactly ";
-                                                    if ($sub->req_opt == '0') {
-                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                            echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
-                                                        echo "(Optional)";
-                                                    } elseif ($sub->req_opt == '1') {
-                                                        if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                            echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
-                                                        echo "(Mandatory)";
-                                                    }
+                                                if ($sub->exact_upto == 0)
+                                                    $upto = "up to ";
+                                                else
+                                                    $upto = "exactly ";
+                                                if ($sub->req_opt == '0') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                                    echo "(Optional)";
+                                                } elseif ($sub->req_opt == '1') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                    echo "(Mandatory)";
+                                                }
                                                 ?>
                                             </span>
 
-                                        <div class="clearfix"></div>
-                                        <span class="error_<?php echo $sub->id;?>" style="color: red; font-weight: bold;"></span>
+                                            <div class="clearfix"></div>
+                                            <span class="error_<?php echo $sub->id;?>"
+                                                  style="color: red; font-weight: bold;"></span>
+
                                             <div class="list clearfix">
                                                 <?php
                                                 $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get();
                                                 //$mini_menus = $Manager->enum_all('Menus',['parent'=>$sub->id]);
                                                 foreach($mini_menus as $mm):
                                                 ?>
-                                                <div class="col-xs-6 col-md-6" style="padding: 0px;border-radius: 17px 0 0 17px !important;" class="subin btn default btnxx">
+                                                <div class="col-xs-6 col-md-6"
+                                                     style="padding: 0px;border-radius: 17px 0 0 17px !important;"
+                                                     class="subin btn default btnxx">
                                                     <div style="padding:0px;border-radius: 17px 0 0 17px !important;">
-                                                        <a style="text-decoration: none;display:inline-block; padding-right: 15px;" title="" id="buttons_<?php echo $mm->id;?>" class="buttons " href="javascript:void(0);">
-                                                            <button style="border-radius: 17px!important;" class="btn btn-primary"> </button>
-                                                            <input type="<?php echo ($sub->sing_mul == '1') ? 'radio' : 'checkbox';?>" id="extra_<?php echo $mm->id;?>" title="<?php echo $mm->id;?>_<br/> <?php echo $mm->menu_item;?>_<?php echo $mm->price;?>_<?php echo $sub->menu_item;?>" class="extra-<?php echo $sub->id;?>" name="extra_<?php echo $sub->id;?>" value="post"/> &nbsp;&nbsp;<?php echo $mm->menu_item; ?> &nbsp;&nbsp;<?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                                        <a style="text-decoration: none;display:inline-block; padding-right: 15px;"
+                                                           title="" id="buttons_<?php echo $mm->id;?>" class="buttons "
+                                                           href="javascript:void(0);">
+                                                            <button style="border-radius: 17px!important;"
+                                                                    class="btn btn-primary"></button>
+                                                            <input type="<?php echo ($sub->sing_mul == '1') ? 'radio' : 'checkbox';?>"
+                                                                   id="extra_<?php echo $mm->id;?>"
+                                                                   title="<?php echo $mm->id;?>_<br/> <?php echo $mm->menu_item;?>_<?php echo $mm->price;?>_<?php echo $sub->menu_item;?>"
+                                                                   class="extra-<?php echo $sub->id;?>"
+                                                                   name="extra_<?php echo $sub->id;?>" value="post"/>
+                                                            &nbsp;&nbsp;<?php echo $mm->menu_item; ?>
+                                                            &nbsp;&nbsp;<?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                         </a>
-                                                        <b style="display:none;"><a onclick="" style="text-decoration: none; color: #000;" id="remspan_<?php echo $mm->id;?>" class="remspan" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
-                                                            <span id="sprice_0" class="span_<?php echo $mm->id;?> allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
-                                                            <a style="text-decoration: none; color: #000;" onclick="" id="addspan_<?php echo $mm->id;?>" class="addspan" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                                        <b style="display:none;"><a onclick=""
+                                                                                    style="text-decoration: none; color: #000;"
+                                                                                    id="remspan_<?php echo $mm->id;?>"
+                                                                                    class="remspan" href="javascript:;"><b>
+                                                                    &nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                                            <span id="sprice_0"
+                                                                  class="span_<?php echo $mm->id;?> allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
+                                                            <a style="text-decoration: none; color: #000;" onclick=""
+                                                               id="addspan_<?php echo $mm->id;?>" class="addspan"
+                                                               href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
                                                         </b>
                                                     </div>
                                                     <div class="clearfix"></div>
@@ -133,13 +182,19 @@
                         <div class="clearfix"></div>
                         <div style="line-height:45px;" class="col-xs-12 add-btn">
                             <div class="add-minus-btn" style="float:left;">
-                                <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
+                                <a class="btn btn-primary minus" href="javascript:void(0);"
+                                   onclick="changeqty('{{ $value->id }}','minus')">-</a>
+
                                 <div class="number{{ $value->id }}">1</div>
-                                <a class="btn btn-primary add" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>
+                                <a class="btn btn-primary add" href="javascript:void(0);"
+                                   onclick="changeqty('{{ $value->id }}','plus')">+</a>
                             </div>
 
-                            <a style="float: right; margin-left: 10px;" id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end" href="javascript:void(0);">Add</a>
-                            <button id="clear_{{ $value->id }}" style="opacity: 1; text-shadow:none;margin-left: 10px;float: right;margin-left: 10px;display:none;" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
+                            <a style="float: right; margin-left: 10px;" id="profilemenu{{ $value->id }}"
+                               class="btn btn-primary add_menu_profile add_end" href="javascript:void(0);">Add</a>
+                            <button id="clear_{{ $value->id }}"
+                                    style="opacity: 1; text-shadow:none;margin-left: 10px;float: right;margin-left: 10px;display:none;"
+                                    data-dismiss="modal" class="btn btn-warning resetslider" type="button">
                                 RESET
                             </button>
                             <div class="clearfix"></div>

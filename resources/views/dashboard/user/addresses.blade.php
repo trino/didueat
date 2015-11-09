@@ -26,7 +26,7 @@
                         <div class="box-shadow">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>MY ADDRESSES
+                                    MY ADDRESSES
                                 </div>
                                 <div class="tools">
                                 </div>
