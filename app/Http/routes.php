@@ -8,14 +8,13 @@ Route::post('/ajax',                                'HomeController@ajax');
 Route::get('/contactus',                            'HomeController@contactus');
 Route::get('/restaurants',                          'HomeController@allRestaurants');
 Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
+Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
+Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/', 'HomeController@loadmenus');
 Route::get('/restaurants/menu/stats/{id}',    'HomeController@countStatus');
-Route::resource('/home/test',                       'HomeController@test');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
-Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
-Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
 Route::post('/uploadimg/{type}',                    'HomeController@uploadimg')->where('type','[a-z]+');
 Route::post('/newsletter/subscribe',                 'HomeController@newsletterSubscribe');
 

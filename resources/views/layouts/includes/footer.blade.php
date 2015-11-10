@@ -1,11 +1,6 @@
 
 <div class="footer" style="background: black">
     <div class="container-fluid">
-
-
-
-
-
         <div class="row">
             <div class="col-md-1"></div>
             <div class=" col-md-10 col-sm-12 col-xs-12">
@@ -48,8 +43,12 @@
             </div>
             <div class="col-md-4 col-sm-4 padding-top-10" align="center">
                 <?php
-                $end_loading_time = microtime(true);
-                printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
+                    $end_loading_time = microtime(true);
+                    printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
+                    echo "<br />";
+                    echo getOS();
+                    echo " => ";
+                    echo getUserBrowser();
                 ?>
             </div>
             <!-- END COPYRIGHT -->
@@ -61,9 +60,9 @@
 
                     <div class="input-group">
                         <input type="text" name="email" placeholder="youremail@mail.com" class="form-control">
-                            <span class="input-group-btn">
-                                <button class="btn red" type="submit">Email Subscription</button>
-                            </span>
+                        <span class="input-group-btn">
+                            <button class="btn red" type="submit">Email Subscription</button>
+                        </span>
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -73,54 +72,16 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
 <div class="overlay_loader">
     <div class="clearfix"></div>
     <div id="loadmoreajaxloader">
         <img src="{{ asset('assets/images/ajax-loading.gif') }}">
     </div>
 </div>
-
 <!-- END PRE-FOOTER -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
         Layout.init();
         Layout.initOWL();
         LayersliderInit.initLayerSlider();
@@ -129,18 +90,18 @@
         Layout.initTwitter();
     });
 
-    $(document).ready(function(){
-        $('body').on('submit', '#subscribe-email', function(e){
+    $(document).ready(function() {
+        $('body').on('submit', '#subscribe-email', function(e) {
             var email = $('#subscribe-email input[name=email]').val();
             var token = $('#subscribe-email input[name=_token]').val();
 
-            if($.trim(email) == "" || email == null){
+            if ($.trim(email) == "" || email == null) {
                 alert('Please type your email! thanks');
                 $('#subscribe-email input[name=email]').focus();
                 return false;
             }
 
-            $.post("{{ url('newsletter/subscribe') }}", {email:email, _token:token}, function(jason){
+            $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function(jason) {
                 //var jason = $.parseJSON(result);
                 if (jason.type == "error") {
                     alert(jason.message);
@@ -154,7 +115,7 @@
         });
     });
 
-    $(function () {
+    $(function() {
         var wd = $(window).width();
         var ht = $(window).height();
 
@@ -174,7 +135,7 @@
             $('#cartsz').show();
         }
 
-        $(window).resize(function () {
+        $(window).resize(function() {
             var wd = $(window).width();
             if (wd <= '767') {
                 $('.top-cart-info').show();
@@ -189,7 +150,7 @@
             }
         });
 
-        $('body').on('submit', '#searchMenuForm', function (e) {
+        $('body').on('submit', '#searchMenuForm', function(e) {
             var term = $('#searchMenuForm input[name=search_term]').val();
             if (term.trim() != "") {
                 window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -197,7 +158,7 @@
             e.preventDefault();
         });
 
-        $('body').on('submit', '#searchRestaurantForm', function (e) {
+        $('body').on('submit', '#searchRestaurantForm', function(e) {
             var term = $('#searchRestaurantForm input[name=search_term]').val();
             if (term.trim() != "") {
                 window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -205,7 +166,7 @@
             e.preventDefault();
         });
 
-        $('body').on('submit', '#searchMenuForm2', function (e) {
+        $('body').on('submit', '#searchMenuForm2', function(e) {
             var term = $('#searchMenuForm2 input[name=search_term]').val();
             if (term.trim() != "") {
                 window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -213,7 +174,7 @@
             e.preventDefault();
         });
 
-        $('body').on('submit', '#searchRestaurantForm2', function (e) {
+        $('body').on('submit', '#searchRestaurantForm2', function(e) {
             var term = $('#searchRestaurantForm2 input[name=search_term]').val();
             if (term.trim() != "") {
                 window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -234,13 +195,13 @@
         return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    $('body').on('submit', '#forgot-pass-form', function (e) {
+    $('body').on('submit', '#forgot-pass-form', function(e) {
         var token = $("#forgot-pass-form input[name=_token]").val();
         var email = $("#forgot-pass-form input[name=email]").val();
 
         $("#forgot-pass-form #regButton").hide();
         $("#forgot-pass-form #regLoader").show();
-        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
+        $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function(result) {
             $("#forgot-pass-form #regButton").show();
             $("#forgot-pass-form #regLoader").hide();
 
@@ -257,13 +218,13 @@
         e.preventDefault();
     });
 
-    $('body').on('submit', '#login-ajax-form', function(e){
+    $('body').on('submit', '#login-ajax-form', function(e) {
         var data = $('#login-ajax-form').serialize();
         $.ajax({
             url: "{{ url('auth/login/ajax') }}",
             data: data,
             type: "post",
-            success: function (msg) {
+            success: function(msg) {
 
                 if (isNaN(Number(msg))) {
                     if (checkUrl(msg)) {
@@ -281,7 +242,7 @@
                             type: "post",
                             data: "id=" + msg + '&_token={{csrf_token()}}',
                             dataType: "json",
-                            success: function (arr) {
+                            success: function(arr) {
                                 $('#fullname').val(arr.name);
                                 $('#ordered_user_id').val(arr.user_id);
                                 $('#ordered_email').val(arr.email);
@@ -293,7 +254,7 @@
                                 $('.reservation_signin').hide();
                                 $('.fancybox-close').click();
                                 //only loads header
-                                $('#header-nav').load(document.URL +  ' #header-nav>div:first-child');
+                                $('#header-nav').load(document.URL + ' #header-nav>div:first-child');
 
                             }
                         });
@@ -302,24 +263,24 @@
                         window.location = "{{ url('dashboard') }}";
                 }
             },
-            failure: function (msg) {
+            failure: function(msg) {
                 setvalue("message", "ERROR: " + msg);
             }
         });
         e.preventDefault();
     });
 
-    $('body').on('click', '#resendMeEmail', function (e) {
+    $('body').on('click', '#resendMeEmail', function(e) {
         var url = $(this).attr('href');
         $('#registration-success p').html('Please wait email is being send...');
-        $.get(url, {}, function (result) {
+        $.get(url, {}, function(result) {
             var json = jQuery.parseJSON(result);
             $('#registration-success p').html(json.message);
         });
         e.preventDefault();
     });
 
-    $('body').on('submit', '#register-form', function (e) {
+    $('body').on('submit', '#register-form', function(e) {
         var token = $("#register-form input[name=_token]").val();
         var Name = $("#register-form input[name=name]").val();
         var Email = $("#register-form input[name=email]").val();
@@ -332,7 +293,7 @@
         var password = $("#register-form input[name=password]").val();
         var confirm_password = $("#register-form input[name=confirm_password]").val();
         var subscribed = 0;
-        if($("#register-form input[name=subscribed]").is(':checked')){
+        if ($("#register-form input[name=subscribed]").is(':checked')) {
             subscribed = $("#register-form input[name=subscribed]").val();
         }
 
@@ -351,7 +312,7 @@
             password: password,
             confirm_password: confirm_password,
             subscribed: subscribed
-        }, function (result) {
+        }, function(result) {
             $("#register-form #regButton").show();
             $("#register-form #regLoader").hide();
 
@@ -383,15 +344,15 @@
     }
 
     //loadmore
-    $(function () {
-        $('.loadmore').click(function () {
+    $(function() {
+        $('.loadmore').click(function() {
             $('div#loadmoreajaxloader').show();
             ur = $('.next a').attr('href');
             if (ur != '') {
                 url1 = ur.replace('/?', '?');
                 $.ajax({
                     url: url1,
-                    success: function (html) {
+                    success: function(html) {
 
                         if (html) {
                             $('.nxtpage').remove();

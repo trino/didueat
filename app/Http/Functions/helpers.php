@@ -1,29 +1,25 @@
 <?php
-function initialize($Source = "")
-{
+
+function initialize($Source = "") {
     DB::enableQueryLog();
     handle_action();
 }
 
-function handleevent($EventName, $Variables, $DirectEmail = "")
-{
+function handleevent($EventName, $Variables, $DirectEmail = "") {
     //handle emails
 }
 
-function sendemail($To, $Subject, $Message, $Raw = true)
-{
-
+function sendemail($To, $Subject, $Message, $Raw = true) {
+    
 }
 
-function call($controller, $action, $parameters = array())
-{
+function call($controller, $action, $parameters = array()) {
     $app = app();
     $controller = $app->make($controller);
     return $controller->callAction($app, $app['router'], $action, $parameters);
 }
 
-function handle_action($Action = "")
-{
+function handle_action($Action = "") {
     //http://localhost/didueat/public/restaurant/users?action=test
     if (!$Action) {
         $Action = getpost("action");
@@ -50,23 +46,20 @@ function handle_action($Action = "")
                 break;
 
             default:
-                //echo $Action . " is unhandled";
-                //die();
+            //echo $Action . " is unhandled";
+            //die();
         }
     }
     return false;
 }
 
 //func count orders
-function countOrders($type = 'pending')
-{
+function countOrders($type = 'pending') {
     return DB::table('reservations')->where('status', $type)->count();
 }
 
-
 //returns an array of all the profile types with a hierarchy above $Hierarchy
-function enum_profiletypes($Hierarchy = "", $toArray = true)
-{
+function enum_profiletypes($Hierarchy = "", $toArray = true) {
     $Condition = "1=1";
     if ($Hierarchy) {
         $Condition = "Hierarchy > " . $Hierarchy;
@@ -79,15 +72,13 @@ function enum_profiletypes($Hierarchy = "", $toArray = true)
 }
 
 //shows what file is currently open in red text, use __FILE__ for $Filename
-function fileinclude($Filename)
-{//pass __FILE__
+function fileinclude($Filename) {//pass __FILE__
     if ($_SERVER["SERVER_NAME"]) {
         return '<FONT COLOR="RED">Include: ' . $Filename . '</FONT>';
     }
 }
 
-function webroot($Local = false)
-{
+function webroot($Local = false) {
     if ($Local) {
         return app_path() . "/";
     }
@@ -95,41 +86,35 @@ function webroot($Local = false)
 }
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
-function read($Name)
-{
+function read($Name) {
     if (\Session::has('session_' . $Name)) {
         return \Session::get('session_' . $Name);
     }
 }
 
-function write($Name, $Value, $Save = false)
-{
+function write($Name, $Value, $Save = false) {
     \Session::put('session_' . $Name, $Value);
     if ($Save) {
         \Session::save();
     }
 }
 
-function salt()
-{
+function salt() {
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
 }
 
-function enum_profiles($Key, $Value)
-{
+function enum_profiles($Key, $Value) {
     return enum_all('profiles', array($Key => $Value));
 }
 
-function get_profile($ID = "")
-{
+function get_profile($ID = "") {
     if (!$ID) {
         $ID = read("ID");
     }
     return get_entry("profiles", $ID);
 }
 
-function is_email_in_use($EmailAddress, $NotByUserID = 0)
-{
+function is_email_in_use($EmailAddress, $NotByUserID = 0) {
     $EmailAddress = clean_email($EmailAddress);
     if ($NotByUserID) {
         return first("SELECT * FROM profiles WHERE Email = '" . $EmailAddress . "' AND ID != " . $NotByUserID);
@@ -138,8 +123,7 @@ function is_email_in_use($EmailAddress, $NotByUserID = 0)
     }
 }
 
-function get_profile_type($ProfileID = false, $GetByType = false)
-{
+function get_profile_type($ProfileID = false, $GetByType = false) {
     if (!$ProfileID && $GetByType) {
         $ProfileID = get_entry("profiles", read("ID"), "id")->profile_type;
     }
@@ -159,8 +143,7 @@ function get_profile_type($ProfileID = false, $GetByType = false)
     }
 }
 
-function randomPassword($Length = 8)
-{
+function randomPassword($Length = 8) {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = "";
     $alphaLength = strlen($alphabet) - 1;
@@ -171,8 +154,7 @@ function randomPassword($Length = 8)
     return $pass;
 }
 
-function is_valid_email($EmailAddress)
-{
+function is_valid_email($EmailAddress) {
     //http://php.net/manual/en/function.filter-var.php
     //filter_var can also validate: FILTER_VALIDATE_IP FILTER_VALIDATE_INT FILTER_VALIDATE_BOOLEAN FILTER_VALIDATE_URL FILTER_SANITIZE_STRING
     //flags FILTER_NULL_ON_FAILURE FILTER_FLAG_PATH_REQUIRED FILTER_FLAG_STRIP_LOW FILTER_FLAG_STRIP_HIGH
@@ -182,18 +164,15 @@ function is_valid_email($EmailAddress)
     }
 }
 
-
-function encryptpassword($Password)
-{
+function encryptpassword($Password) {
     return \crypt($Password, salt());
 }
 
-function login($Profile)
-{
+function login($Profile) {
     if (is_numeric($Profile)) {
         $Profile = get_profile($Profile);
     } else if (is_array($Profile)) {
-        $Profile = (object)$Profile;
+        $Profile = (object) $Profile;
     }
     write('ID', $Profile->id);
     write('Name', $Profile->name);
@@ -218,8 +197,7 @@ function login($Profile)
     return $Profile->id;
 }
 
-function get_current_restaurant()
-{
+function get_current_restaurant() {
     $Profile = read('id');
     if ($Profile) {
         if (isset($_GET["restaurant_id"])) {
@@ -232,8 +210,7 @@ function get_current_restaurant()
     }
 }
 
-function check_permission($Permission, $UserID = "")
-{
+function check_permission($Permission, $UserID = "") {
     if (!$UserID) {
         $UserID = read("id");
     }
@@ -248,51 +225,41 @@ function check_permission($Permission, $UserID = "")
     }
 }
 
-
 /////////////////////////////////////Date API////////////////////////////////////////
-function now()
-{
+function now() {
     return date("Y-m-d H:i:s");
 }
 
 //returns date stamp
-function parse_date($Date)
-{
+function parse_date($Date) {
     if (strpos($Date, "-")) {
         return strtotime($Date);
     }
     return $Date;
 }
 
-function get_day_of_week($Date)
-{//0 is sunday, 6=saturday
+function get_day_of_week($Date) {//0 is sunday, 6=saturday
     return date('w', parse_date($Date));
 }
 
-function get_time($Date)
-{//800
+function get_time($Date) {//800
     return date('Gi', parse_date($Date));
 }
 
-function get_year($Date)
-{//2015
+function get_year($Date) {//2015
     return date('Y', parse_date($Date));
 }
 
-function get_month($Date)
-{//01-12
+function get_month($Date) {//01-12
     return date('m', parse_date($Date));
 }
 
-function get_day($Date)
-{//3 (no leading zero)
+function get_day($Date) {//3 (no leading zero)
     return date('j', parse_date($Date));
 }
 
-
 /////////////////////////////////Event log API////////////////////////////////////
-function logevent($Event, $DoRestaurant = true, $restaurant_id = 0)
-{
+function logevent($Event, $DoRestaurant = true, $restaurant_id = 0) {
     $UserID = read('ID');
     if (!$UserID) {
         $UserID = 0;
@@ -307,9 +274,7 @@ function logevent($Event, $DoRestaurant = true, $restaurant_id = 0)
     new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $restaurant_id, "date" => $Date, "text" => $Event));
 }
 
-
-function data_type_name($Type)
-{
+function data_type_name($Type) {
     $Values = array("Email Address", "Phone Number", "Postal Code");
     if ($Type < 0 or $Type >= count($Values)) {
         return "Unknown";
@@ -317,8 +282,7 @@ function data_type_name($Type)
     return $Values[$Type];
 }
 
-function data_type($Data)
-{
+function data_type($Data) {
     if (strpos($Data, "@")) {
         return 0;
     } //email
@@ -332,8 +296,7 @@ function data_type($Data)
     return -1;
 }
 
-function clean_data($Data)
-{
+function clean_data($Data) {
     switch (data_type($Data)) {
         case -1:
             return trim($Data);
@@ -383,60 +346,50 @@ function getColumnNames($Table, $Ignore = "", $Full = false) {
     return $Columns;
 }
 
-
-function clean_phone($Phone)
-{
-    $Phone = kill_non_numeric($Phone, "+");//add a check to be sure only the first digit is a +
+function clean_phone($Phone) {
+    $Phone = kill_non_numeric($Phone, "+"); //add a check to be sure only the first digit is a +
     if ($Phone != "+") {
         return $Phone;
     }
 }
 
-function clean_email($Email)
-{
+function clean_email($Email) {
     return strtolower(trim($Email));
 }
 
-function clean_postalcode($PostalCode)
-{
+function clean_postalcode($PostalCode) {
     $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
     if (validateCanadaZip($PostalCode)) {
-        $delimeter = "";//" "
+        $delimeter = ""; //" "
         return left($PostalCode, 3) . $delimeter . right($PostalCode, 3);
     }
 }
 
-function validateCanadaZip($PostalCode)
-{//function by Roshan Bhattara(http://roshanbh.com.np)
+function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://roshanbh.com.np)
     return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
 }
 
-
-function debug_string_backtrace()
-{
+function debug_string_backtrace() {
     $BACK = debug_backtrace(0);
     $BACK[2]["line"] = $BACK[1]["line"];
     return $BACK[2];
 }
 
-function implode2($Array, $SmallGlue, $BigGlue)
-{
+function implode2($Array, $SmallGlue, $BigGlue) {
     foreach ($Array as $Key => $Value) {
         $Array[$Key] = $Key . $SmallGlue . $Value;
     }
     return implode_data($Array, $BigGlue);
 }
 
-function implode_data($Data, $Delimeter = ",")
-{
+function implode_data($Data, $Delimeter = ",") {
     if (is_array($Data)) {
         return implode($Delimeter, $Data);
     }
     return $Data;
 }
 
-function debug($Iterator, $DoStacktrace = true)
-{
+function debug($Iterator, $DoStacktrace = true) {
     if ($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
         echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '();</B> ';
@@ -461,19 +414,16 @@ function debug($Iterator, $DoStacktrace = true)
     }
 }
 
-function is_iterable($var)
-{
+function is_iterable($var) {
     return (is_array($var) || $var instanceof Traversable);
 }
 
 // My common functions
-function enum_tables()
-{
+function enum_tables() {
     return collapsearray(DB::select('SHOW TABLES'));
 }
 
-function collapsearray($Array, $Key = "")
-{
+function collapsearray($Array, $Key = "") {
     $NewArray = array();
     foreach ($Array as $Value) {
         if ($Key) {
@@ -487,9 +437,7 @@ function collapsearray($Array, $Key = "")
     return $NewArray;
 }
 
-
-function message($msgtype, $description)
-{
+function message($msgtype, $description) {
     if ($msgtype != "" && $description != "") {
         return '<script type="text/javascript">
                         $(document).ready(function() {
@@ -516,7 +464,6 @@ function message($msgtype, $description)
     }
 }
 
-
 function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
     return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
 }
@@ -525,7 +472,7 @@ function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir
 function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
     $query = DB::table($table);
     if ($getcol) {
-        if($getcol !== true) {
+        if ($getcol !== true) {
             $query = $query->select($getcol);
         }
     }
@@ -560,7 +507,6 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
     }
 }
 
-
 function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC") {
     return select_field_where($Table, $conditions, false, $order, $Dir);
 }
@@ -576,10 +522,8 @@ function get_entry($Table, $Value, $PrimaryKey = "id") {
     return select_field_where($Table, array($PrimaryKey => $Value));
 }
 
-
 /////////////////////////RAW SQL
-function get_primary_key($Table)
-{
+function get_primary_key($Table) {
     if (is_string($Table)) {
         $Table = getColumnNames($Table, "", true);
     }
@@ -592,24 +536,20 @@ function get_primary_key($Table)
     }
 }
 
-function enum_table($Table)
-{
+function enum_table($Table) {
     return select_query("SELECT * FROM " . $Table . " WHERE 1=1");
 }
 
-function getDatasource()
-{
+function getDatasource() {
     return DB::connection()->getPdo();
 }
 
-function select_query($Query)
-{
+function select_query($Query) {
     $con = getDatasource();
     return $con->query($Query);
 }
 
-function first($query)
-{
+function first($query) {
     if (is_array($query)) {
         if (count($query)) {
             return $query[0];
@@ -624,13 +564,11 @@ function first($query)
     }
 }
 
-function table_count($Table, $Conditions = "1=1")
-{
+function table_count($Table, $Conditions = "1=1") {
     return count(select_field_where($Table, $Conditions, false));
 }
 
-function my_iterator_to_array($entries, $PrimaryKey, $Key)
-{
+function my_iterator_to_array($entries, $PrimaryKey, $Key) {
     $data = array();
     foreach ($entries as $profiletype) {
         if ($PrimaryKey) {
@@ -642,13 +580,11 @@ function my_iterator_to_array($entries, $PrimaryKey, $Key)
     return $data;
 }
 
-function get_row_count($Table, $Conditions = "1=1")
-{
+function get_row_count($Table, $Conditions = "1=1") {
     return table_count($Table, $Conditions);
 }
 
-function remove_empties($Array)
-{
+function remove_empties($Array) {
     foreach ($Array as $Key => $Value) {
         if (!$Value) {
             unset($Array[$Key]);
@@ -657,14 +593,12 @@ function remove_empties($Array)
     return $Array;
 }
 
-function getallQueries()
-{
+function getallQueries() {
     $queries = DB::getQueryLog();
     return collapsearray($queries, "query");
 }
 
-function lastQuery()
-{
+function lastQuery() {
     $queries = DB::getQueryLog();
     $queries = end($queries);
     if (!$queries) {
@@ -673,8 +607,7 @@ function lastQuery()
     return $queries["query"];
 }
 
-function isassocarray($my_array)
-{
+function isassocarray($my_array) {
     if (!is_array($my_array)) {
         return false;
     }
@@ -684,8 +617,7 @@ function isassocarray($my_array)
     return !(array_unique(array_map("is_int", array_keys($my_array))) === array(true));
 }
 
-function getIterator($Objects, $Fieldname, $Value)
-{
+function getIterator($Objects, $Fieldname, $Value) {
     foreach ($Objects as $Object) {
         if ($Object->$Fieldname == $Value) {
             return $Object;
@@ -694,32 +626,27 @@ function getIterator($Objects, $Fieldname, $Value)
     return false;
 }
 
-function left($text, $length)
-{
+function left($text, $length) {
     return substr($text, 0, $length);
 }
 
-function right($text, $length)
-{
+function right($text, $length) {
     return substr($text, -$length);
 }
 
-function array_to_object($Array)
-{
-    $object = (object)$Array;
+function array_to_object($Array) {
+    $object = (object) $Array;
     return $object;
 }
 
-function new_anything($Table, $Data, $Column = "ID")
-{
+function new_anything($Table, $Data, $Column = "ID") {
     if (!is_array($Data)) {
         $Data = array($Column = $Data);
     }
     return DB::table($Table)->insertGetId($Data);
 }
 
-function delete_all($Table, $Conditions = "")
-{
+function delete_all($Table, $Conditions = "") {
     if ($Conditions) {
         DB::table($Table)->where($Conditions)->delete();
     } else {
@@ -728,15 +655,13 @@ function delete_all($Table, $Conditions = "")
 }
 
 //only use when you know the primary key value exists
-function update_database($Table, $PrimaryKey, $Value, $Data)
-{
+function update_database($Table, $PrimaryKey, $Value, $Data) {
     DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
     $Data[$PrimaryKey] = $Value;
     return $Data;
 }
 
-function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true)
-{
+function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true) {
     $entry = false;
     if ($PrimaryKey && $Value) {
         $entry = select_field($Table, $PrimaryKey, $Value);
@@ -753,28 +678,23 @@ function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true)
     return $Data;
 }
 
-function new_entry($Table, $PrimaryKey, $Data)
-{
+function new_entry($Table, $PrimaryKey, $Data) {
     return edit_database($Table, $PrimaryKey, "", $Data);
 }
 
-
-function getProtectedValue($obj, $name)
-{
-    $array = (array)$obj;
+function getProtectedValue($obj, $name) {
+    $array = (array) $obj;
     $prefix = chr(0) . '*' . chr(0);
     if (isset($array[$prefix . $name])) {
         return $array[$prefix . $name];
     }
 }
 
-function kill_non_numeric($text, $allowmore = "")
-{
+function kill_non_numeric($text, $allowmore = "") {
     return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
 
-function get_resize_details($case)
-{
+function get_resize_details($case) {
     switch ($case) {
         case "restaurants":
             return array(
@@ -792,7 +712,6 @@ function get_resize_details($case)
                     "crop" => "true",
                     "crop_type" => "center",
                 ),
-
             );
             break;
 
@@ -820,12 +739,10 @@ function get_resize_details($case)
                 )
             );
             break;
-
     }
 }
 
-function resize($file, $sizes, $CropToFit = false, $delimeter = "x")
-{
+function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     if (is_array($sizes)) {
         $images = array();
         foreach ($sizes as $size) {
@@ -839,27 +756,23 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x")
     }
 }
 
-function getdirectory($path)
-{
+function getdirectory($path) {
     return pathinfo($path, PATHINFO_DIRNAME);
 }
 
-function getfilename($path, $WithExtension = false)
-{
+function getfilename($path, $WithExtension = false) {
     if ($WithExtension) {
-        return pathinfo($path, PATHINFO_BASENAME);//filename only, with extension
+        return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
     } else {
-        return pathinfo($path, PATHINFO_FILENAME);//filename only, no extension
+        return pathinfo($path, PATHINFO_FILENAME); //filename only, no extension
     }
 }
 
-function getextension($path)
-{
-    return strtolower(pathinfo($path, PATHINFO_EXTENSION));// extension only, no period
+function getextension($path) {
+    return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
 }
 
-function loadimage($filename)
-{
+function loadimage($filename) {
     //get image extension.
     $ext = getExtension($filename);
     //creates the new image using the appropriate function from gd library
@@ -877,8 +790,7 @@ function loadimage($filename)
     }
 }
 
-function imagecreatefrombmp($filename)
-{
+function imagecreatefrombmp($filename) {
     $file = fopen($filename, "rb");
     $read = fread($file, 10);
     while (!feof($file) && $read != "") {
@@ -914,8 +826,7 @@ function imagecreatefrombmp($filename)
     return $image;
 }
 
-function copyimages($sizes, $file, $name)
-{
+function copyimages($sizes, $file, $name) {
 
     foreach ($sizes as $path => $size) {
         $rsize = resize($file, $size, true);
@@ -926,8 +837,7 @@ function copyimages($sizes, $file, $name)
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = false)
-{
+function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = false) {
     $src_img = loadimage($img_name);
     if ($src_img) {
         //gets the dimmensions of the image
@@ -978,8 +888,7 @@ function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = 
     }
 }
 
-function handle_upload($Dir)
-{
+function handle_upload($Dir) {
     if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
         if (right($Dir, 1) != "/") {
             $Dir .= "/";
@@ -991,15 +900,14 @@ function handle_upload($Dir)
         $name = $_FILES['myfile']['name'];
         $arr = explode('.', $name);
         $ext = end($arr);
-        $file = date('YmdHis') . '.' . $ext;//unique filename
+        $file = date('YmdHis') . '.' . $ext; //unique filename
         move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/' . $Dir . $file);
         $file_path = webroot(true) . $Dir . $file;
         return $file_path;
     }
 }
 
-function resolve_path($str)
-{
+function resolve_path($str) {
     $str = str_replace('\\', '/', $str);
     $array = explode('/', $str);
     $domain = array_shift($array);
@@ -1021,8 +929,7 @@ function resolve_path($str)
     return $domain . '/' . implode('/', $parents);
 }
 
-function getpost($Key, $Default = "")
-{
+function getpost($Key, $Default = "") {
     if (isset($_GET[$Key])) {
         return $_GET[$Key];
     }
@@ -1032,9 +939,7 @@ function getpost($Key, $Default = "")
     return $Default;
 }
 
-
-function get_time_interval()
-{
+function get_time_interval() {
     $min = date('i');
     $mod = $min % 15;
     $diff = 15 - $mod;
@@ -1049,8 +954,6 @@ function get_time_interval()
         if ($i == 0) {
             $start = $start;
             $start_format = $start_format;
-
-
         } else {
             $start = $end;
             $start_format = $end_format;
@@ -1061,12 +964,10 @@ function get_time_interval()
         $end_format = date('M d, H:i', $futureDate);
         echo "<option value='" . $start_format . " - " . $end_format . "'>" . $start_format . " - " . $end_format . "</option>";
     }
-
 }
 
 // Function to get the client ip address
-function get_client_ip_server()
-{
+function get_client_ip_server() {
     $ipaddress = '';
     if (isset($_SERVER['HTTP_CLIENT_IP']))
         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -1086,22 +987,11 @@ function get_client_ip_server()
     return $ipaddress;
 }
 
-function getBrowser()
-{
+function getBrowser() {
     $u_agent = $_SERVER['HTTP_USER_AGENT'];
     $bname = 'Unknown';
-    $platform = 'Unknown';
     $version = "";
     $ub = "";
-
-    //First get the platform?
-    if (preg_match('/linux/i', $u_agent)) {
-        $platform = 'linux';
-    } elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-        $platform = 'mac';
-    } elseif (preg_match('/windows|win32/i', $u_agent)) {
-        $platform = 'windows';
-    }
 
     // Next get the name of the useragent yes seperately and for good reason
     if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
@@ -1127,7 +1017,7 @@ function getBrowser()
     // finally get the correct version number
     $known = array('Version', $ub, 'other');
     $pattern = '#(?<browser>' . join('|', $known) .
-        ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+            ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
     if (!preg_match_all($pattern, $u_agent, $matches)) {
         // we have no matching number just continue
     }
@@ -1155,9 +1045,72 @@ function getBrowser()
         'userAgent' => $u_agent,
         'name' => $bname,
         'version' => $version,
-        'platform' => $platform,
+        'platform' => getOS(),
         'pattern' => $pattern
     );
+}
+
+function getOS() {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $os_platform = "Unknown OS Platform";
+    $os_array = array(
+        '/windows nt 10/i' => 'Windows 10',
+        '/windows nt 6.3/i' => 'Windows 8.1',
+        '/windows nt 6.2/i' => 'Windows 8',
+        '/windows nt 6.1/i' => 'Windows 7',
+        '/windows nt 6.0/i' => 'Windows Vista',
+        '/windows nt 5.2/i' => 'Windows Server 2003/XP x64',
+        '/windows nt 5.1/i' => 'Windows XP',
+        '/windows xp/i' => 'Windows XP',
+        '/windows nt 5.0/i' => 'Windows 2000',
+        '/windows me/i' => 'Windows ME',
+        '/win98/i' => 'Windows 98',
+        '/win95/i' => 'Windows 95',
+        '/win16/i' => 'Windows 3.11',
+        '/macintosh|mac os x/i' => 'Mac OS X',
+        '/mac_powerpc/i' => 'Mac OS 9',
+        '/linux/i' => 'Linux',
+        '/ubuntu/i' => 'Ubuntu',
+        '/iphone/i' => 'iPhone',
+        '/ipod/i' => 'iPod',
+        '/ipad/i' => 'iPad',
+        '/android/i' => 'Android',
+        '/blackberry/i' => 'BlackBerry',
+        '/webos/i' => 'Mobile'
+    );
+    foreach ($os_array as $regex => $value) {
+        if (preg_match($regex, $user_agent)) {
+            $os_platform = $value;
+        }
+    }
+    return $os_platform;
+}
+
+function getUserBrowser() {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $browser = "Unknown Browser";
+    if (preg_match('~MSIE|Internet Explorer~i', $_SERVER['HTTP_USER_AGENT']) || (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') !== false)) {
+        return "Internet Explorer";
+    }
+    $browser_array = array(
+        '/firefox/i' => 'Firefox',
+        '/safari/i' => 'Safari',
+        '/chrome/i' => 'Chrome',
+        '/opera/i' => 'Opera',
+        '/netscape/i' => 'Netscape',
+        '/maxthon/i' => 'Maxthon',
+        '/konqueror/i' => 'Konqueror',
+        '/mobile/i' => 'Handheld Browser'
+    );
+    
+    //echo "<pre>";print_r($user_agent); die;
+
+    foreach ($browser_array as $regex => $value) {
+        if (preg_match($regex, $user_agent)) {
+            $browser = $value;
+        }
+    }
+    return $browser;
 }
 
 ?>

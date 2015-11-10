@@ -42,38 +42,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Subscriber Newsletter
-     * @param null
-     * @return response
-     */
-    public function newsletterSubscribe()
-    {
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['email']) || empty($post['email'])) {
-                return \Response::json(array('type' => 'error', 'message' => '[Email] field is required!'), 200);
-            }
-            $count = \App\Http\Models\Newsletter::where('email', $post['email'])->count();
-            if ($count > 0) {
-                return \Response::json(array('type' => 'error', 'message' => '['.$post['email'].'] already subscribed!'), 200);
-            }
-
-            $post['status'] = 1;
-            try {
-                $ob = new \App\Http\Models\Newsletter();
-                $ob->populate($post);
-                $ob->save();
-
-                return \Response::json(array('type' => 'success', 'message' => "You are subscribed successfully!"), 200);
-            } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'message' => $e->getMessage()), 200);
-            }
-        } else {
-            return \Response::json(array('type' => 'error', 'message' => 'Invalid request made!'), 200);
-        }
-    }
-
-    /**
      * Search Menus
      * @param $term
      * @param $per_page
@@ -88,7 +56,7 @@ class HomeController extends Controller
         $data['term'] = $term;
         $data['title'] = "Search Menus";
 
-        return view('searchmenus', $data);
+        return view('home', $data);
     }
 
     /**
@@ -137,7 +105,7 @@ class HomeController extends Controller
         $data['term'] = $term;
         $data['title'] = "Search Menus";
 
-        return view('searchrestaurants', $data);
+        return view('restaurants', $data);
     }
 
 
@@ -184,8 +152,40 @@ class HomeController extends Controller
         $data['countries'] = \App\Http\Models\Countries::get();
         $data['start'] = $data['query']->count();
         $data['term'] = '';
-
+        
         return view('restaurants', $data);
+    }
+   
+    /**
+     * Subscriber Newsletter
+     * @param null
+     * @return response
+     */
+    public function newsletterSubscribe()
+    {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['email']) || empty($post['email'])) {
+                return \Response::json(array('type' => 'error', 'message' => '[Email] field is required!'), 200);
+            }
+            $count = \App\Http\Models\Newsletter::where('email', $post['email'])->count();
+            if ($count > 0) {
+                return \Response::json(array('type' => 'error', 'message' => '['.$post['email'].'] already subscribed!'), 200);
+            }
+
+            $post['status'] = 1;
+            try {
+                $ob = new \App\Http\Models\Newsletter();
+                $ob->populate($post);
+                $ob->save();
+
+                return \Response::json(array('type' => 'success', 'message' => "You are subscribed successfully!"), 200);
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'message' => $e->getMessage()), 200);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'message' => 'Invalid request made!'), 200);
+        }
     }
 
     /**
@@ -459,14 +459,6 @@ class HomeController extends Controller
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
 
-    }
-
-    function test()
-    {
-        if (isset($_POST)) {
-            var_dump($_POST);
-        }
-        return view('test');
     }
 
     function createslug($text)
