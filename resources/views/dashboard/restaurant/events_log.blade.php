@@ -22,10 +22,10 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
-                                        <th width="5%">ID</th>
-                                        <th width="15%">User</th>
+                                        <th width="10%">ID</th>
+                                        <th width="20%">User</th>
                                         <th width="20%">Date</th>
-                                        <th width="60%">Event</th>
+                                        <th width="50%">Event</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -33,8 +33,8 @@
                                         <tr>
                                             <td>{{ $value->id }}</td>
                                             <td>{{ select_field("profiles", 'id', $value->user_id, "name") }}</td>
-                                            <td>{{ $value->date }}</td>
-                                            <td>{{ $value->text }}</td>
+                                            <td>{{ $value->created_at }}</td>
+                                            <td>{!! "<b>".$value->type."</b> => ".$value->text !!}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

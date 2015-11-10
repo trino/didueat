@@ -16,7 +16,7 @@ class Eventlog extends BaseModel
 
     protected $table = 'eventlog';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * @param array
@@ -24,7 +24,7 @@ class Eventlog extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('user_id', 'date', 'restaurant_id', 'text');
+        $cells = array('user_id', 'restaurant_id', 'type', 'text');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

@@ -17,6 +17,7 @@ class Profiles extends BaseModel
     protected $table = 'profiles';
     protected $primaryKey = 'id';
     public $timestamps = true;
+    protected $hidden = array('password');
 
     /**
      * @param array

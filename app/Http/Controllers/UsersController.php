@@ -300,6 +300,8 @@ class UsersController extends Controller
                         $uid = new \App\Http\Models\Profiles();
                         $uid->populate($data);
                         $uid->save();
+                        
+                        event(new \App\Events\UserEvent($uid, "User Created"));
 
                         $data['user_id'] = $uid->id;
 
@@ -334,6 +336,8 @@ class UsersController extends Controller
                 $res = \App\Http\Models\Reservations::find($oid);
                 $res->populate($data);
                 $res->save();
+                
+                event(new \App\Events\OrderEvent($res, "Order Created"));
 
                 if($res->user_id){
                     $u2 = \App\Http\Models\Profiles::find($res->user_id);

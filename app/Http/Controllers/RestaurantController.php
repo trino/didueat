@@ -67,6 +67,9 @@ class RestaurantController extends Controller
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
             $ob->delete();
+            
+            event(new \App\Events\RestaurantEvent($ob, "Restaurant Deleted"));
+            
             $menus = \App\Http\Models\Menus::where('restaurant_id', $id)->get();
             foreach ($menus as $menu) {
                 \App\Http\Models\Menus::where('id', $menu->id)->delete();
@@ -114,6 +117,8 @@ class RestaurantController extends Controller
                 $ob->populate(array('open' => 1));
             }
             $ob->save();
+            
+            event(new \App\Events\RestaurantEvent($ob, "Restaurant Status Changed"));
 
             \Session::flash('message', 'Restaurant status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
@@ -211,6 +216,8 @@ class RestaurantController extends Controller
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate(array_filter($update));
                 $ob->save();
+                
+                event(new \App\Events\RestaurantEvent($ob, "Restaurant Created"));
 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
                 if ($image_file != '') {
@@ -350,6 +357,8 @@ class RestaurantController extends Controller
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate(array_filter($update));
                 $ob->save();
+                
+                event(new \App\Events\RestaurantEvent($ob, "Restaurant Updated"));
 
                 foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
@@ -882,7 +891,7 @@ class RestaurantController extends Controller
     public function eventsLog()
     {
         $data['title'] = 'Events Log';
-        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('date', 'DESC')->get();
+        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('created_at', 'DESC')->get();
         return view('dashboard.restaurant.events_log', $data);
     }
 

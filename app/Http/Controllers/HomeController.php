@@ -319,6 +319,8 @@ class HomeController extends Controller
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
                 $ob->save();
+                
+                event(new \App\Events\RestaurantEvent($ob, "Restaurant Created"));
 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
                 if ($image_file != '') {
@@ -362,6 +364,8 @@ class HomeController extends Controller
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
                 $user->save();
+                
+                event(new \App\Events\UserEvent($user, "User Created"));
 
                 $nd1 = new \App\Http\Models\NotificationAddresses();
                 $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
