@@ -72,7 +72,6 @@ Route::get('restaurant/additional',                 'RestaurantController@additi
 Route::get('restaurant/uploadimg',                  'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg',                 'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg/{type}',          'RestaurantController@uploadimg')->where('type','[a-z]+');
-Route::get('restaurant/getToken',                   'RestaurantController@getToken');
 Route::post('restaurant/menuadd',                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                    'RestaurantController@menuadd');
 Route::get('restaurant/orderCat',                   'RestaurantController@orderCat');
@@ -85,7 +84,7 @@ Route::get('restaurant/redfront/{path}/{slug}/{path2}',                 'Restaur
 Route::get('restaurant/loadChild/{id}/{flag}',                 'RestaurantController@loadChild');
 Route::get('restaurant/saveCat',                 'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                 'RestaurantController@saveCat');
-
+Route::get('restaurant/getToken',                   'HomeController@getToken');
 
 
 Route::resource('user/addresses',                   'UsersController@addresses');

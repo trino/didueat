@@ -974,12 +974,6 @@ class RestaurantController extends Controller
         die();
     }
 
-    public function getToken()
-    {
-        echo csrf_token();
-        die();
-    }
-
     public function menuadd()
     {
 

@@ -570,4 +570,11 @@ class HomeController extends Controller
         }
         die();
     }
+    
+    public function getToken()
+    {
+        echo csrf_token();
+        die();
+    }
+    
 }
