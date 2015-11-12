@@ -65,7 +65,7 @@
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
 
-                        <div id="addAddressForm" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:900px;">
+                        <div id="addAddressForm" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
                             <div class="portlet-body form add_address_form">
                                 <div class="portlet-title margin-bottom-10">
                                     <div class="caption">
@@ -189,13 +189,12 @@
     </div>
 
 
-    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:900px;">
-        <div id="loading" style="display: none; text-align: center;">
+    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
+        <div id="loading" class="center" style="display: none;">
             <img src="{{ asset('assets/images/loader.gif') }}"/>
         </div>
         <div id="message" class="alert alert-danger" style="display: none;">
             <h1 class="block">Error</h1>
-
             <p></p>
         </div>
         <div id="contents"></div>

@@ -48,7 +48,7 @@
                         <div class="box-shadow">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-long-arrow-right"></i>ABOUT RESTAURANT
+                                    <i class="fa fa-long-arrow-right"></i> ABOUT RESTAURANT
                                 </div>
                             </div>
                             <div class="portlet-body form">
@@ -105,9 +105,9 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 @if($resturant->logo)
-                                                    <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo). '?'.mt_rand() }}" title="" style="width: 100%;">
+                                                    <img id="picture" class="margin-bottom-10 full-width" src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo). '?'.mt_rand() }}" title="" />
                                                 @else
-                                                    <img id="picture" class="margin-bottom-10" src="{{ asset('assets/images/default.png') }}" title="" style="width: 100%;">
+                                                    <img id="picture" class="margin-bottom-10 full-width" src="{{ asset('assets/images/default.png') }}" title="" />
                                                 @endif
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -155,7 +155,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <select name="province" class="form-control" required id="province"></SELECT>
+                                                <select name="province" class="form-control" required id="province"></select>
                                             </div>
                                         </div>
 
@@ -221,7 +221,7 @@
                                                 <input type="text" name="open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
                                             </div>
 
-                                            <div class="  col-md-3 col-sm-3 col-xs-3" style="vertical-align: bottom;text-align: center;font-size: 14px;">to</div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3" id="hour-to-style">to</div>
 
                                             <div class=" col-md-3 col-sm-3 col-xs-3">
                                                 <input type="text" name="close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>

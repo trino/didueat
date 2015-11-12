@@ -1,9 +1,7 @@
-<div id="forget-passsword" style="display: none;width: 500px;">
+<div id="forget-passsword" class="popup-dialog" style="display: none;">
     <h1>Forgot Your Password?</h1>
-
     <div id="forgot-pass-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
-
         <p></p>
     </div>
 
@@ -11,10 +9,9 @@
     <div id="error" class="alert alert-danger" style="display: none;"></div>
     <div class="form-group col-md-12 col-sm-124 col-xs-12">
         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label" for="forgot-email">Email</label>
-
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
             <div class="input-icon">
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required/>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
             </div>
         </div>
     </div>

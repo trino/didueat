@@ -1,6 +1,6 @@
 <INPUT TYPE="hidden" id="orderid">
 
-<div id="approve-popup" style="display:none;width:500px;">
+<div id="approve-popup" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Approve Order</h1>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div id="disapprove-popup" style="display:none;width:500px;">
+<div id="disapprove-popup" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Disapprove Order</h1>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div id="cancel-popup" style="display:none;width:500px;">
+<div id="cancel-popup" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Cancel Order</h1>
@@ -65,6 +65,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function setid(id){
        document.getElementById("orderid").value = id;
@@ -80,7 +81,7 @@
         return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
     }
 
-    $(document).ready(function () {
+    $(document).ready(function (){
         $('body').on('click', '.approve-popup', function(){
             var id = $(this).attr('data-id');
             $('#approve-form textarea[name=note]').val('');

@@ -2,13 +2,12 @@
 
 namespace App\Events;
 
-use App\Http\Models\Reservations;
 use App\Http\Models\Eventlog;
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderEvent extends Event
+class AppEvents extends Event
 {
     use SerializesModels;
 
@@ -17,9 +16,11 @@ class OrderEvent extends Event
      *
      * @return void
      */
-    public function __construct(Reservations $reservations, $type)
+    public function __construct($object=Null, $type=NULL)
     {
-        $this->doAction($reservations, $type);
+        if(!is_null($object) && !is_null($type)){
+            $this->doAction($object, $type);
+        }
     }
     
     /**

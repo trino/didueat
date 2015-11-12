@@ -1,7 +1,7 @@
 @foreach($query as $value)
     <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12  parentDiv no-padding " style="">
         <div class="card ">
-            <div class="sticker sticker-new" style="z-index: 99;"></div>
+            <div class="sticker sticker-new"></div>
             <div class="col-md-9 no-padding">
                 <div class="card-content">
                     <a href="<?php echo (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus'); ?>" class="<?php echo (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '';?>">
@@ -27,17 +27,14 @@
         </div>
     </div>
 
-    <div id="product-pop-up_{{ $value->id }}" style="display: none; width: 800px;">
-        <div class="product-page product-pop-up">
-            <div style=" font-family:mainfont;" class="modal-body">
-                <div style="text-align: left;padding:0px;" class="col-sm-12 col-xs-12 title">
+    <div id="product-pop-up_{{ $value->id }}" class="popup-dialog-800" style="display: none;">
+        <div class="product-page product-pop-up p-popup">
+            <div class="modal-body">
+                <div class="col-sm-12 col-xs-12 title">
                     <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
                 </div>
                 <div class="col-sm-12 col-xs-12">
-                    <img class="popimage_{{ $value->id }}" width="150"
-                         src="<?php if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image)))
-                             echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
-                         else echo asset('assets/images/default_menu.jpg'); ?>"/>
+                    <img class="popimage_{{ $value->id }}" width="150" src="<?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))){ echo asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image); } else { echo asset('assets/images/default_menu.jpg'); } ?>" />
                 </div>
                 <div class="clearfix"></div>
 
@@ -59,44 +56,36 @@
                                 foreach($submenus as $sub){
                                 ?>
                                 <tr class="zxcx">
-                                    <td width="100%" id="td_<?php echo $sub->id;?>" style="vertical-align: top;">
-                                        <input type="hidden" value="<?php echo $sub->exact_upto_qty;?>"
-                                               id="extra_no_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->req_opt;?>"
-                                               id="required_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->sing_mul;?>"
-                                               id="multiple_<?php echo $sub->id;?>">
-                                        <input type="hidden" value="<?php echo $sub->exact_upto;?>"
-                                               id="upto_<?php echo $sub->id;?>">
+                                    <td width="100%" id="td_<?php echo $sub->id;?>" class="valign-top">
+                                        <input type="hidden" value="<?php echo $sub->exact_upto_qty;?>" id="extra_no_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->req_opt;?>" id="required_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->sing_mul;?>" id="multiple_<?php echo $sub->id;?>">
+                                        <input type="hidden" value="<?php echo $sub->exact_upto;?>" id="upto_<?php echo $sub->id;?>">
 
                                         <div style="" class="infolist col-xs-12">
                                             <div style="display: none;">
-                                                <input type="checkbox" value="<?php echo $sub->menu_item;?>" title="___"
-                                                       id="<?php echo $sub->id;?>"
-                                                       style="display: none;" checked="checked" class="chk">
+                                                <input type="checkbox" value="<?php echo $sub->menu_item;?>" title="___" id="<?php echo $sub->id;?>" style="display: none;" checked="checked" class="chk">
                                             </div>
                                             <a href="javascript:void(0);"><strong><?php echo $sub->menu_item;?></strong></a>
                                             <span><em> </em></span>
+                                            <span class="limit-options right-float">
+                                            <?php
+                                                if ($sub->exact_upto == 0)
+                                                    $upto = "up to ";
+                                                else
+                                                    $upto = "exactly ";
+                                                if ($sub->req_opt == '0') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                                    echo "(Optional)";
 
+                                                } elseif ($sub->req_opt == '1') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
 
-                                                        <span class="limit-options right-float">
-                                                        <?php
-                                                            if ($sub->exact_upto == 0)
-                                                                $upto = "up to ";
-                                                            else
-                                                                $upto = "exactly ";
-                                                            if ($sub->req_opt == '0') {
-                                                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                                    echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
-                                                                echo "(Optional)";
-
-                                                            } elseif ($sub->req_opt == '1') {
-                                                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                                    echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
-
-                                                                echo "(Mandatory)";
-                                                            }?>
-                                                        </span>
+                                                    echo "(Mandatory)";
+                                                } ?>
+                                            </span>
 
                                             <div class="clearfix"></div>
                                             <span class="error_<?php echo $sub->id;?> strong-error"></span>
@@ -134,7 +123,7 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <div style="line-height:45px;" class="col-xs-12 add-btn">
+                    <div class="col-xs-12 add-btn">
                         <div class="add-minus-btn left-float">
                             <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
                             <div class="number{{ $value->id }}">1</div>

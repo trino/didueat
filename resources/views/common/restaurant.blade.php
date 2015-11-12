@@ -105,7 +105,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        <img id="picture" class="margin-bottom-10" style="width: 100%;" src="<?php
+                        <img id="picture" class="margin-bottom-10 full-width" src="<?php
                             if(isset($resturant->logo) && $resturant->logo){
                                 echo asset('assets/images/restaurants/'.$resturant->logo);
                             } else {
@@ -214,7 +214,7 @@
                         <div class=" col-md-3 col-sm-3 col-xs-3">
                             <input type="text" name="open[<?= $key; ?>]" value="<?= getTime($open[$key]); ?>" class="form-control time"/>
                         </div>
-                        <div class="  col-md-3 col-sm-3 col-xs-3" style="vertical-align: bottom;text-align: center;font-size: 14px;"> to </div>
+                        <div class="  col-md-3 col-sm-3 col-xs-3" id="hour-to-style"> to </div>
                         <div class=" col-md-3 col-sm-3 col-xs-3">
                             <input type="text" name="close[<?= $key; ?>]" value="<?= getTime($close[$key]); ?>" class="form-control time"/>
                             <input type="hidden" name="day_of_week[<?= $key; ?>]" value="<?= $value; ?>"/>

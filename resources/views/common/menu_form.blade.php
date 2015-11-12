@@ -1,5 +1,5 @@
 <div class="newmenu" id="newmenu0">
-    <p>&nbsp;</p>
+    <p>&nbsp;</p> 
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12 nopadd">
             <div class="menuimg menuimg<?= $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
@@ -39,7 +39,6 @@
         <?php
         $k=0;
             if(isset($cmodel)){
-
                 foreach($cmodel as $child){
                     $k++;
                     if($k==1)
@@ -55,6 +54,7 @@
     </div>
     <div class="clearfix"></div>
 </div>
+
 <script>
 $(function(){
         $('#subcat').sortable({
@@ -83,5 +83,3 @@ $(function(){
         });
     });
 </script>
-
-

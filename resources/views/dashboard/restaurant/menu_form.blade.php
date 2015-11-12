@@ -1,7 +1,5 @@
 <?php if(!$menu_id){ ?>
-<style>
-    .resturant-arrows { display: none; }
-</style>
+<style> .resturant-arrows { display: none; } </style>
 <?php } ?>
 <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
 
@@ -9,7 +7,7 @@
     <p>&nbsp;</p>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore">
         <div class="col-sm-2 col-xs-12 nopadd ignore">
-            <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php }?>>
+            <div class="menuimg ignore menuimg<?php echo $menu_id?>_1" <?php if(isset($model) && $model->image){?>style="min-height:0;"<?php } ?>>
                 <?php if(isset($model) && $model->image){ ?>
                     <img src="<?php echo asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) ?>" class="ignore"/>
                     <input type="hidden" class="hiddenimg ignore" value="<?php echo $model->image;?>"/>
@@ -23,22 +21,21 @@
             <?php if(count($category)){ ?>
             <select class="cat_id">
                 <option value="">Choose Category</option>
-                <?php foreach($category as $cat) { ?>
+                <?php foreach($category as $cat){ ?>
                     <option value="<?php echo $cat->id?>" <?php if(isset($model->cat_id) && $cat->id == $model->cat_id){?>selected="selected"<?php }?>><?php echo $cat->title;?></option>
                 <?php } ?>
             </select>
 
             <strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
             <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
-            <div class="catblock" style="display: none;padding:5px 0 10px 0">
-                <input type="text" class="form-control cat_title" placeholder="Add new category" style="width: 75%;float:left"/>
-                <a href="javascript:void(0);" class="btn btn-primary" id="save_cat" style="width: 20%;float:left">Create</a>
+            <div class="catblock" style="display: none;">
+                <input type="text" class="form-control cat_title" placeholder="Add new category" />
+                <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Create</a>
                 <div class="clearfix"></div>
             </div>
             <?php } else { ?>
             <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             <?php } ?>
-
             <input class="form-control newtitle ignore" type="text" placeholder="Title" value="<?php if (isset($model->menu_item)) { echo $model->menu_item; }?>"/><br class="ignore"/>
             <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="<?php if (isset($model->price)){ echo $model->price; }?>"/><br class="ignore"/>
             <textarea class="form-control newdesc ignore" placeholder="Description"><?php if (isset($model->description)) { echo $model->description; } ?></textarea>
@@ -63,7 +60,7 @@
 
     <hr class=" ignore"/>
 
-    <div class="additional additional<?php echo $menu_id;?> ignore" style="<?php if(isset($cmodel) && $cmodel){?>display:block;<?php }?>">
+    <div class="additional additional<?php echo $menu_id;?> ignore" style="<?php if(isset($cmodel) && $cmodel){?>display:block;<?php } ?>">
         <div class="col-md-12 ignore"><h2 class="ignore">Addons</h2></div>
         <div class="clearfix ignore"></div>
         <?php
@@ -84,7 +81,6 @@
         if ($k > 0)
             echo "</div>";
         ?>
-
         <script class="ignore ignore2 ignore1">
             $(function () {
                 $(".sorting_child").live('click', function () {

@@ -7,7 +7,7 @@
             <div class="card row">
                 <div class="card-image col-md-1 col-sm-1 col-xs-2">
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
-                        <img style="width:100%;" class="img-responsive" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                     <span class="card-title">{{ $value->name }}</span>
                 </div>

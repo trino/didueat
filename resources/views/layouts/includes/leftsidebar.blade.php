@@ -1,7 +1,6 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
     <aside class="">
         <div class="">
-
             <div class="box-shadow">
                 <div class="portlet-title">
                     <div class="caption">
@@ -63,8 +62,6 @@
                     </div>
                 </div>
             @endif
-
         </div>
-
     </aside>
 </div>

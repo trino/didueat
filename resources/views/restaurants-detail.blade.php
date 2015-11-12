@@ -26,7 +26,9 @@
         <div style="display: none;" class="nxtpage">
             <li class="next disabled"><a href="" onclick="return false;">Next &gt;&gt;</a></li>
         </div>
-        <div id="loadmoreajaxloader" style="display:none;"><center><img src="/Foodie/img/ajax-loader.gif"></center></div>
+        <div id="loadmoreajaxloader" style="display:none;">
+            <center><img src="{{ asset('assets/images/ajax-loader.gif') }}"></center>
+        </div>
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12  margin-bottom-10">
@@ -107,9 +109,7 @@
 
                     $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function(index) {
                         if ($(this).is(':checked') && $(this).attr('title') != "") {
-
                             var tit = $(this).attr('title');
-
                             var title = tit.split("_");
                             if (index != 0) {
                                 extratitle = extratitle + "," + title[1];
@@ -117,7 +117,6 @@
                             var su = "";
 
                             if ($(this).val() != "") {
-
                                 var cnn = 0;
                                 var catid = $(this).attr('id');
                                 catarray.push(catid);
@@ -411,7 +410,7 @@
         </script>
     </div>
     <!-- BEGIN CART -->
-    <div class="top-cart-block col-md-3 col-sm-4" id="printableArea" style="height: 601px;">
+    <div class="top-cart-block col-md-3 col-sm-4 resturant-detail-print" id="printableArea">
         <div class="top-cart-info" style="display: none;">
             <div class="top-cart-info" style="display: none;">
                 <div class="col-md-6">
@@ -442,35 +441,41 @@
                 </div>
 
                 <div class="top-cart-content-wrapper">
-
                     <div class="top-cart-content ">
                         <div class="receipt_main">
-                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 220px;">
-                                <ul class="scroller orders" style="height: 220px; overflow: hidden; width: auto;">
+                            <div class="slimScrollDiv">
+                                <ul class="scroller orders">
                                 </ul>
-                                <div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(187, 187, 187);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);"></div></div>                    <div class="totals col-md-12 col-sm-12 col-xs-12">
-                                <table class="table">
+                                <div class="slimScrollBar" style=""></div>
+                                <div class="slimScrollRail" style=""></div>  
+                            </div>
+                            <div class="totals col-md-12 col-sm-12 col-xs-12">
+                                <table class="table calculation-table">
                                     <tbody>
                                         <tr>
                                             <td><label class="radio-inline"><input type="radio" name="delevery_type" checked="checked" onclick="delivery('hide');">Pickup</label></td>
                                             <td><label class="radio-inline"><input type="radio" name="delevery_type" onclick="delivery('show');">Delivery</label></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Subtotal&nbsp;</strong></td><td>&nbsp;$<div class="subtotal" style="display: inline-block;">0</div>
-                                                <input type="hidden" name="subtotal" class="subtotal" value="0"></td>
+                                            <td><strong>Subtotal&nbsp;</strong></td>
+                                            <td>&nbsp;$<div class="subtotal inlineblock">0</div>
+                                                <input type="hidden" name="subtotal" class="subtotal" value="0">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Tax&nbsp;</strong></td><td>&nbsp;$<div class="tax" style="display: inline-block;">0</div>&nbsp;(<div id="tax" style="display: inline-block;">13</div>%)
+                                            <td><strong>Tax&nbsp;</strong></td>
+                                            <td>&nbsp;$<div class="tax inlineblock">0</div>&nbsp;(<div id="tax" class="inlineblock">13</div>%)
                                                 <input type="hidden" value="0" name="tax" class="tax"></td>
                                         </tr>
 
                                         <tr style="display: none;" id="df">
-                                            <td><strong>Delivery Fee&nbsp;</strong></td><td>&nbsp;$1                                <input type="hidden" value="1" class="df" name="delivery_fee">
+                                            <td><strong>Delivery Fee&nbsp;</strong></td>
+                                            <td>&nbsp;$1 <input type="hidden" value="1" class="df" name="delivery_fee">
                                                 <input type="hidden" value="0" id="delivery_flag" name="order_type">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Total</strong>&nbsp;</td><td>&nbsp;$<div style="display: inline-block;" class="grandtotal">0</div>
+                                            <td><strong>Total</strong>&nbsp;</td><td>&nbsp;$<div class="grandtotal inlineblock">0</div>
                                                 <input type="hidden" name="g_total" class="grandtotal" value="0">
                                                 <input type="hidden" name="res_id" value="4">
                                             </td>
@@ -493,7 +498,7 @@
                             <form id="profiles">
                                 <div class="form-group">
                                     <div class="col-xs-12 margin-bottom-10">
-                                        <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">
+                                        <input type="text" placeholder="Name" class="form-control padding-margin-top-0 form-control--contact" name="ordered_by" id="fullname" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -522,7 +527,24 @@
                                     <div class="col-xs-12">
                                         <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                             <option value="ASAP">ASAP</option>
-                                            <option value="Sep 30, 07:51 - 08:21">Sep 30, 07:51 - 08:21</option><option value="Sep 30, 08:21 - 08:51">Sep 30, 08:21 - 08:51</option><option value="Sep 30, 08:51 - 09:21">Sep 30, 08:51 - 09:21</option><option value="Sep 30, 09:21 - 09:51">Sep 30, 09:21 - 09:51</option><option value="Sep 30, 09:51 - 10:21">Sep 30, 09:51 - 10:21</option><option value="Sep 30, 10:21 - 10:51">Sep 30, 10:21 - 10:51</option><option value="Sep 30, 10:51 - 11:21">Sep 30, 10:51 - 11:21</option><option value="Sep 30, 11:21 - 11:51">Sep 30, 11:21 - 11:51</option><option value="Sep 30, 11:51 - 12:21">Sep 30, 11:51 - 12:21</option><option value="Sep 30, 12:21 - 12:51">Sep 30, 12:21 - 12:51</option><option value="Sep 30, 12:51 - 01:21">Sep 30, 12:51 - 01:21</option><option value="Sep 30, 01:21 - 01:51">Sep 30, 01:21 - 01:51</option><option value="Sep 30, 01:51 - 02:21">Sep 30, 01:51 - 02:21</option><option value="Sep 30, 02:21 - 02:51">Sep 30, 02:21 - 02:51</option><option value="Sep 30, 02:51 - 03:21">Sep 30, 02:51 - 03:21</option><option value="Sep 30, 03:21 - 03:51">Sep 30, 03:21 - 03:51</option><option value="Sep 30, 03:51 - 04:21">Sep 30, 03:51 - 04:21</option><option value="Sep 30, 04:21 - 04:51">Sep 30, 04:21 - 04:51</option>
+                                            <option value="Sep 30, 07:51 - 08:21">Sep 30, 07:51 - 08:21</option>
+                                            <option value="Sep 30, 08:21 - 08:51">Sep 30, 08:21 - 08:51</option>
+                                            <option value="Sep 30, 08:51 - 09:21">Sep 30, 08:51 - 09:21</option>
+                                            <option value="Sep 30, 09:21 - 09:51">Sep 30, 09:21 - 09:51</option>
+                                            <option value="Sep 30, 09:51 - 10:21">Sep 30, 09:51 - 10:21</option>
+                                            <option value="Sep 30, 10:21 - 10:51">Sep 30, 10:21 - 10:51</option>
+                                            <option value="Sep 30, 10:51 - 11:21">Sep 30, 10:51 - 11:21</option>
+                                            <option value="Sep 30, 11:21 - 11:51">Sep 30, 11:21 - 11:51</option>
+                                            <option value="Sep 30, 11:51 - 12:21">Sep 30, 11:51 - 12:21</option>
+                                            <option value="Sep 30, 12:21 - 12:51">Sep 30, 12:21 - 12:51</option>
+                                            <option value="Sep 30, 12:51 - 01:21">Sep 30, 12:51 - 01:21</option>
+                                            <option value="Sep 30, 01:21 - 01:51">Sep 30, 01:21 - 01:51</option>
+                                            <option value="Sep 30, 01:51 - 02:21">Sep 30, 01:51 - 02:21</option>
+                                            <option value="Sep 30, 02:21 - 02:51">Sep 30, 02:21 - 02:51</option>
+                                            <option value="Sep 30, 02:51 - 03:21">Sep 30, 02:51 - 03:21</option>
+                                            <option value="Sep 30, 03:21 - 03:51">Sep 30, 03:21 - 03:51</option>
+                                            <option value="Sep 30, 03:51 - 04:21">Sep 30, 03:51 - 04:21</option>
+                                            <option value="Sep 30, 04:21 - 04:51">Sep 30, 04:21 - 04:51</option>
                                         </select>
                                     </div>
                                     <div class="clearfix"></div>
@@ -532,7 +554,6 @@
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                             <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2">
                                         </div>
-
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                             <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city">
                                         </div>
@@ -555,10 +576,9 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
-
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
+                                        <a href="javascript:void(0)" class="btn red back back-btn">Back</a>
                                         <button type="submit" class="btn btn-primary">Checkout</button>
                                     </div>
                                     <div class="clearfix"></div>

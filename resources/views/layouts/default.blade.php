@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <?php $start_loading_time = microtime(true); ?>
-
     <title>{{ $title." | DidUEat" }}</title>
-
+    
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -21,19 +19,13 @@
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="-CUSTOMER VALUE-">
     <link rel="shortcut icon" href="favicon.ico">
-
-
-
-
-
-
+    
     <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-
-
+    
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
@@ -50,21 +42,16 @@
     <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
-
-
-
 </head>
 
 
 <body class="ecommerce">
-
     @include('popups.login')
     @include('popups.signup')
     @include('popups.forgotpassword')
     @include('layouts.includes.header')
 
     <div class="main">
-
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -72,7 +59,6 @@
         @endif
 
         @yield('content')
-
     </div>
 
     @include('layouts.includes.footer')

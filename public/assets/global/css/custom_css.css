@@ -5310,5 +5310,73 @@ li {
 .restaurentsList .portlet-body {
     padding: 6px;
 }
-#avatarImage {width: 40px; border-radius: 50%;}
+
+#restaurant-signup-contents { margin-top: 20px; padding: 30px; }
 .margin-top-20 {margin-top:20px;}
+.margin-0 {margin: 0px;}
+.margin-bottom-15 {margin-bottom: 15px;}
+.padding-margin-top-0 {padding-top: 0;margin-top: 0;}
+.resturant-detail-print {height: 601px;}
+.slimScrollDiv {position: relative; overflow: hidden; width: auto; height: 220px;}
+.slimScrollDiv .scroller {height: 220px; overflow: hidden; width: auto;}
+.slimScrollDiv .slimScrollBar {width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; background: rgb(187, 187, 187);}
+.slimScrollDiv .slimScrollRail {width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(234, 234, 234);}
+.inlineblock {display: inline-block;}
+.padding-margin-0 {padding: 0;margin: 0;}
+#profiles .back-btn {position: relative; top: -7px;}
+.menus-parent {background: #fff; padding:10px;}
+.menus-parent .menu-title {color: black; margin:0px;}
+.menus-parent .menu-description {overflow: hidden; font-size: 11px; color:#666;}
+.menus-parent .menu-price {margin-top:0px;background:#ffdd00 ;color: black;font-weight: 600;padding: 10px;}
+.menus-parent .menu-image {padding:0;}
+.product-popup {width: 800px;}
+.product-popup .modal-body {font-family:mainfont;}
+.product-popup .modal-body .title {text-align: left; padding:0px;}
+.product-popup .modal-body .title h2 {color:white;}
+.product-popup .optionals .bannerz {overflow: hidden;}
+.product-popup .optionals .bannerz .zxcx .valign-top {vertical-align: top;}
+.product-popup .optionals .bannerz .zxcx .limit-options {float: right;}
+.product-popup .optionals .bannerz .zxcx .errormsg {color: red; font-weight: bold;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx {padding: 0px; border-radius: 17px 0 0 17px !important;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx .btnxx-inner {padding:0px; border-radius: 17px 0 0 17px !important;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx .btnxx-inner .buttons {text-decoration: none; display:inline-block; padding-right: 15px;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx .btnxx-inner .buttons button {border-radius: 17px!important;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx .btnxx-inner .remspan {text-decoration: none; color: #000;}
+.product-popup .optionals .bannerz .zxcx .list .btnxx .btnxx-inner .addspan {text-decoration: none; color: #000;}
+.add-btn {line-height:45px;}
+.add-btn .add-minus-btn {float:left;}
+.add-btn .add_end {float: right; margin-left: 10px;}
+.add-btn .resetslider {opacity: 1; text-shadow:none;margin-left: 10px;float: right;margin-left: 10px;display:none;}
+.popup-dialog {width:500px;}
+.popup-dialog-900 {width:900px;}
+.popup-dialog-800 {width:800px;}
+#login-pop-up #invalid {display: none;text-align:center; color: red;}
+.footer-gb {background: black}
+.logo-style {background: red;padding: 5px;}
+.logo-style .site-logo img{height: 30px !important; position: relative; top: 2px;}
+#avatarImage {width: 40px; max-height: 20px !important; border-radius: 50%;}
+#top-address-search-input {padding-top: 17px;}
+.search-box {width: 300px;}
+.center {text-align: center !important;}
+.left {text-align: left !important;}
+.right {text-align: right !important;}
+#hour-to-style {vertical-align: bottom;text-align: center;font-size: 14px;}
+.addon_ignore {margin-bottom:0;height:7px;}
+.pricechk {margin-left:10px;}
+.padding-left-0 {padding-left: 0;}
+.padding-0 {padding: 0;}
+.padding-right-0 {padding-right: 0px;}
+.margin-left-10 {margin-left:10px;}
+.catblock {padding:5px 0 10px 0;}
+.cat_title {width: 75%; float:left;}
+.save_cat {width: 20%; float:left;}
+#cancel-popup {margin: 0px 10px;}
+#report-form {height: auto! important; padding:0 !important;}
+#check_filter {padding:10px;margin-top:-1px;}
+.sticker-new {z-index: 99;}
+.valign-top {vertical-align: top;}
+.p-popup .modal-body {font-family:mainfont;}
+.p-popup .modal-body .title {text-align: left; padding: 0px;}
+.order-style {height: 220px;}
+.receipt_description_style {background:red;color:white;padding: 20px;}
+.font-size {font-size: 50px;}

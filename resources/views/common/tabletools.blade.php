@@ -14,3 +14,4 @@
         $("#addNewForm").validate();
     });
 </script>
+

@@ -1,4 +1,4 @@
-<div id="login-pop-up" style="display:none;width:500px;">
+<div id="login-pop-up" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Login</h1>
@@ -10,8 +10,8 @@
                     <input type="hidden" name="action" value="login">
                     <input type="hidden" name="type" id="login_type" value=""/>
 
-                    <p style="display: none;text-align:center; color: red;" id="invalid"></p>
-
+                    <p id="invalid"></p>
+                    
                     <div class="form-group">
                         <div class="input-icon">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required />
@@ -31,7 +31,6 @@
                     </div>
                     <div class="clearfix"></div>
                 </form>
-
             </div>
         </div>
     </div>

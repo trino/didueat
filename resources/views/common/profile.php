@@ -1,5 +1,5 @@
 <?php
-echo $Manager->fileinclude(__FILE__);
+//echo $Manager->fileinclude(__FILE__);
 date_default_timezone_set('America/Toronto');
 //echo date('M t, h:i');
 ?>
@@ -13,7 +13,7 @@ date_default_timezone_set('America/Toronto');
 <form id="profiles">
     <div class="form-group">
         <div class="col-xs-12 margin-bottom-10">
-            <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" required="">
+            <input type="text" placeholder="Name" class="form-control  form-control--contact padding-margin-top-0" name="ordered_by" id="fullname" required="">
         </div>
     </div>
     <div class="form-group">
@@ -90,6 +90,7 @@ date_default_timezone_set('America/Toronto');
         <div class="clearfix"></div>
     </div>
 </form>
+
 <script>
     function check_val(v) {
         if (v != '') {
@@ -101,7 +102,6 @@ date_default_timezone_set('America/Toronto');
         , confirm_password = document.getElementById("confirm_password");
 
     function validatePassword() {
-
         if (password.value != confirm_password.value) {
             confirm_password.setCustomValidity("Passwords Don't Match");
         } else {

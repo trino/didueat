@@ -1,13 +1,11 @@
-<div id="registration-form" class="col-md-12" style="width:500px;display: none;">
+<div id="registration-form" class="col-md-12 popup-dialog" style="display: none;">
     <div id="registration-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
-
         <p></p>
     </div>
+    
     {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-
     @include('common.signupform')
-
     <div class="row">
         <div class="col-lg-8 col-sm-8 col-xs-12 col-md-offset-1 padding-left-0 padding-top-20">
             <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>

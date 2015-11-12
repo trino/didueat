@@ -1,12 +1,9 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
-
-
     <table class="table table-bordered table-hover">
         <tbody>
         @foreach ($restaurants_list as $value)
             <tr>
                 <td width="10%">
-
                     <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
                         @if(!empty($value->logo))
                             <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
@@ -26,8 +23,7 @@
                         </li>
                     </ul>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order
-                        Online</a></td>
+                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order Online</a></td>
                 </td>
             </tr>
         @endforeach

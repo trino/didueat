@@ -15,7 +15,7 @@
 <div id="cartsz">
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 0;padding: 0;">
+            <div class="col-md-12 col-sm-12 col-xs-12 padding-margin-top-0">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
                     <img style="height: 100px;width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
@@ -23,20 +23,18 @@
                 @endif
             </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12" style="background:red;color:white;padding: 20px;">
-
-                <div  class="col-md-1 col-sm-1 col-xs-1">
-                    <span style="font-size: 50px;"><</span>
+            <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
+                <div class="col-md-1 col-sm-1 col-xs-1">
+                    <span class="font-size"><</span>
                 </div>
                 <div  class="col-md-11 col-sm-11 col-xs-11">
-
-                <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
-                {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
-                {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}
-                <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
-                <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
-                <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-            </div>
+                    <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                    {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
+                    {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}
+                    <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
+                    <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
+                    <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                </div>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -44,7 +42,6 @@
 
 
     <div class="top-cart-content-wrapper">
-
         @if(isset($order))
         <div class="portlet-title">
             <div class="caption">
@@ -79,14 +76,14 @@
                         <?php } ?>
                         <tr>
                             <td><strong>Subtotal&nbsp;</strong></td>
-                            <td>&nbsp;$ <div class="subtotal" style="display: inline-block;"><?php echo (isset($order)) ? $order->subtotal : '0';?></div>
+                            <td>&nbsp;$ <div class="subtotal inlineblock"><?php echo (isset($order)) ? $order->subtotal : '0';?></div>
                                 <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="<?php echo (isset($order)) ? $order->subtotal : '0';?>" />
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
-                            <td>&nbsp;$ <div class="tax" style="display: inline-block;"><?php echo (isset($order)) ? $order->tax : '0';?></div>
-                                &nbsp;(<div id="tax" style="display: inline-block;">13</div>%)
+                            <td>&nbsp;$ <div class="tax inlineblock"><?php echo (isset($order)) ? $order->tax : '0';?></div>
+                                &nbsp;(<div id="tax inlineblock">13</div>%)
                                 <input type="hidden" value="<?php echo (isset($order)) ? $order->tax : '0';?>" name="tax" class="tax"/>
                             </td>
                         </tr>
@@ -99,7 +96,7 @@
                         </tr>
                         <tr>
                             <td><strong>Total</strong>&nbsp;</td>
-                            <td>&nbsp;$ <div style="display: inline-block;" class="grandtotal"><?php echo (isset($order)) ? $order->g_total : '0';?></div>
+                            <td>&nbsp;$ <div class="grandtotal inlineblock"><?php echo (isset($order)) ? $order->g_total : '0';?></div>
                                 <input type="hidden" name="g_total" class="grandtotal" value="<?php echo (isset($order)) ? $order->g_total : '0';?>"/>
                                 <input type="hidden" name="res_id" value="<?php if (isset($restaurant->id)) echo $restaurant->id;?>"/>
                             </td>
@@ -109,7 +106,7 @@
                 </div>
                 <?php if(!isset($order)){ ?>
                     <div class="text-right">
-                        <input class="btn red" type="button" onclick="printDiv('cartsz')" value="Print" style="margin: 0;"/>
+                        <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print" />
                         <a href="javascript:void(0)" class="btn blue clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
@@ -141,7 +138,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-12 margin-bottom-10">
-                            <input type="text" style="padding-top: 0;margin-top: 0;" placeholder="Name" class="form-control  form-control--contact" name="ordered_by" id="fullname" value="<?php if (isset($profile)) echo $profile->name;?>" required="">
+                            <input type="text" placeholder="Name" class="form-control form-control--contact padding-margin-top-0" name="ordered_by" id="fullname" value="<?php if (isset($profile)) echo $profile->name;?>" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -211,7 +208,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <a href="javascript:void(0)" class="btn red back" style="position: relative; top: -7px;">Back</a>
+                            <a href="javascript:void(0)" class="btn red back back-btn">Back</a>
                             <button type="submit" class="btn btn-primary">Checkout</button>
                             <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}" />
                         </div>

@@ -1,4 +1,4 @@
-<?= $Manager->fileinclude(__FILE__); ?>
+<?php //$Manager->fileinclude(__FILE__); ?>
 <div class="">
     <div class="col-md-3 col-sm-12 col-xs-12 margin-bottom-10">
         <div class="product-item">

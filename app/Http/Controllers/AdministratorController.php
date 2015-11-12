@@ -91,7 +91,7 @@ class AdministratorController extends Controller
                 $ob->populate(array_filter($post));
                 $ob->save();
                 
-                event(new \App\Events\UserEvent($ob, "Profile Updated"));
+                event(new \App\Events\AppEvents($ob, "Profile Updated"));
 
                 if(isset($post['phone_no']) && !empty($post['phone_no'])){
                     $post['user_id'] = $ob->id;
@@ -149,7 +149,7 @@ class AdministratorController extends Controller
                 $ob->populate(array('profile_type' => 1));
                 $ob->save();
             }
-            event(new \App\Events\UserEvent($ob, "User Status Changed"));
+            event(new \App\Events\AppEvents($ob, "User Status Changed"));
 
             \Session::flash('message', 'Status has been changed successfully!');
             \Session::flash('message-type', 'alert-success');
@@ -220,7 +220,7 @@ class AdministratorController extends Controller
                 $user = new \App\Http\Models\Profiles();
                 $user->populate(array_filter($post));
                 $user->save();
-                event(new \App\Events\UserEvent($user, "User created"));
+                event(new \App\Events\AppEvents($user, "User created"));
                 
                 if(isset($user->id)){
                     $add = new \App\Http\Models\ProfilesAddresses();
@@ -338,7 +338,7 @@ class AdministratorController extends Controller
                 $user->populate(array_filter($post));
                 $user->save();
                 
-                event(new \App\Events\UserEvent($user, "User updated"));
+                event(new \App\Events\AppEvents($user, "User updated"));
 
                 if(isset($post['adid']) && !empty($post['adid'])){
                     $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);

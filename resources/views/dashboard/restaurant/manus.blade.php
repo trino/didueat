@@ -29,14 +29,14 @@
                                 <div class="dashboard">
                                     <div class="menu-manager">
                                         <div class="addnew" style="display: none;"></div>
-                                        <ul class="parentinfo" id="sortable" style="padding-left: 0;">
+                                        <ul class="parentinfo padding-left-0" id="sortable">
 
                                             @foreach($menus_list as $value)
                                                 <li class="infolistwhite marbot newmenus no-margin"
                                                     id="parent{{ $value->id }}" style="">
                                                     <div class="col-md-4 menu_item col-sm-4 col-xs-12 ignore">
                                                         <div class="row">
-                                                            <div class="col-sm-1 col-xs-12 ignore" style="padding: 0;">
+                                                            <div class="col-sm-1 col-xs-12 ignore padding-0">
                                                                 @if(!empty($value->image))
                                                                     <img class="itemimg4 itemimg ignore" alt="" src="{{ asset('assets/images/restaurants/'.$value->restaurant_id.'/menus/'.$value->id.'/thumb_'.$value->image) }}">
                                                                 @else
@@ -49,8 +49,7 @@
                                                             <div class="clearfix ignore"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-8 col-sm-8 col-xs-12 ignore"
-                                                         style="padding-right: 0px;">
+                                                    <div class="col-md-8 col-sm-8 col-xs-12 ignore padding-right-0">
                                                         <div class="row">
                                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                                 <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
@@ -68,11 +67,8 @@
                                             @endforeach
                                         </ul>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,8 @@
-
-<div class="footer" style="background: black">
+<div class="footer footer-gb">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-1"></div>
             <div class=" col-md-10 col-sm-12 col-xs-12">
-
                 <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                     <i class="fa fa-search"></i>
                     <div>
@@ -13,7 +11,6 @@
                     </div>
                     <span>&nbsp;</span>
                 </div>
-
                 <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                     <i class="fa fa-shopping-cart"></i>
                     <div>
@@ -22,7 +19,6 @@
                     </div>
                     <span>&nbsp;</span>
                 </div>
-
                 <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
                     <i class="fa fa-spoon"></i>
                     <div>
@@ -33,9 +29,7 @@
             </div>
             <div class="col-md-1"></div>
         </div>
-
-
-
+        
         <div class="row">
             <!-- BEGIN COPYRIGHT -->
             <div class="col-md-4 col-sm-4 padding-top-10">
@@ -57,7 +51,6 @@
                 <div class="pre-footer-subscribe-box pull-right">
                     {!! Form::open(array('url' => '/newsleter/subscribe', 'id'=>'subscribe-email','class'=>'','method'=>'post','role'=>'form')) !!}
                     <input type="hidden" name="action" value="subscribe">
-
                     <div class="input-group">
                         <input type="text" name="email" placeholder="youremail@mail.com" class="form-control">
                         <span class="input-group-btn">

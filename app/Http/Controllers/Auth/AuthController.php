@@ -247,7 +247,7 @@ class AuthController extends Controller {
                     $user->populate(array_filter($data));
                     $user->save();
                     
-                    event(new \App\Events\UserEvent($user, "User Created"));
+                    event(new \App\Events\AppEvents($user, "User Created"));
 
                     $nd1 = new \App\Http\Models\NotificationAddresses();
                     $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));

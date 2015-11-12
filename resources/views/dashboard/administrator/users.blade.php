@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-
     <div class="content-page">
         <div class="row">
             @include('layouts.includes.leftsidebar')
@@ -69,7 +68,7 @@
 
 
 
-    <div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;">
+    <div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
         <div class="modal-dialog2">
             <div class="fancy-modal-content">
                 <div class="modal-header">
@@ -84,7 +83,7 @@
     <!-- /.modal-content -->
 
 
-    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12" style="display: none; width:500px;">
+    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
         <div class="modal-dialog2">
             <div class="fancy-modal-content">
                 <div class="modal-header">
@@ -97,10 +96,9 @@
         </div>
     </div>
     <!-- /.modal-content -->
-
-
-
+    
     @include('common.tabletools')
+    
     <script>
         $('body').on('click', '.editUser', function(){
             var id = $(this).attr('data-id');
@@ -109,5 +107,4 @@
             });
         });
     </script>
-
 @stop

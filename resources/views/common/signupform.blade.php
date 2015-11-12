@@ -45,42 +45,6 @@
 <div class="clearfix"></div>
 <h1>Addressing Information</h1>
 
-<!--<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="post_code" class="form-control" id="post_code" placeholder="Postal Code" value="" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="" required>
-            </div>
-        </div>
-    </div>
-</div>-->
-
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
         <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number</label>
@@ -92,35 +56,6 @@
         </div>
     </div>
 </div>
-
-<!--<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="province" class="form-control" id="province" placeholder="Province" value="" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <select name="country" id="country" class="form-control" required>
-                    <option value="">-Select One-</option>
-                    @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 <div class="clearfix"></div>
 <h1>Create Password</h1>
