@@ -47,10 +47,10 @@
                                         <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                         <td>
                                             <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
-                                            <?php if($value->id != \Session::get('session_id')){ ?>
-                                                <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire <?= addslashes("'" . $value->name . "'"); ?>?');">Fire</a>
-                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess <?= addslashes("'" . $value->name . "'"); ?>?');">Possess</a>
-                                            <?php } ?>
+                                            @if($value->id != \Session::get('session_id'))
+                                                <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Fire</a>
+                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

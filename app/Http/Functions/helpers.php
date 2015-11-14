@@ -184,7 +184,7 @@ function login($Profile) {
     \Session::put('session_profiletype', $Profile->profile_type);
     \Session::put('session_name', $Profile->name);
     \Session::put('session_email', $Profile->email);
-    \Session::put('session_phone', $Profile->phone);
+    \Session::put('session_phone', select_field("profiles_addresses", "user_id", $Profile->id, "phone_no"));
     \Session::put('session_subscribed', $Profile->subscribed);
     \Session::put('session_restaurant_id', $Profile->restaurant_id);
     \Session::put('session_createdBy', $Profile->created_by);
@@ -1102,7 +1102,7 @@ function getUserBrowser() {
         '/konqueror/i' => 'Konqueror',
         '/mobile/i' => 'Handheld Browser'
     );
-    
+
     //echo "<pre>";print_r($user_agent); die;
 
     foreach ($browser_array as $regex => $value) {
@@ -1111,6 +1111,54 @@ function getUserBrowser() {
         }
     }
     return $browser;
+}
+
+if (!function_exists("priority")) {
+
+    function priority($Alpha, $Beta = false) {
+        if ($Alpha) {
+            return $Alpha;
+        }
+        if ($Beta) {
+            return $Beta;
+        }
+        return "";
+    }
+
+}
+
+function priority2($resturant, $Field, $Old = "") {
+    if (!$Old) {
+        $Old = $Field;
+    }
+    if (isset($resturant->$Field)) {
+        return $resturant->$Field;
+    }
+    return old($Old);
+}
+
+function getTime($time) {
+    if (strpos($time, "AM") !== false || strpos($time, "PM") !== false) {
+        return $time;
+    }
+    return "12:00 AM";
+    if (!$time) {
+        return $time;
+    } else {
+        $arr = explode(':', $time);
+    }
+    $hour = $arr[0];
+    $min = $arr[1];
+    $sec = $arr[2];
+    $suffix = 'AM';
+    if ($hour >= 12) {
+        $hour = $hour - 12;
+        $suffix = 'PM';
+    }
+    if (strlen($hour) == 1) {
+        $hour = '0' . $hour;
+    }
+    return $hour . ':' . $min . ' ' . $suffix;
 }
 
 ?>

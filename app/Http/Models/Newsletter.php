@@ -30,13 +30,6 @@ class Newsletter extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-        /*
-        if (array_key_exists('email', $data)) {
-            $this->email = $data['email'];
-        }
-        if (array_key_exists('guid', $data)) {
-            $this->guid = $data['guid'];
-        }*/
     }
 
 

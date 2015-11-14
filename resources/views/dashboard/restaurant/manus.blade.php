@@ -53,12 +53,12 @@
                                                         <div class="row">
                                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                                 <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
-                                                                <a href="<?php echo url();?>/restaurant/deleteMenu/<?php echo $value->id;?>" onclick="return confirm('Are you sure you want to delete <?= addslashes("'" . $value->menu_item . "'"); ?>?');" id="deleteitem{{ $value->id }}" class="deletecat btn red ignore">Delete</a>
+                                                                <a href="{{ url('/restaurant/deleteMenu/'.$value->id) }}" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->menu_item . "'") }} ?');" id="deleteitem{{ $value->id }}" class="deletecat btn red ignore">Delete</a>
                                                                 <div style="clear: both;" class="ignore"></div>
                                                             </div>
                                                             <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                                                                <a href="javascript:void(0);" id="up_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-up"></i></a>
-                                                                <a href="javascript:void(0);" id="down_parent_<?php echo $value->id;?>" class="sorting_parent"><i class="fa fa-angle-down"></i></a>
+                                                                <a href="javascript:void(0);" id="up_parent_{{ $value->id }}" class="sorting_parent"><i class="fa fa-angle-up"></i></a>
+                                                                <a href="javascript:void(0);" id="down_parent_{{ $value->id }}" class="sorting_parent"><i class="fa fa-angle-down"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -112,8 +112,8 @@
                     }
                 });
                 $.ajax({
-                    url: '<?php echo url('restaurant/orderCat/');?>/' + pid + '/' + sort,
-                    data: 'ids=' + order + '&_token=<?php echo csrf_token();?>',
+                    url: "{{ url('restaurant/orderCat') }}/" + pid + '/' + sort,
+                    data: 'ids=' + order + "&_token={{ csrf_token() }}",
                     type: 'post',
                     success: function () {
                         location.reload();

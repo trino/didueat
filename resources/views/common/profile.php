@@ -1,10 +1,6 @@
-<?php
-//echo $Manager->fileinclude(__FILE__);
-date_default_timezone_set('America/Toronto');
-//echo date('M t, h:i');
-?>
 <meta name="_token" content="{{ csrf_token() }}"/>
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+
 <div class="form-group">
     <div class="col-xs-12">
         <h2 class="profile_delevery_type"></h2>
@@ -13,27 +9,27 @@ date_default_timezone_set('America/Toronto');
 <form id="profiles">
     <div class="form-group">
         <div class="col-xs-12 margin-bottom-10">
-            <input type="text" placeholder="Name" class="form-control  form-control--contact padding-margin-top-0" name="ordered_by" id="fullname" required="">
+            <input type="text" name="ordered_by" id="fullname" placeholder="Name" class="form-control form-control--contact padding-margin-top-0" required="">
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-6 margin-bottom-10">
-            <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="">
+            <input type="email" name="email" id="ordered_email" placeholder="Email" class="form-control form-control--contact" required="">
         </div>
         <div class="col-xs-12 col-sm-6">
-            <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="">
+            <input type="text" name="contact" id="ordered_contact" placeholder="Phone Number" class="form-control form-control--contact" required="">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);"/>
+            <input type="password" name="password" id="password1" class="form-control form-control--contact" placeholder="Password" onkeyup="check_val(this.value);"/>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="form-group confirm_password" style="display: none;">
         <div class="col-xs-12">
-            <input type="password" id="confirm_password" name="" class="form-control form-control--contact" placeholder="Confirm Password"/>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control--contact" placeholder="Confirm Password"/>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -54,11 +50,9 @@ date_default_timezone_set('America/Toronto');
 
     <div class="profile_delivery_detail" style="display: none;">
         <div class="form-group margin-bottom-10">
-            <!--textarea placeholder="Address 2" name="address2"></textarea-->
             <div class="col-xs-12 col-sm-6  margin-bottom-10">
                 <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2"/>
             </div>
-
             <div class="col-xs-12 col-sm-6  margin-bottom-10">
                 <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city"/>
             </div>
@@ -68,7 +62,6 @@ date_default_timezone_set('America/Toronto');
                 <select class="form-control form-control--contact" name="province">
                     <OPTION>GET LIST OF PROVINCES</OPTION>
                 </select>
-
             </div>
             <div class="col-xs-12 col-sm-6">
                 <input type="text" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code"/>
@@ -92,28 +85,28 @@ date_default_timezone_set('America/Toronto');
 </form>
 
 <script>
-    function check_val(v) {
-        if (v != '') {
-            $('.confirm_password').show();
-            $('#confirm_password').attr('required', 'required');
-        }
-    }
-    var password = document.getElementById("password1")
-        , confirm_password = document.getElementById("confirm_password");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-            $('#confirm_password').removeAttr('required');
-        }
-    }
-
-    password.onchange = validatePassword;
-
-    confirm_password.onkeyup = validatePassword;
     $(function () {
+        function check_val(v) {
+            if (v != '') {
+                $('.confirm_password').show();
+                $('#confirm_password').attr('required', 'required');
+            }
+        }
+        
+        var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+                $('#confirm_password').removeAttr('required');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+
         $('.back').live('click', function () {
             $('.receipt_main').show();
             $('.profiles').hide();
@@ -124,7 +117,7 @@ date_default_timezone_set('America/Toronto');
             var order_data = $('.receipt_main input').serialize();
             $.ajax({
                 type: 'post',
-                url: 'http://localhost/Foodie/users/ajax_register',
+                url: "{{ url('user/ajax_register') }}",
                 data: datas + '&' + order_data,
                 success: function (msg) {
                     if (msg == '0') {
@@ -137,5 +130,4 @@ date_default_timezone_set('America/Toronto');
         });
 
     });
-
 </script>

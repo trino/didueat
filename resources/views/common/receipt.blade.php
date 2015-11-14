@@ -1,4 +1,4 @@
-<?php if(!isset($order)){?>
+@if(!isset($order))
 <div class="top-cart-info">
     <div class="col-md-6 col-sm-6 col-xs-12">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
@@ -11,7 +11,7 @@
         <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart" onclick="#cartsz">Cart</i></a>
     </div>
 </div>
-<?php } ?>
+@endif
 <div id="cartsz">
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
@@ -39,8 +39,7 @@
             <div class="clearfix"></div>
         </div>
     </div>
-
-
+    
     <div class="top-cart-content-wrapper">
         @if(isset($order))
         <div class="portlet-title">
@@ -60,7 +59,7 @@
                 <div class="totals col-md-12 col-sm-12 col-xs-12">
                     <table class="table">
                         <tbody>
-                        <?php if(!isset($order)){?>
+                        @if(!isset($order))
                         <tr>
                             <td>
                                 <label class="radio-inline">
@@ -73,44 +72,44 @@
                                 </label>
                             </td>
                         </tr>
-                        <?php } ?>
+                        @endif
                         <tr>
                             <td><strong>Subtotal&nbsp;</strong></td>
-                            <td>&nbsp;$ <div class="subtotal inlineblock"><?php echo (isset($order)) ? $order->subtotal : '0';?></div>
-                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="<?php echo (isset($order)) ? $order->subtotal : '0';?>" />
+                            <td>&nbsp;$ <div class="subtotal inlineblock">{{ (isset($order)) ? $order->subtotal : '0' }}</div>
+                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="{{ (isset($order)) ? $order->subtotal : '0' }}" />
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
-                            <td>&nbsp;$ <div class="tax inlineblock"><?php echo (isset($order)) ? $order->tax : '0';?></div>
+                            <td>&nbsp;$ <div class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</div>
                                 &nbsp;(<div id="tax inlineblock">13</div>%)
-                                <input type="hidden" value="<?php echo (isset($order)) ? $order->tax : '0';?>" name="tax" class="tax"/>
+                                <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax" class="tax" />
                             </td>
                         </tr>
-                        <tr <?php echo (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"';?> id="df">
+                        <tr {{ (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"' }} id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
-                            <td>&nbsp;$ <span class="df"><?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
-                                <input type="hidden" value="<?php echo (isset($order)) ? $order->delivery_fee : '';?> {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}" class="df" name="delivery_fee"/>
-                                <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
+                            <td>&nbsp;$ <span class="df">{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
+                                <input type="hidden" value="{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}" class="df" name="delivery_fee"/>
+                                <input type="hidden" value="0" id="delivery_flag" name="order_type" />
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Total</strong>&nbsp;</td>
-                            <td>&nbsp;$ <div class="grandtotal inlineblock"><?php echo (isset($order)) ? $order->g_total : '0';?></div>
-                                <input type="hidden" name="g_total" class="grandtotal" value="<?php echo (isset($order)) ? $order->g_total : '0';?>"/>
-                                <input type="hidden" name="res_id" value="<?php if (isset($restaurant->id)) echo $restaurant->id;?>"/>
+                            <td>&nbsp;$ <div class="grandtotal inlineblock">{{ (isset($order)) ? $order->g_total : '0' }}</div>
+                                <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? $order->g_total : '0' }}"/>
+                                <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <?php if(!isset($order)){ ?>
+                @if(!isset($order))
                     <div class="text-right">
                         <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print" />
                         <a href="javascript:void(0)" class="btn blue clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
-                <?php } ?>
+                @endif
             </div>
             <div class="profiles" style="display: none;">
                 <div class="form-group">
@@ -118,11 +117,11 @@
                         <h2 class="profile_delevery_type"></h2>
                     </div>
                 </div>
+                @if(\Session::has('session_id'))
                 <?php
-                if(\Session::get('session_id'))
                 $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
-                else
-                {?>
+                ?>
+                @else
                 <div class="form-group reservation_signin">
                     <div class="col-xs-12">
                         <a href="#login-pop-up" class="btn btn-danger fancybox-fast-view"
@@ -131,27 +130,26 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <?php } ?>
+                @endif
                 <form id="profiles">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="user_id" id="ordered_user_id" value="<?php echo (isset($profile)) ? $profile->id : '0';?>"/>
-
+                    <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}" />
                     <div class="form-group">
                         <div class="col-xs-12 margin-bottom-10">
-                            <input type="text" placeholder="Name" class="form-control form-control--contact padding-margin-top-0" name="ordered_by" id="fullname" value="<?php if (isset($profile)) echo $profile->name;?>" required="">
+                            <input type="text" placeholder="Name" class="form-control form-control--contact padding-margin-top-0" name="ordered_by" id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-6 margin-<ins></ins>bottom-10">
-                            <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="" value="<?php if (isset($profile)) echo $profile->email;?>">
+                            <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="" value="{{ (isset($profile))? $profile->email : '' }}">
                         </div>
                         <div class="col-xs-12 col-sm-6">
-                            <input type="number" pattern="[0-9]*" maxlength="10" min="10" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="" value="<?php if (isset($profile)) echo $profile->phone;?>">
+                            <input type="number" pattern="[0-9]*" maxlength="10" min="10" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}">
                         </div>
                         <div class="clearfix"></div>
                     </div>
 
-                    <div class="form-group" <?php if (isset($profile)) echo 'style="display:none;"'?>>
+                    <div class="form-group" @if(isset($profile)) 'style="display:none;"' @endif>
                         <div class="col-xs-12">
                             <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);">
                         </div>
@@ -168,7 +166,7 @@
                         <div class="col-xs-12">
                             <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                 <option value="ASAP">ASAP</option>
-                                <?php get_time_interval();?>
+                                {{ get_time_interval() }}
                             </select>
                         </div>
                         <div class="clearfix"></div>
@@ -177,11 +175,11 @@
                     <div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="<?php if (isset($profile)) echo $profile->street;?>">
+                                <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="{{ (isset($profile))? $profile->street : '' }}">
                             </div>
 
                             <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                <input type="text" placeholder="City" id="ordered_city" class="form-control  form-control--contact" name="city" id="city" value="<?php if (isset($profile)) echo $profile->city;?>">
+                                <input type="text" placeholder="City" id="ordered_city" class="form-control  form-control--contact" name="city" id="city" value="{{ (isset($profile))? $profile->city : '' }}">
                             </div>
                         </div>
                         <div class="form-group">

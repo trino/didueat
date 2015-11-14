@@ -32,5 +32,5 @@
 </div>
 
 <div style="display: none;" class="nxtpage">
-    <li class="next"><a href="{{$restaurants_list->nextPageUrl()}}">Next &gt;&gt;</a></li>
+    <li class="next"><a href="{{ $restaurants_list->nextPageUrl() }}">Next &gt;&gt;</a></li>
 </div>

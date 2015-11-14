@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
-    <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
     <div class="content-page">
         <div class="container-fluid">
             <div class="row">
@@ -17,7 +17,6 @@
                     @endif
 
                     <div class="container-fluid">
-
                         <div class="btn_wrapper margin-bottom-20 clearfix">
                             <a type="button" href="#addAddressForm" class="btn red pull-right fancybox-fast-view">Add address</a>
                         </div>
@@ -168,8 +167,7 @@
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9 col-sm-9 col-xs-12">
                                                     <button type="submit" class="btn red">Submit</button>
-                                                    <input type="hidden" name="id"
-                                                           value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}"/>
+                                                    <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +189,7 @@
 
     <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
         <div id="loading" class="center" style="display: none;">
-            <img src="{{ asset('assets/images/loader.gif') }}"/>
+            <img src="{{ asset('assets/images/loader.gif') }}" />
         </div>
         <div id="message" class="alert alert-danger" style="display: none;">
             <h1 class="block">Error</h1>

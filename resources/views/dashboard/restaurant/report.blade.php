@@ -25,8 +25,8 @@
                                         <div>
                                             <strong>FILTER BY DATE</strong>
                                             <form class="col-xs-12" id="report-form" method="get" action="">
-                                                <input type="text" class="datepicker form-control--contact" name="from" placeholder="FROM (Date)" value="<?php if (isset($_GET['from'])) echo $_GET['from'];?>">
-                                                <input type="text" class="datepicker form-control--contact" name="to" placeholder="TO (Date)" value="<?php if (isset($_GET['to'])) echo $_GET['to'];?>">
+                                                <input type="text" class="datepicker form-control--contact" name="from" placeholder="FROM (Date)" value="{{ old('from') }}">
+                                                <input type="text" class="datepicker form-control--contact" name="to" placeholder="TO (Date)" value="{{ old('to') }}">
                                                 <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
                                                 <div class="clearfix"></div>
                                             </form>
@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div id="toprint">
-                                        <?php if(isset($orders) && count($orders) > 0){ ?>
+                                        @if(isset($orders) && count($orders) > 0)
                                         @foreach($orders as $order)
                                             <div class="restaurentDetail">
                                                 <div class="portlet-title">
@@ -66,9 +66,9 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        <?php } else {
-                                            echo "Sorry! No Results Found.";
-                                        }
+                                        @else
+                                            Sorry! No Results Found.
+                                        @endif
                                         ?>
                                         <div class="clearfix"></div>
 
@@ -117,9 +117,7 @@
     <script>
         $(function () {
             $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
-        });
-
-        $(function () {
+            
             $('.clearitems').click(function () {
                 $('.orders').html('');
                 $('.tax input').val('0');
@@ -139,15 +137,15 @@
                 $('.grandtotal').val(grandtotal.toFixed(2));
 
                 $('#cart-total').text('$' + grandtotal.toFixed(2));
-            })
-
+            });
+            
+            function printDiv(divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            }
         });
-        function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        }
     </script>
 @stop

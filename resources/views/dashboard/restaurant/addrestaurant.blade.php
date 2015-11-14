@@ -171,7 +171,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country <span class="required" aria-required="true">*</span></label>
-                                                <select name="country" id="country" class="form-control" required onchange="provinces('<?= addslashes(url("ajax")); ?>', 'ON');">
+                                                <select name="country" id="country" class="form-control" required onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');">
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
                                                         <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
@@ -205,17 +205,15 @@
                                     ?>
                                     <div class="row">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-3"><?php echo $value; ?></label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
                                             <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
+                                                <input type="text" name="open[{{ $key }}]" value="{{ getTime($open[$key]) }}" class="form-control time"/>
                                             </div>
-
                                             <div class="col-md-3 col-sm-3 col-xs-3" id="hour-to-style">to</div>
-
                                             <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="close[<?php echo $key; ?>]" value="<?php echo getTime($close[$key]); ?>" class="form-control time"/>
-                                                <input type="hidden" name="day_of_week[<?php echo $key; ?>]" value="<?php echo $value; ?>"/>
-                                                <input type="hidden" name="idd[<?php echo $key; ?>]" value="<?php echo $ID[$key]; ?>"/>
+                                                <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
+                                                <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
+                                                <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -263,8 +261,6 @@
                 }, 200);
             },
             onComplete: function (file, response) {
-                //alert(response);return;
-                //alert(response);
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
@@ -274,17 +270,11 @@
                 this.enable();
                 $('#picture').attr('src', path);
                 $('#hiddenLogo').val(img);
-                //$("."+button_id.replace('newbrowse','menuimg')).html('<img src="'+path+'" /><input type="hidden" class="hiddenimg" value="'+img+'" />');
-                //$("."+button_id.replace('newbrowse','menuimg')).attr('style','min-height:0px!important;')
-                //$('#client_img').val(response);
-
-//$('.flashimg').show();
             }
         });
     }
 
     jQuery(document).ready(function () {
-        //ComponentsPickers.init();
         $("#resturantForm").validate();
         ajaxuploadbtn('uploadbtn');
 

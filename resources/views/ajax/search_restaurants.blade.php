@@ -1,7 +1,5 @@
 @foreach($query as $value)
-    <?php
-    $logo = ($value->logo != "") ? 'restaurants/'.$value->id .'/'. $value->logo : 'default.png';
-    ?>
+    <?php $logo = ($value->logo != "") ? 'restaurants/'.$value->id .'/'. $value->logo : 'default.png'; ?>
     <div class="row startRow" id="{{ $start }}">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="card row">

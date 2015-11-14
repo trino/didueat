@@ -1,41 +1,39 @@
 @extends('layouts.default')
 @section('content')
-<link rel="stylesheet" href="<?php echo asset('assets'); ?>/global/css/popstyle.css">
+<link rel="stylesheet" href="{{ asset('assets/global/css/popstyle.css') }}">
 <div class="margin-bottom-40 clearfix">
     <div class="col-md-9 col-md-offset-3 col-sm-9 col-xs-12 menu_div">
         @if(Session::has('is_logged_in'))
             <div class="category_btns margin-bottom-15">
                 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
-                <input type="hidden" id="res_id" value="<?php echo $restaurant->id; ?>" />
+                <input type="hidden" id="res_id" value="{{ $restaurant->id }}" />
             </div>
             <div id="menumanager2" style="display: none;width:800px;"></div>
         @endif
-        <?php foreach ($category as $cat) { ?>
+        @foreach($category as $cat)
             <div class="box-shadow clearfix">
                 <div class="portlet-title">
                     <div class="caption">
-                        {{$cat->title}}
+                        {{ $cat->title }}
                     </div>
                 </div>
                 <div class="portlet-body no-padding">
-                    <div id="postswrapper_{{$cat->id}}" class="loadcontent"></div>
+                    <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                     <div class="clearfix"></div>
-                    <div id="loadmoreajaxloader_{{$cat->id}}" style="display:none;">
+                    <div id="loadmoreajaxloader_{{ $cat->id }}" style="display:none;">
                         <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
                     </div>
                     <div class="clearfix"></div>
-
                     <br style="clear: both;">
                 </div>
             </div>
 
             <script>
                 $(function() {
-                    $('#postswrapper_{{ $cat->id }}').load('<?php echo url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id); ?>');
+                    $("#postswrapper_{{ $cat->id }}").load("{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}");
                 });
             </script>
-
-        <?php } ?>
+        @endforeach
     </div>
 
 
@@ -57,6 +55,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        
         $('body').on('click', '.insert-stats', function() {
             var id = $(this).attr('data-id');
             $.get("{{ url('restaurants/menu/stats') }}/" + id, {}, function(result) {
@@ -64,33 +63,31 @@
                 $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
             });
         });
-    });
-</script>
-<script>
-    function check_val(v) {
-        if (v != '') {
-            $('.confirm_password').show();
-            $('#confirm_password').attr('required', 'required');
+        
+        function check_val(v) {
+            if (v != '') {
+                $('.confirm_password').show();
+                $('#confirm_password').attr('required', 'required');
+            }
+            else {
+                $('#confirm_password').removeAttr('required');
+            }
         }
-        else {
-            $('#confirm_password').removeAttr('required');
-        }
-    }
-    var password = document.getElementById("password1")
-            , confirm_password = document.getElementById("confirm_password");
 
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-            $('#confirm_password').removeAttr('required');
-        }
-    }
+        var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
 
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-    $(function() {
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+                $('#confirm_password').removeAttr('required');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+        
         $('.back').live('click', function() {
             $('.receipt_main').show();
             $('.profiles').hide();
@@ -118,12 +115,8 @@
                 }
             })
         });
-
-    });
-
-</script>
-<script>
-    $(function() {
+    
+    
         $('.modal').on('shown.bs.modal', function() {
             $('input:text:visible:first', this).focus();
         });
@@ -448,94 +441,90 @@
             $('.fancybox-close').click();
             //$('.subitems_'+menu_id).hide();
         });
-    });
+       
+       function inArray(needle, haystack) {
+            var length = haystack.length;
+            for (var i = 0; i < length; i++) {
+                if (haystack[i] == needle)
+                    return true;
+            }
+            return false;
+       }
 
-    function inArray(needle, haystack) {
-        var length = haystack.length;
-        for (var i = 0; i < length; i++) {
-            if (haystack[i] == needle)
-                return true;
+        function changeqty(id, opr) {
+            var num = Number($('.number' + id).text());
+            if (num == '1') {
+                if (opr == 'plus')
+                    num++;
+            } else {
+                (opr == 'plus') ? num++ : --num;
+            }
+            $('.number' + id).text(num);
         }
-        return false;
-    }
-
-    function changeqty(id, opr) {
-        var num = Number($('.number' + id).text());
-        if (num == '1') {
-            if (opr == 'plus')
-                num++;
-        } else {
-            (opr == 'plus') ? num++ : --num;
+        
+        function clearCartItems() {
+            $('.receipt_main ul.orders li').remove();
+            $('.subtotal').val(0);
+            $('.subtotal').text('0');
+            $('.tax').val(0);
+            $('.tax').text('0');
+            $('.df').val(0);
+            $('.df').text('0');
+            $('#delivery_flag').val(0);
+            $('.grandtotal').val(0);
+            $('.grandtotal').text('0');
         }
-        $('.number' + id).text(num);
-    }
-</script>
 
+        function checkout() {
+            var del = $('#delivery_flag').val();
 
-<script>
-    function clearCartItems() {
-        $('.receipt_main ul.orders li').remove();
-        $('.subtotal').val(0);
-        $('.subtotal').text('0');
-        $('.tax').val(0);
-        $('.tax').text('0');
-        $('.df').val(0);
-        $('.df').text('0');
-        $('#delivery_flag').val(0);
-        $('.grandtotal').val(0);
-        $('.grandtotal').text('0');
-    }
-
-    function checkout() {
-        var del = $('#delivery_flag').val();
-
-        if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0') {
-            alert('Please select an item.');
-        }
-        else {
-            $('.receipt_main').hide();
-            $('.profiles').show();
-        }
-    }
-
-    function delivery(t) {
-        var df = $('input.df').val();
-        if (t == 'show') {
-            $('#df').show();
-            $('.profile_delevery_type').text('Delivery Detail');
-            $('.profile_delivery_detail').show();
-            $('.profile_delivery_detail input').each(function() {
-                $(this).attr('required', 'required');
-            });
-            var tax = $('.tax').text();
-            var grandtotal = 0;
-            var subtotal = $('input.subtotal').val();
-            grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
-            $('.df').val(df);
-            $('.grandtotal').text(grandtotal.toFixed(2));
-            $('.grandtotal').val(grandtotal.toFixed(2));
-            $('#delivery_flag').val('1');
-            $('#cart-total').text('$' + grandtotal.toFixed(2));
-        } else {
-            $('.profile_delevery_type').text('Pickup Detail');
-            $('.profile_delivery_detail').hide();
-            if ($('#pickup1').hasClass("deliverychecked")) {
-                //alert('sss');
+            if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0') {
+                alert('Please select an item.');
             }
             else {
-                var grandtotal = $('input.grandtotal').val();
-                grandtotal = Number(grandtotal) - Number(df);
-                $('.grandtotal').text(grandtotal.toFixed(2));
-                $('.grandtotal').val(grandtotal.toFixed(2));
-                $('#df').hide();
-                $('#delivery_flag').val('0');
-                $('#cart-total').text('$' + grandtotal.toFixed(2));
+                $('.receipt_main').hide();
+                $('.profiles').show();
             }
         }
-    }
-
-    $(function() {
-        $('.decrease').live('click', function() {
+        
+        function delivery(t) {
+            var df = $('input.df').val();
+            if (t == 'show') {
+                $('#df').show();
+                $('.profile_delevery_type').text('Delivery Detail');
+                $('.profile_delivery_detail').show();
+                $('.profile_delivery_detail input').each(function() {
+                    $(this).attr('required', 'required');
+                });
+                var tax = $('.tax').text();
+                var grandtotal = 0;
+                var subtotal = $('input.subtotal').val();
+                grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
+                $('.df').val(df);
+                $('.grandtotal').text(grandtotal.toFixed(2));
+                $('.grandtotal').val(grandtotal.toFixed(2));
+                $('#delivery_flag').val('1');
+                $('#cart-total').text('$' + grandtotal.toFixed(2));
+            } else {
+                $('.profile_delevery_type').text('Pickup Detail');
+                $('.profile_delivery_detail').hide();
+                if ($('#pickup1').hasClass("deliverychecked")) {
+                    //alert('sss');
+                }
+                else {
+                    var grandtotal = $('input.grandtotal').val();
+                    grandtotal = Number(grandtotal) - Number(df);
+                    $('.grandtotal').text(grandtotal.toFixed(2));
+                    $('.grandtotal').val(grandtotal.toFixed(2));
+                    $('#df').hide();
+                    $('#delivery_flag').val('0');
+                    $('#cart-total').text('$' + grandtotal.toFixed(2));
+                }
+            }
+        }
+    
+        
+        $('.decrease').live('click', function(){
             //alert('test');
             var menuid = $(this).attr('id');
             var numid = menuid.replace('dec', '');
@@ -677,26 +666,18 @@
             $('input.grandtotal').val(gtotal);
         });
 
-    })
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
 
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
-
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
-
-
-</script>
-
-
-<script>
-    $(function() {
-        $(document).on('click', '.loadmore', function() {
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+        
+        
+        $(document).on('click', '.loadmore', function(){
             var catid = $(this).attr('title');
-
             $('div#loadmoreajaxloader_' + catid).show();
             ur = $('.next_' + catid + ' a').attr('href');
             if (ur != '') {
@@ -720,12 +701,6 @@
                 $(this).parent().remove();
             }
         });
-
-    });
-
-</script>
-<script>
-    $(function() {
 
         $(".sorting_parent").live('click', function() {
             $('.overlay_loader').show();

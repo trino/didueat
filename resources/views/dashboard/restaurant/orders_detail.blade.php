@@ -41,23 +41,23 @@
                                     <div class="tools">
                                     </div>
                                 </div>
+                                <?php $date = new DateTime($order->order_time); ?>
                                 <div class="portlet-body">
                                     <div class="infolist noprint"><strong>ORDERED BY: </strong>{{ $user_detail->name }}</div>
                                     <div class="infolist noprint"><strong>EMAIL: </strong>{{ $user_detail->email }}</div>
-                                    <div class="infolist noprint"><strong>CONTACT: </strong><?= $order->contact; ?></div>
-                                    <div class="infolist noprint"><strong>ORDER TYPE: </strong><?= ($order->order_type == '1') ? 'Delivery' : 'Pickup' ?></div>
-                                    <div class="infolist noprint"><strong>ORDERED ON: </strong><?php $date = new DateTime($order->order_time); echo $date->format('l jS \of F Y h:i:s A'); ?></div>
-                                    <div class="infolist noprint"><strong>ORDER READY: </strong><?= $order->order_till; ?></div>
+                                    <div class="infolist noprint"><strong>CONTACT: </strong>{{ $order->contact }}</div>
+                                    <div class="infolist noprint"><strong>ORDER TYPE: </strong>{{ ($order->order_type == '1') ? 'Delivery' : 'Pickup' }}</div>
+                                    <div class="infolist noprint"><strong>ORDERED ON: </strong>{{ $date->format('l jS \of F Y h:i:s A') }}</div>
+                                    <div class="infolist noprint"><strong>ORDER READY: </strong>{{ $order->order_till }}</div>
                                     <div class="portlet-title">
                                         <div class="caption">
                                             Restaurant {{ (isset($restaurant->name))?'['.$restaurant->name.']':'' }}
                                         </div>
                                     </div>
-                                    <?php
-                                    if ($order->remarks != '') {
-                                        echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
-                                    }
-                                    ?>
+                                    @if($order->remarks != '')
+                                        <div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong> {{ $order->remarks }}</div>
+                                    @endif
+                                    
                                     @include('common.receipt')
                                     <div class="clearfix"></div>
                                 </div>
@@ -78,9 +78,7 @@
 <script>
     $(function() {
         $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
-    });
-
-    $(function() {
+        
         $('.clearitems').click(function() {
             $('.orders').html('');
             $('.tax input').val('0');
@@ -100,9 +98,9 @@
             $('.grandtotal').val(grandtotal.toFixed(2));
 
             $('#cart-total').text('$' + grandtotal.toFixed(2));
-        })
-
+        });
     });
+    
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;

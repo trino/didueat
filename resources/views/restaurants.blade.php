@@ -9,7 +9,6 @@
                 <div class="col-md-4 col-sm-4 col-xs-12  top-cart-block">
                     <div class="box-shadow">
                         <div class="portlet-body">
-
                             {!! Form::open(array('url' => '/search/restaurants', 'id'=>'searchRestaurantForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
                             <div class="input-group" valign="center">
                                 <input type="text" name="search_term" placeholder="Search Restaurants" class="form-control" value="{{ $term }}" required />
@@ -47,6 +46,7 @@
                                 @endforeach
                                 <input type="hidden" name="selected_city" id="selected_city" value="" />
                             </ul>
+                            
                             <h4><a class="filterTitle"><i class="fa fa-plus-square"></i> Provice</a></h4>
                             <ul id="filterProvince" style="display: none;">
                                 @foreach($provinces as $province)
@@ -54,6 +54,7 @@
                                 @endforeach
                                 <input type="hidden" name="selected_province" id="selected_province" value="" />
                             </ul>
+                            
                             <h4><a class="filterTitle"><i class="fa fa-plus-square"></i> Country</a></h4>
                             <ul id="filterCountry" style="display: none;">
                                 @foreach($countries as $country)

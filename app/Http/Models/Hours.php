@@ -30,21 +30,6 @@ class Hours extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-
-        /*
-        if (array_key_exists('restaurant_id', $data)) {
-            $this->restaurant_id = $data['restaurant_id'];
-        }
-        if (array_key_exists('day_of_week', $data)) {
-            $this->day_of_week = $data['day_of_week'];
-        }
-        if (array_key_exists('Open', $data)) {
-            $this->Open = $data['Open'];
-        }
-        if (array_key_exists('Close', $data)) {
-            $this->Close = $data['Close'];
-        }*/
-
     }
 
 

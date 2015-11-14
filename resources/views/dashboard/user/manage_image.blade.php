@@ -58,11 +58,9 @@
                                 </div>
                             </div>
                             @endforeach
-                            <?php
-                            if ($count == 0) {
-                                echo '<DIV ALIGN="CENTER">No files have been uploaded</DIV>';
-                            }
-                            ?>
+                            @if($count == 0)
+                                <div align="center">No files have been uploaded</div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -114,8 +112,7 @@
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-mixitup/jquery.mixitup.min.js') }}"></script>
-<script type="text/javascript"
-src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="{{ asset('assets/global/scripts/metronic.js') }}" type="text/javascript"></script>
@@ -123,11 +120,12 @@ src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/portfolio.js') }}"></script>
 <script>
-jQuery(document).ready(function() {
-    Metronic.init();
-    Demo.init();
-    Portfolio.init();
-    $("#imageForm").validate();
-});
+    jQuery(document).ready(function() {
+        Metronic.init();
+        Demo.init();
+        Portfolio.init();
+        $("#imageForm").validate();
+    });
 </script>
+
 @stop

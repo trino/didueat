@@ -30,20 +30,6 @@ class Eventlog extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-        /*
-        if (array_key_exists('user_id', $data)) {
-            $this->user_id = $data['user_id'];
-        }
-        if (array_key_exists('date', $data)) {
-            $this->date = $data['date'];
-        }
-        if (array_key_exists('restaurant_id', $data)) {
-            $this->restaurant_id = $data['restaurant_id'];
-        }
-        if (array_key_exists('text', $data)) {
-            $this->text = $data['text'];
-        }
-        */
     }
 
     public static function enum_events($restaurant_id = false)

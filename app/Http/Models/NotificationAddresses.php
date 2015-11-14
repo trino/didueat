@@ -30,16 +30,6 @@ class NotificationAddresses extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-        /*
-        if (array_key_exists('restaurant_id', $data)) {
-            $this->restaurant_id = $data['restaurant_id'];
-        }
-        if (array_key_exists('Type', $data)) {
-            $this->Type = $data['Type'];
-        }
-        if (array_key_exists('Address', $data)) {
-            $this->Address = $data['Address'];
-        }*/
 
     }
 

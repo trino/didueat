@@ -1,6 +1,6 @@
-<ul class="scroller orders <?php if(!isset($order)){?>order-style<?php } ?>">
+<ul class="scroller orders @if(!isset($order)) order-style @endif">
+@if(isset($order))
     <?php
-    if(isset($order)){
         $menu_ids = $order->menu_ids;
         $arr_menu = explode(',', $menu_ids);
         $arr_qty = explode(',', $order->qtys);
@@ -22,18 +22,19 @@
             $menu_item = (isset($m->menu_item)) ? $m->menu_item : '';
             $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.jpg';
     ?>
-    <li id="list<?= $order->listid;?>" class="infolist">
+    <li id="list{{ $order->listid }}" class="infolist">
         <span class="receipt_image">
           <img src='{{ url("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34">
-          <span class="count">x <?= $arr_qty[$k];?></span><input type="hidden" class="count" name="qtys[]" value="1" />
+          <span class="count">x {{ $arr_qty[$k] }}</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </span>
-        <strong><?php echo "<span class='menu_bold'>" . $tt . "</span>:" . str_replace('<br/>', '', $extz);?></strong>
-        <em class="total">$ <?= number_format(($arr_qty[$k] * $arr_prs[$k]), 2);?></em>
-        <span class="amount" style="display:none;"> <?= number_format($arr_prs[$k], 2);?></span>
+        <strong><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</strong>
+        <em class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</em>
+        <span class="amount" style="display:none;"> {{ number_format($arr_prs[$k], 2) }}</span>
         <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>
         <input type="hidden" name="extras[]" value="Watch Rolex Classic "/>
         <input type="hidden" name="listid[]" value="2"/>
-        <input type="hidden" class="prs" name="prs[]" value="<?= number_format(($arr_qty[$k] * $arr_prs[$k]), 2);?>"/>
+        <input type="hidden" class="prs" name="prs[]" value="{{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}" />
     </li>
-    <?php } } ?>
+    <?php } ?>
+    @endif
 </ul>

@@ -28,5 +28,4 @@ class Category extends BaseModel
         }
     }
 
-
 }

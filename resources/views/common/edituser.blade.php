@@ -1,4 +1,4 @@
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="form-group">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -126,7 +126,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <select name="country" id="country" class="form-control" required onchange="provinces('<?= addslashes(url("ajax")); ?>', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
+                <select name="country" id="country" class="form-control" required onchange="provinces("{{ addslashes(url('ajax')) }}", "{{ (isset($address_detail->province))?$address_detail->province:'' }}");">
                     <option value="">-Select One-</option>
                     @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
                         <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>

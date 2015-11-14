@@ -22,8 +22,6 @@ class Countries extends BaseModel
      * @param array
      * @return Array
      */
-
-
     public function populate($data)
     {
         $cells = array('name', 'alpha_2', 'alpha_3');
@@ -32,16 +30,6 @@ class Countries extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-        /*
-        if (array_key_exists('name', $data)) {
-            $this->name = $data['name'];
-        }
-        if (array_key_exists('alpha_2', $data)) {
-            $this->alpha_2 = $data['alpha_2'];
-        }
-        if (array_key_exists('alpha_3', $data)) {
-            $this->alpha_3 = $data['alpha_3'];
-        }*/
     }
 
 }

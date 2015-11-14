@@ -21,8 +21,8 @@
             }
             else {
                 $.ajax({
-                    url: '<?php echo url('restaurant/saveCat/') ?>',
-                    data: 'title=' + cat + '&_token=<?php echo csrf_token(); ?>&res_id=<?php echo $restaurant->id; ?>',
+                    url: "{{ url('restaurant/saveCat/') }}",
+                    data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ $restaurant->id }}",
                     type: 'post',
                     success: function() {
                         $('.overlay_loader').hide();

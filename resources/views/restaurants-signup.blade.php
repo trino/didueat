@@ -142,8 +142,8 @@ $(document).ready(function() {
             }
         });
     });
-    $('.time').change(function() {
-        //$('.time_real').val($(this).val());
+    
+    $('.time').change(function(){
         var t = $(this).val();
         var arr = t.split(':');
         var h = arr[0];
@@ -179,6 +179,7 @@ $(document).ready(function() {
             return false;
         }
     });
+    
     $("#signupForm").validate({
         rules: {
             Phone: {

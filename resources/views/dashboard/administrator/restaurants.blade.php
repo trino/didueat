@@ -47,11 +47,11 @@
                                             <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn blue">Orders</a>
                                             <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info">Edit</a>
                                             @if($value->open == true)
-                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning" onclick="return confirm('Are you sure you want to close <?= addslashes("'" . $value->name . "'"); ?>?');">Close</a>
+                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning" onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
                                             @else
-                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn green" onclick="return confirm('Are you sure you want to open <?= addslashes("'" . $value->name . "'"); ?>?');">Open</a>
+                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn green" onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a>
                                             @endif
-                                            <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete <?= addslashes("'" . $value->name . "'"); ?>?');">Delete</a>
+                                            <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

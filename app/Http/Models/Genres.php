@@ -31,10 +31,6 @@ class Genres extends BaseModel
             }
         }
 
-        /* if (array_key_exists('name', $data)) {
-            $this->name = $data['name'];
-        }*/
-
     }
 
 

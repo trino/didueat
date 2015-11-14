@@ -30,22 +30,6 @@ class ProfilesImages extends BaseModel
                 $this->$cell = $data[$cell];
             }
         }
-
-        /*if (array_key_exists('user_id', $data)) {
-            $this->user_id = $data['user_id'];
-        }
-        if (array_key_exists('restaurant_id', $data)) {
-            $this->restaurant_id = $data['restaurant_id'];
-        }
-        if (array_key_exists('filename', $data)) {
-            $this->filename = $data['filename'];
-        }
-        if (array_key_exists('Title', $data)) {
-            $this->Title = $data['Title'];
-        }
-        if (array_key_exists('OrderID', $data)) {
-            $this->OrderID = $data['OrderID'];
-        }*/
     }
 
     ////////////////////////////////////profile image API///////////////////////////////////

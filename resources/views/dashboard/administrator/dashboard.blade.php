@@ -9,7 +9,6 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
-
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong>
@@ -57,42 +56,6 @@
                                      Contact Information
                                 </div>
 
-                                <!--<div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group clearfix">
-                                        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address</label>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="input-icon">
-                                                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="{{ (isset($address_detail->address))?$address_detail->address:'' }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group clearfix">
-                                        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code</label>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="input-icon">
-                                                <input type="text" name="post_code" class="form-control" id="post_code" placeholder="Postal Code" value="{{ (isset($address_detail->post_code))?$address_detail->post_code:'' }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group clearfix">
-                                        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City</label>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="input-icon">
-                                                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ (isset($address_detail->city))?$address_detail->city:'' }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
-
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
                                         <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number </label>
@@ -104,35 +67,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!--<div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group clearfix">
-                                        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province</label>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="input-icon">
-                                                <input type="text" name="province" class="form-control" id="province" placeholder="Province" value="{{ (isset($address_detail->province))?$address_detail->province:'' }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group clearfix">
-                                        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country</label>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="input-icon">
-                                                <select name="country" id="country" class="form-control">
-                                                    <option value="">-Select One-</option>
-                                                    @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
-                                                        <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>-->
 
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -185,7 +119,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <label>
-                                                <input type="checkbox" name="subscribed" id="subscribed" value="1" <?php if (read('subscribed')) { echo ' checked'; } ?> />
+                                                <input type="checkbox" name="subscribed" id="subscribed" value="1" @if(read('subscribed')) "checked" @endif />
                                                 Sign up for our Newsletter
                                             </label>
                                         </div>
@@ -245,40 +179,40 @@
     <script type="text/javascript">
         $(document).ready(function(){
             ajaxuploadbtn('uploadbtn');
+            
+            function ajaxuploadbtn(button_id) {
+                var button = $('#' + button_id), interval;
+                act = base_url + 'restaurant/uploadimg/user';
+                new AjaxUpload(button, {
+                    action: act,
+                    name: 'myfile',
+                    data: {'_token': $('#profileForm input[name=_token]').val()},
+                    onSubmit: function (file, ext) {
+                        button.text('Uploading...');
+                        this.disable();
+                        interval = window.setInterval(function () {
+                            var text = button.text();
+                            if (text.length < 13) {
+                                button.text(text + '.');
+                            } else {
+                                button.text('Uploading...');
+                            }
+                        }, 200);
+                    },
+                    onComplete: function (file, response) {
+                        //alert(response);return;
+                        var resp = response.split('___');
+                        var path = resp[0];
+                        var img = resp[1];
+                        button.html('Change Image');
 
+                        window.clearInterval(interval);
+                        this.enable();
+                        $('#picture').attr('src', path);
+                        $('#hiddenLogo').val(img);
+                    }
+                });
+            }
         });
-        function ajaxuploadbtn(button_id) {
-            var button = $('#' + button_id), interval;
-            act = base_url + 'restaurant/uploadimg/user';
-            new AjaxUpload(button, {
-                action: act,
-                name: 'myfile',
-                data: {'_token': $('#profileForm input[name=_token]').val()},
-                onSubmit: function (file, ext) {
-                    button.text('Uploading...');
-                    this.disable();
-                    interval = window.setInterval(function () {
-                        var text = button.text();
-                        if (text.length < 13) {
-                            button.text(text + '.');
-                        } else {
-                            button.text('Uploading...');
-                        }
-                    }, 200);
-                },
-                onComplete: function (file, response) {
-                    //alert(response);return;
-                    var resp = response.split('___');
-                    var path = resp[0];
-                    var img = resp[1];
-                    button.html('Change Image');
-
-                    window.clearInterval(interval);
-                    this.enable();
-                    $('#picture').attr('src', path);
-                    $('#hiddenLogo').val(img);
-                }
-            });
-        }
     </script>
 @stop

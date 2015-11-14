@@ -1,5 +1,6 @@
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
-<meta name="_token" content="{{ csrf_token() }}"/>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<meta name="_token" content="{{ csrf_token() }}" />
+
 <div class="modal-dialog2">
     <div class="fancy-modal-content">
         <div class="modal-header">

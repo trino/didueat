@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="margin-bottom-40">
     <div class="col-md-2 col-sm-4 col-xs-12">
@@ -620,7 +620,7 @@
                                         var order_data = $('.receipt_main input').serialize();
                                         $.ajax({
                                             type: 'post',
-                                            url: 'http://localhost/Foodie/users/ajax_register',
+                                            url: "{{ url('user/ajax_register') }}",
                                             data: datas + '&' + order_data,
                                             success: function(msg) {
                                                 if (msg == '0')

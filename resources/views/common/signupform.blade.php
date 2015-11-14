@@ -1,21 +1,4 @@
-<?php
-    if (!function_exists("priority")) {
-        function priority($Alpha, $Beta = false) {
-            if ($Alpha) {
-                return $Alpha;
-            }
-            if ($Beta) {
-                return $Beta;
-            }
-            return "";
-        }
-    }
-    $fullname =     priority(old('name'), read('name'));
-    $emailaddress = priority(old('email'), read('email'));
-    $phonenumber =  priority(old('phone'), read('phone'));
-?>
 <h1>Sign up</h1>
-
 <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,7 +7,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="<?= $fullname; ?>" required="">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ priority(old('name'), read('name')) }}" required="">
             </div>
         </div>
     </div>
@@ -36,7 +19,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="<?= $emailaddress; ?>" required="">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ priority(old('email'), read('email')) }}" required="">
             </div>
         </div>
     </div>
@@ -51,7 +34,7 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="">
+                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="{{ priority(old('phone_no'), read('phone')) }}">
             </div>
         </div>
     </div>
@@ -98,11 +81,9 @@
     </div>
 </div>
 
-
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
         <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
-
         <div class="col-md-12 col-sm-12 col-xs-12">
             <label>
                 <input type="checkbox" name="subscribed" id="subscribed" value="1" />

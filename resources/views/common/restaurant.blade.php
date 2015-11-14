@@ -1,14 +1,5 @@
 <?php
-    //$Layout
     if(!isset($resturant)){$resturant = "";}
-    function priority2($resturant, $Field, $Old = ""){
-        if(!$Old){$Old = $Field;}
-        if(isset($resturant->$Field)){
-            return $resturant->$Field;
-        }
-        return old($Old);
-    }
-
     $Genre = priority2($resturant, "genre");
     $RestID = "";
     $Country = "";
@@ -18,38 +9,18 @@
         $Country = $resturant->country;
         $Field = "name";
     }
-
-    function getTime($time) {
-        if (strpos($time, "AM") !== false || strpos($time, "PM") !== false){
-            return $time;
-        }
-        return "12:00 AM";
-        if (!$time){
-            return $time;
-        }else {
-            $arr = explode(':', $time);
-        }
-        $hour = $arr[0];
-        $min = $arr[1];
-        $sec = $arr[2];
-        $suffix = 'AM';
-        if ($hour >= 12) {
-            $hour = $hour - 12;
-            $suffix = 'PM';
-        }
-        if (strlen($hour) == 1){
-            $hour = '0' . $hour;
-        }
-        return $hour . ':' . $min . ' ' . $suffix;
+    $restaurant_logo = asset('assets/images/default.png');
+    if(isset($resturant->logo) && $resturant->logo){
+        $restaurant_logo = asset('assets/images/restaurants/'.$resturant->logo);
     }
 ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <div class="col-md-4 col-sm-12 col-xs-12 ">
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-long-arrow-right"></i>RESTAURANT INFO
+                <i class="fa fa-long-arrow-right"></i> RESTAURANT INFO
             </div>
         </div>
         <div class="portlet-body form">
@@ -105,13 +76,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        <img id="picture" class="margin-bottom-10 full-width" src="<?php
-                            if(isset($resturant->logo) && $resturant->logo){
-                                echo asset('assets/images/restaurants/'.$resturant->logo);
-                            } else {
-                                echo asset('assets/images/default.png');
-                            }
-                        echo '?'.mt_rand(); ?>" />
+                        <img id="picture" class="margin-bottom-10 full-width" src="{{ $restaurant_logo.'?'.mt_rand() }}" />
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
@@ -173,7 +138,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Country <span class="required">*</span></label>
-                            <select name="country" id="country" class="form-control" required onchange="provinces('<?= addslashes(url("ajax")); ?>', '<?= old('province'); ?>');">
+                            <select name="country" id="country" class="form-control" required onchange="provinces("{{ addslashes(url("ajax")) }}", "{{ old('province') }}");">
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
                                     <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
@@ -210,19 +175,17 @@
                 ?>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3"><?php echo $value; ?></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
                         <div class=" col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" name="open[<?= $key; ?>]" value="<?= getTime($open[$key]); ?>" class="form-control time"/>
+                            <input type="text" name="open[{{ $key }}]" value="{{ getTime($open[$key]) }}" class="form-control time"/>
                         </div>
                         <div class="  col-md-3 col-sm-3 col-xs-3" id="hour-to-style"> to </div>
                         <div class=" col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" name="close[<?= $key; ?>]" value="<?= getTime($close[$key]); ?>" class="form-control time"/>
-                            <input type="hidden" name="day_of_week[<?= $key; ?>]" value="<?= $value; ?>"/>
-                            <?php
-                            if (isset($ID)){
-                                echo '<input type="hidden" name="idd[' . $key . ']" value="' . $ID[$key] . '"/>';
-                            }
-                            ?>
+                            <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
+                            <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
+                            @if(isset($ID))
+                            <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -237,7 +200,7 @@
     <div class=" box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-long-arrow-right"></i>CREATE USERNAME & PASSWORD
+                <i class="fa fa-long-arrow-right"></i> CREATE USERNAME & PASSWORD
             </div>
         </div>
         <div class="portlet-body form">
@@ -302,7 +265,6 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
                             <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
-
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <label>
                                     <input type="checkbox" name="subscribed" id="subscribed" value="1" />
@@ -321,39 +283,40 @@
 </DIV>
 
 <script>
-function ajaxuploadbtn(button_id) {
-    var button = $('#' + button_id), interval;
-    act = base_url+'uploadimg/restaurant';
-    new AjaxUpload(button, {
-        action: act,
-        name: 'myfile',
-        data:{'_token':'{{csrf_token()}}'},
-        onSubmit: function (file, ext) {
-            button.text('Uploading...');
-            this.disable();
-            interval = window.setInterval(function () {
-                var text = button.text();
-                if (text.length < 13) {
-                    button.text(text + '.');
-                } else {
-                    button.text('Uploading...');
-                }
-            }, 200);
-        },
-        onComplete: function (file, response) {
-            var resp = response.split('___');
-            var path = resp[0];
-            var img = resp[1];
-            button.html('Change Image');
-
-            window.clearInterval(interval);
-            this.enable();
-            $('#picture').attr('src',path);
-            $('#hiddenLogo').val(img);
-        }
-    });
-}
 $(function(){
+    function ajaxuploadbtn(button_id) {
+        var button = $('#' + button_id), interval;
+        act = base_url+'uploadimg/restaurant';
+        new AjaxUpload(button, {
+            action: act,
+            name: 'myfile',
+            data:{'_token':'{{csrf_token()}}'},
+            onSubmit: function (file, ext) {
+                button.text('Uploading...');
+                this.disable();
+                interval = window.setInterval(function () {
+                    var text = button.text();
+                    if (text.length < 13) {
+                        button.text(text + '.');
+                    } else {
+                        button.text('Uploading...');
+                    }
+                }, 200);
+            },
+            onComplete: function (file, response) {
+                var resp = response.split('___');
+                var path = resp[0];
+                var img = resp[1];
+                button.html('Change Image');
+
+                window.clearInterval(interval);
+                this.enable();
+                $('#picture').attr('src',path);
+                $('#hiddenLogo').val(img);
+            }
+        });
+    }
+
     ajaxuploadbtn('uploadbtn');
 });
 </script>
