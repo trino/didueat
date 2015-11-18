@@ -77,7 +77,7 @@
                                 @if(Session::has('session_id'))
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group clearfix">
-                                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Old Password <span class="required">*</span></label>
+                                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label" align="left">Old Password <span class="required">*</span></label>
 
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="input-icon">
