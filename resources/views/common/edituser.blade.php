@@ -1,4 +1,5 @@
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<meta name="_token" content="{{ csrf_token() }}" />
 
 <div class="form-group">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -81,18 +82,6 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="city" class="form-control" id="city" placeholder="City" value="{{ (isset($address_detail->city))?$address_detail->city:'' }}" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
         <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number  <span class="required">*</span></label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -105,14 +94,13 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  <span class="required">*</span></label>
-
+        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country  <span class="required">*</span></label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <select name="province" class="form-control" required id="province">
+                <select name="country" id="{{ (isset($address_detail->country))?'country2':'country' }}" class="form-control" required onchange="provinces('{{ addslashes(url('ajax')) }}', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
                     <option value="">-Select One-</option>
-                    @foreach($states_list as $value)
-                        <option value="{{ $value->id }}" @if(isset($address_detail->province) && $address_detail->province == $value->id) selected @endif>{{ $value->name }}</option>
+                    @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
+                        <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -122,15 +110,24 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country  <span class="required">*</span></label>
-
+        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  <span class="required">*</span></label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <select name="country" id="country" class="form-control" required onchange="provinces("{{ addslashes(url('ajax')) }}", "{{ (isset($address_detail->province))?$address_detail->province:'' }}");">
+                <select name="province" id="{{ (isset($address_detail->province))?'province2':'province' }}" class="form-control" required onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
                     <option value="">-Select One-</option>
-                    @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
-                        <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
-                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group clearfix">
+        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  <span class="required">*</span></label>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="input-icon">
+                <select name="city" id="{{ (isset($address_detail->city))?'city2':'city' }}" class="form-control" required>
+                    <option value="">-Select One-</option>
                 </select>
             </div>
         </div>
@@ -183,3 +180,11 @@
     <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}" />
     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}" />
 </div>
+
+@if(isset($address_detail->id))
+<script type="text/javascript">
+    $(document).ready(function(){
+            cities("{{ url('ajax') }}", {{ (isset($address_detail->city))?$address_detail->city:0 }});
+    });
+</script>
+@endif

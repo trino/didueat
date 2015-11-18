@@ -41,9 +41,9 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <input type="text" name="city" class="form-control" placeholder="City" value="{{ (isset($addresse_detail->city))?$addresse_detail->city:'' }}" required>
+                            <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no:'' }}">
                         </div>
                     </div>
                 </div>
@@ -51,11 +51,8 @@
                     <div class="form-group">
                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <select name="province" class="form-control" id="province2" required>
+                            <select name="province" class="form-control" id="province2" required onchange="cities('{{ addslashes(url("ajax")) }}', 'ON');">
                                 <option value="">-Select One-</option>
-                                @foreach($states_list as $value)
-                                    <option value="{{ $value->id }}" {{ (isset($addresse_detail->province) && $addresse_detail->province == $value->id)?'selected':'' }}>{{ $value->name }}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -65,9 +62,11 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="form-group">
-                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no:'' }}">
+                            <select name="city" class="form-control" id="city2" required>
+                                <option value="">-Select One-</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -75,7 +74,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                            <select name="country" class="form-control" id="country2" required onchange="provinces('<?= addslashes(url("ajax")); ?>', '<?= $addresse_detail->province; ?>');">
+                            <select name="country" class="form-control" id="country2" required onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ $addresse_detail->province }}');">
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
                                     <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
@@ -108,3 +107,9 @@
     </div>
     <!-- /.modal-content -->
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+    });
+</script>

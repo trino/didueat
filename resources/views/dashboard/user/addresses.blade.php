@@ -49,12 +49,12 @@
                                             <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
                                             <td>{{ $value->location }}</td>
                                             <td>{{ $value->phone_no }}</td>
-                                            <td>{{ $value->address.', '.$value->city.', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                                            <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
                                                 <a href="#editNewUser" class="btn red fancybox-fast-view editRow"
                                                    data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
-                                                   onclick="return confirm('Are you sure you want to delete <?= addslashes("'" . $value->location . "'"); ?>?');">Delete</a>
+                                                   onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -111,19 +111,22 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
-
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="city" class="form-control" placeholder="City" value="" required>
+                                                    <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Phone Number</label>
-
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="">
+                                                    <select name="country" class="form-control" required id="country" onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');">
+                                                        <option value="">-Select One-</option>
+                                                        @foreach($countries_list as $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,25 +137,21 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-5 col-sm-5 col-xs-12">Province <span class="required">*</span></label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <select name="province" class="form-control" id="province" required>
+                                                    <select name="province" class="form-control" id="province" required onchange="cities('{{ addslashes(url("ajax")) }}', 'ON');">
                                                         <option value="">-Select One-</option>
-                                                        @foreach($states_list as $value)
+                                                        <!--@foreach($states_list as $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                        @endforeach
+                                                        @endforeach-->
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">Country <span class="required">*</span></label>
-
+                                                <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <select name="country" class="form-control" required id="country" onchange="provinces('<?= addslashes(url("ajax")); ?>', 'ON');">
+                                                    <select name="city" id="city" class="form-control" required onchange="cities('{{ addslashes(url("ajax")) }}', 'ON');">
                                                         <option value="">-Select One-</option>
-                                                        @foreach($countries_list as $value)
-                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

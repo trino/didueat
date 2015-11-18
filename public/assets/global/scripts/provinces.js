@@ -28,7 +28,33 @@ function provinces(webroot, value){
             element = getelement("province");
             element.innerHTML = msg;
         }
-    })
+    });
+}
+
+function cities(webroot, value){
+    var province = 7;//Canada
+    var element = getelement("province");
+    if (element){
+        province = element.value;
+        if(isNaN(province)){
+            return false;
+        }
+    }
+    
+    $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+    });
+
+    $.ajax({
+        url: webroot,
+        type: "post",
+        dataType: "HTML",
+        data: "type=cities&province=" + province + "&value=" + value,
+        success: function (msg) {
+            element = getelement("city");
+            element.innerHTML = msg;
+        }
+    });
 }
 
 $( document ).ready(function() {
@@ -39,4 +65,11 @@ $( document ).ready(function() {
             evnt.call(element);
         }
     }
+//    var element2 = getelement("province");
+//    if (element2){
+//        var evnt2 = element2["onchange"];
+//        if (typeof(evnt2) == "function") {
+//            evnt2.call(element2);
+//        }
+//    }
 });

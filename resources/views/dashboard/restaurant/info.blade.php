@@ -147,18 +147,30 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ ((isset($resturant->city))?$resturant->city:'') }}" required>
+                                                <label>Country</label>
+                                                <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');" required>
+                                                    <option value="">-Select One-</option>
+                                                    @foreach($countries_list as $value)
+                                                        <option value="{{ $value->id }}" @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <select name="province" class="form-control" required id="province"></select>
+                                                <select name="province" class="form-control" required id="province" onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($resturant->province))?$resturant->province:'' }}');"></select>
                                             </div>
                                         </div>
-
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <select name="city" class="form-control" required id="city"></select>
+                                            </div>
+                                        </div>
+                                        
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
@@ -172,18 +184,7 @@
                                                 <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ ((isset($resturant->phone))?$resturant->phone:'') }}">
                                             </div>
                                         </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <select name="country" id="country" class="form-control" id="country" onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');" required>
-                                                    <option value="">-Select One-</option>
-                                                    @foreach($countries_list as $value)
-                                                        <option value="{{ $value->id }}" @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -256,6 +257,12 @@
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 <script>
+    @if(isset($resturant->city))
+        $(document).ready(function(){
+                cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
+        });
+    @endif
+    
     function ajaxuploadbtn(button_id) {
         var button = $('#' + button_id), interval;
         var token = $('#resturantForm input[name=_token]').val();

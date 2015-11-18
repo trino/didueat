@@ -25,7 +25,6 @@
                     <option value="{{ $cat->id }}" @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
                 @endforeach
             </select>
-
             <strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
             <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
             <div class="catblock" style="display: none;">

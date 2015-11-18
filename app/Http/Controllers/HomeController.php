@@ -448,8 +448,7 @@ class HomeController extends Controller
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
         $data['states_list'] = \App\Http\Models\States::get();
-        //$data['menus_list'] = $menus;
-        //echo '<pre>'; print_r($data['restaurant']); die;
+        
         if (isset($_GET['page'])) {
             return view('menus', $data);
         } else {
@@ -558,6 +557,26 @@ class HomeController extends Controller
                             echo '<OPTION SELECTED DISABLED VALUE="">' . $Provinces->name . ' has no provinces/states</OPTION>';
                         } else {
                             echo '<OPTION SELECTED DISABLED VALUE="">Country: ' . $_POST["country"] . ' not found</OPTION>';
+                        }
+                    }
+                    break;
+                case "cities":
+                    $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
+                    $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
+                    foreach($Cities as $City){
+                        $HasCities = true;
+                        echo '<OPTION VALUE="' . $City->id . '"';
+                        if ( $City->id == $_POST["value"]){
+                            echo ' SELECTED';
+                        }
+                        echo '>' . $City->city . '</OPTION>' . "\r\n";
+                    }
+                    if(!isset($HasCities)){
+                        $Cities = get_entry("cities", $_POST["province"]);
+                        if($Cities){
+                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Cities->city . ' has no provinces/states</OPTION>';
+                        } else {
+                            echo '<OPTION SELECTED DISABLED VALUE="">Province: ' . $_POST["province"] . ' not found</OPTION>';
                         }
                     }
                     break;
