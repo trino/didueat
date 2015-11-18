@@ -534,7 +534,7 @@ class RestaurantController extends Controller
             }
 
 
-            \Session::flash('message', "Address has beed default successfully!");
+            \Session::flash('message', "Address has been default successfully!");
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
             return \Redirect::to('restaurant/addresses');

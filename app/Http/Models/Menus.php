@@ -37,11 +37,13 @@ class Menus extends BaseModel
      * @param $term
      * @param $per_page
      * @param $start
+     * @param $sortType
+     * @param $sortBy
      * @return response
      */
     public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '')
     {
-        $query = \App\Http\Models\Menus::where('parent', 0)
+        $query = \App\Http\Models\Menus::Where('parent', 0)
             ->Where(function ($query) use ($term, $priceFrom, $priceTo, $hasAddon, $hasImage) {
                 if ($term != "") {
                     $query->where('menu_item', 'LIKE', "%$term%");

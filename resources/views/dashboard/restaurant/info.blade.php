@@ -225,7 +225,7 @@
 
                                             <div class=" col-md-3 col-sm-3 col-xs-3">
                                                 <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
-                                                <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value; ?>"/>
+                                                <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
                                                 <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
                                             </div>
                                         </div>
@@ -337,25 +337,4 @@
     });
 </script>
 
-<?php
-function getTime($time)
-{
-    if (!$time)
-        return $time;
-    else
-        $arr = explode(':', $time);
-    $hour = $arr[0];
-    $min = $arr[1];
-    $sec = $arr[2];
-    if ($hour >= 12) {
-        $hour = $hour - 12;
-        $suffix = 'PM';
-
-    } else
-        $suffix = 'AM';
-    if (strlen($hour) == 1)
-        $hour = '0' . $hour;
-    return $hour . ':' . $min . ' ' . $suffix;
-}
-?>
 @stop

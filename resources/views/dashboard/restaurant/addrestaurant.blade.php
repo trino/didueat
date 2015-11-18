@@ -149,13 +149,6 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Province <span class="required">*</span></label>
-                                                <SELECT name="province" id="province"></SELECT>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
                                                 <label>Postal Code <span class="required" aria-required="true">*</span></label>
                                                 <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                                             </div>
@@ -179,6 +172,14 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Province <span class="required">*</span></label>
+                                                <SELECT name="province" id="province" class="form-control"></SELECT>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -320,25 +321,4 @@
     });
 </script>
 
-<?php
-function getTime($time)
-{
-    if (!$time)
-        return $time;
-    else
-        $arr = explode(':', $time);
-    $hour = $arr[0];
-    $min = $arr[1];
-    $sec = $arr[2];
-    if ($hour >= 12) {
-        $hour = $hour - 12;
-        $suffix = 'PM';
-
-    } else
-        $suffix = 'AM';
-    if (strlen($hour) == 1)
-        $hour = '0' . $hour;
-    return $hour . ':' . $min . ' ' . $suffix;
-}
-?>
 @stop
