@@ -1,5 +1,5 @@
 @if(!isset($_GET['page']))
-<div id="loadmenus_{{$catid}}">
+<div id="loadmenus_<?php echo $catid;?>">
 @endif
 
 @foreach($menus_list as $value)
@@ -154,7 +154,7 @@
 </div>
 @endif
 
-<div style="display: none;" class="nxtpage_{{ catid }}">
+<div style="display: none;" class="nxtpage_{{ $catid }}">
     <li class="next_{{ $catid }}"><a href="{{ $menus_list->nextPageUrl() }}">Next &gt;&gt;</a></li>
 </div>
 
