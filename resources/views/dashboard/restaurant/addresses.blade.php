@@ -24,7 +24,7 @@
                         <div class="box-shadow">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-globe"></i>MY NOTIFICATIONS
+                                    <i class="fa fa-globe"></i>MY NOTIFICATION ADDRESSES
                                 </div>
                                 <div class="tools"></div>
                             </div>
