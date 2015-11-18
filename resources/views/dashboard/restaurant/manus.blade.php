@@ -85,13 +85,9 @@
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     <script>
         jQuery(document).ready(function () {
-            //Metronic.init();
             Demo.init();
             $("#menuForm").validate();
-        });
-    </script>
-    <script>
-        $(function () {
+
             $(".sorting_parent").live('click', function () {
                 //alert('test');
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');

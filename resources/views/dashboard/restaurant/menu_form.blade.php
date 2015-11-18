@@ -162,7 +162,7 @@
             } else {
                 $.ajax({
                     url: "{{ url('restaurant/saveCat/') }}",
-                    data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ (isset($restaurant->id))? $restaurant->id : echo $res_id }}",
+                    data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ (isset($restaurant->id))? $restaurant->id : $res_id }}",
                     type: 'post',
                     success: function (res) {
                         $('.overlay_loader').hide();

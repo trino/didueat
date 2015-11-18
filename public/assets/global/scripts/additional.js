@@ -192,31 +192,19 @@ $('.savebtn').live('click',function(){
                                data:'menu_item='+cctitle+'&price='+ccprice+'&parent='+res2+'&_token='+token+'&display_order='+di_o+'&cat_id=0',
                                type:'post',
                                success:function(res2){
-                                if($_this2.find('.cmore').length == co)
-                                {
-                                 
-                                //window.location=base_url+'restaurant/red/menus-manager';
-                                window.location=base_url+'restaurant/redfront/restaurants/'+$('#res_slug').val()+'/menus';
+                                if($_this2.find('.cmore').length == co){
+                                    window.location=base_url+'restaurant/redfront/restaurants/'+$('#res_slug').val()+'/menus';
                                 }
-                                
                                }
                             });
-                            
                         });
                     }
                    }
                 });
-                
-                
-                
             });
-        }
-        else
-        {
-            //window.location=base_url+'restaurant/red/menus-manager';
+        } else {
             window.location=base_url+'restaurant/redfront/restaurants/'+$('#res_slug').val()+'/menus';     
         }
-       
        }
     });
 });

@@ -5380,3 +5380,4 @@ li {
 .order-style {height: 220px;}
 .receipt_description_style {background:red;color:white;padding: 20px;}
 .font-size {font-size: 50px;}
+.DTTT_button_pdf, .DTTT_button_csv, .DTTT_button_xls, .DTTT_button_print {background-color: #B30C10;}

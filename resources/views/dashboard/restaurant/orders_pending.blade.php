@@ -23,15 +23,15 @@
                     <div class="box-shadow">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-globe"></i>MY ORDERS ({{ strtoupper($type) }})
+                                <i class="fa fa-globe"></i> MY ORDERS ({{ strtoupper($type) }})
                             </div>
                             <div class="tools">
-
+                                
                             </div>
                         </div>
                         <div class="portlet-body">
 
-                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                            <table class="table table-striped table-bordered table-hover" id="sample_111">
                                 <thead>
                                     <tr>
                                         <th width="5%">Order #</th>

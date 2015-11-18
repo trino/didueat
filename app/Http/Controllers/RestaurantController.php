@@ -451,7 +451,7 @@ class RestaurantController extends Controller
                     }
                 }
 
-                \Session::flash('message', "Address added successfully!");
+                \Session::flash('message', "Notification address added successfully!");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/addresses');
@@ -922,9 +922,10 @@ class RestaurantController extends Controller
         $data['menu_id'] = $id;
         $data['res_id'] = $res_id;
         if ($res_id) {
-            $data['res_slug'] = \App\Http\Models\restaurants::where('id', $res_id)->get()[0]->slug;
-        } else
-            $data['res_slug'] = '';
+            $data['res_slug'] = \App\Http\Models\restaurants::find($res_id)->slug;
+        } else {
+            $data['res_slug'] = select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug');
+        }
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             //$id = $_GET['menu_id'];
@@ -976,12 +977,8 @@ class RestaurantController extends Controller
 
     public function menuadd()
     {
-
         //echo '<pre>';print_r($_POST); die;
-        //$this->loadModel("Menus");
-        //$this->loadComponent('Manager');
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
-        // echo $_POST['cat_id'];die();
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
@@ -996,23 +993,10 @@ class RestaurantController extends Controller
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
         }
-        //echo $arr['cat_id'];die();
-        //sample for find or New
-        /*$ob2 = \App\Http\Models\Menus::findOrNew($_GET['id']);
-                      $ob2->populate($arr);
-                      $ob2->save();
-        */
+        
         if (isset($_GET['id']) && $_GET['id']) {
-            //die('update');
             $id = $_GET['id'];
             \App\Http\Models\Menus::where('id', $id)->update($arr);
-
-            /*
-              $ob = \App\Http\Models\ProfilesAddresses::findOrNew($post['ID']);
-              $ob->populate($post);
-              $ob->save();
-             */
-
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {
                 \App\Http\Models\Menus::where('parent', $c->id)->delete();
@@ -1032,7 +1016,6 @@ class RestaurantController extends Controller
                     if (!file_exists(public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id))) {
                         mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
                     }
-
                     copy($filename, public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/' . $newName));
                     unlink($filename);
                     $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb_' => '150x145', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb1_' => '70x65', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb2_' => '40x35'];
@@ -1044,8 +1027,6 @@ class RestaurantController extends Controller
             }
             die();
         } else {
-            //die('add');
-            //$cchild = \App\Http\Models\Menus::where(['res_id'=>$this->Manager->read('ID'),'parent'=>0])->get(); 
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {
                 $orders = $orders_mod[0];
