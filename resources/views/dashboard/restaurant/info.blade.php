@@ -187,10 +187,10 @@
                                     </div>
                                 </div>
 
-                                <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                                </div>
+                                {{--<div class="form-actions">--}}
+                                    {{--<input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>--}}
+                                    {{--<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>--}}
+                                {{--</div>--}}
 
                             </div>
                         </div>
@@ -231,10 +231,10 @@
                                     <?php } ?>
                                 </div>
 
-                                <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                                </div>
+                                {{--<div class="form-actions">--}}
+                                    {{--<input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>--}}
+                                    {{--<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>--}}
+                                {{--</div>--}}
 
                             </div>
                         </div>
