@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <meta name="_token" content="{{ csrf_token() }}"/>
-<script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <!-- BEGIN THEME STYLES -->
 <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
@@ -57,7 +57,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                                                <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ $resturant->name }}" required>
+                                                <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ (isset($resturant->name))?$resturant->name:'' }}" required>
                                             </div>
                                         </div>
 
@@ -67,7 +67,7 @@
                                                 <select name="genre" id="genre" class="form-control">
                                                     <option value="">-Select One-</option>
                                                     @foreach($genre_list as $value)
-                                                        <option value="{{ $value->id }}" @if($resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if(isset($resturant->genre) && $resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -76,7 +76,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Description</label>
-                                                <textarea name="description" class="form-control" placeholder="Description">{{ $resturant->description }}</textarea>
+                                                <textarea name="description" class="form-control" placeholder="Description">{{ (isset($resturant->description))?$resturant->description:'' }}</textarea>
                                             </div>
                                         </div>
 
@@ -87,14 +87,14 @@
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ $resturant->delivery_fee }}" required />
+                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($resturant->delivery_fee))?$resturant->delivery_fee:'' }}" required />
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
-                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ $resturant->minimum }}" required />
+                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($resturant->minimum))?$resturant->minimum:'' }}" required />
                                             </div>
                                         </div>
 
@@ -104,8 +104,8 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @if($resturant->logo)
-                                                    <img id="picture" class="margin-bottom-10 full-width" src="{{ asset('assets/images/restaurants/'.$resturant->id.'/thumb_'.$resturant->logo). '?'.mt_rand() }}" title="" />
+                                                @if(isset($resturant->logo) && $resturant->logo != "")
+                                                    <img id="picture" class="margin-bottom-10 full-width" src="{{ asset('assets/images/restaurants/'. ((isset($resturant->id))?$resturant->id:'') .'/thumb_'. ((isset($resturant->logo))?$resturant->logo:'')). '?'.mt_rand() }}" title="" />
                                                 @else
                                                     <img id="picture" class="margin-bottom-10 full-width" src="{{ asset('assets/images/default.png') }}" title="" />
                                                 @endif
@@ -119,7 +119,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:'') }}"/>
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                                 </div>
 
@@ -141,14 +141,14 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ $resturant->address }}" required>
+                                                <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ ((isset($resturant->address))?$resturant->address:'') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ $resturant->city }}" required>
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ ((isset($resturant->city))?$resturant->city:'') }}" required>
                                             </div>
                                         </div>
 
@@ -162,24 +162,24 @@
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label>Postal Code</label>
-                                                <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ $resturant->postal_code }}" required>
+                                                <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ ((isset($resturant->postal_code))?$resturant->postal_code:'') }}" required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="form-group">
                                                 <label class="control-label">Phone Number</label>
-                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ $resturant->phone }}">
+                                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ ((isset($resturant->phone))?$resturant->phone:'') }}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <select name="country" id="country" class="form-control" id="country" onchange="provinces('<?= addslashes(url("ajax")); ?>', 'ON');" required>
+                                                <select name="country" id="country" class="form-control" id="country" onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');" required>
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
-                                                        <option value="{{ $value->id }}" @if($resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -188,7 +188,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                                 </div>
 
@@ -210,21 +210,19 @@
                                     <?php
                                         $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                                         foreach ($day_of_week as $key => $value) {
-                                        $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
-                                        $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
-                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
+                                        $open[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'open');
+                                        $close[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'close');
+                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'id');
                                     ?>
                                     <div class="row">
                                         <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-3"><?php echo $value; ?></label>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
                                             <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="open[<?php echo $key; ?>]" value="<?php echo getTime($open[$key]); ?>" class="form-control time"/>
+                                                <input type="text" name="open[{{ $key }}]" value="{{ (isset($open[$key]))?$open[$key]:getTime($open[$key]) }}" class="form-control time" />
                                             </div>
-
                                             <div class="col-md-3 col-sm-3 col-xs-3" id="hour-to-style">to</div>
-
                                             <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
+                                                <input type="text" name="close[{{ $key }}]" value="{{ (isset($close[$key]))?$close[$key]:getTime($close[$key]) }}" class="form-control time"/>
                                                 <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
                                                 <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
                                             </div>
@@ -234,7 +232,7 @@
                                 </div>
 
                                 <div class="form-actions">
-                                    <input type="hidden" name="id" value="{{ $resturant->id }}"/>
+                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
                                     <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
                                 </div>
 
