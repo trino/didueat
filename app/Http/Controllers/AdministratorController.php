@@ -280,6 +280,7 @@ class AdministratorController extends Controller
         return view('common.edituser', $data);
     }
 
+
     /**
      * Users List
      * @param null

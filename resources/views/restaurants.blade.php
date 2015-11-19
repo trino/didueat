@@ -85,8 +85,11 @@
                     </div>
 
                     <div class="clearfix"></div>
-                    <button type="button" class="btn btn-primary red loadMoreRestaurants">Load more</button>
-                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
+                    @if ($count > 10)
+                        <button type="button" class="btn btn-primary red loadMoreRestaurants">Load more</button>
+                        <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" />
+                    @endif
+
                     {!! csrf_field() !!}
                 </div>
             </div>

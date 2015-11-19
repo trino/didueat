@@ -345,7 +345,7 @@ class UsersController extends Controller
                     $userArray2['mail_subject'] = 'Your order has been received!';
                     $this->sendEMail("emails.order_user_notification", $userArray2);
 
-                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res->restaurant_id)->where('is_default', 1);
+                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res->restaurant_id); //->where('is_default', 1)
                     if($notificationEmail->count() > 0){
                         foreach($notificationEmail->get() as $resValue){
                             if($resValue->type == "Email"){

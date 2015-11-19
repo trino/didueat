@@ -96,8 +96,8 @@ class HomeController extends Controller
      */
     public function searchRestaurants($term = '')
     {
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 8, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 8, 0, 'count')->count();
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'count')->count();
         $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
         $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
         $data['countries'] = \App\Http\Models\Countries::get();
@@ -119,8 +119,8 @@ class HomeController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->get();
-                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 8, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->count();
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 10, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->get();
+                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 10, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->count();
                 $data['start'] = $data['query']->count() + $post['start'];
                 $data['term'] = $post['term'];
 
@@ -289,16 +289,6 @@ class HomeController extends Controller
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
             try {
-                /*
-                if (\Input::hasFile('logo')) {
-                   
-                    $image = \Input::file('logo');
-                    $ext = $image->getClientOriginalExtension();
-                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
-                    $destinationPath = public_path('assets/images/restaurants');
-                    $image->move($destinationPath, $newName);
-                    $update['logo'] = $newName;
-                }*/
                 if ($post['logo'] != '') {
                     $update['logo'] = $post['logo'];
                 }
@@ -315,6 +305,7 @@ class HomeController extends Controller
                 $update['postal_code'] = $post['postal_code'];
                 $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['open'] = 1;
 
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
