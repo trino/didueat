@@ -84,7 +84,7 @@ class UsersController extends Controller
                 \Session::flash('message', "Address created successfully");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/addresses/' . $ob->id);
+                return \Redirect::to('user/addresses');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');

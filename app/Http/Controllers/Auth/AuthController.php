@@ -476,19 +476,32 @@ class AuthController extends Controller {
             die;
         }
     }
-
+    
     /**
-     * Logout
-     * @param  null
-     * @return redirect
+     * Validate Unique Email
+     * @param  $email
+     * @return string
      */
-    public function getLogout()
+    public function postAjaxValidateEmail()
     {
-        \Session::flush();
-        \Session::flash('message', trans('messages.user_logout.message'));
-        \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Congratulations!');
-        return \Redirect::to('/');
+        if (\Input::has('email')) {
+            try {
+                $user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->count();
+                if ($user > 0) {
+                    echo "false";
+                    die;
+                } else {
+                    echo "true";
+                    die;
+                }
+            } catch (Exception $e) {
+                echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+                die;
+            }
+        } else {
+            echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message')));
+            die;
+        }
     }
 
     function test()

@@ -222,18 +222,18 @@ class HomeController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
             }
-            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-                \Session::flash('message', "[Delivery Fee] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
-            }
-            if (!isset($post['minimum']) || empty($post['minimum'])) {
-                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
-            }
+//            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
+//                \Session::flash('message', "[Delivery Fee] field is missing!");
+//                \Session::flash('message-type', 'alert-danger');
+//                \Session::flash('message-short', 'Oops!');
+//                return \Redirect::to('/restaurants/signup')->withInput();
+//            }
+//            if (!isset($post['minimum']) || empty($post['minimum'])) {
+//                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+//                \Session::flash('message-type', 'alert-danger');
+//                \Session::flash('message-short', 'Oops!');
+//                return \Redirect::to('/restaurants/signup')->withInput();
+//            }
             if (!isset($post['address']) || empty($post['address'])) {
                 \Session::flash('message', "[Address] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
@@ -313,8 +313,8 @@ class HomeController extends Controller
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
-                $update['delivery_fee'] = $post['delivery_fee'];
-                $update['minimum'] = $post['minimum'];
+                $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
+                $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
 
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
@@ -543,6 +543,7 @@ class HomeController extends Controller
             switch (strtolower($_POST["type"])) {
                 case "provinces":
                     $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
+                    echo '<OPTION VALUE="">-select one-</OPTION>';
                     foreach($Provinces as $Province){
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
@@ -563,6 +564,7 @@ class HomeController extends Controller
                 case "cities":
                     $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
                     $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
+                    echo '<OPTION VALUE="">-select one-</OPTION>';
                     foreach($Cities as $City){
                         $HasCities = true;
                         echo '<OPTION VALUE="' . $City->id . '"';

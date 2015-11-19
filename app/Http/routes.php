@@ -34,6 +34,7 @@ Route::get('auth/verify_email/{email}',             'Auth\AuthController@verifyE
 Route::get('auth/forgot-passoword',                 'Auth\AuthController@forgotPassword');
 Route::post('auth/forgot-passoword',                'Auth\AuthController@postForgotPassword');
 Route::post('auth/forgot-passoword/ajax',           'Auth\AuthController@postAjaxForgotPassword');
+Route::post('auth/validate/email/ajax',             'Auth\AuthController@postAjaxValidateEmail');
 
 // Dashboard After Authentication routes...
 Route::resource('dashboard',                        'AdministratorController@dashboard');

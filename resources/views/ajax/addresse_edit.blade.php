@@ -85,6 +85,25 @@
                 </div>
             </div>
             <!--/row-->
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Apartment <span class="required">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <input type="text" name="apartment" class="form-control" placeholder="Apartment" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:'' }}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-5 col-sm-5 col-xs-12">Buzz Code <span class="required">*</span></label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                            <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:'' }}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
         </div>
 
         <br />

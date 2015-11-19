@@ -1,5 +1,5 @@
 @if(!isset($_GET['page']))
-<div id="loadmenus_<?php echo $catid;?>">
+<div id="loadmenus_{{ $catid }}">
 @endif
 
 @foreach($menus_list as $value)

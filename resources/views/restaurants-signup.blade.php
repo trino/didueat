@@ -191,7 +191,11 @@ $(document).ready(function() {
             },
             email: {
                 required: true,
-                email: true
+                email: true,
+                remote: {
+                    url: "{{ url('auth/validate/email/ajax') }}",
+                    type: "post"
+                }
             },
             PostalCode: {
                 matchPattern: true
@@ -203,7 +207,11 @@ $(document).ready(function() {
                 minlength: "Your phone number must consist of at least 10 Number",
                 maxlength: "Your phone number must consist of at most 10 Number",
             },
-            email: "Please enter a valid email address",
+            email: {
+                required: "Please Enter Email!",
+                email: "This is not a valid email!",
+                remote: "Email already in use!"
+            },
             PostalCode: {
                 matchPattern: "Invalid Postal Code"
             },

@@ -83,21 +83,25 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3 class="form-section">Delivery</h3>
                                         </div>
-
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($resturant->delivery_fee))?$resturant->delivery_fee:'' }}" required />
+                                                <label class="control-label"><input type="checkbox" name="allow_delivery" id="allow_delivery" value="yes" {{ (isset($resturant->delivery_fee) && $resturant->delivery_fee > 0)?'checked':'' }} /> Allow home delivery</label>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
-                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($resturant->minimum))?$resturant->minimum:'' }}" required />
+                                        <div id="allow_delivery_options" style="display: {{ (isset($resturant->delivery_fee) && $resturant->delivery_fee > 0)?'block':'none' }};">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Delivery Fee </label>
+                                                    <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($resturant->delivery_fee))?$resturant->delivery_fee:'' }}" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Min. Subtotal before Delivery</label>
+                                                    <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($resturant->minimum))?$resturant->minimum:'' }}" />
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <h3 class="form-section">Logo</h3>
                                         </div>
@@ -188,11 +192,10 @@
                                     </div>
                                 </div>
 
-                                {{--<div class="form-actions">--}}
-                                    {{--<input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>--}}
-                                    {{--<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>--}}
-                                {{--</div>--}}
-
+                                <div class="form-actions">
+                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}" />
+                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -232,10 +235,10 @@
                                     <?php } ?>
                                 </div>
 
-                                {{--<div class="form-actions">--}}
-                                    {{--<input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>--}}
-                                    {{--<button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>--}}
-                                {{--</div>--}}
+                                <div class="form-actions">
+                                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}" />
+                                    <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                                </div>
 
                             </div>
                         </div>
@@ -262,6 +265,14 @@
                 cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
         });
     @endif
+    
+    $('body').on('change', '#allow_delivery', function(){
+        if($(this).is(':checked')){
+            $('#allow_delivery_options').show();
+        } else {
+            $('#allow_delivery_options').hide();
+        }
+    });
     
     function ajaxuploadbtn(button_id) {
         var button = $('#' + button_id), interval;
@@ -297,7 +308,7 @@
         });
     }
 
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function () {        
         $("#resturantForm").validate();
         ajaxuploadbtn('uploadbtn');
 
