@@ -333,7 +333,7 @@ class AuthController extends Controller {
         } else {
             $message['title'] = "Email verification";
             $message['msg_type'] = "error";
-            $message['msg_desc'] = "Invalid code found. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
+            $message['msg_desc'] = "Invalid code found. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
             return view('messages.message', $message);
         }
     }
@@ -352,7 +352,7 @@ class AuthController extends Controller {
         if ($count > 0) {
             $message['title'] = "Email verification";
             $message['msg_type'] = "error";
-            $message['msg_desc'] = "Your account has been verified already. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
+            $message['msg_desc'] = "Your account has been verified already. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
             return view('messages.message', $message);
         }
 
@@ -364,8 +364,8 @@ class AuthController extends Controller {
 
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
-            //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login.";
-            $message['msg_desc'] = "Thank you for activating your account with DidUEat.com. Your email has been confirmed successfully. You have been logged in into our system. Please <a href='" . url('user/info') . "'><b>click here</b></a> to change your info. ";
+            //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
+            $message['msg_desc'] = "Thank you for activating your account with DidUEat.com. Your email has been confirmed successfully. You have been logged in into our system. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";

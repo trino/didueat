@@ -431,7 +431,10 @@ class RestaurantController extends Controller
                 if(filter_var($post['address'], FILTER_VALIDATE_EMAIL)) {
                     $post['type'] = "Email";
                 }
-                $ob = new \App\Http\Models\NotificationAddresses();
+
+                $update_id = (isset($post['id']))?$post['id']:0;
+
+                $ob = \App\Http\Models\NotificationAddresses::findOrNew($update_id);
                 $ob->populate($post);
                 $ob->save();
 
@@ -451,7 +454,7 @@ class RestaurantController extends Controller
                     }
                 }
 
-                \Session::flash('message', "Notification address added successfully!");
+                \Session::flash('message', "Notification address saved successfully!");
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
                 return \Redirect::to('restaurant/addresses');
@@ -467,6 +470,19 @@ class RestaurantController extends Controller
             return view('dashboard.restaurant.addresses', $data);
         }
     }
+
+    /**
+     * Edit Address Form
+     * @param $id
+     * @return view
+     */
+    public function ajaxEditAddressForm( $id=0 )
+    {
+        $data['address_detail'] = \App\Http\Models\NotificationAddresses::find($id);
+        return view('ajax.editaddress', $data);
+    }
+
+
 
     /**
      * Delete Addresses

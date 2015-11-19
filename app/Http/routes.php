@@ -20,8 +20,8 @@ Route::post('/newsletter/subscribe',                 'HomeController@newsletterS
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');
-Route::get('auth/login',                            'Auth\AuthController@getLogin');
-Route::post('auth/login',                           'Auth\AuthController@authenticate');
+//Route::get('auth/login',                            'Auth\AuthController@getLogin');
+//Route::post('auth/login',                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                           'Auth\AuthController@getLogout');
 
 // Registration routes...
@@ -53,6 +53,7 @@ Route::resource('restaurant/info',                  'RestaurantController@restau
 Route::resource('restaurant/add/new',                  'RestaurantController@addRestaurants');
 Route::resource('restaurant/menus-manager',         'RestaurantController@menuManager');
 Route::resource('restaurant/addresses',             'RestaurantController@addresses');
+Route::get('restaurant/addresses/edit/{id}',            'RestaurantController@ajaxEditAddressForm');
 Route::get('restaurant/addresses/delete/{id}',      'RestaurantController@deleteAddresses'      )->where('id', '[0-9]+');
 Route::get('restaurant/addresses/default/{id}',      'RestaurantController@defaultAddresses'      )->where('id', '[0-9]+');
 Route::get('restaurant/orders/list',             'RestaurantController@pendingOrders');

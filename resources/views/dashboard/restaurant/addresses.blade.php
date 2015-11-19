@@ -35,7 +35,7 @@
                                         <th width="10%">ID</th>
                                         <th width="50%">Phone Number/Email Address</th>
                                         <th width="15%">Type</th>
-                                        <th width="15%">Status</th>
+                                        {{--<th width="15%">Status</th>--}}
                                         <th width="10%">Actions</th>
                                     </tr>
                                     </thead>
@@ -46,9 +46,10 @@
                                             <td>{{ $value->id }}</td>
                                             <td>{{ $value->address }}</td>
                                             <td>{{ $value->type }}</td>
-                                            <td>{!! ($value->is_default == 1)?'Default':$status !!}</td>
+                                            {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
                                             <td>
-                                                <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete <?= addslashes("'" . $value->address . "'"); ?>?');">Delete</a>
+                                                <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
+                                                <a href="#editAddress" class="btn red editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,5 +95,28 @@
         </div>
     </div>
 
+    <div id="editAddress" class="col-md-12" style="display: none;">
+        <div class="modal-dialog">
+            <div class="fancy-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update</h4>
+                </div>
+                {!! Form::open(array('url' => '/restaurant/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                <div id="editContents"></div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
+
     @include('common.tabletools')
+
+    <script>
+        $('body').on('click', '.editAddress', function(){
+            var id = $(this).attr('data-id');
+            $.get("{{ url("restaurant/addresses/edit") }}/"+id, {}, function(result){
+                $('#editForm #editContents').html(result);
+            });
+        });
+    </script>
+
 @stop
