@@ -934,14 +934,13 @@ class RestaurantController extends Controller
 
     public function menu_form($id, $res_id = 0)
     {
-        //$this->layout = 'blank';
         $data['menu_id'] = $id;
         $data['res_id'] = $res_id;
-        if ($res_id) {
+        $data['res_slug'] = select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug');
+        if ($res_id > 0) {
             $data['res_slug'] = \App\Http\Models\restaurants::find($res_id)->slug;
-        } else {
-            $data['res_slug'] = select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug');
         }
+
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             //$id = $_GET['menu_id'];
