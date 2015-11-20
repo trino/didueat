@@ -20,7 +20,6 @@
                 <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
                     <h2 class="padding-top-5 menu-title">{{ $value->menu_item }}</h2>
                     <p class="menu-description">{{ $value->description }}</p>
-                    {!! rating_initialize("static-rating", '2.5') !!}
                     @if(Session::has('is_logged_in'))
                     <div class="pull-left">
                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn-sm red">Remove</a>
@@ -35,6 +34,7 @@
                     <img style="height:60px;" src="{{ $item_image1 }}" class="img-responsive" alt="{{ $value->menu_item }}" />
                 </div>
             </a>
+            {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
         </div>
     </div>
 
@@ -56,7 +56,7 @@
 
                 <div class="product-titles">
                     <h2>{{ $value->description }}</h2>
-                    {!! rating_initialize("static-rating", '2.5') !!}
+                    {!! rating_initialize("static-rating", "menu", $value->id) !!}
                 </div>
 
                 <div class="subitems_{{ $value->id }} optionals">

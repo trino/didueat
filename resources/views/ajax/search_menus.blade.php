@@ -9,6 +9,7 @@
             $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
         }
     ?>
+
     <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12  parentDiv no-padding " style="">
         <div class="card ">
             <div class="sticker sticker-new"></div>
@@ -16,8 +17,8 @@
                 <div class="card-content">
                     <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                         <strong>{{ $value->menu_item }}</strong>
-                        {{ $value->description }}
-                        {!! rating_initialize("static-rating", '2.5') !!}
+                        {{ $value->description }} 
+                        {!! rating_initialize("static-rating", "menu", $value->id) !!}
                     </a>
                 </div>
                 <div class="card-action">

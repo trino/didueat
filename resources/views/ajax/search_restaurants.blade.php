@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-action col-md-4 col-sm-4 col-xs-12">
                     <a class="red btn" href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }} Pick-up Only</a>
-                    {!! rating_initialize("static-rating", '2.5') !!}
+                    {!! rating_initialize("static-rating", "restaurant", $value->id) !!}
                 </div>
             </div>
         </div>

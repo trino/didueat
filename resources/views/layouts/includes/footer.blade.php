@@ -84,6 +84,22 @@
     });
 
     $(document).ready(function() {
+        $('body').on('click', '.update-rating', function(e) {
+            var rating = $(this).val();
+            var rating_id = $(this).attr('data-rating-id');
+            var target_id = $(this).attr('data-target-id');
+            var type = $(this).attr('data-type');
+            
+            $.post("{{ url('rating/save') }}", {rating:rating, rating_id:rating_id, target_id:target_id, type:type, _token:"{{ csrf_token() }}"}, function(json){
+                if (json.type == "error") {
+                    alert(json.response);
+                    //e.preventDefault();
+                } else {
+                    alert(json.response);
+                }
+            });
+        });
+        
         $('body').on('submit', '#subscribe-email', function(e) {
             var email = $('#subscribe-email input[name=email]').val();
             var token = $('#subscribe-email input[name=_token]').val();

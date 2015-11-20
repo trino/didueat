@@ -583,6 +583,29 @@ class HomeController extends Controller
         die();
     }
     
+    public function ratingSave() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            try {//rating_id:rating_id, target_id:target_id, type:type
+                $post['user_id'] = (\Session::has('session_id'))?\Session::get('session_id'):0;
+                $exist = \App\Http\Models\RatingUsers::where('user_id', $post['user_id'])->where('rating_id', $post['rating_id'])->where('target_id', $post['target_id'])->where('type', $post['type'])->count();
+                if($exist == 0){
+                    $ob = new \App\Http\Models\RatingUsers();
+                    $ob->populate($post);
+                    $ob->save();
+                    
+                    return \Response::json(array('type' => 'success', 'response' => "Thank you! for your rating."), 200);
+                } else {
+                    return \Response::json(array('type' => 'error', 'response' => "You already rated on this!"), 200);
+                }
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+        }
+    }
+    
     public function getToken()
     {
         echo csrf_token();

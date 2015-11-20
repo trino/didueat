@@ -16,7 +16,8 @@ Route::get('/restaurants/menu/stats/{id}',          'HomeController@countStatus'
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
 Route::post('/uploadimg/{type}',                    'HomeController@uploadimg')->where('type','[a-z]+');
-Route::post('/newsletter/subscribe',                 'HomeController@newsletterSubscribe');
+Route::post('/newsletter/subscribe',                         'HomeController@newsletterSubscribe');
+Route::post('/rating/save',                'HomeController@ratingSave');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                      'Auth\AuthController@authenticateAjax');

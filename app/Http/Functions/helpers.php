@@ -1161,65 +1161,74 @@ function getTime($time) {
     return $hour . ':' . $min . ' ' . $suffix;
 }
 
+function roundDownToHalf($number) {
+     $remainder = ($number * 10) % 10;
+     $half = $remainder >= 5 ? 0.5 : 0;
+     $value = floatval(intval($number) + $half);
+     return number_format($value, 1, '.', '');
+}
 
-function rating_initialize($type="rating", $average=0) {
+
+function rating_get($target_id=0, $rating_id=0, $type="") {
+    $fetch = App\Http\Models\RatingUsers::select(DB::raw('SUM(rating) as rating'))->where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->first();
+    return roundDownToHalf($fetch->rating/5);
+}
+
+function rating_initialize($type="rating", $load_type="", $target_id=0) {
     $html = "";
-    $startHalf = "";
-    $start1 = "";
-    $start1Half = "";
-    $start2 = "";
-    $start2Half = "";
-    $start3 = "";
-    $start3Half = "";
-    $start4 = "";
-    $start4Half = "";
-    $start5 = "";
-    switch ($average) {
-        case '0.5':
-            $startHalf = 'checked class="checked-stars"';
-            break;
-        case '1':
-            $start1 = 'checked class="checked-stars"';
-            break;
-        case '1.5':
-            $start1Half = 'checked class="checked-stars"';
-            break;
-        case '2':
-            $start2 = 'checked class="checked-stars"';
-            break;
-        case '2.5':
-            $start2Half = 'checked class="checked-stars"';
-            break;
-        case '3':
-            $start3 = 'checked class="checked-stars"';
-            break;
-        case '3.5':
-            $start3Half = 'checked class="checked-stars"';
-            break;
-        case '4':
-            $start4 = 'checked class="checked-stars"';
-            break;
-        case '4.5':
-            $start4Half = 'checked class="checked-stars"';
-            break;
-        case '5':
-            $start5 = 'checked class="checked-stars"';
-            break;
-        default:
-            break;
+    
+    foreach (select_field_where("rating_define", array('type' => $load_type), false) as $key => $value) {
+        $update_class = ($type == "rating")?' update-rating ':'';
+        $checked_class = ' checked-stars ';
+
+        $startHalf = 'class="'.$update_class.'"';
+        $start1 = 'class="'.$update_class.'"';
+        $start1Half = 'class="'.$update_class.'"';
+        $start2 = 'class="'.$update_class.'"';
+        $start2Half = 'class="'.$update_class.'"';
+        $start3 = 'class="'.$update_class.'"';
+        $start3Half = 'class="'.$update_class.'"';
+        $start4 = 'class="'.$update_class.'"';
+        $start4Half = 'class="'.$update_class.'"';
+        $start5 = 'class="'.$update_class.'"';
+
+        $average = rating_get($target_id, $value->id, $load_type);
+        if($average == 0.5) {
+            $startHalf = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 1.0){
+            $start1 = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 1.5){
+            $start1Half = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 2.0){
+            $start2 = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 2.5){
+            $start2Half = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 3.0){
+            $start3 = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 3.5){
+            $start3Half = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 4.0){
+            $start4 = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 4.5){
+            $start4Half = 'checked class="'.$checked_class.$update_class.'"';
+        } else if($average == 5.0){
+            $start5 = 'checked class="'.$checked_class.$update_class.'"';
+        }
+        
+        $html .= '<div class="'.$type.' rating-font-size rating-center-align"> <span>'.$value->title.'</span>
+                    <input type="radio" id="star5'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="5" '.$start5.' /><label class = "full" for="star5'.$target_id.$value->id.'" title="5 stars"></label>
+                    <input type="radio" id="star4half'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="4.5" '.$start4Half.' /><label class="half" for="star4half'.$target_id.$value->id.'" title="4.5 stars"></label>
+                    <input type="radio" id="star4'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="4" '.$start4.' /><label class = "full" for="star4'.$target_id.$value->id.'" title="4 stars"></label>
+                    <input type="radio" id="star3half'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="3.5" '.$start3Half.' /><label class="half" for="star3half'.$target_id.$value->id.'" title="3.5 stars"></label>
+                    <input type="radio" id="star3'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="3" '.$start3.' /><label class = "full" for="star3'.$target_id.$value->id.'" title="3 stars"></label>
+                    <input type="radio" id="star2half'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="2.5" '.$start2Half.' /><label class="half" for="star2half'.$target_id.$value->id.'" title="2.5 stars"></label>
+                    <input type="radio" id="star2'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="2" '.$start2.' /><label class = "full" for="star2'.$target_id.$value->id.'" title="2 stars"></label>
+                    <input type="radio" id="star1half'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="1.5" '.$start1Half.' /><label class="half" for="star1half'.$target_id.$value->id.'" title="1.5 stars"></label>
+                    <input type="radio" id="star1'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="1" '.$start1.' /><label class = "full" for="star1'.$target_id.$value->id.'" title="1 star"></label>
+                    <input type="radio" id="starhalf'.$target_id.$value->id.'" name="rating['.$target_id.$value->id.']" data-target-id="'.$target_id.'" data-rating-id="'.$value->id.'" data-type="'.$value->type.'" value="0.5" '.$startHalf.' /><label class="half" for="starhalf'.$target_id.$value->id.'" title="0.5 stars"></label>
+                </div>';
     }
-    $html = '<div class="'.$type.' rating-font-size rating-center-align">
-                <input type="radio" id="star5" name="rating" value="5" '.$start5.' /><label class = "full" for="star5" title="5 stars"></label>
-                <input type="radio" id="star4half" name="rating" value="4.5" '.$start4Half.' /><label class="half" for="star4half" title="4.5 stars"></label>
-                <input type="radio" id="star4" name="rating" value="4" '.$start4.' /><label class = "full" for="star4" title="4 stars"></label>
-                <input type="radio" id="star3half" name="rating" value="3.5" '.$start3Half.' /><label class="half" for="star3half" title="3.5 stars"></label>
-                <input type="radio" id="star3" name="rating" value="3" '.$start3.' /><label class = "full" for="star3" title="3 stars"></label>
-                <input type="radio" id="star2half" name="rating" value="2.5" '.$start2Half.' /><label class="half" for="star2half" title="2.5 stars"></label>
-                <input type="radio" id="star2" name="rating" value="2" '.$start2.' /><label class = "full" for="star2" title="2 stars"></label>
-                <input type="radio" id="star1half" name="rating" value="1.5" '.$start1Half.' /><label class="half" for="star1half" title="1.5 stars"></label>
-                <input type="radio" id="star1" name="rating" value="1" '.$start1.' /><label class = "full" for="star1" title="1 star"></label>
-                <input type="radio" id="starhalf" name="rating" value="0.5" '.$startHalf.' /><label class="half" for="starhalf" title="0.5 stars"></label>
-            </div>';
+    
     return $html;
 }
 ?>
