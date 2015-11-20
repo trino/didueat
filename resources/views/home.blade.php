@@ -1,99 +1,90 @@
-<?php
-$homeblade=true;
-$testip = "24.36.50.14";// when using WAMP, need to enter ip manually
-    
-			 $startZoom=13;
-
-    if(isset($_GET['userAddress'])){
-				 $userAddress=$_GET['userAddress']; // this takes precedence over cookie
-			  setcookie ("userAddress", $_GET['userAddress'], time()+315360000, "/", ".myseriestv.com");  // set to expire in ~10 years
-				}
-				elseif(isset($_COOKIE['userAddress'])){
-				 $userAddress=$_COOKIE['userAddress']; // this takes precedence over cookie
-				}
-			 else{
-     if(isset($testip)){
-      $ip = $testip;
-     }
-     else{
-      $ip = $_SERVER['REMOTE_ADDR'];   
-     }
-     
-     if($details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"))){
-      $thiscity=$details->city;
-      $thisregion=$details->region;
-      $thispostal=$details->postal;
-      $thisLoc=$details->loc;
-      $userAddress =  $thiscity.", ".$thisregion." ".$thispostal;
-     }
-     else{
- 			  $userAddress = "Hamilton, ON";
-     }
-			 }
-
-
-?>
 @extends('layouts.default')
 @section('content')
 
-<div class="container-fluid">
-				<div class="row" style="position:relative;top:150px;">
-       <h1 align="center">Order Your Food From a Nearby Restaurant</h1>
-									<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-         				<form role="form">
-													<div class="row home-map-form" id="homepgsrch" style="margin-left:auto;margin-right:auto;min-width:350px;max-width:700px">
-				             <div class="col-xs-12 col-sm-7 col-md-7">
-                     <div class="form-group" align="center">
-																	         <label for="radiusSelect"><b>Enter Address, City or Postal Code:</b></label>
-     																	    <input type="text" id="addressInput" placeholder="Enter Your Address, City or Postal Code" value="{{ $userAddress }}" style="width:300px;height:28px;margin-right:3px" /><input id="geoloc" type="hidden"  value="{{ $thisLoc }}" />
-																	    </div>
-																	</div>
-                 <div class="col-xs-12 col-sm-5 col-md-5">
-                     <div class="form-group" align="center">
-                         <label for="radiusSelect"><b>Distance:</b></label>
-		                       <select id="radiusSelect" style="margin-right:3px">
-																							      <option value="1">1 km</option>
-																							      <option value="2">2 km</option>
-																							      <option value="5">5 km</option>
-																							      <option value="10">10 km</option>
-																							      <option value="20">20 km</option>
-																						   </select>
-                       <input type="button" id='searchBtn' class="btn-primary" style="margin-top:5px;border-radius:5px;" onclick="sendSearch()" value="Find Restaurants" />
-                 </div>
-             </div>
-             </div>
-             </form>
-									</div>
-				</div>
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row default_page_padd">
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <div class="box-shadow filter_search">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-globe"></i> Filter Search
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        {!! Form::open(array('url' => '/search/menus', 'id'=>'searchMenuForm2','class'=>'form-horizontal','method'=>'get','role'=>'form')) !!}
+                        <div class="input-group" valign="center">
+                            <input type="text" name="search_term" placeholder="Search Menus" class="form-control" required/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary red" type="submit">Search</button>
+                            </span>
+                        </div>
+                        {!! Form::close() !!}
+                        
+                        <br/>
+                        
+                        <h4>Sort By</h4>
+                        <ul id="filterType" class="margin-bottom-10 clearfix">
+                            <li>
+                                Sort
+                                <div class="input-field col s12">
+                                    <select name="sortType" id="sortType" class="browser-default">
+                                        <option value="id">ID</option>
+                                        <option value="menu_item">Name</option>
+                                        <option value="price">Price</option>
+                                        <option value="sing_mul">S or M</option>
+                                        <option value="image">Image</option>
+                                    </select>
+                                    By
+                                    <select name="sortBy" id="sortBy" class="browser-default">
+                                        <option value="ASC">ASC</option>
+                                        <option value="DESC">DESC</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                        <h4>Price Range</h4>
+                        <ul id="filterPriceRange">
+                            <li>From <input type="text" name="priceFrom" id="priceFrom" size="3" value=""/> To <input type="text" name="priceTo" id="priceTo" size="3" value=""/></li>
+                        </ul>
+                        <h4>Has Addon?</h4>
+                        <ul id="filterAddon">
+                            <li><a class="hasAddon" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
+                            <li><a class="hasAddon" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
+                            <input type="hidden" name="selected_hasAddon" id="selected_hasAddon" value=""/>
+                        </ul>
+                        <h4>Has Image?</h4>
+                        <ul id="filterImage">
+                            <li><a class="hasImage" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
+                            <li><a class="hasImage" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
+                            <input type="hidden" name="selected_hasImage" id="selected_hasImage" value=""/>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
+                <div id="menus_bar" class="margin-bottom-20 row clearfix">
+                    @include('ajax.search_menus')
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    @if ($count > 10)
+                        <button type="button" class="btn btn-primary red loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
+                        <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+                    @endif
+                    {!! csrf_field() !!}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            
+        </div>
+    </div>
 </div>
 
-
-
-    <script type="text/javascript">
-    
-    function sendSearch(){
-     if(document.getElementById('addressInput').value == ""){
-      alert("Please enter your Address, City or Postal Code before clicking Find Restaurants");
-      document.getElementById('addressInput').focus();
-      return false;
-     }
-     else{
-      window.location="{{ url('restaurants') }}?userAddress="+document.getElementById('addressInput').value+"&radiusSelect="+document.getElementById('radiusSelect').value+"&geoloc="+document.getElementById('geoloc').value;
-     }
-    ////
-    }
-
-    jQuery(window).on("resize", function(event) {
-        var chartDiv = jQuery("#homepgsrch");
-//alert(chartDiv.css('width'))
-
-        // Temporarily hide, then set size of chart to container (which will naturally resize itself), then show it again 
-        chartDiv.css({ display:"none" });
-        chartDiv.css({ width:chartDiv.parent().innerWidth(), display:"block" });
-
-    });
-
-
+<script type="text/javascript">
     $('body').on('click', '#filterAddon a.hasAddon', function() {
         $('#selected_hasAddon').val($(this).attr('data-name'));
         var sortType = $('#filterType #sortType').val();

@@ -2,7 +2,7 @@
     <div class="container-fluid" >
         <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
             <div class="header-navigation">
-                <a class="site-logo" href="{{ url('') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" title="Click for Home Page" style="padding-left:15px" /></a>
+                <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" /></a>
             </div>
         </div>
         <!-- BEGIN NAVIGATION -->
@@ -11,40 +11,9 @@
                 <ul>
                     <!-- BEGIN TOP BAR MENU -->
                     <li><a href="{{ url('/') }}"></a></li>
-<?php
-
-if(isset($restaurantblade)){
-?>
-
                     <li id="top-address-search-input">
-                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="<?php echo $userAddress;?>" autocomplete="on">
+                        <input name="address_display" value="" type="text" id="address-autocomplete-input" class="form-control address-input" placeholder="Hamilton L8E" autocomplete="off">
                     </li>
-                    <li id="top-address-search-input">
-                    &nbsp;<select id="radiusSelect" style="margin-right:3px">
-	      <option value="1">1 km</option>
-	      <option value="2">2 km</option>
-	      <option value="5">5 km</option>
-	      <option value="10">10 km</option>
-	      <option value="20">20 km</option>
-	     </select>
-      <input type="button" id='searchBtn' class="btn-primary" style="border-radius:5px;" onclick="addressChngd()" value="Search" />
-                    </li>
-      
-<script>
- var radiusSelectV=<?php echo $radiusSelect;?>;
- var radObj=document.getElementById('radiusSelect');
- for(var i=0;i<radObj.length;i++){
- 	 if(radObj.options[i].value == radiusSelectV){
-    radObj.selectedIndex=i;
-		  break;
-		 }
- }
-</script>
-
-<?php
-}
-
-?>
                 </ul>
             </div>
         </div>

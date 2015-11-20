@@ -18,23 +18,13 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="-CUSTOMER VALUE-">
-    
-				<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" /> 
-				<link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="shortcut icon" href="favicon.ico">
     
     <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-<?php
-if(isset($restaurantblade)){
-// pb: Add Google API key when going live
- echo "
-     <script src=\"https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places\"></script>
-     ";
-}
-?>
     
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
@@ -59,9 +49,6 @@ if(isset($restaurantblade)){
     @include('popups.login')
     @include('popups.signup')
     @include('popups.forgotpassword')
-@if (isset($restaurantblade))
-      @include('popups.maploadingMsg')
-@endif
     @include('layouts.includes.header')
 
     <div class="main">
