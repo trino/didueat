@@ -212,6 +212,7 @@ class RestaurantController extends Controller
                 $update['postal_code'] = $post['postal_code'];
                 $update['delivery_fee'] = $post['delivery_fee'];
                 $update['minimum'] = $post['minimum'];
+                $update['open'] = 1;
 
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate(array_filter($update));
@@ -690,11 +691,11 @@ class RestaurantController extends Controller
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
-    public function history()
+    public function history($id=0)
     {
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', ($id > 0)?$id:\Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 

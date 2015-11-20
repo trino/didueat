@@ -84,17 +84,24 @@
                                             <h3 class="form-section">Delivery</h3>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Delivery Fee <span class="required">*</span></label>
-                                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" required />
+                                                <label class="control-label"><input type="checkbox" name="allow_delivery" id="allow_delivery" value="yes" {{ (old('delivery_fee') && old('delivery_fee') > 0)?'checked':'' }} /> Allow home delivery</label>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Min. Subtotal before Delivery <span class="required">*</span></label>
-                                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ old('minimum') }}" required />
+                                        <div id="allow_delivery_options" style="display: {{ (old('delivery_fee') && old('delivery_fee') > 0)?'block':'none' }};">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Delivery Fee </label>
+                                                    <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ old('delivery_fee') }}" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Min. Subtotal before Delivery </label>
+                                                    <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ old('minimum') }}" >
+                                                </div>
                                             </div>
                                         </div>
 
@@ -241,6 +248,14 @@
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 <script>
+    $('body').on('change', '#allow_delivery', function(){
+        if($(this).is(':checked')){
+            $('#allow_delivery_options').show();
+        } else {
+            $('#allow_delivery_options').hide();
+        }
+    });
+
     function ajaxuploadbtn(button_id) {
         var button = $('#' + button_id), interval;
         act = base_url + 'restaurant/uploadimg/restaurant';

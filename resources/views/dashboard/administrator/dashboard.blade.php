@@ -30,11 +30,10 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name  <span class="required">*</span></label>
-
+                                        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email  <span class="required">*</span></label>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ $user_detail->name }}" required="">
+                                                <input type="email" name="email" class="form-control readonly" id="email" placeholder="Email Address" value="{{ $user_detail->email }}" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -42,11 +41,11 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group clearfix">
-                                        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email  <span class="required">*</span></label>
+                                        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name  <span class="required">*</span></label>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="input-icon">
-                                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $user_detail->email }}" required="">
+                                                <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ $user_detail->name }}" required="">
                                             </div>
                                         </div>
                                     </div>

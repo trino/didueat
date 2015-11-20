@@ -5381,7 +5381,7 @@ li {
 .receipt_description_style {background:red;color:white;padding: 20px;}
 .font-size {font-size: 50px;}
 .DTTT_button_pdf, .DTTT_button_csv, .DTTT_button_xls, .DTTT_button_print {background-color: #B30C10;}
-
+.readonly, .disabled {background: #f1f1f1 !important; cursor: not-allowed; color:  #ccc !important;}
 
 
 /* Rating Start */
