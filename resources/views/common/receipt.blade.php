@@ -35,6 +35,7 @@
                     <abbr title="Email">Email:</abbr> <a href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
                     <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </div>
+                {!! rating_initialize("static-rating", '2.5') !!}
             </div>
             <div class="clearfix"></div>
         </div>

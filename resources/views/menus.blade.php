@@ -1,18 +1,18 @@
 @if(!isset($_GET['page']))
 <div id="loadmenus_{{ $catid }}">
-@endif
+    @endif
 
-@foreach($menus_list as $value)
+    @foreach($menus_list as $value)
     <?php
-        $item_image = asset('assets/images/default_menu.jpg');
-        $item_image1 = asset('assets/images/default_menu.jpg');
-        if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))){
-            $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
-        }
-        if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))){
-            $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
-        }
-        $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+    $item_image = asset('assets/images/default_menu.jpg');
+    $item_image1 = asset('assets/images/default_menu.jpg');
+    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) {
+        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
+    }
+    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) {
+        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
+    }
+    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
     ?>
     <div class="col-md-6 col-sm-6 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
         <div class="product-item">
@@ -20,13 +20,14 @@
                 <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
                     <h2 class="padding-top-5 menu-title">{{ $value->menu_item }}</h2>
                     <p class="menu-description">{{ $value->description }}</p>
+                    {!! rating_initialize("static-rating", '2.5') !!}
                     @if(Session::has('is_logged_in'))
-                        <div class="pull-left">
-                            <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn-sm red">Remove</a>
-                            <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn-small blue fancybox-fast-view additem">Edit</a>
-                            <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
-                            <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
-                        </div>
+                    <div class="pull-left">
+                        <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn-sm red">Remove</a>
+                        <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn-small blue fancybox-fast-view additem">Edit</a>
+                        <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
+                        <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
+                    </div>
                     @endif
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-3 menu-price">${{ $value->price }}</div>
@@ -55,6 +56,7 @@
 
                 <div class="product-titles">
                     <h2>{{ $value->description }}</h2>
+                    {!! rating_initialize("static-rating", '2.5') !!}
                 </div>
 
                 <div class="subitems_{{ $value->id }} optionals">
@@ -150,7 +152,7 @@
         </div>
     </div>
     @endforeach
-@if(!isset($_GET['page']))
+    @if(!isset($_GET['page']))
 </div>
 @endif
 
@@ -159,14 +161,240 @@
 </div>
 
 @if(!isset($_GET['page']))
-    @if($menus_list->hasMorePages())
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <button align="center" class="loadmore red btn btn-primary" title="{{ $catid }}">Load More</button>
-                </div>
-            </div>
+@if($menus_list->hasMorePages())
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <button align="center" class="loadmore red btn btn-primary" title="{{ $catid }}">Load More</button>
         </div>
-    @endif
-    <div class="clearfix"></div>
+    </div>
+</div>
 @endif
+<div class="clearfix"></div>
+@endif
+
+<script>
+function changeqty(id, opr) {
+    var num = Number($('.number' + id).text());
+    if (num == '1') {
+        if (opr == 'plus')
+            num++;
+    } else {
+        (opr == 'plus') ? num++ : --num;
+    }
+    $('.number' + id).text(num);
+}
+
+function clearCartItems() {
+    $('.receipt_main ul.orders li').remove();
+    $('.subtotal').val(0);
+    $('.subtotal').text('0');
+    $('.tax').val(0);
+    $('.tax').text('0');
+    $('.df').val(0);
+    $('.df').text('0');
+    $('#delivery_flag').val(0);
+    $('.grandtotal').val(0);
+    $('.grandtotal').text('0');
+}
+
+function checkout() {
+    var del = $('#delivery_flag').val();
+
+    if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0') {
+        alert('Please select an item.');
+    }
+    else {
+        $('.receipt_main').hide();
+        $('.profiles').show();
+    }
+}
+
+function delivery(t) {
+    var df = $('input.df').val();
+    if (t == 'show') {
+        $('#df').show();
+        $('.profile_delevery_type').text('Delivery Detail');
+        $('.profile_delivery_detail').show();
+        $('.profile_delivery_detail input').each(function() {
+            $(this).attr('required', 'required');
+        });
+        var tax = $('.tax').text();
+        var grandtotal = 0;
+        var subtotal = $('input.subtotal').val();
+        grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
+        $('.df').val(df);
+        $('.grandtotal').text(grandtotal.toFixed(2));
+        $('.grandtotal').val(grandtotal.toFixed(2));
+        $('#delivery_flag').val('1');
+        $('#cart-total').text('$' + grandtotal.toFixed(2));
+    } else {
+        $('.profile_delevery_type').text('Pickup Detail');
+        $('.profile_delivery_detail').hide();
+        if ($('#pickup1').hasClass("deliverychecked")) {
+            //alert('sss');
+        }
+        else {
+            var grandtotal = $('input.grandtotal').val();
+            grandtotal = Number(grandtotal) - Number(df);
+            $('.grandtotal').text(grandtotal.toFixed(2));
+            $('.grandtotal').val(grandtotal.toFixed(2));
+            $('#df').hide();
+            $('#delivery_flag').val('0');
+            $('#cart-total').text('$' + grandtotal.toFixed(2));
+        }
+    }
+}
+
+
+$('.decrease').live('click', function(){
+    //alert('test');
+    var menuid = $(this).attr('id');
+    var numid = menuid.replace('dec', '');
+
+    var quant = $('#list' + numid + ' span.count').text();
+    quant = quant.replace('x ', '');
+
+    var amount = $('#list' + numid + ' .amount').text();
+    amount = parseFloat(amount);
+
+    var subtotal = 0;
+    $('.total').each(function() {
+        var sub = $(this).text().replace('$', '');
+        subtotal = Number(subtotal) + Number(sub);
+    })
+    subtotal = parseFloat(subtotal);
+    subtotal = Number(subtotal) - Number(amount);
+    subtotal = subtotal.toFixed(2);
+    $('div.subtotal').text(subtotal);
+    $('input.subtotal').val(subtotal);
+
+    var tax = $('#tax').text();
+    tax = parseFloat(tax);
+    tax = (tax / 100) * subtotal;
+    tax = tax.toFixed(2);
+    $('div.tax').text(tax);
+    $('input.tax').val(tax);
+
+    var del_fee = 0;
+    if ($('#delivery_flag').val() == '1') {
+        del_fee = $('.df').val();
+    }
+
+    del_fee = parseFloat(del_fee);
+
+    var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+    gtotal = gtotal.toFixed(2);
+    $('div.grandtotal').text(gtotal);
+    $('input.grandtotal').val(gtotal);
+
+    var total = $('#list' + numid + ' .total').text();
+    total = total.replace("$", "");
+    total = parseFloat(total);
+    total = Number(total) - Number(amount);
+    total = total.toFixed(2);
+    $('#list' + numid + ' .total').text('$' + total);
+
+    quant = parseFloat(quant);
+    //alert(quant);
+    if (quant == 1) {
+        $('#list' + numid).remove();
+        $('#profilemenu' + numid).text('Add');
+        $('#profilemenu' + numid).attr('style', '');
+        $('#profilemenu' + numid).addClass('add_menu_profile');
+        $('#profilemenu' + numid).removeAttr('disabled');
+        var ccc = 0;
+        $('.total').each(function() {
+            ccc++;
+        });
+        if (ccc < 4)
+            $('.orders').removeAttr('style');
+        $('.orders').show();
+    } else {
+        quant--;
+        $('#list' + numid + ' span.count').text('x ' + quant);
+        $('#list' + numid + ' input.count').val(quant);
+        //$('#list'+numid+' .count').val(quant-1);
+    }
+});
+
+$('.increase').live('click', function() {
+    var menuid = $(this).attr('id');
+    var numid = menuid.replace('inc', '');
+    var quant = '';
+    quant = $('#list' + numid + ' span.count').text();
+    quant = quant.replace('x ', '');
+    quant = parseFloat(quant);
+    var amount = $('#list' + numid + ' .amount').text();
+    amount = parseFloat(amount);
+    var subtotal = $('.subtotal').text();
+    subtotal = parseFloat(subtotal);
+    subtotal = Number(subtotal) + Number(amount);
+    subtotal = subtotal.toFixed(2);
+    $('div.subtotal').text(subtotal);
+    $('input.subtotal').val(subtotal);
+    var tax = $('#tax').text();
+    tax = parseFloat(tax);
+    tax = (tax / 100) * subtotal;
+    tax = tax.toFixed(2);
+    $('div.tax').text(tax);
+    $('input.tax').val(tax);
+    if ($('#delivery_flag').val() == '1')
+        var del_fee = $('.df').val();
+    else
+        var del_fee = 0;
+    del_fee = parseFloat(del_fee);
+    var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+    gtotal = gtotal.toFixed(2);
+    $('div.grandtotal').text(gtotal);
+    $('input.grandtotal').val(gtotal);
+    var total = $('#list' + numid + ' .total').text();
+    total = total.replace("$", "");
+    total = parseFloat(total);
+    total = Number(total) + Number(amount);
+    total = total.toFixed(2);
+    $('#list' + numid + ' .total').text('$' + total);
+    quant++;
+    $('#list' + numid + ' span.count').text('x ' + quant);
+    $('#list' + numid + ' input.count').val(quant);
+});
+
+$('.del-goods').live('click', function() {
+    $(this).parent().remove();
+    var subtotal = 0;
+    $('.total').each(function() {
+        var sub = $(this).text().replace('$', '');
+        subtotal = Number(subtotal) + Number(sub);
+    })
+    subtotal = parseFloat(subtotal);
+    //subtotal = Number(subtotal) - Number(amount);
+    subtotal = subtotal.toFixed(2);
+    $('div.subtotal').text(subtotal);
+    $('input.subtotal').val(subtotal);
+
+    var tax = $('#tax').text();
+    tax = parseFloat(tax);
+    tax = (tax / 100) * subtotal;
+    tax = tax.toFixed(2);
+    $('div.tax').text(tax);
+    $('input.tax').val(tax);
+    var del_fee = 0;
+    if ($('#delivery_flag').val() == '1') {
+        del_fee = $('.df').val();
+    }
+    del_fee = parseFloat(del_fee);
+    var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
+    gtotal = gtotal.toFixed(2);
+    $('div.grandtotal').text(gtotal);
+    $('input.grandtotal').val(gtotal);
+});
+
+function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+</script>
