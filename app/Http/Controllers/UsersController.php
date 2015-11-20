@@ -242,6 +242,8 @@ class UsersController extends Controller
     public function ajax_register()
     {
         $post = \Input::all();
+        //echo '<pre>'.print_r($post); die;
+
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
             try {
@@ -260,8 +262,10 @@ class UsersController extends Controller
                 $res['qtys'] = implode(',', $post['qtys']);
                 $res['extras'] = implode(',', $post['extras']);
                 $res['menu_ids'] = implode(',', $post['menu_ids']);
-                //$res['restaurant_id'] = $post['res_id'];
+                $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
+                //echo '<pre>';print_r($res); die;
+
 
                 if(\Input::has('address2')){
                     $res['address2'] = $post['address2'];
@@ -279,6 +283,7 @@ class UsersController extends Controller
 
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res);
+                //echo '<pre>';print_r($ob2); die;
                 $ob2->save();
                 $oid = $ob2->id;
 
