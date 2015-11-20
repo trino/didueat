@@ -70,8 +70,11 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" class="btn btn-primary red loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
-                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+
+                    @if ($count > 10)
+                        <button type="button" class="btn btn-primary red loadMoreMenus margin-bottom-15" data-offset="{{ $start }}">Load more</button>
+                        <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+                    @endif
                     {!! csrf_field() !!}
                 </div>
                 <div class="clearfix"></div>
