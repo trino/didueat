@@ -59,9 +59,6 @@ if(isset($restaurantblade)){
     @include('popups.login')
     @include('popups.signup')
     @include('popups.forgotpassword')
-@if (isset($restaurantblade))
-      @include('popups.maploadingMsg')
-@endif
     @include('layouts.includes.header')
 
     <div class="main">

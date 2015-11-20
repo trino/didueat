@@ -31,6 +31,8 @@ $testip = "24.36.50.14";// when using WAMP, need to enter ip manually
      }
 			 }
 
+     
+ print("<script>var userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar loc=\"".$thisLoc."\";</script>");
 
 ?>
 @extends('layouts.default')

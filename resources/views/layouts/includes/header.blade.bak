@@ -27,6 +27,7 @@ if(isset($restaurantblade)){
 	      <option value="10">10 km</option>
 	      <option value="20">20 km</option>
 	     </select>
+      &nbsp;
       <input type="button" id='searchBtn' class="btn-primary" style="border-radius:5px;" onclick="addressChngd()" value="Search" />
                     </li>
       

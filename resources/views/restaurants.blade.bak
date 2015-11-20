@@ -64,7 +64,7 @@
 
 <?php
 
- print("<script>var thisCity,thisState,thisPostal,thisCountry;\nvar userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar autoSrch=".$autoSrch.";\nvar thisLat=\"".$thisLat."\";\nvar thisLng=\"".$thisLng."\";</script>");
+ print("<script>var thisCity,thisState,thisPostal,thisCountry;\nvar userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar autoSrch=".$autoSrch.";\nvar radiusSelectV=".$radiusSelect.";\nvar thisLat=\"".$thisLat."\";\nvar thisLng=\"".$thisLng."\";</script>");
 
 ?>
 
