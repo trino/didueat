@@ -5381,3 +5381,32 @@ li {
 .receipt_description_style {background:red;color:white;padding: 20px;}
 .font-size {font-size: 50px;}
 .DTTT_button_pdf, .DTTT_button_csv, .DTTT_button_xls, .DTTT_button_print {background-color: #B30C10;}
+
+
+
+/* Rating Start */
+.rating-font-size { font-size: 18px; }
+.rating-center-align { float: none !important; margin: 0 auto; }
+.rating { border: none; float: left; font-family: cursive !important; }
+.rating > input { display: none; } 
+.rating > label:before { margin: 0px 2px 0px; font-size: 1.25em; font-family: FontAwesome; display: inline-block; content: "\f005"; }
+.rating > .half:before { content: "\f089"; position: absolute; }
+.rating > label { color: #ddd; float: right; }
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #81B71A;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #81B71A;  }
+/*------Static Rating--------*/
+.static-rating { border: none; float: left; font-family: cursive !important; }
+.static-rating > input { display: none; }
+.static-rating > label:before { margin: 0px 2px 0px; font-size: 1.25em; font-family: FontAwesome; display: inline-block; content: "\f005"; }
+.static-rating > .half:before { content: "\f089"; position: absolute; }
+.static-rating > label { color: #ddd; float: right; }
+.static-rating > .checked-stars ~ label { color: #81B71A;  }
+/* Rating End */

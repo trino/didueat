@@ -1161,4 +1161,65 @@ function getTime($time) {
     return $hour . ':' . $min . ' ' . $suffix;
 }
 
+
+function rating_initialize($type="rating", $average=0) {
+    $html = "";
+    $startHalf = "";
+    $start1 = "";
+    $start1Half = "";
+    $start2 = "";
+    $start2Half = "";
+    $start3 = "";
+    $start3Half = "";
+    $start4 = "";
+    $start4Half = "";
+    $start5 = "";
+    switch ($average) {
+        case '0.5':
+            $startHalf = 'checked class="checked-stars"';
+            break;
+        case '1':
+            $start1 = 'checked class="checked-stars"';
+            break;
+        case '1.5':
+            $start1Half = 'checked class="checked-stars"';
+            break;
+        case '2':
+            $start2 = 'checked class="checked-stars"';
+            break;
+        case '2.5':
+            $start2Half = 'checked class="checked-stars"';
+            break;
+        case '3':
+            $start3 = 'checked class="checked-stars"';
+            break;
+        case '3.5':
+            $start3Half = 'checked class="checked-stars"';
+            break;
+        case '4':
+            $start4 = 'checked class="checked-stars"';
+            break;
+        case '4.5':
+            $start4Half = 'checked class="checked-stars"';
+            break;
+        case '5':
+            $start5 = 'checked class="checked-stars"';
+            break;
+        default:
+            break;
+    }
+    $html = '<div class="'.$type.' rating-font-size rating-center-align">
+                <input type="radio" id="star5" name="rating" value="5" '.$start5.' /><label class = "full" for="star5" title="5 stars"></label>
+                <input type="radio" id="star4half" name="rating" value="4.5" '.$start4Half.' /><label class="half" for="star4half" title="4.5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4" '.$start4.' /><label class = "full" for="star4" title="4 stars"></label>
+                <input type="radio" id="star3half" name="rating" value="3.5" '.$start3Half.' /><label class="half" for="star3half" title="3.5 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3" '.$start3.' /><label class = "full" for="star3" title="3 stars"></label>
+                <input type="radio" id="star2half" name="rating" value="2.5" '.$start2Half.' /><label class="half" for="star2half" title="2.5 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2" '.$start2.' /><label class = "full" for="star2" title="2 stars"></label>
+                <input type="radio" id="star1half" name="rating" value="1.5" '.$start1Half.' /><label class="half" for="star1half" title="1.5 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1" '.$start1.' /><label class = "full" for="star1" title="1 star"></label>
+                <input type="radio" id="starhalf" name="rating" value="0.5" '.$startHalf.' /><label class="half" for="starhalf" title="0.5 stars"></label>
+            </div>';
+    return $html;
+}
 ?>

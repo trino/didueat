@@ -17,6 +17,7 @@
                     <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                         <strong>{{ $value->menu_item }}</strong>
                         {{ $value->description }}
+                        {!! rating_initialize("static-rating", '2.5') !!}
                     </a>
                 </div>
                 <div class="card-action">
