@@ -33,8 +33,8 @@ class HomeController extends Controller
     public function index()
     {
         $data['title'] = 'Home Page';
-        $data['query'] = \App\Http\Models\Menus::searchMenus('', 8, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus('', 8, 0, 'count')->count();
+        $data['query'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'count')->count();
         $data['start'] = $data['query']->count();
         $data['term'] = '';
 
@@ -50,8 +50,8 @@ class HomeController extends Controller
      */
     public function searchMenus($term = '')
     {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 8, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 8, 0, 'count')->count();
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
         $data['start'] = $data['query']->count();
         $data['term'] = $term;
         $data['title'] = "Search Menus";
