@@ -10,6 +10,8 @@
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants-menus.blade.php</file>
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/menus.blade.php</file>
+        </group>
     </open-files>
 </project-private>

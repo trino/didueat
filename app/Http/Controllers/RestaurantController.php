@@ -32,7 +32,7 @@ class RestaurantController extends Controller
                 \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/');
+                return \Redirect::to('/restaurants');
                 //return \Redirect::to('auth/login');
             }
         });
@@ -302,18 +302,18 @@ class RestaurantController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurant/info/' . $post['id']);
             }
-            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-                \Session::flash('message', "[Delivery Fee] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['id']);
-            }
-            if (!isset($post['minimum']) || empty($post['minimum'])) {
-                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/info/' . $post['id']);
-            }
+//            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
+//                \Session::flash('message', "[Delivery Fee] field is missing!");
+//                \Session::flash('message-type', 'alert-danger');
+//                \Session::flash('message-short', 'Oops!');
+//                return \Redirect::to('restaurant/info/' . $post['id']);
+//            }
+//            if (!isset($post['minimum']) || empty($post['minimum'])) {
+//                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
+//                \Session::flash('message-type', 'alert-danger');
+//                \Session::flash('message-short', 'Oops!');
+//                return \Redirect::to('restaurant/info/' . $post['id']);
+//            }
             try {
                 if ($post['logo'] != '') {
                     $im = explode('.', $post['logo']);
@@ -351,11 +351,11 @@ class RestaurantController extends Controller
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
-                $update['delivery_fee'] = $post['delivery_fee'];
-                $update['minimum'] = $post['minimum'];
-
+                $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
+                $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
-                $ob->populate(array_filter($update));
+                $ob->populate($update);
                 $ob->save();
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Updated"));

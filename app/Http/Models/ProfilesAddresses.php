@@ -24,9 +24,9 @@ class ProfilesAddresses extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('user_id', 'location', 'address', 'phone_no', 'post_code', 'city', 'province', 'country');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
+        $cells = array('user_id', 'location', 'address', 'phone_no', 'post_code', 'apartment', 'buzz', 'city', 'province', 'country');
+        foreach ($cells as $cell){
+            if (array_key_exists($cell, $data)){
                 $this->$cell = $data[$cell];
             }
         }

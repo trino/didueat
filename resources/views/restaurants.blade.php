@@ -67,6 +67,13 @@
                 </div>
 
                 <div class="col-md-8 col-sm-8 col-xs-8 col-md-offset-4">
+                    @if (session('message'))
+                        <div class="alert {{ session('message-type') }}">
+                            <strong>{{ session('message-short') }}</strong>
+                            &nbsp;&nbsp; {{ session('message') }}
+                        </div>
+                    @endif
+                    
                     <h1><span id="countRows">{{ $count }}</span> Restaurants Found</h1>
 
                     <div class="row margin-bottom-20 resturant-grid" id="postswrapper">
