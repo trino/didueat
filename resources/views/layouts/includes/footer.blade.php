@@ -33,7 +33,7 @@
         <div class="row">
             <!-- BEGIN COPYRIGHT -->
             <div class="col-md-4 col-sm-4 padding-top-10">
-                2016 &copy; didueat.ca / ALL Rights Reserved.
+                &copy; <script language=javascript>var yr;Today=new Date();document.write(Today.getFullYear());</script> didueat.ca / ALL Rights Reserved.
             </div>
             <div class="col-md-4 col-sm-4 padding-top-10" align="center">
                 <?php
