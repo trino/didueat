@@ -2,7 +2,7 @@
     <div class="container-fluid" >
         <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
             <div class="header-navigation">
-                <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" /></a>
+                <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="padding:0px;padding-left:15px" /></a>
             </div>
         </div>
         <!-- BEGIN NAVIGATION -->
@@ -12,8 +12,30 @@
                     <!-- BEGIN TOP BAR MENU -->
                     <li><a href="{{ url('/') }}"></a></li>
                     <li id="top-address-search-input">
-                        <input name="address_display" value="" type="text" id="address-autocomplete-input" class="form-control address-input" placeholder="Hamilton L8E" autocomplete="off">
+                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="{{ $userAddress }}" autocomplete="off">
                     </li>
+                    <li id="top-address-search-input">&nbsp;
+                    <select id="radiusSelect" style="margin-right:3px">
+																	      <option value="1">1 km</option>
+																	      <option value="2">2 km</option>
+																	      <option value="5">5 km</option>
+																	      <option value="10">10 km</option>
+																	      <option value="20">20 km</option>
+                    </select>
+                    <input id="searchBtn" type="button" onclick="addressChngd()" style="border:none;width:133px;height:36px;background-image: url('assets/images/find-nearby-restaurants.gif');background-color: transparent;background-repeat: no-repeat;background-position: 0px 0px;cursor: pointer;"></input>
+                    </li>
+      
+<script>
+ var radiusSelectV=<?php echo $radiusSelect;?>;
+ var radObj=document.getElementById('radiusSelect');
+ for(var i=0;i<radObj.length;i++){
+ 	 if(radObj.options[i].value == radiusSelectV){
+    radObj.selectedIndex=i;
+		  break;
+		 }
+ }
+</script>
+
                 </ul>
             </div>
         </div>

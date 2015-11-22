@@ -5411,3 +5411,23 @@ li {
 .static-rating > label { color: #ddd; float: right; }
 .static-rating > .checked-stars ~ label { color: #81B71A;  }
 /* Rating End */
+
+
+
+
+.ratingImg{position:relative;top:5px}
+      
+#addressInput {
+ background-color: #fff;
+ padding: 0 11px 0 13px;
+ width: 280px;
+ height:34px;
+ font-family: Roboto;
+ font-size: 16px;
+ font-weight: 300;
+ text-overflow: ellipsis;
+}
+
+#addressInput:focus {
+ border-color: #00ff40;
+}
