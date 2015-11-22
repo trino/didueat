@@ -313,12 +313,12 @@ var numMarkers;
 
 var currAddr="{{ $userAddress }}";
 function addressChngd(){
-if(document.getElementById('addressInput').value == "{{ $userAddress }}"){
+if(document.getElementById('addressInput').value == currAddr){
 // no change in address, so submit
  searchLocationsNear(thisLat,thisLng,thisCity,thisState,thisPostal,thisCountry);
 }
-else if(confirm("Not implemented yet. Do you want to go back to home page to perform search?")){
- window.location="{{ url('') }}";
+else{
+ alert("Not implemented yet.")
 }
 
 ////
