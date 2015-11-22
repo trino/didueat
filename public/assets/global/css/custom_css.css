@@ -5415,7 +5415,8 @@ li {
 
 
 
-.ratingImg{position:relative;top:0px}
+.ratingImg{position:relative;top:-1px}
+.restoLogo{padding:0px;padding-left:10px;position:relative;top:-10px}
       
 #addressInput {
  background-color: #fff;
