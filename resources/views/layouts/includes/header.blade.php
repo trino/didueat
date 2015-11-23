@@ -92,6 +92,12 @@ function geolocate() {
                     </li>
       
 <script>
+<?php
+if(!isset($radiusSelect) || $radiusSelect==""){
+ $radiusSelect=2;
+}
+?>
+
  var radiusSelectV=<?php echo $radiusSelect;?>;
  var radObj=document.getElementById('radiusSelect');
  for(var i=0;i<radObj.length;i++){
