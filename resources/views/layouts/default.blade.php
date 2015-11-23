@@ -1,3 +1,7 @@
+<?php
+$userAddress="";
+$radiusSelect ="";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
