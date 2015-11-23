@@ -1,6 +1,11 @@
 <?php
-$userAddress="";
-$radiusSelect ="";
+ if(!isset($userAddress)){
+  $userAddress="";
+ }
+ if(!isset($radiusSelect)){
+  $radiusSelect="";
+ }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
