@@ -1,16 +1,37 @@
 <script>
+<?php
+if(!isset($radiusSelect) || $radiusSelect==""){
+ $radiusSelect=2;
+}
+?>
+ var radiusSelectV=<?php echo $radiusSelect;?>;
+ var radObj=document.getElementById('radiusSelect');
+ for(var i=0;i<radObj.length;i++){
+    if(radObj.options[i].value == radiusSelectV){
+        radObj.selectedIndex=i;
+        break;
+    }
+ }
+
+
+var placeSearch, autocomplete;
+var componentForm = {
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name',
+}; // locality = city; administrative_area_level_1 = state/prov
+
 function fillInAddress() {
-
-     var geocoder = new google.maps.Geocoder();
-     geocoder.geocode({address: document.getElementById('addressInput').value}, function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-       // retrieves from browser geopositioning function, if enabled and available
-         var latlngSpl = results[0].geometry.location.toString().split(",")
-         thisLat = latlngSpl[0].substring(1);
-         thisLng = latlngSpl[1].substring(0,latlngSpl[1].length-1);
-       }
-
-     });
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({address: document.getElementById('addressInput').value}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+      // retrieves from browser geopositioning function, if enabled and available
+        var latlngSpl = results[0].geometry.location.toString().split(",")
+        thisLat = latlngSpl[0].substring(1);
+        thisLng = latlngSpl[1].substring(0,latlngSpl[1].length-1);
+      }
+    });
 
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
@@ -40,6 +61,25 @@ function fillInAddress() {
 }
 
 
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('addressInput')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+} 
+
+function radiusChng(v){
+ if(thisLat!="" && thisLng!=""){
+  searchLocationsNear(thisLat,thisLng,thisCity,thisState,thisPostal,thisCountry)
+ }
+////
+}
+ 
 /*
 <!-- 
 // Bias the autocomplete object to the user's geographical location,
@@ -63,6 +103,7 @@ function geolocate() {
 */
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 <div class="header">
     <div class="container-fluid" >
         <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
@@ -85,27 +126,10 @@ function geolocate() {
                         </select>
                         <input id="searchBtn" type="button" onclick="addressChngd()" style="border:none;width:133px;height:36px;background-image: url('assets/images/find-nearby-restaurants.gif');background-color: transparent;background-repeat: no-repeat;background-position: 0px 0px;cursor: pointer;"></input>
                     </li>
-                    <script>
-                      <?php
-                        if(!isset($radiusSelect) || $radiusSelect==""){
-                         $radiusSelect=2;
-                        }
-                      ?>
-                        var radiusSelectV = "{{ ($radiusSelect)?$radiusSelect:0 }}";
-                        var radObj=document.getElementById('radiusSelect');
-                        for(var i=0;i<radObj.length;i++){
-                           if(radObj.options[i].value == radiusSelectV){
-                              radObj.selectedIndex=i;
-                              break;
-                           }
-                        }
-                    </script>
                 </ul>
             </div>
         </div>
-          
-        <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
-        
+                  
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation-wrap" id="header-nav">
             <div class="header-navigation">

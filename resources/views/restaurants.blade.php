@@ -371,10 +371,11 @@ function searchLocations(){
        
                    
        for (var i = 0; i < numMarkers; i++) {
-// id,name,slug,email,website,phone,address,postal_code,lat,lng,distance,description,logo,delivery_fee,minimum,rating
-         var id = markerNodes[i].getAttribute("id");
+// id,name,slug,genre,email,website,phone,address,postal_code,lat,lng,distance,description,logo,delivery_fee,minimum,rating
+         var id = parseInt(markerNodes[i].getAttribute("id"));
          var name = markerNodes[i].getAttribute("name");
          var slug = markerNodes[i].getAttribute("slug");
+         var genre = markerNodes[i].getAttribute("genre");
          var email = markerNodes[i].getAttribute("email");
          var website = markerNodes[i].getAttribute("website");
          var phone = markerNodes[i].getAttribute("phone");
@@ -395,10 +396,10 @@ function searchLocations(){
          var description = markerNodes[i].getAttribute("description");
          var logo = markerNodes[i].getAttribute("logo");
          var delivery_fee = parseFloat(markerNodes[i].getAttribute("delivery_fee")).toFixed(2);
-         var minimum = markerNodes[i].getAttribute("minimum");
-         var rating = markerNodes[i].getAttribute("rating");
+         var minimum = parseInt(markerNodes[i].getAttribute("minimum"));
+         var rating = parseFloat(markerNodes[i].getAttribute("rating"));
          
-         var thisData = {id:id, name,slug:slug, email:email, website:website, phone:phone, address:address, postal_code:postal_code, distance:distance, description:description, logo:logo, delivery_fee:delivery_fee, minimum:minimum, rating:rating};
+         var thisData = {id:id, name:name, slug:slug, genre:genre, email:email, website:website, phone:phone, address:address, postal_code:postal_code, distance:distance, description:description, logo:logo, delivery_fee:delivery_fee, minimum:minimum, rating:rating};
          
          markerDataA[i]=thisData;
          markerSelected[i]=false;
@@ -513,7 +514,7 @@ var boxCnt=0; // keep incrementing, even if user deletes some of the items from 
       btnFW="bold";
      }
 
-// id,name,slug,email,website,phone,address,postal_code,lat,lng,distance,description,logo,delivery_fee,minimum,rating
+// id,name,slug,genre,email,website,phone,address,postal_code,lat,lng,distance,description,logo,delivery_fee,minimum,rating
 
      if(markerDataA[indx].rating){
       var ratingImgNum=(Math.round(markerDataA[indx].rating * 2) / 2).toFixed(1);
@@ -543,7 +544,7 @@ var boxCnt=0; // keep incrementing, even if user deletes some of the items from 
       thisWebsite="<br/><a href='http://"+markerDataA[indx].website+"' title='"+thisTitle+"'>"+websiteStr+thisElip+"</a>";
      }
      
-     var thisInfo = divSt+"<img src='assets/images/logos/"+markerDataA[indx].logo+"' border='0' align='right' title='" + markerDataA[indx].name + "' class='restoLogo' /><b>" + markerDataA[indx].name + "&nbsp; <img src='assets/images/rating"+ratingImgNum+".gif' title='Rating: "+markerDataA[indx].rating+"' border='0' class='ratingImg' />&nbsp; <div style='display:inline-block;color:#FF0000'>(Delivery: $"+markerDataA[indx].delivery_fee+")</div></b>&nbsp; <span><i>"+markerDataA[indx].slug+"</i></span><br/>" + markerDataA[indx].address+"&nbsp; &nbsp;(Distance: "+markerDataA[indx].distance+")<br/>"+markerDataA[indx].phone+" &nbsp;"+thisEmail+thisWebsite+"&nbsp; &nbsp; <a HREF='#' onclick='showmore("+indx+");return false' style='color:#00f;'><u>More</u><span class='dArr'>&#9660;</span></a><div id='more"+indx+"' style='display:none;padding:0px;margin:0px;position:relative;left:30px'></div>"+divEnd;
+     var thisInfo = divSt+"<img src='assets/images/logos/"+markerDataA[indx].logo+"' border='0' align='right' title='" + markerDataA[indx].name + "' class='restoLogo' onclick='alert(\"Restaurant Index: "+markerDataA[indx].id+"\")' /><b>" + markerDataA[indx].name + "&nbsp; <img src='assets/images/rating"+ratingImgNum+".gif' title='Rating: "+markerDataA[indx].rating+"' border='0' class='ratingImg' />&nbsp; <div style='display:inline-block;color:#FF0000'>(Delivery: $"+markerDataA[indx].delivery_fee+")</div></b>&nbsp; <span><i>"+markerDataA[indx].slug+"</i></span><br/>" + markerDataA[indx].address+"&nbsp; &nbsp;(Distance: "+markerDataA[indx].distance+")<br/>"+markerDataA[indx].phone+" &nbsp;"+thisEmail+thisWebsite+"&nbsp; &nbsp; <a HREF='#' onclick='showmore("+indx+");return false' style='color:#00f;'><u>More</u><span class='dArr'>&#9660;</span></a><div id='more"+indx+"' style='display:none;padding:0px;margin:0px;position:relative;left:30px'></div>"+divEnd;
 
      if(b){
       boxCnt++;
