@@ -25,31 +25,29 @@ if (Request::path() !== null && Request::path() != "/") {
   <meta content="Didueat" name="author">
   <meta name="content-language" content="fr-CA"/>
   <meta http-equiv="content-language" content="fr-CA"/>
-  <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
-        name="description">
+  <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}" name="description">
 
   <meta property="og:site_name" content="Didueat">
   <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
-  <meta property="og:description"
-        content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
+  <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
   <meta property="og:type" content="website">
   <meta property="og:image" content="-CUSTOMER VALUE-">
   <meta property="og:url" content="{{ url('/') . $nextPath }}">
   <link rel="shortcut icon" href="favicon.ico">
 
-  <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
+<!--  <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">-->
   <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/css/select2.css') }}" rel="stylesheet">
-
-
+  
   <?php
   if(isset($restaurantblade)){
   // pb: Add Google API key when going live
   ?>
-
   <script>
     var placeSearch, autocomplete;
     var componentForm = {
@@ -71,11 +69,9 @@ if (Request::path() !== null && Request::path() != "/") {
       autocomplete.addListener('place_changed', fillInAddress);
     }
   </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
-
   <?php } ?>
-
+  <script src="{{ asset('assets/global/scripts/maps-api.js') }}" async defer></script>
+  <!--<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>-->
   <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
