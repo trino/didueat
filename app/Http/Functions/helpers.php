@@ -1163,7 +1163,7 @@ function getTime($time) {
 
 function roundDownToHalf($number) {
      $remainder = ($number * 10) % 10;
-     $half = $remainder >= 5 ? 0.5 : 0;
+     $half = $remainder >= 5 ? 0.5 : 0.5;
      $value = floatval(intval($number) + $half);
      return number_format($value, 1, '.', '');
 }
@@ -1190,7 +1190,7 @@ function rating_initialize($type="rating", $load_type="", $target_id=0) {
         $start4 = 'class="'.$update_class.'"';
         $start4Half = 'class="'.$update_class.'"';
         $start5 = 'class="'.$update_class.'"';
-
+        
         $average = rating_get($target_id, $value->id, $load_type);
         if($average == 0.5) {
             $startHalf = 'checked class="'.$checked_class.$update_class.'"';
