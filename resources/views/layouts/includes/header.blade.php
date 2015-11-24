@@ -1,49 +1,16 @@
-<div class="header">
-    <div class="container-fluid" >
-        <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
-            <div class="header-navigation">
-                <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="padding:0px;padding-left:15px" /></a>
-            </div>
-        </div>
-        <!-- BEGIN NAVIGATION -->
-        <div class="header-navigation-wrap pull-left" id="header-nav">
-            <div class="header-navigation">
-                <ul>
-                    <!-- BEGIN TOP BAR MENU -->
-                    <li><a href="{{ url('/') }}"></a></li>
-                    <li id="top-address-search-input">
-                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="{{ $userAddress }}">
-                    </li>
-                    <li id="top-address-search-input">&nbsp;
-                    <select id="radiusSelect" style="margin-right:3px" onchange="radiusChng(this.value)">
-																	      <option value="1">1 km</option>
-																	      <option value="2">2 km</option>
-																	      <option value="5">5 km</option>
-																	      <option value="10">10 km</option>
-																	      <option value="20">20 km</option>
-                    </select>
-                    <input id="searchBtn" type="button" title="Click to Search" onclick="addressChngd()" style="border:none;width:133px;height:36px;background-image: url('assets/images/find-nearby-restaurants.gif');background-color: transparent;background-repeat: no-repeat;background-position: 0px 0px;cursor: pointer;"></input>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-      
 <script>
-
 <?php
 if(!isset($radiusSelect) || $radiusSelect==""){
  $radiusSelect=2;
 }
 ?>
-
  var radiusSelectV=<?php echo $radiusSelect;?>;
  var radObj=document.getElementById('radiusSelect');
  for(var i=0;i<radObj.length;i++){
- 	 if(radObj.options[i].value == radiusSelectV){
-    radObj.selectedIndex=i;
-		  break;
-		 }
+    if(radObj.options[i].value == radiusSelectV){
+        radObj.selectedIndex=i;
+        break;
+    }
  }
 
 
@@ -55,19 +22,16 @@ var componentForm = {
   postal_code: 'short_name',
 }; // locality = city; administrative_area_level_1 = state/prov
 
-
 function fillInAddress() {
-
-     var geocoder = new google.maps.Geocoder();
-     geocoder.geocode({address: document.getElementById('addressInput').value}, function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-       // retrieves from browser geopositioning function, if enabled and available
-         var latlngSpl = results[0].geometry.location.toString().split(",")
-         thisLat = latlngSpl[0].substring(1);
-         thisLng = latlngSpl[1].substring(0,latlngSpl[1].length-1);
-       }
-
-     });
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({address: document.getElementById('addressInput').value}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+      // retrieves from browser geopositioning function, if enabled and available
+        var latlngSpl = results[0].geometry.location.toString().split(",")
+        thisLat = latlngSpl[0].substring(1);
+        thisLng = latlngSpl[1].substring(0,latlngSpl[1].length-1);
+      }
+    });
 
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
@@ -139,11 +103,41 @@ function geolocate() {
 */
 
 </script>
+<<<<<<< HEAD
 
 <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 
         <a href="#header-nav" class="fancybox-fast-view new_headernav hide"></a>
         
+=======
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+<div class="header">
+    <div class="container-fluid" >
+        <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
+            <div class="header-navigation">
+                <a class="site-logo" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" style="padding:0px;padding-left:15px" /></a>
+            </div>
+        </div>
+        <!-- BEGIN NAVIGATION -->
+        <div class="header-navigation-wrap pull-left" id="header-nav">
+            <div class="header-navigation">
+                <ul>
+                    <!-- BEGIN TOP BAR MENU -->
+                    <li><a href="{{ url('/') }}"></a></li>
+                    <li id="top-address-search-input">
+                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="{{ $userAddress }}">
+                    </li>
+                    <li id="top-address-search-input">&nbsp;
+                        <select id="radiusSelect" style="margin-right:3px">
+                            <option value="20">20 km</option>
+                        </select>
+                        <input id="searchBtn" type="button" onclick="addressChngd()" style="border:none;width:133px;height:36px;background-image: url('assets/images/find-nearby-restaurants.gif');background-color: transparent;background-repeat: no-repeat;background-position: 0px 0px;cursor: pointer;"></input>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                  
+>>>>>>> origin/master
         <!-- BEGIN NAVIGATION -->
         <div class="header-navigation-wrap" id="header-nav">
             <div class="header-navigation">

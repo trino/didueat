@@ -27,7 +27,7 @@ class AdministratorController extends Controller
                 \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants');
+                return \Redirect::to('/');
                 //return \Redirect::to('auth/login');
             }
             initialize("admin");
