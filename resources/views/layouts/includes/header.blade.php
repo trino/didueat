@@ -1,5 +1,4 @@
 <script>
-
 function fillInAddress() {
 
      var geocoder = new google.maps.Geocoder();
@@ -92,14 +91,14 @@ function geolocate() {
                          $radiusSelect=2;
                         }
                       ?>
-                     var radiusSelectV = "{{ ($radiusSelect)?$radiusSelect:0 }}";
-                     var radObj=document.getElementById('radiusSelect');
-                     for(var i=0;i<radObj.length;i++){
-                        if(radObj.options[i].value == radiusSelectV){
-                           radObj.selectedIndex=i;
-                           break;
+                        var radiusSelectV = "{{ ($radiusSelect)?$radiusSelect:0 }}";
+                        var radObj=document.getElementById('radiusSelect');
+                        for(var i=0;i<radObj.length;i++){
+                           if(radObj.options[i].value == radiusSelectV){
+                              radObj.selectedIndex=i;
+                              break;
+                           }
                         }
-                     }
                     </script>
                 </ul>
             </div>
