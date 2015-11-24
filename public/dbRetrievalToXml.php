@@ -26,7 +26,7 @@ id,name,slug,genre,email,phone,formatted_address,address,city,province,country,p
 
 // Search the rows in the markers table
 // Note: each %s represents one of the trailing arguments in the sprintf function in order (ie, $center_lat or $center_lng etc)
-$query = sprintf("SELECT id,name,slug,email,website,phone,formatted_address,postal_code, lat, lng, ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, description,logo,delivery_fee,minimum,rating from restaurants WHERE open=1 AND status=1 AND genre=2 HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
+$query = sprintf("SELECT id,name,slug,genre,email,website,phone,formatted_address,postal_code, lat, lng, ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, description,logo,delivery_fee,minimum,rating from restaurants WHERE open=1 AND status=1 HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
   $mysqli->real_escape_string($center_lat),
   $mysqli->real_escape_string($center_lng),
   $mysqli->real_escape_string($center_lat),
@@ -47,6 +47,7 @@ while ($row = @mysqli_fetch_assoc($result)){
   $newnode->setAttribute("id", $row['id']);
   $newnode->setAttribute("name", $row['name']);
   $newnode->setAttribute("slug", $row['slug']);
+  $newnode->setAttribute("genre", $row['genre']);
   $newnode->setAttribute("email", $row['email']);
   $newnode->setAttribute("website", $row['website']);
   $newnode->setAttribute("phone", $row['phone']);
