@@ -36,16 +36,19 @@
      }
      
      if($details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"))){
-      $thiscity=$details->city;
-      $thisregion=$details->region;
-      $thispostal=$details->postal;
+      $thisCity=$details->city;
+      $thisState=$details->region;
+      $thisPostal=$details->postal;
+      $thisCountry=$details->country;
+      if($thisCountry=="CA"){
+       $thisCountry="Canada";
+      }
       
       $thisLoc=$details->loc;
       $geoLocSpl=explode(",",$thisLoc);
       $thisLat=$geoLocSpl[0];
       $thisLng=$geoLocSpl[1];
-      
-      $userAddress =  $thiscity.", ".$thisregion." ".$thispostal;
+      $userAddress = $thisCity.", ".$thisState." ".$thisPostal;
       $autoSrch=true;
      }
      else{
@@ -64,7 +67,7 @@
 
 <?php
 
- print("<script>var thisCity,thisState,thisPostal,thisCountry;\nvar userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar autoSrch=".$autoSrch.";\nvar thisLat=\"".$thisLat."\";\nvar thisLng=\"".$thisLng."\";</script>");
+ print("<script>var thisCity=\"".$thisCity."\",thisState=\"".$thisState."\",thisPostal=\"".$thisPostal."\",thisCountry=\"".$thisCountry."\";\nvar userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar autoSrch=".$autoSrch.";\nvar thisLat=\"".$thisLat."\";\nvar thisLng=\"".$thisLng."\";</script>");
 
 ?>
 
@@ -172,7 +175,7 @@ if(numpgs > 2){ // prev and next are shown only if there are more than 2 pages
 }
 
  if(numpgs > 1){
-  document.getElementById('numReturned').innerHTML=numMarkers+" Matches, Page "+(parseInt(newpgNum)+1)+" of &nbsp;"+numpgs;
+  document.getElementById('numReturned').innerHTML=numMarkers+" Matches, Page "+(parseInt(newpgNum)+1)+" of &nbsp;"+numpgs+matchAppend;
  }
 
  newpgsStr = document.getElementById('pagination').innerHTML;  // copy it so we don't have to recreate it
@@ -310,17 +313,11 @@ pgParams=[]; // for pagination
 var perpg=3;
 var numpgs;
 var numMarkers;
+var matchAppend;
 
 var currAddr="{{ $userAddress }}";
 function addressChngd(){
-if(document.getElementById('addressInput').value == currAddr){
-// no change in address, so submit
  searchLocationsNear(thisLat,thisLng,thisCity,thisState,thisPostal,thisCountry);
-}
-else{
- alert("Not implemented yet.")
-}
-
 ////
 }
 
@@ -365,8 +362,11 @@ function searchLocations(){
          document.getElementById('numReturned').style.marginBottom="20px"
         }
        }
-       document.getElementById('numReturned').innerHTML=numMarkers+" Match"+es+pgMsg;
+       var thisSrchCity=thisCity+", "+thisState;
+       matchAppend=" <span style='font-size:16px;color:#000'>("+thisSrchCity+", "+radius+kmMi+")</span>";
+       document.getElementById('numReturned').innerHTML=numMarkers+" Match"+es+pgMsg+matchAppend;
        document.getElementById('numReturned').style.visibility="visible";
+       document.getElementById('addressInput').value=thisSrchCity+", "+thisCountry;
 //		     document.getElementById('leftcol').style.display="block";
        
                    
@@ -427,6 +427,8 @@ function searchLocations(){
        
        }
        else{
+        document.getElementById('numReturned').innerHTML="";
+        document.getElementById('numReturned').style.visibility="hidden";
         alert("No Matches in Your Specified Location.\n\nPlease Try Increasing the Search Distance, or Specifying A Different Address.\n\n")
        }
       });
@@ -500,18 +502,12 @@ var boxCnt=0; // keep incrementing, even if user deletes some of the items from 
     function showInfo(indx,b){
      var divSt="";
      var divEnd="";
-     var msg="";
-     var btnFnCall="sendData";
-     var btnTxt="Compare This Menu";
      var secondParam=boxCnt;
      var btnColor="#000";
      var btnFW="normal";
      if(markerSelected[indx]){
       divSt="<div style='border:solid #ff0000 2px;padding:4px'>";
       divEnd="</div>";
-      msg="<span style='color:#f00;font-size:11px'>&nbsp;(Already in Your List)</span>";
-      btnFnCall="deleteFromMyList";
-      btnTxt="Delete From Your List";
       secondParam=markerSelected[indx];
       btnColor="#f00";
       btnFW="bold";
@@ -526,7 +522,6 @@ var boxCnt=0; // keep incrementing, even if user deletes some of the items from 
       var ratingImgNum=0;
      }
      
-     var infoWinBtn="<br/><input name='btn"+indx+"' id='btn"+indx+"' type='button' value='"+btnTxt+"' style='color:"+btnColor+";font-weight:"+btnFW+"' onclick='"+btnFnCall+"("+indx+","+secondParam+")' />"+msg;
      
      thisEmail="";
      if(markerDataA[indx].email){
@@ -548,7 +543,7 @@ var boxCnt=0; // keep incrementing, even if user deletes some of the items from 
       thisWebsite="<br/><a href='http://"+markerDataA[indx].website+"' title='"+thisTitle+"'>"+websiteStr+thisElip+"</a>";
      }
      
-     var thisInfo = divSt+"<img src='assets/images/logos/"+markerDataA[indx].logo+"' border='0' align='right' title='" + markerDataA[indx].name + "' class='restoLogo' /><b>" + markerDataA[indx].name + "&nbsp; <img src='assets/images/rating"+ratingImgNum+".gif' title='Rating: "+markerDataA[indx].rating+"' border='0' class='ratingImg' />&nbsp; <div style='display:inline-block;color:#FF0000'>(Delivery: $"+markerDataA[indx].delivery_fee+")</div></b>&nbsp; <span><i>"+markerDataA[indx].slug+"</i></span><br/>" + markerDataA[indx].address+"&nbsp; &nbsp;(Distance: "+markerDataA[indx].distance+")<br/>"+markerDataA[indx].phone+" &nbsp;"+thisEmail+thisWebsite+"&nbsp; &nbsp; <a HREF='#' onclick='showmore("+indx+");return false' style='color:#00f;'><u>More</u>&#9660;</a><div id='more"+indx+"' style='display:none;padding:0px;margin:0px;position:relative;left:30px'></div>"+infoWinBtn+divEnd;
+     var thisInfo = divSt+"<img src='assets/images/logos/"+markerDataA[indx].logo+"' border='0' align='right' title='" + markerDataA[indx].name + "' class='restoLogo' /><b>" + markerDataA[indx].name + "&nbsp; <img src='assets/images/rating"+ratingImgNum+".gif' title='Rating: "+markerDataA[indx].rating+"' border='0' class='ratingImg' />&nbsp; <div style='display:inline-block;color:#FF0000'>(Delivery: $"+markerDataA[indx].delivery_fee+")</div></b>&nbsp; <span><i>"+markerDataA[indx].slug+"</i></span><br/>" + markerDataA[indx].address+"&nbsp; &nbsp;(Distance: "+markerDataA[indx].distance+")<br/>"+markerDataA[indx].phone+" &nbsp;"+thisEmail+thisWebsite+"&nbsp; &nbsp; <a HREF='#' onclick='showmore("+indx+");return false' style='color:#00f;'><u>More</u><span class='dArr'>&#9660;</span></a><div id='more"+indx+"' style='display:none;padding:0px;margin:0px;position:relative;left:30px'></div>"+divEnd;
 
      if(b){
       boxCnt++;
@@ -564,7 +559,7 @@ function showmore(i){
   showMoreA[i]=false;
  }
  else{
-  document.getElementById('more'+i).innerHTML="<br/>"+markerDataA[i].description+"<br/>Minimum Purchase: $"+markerDataA[i].minimum;
+  document.getElementById('more'+i).innerHTML=markerDataA[i].description+"<br/>Minimum Purchase: $"+markerDataA[i].minimum;
   document.getElementById('more'+i).style.display="block";
   showMoreA[i]=true;
  }

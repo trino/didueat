@@ -5416,14 +5416,14 @@ li {
 
 
 .ratingImg{position:relative;top:-1px}
-.restoLogo{padding:0px;padding-left:10px;position:relative;top:-10px}
+.restoLogo{padding:0px;padding-left:10px;position:relative;top:-10px;width:120px;height:109px}
       
 #addressInput {
  background-color: #fff;
  padding: 0 11px 0 13px;
  width: 280px;
  height:34px;
- font-family: Roboto;
+ font-family: Arial;
  font-size: 16px;
  font-weight: 300;
  text-overflow: ellipsis;
@@ -5432,3 +5432,5 @@ li {
 #addressInput:focus {
  border-color: #00ff40;
 }
+
+.dArr{position:relative;top:2px}

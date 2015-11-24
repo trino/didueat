@@ -1,3 +1,69 @@
+<script>
+
+function fillInAddress() {
+
+     var geocoder = new google.maps.Geocoder();
+     geocoder.geocode({address: document.getElementById('addressInput').value}, function(results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+       // retrieves from browser geopositioning function, if enabled and available
+         var latlngSpl = results[0].geometry.location.toString().split(",")
+         thisLat = latlngSpl[0].substring(1);
+         thisLng = latlngSpl[1].substring(0,latlngSpl[1].length-1);
+       }
+
+     });
+
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+
+  // Get each component of the address from the place details
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (addressType == "locality") {
+      thisCity = place.address_components[i][componentForm[addressType]];
+      continue;
+    }
+    if (addressType == "administrative_area_level_1") {
+      thisState = place.address_components[i][componentForm[addressType]];
+      continue;
+    }
+    if (addressType == "country") {
+      thisCountry = place.address_components[i][componentForm[addressType]];
+      continue;
+    }
+    if (addressType == "postal_code") {
+      thisPostal = place.address_components[i][componentForm[addressType]];
+    }
+  }
+  
+  searchLocationsNear(thisLat,thisLng,thisCity,thisState,thisPostal,thisCountry);
+  
+}
+
+
+/*
+<!-- 
+// Bias the autocomplete object to the user's geographical location,
+// if supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+ -->
+*/
+
+</script>
 <div class="header">
     <div class="container-fluid" >
         <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
@@ -12,7 +78,7 @@
                     <!-- BEGIN TOP BAR MENU -->
                     <li><a href="{{ url('/') }}"></a></li>
                     <li id="top-address-search-input">
-                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="{{ $userAddress }}" autocomplete="off">
+                        <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code" value="{{ $userAddress }}">
                     </li>
                     <li id="top-address-search-input">&nbsp;
                         <select id="radiusSelect" style="margin-right:3px">
@@ -20,6 +86,7 @@
                         </select>
                         <input id="searchBtn" type="button" onclick="addressChngd()" style="border:none;width:133px;height:36px;background-image: url('assets/images/find-nearby-restaurants.gif');background-color: transparent;background-repeat: no-repeat;background-position: 0px 0px;cursor: pointer;"></input>
                     </li>
+<<<<<<< HEAD
                     <script>
                      var radiusSelectV = "{{ ($radiusSelect)?$radiusSelect:0 }}";
                      var radObj=document.getElementById('radiusSelect');
@@ -30,6 +97,26 @@
                         }
                      }
                     </script>
+=======
+      
+<script>
+<?php
+if(!isset($radiusSelect) || $radiusSelect==""){
+ $radiusSelect=2;
+}
+?>
+
+ var radiusSelectV=<?php echo $radiusSelect;?>;
+ var radObj=document.getElementById('radiusSelect');
+ for(var i=0;i<radObj.length;i++){
+ 	 if(radObj.options[i].value == radiusSelectV){
+    radObj.selectedIndex=i;
+		  break;
+		 }
+ }
+</script>
+
+>>>>>>> a436be849596124196392d33dd0cc51e36f8c7af
                 </ul>
             </div>
         </div>
