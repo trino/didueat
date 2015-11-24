@@ -1176,8 +1176,7 @@ function rating_get($target_id=0, $rating_id=0, $type="") {
 
 function rating_initialize($type="rating", $load_type="", $target_id=0) {
     $html = "";
-    
-    foreach (select_field_where("rating_define", array('type' => $load_type), false) as $key => $value) {
+    foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value){
         $update_class = ($type == "rating")?' update-rating ':'';
         $checked_class = ' checked-stars ';
 

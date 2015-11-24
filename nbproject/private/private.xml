@@ -11,7 +11,7 @@
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
         </group>
         <group>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/menus.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Models/Restaurants.php</file>
         </group>
     </open-files>
 </project-private>
