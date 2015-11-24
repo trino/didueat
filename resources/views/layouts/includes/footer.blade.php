@@ -82,7 +82,7 @@
 <!-- END PRE-FOOTER -->
 
 <script type="text/javascript">
-  jQuery(document).ready(function () {
+  jQuery(document).ready(function() {
     Layout.init();
     Layout.initOWL();
     LayersliderInit.initLayerSlider();
@@ -91,30 +91,57 @@
     Layout.initTwitter();
   });
 
-  $(document).ready(function () {
-    $('body').on('click', '.update-rating', function (e) {
+  $(document).ready(function() {
+    $('body').on('click', '.update-rating', function() {
       var rating = $(this).val();
       var rating_id = $(this).attr('data-rating-id');
       var target_id = $(this).attr('data-target-id');
       var type = $(this).attr('data-type');
 
-      $.post("{{ url('rating/save') }}", {
-        rating: rating,
-        rating_id: rating_id,
-        target_id: target_id,
-        type: type,
-        _token: "{{ csrf_token() }}"
-      }, function (json) {
-        if (json.type == "error") {
-          alert(json.response);
-          //e.preventDefault();
-        } else {
-          alert(json.response);
-        }
+      $('#rating_id').val(rating);
+      $('#rating-form #data-rating-id').val(rating_id);
+      $('#rating-form #data-target-id').val(target_id);
+      $('#rating-form #data-type').val(type);
+
+      $('#rating-form #message-success').hide();
+      $('#rating-form #message-error').hide();
+
+      $.fancybox({
+        'content': $('#fancybox-rating-commentbox').html(),
+        'hideOnContentClick': false
       });
     });
 
-    $('body').on('submit', '#subscribe-email', function (e) {
+    $('body').on('keyup', '#ratingInput', function(){
+      var value = $(this).val();
+      $('#rating-form #ratingInputHidden').val(value);
+    });
+
+    $('body').on('submit', '#rating-form', function(e){
+      var ratingbox = $('#rating-form #ratingInputHidden').val();
+      var rating = $('#rating-form #rating_id').val();
+      var rating_id = $('#rating-form #data-rating-id').val();
+      var target_id = $('#rating-form #data-target-id').val();
+      var type = $('#rating-form #data-type').val();
+
+
+      $.post("{{ url('rating/save') }}", {rating:rating, rating_id:rating_id, target_id:target_id, comments:ratingbox, type:type, _token:"{{ csrf_token() }}"}, function(json){
+        if(json.type == "error"){
+          $('#rating-form #message-success').hide();
+          $('#rating-form #message-error').show();
+          $('#rating-form #message-error').text(json.response);
+        } else {
+          $('#rating-form #message-error').hide();
+          $('#rating-form #message-success').show();
+          $('#rating-form #message-success').text(json.response);
+          //$('#fancybox-rating-commentbox').close();
+          $.fancybox.close();
+        }
+      });
+      e.preventDefault();
+    });
+
+    $('body').on('submit', '#subscribe-email', function(e) {
       var email = $('#subscribe-email input[name=email]').val();
       var token = $('#subscribe-email input[name=_token]').val();
 
@@ -124,7 +151,7 @@
         return false;
       }
 
-      $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function (jason) {
+      $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function(jason) {
         //var jason = $.parseJSON(result);
         if (jason.type == "error") {
           alert(jason.message);
@@ -156,7 +183,7 @@
       $('#cartsz').show();
     }
 
-    $(window).resize(function () {
+    $(window).resize(function() {
       var wd = $(window).width();
       if (wd <= '767') {
         $('.top-cart-info').show();
@@ -171,7 +198,7 @@
       }
     });
 
-    $('body').on('submit', '#searchMenuForm', function (e) {
+    $('body').on('submit', '#searchMenuForm', function(e) {
       var term = $('#searchMenuForm input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -179,7 +206,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchRestaurantForm', function (e) {
+    $('body').on('submit', '#searchRestaurantForm', function(e) {
       var term = $('#searchRestaurantForm input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -187,7 +214,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchMenuForm2', function (e) {
+    $('body').on('submit', '#searchMenuForm2', function(e) {
       var term = $('#searchMenuForm2 input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -195,7 +222,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchRestaurantForm2', function (e) {
+    $('body').on('submit', '#searchRestaurantForm2', function(e) {
       var term = $('#searchRestaurantForm2 input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -215,13 +242,13 @@
       return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    $('body').on('submit', '#forgot-pass-form', function (e) {
+    $('body').on('submit', '#forgot-pass-form', function(e) {
       var token = $("#forgot-pass-form input[name=_token]").val();
       var email = $("#forgot-pass-form input[name=email]").val();
 
       $("#forgot-pass-form #regButton").hide();
       $("#forgot-pass-form #regLoader").show();
-      $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
+      $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function(result) {
         $("#forgot-pass-form #regButton").show();
         $("#forgot-pass-form #regLoader").hide();
 
@@ -238,13 +265,13 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#login-ajax-form', function (e) {
+    $('body').on('submit', '#login-ajax-form', function(e) {
       var data = $('#login-ajax-form').serialize();
       $.ajax({
         url: "{{ url('auth/login/ajax') }}",
         data: data,
         type: "post",
-        success: function (msg) {
+        success: function(msg) {
 
           if (isNaN(Number(msg))) {
             if (checkUrl(msg)) {
@@ -262,7 +289,7 @@
                 type: "post",
                 data: "id=" + msg + '&_token={{csrf_token()}}',
                 dataType: "json",
-                success: function (arr) {
+                success: function(arr) {
                   $('#fullname').val(arr.name);
                   $('#ordered_user_id').val(arr.user_id);
                   $('#ordered_email').val(arr.email);
@@ -283,24 +310,24 @@
               window.location = "{{ url('dashboard') }}";
           }
         },
-        failure: function (msg) {
+        failure: function(msg) {
           setvalue("message", "ERROR: " + msg);
         }
       });
       e.preventDefault();
     });
 
-    $('body').on('click', '#resendMeEmail', function (e) {
+    $('body').on('click', '#resendMeEmail', function(e) {
       var url = $(this).attr('href');
       $('#registration-success p').html('Please wait email is being send...');
-      $.get(url, {}, function (result) {
+      $.get(url, {}, function(result) {
         var json = jQuery.parseJSON(result);
         $('#registration-success p').html(json.message);
       });
       e.preventDefault();
     });
 
-    $('body').on('submit', '#register-form', function (e) {
+    $('body').on('submit', '#register-form', function(e) {
       var token = $("#register-form input[name=_token]").val();
       var Name = $("#register-form input[name=name]").val();
       var Email = $("#register-form input[name=email]").val();
@@ -322,7 +349,7 @@
         password: password,
         confirm_password: confirm_password,
         subscribed: subscribed
-      }, function (result) {
+      }, function(result) {
         $("#register-form #regButton").show();
         $("#register-form #regLoader").hide();
 
@@ -352,14 +379,14 @@
         return false;
     }
 
-    $('.loadmore').click(function () {
+    $('.loadmore').click(function() {
       $('div#loadmoreajaxloader').show();
       ur = $('.next a').attr('href');
       if (ur != '') {
         url1 = ur.replace('/?', '?');
         $.ajax({
           url: url1,
-          success: function (html) {
+          success: function(html) {
 
             if (html) {
               $('.nxtpage').remove();
