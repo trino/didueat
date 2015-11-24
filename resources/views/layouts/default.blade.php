@@ -5,36 +5,42 @@
  if(!isset($radiusSelect)){
   $radiusSelect="";
  }
-
+$nextPath = "";
+ if(Request::path() !== null && Request::path() != "/"){$nextPath = "/".Request::path(); }
+  //echo $nextPath; die;
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php $start_loading_time = microtime(true); ?>
-    <title>{{ $title." | DidUEat" }}</title>
+    <title>{{ (isset($title))?$title.' | ':'' }}DidUEat</title>
     
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta content="Metronic Shop UI keywords" name="keywords">
-    <meta content="keenthemes" name="author">
-    <meta content="Metronic Shop UI description" name="description">
+    <meta content="{{ (isset($title))?$title.' | ':'' }}Did u eat" name="keywords">
+    <meta content="Didueat" name="author">
+    <meta name="content-language" content="fr-CA" />
+    <meta http-equiv="content-language" content="fr-CA" />
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}" name="description">
 
-    <meta property="og:site_name" content="-CUSTOMER VALUE-">
-    <meta property="og:title" content="-CUSTOMER VALUE-">
-    <meta property="og:description" content="-CUSTOMER VALUE-">
+    <meta property="og:site_name" content="Didueat">
+    <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
+    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
-    <meta property="og:url" content="-CUSTOMER VALUE-">
+    <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <link rel="shortcut icon" href="favicon.ico">
-    
+
     <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-    
+      <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
+      <link href="{{ asset('assets/global/css/select2.css') }}" rel="stylesheet">
+
+
 <?php
 if(isset($restaurantblade)){
 // pb: Add Google API key when going live
@@ -84,6 +90,10 @@ function initAutocomplete() {
     <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
+
+      <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
+      <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
+
 </head>
 
 
