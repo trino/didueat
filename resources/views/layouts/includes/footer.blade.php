@@ -54,7 +54,7 @@
       </div>
       <!-- END COPYRIGHT -->
       <!-- BEGIN PAYMENTS -->
-      <div class="col-md-4 col-sm-4">
+      <!-- <div class="col-md-4 col-sm-4">
         <div class="pre-footer-subscribe-box pull-right">
           {!! Form::open(array('url' => '/newsleter/subscribe', 'id'=>'subscribe-email','class'=>'','method'=>'post','role'=>'form')) !!}
           <input type="hidden" name="action" value="subscribe">
@@ -67,7 +67,7 @@
           </div>
           {!! Form::close() !!}
         </div>
-      </div>
+      </div> -->
       <!-- END PAYMENTS -->
     </div>
   </div>
@@ -77,6 +77,32 @@
   <div class="clearfix"></div>
   <div id="loadmoreajaxloader">
     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+  </div>
+</div>
+
+
+<div id="fancybox-rating-commentbox" style="display:none;">
+  <div class="login-form popup-dialog" style="">
+    <h1>Your Comment</h1>
+    {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div id="message-error" class="alert alert-danger" style="display: none;"></div>
+      <div id="message-success" class="alert alert-success" style="display: none;"></div>
+      <div class="form-group">
+        <label>Comments: </label>
+        <textarea rows="6" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="btn red" id="ratingSaveBtn" value="Save" />
+        <input type="hidden" id="rating_id" value="" />
+        <input type="hidden" id="data-rating-id" value="" />
+        <input type="hidden" id="data-target-id" value="" />
+        <input type="hidden" id="data-type" value="" />
+        <input type="hidden" id="ratingInputHidden" value="" />
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    {!! Form::close() !!}
   </div>
 </div>
 <!-- END PRE-FOOTER -->
