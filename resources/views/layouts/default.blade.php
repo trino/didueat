@@ -42,7 +42,7 @@ if (Request::path() !== null && Request::path() != "/") {
   <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/global/css/select2.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/global/css/tags.css') }}" rel="stylesheet">
   
   <?php
   if(isset($restaurantblade)){
