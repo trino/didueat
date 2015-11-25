@@ -58,13 +58,7 @@
                         <div class="form-group">
                             <label class="control-label">Tags</label>
                             <textarea id="demo4"></textarea>
-                           {{-- <p style="font-size:.9em;margin:0 0 .2em">Callback response:</p>
-                            <div id="response">Starting tags: <i>hello, world</i></div>
-
-                            <h4>Custom style and clickDelete</h4>
-                            <p>
-                                Use right mouse click or Ctrl+left click to delete tags.
-                            </p>--}}
+                            <input type="hidden" name="tags" id="responseTags" value="" />
                         </div>
                     </div>
 
@@ -308,14 +302,15 @@
 <script>
 $(function(){
     $('#demo4').tagEditor({
-        initialTags: ['Hello', 'World'],
+        initialTags: ['Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German'],
         placeholder: 'Enter tags ...',
-        onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
-        beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-        beforeTagDelete: function(field, editor, tags, val) {
+        //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
+        //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
+        onChange: function(field, editor, tags) { $('#responseTags').val((tags.length ? tags.join(', ') : '')); },
+        beforeTagDelete: function(field, editor, tags, val){
             var q = confirm('Remove tag "'+val+'"?');
-            if (q) $('#response').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-            else $('#response').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
+            //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
+            //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
             return q;
         }
     });

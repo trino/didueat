@@ -1230,4 +1230,14 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
     return $html;
 }
 
+
+function strToTagsConversion($string=""){
+    $html = "";
+    if($string){
+        foreach (explode(", ", $string) as $value) {
+            $html .= "'".$value."', ";
+        }
+    }
+    return $html;
+}
 ?>

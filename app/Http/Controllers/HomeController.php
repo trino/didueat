@@ -304,6 +304,7 @@ class HomeController extends Controller
                 $update['postal_code'] = $post['postal_code'];
                 $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['tags'] = $post['tags'];
                 $update['open'] = 1;
 
                 $ob = new \App\Http\Models\Restaurants();
