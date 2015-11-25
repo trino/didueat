@@ -67,7 +67,7 @@ Header and header elements
 
 .header {
   box-shadow: 0px 2px 5px 2px #333;
-  background: #333;
+  background: #FF0000;
   border-radius: 0;
   z-index: 999;
   position: fixed !important;
@@ -103,7 +103,7 @@ body.page-header-fixed {
   font-size: 23px;
   font-weight: 400;
   margin-right: 27px;
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .header .mobi-toggler, .fixed-header .mobi-toggler {
@@ -5532,7 +5532,7 @@ li {
 }
 
 .footer-gb {
-  background: black
+  background: #FF0000
 }
 
 .logo-style {
@@ -5799,4 +5799,19 @@ li {
 .dArr {
   position: relative;
   top: 2px
+}
+
+.thumbnail .caption{
+  padding: 10px;
+}
+.search-form h4 {
+  float: left;
+  padding: 1px 9px;
+}
+.search-form span {
+  color: #ccc;
+}
+.search-form ul {
+  float: right;
+  padding: 0 11px;
 }

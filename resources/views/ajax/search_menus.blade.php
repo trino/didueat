@@ -1,3 +1,4 @@
+<div class="row">
 @foreach($query as $value)
     <?php
         $item_image = asset('assets/images/default_menu.jpg');
@@ -10,32 +11,43 @@
         }
     ?>
 
-    <div id="{{ $start }}" class="col-md-4 col-sm-6 col-xs-12  parentDiv no-padding " style="">
-        <div class="card ">
-            <div class="sticker sticker-new"></div>
+    <div id="{{ $start }}" class="col-sm-6 col-md-4  parentDiv no-padding">
+        <div class="card thumbnail">
+            <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><div class="card-image">
+                @if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image)))
+                    <img style="" src="{{ $item_image1 }}">
+                @endif
+
+            </div></a>
+            <div class="caption text-justify title">
+            <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
+
+                <h3><strong>{{ $value->menu_item }}</strong></h3>
+            </a>
+            </div>
+            <div class="caption text-justify description">
+                <p>
+                    {{ substr($value->description, 0, 300) }}
+                    {!! rating_initialize("static-rating", "menu", $value->id) !!}
+                </p>
+                <p>
+                <a href="#" class="btn btn-danger" role="button"><span class="card-title">${{ $value->price }}</span></a>
+                </p>
+            </div>
+
             <div class="col-md-9 no-padding">
-                <div class="card-content">
-                    <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
-                        <strong>{{ $value->menu_item }}</strong>
-                        {{ $value->description }} 
-                        {!! rating_initialize("static-rating", "menu", $value->id) !!}
+
+                <div class="card-action">
+                    <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="">
+                        {{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}
                     </a>
                 </div>
-                <div class="card-action">
-                    <a href="" class="">McDonalds Eastgate</a>
-                </div>
             </div>
-            <div class="col-md-3 no-padding">
-                <div class="card-image">
-                    @if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image)))
-                    <img style="" src="{{ $item_image1 }}">
-                    @endif
-                    <span class="card-title"><span style="color:red;">${{ $value->price }}</span></span>
-                </div>
-            </div>
+
             <div style="clear: both;"></div>
         </div>
     </div>
+
 
     <div id="product-pop-up_{{ $value->id }}" class="popup-dialog-800" style="display: none;">
         <div class="product-page product-pop-up p-popup">
@@ -147,3 +159,4 @@
         </div>
     </div>
 @endforeach
+</div>

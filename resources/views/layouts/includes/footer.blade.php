@@ -1,11 +1,9 @@
 <div class="footer footer-gb">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-1"></div>
-      <div class=" col-md-10 col-sm-12 col-xs-12">
+      <div class=" col-md-10 col-sm-12 col-xs-12 col-md-offset-1">
         <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
           <i class="fa fa-search"></i>
-
           <div>
             <h3>Pick A Restaurant</h3>
             <em>Choose your preference</em>
@@ -23,33 +21,30 @@
         </div>
         <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
           <i class="fa fa-spoon"></i>
-
           <div>
             <h3>Enjoy Your Meal</h3>
             <em>No setup fees, hidden costs, or contracts</em>
           </div>
         </div>
       </div>
-      <div class="col-md-1"></div>
     </div>
 
     <div class="row">
       <!-- BEGIN COPYRIGHT -->
-      <div class="col-md-4 col-sm-4 padding-top-10">
+      <div class="col-md-12 col-sm-12 col-md-offset-1 padding-top-10">
         &copy;
         <script language=javascript>var yr;
           Today = new Date();
           document.write(Today.getFullYear());</script>
         didueat.ca / ALL Rights Reserved.
-      </div>
-      <div class="col-md-4 col-sm-4 padding-top-10" align="center">
+
         <?php
-        $end_loading_time = microtime(true);
-        printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
-        echo "<br />";
-        echo getOS();
-        echo " => ";
-        echo getUserBrowser();
+          $end_loading_time = microtime(true);
+          printf("<br>Page was generated in %f seconds", $end_loading_time - $start_loading_time);
+          echo "<br />";
+          echo getOS();
+          echo " => ";
+          echo getUserBrowser();
         ?>
       </div>
       <!-- END COPYRIGHT -->
