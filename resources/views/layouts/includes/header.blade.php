@@ -27,7 +27,8 @@
                 </ul>
             </div>
         </div>
-
+        
+        <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
         <script>
             <?php
             if(!isset($radiusSelect) || $radiusSelect == "") {
@@ -42,7 +43,6 @@
                     break;
                 }
             }
-
 
             var placeSearch, autocomplete;
             var componentForm = {
