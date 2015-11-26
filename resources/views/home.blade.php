@@ -22,11 +22,11 @@
               {!! Form::close() !!}
 
               <br/>
-
+              <div class="sort search-form clearfix">
               <h4>Sort By</h4>
-              <ul id="filterType" class="margin-bottom-10 clearfix">
+              <ul id="filterType">
                 <li>
-                  Sort
+                  {{--Sort--}}
                   <div class="input-field col s12">
                     <select name="sortType" id="sortType" class="browser-default">
                       <option value="id">ID</option>
@@ -35,7 +35,7 @@
                       <option value="sing_mul">S or M</option>
                       <option value="image">Image</option>
                     </select>
-                    By
+
                     <select name="sortBy" id="sortBy" class="browser-default">
                       <option value="ASC">ASC</option>
                       <option value="DESC">DESC</option>
@@ -43,31 +43,39 @@
                   </div>
                 </li>
               </ul>
+              </div>
+              <div class="price_range search-form clearfix">
               <h4>Price Range</h4>
               <ul id="filterPriceRange">
-                <li>From <input type="text" name="priceFrom" id="priceFrom" size="3" value=""/> To <input type="text" name="priceTo" id="priceTo"
-                                                                                                          size="3" value=""/></li>
+                <li><input type="text" placeholder="From" name="priceFrom" id="priceFrom" size="3" value=""/> - <input type="text" name="priceTo" placeholder="To" id="priceTo"size="3" value=""/></li>
               </ul>
+              </div>
+
+              <div class="has_addon search-form clearfix">
               <h4>Has Addon?</h4>
               <ul id="filterAddon">
                 <li><a class="hasAddon" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
                 <li><a class="hasAddon" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
                 <input type="hidden" name="selected_hasAddon" id="selected_hasAddon" value=""/>
               </ul>
+              </div>
+              <div class="has_img search-form clearfix">
               <h4>Has Image?</h4>
               <ul id="filterImage">
                 <li><a class="hasImage" data-name="1"><i class="fa fa-square-o"></i> &nbsp; Yes</a></li>
                 <li><a class="hasImage" data-name="0"><i class="fa fa-square-o"></i> &nbsp; No</a></li>
                 <input type="hidden" name="selected_hasImage" id="selected_hasImage" value=""/>
               </ul>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="col-md-9 col-sm-8 col-xs-12">
-          <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 
-          <div id="menus_bar" class="margin-bottom-20 row clearfix">
+
+          <div id="menus_bar" class="menu-list">
+            <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
             @include('ajax.search_menus')
           </div>
           <div class="clearfix"></div>

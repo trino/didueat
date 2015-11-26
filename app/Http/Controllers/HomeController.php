@@ -32,7 +32,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Home Page';
         $data['query'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'list')->get();
         $data['count'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'count')->count();
         $data['start'] = $data['query']->count();
@@ -305,6 +304,7 @@ class HomeController extends Controller
                 $update['postal_code'] = $post['postal_code'];
                 $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['tags'] = $post['tags'];
                 $update['open'] = 1;
 
                 $ob = new \App\Http\Models\Restaurants();
@@ -433,7 +433,8 @@ class HomeController extends Controller
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
         $category = \App\Http\Models\Category::get();
         $data['category'] = $category;
-        $data['title'] = 'Menus Restaurant Page';
+        $data['title'] = $res_slug->name;
+        $data['meta_description'] = $res_slug->description;
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");

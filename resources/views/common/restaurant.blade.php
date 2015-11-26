@@ -55,6 +55,14 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Tags</label>
+                            <textarea id="demo4"></textarea>
+                            <input type="hidden" name="tags" id="responseTags" value="" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         <h3 class="form-section">Delivery</h3>
                     </div>
                     
@@ -143,9 +151,9 @@
                             <label class="control-label">Province <span class="required">*</span></label>
                             <select name="province" id="province" class="form-control" onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($resturant->province))?$resturant->province:'' }}');" required>
                                 <option value="">-Select One-</option>
-                                <!--@foreach($states_list as $value)
+                                <!-- @foreach($states_list as $value)
                                     <option value="{{ $value->id }}" @if(old('province') == $value->id) selected @endif>{{ $value->name }}</option>
-                                @endforeach-->
+                                @endforeach -->
                             </select>
                         </div>
                     </div>
@@ -293,6 +301,20 @@
 
 <script>
 $(function(){
+    $('#demo4').tagEditor({
+        initialTags: ['Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German'],
+        placeholder: 'Enter tags ...',
+        //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
+        //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
+        onChange: function(field, editor, tags) { $('#responseTags').val((tags.length ? tags.join(', ') : '')); },
+        beforeTagDelete: function(field, editor, tags, val){
+            var q = confirm('Remove tag "'+val+'"?');
+            //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
+            //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
+            return q;
+        }
+    });
+
     @if(old('city'))
         $(document).ready(function(){
                 cities("{{ url('ajax') }}", {{ old('city') }});
