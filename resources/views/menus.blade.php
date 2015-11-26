@@ -160,18 +160,20 @@
     <li class="next_{{ $catid }}"><a href="{{ $menus_list->nextPageUrl() }}">Next &gt;&gt;</a></li>
 </div>
 
-@if(!isset($_GET['page']))
-@if($menus_list->hasMorePages())
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <button align="center" class="loadmore red btn btn-primary" title="{{ $catid }}">Load More</button>
+{{--@if(!isset($_GET['page']))--}}
+    @if( $menus_list->hasMorePages() === true)
+        <div class="row" id="LoadMoreBtnContainer{{ $catid }}">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <button align="center" class="loadmore red btn btn-primary" title="{{ $catid }}">Load More</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-@endif
+    @endif
+{{--@endif--}}
+
+
 <div class="clearfix"></div>
-@endif
 
 <script>
 function changeqty(id, opr) {

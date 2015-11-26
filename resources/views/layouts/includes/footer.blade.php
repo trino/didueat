@@ -115,9 +115,14 @@
   $(document).ready(function() {
     $('body').on('click', '.update-rating', function() {
       var rating = $(this).val();
+      var isAlreadyRated = $(this).attr('data-count-exist');
       var rating_id = $(this).attr('data-rating-id');
       var target_id = $(this).attr('data-target-id');
       var type = $(this).attr('data-type');
+
+      if(isAlreadyRated > 0){
+        return alert('You already rated!');
+      }
 
       $('#rating_id').val(rating);
       $('#rating-form #data-rating-id').val(rating_id);

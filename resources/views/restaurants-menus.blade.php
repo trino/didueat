@@ -687,7 +687,7 @@
                 $.ajax({
                     url: url1,
                     success: function(html) {
-
+                        $('#LoadMoreBtnContainer'+catid).remove();
                         if (html) {
                             $('.nxtpage_' + catid).remove();
                             $("#loadmenus_" + catid).append(html);

@@ -97,6 +97,7 @@ Route::resource('user/images',                      'UsersController@images');
 Route::get('user/orders',                           'UsersController@viewOrders');
 Route::post('user/ajax_register',                   'UsersController@ajax_register');
 Route::resource('user/json_data',                   'UsersController@json_data');
+Route::resource('user/reviews',                   'UsersController@reviews');
 
 Route::get('auth/test',                             'Auth\AuthController@test');
 

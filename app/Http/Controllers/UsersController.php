@@ -179,6 +179,18 @@ class UsersController extends Controller
     }
 
     /**
+     * Addresses
+     * @param null
+     * @return view
+     */
+    public function reviews($id = 0)
+    {
+        $data['title'] = "User Reviews";
+        $data['ratings'] = \App\Http\Models\RatingUsers::get();
+        return view('dashboard.administrator.user_reviews', $data);
+    }
+
+    /**
      * Images Manage
      * @param null
      * @return view

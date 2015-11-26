@@ -1711,7 +1711,7 @@ body.ecommerce {
 }
 
 .form-horizontal .control-label {
-  text-align: right !important;
+  /*text-align: right !important;*/
 }
 
 .prov-country {
