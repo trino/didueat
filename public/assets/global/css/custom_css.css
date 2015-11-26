@@ -5801,6 +5801,11 @@ li {
   top: 2px
 }
 
+<<<<<<< HEAD
+.dArr{position:relative;top:2px}
+.genreList{display:none;border:solid #000 1px;padding:10px;background:#fff;width:250px;}
+.CBs{display:inline-block;margin:3px}
+=======
 .thumbnail .caption{
   padding: 10px;
 }
@@ -5815,3 +5820,4 @@ li {
   float: right;
   padding: 0 11px;
 }
+>>>>>>> origin/master
