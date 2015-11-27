@@ -1,3 +1,4 @@
+<h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 <div class="row">
 @foreach($query as $value)
     <?php

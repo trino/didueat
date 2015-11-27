@@ -77,7 +77,6 @@
           <div class="container-fluid">
             <div class="row">
               <div id="menus_bar" class="menu-list">
-                <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
                 @include('ajax.search_menus')
               </div>
               <div class="clearfix"></div>
