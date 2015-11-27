@@ -60,7 +60,7 @@
 <div class="overlay_loader">
   <div class="clearfix"></div>
   <div id="loadmoreajaxloader">
-    <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+    <img src="{{ asset('assets/images/ajax-loading.gif') }}" />
   </div>
 </div>
 
@@ -109,7 +109,7 @@
       var target_id = $(this).attr('data-target-id');
       var type = $(this).attr('data-type');
 
-      if (isAlreadyRated > 0) {
+      if(isAlreadyRated > 0){
         return alert('You already rated!');
       }
 
@@ -139,16 +139,8 @@
       var target_id = $('#rating-form #data-target-id').val();
       var type = $('#rating-form #data-type').val();
 
-
-      $.post("{{ url('rating/save') }}", {
-        rating: rating,
-        rating_id: rating_id,
-        target_id: target_id,
-        comments: ratingbox,
-        type: type,
-        _token: "{{ csrf_token() }}"
-      }, function (json) {
-        if (json.type == "error") {
+      $.post("{{ url('rating/save') }}", {rating:rating, rating_id:rating_id, target_id:target_id, comments:ratingbox, type:type, _token:"{{ csrf_token() }}"}, function(json){
+        if(json.type == "error"){
           $('#rating-form #message-success').hide();
           $('#rating-form #message-error').show();
           $('#rating-form #message-error').text(json.response);
@@ -156,8 +148,8 @@
           $('#rating-form #message-error').hide();
           $('#rating-form #message-success').show();
           $('#rating-form #message-success').text(json.response);
-          //$('#fancybox-rating-commentbox').close();
           $.fancybox.close();
+          $('.'+target_id+rating_id+type).attr('data-count-exist', 1);
         }
       });
       e.preventDefault();
