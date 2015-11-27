@@ -11,31 +11,31 @@
         }
     ?>
 
-    <div id="{{ $start }}" class="col-sm-6 col-md-4  parentDiv no-padding">
-        <div class="card thumbnail">
+    <div id="{{ $start }}" class="col-lg-4 col-md-6 col-sm-6 col-xs-12 parentDiv">
+        <div class="home-boxes thumbnail">
             <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><div class="card-image">
                 @if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image)))
-                    <img style="" src="{{ $item_image1 }}">
+                    <img class="img-responsive" src="{{ $item_image1 }}">
                 @endif
 
             </div></a>
-            <div class="caption text-justify title">
+            <div class="caption title">
             <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
 
-                <h3><strong>{{ $value->menu_item }}</strong></h3>
+                <h3>{{ $value->menu_item }}</h3>
             </a>
             </div>
-            <div class="caption text-justify description">
+            <div class="caption description">
                 <p>
                     {{ substr($value->description, 0, 300) }}
                     {!! rating_initialize("static-rating", "menu", $value->id) !!}
                 </p>
                 <p>
-                <a href="#" class="btn btn-danger" role="button"><span class="card-title">${{ $value->price }}</span></a>
+                <a href="#" role="button"><span class="btn custom-default-btn">${{ $value->price }}</span></a>
                 </p>
             </div>
 
-            <div class="col-md-9 no-padding">
+            <div class="no-padding">
 
                 <div class="card-action">
                     <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" class="">

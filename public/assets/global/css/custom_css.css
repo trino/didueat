@@ -1,8 +1,228 @@
-/***
-This is the CSS it uses!
+/** 01.CSS RESET
+**********************************/
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
-Header and header elements
-***/
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/** 02.SCAFFOLDING
+**********************************/
+
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #445258;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ecommerce h1, .ecommerce h2, .ecommerce h3, .ecommerce h4, .ecommerce h5, .ecommerce h6 {
+  font-family: 'Montserrat', sans-serif;
+  margin: 20px 0;
+  text-transform: normal;
+  color: #333;
+}
+
+.ecommerce h1 {
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: normal;
+  font-weight: bold;
+}
+
+.ecommerce h2 {
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: normal;
+  font-weight: bold;
+}
+
+.ecommerce h3 {
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: normal;
+  font-size: 22px;
+}
+
+/* Vertical Space classes */
+.space-top {
+  margin-top: 24px;
+}
+
+.space-top-2x {
+  margin-top: 48px;
+}
+
+.space-top-3x {
+  margin-top: 72px;
+}
+
+.space-bottom {
+  margin-bottom: 24px;
+}
+
+.space-bottom-2x {
+  margin-bottom: 48px;
+}
+
+.space-bottom-3x {
+  margin-bottom: 72px;
+}
+
+.padding-top {
+  padding-top: 24px;
+}
+
+.padding-top-2x {
+  padding-top: 48px;
+}
+
+.padding-top-3x {
+  padding-top: 72px;
+}
+
+.padding-bottom {
+  padding-bottom: 24px;
+}
+
+.padding-bottom-2x {
+  padding-bottom: 48px;
+}
+
+.padding-bottom-3x {
+  padding-bottom: 72px;
+}
+
+@media screen and (max-width: 768px) {
+  .space-top {
+    margin-top: 16px;
+  }
+
+  .space-top-2x {
+    margin-top: 32px;
+  }
+
+  .space-top-3x {
+    margin-top: 48px;
+  }
+
+  .space-bottom {
+    margin-bottom: 16px;
+  }
+
+  .space-bottom-2x {
+    margin-bottom: 32px;
+  }
+
+  .space-bottom-3x {
+    margin-bottom: 48px;
+  }
+
+  .padding-top {
+    padding-top: 16px;
+  }
+
+  .padding-top-2x {
+    padding-top: 32px;
+  }
+
+  .padding-top-3x {
+    padding-top: 48px;
+  }
+
+  .padding-bottom {
+    padding-bottom: 16px;
+  }
+
+  .padding-bottom-2x {
+    padding-bottom: 32px;
+  }
+
+  .padding-bottom-3x {
+    padding-bottom: 48px;
+  }
+}
+
+/* Clear floats */
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/* Responsive media by default */
+img,
+iframe,
+embed {
+  max-width: 100%;
+}
+
+/* Text Selection Color */
+::selection {
+  color: #fff;
+  background: #445258;
+}
+
+::-moz-selection {
+  color: #fff;
+  background: #445258;
+}
+
+/*resets ends here
+====================================================*/
+
 .required {
   color: red;
 }
@@ -66,13 +286,12 @@ Header and header elements
 }
 
 .header {
-  box-shadow: 0px 2px 5px 2px #333;
-  background: #FF0000;
-  border-radius: 0;
+  background: #F00 none repeat scroll 0% 0%;
+  border-radius: 0px;
   z-index: 999;
   position: fixed !important;
   width: 100%;
-  top: 0px;
+  padding: 20px;
 }
 
 /* FIX styles BEGIN */
@@ -98,13 +317,13 @@ body.page-header-fixed {
   border-bottom: 1px solid #eee;
 }
 
-.site-logo {
+/*.site-logo {
   float: left;
   font-size: 23px;
   font-weight: 400;
   margin-right: 27px;
   padding: 5px 0;
-}
+}*/
 
 .header .mobi-toggler, .fixed-header .mobi-toggler {
   float: right;
@@ -401,7 +620,7 @@ body.page-header-fixed {
 }*/
 .header-navigation .search-box {
   right: -7px;
-  top: 100%;
+  top: 180%;
   padding: 15px;
   display: none;
   background: #fcfafb;
@@ -481,29 +700,19 @@ body.ecommerce {
   background: #f9f9f9 !important;
 }
 
-.ecommerce h1, .ecommerce h2, .ecommerce h3, .ecommerce h4, .ecommerce h5, .ecommerce h6 {
-  font-family: "PT Sans Narrow", sans-serif;
-  margin: 0 0 10px;
-  text-transform: uppercase;
-}
-
-.ecommerce h1 {
-  font-size: 23px;
-}
-
-.ecommerce h2 {
+/*.ecommerce h2 {
   font-size: 20px;
-}
+}*/
 
-.ecommerce .content-page h2,
+/*.ecommerce .content-page h2,
 .ecommerce .content-page h3,
 .ecommerce .content-page h4,
 .ecommerce .content-page h5,
 .ecommerce .content-page h6 {
   padding-top: 10px;
-}
+}*/
 
-.ecommerce .content-page h3 {
+/*.ecommerce .content-page h3 {
   font-size: 20px;
   margin-bottom: 7px;
 }
@@ -511,12 +720,14 @@ body.ecommerce {
 .ecommerce .content-page h4 {
   font-size: 17px;
   margin-bottom: 4px;
-}
+}*/
+/*
 
 .ecommerce .content-page h5,
 .ecommerce .content-page h6 {
   margin-bottom: 2px;
 }
+*/
 
 /***
 Header and header elements
@@ -535,22 +746,24 @@ Header and header elements
 }
 
 .ecommerce .header-navigation li.menu-search {
-  top: 18px;
+  top: 0;
+  position: relative;
 }
 
 .ecommerce .header-navigation li.menu-search i {
   color: #fff;
+  opacity: 1;
 }
 
 /* Navigation */
 .ecommerce .header-navigation {
-  letter-spacing: 1px;
-  margin: 0 10px 0 0;
+  /*letter-spacing: 1px;*/
+  /*margin: 0 10px 0 0;*/
 }
 
 .ecommerce .header-navigation > ul > li > a {
   color: #fff;
-  padding: 20px 12px;
+  /*padding: 20px 12px;*/
 }
 
 .ecommerce .header-navigation .dropdown-menu > li > a:hover,
@@ -1130,7 +1343,7 @@ a.btn {
 }
 
 /* GENERAL BUTTON STYLING */
-button,
+/*button,
 button::after {
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -1163,10 +1376,10 @@ button::after {
 button:hover {
   color: #fff;
   border-color: #cf102d !important;
-}
+}*/
 
 /* BUTTON 3 */
-.btn-3::after {
+/*.btn-3::after {
   height: 0;
   left: 50%;
   top: 50%;
@@ -1178,7 +1391,7 @@ button:hover {
   left: 0;
   top: 0;
   width: 100%;
-}
+}*/
 
 .intro .text {
   max-width: 628px;
@@ -1412,7 +1625,7 @@ button:hover {
 }
 
 .main {
-  padding-top: 80px;
+  padding-top: 100px;
   min-height: 700px;
 }
 
@@ -5121,7 +5334,7 @@ Portlets
 }
 
 .footer {
-  background: #cf102d;
+  background: #f00;
   padding: 25px 0;
   color: #fff;
 }
@@ -5253,12 +5466,12 @@ ul li a {
   color: #000;
 }
 
-.card-image .img-responsive {
+/*.card-image .img-responsive {
   border-radius: 0 !important;
   box-shadow: 0 0 3px #aaa;
   margin: 12px 0;
   padding: 10px;
-}
+}*/
 
 .btn.red:hover {
   background: #b30c10;
@@ -5532,12 +5745,11 @@ li {
 }
 
 .footer-gb {
-  background: #FF0000
+  /*background: #FF0000*/
 }
 
 .logo-style {
-  background: #ff0000 ;
-  padding: 5px;
+  background: #ff0000;
 }
 
 .logo-style .site-logo img {
@@ -5553,7 +5765,7 @@ li {
 }
 
 #top-address-search-input {
-  padding-top: 17px;
+  /*padding-top: 17px;*/
 }
 
 .search-box {
@@ -5801,23 +6013,126 @@ li {
   top: 2px
 }
 
-<<<<<<< HEAD
-.dArr{position:relative;top:2px}
-.genreList{display:none;border:solid #000 1px;padding:10px;background:#fff;width:250px;}
-.CBs{display:inline-block;margin:3px}
-=======
-.thumbnail .caption{
-  padding: 10px;
+.dArr {
+  position: relative;
+  top: 2px
 }
+
+.genreList {
+  display: none;
+  border: solid #000 1px;
+  padding: 10px;
+  background: #fff;
+  width: 250px;
+}
+
+.CBs {
+  display: inline-block;
+  margin: 3px
+}
+
 .search-form h4 {
   float: left;
   padding: 1px 9px;
 }
+
 .search-form span {
   color: #ccc;
 }
+
 .search-form ul {
   float: right;
   padding: 0 11px;
 }
->>>>>>> origin/master
+
+/*
+My css styling 27 Nov 2015
+------------------------------------------------------------------
+////////////////////////////////////////////////////////////////////
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+*/
+.nearby-res-btn {
+  background: #F00 none repeat scroll 0% 0%;
+  border: 2px solid #FFF;
+  color: #FFF;
+  border-radius: inherit;
+  padding: 8px 12px !important;
+  line-height: inherit;
+  font-weight: bold;
+}
+
+.nearby-res-btn:hover,
+.nearby-res-btn:focus,
+.nearby-res-btn:active {
+  background: #FFF none repeat scroll 0% 0%;
+  border: 2px solid #fff;
+  color: #F00 !important;
+  transition: all 0.2s ease 0s;
+}
+
+.home-boxes {
+  border: 1px solid #DFDFDF;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.custom-default-btn {
+  border: 2px solid #F00;
+  color: #F00 !important;
+  border-radius: 0px;
+  padding: 10px 30px;
+  line-height: 1;
+  font-weight: bold;
+  background: #FFF none repeat scroll 0% 0%;
+}
+
+.custom-default-btn:hover,
+.custom-default-btn:focus,
+.custom-default-btn:active {
+  background: #F00 none repeat scroll 0% 0%;
+  border: 2px solid #F00;
+  color: #fff !important;
+  transition: all .2s;
+}
+
+.thumbnail .caption {
+  padding: 10px 0;
+}
+
+/*navbar styling*/
+.my-navbar .navbar-default {
+  background-color: #F00;
+  border-color: transparent;
+  height: 76px;
+  padding: 20px;
+}
+
+.my-navbar .navbar-brand > img {
+  width: 140px;
+}
+
+.my-navbar .navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+
+.my-navbar .navbar-default .navbar-brand {
+  float: left;
+  height: auto;
+  padding: 0 15px 0 0;
+  font-size: 18px;
+  line-height: inherit;
+}
+
+.copyrights, .loadinfo {
+  text-align: left;
+  line-height:1.5;
+}
+
+.fancybox-fast-view {
+  line-height: 1 !important;
+  padding: 11px 0 !important;
+}
+
+.footer-h3{
+  color: #fff !important;
+}

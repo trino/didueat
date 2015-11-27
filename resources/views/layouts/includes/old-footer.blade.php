@@ -1,58 +1,69 @@
-<div class="footer">
+<div class="footer footer-gb">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col-md-offset-3">
-
-
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div>
-              <h3 class="footer-h3"><i class="fa fa-search"></i> Pick A Restaurant</h3>
-              <em>Choose your preference</em>
-            </div>
-            <span>&nbsp;</span>
+      <div class=" col-md-10 col-sm-12 col-xs-12 col-md-offset-1">
+        <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
+          <i class="fa fa-search"></i>
+          <div>
+            <h3>Pick A Restaurant</h3>
+            <em>Choose your preference</em>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div>
-              <h3 class="footer-h3"><i class="fa fa-shopping-cart"></i> Order Online</h3>
-              <em>Get the best discount</em>
-            </div>
-            <span>&nbsp;</span>
+          <span>&nbsp;</span>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
+          <i class="fa fa-shopping-cart"></i>
+
+          <div>
+            <h3>Order Online</h3>
+            <em>Get the best discount</em>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div>
-              <h3 class="footer-h3"><i class="fa fa-spoon"></i> Enjoy Your Meal</h3>
-              <em>No setup fees, hidden costs, or contracts</em>
-            </div>
+          <span>&nbsp;</span>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-11 steps-block-col">
+          <i class="fa fa-spoon"></i>
+          <div>
+            <h3>Enjoy Your Meal</h3>
+            <em>No setup fees, hidden costs, or contracts</em>
           </div>
         </div>
-
       </div>
     </div>
 
     <div class="row">
-
       <!-- BEGIN COPYRIGHT -->
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col-md-offset-3">
-        <p class="loadinfo"><?php
+      <div class="col-md-12 col-sm-12 col-md-offset-1 padding-top-10">
+        &copy;
+        <script language=javascript>var yr;
+          Today = new Date();
+          document.write(Today.getFullYear());</script>
+        didueat.ca / ALL Rights Reserved.
+
+        <?php
           $end_loading_time = microtime(true);
-          printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
-          echo "";
+          printf("<br>Page was generated in %f seconds", $end_loading_time - $start_loading_time);
+          echo "<br />";
           echo getOS();
           echo " => ";
           echo getUserBrowser();
-          ?></p>
-
-        <p class="copyrights">&copy;
-          <script language=javascript>var yr;
-            Today = new Date();
-            document.write(Today.getFullYear());</script>
-          didueat.ca / ALL Rights Reserved.
-        </p>
-
-
+        ?>
       </div>
       <!-- END COPYRIGHT -->
+      <!-- BEGIN PAYMENTS -->
+      <!-- <div class="col-md-4 col-sm-4">
+        <div class="pre-footer-subscribe-box pull-right">
+          {!! Form::open(array('url' => '/newsleter/subscribe', 'id'=>'subscribe-email','class'=>'','method'=>'post','role'=>'form')) !!}
+          <input type="hidden" name="action" value="subscribe">
+
+          <div class="input-group">
+            <input type="text" name="email" placeholder="youremail@mail.com" class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn red" type="submit">Email Subscription</button>
+                        </span>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div> -->
+      <!-- END PAYMENTS -->
     </div>
   </div>
 </div>
@@ -77,12 +88,12 @@
         <textarea rows="6" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
       </div>
       <div class="form-group">
-        <input type="submit" class="btn red" id="ratingSaveBtn" value="Save"/>
-        <input type="hidden" id="rating_id" value=""/>
-        <input type="hidden" id="data-rating-id" value=""/>
-        <input type="hidden" id="data-target-id" value=""/>
-        <input type="hidden" id="data-type" value=""/>
-        <input type="hidden" id="ratingInputHidden" value=""/>
+        <input type="submit" class="btn red" id="ratingSaveBtn" value="Save" />
+        <input type="hidden" id="rating_id" value="" />
+        <input type="hidden" id="data-rating-id" value="" />
+        <input type="hidden" id="data-target-id" value="" />
+        <input type="hidden" id="data-type" value="" />
+        <input type="hidden" id="ratingInputHidden" value="" />
       </div>
       <div class="clearfix"></div>
     </div>
@@ -92,7 +103,7 @@
 <!-- END PRE-FOOTER -->
 
 <script type="text/javascript">
-  jQuery(document).ready(function () {
+  jQuery(document).ready(function() {
     Layout.init();
     Layout.initOWL();
     LayersliderInit.initLayerSlider();
@@ -101,15 +112,15 @@
     Layout.initTwitter();
   });
 
-  $(document).ready(function () {
-    $('body').on('click', '.update-rating', function () {
+  $(document).ready(function() {
+    $('body').on('click', '.update-rating', function() {
       var rating = $(this).val();
       var isAlreadyRated = $(this).attr('data-count-exist');
       var rating_id = $(this).attr('data-rating-id');
       var target_id = $(this).attr('data-target-id');
       var type = $(this).attr('data-type');
 
-      if (isAlreadyRated > 0) {
+      if(isAlreadyRated > 0){
         return alert('You already rated!');
       }
 
@@ -127,12 +138,12 @@
       });
     });
 
-    $('body').on('keyup', '#ratingInput', function () {
+    $('body').on('keyup', '#ratingInput', function(){
       var value = $(this).val();
       $('#rating-form #ratingInputHidden').val(value);
     });
 
-    $('body').on('submit', '#rating-form', function (e) {
+    $('body').on('submit', '#rating-form', function(e){
       var ratingbox = $('#rating-form #ratingInputHidden').val();
       var rating = $('#rating-form #rating_id').val();
       var rating_id = $('#rating-form #data-rating-id').val();
@@ -140,15 +151,8 @@
       var type = $('#rating-form #data-type').val();
 
 
-      $.post("{{ url('rating/save') }}", {
-        rating: rating,
-        rating_id: rating_id,
-        target_id: target_id,
-        comments: ratingbox,
-        type: type,
-        _token: "{{ csrf_token() }}"
-      }, function (json) {
-        if (json.type == "error") {
+      $.post("{{ url('rating/save') }}", {rating:rating, rating_id:rating_id, target_id:target_id, comments:ratingbox, type:type, _token:"{{ csrf_token() }}"}, function(json){
+        if(json.type == "error"){
           $('#rating-form #message-success').hide();
           $('#rating-form #message-error').show();
           $('#rating-form #message-error').text(json.response);
@@ -163,7 +167,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#subscribe-email', function (e) {
+    $('body').on('submit', '#subscribe-email', function(e) {
       var email = $('#subscribe-email input[name=email]').val();
       var token = $('#subscribe-email input[name=_token]').val();
 
@@ -173,7 +177,7 @@
         return false;
       }
 
-      $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function (jason) {
+      $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function(jason) {
         //var jason = $.parseJSON(result);
         if (jason.type == "error") {
           alert(jason.message);
@@ -205,7 +209,7 @@
       $('#cartsz').show();
     }
 
-    $(window).resize(function () {
+    $(window).resize(function() {
       var wd = $(window).width();
       if (wd <= '767') {
         $('.top-cart-info').show();
@@ -220,7 +224,7 @@
       }
     });
 
-    $('body').on('submit', '#searchMenuForm', function (e) {
+    $('body').on('submit', '#searchMenuForm', function(e) {
       var term = $('#searchMenuForm input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -228,7 +232,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchRestaurantForm', function (e) {
+    $('body').on('submit', '#searchRestaurantForm', function(e) {
       var term = $('#searchRestaurantForm input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -236,7 +240,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchMenuForm2', function (e) {
+    $('body').on('submit', '#searchMenuForm2', function(e) {
       var term = $('#searchMenuForm2 input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/menus') }}/" + term;
@@ -244,7 +248,7 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#searchRestaurantForm2', function (e) {
+    $('body').on('submit', '#searchRestaurantForm2', function(e) {
       var term = $('#searchRestaurantForm2 input[name=search_term]').val();
       if (term.trim() != "") {
         window.location.href = "{{ url('/search/restaurants') }}/" + term;
@@ -264,13 +268,13 @@
       return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
-    $('body').on('submit', '#forgot-pass-form', function (e) {
+    $('body').on('submit', '#forgot-pass-form', function(e) {
       var token = $("#forgot-pass-form input[name=_token]").val();
       var email = $("#forgot-pass-form input[name=email]").val();
 
       $("#forgot-pass-form #regButton").hide();
       $("#forgot-pass-form #regLoader").show();
-      $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
+      $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function(result) {
         $("#forgot-pass-form #regButton").show();
         $("#forgot-pass-form #regLoader").hide();
 
@@ -287,13 +291,13 @@
       e.preventDefault();
     });
 
-    $('body').on('submit', '#login-ajax-form', function (e) {
+    $('body').on('submit', '#login-ajax-form', function(e) {
       var data = $('#login-ajax-form').serialize();
       $.ajax({
         url: "{{ url('auth/login/ajax') }}",
         data: data,
         type: "post",
-        success: function (msg) {
+        success: function(msg) {
 
           if (isNaN(Number(msg))) {
             if (checkUrl(msg)) {
@@ -311,7 +315,7 @@
                 type: "post",
                 data: "id=" + msg + '&_token={{csrf_token()}}',
                 dataType: "json",
-                success: function (arr) {
+                success: function(arr) {
                   $('#fullname').val(arr.name);
                   $('#ordered_user_id').val(arr.user_id);
                   $('#ordered_email').val(arr.email);
@@ -332,24 +336,24 @@
               window.location = "{{ url('dashboard') }}";
           }
         },
-        failure: function (msg) {
+        failure: function(msg) {
           setvalue("message", "ERROR: " + msg);
         }
       });
       e.preventDefault();
     });
 
-    $('body').on('click', '#resendMeEmail', function (e) {
+    $('body').on('click', '#resendMeEmail', function(e) {
       var url = $(this).attr('href');
       $('#registration-success p').html('Please wait email is being send...');
-      $.get(url, {}, function (result) {
+      $.get(url, {}, function(result) {
         var json = jQuery.parseJSON(result);
         $('#registration-success p').html(json.message);
       });
       e.preventDefault();
     });
 
-    $('body').on('submit', '#register-form', function (e) {
+    $('body').on('submit', '#register-form', function(e) {
       var token = $("#register-form input[name=_token]").val();
       var Name = $("#register-form input[name=name]").val();
       var Email = $("#register-form input[name=email]").val();
@@ -371,7 +375,7 @@
         password: password,
         confirm_password: confirm_password,
         subscribed: subscribed
-      }, function (result) {
+      }, function(result) {
         $("#register-form #regButton").show();
         $("#register-form #regLoader").hide();
 
@@ -401,14 +405,14 @@
         return false;
     }
 
-    $('.loadmore').click(function () {
+    $('.loadmore').click(function() {
       $('div#loadmoreajaxloader').show();
       ur = $('.next a').attr('href');
       if (ur != '') {
         url1 = ur.replace('/?', '?');
         $.ajax({
           url: url1,
-          success: function (html) {
+          success: function(html) {
 
             if (html) {
               $('.nxtpage').remove();

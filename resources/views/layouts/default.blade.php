@@ -35,15 +35,16 @@ if (Request::path() !== null && Request::path() != "/") {
   <meta property="og:url" content="{{ url('/') . $nextPath }}">
   <link rel="shortcut icon" href="favicon.ico">
 
-    <!--  <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">-->
-  <link href="//v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/global/css/tags.css') }}" rel="stylesheet">
-  
+  <!--google font open sans -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!--google font Montserrat -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <?php
   if(isset($restaurantblade)){
   // pb: Add Google API key when going live
@@ -73,6 +74,7 @@ if (Request::path() !== null && Request::path() != "/") {
   <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
   <?php } ?>
   <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
