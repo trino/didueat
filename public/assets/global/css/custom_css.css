@@ -31,8 +31,16 @@ footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover, a:focus, a:active {
+  text-decoration: none;
+}
+
 body {
-  line-height: 1;
+  line-height: 1.5;
 }
 
 ul {
@@ -67,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 .ecommerce h1, .ecommerce h2, .ecommerce h3, .ecommerce h4, .ecommerce h5, .ecommerce h6 {
   font-family: 'Montserrat', sans-serif;
   margin: 20px 0;
-  text-transform: normal;
+  text-transform: inherit;
   color: #333;
 }
 
@@ -286,7 +294,7 @@ embed {
 }
 
 .header {
-  background: #F00 none repeat scroll 0% 0%;
+  background: #D50000 none repeat scroll 0% 0%;
   border-radius: 0px;
   z-index: 999;
   position: fixed !important;
@@ -2478,16 +2486,16 @@ body.ecommerce {
   clear: both;
 }
 
-.btn {
+/*.btn {
   color: #fff !important;
   margin-top: 0 !important;
-}
+}*/
 
 .btn.red {
   color: #fff !important;
   margin-top: 0 !important;
-  background: #ff0000;
-  border-color: #ff0000;
+  background: #D50000;
+  border-color: #D50000;
 }
 
 .orders_details #cartsz {
@@ -2496,7 +2504,7 @@ body.ecommerce {
 }
 
 #addNewUser .modal-header, .login-form h1, #forget-passsword h1, #register-form h1, #editNewUser h4 {
-  background: #ff0000 none repeat scroll 0 0;
+  background: #D50000 none repeat scroll 0 0;
   color: #fff;
   padding: 15px !important;
   margin-bottom: 15px !important;
@@ -5334,7 +5342,7 @@ Portlets
 }
 
 .footer {
-  background: #f00;
+  background: #D50000;
   padding: 25px 0;
   color: #fff;
 }
@@ -5628,13 +5636,13 @@ li {
   color: #666;
 }
 
-.menus-parent .menu-price {
+/*.menus-parent .menu-price {
   margin-top: 0px;
   background: #ffdd00;
   color: black;
   font-weight: 600;
   padding: 10px;
-}
+}*/
 
 .menus-parent .menu-image {
   padding: 0;
@@ -5741,15 +5749,15 @@ li {
 #login-pop-up #invalid {
   display: none;
   text-align: center;
-  color: #ff0000;
+  color: #D50000;
 }
 
 .footer-gb {
-  /*background: #FF0000*/
+  /*background: #D50000*/
 }
 
 .logo-style {
-  background: #ff0000;
+  background: #D50000;
 }
 
 .logo-style .site-logo img {
@@ -5897,7 +5905,6 @@ li {
 .rating {
   border: none;
   float: none;
-  font-family: cursive !important;
   clear: both;
 }
 
@@ -5985,8 +5992,7 @@ li {
 }
 
 .restoLogo {
-  padding: 0px;
-  padding-left: 10px;
+  padding: 0px 0 10px;
   position: relative;
   top: -10px;
   width: 120px;
@@ -5998,10 +6004,10 @@ li {
   padding: 0 11px 0 13px;
   width: 280px;
   height: 34px;
-  font-family: Arial;
   font-size: 16px;
   font-weight: 300;
   text-overflow: ellipsis;
+  margin: 21px 0;
 }
 
 #addressInput:focus {
@@ -6052,13 +6058,14 @@ My css styling 27 Nov 2015
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
 .nearby-res-btn {
-  background: #F00 none repeat scroll 0% 0%;
+  background: #D50000 none repeat scroll 0% 0%;
   border: 2px solid #FFF;
   color: #FFF;
   border-radius: inherit;
   padding: 8px 12px !important;
   line-height: inherit;
   font-weight: bold;
+  margin: 21px 5px;
 }
 
 .nearby-res-btn:hover,
@@ -6066,7 +6073,7 @@ My css styling 27 Nov 2015
 .nearby-res-btn:active {
   background: #FFF none repeat scroll 0% 0%;
   border: 2px solid #fff;
-  color: #F00 !important;
+  color: #D50000 !important;
   transition: all 0.2s ease 0s;
 }
 
@@ -6077,20 +6084,21 @@ My css styling 27 Nov 2015
 }
 
 .custom-default-btn {
-  border: 2px solid #F00;
-  color: #F00 !important;
+  border: 2px solid #D50000;
+  color: #D50000 !important;
   border-radius: 0px;
   padding: 10px 30px;
   line-height: 1;
   font-weight: bold;
   background: #FFF none repeat scroll 0% 0%;
+  box-shadow: inherit !important;
 }
 
 .custom-default-btn:hover,
 .custom-default-btn:focus,
 .custom-default-btn:active {
-  background: #F00 none repeat scroll 0% 0%;
-  border: 2px solid #F00;
+  background: #D50000 none repeat scroll 0% 0%;
+  border: 2px solid #D50000;
   color: #fff !important;
   transition: all .2s;
 }
@@ -6101,10 +6109,13 @@ My css styling 27 Nov 2015
 
 /*navbar styling*/
 .my-navbar .navbar-default {
-  background-color: #F00;
-  border-color: transparent;
+  background-color: #D50000;
   height: 76px;
-  padding: 20px;
+  margin: 0;
+  border: 0 none;
+  padding: 0;
+  box-shadow: none;
+  min-height: 46px;
 }
 
 .my-navbar .navbar-brand > img {
@@ -6113,26 +6124,74 @@ My css styling 27 Nov 2015
 
 .my-navbar .navbar-default .navbar-nav > li > a {
   color: #fff;
+  padding: 28px 20px;
 }
 
 .my-navbar .navbar-default .navbar-brand {
   float: left;
   height: auto;
-  padding: 0 15px 0 0;
+  padding: 23px 15px;
   font-size: 18px;
   line-height: inherit;
 }
 
 .copyrights, .loadinfo {
   text-align: left;
-  line-height:1.5;
+  line-height: 1.5;
 }
 
-.fancybox-fast-view {
+/*.fancybox-fast-view {
   line-height: 1 !important;
   padding: 11px 0 !important;
-}
+}*/
 
-.footer-h3{
+.footer-h3 {
   color: #fff !important;
 }
+
+.topbar-select {
+  margin: 21px 0 21px 5px;
+  height: 34px;
+}
+
+.new-layout-box {
+  border: 4px solid rgb(223, 223, 223);
+  border-radius: 5px;
+  background: rgb(255, 255, 255) none repeat scroll 0% 0%;
+  margin-bottom: 30px;
+}
+
+.new-layout-box h3 {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.new-layout-box h4 {
+  margin: 10px 0 0 0;
+}
+
+.box-des {
+  margin-bottom: 10px;
+}
+
+.menu-tag {
+  color: #D50000;
+
+}
+
+.new-layout-box-content {
+  padding: 20px 0px 20px 20px;
+}
+
+.restaurant-name {
+  background: #D50000 none repeat scroll 0% 0%;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.restaurant-name h2 {
+  margin: 0px;
+  color: #FFF;
+  text-decoration: none;
+}
+.menu-img {padding: 20px;}

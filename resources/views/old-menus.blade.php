@@ -4,8 +4,8 @@
 
     @foreach($menus_list as $value)
     <?php
-    $item_image = asset('assets/images/restaurant-default.jpg');
-    $item_image1 = asset('assets/images/restaurant-default.jpg');
+    $item_image = asset('assets/images/default_menu.jpg');
+    $item_image1 = asset('assets/images/default_menu.jpg');
     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))) {
         $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
     }
@@ -14,43 +14,28 @@
     }
     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
     ?>
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
-      <div class="new-layout-box">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="new-layout-box-content">
-              <div class="restaurant-name">
-                <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2></a>
-              </div>
-              <a
-                href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
-                <h3>{{ $value->menu_item }} <span class="menu-tag menu-price">${{ $value->price }}</span></h3>
-              </a>
-              <p class="box-des">{{ substr($value->description, 0, 230) }}</p>
-              <p>
-                <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn custom-default-btn">Remove</a>
-                <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn custom-default-btn fancybox-fast-view additem">Edit</a>
-                <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
-                <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
-              </p>
-              <div class="row">
-                {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="menu-img">
-              <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
-                <div class="card-image">
-                  <img src="{{ $item_image1 }}" class="img-responsive" alt="{{ $value->menu_item }}" />
+    <div class="col-md-6 col-sm-6 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
+        <div class="product-item">
+            <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
+                <div class="col-md-8 col-sm-7 col-xs-6 no-padding">
+                    <h2 class="padding-top-5 menu-title">{{ $value->menu_item }}</h2>
+                    <p class="menu-description">{{ $value->description }}</p>
+                    @if(Session::has('is_logged_in'))
+                    <div class="pull-left">
+                        <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn-sm red">Remove</a>
+                        <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn-small blue fancybox-fast-view additem">Edit</a>
+                        <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
+                        <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                    @endif
                 </div>
-              </a>
-            </div>
-          </div>
+                <div class="col-md-2 col-sm-3 col-xs-3 menu-price">${{ $value->price }}</div>
+                <div class="col-md-2 col-sm-2 col-xs-3 menu-image">
+                    <img style="height:60px;" src="{{ $item_image1 }}" class="img-responsive" alt="{{ $value->menu_item }}" />
+                </div>
+            </a>
+            {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
         </div>
-      </div>
     </div>
 
 
@@ -71,6 +56,7 @@
 
                 <div class="product-titles">
                     <h2>{{ $value->description }}</h2>
+                    {!! rating_initialize("static-rating", "menu", $value->id) !!}
                 </div>
 
                 <div class="subitems_{{ $value->id }} optionals">
@@ -80,7 +66,7 @@
                     </div>
                     <div class="banner bannerz">
                         <table width="100%">
-                            <tbody>
+                            <tbody>    
                                 @foreach ($submenus as $sub)
                                 <tr class="zxcx">
                                     <td width="100%" id="td_{{ $sub->id }}" class="valign-top">

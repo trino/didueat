@@ -1,3 +1,5 @@
+@extends('layouts.default')
+@section('content')
 <?php
  $restaurantblade=true;
  $setaddresscookie=false; // don't set this cookie during development
@@ -60,12 +62,6 @@
      $radiusSelect=10;
     }
 
-?>
-
-@extends('layouts.default')
-@section('content')
-
-<?php
 
  print("<script>var thisCity=\"".$thisCity."\",thisState=\"".$thisState."\",thisPostal=\"".$thisPostal."\",thisCountry=\"".$thisCountry."\";\nvar userAddress=\"".$userAddress."\";\nvar strtZoom=".$startZoom.";\nvar autoSrch=".$autoSrch.";\nvar thisLat=\"".$thisLat."\";\nvar thisLng=\"".$thisLng."\";</script>");
 

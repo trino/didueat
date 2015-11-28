@@ -20,14 +20,16 @@
             <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code"
                    value="{{ $userAddress }}">
           </li>
-          <li id="top-address-search-input">&nbsp;
-            <select id="radiusSelect" style="margin-right:3px" onchange="radiusChng(this.value)">
+          <li id="top-address-search-select">
+            <select id="radiusSelect" class="topbar-select" onchange="radiusChng(this.value)">
               <option value="1">1 km</option>
               <option value="2">2 km</option>
               <option value="5">5 km</option>
               <option value="10">10 km</option>
               <option value="20">20 km</option>
             </select>
+          </li>
+          <li id="top-address-search-submit">
             <input class="btn btn-default nearby-res-btn" id="searchBtn" type="button" title="Click to Search" onclick="addressChngd()"
                    value="Find Nearby Restaurants">
           </li>

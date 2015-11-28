@@ -1219,7 +1219,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
         $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
 
 
-        $html .= '<div class="' . $type . ' rating-font-size rating-center-align"> <span>' . $value->title . '</span>
+        $html .= '<div class="' . $type . ' rating-font-size rating-center-align"> <div class="col-md-3"><h4>' . $value->title . '</h4></div>
                     <input type="radio" id="star5' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'.$countExit.'" value="5" ' . $start5 . ' /><label class = "full" for="star5' . $target_id . $value->id . '" title="5 stars"></label>
                     <input type="radio" id="star4half' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="4.5" ' . $start4Half . ' /><label class="half" for="star4half' . $target_id . $value->id . '" title="4.5 stars"></label>
                     <input type="radio" id="star4' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="4" ' . $start4 . ' /><label class = "full" for="star4' . $target_id . $value->id . '" title="4 stars"></label>
