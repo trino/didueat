@@ -82,6 +82,10 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
+                    if ($user->is_email_varified == 0) {
+                        echo trans('messages.email_unvarified.message');
+                        die;
+                    }
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message');
                         die;
@@ -161,7 +165,8 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
+                    $data['status'] = 1;
+                    $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
@@ -240,7 +245,8 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
+                    $data['status'] = 1;
+                    $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
@@ -346,7 +352,7 @@ class AuthController extends Controller {
     public function verifyEmail($email = "")
     {
         $email = base64_decode($email);
-        $count = \App\Http\Models\Profiles::where('email', $email)->where('status', 1)->count();
+        $count = \App\Http\Models\Profiles::where('email', $email)->where('is_email_varified', 1)->count();
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
 
         if ($count > 0) {
@@ -358,6 +364,7 @@ class AuthController extends Controller {
 
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $user->status = 1;
+            $user->is_email_varified = 1;
             $user->save();
 
             login($user);

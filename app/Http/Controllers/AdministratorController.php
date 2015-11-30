@@ -212,7 +212,8 @@ class AdministratorController extends Controller
 
             \DB::beginTransaction();
             try {
-                $post['status'] = 0;
+                $post['status'] = 1;
+                $post['is_email_varified'] = 0;
                 $data['profile_type'] = 2;
                 $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
                 $post['created_by'] = \Session::get('session_id');

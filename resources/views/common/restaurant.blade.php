@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label>Cuisine Type</label>
                             <select name="genre" id="genre" class="form-control">
@@ -45,7 +45,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
@@ -59,6 +59,7 @@
                             <label class="control-label">Tags</label>
                             <textarea id="demo4"></textarea>
                             <input type="hidden" name="tags" id="responseTags" value="" />
+                            <p>e.g: Candian, Italian, Chinese, FastFood</p>
                         </div>
                     </div>
 
@@ -141,7 +142,7 @@
                             <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');" required>
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
-                                    <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
+                                    <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @elseif($value->id == 40) selected @endif>{{ $value->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -160,7 +161,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">City <span class="required">*</span></label>
-                            <select name="city" class="form-control" required id="city"></select>
+                            {{--<select name="city" class="form-control" required id="city"></select>--}}
+                            <input type="text" name="city" class="form-control" required id="city">
                         </div>
                     </div>
                 </div>
@@ -284,7 +286,7 @@
                             <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <label>
-                                    <input type="checkbox" name="subscribed" id="subscribed" value="1" />
+                                    <input type="checkbox" name="subscribed" id="subscribed" value="1" checked />
                                     Sign up for our Newsletter
                                 </label>
                             </div>
@@ -302,7 +304,7 @@
 <script>
 $(function(){
     $('#demo4').tagEditor({
-        initialTags: ['Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German'],
+        initialTags: [],
         placeholder: 'Enter tags ...',
         //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
         //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },

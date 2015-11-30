@@ -297,7 +297,7 @@ class HomeController extends Controller
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['genre'] = $post['genre'];
+                //$update['genre'] = $post['genre'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
@@ -345,7 +345,8 @@ class HomeController extends Controller
                 }
 
                 $data['restaurant_id'] = $ob->id;
-                $data['status'] = 0;
+                $data['status'] = 1;
+                $data['is_email_varified'] = 0;
                 $data['profile_type'] = 2;
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
@@ -540,6 +541,8 @@ class HomeController extends Controller
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
                         if ( $Province->id == $_POST["value"] || $Province->abbreviation == $_POST["value"]){
+                            echo ' SELECTED';
+                        }elseif($Province->id == 7){
                             echo ' SELECTED';
                         }
                         echo '>' . $Province->name . '</OPTION>' . "\r\n";

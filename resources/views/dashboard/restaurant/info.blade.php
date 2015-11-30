@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Cuisine Type</label>
                                                 <select name="genre" id="genre" class="form-control">
@@ -71,7 +71,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
@@ -85,6 +85,7 @@
                                                 <label class="control-label">Tags</label>
                                                 <textarea id="demo4"></textarea>
                                                 <input type="hidden" name="tags" id="responseTags" value="{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}" />
+                                                <p>e.g: Candian, Italian, Chinese, FastFood</p>
                                             </div>
                                         </div>
 
@@ -179,7 +180,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <select name="city" class="form-control" required id="city"></select>
+                                                <input type="text" name="city" class="form-control" required id="city" >
                                             </div>
                                         </div>
                                         

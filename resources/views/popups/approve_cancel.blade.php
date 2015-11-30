@@ -1,6 +1,6 @@
 <INPUT TYPE="hidden" id="orderid">
 
-<div id="approve-popup" class="popup-dialog" style="display:none;">
+<div id="approve-popup-dialog" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Approve Order</h1>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div id="disapprove-popup" class="popup-dialog" style="display:none;">
+<div id="disapprove-popup-dialog" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Disapprove Order</h1>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div id="cancel-popup" class="popup-dialog" style="display:none;">
+<div id="cancel-popup-dialog" class="popup-dialog" style="display:none;">
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Cancel Order</h1>

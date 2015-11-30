@@ -13,8 +13,11 @@
         <a class="navbar-brand" href="{{ url('restaurants') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?"/></a>
       </div>
 
+
+
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        @if( (Request::path() == 'restaurants' || (isset($slug) && Request::path() == 'restaurants/' . $slug . '/menus')) )
         <ul class="nav navbar-nav">
           <li id="top-address-search-input">
             <input name="addressInput" type="text" id="addressInput" class="form-control address-input" placeholder="Address, City or Postal Code"
@@ -34,6 +37,7 @@
                    value="Find Nearby Restaurants">
           </li>
         </ul>
+        @endif
         <ul class="nav navbar-nav navbar-right">
           @if(Session::has('is_logged_in'))
             <li><a href="{{ url('dashboard') }}">Hi, {{ explode(' ', Session::get('session_name'))[0] }}
@@ -53,6 +57,8 @@
           @endif
         </ul>
       </div><!-- /.navbar-collapse -->
+
+
     </div><!-- /.container-fluid -->
   </nav>
 </div>
@@ -67,12 +73,14 @@
     ?>
     var radiusSelectV =<?php echo $radiusSelect; ?>;
   var radObj = document.getElementById('radiusSelect');
+  if (radObj){
   for (var i = 0; i < radObj.length; i++) {
     if (radObj.options[i].value == radiusSelectV) {
       radObj.selectedIndex = i;
       break;
     }
   }
+}
 
   var placeSearch, autocomplete;
   var componentForm = {

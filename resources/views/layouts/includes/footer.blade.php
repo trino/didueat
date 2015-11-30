@@ -89,6 +89,7 @@
     {!! Form::close() !!}
   </div>
 </div>
+
 <!-- END PRE-FOOTER -->
 
 <script type="text/javascript">

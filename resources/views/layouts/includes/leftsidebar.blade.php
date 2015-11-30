@@ -10,7 +10,7 @@
                 <div class="portlet-body">
                     <ul class="list-group margin-bottom-25 sidebar-menu">
                         <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/user') }}" class="<?php if (Request::path() == 'restaurant/orders/user') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
-                        <li class="list-group-item clearfix"><a href="{{ url('user/images') }}" class="<?php if (Request::path() == 'user/images') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Uploads</a> </li>
+                        <!-- <li class="list-group-item clearfix"><a href="{{ url('user/images') }}" class="<?php if (Request::path() == 'user/images') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Uploads</a> </li> -->
                         <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}" class="<?php if (Request::path() == 'user/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Addresses</a> </li>
                         <li class="list-group-item clearfix"><a href="{{ url('user/info') }}" class="<?php if (Request::path() == 'user/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Profile</a> </li>
                         <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}" class="<?php if (Request::path() == 'logout') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
@@ -49,7 +49,7 @@
                     <div class="portlet-body">
                         <ul class="list-group margin-bottom-25 sidebar-menu">
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/list') }}" class="<?php if (Request::path() == 'restaurant/orders/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
-                           <!-- <li class="list-group-item clearfix"><a href="{{ url('restaurant/menus-manager') }}" class="<?php if (Request::path() == 'restaurant/menus-manager') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Menu Manager </a> </li> -->
+                           <li class="list-group-item clearfix"><a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}" class="<?php if (Request::path() == 'restaurant/menus-manager') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Menu </a> </li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}" class="<?php if (Request::path() == 'restaurant/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a></li>
 
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}" class="<?php if (Request::path() == 'restaurant/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a></li>

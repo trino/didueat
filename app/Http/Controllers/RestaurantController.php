@@ -205,7 +205,7 @@ class RestaurantController extends Controller
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['genre'] = $post['genre'];
+                //$update['genre'] = $post['genre'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
@@ -348,7 +348,7 @@ class RestaurantController extends Controller
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['genre'] = $post['genre'];
+                //$update['genre'] = $post['genre'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
