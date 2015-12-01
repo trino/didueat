@@ -150,18 +150,20 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div class="form-group" @if(isset($profile)) 'style="display:none;"' @endif>
-                        <div class="col-xs-12">
-                            <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);">
+                    @if(!Session::has('session_id'))
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);">
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="form-group confirm_password" style="display: none;">
-                        <div class="col-xs-12">
-                            <input type="password" id="confirm_password" name="" class="form-control  form-control--contact" placeholder="Confirm Password">
+                        <div class="form-group confirm_password" style="display: none;">
+                            <div class="col-xs-12">
+                                <input type="password" id="confirm_password" name="" class="form-control  form-control--contact" placeholder="Confirm Password">
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
+                    @endif
 
                     <div class="form-group">
                         <div class="col-xs-12">

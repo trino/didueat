@@ -38,24 +38,26 @@
           </li>
         </ul>
         @endif
-        <ul class="nav navbar-nav navbar-right">
-          @if(Session::has('is_logged_in'))
-            <li><a href="{{ url('dashboard') }}">Hi, {{ explode(' ', Session::get('session_name'))[0] }}
-                <img src="<?php
-                $Image = asset('assets/images/default.png');
-                if (Session::has('session_photo')) {
-                  if (Session::get('session_photo')) {
-                    $Image = asset('assets/images/users/' . Session::get('session_photo'));
+        <div id="header-nav">
+          <ul class="nav navbar-nav navbar-right">
+            @if(Session::has('is_logged_in'))
+              <li><a href="{{ url('dashboard') }}">Hi, {{ explode(' ', Session::get('session_name'))[0] }}
+                  <img src="<?php
+                  $Image = asset('assets/images/default.png');
+                  if (Session::has('session_photo')) {
+                    if (Session::get('session_photo')) {
+                      $Image = asset('assets/images/users/' . Session::get('session_photo'));
+                    }
                   }
-                }
-                echo $Image;
-                ?>" id="avatarImage"></a>
-            </li>
-            <li><a href="{{ url('auth/logout') }}">Log Out</a></li>
-          @else
-            <li><a href="#login-pop-up" class="fancybox-fast-view">Log In</a></li>
-          @endif
-        </ul>
+                  echo $Image;
+                  ?>" id="avatarImage"></a>
+              </li>
+              <li><a href="{{ url('auth/logout') }}">Log Out</a></li>
+            @else
+              <li><a href="#login-pop-up" class="fancybox-fast-view">Log In</a></li>
+            @endif
+          </ul>
+        </div>
       </div><!-- /.navbar-collapse -->
 
 

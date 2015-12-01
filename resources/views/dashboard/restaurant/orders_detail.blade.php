@@ -72,7 +72,7 @@
     </div>
     <!-- END CONTENT -->
 </div>
-
+<div class="clearfix"></div>
 @include('common.tabletools')
 
 @include('popups.approve_cancel')

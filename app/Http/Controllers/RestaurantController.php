@@ -1199,7 +1199,7 @@ class RestaurantController extends Controller
         $data['type'] = ucfirst($type);
         $orders = new \App\Http\Models\Reservations();
         if ($type == 'user')
-            $data['orders_list'] = $orders->where('restaurant_id', \Session::get('session_restaurant_id'))->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] = $orders->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
         elseif ($type == 'restaurant')
             $data['orders_list'] = $orders->where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
         else

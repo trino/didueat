@@ -76,19 +76,18 @@
             }
         }
 
-        var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
-
         function validatePassword() {
+            var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
             if (password.value != confirm_password.value) {
                 confirm_password.setCustomValidity("Passwords Don't Match");
             } else {
                 confirm_password.setCustomValidity('');
                 $('#confirm_password').removeAttr('required');
             }
-        }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        }
         
         $('.back').live('click', function() {
             $('.receipt_main').show();
@@ -97,12 +96,13 @@
         $('#profiles').submit(function(e) {
             e.preventDefault();
             $('.overlay_reservation').show();
+            var token = $('#profiles input[name=_token]').val();
             var datas = $('#profiles input, select, textarea').serialize();
             var order_data = $('.receipt_main input').serialize();
             $.ajax({
                 type: 'post',
                 url: '<?php echo url(); ?>/user/ajax_register',
-                data: datas + '&' + order_data,
+                data: datas + '&' + order_data + '&_token='+token,
                 success: function(msg) {
                     $('.overlay_reservation').hide();
                     if (msg == '1') {

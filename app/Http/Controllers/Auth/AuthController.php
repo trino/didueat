@@ -92,8 +92,8 @@ class AuthController extends Controller {
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
-                        login($user);
-
+                        echo login($user);
+                        die;
                     } else {
                         echo trans('messages.user_login_invalid.message');
                         die;
