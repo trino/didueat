@@ -25,13 +25,10 @@ class UsersController extends Controller
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
             if (!\Session::has('is_logged_in') && $act != 'ajax_register') {
-                
                 //\Session::flash('message', trans('messages.user_session_exp.message'));
                 //\Session::flash('message-type', 'alert-danger');
                 //\Session::flash('message-short', 'Oops!');
                 //return \Redirect::to('auth/login');
-                
-                
             }
             initialize("users");
         });

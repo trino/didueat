@@ -33,7 +33,7 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/list') }}" class="<?php if (Request::path() == 'restaurant/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/subscribers') }}" class="<?php if (Request::path() == 'restaurant/subscribers') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Subscribers</a> </li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
-                            <li class="list-group-item clearfix"><a href="{{ url('user/reviews') }}" class="<?php if (Request::path() == 'user/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Reviews</a> </li>
+                            <li class="list-group-item clearfix"><a href="{{ url('user/reviews') }}" class="<?php if (Request::path() == 'user/reviews') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Reviews</a> </li>
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="portlet-body">
                         <ul class="list-group margin-bottom-25 sidebar-menu">
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/list') }}" class="<?php if (Request::path() == 'restaurant/orders/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
-                           <li class="list-group-item clearfix"><a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}" class="<?php if (Request::path() == 'restaurant/menus-manager') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Menu </a> </li>
+                           <li class="list-group-item clearfix"><a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}" class="<?php if (Request::path() == url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus')) { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Menu </a> </li>
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}" class="<?php if (Request::path() == 'restaurant/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a></li>
 
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}" class="<?php if (Request::path() == 'restaurant/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a></li>

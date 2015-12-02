@@ -199,6 +199,15 @@ $(document).ready(function() {
             },
             PostalCode: {
                 matchPattern: true
+            },
+            password: {
+                required: true,
+                minlength: 3
+            },
+            confirm_password: {
+                required: true,
+                minlength: 3,
+                equalTo: "#password"
             }
         },
         messages: {
@@ -217,6 +226,67 @@ $(document).ready(function() {
             },
         }
     });
+    
+    $('#demo4').tagEditor({
+        initialTags: [],
+        placeholder: 'Enter tags ...',
+        maxTags: 9,
+        onChange: function(field, editor, tags) { $('#responseTags').val((tags.length ? tags.join(', ') : '')); },
+        beforeTagDelete: function(field, editor, tags, val){
+            var q = confirm('Remove tag "'+val+'"?');
+            return q;
+        }
+    });
+
+    @if(old('city'))
+        $(document).ready(function(){
+                cities("{{ url('ajax') }}", {{ old('city') }});
+        });
+    @endif
+    
+    $('body').on('change', '#allow_delivery', function(){
+        if($(this).is(':checked')){
+            $('#allow_delivery_options').show();
+        } else {
+            $('#allow_delivery_options').hide();
+        }
+    });
+
+    function ajaxuploadbtn(button_id) {
+        var button = $('#' + button_id), interval;
+        act = base_url+'uploadimg/restaurant';
+        new AjaxUpload(button, {
+            action: act,
+            name: 'myfile',
+            data:{'_token':'{{csrf_token()}}'},
+            onSubmit: function (file, ext) {
+                button.text('Uploading...');
+                this.disable();
+                interval = window.setInterval(function () {
+                    var text = button.text();
+                    if (text.length < 13) {
+                        button.text(text + '.');
+                    } else {
+                        button.text('Uploading...');
+                    }
+                }, 200);
+            },
+            onComplete: function (file, response) {
+                var resp = response.split('___');
+                var path = resp[0];
+                var img = resp[1];
+                button.html('Change Image');
+
+                window.clearInterval(interval);
+                this.enable();
+                $('#picture').attr('src',path);
+                $('#hiddenLogo').val(img);
+            }
+        });
+    }
+
+    ajaxuploadbtn('uploadbtn');
+
 });
 </script>
 @stop

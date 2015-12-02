@@ -1246,4 +1246,5 @@ function strToTagsConversion($string=""){
     }
     return $html;
 }
+
 ?>
