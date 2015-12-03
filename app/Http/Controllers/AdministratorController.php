@@ -266,6 +266,170 @@ class AdministratorController extends Controller
         }
     }
 
+/**
+     * creditCardsList List
+     * @param null
+     * @return view
+     */
+    public function creditCardsList()
+    {
+        $post = \Input::all();
+
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['first_name']) || empty($post['first_name'])) {
+                \Session::flash('message', '[Name] field is missing');
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['last_name']) || empty($post['last_name'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['card_type']) || empty($post['card_type'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['card_number']) || empty($post['card_number'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['ccv']) || empty($post['ccv'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
+                \Session::flash('message', trans('messages.user_missing_email.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+            /*$is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
+            if ($is_email > 0) {
+                \Session::flash('message', trans('messages.user_email_already_exist.message'));
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }*/
+
+            \DB::beginTransaction();
+            try {
+                
+                //$post['created_by'] = \Session::get('session_id');
+
+               
+
+               if (isset($post['id']) && !empty( $post['id'] )) {    
+
+                    $creditcard = \App\Http\Models\CreditCard::find($post['id']);
+                    $creditcard->populate(array_filter($post));
+                    $creditcard->save();
+                    \DB::commit();
+                    \Session::flash('message', 'Creditcard has been updated successfully.');
+                    \Session::flash('message-type', 'alert-success');
+                    \Session::flash('message-short', 'Congratulations!');
+                    return \Redirect::to('users/credit-cards')->withInput();
+                    
+                }else{
+                    
+                $creditcard = new \App\Http\Models\CreditCard();
+                $creditcard->populate(array_filter($post));
+                $creditcard->save();
+                 \DB::commit();                 
+                event(new \App\Events\AppEvents($creditcard, "Card added"));
+
+                }
+
+
+                \Session::flash('message', 'New creditcard has been added successfully.');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Session::flash('message', $e->getMessage());
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
+        } else {
+            $data['title'] = 'Credit Cards List';
+
+            //$MyHierarchy = get_profile_type(false, true)->hierarchy;
+            //$data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
+            $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('id', 'DESC')->get();
+            // $data['states_list'] = \App\Http\Models\States::get();
+             //$data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+            //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
+            //echo "<pre>"; print_r($data['users_list']->toArray()); die;
+            return view('dashboard.administrator.creditcards', $data);
+        }
+    }
+
+  /**
+     * Credit Card Action Delete
+     * @param $id
+     * @return redirect
+     */
+    public function creditCardsAction($id = 0)
+    {
+        if (!isset($id) || empty($id) || $id == 0) {
+            \Session::flash('message', "[card Id] is missing!");
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('users/credit-cards');
+        }
+
+        try {
+            $ob = \App\Http\Models\CreditCard::find($id);
+                $ob->delete();
+            
+            event(new \App\Events\AppEvents($ob, "Card Delete"));
+
+            \Session::flash('message', 'Card has been deleted successfully!');
+            \Session::flash('message-type', 'alert-success');
+            \Session::flash('message-short', 'Congratulations!');
+            return \Redirect::to('users/credit-cards');
+        } catch (\Exception $e) {
+            \Session::flash('message', $e->getMessage());
+            \Session::flash('message-type', 'alert-danger');
+            \Session::flash('message-short', 'Oops!');
+            return \Redirect::to('users/credit-cards');
+        }
+    }
+
+    /**
+     * Edit Credit Card Form
+     * @param $id
+     * @return view
+     */
+    public function ajaxEditCreditCardFrom($id=0)
+    {
+        $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
+        //echo '<pre>'; print_r($data['credit_cards_list']); die;
+        return view('common.edit_credit_card', $data);
+    }
+
     /**
      * Edit User Form
      * @param $id

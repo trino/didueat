@@ -49,6 +49,11 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function()
 	Route::resource('restaurant/newsletter',            'AdministratorController@newsletter');
 	Route::resource('restaurant/subscribers',           'AdministratorController@subscribers');
 
+	//Credit Cards
+    Route::resource('users/credit-cards',                 'AdministratorController@creditCardsList');
+	Route::get('users/credit-cards/action/{id}',   		  'AdministratorController@creditCardsAction');
+	Route::get('users/credit-cards/edit/{id}',            'AdministratorController@ajaxEditCreditCardFrom');
+
 	//Restaurants Routes
 	Route::get('restaurant/list',                       'RestaurantController@restaurants');
 	Route::get('restaurant/list/delete/{id}',           'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
