@@ -35,7 +35,7 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
                             <li class="list-group-item clearfix"><a href="{{ url('user/reviews') }}" class="<?php if (Request::path() == 'user/reviews') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Reviews</a> </li>
                             
-                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards') }}" class="<?php if (Request::path() == 'restaurant/users') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
+                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards') }}" class="<?php if (Request::path() == 'users/credit-cards') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
                         </ul>
                     </div>
                 </div>

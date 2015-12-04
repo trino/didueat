@@ -23,13 +23,13 @@ class AdministratorController extends Controller
     public function __construct()
     {
         $this->beforeFilter(function () {
-            if (!\Session::has('is_logged_in')) {
+            /*if (!\Session::has('is_logged_in')) {
                 \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                //return \Redirect::to('/restaurants');
-                //return \Redirect::to('auth/login');
-            }
+                return \Redirect::to('/restaurants');
+                return \Redirect::to('auth/login');
+            } */
             initialize("admin");
         });
     }
@@ -214,9 +214,15 @@ class AdministratorController extends Controller
             try {
                 $post['status'] = 1;
                 $post['is_email_varified'] = 0;
-                $data['profile_type'] = 2;
+                $post['profile_type'] = 2;
                 $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
                 $post['created_by'] = \Session::get('session_id');
+
+                $browser_info = getBrowser();
+                $post['ip_address'] = get_client_ip_server();
+                $post['browser_name'] = $browser_info['name'];
+                $post['browser_version'] = $browser_info['version'];
+                $post['browser_platform'] = $browser_info['platform'];
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate(array_filter($post));
@@ -254,14 +260,9 @@ class AdministratorController extends Controller
             }
         } else {
             $data['title'] = 'Users List';
-
-            //$MyHierarchy = get_profile_type(false, true)->hierarchy;
-            //$data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
             $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
             $data['states_list'] = \App\Http\Models\States::get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
-            //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
-            //echo "<pre>"; print_r($data['users_list']->toArray()); die;
             return view('dashboard.administrator.users', $data);
         }
     }
@@ -324,47 +325,19 @@ class AdministratorController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('users/credit-cards')->withInput();
             }
-            /*$is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
-            if ($is_email > 0) {
-                \Session::flash('message', trans('messages.user_email_already_exist.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
-            }*/
-
+            
             \DB::beginTransaction();
             try {
-                
-                //$post['created_by'] = \Session::get('session_id');
-
-               
-
-               if (isset($post['id']) && !empty( $post['id'] )) {    
-
-                    $creditcard = \App\Http\Models\CreditCard::find($post['id']);
-                    $creditcard->populate(array_filter($post));
-                    $creditcard->save();
-                    \DB::commit();
-                    \Session::flash('message', 'Creditcard has been updated successfully.');
-                    \Session::flash('message-type', 'alert-success');
-                    \Session::flash('message-short', 'Congratulations!');
-                    return \Redirect::to('users/credit-cards')->withInput();
-                    
-                }else{
-                    
-                $creditcard = new \App\Http\Models\CreditCard();
+                $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
                 $creditcard->populate(array_filter($post));
                 $creditcard->save();
-                 \DB::commit();                 
-                event(new \App\Events\AppEvents($creditcard, "Card added"));
+                \DB::commit();
 
-                }
-
-
-                \Session::flash('message', 'New creditcard has been added successfully.');
+                \Session::flash('message', 'Credit card has been saved successfully.');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards');
+                    
             } catch (\Exception $e) {
                 \DB::rollback();
                 \Session::flash('message', $e->getMessage());
@@ -374,14 +347,7 @@ class AdministratorController extends Controller
             }
         } else {
             $data['title'] = 'Credit Cards List';
-
-            //$MyHierarchy = get_profile_type(false, true)->hierarchy;
-            //$data['users_list'] = \App\Http\Models\Profiles::select('profiles.*')->join('profiletypes', 'profiles.profile_type', '=', 'profiletypes.id')->where('profiletypes.hierarchy', '> ', $MyHierarchy)->get();
             $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('id', 'DESC')->get();
-            // $data['states_list'] = \App\Http\Models\States::get();
-             //$data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
-            //there should never be any hard-coding to use profiletype IDs, but check those profile types permissions or hierarchy using the profiletypes table
-            //echo "<pre>"; print_r($data['users_list']->toArray()); die;
             return view('dashboard.administrator.creditcards', $data);
         }
     }
@@ -426,7 +392,6 @@ class AdministratorController extends Controller
     public function ajaxEditCreditCardFrom($id=0)
     {
         $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
-        //echo '<pre>'; print_r($data['credit_cards_list']); die;
         return view('common.edit_credit_card', $data);
     }
 
@@ -501,6 +466,12 @@ class AdministratorController extends Controller
 
             \DB::beginTransaction();
             try {
+                $browser_info = getBrowser();
+                $post['ip_address'] = get_client_ip_server();
+                $post['browser_name'] = $browser_info['name'];
+                $post['browser_version'] = $browser_info['version'];
+                $post['browser_platform'] = $browser_info['platform'];
+
                 $user = \App\Http\Models\Profiles::find($post['id']);
                 $user->populate(array_filter($post));
                 $user->save();

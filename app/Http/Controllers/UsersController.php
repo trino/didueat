@@ -24,12 +24,12 @@ class UsersController extends Controller
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
-            if (!\Session::has('is_logged_in') && $act != 'ajax_register') {
+            /*if (!\Session::has('is_logged_in') && $act != 'ajax_register') {
                 //\Session::flash('message', trans('messages.user_session_exp.message'));
                 //\Session::flash('message-type', 'alert-danger');
                 //\Session::flash('message-short', 'Oops!');
                 //return \Redirect::to('auth/login');
-            }
+            }*/
             initialize("users");
         });
     }
@@ -156,24 +156,6 @@ class UsersController extends Controller
             \Session::flash('message-short', 'Oops!');
             return \Redirect::to('user/addresses');
         }
-    }
-    
-    /**
-     * View Orders
-     * @param null
-     * @return view
-     */
-    public function viewOrders() {
-        return view('dashboard.user.orders_view', array('title' => 'View Orders'));
-    }
-    
-    /**
-     * Upload Meal
-     * @param null
-     * @return view
-     */
-    public function uploadMeal() {
-        return view('dashboard.user.manage_meal', array('title' => 'Upload Meal'));
     }
     
     /**

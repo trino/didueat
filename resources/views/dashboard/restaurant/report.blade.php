@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="portlet-body">
                                                     <?php
-                                                    $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first();    ?>
+                                                    $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first(); ?>
                                                     <div class="infolist noprint margin-top-10"><strong>RESTAURANT NAME: </strong><?= $restaurant->name;?></div>
                                                     <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?></div>
                                                     <div class="infolist noprint"><strong>EMAIL: </strong>{{ $order->email }}</div>
@@ -69,7 +69,6 @@
                                         @else
                                             Sorry! No Results Found.
                                         @endif
-                                        ?>
                                         <div class="clearfix"></div>
 
                                         <div class="clearfix  hidden-xs"></div>
@@ -104,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" class="btn red noprint"  onclick="printDiv('toprint')">Print Receipt</a>
+                            <a href="javascript:void(0);" class="btn red noprint"  onclick="return printDiv('toprint')">Print Receipt</a>
                             <hr class="shop__divider">
                         </div>
 
@@ -115,7 +114,15 @@
         <!-- END CONTENT -->
     </div>
     <script>
-        $(function () {
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+        $(function () {            
             $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
             
             $('.clearitems').click(function () {
@@ -138,14 +145,6 @@
 
                 $('#cart-total').text('$' + grandtotal.toFixed(2));
             });
-            
-            function printDiv(divName) {
-                var printContents = document.getElementById(divName).innerHTML;
-                var originalContents = document.body.innerHTML;
-                document.body.innerHTML = printContents;
-                window.print();
-                document.body.innerHTML = originalContents;
-            }
         });
     </script>
 @stop

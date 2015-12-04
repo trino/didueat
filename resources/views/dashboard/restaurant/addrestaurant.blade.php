@@ -158,13 +158,6 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>City <span class="required" aria-required="true">*</span></label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
                                                 <label>Postal Code <span class="required" aria-required="true">*</span></label>
                                                 <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                                             </div>
@@ -193,6 +186,13 @@
                                             <div class="form-group">
                                                 <label>Province <span class="required">*</span></label>
                                                 <SELECT name="province" id="province" class="form-control"></SELECT>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>City <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
                                             </div>
                                         </div>
 

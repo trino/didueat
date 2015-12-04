@@ -15,10 +15,10 @@ class CheckUserRoles
      */
     public function handle($request, Closure $next, $role="")
     {
-        if(!\Session::has('session_id')){
-            // echo "back"; die;
-            //logged
-            //return \Redirect::to('/');
+        if(\Session::has('session_type_user')){
+            if(\Session::get('session_type_user') != $role && \Session::get('session_type_user') != "super"){
+                return \Redirect::to('/dashboard');
+            }
         }
         return $next($request);
     }

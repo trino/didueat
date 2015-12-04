@@ -28,13 +28,13 @@ class RestaurantController extends Controller
 
         $this->beforeFilter(function () {
             initialize("restaurants");
-            if (!\Session::has('is_logged_in')) {
+            /*if (!\Session::has('is_logged_in')) {
                 \Session::flash('message', trans('messages.user_session_exp.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                //return \Redirect::to('/restaurants');
-                //return \Redirect::to('auth/login');
-            }
+                return \Redirect::to('/restaurants');
+                return \Redirect::to('auth/login');
+            }*/
         });
     }
 
@@ -214,6 +214,12 @@ class RestaurantController extends Controller
                 $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
                 $update['tags'] = $post['tags'];
                 $update['open'] = 1;
+
+                $browser_info = getBrowser();
+                $update['ip_address'] = get_client_ip_server();
+                $update['browser_name'] = $browser_info['name'];
+                $update['browser_version'] = $browser_info['version'];
+                $update['browser_platform'] = $browser_info['platform'];
 
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate(array_filter($update));
@@ -689,7 +695,7 @@ class RestaurantController extends Controller
     {
         $data['title'] = 'Orders History';
         $data['type'] = 'Pending';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
+        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', ($id > 0)?$id:\Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
