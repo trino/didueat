@@ -307,6 +307,12 @@ class HomeController extends Controller
                 $update['tags'] = $post['tags'];
                 $update['open'] = 1;
 
+                $browser_info = getBrowser();
+                $update['ip_address'] = get_client_ip_server();
+                $update['browser_name'] = $browser_info['name'];
+                $update['browser_version'] = $browser_info['version'];
+                $update['browser_platform'] = $browser_info['platform'];
+
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
                 $ob->save();
@@ -352,6 +358,12 @@ class HomeController extends Controller
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
+                
+                $browser_info = getBrowser();
+                $data['ip_address'] = get_client_ip_server();
+                $data['browser_name'] = $browser_info['name'];
+                $data['browser_version'] = $browser_info['version'];
+                $data['browser_platform'] = $browser_info['platform'];
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
@@ -540,8 +552,8 @@ class HomeController extends Controller
                     foreach($Provinces as $Province){
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
-                        if ( $Province->id == $_POST["value"] || $Province->abbreviation == $_POST["value"]){
-                            echo ' SELECTED';
+                        if (!empty($_POST["value"])){
+                            if($Province->id == $_POST["value"]){ echo ' SELECTED'; }
                         }elseif($Province->id == 7){
                             echo ' SELECTED';
                         }

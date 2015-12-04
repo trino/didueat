@@ -218,7 +218,6 @@ class AuthController extends Controller {
      */
     public function postAjaxRegister()
     {
-
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
             if (!isset($data['email']) || empty($data['email'])) {
@@ -248,6 +247,11 @@ class AuthController extends Controller {
                     $data['status'] = 1;
                     $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
+                    $browser_info = getBrowser();
+                    $data['ip_address'] = get_client_ip_server();
+                    $data['browser_name'] = $browser_info['name'];
+                    $data['browser_version'] = $browser_info['version'];
+                    $data['browser_platform'] = $browser_info['platform'];
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate(array_filter($data));
@@ -523,10 +527,5 @@ class AuthController extends Controller {
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
         return \Redirect::to('/restaurants');
-    }
-
-    function test()
-    {
-        return view('auth.test', array('title' => 'Testing'));
     }
 }

@@ -1,7 +1,8 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
+<div class="content-page">
+    <div class="container-fluid">
         <div class="row">
             @include('layouts.includes.leftsidebar')
             <div class="col-xs-12 col-md-10 col-sm-8">
@@ -30,29 +31,25 @@
                                 <thead>
                                 <tr>
                                     <th width="5%">ID</th>
-                                    <th width="15%">Frist Name</th>
-                                    <th width="15%">Last Name</th>
+                                    <th width="10%">Name</th>
                                     <th width="10%">Card Type</th>
                                     <th width="15%">Card Number</th>
-                                    <th width="5%">Expiry Date</th>
-                                    <th width="5%">Expiry Month</th>
-                                    <th width="5%">Expiry Year</th>
-                                    <th width="10%">CCV</th>
-                                    <th width="15%">Actions</th>
+                                    <th width="5%">Date</th>
+                                    <th width="5%">Month</th>
+                                    <th width="5%">Year</th>
+                                    <th width="10%">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($credit_cards_list as $value)
                                     <tr>
                                         <td>{{ $value->id }}</td>
-                                        <td>{{ $value->first_name }}</td>
-                                        <td>{{ $value->last_name }}</td>
+                                        <td>{{ $value->first_name.' '.$value->last_name }}</td>
                                         <td>{{ $value->card_type }}</td>
                                         <td>{{ $value->card_number }}</td>
                                         <td>{{ $value->expiry_date }}</td>
                                         <td>{{ $value->expiry_month }}</td>
                                         <td>{{ $value->expiry_year }}</td>
-                                        <td>{{ $value->ccv }}</td>
                                         <td>
                                             <a href="#NewCreditCard" class="btn blue editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
@@ -71,6 +68,7 @@
             </div>
         </div>
     </div>
+</div>
     <!-- END CONTENT -->
 
 

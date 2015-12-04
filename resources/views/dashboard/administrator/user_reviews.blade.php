@@ -2,6 +2,7 @@
 @section('content')
   <meta name="_token" content="{{ csrf_token() }}"/>
   <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+  
   <div class="content-page">
     <div class="container-fluid">
       <div class="row">

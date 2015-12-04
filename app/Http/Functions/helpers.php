@@ -180,6 +180,16 @@ function login($Profile) {
     write('Type', $Profile->profile_type);
     write('Restaurant', $Profile->restaurant_id);
 
+    if($Profile->profile_type == 1){
+        \Session::put('session_type_user', 'super');
+    } else if($Profile->profile_type == 2){
+        if($Profile->restaurant_id){
+            \Session::put('session_type_user', 'restaurant');
+        } else {
+            \Session::put('session_type_user', 'user');
+        }
+    }
+
     \Session::put('session_id', $Profile->id);
     \Session::put('session_profiletype', $Profile->profile_type);
     \Session::put('session_name', $Profile->name);

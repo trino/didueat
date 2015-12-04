@@ -25,7 +25,7 @@ class Profiles extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('profile_type', 'name', 'email', 'password', 'photo', 'subscribed', 'restaurant_id', 'created_by', 'is_email_varified', 'status', 'created_at', 'updated_at', 'deleted_at');
+        $cells = array('profile_type', 'name', 'email', 'password', 'photo', 'subscribed', 'restaurant_id', 'created_by', 'is_email_varified', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'created_at', 'updated_at', 'deleted_at');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 if (isset($data['password']) && $data[$cell] == $data['password'] && trim($data['password']) != "") {
