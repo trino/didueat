@@ -5986,9 +5986,16 @@ li {
 
 /* Rating End */
 
+
+/*
++++++++++++++++++++++++++++
+Start of Paul's stylings
++++++++++++++++++++++++++++
+*/
+
 .ratingImg {
   position: relative;
-  top: -1px
+  top: 3px
 }
 
 .restoLogo {
@@ -6010,6 +6017,8 @@ li {
   margin: 21px 0;
 }
 
+.srchBtnRnd {border-radius:8px}
+
 #addressInput:focus {
   border-color: #00ff40;
 }
@@ -6025,17 +6034,29 @@ li {
 }
 
 .genreList {
-  display: none;
-  border: solid #000 1px;
   padding: 10px;
   background: #fff;
-  width: 250px;
+  padding-top:2px;
+  background:#fff;
+  width:350px;
+  z-index:99999;
 }
 
 .CBs {
   display: inline-block;
-  margin: 3px
+  margin: 3px;
+  width:140px;
 }
+
+
+
+/*
++++++++++++++++++++++++++++
+End of Paul's stylings
++++++++++++++++++++++++++++
+*/
+
+
 
 .search-form h4 {
   float: left;
@@ -6050,6 +6071,8 @@ li {
   float: right;
   padding: 0 11px;
 }
+
+
 
 /*
 My css styling 27 Nov 2015

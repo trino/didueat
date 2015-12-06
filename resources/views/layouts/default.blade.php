@@ -33,7 +33,8 @@ if (Request::path() !== null && Request::path() != "/") {
   <meta property="og:type" content="website">
   <meta property="og:image" content="-CUSTOMER VALUE-">
   <meta property="og:url" content="{{ url('/') . $nextPath }}">
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" /> 
+  <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
 
   <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -45,34 +46,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
     <!--google font Montserrat -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <?php
-  if(isset($restaurantblade)){
-  // pb: Add Google API key when going live
-  ?>
-  <script>
-    var placeSearch, autocomplete;
-    var componentForm = {
-      locality: 'long_name',
-      administrative_area_level_1: 'short_name',
-      country: 'long_name',
-      postal_code: 'short_name',
-    }; // locality = city; administrative_area_level_1 = state/prov
 
-    function initAutocomplete() {
-      // Create the autocomplete object, restricting the search to geographical
-      // location types.
-      autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */(document.getElementById('addressInput')),
-        {types: ['geocode']});
-
-      // When the user selects an address from the dropdown, populate the address
-      // fields in the form.
-      autocomplete.addListener('place_changed', fillInAddress);
-    }
-  </script>
-  <!--<script src="{{ asset('assets/global/scripts/maps-api.js') }}" async defer></script>-->
-  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
-  <?php } ?>
   <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
