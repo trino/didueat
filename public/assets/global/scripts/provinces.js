@@ -1,22 +1,26 @@
-function getelement(name){
+function getelement(name) {
     var element = document.getElementById(name + "2");
-    if(element){return element;}
+    if (element) {
+        return element;
+    }
     var element = document.getElementById(name);
     return element;
 }
 
-function provinces(webroot, value){
-    var country = 40;//Canada
+function provinces(webroot, value) {
+    var country = 40; //Canada
     var element = getelement("country");
-    if (element){
+    if (element) {
         country = element.value;
-        if(isNaN(country)){
+        if (isNaN(country)) {
             return false;
         }
     }
 
     $.ajaxSetup({
-        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        headers: {
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
 
     $.ajax({
@@ -24,25 +28,27 @@ function provinces(webroot, value){
         type: "post",
         dataType: "HTML",
         data: "type=provinces&country=" + country + "&value=" + value,
-        success: function (msg) {
+        success: function(msg) {
             element = getelement("province");
             element.innerHTML = msg;
         }
     });
 }
 
-function cities(webroot, value){
-    var province = 7;//Canada
+function cities(webroot, value) {
+    var province = 7; //Canada
     var element = getelement("province");
-    if (element){
+    if (element) {
         province = element.value;
-        if(isNaN(province)){
+        if (isNaN(province)) {
             return false;
         }
     }
-    
+
     $.ajaxSetup({
-        headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        headers: {
+            'X-CSRF-Token': $('meta[name=_token]').attr('content')
+        }
     });
 
     $.ajax({
@@ -50,26 +56,19 @@ function cities(webroot, value){
         type: "post",
         dataType: "HTML",
         data: "type=cities&province=" + province + "&value=" + value,
-        success: function (msg) {
+        success: function(msg) {
             element = getelement("city");
             element.innerHTML = msg;
         }
     });
 }
 
-$( document ).ready(function() {
+$(document).ready(function() {
     var element = getelement("country");
-    if (element){
+    if (element) {
         var evnt = element["onchange"];
         if (typeof(evnt) == "function") {
             evnt.call(element);
         }
     }
-//    var element2 = getelement("province");
-//    if (element2){
-//        var evnt2 = element2["onchange"];
-//        if (typeof(evnt2) == "function") {
-//            evnt2.call(element2);
-//        }
-//    }
 });

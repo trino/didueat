@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Cuisine Type</label>
                                                 <select name="genre" id="genre" class="form-control">
@@ -71,7 +71,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
@@ -85,6 +85,7 @@
                                                 <label class="control-label">Tags</label>
                                                 <textarea id="demo4"></textarea>
                                                 <input type="hidden" name="tags" id="responseTags" value="" />
+                                                <p>e.g: Candian, Italian, Chinese, FastFood</p>
                                             </div>
                                         </div>
 
@@ -157,13 +158,6 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>City <span class="required" aria-required="true">*</span></label>
-                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="form-group">
                                                 <label>Postal Code <span class="required" aria-required="true">*</span></label>
                                                 <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                                             </div>
@@ -182,7 +176,7 @@
                                                 <select name="country" id="country" class="form-control" required onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');">
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
-                                                        <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
+                                                        <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @elseif($value->id == 40) selected @endif>{{ $value->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -192,6 +186,13 @@
                                             <div class="form-group">
                                                 <label>Province <span class="required">*</span></label>
                                                 <SELECT name="province" id="province" class="form-control"></SELECT>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>City <span class="required" aria-required="true">*</span></label>
+                                                <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
                                             </div>
                                         </div>
 
@@ -300,7 +301,7 @@
 
     jQuery(document).ready(function () {
         $('#demo4').tagEditor({
-            initialTags: ['Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German'],
+            initialTags: [],
             placeholder: 'Enter tags ...',
             //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
             //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },

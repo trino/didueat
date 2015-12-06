@@ -4,7 +4,7 @@
 
 <div class="margin-bottom-40 clearfix">
     <div class="col-md-9 col-md-offset-3 col-sm-9 col-xs-12 menu_div">
-        @if(Session::has('is_logged_in'))
+        @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
             <div class="category_btns margin-bottom-15">
                 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
                 <input type="hidden" id="res_id" value="{{ $restaurant->id }}" />
@@ -76,19 +76,18 @@
             }
         }
 
-        var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
-
         function validatePassword() {
+            var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
             if (password.value != confirm_password.value) {
                 confirm_password.setCustomValidity("Passwords Don't Match");
             } else {
                 confirm_password.setCustomValidity('');
                 $('#confirm_password').removeAttr('required');
             }
-        }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        }
         
         $('.back').live('click', function() {
             $('.receipt_main').show();
@@ -97,12 +96,13 @@
         $('#profiles').submit(function(e) {
             e.preventDefault();
             $('.overlay_reservation').show();
+            var token = $('#profiles input[name=_token]').val();
             var datas = $('#profiles input, select, textarea').serialize();
             var order_data = $('.receipt_main input').serialize();
             $.ajax({
                 type: 'post',
                 url: '<?php echo url(); ?>/user/ajax_register',
-                data: datas + '&' + order_data,
+                data: datas + '&' + order_data + '&_token='+token,
                 success: function(msg) {
                     $('.overlay_reservation').hide();
                     if (msg == '1') {

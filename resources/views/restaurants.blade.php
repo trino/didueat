@@ -1,5 +1,34 @@
 @extends('layouts.default')
 @section('content')
+  <?php
+  if(isset($restaurantblade)){
+  // pb: Add Google API key when going live
+  ?>
+  <script>
+    var placeSearch, autocomplete;
+    var componentForm = {
+      locality: 'long_name',
+      administrative_area_level_1: 'short_name',
+      country: 'long_name',
+      postal_code: 'short_name',
+    }; // locality = city; administrative_area_level_1 = state/prov
+
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('addressInput')),
+        {types: ['geocode']});
+
+      // When the user selects an address from the dropdown, populate the address
+      // fields in the form.
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+  </script>
+  <!--<script src="{{ asset('assets/global/scripts/maps-api.js') }}" async defer></script>-->
+  <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+  <?php } ?>
+
 <?php
  $restaurantblade=true;
  $setaddresscookie=false; // don't set this cookie during development
@@ -67,7 +96,91 @@
 
 ?>
 
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+<script>
+    <?php
+    if(!isset($radiusSelect) || $radiusSelect == "") {
+        $radiusSelect = 2;
+    }
+    ?>
+    var radiusSelectV =<?php echo $radiusSelect; ?>;
+  var radObj = document.getElementById('radiusSelect');
+  if (radObj){
+  for (var i = 0; i < radObj.length; i++) {
+    if (radObj.options[i].value == radiusSelectV) {
+      radObj.selectedIndex = i;
+      break;
+    }
+  }
+}
 
+  var placeSearch, autocomplete;
+  var componentForm = {
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name',
+  }; // locality = city; administrative_area_level_1 = state/prov
+
+  function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('addressInput')),
+      {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+  }
+
+  function fillInAddress() {
+
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({address: document.getElementById('addressInput').value}, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        // retrieves from browser geopositioning function, if enabled and available
+        var latlngSpl = results[0].geometry.location.toString().split(",")
+        thisLat = latlngSpl[0].substring(1);
+        thisLng = latlngSpl[1].substring(0, latlngSpl[1].length - 1);
+      }
+
+    });
+
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+
+    // Get each component of the address from the place details
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+      if (addressType == "locality") {
+        thisCity = place.address_components[i][componentForm[addressType]];
+        continue;
+      }
+      if (addressType == "administrative_area_level_1") {
+        thisState = place.address_components[i][componentForm[addressType]];
+        continue;
+      }
+      if (addressType == "country") {
+        thisCountry = place.address_components[i][componentForm[addressType]];
+        continue;
+      }
+      if (addressType == "postal_code") {
+        thisPostal = place.address_components[i][componentForm[addressType]];
+      }
+    }
+
+    searchLocationsNear(thisLat, thisLng, thisCity, thisState, thisPostal, thisCountry);
+
+  }
+
+  function radiusChng(v) {
+    if (thisLat != "" && thisLng != "") {
+      searchLocationsNear(thisLat, thisLng, thisCity, thisState, thisPostal, thisCountry)
+    }
+    ////
+  }
+</script>
     <script>
 /***  This script will be put into an external file when ready  ***/    
 
@@ -86,17 +199,12 @@
 	    searchLocationsNear(thisLat,thisLng,thisCity,thisState,thisPostal,thisCountry); // other params may be used in future
 	   }
    }
-        
-        
-        
-        
-        
-   function clearLocations() {
-     
+
+   function clearLocations() {  
      // reset the other arrays for this new search:
      markerDataA=[];
-					markerSelected=[];
-					pgParams=[];
+		 markerSelected=[];
+		 pgParams=[];
      
      document.getElementById('list').innerHTML="";
      document.getElementById('topLinks').innerHTML="";
@@ -355,7 +463,12 @@ function searchLocations(){
     var pgMsg="";
     clearLocations();
 
-     var radius = document.getElementById('radiusSelect').value;
+    if(radObj){
+      var radius = document.getElementById('radiusSelect').value;
+    } else {
+      var radius = 0;
+    }
+
      var searchUrl = 'dbRetrievalToXml.php?lat=' + lat+ '&lng=' + lng + '&radius=' + radius+"&city="+thisCity+"&state="+thisState+"&postal="+thisPostal+"&country="+thisCountry;
   
        downloadUrl(searchUrl, function(data) {

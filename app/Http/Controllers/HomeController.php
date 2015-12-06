@@ -297,7 +297,7 @@ class HomeController extends Controller
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['genre'] = $post['genre'];
+                //$update['genre'] = $post['genre'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
@@ -306,6 +306,12 @@ class HomeController extends Controller
                 $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
                 $update['tags'] = $post['tags'];
                 $update['open'] = 1;
+
+                $browser_info = getBrowser();
+                $update['ip_address'] = get_client_ip_server();
+                $update['browser_name'] = $browser_info['name'];
+                $update['browser_version'] = $browser_info['version'];
+                $update['browser_platform'] = $browser_info['platform'];
 
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
@@ -345,12 +351,19 @@ class HomeController extends Controller
                 }
 
                 $data['restaurant_id'] = $ob->id;
-                $data['status'] = 0;
+                $data['status'] = 1;
+                $data['is_email_varified'] = 0;
                 $data['profile_type'] = 2;
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
+                
+                $browser_info = getBrowser();
+                $data['ip_address'] = get_client_ip_server();
+                $data['browser_name'] = $browser_info['name'];
+                $data['browser_version'] = $browser_info['version'];
+                $data['browser_platform'] = $browser_info['platform'];
 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
@@ -539,7 +552,9 @@ class HomeController extends Controller
                     foreach($Provinces as $Province){
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
-                        if ( $Province->id == $_POST["value"] || $Province->abbreviation == $_POST["value"]){
+                        if (!empty($_POST["value"])){
+                            if($Province->id == $_POST["value"]){ echo ' SELECTED'; }
+                        }elseif($Province->id == 7){
                             echo ' SELECTED';
                         }
                         echo '>' . $Province->name . '</OPTION>' . "\r\n";

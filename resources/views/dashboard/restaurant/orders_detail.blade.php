@@ -27,8 +27,8 @@
                             <div class="btn_wrapper margin-bottom-20 clearfix">
                                 <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('toPrintDetail')" class="btn red pull-right" />
                                 @if(strtolower($order->status) == 'pending')
-                                <a href="#cancel-popup" class="btn yellow pull-right fancybox-fast-view cancel-popup" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
-                                <a href="#approve-popup" class="btn blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
+                                <a href="#cancel-popup-dialog" class="btn yellow pull-right fancybox-fast-view cancel-popup" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
+                                <a href="#approve-popup-dialog" class="btn blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
                                 @endif
                             </div>
 
@@ -72,6 +72,8 @@
     </div>
     <!-- END CONTENT -->
 </div>
+<div class="clearfix"></div>
+@include('common.tabletools')
 
 @include('popups.approve_cancel')
 

@@ -113,7 +113,7 @@
         <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  <span class="required">*</span></label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
-                <select name="province" id="{{ (isset($address_detail->province))?'province2':'province' }}" class="form-control" required onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
+                <select name="province" id="{{ (isset($address_detail->province))?'province2':'province' }}" class="form-control" required>
                     <option value="">-Select One-</option>
                 </select>
             </div>
@@ -125,10 +125,8 @@
     <div class="form-group clearfix">
         <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  <span class="required">*</span></label>
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <select name="city" id="{{ (isset($address_detail->city))?'city2':'city' }}" class="form-control" required>
-                    <option value="">-Select One-</option>
-                </select>
+            <div class="input-icon">                
+                <input type="text" name="city" id="city" value="{{ (isset($address_detail->city))?'city2':'' }}" class="form-control" required>
             </div>
         </div>
     </div>
@@ -184,7 +182,7 @@
 @if(isset($address_detail->id))
 <script type="text/javascript">
     $(document).ready(function(){
-            cities("{{ url('ajax') }}", {{ (isset($address_detail->city))?$address_detail->city:0 }});
+           //cities("{{ url('ajax') }}", {{ (isset($address_detail->city))?$address_detail->city:0 }});
     });
 </script>
 @endif

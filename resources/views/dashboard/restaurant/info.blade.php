@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Cuisine Type</label>
                                                 <select name="genre" id="genre" class="form-control">
@@ -71,7 +71,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
@@ -85,6 +85,7 @@
                                                 <label class="control-label">Tags</label>
                                                 <textarea id="demo4"></textarea>
                                                 <input type="hidden" name="tags" id="responseTags" value="{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}" />
+                                                <p>e.g: Candian, Italian, Chinese, FastFood</p>
                                             </div>
                                         </div>
 
@@ -160,7 +161,7 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>Country</label>
-                                                <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');" required>
+                                                <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', {{ (isset($resturant->province))?$resturant->province:'ON' }});" required>
                                                     <option value="">-Select One-</option>
                                                     @foreach($countries_list as $value)
                                                         <option value="{{ $value->id }}" @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
@@ -172,14 +173,14 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Province <span class="required">*</span></label>
-                                                <select name="province" class="form-control" required id="province" onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($resturant->province))?$resturant->province:'' }}');"></select>
+                                                <select name="province" class="form-control" required id="province"></select>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label>City</label>
-                                                <select name="city" class="form-control" required id="city"></select>
+                                                <input type="text" name="city" class="form-control" value="{{ ((isset($resturant->city))?$resturant->city:'') }}" required id="city" >
                                             </div>
                                         </div>
                                         
@@ -286,7 +287,7 @@
     
     @if(isset($resturant->city))
         $(document).ready(function(){
-                cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
+                //cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
         });
     @endif
     

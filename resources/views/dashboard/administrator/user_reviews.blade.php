@@ -2,6 +2,7 @@
 @section('content')
   <meta name="_token" content="{{ csrf_token() }}"/>
   <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+  
   <div class="content-page">
     <div class="container-fluid">
       <div class="row">
@@ -34,12 +35,13 @@
                   <thead>
                   <tr>
                     <th width="6%">ID</th>
-                    <th width="15%">User</th>
+                    <th width="12%">User</th>
                     <th width="20%">Target</th>
                     <th width="7%">Type</th>
-                    <th width="7%">Rating</th>
+                    <th width="5%">Rating</th>
                     <th width="25%">Comment</th>
-                    <th width="20%">Comment Date</th>
+                    <th width="15%">Comment Date</th>
+                    <th width="10%">Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -52,6 +54,8 @@
                       <td>{{ $rating->rating  }}</td>
                       <td>{{ substr($rating->comments, 0, 100) }}</td>
                       <td>{{ $rating->created_at  }}</td>
+                      <td> <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $rating->id }}">Edit</a>
+                      <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn red" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a></td>
                     </tr>
                   @endforeach
                   </tbody>
@@ -59,6 +63,18 @@
               </div>
             </div>
             <!-- END EXAMPLE TABLE PORTLET-->
+             <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+        <div class="modal-dialog2">
+            <div class="fancy-modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update</h4>
+                </div>
+                {!! Form::open(array('url' => '/user/reviews', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    <div id="editContents"></div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
           </div>
         </div>
       </div>
@@ -66,5 +82,13 @@
   </div>
 
   @include('common.tabletools')
+   <script>
+        $('body').on('click', '.editUser', function(){
+            var id = $(this).attr('data-id');
+            $.get("{{ url("user/reviews/edit") }}/"+id, {}, function(result){
+                $('#editContents').html(result);
+            });
+        });
+    </script>
 
 @stop

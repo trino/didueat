@@ -1,3 +1,4 @@
+<div class="clearfix"></div>
 <div class="footer">
   <div class="container-fluid">
     <div class="row">
@@ -72,23 +73,26 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div id="message-error" class="alert alert-danger" style="display: none;"></div>
       <div id="message-success" class="alert alert-success" style="display: none;"></div>
-      <div class="form-group">
-        <label>Comments: </label>
-        <textarea rows="6" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
-      </div>
-      <div class="form-group">
-        <input type="submit" class="btn red" id="ratingSaveBtn" value="Save"/>
-        <input type="hidden" id="rating_id" value=""/>
-        <input type="hidden" id="data-rating-id" value=""/>
-        <input type="hidden" id="data-target-id" value=""/>
-        <input type="hidden" id="data-type" value=""/>
-        <input type="hidden" id="ratingInputHidden" value=""/>
+      <div id="ratingContentArea">
+        <div class="form-group">
+          <label>Comments: </label>
+          <textarea rows="6" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn red" id="ratingSaveBtn" value="Save"/>
+          <input type="hidden" id="rating_id" value=""/>
+          <input type="hidden" id="data-rating-id" value=""/>
+          <input type="hidden" id="data-target-id" value=""/>
+          <input type="hidden" id="data-type" value=""/>
+          <input type="hidden" id="ratingInputHidden" value=""/>
+        </div>
       </div>
       <div class="clearfix"></div>
     </div>
     {!! Form::close() !!}
   </div>
 </div>
+
 <!-- END PRE-FOOTER -->
 
 <script type="text/javascript">
@@ -103,6 +107,7 @@
 
   $(document).ready(function () {
     $('body').on('click', '.update-rating', function () {
+      $('#rating-form #ratingContentArea').show();
       var rating = $(this).val();
       var isAlreadyRated = $(this).attr('data-count-exist');
       var rating_id = $(this).attr('data-rating-id');
@@ -123,7 +128,7 @@
 
       $.fancybox({
         'content': $('#fancybox-rating-commentbox').html(),
-        'hideOnContentClick': false
+        'hideOnContentClick': true
       });
     });
 
@@ -148,7 +153,9 @@
           $('#rating-form #message-error').hide();
           $('#rating-form #message-success').show();
           $('#rating-form #message-success').text(json.response);
-          $.fancybox.close();
+          $('#rating-form #ratingInput').val('');
+          $('#rating-form #ratingContentArea').hide();
+          //$.fancybox.close();
           $('.'+target_id+rating_id+type).attr('data-count-exist', 1);
         }
       });
@@ -297,7 +304,6 @@
           }
           else {
             if ($('#login_type').val() == 'reservation') {
-
               $.ajax({
                 url: "{{url('/user/json_data')}}",
                 type: "post",
@@ -315,8 +321,7 @@
                   $('.reservation_signin').hide();
                   $('.fancybox-close').click();
                   //only loads header
-                  $('#header-nav').load(document.URL + ' #header-nav>div:first-child');
-
+                  $('#header-nav').load(document.URL + ' #header-nav>ul');
                 }
               });
             }

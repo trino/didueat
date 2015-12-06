@@ -82,14 +82,18 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
+                    if ($user->is_email_varified == 0) {
+                        echo trans('messages.email_unvarified.message');
+                        die;
+                    }
                     if ($user->status == 0) {
                         echo trans('messages.user_inactive.message');
                         die;
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
-                        login($user);
-
+                        echo login($user);
+                        die;
                     } else {
                         echo trans('messages.user_login_invalid.message');
                         die;
@@ -161,7 +165,8 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
+                    $data['status'] = 1;
+                    $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
@@ -213,7 +218,6 @@ class AuthController extends Controller {
      */
     public function postAjaxRegister()
     {
-
         $data = \Input::all();
         if (isset($data) && count($data) > 0 && !is_null($data)) {
             if (!isset($data['email']) || empty($data['email'])) {
@@ -240,8 +244,14 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {
-                    $data['status'] = 0;
+                    $data['status'] = 1;
+                    $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
+                    $browser_info = getBrowser();
+                    $data['ip_address'] = get_client_ip_server();
+                    $data['browser_name'] = $browser_info['name'];
+                    $data['browser_version'] = $browser_info['version'];
+                    $data['browser_platform'] = $browser_info['platform'];
 
                     $user = new \App\Http\Models\Profiles();
                     $user->populate(array_filter($data));
@@ -346,7 +356,7 @@ class AuthController extends Controller {
     public function verifyEmail($email = "")
     {
         $email = base64_decode($email);
-        $count = \App\Http\Models\Profiles::where('email', $email)->where('status', 1)->count();
+        $count = \App\Http\Models\Profiles::where('email', $email)->where('is_email_varified', 1)->count();
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
 
         if ($count > 0) {
@@ -358,6 +368,7 @@ class AuthController extends Controller {
 
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $user->status = 1;
+            $user->is_email_varified = 1;
             $user->save();
 
             login($user);
@@ -516,10 +527,5 @@ class AuthController extends Controller {
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
         return \Redirect::to('/restaurants');
-    }
-
-    function test()
-    {
-        return view('auth.test', array('title' => 'Testing'));
     }
 }

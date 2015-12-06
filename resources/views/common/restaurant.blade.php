@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label>Cuisine Type</label>
                             <select name="genre" id="genre" class="form-control">
@@ -45,7 +45,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
@@ -59,6 +59,7 @@
                             <label class="control-label">Tags</label>
                             <textarea id="demo4"></textarea>
                             <input type="hidden" name="tags" id="responseTags" value="" />
+                            <p>e.g: Candian, Italian, Chinese, FastFood</p>
                         </div>
                     </div>
 
@@ -141,7 +142,7 @@
                             <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');" required>
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
-                                    <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @endif>{{ $value->name }}</option>
+                                    <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @elseif($value->id == 40) selected @endif>{{ $value->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -160,7 +161,8 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">City <span class="required">*</span></label>
-                            <select name="city" class="form-control" required id="city"></select>
+                            {{--<select name="city" class="form-control" required id="city"></select>--}}
+                            <input type="text" name="city" class="form-control" required id="city">
                         </div>
                     </div>
                 </div>
@@ -284,7 +286,7 @@
                             <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <label>
-                                    <input type="checkbox" name="subscribed" id="subscribed" value="1" />
+                                    <input type="checkbox" name="subscribed" id="subscribed" value="1" checked />
                                     Sign up for our Newsletter
                                 </label>
                             </div>
@@ -299,69 +301,3 @@
     </div>
 </DIV>
 
-<script>
-$(function(){
-    $('#demo4').tagEditor({
-        initialTags: ['Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German'],
-        placeholder: 'Enter tags ...',
-        //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-        //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
-        onChange: function(field, editor, tags) { $('#responseTags').val((tags.length ? tags.join(', ') : '')); },
-        beforeTagDelete: function(field, editor, tags, val){
-            var q = confirm('Remove tag "'+val+'"?');
-            //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-            //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
-            return q;
-        }
-    });
-
-    @if(old('city'))
-        $(document).ready(function(){
-                cities("{{ url('ajax') }}", {{ old('city') }});
-        });
-    @endif
-    
-    $('body').on('change', '#allow_delivery', function(){
-        if($(this).is(':checked')){
-            $('#allow_delivery_options').show();
-        } else {
-            $('#allow_delivery_options').hide();
-        }
-    });
-
-    function ajaxuploadbtn(button_id) {
-        var button = $('#' + button_id), interval;
-        act = base_url+'uploadimg/restaurant';
-        new AjaxUpload(button, {
-            action: act,
-            name: 'myfile',
-            data:{'_token':'{{csrf_token()}}'},
-            onSubmit: function (file, ext) {
-                button.text('Uploading...');
-                this.disable();
-                interval = window.setInterval(function () {
-                    var text = button.text();
-                    if (text.length < 13) {
-                        button.text(text + '.');
-                    } else {
-                        button.text('Uploading...');
-                    }
-                }, 200);
-            },
-            onComplete: function (file, response) {
-                var resp = response.split('___');
-                var path = resp[0];
-                var img = resp[1];
-                button.html('Change Image');
-
-                window.clearInterval(interval);
-                this.enable();
-                $('#picture').attr('src',path);
-                $('#hiddenLogo').val(img);
-            }
-        });
-    }
-
-    ajaxuploadbtn('uploadbtn');
-});
-</script>

@@ -6,8 +6,9 @@ return [
     "user_logout" => array('message' => "You are logout successfully!"),
     "user_session_exp" => array('message' => "Session expired please relogin!"),
     "user_login" => array('message' => "Login successfully."),
+    "email_unvarified" => array('message' => "Email is not verified."),
     "exception" => array('code' => '100', 'message' => "Unexpected error occurs."),
-    "user_inactive" => array('code' => '101', 'message' => "This account has been blocked. Contact us for more detail"),
+    "user_inactive" => array('code' => '101', 'message' => "This account has been blocked. please contact us at.... to reactivate."),
     "user_login_invalid" => array('code' => '102', 'message' => "Invalid username and password."),
 
     "user_not_registered" => array('code' => '103', 'message' => "User not registered."),
