@@ -58,7 +58,9 @@
                                                     <a href="#cancel-popup-dialog" class="btn yellow fancybox-fast-view cancel-popup" data-id="{{ $value->id }}">Cancel</a>
                                                 @endif
                                                 @if(strtolower($value->status) == 'cancelled' || strtolower($value->status) == 'pending')
+                                                    @if(\Session::get('session_type_user') != 'user')
                                                     <a href="#approve-popup-dialog" class="btn blue fancybox-fast-view approve-popup" data-id="{{ $value->id }}">Approve</a>
+                                                    @endif
                                                 @endif
                                             {{--@else--}}
                                             {{--<a href="#disapprove-popup" class="btn red fancybox-fast-view disapprove-popup" data-id="{{ $value->id }}">Disapprove</a>--}}

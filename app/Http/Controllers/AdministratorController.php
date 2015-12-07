@@ -85,10 +85,20 @@ class AdministratorController extends Controller
                         \Session::flash('message-short', 'Oops!');
                         return \Redirect::to('dashboard');
                     }
-                    $post['password'] = $post['confirm_password'];
+                    $data['password'] = $post['confirm_password'];
                 }
-
-                $ob->populate(array_filter($post));
+                if(!isset($post['subscribed'])){
+                    $data['subscribed'] = 0;
+                } else {
+                    $data['subscribed'] = 1;
+                }
+                $data['email'] = $post['email'];
+                $data['name'] = $post['name'];
+                $data['phone_no'] = $post['phone_no'];
+                $data['status'] = $post['status'];
+                $data['photo'] = $post['photo'];
+                
+                $ob->populate($data);
                 $ob->save();
                 
                 event(new \App\Events\AppEvents($ob, "Profile Updated"));

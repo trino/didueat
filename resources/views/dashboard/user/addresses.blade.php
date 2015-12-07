@@ -150,9 +150,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-5 col-sm-5 col-xs-12">City <span class="required">*</span></label>
                                                 <div class="col-md-7 col-sm-7 col-xs-12">
-                                                    <select name="city" id="city" class="form-control" required>
-                                                        <option value="">-Select One-</option>
-                                                    </select>
+                                                <input type="text" name="city" id="city" class="form-control" required>
                                                 </div>
                                             </div>
                                         </div>

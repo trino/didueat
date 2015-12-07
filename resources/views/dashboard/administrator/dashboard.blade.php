@@ -122,7 +122,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <label>
-                        <input type="checkbox" name="subscribed" id="subscribed" value="1" @if(read('subscribed')) "checked" @endif />
+                        <input type="checkbox" name="subscribed" id="subscribed" value="1" @if($user_detail->subscribed) checked @endif />
                         Sign up for our Newsletter
                       </label>
                     </div>
@@ -149,7 +149,7 @@
                   <div class="col-md-6 col-sm-6 col-xs-12">
                     <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
                   </div>
-                  <input type="hidden" name="photo" id="hiddenLogo"/>
+                  <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}" />
                 </div>
               </div>
 
