@@ -23,7 +23,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           @if(Session::has('is_logged_in'))
-            <li><a href="{{ url('dashboard') }}">Hi, {{ explode(' ', Session::get('session_name'))[0] }}
+            <li><a href="{{ url('dashboard') }}"><span class="username username-hide-on-mobile">Hi, {{ explode(' ', Session::get('session_name'))[0] }}</span>
                 <img src="<?php
                 $Image = asset('assets/images/default.png');
                 if (Session::has('session_photo')) {
