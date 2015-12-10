@@ -13,6 +13,7 @@ Route::post('/search/restaurants/ajax',             'HomeController@searchRestau
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/', 'HomeController@loadmenus');
 Route::get('/restaurants/menu/stats/{id}',          'HomeController@countStatus');
+Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
 Route::get('/search/menus/{term}',                  'HomeController@searchMenus');
 Route::post('/search/menus/ajax',                   'HomeController@searchMenusAjax');
 Route::post('/uploadimg/{type}',                    'HomeController@uploadimg')->where('type','[a-z]+');
@@ -36,7 +37,6 @@ Route::get('auth/forgot-passoword',                 'Auth\AuthController@forgotP
 Route::post('auth/forgot-passoword',                'Auth\AuthController@postForgotPassword');
 Route::post('auth/forgot-passoword/ajax',           'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',             'Auth\AuthController@postAjaxValidateEmail');
-Route::get('/restaurants/{slug}/menus',             'HomeController@menusRestaurants');
 
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function(){

@@ -107,7 +107,7 @@
                     &nbsp; {!! Session::get('message') !!}
                 </div>
                 @endif
-
+                
                 {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                 <!--//End Pricing -->
                 <?php $Layout = "rows"; ?>
@@ -197,17 +197,17 @@ $(document).ready(function() {
                     type: "post"
                 }
             },
-            PostalCode: {
+            postal_code: {
                 matchPattern: true
             },
-            password: {
+            password1: {
                 required: true,
                 minlength: 3
             },
-            confirm_password: {
+            confirm_password1: {
                 required: true,
                 minlength: 3,
-                equalTo: "#password"
+                equalTo: "#password1"
             }
         },
         messages: {
@@ -221,14 +221,17 @@ $(document).ready(function() {
                 email: "This is not a valid email!",
                 remote: "Email already in use!"
             },
-            PostalCode: {
+            postal_code: {
                 matchPattern: "Invalid Postal Code"
             },
+            confirm_password1: {
+                equalTo: "Both password fields are mis-matched!"
+            }
         }
     });
     
     $('#demo4').tagEditor({
-        initialTags: [],
+        initialTags: [{{ old('tags') }}],
         placeholder: 'Enter tags ...',
         maxTags: 9,
         onChange: function(field, editor, tags) { $('#responseTags').val((tags.length ? tags.join(', ') : '')); },
@@ -244,11 +247,11 @@ $(document).ready(function() {
         });
     @endif
     
-    $('body').on('change', '#allow_delivery', function(){
+    $('body').on('change', '#is_delivery', function(){
         if($(this).is(':checked')){
-            $('#allow_delivery_options').show();
+            $('#is_delivery_options').show();
         } else {
-            $('#allow_delivery_options').hide();
+            $('#is_delivery_options').hide();
         }
     });
 

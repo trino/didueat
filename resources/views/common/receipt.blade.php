@@ -24,9 +24,6 @@
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
-                <div class="col-md-1 col-sm-1 col-xs-1">
-                    <span class="font-size"><</span>
-                </div>
                 <div  class="col-md-11 col-sm-11 col-xs-11">
                     <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
                     {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}

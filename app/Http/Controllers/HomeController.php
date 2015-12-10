@@ -32,12 +32,97 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['query'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'count')->count();
+//        $data['query'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'list')->get();
+//        $data['count'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'count')->count();
+//        $data['start'] = $data['query']->count();
+//        $data['term'] = '';
+//        return view('home', $data);
+        /*
+         $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)->where('is_delivery', 1)->where('is_pickup', 1)->paginate(8);
+        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)->where('is_delivery', 1)->where('is_pickup', 1)->count();
+        $data['start'] = $data['query']->count();
+         */
+        $data['title'] = 'All Restaurants Page';
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 5, 0);
+        $data['count'] = count($data['query']);
+        $data['start'] = count($data['query']);
+        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 5, $data['start']));
+        
+        return view('restaurants', $data);
+    }
+    
+    /**
+     * Search Restaurants Ajax
+     * @param null
+     * @return view
+     */
+    public function searchRestaurantsAjax()
+    {
+        $post = \Input::all();
+        $start = (isset($post['start']))?$post['start']:0;
+        $data = array();
+        parse_str($post['data'], $data);
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            try {
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);
+                $data['count'] = count($data['query']);
+                $data['start'] = count($data['query']) + $start;
+                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));
+                
+                if (!is_null($data['query']) && count($data['query']) > 0){
+                    return view('ajax.search_restaurants', $data);
+                }
+            } catch (Exception $e) {
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+            }
+        } else {
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+        }
+
+    }
+    
+    /**
+     * Search Restaurants
+     * @param $term
+     * @param $per_page
+     * @param $start
+     * @return view
+     */
+    public function searchRestaurants($term = '')
+    {
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'list')->get();
+        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'count')->count();
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
+        $data['countries'] = \App\Http\Models\Countries::get();
+        $data['start'] = $data['query']->count();
+        $data['term'] = $term;
+        $data['title'] = "Search Menus";
+
+        return view('restaurants', $data);
+    }
+    
+    /**
+     * All Restaurants Lists
+     * @param null
+     * @return view
+     */
+    public function allRestaurants()
+    {
+        $data['title'] = 'All Restaurants Page';
+        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
+        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
+        $data['countries'] = \App\Http\Models\Countries::get();
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
         $data['start'] = $data['query']->count();
         $data['term'] = '';
-
-        return view('home', $data);
+        
+        return view('restaurants', $data);
     }
 
     /**
@@ -84,75 +169,6 @@ class HomeController extends Controller
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
         }
 
-    }
-
-    /**
-     * Search Restaurants
-     * @param $term
-     * @param $per_page
-     * @param $start
-     * @return view
-     */
-    public function searchRestaurants($term = '')
-    {
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'count')->count();
-        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
-        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
-        $data['countries'] = \App\Http\Models\Countries::get();
-        $data['start'] = $data['query']->count();
-        $data['term'] = $term;
-        $data['title'] = "Search Menus";
-
-        return view('restaurants', $data);
-    }
-
-
-    /**
-     * Search Restaurants Ajax
-     * @param null
-     * @return view
-     */
-    public function searchRestaurantsAjax()
-    {
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            try {
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 10, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->get();
-                $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($post['term'], 10, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['city'], $post['province'], $post['country'])->count();
-                $data['start'] = $data['query']->count() + $post['start'];
-                $data['term'] = $post['term'];
-
-                if (!is_null($data['query']) && count($data['query']) > 0) {
-                    return view('ajax.search_restaurants', $data);
-                }
-
-            } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
-            }
-        } else {
-            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
-        }
-
-    }
-
-    /**
-     * All Restaurants Lists
-     * @param null
-     * @return view
-     */
-    public function allRestaurants()
-    {
-        $data['title'] = 'All Restaurants Page';
-        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
-        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
-        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
-        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
-        $data['countries'] = \App\Http\Models\Countries::get();
-        $data['start'] = $data['query']->count();
-        $data['term'] = '';
-        
-        return view('restaurants', $data);
     }
    
     /**
@@ -221,18 +237,6 @@ class HomeController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurants/signup')->withInput();
             }
-//            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-//                \Session::flash('message', "[Delivery Fee] field is missing!");
-//                \Session::flash('message-type', 'alert-danger');
-//                \Session::flash('message-short', 'Oops!');
-//                return \Redirect::to('/restaurants/signup')->withInput();
-//            }
-//            if (!isset($post['minimum']) || empty($post['minimum'])) {
-//                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
-//                \Session::flash('message-type', 'alert-danger');
-//                \Session::flash('message-short', 'Oops!');
-//                return \Redirect::to('/restaurants/signup')->withInput();
-//            }
             if (!isset($post['address']) || empty($post['address'])) {
                 \Session::flash('message', "[Address] field is missing!");
                 \Session::flash('message-type', 'alert-danger');
@@ -269,19 +273,19 @@ class HomeController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['password']) || empty($post['password'])) {
+            if (!isset($post['password1']) || empty($post['password1'])) {
                 \Session::flash('message', trans('messages.user_pass_field_missing.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+            if (!isset($post['confirm_password1']) || empty($post['confirm_password1'])) {
                 \Session::flash('message', trans('messages.user_confim_pass_field_missing.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('/restaurants/signup')->withInput();
             }
-            if ($post['password'] != $post['confirm_password']) {
+            if ($post['password1'] != $post['confirm_password1']) {
                 \Session::flash('message', trans('messages.user_passwords_mismatched.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
@@ -297,16 +301,21 @@ class HomeController extends Controller
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                //$update['genre'] = $post['genre'];
+                $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
-                $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
+                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
+                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
+                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['tags'] = $post['tags'];
+                $update['lat'] = $post['lat'];
+                $update['lng'] = $post['lng'];
+                $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 1;
-
+                $update['status'] = 1;
                 $browser_info = getBrowser();
                 $update['ip_address'] = get_client_ip_server();
                 $update['browser_name'] = $browser_info['name'];
@@ -356,7 +365,7 @@ class HomeController extends Controller
                 $data['profile_type'] = 2;
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
-                $data['password'] = $post['password'];
+                $data['password'] = $post['password1'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
                 
                 $browser_info = getBrowser();
@@ -408,7 +417,7 @@ class HomeController extends Controller
             $data['title'] = "Signup Restaurants Page";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['states_list'] = \App\Http\Models\States::get();
-            $data['genre_list'] = \App\Http\Models\Genres::get();
+            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
             return view('restaurants-signup', $data);
         }
@@ -609,6 +618,17 @@ class HomeController extends Controller
                     $ob = new \App\Http\Models\RatingUsers();
                     $ob->populate($post);
                     $ob->save();
+                    
+                    $rating = rating_get($post['target_id'], $post['rating_id'], $post['type']);
+                    if($post['type'] == "menu"){
+                        $ob = \App\Http\Models\Menus::find($post['target_id']);
+                        $ob->populate(array('rating' => $rating));
+                        $ob->update();
+                    } else {
+                        $ob = \App\Http\Models\Restaurants::find($post['target_id']);
+                        $ob->populate(array('rating' => $rating));
+                        $ob->update();
+                    }
                     
                     return \Response::json(array('type' => 'success', 'response' => "Thank you! for your rating."), 200);
                 } else {

@@ -35,22 +35,22 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label>Cuisine Type</label>
-                            <select name="genre" id="genre" class="form-control">
-                                <option value="">-Select One-</option>
-                                @foreach($genre_list as $value)
-                                    <option value="{{ $value->id }}" @if(old('genre') == $value->id) selected @endif>{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> -->
-
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Description</label>
                             <textarea name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label>Cuisine Type</label>
+                            <select name="cuisine" id="cuisine" class="form-control">
+                                <option value="">-Select One-</option>
+                                @foreach($cuisine_list as $value)
+                                    <option value="{{ $value->id }}" @if(old('cuisine') == $value->id) selected @endif>{{ $value->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -69,11 +69,12 @@
                     
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label"><input type="checkbox" name="allow_delivery" id="allow_delivery" value="yes" {{ (old('delivery_fee') && old('delivery_fee') > 0)?'checked':'' }} /> Allow home delivery</label>
+                            <label class="control-label"><input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (old('is_pickup') && old('is_pickup') > 0)?'checked':'' }} /> Allow pickup</label> <br />
+                            <label class="control-label"><input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (old('is_delivery') && old('is_delivery') > 0)?'checked':'' }} /> Allow home delivery</label>
                         </div>
                     </div>
                     
-                    <div id="allow_delivery_options" style="display: {{ (old('delivery_fee') && old('delivery_fee') > 0)?'block':'none' }};">
+                    <div id="is_delivery_options" style="display: {{ (old('is_delivery') && old('is_delivery') > 0)?'block':'none' }};">
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <div class="form-group">
                                 <label class="control-label">Delivery Fee </label>
@@ -120,20 +121,20 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
+                            <label class="control-label">Formate Address <span class="required">*</span></label>
+                            <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
                             <label class="control-label">Address <span class="required">*</span></label>
-                            <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
+                            <input type="text" name="address" id="rout_street_number" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Postal Code <span class="required">*</span></label>
-                            <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Phone Number <span class="required">*</span></label>
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
+                            <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -162,7 +163,13 @@
                         <div class="form-group">
                             <label class="control-label">City <span class="required">*</span></label>
                             {{--<select name="city" class="form-control" required id="city"></select>--}}
-                            <input type="text" name="city" class="form-control" required id="city">
+                            <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Phone Number <span class="required">*</span></label>
+                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
                         </div>
                     </div>
                 </div>
@@ -263,7 +270,7 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
-                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                    <input type="password" name="password1" class="form-control" id="password1" placeholder="Password" required>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +282,7 @@
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
-                                    <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required>
+                                    <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
                                 </div>
                             </div>
                         </div>
@@ -293,6 +300,8 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input type="hidden" name="lat" id="latitude" value="" />
+                        <input type="hidden" name="lng" id="longitude" value="" />
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
                 </div>
@@ -301,3 +310,84 @@
     </div>
 </DIV>
 
+<script type="text/javascript">
+    //Google Api Codes.
+    var placeSearch, formatted_address;
+    function initAutocomplete(){
+      formatted_address = new google.maps.places.Autocomplete(
+          (document.getElementById('formatted_address')),
+          {types: ['geocode']});
+      formatted_address.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+      var place = formatted_address.getPlace();
+      var lat = place.geometry.location.lat();
+      var lng = place.geometry.location.lng();
+      $('#latitude').val(lat);
+      $('#longitude').val(lng);
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+      $('#city').val('');
+      $('#rout_street_number').val('');
+      $('#postal_code').val('');
+      provinces('{{ addslashes(url("ajax")) }}', '');
+      //$("#province option").attr("selected", false);
+      
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
+          var val = place.address_components[i][componentForm[addressType]];
+          if(addressType == "country"){
+            $("#country  option").filter(function() {
+                return this.text == val; 
+            }).attr('selected', true);
+          }
+          if(addressType == "administrative_area_level_1"){
+            $("#province option").filter(function() {
+                return this.text == val; 
+            }).attr('selected', true);
+          }
+          if(addressType == "locality"){
+            $('#city').val(val);
+          }
+          if(addressType == "postal_code"){
+            $('#postal_code').val(val);
+          }
+          if(addressType == "street_number"){
+            $('#rout_street_number').val(val);
+          }
+          if(addressType == "route"){
+              if($('#rout_street_number').val() != ""){
+                $('#rout_street_number').val($('#rout_street_number').val()+", "+val);
+              } else {
+                  $('#rout_street_number').val(val);
+              }
+          }
+        }
+      }
+    }
+
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle({
+            center: geolocation,
+            radius: position.coords.accuracy
+          });
+          formatted_address.setBounds(circle.getBounds());
+        });
+      }
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>

@@ -60,18 +60,13 @@
                                                 <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ (isset($resturant->name))?$resturant->name:'' }}" required>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Cuisine Type</label>
-                                                <select name="genre" id="genre" class="form-control">
-                                                    <option value="">-Select One-</option>
-                                                    @foreach($genre_list as $value)
-                                                        <option value="{{ $value->id }}" @if(isset($resturant->genre) && $resturant->genre == $value->id) selected @endif>{{ $value->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label class="control-label">Email <span class="required">*</span></label>
+                                                <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ (isset($resturant->email))?$resturant->email:'' }}" required>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
@@ -82,9 +77,21 @@
                                         
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
+                                                <label>Cuisine Type</label>
+                                                <select name="cuisine" id="cuisine" class="form-control">
+                                                    <option value="">-Select One-</option>
+                                                    @foreach($cuisine_list as $value)
+                                                        <option value="{{ $value->id }}" @if(isset($resturant->cuisine) && $resturant->cuisine == $value->id) selected @endif>{{ $value->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
                                                 <label class="control-label">Tags</label>
                                                 <textarea id="demo4"></textarea>
-                                                <input type="hidden" name="tags" id="responseTags" value="{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}" />
+                                                <input type="hidden" name="tags" id="responseTags" value="{!! (isset($resturant->tags))?$resturant->tags:'' !!}" />
                                                 <p>e.g: Candian, Italian, Chinese, FastFood</p>
                                             </div>
                                         </div>
@@ -94,10 +101,11 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label"><input type="checkbox" name="allow_delivery" id="allow_delivery" value="yes" {{ (isset($resturant->delivery_fee) && $resturant->delivery_fee > 0)?'checked':'' }} /> Allow home delivery</label>
+                                                <label class="control-label"><input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (isset($resturant->is_pickup) && $resturant->is_pickup > 0)?'checked':'' }} /> Allow pickup</label> <br />
+                                                <label class="control-label"><input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'checked':'' }} /> Allow home delivery</label>
                                             </div>
                                         </div>
-                                        <div id="allow_delivery_options" style="display: {{ (isset($resturant->delivery_fee) && $resturant->delivery_fee > 0)?'block':'none' }};">
+                                        <div id="is_delivery_options" style="display: {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'block':'none' }};">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Delivery Fee </label>
@@ -270,7 +278,16 @@
 <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 <script>
     $(document).ready(function(){
+        $('body').on('change', '#is_delivery', function(){
+            if($(this).is(':checked')){
+                $('#is_delivery_options').show();
+            } else {
+                $('#is_delivery_options').hide();
+            }
+        });
+
         $('#demo4').tagEditor({
+            //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
             initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}],
             placeholder: 'Enter tags ...',
             //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
@@ -290,14 +307,6 @@
                 //cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
         });
     @endif
-    
-    $('body').on('change', '#allow_delivery', function(){
-        if($(this).is(':checked')){
-            $('#allow_delivery_options').show();
-        } else {
-            $('#allow_delivery_options').hide();
-        }
-    });
     
     function ajaxuploadbtn(button_id) {
         var button = $('#' + button_id), interval;

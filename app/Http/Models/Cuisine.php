@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @developer  Waqar Javed
  * @date       20 September, 2015
  */
-class Genres extends BaseModel
+class Cuisine extends BaseModel
 {
 
-    protected $table = 'genres';
+    protected $table = 'cuisine';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
@@ -24,7 +24,7 @@ class Genres extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('name');
+        $cells = array('name', 'is_active');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];

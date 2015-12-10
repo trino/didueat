@@ -5404,16 +5404,6 @@ Portlets
     background: #dfdfdf none repeat scroll 0 0;
 }
 
-.filter_search h4 {
-    border-top: 1px solid #dfdfdf;
-    font-size: 13px !important;
-    font-weight: 600;
-}
-
-.filter_search h4:first-child {
-    border-top: none;
-}
-
 .box-shadow .portlet-title .fa {
     margin-right: 5px;
 }
@@ -6030,17 +6020,6 @@ Start of Paul's stylings
     height: 109px
 }
 
-#addressInput {
-    background-color: #fff;
-    padding: 0 11px 0 13px;
-    width: 280px;
-    height: 34px;
-    font-size: 16px;
-    font-weight: 300;
-    text-overflow: ellipsis;
-    margin: 21px 0;
-}
-
 .srchBtnRnd {
     border-radius: 8px
 }
@@ -6247,3 +6226,5 @@ My css styling 27 Nov 2015
 .menu-img {
     padding: 20px;
 }
+
+ul#top-menu li > a { font-size: 18px; font-weight: bold; }

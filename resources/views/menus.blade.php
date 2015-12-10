@@ -23,8 +23,7 @@
               <div class="restaurant-name">
                 <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2></a>
               </div>
-              <a
-                href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+              <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
                 class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                 <h3>{{ $value->menu_item }} <span class="menu-tag menu-price">${{ $value->price }}</span></h3>
               </a>

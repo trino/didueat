@@ -60,23 +60,30 @@
                                                 <input type="text" name="restname" class="form-control" placeholder="Restaurant Name" value="{{ old('name') }}" required>
                                             </div>
                                         </div>
-
-                                        <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Cuisine Type</label>
-                                                <select name="genre" id="genre" class="form-control">
-                                                    <option value="">-Select One-</option>
-                                                    @foreach($genre_list as $value)
-                                                        <option value="{{ $value->id }}" @if(old('genre') == $value->id) selected @endif>{{ $value->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <label class="control-label">Email <span class="required">*</span></label>
+                                                <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ old('email') }}" required>
                                             </div>
-                                        </div> -->
+                                        </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label">Description</label>
                                                 <textarea name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <div class="form-group">
+                                                <label>Cuisine Type</label>
+                                                <select name="cuisine" id="cuisine" class="form-control">
+                                                    <option value="">-Select One-</option>
+                                                    @foreach($cuisine_list as $value)
+                                                        <option value="{{ $value->id }}" @if(old('cuisine') == $value->id) selected @endif>{{ $value->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         
@@ -95,11 +102,12 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label"><input type="checkbox" name="allow_delivery" id="allow_delivery" value="yes" {{ (old('delivery_fee') && old('delivery_fee') > 0)?'checked':'' }} /> Allow home delivery</label>
+                                                <label class="control-label"><input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (old('is_pickup') && old('is_pickup') > 0)?'checked':'' }} /> Allow pickup</label> <br />
+                                                <label class="control-label"><input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (old('is_delivery') && old('is_delivery') > 0)?'checked':'' }} /> Allow home delivery</label>
                                             </div>
                                         </div>
 
-                                        <div id="allow_delivery_options" style="display: {{ (old('delivery_fee') && old('delivery_fee') > 0)?'block':'none' }};">
+                                        <div id="is_delivery_options" style="display: {{ (old('is_delivery') && old('is_delivery') > 0)?'block':'none' }};">
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Delivery Fee </label>
@@ -257,11 +265,11 @@
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 <script>
-    $('body').on('change', '#allow_delivery', function(){
+    $('body').on('change', '#is_delivery', function(){
         if($(this).is(':checked')){
-            $('#allow_delivery_options').show();
+            $('#is_delivery_options').show();
         } else {
-            $('#allow_delivery_options').hide();
+            $('#is_delivery_options').hide();
         }
     });
 

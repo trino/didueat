@@ -18,7 +18,6 @@
       <div class="new-layout-box">
         <div class="row">
           <div class="col-md-9">
-
             <div class="new-layout-box-content">
               <div class="restaurant-name">
                 <a
@@ -31,29 +30,22 @@
               <h3>{{ $value->menu_item }} <span class="menu-tag">${{ $value->price }}</span></h3>
               </a>
               <p class="box-des">{{ substr($value->description, 0, 300) }}</p>
-
               <div class="row">
                   {!! rating_initialize("static-rating", "menu", $value->id) !!}
               </div>
             </div>
-
-
           </div>
           <div class="col-md-3">
             <div class="menu-img">
               <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
                 class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                 <div class="card-image">
-
                     <img class="img-responsive" src="{{ $item_image1 }}" alt="{{ $item_image1 }}">
-
                 </div>
               </a>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
 
@@ -100,24 +92,24 @@
                         </div>
                         <a href="javascript:void(0);"><strong>{{ $sub->menu_item }}</strong></a>
                         <span><em> </em></span>
-                                            <span class="limit-options right-float">
-                                            <?php
-                                              if ($sub->exact_upto == 0)
-                                                $upto = "up to ";
-                                              else
-                                                $upto = "exactly ";
-                                              if ($sub->req_opt == '0') {
-                                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                  echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
-                                                echo "(Optional)";
+                        <span class="limit-options right-float">
+                        <?php
+                          if ($sub->exact_upto == 0)
+                            $upto = "up to ";
+                          else
+                            $upto = "exactly ";
+                          if ($sub->req_opt == '0') {
+                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                              echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                            echo "(Optional)";
 
-                                              } elseif ($sub->req_opt == '1') {
-                                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                                                  echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
-
-                                                echo "(Mandatory)";
-                                              } ?>
-                                            </span>
+                          } elseif ($sub->req_opt == '1') {
+                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                              echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                            echo "(Mandatory)";
+                          }
+                        ?>
+                        </span>
 
                         <div class="clearfix"></div>
                         <span class="error_{{ $sub->id }} strong-error"></span>

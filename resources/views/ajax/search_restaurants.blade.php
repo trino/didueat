@@ -1,29 +1,49 @@
-@foreach($query as $value)
-    <?php $logo = ($value->logo != "") ? 'restaurants/'.$value->id .'/'. $value->logo : 'default.png'; ?>
-    <div class="row startRow" id="{{ $start }}">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="card row">
-                <div class="card-image col-md-1 col-sm-1 col-xs-2">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
-                        <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
-                    </a>
-                    <span class="card-title">{{ $value->name }}</span>
+<div id="restuarant_bar" class="restuarant-list">
+    <div class="row">
+        @foreach($query as $value)
+            <?php $logo = ($value['logo'] != "") ? 'restaurants/'.$value['id'] .'/'. $value['logo'] : 'default.png'; ?>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="new-layout-box">
+                    <div class="row">
+                      <div class="col-md-9">
+                        <div class="new-layout-box-content">
+                          <div class="restaurant-name">
+                            <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}"><h2>{{ $value['name'] }}</h2></a>
+                          </div>
+                          <p class="box-des">
+                              {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, 
+                              {{ select_field("countries", 'id', $value['country'], 'name') }}
+                              <br />
+                              {{ $value['phone'] }}
+                          </p>
+                          <a class="btn custom-default-btn" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">{{ $value['name'] }} Pick-up Only</a>
+                          <div class="row">
+                              {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="menu-img">
+                          <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                            <div class="card-image">
+                                <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                 </div>
-                <div class="card-content col-md-7 col-sm-7 col-xs-12">
-                    <p>
-                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }}</a>
-                    </p>
-                    <p>
-                        {{ $value->address }}, {{ $value->city }}, {{ $value->province }}
-                        , {{ select_field("countries", 'id', $value->country, 'name') }}
-                        <BR> {{ $value->phone }}
-                    </p>
-                </div>
-                <div class="card-action col-md-4 col-sm-4 col-xs-12">
-                    <a class="red btn" href="{{ url('restaurants/'.$value->slug.'/menus') }}">{{ $value->name }} Pick-up Only</a>
-                    {!! rating_initialize("static-rating", "restaurant", $value->id) !!}
+            </div>
+        @endforeach
+        @if($hasMorePage > 0)
+        <div id="loadMoreBtnContainer">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-5">
+                    <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
+                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
                 </div>
             </div>
         </div>
+        @endif
     </div>
-@endforeach
+</div>

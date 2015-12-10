@@ -202,18 +202,22 @@ class RestaurantController extends Controller
                 }
                 $update['name'] = $post['restname'];
                 $update['slug'] = $this->createslug($post['restname']);
+                $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                //$update['genre'] = $post['genre'];
+                $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
-                $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
+                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
+                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
+                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['tags'] = $post['tags'];
                 $update['open'] = 1;
+                $update['status'] = 1;
 
                 $browser_info = getBrowser();
                 $update['ip_address'] = get_client_ip_server();
@@ -272,7 +276,7 @@ class RestaurantController extends Controller
         } else {
             $data['title'] = "Add New Restaurants";
             $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['genre_list'] = \App\Http\Models\Genres::get();
+            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             return view('dashboard.restaurant.addrestaurant', $data);
         }
     }
@@ -350,17 +354,19 @@ class RestaurantController extends Controller
                 if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
                 }
-                //$update['email'] = $post['email'];
+                $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                //$update['genre'] = $post['genre'];
+                $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
-                $update['delivery_fee'] = (isset($post['allow_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['allow_delivery']))?$post['minimum']:0;
+                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
+                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
+                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
+                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['tags'] = $post['tags'];
                 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
@@ -395,7 +401,7 @@ class RestaurantController extends Controller
         } else {
             $data['title'] = "Resturant Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['genre_list'] = \App\Http\Models\Genres::get();
+            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             return view('dashboard.restaurant.info', $data);
         }
