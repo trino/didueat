@@ -70,6 +70,19 @@
                   </div>
                 </div>
 
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group clearfix">
+                    <label for="mobile" class="col-md-12 col-sm-12 col-xs-12 control-label">Mobile Number </label>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="input-icon">
+                        <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Mobile Number"
+                               value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="portlet-title">
                   <div class="caption">
                     Create Password

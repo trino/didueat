@@ -95,6 +95,7 @@ class AdministratorController extends Controller
                 $data['email'] = $post['email'];
                 $data['name'] = $post['name'];
                 $data['phone_no'] = $post['phone_no'];
+                $data['mobile'] = $post['mobile'];
                 $data['status'] = $post['status'];
                 $data['photo'] = $post['photo'];
                 
@@ -287,6 +288,12 @@ class AdministratorController extends Controller
         $post = \Input::all();
 
         if (isset($post) && count($post) > 0 && !is_null($post)) {
+            if (!isset($post['user_type']) || empty($post['user_type'])) {
+                \Session::flash('message', '[User Type] field is missing');
+                \Session::flash('message-type', 'alert-danger');
+                \Session::flash('message-short', 'Oops!');
+                return \Redirect::to('users/credit-cards')->withInput();
+            }
             if (!isset($post['first_name']) || empty($post['first_name'])) {
                 \Session::flash('message', '[Name] field is missing');
                 \Session::flash('message-type', 'alert-danger');

@@ -2739,7 +2739,9 @@ body.ecommerce {
 .login-form h1,
 #forget-passsword h1,
 #register-form h1,
-#editNewUser h4 {
+#editNewUser h4,
+#addNewCreditCard h4,
+#NewCreditCard h4 {
     background: #D50000 none repeat scroll 0 0;
     color: #fff;
     padding: 15px !important;
@@ -2747,18 +2749,24 @@ body.ecommerce {
 }
 
 #addNewUser .modal-header h4,
-#editNewUser .modal-header h4 {
+#editNewUser .modal-header h4,
+#addNewCreditCard .modal-header h4,
+#NewCreditCard .modal-header h4 {
     font-size: 23px;
     font-weight: 600 !important;
     margin-bottom: 0 !important;
 }
 
-#editNewUser h4 {
+#editNewUser h4,
+#addNewCreditCard h4,
+#NewCreditCard h4 {
     margin-bottom: 0 !important;
     font-weight: 600 !important;
 }
 
-#editNewUser .modal-header {
+#editNewUser .modal-header,
+#addNewCreditCard .modal-header,
+#NewCreditCard .modal-header {
     padding: 0 !important;
     margin-bottom: 10px !important;
 }
@@ -6227,4 +6235,7 @@ My css styling 27 Nov 2015
     padding: 20px;
 }
 
-ul#top-menu li > a { font-size: 18px; font-weight: bold; }
+ul#top-menu li > a {
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -299,6 +299,7 @@ class HomeController extends Controller
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
+                $update['mobile'] = $post['mobile'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisine'];
@@ -388,6 +389,7 @@ class HomeController extends Controller
                     $add = new \App\Http\Models\ProfilesAddresses();
                     $update['user_id'] = $user->id;
                     $update['phone_no'] = $post['phone'];
+                    $update['mobile'] = $post['mobile'];
                     $update['post_code'] = $post['postal_code'];
                     $add->populate(array_filter($update));
                     $add->save();

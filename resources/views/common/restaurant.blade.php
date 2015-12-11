@@ -172,6 +172,12 @@
                             <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
                         </div>
                     </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Mobile Number (<span class="required">Optional</span> )</label>
+                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}" required>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

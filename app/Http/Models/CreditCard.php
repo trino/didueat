@@ -21,6 +21,7 @@ class CreditCard extends BaseModel
     public function populate($data)
     {
         $cells = array('first_name', 
+                       'user_type',  
                        'last_name', 
                        'card_type', 
                        'card_number', 

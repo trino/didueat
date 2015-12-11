@@ -22,6 +22,22 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
+        <label for="user_type" class="col-md-12 col-sm-12 col-xs-12 control-label">User Type <span class="required">*</span></label>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="input-icon">
+                 <select name="user_type" class="form-control" id="user_type" >
+
+                    <option value="restaurant" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') selected @endif >Restaurant</option>
+                    <option value="user" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') selected @endif >User</option>
+                   
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="form-group clearfix">
         <label for="first_name" class="col-md-12 col-sm-12 col-xs-12 control-label">First Name <span class="required">*</span></label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">

@@ -30,7 +30,7 @@
                             <table class="table table-striped table-bordered table-hover" id="sample_1">
                                 <thead>
                                 <tr>
-                                    <th width="5%">ID</th>
+                                    <th width="5%">User Type</th>
                                     <th width="10%">Name</th>
                                     <th width="10%">Card Type</th>
                                     <th width="15%">Card Number</th>
@@ -43,7 +43,7 @@
                                 <tbody>
                                 @foreach($credit_cards_list as $value)
                                     <tr>
-                                        <td>{{ $value->id }}</td>
+                                        <td>{{ $value->user_type }}</td>
                                         <td>{{ $value->first_name.' '.$value->last_name }}</td>
                                         <td>{{ $value->card_type }}</td>
                                         <td>{{ $value->card_number }}</td>
