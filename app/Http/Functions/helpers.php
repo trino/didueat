@@ -960,7 +960,7 @@ function get_time_interval() {
     $futureDate = $currentDate + (60 * $diff);
     $start = date("Y-m-d H:i:s", $futureDate);
     $start_format = date('M d, H:i', $futureDate);
-    for ($i = 0; $i < 15; $i++) {
+    for ($i = 0; $i < 700; $i++) {
         if ($i == 0) {
             $start = $start;
             $start_format = $start_format;

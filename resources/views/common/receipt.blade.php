@@ -20,7 +20,7 @@
                     <img style="height: 100px;width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
                     <img  style="height: 100px;width:100%;"class=" no-padding" alt="" src="{{ asset('assets/images/default.png') }}">
-                @endif
+                @endif 
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
@@ -33,7 +33,9 @@
                     <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </div>
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
+                
             </div>
+            <button>Details</button>
             <div class="clearfix"></div>
         </div>
     </div>

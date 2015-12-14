@@ -30,7 +30,8 @@
                                 <tr>
                                     <th width="5%">ID</th>
                                     <th width="10%">Logo</th>
-                                    <th width="30%">Name</th>
+                                    <th width="15%">Name</th>
+                                    <th width="15%">Rating</th>
                                     <th width="10%">Type</th>
                                     <th width="15%">Actions</th>
                                 </tr>
@@ -42,7 +43,11 @@
                                         <td>{{ $value->id }}</td>
                                         <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90" /></td>
                                         <td>{{ $value->name }}</td>
+                                        <td>
+                                            {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                                        </td>
                                         <td>[@if($value->open == true) OPENED @else CLOSED @endif]</td>
+                                        
                                         <td>
                                             <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn blue">Orders</a>
                                             <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info">Edit</a>

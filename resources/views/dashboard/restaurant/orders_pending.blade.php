@@ -49,10 +49,12 @@
                                         <td>{{ date('d M, Y H:i A', strtotime($value->order_time)) }}</td>
                                         <td>{{ $value->status }}</td>
                                         <td>
-                                            <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}" class="btn green">View</a>
+                                            
                                             @if(Session::get('session_profiletype') == 1)
                                             <a href="{{ url('restaurant/orders/list/delete/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to delete order # <?= $value->id; ?>?');">Delete</a>
                                             @endif
+                                            @if(Session::get('session_profiletype') != 1)
+                                            <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}" class="btn green">View</a>
                                             @if($value->restaurant_id > 0)
                                                 @if(strtolower($value->status) == 'approved' || strtolower($value->status) == 'pending')
                                                     <a href="#cancel-popup-dialog" class="btn yellow fancybox-fast-view cancel-popup" data-id="{{ $value->id }}">Cancel</a>
@@ -62,6 +64,7 @@
                                                     <a href="#approve-popup-dialog" class="btn blue fancybox-fast-view approve-popup" data-id="{{ $value->id }}">Approve</a>
                                                     @endif
                                                 @endif
+                                            @endif
                                             {{--@else--}}
                                             {{--<a href="#disapprove-popup" class="btn red fancybox-fast-view disapprove-popup" data-id="{{ $value->id }}">Disapprove</a>--}}
                                             @endif
