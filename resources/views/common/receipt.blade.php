@@ -35,11 +35,54 @@
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
                 
             </div>
-            <button>Details</button>
+            <a class="btn red pull-right fancybox-fast-view" href="#view_map">View Maps</a>
+            <a class="btn red pull-right fancybox-fast-view" href="#details">Details</a>
             <div class="clearfix"></div>
         </div>
     </div>
-    
+
+     <div id="view_map" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+        <div class="modal-dialog2">
+            <div class="fancy-modal-content">
+                <div class="modal-header">
+                    <h3>Location On Map: </h3>
+                    <div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                        <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
+                            <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
+                            </iframe>
+                        </div>
+
+                        <a class="google-html" href="https://www.bootstrapskins.com/themes/web-design" id="auth-map-data">web design bootstrap themes</a>
+                        <style>#gmap_display img{max-width:none!important;background:none!important;font-size: inherit;}</style>
+                        </div>
+
+                    <script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358" defer="defer" async="async"></script>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <div id="details" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+        <div class="modal-dialog2">
+            <div class="fancy-modal-content">
+                <div class="modal-header">
+                    <h3>Description: </h3>
+                    <p>{!! (isset($restaurant->name))?$restaurant->description:'' !!}</p>
+                    <h3>Tags: </h3>
+                    <p>{!! (isset($restaurant->name))?$restaurant->tags:'' !!}</p>
+                    <h3>Hours: </h3>
+                    @foreach(select_field_where('hours', array('restaurant_id' => $restaurant->id), false, "id", "ASC") as $value)
+                    <p>{{ $value->day_of_week }} => {{ $value->open }} - {{ $value->close }}</p>
+                    @endforeach
+                    <h3>Reviews: </h3>
+                    <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
     <div class="top-cart-content-wrapper">
         @if(isset($order))
         <div class="portlet-title">
@@ -220,3 +263,5 @@
     </div>
 
 </div>
+
+
