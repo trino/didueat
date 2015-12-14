@@ -13,6 +13,11 @@
         $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
     }
     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+
+    $tags = $restaurant->tags;
+    $tags = explode(',', $tags);
+    
+
     ?>
 
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
@@ -27,7 +32,27 @@
                 class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                 <h3>{{ $value->menu_item }} <span class="menu-tag menu-price">${{ $value->price }}</span></h3>
               </a>
-              <p class="box-des">{{ substr($value->description, 0, 230) }}</p>
+              <p class="box-des">{{ substr($value->description, 0, 230) }}</p>                                        
+                <h4>Minimum Delivery</h4>
+              <p>
+                {{$restaurant->minimum }}
+              </p>
+              <h4>Delivery Fee</h4>
+              <p>
+                {{ $restaurant->delivery_fee }}
+              </p>
+              <h4>Tags</h4>
+              <p>
+              <?php 
+                 for ($i=0; $i < 5 ; $i++) { 
+                    if($i == 4){
+                        echo $tags[$i];
+                    }else{
+                        echo $tags[$i].',';
+                    }
+                }
+              ?>
+              </p>
               <p>
                 <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn custom-default-btn">Remove</a>
                 <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn custom-default-btn fancybox-fast-view additem">Edit</a>

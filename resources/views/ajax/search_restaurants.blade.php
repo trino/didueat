@@ -15,7 +15,24 @@
                               {{ select_field("countries", 'id', $value['country'], 'name') }}
                               <br />
                               {{ $value['phone'] }}
-                          </p>
+                          </p>  
+                          <p>Minimum Delivery: {{ $value['minimum'] }}</p>
+                          <p>Delivery Fee: {{ $value['delivery_fee'] }}</p>
+                          <p>Tags:
+                          <?php 
+                             $tag = $value['tags'];
+                             $tags = explode(",", $tag);
+
+                               for ($i=0; $i <= 4; $i++) { 
+                                  if($i == 4){
+                                    echo (isset($tags[$i]))?$tags[$i]:'';
+                                   }else{
+                                    echo (isset($tags[$i]))?$tags[$i].',':'';  
+                                  }
+                              }
+                            ?>
+                            </p>
+                             
                           <a class="btn custom-default-btn" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">{{ $value['name'] }} Pick-up Only</a>
                           <div class="row">
                               {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
