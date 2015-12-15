@@ -22,6 +22,7 @@ class CreditCard extends BaseModel
     {
         $cells = array('first_name', 
                        'user_type',  
+                       'profile_id',  
                        'last_name', 
                        'card_type', 
                        'card_number', 

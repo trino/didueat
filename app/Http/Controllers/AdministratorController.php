@@ -279,68 +279,69 @@ class AdministratorController extends Controller
     }
 
 /**
-     * creditCardsList List
+     * CreditCards Add new
      * @param null
      * @return view
      */
-    public function creditCardsList()
+    public function addCreditCards($type = '')
     {
         $post = \Input::all();
+        \Session::get('session_id');
 
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['user_type']) || empty($post['user_type'])) {
+            if (!isset($post['profile_id']) || empty($post['profile_id'])) {
                 \Session::flash('message', '[User Type] field is missing');
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['first_name']) || empty($post['first_name'])) {
                 \Session::flash('message', '[Name] field is missing');
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['last_name']) || empty($post['last_name'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['card_type']) || empty($post['card_type'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['card_number']) || empty($post['card_number'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['ccv']) || empty($post['ccv'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
                 \Session::flash('message', trans('messages.user_missing_email.message'));
                 \Session::flash('message-type', 'alert-danger');
                 \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('users/credit-cards')->withInput();
+                return \Redirect::to('users/credit-cards/'.$type)->withInput();
             }
             
             \DB::beginTransaction();
@@ -353,7 +354,7 @@ class AdministratorController extends Controller
                 \Session::flash('message', 'Credit card has been saved successfully.');
                 \Session::flash('message-type', 'alert-success');
                 \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('users/credit-cards');
+                return \Redirect::to('users/credit-cards/'.$type);
                     
             } catch (\Exception $e) {
                 \DB::rollback();
@@ -363,24 +364,35 @@ class AdministratorController extends Controller
                 return \Redirect::to('users/credit-cards')->withInput();
             }
         } else {
+            
             $data['title'] = 'Credit Cards List';
-            $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('id', 'DESC')->get();
+            $data['type'] = $type;
+            if ($type == 'user') {
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_id'))->where('user_type', $type)->orderBy('id', 'DESC')->get();
+            } else if ($type == 'restaurant') {
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_restaurant_id'))->where('user_type', $type)->orderBy('id', 'DESC')->get();
+            } else {
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('id', 'DESC')->get();
+            }
+            $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
             return view('dashboard.administrator.creditcards', $data);
         }
     }
+
 
   /**
      * Credit Card Action Delete
      * @param $id
      * @return redirect
      */
-    public function creditCardsAction($id = 0)
+    public function creditCardsAction($id = 0, $type = "")
     {
         if (!isset($id) || empty($id) || $id == 0) {
             \Session::flash('message', "[card Id] is missing!");
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('users/credit-cards');
+            return \Redirect::to('users/credit-cards/'.$type);
         }
 
         try {
@@ -392,12 +404,12 @@ class AdministratorController extends Controller
             \Session::flash('message', 'Card has been deleted successfully!');
             \Session::flash('message-type', 'alert-success');
             \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('users/credit-cards');
+            return \Redirect::to('users/credit-cards/'.$type);
         } catch (\Exception $e) {
             \Session::flash('message', $e->getMessage());
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('users/credit-cards');
+            return \Redirect::to('users/credit-cards/'.$type);
         }
     }
 
@@ -409,6 +421,8 @@ class AdministratorController extends Controller
     public function ajaxEditCreditCardFrom($id=0)
     {
         $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
+        $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
         return view('common.edit_credit_card', $data);
     }
 

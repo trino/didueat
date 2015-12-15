@@ -1,3 +1,4 @@
+
 @extends('layouts.default')
 @section('content')
 
@@ -53,7 +54,7 @@
                                         <td>
                                             <a href="#NewCreditCard" class="btn blue editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
-                                                <a href="{{ url('users/credit-cards/action/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
+                                                <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -79,7 +80,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Add New</h4>
                 </div>
-                {!! Form::open(array('url' => '/users/credit-cards', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     @include('common.edit_credit_card')
                 {!! Form::close() !!}
             </div>
@@ -94,7 +95,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Update Card</h4>
                 </div>
-                {!! Form::open(array('url' => '/users/credit-cards', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     <div id="editContents"></div>
                 {!! Form::close() !!}
             </div>

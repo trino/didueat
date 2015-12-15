@@ -50,6 +50,11 @@ Route::group(['middleware' => ['logged']], function(){
 	Route::get('user/info',                             'AdministratorController@dashboard');
 	Route::resource('user/images',                      'UsersController@images');
 	Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
+    //Credit Cards
+    Route::resource('users/credit-cards',                 'AdministratorController@addCreditCards');
+    Route::post('users/credit-cards/{type}',                 'AdministratorController@addCreditCards');
+	Route::get('users/credit-cards/action/{id}/{type}',   		  'AdministratorController@creditCardsAction');
+	Route::get('users/credit-cards/edit/{id}',            'AdministratorController@ajaxEditCreditCardFrom');
 });
 
 // Routes After Logged in and Role Restaurant Check
@@ -90,10 +95,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function(){
 	Route::resource('user/reviews',                   	'UsersController@reviews');
 	Route::get('user/reviews/action',             		'UsersController@reviewAction');
 	Route::get('user/reviews/edit/{id}',            	'UsersController@ajaxEditUserReviewForm');
-	//Credit Cards
-    Route::resource('users/credit-cards',                 'AdministratorController@creditCardsList');
-	Route::get('users/credit-cards/action/{id}',   		  'AdministratorController@creditCardsAction');
-	Route::get('users/credit-cards/edit/{id}',            'AdministratorController@ajaxEditCreditCardFrom');
+	
 });
 
 Route::get('restaurant/menu_form/{id}',             'RestaurantController@menu_form');

@@ -19,23 +19,51 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
 }
 ?>
 <meta name="_token" content="{{ csrf_token() }}" />
+@if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
+@if (! isset($credit_cards_list->id))
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clearfix">
+            <label for="user_type" class="col-md-12 col-sm-12 col-xs-12 control-label">User Type <span class="required">*</span></label>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-icon">
+                     <input id="restaurant" type="radio" name="user_type" value="restaurant" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif > Restaurant
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="user_type" class="col-md-12 col-sm-12 col-xs-12 control-label">User Type <span class="required">*</span></label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                 <select name="user_type" class="form-control" id="user_type" >
-
-                    <option value="restaurant" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') selected @endif >Restaurant</option>
-                    <option value="user" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') selected @endif >User</option>
-                   
-                </select>
+                    <input id="user" type="radio" name="user_type" value="user" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif > User
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group clearfix">        
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="input-icon">
+                    <div id="restaurant_id">
+                         <select name="profile_id" class="form-control" >
+                         @foreach($restaurants_list as $restaurant)
+                            <option value="{{$restaurant->id}}" >{{$restaurant->name}}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div id="user_id">
+                         <select name="profile_id" class="form-control" >
+                         @foreach($users_list as $user)
+                            <option value="{{$user->id}}" >{{$user->name}}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+@endif
+@if(\Session::has('session_type_user') && (\Session::get('session_type_user') == "user" || \Session::get('session_type_user') == "restaurant"))
+    @if (! isset($credit_cards_list->id))
+        <input type="hidden" name="profile_id" value="{{ \Session::get('session_id') }}" />
+        <input type="hidden" name="user_type" value="{{ \Session::get('session_type_user') }}" />
+    @endif
+@endif
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
         <label for="first_name" class="col-md-12 col-sm-12 col-xs-12 control-label">First Name <span class="required">*</span></label>
@@ -147,12 +175,34 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
         </div>
     </div>
 </div>
-
-
 <div class="clearfix"></div>
 
 <div class="modal-footer">
     <button type="submit" class="btn red">Save changes</button>
+
+@if ( isset($credit_cards_list->id))
     <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}" />
-    
+    <input type="hidden" name="profile_id" value="{{ (isset($credit_cards_list->profile_id))?$credit_cards_list->profile_id:'' }}" />
+    <input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}" />
+@endif
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("#restaurant_id").hide();
+        $("#user_id").hide();
+    
+        $('input[type=radio][name=user_type]').on("click", function() {
+            if ( $(this).val() == "restaurant" ) {
+                $("#restaurant_id").show();
+                $("#user_id").hide();
+            }
+            if ( $(this).val() == "user" ) {
+                $("#restaurant_id").hide();
+                $("#user_id").show();
+            }
+        });
+    });
+</script>

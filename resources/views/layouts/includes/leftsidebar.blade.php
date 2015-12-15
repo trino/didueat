@@ -14,6 +14,9 @@
                         <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}" class="<?php if (Request::path() == 'user/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Addresses</a> </li>
                         <li class="list-group-item clearfix"><a href="{{ url('user/info') }}" class="<?php if (Request::path() == 'user/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Profile</a> </li>
                         <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}" class="<?php if (Request::path() == 'logout') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
+                        @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
+                         <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards/user') }}" class="<?php if (Request::path() == 'users/credit-cards/user') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
+                         @endif
                     </ul>
                 </div>
             </div>
@@ -35,7 +38,9 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
                             <li class="list-group-item clearfix"><a href="{{ url('user/reviews') }}" class="<?php if (Request::path() == 'user/reviews') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Reviews</a> </li>
                             
-                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards') }}" class="<?php if (Request::path() == 'users/credit-cards') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
+                            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
+                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards/admin') }}" class="<?php if (Request::path() == 'users/credit-cards') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -55,6 +60,10 @@
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}" class="<?php if (Request::path() == 'restaurant/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a></li>
 
                             <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}" class="<?php if (Request::path() == 'restaurant/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a></li>
+
+                            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
+                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards') }}" class="<?php if (Request::path() == 'users/credit-cards/restaurant') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
+                            @endif
                             <!--<li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/pending') }}" class="<?php if (Request::path() == 'restaurant/orders/pending') {
                                 echo 'active';
                             } ?>"><i class="fa fa-angle-right"></i> Pending Orders <span class="notification">({{ countOrders('pending') }})</span></a></li>-->
