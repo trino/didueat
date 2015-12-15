@@ -8,7 +8,7 @@ Route::post('/ajax',                                'HomeController@ajax');
 Route::get('/contactus',                            'HomeController@contactus');
 Route::get('/restaurants',                          'HomeController@allRestaurants');
 
-Route::get('/search/restaurants/{term}',            'HomeController@searchRestaurants');
+Route::get('/restaurants/{searchTerm}',             'HomeController@searchRestaurants');
 Route::post('/search/restaurants/ajax',             'HomeController@searchRestaurantsAjax');
 Route::resource('/restaurants/signup',              'HomeController@signupRestaurants');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/', 'HomeController@loadmenus');

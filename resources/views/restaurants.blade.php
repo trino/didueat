@@ -14,7 +14,6 @@
                 <div class="portlet-body">
                   {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                   <div class="sort search-form clearfix">
-                      <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
                       <div id="radius_panel" style="display: none;">
                         <label>Radius</label>
                         <select name="radius" id="radius" class="form-control ">
@@ -28,8 +27,8 @@
                             <option value="20">20 km</option>
                         </select>
                       </div>
-                      <label><input type="checkbox" name="is_delivery" id="is_delivery" value="1" checked /> Delivery</label>
-                      <label><input type="checkbox" name="is_pickup" id="is_pickup" value="1" checked /> Pickup</label>
+                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked /> Delivery</label>
+                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" /> Pickup</label>
                       <br />
                       <label>Delivery Minimum</label>
                       <select name="minimum" id="minimum" class="form-control ">
@@ -91,7 +90,7 @@
 
         <div class="col-md-9 col-sm-8 col-xs-12">
           <div class="container-fluid">
-              <h1><span id="countRows">{{ $count }}</span> Restaurants Items Found</h1>
+              <h1><span id="countRows">{{ $count }}</span> Restaurant(s) Items Found</h1>
               @include('ajax.search_restaurants')
           </div>
         </div>
@@ -116,6 +115,11 @@
         $.post("{{ url('/search/restaurants/ajax') }}", {_token:token, data}, function(result){
             $('#loadingbar').hide();
             $('#restuarant_bar').html(result);
+            if(result.trim() != ""){
+                $('#countRows').text($('#countTotalResult').val());
+            } else {
+                $('#countRows').text(0);
+            }
         });
         e.preventDefault();
     });

@@ -13,13 +13,7 @@
         $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
     }
     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
-
-    $tags = $restaurant->tags;
-    $tags = explode(',', $tags);
-    
-
     ?>
-
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
       <div class="new-layout-box">
         <div class="row">
@@ -41,9 +35,12 @@
               <p>
                 {{ $restaurant->delivery_fee }}
               </p>
+              @if(isset($restaurant->tags))
               <h4>Tags</h4>
               <p>
-              <?php 
+              <?php
+                $tags = $restaurant->tags;
+                $tags = explode(',', $tags);
                  for ($i=0; $i < 5 ; $i++) { 
                     if($i == 4){
                         echo $tags[$i];
@@ -52,13 +49,16 @@
                     }
                 }
               ?>
+                @endif
               </p>
+              @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
               <p>
                 <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn custom-default-btn">Remove</a>
                 <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn custom-default-btn fancybox-fast-view additem">Edit</a>
                 <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
                 <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
               </p>
+              @endif
               <div class="row">
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
               </div>

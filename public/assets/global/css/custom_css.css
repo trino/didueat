@@ -6243,3 +6243,10 @@ ul#top-menu li > a {
     font-size: 18px;
     font-weight: bold;
 }
+
+#top-search-creteria {    
+    position: absolute;
+    left: 510px;
+    top: 20px;
+    width: 25%;
+}

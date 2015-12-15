@@ -32,24 +32,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        $data['query'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'list')->get();
-//        $data['count'] = \App\Http\Models\Menus::searchMenus('', 10, 0, 'count')->count();
-//        $data['start'] = $data['query']->count();
-//        $data['term'] = '';
-//        return view('home', $data);
-        /*
-         $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)->where('is_delivery', 1)->where('is_pickup', 1)->paginate(8);
-        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)->where('is_delivery', 1)->where('is_pickup', 1)->count();
-        $data['start'] = $data['query']->count();
-         */
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 5, 0);
-        $data['count'] = count($data['query']);
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);
+        $data['count'] = \App\Http\Models\Restaurants::count();
         $data['start'] = count($data['query']);
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 5, $data['start']));
-        
+        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));
         return view('restaurants', $data);
     }
     
@@ -67,10 +56,11 @@ class HomeController extends Controller
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);
-                $data['count'] = count($data['query']);
-                $data['start'] = count($data['query']) + $start;
+                $data['count'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $start));
+                $data['start'] = $start+10;
                 $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));
-                
+                $data['loadmore'] = (isset($post['loadmore']))?$post['loadmore']:0;
+                $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 if (!is_null($data['query']) && count($data['query']) > 0){
                     return view('ajax.search_restaurants', $data);
                 }
@@ -90,16 +80,16 @@ class HomeController extends Controller
      * @param $start
      * @return view
      */
-    public function searchRestaurants($term = '')
+    public function searchRestaurants($searchTerm = '')
     {
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Restaurants::searchRestaurants($term, 10, 0, 'count')->count();
-        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
-        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
-        $data['countries'] = \App\Http\Models\Countries::get();
-        $data['start'] = $data['query']->count();
-        $data['term'] = $term;
-        $data['title'] = "Search Menus";
+        $data['title'] = 'All Restaurants Page';
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);
+        $data['count'] = \App\Http\Models\Restaurants::get();
+        $data['start'] = count($data['query']);
+        $data['searchTerm'] = $searchTerm;
+        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));
 
         return view('restaurants', $data);
     }

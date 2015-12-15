@@ -16,13 +16,12 @@
                               <br />
                               {{ $value['phone'] }}
                           </p>  
-                          <p>Minimum Delivery: {{ $value['minimum'] }}</p>
-                          <p>Delivery Fee: {{ $value['delivery_fee'] }}</p>
-                          <p>Tags:
+                          <p><strong>Minimum Delivery:</strong> {{ $value['minimum'] }}</p>
+                          <p><strong>Delivery Fee:</strong> {{ $value['delivery_fee'] }}</p>
+                          <p><strong>Tags:</strong>
                           <?php 
                              $tag = $value['tags'];
                              $tags = explode(",", $tag);
-
                                for ($i=0; $i <= 4; $i++) { 
                                   if($i == 4){
                                     echo (isset($tags[$i]))?$tags[$i]:'';
@@ -52,15 +51,16 @@
                 </div>
             </div>
         @endforeach
-        @if($hasMorePage > 0)
         <div id="loadMoreBtnContainer">
+        @if($hasMorePage > 0)
             <div class="row">
                 <div class="col-md-12 col-md-offset-5">
                     <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
                     <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
                 </div>
             </div>
-        </div>
         @endif
+        <input type="hidden" id="countTotalResult" value="{{ $count }}" />
+        </div>
     </div>
 </div>

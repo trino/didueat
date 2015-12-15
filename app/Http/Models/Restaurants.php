@@ -41,63 +41,106 @@ class Restaurants extends BaseModel
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0)
     {
         $query = "";
+        $limit = "";
         if (isset($data['radius']) && $data['radius'] != "" && $data['formatted_address'] != "") {
             $order = " ORDER BY distance";
             $limit = " LIMIT $start, $per_page";
             $where = "WHERE open = '1' AND status = '1'";
-            if ($data['minimum'] != "") {
-                $where .= " minimum = '".$data['minimum']."'";
+            if (isset($data['minimum']) && $data['minimum'] != "") {
+                $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
             }
-            if ($data['cuisine'] != "") {
+            if (isset($data['cuisine']) && $data['cuisine'] != "") {
                 $where .= " AND cuisine = '".$data['cuisine']."'";
             }
-            if ($data['rating'] != "") {
+            if (isset($data['rating']) && $data['rating'] != "") {
                 $where .= " AND rating = '".$data['rating']."'";
             }
-            if (isset($data['is_delivery']) && $data['is_delivery'] != "") {
-                $where .= " AND is_delivery = '1'";
+            if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
+                $where .= " AND ".$data['delivery_type']." = '1'";
             }
-            if (isset($data['is_pickup']) && $data['is_pickup'] != "") {
-                $where .= " AND is_pickup = '1'";
-            }
-            if ($data['tags'] != "") {
+            if (isset($data['tags']) && $data['tags'] != "") {
                 $where .= " AND tags LIKE '%".$data['tags']."%'";
             }
-            if ($data['SortOrder'] != "") {
+            if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
                 $order = " ORDER BY ".$data['SortOrder'];
             }
             
             $query = \DB::select("SELECT *, ( 6371 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('".$data['longitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where HAVING distance < '".$data['radius']."' ".$order.$limit);
             $query = json_decode(json_encode($query),true);
         } else {
-            $query = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)
-                ->Where(function ($query) use ($data){
-                    if($data){
-                        if ($data['minimum'] != "") {
-                            $query->where('minimum', '=', $data['minimum']);
-                        }
-                        if ($data['cuisine'] != "") {
-                            $query->where('cuisine', '=', $data['cuisine']);
-                        }
-                        if ($data['rating'] != "") {
-                            $query->where('rating', '=', $data['rating']);
-                        }
-                        if (isset($data['is_delivery']) && $data['is_delivery'] != "") {
-                            $query->where('is_delivery', '=', 1);
-                        }
-                        if (isset($data['is_pickup']) && $data['is_pickup'] != "") {
-                            $query->where('is_pickup', '=', 1);
-                        }
-                        if ($data['tags'] != "") {
-                            $query->where('tags', 'LIKE', '%'. $data['tags'] .'%');
-                        }
-                    }
-                })
-                ->orderBy((isset($data['SortOrder']) && $data['SortOrder'] != "")?$data['SortOrder']:'id', 'DESC')
-                ->take($per_page)
-                ->skip($start)
-                ->get()->toArray();
-            //print_r($query->toSql()); die;
+            $order = " ORDER BY id";
+            $limit = " LIMIT $start, $per_page";
+            $where = "WHERE open = '1' AND status = '1'";
+            if (isset($data['minimum']) && $data['minimum'] != "") {
+                $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
+            }
+            if (isset($data['cuisine']) && $data['cuisine'] != "") {
+                $where .= " AND cuisine = '".$data['cuisine']."'";
+            }
+            if (isset($data['rating']) && $data['rating'] != "") {
+                $where .= " AND rating = '".$data['rating']."'";
+            }
+            if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
+                $where .= " AND ".$data['delivery_type']." = '1'";
+            }
+            if (isset($data['tags']) && $data['tags'] != "") {
+                $where .= " AND tags LIKE '%".$data['tags']."%'";
+            }
+            if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
+                $order = " ORDER BY ".$data['SortOrder'];
+            }
+            $query = \DB::select("SELECT * FROM restaurants ".$where.$order.$limit);
+            $query = json_decode(json_encode($query),true);
+            
+//            if($query_type == "list"){
+//                $query = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)
+//                        ->Where(function ($query) use ($data){
+//                            if($data){
+//                                if ($data['tags'] != "") {
+//                                    $query->where('tags', 'LIKE', '%'.$data['tags'].'%');
+//                                }
+//                                if ($data['minimum'] != "") {
+//                                    $query->whereBetween('minimum', [$data['minimum'], $data['minimum']+5]);
+//                                }
+//                                if ($data['cuisine'] != "") {
+//                                    $query->where('cuisine', '=', $data['cuisine']);
+//                                }
+//                                if ($data['rating'] != "") {
+//                                    $query->where('rating', '=', $data['rating']);
+//                                }
+//                                if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
+//                                    $query->where($data['delivery_type'], '=', 1);
+//                                }
+//                            }
+//                        })
+//                        ->orderBy((isset($data['SortOrder']) && $data['SortOrder'] != "")?$data['SortOrder']:'id', 'DESC')
+//                        ->take($per_page)
+//                        ->skip($start)
+//                        ->get()->toArray();
+//            } else {
+//                $query = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)
+//                        ->Where(function ($query) use ($data){
+//                            if($data){
+//                                if ($data['tags'] != "") {
+//                                    $query->where('tags', 'LIKE', '%'.$data['tags'].'%');
+//                                }
+//                                if ($data['minimum'] != "") {
+//                                    $query->whereBetween('minimum', [$data['minimum'], $data['minimum']+5]);
+//                                }
+//                                if ($data['cuisine'] != "") {
+//                                    $query->where('cuisine', '=', $data['cuisine']);
+//                                }
+//                                if ($data['rating'] != "") {
+//                                    $query->where('rating', '=', $data['rating']);
+//                                }
+//                                if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
+//                                    $query->where($data['delivery_type'], '=', 1);
+//                                }
+//                            }
+//                        })
+//                        ->orderBy((isset($data['SortOrder']) && $data['SortOrder'] != "")?$data['SortOrder']:'id', 'DESC')
+//                        ->get()->toArray();
+//            }
         }
         return $query;
     }

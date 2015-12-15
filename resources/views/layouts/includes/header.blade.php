@@ -9,8 +9,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?"/></a>
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{ asset('assets/images/logos/logo.png') }}" alt="DidUEat?" />
+        </a>
       </div>
+      
+      @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
+      <div id="top-search-creteria">
+          <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
+      </div>
+      @endif
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
