@@ -197,9 +197,6 @@ $(document).ready(function() {
                     type: "post"
                 }
             },
-            postal_code: {
-                matchPattern: true
-            },
             password1: {
                 required: true,
                 minlength: 3
@@ -220,9 +217,6 @@ $(document).ready(function() {
                 required: "Please Enter Email!",
                 email: "This is not a valid email!",
                 remote: "Email already in use!"
-            },
-            postal_code: {
-                matchPattern: "Invalid Postal Code"
             },
             confirm_password1: {
                 equalTo: "Both password fields are mis-matched!"

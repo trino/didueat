@@ -215,6 +215,7 @@ class RestaurantController extends Controller
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
+                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
                 $update['open'] = 1;
                 $update['status'] = 1;
@@ -314,18 +315,6 @@ class RestaurantController extends Controller
                 \Session::flash('message-short', 'Oops!');
                 return \Redirect::to('restaurant/info/' . $post['id']);
             }
-//            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-//                \Session::flash('message', "[Delivery Fee] field is missing!");
-//                \Session::flash('message-type', 'alert-danger');
-//                \Session::flash('message-short', 'Oops!');
-//                return \Redirect::to('restaurant/info/' . $post['id']);
-//            }
-//            if (!isset($post['minimum']) || empty($post['minimum'])) {
-//                \Session::flash('message', "[Minimum Sub Total For Delivery] field is missing!");
-//                \Session::flash('message-type', 'alert-danger');
-//                \Session::flash('message-short', 'Oops!');
-//                return \Redirect::to('restaurant/info/' . $post['id']);
-//            }
             try {
                 if ($post['logo'] != '') {
                     $im = explode('.', $post['logo']);
@@ -367,6 +356,7 @@ class RestaurantController extends Controller
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
+                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
                 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);

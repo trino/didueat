@@ -108,6 +108,14 @@
                                         </div>
 
                                         <div id="is_delivery_options" style="display: {{ (old('is_delivery') && old('is_delivery') > 0)?'block':'none' }};">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Max Delivery Distance </label>
+                                                    <select name="max_delivery_distance" id="max_delivery_distance" class="form-control">
+                                                        <option value="10">Between 1 and 10 km</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Delivery Fee </label>

@@ -301,6 +301,7 @@ class HomeController extends Controller
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
+                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
                 $update['lat'] = $post['lat'];
                 $update['lng'] = $post['lng'];

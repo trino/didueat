@@ -24,7 +24,7 @@ class Restaurants extends BaseModel
      */
     public function populate($data)
     {
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code', 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code', 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
