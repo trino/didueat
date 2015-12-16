@@ -42,7 +42,7 @@ class Restaurants extends BaseModel
     {
         $query = "";
         $limit = "";
-        if (isset($data['radius']) && $data['radius'] != "" && $data['formatted_address'] != "") {
+        if (isset($data['radius']) && $data['radius'] != "") {
             $order = " ORDER BY distance";
             $limit = " LIMIT $start, $per_page";
             $where = "WHERE open = '1' AND status = '1'";

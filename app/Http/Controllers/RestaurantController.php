@@ -443,12 +443,14 @@ class RestaurantController extends Controller
                 $post['user_id'] = \Session::get('session_id');
                 $post['type'] = "Phone";
                 $post['is_default'] = 1;
+                if(isset($post['is_contact_type']) && trim($post['is_contact_type']) > 0) {
+                    $post['is_call'] = (isset($post['is_call']) && $post['is_call'] > 0)?1:0;
+                    $post['is_sms'] = (isset($post['is_sms']) && $post['is_sms'] > 0)?1:0;
+                }
                 if(filter_var($post['address'], FILTER_VALIDATE_EMAIL)) {
                     $post['type'] = "Email";
                 }
-
                 $update_id = (isset($post['id']))?$post['id']:0;
-
                 $ob = \App\Http\Models\NotificationAddresses::findOrNew($update_id);
                 $ob->populate($post);
                 $ob->save();

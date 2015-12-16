@@ -80,7 +80,14 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Phone / Email</label>
                                 <div class="col-md-9">
-                                    <input type="text" name="address" class="form-control" required>
+                                    <input type="text" name="address" class="form-control address" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">&nbsp;</label>
+                                <div class="col-md-9 reach_type" style="display: none;">
+                                    <label><input type="checkbox" name="is_call" value="1" checked> Call</label> &nbsp;
+                                    <label><input type="checkbox" name="is_sms" value="1" checked> SMS</label>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +95,8 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn blue">Save changes</button>
+                    <input type="hidden" name="is_contact_type" class="is_contact_type" value="" />
+                    <button type="submit" class="btn custom-default-btn saveNewBtn" disabled>Save changes</button>
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -116,6 +124,23 @@
             $.get("{{ url("restaurant/addresses/edit") }}/"+id, {}, function(result){
                 $('#editForm #editContents').html(result);
             });
+        });
+        
+        $('body').on('keyup', '.address', function(){
+            var ep_emailval = $(this).val();
+            var intRegex = /[0-9 -()+]+$/;
+            if(intRegex.test(ep_emailval)) {
+               $('.reach_type').show();
+               $('.is_contact_type').val(1);
+            } else {
+               $('.reach_type').hide();
+               $('.is_contact_type').val(0);
+            }
+            if(ep_emailval){
+                $('.saveNewBtn').attr('disabled', false);
+            } else {
+                $('.saveNewBtn').attr('disabled', true);
+            }
         });
     </script>
 
