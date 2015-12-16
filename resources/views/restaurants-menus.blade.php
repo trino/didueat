@@ -56,6 +56,15 @@
 
 
 <script type="text/javascript">
+    function check_val(v) {
+        if (v != '') {
+            $('.confirm_password').show();
+            $('#confirm_password').attr('required', 'required');
+        }
+        else {
+            $('#confirm_password').removeAttr('required');
+        }
+    }
     $(document).ready(function() {
         $('body').on('click', '.insert-stats', function() {
             var id = $(this).attr('data-id');
@@ -64,16 +73,6 @@
                 $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
             });
         });
-        
-        function check_val(v) {
-            if (v != '') {
-                $('.confirm_password').show();
-                $('#confirm_password').attr('required', 'required');
-            }
-            else {
-                $('#confirm_password').removeAttr('required');
-            }
-        }
 
         function validatePassword() {
             var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
@@ -515,6 +514,7 @@
     });
 </script>
 <script type="text/javascript">
+    //Google Api Codes.
     $('body').on('change', '#formatted_address', function(){
         if($(this).val()){
             window.location = "{{ url('restaurants') }}/"+$(this).val();
@@ -522,20 +522,73 @@
     });
     
     //Google Api Codes.
-    var placeSearch, formatted_address;
-    function initAutocomplete(){
+    var formatted_address, formatted_address_checkout;
+    function initAutocompleteCheckOut(){
       formatted_address = new google.maps.places.Autocomplete(
-          (document.getElementById('formatted_address')),
-          {types: ['geocode']});
-      formatted_address.addListener('place_changed', fillInAddress);
+          (document.getElementById('formatted_address')), 
+          {types: ['geocode']}
+      );
+      formatted_address_checkout = new google.maps.places.Autocomplete(
+          (document.getElementById('formatted_address_checkout')), 
+          {types: ['geocode']}
+      );
+      formatted_address_checkout.addListener('place_changed', fillInAddress2);
     }
-
-    function fillInAddress() {
-      var place = formatted_address.getPlace();
+    
+    function fillInAddress2() {
+      var place = formatted_address_checkout.getPlace();
       var lat = place.geometry.location.lat();
       var lng = place.geometry.location.lng();
+      $('#latitude').val(lat);
+      $('#longitude').val(lng);
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+      $('#ordered_city').val('');
+      $('#ordered_street').val('');
+      $('#ordered_code').val('');
+      //provinces('{{ addslashes(url("ajax")) }}', '');
+      $("#ordered_province option").attr("selected", false);
+      
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
+          var val = place.address_components[i][componentForm[addressType]];
+          if(addressType == "country"){
+            $("#country  option").filter(function() {
+                return this.text == val; 
+            }).attr('selected', true);
+          }
+          if(addressType == "administrative_area_level_1"){
+            $("#ordered_province option").filter(function() {
+                return this.text == val; 
+            }).attr('selected', true);
+          }
+          if(addressType == "locality"){
+            $('#ordered_city').val(val);
+          }
+          if(addressType == "postal_code"){
+            $('#ordered_code').val(val);
+          }
+          if(addressType == "street_number"){
+            $('#ordered_street').val(val);
+          }
+          if(addressType == "route"){
+              if($('#ordered_street').val() != ""){
+                $('#ordered_street').val($('#ordered_street').val()+", "+val);
+              } else {
+                  $('#ordered_street').val(val);
+              }
+          }
+        }
+      }
     }
-
+    
     function geolocate() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -548,9 +601,10 @@
             radius: position.coords.accuracy
           });
           formatted_address.setBounds(circle.getBounds());
+          formatted_address_checkout.setBounds(circle.getBounds());
         });
       }
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocompleteCheckOut" async defer></script>
 @stop

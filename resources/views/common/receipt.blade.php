@@ -220,12 +220,13 @@
 
                     <div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
-                            <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                <input type="text" placeholder="Address 2" id="ordered_street" class="form-control  form-control--contact" name="address2" value="{{ (isset($profile))? $profile->street : '' }}">
+                            <div class="col-xs-12 col-sm-12  margin-bottom-10">
+                                <input type="text" name="formatted_address" id="formatted_address_checkout" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
                             </div>
-
-                            <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                <input type="text" placeholder="City" id="ordered_city" class="form-control  form-control--contact" name="city" id="city" value="{{ (isset($profile))? $profile->city : '' }}">
+                        </div>
+                        <div class="form-group margin-bottom-10">
+                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                                <input type="text" placeholder="Address" id="ordered_street" class="form-control  form-control--contact" name="address" value="{{ (isset($profile))? $profile->street : '' }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -236,6 +237,20 @@
                                         <option value="{{ $value->id }}" @if(isset($profile->province) && $profile->province == $value->id) selected @endif>{{ $value->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-6  margin-bottom-10">
+                                <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');" required>
+                                    <option value="">-Select One-</option>
+                                    @foreach(select_field_where('countries', '', false, "name", "ASC") as $value)
+                                        <option value="{{ $value->id }}" @if(isset($profile->country) && $profile->country == $value->id) selected @endif>{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-6  margin-bottom-10">
+                                <input type="text" placeholder="City" id="ordered_city" class="form-control  form-control--contact" name="city" id="city" value="{{ (isset($profile))? $profile->city : '' }}">
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact" name="postal_code" id="postal_code" value="{{ (isset($profile->post_code))?$profile->post_code:'' }}">
@@ -264,5 +279,4 @@
     </div>
 
 </div>
-
 

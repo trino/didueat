@@ -35,21 +35,21 @@
               <p>
                 {{ $restaurant->delivery_fee }}
               </p>
-              @if(isset($restaurant->tags))
+              @if(isset($restaurant->tags) && $restaurant->tags != "")
               <h4>Tags</h4>
               <p>
               <?php
                 $tags = $restaurant->tags;
                 $tags = explode(',', $tags);
                  for ($i=0; $i < 5 ; $i++) { 
-                    if($i == 4){
+                    if(isset($tags[$i]) && $i == 4){
                         echo $tags[$i];
                     }else{
                         echo $tags[$i].',';
                     }
                 }
               ?>
-                @endif
+              @endif
               </p>
               @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
               <p>

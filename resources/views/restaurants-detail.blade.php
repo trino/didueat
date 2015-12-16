@@ -552,7 +552,7 @@
                                 <div class="profile_delivery_detail" style="display: none;">
                                     <div class="form-group margin-bottom-10">
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                            <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2">
+                                            <input type="text" placeholder="Address" class="form-control  form-control--contact" name="address">
                                         </div>
                                         <div class="col-xs-12 col-sm-6  margin-bottom-10">
                                             <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city">

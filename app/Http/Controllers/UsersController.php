@@ -298,9 +298,7 @@ class UsersController extends Controller
     
     public function ajax_register() {
         $post = \Input::all();
-        
         //echo '<pre>'.print_r($post); die;
-        
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
             try {
@@ -322,14 +320,17 @@ class UsersController extends Controller
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
                 
-                if (\Input::has('address2')) {
-                    $res['address2'] = $post['address2'];
+                if (\Input::has('address')) {
+                    $res['address2'] = $post['address'];
                 }
                 if (\Input::has('city')) {
                     $res['city'] = $post['city'];
                 }
                 if (\Input::has('province')) {
                     $res['province'] = $post['province'];
+                }
+                if (\Input::has('country')) {
+                    $res['country'] = $post['country'];
                 }
                 if (\Input::has('postal_code')) {
                     $res['postal_code'] = $post['postal_code'];
