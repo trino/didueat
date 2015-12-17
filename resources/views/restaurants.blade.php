@@ -92,7 +92,8 @@
 
         <div class="col-md-9 col-sm-8 col-xs-12">
           <div class="container-fluid">
-              <h1><span id="countRows">{{ $count }}</span> Restaurant(s) Items Found</h1>
+              <h1><span id="countRows">No</span> Restaurant(s) Found</h1>
+              <h1 id="start_up_message">Please enter address above to find restaurants near your area.</h1>
               @include('ajax.search_restaurants')
           </div>
         </div>
@@ -114,6 +115,7 @@
         
         $('#restuarant_bar').html('');
         $('.parentLoadingbar').show();
+        $('#start_up_message').remove();
         $.post("{{ url('/search/restaurants/ajax') }}", {_token:token, data}, function(result){
             $('.parentLoadingbar').hide();
             $('#restuarant_bar').html(result);

@@ -1,5 +1,6 @@
 <div id="restuarant_bar" class="restuarant-list">
     <div class="row">
+        @if(isset($query) && $count > 0)
         @foreach($query as $value)
             <?php $logo = ($value['logo'] != "") ? 'restaurants/'.$value['id'] .'/'. $value['logo'] : 'default.png'; ?>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,6 +52,7 @@
                 </div>
             </div>
         @endforeach
+        @endif
         <div id="loadMoreBtnContainer">
         @if($hasMorePage > 0)
             <div class="row">

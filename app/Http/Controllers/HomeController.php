@@ -35,10 +35,10 @@ class HomeController extends Controller
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);
-        $data['count'] = \App\Http\Models\Restaurants::count();
-        $data['start'] = count($data['query']);
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));
+        $data['query'] = 0;
+        $data['count'] = 0;
+        $data['start'] = 0;
+        $data['hasMorePage'] = 0;
         return view('restaurants', $data);
     }
     
