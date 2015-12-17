@@ -111,9 +111,9 @@
         var data = $(this).serialize();
         
         $('#restuarant_bar').html('');
-        $('#loadingbar').show();
+        $('.parentLoadingbar').show();
         $.post("{{ url('/search/restaurants/ajax') }}", {_token:token, data}, function(result){
-            $('#loadingbar').hide();
+            $('.parentLoadingbar').hide();
             $('#restuarant_bar').html(result);
             if(result.trim() != ""){
                 $('#countRows').text($('#countTotalResult').val());
@@ -127,7 +127,7 @@
         var start = $(this).attr('data-id');
         var token = $('#search-form input[name=_token]').val();
         var data = $('#search-form').serialize();
-        $('#loadingbar').show();
+        $('.loadingbar').show();
         $('#loadingbutton').hide();
         $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data}, function(result) {
             $('#restuarant_bar').append(result);

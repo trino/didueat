@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-md-12 col-md-offset-5">
                     <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
-                    <img id="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+                    <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
                 </div>
             </div>
         @endif
@@ -64,3 +64,4 @@
         </div>
     </div>
 </div>
+<img class='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
