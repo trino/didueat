@@ -58,6 +58,9 @@ class Restaurants extends BaseModel
             if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
                 $where .= " AND ".$data['delivery_type']." = '1'";
             }
+            if (isset($data['name']) && $data['name'] != "") {
+                $where .= " AND name LIKE '%".Encode($data['name'])."%'";
+            }
             if (isset($data['tags']) && $data['tags'] != "") {
                 $where .= " AND tags LIKE '%".$data['tags']."%'";
             }
@@ -83,6 +86,9 @@ class Restaurants extends BaseModel
             if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
                 $where .= " AND ".$data['delivery_type']." = '1'";
             }
+            if (isset($data['name']) && $data['name'] != "") {
+                $where .= " AND name LIKE '%".Encode($data['name'])."%'";
+            }
             if (isset($data['tags']) && $data['tags'] != "") {
                 $where .= " AND tags LIKE '%".$data['tags']."%'";
             }
@@ -91,56 +97,6 @@ class Restaurants extends BaseModel
             }
             $query = \DB::select("SELECT * FROM restaurants ".$where.$order.$limit);
             $query = json_decode(json_encode($query),true);
-            
-//            if($query_type == "list"){
-//                $query = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)
-//                        ->Where(function ($query) use ($data){
-//                            if($data){
-//                                if ($data['tags'] != "") {
-//                                    $query->where('tags', 'LIKE', '%'.$data['tags'].'%');
-//                                }
-//                                if ($data['minimum'] != "") {
-//                                    $query->whereBetween('minimum', [$data['minimum'], $data['minimum']+5]);
-//                                }
-//                                if ($data['cuisine'] != "") {
-//                                    $query->where('cuisine', '=', $data['cuisine']);
-//                                }
-//                                if ($data['rating'] != "") {
-//                                    $query->where('rating', '=', $data['rating']);
-//                                }
-//                                if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
-//                                    $query->where($data['delivery_type'], '=', 1);
-//                                }
-//                            }
-//                        })
-//                        ->orderBy((isset($data['SortOrder']) && $data['SortOrder'] != "")?$data['SortOrder']:'id', 'DESC')
-//                        ->take($per_page)
-//                        ->skip($start)
-//                        ->get()->toArray();
-//            } else {
-//                $query = \App\Http\Models\Restaurants::where('open', 1)->where('status', 1)
-//                        ->Where(function ($query) use ($data){
-//                            if($data){
-//                                if ($data['tags'] != "") {
-//                                    $query->where('tags', 'LIKE', '%'.$data['tags'].'%');
-//                                }
-//                                if ($data['minimum'] != "") {
-//                                    $query->whereBetween('minimum', [$data['minimum'], $data['minimum']+5]);
-//                                }
-//                                if ($data['cuisine'] != "") {
-//                                    $query->where('cuisine', '=', $data['cuisine']);
-//                                }
-//                                if ($data['rating'] != "") {
-//                                    $query->where('rating', '=', $data['rating']);
-//                                }
-//                                if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
-//                                    $query->where($data['delivery_type'], '=', 1);
-//                                }
-//                            }
-//                        })
-//                        ->orderBy((isset($data['SortOrder']) && $data['SortOrder'] != "")?$data['SortOrder']:'id', 'DESC')
-//                        ->get()->toArray();
-//            }
         }
         return $query;
     }

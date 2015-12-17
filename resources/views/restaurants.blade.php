@@ -14,6 +14,8 @@
                 <div class="portlet-body">
                   {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                   <div class="sort search-form clearfix">
+                      <label>Restaurant Name</label>
+                      <input type="text" name="name" id="name" value="" class="form-control" />
                       <div id="radius_panel" style="display: none;">
                         <label>Radius</label>
                         <select name="radius" id="radius" class="form-control ">
@@ -31,7 +33,7 @@
                       <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" /> Pickup</label>
                       <br />
                       <label>Delivery Minimum</label>
-                      <select name="minimum" id="minimum" class="form-control ">
+                      <select name="minimum" id="minimum" class="form-control">
                           <option value="">---</option>
                           <option value="5">$5 - $10</option>
                           <option value="10">$10 - $15</option>

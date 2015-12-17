@@ -5,6 +5,14 @@ function initialize($Source = "") {
     handle_action();
 }
 
+function Encode( $str ){
+    return trim( htmlentities( addslashes($str) ) );
+}
+
+function Decode( $str ){
+    return html_entity_decode( stripslashes($str) );	 
+}
+
 function handleevent($EventName, $Variables, $DirectEmail = "") {
     //handle emails
 }
