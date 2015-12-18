@@ -44,6 +44,7 @@ if (Request::path() !== null && Request::path() != "/") {
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
   <!--google font Montserrat -->
   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500|Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
   <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>

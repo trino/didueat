@@ -4,7 +4,7 @@
 <div class="content-page">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-4 col-xs-12 filterform">
           <div class="container-fluid">
             <div class="row">
               <div class="box-shadow filter_search">
@@ -14,8 +14,9 @@
                 <div class="portlet-body">
                   {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                   <div class="sort search-form clearfix">
-                      <label>Restaurant Name</label>
-                      <input type="text" name="name" id="name" value="" class="form-control" />
+                      <div class="form-group">
+                      <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" />
+                      </div>
                       <div id="radius_panel" style="display: none;">
                         <label>Radius</label>
                         <select name="radius" id="radius" class="form-control ">
@@ -29,12 +30,13 @@
                             <option value="20">20 km</option>
                         </select>
                       </div>
+                      <div class="form-group">
                       <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked /> Delivery</label>
                       <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" /> Pickup</label>
-                      <br />
-                      <label>Delivery Minimum</label>
+                      </div>
+                      <div class="form-group">
                       <select name="minimum" id="minimum" class="form-control">
-                          <option value="">---</option>
+                          <option value="">Delivery Minimum</option>
                           <option value="5">$5 - $10</option>
                           <option value="10">$10 - $15</option>
                           <option value="15">$15 - $20</option>
@@ -46,43 +48,51 @@
                           <option value="45">$45 - $50</option>
                           <option value="50">$50</option>
                       </select>
-                      <label>Cuisine Types</label>
+                      </div>
+                      <div class="form-group">
                       <select name="cuisine" id="cuisine" class="form-control ">
-                          <option value="">---</option>
+                          <option value="">Cuisine Types</option>
                           @foreach($cuisine as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                           @endforeach
                       </select>
-                      <label>Restaurant Rating</label>
+                      </div>
+                      
+                      <div class="form-group">
                       <select name="rating" id="rating" class="form-control ">
-                          <option value="">---</option>
+                          <option value="">Restaurant Rating</option>
                           <option value="5">5 Stars</option>
                           <option value="4">4 Stars or Better</option>
                           <option value="3">3 Stars or Better</option>
                           <option value="2">2 Stars or Better</option>
                           <option value="1">1 Stars or Better</option>
                       </select>
-                      <label>Tags</label>
+                      </div>
+                      <div class="form-group">
                       <select name="tags" id="tags" class="form-control ">
-                          <option value="">---</option>
+                          <option value="">Tags</option>
                           @foreach($tags as $value)
                             <option value="{{ $value->name }}">{{ $value->name }}</option>
                           @endforeach
                       </select>
-                      <label>Sort By</label>
+                      </div>
+                      <div class="form-group">
                       <select name="SortOrder" id="SortOrder" class="form-control">
-                            <option value="">---</option>
+                            <option value="">Sort By</option>
                             <option value="rating">Quality score</option>
                             <option value="delivery_fee">Delivery fee</option>
                             <option value="minimum">Minimum order</option>
                             <option value="id">Newest first</option>
                             <option value="name">Restaurant name</option>
                       </select>
+                      </div>
                       <input type="hidden" name="latitude" id="latitude" value="" />
                       <input type="hidden" name="longitude" id="longitude" value="" />
                   </div>
                   <br />
+                  <div class="form-group">
                   <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search" />
+                  </div>
                   {!! Form::close() !!}
                 </div>
               </div>
@@ -92,8 +102,8 @@
 
         <div class="col-md-9 col-sm-8 col-xs-12">
           <div class="container-fluid">
-              <h1><span id="countRows">No</span> Restaurant(s) Found</h1>
-              <h1 id="start_up_message">Please enter address above to find restaurants near your area.</h1>
+              <div class="msgtop"><span id="countRows">No</span> Restaurant(s) Found</div>
+              <p id="start_up_message">Please enter address above to find restaurants near your area.</p>
               @include('ajax.search_restaurants')
           </div>
         </div>

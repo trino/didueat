@@ -94,6 +94,9 @@ video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    font-family: 'Arimo', sans-serif;
+    font-size:15px;
+    line-height:27px;
 }
 
 
@@ -163,6 +166,8 @@ h4,
 h5,
 h6 {
     font-family: 'Montserrat', sans-serif;
+    color:#777;
+    font-weight: normal!important;
 }
 
 .ecommerce h1,
@@ -171,10 +176,10 @@ h6 {
 .ecommerce h4,
 .ecommerce h5,
 .ecommerce h6 {
-    font-family: 'Montserrat', sans-serif;
+    
     margin: 20px 0;
     text-transform: inherit;
-    color: #333;
+    
 }
 
 .ecommerce h1 {
@@ -1315,6 +1320,7 @@ ul.parentinfo {
 a.btn {
     color: #FFF;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 15px;
 }
 
 .marbot {
@@ -6121,14 +6127,14 @@ My css styling 27 Nov 2015
 }
 
 .custom-default-btn {
-    border: 2px solid #D50000;
+    
     color: #D50000 !important;
     border-radius: 0px;
     padding: 10px 30px;
     line-height: 1;
     font-weight: bold;
-    background: #FFF none repeat scroll 0% 0%;
-    box-shadow: inherit !important;
+    background: #e5e5e5 none repeat scroll 0% 0%;
+    
 }
 
 .custom-default-btn:hover,
@@ -6196,10 +6202,12 @@ My css styling 27 Nov 2015
 }
 
 .new-layout-box {
-    border: 4px solid rgb(223, 223, 223);
+    background: rgb(255, 255, 255) none repeat scroll 0 0;
+    border-left: 4px solid rgb(223, 223, 223);
+    border-top: 4px solid rgb(223, 223, 223);
     border-radius: 5px;
-    background: rgb(255, 255, 255) none repeat scroll 0% 0%;
-    margin-bottom: 30px;
+    margin-top: 30px;
+    box-shadow: 5px 5px 5px #888888;
 }
 
 .new-layout-box h3 {
@@ -6224,10 +6232,11 @@ My css styling 27 Nov 2015
 }
 
 .restaurant-name {
-    background: #D50000 none repeat scroll 0% 0%;
+    background: #F14E2D none repeat scroll 0% 0%;
     padding: 10px;
     margin-bottom: 20px;
 }
+.restaurant-name h2{font-size:19px;}
 
 .restaurant-name h2 {
     margin: 0px;
@@ -6553,5 +6562,10 @@ ul#top-menu li > a {
 	background: #000;
 	background: rgba(0, 0, 0, .8);
 }
-
+.filterform{background:#d53211;color:#FFF!important;border-radius:0 30px 0 0;box-shadow: 10px 10px 5px #888888;}
+.filterform h1,.filterform h2,.filterform h3{color:#FFF!important;}
+.content-page{margin-left:15px;margin-right: 15px;}
+.msgtop{font-family: 'Montserrat', sans-serif;font-size:19px;background:#d53211;text-align:center;padding:5px;color:#FFF;}
+#start_up_message{margin-top:20px;font-size:18px;text-align:center;}
+a{font-family: 'Ubuntu', sans-serif;text-transform: uppercase;}
 

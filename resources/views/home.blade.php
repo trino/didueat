@@ -4,7 +4,7 @@
   <div class="content-page">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-4 col-xs-12 filterform">
           <div class="container-fluid">
             <div class="row">
               <div class="box-shadow filter_search">
