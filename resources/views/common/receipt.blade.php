@@ -175,7 +175,7 @@
                 </div>
                 <div class="clearfix"></div>
                 @endif
-                <form id="profiles">
+                <form name="checkout_form" id="profiles" novalidate>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}" />
                     <div class="form-group">

@@ -465,9 +465,9 @@
                             $('.nxtpage_' + catid).remove();
                             $("#loadmenus_" + catid).append(html);
                             $('div#loadmoreajaxloader_' + catid).hide();
-                        } else
+                        } else {
                             $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
-
+                        }
                     }
                 });
             }
