@@ -91,7 +91,7 @@
                   </div>
                   <br />
                   <div class="form-group">
-                  <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search" />
+                      <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search" />
                   </div>
                   {!! Form::close() !!}
                 </div>
@@ -119,7 +119,14 @@
             $('#radius_panel').show();
         }
     });
+    
     $('body').on('submit', '#search-form', function(e){
+        var formatted_address = $('#formatted_address').val();
+        if(formatted_address.trim() == "" || formatted_address == null){
+            alert('Please enter address to proceed. thanks');
+            return false;
+            e.preventDefault();
+        }
         var token = $('#search-form input[name=_token]').val();
         var data = $(this).serialize();
         
@@ -137,6 +144,7 @@
         });
         e.preventDefault();
     });
+    
     $('body').on('click', '.loadMoreRestaurants', function() {
         var start = $(this).attr('data-id');
         var token = $('#search-form input[name=_token]').val();
