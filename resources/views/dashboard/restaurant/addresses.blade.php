@@ -50,7 +50,7 @@
                                             {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
                                             <td>
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
-                                                <a href="#editAddress" class="btn red editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                                <a href="#editAddress" class="btn nomargin btn-info editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach

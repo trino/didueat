@@ -67,7 +67,7 @@
                                         <td>{{ $value->expiry_month }}</td>
                                         <td>{{ $value->expiry_year }}</td>
                                         <td>
-                                            <a href="#NewCreditCard" class="btn red blue editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                            <a href="#NewCreditCard" class="btn nomargin btn-info editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                             @endif

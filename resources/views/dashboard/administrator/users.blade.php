@@ -47,7 +47,7 @@
                                         <td>{{ $value->phone }}</td>
                                         <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                         <td>
-                                            <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                            <a href="#editNewUser" class="btn nomargin btn-info editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Fire</a>
                                                 <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn red blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>

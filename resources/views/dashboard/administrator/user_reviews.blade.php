@@ -55,7 +55,7 @@
                       <td>{{ $rating->rating  }}</td>
                       <td>{{ substr($rating->comments, 0, 100) }}</td>
                       <td>{{ $rating->created_at  }}</td>
-                      <td> <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $rating->id }}">Edit</a>
+                      <td> <a href="#editNewUser" class="btn nomargin btn-info editUser fancybox-fast-view" data-id="{{ $rating->id }}">Edit</a>
                       <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn red" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a></td>
                     </tr>
                   @endforeach
