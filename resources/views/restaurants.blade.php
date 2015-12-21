@@ -103,7 +103,7 @@
 
         <div class="col-md-9 col-sm-8 col-xs-12">
           <div class="container-fluid">
-              <div class="msgtop"><span id="countRows" style="font: inherit;">No</span> Restaurant(s) Found</div>
+              <div class="msgtop dropshadow"><span id="countRows" style="font: inherit;">No</span> Restaurant(s) Found</div>
               <p id="start_up_message">Please enter address above to find restaurants near your area.</p>
               @include('ajax.search_restaurants')
           </div>

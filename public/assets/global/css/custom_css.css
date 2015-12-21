@@ -6571,3 +6571,5 @@ ul#top-menu li > a {
 #start_up_message{margin-top:20px;font-size:18px;text-align:center;}
 a{font-family: 'Ubuntu', sans-serif;text-transform: capitalize;}
 
+.nomargin{margin-top: 0px !important;}
+.dropshadow{box-shadow: 10px 10px 10px -1px #888888;}
