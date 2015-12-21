@@ -1,6 +1,12 @@
-
 @extends('layouts.default')
 @section('content')
+
+<?php
+    function obfuscate($CardNumber, $maskingCharacter = "*"){
+        if(strlen($CardNumber) < 15){return "[INVALID CARD NUMBER]";}
+        return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
+    }
+?>
 
 <div class="content-page">
     <div class="container-fluid">
@@ -47,7 +53,7 @@
                                         <td>{{ $value->user_type }}</td>
                                         <td>{{ $value->first_name.' '.$value->last_name }}</td>
                                         <td>{{ $value->card_type }}</td>
-                                        <td>{{ $value->card_number }}</td>
+                                        <td>{{ obfuscate($value->card_number) }}</td>
                                         <td>{{ $value->expiry_date }}</td>
                                         <td>{{ $value->expiry_month }}</td>
                                         <td>{{ $value->expiry_year }}</td>
