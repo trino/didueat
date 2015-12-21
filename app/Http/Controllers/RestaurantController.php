@@ -1097,10 +1097,11 @@ class RestaurantController extends Controller
         if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
             //do nothing
         } else {
-            if ($sort == 'down')
+            if ($sort == 'down') {
                 $new = $key + 1;
-            else
+            }else {
                 $new = $key - 1;
+            }
             //echo $new.'_'.
             $temp = $_POST['ids'][$new];
             $_POST['ids'][$new] = $cid;
@@ -1146,12 +1147,11 @@ class RestaurantController extends Controller
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
-        if (!$slug)
+        if (!$slug) {
             return \Redirect::to('restaurant/menus-manager');
-
-        else
+        }else {
             return \Redirect::to('restaurants/' . $slug . '/menus');
-
+        }
     }
 
     function deleteDir($dirPath)
@@ -1197,27 +1197,27 @@ class RestaurantController extends Controller
         return \Redirect::to($path . '/' . $slug . '/' . $path2)->with('message', 'Restaurant menu successfully updated');
     }
 
-    public function orderslist($type = '')
-    {
+    public function orderslist($type = '') {
         $data['title'] = 'Orders';
         $data['type'] = ucfirst($type);
         $orders = new \App\Http\Models\Reservations();
-        if ($type == 'user')
+        if ($type == 'user') {
             $data['orders_list'] = $orders->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
-        elseif ($type == 'restaurant')
+        }elseif ($type == 'restaurant') {
             $data['orders_list'] = $orders->where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
-        else
+        }else {
             $data['orders_list'] = $orders->orderBy('order_time', 'DESC')->get();
+        }
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
-    public function loadChild($id, $isaddon = 0)
-    {
+    public function loadChild($id, $isaddon = 0) {
         $data['child'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
-        if ($isaddon == 0)
+        if ($isaddon == 0) {
             return view('dashboard.restaurant.load_child', $data);
-        else
+        }else {
             return view('dashboard.restaurant.load_addon', $data);
+        }
     }
 
     public function saveCat()

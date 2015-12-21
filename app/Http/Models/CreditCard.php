@@ -31,7 +31,8 @@ class CreditCard extends BaseModel {
         foreach ($cells as $cell => $NeedsEncryption) {
             if (array_key_exists($cell, $data)) {
                 if($NeedsEncryption){
-                    $data[$cell] = Crypt::encrypt($data[$cell]);
+                    $data[$cell] = \Crypt::encrypt($data[$cell]);
+                    //use \Crypt::decrypt($encryptedValue); to decrypt
                 }
                 $this->$cell = $data[$cell];
             }
