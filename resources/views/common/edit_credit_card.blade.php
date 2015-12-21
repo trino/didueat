@@ -1,22 +1,29 @@
 <?php
-//Days list
-$starting_day  = 01;
-$ending_day    = 31;
-$already_selected_day = (isset($credit_cards_list->expiry_date))?$credit_cards_list->expiry_date:'';
+    //Days list
+    $starting_day  = 01;
+    $ending_day    = 31;
+    $already_selected_day = (isset($credit_cards_list->expiry_date))?$credit_cards_list->expiry_date:'';
 
-for($starting_day; $starting_day <= $ending_day; $starting_day++) {
-    $selected = ($already_selected_day == $starting_day) ? 'selected':'';    
-    $days[] = '<option value="'.$starting_day .'" '. $selected .' >'.$starting_day.'</option>';
-}
-//Year List
-$starting_year  = 2016;
-$ending_year    = 2035;
+    for($starting_day; $starting_day <= $ending_day; $starting_day++) {
+        $selected = ($already_selected_day == $starting_day) ? 'selected':'';
+        $days[] = '<option value="'.$starting_day .'" '. $selected .' >'.$starting_day.'</option>';
+    }
+    //Year List
+    $starting_year  = 2016;
+    $ending_year    = 2035;
 
-$already_selected_year = (isset($credit_cards_list->expiry_year))?$credit_cards_list->expiry_year:'';
-for($starting_year; $starting_year <= $ending_year; $starting_year++) {
-    $selected = ($already_selected_year == $starting_year) ? 'selected':'';   
-    $years[] = '<option value="'.$starting_year .'" '. $selected .'  >'.$starting_year.'</option>';
-}
+    $already_selected_year = (isset($credit_cards_list->expiry_year))?$credit_cards_list->expiry_year:'';
+    for($starting_year; $starting_year <= $ending_year; $starting_year++) {
+        $selected = ($already_selected_year == $starting_year) ? 'selected':'';
+        $years[] = '<option value="'.$starting_year .'" '. $selected .'  >'.$starting_year.'</option>';
+    }
+
+    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+    foreach($encryptedfields as $field){
+        if(isset($credit_cards_list->$field) && is_encrypted($credit_cards_list->$field)){
+            $credit_cards_list->$field = \Crypt::decrypt($credit_cards_list->$field);
+        }
+    }
 ?>
 <meta name="_token" content="{{ csrf_token() }}" />
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
