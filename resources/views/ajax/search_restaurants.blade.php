@@ -21,17 +21,17 @@
                           <p><strong>Delivery Fee:</strong> {{ $value['delivery_fee'] }}</p>
                           <p><strong>Tags:</strong>
                           <?php 
-                             $tag = $value['tags'];
-                             $tags = explode(",", $tag);
-                               for ($i=0; $i <= 4; $i++) { 
-                                  if($i == 4){
-                                    echo (isset($tags[$i]))?$tags[$i]:'';
-                                   }else{
-                                    echo (isset($tags[$i]))?$tags[$i].',':'';  
+                                 $tag = $value['tags'];
+                                 $tags = explode(",", $tag);
+                                   for ($i=0; $i <= 4; $i++) {
+                                      if($i == 4){
+                                            echo (isset($tags[$i]))?$tags[$i]:'';
+                                      }else{
+                                            echo (isset($tags[$i]))?$tags[$i].',':'';
+                                      }
                                   }
-                              }
-                            ?>
-                            </p>
+                          ?>
+                          </p>
                              
                           <a class="btn custom-default-btn" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">{{ $value['name'] }} Pick-up Only</a>
                           <div class="row">
