@@ -36,7 +36,7 @@
             </li>
             <li><a href="{{ url('auth/logout') }}">Log Out</a></li>
           @else
-            <li><a href="#login-pop-up" class="fancybox-fast-view">Log In</a></li>
+            <li><a href="#login-pop-up" class="fancybox-fast-view"> Login <i class="fa fa-sign-in"></i></a></li>
           @endif
         </ul>
       </div><!-- /.navbar-collapse -->
