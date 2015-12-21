@@ -192,7 +192,7 @@ class UrlGenerator implements UrlGeneratorContract
     public function asset($path, $secure = null) {
 
         if(!file_exists($path)){
-            return $this->asset("assets/images/remove-icon-small.png");
+            return $this->asset("assets/images/missing-icon.png");
         }
 
         if ($this->isValidUrl($path)) {
