@@ -2,6 +2,7 @@
 @section('content')
 
 <?php
+    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
     function obfuscate($CardNumber, $maskingCharacter = "*"){
         if(strlen($CardNumber) < 15){return "[INVALID CARD NUMBER]";}
         return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
@@ -49,6 +50,13 @@
                                 </thead>
                                 <tbody>
                                 @foreach($credit_cards_list as $value)
+                                    <?php
+                                        foreach($encryptedfields as $field){
+                                            if(is_encrypted($value->$field)){
+                                                $value->$field = \Crypt::decrypt($value->$field);
+                                            }
+                                        }
+                                    ?>
                                     <tr>
                                         <td>{{ $value->user_type }}</td>
                                         <td>{{ $value->first_name.' '.$value->last_name }}</td>

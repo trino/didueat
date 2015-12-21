@@ -984,6 +984,10 @@ function get_time_interval() {
     }
 }
 
+function is_encrypted($Text){
+    return strpos($Text, "eyJpdiI6I") === 0;
+}
+
 // Function to get the client ip address
 function get_client_ip_server() {
     $ipaddress = '';
