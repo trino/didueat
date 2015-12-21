@@ -1,4 +1,5 @@
 <div class="newmenu" id="newmenu0">
+    <?php printfile("views/common/menu_form.blade.php"); ?>
     <p>&nbsp;</p> 
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12 nopadd">
@@ -23,8 +24,8 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(!isset($ccount) || (isset($ccount) && $ccount==0))
             <div class="newaction">
-                <a href="javascript:void(0)" class="btn btn-info add_additional" id="add_additional{{ $menu_id }}">Add Addons</a>
-                <a href="javascript:void(0)" id="save0" data-id="{{ $menu_id }}" class="btn btn-info savebtn">Save</a>
+                <a href="javascript:void(0)" class="btn red btn-info add_additional" id="add_additional{{ $menu_id }}">Add Addons</a>
+                <a href="javascript:void(0)" id="save0" data-id="{{ $menu_id }}" class="btn red btn-info savebtn">Save</a>
             </div>
             @endif
         </div>

@@ -1,4 +1,5 @@
 <div id="login-pop-up" class="popup-dialog" style="display:none;">
+    <?php printfile("views/popups/login.blade.php"); ?>
     <div class="login-pop-up">
         <div class="login-form" style="">
             <h1>Login</h1>

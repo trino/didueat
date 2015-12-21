@@ -7,6 +7,7 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-sm-8 col-md-10 menu_managers_edits">
+                    <?php printfile("views/dashboard/restaurant/manus.blade.php"); ?>
                     <div class="btn_wrapper margin-bottom-20 clearfix">
                         <a class="btn btn-primary red add_item pull-right" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                     </div>

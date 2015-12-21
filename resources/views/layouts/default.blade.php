@@ -1,4 +1,5 @@
-<?php
+<!--<?php
+printfile("views/dashboard/layouts/default.blade.php");
 if (!isset($userAddress)) {
   $userAddress = "";
 }
@@ -10,7 +11,7 @@ if (Request::path() !== null && Request::path() != "/") {
   $nextPath = "/" . Request::path();
 }
 //echo $nextPath; die;
-?>
+?>-->
   <!DOCTYPE html>
 <html lang="en">
 <head>

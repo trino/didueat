@@ -1,6 +1,6 @@
-
 @if(!isset($order))
 <div class="top-cart-info">
+    <?php printfile("views/common/receipt.blade.php"); ?>
     <div class="col-md-6 col-sm-6 col-xs-12">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
     </div>
@@ -9,11 +9,12 @@
     </div>
     <div class="clearfix"></div>
     <div class="col-md-3 col-sm-3 col-xs-12">
-        <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart" onclick="#cartsz">Cart</i></a>
+        <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"></i>Cart</a>
     </div>
 </div>
 @endif
 <div id="cartsz">
+    <?php printfile("views/common/receipt.blade.php"); ?>
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-margin-top-0">
@@ -125,8 +126,8 @@
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
-                            <td>&nbsp;$ <div class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</div>
-                                &nbsp;(<div id="tax inlineblock">13</div>%)
+                            <td nowrap>&nbsp;$ <SPAN class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</SPAN>
+                                &nbsp;(<SPAN id="tax inlineblock">13</SPAN>%)
                                 <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax" class="tax" />
                             </td>
                         </tr>
@@ -150,8 +151,8 @@
                 @if(!isset($order))
                     <div class="text-right">
                         <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print" />
-                        <a href="javascript:void(0)" class="btn blue clearitems" onclick="clearCartItems();">Clear</a>
-                        <a href="javascript:void(0)" class="btn btn-primary red" onclick="checkout();">Checkout</a>
+                        <a href="javascript:void(0)" class="btn red blue clearitems" onclick="clearCartItems();">Clear</a>
+                        <a href="javascript:void(0)" class="btn red btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
                 @endif
             </div>

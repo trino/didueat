@@ -4,6 +4,8 @@
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="margin-bottom-40">
+    <?php printfile("views/restaurants-detail.blade.php"); ?>
+
     <div class="col-md-2 col-sm-4 col-xs-12">
         <div class="well add-sidebar">
             <address>

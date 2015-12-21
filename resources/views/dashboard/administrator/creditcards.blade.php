@@ -14,6 +14,7 @@
         <div class="row">
             @include('layouts.includes.leftsidebar')
             <div class="col-xs-12 col-md-10 col-sm-8">
+                <?php printfile("views/dashboard/administrator/creditcards.blade.php"); ?>
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">
                         <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
@@ -66,7 +67,7 @@
                                         <td>{{ $value->expiry_month }}</td>
                                         <td>{{ $value->expiry_year }}</td>
                                         <td>
-                                            <a href="#NewCreditCard" class="btn blue editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                            <a href="#NewCreditCard" class="btn red blue editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                             @endif

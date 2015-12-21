@@ -15,6 +15,7 @@
                     @include('layouts.includes.leftsidebar')
 
                     <div class="col-xs-12 col-md-10 col-sm-8">
+                        <?php printfile("views/dashboard/restaurant/orders_detail.blade.php"); ?>
                         @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong>
@@ -28,7 +29,7 @@
                                 @if(Session::get('session_profiletype') == 1)
                                     @if(strtolower($order->status) == 'pending')
                                     <a href="#cancel-popup-dialog" class="btn yellow pull-right fancybox-fast-view cancel-popup" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
-                                    <a href="#approve-popup-dialog" class="btn blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
+                                    <a href="#approve-popup-dialog" class="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
                                     @endif
                                 @endif
                             </div>

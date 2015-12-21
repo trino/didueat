@@ -5,6 +5,7 @@
         <div class="row">
             @include('layouts.includes.leftsidebar')
             <div class="col-xs-12 col-md-10 col-sm-8">
+                <?php printfile("views/dashboard/administrator/users.blade.php"); ?>
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">
                         <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
@@ -49,7 +50,7 @@
                                             <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Fire</a>
-                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
+                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn red blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
                                             @endif
                                         </td>
                                     </tr>

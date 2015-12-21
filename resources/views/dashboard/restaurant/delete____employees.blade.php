@@ -31,6 +31,7 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-9 col-sm-8">
+                    <?php printfile("views/dashboard/restaurant/delete___employees.blade.php"); ?>
                     <div class="deleteme">
                         <h3 class="sidebar__title">Employees Manager</h3>
                         <hr class="shop__divider">

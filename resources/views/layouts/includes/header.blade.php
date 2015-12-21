@@ -1,3 +1,4 @@
+<?php printfile("views/dashboard/layouts/includes/header.blade.php"); ?>
 <div class="my-navbar">
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">

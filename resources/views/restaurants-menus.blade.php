@@ -4,6 +4,8 @@
 
 <div class="margin-bottom-40 clearfix">
     <div class="col-md-9 col-md-offset-3 col-sm-9 col-xs-12 menu_div">
+        <?php printfile("views/restaurants-menus.blade.php"); ?>
+
         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
             <div class="category_btns margin-bottom-15">
                 <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>

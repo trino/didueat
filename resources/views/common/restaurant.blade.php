@@ -18,6 +18,7 @@
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="col-md-4 col-sm-12 col-xs-12 ">
+    <?php printfile("views/common/restaurant.blade.php"); ?>
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">

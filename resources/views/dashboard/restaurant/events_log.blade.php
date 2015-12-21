@@ -8,6 +8,7 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
+                    <?php printfile("views/dashboard/restaurant/events_log.blade.php"); ?>
                     <div class="deleteme">
 
                         <div class="box-shadow">

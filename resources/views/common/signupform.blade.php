@@ -1,3 +1,4 @@
+<?php printfile("views/common/signupform.blade.php"); ?>
 <h1>Sign up</h1>
 <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 

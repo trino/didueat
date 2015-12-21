@@ -1,3 +1,4 @@
+<?php printfile("views/dashboard/restaurant/load_child.blade.php"); ?>
 @extends('layouts.blank')
 @section('content')
 

@@ -1,4 +1,6 @@
 <div id="forget-passsword" class="popup-dialog" style="display: none;">
+    <?php printfile("views/popups/forgotpassword.blade.php"); ?>
+
     <h1>Forgot Your Password?</h1>
     <div id="forgot-pass-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>

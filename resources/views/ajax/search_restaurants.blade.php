@@ -1,4 +1,5 @@
 <div id="restuarant_bar" class="restuarant-list">
+    <?php printfile("views/ajax/search_restaurants.blade.php"); ?>
     <div class="row">
         @if(isset($query) && $count > 0)
         @foreach($query as $value)

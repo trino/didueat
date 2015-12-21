@@ -1,4 +1,5 @@
 <div class="menuwrapper" id="sub{{ (isset($child))? $child->id : 0 }}" class="ignore ignore1">
+    <?php printfile("views/common/additional.blade.php"); ?>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
         <div class="col-sm-12 lowheight row ignore ignore1">
             <input class="form-control ctitle ignore ignore1" type="text" placeholder="Title" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
@@ -114,10 +115,10 @@
                 <div class="newaction_wrap col-md-9 col-sm-9 col-xs-12">
                     @if(!isset($cmodel) || (isset($ccount) && $ccount == $k))
                     <?php if (!isset($menu_id)) { $menu_id = 0; } ?>
-                        <a href="javascript:void(0)" class="btn btn-info add_additional ignore ignore2 ignore1" id="add_additional{{ $menu_id }}">Add Addons</a>
-                        <a href="javascript:void(0)" @if(!isset($menu_id) || (isset($menu_id) && !$menu_id)) id="save0" @else id="save{{ $menu_id }}" @endif class="btn btn-info savebtn ignore ignore2 ignore1">Save</a>
+                        <a href="javascript:void(0)" class="btn red btn-info add_additional ignore ignore2 ignore1" id="add_additional{{ $menu_id }}">Add Addons</a>
+                        <a href="javascript:void(0)" @if(!isset($menu_id) || (isset($menu_id) && !$menu_id)) id="save0" @else id="save{{ $menu_id }}" @endif class="btn red btn-info savebtn ignore ignore2 ignore1">Save</a>
                     @endif
-                    <a href="javascript:void(0)" class="btn btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
+                    <a href="javascript:void(0)" class="btn red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>
                 <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
                     <a href="javascript:void(0)" class="addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>

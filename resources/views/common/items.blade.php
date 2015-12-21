@@ -1,3 +1,4 @@
+<?php printfile("views/common/items.blade.php"); ?>
 <ul class="scroller orders @if(!isset($order)) order-style @endif">
 @if(isset($order))
     <?php

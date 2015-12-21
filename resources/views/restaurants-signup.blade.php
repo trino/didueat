@@ -1,4 +1,3 @@
-
 @extends('layouts.default')
 @section('content')
 
@@ -7,6 +6,8 @@
 <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
 
 <div class="margin-bottom-40">
+    <?php printfile("views/restaurants-signup.blade.php"); ?>
+
     <div class="slide">
         <div class="text">
             We'll bring the customers to you

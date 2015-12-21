@@ -1,4 +1,5 @@
 <div class="add_category_popup">
+    <?php printfile("views/common/add_category.blade.php"); ?>
     <h2>Add Category</h2>
     <div class="category_titles margin-bottom-10">
         <strong>Category Title :</strong>

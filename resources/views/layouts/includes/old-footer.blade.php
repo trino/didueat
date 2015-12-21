@@ -1,3 +1,4 @@
+<?php printfile("views/dashboard/layouts/includes/old-footer.blade.php"); ?>
 <div class="footer footer-gb">
   <div class="container-fluid">
     <div class="row">

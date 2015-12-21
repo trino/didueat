@@ -1,4 +1,6 @@
 <div id="registration-form" class="col-md-12 popup-dialog" style="display: none;">
+    <?php printfile("views/popups/signup.blade.php"); ?>
+    
     <div id="registration-success" class="note note-success" style="display: none;">
         <h1 class="block">success</h1>
         <p></p>

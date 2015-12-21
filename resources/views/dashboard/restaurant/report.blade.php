@@ -16,6 +16,7 @@
                         @include('layouts.includes.leftsidebar')
 
                         <div class="col-xs-12 col-md-10 col-sm-8">
+                            <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
                             <div class="restaurentsList deleteme">
                                 <div class="toprint">
 

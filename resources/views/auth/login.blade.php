@@ -2,6 +2,7 @@
 @section('content')
 
 <div class="container">
+    <?php printfile("views/auth/login.blade.php"); ?>
     <div class="row"> 
         <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
             @if(\Session::has('message'))

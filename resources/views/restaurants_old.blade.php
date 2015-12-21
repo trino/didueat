@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
 <?php
+printfile("views/restaurants_old.blade.php");
 if (isset($restaurantblade)) {
     // pb: Add Google API key when going live
     ?>

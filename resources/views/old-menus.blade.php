@@ -1,6 +1,8 @@
 @if(!isset($_GET['page']))
-<div id="loadmenus_{{ $catid }}">
-    @endif
+    <div id="loadmenus_{{ $catid }}">
+@endif
+
+<?php printfile("views/old-menus.blade.php"); ?>
 
     @foreach($menus_list as $value)
     <?php

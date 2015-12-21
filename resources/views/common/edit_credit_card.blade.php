@@ -1,4 +1,6 @@
 <?php
+    printfile("views/common/edit_credit_card.blade.php");
+
     //Days list
     $starting_day  = 01;
     $ending_day    = 31;

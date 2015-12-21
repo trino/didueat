@@ -1,4 +1,5 @@
 <div class="sidebar col-md-2 col-sm-4 col-xs-12">
+    <?php printfile("views/dashboard/layouts/leftsidebar.blade.php"); ?>
     <aside class="">
         <div class="">
             <div class="box-shadow">

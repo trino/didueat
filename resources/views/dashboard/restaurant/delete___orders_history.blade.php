@@ -10,6 +10,7 @@ delete me 324234324324
             @include('layouts.includes.leftsidebar')
 
             <div class="col-xs-12 col-md-9 col-sm-8">
+                <?php printfile("views/dashboard/restaurant/delete___orders_history.blade.php"); ?>
                 <div class="deleteme">
                     <h3 class="sidebar__title">Orders History</h3>
                     <hr class="shop__divider">
@@ -46,7 +47,7 @@ delete me 324234324324
                                             <a href="#" class="btn btn-danger" onclick="return confirm(' Are you sure you want to delete order # <?= $value->id; ?>');">Delete</a>
                                             <?php if (strtolower($value->status) == 'pending') { ?>
                                                 <a href="{{ url('restaurant/orders/pending/cancel/'.$value->id) }}" class="btn yellow" onclick="return confirm(' Are you sure you want to cancel order # <?= $value->id; ?>');">Cancel</a>
-                                                <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn blue" onclick="return confirm(' Are you sure you want to approve order # <?= $value->id; ?>?');">Approve</a>
+                                                <a href="{{ url('restaurant/orders/pending/approve/'.$value->id) }}" class="btn red blue" onclick="return confirm(' Are you sure you want to approve order # <?= $value->id; ?>?');">Approve</a>
                                             <?php } ?>
                                         </td>
                                     </tr>

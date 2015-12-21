@@ -4,6 +4,7 @@
 <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
 
 <div class="newmenu ignore" id="newmenu0">
+    <?php printfile("views/dashboard/restaurant/menu_form.blade.php"); ?>
     <p>&nbsp;</p>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore">
         <div class="col-sm-2 col-xs-12 nopadd ignore">

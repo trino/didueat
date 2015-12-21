@@ -1,4 +1,5 @@
 <div class="header">
+    <?php printfile("views/dashboard/layouts/includes/old-header.blade.php"); ?>
     <div class="container-fluid" >
         <div class="header-navigation-wrap pull-left logo-style" id="header-nav">
             <div class="header-navigation">

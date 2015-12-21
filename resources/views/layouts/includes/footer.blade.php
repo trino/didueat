@@ -1,5 +1,6 @@
 <div class="clearfix"></div>
 <div class="footer">
+  <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col-md-offset-3">

@@ -14,6 +14,7 @@
             @include('layouts.includes.leftsidebar')
 
             <div class="col-md-10 col-sm-8 col-xs-12 ">
+                <?php printfile("views/dashboard/restaurant/addrestaurant.blade.php"); ?>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         @if(\Session::has('message'))

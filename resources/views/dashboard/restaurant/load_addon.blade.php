@@ -1,3 +1,4 @@
+<?php printfile("views/dashboard/restaurant/load_addon.blade.php"); ?>
 @extends('layouts.blank')
 @section('content')
 

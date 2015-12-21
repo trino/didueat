@@ -988,6 +988,13 @@ function is_encrypted($Text){
     return strpos($Text, "eyJpdiI6I") === 0;
 }
 
+
+function printfile($File){//cannot user __FILE__ due to caching
+    if($_SERVER["SERVER_NAME"] == "localhost"){
+        echo '<FONT COLOR="RED">' . $File . '</FONT>';
+    }
+}
+
 // Function to get the client ip address
 function get_client_ip_server() {
     $ipaddress = '';

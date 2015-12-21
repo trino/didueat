@@ -9,6 +9,8 @@
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-md-10 col-sm-8">
+                    <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
+
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong>
