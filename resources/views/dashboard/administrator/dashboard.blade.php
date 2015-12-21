@@ -169,9 +169,10 @@
 
               <div class="form-actions">
                 <div class="row">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row margin-top-20">
-                      <div class="col-xs-offset-0 col-md-9 col-sm-9 col-xs-12">
+                      <HR>
+                      <div class="col-xs-offset-0 col-md-12 col-sm-12 col-xs-12" align="center">
                         <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
                         <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                         <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
