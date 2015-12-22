@@ -71,8 +71,8 @@
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                             @endif
-                                            <a class="btn nomargin btn-info up">Up</a>
-                                            <a class="btn nomargin btn-info down">Down</a>
+                                            <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
+                                            <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

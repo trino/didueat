@@ -51,8 +51,8 @@
                                             <td>
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
                                                 <a href="#editAddress" class="btn nomargin btn-info editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
-                                                <a class="btn nomargin btn-info up">Up</a>
-                                                <a class="btn nomargin btn-info down">Down</a>
+                                                <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
+                                                <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
