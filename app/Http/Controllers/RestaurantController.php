@@ -14,16 +14,14 @@ use App\Http\Models\Restaurants;
  * @developer  Waqar Javed
  * @date       15 September, 2015
  */
-class RestaurantController extends Controller
-{
+class RestaurantController extends Controller {
 
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct()
-    {
+    public function __construct() {
         date_default_timezone_set('America/Toronto');
 
         $this->beforeFilter(function () {
@@ -43,8 +41,7 @@ class RestaurantController extends Controller
      * @param null
      * @return view
      */
-    public function restaurants()
-    {
+    public function restaurants() {
         $data['title'] = 'Restaurants List';
         $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
         return view('dashboard.administrator.restaurants', $data);
@@ -55,8 +52,7 @@ class RestaurantController extends Controller
      * @param $id
      * @return redirect
      */
-    public function restaurantDelete($id = 0)
-    {
+    public function restaurantDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
             $this->oops("[Restaurant Id] field is missing!", 'restaurant/list');
         }
@@ -89,8 +85,7 @@ class RestaurantController extends Controller
      * @param $id
      * @return redirect
      */
-    public function restaurantStatus($id = 0)
-    {
+    public function restaurantStatus($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
             $this->oops("[Restaurant Id] is missing!", 'restaurant/list');
         }
@@ -116,8 +111,7 @@ class RestaurantController extends Controller
      * @param null
      * @return view
      */
-    public function addRestaurants()
-    {
+    public function addRestaurants() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
@@ -232,8 +226,7 @@ class RestaurantController extends Controller
      * @param null
      * @return view
      */
-    public function restaurantInfo($id = 0)
-    {
+    public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {

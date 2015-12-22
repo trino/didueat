@@ -12,16 +12,14 @@ use App\Http\Controllers\Controller;
  * @developer  Waqar Javed
  * @date       15 September, 2015
  */
-class AdministratorController extends Controller
-{
+class AdministratorController extends Controller {
 
     /**
      * Constructor
      * @param null
      * @return redirect
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->beforeFilter(function () {
             /*if (!\Session::has('is_logged_in')) {
                 \Session::flash('message', trans('messages.user_session_exp.message'));
@@ -39,8 +37,7 @@ class AdministratorController extends Controller
      * @param null
      * @return view
      */
-    public function dashboard()
-    {
+    public function dashboard() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
@@ -112,8 +109,7 @@ class AdministratorController extends Controller
      * @param $id
      * @return redirect
      */
-    public function usersAction($type = '', $id = 0)
-    {
+    public function usersAction($type = '', $id = 0) {
         if (!isset($type) || empty($type)) {
             $this->oops("[Type] is missing!", 'restaurant/users');
         }
@@ -142,8 +138,7 @@ class AdministratorController extends Controller
      * @param null
      * @return view
      */
-    public function users()
-    {
+    public function users() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
@@ -219,8 +214,7 @@ class AdministratorController extends Controller
      * @param null
      * @return view
      */
-    public function addCreditCards($type = '')
-    {
+    public function addCreditCards($type = '') {
         $post = \Input::all();
         \Session::get('session_id');
 
@@ -424,8 +418,7 @@ class AdministratorController extends Controller
      * @param null
      * @return view
      */
-    public function newsletter()
-    {
+    public function newsletter() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['subject']) || empty($post['subject'])) {

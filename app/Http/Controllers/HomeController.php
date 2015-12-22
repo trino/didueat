@@ -14,10 +14,8 @@ use App\Http\Models\PageViews;
  * @developer  Waqar Javed
  * @date       10 September, 2015
  */
-class HomeController extends Controller
-{
-    public function __construct()
-    {
+class HomeController extends Controller {
+    public function __construct() {
         date_default_timezone_set('America/Toronto');
 
         $this->beforeFilter(function () {
@@ -30,8 +28,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function index()
-    {
+    public function index() {
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
@@ -47,8 +44,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function searchRestaurantsAjax()
-    {
+    public function searchRestaurantsAjax() {
         $post = \Input::all();
         $start = (isset($post['start']))?$post['start']:0;
         $data = array();
@@ -80,8 +76,7 @@ class HomeController extends Controller
      * @param $start
      * @return view
      */
-    public function searchRestaurants($searchTerm = '')
-    {
+    public function searchRestaurants($searchTerm = '') {
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
@@ -99,8 +94,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function allRestaurants()
-    {
+    public function allRestaurants() {
         $data['title'] = 'All Restaurants Page';
         $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
         $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
@@ -122,8 +116,7 @@ class HomeController extends Controller
      * @param $start
      * @return view
      */
-    public function searchMenus($term = '')
-    {
+    public function searchMenus($term = '') {
         $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
         $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
         $data['start'] = $data['query']->count();
@@ -138,8 +131,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function searchMenusAjax()
-    {
+    public function searchMenusAjax() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
@@ -166,8 +158,7 @@ class HomeController extends Controller
      * @param null
      * @return response
      */
-    public function newsletterSubscribe()
-    {
+    public function newsletterSubscribe() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['email']) || empty($post['email'])) {
@@ -198,8 +189,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function signupRestaurants()
-    {
+    public function signupRestaurants() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
@@ -374,8 +364,7 @@ class HomeController extends Controller
         }
     }
 
-    public function cleanTime($time)
-    {
+    public function cleanTime($time) {
         if (!$time)
             return $time;
         if (str_replace('AM', '', $time) != $time) {
@@ -401,8 +390,7 @@ class HomeController extends Controller
      * @param null
      * @return view
      */
-    public function menusRestaurants($slug)
-    {
+    public function menusRestaurants($slug) {
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
         $category = \App\Http\Models\Category::get();
         $data['category'] = $category;
@@ -421,8 +409,7 @@ class HomeController extends Controller
         }
     }
 
-    function loadmenus($catid, $resid)
-    {
+    function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
         $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
@@ -432,16 +419,14 @@ class HomeController extends Controller
         return view('menus', $data);
     }
 
-    function contactus()
-    {
+    function contactus() {
         $data['title'] = 'Contact';
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
         return view('contactus', $data);
 
     }
 
-    function createslug($text)
-    {
+    function createslug($text) {
         // replace non letter or digits by -
         $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
@@ -467,16 +452,14 @@ class HomeController extends Controller
         return $text;
     }
 
-    function chkSlug($txt)
-    {
+    function chkSlug($txt) {
         if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
             $txt = $txt . rand(0, 9);
         }
         return $txt;
     }
 
-    public function uploadimg($type = '')
-    {
+    public function uploadimg($type = '') {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
@@ -495,8 +478,7 @@ class HomeController extends Controller
         die();
     }
 
-    function countStatus($id=0)
-    {
+    function countStatus($id=0) {
         \App\Http\Models\PageViews::insertView($id, 'menu');
         return \App\Http\Models\PageViews::getView($id, "menu");
     }
@@ -593,8 +575,7 @@ class HomeController extends Controller
         }
     }
     
-    public function getToken()
-    {
+    public function getToken() {
         echo csrf_token();
         die();
     }

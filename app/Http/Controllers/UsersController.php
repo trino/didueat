@@ -11,8 +11,7 @@ use App\Http\Controllers\Controller;
  * @developer  Waqar Javed
  * @date       15 September, 2015
  */
-class UsersController extends Controller
-{
+class UsersController extends Controller {
     
     /**
      * Constructor
@@ -20,7 +19,6 @@ class UsersController extends Controller
      * @return redirect
      */
     public function __construct() {
-        
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
@@ -92,8 +90,7 @@ class UsersController extends Controller
      * @param none
      * @return response
      */
-    public function addressesSequence()
-    {
+    public function addressesSequence() {
         $post = \Input::all();
         try {
             $idArray = explode("|", $post['id']);
