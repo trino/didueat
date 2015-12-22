@@ -203,83 +203,44 @@ class HomeController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
-                \Session::flash('message', "[Restaurant Name] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['full_name']) || empty($post['full_name'])) {
-                \Session::flash('message', "[Full Name] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Full Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                \Session::flash('message', "[Email] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Email] field is missing!",'/restaurants/signup', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                \Session::flash('message', "Email address [".$post['email']."] already exists!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurants/signup')->withInput();
+                $this->oops("Email address [".$post['email']."] already exists!",'restaurants/signup', true);
             }
             if (!isset($post['address']) || empty($post['address'])) {
-                \Session::flash('message', "[Address] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Address] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                \Session::flash('message', "[City] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[City] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['province']) || empty($post['province'])) {
-                \Session::flash('message', "[Province] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Province] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                \Session::flash('message', "[Postal Code] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Postal Code] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['phone']) || empty($post['phone'])) {
-                \Session::flash('message', "[Phone] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Phone] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                \Session::flash('message', "[Country] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops("[Country] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['password1']) || empty($post['password1'])) {
-                \Session::flash('message', trans('messages.user_pass_field_missing.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops(trans('messages.user_pass_field_missing.message'),'/restaurants/signup', true);
             }
             if (!isset($post['confirm_password1']) || empty($post['confirm_password1'])) {
-                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops( trans('messages.user_confim_pass_field_missing.message'),'/restaurants/signup', true);
             }
             if ($post['password1'] != $post['confirm_password1']) {
-                \Session::flash('message', trans('messages.user_passwords_mismatched.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup')->withInput();
+                $this->oops(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
             try {
                 if ($post['logo'] != '') {
@@ -401,10 +362,7 @@ class HomeController extends Controller
                 return view('messages.message', $message);
                 //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants/signup');
+                $this->oops( $e->getMessage(),'/restaurants/signup');
             }
         } else {
             $data['title'] = "Signup Restaurants Page";

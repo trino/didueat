@@ -43,16 +43,10 @@ class UsersController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['address']) || empty($post['address'])) {
-                \Session::flash('message', "[Street address] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                $this->oops( "[Street address] field is missing!",'user/addresses');
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                \Session::flash('message', "[City] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                $this->oops("[City] field is missing!",'user/addresses');
             }
             if (!isset($post['province']) || empty($post['province'])) {
                 \Session::flash('message', "[Province] field is missing!");
@@ -61,10 +55,7 @@ class UsersController extends Controller
                 return \Redirect::to('user/addresses');
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                \Session::flash('message', "[Country] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                $this->oops( "[Country] field is missing!",'user/addresses');
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
@@ -78,17 +69,11 @@ class UsersController extends Controller
                 }
                 $ob->populate($post);
                 $ob->save();
-                
-                \Session::flash('message', "Address created successfully");
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/addresses');
+
+                $this->success("Address created successfully",'user/addresses');
             }
             catch(\Exception $e) {
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                $this->oops( $e->getMessage(),'user/addresses');
             }
         } 
         else {
@@ -161,27 +146,15 @@ class UsersController extends Controller
      */
     public function addressesDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            \Session::flash('message', "[Id] is missing!");
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('user/addresses');
+            $this->oops("[Id] is missing!", 'user/addresses');
         }
-        
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
             $ob->delete();
-            
-            \Session::flash('message', "Address has been deleted successfully!");
-            \Session::flash('message-type', 'alert-sucess');
-            \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('user/addresses');
+            $this->success("Address has been deleted successfully!", 'user/addresses');
         }
         catch(\Exception $e) {
-            
-            \Session::flash('message', $e->getMessage());
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('user/addresses');
+            $this->oops($e->getMessage(),'user/addresses');
         }
     }
     
@@ -194,10 +167,7 @@ class UsersController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
-                \Session::flash('message', '[ID] field is missing');
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/reviews')->withInput();
+                $this->oops( '[ID] field is missing','user/reviews',true);
             }
             
             \DB::beginTransaction();
@@ -206,25 +176,16 @@ class UsersController extends Controller
                 $review->populate(array_filter($post));
                 $review->save();
                 \DB::commit();
-                
-                \Session::flash('message', 'Review has been updated successfully.');
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/reviews')->withInput();
+
+                $this->success('Review has been updated successfully.', 'user/reviews')->withInput();
             }
             catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                \Session::flash('message', trans('messages.user_email_already_exist.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/users')->withInput();
+                $this->oops( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             }
             catch(\Exception $e) {
                 \DB::rollback();
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/users')->withInput();
+                $this->oops($e->getMessage(),'restaurant/users')->withInput();
             }
         } 
         else {
@@ -242,11 +203,8 @@ class UsersController extends Controller
     public function reviewAction($id = 0) {
         $ob = \App\Http\Models\RatingUsers::find($id);
         $ob->delete();
-        
-        \Session::flash('message', 'Review has been deleted successfully!');
-        \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Congratulations!');
-        return \Redirect::to('user/reviews');
+
+        $this->success('Review has been deleted successfully!', 'user/reviews');
     }
     
     /**
@@ -270,22 +228,13 @@ class UsersController extends Controller
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
-                \Session::flash('message', "[Restaurant] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                $this->oops("[Restaurant] field is missing!", 'user/images');
             }
             if (!isset($post['title']) || empty($post['title'])) {
-                \Session::flash('message', "[Title] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                $this->oops( "[Title] field is missing!",'user/images');
             }
             if (!\Input::hasFile('image')) {
-                \Session::flash('message', "[Image] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                $this->oops( "[Image] field is missing!",'user/images');
             }
             try {
                 if (\Input::hasFile('image')) {
@@ -301,18 +250,11 @@ class UsersController extends Controller
                 $ob = new \App\Http\Models\ProfilesImages();
                 $ob->populate($post);
                 $ob->save();
-                
-                \Session::flash('message', "Image uploaded successfully");
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/images');
+
+                $this->success( "Image uploaded successfully", 'user/images');
             }
             catch(\Exception $e) {
-                
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                $this->oops($e->getMessage(),'user/images');
             }
         } 
         else {
