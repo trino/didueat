@@ -66,53 +66,52 @@
         <?php
         $k = 0;
         if(isset($cmodel)){
-        if (isset($_GET['menu_id'])) {
-            $menu_id = $_GET['menu_id'];
-        }
-        foreach($cmodel as $child){
-        $k++;
-        if ($k == 1)
-            echo "<div class='ignore' id='subcat" . $menu_id . "'>";
+            if (isset($_GET['menu_id'])) {
+                $menu_id = $_GET['menu_id'];
+            }
+            foreach($cmodel as $child){
+                $k++;
+                if ($k == 1)
+                    echo "<div class='ignore' id='subcat" . $menu_id . "'>";
 
-        ?>
-        @include('common.additional')
-        <?php
-        }
-        if ($k > 0)
-            echo "</div>";
-        ?>
-        <script class="ignore ignore2 ignore1">
-            $(function () {
-                $(".sorting_child").live('click', function () {
-                    // alert('test');
-                    var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
-                    if ($(this).attr('id') == 'child_up_' + pid) {
-                        var sort = 'up';
-                    }
-                    else
+                ?>
+                @include('common.additional')
+                <?php
+            }
+            if ($k > 0)
+                echo "</div>";
+            ?>
+            <script class="ignore ignore2 ignore1">
+                $(function () {
+                    $(".sorting_child").live('click', function () {
+                        // alert('test');
+                        var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
                         var sort = 'down';
+                        if ($(this).attr('id') == 'child_up_' + pid) {
+                            sort = 'up';
+                        }
 
-                    var order = '';// array to hold the id of all the child li of the selected parent
-                    $('#subcat{{ $menu_id }} .cmore').each(function (index) {
-                        var val = $(this).attr('id').replace('cmore', '');
-                        //var val=item[1];
-                        if (order == ''){
-                            order = val;
-                        } else {
-                            order = order + ',' + val;
-                        }
-                    });
-                    $.ajax({
-                        url: "{{ url('restaurant/orderCat') }}/" + pid + '/' + sort,
-                        data: 'ids=' + order + '&_token={{ csrf_token() }}',
-                        type: 'post',
-                        success: function (res){
-                            $('#addmore' + res).load("{{ url('restaurant/loadChild') }}/" + res + '/0');
-                        }
+                        var order = '';// array to hold the id of all the child li of the selected parent
+                        $('#subcat{{ $menu_id }} .cmore').each(function (index) {
+                            var val = $(this).attr('id').replace('cmore', '');
+                            //var val=item[1];
+                            if (order == ''){
+                                order = val;
+                            } else {
+                                order = order + ',' + val;
+                            }
+                        });
+                        $.ajax({
+                            url: "{{ url('restaurant/orderCat') }}/" + pid + '/' + sort,
+                            data: 'ids=' + order + '&_token={{ csrf_token() }}',
+                            type: 'post',
+                            success: function (res){
+                                $('#addmore' + res).load("{{ url('restaurant/loadChild') }}/" + res + '/0');
+                            }
+                        });
                     });
                 });
-            });
-        </script>
+            </script>
         <?php } ?>
     </div>
     <div class="clearfix ignore"></div>
