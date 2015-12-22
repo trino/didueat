@@ -1000,27 +1000,33 @@ class RestaurantController extends Controller
         return view('dashboard.restaurant.additional');
     }
 
-    public function uploadimg($type = '')
-    {
+    public function uploadimg($type = '') {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
             if ($type == 'restaurant') {
-                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/restaurants') . '/' . $file);
-                $file_path = url() . '/assets/images/restaurants/' . $file;
+                $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
-                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/users') . '/' . $file);
-                $file_path = url() . '/assets/images/users/' . $file;
+                $path = 'assets/images/users';
             } else {
-                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
-                $file_path = url() . '/assets/images/products/' . $file;
+                $path = 'assets/images/products';
             }
-            //$this->loadComponent("Image"); $this->Image->resize($file, array("300x300", "150x150"), true);
+            move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
+            $file_path = url() . "/" . $path . "/" . $file;
+            foreach(array(150,300) as $size){
+                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false);
+            }
             echo $file_path . '___' . $file;
         }
         die();
+    }
+
+    public function make_thumb($filename, $new_width, $new_height, $CropToFit = false){
+        $output_filename = getdirectory($filename) . "/" . getfilename($filename) . "(" . $new_width . "x" . $new_height . ")." . getextension($filename);
+        make_thumb($filename, $output_filename, $new_width, $new_height, $CropToFit);
+        return $output_filename;
     }
 
     public function menuadd()

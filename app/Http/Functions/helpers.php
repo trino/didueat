@@ -387,6 +387,13 @@ function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://ro
     return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
 }
 
+function debugprint($text){
+    $path = "royslog.txt";
+    $dashes = "----------------------------------------------------------------------------------------------\r\n";
+    if(is_array($text)){$text = print_r($text,true);}
+    file_put_contents($path, $dashes . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n" , $text)) . "\r\n", FILE_APPEND);
+}
+
 function debug_string_backtrace() {
     $BACK = debug_backtrace(0);
     $BACK[2]["line"] = $BACK[1]["line"];
@@ -775,7 +782,7 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
 }
 
 function getdirectory($path) {
-    return pathinfo($path, PATHINFO_DIRNAME);
+    return pathinfo( str_replace("\\", "/", $path), PATHINFO_DIRNAME);
 }
 
 function getfilename($path, $WithExtension = false) {
@@ -855,8 +862,8 @@ function copyimages($sizes, $file, $name) {
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = false) {
-    $src_img = loadimage($img_name);
+function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false) {
+    $src_img = loadimage($input_filename);
     if ($src_img) {
         //gets the dimmensions of the image
         $old_x = imageSX($src_img);
@@ -889,20 +896,20 @@ function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = 
         }
 
         imagedestroy($src_img);
-        if ($filename) {
-            $ext = getExtension($filename);
+        if ($output_filename) {
+            $ext = getExtension($output_filename);
             switch ($ext) {
                 case "png":
-                    imagepng($dst_img, $filename);
+                    imagepng($dst_img, $output_filename);
                     break;
                 default:
-                    imagejpeg($dst_img, $filename);
+                    imagejpeg($dst_img, $output_filename);
             }
             imagedestroy($dst_img);
         } else {
             return $dst_img;
         }
-        return $filename;
+        return $output_filename;
     }
 }
 

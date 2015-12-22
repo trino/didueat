@@ -49,3 +49,4 @@ public/assets/images/restaurants/*
 *.xml
 *.bak
 nbproject
+public/royslog.txt
