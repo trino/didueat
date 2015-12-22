@@ -112,11 +112,7 @@ class AdministratorController extends Controller
                 }
 
                 login($ob);
-
-                \Session::flash('message', "Profile updated successfully");
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('dashboard');
+                $this->success("Profile updated successfully",'dashboard');
             } catch (\Exception $e) {
                 \Session::flash('message', $e->getMessage());
                 \Session::flash('message-type', 'alert-danger');

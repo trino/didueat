@@ -50,3 +50,4 @@ public/assets/images/restaurants/*
 *.bak
 nbproject
 public/royslog.txt
+config/app.php
