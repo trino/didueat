@@ -965,8 +965,7 @@ class RestaurantController extends Controller
         return view('dashboard.restaurant.report', $data);
     }
 
-    public function menu_form($id, $res_id = 0)
-    {
+    public function menu_form($id, $res_id = 0) {
         $data['menu_id'] = $id;
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug');
@@ -976,8 +975,6 @@ class RestaurantController extends Controller
 
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
-            //$id = $_GET['menu_id'];
-            //$table = TableRegistry::get('menus');
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
@@ -988,15 +985,11 @@ class RestaurantController extends Controller
         return view('dashboard.restaurant.menu_form', $data);
     }
 
-    public function getMore($id)
-    {
-        //$table = TableRegistry::get('menus');
-
+    public function getMore($id) {
         return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
     }
 
-    public function additional()
-    {
+    public function additional() {
         return view('dashboard.restaurant.additional');
     }
 
@@ -1029,8 +1022,7 @@ class RestaurantController extends Controller
         return $output_filename;
     }
 
-    public function menuadd()
-    {
+    public function menuadd() {
         //echo '<pre>';print_r($_POST); die;
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id');
@@ -1089,7 +1081,6 @@ class RestaurantController extends Controller
             }
 
             $ob2 = new \App\Http\Models\Menus();
-            // var_dump($arr);die();
             $ob2->populate($arr);
             $ob2->save();
 
@@ -1122,8 +1113,7 @@ class RestaurantController extends Controller
         }
     }
 
-    public function orderCat($cid, $sort)
-    {
+    public function orderCat($cid, $sort) {
         $_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
         if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
@@ -1134,12 +1124,9 @@ class RestaurantController extends Controller
             }else {
                 $new = $key - 1;
             }
-            //echo $new.'_'.
             $temp = $_POST['ids'][$new];
             $_POST['ids'][$new] = $cid;
             $_POST['ids'][$key] = $temp;
-
-
         }
         $child = \App\Http\Models\Menus::where('id', $cid)->get()[0];
         echo $child->parent;
@@ -1150,9 +1137,7 @@ class RestaurantController extends Controller
     }
 
 
-    public function deleteMenu($id, $slug = '')
-    {
-
+    public function deleteMenu($id, $slug = '') {
         $res_id = \App\Http\Models\Menus::where('id', $id)->get()[0]->restaurant_id;
 
         \App\Http\Models\Menus::where('id', $id)->delete();
@@ -1186,12 +1171,9 @@ class RestaurantController extends Controller
         }
     }
 
-    function deleteDir($dirPath)
-    {
-
+    function deleteDir($dirPath) {
         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
             $dirPath .= '/';
-
         }
         $files = glob($dirPath . '*', GLOB_MARK);
         foreach ($files as $file) {
@@ -1204,8 +1186,7 @@ class RestaurantController extends Controller
         @rmdir($dirPath);
     }
 
-    public function order_detail($ID)
-    {
+    public function order_detail($ID) {
         $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
         if(is_null($data['order']['restaurant_id'])) {
             return back()->with('status', 'Restaurant Not Found!');
@@ -1218,14 +1199,11 @@ class RestaurantController extends Controller
         }
     }
 
-    public function red($path)
-    {
+    public function red($path) {
         return \Redirect::to('restaurant/' . $path)->with('message', 'Restaurant menu successfully updated');
     }
 
-    public function redfront($path, $slug, $path2)
-    {
-        //$path = urldecode($path);
+    public function redfront($path, $slug, $path2) {
         return \Redirect::to($path . '/' . $slug . '/' . $path2)->with('message', 'Restaurant menu successfully updated');
     }
 
@@ -1252,8 +1230,7 @@ class RestaurantController extends Controller
         }
     }
 
-    public function saveCat()
-    {
+    public function saveCat() {
         $arr['title'] = $_POST['title'];
         $arr['res_id'] = $_POST['res_id'];
         $ob2 = new \App\Http\Models\Category();
@@ -1263,8 +1240,7 @@ class RestaurantController extends Controller
         die();
     }
 
-    function createslug($text)
-    {
+    function createslug($text) {
         // replace non letter or digits by -
         $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
@@ -1281,19 +1257,17 @@ class RestaurantController extends Controller
         $text = preg_replace('~[^-\w]+~', '', $text);
 
         if (empty($text)) {
-            return 'n-a';
+            $text = 'n-a';
         }
         //test for same slug in db
         $text = $this->chkSlug($text);
 
-
         return $text;
     }
 
-    function chkSlug($txt)
-    {
+    function chkSlug($txt) {
         if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $txt . rand(0, 9);
+            $txt = $this->chkSlug($txt . rand(0, 999));
         }
         return $txt;
     }

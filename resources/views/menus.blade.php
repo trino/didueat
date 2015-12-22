@@ -57,8 +57,8 @@
               <p>
                 <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn custom-default-btn">Remove</a>
                 <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn custom-default-btn fancybox-fast-view additem">Edit</a>
-                <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
-                <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
+                <a id="up_parent_{{ $value->id.'_'.$catid }}" class="btn custom-default-btn sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
+                <a id="down_parent_{{ $value->id.'_'.$catid }}" class="btn custom-default-btn sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
               </p>
               @endif
               <div class="row">
