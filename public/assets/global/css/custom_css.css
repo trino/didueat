@@ -5785,7 +5785,7 @@ li {
 #avatarImage {
     width: 40px;
     max-height: 40px !important;
-    border-radius: 50%;
+    border-radius: 50% !important;
 }
 
 #top-address-search-input {
