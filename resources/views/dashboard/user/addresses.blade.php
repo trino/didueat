@@ -53,7 +53,8 @@
                                             <td>{{ $value->phone_no }}</td>
                                             <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                             <td>
-                                                <a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow" data-id="{{ $value->id }}">Edit</a>
+                                                <a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow"
+                                                   data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
                                                    onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                                                 <a class="btn nomargin btn-info up">Up</a>

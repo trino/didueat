@@ -62,7 +62,8 @@
         if (v != '') {
             $('.confirm_password').show();
             $('#confirm_password').attr('required', 'required');
-        } else {
+        }
+        else {
             $('#confirm_password').removeAttr('required');
         }
     }
@@ -166,7 +167,7 @@
             var td_index = 0;
             var td_temp = 9999;
 
-            $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+            $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function(index) {
                 if ($(this).is(':checked') && $(this).attr('title') != "") {
                     var tit = $(this).attr('title');
                     var title = tit.split("_");
@@ -189,7 +190,7 @@
 
                         var ary_qty = "";
                         var ary_price = "";
-                        $('.extra-' + catid).each(function () {
+                        $('.extra-' + catid).each(function() {
                             if ($(this).is(":checked")) {
                                 var mid = $(this).attr('id').replace('extra_', '');
                                 //alert(mid);
@@ -366,7 +367,7 @@
                 $(this).parent().parent().find('.prv_button').hide();
                 banner.animate({scrollLeft: 0}, 10);
                 $(this).parent().parent().find('.nxt_button').show();
-                catarray.forEach(function (catid) {
+                catarray.forEach(function(catid) {
                     $('#error_' + catid).html("");
                 })
             }
@@ -388,7 +389,7 @@
                     '<a style="padding: 6px;height: 18px;line-height: 6px" id="dec' + ids + '" class="decrease small btn btn-danger" href="javascript:void(0);">' +
                     '<strong>-</strong></a><span class="count">x ' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + ' &nbsp;<a id="inc' + ids + '" class="increase btn btn-primary small " href="javascript:void(0);" style="padding: 6px;height: 18px;line-height: 6px">' +
                     '<strong>+</strong></a></span>' +
-                        //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
+                    //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                     '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span>' +
                     '<strong>' + app_title + '</strong>' +
                     '<em class="total">$' + (pre_cnt * price).toFixed(2) + '</em>' +
@@ -399,7 +400,7 @@
             price = parseFloat(price);
             var subtotal = "";
             var ccc = 0;
-            $('.total').each(function () {
+            $('.total').each(function() {
                 ccc++;
                 var tt = $(this).text().replace('$', '');
                 subtotal = Number(subtotal) + Number(tt);
@@ -419,11 +420,10 @@
             $('div.tax').text(tax);
             $('input.tax').val(tax);
 
-            if ($('#delivery_flag').val() == '1'){
+            if ($('#delivery_flag').val() == '1')
                 var del_fee = $('.df').val();
-            } else {
+            else
                 var del_fee = 0;
-            }
             del_fee = parseFloat(del_fee);
             //alert(del_fee);
 
@@ -434,9 +434,8 @@
             $('input.grandtotal').val(gtotal);
             $('#cart-total').text(gtotal);
             $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function() {
-                if (!$(this).hasClass('chk')) {
+                if (!$(this).hasClass('chk'))
                     $(this).removeAttr("checked");
-                }
             });
 
             $('.number' + menu_id).text('1');
@@ -448,9 +447,8 @@
        function inArray(needle, haystack) {
             var length = haystack.length;
             for (var i = 0; i < length; i++) {
-                if (haystack[i] == needle) {
+                if (haystack[i] == needle)
                     return true;
-                }
             }
             return false;
        }
@@ -474,7 +472,8 @@
                         }
                     }
                 });
-            } else {
+            }
+            else {
                 $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
                 $(this).parent().remove();
             }
@@ -489,9 +488,10 @@
             var cid = arr_pid[1];
             if ($(this).attr('id') == 'up_parent_' + pid) {
                 var sort = 'up';
-            } else {
-                var sort = 'down';
             }
+            else
+                var sort = 'down';
+
             var order = '';// array to hold the id of all the child li of the selected parent
             $('#loadmenus_' + cid + ' .parents').each(function(index) {
                 var val = $(this).attr('id').replace('parent', '');

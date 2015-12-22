@@ -10,15 +10,15 @@
         <div class="col-xs-12 col-md-10 col-sm-8">
           <?php printfile("views/dashboard/administrator/dashboard.blade.php"); ?>
           @if(\Session::has('message'))
-              <div class="alert {!! Session::get('message-type') !!}">
-                  <strong>{!! Session::get('message-short') !!}</strong>
-                  &nbsp; {!! Session::get('message') !!}
-              </div>
+            <div class="alert {!! Session::get('message-type') !!}">
+              <strong>{!! Session::get('message-short') !!}</strong>
+              &nbsp; {!! Session::get('message') !!}
+            </div>
           @endif
 
           <div class="box-shadow">
             <div class="portlet-title">
-                <div class="caption">
+              <div class="caption">
                 Profile Manager
               </div>
             </div>

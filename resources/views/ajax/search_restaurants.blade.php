@@ -21,18 +21,19 @@
                           <p><strong>Minimum Delivery:</strong> {{ $value['minimum'] }}</p>
                           <p><strong>Delivery Fee:</strong> {{ $value['delivery_fee'] }}</p>
                           <p><strong>Tags:</strong>
-                              <?php
-                                     $tag = $value['tags'];
-                                     $tags = explode(",", $tag);
-                                       for ($i=0; $i <= 4; $i++) {
-                                          if($i == 4){
-                                                echo (isset($tags[$i]))?$tags[$i]:'';
-                                          }else{
-                                                echo (isset($tags[$i]))?$tags[$i].',':'';
-                                          }
+                          <?php 
+                                 $tag = $value['tags'];
+                                 $tags = explode(",", $tag);
+                                   for ($i=0; $i <= 4; $i++) {
+                                      if($i == 4){
+                                            echo (isset($tags[$i]))?$tags[$i]:'';
+                                      }else{
+                                            echo (isset($tags[$i]))?$tags[$i].',':'';
                                       }
-                              ?>
+                                  }
+                          ?>
                           </p>
+                             
                           <a class="btn custom-default-btn" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">{{ $value['name'] }} Pick-up Only</a>
                           <div class="row">
                               {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
@@ -54,15 +55,15 @@
         @endforeach
         @endif
         <div id="loadMoreBtnContainer">
-            @if($hasMorePage > 0)
-                <div class="row">
-                    <div class="col-md-12 col-md-offset-5">
-                        <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
-                        <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-                    </div>
+        @if($hasMorePage > 0)
+            <div class="row">
+                <div class="col-md-12 col-md-offset-5">
+                    <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
+                    <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
                 </div>
-            @endif
-            <input type="hidden" id="countTotalResult" value="{{ $count }}" />
+            </div>
+        @endif
+        <input type="hidden" id="countTotalResult" value="{{ $count }}" />
         </div>
     </div>
 </div>

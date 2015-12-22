@@ -400,10 +400,10 @@
     }
 
     function checkUrl(textval) {
-      if (textval.replace('/dashboard', '') != textval) {
+      if (textval.replace('/dashboard', '') != textval)
         return true;
-      }
-      return false;
+      else
+        return false;
     }
 
     $('.loadmore').click(function() {
@@ -414,16 +414,17 @@
         $.ajax({
           url: url1,
           success: function(html) {
+
             if (html) {
               $('.nxtpage').remove();
               $("#postswrapper").append(html);
               $('div#loadmoreajaxloader').hide();
-            } else {
+            } else
               $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
-            }
           }
         });
-      } else {
+      }
+      else {
         $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
         $(this).parent().remove();
       }

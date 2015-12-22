@@ -19,7 +19,8 @@
                 $('.overlay_loader').hide();
                 alert('Please enter category title');
                 return false;
-            } else {
+            }
+            else {
                 $.ajax({
                     url: "{{ url('restaurant/saveCat/') }}",
                     data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ $restaurant->id }}",

@@ -375,21 +375,20 @@
             if (t > 11) {
                 var format = 'PM';
                 if (t < 22) {
-                    if (t != 12) {
+                    if (t != 12)
                         var ho = '0' + (t - 12);
-                    }else {
+                    else
                         var ho = 12;
-                    }
-                } else {
+                }
+                else {
                     var ho = t - 12;
                 }
             }
             else {
                 var ho = arr[0];
                 var format = 'AM';
-                if (arr[0] == '00') {
+                if (arr[0] == '00')
                     var ho = '12';
-                }
             }
             var tm = ho + ':' + arr[1] + ' ' + format;
             $(this).val(tm);

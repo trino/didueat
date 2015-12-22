@@ -92,10 +92,11 @@
             $(".sorting_parent").live('click', function () {
                 //alert('test');
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
-                var sort = 'down';
                 if ($(this).attr('id') == 'up_parent_' + pid) {
-                    sort = 'up';
+                    var sort = 'up';
                 }
+                else
+                    var sort = 'down';
 
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('.parentinfo li').each(function (index) {

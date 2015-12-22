@@ -17,11 +17,11 @@
                     </li>
                     <li id="top-address-search-input">&nbsp;
                         <select id="radiusSelect" style="margin-right:3px" onchange="radiusChng(this.value)">
-                            <?php
-                                foreach(array(1,2,5,10,20) as $km){
-                                    echo '<option value="' . $km . '">' . $km . ' km</option>';
-                                }
-                            ?>
+                            <option value="1">1 km</option>
+                            <option value="2">2 km</option>
+                            <option value="5">5 km</option>
+                            <option value="10">10 km</option>
+                            <option value="20">20 km</option>
                         </select>
                         <input class="nearby-res-btn" id="searchBtn" type="button" title="Click to Search" onclick="addressChngd()" value="Find Nearby Restaurants" >
                     </li>

@@ -215,9 +215,11 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
           // determine the new active page
           if (pgNum || parseInt(pgNum) == 0) {
               newpgNum = pgNum;
-          } else if (prevNext == "prev") {
+          }
+          else if (prevNext == "prev") {
               newpgNum = (activepg - 1);
-          } else {
+          }
+          else {
               newpgNum = (activepg + 1);
           }
 
@@ -233,11 +235,13 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
           if ((newpgNum && newpgNum < numpgs) || parseInt(newpgNum) == 0) {
               document.getElementById('pg' + newpgNum).style.background = "#d3d3d3";
               document.getElementById('pgTop' + newpgNum).style.background = "#d3d3d3";
-          }  else {
+          }
+          else {
               if (prevNext == "prev") {
                   document.getElementById('pg' + (activepg - 1)).style.background = "#d3d3d3";
                   document.getElementById('pgTop' + (activepg - 1)).style.background = "#d3d3d3";
-              } else {
+              }
+              else {
                   // next
                   document.getElementById('pg' + (activepg + 1)).style.background = "#d3d3d3";
                   document.getElementById('pgTop' + (activepg + 1)).style.background = "#d3d3d3";
@@ -251,13 +255,15 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
 
                   document.getElementById('prevpagTop').style.visibility = "hidden";
                   document.getElementById('nextpagTop').style.visibility = "visible";
-              } else if (newpgNum == (numpgs - 1)) {
+              }
+              else if (newpgNum == (numpgs - 1)) {
                   document.getElementById('nextpag').style.visibility = "hidden";
                   document.getElementById('prevpag').style.visibility = "visible";
 
                   document.getElementById('nextpagTop').style.visibility = "hidden";
                   document.getElementById('prevpagTop').style.visibility = "visible";
-              } else {
+              }
+              else {
                   // set prev and next to visible
                   document.getElementById('nextpag').style.visibility = "visible";
                   document.getElementById('prevpag').style.visibility = "visible";
@@ -281,13 +287,15 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
               // for clearing exisiting markers and polygons
               var existingPgIndxStrt = 0;
               var existingIndexMax = perpg;
-          } else {
+          }
+          else {
 // alert("numpgs: "+numpgs)
               var existingPgIndxStrt = activepg * perpg;
               if (activepg == (numpgs - 1)) {
                   // meaning it's the last page
                   var existingIndexMax = existingPgIndxStrt + lastPgRemainder;
-              }  else {
+              }
+              else {
                   var existingIndexMax = existingPgIndxStrt + perpg;
               }
           }
@@ -304,7 +312,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
           if (newpgNum === 0) {
               thisPgIndxStrt = 0;
               indexMax = perpg;
-          }  else {
+          }
+          else {
               thisPgIndxStrt = newpgNum * perpg;
               indexMax = thisPgIndxStrt + perpg;
           }
@@ -362,7 +371,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
 
               if (activepg == i) {
                   bgcolorHilight = ";background:#d3d3d3";
-              } else {
+              }
+              else {
                   bgcolorHilight = "";
               }
 
@@ -396,7 +406,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
               var pgMsg = "";
               if (numMarkers < 2) {
                   es = "";
-              } else {
+              }
+              else {
                   if (numpgs > 1) {
                       pgMsg = ", Page 1 of &nbsp;" + numpgs;
                       document.getElementById('numReturned').style.marginBottom = "20px"
@@ -473,7 +484,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
 
                   if (numMarkers < 2) {
                       es = "";
-                  }  else {
+                  }
+                  else {
                       if (thisNumpgs > 1) {
                           pgMsg = ", Page 1 of &nbsp;" + thisNumpgs;
                           document.getElementById('numReturned').style.marginBottom = "20px"
@@ -550,7 +562,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
                       appendPgsStr(numMarkers);
                   }
 
-              }  else {
+              }
+              else {
                   document.getElementById('numReturned').innerHTML = "";
                   document.getElementById('numReturned').style.visibility = "hidden";
                   alert("No Matches in Your Specified Location.\n\nPlease Try Increasing the Search Distance, or Specifying A Different Address.\n\n")
@@ -681,7 +694,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
               document.getElementById('more' + i).innerHTML = "";
               document.getElementById('more' + i).style.display = "none";
               showMoreA[i] = false;
-          }  else {
+          }
+          else {
               document.getElementById('more' + i).innerHTML = markerDataA[i].description + "<br/>Minimum Purchase: $" + markerDataA[i].minimum;
               document.getElementById('more' + i).style.display = "block";
               showMoreA[i] = true;
@@ -1013,7 +1027,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
                 genresA.push(v);
                 genresIndxA.push(i);
             }
-        } else {
+        }
+        else {
             if (thisgenreIndx != -1) {
                 // remove from array
 //  alert("remove "+i+" from array at index: "+thisgenreIndx)
@@ -1025,7 +1040,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
             document.getElementById('cuisinesSelected').innerHTML = "(" + genresIndxA.length + " Selected)";
             document.getElementById('cuisinesBtn').title = "Selected Cuisines: " + genresA.join(" | ");
             document.getElementById('cuisinesCaret').title = "Selected Cuisines: " + genresA.join(" | ");
-        }  else {
+        }
+        else {
             document.getElementById('cuisinesSelected').innerHTML = "None Selected";
             document.getElementById('cuisinesBtn').title = "No Selected Cuisines";
             document.getElementById('cuisinesCaret').title = "No Selected Cuisines";
@@ -1123,7 +1139,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
                             currResultNums2.push(currResultNums[i]);
                         }
                     }
-                } else {
+                }
+                else {
                     for (var i = 0; i < markerDataALen; i++) {
                         if (genresA.indexOf(markerDataA[i].genre) != -1) {
                             if (currResultNums2.indexOf(markerDataA[i].genre) == -1) {
@@ -1161,7 +1178,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
                     if (i > perpg) {
                         // show pagination navigation only if # markers > # per pg (otherwise, only 1 page needed)
                         addPgsRefn = true;
-                    } else {
+                    }
+                    else {
                         addPgsRefn = false;
                     }
 
@@ -1188,7 +1206,8 @@ if (!isset($radiusSelect) || $radiusSelect == "") {
                     if (i > perpg) {
                         // show pagination navigation only if # markers > # per pg (otherwise, only 1 page needed)
                         addPgsRefn = true;
-                    }  else {
+                    }
+                    else {
                         addPgsRefn = false;
                     }
 

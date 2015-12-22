@@ -23,10 +23,10 @@
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(!isset($ccount) || (isset($ccount) && $ccount==0))
-                <div class="newaction">
-                    <a href="javascript:void(0)" class="btn red btn-info add_additional" id="add_additional{{ $menu_id }}">Add Addons</a>
-                    <a href="javascript:void(0)" id="save0" data-id="{{ $menu_id }}" class="btn red btn-info savebtn">Save</a>
-                </div>
+            <div class="newaction">
+                <a href="javascript:void(0)" class="btn red btn-info add_additional" id="add_additional{{ $menu_id }}">Add Addons</a>
+                <a href="javascript:void(0)" id="save0" data-id="{{ $menu_id }}" class="btn red btn-info savebtn">Save</a>
+            </div>
             @endif
         </div>
     </div>
