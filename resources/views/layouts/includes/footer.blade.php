@@ -289,9 +289,10 @@
 
     $('body').on('submit', '#login-ajax-form', function (e) {
       var data = $('#login-ajax-form').serialize();
+      var token = $('#login-ajax-form input[name=_token]').val();
       $.ajax({
         url: "{{ url('auth/login/ajax') }}",
-        data: data,
+        data: data, _token:token,
         type: "post",
         success: function (msg) {
 

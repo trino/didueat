@@ -26,7 +26,8 @@ class CreditCard extends BaseModel {
                        'expiry_date'    => true,
                        'expiry_month'   => true,
                        'expiry_year'    => true,
-                       'ccv'            => true
+                       'ccv'            => true,
+                       'order'          => false,
         );
         foreach ($cells as $cell => $NeedsEncryption) {
             if (array_key_exists($cell, $data)) {

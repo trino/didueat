@@ -42,15 +42,15 @@
                                     <th width="5%">User Type</th>
                                     <th width="10%">Name</th>
                                     <th width="10%">Card Type</th>
-                                    <th width="15%">Card Number</th>
+                                    <th width="13%">Card Number</th>
                                     <th width="5%">Date</th>
-                                    <th width="5%">Month</th>
-                                    <th width="5%">Year</th>
-                                    <th width="10%">Actions</th>
+                                    <th width="4%">Month</th>
+                                    <th width="4%">Year</th>
+                                    <th width="14%">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($credit_cards_list as $value)
+                                @foreach($credit_cards_list as $key => $value)
                                     <?php
                                         foreach($encryptedfields as $field){
                                             if(is_encrypted($value->$field)){
@@ -58,7 +58,7 @@
                                             }
                                         }
                                     ?>
-                                    <tr>
+                                <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                                         <td>{{ $value->user_type }}</td>
                                         <td>{{ $value->first_name.' '.$value->last_name }}</td>
                                         <td>{{ $value->card_type }}</td>
@@ -71,6 +71,8 @@
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}" class="btn red" onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                             @endif
+                                            <a class="btn nomargin btn-info up">Up</a>
+                                            <a class="btn nomargin btn-info down">Down</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -121,10 +123,41 @@
     @include('common.tabletools')
     
     <script>
-        $('body').on('click', '.editUser', function(){
-            var id = $(this).attr('data-id');
-            $.get("{{ url("users/credit-cards/edit") }}/"+id, {}, function(result){
-                $('#editContents').html(result);
+        $(document).ready(function(){
+            $('body').on('click', '.up, .down', function(){
+                var row = $(this).parents("tr:first");
+                var token = $('#addNewForm input[name=_token]').val();
+                var order = $(this).parents("tr:first").attr('data-order');
+                
+                if ($(this).is(".up")) {
+                    row.insertBefore(row.prev());
+                } else {
+                    row.insertAfter(row.next());
+                }
+                
+                $( ".rows" ).each(function( index ) {
+                    $(this).attr("data-order", index);
+                });
+                
+                var data_id = $(".rows").map(function() {
+                    return $(this).attr("data-id");
+                }).get();
+                var data_order = $(".rows").map(function() {
+                    return $(this).attr("data-order");
+                }).get();
+                
+                $.post("{{ url('users/credit-cards/sequance') }}", {id:data_id.join('|'), order:data_order.join('|'), _token:token}, function(result){
+                    if(result){
+                        alert(result);
+                    }
+                });
+            });
+            
+            $('body').on('click', '.editUser', function(){
+                var id = $(this).attr('data-id');
+                $.get("{{ url("users/credit-cards/edit") }}/"+id, {}, function(result){
+                    $('#editContents').html(result);
+                });
             });
         });
     </script>

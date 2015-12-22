@@ -40,21 +40,22 @@ Route::post('auth/validate/email/ajax',             'Auth\AuthController@postAja
 
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function(){
-	Route::resource('dashboard',                        'AdministratorController@dashboard');
-	Route::get('restaurant/orders/{type}',              'RestaurantController@orderslist')->where('slug', '[a-z]+');
-	Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail')->where('id', '[0-9]+');
-	Route::get('restaurant/report',                     'RestaurantController@report');
-	Route::resource('user/addresses',                   'UsersController@addresses');
+    Route::resource('dashboard',                        'AdministratorController@dashboard');
+    Route::get('restaurant/orders/{type}',              'RestaurantController@orderslist')->where('slug', '[a-z]+');
+    Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail')->where('id', '[0-9]+');
+    Route::get('restaurant/report',                     'RestaurantController@report');
+    Route::resource('user/addresses',                   'UsersController@addresses');
     Route::get('user/addresses/edit/{id}',              'UsersController@addressesUpdate');
-	Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
-	Route::get('user/info',                             'AdministratorController@dashboard');
-	Route::resource('user/images',                      'UsersController@images');
-	Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
+    Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
+    Route::get('user/info',                             'AdministratorController@dashboard');
+    Route::resource('user/images',                      'UsersController@images');
+    Route::resource('restaurant/info',                  'RestaurantController@restaurantInfo');
     //Credit Cards
     Route::resource('users/credit-cards',                 'AdministratorController@addCreditCards');
-    Route::post('users/credit-cards/{type}',                 'AdministratorController@addCreditCards');
-	Route::get('users/credit-cards/action/{id}/{type}',   		  'AdministratorController@creditCardsAction');
-	Route::get('users/credit-cards/edit/{id}',            'AdministratorController@ajaxEditCreditCardFrom');
+    Route::post('users/credit-cards/sequance',            'AdministratorController@saveCreditCardsSequance');
+    Route::post('users/credit-cards/{type}',              'AdministratorController@addCreditCards');
+    Route::get('users/credit-cards/action/{id}/{type}',   'AdministratorController@creditCardsAction');
+    Route::get('users/credit-cards/edit/{id}',            'AdministratorController@ajaxEditCreditCardFrom');
 });
 
 // Routes After Logged in and Role Restaurant Check

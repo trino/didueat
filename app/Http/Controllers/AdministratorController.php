@@ -368,11 +368,11 @@ class AdministratorController extends Controller
             $data['title'] = 'Credit Cards List';
             $data['type'] = $type;
             if ($type == 'user') {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_id'))->where('user_type', $type)->orderBy('id', 'DESC')->get();
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_id'))->where('user_type', $type)->orderBy('order', 'ASC')->get();
             } else if ($type == 'restaurant') {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_restaurant_id'))->where('user_type', $type)->orderBy('id', 'DESC')->get();
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('profile_id', \Session::get('session_restaurant_id'))->where('user_type', $type)->orderBy('order', 'ASC')->get();
             } else {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('id', 'DESC')->get();
+                $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('order', 'ASC')->get();
             }
             $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
@@ -381,7 +381,7 @@ class AdministratorController extends Controller
     }
 
 
-  /**
+    /**
      * Credit Card Action Delete
      * @param $id
      * @return redirect
@@ -410,6 +410,32 @@ class AdministratorController extends Controller
             \Session::flash('message-type', 'alert-danger');
             \Session::flash('message-short', 'Oops!');
             return \Redirect::to('users/credit-cards/'.$type);
+        }
+    }
+
+    /**
+     * Credit Card Sequance Change
+     * @param none
+     * @return response
+     */
+    public function saveCreditCardsSequance()
+    {
+        $post = \Input::all();
+        try {
+            $idArray = explode("|", $post['id']);
+            $orderArray = explode("|", $post['order']);
+
+            foreach ($idArray as $key => $value) {
+                $id = $value;
+                $order = $orderArray[$key];
+                //echo $id.'=>'.$order.'<br>';
+                $ob = \App\Http\Models\CreditCard::find($id);
+                $ob->populate(array('order'=>$order));
+                $ob->save();
+            }
+            
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
     }
 
