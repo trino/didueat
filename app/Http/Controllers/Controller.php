@@ -22,8 +22,8 @@ abstract class Controller extends BaseController {
         });
     }
 
-    public function success($message, $redirect){
-        return $this->oops($message, $redirect, false, 'alert-success', 'Congratulations!');
+    public function success($message, $redirect, $withInput = false){
+        return $this->oops($message, $redirect, $withInput, 'alert-success', 'Congratulations!');
     }
 
     public function oops($message, $redirect, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
