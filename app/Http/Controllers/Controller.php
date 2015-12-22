@@ -23,10 +23,10 @@ abstract class Controller extends BaseController {
     }
 
     public function success($message, $redirect, $withInput = false){
-        return $this->oops($message, $redirect, $withInput, 'alert-success', 'Congratulations!');
+        return $this->failure($message, $redirect, $withInput, 'alert-success', 'Congratulations!');
     }
 
-    public function oops($message, $redirect, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
+    public function failure($message, $redirect, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
         \Session::flash('message', $message);
         \Session::flash('message-type', $type);
         \Session::flash('message-short', $title);

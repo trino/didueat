@@ -41,10 +41,10 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['address']) || empty($post['address'])) {
-                $this->oops( "[Street address] field is missing!",'user/addresses');
+                $this->failure( "[Street address] field is missing!",'user/addresses');
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                $this->oops("[City] field is missing!",'user/addresses');
+                $this->failure("[City] field is missing!",'user/addresses');
             }
             if (!isset($post['province']) || empty($post['province'])) {
                 \Session::flash('message', "[Province] field is missing!");
@@ -53,7 +53,7 @@ class UsersController extends Controller {
                 return \Redirect::to('user/addresses');
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                $this->oops( "[Country] field is missing!",'user/addresses');
+                $this->failure( "[Country] field is missing!",'user/addresses');
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
@@ -71,7 +71,7 @@ class UsersController extends Controller {
                 $this->success("Address created successfully",'user/addresses');
             }
             catch(\Exception $e) {
-                $this->oops( $e->getMessage(),'user/addresses');
+                $this->failure( $e->getMessage(),'user/addresses');
             }
         } 
         else {
@@ -143,7 +143,7 @@ class UsersController extends Controller {
      */
     public function addressesDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->oops("[Id] is missing!", 'user/addresses');
+            $this->failure("[Id] is missing!", 'user/addresses');
         }
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
@@ -151,7 +151,7 @@ class UsersController extends Controller {
             $this->success("Address has been deleted successfully!", 'user/addresses');
         }
         catch(\Exception $e) {
-            $this->oops($e->getMessage(),'user/addresses');
+            $this->failure($e->getMessage(),'user/addresses');
         }
     }
     
@@ -164,7 +164,7 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
-                $this->oops( '[ID] field is missing','user/reviews',true);
+                $this->failure( '[ID] field is missing','user/reviews',true);
             }
             
             \DB::beginTransaction();
@@ -178,11 +178,11 @@ class UsersController extends Controller {
             }
             catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                $this->oops( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+                $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             }
             catch(\Exception $e) {
                 \DB::rollback();
-                $this->oops($e->getMessage(),'restaurant/users')->withInput();
+                $this->failure($e->getMessage(),'restaurant/users')->withInput();
             }
         } 
         else {
@@ -225,13 +225,13 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
-                $this->oops("[Restaurant] field is missing!", 'user/images');
+                $this->failure("[Restaurant] field is missing!", 'user/images');
             }
             if (!isset($post['title']) || empty($post['title'])) {
-                $this->oops( "[Title] field is missing!",'user/images');
+                $this->failure( "[Title] field is missing!",'user/images');
             }
             if (!\Input::hasFile('image')) {
-                $this->oops( "[Image] field is missing!",'user/images');
+                $this->failure( "[Image] field is missing!",'user/images');
             }
             try {
                 if (\Input::hasFile('image')) {
@@ -251,7 +251,7 @@ class UsersController extends Controller {
                 $this->success( "Image uploaded successfully", 'user/images');
             }
             catch(\Exception $e) {
-                $this->oops($e->getMessage(),'user/images');
+                $this->failure($e->getMessage(),'user/images');
             }
         } 
         else {

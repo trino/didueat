@@ -41,10 +41,10 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
-                $this->oops("[Name] field is missing!",'dashboard');
+                $this->failure("[Name] field is missing!",'dashboard');
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                $this->oops( "[Email] field is missing!",'dashboard');
+                $this->failure( "[Email] field is missing!",'dashboard');
             }
 
             try {
@@ -53,16 +53,16 @@ class AdministratorController extends Controller {
                 if (isset($post['old_password']) && !empty($post['old_password'])) {
                     $password = \Input::get('old_password');
                     if (!\Hash::check($password, $ob->password)) {
-                        $this->oops("[Old Password] is incorrect!",'dashboard');
+                        $this->failure("[Old Password] is incorrect!",'dashboard');
                     }
                     if (empty($post['password'])) {
-                        $this->oops( "[New Password] is missing!",'dashboard');
+                        $this->failure( "[New Password] is missing!",'dashboard');
                     }
                     if (empty($post['confirm_password'])) {
-                        $this->oops("[Confirm Password] is missing!",'dashboard');
+                        $this->failure("[Confirm Password] is missing!",'dashboard');
                     }
                     if ($post['password'] != $post['confirm_password']) {
-                        $this->oops("[Passwords] are mis-matched!",'dashboard');
+                        $this->failure("[Passwords] are mis-matched!",'dashboard');
                     }
                     $data['password'] = $post['confirm_password'];
                 }
@@ -93,7 +93,7 @@ class AdministratorController extends Controller {
                 login($ob);
                 $this->success("Profile updated successfully", 'dashboard');
             } catch (\Exception $e) {
-                $this->oops($e->getMessage(), 'dashboard');
+                $this->failure($e->getMessage(), 'dashboard');
             }
         } else {
             $data['title'] = 'Dashboard';
@@ -111,10 +111,10 @@ class AdministratorController extends Controller {
      */
     public function usersAction($type = '', $id = 0) {
         if (!isset($type) || empty($type)) {
-            $this->oops("[Type] is missing!", 'restaurant/users');
+            $this->failure("[Type] is missing!", 'restaurant/users');
         }
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->oops("[Order Id] is missing!", 'restaurant/users');
+            $this->failure("[Order Id] is missing!", 'restaurant/users');
         }
 
         try {
@@ -129,7 +129,7 @@ class AdministratorController extends Controller {
             $this->success('Status has been changed successfully!', 'Congratulations!');
             return \Redirect::to('restaurant/users');
         } catch (\Exception $e) {
-            $this->oops( $e->getMessage(), 'restaurant/users');
+            $this->failure( $e->getMessage(), 'restaurant/users');
         }
     }
 
@@ -142,23 +142,23 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
-                $this->oops('[Name] field is missing','restaurant/users', true);
+                $this->failure('[Name] field is missing','restaurant/users', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                $this->oops( trans('messages.user_email_already_exist.message'),'restaurant/users', true);
+                $this->failure( trans('messages.user_email_already_exist.message'),'restaurant/users', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                $this->oops( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
+                $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                $this->oops(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
             }
             if ($post['password'] != $post['confirm_password']) {
-                $this->oops(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
             }
 
             \DB::beginTransaction();
@@ -195,10 +195,10 @@ class AdministratorController extends Controller {
                 $this->success('User has been added successfully. A confirmation email has been sent to the selected email address for verification.', 'restaurant/users', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                $this->oops(trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+                $this->failure(trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                $this->oops( $e->getMessage(), 'restaurant/users', true);
+                $this->failure( $e->getMessage(), 'restaurant/users', true);
             }
         } else {
             $data['title'] = 'Users List';
@@ -220,31 +220,31 @@ class AdministratorController extends Controller {
 
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['profile_id']) || empty($post['profile_id'])) {
-                $this->oops('[User Type] field is missing','users/credit-cards/'.$type, true);
+                $this->failure('[User Type] field is missing','users/credit-cards/'.$type, true);
             }
             if (!isset($post['first_name']) || empty($post['first_name'])) {
-                $this->oops('[Name] field is missing','users/credit-cards/'.$type, true);
+                $this->failure('[Name] field is missing','users/credit-cards/'.$type, true);
             }
             if (!isset($post['last_name']) || empty($post['last_name'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             if (!isset($post['card_type']) || empty($post['card_type'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             if (!isset($post['card_number']) || empty($post['card_number'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             if (!isset($post['ccv']) || empty($post['ccv'])) {
-                $this->oops( trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure( trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
-                $this->oops(trans('messages.user_missing_email.message'), 'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'), 'users/credit-cards/'.$type, true);
             }
             if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
             }
             
             \DB::beginTransaction();
@@ -256,7 +256,7 @@ class AdministratorController extends Controller {
                 $this->success( 'Credit card has been saved successfully.', 'users/credit-cards/'.$type);
             } catch (\Exception $e) {
                 \DB::rollback();
-                $this->oops($e->getMessage(), 'users/credit-cards', true);
+                $this->failure($e->getMessage(), 'users/credit-cards', true);
             }
         } else {
             
@@ -283,7 +283,7 @@ class AdministratorController extends Controller {
      */
     public function creditCardsAction($id = 0, $type = "") {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->oops( "[card Id] is missing!",'users/credit-cards/'.$type);
+            $this->failure( "[card Id] is missing!",'users/credit-cards/'.$type);
         }
         try {
             $ob = \App\Http\Models\CreditCard::find($id);
@@ -291,7 +291,7 @@ class AdministratorController extends Controller {
             event(new \App\Events\AppEvents($ob, "Card Delete"));
             $this->success('Card has been deleted successfully!', 'users/credit-cards/'.$type);
         } catch (\Exception $e) {
-            $this->oops($e->getMessage(), 'users/credit-cards/'.$type);
+            $this->failure($e->getMessage(), 'users/credit-cards/'.$type);
         }
     }
 
@@ -356,26 +356,26 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
-                $this->oops('[ID] field is missing', 'restaurant/users', true);
+                $this->failure('[ID] field is missing', 'restaurant/users', true);
             }
             if (!isset($post['name']) || empty($post['name'])) {
-                $this->oops('[Name] field is missing','restaurant/users', true);
+                $this->failure('[Name] field is missing','restaurant/users', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                $this->oops(trans('messages.user_missing_email.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->where('id', '!=', $post['id'])->count();
             if ($is_email > 0) {
-                $this->oops(trans('messages.user_email_already_exist.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_email_already_exist.message'),'restaurant/users', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                $this->oops( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
+                $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                $this->oops(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
             }
             if ($post['password'] != $post['confirm_password']) {
-                $this->oops(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+                $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
             }
 
             \DB::beginTransaction();
@@ -403,13 +403,13 @@ class AdministratorController extends Controller {
                 $this->success( 'User has been updated successfully.', 'restaurant/users', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                $this->oops( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+                $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                $this->oops($e->getMessage(),'restaurant/users', true);
+                $this->failure($e->getMessage(),'restaurant/users', true);
             }
         } else {
-            $this->oops( "Invalid parsed data!",'restaurant/users', true);
+            $this->failure( "Invalid parsed data!",'restaurant/users', true);
         }
     }
 
@@ -422,10 +422,10 @@ class AdministratorController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['subject']) || empty($post['subject'])) {
-                $this->oops("[Subject] field is missing!",'restaurant/newsletter');
+                $this->failure("[Subject] field is missing!",'restaurant/newsletter');
             }
             if (!isset($post['message']) || empty($post['message'])) {
-                $this->oops("[Message] field is missing!", 'restaurant/newsletter');
+                $this->failure("[Message] field is missing!", 'restaurant/newsletter');
             }
             try {
                 $ob = \App\Http\Models\Newsletter::get();
@@ -442,7 +442,7 @@ class AdministratorController extends Controller {
 
                 $this->success( "Newsletter sent successfully",'restaurant/newsletter');
             } catch (\Exception $e) {
-                $this->oops($e->getMessage(),'restaurant/newsletter');
+                $this->failure($e->getMessage(),'restaurant/newsletter');
             }
         } else {
             $data['title'] = 'Newsletter Send';
