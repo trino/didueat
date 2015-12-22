@@ -1,6 +1,8 @@
 /** 01.CSS RESET
 **********************************/
-
+.avatarli{
+    margin-top: -3px;
+}
 
 /**
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
@@ -6234,7 +6236,7 @@ My css styling 27 Nov 2015
 }
 
 .restaurant-name {
-    background: #F14E2D none repeat scroll 0% 0%;
+    background: #D50000 none repeat scroll 0% 0%;
     padding: 10px;
     margin-bottom: 20px;
 }

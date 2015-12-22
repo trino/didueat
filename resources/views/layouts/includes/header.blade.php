@@ -30,7 +30,7 @@
                     Hi, {{ explode(' ', Session::get('session_name'))[0] }}
                 </a>
             </li>
-            <li>
+            <li class="avatarli">
                 <a href="{{ url('dashboard') }}">
                     <img src="<?php if (Session::has('session_photo')) { echo asset('assets/images/users/' . Session::get('session_photo')); } else { echo asset('assets/images/default.png'); } ?>" id="avatarImage">
                 </a>
