@@ -45,6 +45,7 @@ Route::group(['middleware' => ['logged']], function(){
     Route::get('restaurant/orders/order_detail/{id}',   'RestaurantController@order_detail')->where('id', '[0-9]+');
     Route::get('restaurant/report',                     'RestaurantController@report');
     Route::resource('user/addresses',                   'UsersController@addresses');
+    Route::post('user/addresses/sequence',              'UsersController@addressesSequence');
     Route::get('user/addresses/edit/{id}',              'UsersController@addressesUpdate');
     Route::get('user/addresses/delete/{id}',            'UsersController@addressesDelete')->where('id', '[0-9]+');
     Route::get('user/info',                             'AdministratorController@dashboard');
@@ -69,6 +70,7 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function()
 	Route::get('restaurant/orders/list/delete/{id}',    'RestaurantController@deleteOrder')->where('id', '[0-9]+');
 
 	Route::resource('restaurant/addresses',             'RestaurantController@addresses');
+	Route::post('restaurant/addresses/sequence',        'RestaurantController@addressesSequence');
 	Route::get('restaurant/addresses/edit/{id}',        'RestaurantController@ajaxEditAddressForm');
 	Route::get('restaurant/addresses/delete/{id}',      'RestaurantController@deleteAddresses')->where('id', '[0-9]+');
 	Route::get('restaurant/addresses/default/{id}',     'RestaurantController@defaultAddresses')->where('id', '[0-9]+');

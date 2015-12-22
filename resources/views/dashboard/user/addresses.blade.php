@@ -36,18 +36,18 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
-                                        <th width="5%">ID</th>
+                                        <th width="5%">#</th>
                                         <th width="15%">User Name</th>
                                         <th width="15%">Address Name</th>
-                                        <th width="20%">Mobile #</th>
+                                        <th width="15%">Mobile #</th>
                                         <th width="25%">Address</th>
-                                        <th width="15%">Action</th>
+                                        <th width="20%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($addresses_list as $value)
-                                        <tr>
-                                            <td>{{ $value->id }}</td>
+                                    @foreach($addresses_list as $key => $value)
+                                        <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+                                            <td>{{ $key+1 }}</td>
                                             <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
                                             <td>{{ $value->location }}</td>
                                             <td>{{ $value->phone_no }}</td>
@@ -57,6 +57,8 @@
                                                    data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
                                                    onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
+                                                <a class="btn nomargin btn-info up">Up</a>
+                                                <a class="btn nomargin btn-info down">Down</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -236,6 +238,35 @@
                     $('#editNewUser #contents').html(result);
                 }
                 $('#editNewUser #loading').hide();
+            });
+        });
+        
+        $('body').on('click', '.up, .down', function(){
+            var row = $(this).parents("tr:first");
+            var token = $('#addressesForm input[name=_token]').val();
+            var order = $(this).parents("tr:first").attr('data-order');
+
+            if ($(this).is(".up")) {
+                row.insertBefore(row.prev());
+            } else {
+                row.insertAfter(row.next());
+            }
+
+            $( ".rows" ).each(function( index ) {
+                $(this).attr("data-order", index);
+            });
+
+            var data_id = $(".rows").map(function() {
+                return $(this).attr("data-id");
+            }).get();
+            var data_order = $(".rows").map(function() {
+                return $(this).attr("data-order");
+            }).get();
+
+            $.post("{{ url('user/addresses/sequence') }}", {id:data_id.join('|'), order:data_order.join('|'), _token:token}, function(result){
+                if(result){
+                    alert(result);
+                }
             });
         });
     </script>

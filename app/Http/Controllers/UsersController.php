@@ -95,9 +95,36 @@ class UsersController extends Controller
             $data['title'] = "Addresses Manage";
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['states_list'] = \App\Http\Models\States::get();
-            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::where('user_id', \Session::get('session_id'))->orderBy('id', 'DESC')->get();
+            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::where('user_id', \Session::get('session_id'))->orderBy('order', 'ASC')->get();
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            //echo '<pre>';print_r($data['addresses_list']->toArray()); die;
             return view('dashboard.user.addresses', $data);
+        }
+    }
+    
+    /**
+     * Credit Card Sequance Change
+     * @param none
+     * @return response
+     */
+    public function addressesSequence()
+    {
+        $post = \Input::all();
+        try {
+            $idArray = explode("|", $post['id']);
+            $orderArray = explode("|", $post['order']);
+
+            foreach ($idArray as $key => $value) {
+                $id = $value;
+                $order = $orderArray[$key];
+                //echo $id.'=>'.$order.'<br>';
+                $ob = \App\Http\Models\ProfilesAddresses::find($id);
+                $ob->populate(array('order'=>$order));
+                $ob->save();
+            }
+            
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
     }
     

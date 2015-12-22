@@ -122,42 +122,40 @@
     
     @include('common.tabletools')
     
-    <script>
-        $(document).ready(function(){
-            $('body').on('click', '.up, .down', function(){
-                var row = $(this).parents("tr:first");
-                var token = $('#addNewForm input[name=_token]').val();
-                var order = $(this).parents("tr:first").attr('data-order');
-                
-                if ($(this).is(".up")) {
-                    row.insertBefore(row.prev());
-                } else {
-                    row.insertAfter(row.next());
-                }
-                
-                $( ".rows" ).each(function( index ) {
-                    $(this).attr("data-order", index);
-                });
-                
-                var data_id = $(".rows").map(function() {
-                    return $(this).attr("data-id");
-                }).get();
-                var data_order = $(".rows").map(function() {
-                    return $(this).attr("data-order");
-                }).get();
-                
-                $.post("{{ url('users/credit-cards/sequance') }}", {id:data_id.join('|'), order:data_order.join('|'), _token:token}, function(result){
-                    if(result){
-                        alert(result);
-                    }
-                });
+    <script type="text/javascript">
+        $('body').on('click', '.up, .down', function(){
+            var row = $(this).parents("tr:first");
+            var token = $('#addNewForm input[name=_token]').val();
+            var order = $(this).parents("tr:first").attr('data-order');
+
+            if ($(this).is(".up")) {
+                row.insertBefore(row.prev());
+            } else {
+                row.insertAfter(row.next());
+            }
+
+            $( ".rows" ).each(function( index ) {
+                $(this).attr("data-order", index);
             });
-            
-            $('body').on('click', '.editUser', function(){
-                var id = $(this).attr('data-id');
-                $.get("{{ url("users/credit-cards/edit") }}/"+id, {}, function(result){
-                    $('#editContents').html(result);
-                });
+
+            var data_id = $(".rows").map(function() {
+                return $(this).attr("data-id");
+            }).get();
+            var data_order = $(".rows").map(function() {
+                return $(this).attr("data-order");
+            }).get();
+
+            $.post("{{ url('users/credit-cards/sequance') }}", {id:data_id.join('|'), order:data_order.join('|'), _token:token}, function(result){
+                if(result){
+                    alert(result);
+                }
+            });
+        });
+
+        $('body').on('click', '.editUser', function(){
+            var id = $(this).attr('data-id');
+            $.get("{{ url("users/credit-cards/edit") }}/"+id, {}, function(result){
+                $('#editContents').html(result);
             });
         });
     </script>

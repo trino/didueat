@@ -33,24 +33,26 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
-                                        <th width="10%">ID</th>
-                                        <th width="50%">Phone Number/Email Address</th>
-                                        <th width="15%">Type</th>
+                                        <th width="10%">#</th>
+                                        <th width="60%">Phone Number/Email Address</th>
+                                        <th width="10%">Type</th>
                                         {{--<th width="15%">Status</th>--}}
-                                        <th width="10%">Actions</th>
+                                        <th width="20%">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($addresses_list as $value)
+                                    @foreach($addresses_list as $key => $value)
                                         <?php $status = "<a href='". url('restaurant/addresses/default/'.$value->id) ."' class='btn btn-danger red'>Make Default</a>"; ?>
-                                        <tr>
-                                            <td>{{ $value->id }}</td>
+                                        <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+                                            <td>{{ $key+1 }}</td>
                                             <td>{{ $value->address }}</td>
                                             <td>{{ $value->type }}</td>
                                             {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
                                             <td>
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
                                                 <a href="#editAddress" class="btn nomargin btn-info editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                                <a class="btn nomargin btn-info up">Up</a>
+                                                <a class="btn nomargin btn-info down">Down</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -142,6 +144,35 @@
             } else {
                 $('.saveNewBtn').attr('disabled', true);
             }
+        });
+        
+        $('body').on('click', '.up, .down', function(){
+            var row = $(this).parents("tr:first");
+            var token = $('#addNewForm input[name=_token]').val();
+            var order = $(this).parents("tr:first").attr('data-order');
+
+            if ($(this).is(".up")) {
+                row.insertBefore(row.prev());
+            } else {
+                row.insertAfter(row.next());
+            }
+
+            $( ".rows" ).each(function( index ) {
+                $(this).attr("data-order", index);
+            });
+
+            var data_id = $(".rows").map(function() {
+                return $(this).attr("data-id");
+            }).get();
+            var data_order = $(".rows").map(function() {
+                return $(this).attr("data-order");
+            }).get();
+
+            $.post("{{ url('restaurant/addresses/sequence') }}", {id:data_id.join('|'), order:data_order.join('|'), _token:token}, function(result){
+                if(result){
+                    alert(result);
+                }
+            });
         });
     </script>
 

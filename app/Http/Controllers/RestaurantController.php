@@ -473,8 +473,34 @@ class RestaurantController extends Controller
             }
         } else {
             $data['title'] = 'Addresses List';
-            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->get();
+            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->orderBy('order', 'ASC')->get();
             return view('dashboard.restaurant.addresses', $data);
+        }
+    }
+    
+    /**
+     * Credit Card Sequance Change
+     * @param none
+     * @return response
+     */
+    public function addressesSequence()
+    {
+        $post = \Input::all();
+        try {
+            $idArray = explode("|", $post['id']);
+            $orderArray = explode("|", $post['order']);
+
+            foreach ($idArray as $key => $value) {
+                $id = $value;
+                $order = $orderArray[$key];
+                //echo $id.'=>'.$order.'<br>';
+                $ob = \App\Http\Models\NotificationAddresses::find($id);
+                $ob->populate(array('order'=>$order));
+                $ob->save();
+            }
+            
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
     }
 
