@@ -37,7 +37,7 @@
                       <select name="minimum" id="minimum" class="form-control">
                           <option value="">Delivery Minimum</option>
                           <?php
-                                for($i = 5; $i < 50; $i+5){
+                                for($i = 5; $i < 50; $i+=5){
                                     echo '<option value="' . $i . '">$' . $i . ' - $' . $i+5 . '</option>';
                                 }
                                 echo '<option value="' . $i . '">$' . $i . '</option>';
