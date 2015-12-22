@@ -47,6 +47,7 @@
         <div class="modal-dialog2">
             <div class="fancy-modal-content">
                 <div class="modal-header">
+                    <?php printfile("views/common/receipt.blade.php"); ?>
                     <h3>Location On Map: </h3>
                     <div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                         <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
@@ -69,14 +70,17 @@
         <div class="modal-dialog2">
             <div class="fancy-modal-content">
                 <div class="modal-header">
+                    <?php printfile("views/common/receipt.blade.php"); ?>
                     <h3>Description: </h3>
                     <p>{!! (isset($restaurant->name))?$restaurant->description:'' !!}</p>
                     <h3>Tags: </h3>
                     <p>{!! (isset($restaurant->name))?$restaurant->tags:'' !!}</p>
                     <h3>Hours: </h3>
+                    <TABLE WIDTH="100%">
                     @foreach(select_field_where('hours', array('restaurant_id' => $restaurant->id), false, "id", "ASC") as $value)
-                    <p>{{ $value->day_of_week }} => {{ $value->open }} - {{ $value->close }}</p>
+                    <TR><TD>{{ $value->day_of_week }} </TD><TD> {{ $value->open }} </TD><TD> {{ $value->close }}</TR>
                     @endforeach
+                    </TABLE>
                     <h3>Reviews: </h3>
                     <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                 </div>
