@@ -587,8 +587,7 @@
                                 </div>
                             </form>
                             <script>
-                                function check_val(v)
-                                {
+                                function check_val(v){
                                     if (v != '') {
                                         $('.confirm_password').show();
                                         $('#confirm_password').attr('required', 'required');
@@ -598,7 +597,6 @@
                                         , confirm_password = document.getElementById("confirm_password");
 
                                 function validatePassword() {
-
                                     if (password.value != confirm_password.value) {
                                         confirm_password.setCustomValidity("Passwords Don't Match");
                                     } else {
@@ -625,12 +623,11 @@
                                             url: "{{ url('user/ajax_register') }}",
                                             data: datas + '&' + order_data,
                                             success: function(msg) {
-                                                if (msg == '0')
-                                                {
+                                                if (msg == '0') {
                                                     $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');
-                                                }
-                                                else if (msg == '1')
+                                                } else if (msg == '1') {
                                                     alert('Email Already Registred.');
+                                                }
                                             }
                                         })
                                     });

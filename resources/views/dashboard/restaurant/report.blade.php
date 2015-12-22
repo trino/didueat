@@ -80,8 +80,7 @@
                                                 if (date1 == '' || date2 == '') {
                                                     alert('Date can\'t be blank');
                                                     return false;
-                                                }
-                                                else {
+                                                } else {
                                                     date1 = date1.replace('-', '').replace('-', '');
                                                     date2 = date2.replace('-', '').replace('-', '');
 
@@ -92,9 +91,7 @@
                                                         alert('Starting date cannot be greater than end date');
                                                         return false;
                                                     }
-                                                    else
-                                                        return true;
-
+                                                    return true;
                                                 }
                                             }
                                         </script>

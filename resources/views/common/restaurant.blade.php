@@ -225,7 +225,7 @@
                             <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
                             <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
                             @if(isset($ID))
-                            <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
+                                <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
                             @endif
                         </div>
                     </div>
@@ -294,7 +294,6 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
                             <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
-
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
                                     <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
