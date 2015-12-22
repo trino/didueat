@@ -56,8 +56,8 @@
                                                 <a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow" data-id="{{ $value->id }}">Edit</a>
                                                 <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
                                                    onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
-                                                <a class="btn nomargin btn-info up">Up</a>
-                                                <a class="btn nomargin btn-info down">Down</a>
+                                                <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
+                                                <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
