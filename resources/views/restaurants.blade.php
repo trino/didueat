@@ -111,16 +111,30 @@
 <script type="text/javascript">
     onloadpage();
     function onloadpage(){
-        $('#search-form #name').val(getCookie('cname'));
-        $('#search-form #latitude').val(getCookie('latitude'));
-        $('#search-form #longitude').val(getCookie('longitude'));
-        $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
-        //$('#search-form #minimum option[value='+getCookie('minimum')+']').attr('selected', true);
-        $('#search-form #minimum').val(getCookie('minimum'));
-        $('#search-form #cuisine').val(getCookie('cuisine'));
-        $('#search-form #rating').val(getCookie('rating'));
-        $('#search-form #SortOrder').val(getCookie('SortOrder'));
-        
+        if(getCookie('cname')){
+            $('#search-form #name').val(getCookie('cname'));
+        }
+        if(getCookie('latitude')){
+            $('#search-form #latitude').val(getCookie('latitude'));
+        }
+        if(getCookie('longitude')){
+            $('#search-form #longitude').val(getCookie('longitude'));
+        }
+        if(getCookie('delivery_type')){
+            $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
+        }
+        if(getCookie('minimum')){
+            $('#search-form #minimum').val(getCookie('minimum'));
+        }
+        if(getCookie('cuisine')){
+            $('#search-form #cuisine').val(getCookie('cuisine'));
+        }
+        if(getCookie('rating')){
+            $('#search-form #rating').val(getCookie('rating'));
+        }
+        if(getCookie('SortOrder')){
+            $('#search-form #SortOrder').val(getCookie('SortOrder'));
+        }
         if(getCookie('cname') || getCookie('latitude') || getCookie('longitude') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')){
             $('#search-form #clearSearch').show();
         } else {
@@ -170,6 +184,7 @@
         removeCookie('cuisine');
         removeCookie('rating');
         removeCookie('SortOrder');
+        $('#formatted_address').val('');
         $('#search-form #clearSearch').hide();
     });
     
@@ -186,12 +201,13 @@
         var longitude = $('#longitude').val();
         if(latitude.trim() == "" || longitude.trim() == ""){
             alert('Please enter address to proceed. thanks');
-            return false;
             e.preventDefault();
+            return false;
         }
         var token = $('#search-form input[name=_token]').val();
         var data = $(this).serialize();
         
+        $('#search-form #clearSearch').show();
         $('#restuarant_bar').html('');
         $('.parentLoadingbar').show();
         $('#start_up_message').remove();
