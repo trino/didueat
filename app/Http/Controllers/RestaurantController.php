@@ -41,11 +41,11 @@ class RestaurantController extends Controller {
 
     /**
      * Restaurant Delete
-     * @param $id
+     * @param $id (which restaurant to delete)
      * @return redirect
      */
     public function restaurantDelete($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
+        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
             return $this->failure("[Restaurant Id] field is missing!", 'restaurant/list');
         }
 
@@ -56,14 +56,13 @@ class RestaurantController extends Controller {
             event(new \App\Events\AppEvents($ob, "Restaurant Deleted"));
             
             $menus = \App\Http\Models\Menus::where('restaurant_id', $id)->get();
-            foreach ($menus as $menu) {
+            foreach ($menus as $menu) {//delete it's menus
                 \App\Http\Models\Menus::where('id', $menu->id)->delete();
                 if ($menu->parent == '0') {
                     $dir = public_path('assets/images/restaurants/' . $id . "/menus/" . $menu->id);
                     $this->deleteDir($dir);
                 }
             }
-
             $dir = public_path('assets/images/restaurants/' . $id);
             $this->deleteDir($dir);
             return $this->success("Restaurant has been deleted successfully!",'restaurant/list');
