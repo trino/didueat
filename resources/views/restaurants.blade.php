@@ -120,9 +120,16 @@
         $('#search-form #cuisine').val(getCookie('cuisine'));
         $('#search-form #rating').val(getCookie('rating'));
         $('#search-form #SortOrder').val(getCookie('SortOrder'));
+        
+        if(getCookie('cname') || getCookie('latitude') || getCookie('longitude') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')){
+            $('#search-form #clearSearch').show();
+        } else {
+            $('#search-form #clearSearch').hide();
+        }
         if(getCookie('radius').trim() != ""){
             $('#search-form #radius_panel').show();
             $('#search-form #radius').val(getCookie('radius'));
+        } else {
         }
     }
     function setCookie(cname, cvalue, exdays) {
