@@ -289,33 +289,6 @@ class AdministratorController extends Controller {
     }
 
     /**
-     * Credit Card Sequance Change
-     * @param none
-     * @return response
-     */
-    public function saveCreditCardsSequance() {
-        $post = \Input::all();
-        try {
-            //splits $_POST["id"] into $idArray and $_POST["order"] into $orderArray, by the "|" character
-            $idArray = explode("|", $post['id']);
-            $orderArray = explode("|", $post['order']);
-
-            //uses $idArray as the keys ($id), and $orderArray as the values ($order)
-            foreach ($idArray as $key => $value) {
-                $id = $value;
-                $order = $orderArray[$key];
-                //search for credit cards by $id and set it's order to $order
-                $ob = \App\Http\Models\CreditCard::find($id);
-                $ob->populate(array('order'=>$order));
-                $ob->save();
-            }
-            
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    /**
      * Edit Credit Card Form
      * @param $id
      * @return view

@@ -419,40 +419,7 @@ class HomeController extends Controller {
 
     }
 
-    //convert text to a slug
-    function createslug($text) {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
-        // trim
-        $text = trim($text, '-');
-
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        if (empty($text)) {
-            return 'n-a';
-        }
-        //test for same slug in db
-        $text = $this->chkSlug($text);
-
-
-        return $text;
-    }
-
-    //checks if a slug is in use, if it is, randomize it
-    function chkSlug($txt) {
-        if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $this->chkSlug($txt . rand(0, 999));
-        }
-        return $txt;
-    }
 
     //handle image uploading
     public function uploadimg($type = '') {

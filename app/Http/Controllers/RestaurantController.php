@@ -35,7 +35,7 @@ class RestaurantController extends Controller {
      */
     public function restaurants() {
         $data['title'] = 'Restaurants List';
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
         return view('dashboard.administrator.restaurants', $data);
     }
 
@@ -336,7 +336,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Addresses
+     * Addresses for editing and creating notification addresses
      * @param null
      * @return view
      */
@@ -359,20 +359,11 @@ class RestaurantController extends Controller {
                 $ob->populate($post);
                 $ob->save();
 
-                if($ob->type == "Email"){
-                    $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Email')->get();
-                    foreach($ob2 as $value1){
-                        $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                        $in2->populate(array("is_default" => 0));
-                        $in2->save();
-                    }
-                } else {
-                    $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Phone')->get();
-                    foreach($ob2 as $value1){
-                        $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                        $in2->populate(array("is_default" => 0));
-                        $in2->save();
-                    }
+                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', $ob->type)->get();
+                foreach($ob2 as $value1){
+                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                    $in2->populate(array("is_default" => 0));
+                    $in2->save();
                 }
 
                 return $this->success("Notification address saved successfully!", 'restaurant/addresses');
@@ -392,23 +383,7 @@ class RestaurantController extends Controller {
      * @return response
      */
     public function addressesSequence() {
-        $post = \Input::all();
-        try {
-            $idArray = explode("|", $post['id']);
-            $orderArray = explode("|", $post['order']);
-
-            foreach ($idArray as $key => $value) {
-                $id = $value;
-                $order = $orderArray[$key];
-                //echo $id.'=>'.$order.'<br>';
-                $ob = \App\Http\Models\NotificationAddresses::find($id);
-                $ob->populate(array('order'=>$order));
-                $ob->save();
-            }
-            
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+        $this->saveCreditCardsSequance();
     }
 
     /**
@@ -424,12 +399,12 @@ class RestaurantController extends Controller {
 
 
     /**
-     * Delete Addresses
-     * @param $id
+     * Delete a notification Address
+     * @param $id of the address to delete
      * @return redirect
      */
     public function deleteAddresses($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
+        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
             return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
         }
         try {
@@ -442,7 +417,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Default Addresse
+     * sets a Default notification Address, and sets all others to not the default
      * @param $id
      * @return redirect
      */
@@ -456,20 +431,11 @@ class RestaurantController extends Controller {
             $ob->populate(array("is_default" => 1));
             $ob->save();
 
-            if($ob->type == "Email"){
-                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Email')->get();
-                foreach($ob2 as $value1){
-                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                    $in2->populate(array("is_default" => 0));
-                    $in2->save();
-                }
-            } else {
-                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', 'Phone')->get();
-                foreach($ob2 as $value1){
-                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                    $in2->populate(array("is_default" => 0));
-                    $in2->save();
-                }
+            $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', $ob->type)->get();
+            foreach($ob2 as $value1){
+                $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
+                $in2->populate(array("is_default" => 0));
+                $in2->save();
             }
 
             return $this->success("Address has been default successfully!", 'restaurant/addresses');
@@ -485,7 +451,7 @@ class RestaurantController extends Controller {
      */
     public function menuManager() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             //echo '<pre>'; print_r($post); die;
             if (!isset($post['menu_item']) || empty($post['menu_item'])) {
                 return $this->failure("[Menu Item] field is missing!", 'restaurant/menus-manager');
@@ -502,7 +468,7 @@ class RestaurantController extends Controller {
 
             try {
                 $post['image'] = "";
-                if (\Input::hasFile('menu_image')) {
+                if (\Input::hasFile('menu_image')) {//handle uploading of image
                     $image = \Input::file('menu_image');
                     $ext = $image->getClientOriginalExtension();
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
@@ -511,6 +477,7 @@ class RestaurantController extends Controller {
                     $post['image'] = $newName;
                 }
 
+                //populate data array with $_POST
                 $item['restaurant_id'] = \Session::get('session_restaurant_id');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
@@ -524,6 +491,7 @@ class RestaurantController extends Controller {
                 $ob->populate($item);
                 $ob->save();
 
+                //save each addon and sub item
                 foreach ($post['addon_menu_item'] as $key => $value) {
                     $addon['restaurant_id'] = \Session::get('session_restaurant_id');
                     $addon['menu_item'] = $value;
@@ -565,10 +533,11 @@ class RestaurantController extends Controller {
         }
     }
 
+    //returns addons for $parent, or false if it doesn't have any
     public function displayAddon($parent) {
-        $data['menus_list'] = \App\Http\Models\Menus::where('parent', $parent)->orderBy('display_order', 'ASC')->get();
-        if ($data['menus_list']) {
-            return $data['menus_list'];
+        $data = \App\Http\Models\Menus::where('parent', $parent)->orderBy('display_order', 'ASC')->get();
+        if ($data) {
+            return $data;
         }
         return false;
     }
@@ -585,6 +554,7 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
+    //gets all orders for this restaurant
     public function history($id=0) {
         $data['title'] = 'Orders History';
         $data['type'] = 'History';
@@ -656,7 +626,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Order Delete
+     * Delete Order $id
      * @param $id
      * @return redirect
      */
@@ -674,7 +644,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Pending Orders
+     * gets orders placed for this restaurant
      * @param null
      * @return view
      */
@@ -686,7 +656,8 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Evens Log
+     * Events Log
+     * gets all events for the user's restaurant
      * @param null
      * @return view
      */
@@ -697,32 +668,32 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Report Detail
-     * @param null
+     * gets orders between from and to time
+     * @param $res_id (restaurant ID)
      * @return view
      */
-    public function report() {
-        $order = \App\Http\Models\Reservations::where('restaurant_id', \Session::get('session_restaurant_id'))->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
+    public function report($res_id = 0) {
+        if(!$res_id){$res_id = \Session::get('session_restaurant_id');}//gets all orders for this restaurant
+        $order = \App\Http\Models\Reservations::where('restaurant_id', $res_id)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
         if (isset($_GET['from'])) {
-            $order = $order->where('order_time', '>=', $_GET['from']);
+            $order = $order->where('order_time', '>=', $_GET['from']);//equal to and greater than from time
         }
         if (isset($_GET['to'])) {
-            $order = $order->where('order_time', '<=', $_GET['to']);
+            $order = $order->where('order_time', '<=', $_GET['to']);//equal to and lesser than to time
         }
 
         $data['orders'] = $order->get();
-        $data['states_list'] = \App\Http\Models\States::get();
+        $data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
         $data['title'] = 'Report';
         return view('dashboard.restaurant.report', $data);
     }
 
+    //return a menu item and it's child items
     public function menu_form($id, $res_id = 0) {
         $data['menu_id'] = $id;
+        if(!$res_id){$res_id = \Session::get('session_restaurant_id');}
         $data['res_id'] = $res_id;
-        $data['res_slug'] = select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug');
-        if ($res_id > 0) {
-            $data['res_slug'] = \App\Http\Models\restaurants::find($res_id)->slug;
-        }
+        $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
@@ -734,6 +705,7 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.menu_form', $data);
     }
 
+    //get more menu items
     public function getMore($id) {
         return $cchild = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
     }
@@ -742,6 +714,7 @@ class RestaurantController extends Controller {
         return view('dashboard.restaurant.additional');
     }
 
+    //handle image uploading and thumbnail generation
     public function uploadimg($type = '') {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
@@ -766,15 +739,17 @@ class RestaurantController extends Controller {
         die();
     }
 
+    //add a menu item
     public function menuadd() {
-        //echo '<pre>';print_r($_POST); die;
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
+        //copy these keys to the $arr
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
             }
         }
+        //add this restaurant to the categories table
         if (!is_numeric($arr['cat_id'])) {
             $arrs['title'] = $arr['cat_id'];
             $arrs['res_id'] = $arr['restaurant_id'];
@@ -787,6 +762,7 @@ class RestaurantController extends Controller {
         if (isset($_GET['id']) && $_GET['id']) {
             $id = $_GET['id'];
             \App\Http\Models\Menus::where('id', $id)->update($arr);
+            //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {
                 \App\Http\Models\Menus::where('parent', $c->id)->delete();
@@ -818,20 +794,21 @@ class RestaurantController extends Controller {
             die();
         } else {
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
-            if (is_array($orders_mod) && count($orders_mod)) {
+            if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
                 $orders = $orders_mod[0];
-                if (!isset($arr['display_order']))
-                    $arr['display_order'] = $orders->display_order + 1;
+                if (!isset($arr['display_order'])) {
+                    $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
+                }
             }
 
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
-            $ob2->save();
+            $ob2->save();//save changes
 
             echo $id = $ob2->id;
 
             $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
-            if ($mns->parent == '0') {
+            if ($mns->parent == '0') {//handle image uploading and thumbnail generation
                 $image_file = $mns->image;
                 $destinationPath = public_path('assets/images/products');
                 $filename = $destinationPath . "/" . $image_file;
@@ -857,6 +834,7 @@ class RestaurantController extends Controller {
         }
     }
 
+    //unknown
     public function orderCat($cid, $sort) {
         $_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
@@ -881,6 +859,9 @@ class RestaurantController extends Controller {
     }
 
 
+    //delete a menu item ($id)
+    //if $slug is given, return to that restaurant's menu
+    //otherwise return to the menu-manager
     public function deleteMenu($id, $slug = '') {
         $res_id = \App\Http\Models\Menus::where('id', $id)->get()[0]->restaurant_id;
 
@@ -894,17 +875,6 @@ class RestaurantController extends Controller {
         \App\Http\Models\Menus::where('parent', $id)->delete();
         $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
         $this->deleteDir($dir);
-        /*$it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
-        $files = new RecursiveIteratorIterator($it,
-                     RecursiveIteratorIterator::CHILD_FIRST);
-        foreach($files as $file) {
-            if ($file->isDir()){
-                rmdir($file->getRealPath());
-            } else {
-                unlink($file->getRealPath());
-            }
-        }
-        rmdir($dir);*/
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
@@ -915,6 +885,7 @@ class RestaurantController extends Controller {
         }
     }
 
+    //delete a directory and all it's files
     function deleteDir($dirPath) {
         if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
             $dirPath .= '/';
@@ -930,50 +901,56 @@ class RestaurantController extends Controller {
         @rmdir($dirPath);
     }
 
+    //loads an order
     public function order_detail($ID) {
         $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
-        if(is_null($data['order']['restaurant_id'])) {
+        if(is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
             return back()->with('status', 'Restaurant Not Found!');
         } else {
             $data['title'] = 'Orders Detail';
-            $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);
-            $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);
-            $data['states_list'] = \App\Http\Models\States::get();
+            $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
+            $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
+            $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
             return view('dashboard.restaurant.orders_detail', $data);
         }
     }
 
+    //quick redirect to a restaurant's page
     public function red($path) {
         return \Redirect::to('restaurant/' . $path)->with('message', 'Restaurant menu successfully updated');
     }
 
+    //quick redirect to a restaurant's page using it's slug, and it's subpage ($path2)
     public function redfront($path, $slug, $path2) {
         return \Redirect::to($path . '/' . $slug . '/' . $path2)->with('message', 'Restaurant menu successfully updated');
     }
 
+    //load orders
     public function orderslist($type = '') {
         $data['title'] = 'Orders';
         $data['type'] = ucfirst($type);
         $orders = new \App\Http\Models\Reservations();
         if ($type == 'user') {
-            $data['orders_list'] = $orders->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] = $orders->where('user_id', \Session::get('session_id'))->orderBy('order_time', 'DESC')->get();//load orders placed by the current user
         }elseif ($type == 'restaurant') {
-            $data['orders_list'] = $orders->where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] = $orders->where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();//load orders for the current restaurant
         }else {
-            $data['orders_list'] = $orders->orderBy('order_time', 'DESC')->get();
+            $data['orders_list'] = $orders->orderBy('order_time', 'DESC')->get();//load all orders
         }
         return view('dashboard.restaurant.orders_pending', $data);
     }
 
-    public function loadChild($id, $isaddon = 0) {
+    //load child/addon items for $id
+    public function loadChild($id, $isaddon = false) {
         $data['child'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
-        if ($isaddon == 0) {
-            return view('dashboard.restaurant.load_child', $data);
-        }else {
+        if ($isaddon) {
             return view('dashboard.restaurant.load_addon', $data);
+        }else {
+            return view('dashboard.restaurant.load_child', $data);
         }
     }
 
+    //save a category change
     public function saveCat() {
         $arr['title'] = $_POST['title'];
         $arr['res_id'] = $_POST['res_id'];
@@ -983,37 +960,4 @@ class RestaurantController extends Controller {
         echo $ob2->id;
         die();
     }
-
-    function createslug($text) {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
-
-        // trim
-        $text = trim($text, '-');
-
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        if (empty($text)) {
-            $text = 'n-a';
-        }
-        //test for same slug in db
-        $text = $this->chkSlug($text);
-
-        return $text;
-    }
-
-    function chkSlug($txt) {
-        if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $this->chkSlug($txt . rand(0, 999));
-        }
-        return $txt;
-    }
-
 }
