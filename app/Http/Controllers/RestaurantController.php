@@ -765,12 +765,6 @@ class RestaurantController extends Controller {
         die();
     }
 
-    public function make_thumb($filename, $new_width, $new_height, $CropToFit = false){
-        $output_filename = getdirectory($filename) . "/" . getfilename($filename) . "(" . $new_width . "x" . $new_height . ")." . getextension($filename);
-        make_thumb($filename, $output_filename, $new_width, $new_height, $CropToFit);
-        return $output_filename;
-    }
-
     public function menuadd() {
         //echo '<pre>';print_r($_POST); die;
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
