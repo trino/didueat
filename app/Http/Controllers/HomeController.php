@@ -97,7 +97,7 @@ class HomeController extends Controller {
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
         $data['start'] = $data['query']->count();
         $data['term'] = '';
-        
+
         return view('restaurants', $data);
     }
 
@@ -152,7 +152,7 @@ class HomeController extends Controller {
      */
     public function newsletterSubscribe() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing/duplicate data
             if (!isset($post['email']) || empty($post['email'])) {
                 return \Response::json(array('type' => 'error', 'message' => '[Email] field is required!'), 200);
             }
@@ -162,7 +162,7 @@ class HomeController extends Controller {
             }
 
             $post['status'] = 1;
-            try {
+            try {//save the email address to the newsletter table
                 $ob = new \App\Http\Models\Newsletter();
                 $ob->populate($post);
                 $ob->save();
@@ -177,13 +177,13 @@ class HomeController extends Controller {
     }
 
     /**
-     * Signup Restaurants
+     * Signup Restaurants, seems to be a duplicate of RestaurantController/addRestaurants
      * @param null
      * @return view
      */
     public function signupRestaurants() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
@@ -224,7 +224,7 @@ class HomeController extends Controller {
             if ($post['password1'] != $post['confirm_password1']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
-            try {
+            try {//populate data array
                 if ($post['logo'] != '') {
                     $update['logo'] = $post['logo'];
                 }
@@ -356,6 +356,7 @@ class HomeController extends Controller {
         }
     }
 
+    //sanitize time data
     public function cleanTime($time) {
         if (!$time)
             return $time;
@@ -418,6 +419,7 @@ class HomeController extends Controller {
 
     }
 
+    //convert text to a slug
     function createslug($text) {
         // replace non letter or digits by -
         $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
@@ -444,13 +446,15 @@ class HomeController extends Controller {
         return $text;
     }
 
+    //checks if a slug is in use, if it is, randomize it
     function chkSlug($txt) {
         if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $txt . rand(0, 9);
+            $txt = $this->chkSlug($txt . rand(0, 999));
         }
         return $txt;
     }
 
+    //handle image uploading
     public function uploadimg($type = '') {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
@@ -458,24 +462,28 @@ class HomeController extends Controller {
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
             if ($type == 'restaurant') {
-                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/restaurants') . '/' . $file);
-                $file_path = url() . '/assets/images/restaurants/' . $file;
+                $path = 'assets/images/restaurants';
             } else {
-                move_uploaded_file($_FILES['myfile']['tmp_name'], public_path('assets/images/products') . '/' . $file);
-                $file_path = url() . '/assets/images/products/' . $file;
+                $path = 'assets/images/products';
             }
-            //$this->loadComponent("Image"); $this->Image->resize($file, array("300x300", "150x150"), true);
+            move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
+            $file_path = url() . '/' . $path . '/' . $file;
+            //handle image resizing
+            foreach(array(150,300) as $size){
+                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false);
+            }
             echo $file_path . '___' . $file;
         }
         die();
     }
 
+    //update pageviews
     function countStatus($id=0) {
         \App\Http\Models\PageViews::insertView($id, 'menu');
         return \App\Http\Models\PageViews::getView($id, "menu");
     }
 
-
+    //handle all ajax requests here
     function ajax(){
         if (!isset($_POST["type"])) {$_POST = $_GET;}
         if (isset($_POST["type"])) {
@@ -532,7 +540,8 @@ class HomeController extends Controller {
         }
         die();
     }
-    
+
+    //save a ratings change
     public function ratingSave() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
