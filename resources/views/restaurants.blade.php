@@ -16,11 +16,11 @@
                   {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                   <div class="sort search-form clearfix">
                       <div class="form-group">
-                      <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" />
+                      <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)" />
                       </div>
                       <div id="radius_panel" style="display: none;">
                         <label>Radius</label>
-                        <select name="radius" id="radius" class="form-control ">
+                        <select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                             <option value="">---</option>
                             <option value="1">1 km</option>
                             <option value="2">2 km</option>
@@ -32,11 +32,11 @@
                         </select>
                       </div>
                       <div class="form-group">
-                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked /> Delivery</label>
-                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" /> Pickup</label>
+                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)" /> Delivery</label>
+                      <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)" /> Pickup</label>
                       </div>
                       <div class="form-group">
-                      <select name="minimum" id="minimum" class="form-control">
+                      <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                           <option value="">Delivery Minimum</option>
                           <option value="5">$5 - $10</option>
                           <option value="10">$10 - $15</option>
@@ -51,7 +51,7 @@
                       </select>
                       </div>
                       <div class="form-group">
-                      <select name="cuisine" id="cuisine" class="form-control ">
+                      <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
                           <option value="">Cuisine Types</option>
                           @foreach($cuisine as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -60,7 +60,7 @@
                       </div>
                       
                       <div class="form-group">
-                      <select name="rating" id="rating" class="form-control ">
+                      <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
                           <option value="">Restaurant Rating</option>
                           <option value="5">5 Stars</option>
                           <option value="4">4 Stars or Better</option>
@@ -70,7 +70,7 @@
                       </select>
                       </div>
                       <div class="form-group">
-                      <select name="tags" id="tags" class="form-control ">
+                      <select name="tags" id="tags" class="form-control" onchange="createCookieValue('tags', this.value)">
                           <option value="">Tags</option>
                           @foreach($tags as $value)
                             <option value="{{ $value->name }}">{{ $value->name }}</option>
@@ -78,14 +78,14 @@
                       </select>
                       </div>
                       <div class="form-group">
-                      <select name="SortOrder" id="SortOrder" class="form-control">
+                        <select name="SortOrder" id="SortOrder" class="form-control" onchange="createCookieValue('SortOrder', this.value)">
                             <option value="">Sort By</option>
                             <option value="rating">Quality score</option>
                             <option value="delivery_fee">Delivery fee</option>
                             <option value="minimum">Minimum order</option>
                             <option value="id">Newest first</option>
                             <option value="name">Restaurant name</option>
-                      </select>
+                        </select>
                       </div>
                       <input type="hidden" name="latitude" id="latitude" value="" />
                       <input type="hidden" name="longitude" id="longitude" value="" />
@@ -93,6 +93,7 @@
                   <br />
                   <div class="form-group">
                       <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search" />
+                      <input type="button" name="clearSearch" id="clearSearch" class="btn custom-default-btn" value="Clear Search" />
                   </div>
                   {!! Form::close() !!}
                 </div>
@@ -114,6 +115,62 @@
 
 
 <script type="text/javascript">
+    onloadpage();
+    function onloadpage(){
+        $('#search-form #name').val(getCookie('cname'));
+        $('#search-form #latitude').val(getCookie('latitude'));
+        $('#search-form #longitude').val(getCookie('longitude'));
+        $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
+        //$('#search-form #minimum option[value='+getCookie('minimum')+']').attr('selected', true);
+        $('#search-form #minimum').val(getCookie('minimum'));
+        $('#search-form #cuisine').val(getCookie('cuisine'));
+        $('#search-form #rating').val(getCookie('rating'));
+        $('#search-form #SortOrder').val(getCookie('SortOrder'));
+        if(getCookie('radius').trim() != ""){
+            $('#search-form #radius_panel').show();
+            $('#search-form #radius').val(getCookie('radius'));
+        }
+    }
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+    
+    function removeCookie(cname) {
+        $.removeCookie(cname);
+        $('#search-form #name').val('');
+        $('#search-form #'+cname).val('');
+        //createCookie(cname, "", -1);
+    }
+    
+    function createCookieValue(cname, cvalue) {
+        setCookie(cname, cvalue, 1);
+    }
+    
+    $('body').on('click', '#clearSearch', function(){
+        removeCookie('cname');
+        removeCookie('radius');
+        removeCookie('latitude');
+        removeCookie('longitude');
+        removeCookie('minimum');
+        removeCookie('cuisine');
+        removeCookie('rating');
+        removeCookie('SortOrder');
+    });
+    
     $('body').on('keyup', '#formatted_address', function(){
         $('#radius_panel').hide();
         if($(this).val()){
@@ -123,7 +180,9 @@
     
     $('body').on('submit', '#search-form', function(e){
         var formatted_address = $('#formatted_address').val();
-        if(formatted_address.trim() == "" || formatted_address == null){
+        var latitude = $('#latitude').val();
+        var longitude = $('#longitude').val();
+        if(latitude.trim() == "" || longitude.trim() == ""){
             alert('Please enter address to proceed. thanks');
             return false;
             e.preventDefault();
@@ -173,6 +232,9 @@
       var lng = place.geometry.location.lng();
       $('#latitude').val(lat);
       $('#longitude').val(lng);
+      
+      createCookieValue('latitude', lat);
+      createCookieValue('longitude', lng);
     }
 
     function geolocate() {
