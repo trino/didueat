@@ -57,8 +57,8 @@
               <p>
                 <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}" class="btn custom-default-btn">Remove</a>
                 <a href="#menumanager2" id="add_item{{ $value->id }}" class="btn custom-default-btn fancybox-fast-view additem">Edit</a>
-                <a id="up_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
-                <a id="down_parent_{{ $value->id.'_'.$catid }}" class="sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
+                <a id="up_parent_{{ $value->id.'_'.$catid }}" class="btn custom-default-btn sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-left"></i></a>
+                <a id="down_parent_{{ $value->id.'_'.$catid }}" class="btn custom-default-btn sorting_parent" href="javascript:void(0);"><i class="fa fa-angle-right"></i></a>
               </p>
               @endif
               <div class="row">
@@ -123,17 +123,20 @@
                                             <span><em> </em></span>
                                             <span class="limit-options">
                                                 <?php
-                                                if ($sub->exact_upto == 0)
+                                                if ($sub->exact_upto == 0){
                                                     $upto = "up to ";
-                                                else
+                                                }else{
                                                     $upto = "exactly ";
+                                                }
                                                 if ($sub->req_opt == '0') {
-                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0'){
                                                         echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                                    }
                                                     echo "(Optional)";
                                                 } elseif ($sub->req_opt == '1') {
-                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0'){
                                                         echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                    }
                                                     echo "(Mandatory)";
                                                 }
                                                 ?>
@@ -219,8 +222,9 @@
 function changeqty(id, opr) {
     var num = Number($('.number' + id).text());
     if (num == '1') {
-        if (opr == 'plus')
+        if (opr == 'plus') {
             num++;
+        }
     } else {
         (opr == 'plus') ? num++ : --num;
     }
@@ -245,8 +249,7 @@ function checkout() {
 
     if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0') {
         alert('Please select an item.');
-    }
-    else {
+    } else {
         $('.receipt_main').hide();
         $('.profiles').show();
     }
@@ -275,8 +278,7 @@ function delivery(t) {
         $('.profile_delivery_detail').hide();
         if ($('#pickup1').hasClass("deliverychecked")) {
             //alert('sss');
-        }
-        else {
+        } else {
             var grandtotal = $('input.grandtotal').val();
             grandtotal = Number(grandtotal) - Number(df);
             $('.grandtotal').text(grandtotal.toFixed(2));
@@ -349,8 +351,9 @@ $('.decrease').live('click', function(){
         $('.total').each(function() {
             ccc++;
         });
-        if (ccc < 4)
+        if (ccc < 4) {
             $('.orders').removeAttr('style');
+        }
         $('.orders').show();
     } else {
         quant--;
@@ -381,10 +384,10 @@ $('.increase').live('click', function() {
     tax = tax.toFixed(2);
     $('div.tax').text(tax);
     $('input.tax').val(tax);
-    if ($('#delivery_flag').val() == '1')
-        var del_fee = $('.df').val();
-    else
-        var del_fee = 0;
+    var del_fee = 0;
+    if ($('#delivery_flag').val() == '1') {
+        del_fee = $('.df').val();
+    }
     del_fee = parseFloat(del_fee);
     var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
     gtotal = gtotal.toFixed(2);

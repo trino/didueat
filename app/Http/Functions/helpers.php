@@ -387,6 +387,13 @@ function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://ro
     return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
 }
 
+function debugprint($text){
+    $path = "royslog.txt";
+    $dashes = "----------------------------------------------------------------------------------------------\r\n";
+    if(is_array($text)){$text = print_r($text,true);}
+    file_put_contents($path, $dashes . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n" , $text)) . "\r\n", FILE_APPEND);
+}
+
 function debug_string_backtrace() {
     $BACK = debug_backtrace(0);
     $BACK[2]["line"] = $BACK[1]["line"];
@@ -775,7 +782,7 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
 }
 
 function getdirectory($path) {
-    return pathinfo($path, PATHINFO_DIRNAME);
+    return pathinfo( str_replace("\\", "/", $path), PATHINFO_DIRNAME);
 }
 
 function getfilename($path, $WithExtension = false) {
@@ -845,7 +852,6 @@ function imagecreatefrombmp($filename) {
 }
 
 function copyimages($sizes, $file, $name) {
-
     foreach ($sizes as $path => $size) {
         $rsize = resize($file, $size, true);
         copy(public_path($rsize), public_path($path . $name));
@@ -855,8 +861,8 @@ function copyimages($sizes, $file, $name) {
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = false) {
-    $src_img = loadimage($img_name);
+function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false) {
+    $src_img = loadimage($input_filename);
     if ($src_img) {
         //gets the dimmensions of the image
         $old_x = imageSX($src_img);
@@ -889,20 +895,20 @@ function make_thumb($img_name, $filename, $new_width, $new_height, $CropToFit = 
         }
 
         imagedestroy($src_img);
-        if ($filename) {
-            $ext = getExtension($filename);
+        if ($output_filename) {
+            $ext = getExtension($output_filename);
             switch ($ext) {
                 case "png":
-                    imagepng($dst_img, $filename);
+                    imagepng($dst_img, $output_filename);
                     break;
                 default:
-                    imagejpeg($dst_img, $filename);
+                    imagejpeg($dst_img, $output_filename);
             }
             imagedestroy($dst_img);
         } else {
             return $dst_img;
         }
-        return $filename;
+        return $output_filename;
     }
 }
 
@@ -1247,24 +1253,32 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
         $user_id = (\Session::has('session_id'))?\Session::get('session_id'):0;
         $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
 
-
-        $html .= '<div class="' . $type . ' rating-font-size rating-center-align"> <div class="col-md-3"><h4>' . $value->title . '</h4></div>
-                    <input type="radio" id="star5' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'.$countExit.'" value="5" ' . $start5 . ' /><label class = "full" for="star5' . $target_id . $value->id . '" title="5 stars"></label>
-                    <input type="radio" id="star4half' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="4.5" ' . $start4Half . ' /><label class="half" for="star4half' . $target_id . $value->id . '" title="4.5 stars"></label>
-                    <input type="radio" id="star4' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="4" ' . $start4 . ' /><label class = "full" for="star4' . $target_id . $value->id . '" title="4 stars"></label>
-                    <input type="radio" id="star3half' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="3.5" ' . $start3Half . ' /><label class="half" for="star3half' . $target_id . $value->id . '" title="3.5 stars"></label>
-                    <input type="radio" id="star3' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="3" ' . $start3 . ' /><label class = "full" for="star3' . $target_id . $value->id . '" title="3 stars"></label>
-                    <input type="radio" id="star2half' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="2.5" ' . $start2Half . ' /><label class="half" for="star2half' . $target_id . $value->id . '" title="2.5 stars"></label>
-                    <input type="radio" id="star2' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="2" ' . $start2 . ' /><label class = "full" for="star2' . $target_id . $value->id . '" title="2 stars"></label>
-                    <input type="radio" id="star1half' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="1.5" ' . $start1Half . ' /><label class="half" for="star1half' . $target_id . $value->id . '" title="1.5 stars"></label>
-                    <input type="radio" id="star1' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="1" ' . $start1 . ' /><label class = "full" for="star1' . $target_id . $value->id . '" title="1 star"></label>
-                    <input type="radio" id="starhalf' . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'. $countExit .'" value="0.5" ' . $startHalf . ' /><label class="half" for="starhalf' . $target_id . $value->id . '" title="0.5 stars"></label>
-                </div>';
+        $html .= '<div class="' . $type . ' rating-font-size rating-center-align nowrap">' . $value->title;
+            $html .= stars($target_id, $value, $countExit, $start5, "5");
+            $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
+            $html .= stars($target_id, $value, $countExit, $start4, "4");
+            $html .= stars($target_id, $value, $countExit, $start3Half, "3.5");
+            $html .= stars($target_id, $value, $countExit, $start3, "3");
+            $html .= stars($target_id, $value, $countExit, $start2Half, "2.5");
+            $html .= stars($target_id, $value, $countExit, $start2, "2");
+            $html .= stars($target_id, $value, $countExit, $start1Half, "1.5");
+            $html .= stars($target_id, $value, $countExit, $start1, "1");
+            $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
+        $html .= '</DIV>';
     }
 
     return $html;
 }
 
+function stars($target_id, $value, $countExit, $start, $Number){
+    $half = "";
+    $class= "full";
+    if(strpos($Number, ".")){
+        $half = "half";
+        $class=$half;
+    }
+    return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'.$countExit.'" value="' . $Number . '" ' . $start . ' /><label class = "' . $class . '" for="star' . $Number . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
+}
 
 function strToTagsConversion($string=""){
     $html = "";

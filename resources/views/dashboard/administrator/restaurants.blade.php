@@ -44,7 +44,7 @@
                                         <td>{{ $value->id }}</td>
                                         <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90" /></td>
                                         <td>{{ $value->name }}</td>
-                                        <td>
+                                        <td nowrap>
                                             {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                                         </td>
                                         <td>[@if($value->open == true) OPENED @else CLOSED @endif]</td>

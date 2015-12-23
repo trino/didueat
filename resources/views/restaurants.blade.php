@@ -22,13 +22,11 @@
                         <label>Radius</label>
                         <select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                             <option value="">---</option>
-                            <option value="1">1 km</option>
-                            <option value="2">2 km</option>
-                            <option value="3">3 km</option>
-                            <option value="4">4 km</option>
-                            <option value="5">5 km</option>
-                            <option value="10">10 km</option>
-                            <option value="20">20 km</option>
+                            <?php
+                                foreach(array(1,2,3,4,5,10,20) as $km){
+                                    echo '<option value="' . $km . '">' . $km . ' km</option>';
+                                }
+                            ?>
                         </select>
                       </div>
                       <div class="form-group">
@@ -38,16 +36,12 @@
                       <div class="form-group">
                       <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                           <option value="">Delivery Minimum</option>
-                          <option value="5">$5 - $10</option>
-                          <option value="10">$10 - $15</option>
-                          <option value="15">$15 - $20</option>
-                          <option value="20">$20 - $25</option>
-                          <option value="25">$25 - $30</option>
-                          <option value="30">$30 - $35</option>
-                          <option value="35">$35 - $40</option>
-                          <option value="40">$40 - $45</option>
-                          <option value="45">$45 - $50</option>
-                          <option value="50">$50</option>
+                          <?php
+                                for($i = 5; $i < 50; $i+=5){
+                                    echo '<option value="' . $i . '">$' . $i . ' - $' . $i+5 . '</option>';
+                                }
+                                echo '<option value="' . $i . '">$' . $i . '</option>';
+                          ?>
                       </select>
                       </div>
                       <div class="form-group">

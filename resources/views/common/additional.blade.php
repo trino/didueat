@@ -1,5 +1,9 @@
 <div class="menuwrapper" id="sub{{ (isset($child))? $child->id : 0 }}" class="ignore ignore1">
-    <?php printfile("views/common/additional.blade.php"); ?>
+    <?php
+        printfile("views/common/additional.blade.php");
+        $r1 = rand('1000000', '999999999');
+        $r2 = rand('1000000', '999999999');
+    ?>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
         <div class="col-sm-12 lowheight row ignore ignore1">
             <input class="form-control ctitle ignore ignore1" type="text" placeholder="Title" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
@@ -11,31 +15,32 @@
                 <div class="addmore ignore ignore1" id="addmore{{ (isset($child))? $child->id : 0 }}">
                     @if(isset($child->id))
                     <?php
-                    $mod = new \App\Http\Controllers\RestaurantController();
-                    $more = $mod->getMore($child->id);
-                    if($more){
-                        $i = 0;
-                        foreach($more as $cc){
-                        $i++;
-                    ?>
-                    <div class="cmore ignore ignore1" id="cmore{{ $cc->id }}">
-                        @if($i != 1)
-                        <p class="addon_ignore ignore ignore2 ignore1">&nbsp;</p>
-                        @endif
-                        <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
-                            <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}"/>
-                            <input class="form-control ccprice ignore ignore2 ignore1 pricechk margin-left-10" type="text" placeholder="Price" value="{{ $cc->price }}" />
-                        </div>
-                        <div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">
-                            <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a>
-                        </div>
-                        <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
-                            <a href="javascript:void(0)" id="child_up_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-up"></i></a>
-                            <a href="javascript:void(0)" id="child_down_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-down"></i></a>
-                        </div>
-                        <div class="clearfix ignore ignore2 ignore1"></div>
-                    </div>
-                    <?php } } ?>
+                        $mod = new \App\Http\Controllers\RestaurantController();
+                        $more = $mod->getMore($child->id);
+                        if($more){
+                            $i = 0;
+                            foreach($more as $cc){
+                                $i++;
+                                ?>
+                                <div class="cmore ignore ignore1" id="cmore{{ $cc->id }}">
+                                    @if($i != 1)
+                                        <p class="addon_ignore ignore ignore2 ignore1">&nbsp;</p>
+                                    @endif
+                                    <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
+                                        <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}"/>
+                                        <input class="form-control ccprice ignore ignore2 ignore1 pricechk margin-left-10" type="text" placeholder="Price" value="{{ $cc->price }}" />
+                                    </div>
+                                    <div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">
+                                        <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a>
+                                    </div>
+                                    <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
+                                        <a href="javascript:void(0)" id="child_up_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" id="child_down_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-down"></i></a>
+                                    </div>
+                                    <div class="clearfix ignore ignore2 ignore1"></div>
+                                </div>
+                                <?php }
+                        } ?>
                     @else
                     <div class="cmore ignore ignore2 ignore1">
                         <div class="col-md-8 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1">
@@ -65,11 +70,7 @@
 
                 <div class="radios ignore ignore2 ignore1">
                     <strong class="ignore ignore2 ignore1">These items are:</strong>
-
                     <div class="infolist ignore ignore2 ignore1">
-                        <?php
-                        $r1 = rand('1000000', '999999999');
-                        ?>
                         <label><input type="radio" onclick="$(this).parent().find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="{{ $r1 }}" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif> Optional</label>
                             &nbsp; &nbsp; OR&nbsp; &nbsp;
                         <label><input type="radio" value="1" onclick="$(this).parent().find('.is_req').val(1);" class="is_required ignore" name="{{ $r1 }}" @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif> Required</label>
@@ -79,7 +80,6 @@
                     <strong class="ignore ignore2 ignore1">Customer can select:</strong>
 
                     <div class="infolist ignore2 ignore1 ignore">
-                        <?php $r2 = rand('1000000', '999999999'); ?>
                         <LABEL><input type="radio" onclick="$(this).parent().find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="{{ $r2 }}" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif> Single</LABEL>
                             &nbsp; &nbsp; OR&nbsp; &nbsp;
                         <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().find('.is_mul').val(0);" name="{{ $r2 }}" @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif> Multiple</LABEL>
