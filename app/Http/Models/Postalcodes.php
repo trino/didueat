@@ -3,16 +3,8 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Postalcodes
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Postalcodes extends BaseModel
-{
+
+class Postalcodes extends BaseModel {
 
     protected $table = 'postalcodes';
     protected $primaryKey = 'id';
@@ -22,8 +14,7 @@ class Postalcodes extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('postal_code', 'number', 'street', 'city', 'province', 'lattitude', 'longitude', 'short_street', 'short_street_type', 'short_street_dir');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {

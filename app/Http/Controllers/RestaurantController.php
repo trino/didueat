@@ -6,14 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\Profiles;
 use App\Http\Models\Restaurants;
 
-/**
- * Restaurant
- * @package    Laravel 5.1.11
- * @subpackage Controller
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       15 September, 2015
- */
 class RestaurantController extends Controller {
 
     /**

@@ -4,14 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-/**
- * Administrator
- * @package    Laravel 5.1.11
- * @subpackage Controller
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       15 September, 2015
- */
 class AdministratorController extends Controller {
 
     /**

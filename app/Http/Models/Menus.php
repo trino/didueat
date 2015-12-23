@@ -4,16 +4,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Menus
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Menus extends BaseModel
-{
+class Menus extends BaseModel {
 
     protected $table = 'menus';
     protected $primaryKey = 'id';
@@ -23,8 +14,7 @@ class Menus extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -41,8 +31,7 @@ class Menus extends BaseModel
      * @param $sortBy
      * @return response
      */
-    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '')
-    {
+    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '') {
         $query = \App\Http\Models\Menus::Where('parent', 0)
             ->Where(function ($query) use ($term, $priceFrom, $priceTo, $hasAddon, $hasImage) {
                 if ($term != "") {
@@ -73,8 +62,7 @@ class Menus extends BaseModel
     }
 
 ////////////////////////////////////////Menus API/////////////////////////////////
-    public static function enum_menus($restaurant_id = "", $Sort = "")
-    {
+    public static function enum_menus($restaurant_id = "", $Sort = "") {
         if ($restaurant_id == "all") {
             return enum_all('menus', ['parent' => '0', 'image <> "undefined"']);
         }
@@ -89,8 +77,7 @@ class Menus extends BaseModel
         return enum_all("menus", array('res_id' => $restaurant_id, 'parent' => '0', 'image<>"undefined"'), $order);
     }
 
-    public static function get_menu($restaurant_id)
-    {
+    public static function get_menu($restaurant_id) {
         return enum_all('menus', array('res_id' => $restaurant_id));
     }
 

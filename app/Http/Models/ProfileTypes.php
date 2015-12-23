@@ -3,16 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * ProfileTypes
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class ProfileTypes extends BaseModel
-{
+class ProfileTypes extends BaseModel {
 
     protected $table = 'profiletypes';
     protected $primaryKey = 'id';
@@ -22,8 +13,7 @@ class ProfileTypes extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('name', 'hierarchy', 'can_create_profiles', 'can_edit_global_settings', 'can_hire_or_fire', 'can_possess');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -32,8 +22,7 @@ class ProfileTypes extends BaseModel
         }
     }
 
-    function edit_profiletype($id = "", $name, $hierarchy, $permissions = "")
-    {
+    function edit_profiletype($id = "", $name, $hierarchy, $permissions = "") {
         if (!$id) {
             $id = $this->new_profiletype($name);
         }
@@ -55,15 +44,13 @@ class ProfileTypes extends BaseModel
     }
 
     //creates a new profile type with the name of $name
-    function new_profiletype($name)
-    {
+    function new_profiletype($name) {
         logevent("Made a new profile type: " . $name, false);
         return new_anything("profiletypes", array("name" => $name));
     }
 
     //returns an array of permissions available for profile types
-    function get_profile_permissions()
-    {
+    function get_profile_permissions() {
         return getColumnNames("profiletypes", array("id", "name", "hierarchy"));
     }
 }

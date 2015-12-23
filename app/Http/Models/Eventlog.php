@@ -3,16 +3,8 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Eventlog
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Eventlog extends BaseModel
-{
+
+class Eventlog extends BaseModel {
 
     protected $table = 'eventlog';
     protected $primaryKey = 'id';
@@ -22,8 +14,7 @@ class Eventlog extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('user_id', 'restaurant_id', 'type', 'text');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -32,8 +23,7 @@ class Eventlog extends BaseModel
         }
     }
 
-    public static function enum_events($restaurant_id = false)
-    {
+    public static function enum_events($restaurant_id = false) {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
