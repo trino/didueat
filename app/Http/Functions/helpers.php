@@ -1,26 +1,22 @@
 <?php
 
+//starts listening for SQL queries
 function initialize($Source = "") {
     DB::enableQueryLog();
     handle_action();
 }
 
+//encodes text to a URL-compatible string
 function Encode( $str ){
     return trim( htmlentities( addslashes($str) ) );
 }
 
+//decodes a URL-compatible string back to text
 function Decode( $str ){
     return html_entity_decode( stripslashes($str) );	 
 }
 
-function handleevent($EventName, $Variables, $DirectEmail = "") {
-    //handle emails
-}
-
-function sendemail($To, $Subject, $Message, $Raw = true) {
-    
-}
-
+//allows you to call a function from another controller
 function call($controller, $action, $parameters = array()) {
     $app = app();
     $controller = $app->make($controller);
@@ -61,7 +57,7 @@ function handle_action($Action = "") {
     return false;
 }
 
-//func count orders
+//count orders
 function countOrders($type = 'pending') {
     return DB::table('reservations')->where('status', $type)->count();
 }
@@ -94,12 +90,15 @@ function webroot($Local = false) {
 }
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
+
+//read from session
 function read($Name) {
     if (\Session::has('session_' . $Name)) {
         return \Session::get('session_' . $Name);
     }
 }
 
+//write to session
 function write($Name, $Value, $Save = false) {
     \Session::put('session_' . $Name, $Value);
     if ($Save) {
@@ -107,14 +106,17 @@ function write($Name, $Value, $Save = false) {
     }
 }
 
+//returns the salt used for MD5ing
 function salt() {
     return "18eb00e8-f835-48cb-bbda-49ee6960261f";
 }
 
+//enumerate all profiles
 function enum_profiles($Key, $Value) {
     return enum_all('profiles', array($Key => $Value));
 }
 
+//get a specific profile, if not specified it will get the current user's profile
 function get_profile($ID = "") {
     if (!$ID) {
         $ID = read("ID");
@@ -122,6 +124,7 @@ function get_profile($ID = "") {
     return get_entry("profiles", $ID);
 }
 
+//check if the email address is in use by someone who is not $NotByUserID
 function is_email_in_use($EmailAddress, $NotByUserID = 0) {
     $EmailAddress = clean_email($EmailAddress);
     if ($NotByUserID) {
@@ -131,6 +134,9 @@ function is_email_in_use($EmailAddress, $NotByUserID = 0) {
     }
 }
 
+//gets a profile type
+//if $GetByType is true: it gets the profile type specified by $ProfileID
+//otherwise it gets the profile type of the user specified by $ProfileID
 function get_profile_type($ProfileID = false, $GetByType = false) {
     if (!$ProfileID && $GetByType) {
         $ProfileID = get_entry("profiles", read("ID"), "id")->profile_type;
@@ -151,6 +157,8 @@ function get_profile_type($ProfileID = false, $GetByType = false) {
     }
 }
 
+
+//generates a random password of $Length digits
 function randomPassword($Length = 8) {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = "";
@@ -162,6 +170,7 @@ function randomPassword($Length = 8) {
     return $pass;
 }
 
+//checks if $EmailAddress is valid, returns it if it is. otherwise returns nothing
 function is_valid_email($EmailAddress) {
     //http://php.net/manual/en/function.filter-var.php
     //filter_var can also validate: FILTER_VALIDATE_IP FILTER_VALIDATE_INT FILTER_VALIDATE_BOOLEAN FILTER_VALIDATE_URL FILTER_SANITIZE_STRING
@@ -172,10 +181,12 @@ function is_valid_email($EmailAddress) {
     }
 }
 
+//encrypts the password using salt
 function encryptpassword($Password) {
     return \crypt($Password, salt());
 }
 
+//login as a specific profile
 function login($Profile) {
     if (is_numeric($Profile)) {
         $Profile = get_profile($Profile);
@@ -215,6 +226,7 @@ function login($Profile) {
     return $Profile->id;
 }
 
+//gets the restaurant of the current user
 function get_current_restaurant() {
     $Profile = read('id');
     if ($Profile) {
@@ -228,6 +240,7 @@ function get_current_restaurant() {
     }
 }
 
+//check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
 function check_permission($Permission, $UserID = "") {
     if (!$UserID) {
         $UserID = read("id");
@@ -244,11 +257,13 @@ function check_permission($Permission, $UserID = "") {
 }
 
 /////////////////////////////////////Date API////////////////////////////////////////
+
+//returns the current date/time
 function now() {
     return date("Y-m-d H:i:s");
 }
 
-//returns date stamp
+//returns date stamp of a date/time
 function parse_date($Date) {
     if (strpos($Date, "-")) {
         return strtotime($Date);
@@ -277,6 +292,8 @@ function get_day($Date) {//3 (no leading zero)
 }
 
 /////////////////////////////////Event log API////////////////////////////////////
+
+//event logging for security, no longer used
 function logevent($Event, $DoRestaurant = true, $restaurant_id = 0) {
     $UserID = read('ID');
     if (!$UserID) {
@@ -292,6 +309,7 @@ function logevent($Event, $DoRestaurant = true, $restaurant_id = 0) {
     new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $restaurant_id, "date" => $Date, "text" => $Event));
 }
 
+//returns the type ID of type string given
 function data_type_name($Type) {
     $Values = array("Email Address", "Phone Number", "Postal Code");
     if ($Type < 0 or $Type >= count($Values)) {
@@ -300,6 +318,7 @@ function data_type_name($Type) {
     return $Values[$Type];
 }
 
+//returns the type ID of the data given
 function data_type($Data) {
     if (strpos($Data, "@")) {
         return 0;
@@ -314,6 +333,7 @@ function data_type($Data) {
     return -1;
 }
 
+//cleans/sanitizes data by it's type
 function clean_data($Data) {
     switch (data_type($Data)) {
         case -1:
@@ -331,6 +351,7 @@ function clean_data($Data) {
     }
 }
 
+//check if a table exists in the database
 function tableexists($Table, $Column = "") {
     if ($Column) {
         return \Schema::hasColumn($Table, $Column);
@@ -338,6 +359,9 @@ function tableexists($Table, $Column = "") {
     return \Schema::hasTable($Table);
 }
 
+//gets an array of columns for a table
+//$Ignore an array of columns that will be filtered from the results
+//$Full if true, will return more data than just an array of column names
 function getColumnNames($Table, $Ignore = "", $Full = false) {
     if (!is_array($Ignore)) {
         $Ignore = array($Ignore);
@@ -364,6 +388,7 @@ function getColumnNames($Table, $Ignore = "", $Full = false) {
     return $Columns;
 }
 
+//sanitize a phone number
 function clean_phone($Phone) {
     $Phone = kill_non_numeric($Phone, "+"); //add a check to be sure only the first digit is a +
     if ($Phone != "+") {
@@ -371,10 +396,12 @@ function clean_phone($Phone) {
     }
 }
 
+//sanitize an email address
 function clean_email($Email) {
     return strtolower(trim($Email));
 }
 
+//sanitize a postal code
 function clean_postalcode($PostalCode) {
     $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
     if (validateCanadaZip($PostalCode)) {
@@ -383,10 +410,12 @@ function clean_postalcode($PostalCode) {
     }
 }
 
+//check if data is a valid postal code
 function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://roshanbh.com.np)
     return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
 }
 
+//write text to royslog.txt
 function debugprint($text){
     $path = "royslog.txt";
     $dashes = "----------------------------------------------------------------------------------------------\r\n";
@@ -394,12 +423,15 @@ function debugprint($text){
     file_put_contents($path, $dashes . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n" , $text)) . "\r\n", FILE_APPEND);
 }
 
+//get the current function and line number
 function debug_string_backtrace() {
     $BACK = debug_backtrace(0);
     $BACK[2]["line"] = $BACK[1]["line"];
     return $BACK[2];
 }
 
+//implodes uusing both the key and value
+//[key]$SmallGlue[value]$BigGlue[key]$SmallGlue[value]
 function implode2($Array, $SmallGlue, $BigGlue) {
     foreach ($Array as $Key => $Value) {
         $Array[$Key] = $Key . $SmallGlue . $Value;
@@ -407,6 +439,7 @@ function implode2($Array, $SmallGlue, $BigGlue) {
     return implode_data($Array, $BigGlue);
 }
 
+//like implode, but makes sure it's being run on an array first
 function implode_data($Data, $Delimeter = ",") {
     if (is_array($Data)) {
         return implode($Delimeter, $Data);
@@ -414,6 +447,7 @@ function implode_data($Data, $Delimeter = ",") {
     return $Data;
 }
 
+//a clone of CakePHP's debug function
 function debug($Iterator, $DoStacktrace = true) {
     if ($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
@@ -439,15 +473,17 @@ function debug($Iterator, $DoStacktrace = true) {
     }
 }
 
+//checks if a variable can be used in a foreach() loop
 function is_iterable($var) {
     return (is_array($var) || $var instanceof Traversable);
 }
 
-// My common functions
+//returns an array of table names in this database
 function enum_tables() {
     return collapsearray(DB::select('SHOW TABLES'));
 }
 
+//collapses a multidimensional array into a single one
 function collapsearray($Array, $Key = "") {
     $NewArray = array();
     foreach ($Array as $Value) {
@@ -462,6 +498,7 @@ function collapsearray($Array, $Key = "") {
     return $NewArray;
 }
 
+//clones the flash message
 function message($msgtype, $description) {
     if ($msgtype != "" && $description != "") {
         return '<script type="text/javascript">
@@ -489,6 +526,7 @@ function message($msgtype, $description) {
     }
 }
 
+//SELECT * FROM $table WHERE $column = $value
 function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
     return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
 }
@@ -532,14 +570,18 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
     }
 }
 
+//SELECT * FROM $Table WHERE $conditions
 function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC") {
     return select_field_where($Table, $conditions, false, $order, $Dir);
 }
 
+//SELECT * FROM $Table WHERE $key = $value
 function enum_anything($Table, $Key, $Value) {
     return select_field_where($Table, array($Key => $Value), false);
 }
 
+//SELECT * FROM $Table WHERE $PrimaryKey = $value, return fist result
+//if $PrimaryKey is blank, get it from the database
 function get_entry($Table, $Value, $PrimaryKey = "id") {
     if (!$PrimaryKey) {
         $PrimaryKey = get_primary_key($Table);
@@ -548,6 +590,7 @@ function get_entry($Table, $Value, $PrimaryKey = "id") {
 }
 
 /////////////////////////RAW SQL
+//gets the primary key of a table
 function get_primary_key($Table) {
     if (is_string($Table)) {
         $Table = getColumnNames($Table, "", true);
@@ -561,19 +604,23 @@ function get_primary_key($Table) {
     }
 }
 
+//SELECT * FROM $Table
 function enum_table($Table) {
     return select_query("SELECT * FROM " . $Table . " WHERE 1=1");
 }
 
+//returns Laravel's connection to the Pdo object to run raw SQL
 function getDatasource() {
     return DB::connection()->getPdo();
 }
 
+//run an SQL query
 function select_query($Query) {
     $con = getDatasource();
     return $con->query($Query);
 }
 
+//get the first result of a query
 function first($query) {
     if (is_array($query)) {
         if (count($query)) {
@@ -589,10 +636,12 @@ function first($query) {
     }
 }
 
+//count how many tables are in the database
 function table_count($Table, $Conditions = "1=1") {
     return count(select_field_where($Table, $Conditions, false));
 }
 
+//convert an iterable object to an array
 function my_iterator_to_array($entries, $PrimaryKey, $Key) {
     $data = array();
     foreach ($entries as $profiletype) {
@@ -605,10 +654,12 @@ function my_iterator_to_array($entries, $PrimaryKey, $Key) {
     return $data;
 }
 
+//count how many rows are in a table that match $conditions
 function get_row_count($Table, $Conditions = "1=1") {
     return table_count($Table, $Conditions);
 }
 
+//remove empty values from an array
 function remove_empties($Array) {
     foreach ($Array as $Key => $Value) {
         if (!$Value) {
@@ -618,20 +669,23 @@ function remove_empties($Array) {
     return $Array;
 }
 
+//get all SQL queries that have run since initialize() was called
 function getallQueries() {
     $queries = DB::getQueryLog();
     return collapsearray($queries, "query");
 }
 
+//get the last SQL query that was wun
 function lastQuery() {
     $queries = DB::getQueryLog();
     $queries = end($queries);
     if (!$queries) {
-        echo 'Query log is disabled, run "DB::enableQueryLog();" first';
+        echo 'Query log is disabled, run "initialize();" first';
     }
     return $queries["query"];
 }
 
+//check if an array is associative (the keys are strings) or not (the keys are numbers)
 function isassocarray($my_array) {
     if (!is_array($my_array)) {
         return false;
@@ -642,6 +696,7 @@ function isassocarray($my_array) {
     return !(array_unique(array_map("is_int", array_keys($my_array))) === array(true));
 }
 
+//go through an iterable object to find the one where $Fieldname = $Value
 function getIterator($Objects, $Fieldname, $Value) {
     foreach ($Objects as $Object) {
         if ($Object->$Fieldname == $Value) {
@@ -651,19 +706,23 @@ function getIterator($Objects, $Fieldname, $Value) {
     return false;
 }
 
+//get the left-most $length digits of $text
 function left($text, $length) {
     return substr($text, 0, $length);
 }
 
+//get the right-most $length digits of $text
 function right($text, $length) {
     return substr($text, -$length);
 }
 
+//convert an associative array to an object
 function array_to_object($Array) {
     $object = (object) $Array;
     return $object;
 }
 
+//add a new row to a table
 function new_anything($Table, $Data, $Column = "ID") {
     if (!is_array($Data)) {
         $Data = array($Column = $Data);
@@ -671,6 +730,7 @@ function new_anything($Table, $Data, $Column = "ID") {
     return DB::table($Table)->insertGetId($Data);
 }
 
+//delete all rows in a table that match $conditions
 function delete_all($Table, $Conditions = "") {
     if ($Conditions) {
         DB::table($Table)->where($Conditions)->delete();
@@ -679,6 +739,7 @@ function delete_all($Table, $Conditions = "") {
     }
 }
 
+//updates an existing entry in the database
 //only use when you know the primary key value exists
 function update_database($Table, $PrimaryKey, $Value, $Data) {
     DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
@@ -686,6 +747,10 @@ function update_database($Table, $PrimaryKey, $Value, $Data) {
     return $Data;
 }
 
+//SELECT * FROM $Table WHERE $PrimaryKey = $Value
+//if found, edit it using $Data
+//if not found, create it
+//returns $Data with the primary key added
 function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true) {
     $entry = false;
     if ($PrimaryKey && $Value) {
@@ -703,11 +768,13 @@ function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true) {
     return $Data;
 }
 
+//adds a new row to the database filled with $Data
 function new_entry($Table, $PrimaryKey, $Data) {
     return edit_database($Table, $PrimaryKey, "", $Data);
 }
 
-function getProtectedValue($obj, $name) {
+//gets the protected value of an object ("_properties" is one used by most objects)
+function getProtectedValue($obj, $name = "_properties") {
     $array = (array) $obj;
     $prefix = chr(0) . '*' . chr(0);
     if (isset($array[$prefix . $name])) {
@@ -715,6 +782,7 @@ function getProtectedValue($obj, $name) {
     }
 }
 
+//remove anything that isn't a number from $text
 function kill_non_numeric($text, $allowmore = "") {
     return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
@@ -767,6 +835,7 @@ function get_resize_details($case) {
     }
 }
 
+//resize an image
 function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     if (is_array($sizes)) {
         $images = array();
@@ -781,10 +850,15 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     }
 }
 
+//get the directory of a file path
+//HOME/WINDOWS/TEST.JPG returns HOME/WINDOWS
 function getdirectory($path) {
     return pathinfo( str_replace("\\", "/", $path), PATHINFO_DIRNAME);
 }
 
+//get the filename of a file path
+//$WithExtension = true, HOME/WINDOWS/TEST.JPG returns TEST.JPG
+//$WithExtension = false, HOME/WINDOWS/TEST.JPG returns TEST
 function getfilename($path, $WithExtension = false) {
     if ($WithExtension) {
         return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
@@ -793,10 +867,13 @@ function getfilename($path, $WithExtension = false) {
     }
 }
 
+//get the extension of a file path
+//HOME/WINDOWS/TEST.JPG returns jpg
 function getextension($path) {
     return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
 }
 
+//loads a jpg/png/gif/bmp as an image object
 function loadimage($filename) {
     //get image extension.
     $ext = getExtension($filename);
@@ -815,6 +892,7 @@ function loadimage($filename) {
     }
 }
 
+//loads a BMP manually
 function imagecreatefrombmp($filename) {
     $file = fopen($filename, "rb");
     $read = fread($file, 10);
@@ -851,6 +929,8 @@ function imagecreatefrombmp($filename) {
     return $image;
 }
 
+//copies an image ($file) to a new location
+//$sizes contains an array of key=path, value=size
 function copyimages($sizes, $file, $name) {
     foreach ($sizes as $path => $size) {
         $rsize = resize($file, $size, true);
@@ -912,6 +992,7 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
     }
 }
 
+//automatically handle uploading of files
 function handle_upload($Dir) {
     if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
         if (right($Dir, 1) != "/") {
@@ -931,6 +1012,7 @@ function handle_upload($Dir) {
     }
 }
 
+//convert a relative path with ..'s to a full path name
 function resolve_path($str) {
     $str = str_replace('\\', '/', $str);
     $array = explode('/', $str);
@@ -953,6 +1035,7 @@ function resolve_path($str) {
     return $domain . '/' . implode('/', $parents);
 }
 
+//gets a key from the get or post, or returns $default if it doesn't exist
 function getpost($Key, $Default = "") {
     if (isset($_GET[$Key])) {
         return $_GET[$Key];
@@ -963,6 +1046,7 @@ function getpost($Key, $Default = "") {
     return $Default;
 }
 
+//this code is broken
 function get_time_interval() {
     $min = date('i');
     $mod = $min % 15;
@@ -990,11 +1074,12 @@ function get_time_interval() {
     }
 }
 
+//checks if $Text is encrypted, might not work if the encrpytion key is changed
 function is_encrypted($Text){
     return strpos($Text, "eyJpdiI6I") === 0;
 }
 
-
+//if the server is localhost, print whatever file is specified in red text
 function printfile($File){//cannot user __FILE__ due to caching
     if($_SERVER["SERVER_NAME"] == "localhost"){
         echo '<FONT COLOR="RED">' . $File . '</FONT>';
@@ -1022,6 +1107,7 @@ function get_client_ip_server() {
     return $ipaddress;
 }
 
+//gets browser information about the user
 function getBrowser() {
     $u_agent = $_SERVER['HTTP_USER_AGENT'];
     $bname = 'Unknown';
@@ -1085,6 +1171,7 @@ function getBrowser() {
     );
 }
 
+//gets the user's OS
 function getOS() {
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
     $os_platform = "Unknown OS Platform";
@@ -1149,7 +1236,6 @@ function getUserBrowser() {
 }
 
 if (!function_exists("priority")) {
-
     function priority($Alpha, $Beta = false) {
         if ($Alpha) {
             return $Alpha;
@@ -1159,7 +1245,6 @@ if (!function_exists("priority")) {
         }
         return "";
     }
-
 }
 
 function priority2($resturant, $Field, $Old = "") {
@@ -1172,6 +1257,7 @@ function priority2($resturant, $Field, $Old = "") {
     return old($Old);
 }
 
+//code is broken, will only return 12:00 AM
 function getTime($time) {
     if (strpos($time, "AM") !== false || strpos($time, "PM") !== false) {
         return $time;
@@ -1196,6 +1282,7 @@ function getTime($time) {
     return $hour . ':' . $min . ' ' . $suffix;
 }
 
+//rounds down by 0.5
 function roundDownToHalf($number) {
     $remainder = ($number * 10) % 10;
     $half = ($remainder > 0) ? 0.5 : 0;
@@ -1203,6 +1290,7 @@ function roundDownToHalf($number) {
     return number_format($value, 1, '.', '');
 }
 
+//gets a rating
 function rating_get($target_id = 0, $rating_id = 0, $type = "") {
     $fetch = App\Http\Models\RatingUsers::select(DB::raw('SUM(rating) as rating'))->where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->first();
     $numberOfratings = App\Http\Models\RatingUsers::where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->count();
@@ -1210,6 +1298,7 @@ function rating_get($target_id = 0, $rating_id = 0, $type = "") {
     return roundDownToHalf($fetch->rating / $numberOfratings);
 }
 
+//prints a rating
 function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
     $html = "";
     foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
@@ -1270,6 +1359,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
     return $html;
 }
 
+//prints 1 star
 function stars($target_id, $value, $countExit, $start, $Number){
     $half = "";
     $class= "full";
@@ -1280,6 +1370,7 @@ function stars($target_id, $value, $countExit, $start, $Number){
     return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="'.$countExit.'" value="' . $Number . '" ' . $start . ' /><label class = "' . $class . '" for="star' . $Number . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
 }
 
+//converts a CSV array into one where each value is in a single quote
 function strToTagsConversion($string=""){
     $html = "";
     if($string){

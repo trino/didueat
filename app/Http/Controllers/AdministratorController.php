@@ -304,13 +304,15 @@ class AdministratorController extends Controller {
     public function saveCreditCardsSequance() {
         $post = \Input::all();
         try {
+            //splits $_POST["id"] into $idArray and $_POST["order"] into $orderArray, by the "|" character
             $idArray = explode("|", $post['id']);
             $orderArray = explode("|", $post['order']);
 
+            //uses $idArray as the keys ($id), and $orderArray as the values ($order)
             foreach ($idArray as $key => $value) {
                 $id = $value;
                 $order = $orderArray[$key];
-                //echo $id.'=>'.$order.'<br>';
+                //search for credit cards by $id and set it's order to $order
                 $ob = \App\Http\Models\CreditCard::find($id);
                 $ob->populate(array('order'=>$order));
                 $ob->save();
@@ -355,7 +357,7 @@ class AdministratorController extends Controller {
      */
     public function userUpdate() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing or duplicate data
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure('[ID] field is missing', 'restaurant/users', true);
             }
@@ -380,7 +382,7 @@ class AdministratorController extends Controller {
             }
 
             \DB::beginTransaction();
-            try {
+            try {//save user's browser/OS info
                 $browser_info = getBrowser();
                 $post['ip_address'] = get_client_ip_server();
                 $post['browser_name'] = $browser_info['name'];
@@ -421,17 +423,18 @@ class AdministratorController extends Controller {
      */
     public function newsletter() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['subject']) || empty($post['subject'])) {
                 return $this->failure("[Subject] field is missing!",'restaurant/newsletter');
             }
             if (!isset($post['message']) || empty($post['message'])) {
                 return $this->failure("[Message] field is missing!", 'restaurant/newsletter');
             }
-            try {
+            try {//get each user that has subscribed to the newsletter and email them
+                //this currently only works for existing users, but should be fixed so it only needs the email address
                 $ob = \App\Http\Models\Newsletter::get();
                 foreach ($ob as $value) {
-                    $ob_user = \App\Http\Models\Profiles::where('email', $value->email)->where('status', 1)->first();
+                    $ob_user = \App\Http\Models\Profiles::where('email', $value->email)->where('status', 1)->first();//this should not be done
                     if (isset($ob_user) && count($ob_user) > 0 && !is_null($ob_user)) {
                         $array = $ob_user->toArray();
                         $array['mail_subject'] = $post['subject'];
@@ -440,7 +443,6 @@ class AdministratorController extends Controller {
                         $this->sendEMail("emails.newsletter", $array);
                     }
                 }
-
                 return $this->success( "Newsletter sent successfully",'restaurant/newsletter');
             } catch (\Exception $e) {
                 return $this->failure($e->getMessage(),'restaurant/newsletter');
