@@ -54,15 +54,17 @@ class RestaurantController extends Controller {
             $ob->delete();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Deleted"));
-            
+
+            //delete it's menus
             $menus = \App\Http\Models\Menus::where('restaurant_id', $id)->get();
-            foreach ($menus as $menu) {//delete it's menus
+            foreach ($menus as $menu) {
                 \App\Http\Models\Menus::where('id', $menu->id)->delete();
                 if ($menu->parent == '0') {
                     $dir = public_path('assets/images/restaurants/' . $id . "/menus/" . $menu->id);
                     $this->deleteDir($dir);
                 }
             }
+            //delete it's images
             $dir = public_path('assets/images/restaurants/' . $id);
             $this->deleteDir($dir);
             return $this->success("Restaurant has been deleted successfully!",'restaurant/list');
@@ -72,12 +74,12 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Restaurant Status
+     * Toggle Restaurant $id's Status
      * @param $id
      * @return redirect
      */
     public function restaurantStatus($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
+        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
             return $this->failure("[Restaurant Id] is missing!", 'restaurant/list');
         }
 
@@ -98,12 +100,12 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Add New Restaurants
+     * create a New Restaurant
      * @param null
      * @return view
      */
     public function addRestaurants() {
-        $post = \Input::all();
+        $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", '/restaurant/add/new', true);
@@ -132,7 +134,7 @@ class RestaurantController extends Controller {
             if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure("[Country] field is missing!", '/restaurant/add/new', true);
             }
-            try {
+            try {//populate data array from the post
                 if ($post['logo'] != '') {
                     $update['logo'] = $post['logo'];
                 }
@@ -168,6 +170,7 @@ class RestaurantController extends Controller {
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Created"));
 
+                //handle resizing of it's logo
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
                 if ($image_file != '') {
                     $arr = explode('.', $image_file);
@@ -187,6 +190,7 @@ class RestaurantController extends Controller {
                     $res->where('id', $ob->id)->update(['logo' => $newName]);
                 }
 
+                //save hours of operation
                 foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
                         $hour['restaurant_id'] = $ob->id;
@@ -219,7 +223,7 @@ class RestaurantController extends Controller {
      */
     public function restaurantInfo($id = 0) {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['name']) || empty($post['name'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
