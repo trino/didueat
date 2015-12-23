@@ -33,9 +33,10 @@
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
-                                        <th width="10%">#</th>
+                                        <th width="5%">#</th>
                                         <th width="60%">Phone Number/Email Address</th>
                                         <th width="10%">Type</th>
+                                        <th width="5%">Enabled</th>
                                         {{--<th width="15%">Status</th>--}}
                                         <th width="20%">Actions</th>
                                     </tr>
@@ -47,6 +48,7 @@
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $value->address }}</td>
                                             <td>{{ $value->type }}</td>
+                                            <TD><INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck" <?php if($value->enabled ){echo "CHECKED";} ?> ONCLICK="add_enable({{ $value->id }});"></TD>
                                             {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
                                             <td>
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
@@ -122,6 +124,30 @@
     @include('common.tabletools')
 
     <script>
+        var ignore1 = false;
+        function add_enable(ID){
+            if(ignore1){
+                ignore1=false;
+                return;
+            }
+            var Value = 0;
+            var element = document.getElementById('add_enable_' + ID);
+            if(element.checked){Value = 1;}
+            $.ajax({
+                url: '{{addslashes(url('ajax'))}}',
+                type: "post",
+                dataType: "HTML",
+                data: "type=add_enable&id=" + ID + "&value=" + Value,
+                success: function(msg) {
+                    if(msg){
+                        ignore1 = true;
+                        $(element).trigger("click");
+                        alert(msg);
+                    }
+                }
+            });
+        }
+
         $('body').on('click', '.editAddress', function(){
             var id = $(this).attr('data-id');
             $.get("{{ url("restaurant/addresses/edit") }}/"+id, {}, function(result){

@@ -499,6 +499,20 @@ class HomeController extends Controller {
                     }
                     break;
 
+                case "add_enable":
+                    $doit = true;
+                    if(!$_POST["value"]) {
+                        $restaurantID = $this->get_notification_restaurant($_POST["id"]);
+                        $notification_address_count = $this->enum_notification_addresses($restaurantID);
+                        $doit = $notification_address_count > 1;
+                    }
+                    if($doit) {
+                        \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('enabled' => $_POST["value"]));
+                    } else {
+                        echo "You must have a minimum of 1 notification address";
+                    }
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
             }
@@ -506,6 +520,18 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    public function get_notification_restaurant($notificationID){
+        $ob = \App\Http\Models\NotificationAddresses::find($notificationID);
+        $userID = $ob->user_id;
+        $ob = \App\Http\Models\Profiles::find($userID);
+        return $ob->restaurant_id;
+    }
+    public function enum_notification_addresses($restaurantID, $Get = false){
+        $order = \App\Http\Models\NotificationAddresses::where('enabled', 1)->leftJoin('profiles', 'notification_addresses.user_id', '=', 'profiles.id')->where( 'profiles.restaurant_id', $restaurantID);
+        if($Get){return $order->get();}
+        return $order->count();
     }
 
     //save a ratings change
