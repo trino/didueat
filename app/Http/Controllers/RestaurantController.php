@@ -54,7 +54,7 @@ class RestaurantController extends Controller {
      */
     public function restaurantDelete($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->failure("[Restaurant Id] field is missing!", 'restaurant/list');
+            return $this->failure("[Restaurant Id] field is missing!", 'restaurant/list');
         }
 
         try {
@@ -74,9 +74,9 @@ class RestaurantController extends Controller {
 
             $dir = public_path('assets/images/restaurants/' . $id);
             $this->deleteDir($dir);
-            $this->success("Restaurant has been deleted successfully!",'restaurant/list');
+            return $this->success("Restaurant has been deleted successfully!",'restaurant/list');
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), 'restaurant/list');
+            return $this->failure($e->getMessage(), 'restaurant/list');
         }
     }
 
@@ -87,7 +87,7 @@ class RestaurantController extends Controller {
      */
     public function restaurantStatus($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->failure("[Restaurant Id] is missing!", 'restaurant/list');
+            return $this->failure("[Restaurant Id] is missing!", 'restaurant/list');
         }
 
         try {
@@ -100,9 +100,9 @@ class RestaurantController extends Controller {
             $ob->save();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            $this->success('Restaurant status has been changed successfully!', 'restaurant/list');
+            return $this->success('Restaurant status has been changed successfully!', 'restaurant/list');
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), 'restaurant/list');
+            return $this->failure($e->getMessage(), 'restaurant/list');
         }
     }
 
@@ -115,31 +115,31 @@ class RestaurantController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
-                $this->failure("[Restaurant Name] field is missing!", '/restaurant/add/new', true);
+                return $this->failure("[Restaurant Name] field is missing!", '/restaurant/add/new', true);
             }
             if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-                $this->failure("[Delivery Fee] field is missing!", '/restaurant/add/new', true);
+                return $this->failure("[Delivery Fee] field is missing!", '/restaurant/add/new', true);
             }
             if (!isset($post['minimum']) || empty($post['minimum'])) {
-                $this->failure("[Minimum Sub Total For Delivery] field is missing!",'/restaurant/add/new', true);
+                return $this->failure("[Minimum Sub Total For Delivery] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['address']) || empty($post['address'])) {
-                $this->failure("[Address] field is missing!",'/restaurant/add/new', true);
+                return $this->failure("[Address] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                $this->failure( "[City] field is missing!",'/restaurant/add/new', true);
+                return $this->failure( "[City] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['province']) || empty($post['province'])) {
-                $this->failure("[Province] field is missing!",'/restaurant/add/new', true);
+                return $this->failure("[Province] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                $this->failure("[Postal Code] field is missing!", '/restaurant/add/new', true);
+                return $this->failure("[Postal Code] field is missing!", '/restaurant/add/new', true);
             }
             if (!isset($post['phone']) || empty($post['phone'])) {
-                $this->failure("[Phone] field is missing!",'/restaurant/add/new', true);
+                return $this->failure("[Phone] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                $this->failure("[Country] field is missing!", '/restaurant/add/new', true);
+                return $this->failure("[Country] field is missing!", '/restaurant/add/new', true);
             }
             try {
                 if ($post['logo'] != '') {
@@ -209,9 +209,9 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                $this->success('Restaurant created successfully!', '/restaurant/list');
+                return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
-                $this->failure($e->getMessage(), '/restaurant/add/new');
+                return $this->failure($e->getMessage(), '/restaurant/add/new');
             }
         } else {
             $data['title'] = "Add New Restaurants";
@@ -230,16 +230,16 @@ class RestaurantController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['name']) || empty($post['name'])) {
-                $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
+                return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
+                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
+                return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                $this->failure("[Postal Code] field is missing!", 'restaurant/info/' . $post['id']);
+                return $this->failure("[Postal Code] field is missing!", 'restaurant/info/' . $post['id']);
             }
             try {
                 if ($post['logo'] != '') {
@@ -304,9 +304,9 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
+                return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
-                $this->failure($e->getMessage(), 'restaurant/info/' . $post['id']);
+                return $this->failure($e->getMessage(), 'restaurant/info/' . $post['id']);
             }
         } else {
             $data['title'] = "Resturant Manage";
@@ -379,9 +379,9 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                $this->success("Notification address saved successfully!", 'restaurant/addresses');
+                return $this->success("Notification address saved successfully!", 'restaurant/addresses');
             } catch (Exception $e) {
-                $this->failure( $e->getMessage(), 'restaurant/addresses');
+                return $this->failure( $e->getMessage(), 'restaurant/addresses');
             }
         } else {
             $data['title'] = 'Addresses List';
@@ -434,14 +434,14 @@ class RestaurantController extends Controller {
      */
     public function deleteAddresses($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->failure("[Address Id] is missing!", 'restaurant/addresses');
+            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
         }
         try {
             $ob = \App\Http\Models\NotificationAddresses::find($id);
             $ob->delete();
-            $this->success("Address has been deleted successfully!", 'restaurant/addresses');
+            return $this->success("Address has been deleted successfully!", 'restaurant/addresses');
         } catch (\Exception $e) {
-            $this->failure( $e->getMessage(), 'restaurant/addresses');
+            return $this->failure( $e->getMessage(), 'restaurant/addresses');
         }
     }
 
@@ -452,7 +452,7 @@ class RestaurantController extends Controller {
      */
     public function defaultAddresses($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            $this->failure("[Address Id] is missing!", 'restaurant/addresses');
+            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
         }
 
         try {
@@ -476,9 +476,9 @@ class RestaurantController extends Controller {
                 }
             }
 
-            $this->success("Address has been default successfully!", 'restaurant/addresses');
+            return $this->success("Address has been default successfully!", 'restaurant/addresses');
         } catch (\Exception $e) {
-            $this->failure($e->getMessage(), 'restaurant/addresses');
+            return $this->failure($e->getMessage(), 'restaurant/addresses');
         }
     }
 
@@ -558,9 +558,9 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                $this->success("Item menus added successfully", 'restaurant/menus-manager');
+                return $this->success("Item menus added successfully", 'restaurant/menus-manager');
             } catch (\Exception $e) {
-                $this->failure($e->getMessage(), 'restaurant/menus-manager');
+                return $this->failure($e->getMessage(), 'restaurant/menus-manager');
             }
         } else {
             $data['title'] = 'Menus';

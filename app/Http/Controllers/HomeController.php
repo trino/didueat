@@ -193,44 +193,44 @@ class HomeController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {
-                $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['full_name']) || empty($post['full_name'])) {
-                $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                $this->failure("[Email] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Email] field is missing!",'/restaurants/signup', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                $this->failure("Email address [".$post['email']."] already exists!",'restaurants/signup', true);
+                return $this->failure("Email address [".$post['email']."] already exists!",'restaurants/signup', true);
             }
             if (!isset($post['address']) || empty($post['address'])) {
-                $this->failure("[Address] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Address] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                $this->failure("[City] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[City] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['province']) || empty($post['province'])) {
-                $this->failure("[Province] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Province] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                $this->failure("[Postal Code] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Postal Code] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['phone']) || empty($post['phone'])) {
-                $this->failure("[Phone] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Phone] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                $this->failure("[Country] field is missing!",'/restaurants/signup', true);
+                return $this->failure("[Country] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['password1']) || empty($post['password1'])) {
-                $this->failure(trans('messages.user_pass_field_missing.message'),'/restaurants/signup', true);
+                return $this->failure(trans('messages.user_pass_field_missing.message'),'/restaurants/signup', true);
             }
             if (!isset($post['confirm_password1']) || empty($post['confirm_password1'])) {
-                $this->failure( trans('messages.user_confim_pass_field_missing.message'),'/restaurants/signup', true);
+                return $this->failure( trans('messages.user_confim_pass_field_missing.message'),'/restaurants/signup', true);
             }
             if ($post['password1'] != $post['confirm_password1']) {
-                $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
             try {
                 if ($post['logo'] != '') {
@@ -352,7 +352,7 @@ class HomeController extends Controller {
                 return view('messages.message', $message);
                 //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
-                $this->failure( $e->getMessage(),'/restaurants/signup');
+                return $this->failure( $e->getMessage(),'/restaurants/signup');
             }
         } else {
             $data['title'] = "Signup Restaurants Page";
