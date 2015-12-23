@@ -3,23 +3,13 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Category
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class PageViews extends BaseModel
-{
+class PageViews extends BaseModel {
 
     protected $table = 'page_views';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('user_id', 'target_id', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'type');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -28,8 +18,7 @@ class PageViews extends BaseModel
         }
     }
 
-    public static function insertView($id = 0, $type = "")
-    {
+    public static function insertView($id = 0, $type = "") {
         $browser_info = getBrowser();
         $browser_name = $browser_info['name'];
         $browser_version = $browser_info['version'];
@@ -51,8 +40,7 @@ class PageViews extends BaseModel
         }
     }
 
-    public static function getView($id = 0, $type = "")
-    {
+    public static function getView($id = 0, $type = "") {
         return \App\Http\Models\PageViews::where('target_id', $id)->where('type', $type)->count();
     }
 

@@ -6,14 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Models\Newsletter;
 use App\Http\Models\PageViews;
 
-/**
- * Home
- * @package    Laravel 5.1.11
- * @subpackage Controller
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       10 September, 2015
- */
 class HomeController extends Controller {
     public function __construct() {
         date_default_timezone_set('America/Toronto');

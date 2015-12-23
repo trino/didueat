@@ -3,16 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Hours
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Hours extends BaseModel
-{
+class Hours extends BaseModel {
 
     protected $table = 'hours';
     protected $primaryKey = 'id';
@@ -22,8 +13,7 @@ class Hours extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('restaurant_id', 'day_of_week', 'open', 'close');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -34,8 +24,7 @@ class Hours extends BaseModel
 
 
 /////////////////////////////////////Hours API///////////////////////////////////////
-    function to_time($Time)
-    {
+    function to_time($Time) {
         if ($Time) {
             if (substr_count($Time, ":") == 2) {
                 $Time = left($Time, strlen($Time) - 3);
@@ -44,8 +33,7 @@ class Hours extends BaseModel
         }
     }
 
-    function edit_hours($restaurant_id, $Data)
-    {
+    function edit_hours($restaurant_id, $Data) {
         $Days = array();
         for ($day_of_week = 1; $day_of_week < 8; $day_of_week++) {
             $Open = $this->to_time($Data[$day_of_week . "_open"]);
@@ -57,8 +45,7 @@ class Hours extends BaseModel
     }
 
 
-    function is_restaurant_open_now($restaurant_id, $date = "")
-    {
+    function is_restaurant_open_now($restaurant_id, $date = "") {
         if (!$date) {
             $date = now();
         }
@@ -72,8 +59,7 @@ class Hours extends BaseModel
         }
     }
 
-    function get_name_of_weekday($day_of_week = "")
-    {
+    function get_name_of_weekday($day_of_week = "") {
         if (!$day_of_week) {
             $day_of_week = now();
             $day_of_week = date('w', $day_of_week);
@@ -82,8 +68,7 @@ class Hours extends BaseModel
         return $Days[$day_of_week];
     }
 
-    function get_hours($restaurant_id, $day_of_week = "")
-    {
+    function get_hours($restaurant_id, $day_of_week = "") {
         $ret = array();
         $Params = array('restaurant_id' => $restaurant_id);
         if ($day_of_week) {
@@ -105,8 +90,7 @@ class Hours extends BaseModel
         return $ret;
     }
 
-    function edit_hour($restaurant_id, $day_of_week, $Open, $Close)
-    {
+    function edit_hour($restaurant_id, $day_of_week, $Open, $Close) {
         if (is_numeric($day_of_week)) {
             $day_of_week = $this->get_name_of_weekday($day_of_week);
         }
@@ -125,14 +109,12 @@ class Hours extends BaseModel
         }
     }
 
-    function get_restaurant($restaurant_id)
-    {
+    function get_restaurant($restaurant_id) {
         $ob = new \App\Http\Models\Restaurants();
         return $ob->get_restaurant($restaurant_id);
     }
 
-    function is_restaurant_open($restaurant_id, $day_of_week, $Time)
-    {
+    function is_restaurant_open($restaurant_id, $day_of_week, $Time) {
         if ($this->get_restaurant($restaurant_id)->open) {
             if (is_numeric($day_of_week)) {
                 $day_of_week = $this->get_name_of_weekday($day_of_week);
@@ -146,8 +128,7 @@ class Hours extends BaseModel
         }
     }
 
-    function parsetime($Time)
-    {
+    function parsetime($Time) {
         $TheTime = 0;
         $Time = strtoupper($Time);
         if (right($Time, 2) == "PM" || right($Time, 2) == "AM") {//12 hour time
