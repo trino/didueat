@@ -22,8 +22,8 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousine types
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tages
         $data['query'] = 0;
         $data['count'] = 0;
         $data['start'] = 0;
@@ -43,10 +43,10 @@ class HomeController extends Controller {
         parse_str($post['data'], $data);
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);
-                $data['count'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $start));
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
+                $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
-                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));
+                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
                 $data['loadmore'] = (isset($post['loadmore']))?$post['loadmore']:0;
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 if (!is_null($data['query']) && count($data['query']) > 0){
@@ -70,13 +70,13 @@ class HomeController extends Controller {
      */
     public function searchRestaurants($searchTerm = '') {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);
-        $data['count'] = \App\Http\Models\Restaurants::get();
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//search active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);//search 10 restaurants
+        $data['count'] = \App\Http\Models\Restaurants::get();//count restaurants
         $data['start'] = count($data['query']);
         $data['searchTerm'] = $searchTerm;
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));
+        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
 
         return view('restaurants', $data);
     }
@@ -88,14 +88,14 @@ class HomeController extends Controller {
      */
     public function allRestaurants() {
         $data['title'] = 'All Restaurants Page';
-        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
-        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
-        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
-        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
-        $data['countries'] = \App\Http\Models\Countries::get();
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['start'] = $data['query']->count();
+        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);//load all open restaurants
+        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();//count all open restaurants
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
+        $data['countries'] = \App\Http\Models\Countries::get();//load all countries
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
+        $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
         $data['term'] = '';
 
         return view('restaurants', $data);
@@ -109,9 +109,9 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchMenus($term = '') {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
-        $data['start'] = $data['query']->count();
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();//search all menus for $term
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();//count previous results
+        $data['start'] = $data['query']->count();//count previous results
         $data['term'] = $term;
         $data['title'] = "Search Menus";
 
@@ -127,15 +127,14 @@ class HomeController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->get();
-                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->count();
+                $results = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage']);//search menus using post parameters
+                $data['query'] = $results->get();
+                $data['count'] = $results->count();//count results
                 $data['start'] = $data['query']->count() + $post['start'];
                 $data['term'] = $post['term'];
-
                 if (!is_null($data['query']) && count($data['query']) > 0) {
                     return view('ajax.search_menus', $data);
                 }
-
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
             }
@@ -146,7 +145,7 @@ class HomeController extends Controller {
     }
    
     /**
-     * Subscriber Newsletter
+     * Subscribe to the Newsletter
      * @param null
      * @return response
      */
@@ -384,17 +383,16 @@ class HomeController extends Controller {
      * @return view
      */
     public function menusRestaurants($slug) {
-        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
-        $category = \App\Http\Models\Category::get();
+        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by it's slug
+        $category = \App\Http\Models\Category::get();//gets a category, I don't know which one
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['meta_description'] = $res_slug->description;
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
-        \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");
+        \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
-        $data['states_list'] = \App\Http\Models\States::get();
-        
+        $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
         if (isset($_GET['page'])) {
             return view('menus', $data);
         } else {
@@ -402,6 +400,7 @@ class HomeController extends Controller {
         }
     }
 
+    //loads menus view, containing menus of restaurant = $resid where category = $catid
     function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
@@ -412,6 +411,7 @@ class HomeController extends Controller {
         return view('menus', $data);
     }
 
+    //loads contact us view
     function contactus() {
         $data['title'] = 'Contact';
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
