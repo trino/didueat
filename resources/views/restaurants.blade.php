@@ -170,6 +170,7 @@
         removeCookie('cuisine');
         removeCookie('rating');
         removeCookie('SortOrder');
+        $('#search-form #clearSearch').hide();
     });
     
     $('body').on('keyup', '#formatted_address', function(){
