@@ -217,7 +217,7 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Dashboard
+     * seems to be a duplicate of addRestaurants
      * @param null
      * @return view
      */
@@ -312,6 +312,7 @@ class RestaurantController extends Controller {
         }
     }
 
+    //sanitize time data
     public function cleanTime($time) {
         if (!$time) {
             return $time;
