@@ -35,10 +35,12 @@
                     <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </div>
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
-                
+
+                <a class=" pull-right fancybox-fast-view" href="#view_map">View Maps</a>
+                <a class="pull-right fancybox-fast-view" href="#details">Details</a>
+
             </div>
-            <a class="btn red pull-right fancybox-fast-view" href="#view_map">View Maps</a>
-            <a class="btn red pull-right fancybox-fast-view" href="#details">Details</a>
+
             <div class="clearfix"></div>
         </div>
     </div>

@@ -1,3 +1,4 @@
+@if(false)
 <div class="clearfix"></div>
 <div class="footer">
   <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
@@ -58,6 +59,108 @@
     </div>
   </div>
 </div>
+
+
+
+@endif
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+
+<footer class=" p-y-1  container text-muted">
+  <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
+
+  <div class="row">
+
+
+    <div class="col-lg-4 ">
+      <h3 class="footer-h3"><i class="fa fa-search"></i> Pick A Restaurant</h3>
+
+      <p>Choose your preference</p>
+    </div>
+    <div class="col-lg-4 ">
+      <h3 class="footer-h3"><i class="fa fa-shopping-cart"></i> Order Online</h3>
+
+      <p>Get the best discount</p>
+    </div>
+    <div class="col-lg-4 ">
+      <h3 class="footer-h3"><i class="fa fa-spoon"></i> Enjoy Your Meal</h3>
+
+      <p>No setup fees, hidden costs, or contracts</p>
+    </div>
+
+    <div class="col-lg-12 ">
+      <hr/>
+    </div>
+    <div class="col-lg-12 ">
+
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">About</a></li>
+        <li class="list-inline-item"><a href="#">Email</a></li>
+        <li class="list-inline-item"><a href="#">FAQ</a></li>
+        <li class="list-inline-item"><a href="#">Log In</a></li>
+        <li class="list-inline-item"><a href="#">Sign Up</a></li>
+        <li class="list-inline-item"><a href="#">Restaurant Owner</a></li>
+        <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
+
+      </ul>
+      <p>Designed and built with all the <i class="fa fa-heart"></i> in the world by <a
+                href="https://twitter.com/mdo"
+                target="_blank">@mdo</a> and
+        <a href="https://twitter.com/fat" target="_blank">@fat</a>. Maintained by the <a
+                href="https://github.com/orgs/twbs/people">core team</a> with the help of <a
+                href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</p>
+
+      <p>Currently v4.0.0-alpha.2 / &copy; 2015 diduEAT / ALL Rights Reserved</p>
+
+
+      <p class="loadinfo"><?php
+        $end_loading_time = microtime(true);
+        printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
+        echo "";
+        echo getOS();
+        echo " => ";
+        echo getUserBrowser();
+        ?></p>
+
+      <p class="copyrights">&copy;
+        <script language=javascript>var yr;
+          Today = new Date();
+          document.write(Today.getFullYear());</script>
+        didueat.ca / ALL Rights Reserved.
+      </p>
+
+
+
+
+
+    </div>
+  </div>
+
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="overlay_loader">
   <div class="clearfix"></div>

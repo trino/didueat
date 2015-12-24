@@ -1,8 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
-        <div class="container-fluid">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
@@ -74,8 +72,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 
 

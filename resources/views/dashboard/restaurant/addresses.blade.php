@@ -2,12 +2,10 @@
 @section('content')
 
 
-    <div class="content-page">
-        <div class="container-fluid">
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-10 col-sm-8">
+                <div class="col-lg-9">
                     <?php printfile("views/dashboard/restaurant/addresses.blade.php"); ?>
                     @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
@@ -68,8 +66,6 @@
                 </div>
 
             </div>
-        </div>
-    </div>
 
 
     <div id="addNewUser" class="col-md-12" style="display: none;">

@@ -188,10 +188,10 @@ h6 {
 .ecommerce h4,
 .ecommerce h5,
 .ecommerce h6 {
-    
+
     margin: 20px 0;
     text-transform: inherit;
-    
+
 }
 
 .ecommerce h1 {
@@ -5786,7 +5786,7 @@ li {
     top: 2px;
 }
 
-#avatarImage {
+.avatarImage {
     width: 40px;
     max-height: 40px !important;
     border-radius: 50% !important;
@@ -6139,14 +6139,14 @@ My css styling 27 Nov 2015
 }
 
 .custom-default-btn {
-    
+
     color: #D50000 !important;
     border-radius: 0px;
     padding: 10px 30px;
     line-height: 1;
     font-weight: bold;
     background: #e5e5e5 none repeat scroll 0% 0%;
-    
+
 }
 
 .custom-default-btn:hover,
@@ -6267,7 +6267,7 @@ ul#top-menu li > a {
     font-weight: 500;
 }
 
-#top-search-creteria {    
+#top-search-creteria {
     position: absolute;
     left: 510px;
     top: 20px;

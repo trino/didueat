@@ -1,20 +1,11 @@
 @extends('layouts.default')
 @section('content')
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
 
-                </div>
-            </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 <div class="row">
                     @include('layouts.includes.leftsidebar')
 
-                    <div class="col-xs-12 col-md-10 col-sm-8">
+                    <div class="col-lg-9">
                         <?php printfile("views/dashboard/restaurant/orders_detail.blade.php"); ?>
                         @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
@@ -69,12 +60,7 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- END CONTENT -->
-</div>
-<div class="clearfix"></div>
+
 @include('common.tabletools')
 
 @include('popups.approve_cancel')

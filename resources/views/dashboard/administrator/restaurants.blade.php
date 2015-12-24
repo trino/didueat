@@ -1,11 +1,10 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
-            <div class="col-xs-12 col-md-10 col-sm-8">
+            <div class="col-lg-9">
                 <?php printfile("views/dashboard/administrator/restaurants.blade.php"); ?>
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">
@@ -70,7 +69,7 @@
             </div>
 
         </div>
-    </div>
+
 
     @include('common.tabletools')
 @stop

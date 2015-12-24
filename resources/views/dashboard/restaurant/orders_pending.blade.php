@@ -1,13 +1,18 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="content-page">
-    <div class="container-fluid">
+
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
-            <div class="col-xs-12 col-md-10 col-sm-8">
+            <div class="col-lg-9">
+
+
+
                 <?php printfile("views/dashboard/restaurant/orders_pending.blade.php"); ?>
+
+
+
                 @if(\Session::has('message'))
                 <div class="alert {!! Session::get('message-type') !!}">
                     <strong>{!! Session::get('message-short') !!}</strong>
@@ -15,23 +20,19 @@
                 </div>
                 @endif
 
+
+
+
+
                 <div class="deleteme">
                     <div class="btn_wrapper margin-bottom-20 clearfix">
-                        <a type="button" href="{{ url('restaurant/report') }}" class="btn red pull-right">Print Report</a>
                     </div>
 
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i> MY ORDERS ({{ strtoupper($type) }})
-                            </div>
-                            <div class="tools">
-                                
-                            </div>
-                        </div>
-                        <div class="portlet-body">
+                    <a type="button" href="{{ url('restaurant/report') }}" class="btn red">Print Report</a>
 
-                            <table class="table table-striped table-bordered table-hover" id="sample_111">
+                          <h3>  MY ORDERS ({{ strtoupper($type) }})</h3>
+
+                            <table class="table table-striped" id="sample_111">
                                 <thead>
                                     <tr>
                                         <th width="5%">Order #</th>
@@ -74,19 +75,16 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
 
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
+
 
 @include('common.tabletools')
-
 @include('popups.approve_cancel')
+
+
+
 
 @stop

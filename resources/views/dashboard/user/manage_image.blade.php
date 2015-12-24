@@ -14,8 +14,8 @@
 <link href="{{ asset('assets/global/css/portfolio.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="content-page">
-    <div class="container-fluid">
+
+
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
@@ -68,8 +68,7 @@
 
             </div>
         </div>
-    </div>
-</div>
+
 
 
 <div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">

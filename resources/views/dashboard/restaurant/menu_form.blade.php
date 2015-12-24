@@ -56,9 +56,34 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
     <div class="clearfix ignore"></div>
 
+
+
+
+
+
     <hr class=" ignore"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="additional additional{{ $menu_id }} ignore" style="@if(isset($cmodel) && $cmodel) display:block; @endif">
         <div class="col-md-12 ignore"><h2 class="ignore">Addons</h2></div>
@@ -113,8 +138,15 @@
                 });
             </script>
         <?php } ?>
+
+
+
     </div>
     <div class="clearfix ignore"></div>
+
+
+
+
 </div>
 <script>
     $(function () {

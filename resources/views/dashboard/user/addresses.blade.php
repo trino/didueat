@@ -8,7 +8,7 @@
 
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-10 col-sm-8">
+                <div class="col-lg-9">
                     <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
 
                     @if(\Session::has('message'))
@@ -239,7 +239,7 @@
                 $('#editNewUser #loading').hide();
             });
         });
-        
+
         $('body').on('click', '.up, .down', function(){
             var row = $(this).parents("tr:first");
             var token = $('#addressesForm input[name=_token]').val();
