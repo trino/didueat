@@ -1299,7 +1299,7 @@ function rating_get($target_id = 0, $rating_id = 0, $type = "") {
 }
 
 //prints a rating
-function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
+function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false) {
     $html = "";
     foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
         $update_class = ($type == "rating") ? ' update-rating '.$target_id.$value->id.$value->type : '';
@@ -1343,6 +1343,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0) {
         $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
 
         $html .= '<div class="' . $type . ' rating-font-size rating-center-align nowrap">' . $value->title;
+            if ($TwoLines){$html .= '<br>'; }
             $html .= stars($target_id, $value, $countExit, $start5, "5");
             $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
             $html .= stars($target_id, $value, $countExit, $start4, "4");
