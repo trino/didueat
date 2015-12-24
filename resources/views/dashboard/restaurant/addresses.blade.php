@@ -150,6 +150,7 @@
                     } else {
                         element = document.getElementById('note_' + ID);
                         element.innerHTML = value;
+                        element.setAttribute("value", value);
                     }
                 }
             });
