@@ -32,7 +32,8 @@
                                     <thead>
                                     <tr>
                                         <th width="5%">#</th>
-                                        <th width="60%">Phone Number/Email Address</th>
+                                        <th width="30%">Phone Number/Email Address</th>
+                                        <th width="30%">Note</th>
                                         <th width="10%">Type</th>
                                         <th width="5%">Enabled</th>
                                         {{--<th width="15%">Status</th>--}}
@@ -45,6 +46,7 @@
                                         <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                                             <td>{{ $key+1 }}</td>
                                             <td>{{ $value->address }}</td>
+                                            <TD ID="note_{{ $value->id }}" VALUE="{{ $value->note }}" ONCLICK="editnote({{ $value->id }});">{{ $value->note }}</TD>
                                             <td>{{ $value->type }}</td>
                                             <TD><INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck" <?php if($value->enabled ){echo "CHECKED";} ?> ONCLICK="add_enable({{ $value->id }});"></TD>
                                             {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
@@ -120,6 +122,40 @@
     @include('common.tabletools')
 
     <script>
+        function editnote(ID){
+            var element = document.getElementById('note_' + ID);
+            if( element.innerHTML.indexOf("<") == -1 ){
+                element.innerHTML = '<INPUT ID="text_note_' + ID + '" ONBLUR="editnote_event(' + ID + ');" ONKEYDOWN="editnote_keypress(' + ID + ');" TYPE="TEXTBOX" VALUE="' + element.getAttribute("value") + '">';
+                element = document.getElementById("text_note_" + ID);
+                element.focus();
+                element.setSelectionRange(0, element.value.length);
+            }
+        }
+        function editnote_keypress(ID){
+            if(event.keyCode == 13) {
+                editnote_event(ID);
+            }
+        }
+        function editnote_event(ID){
+            var element = document.getElementById('text_note_' + ID);
+            var value = element.value;
+            $.ajax({
+                url: '{{addslashes(url('ajax'))}}',
+                type: "post",
+                dataType: "HTML",
+                data: "type=change_note&id=" + ID + "&value=" + encodeURIComponent(value),
+                success: function(msg) {
+                    if(msg){
+                        alert(msg);
+                    } else {
+                        element = document.getElementById('note_' + ID);
+                        element.innerHTML = value;
+                        element.setAttribute("value", value);
+                    }
+                }
+            });
+        }
+
         var ignore1 = false;
         function add_enable(ID){
             if(ignore1){

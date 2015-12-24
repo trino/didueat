@@ -121,7 +121,7 @@ class UsersController extends Controller {
             $ob->delete();
             return $this->success("Address has been deleted successfully!", 'user/addresses');
         } catch(\Exception $e) {
-            return $this->failure($e->getMessage(),'user/addresses');
+            return $this->failure(handleexception($e),'user/addresses');
         }
     }
     
@@ -150,7 +150,7 @@ class UsersController extends Controller {
                 return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             } catch(\Exception $e) {
                 \DB::rollback();
-                return $this->failure($e->getMessage(),'restaurant/users', true);
+                return $this->failure(handleexception($e),'restaurant/users', true);
             }
         } else {
             $data['title'] = "User Reviews";
@@ -218,7 +218,7 @@ class UsersController extends Controller {
                 return $this->success( "Image uploaded successfully", 'user/images');
             }
             catch(\Exception $e) {
-                return $this->failure($e->getMessage(),'user/images');
+                return $this->failure(handleexception($e),'user/images');
             }
         } 
         else {

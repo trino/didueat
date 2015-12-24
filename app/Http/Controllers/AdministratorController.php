@@ -86,7 +86,7 @@ class AdministratorController extends Controller {
                 login($ob);//log in as this user
                 return $this->success("Profile updated successfully", 'dashboard');
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(), 'dashboard');
+                return $this->failure(handleexception($e), 'dashboard');
             }
         } else {
             $data['title'] = 'Dashboard';
@@ -250,7 +250,7 @@ class AdministratorController extends Controller {
                 return $this->success( 'Credit card has been saved successfully.', 'users/credit-cards/'.$type);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure($e->getMessage(), 'users/credit-cards', true);
+                return $this->failure(handleexception($e), 'users/credit-cards', true);
             }
         } else {//get list of credit cards
             $data['title'] = 'Credit Cards List';
@@ -284,7 +284,7 @@ class AdministratorController extends Controller {
             event(new \App\Events\AppEvents($ob, "Card Delete"));
             return $this->success('Card has been deleted successfully!', 'users/credit-cards/'.$type);
         } catch (\Exception $e) {
-            return $this->failure($e->getMessage(), 'users/credit-cards/'.$type);
+            return $this->failure(handleexception($e), 'users/credit-cards/'.$type);
         }
     }
 
@@ -374,7 +374,7 @@ class AdministratorController extends Controller {
                 return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure($e->getMessage(),'restaurant/users', true);
+                return $this->failure(handleexception($e),'restaurant/users', true);
             }
         } else {
             return $this->failure( "Invalid parsed data!",'restaurant/users', true);
@@ -410,7 +410,7 @@ class AdministratorController extends Controller {
                 }
                 return $this->success( "Newsletter sent successfully",'restaurant/newsletter');
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(),'restaurant/newsletter');
+                return $this->failure(handleexception($e),'restaurant/newsletter');
             }
         } else {
             $data['title'] = 'Newsletter Send';

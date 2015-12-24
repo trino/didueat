@@ -69,7 +69,7 @@ class RestaurantController extends Controller {
             $this->deleteDir($dir);
             return $this->success("Restaurant has been deleted successfully!",'restaurant/list');
         } catch (\Exception $e) {
-            return $this->failure($e->getMessage(), 'restaurant/list');
+            return $this->failure(handleexception($e), 'restaurant/list');
         }
     }
 
@@ -95,7 +95,7 @@ class RestaurantController extends Controller {
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
             return $this->success('Restaurant status has been changed successfully!', 'restaurant/list');
         } catch (\Exception $e) {
-            return $this->failure($e->getMessage(), 'restaurant/list');
+            return $this->failure(handleexception($e), 'restaurant/list');
         }
     }
 
@@ -197,7 +197,6 @@ class RestaurantController extends Controller {
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
-
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);
                         $ob2->save();
@@ -206,7 +205,7 @@ class RestaurantController extends Controller {
 
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(), '/restaurant/add/new');
+                return $this->failure("RestaurantController/addRestaurants:" . $e->getMessage(), '/restaurant/add/new');
             }
         } else {
             $data['title'] = "Add New Restaurants";
@@ -292,6 +291,7 @@ class RestaurantController extends Controller {
                         $hour['restaurant_id'] = $ob->id;
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
+
                         $hour['id'] = $post['idd'][$key];
                         $ob2 = \App\Http\Models\Hours::findOrNew($hour['id']);
                         $ob2->populate($hour);
@@ -301,7 +301,7 @@ class RestaurantController extends Controller {
 
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(), 'restaurant/info/' . $post['id']);
+                return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
         } else {
             $data['title'] = "Resturant Manage";
@@ -310,29 +310,6 @@ class RestaurantController extends Controller {
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             return view('dashboard.restaurant.info', $data);
         }
-    }
-
-    //sanitize time data
-    public function cleanTime($time) {
-        if (!$time) {
-            return $time;
-        }
-        if (strpos($time, "AM") !== false) {
-            $suffix = 'AM';
-        } else {
-            $suffix = 'PM';
-        }
-        $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
-
-        $arr_time = explode(':', $time);
-        $hour = $arr_time[0];
-        $min = $arr_time[1];
-        $sec = '00';
-
-        if ($hour < 12 && $suffix == 'PM') {
-            $hour = $hour + 12;
-        }
-        return $hour . ':' . $min . ':' . $sec;
     }
 
     /**
@@ -440,7 +417,7 @@ class RestaurantController extends Controller {
 
             return $this->success("Address has been default successfully!", 'restaurant/addresses');
         } catch (\Exception $e) {
-            return $this->failure($e->getMessage(), 'restaurant/addresses');
+            return $this->failure(handleexception($e), 'restaurant/addresses');
         }
     }
 
@@ -524,7 +501,7 @@ class RestaurantController extends Controller {
 
                 return $this->success("Item menus added successfully", 'restaurant/menus-manager');
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(), 'restaurant/menus-manager');
+                return $this->failure(handleexception($e), 'restaurant/menus-manager');
             }
         } else {
             $data['title'] = 'Menus';
@@ -600,7 +577,7 @@ class RestaurantController extends Controller {
                 }
                 return $this->success($flash, 'restaurant/orders/admin');
             } catch (\Exception $e) {
-                return $this->failure($e->getMessage(), 'restaurant/orders/admin');
+                return $this->failure(handleexception($e), 'restaurant/orders/admin');
             }
         } else {
             return $this->failure("Invalid request made!", 'restaurant/orders/admin');
@@ -639,7 +616,7 @@ class RestaurantController extends Controller {
             $ob->delete();
             return $this->success('Order has been deleted successfully!', 'restaurant/orders/admin');
         } catch (\Exception $e) {
-            return $this->failure($e->getMessage(), 'restaurant/orders/admin');
+            return $this->failure(handleexception($e), 'restaurant/orders/admin');
         }
     }
 

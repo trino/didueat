@@ -287,6 +287,7 @@ class HomeController extends Controller {
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
+
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);
                         $ob2->save();
@@ -353,28 +354,6 @@ class HomeController extends Controller {
             //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
             return view('restaurants-signup', $data);
         }
-    }
-
-    //sanitize time data
-    public function cleanTime($time) {
-        if (!$time)
-            return $time;
-        if (str_replace('AM', '', $time) != $time) {
-            $suffix = 'AM';
-        } else
-            $suffix = 'PM';
-        $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
-
-        $arr_time = explode(':', $time);
-        $hour = $arr_time[0];
-        $min = $arr_time[1];
-        $sec = '00';
-
-        if ($hour < 12 && $suffix == 'PM')
-            $hour = $hour + 12;
-
-        return $hour . ':' . $min . ':' . $sec;
-
     }
 
     /**
@@ -511,6 +490,9 @@ class HomeController extends Controller {
                     } else {
                         echo "You must have a minimum of 1 notification address";
                     }
+                    break;
+                case "change_note":
+                    \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
                     break;
 
                 default:

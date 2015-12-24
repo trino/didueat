@@ -1,5 +1,11 @@
 <?php
 
+function handleexception($e){
+    $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
+    debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
+    return $Message;
+}
+
 //starts listening for SQL queries
 function initialize($Source = "") {
     DB::enableQueryLog();
@@ -1259,7 +1265,7 @@ function priority2($resturant, $Field, $Old = "") {
 
 //code is broken, will only return 12:00 AM
 function getTime($time) {
-    if (strpos($time, "AM") !== false || strpos($time, "PM") !== false) {
+    if (strpos($time, "AM") !== false || strpos($time, "PM") !== false || strpos($time, ":") === false) {
         return $time;
     }
     return "12:00 AM";

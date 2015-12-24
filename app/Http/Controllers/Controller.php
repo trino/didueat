@@ -107,4 +107,30 @@ abstract class Controller extends BaseController {
         }
         return $txt;
     }
+
+    //sanitize time data
+    public function cleanTime($time) {
+        if (strpos($time, ":") === false) {
+            return gmdate("H:i:s", $time);
+        }
+        if (!$time) {
+            return $time;
+        }
+        if (strpos($time, "AM") !== false) {
+            $suffix = 'AM';
+        } else {
+            $suffix = 'PM';
+        }
+        $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
+
+        $arr_time = explode(':', $time);
+        $hour = $arr_time[0];
+        $min = $arr_time[1];
+        $sec = '00';
+
+        if ($hour < 12 && $suffix == 'PM') {
+            $hour = $hour + 12;
+        }
+        return $hour . ':' . $min . ':' . $sec;
+    }
 }
