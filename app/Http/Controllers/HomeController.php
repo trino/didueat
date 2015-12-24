@@ -512,6 +512,9 @@ class HomeController extends Controller {
                         echo "You must have a minimum of 1 notification address";
                     }
                     break;
+                case "change_note":
+                    \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
+                    break;
 
                 default:
                     echo $_POST["type"] . " is not handled";
