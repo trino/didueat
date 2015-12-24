@@ -161,14 +161,13 @@
                             <input type="text" name="name" id="name" value="" class="form-control"
                                    placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
-                        <div id="radius_panel" style="display: none;">
-                            <label>Radius</label>
+                        <div id="radius_panel" class="form-group" style="display: none;">
                             <select name="radius" id="radius" class="form-control"
                                     onchange="createCookieValue('radius', this.value)">
-                                <option value="">---</option>
+                                <option value="">Distance</option>
                                 <?php
                                 foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
-                                    echo '<option value="' . $km . '">' . $km . ' km</option>';
+                                    echo '<option value="' . $km . '">' . $km . ' km radius</option>';
                                 }
                                 ?>
                             </select>
@@ -236,20 +235,17 @@
                         <input type="hidden" name="latitude" id="latitude" value=""/>
                         <input type="hidden" name="longitude" id="longitude" value=""/>
                     </div>
-                    <br/>
-
-                    <div class="form-group">
-                        <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search"/>
-                        <input type="button" name="clearSearch" id="clearSearch" class="btn custom-default-btn"
-                               value="Clear Search"/>
-                    </div>
-                    {!! Form::close() !!}
 
 
                 </div>
 
                 <div class="card-footer  text-xs-right">
-                    <button type="button" class="btn btn-primary">Search</button>
+                    <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link"
+                           value="Clear Search"/>
+                    <input type="submit" name="search" class="btn btn-primary" value="Refine Search"/>
+
+
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
