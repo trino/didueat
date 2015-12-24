@@ -220,27 +220,52 @@
                             <div class="portlet-body form">
                                 <div class="form-body">
                                     <?php
-                                        $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+                                        $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', "Offset");
                                         foreach ($day_of_week as $key => $value) {
-                                        $open[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'open');
-                                        $close[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'close');
-                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'id');
-                                    ?>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
-                                            <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="open[{{ $key }}]" value="{{ (isset($open[$key]))?$open[$key]:getTime($open[$key]) }}" class="form-control time" />
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-3" id="hour-to-style">to</div>
-                                            <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="close[{{ $key }}]" value="{{ (isset($close[$key]))?$close[$key]:getTime($close[$key]) }}" class="form-control time"/>
-                                                <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                                                <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
+                                            $open[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'open');
+                                            $close[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'close');
+                                            $ID[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id))?$resturant->id:0), 'day_of_week' => $value), 'id');
+
+                                            $opentime = (isset($open[$key]))?$open[$key]:getTime($open[$key]);
+                                            $closetime= (isset($close[$key]))?$close[$key]:getTime($close[$key]);
+                                            if($value == "Offset"){
+                                                $opentime = explode(":", $opentime);
+                                                $opentime = $opentime[0] * 3600 + $opentime[1] * 60 + $opentime[2];
+                                                ?>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <label class="control-label col-md-12 col-sm-12 col-xs-12">Delay till you start delivering</label>
+                                                            <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
+                                                            <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
+                                                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                                                <input type="number" name="open[{{ $key }}]" value="{{ $opentime }}" class="form-control">
+                                                                <input type="hidden" name="close[{{ $key }}]" value="{{ $closetime }}" class="form-control">
+                                                            </DIV>
+                                                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                                                <LABEL>minutes</LABEL>
+                                                            </DIV>
+                                                        </DIV>
+                                                    </DIV>
+                                                <?php
+                                            } else {
+                                            ?>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-4 col-sm-4 col-xs-4">{{ $value }}</label>
+                                                        <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
+                                                        <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
+                                                        <div class="col-md-5 col-sm-5 col-xs-5">
+                                                            <input type="text" name="open[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" />
+                                                        </div>
+                                                        <div class="col-md-5 col-sm-5 col-xs-5">
+                                                            <input type="text" name="close[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php
+                                            }
+                                        }
+                                        ?>
                                 </div>
 
                                 <div class="form-actions">
