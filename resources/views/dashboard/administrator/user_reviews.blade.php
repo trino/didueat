@@ -17,7 +17,7 @@
             </div>
           @endif
 
-          <div class="container-fluid">
+          <div class="">
             <div class="btn_wrapper margin-bottom-20 clearfix">
             </div>
 

@@ -59,6 +59,7 @@ if (Request::path() !== null && Request::path() != "/") {
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
 
+
     <style>
         * {
             border-radius: 0 !important;
