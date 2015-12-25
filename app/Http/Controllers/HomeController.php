@@ -35,11 +35,91 @@ class HomeController extends Controller
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['top_ten'] = $this->getTopTen();
+        die();
         $data['query'] = 0;
         $data['count'] = 0;
         $data['start'] = 0;
         $data['hasMorePage'] = 0;
         return view('restaurants', $data);
+    }
+    public function getTopTen()
+    {
+        $tags = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $restaurants = \App\Http\Models\Restaurants::get();
+        $tag = '0';
+        foreach($tags as $t)
+        {
+            $tag = $tag.','.$t->name;
+           
+        }
+        
+        $used_tag = '';
+        foreach($restaurants as $t)
+        {
+            if($used_tag)
+            $used_tag = $used_tag.','.$t->tags;
+            else
+            $used_tag = $t->tags; 
+           
+        }
+        $used_tag = str_replace(' ','',$used_tag);
+        var_dump($used_tag);
+        $all_tags = explode(',',$tag);
+        $all_used_tags = explode(',',$used_tag);
+        $arr_final = array();
+        $arr_count = array();
+        foreach($all_used_tags as $aut)
+        {
+            
+            if(in_array($aut,$all_tags))
+            {
+                  if(!in_array($aut,$arr_final))
+                  {
+                    $arr_final[] = $aut;
+                    $arr_count[] = 1;
+                  }
+                  else
+                  {
+                    $k = array_search($aut,$arr_final);
+                    $arr_count[$k]++;
+                  }
+            }
+        }
+        
+        var_dump($arr_final);
+        var_dump($arr_count);
+        
+        $keys = '';
+        $key_final = array();
+        for($i=0;$i<count($arr_count);$i++)
+        {
+            
+        foreach($arr_count as $k=>$ac)
+        {
+            $check = 0;
+            if(in_array($k,$key_final)){
+                
+            continue;
+            }
+            $check = 1;
+            //$c++;
+            if($keys=='')
+            {
+                $keys=$k;
+                $temp = $ac;
+            }
+            else{
+                if($ac>$temp)
+                $keys = $k;
+            }
+            
+        }
+        if($check)
+        $key_final[] = $keys;
+        }
+        var_dump($key_final);
+        die();
     }
     
     /**
