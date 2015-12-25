@@ -6,60 +6,51 @@
     <link rel="stylesheet" href="{{ asset('assets/global/css/popstyle.css') }}">
 
 
+    <div class=" col-md-4 col-sm-4" id="printableArea">
+        <div class="overlay overlay_reservation">
+            <div class="clearfix"></div>
+            <div id="loadmoreajaxloader">
+                <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+            </div>
+        </div>
+        @include('common.receipt')
+    </div>
 
+    <div class="col-md-8  col-sm-8 col-xs-12 menu_div">
+        <?php printfile("views/restaurants-menus.blade.php"); ?>
+        @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+            <div class="category_btns margin-bottom-15">
+                <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+                <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+            </div>
+            <div id="menumanager2" style="display: none;width:800px;"></div>
+        @endif
 
-
-        <!-- BEGIN CART -->
-        <div class="top-cart-block col-md-4 col-sm-4" id="printableArea">
-            <div class="overlay overlay_reservation">
-                <div class="clearfix"></div>
-                <div id="loadmoreajaxloader">
-                    <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+        @foreach($category as $cat)
+            <div class="box-shadow clearfix">
+                <div class="portlet-title">
+                    <div class="caption">
+                        {{ $cat->title }}
+                    </div>
+                </div>
+                <div class="portlet-body no-padding">
+                    <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
+                    <div class="clearfix"></div>
+                    <div id="loadmoreajaxloader_{{ $cat->id }}" style="display:none;">
+                        <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br style="clear: both;">
                 </div>
             </div>
 
-            @include('common.receipt')
-
-        </div>
-
-
-        <div class="col-md-8  col-sm-8 col-xs-12 menu_div">
-
-            <?php printfile("views/restaurants-menus.blade.php"); ?>
-
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                <div class="category_btns margin-bottom-15">
-                    <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
-                    <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-                </div>
-                <div id="menumanager2" style="display: none;width:800px;"></div>
-            @endif
-
-            @foreach($category as $cat)
-                <div class="box-shadow clearfix">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            {{ $cat->title }}
-                        </div>
-                    </div>
-                    <div class="portlet-body no-padding">
-                        <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                        <div class="clearfix"></div>
-                        <div id="loadmoreajaxloader_{{ $cat->id }}" style="display:none;">
-                            <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-                        </div>
-                        <div class="clearfix"></div>
-                        <br style="clear: both;">
-                    </div>
-                </div>
-
-                <script>
-                    $(function () {
-                        $("#postswrapper_{{ $cat->id }}").load("{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}");
-                    });
-                </script>
-            @endforeach
-        </div>
+            <script>
+                $(function () {
+                    $("#postswrapper_{{ $cat->id }}").load("{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}");
+                });
+            </script>
+        @endforeach
+    </div>
 
 
 

@@ -14,20 +14,24 @@
                         </div>
                     @endif
 
-                    <div class="btn_wrapper margin-bottom-20 clearfix">
-                        <a class="btn btn-danger red pull-right fancybox-fast-view" href="#addNewUser">Add New</a>
-                    </div>
+
+
+
+
+
+
+                        <button type="button" class="btn btn-danger editAddress" data-toggle="modal" data-target="#addAddressModal" >
+                            Add Address
+                        </button>
+
+
+
+
+
 
                     <div class="deleteme">
-                        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                        <div class="box-shadow">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-globe"></i>MY NOTIFICATION ADDRESSES
-                                </div>
-                                <div class="tools"></div>
-                            </div>
-                            <div class="portlet-body">
+
+            <h3>MY NOTIFICATION ADDRESSES</h3>
                                 <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
@@ -49,10 +53,21 @@
                                             <TD ID="note_{{ $value->id }}" VALUE="{{ $value->note }}" ONCLICK="editnote({{ $value->id }});">{{ $value->note }}</TD>
                                             <td>{{ $value->type }}</td>
                                             <TD><INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck" <?php if($value->enabled ){echo "CHECKED";} ?> ONCLICK="add_enable({{ $value->id }});"></TD>
-                                            {{--<td>{!! ($value->is_default == 1)?'Default':$status !!}</td>--}}
+
                                             <td>
+
+
+
                                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger red" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
-                                                <a href="#editAddress" class="btn nomargin btn-info editAddress fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+
+
+
+
+                                                <button type="button" class="btn btn-danger editAddress" data-toggle="modal" data-target="#editAddressModal"   data-id="{{ $value->id }}" >
+                                                    Edit Address
+                                                </button>
+
+
                                                 <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
                                                 <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
                                             </td>
@@ -60,8 +75,8 @@
                                     @endforeach
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
+
+
                         <!-- END EXAMPLE TABLE PORTLET-->
 
                     </div>
@@ -70,54 +85,103 @@
             </div>
 
 
-    <div id="addNewUser" class="col-md-12" style="display: none;">
-        <div class="modal-dialog">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add New</h4>
-                </div>
-                {!! Form::open(array('url' => '/restaurant/addresses', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Phone / Email</label>
-                                <div class="col-md-9">
-                                    <input type="text" name="address" class="form-control address" required>
+
+
+
+
+
+            <div class="modal  fade clearfix" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="editAddressModalLabel">Add Addresss</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            {!! Form::open(array('url' => '/restaurant/addresses', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">Phone / Email</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="address" class="form-control address" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">&nbsp;</label>
+                                            <div class="col-md-9 reach_type" style="display: none;">
+                                                <label><input type="checkbox" name="is_call" value="1" checked> Call</label> &nbsp;
+                                                <label><input type="checkbox" name="is_sms" value="1" checked> SMS</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">&nbsp;</label>
-                                <div class="col-md-9 reach_type" style="display: none;">
-                                    <label><input type="checkbox" name="is_call" value="1" checked> Call</label> &nbsp;
-                                    <label><input type="checkbox" name="is_sms" value="1" checked> SMS</label>
-                                </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="is_contact_type" class="is_contact_type" value="" />
+                                <button type="submit" class="btn custom-default-btn saveNewBtn" disabled>Save changes</button>
                             </div>
+                            {!! Form::close() !!}
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="modal-footer">
-                    <input type="hidden" name="is_contact_type" class="is_contact_type" value="" />
-                    <button type="submit" class="btn custom-default-btn saveNewBtn" disabled>Save changes</button>
-                </div>
-                {!! Form::close() !!}
             </div>
-        </div>
-    </div>
 
-    <div id="editAddress" class="col-md-12" style="display: none;">
-        <div class="modal-dialog">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Update</h4>
+
+
+
+
+
+
+
+            <div class="modal  fade clearfix" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="editAddressModalLabel">Edit Addresss</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            {!! Form::open(array('url' => '/restaurant/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                            <div id="editContents"></div>
+                            {!! Form::close() !!}
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
                 </div>
-                {!! Form::open(array('url' => '/restaurant/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                <div id="editContents"></div>
-                {!! Form::close() !!}
             </div>
-        </div>
-    </div>
+
+
+
+
+
+
+
+
+
 
     @include('common.tabletools')
 

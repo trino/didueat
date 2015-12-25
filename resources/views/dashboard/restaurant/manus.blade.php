@@ -1,6 +1,19 @@
 @extends('layouts.default')
 @section('content')
 
+
+
+
+
+@if(false)
+
+
+
+
+
+
+
+
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
@@ -116,4 +129,6 @@
             //$( "#sortable" ).disableSelection();
         });
     </script>
+
+    @endif
 @stop

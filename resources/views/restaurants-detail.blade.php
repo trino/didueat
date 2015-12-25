@@ -449,7 +449,7 @@
                                 <ul class="scroller orders">
                                 </ul>
                                 <div class="slimScrollBar" style=""></div>
-                                <div class="slimScrollRail" style=""></div>  
+                                <div class="slimScrollRail" style=""></div>
                             </div>
                             <div class="totals col-md-12 col-sm-12 col-xs-12">
                                 <table class="table calculation-table">
