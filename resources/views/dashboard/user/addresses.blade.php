@@ -56,8 +56,17 @@
                         <td>{{ $value->phone_no }}</td>
                         <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                         <td>
-                            <a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow"
-                               data-id="{{ $value->id }}">Edit</a>
+
+
+
+                            <!--a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow"
+                               data-id="{{ $value->id }}">Edit</a-->
+
+
+                            <button   data-id="{{ $value->id }}" type="button" class="btn btn-danger editRow" data-toggle="modal" data-target="#editNewUser" >
+                                Edit
+                            </button>
+
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                             <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
@@ -156,7 +165,7 @@
     </div>
 
 
-    <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
+    <!--div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
         <div id="loading" class="center" style="display: none;">
             <img src="{{ asset('assets/images/loader.gif') }}"/>
         </div>
@@ -166,7 +175,40 @@
             <p></p>
         </div>
         <div id="contents"></div>
+    </div-->
+
+
+
+
+    <div class="modal  fade clearfix" id="editNewUser" tabindex="-1" role="dialog" aria-labelledby="editNewUserLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editNewUserLabel">Add Addresss</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="loading" class="center" style="display: none;">
+                        <img src="{{ asset('assets/images/loader.gif') }}"/>
+                    </div>
+                    <div id="message" class="alert alert-danger" style="display: none;">
+                        <h1 class="block">Error</h1>
+
+                        <p></p>
+                    </div>
+                    <div id="contents"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
+
 
 
     @include('common.tabletools')

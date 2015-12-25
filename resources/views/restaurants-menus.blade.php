@@ -9,7 +9,7 @@
     <div class=" col-md-4 col-sm-4" id="printableArea">
         <div class="overlay overlay_reservation">
             <div class="clearfix"></div>
-            <div id="loadmoreajaxloader">
+            <div id="loadmoreajaxloader" style="x">
                 <img src="{{ asset('assets/images/ajax-loading.gif') }}">
             </div>
         </div>
