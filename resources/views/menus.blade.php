@@ -27,18 +27,34 @@
                         <div class="col-md-9">
                             <div class="new-layout-box-content">
                                 <div class="restaurant-name">
-                                    <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+
+
+
+                                    <a href="javascript:void(0)" id="{{ $value->id }}"
+                                       data-res-id="{{ $value->restaurant_id }}" type="button"
+                                       class="btn btn-danger insert-stats" data-toggle="modal"
+                                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
+                                        <p>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</p>
+                                        <h3>{{ $value->menu_item }} <span
+                                                    class="menu-tag menu-price">${{ $value->price }}</span></h3>
+                                    </a>
+
+
+
+
+                                    <!--a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
                                        data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}"
                                        class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                                         <h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2>
-                                    </a>
+                                    </a-->
                                 </div>
-                                <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+                                <!--a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
                                    class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                                     <h3>{{ $value->menu_item }} <span
                                                 class="menu-tag menu-price">${{ $value->price }}</span></h3>
-                                </a>
-
+                                </a-->
+                                <h3>{{ $value->menu_item }} <span
+                                            class="menu-tag menu-price">${{ $value->price }}</span></h3>
                                 <p class="box-des">{{ substr($value->description, 0, 230) }}</p>
                                 <h4>Minimum Delivery</h4>
 
@@ -96,22 +112,36 @@
                             <div class="menu-img">
 
 
-                                <a href="javascript:void(0)" id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}" type="button" class="btn btn-danger insert-stats" data-toggle="modal" data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" >
+                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                   data-res-id="{{ $value->restaurant_id }}" type="button"
+                                   class="btn btn-danger insert-stats" data-toggle="modal"
+                                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     View Menu Item
                                 </a>
 
+                                <a href="javascript:void(0)" id="{{ $value->id }}"
+                                   data-res-id="{{ $value->restaurant_id }}" type="button"
+                                   class="btn btn-danger insert-stats" data-toggle="modal"
+                                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
 
 
-                                <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+                                    <div class="card-image">
+                                        <img src="{{ $item_image1 }}" class="img-responsive"
+                                             alt="{{ $value->menu_item }}"/>
+                                    </div>
+
+
+                                </a>
+
+
+                                <!--a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
                                    data-id="{{ $value->id }}" data-res-id="{{ $value->restaurant_id }}"
                                    class="insert-stats {{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                                     <div class="card-image">
                                         <img src="{{ $item_image1 }}" class="img-responsive"
                                              alt="{{ $value->menu_item }}"/>
                                     </div>
-                                </a>
-
-
+                                </a-->
 
 
                             </div>
@@ -124,84 +154,73 @@
 
 
 
-                <div class="modal  fade clearfix " id="product-pop-up_<?if(isset($value->id)){echo $value->id;}?>" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="viewDetailModel">Add Addresss</h4>
-                            </div>
-                            <div class="modal-body product-popup"  id="product-pop-up_{{ $value->id }}">
+            <div class="modal  fade clearfix " id="product-pop-up_<?if (isset($value->id)) {
+                echo $value->id;
+            }?>" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="viewDetailModel">Add Addresss</h4>
+                        </div>
+                        <div class="modal-body product-popup" id="product-pop-up_{{ $value->id }}">
 
 
+                            <div class="product-page product-pop-up">
 
 
+                                <div class="modal-bodys">
+                                    <div class="col-sm-12 col-xs-12 title">
+                                        <h2>{{ $value->menu_item }}: $ {{ $value->price }}</h2>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
+                                        <strong>Menu Views:</strong>
+                                        <span id="view_stats"></span>
+                                    </div>
+                                    <div class="col-sm-12 col-xs-12">
+                                        <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
+                                    </div>
+                                    <div class="clearfix"></div>
 
+                                    <div class="product-titles">
+                                        <h2>{{ $value->description }}</h2>
+                                    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-                                <div class="product-page product-pop-up">
-
-
-                                    <div class="modal-bodys">
-                                        <div class="col-sm-12 col-xs-12 title">
-                                            <h2>{{ $value->menu_item }}: $ {{ $value->price }}</h2>
+                                    <div class="subitems_{{ $value->id }} optionals">
+                                        <div class="clearfix space10"></div>
+                                        <div style="display:none;">
+                                            <input type="checkbox" style="display: none;" checked="checked"
+                                                   title="{{ $value->id.'_'.$value->menu_item.'-_'.$value->price.'_' }}"
+                                                   value=""
+                                                   class="chk">
                                         </div>
-                                        <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
-                                            <strong>Menu Views:</strong>
-                                            <span id="view_stats"></span>
-                                        </div>
-                                        <div class="col-sm-12 col-xs-12">
-                                            <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
-                                        </div>
-                                        <div class="clearfix"></div>
+                                        <div class="banner bannerz">
+                                            <table width="100%">
+                                                <tbody>
+                                                @foreach ($submenus as $sub)
+                                                    <tr class="zxcx">
+                                                        <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
+                                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}"
+                                                                   id="extra_no_{{ $sub->id }}">
+                                                            <input type="hidden" value="{{ $sub->req_opt }}"
+                                                                   id="required_{{ $sub->id }}">
+                                                            <input type="hidden" value="{{ $sub->sing_mul }}"
+                                                                   id="multiple_{{ $sub->id }}">
+                                                            <input type="hidden" value="{{ $sub->exact_upto }}"
+                                                                   id="upto_{{ $sub->id }}">
 
-                                        <div class="product-titles">
-                                            <h2>{{ $value->description }}</h2>
-                                        </div>
-
-                                        <div class="subitems_{{ $value->id }} optionals">
-                                            <div class="clearfix space10"></div>
-                                            <div style="display:none;">
-                                                <input type="checkbox" style="display: none;" checked="checked"
-                                                       title="{{ $value->id.'_'.$value->menu_item.'-_'.$value->price.'_' }}" value=""
-                                                       class="chk">
-                                            </div>
-                                            <div class="banner bannerz">
-                                                <table width="100%">
-                                                    <tbody>
-                                                    @foreach ($submenus as $sub)
-                                                        <tr class="zxcx">
-                                                            <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
-                                                                <input type="hidden" value="{{ $sub->exact_upto_qty }}"
-                                                                       id="extra_no_{{ $sub->id }}">
-                                                                <input type="hidden" value="{{ $sub->req_opt }}"
-                                                                       id="required_{{ $sub->id }}">
-                                                                <input type="hidden" value="{{ $sub->sing_mul }}"
-                                                                       id="multiple_{{ $sub->id }}">
-                                                                <input type="hidden" value="{{ $sub->exact_upto }}"
-                                                                       id="upto_{{ $sub->id }}">
-
-                                                                <div style="" class="infolist col-xs-12">
-                                                                    <div style="display: none;">
-                                                                        <input type="checkbox" value="{{ $sub->menu_item }}" title="___"
-                                                                               id="{{ $sub->id }}" style="display: none;"
-                                                                               checked="checked" class="chk">
-                                                                    </div>
-                                                                    <a href="javascript:void(0);"><strong>{{ $sub->menu_item }}</strong></a>
-                                                                    <span><em> </em></span>
+                                                            <div style="" class="infolist col-xs-12">
+                                                                <div style="display: none;">
+                                                                    <input type="checkbox" value="{{ $sub->menu_item }}"
+                                                                           title="___"
+                                                                           id="{{ $sub->id }}" style="display: none;"
+                                                                           checked="checked" class="chk">
+                                                                </div>
+                                                                <a href="javascript:void(0);"><strong>{{ $sub->menu_item }}</strong></a>
+                                                                <span><em> </em></span>
                                             <span class="limit-options">
                                                 <?php
                                                 if ($sub->exact_upto == 0) {
@@ -223,71 +242,70 @@
                                                 ?>
                                             </span>
 
-                                                                    <div class="clearfix"></div>
-                                                                    <span class="error_{{ $sub->id }} errormsg"></span>
+                                                                <div class="clearfix"></div>
+                                                                <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                                    <div class="list clearfix">
-                                                                        <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
-                                                                        @foreach($mini_menus as $mm)
-                                                                            <div class="col-xs-6 col-md-6 subin btn default btnxx">
-                                                                                <div class="btnxx-inner">
-                                                                                    <a id="buttons_{{ $mm->id }}" class="buttons"
-                                                                                       href="javascript:void(0);">
-                                                                                        <button class="btn btn-primary"></button>
-                                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                                               id="extra_{{ $mm->id }}"
-                                                                                               title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
-                                                                                               class="extra-{{ $sub->id }}"
-                                                                                               name="extra_{{ $sub->id }}"
-                                                                                               value="post"/>
-                                                                                        &nbsp;&nbsp; {{ $mm->menu_item }}
-                                                                                        &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-                                                                                    </a>
-                                                                                    <b style="display:none;">
-                                                                                        <a id="remspan_{{ $mm->id }}" class="remspan"
-                                                                                           href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                                                <div class="list clearfix">
+                                                                    <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
+                                                                    @foreach($mini_menus as $mm)
+                                                                        <div class="col-xs-6 col-md-6 subin btn default btnxx">
+                                                                            <div class="btnxx-inner">
+                                                                                <a id="buttons_{{ $mm->id }}"
+                                                                                   class="buttons"
+                                                                                   href="javascript:void(0);">
+                                                                                    <button class="btn btn-primary"></button>
+                                                                                    <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                                           id="extra_{{ $mm->id }}"
+                                                                                           title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
+                                                                                           class="extra-{{ $sub->id }}"
+                                                                                           name="extra_{{ $sub->id }}"
+                                                                                           value="post"/>
+                                                                                    &nbsp;&nbsp; {{ $mm->menu_item }}
+                                                                                    &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                                                                </a>
+                                                                                <b style="display:none;">
+                                                                                    <a id="remspan_{{ $mm->id }}"
+                                                                                       class="remspan"
+                                                                                       href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
                                                                         <span id="sprice_0"
                                                                               class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
-                                                                                        <a id="addspan_{{ $mm->id }}" class="addspan"
-                                                                                           href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
-                                                                                    </b>
-                                                                                </div>
-                                                                                <div class="clearfix"></div>
+                                                                                    <a id="addspan_{{ $mm->id }}"
+                                                                                       class="addspan"
+                                                                                       href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                                                                </b>
                                                                             </div>
-                                                                        @endforeach
-                                                                        <input type="hidden" value="" class="chars_{{ $sub->id }}">
-                                                                    </div>
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                    @endforeach
+                                                                    <input type="hidden" value=""
+                                                                           class="chars_{{ $sub->id }}">
                                                                 </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        <div class="col-xs-12 add-btn">
+                                            <div class="add-minus-btn">
+                                                <a class="btn btn-primary minus" href="javascript:void(0);"
+                                                   onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
+
+                                                <div class="number{{ $value->id }}">1</div>
+                                                <a class="btn btn-primary add" href="javascript:void(0);"
+                                                   onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
                                             </div>
-
+                                            <a id="profilemenu{{ $value->id }}"
+                                               class="btn btn-primary add_menu_profile add_end"
+                                               href="javascript:void(0);" data-dismiss="modal">Add</a>
+                                            <button id="clear_{{ $value->id }}" data-dismiss="modal"
+                                                    class="btn btn-warning resetslider" type="button">
+                                                RESET
+                                            </button>
                                             <div class="clearfix"></div>
-                                            <div class="col-xs-12 add-btn">
-                                                <div class="add-minus-btn">
-                                                    <a class="btn btn-primary minus" href="javascript:void(0);"
-                                                       onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
-
-                                                    <div class="number{{ $value->id }}">1</div>
-                                                    <a class="btn btn-primary add" href="javascript:void(0);"
-                                                       onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
-                                                </div>
-                                                <a id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end"
-                                                   href="javascript:void(0);" data-dismiss="modal">Add</a>
-                                                <button id="clear_{{ $value->id }}" data-dismiss="modal"
-                                                        class="btn btn-warning resetslider" type="button">
-                                                    RESET
-                                                </button>
-                                                <div class="clearfix"></div>
-                                            </div>
-
-
-                                            <div class="clearfix"></div>
-
-
                                         </div>
 
 
@@ -295,18 +313,23 @@
 
 
                                     </div>
+
+
+                                    <div class="clearfix"></div>
+
+
                                 </div>
-
-
-
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
 
