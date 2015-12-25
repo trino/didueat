@@ -2537,36 +2537,6 @@ body.ecommerce {
     transition: all 0.5s ease-in-out;
 }
 
-#menumanager2 input,
-#menumanager2 textarea,
-#menumanager2 select {
-    background: none;
-    border: medium none !important;
-    border-bottom: 2px solid #aaa !important;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-#menumanager2 input:focus,
-#menumanager2 textarea:focus,
-#menumanager2 select:focus {
-    border-bottom: 2px solid #D50000 !important;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-#menumanager2 .additional .ignore .menuwrapper,
-#menumanager2 .additional .menuwrapper {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 0;
-    vertical-align: top;
-    width: 45.3%;
-}
 
 #signupForm .control-label {
     text-align: left !important;
@@ -4269,10 +4239,8 @@ Portlets
     }
     .additional .ignore .menuwrapper,
     .additional .menuwrapper,
-    #menumanager2 .additional .ignore .menuwrapper,
-    #menumanager2 .additional .menuwrapper {
-        width: 100%;
-    }
+
+
     .fancybox-inner > div {
         width: 500px !important;
     }

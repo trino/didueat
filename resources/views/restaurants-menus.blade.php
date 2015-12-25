@@ -3,7 +3,7 @@
 
 
 
-    <link rel="stylesheet" href="{{ asset('assets/global/css/popstyle.css') }}">
+    <!--link rel="stylesheet" href="{{ asset('assets/global/css/popstyle.css') }}"-->
 
 
     <div class=" col-md-4 col-sm-4" id="printableArea">

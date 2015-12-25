@@ -676,7 +676,7 @@ class RestaurantController extends Controller {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
-            return view('dashboard.restaurant.menu_form', $data);
+     //       return view('dashboard.restaurant.menu_form', $data);
         }
 
         return view('dashboard.restaurant.menu_form', $data);
