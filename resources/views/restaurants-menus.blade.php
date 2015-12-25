@@ -19,11 +19,66 @@
     <div class="col-md-8  col-sm-8 col-xs-12 menu_div">
         <?php printfile("views/restaurants-menus.blade.php"); ?>
         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+
+
+
             <div class="category_btns margin-bottom-15">
-                <a href="#menumanager2" class="btn red fancybox-fast-view additem" id="add_item0">Add Menu Item</a>
+
+                <button id="add_item0" type="button" class="btn btn-danger additem" data-toggle="modal" data-target="#addMenuModel" >
+                    Add Menu Item
+                </button>
+
+
+
                 <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
             </div>
-            <div id="menumanager2" style="display: none;width:800px;"></div>
+
+
+
+
+
+
+
+
+
+
+                <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="addMenuModelLabel">Add Addresss</h4>
+                            </div>
+                            <div class="modal-body"  id="menumanager2">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         @endif
 
         @foreach($category as $cat)

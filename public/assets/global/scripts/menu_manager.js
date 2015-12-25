@@ -20,6 +20,7 @@ $('.add_item').live('click', function () {
         });
     }
 });
+
 $('.additem').live('click', function () {
     //('TEST');
     var id = $(this).attr('id').replace('add_item', '');
@@ -43,6 +44,7 @@ $('.additem').live('click', function () {
         });
     }
 });
+
 var token = '';
 $.ajax({
     url: base_url + 'restaurant/getToken',
