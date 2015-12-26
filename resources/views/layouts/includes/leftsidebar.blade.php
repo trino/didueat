@@ -1,81 +1,117 @@
-<div class="sidebar col-md-2 col-sm-4 col-xs-12">
+<div class=" col-lg-3">
     <?php printfile("views/dashboard/layouts/leftsidebar.blade.php"); ?>
-    <aside class="">
-        <div class="">
-            <div class="box-shadow">
-                <div class="portlet-title">
-                    <div class="caption">
-                        User
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <ul class="list-group margin-bottom-25 sidebar-menu">
-                        <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/user') }}" class="<?php if (Request::path() == 'restaurant/orders/user') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
-                        <!-- <li class="list-group-item clearfix"><a href="{{ url('user/images') }}" class="<?php if (Request::path() == 'user/images') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Uploads</a> </li> -->
-                        <li class="list-group-item clearfix"><a href="{{ url('user/addresses') }}" class="<?php if (Request::path() == 'user/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Addresses</a> </li>
-                        <li class="list-group-item clearfix"><a href="{{ url('user/info') }}" class="<?php if (Request::path() == 'user/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Profile</a> </li>
-                        <!--li class="list-group-item clearfix"><a href="{{ url('logout') }}" class="<?php if (Request::path() == 'logout') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Logout</a></li-->
-                        @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
-                         <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards/user') }}" class="<?php if (Request::path() == 'users/credit-cards/user') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
-                         @endif
-                    </ul>
-                </div>
-            </div>
 
-            @if(check_permission("can_edit_global_settings"))
-                <div class="box-shadow">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            Administrator
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <ul class="list-group margin-bottom-25 sidebar-menu">
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/admin') }}" class="<?php if (Request::path() == 'restaurant/orders/admin') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Orders</a></li>
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/users') }}" class="<?php if (Request::path() == 'restaurant/users') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Users</a> </li>
-                            <!--li class="list-group-item clearfix"><a href="{{ url('restaurant/newsletter') }}" class="<?php if (Request::path() == 'restaurant/newsletter') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Newsletter</a></li-->
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/list') }}" class="<?php if (Request::path() == 'restaurant/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurants</a> </li>
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/subscribers') }}" class="<?php if (Request::path() == 'restaurant/subscribers') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Subscribers</a> </li>
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/eventlog') }}" class="<?php if (Request::path() == 'restaurant/eventlog') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Event Log</a></li>
-                            <li class="list-group-item clearfix"><a href="{{ url('user/reviews') }}" class="<?php if (Request::path() == 'user/reviews') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> User Reviews</a> </li>
-                            
-                            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
-                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards/admin') }}" class="<?php if (Request::path() == 'users/credit-cards') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            @endif
+    <h5>User Navigation</h5>
 
-            @if(\Session::get('session_restaurant_id'))
-                <div class="box-shadow">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            Restaurant
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <ul class="list-group margin-bottom-25 sidebar-menu">
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/list') }}" class="<?php if (Request::path() == 'restaurant/orders/list') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Orders</a></li>
-                           <li class="list-group-item clearfix"><a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}" class="<?php if (Request::path() == url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus')) { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> My Menu </a> </li>
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/addresses') }}" class="<?php if (Request::path() == 'restaurant/addresses') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a></li>
+    <div class="list-group">
 
-                            <li class="list-group-item clearfix"><a href="{{ url('restaurant/info') }}" class="<?php if (Request::path() == 'restaurant/info') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a></li>
+        <a href="{{ url('restaurant/orders/user') }}"
+           class="list-group-item <?php if (Request::path() == 'restaurant/orders/user') {
+               echo 'active';
+           } ?>"><i class="fa fa-angle-right"></i> My Orders</a>
 
-                            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
-                            <li class="list-group-item clearfix"><a href="{{ url('users/credit-cards') }}" class="<?php if (Request::path() == 'users/credit-cards/restaurant') { echo 'active'; } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a> </li>
-                            @endif
-                            <!--<li class="list-group-item clearfix"><a href="{{ url('restaurant/orders/pending') }}" class="<?php if (Request::path() == 'restaurant/orders/pending') {
-                                echo 'active';
-                            } ?>"><i class="fa fa-angle-right"></i> Pending Orders <span class="notification">({{ countOrders('pending') }})</span></a></li>-->
+        <a href="{{ url('user/addresses') }}"
+           class="list-group-item <?php if (Request::path() == 'user/addresses') {
+               echo 'active';
+           } ?>"><i class="fa fa-angle-right"></i> My Addresses</a>
 
-                            <!--<li class="list-group-item clearfix"><a href="{{ url('restaurant/report') }}" class="<?php if (Request::path() == 'restaurant/report') {
-                                echo 'active';
-                            } ?>"><i class="fa fa-angle-right"></i> Print Report</a></li>-->
-                        </ul>
-                    </div>
-                </div>
+        <a href="{{ url('user/info') }}"
+           class="list-group-item <?php if (Request::path() == 'user/info') {
+               echo 'active';
+           } ?>"><i class="fa fa-angle-right"></i> My Profile</a>
+
+        <a href="{{ url('users/credit-cards/user') }}"
+           class="list-group-item <?php if (Request::path() == 'users/credit-cards/user') {
+               echo 'active';
+           } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+
+    </div>
+
+
+    @if(check_permission("can_edit_global_settings"))
+            <p></p>
+
+            <h5>Admin Navigation</h5>
+        <div class="list-group">
+
+            <a href="{{ url('restaurant/orders/admin') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/orders/admin') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Orders</a>
+
+            <a href="{{ url('restaurant/users') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/users') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Users</a>
+
+            <a href="{{ url('restaurant/list') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/list') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Restaurants</a>
+
+            <a href="{{ url('restaurant/subscribers') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/subscribers') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Subscribers</a>
+
+            <a href="{{ url('restaurant/eventlog') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/eventlog') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Event Log</a>
+
+            <a href="{{ url('user/reviews') }}"
+               class="list-group-item <?php if (Request::path() == 'user/reviews') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> User Reviews</a>
+
+            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
+
+                <a href="{{ url('users/credit-cards/admin') }}"
+                   class="list-group-item <?php if (Request::path() == 'users/credit-cards') {
+                       echo 'active';
+                   } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+
             @endif
         </div>
-    </aside>
+    @endif
+
+
+
+    @if(\Session::get('session_restaurant_id'))
+        <p></p>
+        <h5>Restro Navigation</h5>
+        <div class="list-group">
+
+            <a href="{{ url('restaurant/orders/list') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/orders/list') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> My Orders</a>
+
+            <a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}"
+               class="list-group-item <?php if (Request::path() == url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus')) {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> My Menu </a>
+
+            <a href="{{ url('restaurant/addresses') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/addresses') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a>
+
+            <a href="{{ url('restaurant/info') }}"
+               class="list-group-item <?php if (Request::path() == 'restaurant/info') {
+                   echo 'active';
+               } ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a>
+
+            @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
+
+                <a href="{{ url('users/credit-cards') }}"
+                   class="list-group-item <?php if (Request::path() == 'users/credit-cards/restaurant') {
+                       echo 'active';
+                   } ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+
+            @endif
+        </div>
+    @endif
+
+
 </div>

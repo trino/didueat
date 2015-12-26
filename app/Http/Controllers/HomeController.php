@@ -22,8 +22,8 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousine types
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tages
         $data['query'] = 0;
         $data['count'] = 0;
         $data['start'] = 0;
@@ -43,10 +43,10 @@ class HomeController extends Controller {
         parse_str($post['data'], $data);
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);
-                $data['count'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $start));
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
+                $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
-                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));
+                $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
                 $data['loadmore'] = (isset($post['loadmore']))?$post['loadmore']:0;
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 if (!is_null($data['query']) && count($data['query']) > 0){
@@ -70,13 +70,13 @@ class HomeController extends Controller {
      */
     public function searchRestaurants($searchTerm = '') {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);
-        $data['count'] = \App\Http\Models\Restaurants::get();
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//search active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
+        $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);//search 10 restaurants
+        $data['count'] = \App\Http\Models\Restaurants::get();//count restaurants
         $data['start'] = count($data['query']);
         $data['searchTerm'] = $searchTerm;
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));
+        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
 
         return view('restaurants', $data);
     }
@@ -88,14 +88,14 @@ class HomeController extends Controller {
      */
     public function allRestaurants() {
         $data['title'] = 'All Restaurants Page';
-        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);
-        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();
-        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();
-        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();
-        $data['countries'] = \App\Http\Models\Countries::get();
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
-        $data['start'] = $data['query']->count();
+        $data['query'] = \App\Http\Models\Restaurants::where('open', 1)->paginate(8);//load all open restaurants
+        $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();//count all open restaurants
+        $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
+        $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
+        $data['countries'] = \App\Http\Models\Countries::get();//load all countries
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
+        $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
         $data['term'] = '';
 
         return view('restaurants', $data);
@@ -109,9 +109,9 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchMenus($term = '') {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();
-        $data['start'] = $data['query']->count();
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();//search all menus for $term
+        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();//count previous results
+        $data['start'] = $data['query']->count();//count previous results
         $data['term'] = $term;
         $data['title'] = "Search Menus";
 
@@ -127,15 +127,14 @@ class HomeController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
-                $data['query'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->get();
-                $data['count'] = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'count', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage'])->count();
+                $results = \App\Http\Models\Menus::searchMenus($post['term'], 8, $post['start'], 'list', $post['sortType'], $post['sortBy'], $post['priceFrom'], $post['priceTo'], $post['hasAddon'], $post['hasImage']);//search menus using post parameters
+                $data['query'] = $results->get();
+                $data['count'] = $results->count();//count results
                 $data['start'] = $data['query']->count() + $post['start'];
                 $data['term'] = $post['term'];
-
                 if (!is_null($data['query']) && count($data['query']) > 0) {
                     return view('ajax.search_menus', $data);
                 }
-
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
             }
@@ -146,7 +145,7 @@ class HomeController extends Controller {
     }
    
     /**
-     * Subscriber Newsletter
+     * Subscribe to the Newsletter
      * @param null
      * @return response
      */
@@ -288,6 +287,7 @@ class HomeController extends Controller {
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
+
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);
                         $ob2->save();
@@ -356,45 +356,22 @@ class HomeController extends Controller {
         }
     }
 
-    //sanitize time data
-    public function cleanTime($time) {
-        if (!$time)
-            return $time;
-        if (str_replace('AM', '', $time) != $time) {
-            $suffix = 'AM';
-        } else
-            $suffix = 'PM';
-        $time = str_replace(array(' AM', ' PM'), array('', ''), $time);
-
-        $arr_time = explode(':', $time);
-        $hour = $arr_time[0];
-        $min = $arr_time[1];
-        $sec = '00';
-
-        if ($hour < 12 && $suffix == 'PM')
-            $hour = $hour + 12;
-
-        return $hour . ':' . $min . ':' . $sec;
-
-    }
-
     /**
      * Menus Restaurants
      * @param null
      * @return view
      */
     public function menusRestaurants($slug) {
-        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();
-        $category = \App\Http\Models\Category::get();
+        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by it's slug
+        $category = \App\Http\Models\Category::get();//gets a category, I don't know which one
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['meta_description'] = $res_slug->description;
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
-        \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");
+        \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
-        $data['states_list'] = \App\Http\Models\States::get();
-        
+        $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
         if (isset($_GET['page'])) {
             return view('menus', $data);
         } else {
@@ -402,6 +379,7 @@ class HomeController extends Controller {
         }
     }
 
+    //loads menus view, containing menus of restaurant = $resid where category = $catid
     function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
@@ -412,6 +390,7 @@ class HomeController extends Controller {
         return view('menus', $data);
     }
 
+    //loads contact us view
     function contactus() {
         $data['title'] = 'Contact';
         //   $data['menus_list'] = \App\Http\Models\Menus::where('parent', 0)->orderBy('display_order', 'ASC')->paginate(10);
@@ -419,40 +398,7 @@ class HomeController extends Controller {
 
     }
 
-    //convert text to a slug
-    function createslug($text) {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
-        // trim
-        $text = trim($text, '-');
-
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        if (empty($text)) {
-            return 'n-a';
-        }
-        //test for same slug in db
-        $text = $this->chkSlug($text);
-
-
-        return $text;
-    }
-
-    //checks if a slug is in use, if it is, randomize it
-    function chkSlug($txt) {
-        if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $this->chkSlug($txt . rand(0, 999));
-        }
-        return $txt;
-    }
 
     //handle image uploading
     public function uploadimg($type = '') {
@@ -532,6 +478,23 @@ class HomeController extends Controller {
                     }
                     break;
 
+                case "add_enable":
+                    $doit = true;
+                    if(!$_POST["value"]) {
+                        $restaurantID = $this->get_notification_restaurant($_POST["id"]);
+                        $notification_address_count = $this->enum_notification_addresses($restaurantID);
+                        $doit = $notification_address_count > 1;
+                    }
+                    if($doit) {
+                        \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('enabled' => $_POST["value"]));
+                    } else {
+                        echo "You must have a minimum of 1 notification address";
+                    }
+                    break;
+                case "change_note":
+                    \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
             }
@@ -539,6 +502,18 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    public function get_notification_restaurant($notificationID){
+        $ob = \App\Http\Models\NotificationAddresses::find($notificationID);
+        $userID = $ob->user_id;
+        $ob = \App\Http\Models\Profiles::find($userID);
+        return $ob->restaurant_id;
+    }
+    public function enum_notification_addresses($restaurantID, $Get = false){
+        $order = \App\Http\Models\NotificationAddresses::where('enabled', 1)->leftJoin('profiles', 'notification_addresses.user_id', '=', 'profiles.id')->where( 'profiles.restaurant_id', $restaurantID);
+        if($Get){return $order->get();}
+        return $order->count();
     }
 
     //save a ratings change

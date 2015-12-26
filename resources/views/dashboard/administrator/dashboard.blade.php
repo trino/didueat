@@ -1,13 +1,12 @@
 @extends('layouts.default')
 @section('content')
 
-  <div class="content-page">
-    <div class="container-fluid">
+
       <div class="row">
 
         @include('layouts.includes.leftsidebar')
 
-        <div class="col-xs-12 col-md-10 col-sm-8">
+        <div class="col-lg-9">
           <?php printfile("views/dashboard/administrator/dashboard.blade.php"); ?>
           @if(\Session::has('message'))
               <div class="alert {!! Session::get('message-type') !!}">
@@ -16,23 +15,18 @@
               </div>
           @endif
 
-          <div class="box-shadow">
-            <div class="portlet-title">
-                <div class="caption">
-                Profile Manager
-              </div>
-            </div>
-            <div class="portlet-body form">
-              <!-- BEGIN FORM-->
+            Profile Manager
+
+            <!-- BEGIN FORM-->
               {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
               <div class="form-body">
                 <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="required">*</span></label>
+                    <label for="email" class=" control-label">Email <span class="required">*</span></label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="email" name="email" class="form-control readonly" id="email" placeholder="Email Address"
                                value="{{ $user_detail->email }}" readonly>
@@ -41,11 +35,11 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="required">*</span></label>
+                    <label for="name" class=" control-label">Name <span class="required">*</span></label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ $user_detail->name }}"
                                required="">
@@ -58,11 +52,11 @@
                   Contact Information
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number </label>
+                    <label for="phone_no" class=" control-label">Phone Number </label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number"
                                value="{{ (isset($address_detail->phone_no))?$address_detail->phone_no:'' }}">
@@ -71,11 +65,11 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="mobile" class="col-md-12 col-sm-12 col-xs-12 control-label">Mobile Number </label>
+                    <label for="mobile" class=" control-label">Mobile Number </label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Mobile Number"
                                value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
@@ -91,12 +85,12 @@
                 </div>
 
                 @if(Session::has('session_id'))
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="">
                     <div class="form-group clearfix">
-                      <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label" align="left">Old Password <span
+                      <label for="password" class=" control-label" align="left">Old Password <span
                           class="required">*</span></label>
 
-                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="">
                         <div class="input-icon">
                           <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password">
                         </div>
@@ -105,11 +99,11 @@
                   </div>
                 @endif
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Choose Password <span class="required">*</span></label>
+                    <label for="password" class=" control-label">Choose Password <span class="required">*</span></label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                       </div>
@@ -117,11 +111,11 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
+                    <label for="confirm_password" class=" control-label">Re-type Password <span class="required">*</span></label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <div class="input-icon">
                         <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
                       </div>
@@ -130,11 +124,11 @@
                 </div>
 
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <div class="form-group clearfix">
-                    <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
+                    <label for="subscribed" class=" control-label">&nbsp;</label>
 
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
                       <label>
                         <input type="checkbox" name="subscribed" id="subscribed" value="1" @if($user_detail->subscribed) checked @endif />
                         Sign up for our Newsletter
@@ -149,7 +143,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="">
                   <br/>
 
                   <div class="col-md-3 col-sm-3 col-xs-12">
@@ -169,10 +163,10 @@
 
               <div class="form-actions">
                 <div class="row">
-                  <div class="col-md-12 col-sm-12 col-xs-12">
+                  <div class="">
                     <div class="row margin-top-20">
                       <HR>
-                      <div class="col-xs-offset-0 col-md-12 col-sm-12 col-xs-12" align="center">
+                      <div class="col-xs-offset-0 " align="center">
                         <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
                         <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                         <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
@@ -186,14 +180,11 @@
               </div>
               {!! Form::close() !!}
 
-            </div>
-          </div>
+
 
 
         </div>
       </div>
-    </div>
-  </div>
 
 
   <script type="text/javascript">

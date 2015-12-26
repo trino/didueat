@@ -44,12 +44,10 @@ class VerifyCsrfToken
      *
      * @throws \Illuminate\Session\TokenMismatchException
      */
-    public function handle($request, Closure $next)
-    {
-        if ($this->isReading($request) || $this->shouldPassThrough($request) || $this->tokensMatch($request)) {
+    public function handle($request, Closure $next) {
+        if ($this->isReading($request) || $this->shouldPassThrough($request) || $this->tokensMatch($request) || $request->ajax()) {
             return $this->addCookieToResponse($request, $next($request));
         }
-
         throw new TokenMismatchException;
     }
 

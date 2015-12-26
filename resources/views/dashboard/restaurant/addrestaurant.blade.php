@@ -7,13 +7,12 @@
 <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="content-page">
-    <div class="container-fluid">
+
         <div class="row">
 
             @include('layouts.includes.leftsidebar')
 
-            <div class="col-md-10 col-sm-8 col-xs-12 ">
+            <div class="col-lg-9">
                 <?php printfile("views/dashboard/restaurant/addrestaurant.blade.php"); ?>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -25,23 +24,6 @@
                         @endif
                     </div>
 
-
-                    <div class="col-md-12  col-sm-12 col-xs-12">
-                        <p>
-                            <strong>Scroll is hidden</strong><br>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec
-                            elit. Cras
-                            mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat
-                            porttitor
-                            ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-                            Duis mollis,
-                            est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
-                            mattis
-                            consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat
-                            porttitor ligula,
-                            eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
-                        </p>
-                    </div>
 
                     <!-- BEGIN FORM-->
                     {!! Form::open(array('url' => 'restaurant/add/new', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
@@ -263,8 +245,7 @@
 
             </div>
         </div>
-    </div>
-</div>
+
 </div>
 
 
