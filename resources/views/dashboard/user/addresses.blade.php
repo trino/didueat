@@ -28,12 +28,11 @@
                 <div class="card-header ">
 
 
-                   My Addresses
-                        <a class="btn btn-primary   btn-sm" data-toggle="modal"
-                           data-target="#addAddressModal">
-                            Add Address
-                        </a>
-
+                    My Addresses
+                    <a class="btn btn-primary   btn-sm" data-toggle="modal"
+                       data-target="#addAddressModal">
+                        Add Address
+                    </a>
 
 
                 </div>
@@ -113,77 +112,122 @@
 
 
                     {!! Form::open(array('url' => 'user/addresses', 'id'=>'addressesForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                    <label>Location Name</label>
-                    <input type="text" name="location" class="form-control"
-                           placeholder="Location Name"
-                           value="">
-                    <label>Street Address <span
-                                class="required">*</span></label>
-                    <input type="text" name="address" class="form-control"
-                           placeholder="Street address"
-                           value="" required>
-                    <label>Postal Code</label>
-                    <input type="text" name="post_code" class="form-control"
-                           placeholder="Postal Code"
-                           value="">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone_no" class="form-control"
-                           placeholder="Phone Number"
-                           value="">
-                    <label>Country <span
-                                class="required">*</span></label>
-                    <select name="country" class="form-control" required id="country"
-                            onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');">
-                        <option value="">-Select One-</option>
-                        @foreach($countries_list as $value)
-                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                        @endforeach
-                    </select>
 
-                    <label>Province <span
-                                class="required">*</span></label>
-                    <select name="province" class="form-control" id="province" required
-                            onchange="cities('{{ addslashes(url("ajax")) }}', 'ON');">
-                        <option value="">-Select One-</option>
 
-                    </select>
-                    <label>City <span
-                                class="required">*</span></label>
-                    <input type="text" name="city" id="city" class="form-control" required>
-                    <label>Apartment <span
-                                class="required">*</span></label>
-                    <input type="text" name="apartment" class="form-control" placeholder="Street address" value=""
-                           required>
-                    <label>Buzz Code <span
-                                class="required">*</span></label>
-                    <input type="text" name="buzz" class="form-control" placeholder="Postal Code" value="" required>
-                    <button type="submit" class="btn red">Submit</button>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Location Name</label>
+
+                        <div class="col-sm-9">
+
+                            <input class="form-control" type="text" name="location"
+                                   placeholder="Location Name"
+                                   value="">
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Street Address </label>
+
+                        <div class="col-sm-9">
+
+                            <input class="form-control" type="text" name="address"
+                                   placeholder="Street address"
+                                   value="" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3" l>Postal Code</label>
+
+                        <div class="col-sm-9">
+
+                            <input class="form-control" type="text" name="post_code"
+                                   placeholder="Postal Code"
+                                   value=""></div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Phone Number</label>
+
+                        <div class="col-sm-9">
+
+                            <input class="form-control" type="text" name="phone_no"
+                                   placeholder="Phone Number"
+                                   value=""></div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Country </label>
+
+                        <div class="col-sm-9">
+
+                            <select name="country" class="form-control" required id="country"
+                                    onchange="provinces('{{ addslashes(url("ajax")) }}', 'ON');">
+                                <option value="">-Select One-</option>
+                                @foreach($countries_list as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Province </label>
+
+                        <div class="col-sm-9">
+
+                            <select name="province" class="form-control" id="province" required
+                                    onchange="cities('{{ addslashes(url("ajax")) }}', 'ON');">
+                                <option value="">-Select One-</option>
+
+                            </select></div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">City </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="city" id="city" class="form-control" required></div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Apartment </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="apartment" class="form-control" placeholder="Street address"
+                                   value=""
+                                   required></div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Buzz Code </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="buzz" class="form-control" placeholder="Postal Code" value=""
+                                   required>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}"/>
                     {!! Form::close() !!}
 
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div>
-
-
-    <!--div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog-900" style="display: none;">
-        <div id="loading" class="center" style="display: none;">
-            <img src="{{ asset('assets/images/loader.gif') }}"/>
-        </div>
-        <div id="message" class="alert alert-danger" style="display: none;">
-            <h1 class="block">Error</h1>
-
-            <p></p>
-        </div>
-        <div id="contents"></div>
-    </div-->
-
 
 
 
@@ -195,23 +239,12 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="editNewUserLabel">Add Addresss</h4>
+                    <h4 class="modal-title" id="editNewUserLabel">Update Address</h4>
                 </div>
-                <div class="modal-body">
-                    <div id="loading" class="center" style="display: none;">
-                        <img src="{{ asset('assets/images/loader.gif') }}"/>
-                    </div>
-                    <div id="message" class="alert alert-danger" style="display: none;">
-                        <h1 class="block">Error</h1>
+                <div class="modal-body" id="contents">
 
-                        <p></p>
-                    </div>
-                    <div id="contents"></div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
             </div>
         </div>
     </div>

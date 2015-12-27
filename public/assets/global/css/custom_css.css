@@ -2,7 +2,7 @@
 * {
 	border-radius: 0 !important;
 }
-
+.modal-header {background: #D50000 !important;color:#fff;border:1px solid #D50000 !important;}
 body {
 	background-color: #f7f7f7 !important;
 }

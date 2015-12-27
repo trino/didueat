@@ -67,22 +67,19 @@
                 <DIV ID="message" align="center"></DIV>
                 {!! Form::open(array('url' => '/restaurant/orders/list/approve', 'id'=>'approve-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div class="form-group">
-                    <label>Note: </label>
+                    <label>Note to Customer</label>
                     <textarea name="note" rows="6" id="approvetext" class="form-control" maxlength="5000" required></textarea>
                     <input type="hidden" name="id" value="" />
                 </div>
-                <div class="form-group">
-                    <input class="btn red" type="submit" Value=" Approve " onclick="return confirm2('approve');">
-                </div>
-                <div class="clearfix"></div>
-                {!! Form::close() !!}
+
 
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                    <button class="btn btn-primary"  Value=" Approve " onclick="return confirm2('approve');">Submit</button>
+                <div class="clearfix"></div>
+                {!! Form::close() !!}            </div>
         </div>
     </div>
 </div>
@@ -105,20 +102,20 @@
                 <div ID="message" align="center"></div>
                 {!! Form::open(array('url' => '/restaurant/orders/list/cancel', 'id'=>'cancel-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div class="form-group">
-                    <label>Note: </label>
+                    <label>Note to Customer</label>
                     <textarea name="note" id="canceltext" rows="6" class="form-control" maxlength="5000" required></textarea>
                     <input type="hidden" name="id" value="" />
                 </div>
-                <div class="form-group">
-                    <input class="btn red" type="submit" Value=" Cancel " onclick="return confirm2('cancel');">
-                </div>
-                <div class="clearfix"></div>
-                {!! Form::close() !!}
+
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+
+                    <button class="btn btn-primary" type="submit" onclick="return confirm2('cancel');"/>Submit</button>
+                {!! Form::close() !!}
+                <div class="clearfix"></div>
+
             </div>
         </div>
     </div>
