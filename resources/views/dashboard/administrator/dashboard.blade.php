@@ -16,13 +16,8 @@
             @endif
 
             <div class="card">
-                <div class="card-header bg-primary">
-
-
-                   My Info
-
-
-
+                <div class="card-header">
+                    My Info
                 </div>
                 <div class="card-block">
 
@@ -30,62 +25,139 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control readonly" id="email"
-                           placeholder="Email Address"
-                           value="{{ $user_detail->email }}" readonly>
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Full Name"
-                           value="{{ $user_detail->name }}"
-                           >
-                    <label>Phone Number </label>
-                    <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number"
-                           value="{{ (isset($address_detail->phone_no))?$address_detail->phone_no:'' }}">
-                    <label>Mobile Number </label>
-                    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Mobile Number"
-                           value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
+                    <div class="form-group row">
+                        <label class="col-sm-3">Email</label>
 
-                    <label>
-                        Create Password
-                    </label>
-
-                    @if(Session::has('session_id'))
-                        <label>Old Password</label>
-                        <input type="password" name="old_password" class="form-control" id="old_password"
-                               placeholder="Old Password">
-                    @endif
-
-                    <label>Re-type Password</label>
-                    <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-                           placeholder="Re-type Password">
-                        <input type="checkbox" name="subscribed" id="subscribed" value="1"
-                               @if($user_detail->subscribed) checked @endif />
-                        Sign up for our Newsletter
+                        <div class="col-sm-9">
+                            <input type="email" name="email" class="form-control readonly" id="email"
+                                   placeholder="Email Address"
+                                   value="{{ $user_detail->email }}" disabled>
+                        </div>
+                    </div>
 
 
-                    <h3>Change Photo</h3>
-                    @if($user_detail->photo)
-                        <img id="picture" class=""
-                             src="{{ asset('assets/images/users/'.$user_detail->photo). '?'.mt_rand() }}" title=""
-                             style="">
-                    @else
-                        <img id="picture" class="" src="{{ asset('assets/images/default.png') }}"
-                             title="" style="">
-                    @endif
+                    <div class="form-group row">
 
-                    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
+                        <label class="col-sm-3">Name</label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="name" class=" form-control  " id="name" placeholder="Full Name"
+                                   value="{{ $user_detail->name }}"
+                                    >
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Phone Number </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="phone_no" class=" form-control  " id="phone_no"
+                                   placeholder="Phone Number"
+                                   value="{{ (isset($address_detail->phone_no))?$address_detail->phone_no:'' }}">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Mobile Number </label>
+
+                        <div class="col-sm-9">
+
+                            <input type="text" name="mobile" class=" form-control  " id="mobile"
+                                   placeholder="Mobile Number"
+                                   value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+
+                            </div>
+                        <div class="col-sm-9">
+
+                            <input type="checkbox" name="subscribed" id="subscribed" value="1"
+                                   @if($user_detail->subscribed) checked @endif />
+                            Sign up for our Newsletter
+
+                        </div>
+                    </div>
 
 
-                    <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
+                        @if(Session::has('session_id'))                    <div class="form-group row">
+
+                    <label class="col-sm-3">Password</label>
+                            <div class="col-sm-9">
+
+                                <input type="password" name="old_password" class="form-control" id="old_password"
+                                       placeholder="Old Password">
+                            </div></div>
+                        @endif
 
 
-                    <button type="submit" class="btn red"><i class="fa fa-check"></i> Save Changes</button>
+                    <div class="form-group row">
+
+                    <label class="col-sm-3">Re-type Password</label>
+
+                        <div class="col-sm-9">
+
+                            <input type="password" name="confirm_password" class="form-control" id="confirm_password"
+                                   placeholder="Re-type Password">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Profile Photo</label>
+
+                        <div class="col-sm-9">
+
+                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
+                            <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
+
+
+                            @if($user_detail->photo)
+                                <img id="picture" style="max-width:100%;"
+                                     src="{{ asset('assets/images/users/'.$user_detail->photo). '?'.mt_rand() }}"
+                                        >
+
+                            @else
+
+                                <img id="picture" class="" src="{{ asset('assets/images/default.png') }}"
+                                     title="" style="max-width:100%;">
+
+                            @endif
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="card-footer">
+
+
+
+
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+
                     <input type="hidden" name="restaurant_id"
                            value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                     <input type="hidden" name="status"
                            value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
                     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}"/>
-                {!! Form::close() !!}
+
+
+                    {!! Form::close() !!}
+<div class="clearfix"></div>
+
+                </div>
 
 
             </div>

@@ -25,7 +25,7 @@
 
 
             <div class="card">
-                <div class="card-header bg-primary">
+                <div class="card-header">
 
 
                     Credit Card ({{ ($type) }})

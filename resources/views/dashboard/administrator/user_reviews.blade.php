@@ -18,7 +18,7 @@
 
 
                 <div class="card">
-                    <div class="card-header bg-primary">
+                    <div class="card-header">
 
 
                         Reviews

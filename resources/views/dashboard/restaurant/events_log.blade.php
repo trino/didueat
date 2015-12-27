@@ -9,7 +9,7 @@
                     <?php printfile("views/dashboard/restaurant/events_log.blade.php"); ?>
 
                         <div class="card">
-                            <div class="card-header bg-primary">
+                            <div class="card-header">
 
 
                                 Logs

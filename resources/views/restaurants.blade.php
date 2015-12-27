@@ -171,7 +171,7 @@
         <div class="col-lg-4">
             <div class="card">
 
-                <div class="card-header bg-primary">
+                <div class="card-header">
                     Filter Search
                 </div>
                 <div class="card-block">
