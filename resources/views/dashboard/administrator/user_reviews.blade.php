@@ -16,13 +16,17 @@
                 </div>
             @endif
 
-            <div class="container-fluid">
-                <div class="btn_wrapper margin-bottom-20 clearfix">
-                </div>
 
-               <h3> USER REVIEWS</h3>
+                <div class="card">
+                    <div class="card-header">
 
-                <table class="table table-striped table-bordered table-hover" id="sample_1">
+
+                        Reviews
+
+
+                    </div>
+                    <div class="card-block p-a-0">
+                <table class="table table-striped table-responsive" id="sample_1">
                             <thead>
                             <tr>
                                 <th width="6%">ID</th>
@@ -49,11 +53,11 @@
 
 
 
-                                        <button type="button" class="btn btn-danger editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">
-                                            Edit Review
-                                        </button>
+                                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">
+                                            Edit
+                                        </a>
 
-                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn red"
+                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm"
                                            onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
                                     </td>
                                 </tr>
@@ -63,6 +67,7 @@
 
 
 
+            </div>
             </div>
         </div>
     </div>

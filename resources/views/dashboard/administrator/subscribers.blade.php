@@ -11,18 +11,17 @@
                     </div>
                 @endif
 
-                <div class="deleteme">
-                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-globe"></i>Subscribers List
-                            </div>
-                            <div class="tools">
-                            </div>
+
+                    <div class="card">
+                        <div class="card-header">
+
+
+                            Subscribers
+
+
                         </div>
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <div class="card-block p-a-0">
+                            <table class="table table-responsive" id="sample_1">
                                 <thead>
                                     <tr>
                                         <th width="10%">ID</th>
@@ -42,7 +41,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </div>
+
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
 

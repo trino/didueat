@@ -28,7 +28,7 @@ body.modal-open {
 }
 
 #loadmoreajaxloader{display: none;}
-
+.form-control{display: inline !important;}
 
 
 
@@ -150,7 +150,6 @@ body.modal-open {
 .static-rating {
 	border: none;
 	float: none;
-	font-family: cursive !important;
 	clear: both;
 }
 

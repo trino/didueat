@@ -15,24 +15,31 @@
             @endif
 
 
-            <button type="button" class="btn btn-danger editAddress" data-toggle="modal" data-target="#addAddressModal">
-                Add Address
-            </button>
+
+                <div class="card">
+                    <div class="card-header">
 
 
-            <div class="deleteme">
+                        Restaurant Notifications
 
-                <h3>MY NOTIFICATION ADDRESSES</h3>
-                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                        <a  class="btn btn-primary btn-sm editAddress" data-toggle="modal" data-target="#addAddressModal">
+                            Add Notification
+                        </a>
+
+
+                    </div>
+                    <div class="card-block p-a-0">
+                        <table class="table table-striped table-responsive">
+
                     <thead>
                     <tr>
                         <th width="5%">#</th>
-                        <th width="30%">Phone Number/Email Address</th>
+                        <th width="30%">Phone / Email</th>
                         <th width="30%">Note</th>
                         <th width="10%">Type</th>
                         <th width="5%">Enabled</th>
-                        {{--<th width="15%">Status</th>--}}
                         <th width="20%">Actions</th>
+                        <th width="20%">Order</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -51,21 +58,22 @@
 
                             <td>
 
+                                <a  class="btn btn-info btn-sm editAddress" data-toggle="modal"
+                                    data-target="#editAddressModal" data-id="{{ $value->id }}">
+                                    Edit
+                                </a>
 
                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}"
-                                   class="btn btn-danger red"
+                                   class="btn btn-danger btn-sm"
                                    onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
 
 
-                                <button type="button" class="btn btn-danger editAddress" data-toggle="modal"
-                                        data-target="#editAddressModal" data-id="{{ $value->id }}">
-                                    Edit Address
-                                </button>
 
 
-                                <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
                             </td>
+                            <td>
+                                <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -74,6 +82,7 @@
 
                 <!-- END EXAMPLE TABLE PORTLET-->
 
+            </div>
             </div>
         </div>
 

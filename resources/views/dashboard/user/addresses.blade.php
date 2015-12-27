@@ -1,18 +1,12 @@
 @extends('layouts.default')
 @section('content')
 
-
-
     <meta name="_token" content="{{ csrf_token() }}"/>
-
-
-
     <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 
+
     <div class="row">
-
-
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
@@ -29,57 +23,71 @@
                 </div>
             @endif
 
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addAddressModal">
-                Add Address
-            </button>
+
+            <div class="card">
+                <div class="card-header">
 
 
-            <h1>MY ADDRESSES</h1>
-
-            <table class="table table-striped table-bordered table-hover" id="sample_1">
-                <thead>
-                <tr>
-                    <th width="5%">#</th>
-                    <th width="15%">User Name</th>
-                    <th width="15%">Address Name</th>
-                    <th width="15%">Mobile #</th>
-                    <th width="25%">Address</th>
-                    <th width="20%">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($addresses_list as $key => $value)
-                    <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td>{{ $key+1 }}</td>
-                        <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
-                        <td>{{ $value->location }}</td>
-                        <td>{{ $value->phone_no }}</td>
-                        <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
-                        <td>
+                   My Addresses
+                        <a class="btn btn-primary btn-sm" data-toggle="modal"
+                           data-target="#addAddressModal">
+                            Add Address
+                        </a>
 
 
 
-                            <!--a href="#editNewUser" class="btn nomargin btn-info fancybox-fast-view editRow"
-                               data-id="{{ $value->id }}">Edit</a-->
+
+                </div>
+                <div class="card-block p-a-0">
 
 
-                            <button   data-id="{{ $value->id }}" type="button" class="btn btn-danger editRow" data-toggle="modal" data-target="#editNewUser" >
-                                Edit
-                            </button>
+                    <table class="table table-responsive" id="sample_111">
+                        <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th width="15%">Name</th>
+                            <th width="15%">Address</th>
+                            <th width="10%">Phone</th>
+                            <th width="20%">Address</th>
+                            <th width="20%">Action</th>
+                            <th width="10%">Order</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($addresses_list as $key => $value)
+                            <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
+                                <td>{{ $value->location }}</td>
+                                <td>{{ $value->phone_no }}</td>
+                                <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                                <td>
 
-                            <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn red"
-                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
-                            <a class="btn nomargin btn-info up"><i class="fa fa-arrow-up"></i></a>
-                            <a class="btn nomargin btn-info down"><i class="fa fa-arrow-down"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+
+                                    <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm"
+                                       data-toggle="modal"
+                                       data-target="#editNewUser">
+                                        Edit
+                                    </a>
+
+                                    <a href="{{ url('user/addresses/delete/'.$value->id) }}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
+
+                                </td>
+                                <td><a class="btn  btn-info up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                    <a class="btn  btn-info down btn-sm"><i class="fa fa-arrow-down"></i></a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
 
 
+                </div>
+            </div>
         </div>
     </div>
+
 
 
 
@@ -144,7 +152,7 @@
                                 class="required">*</span></label>
                     <input type="text" name="city" id="city" class="form-control" required>
                     <label>Apartment <span
-                               class="required">*</span></label>
+                                class="required">*</span></label>
                     <input type="text" name="apartment" class="form-control" placeholder="Street address" value=""
                            required>
                     <label>Buzz Code <span

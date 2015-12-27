@@ -7,23 +7,22 @@
 
                 <div class="col-lg-9">
                     <?php printfile("views/dashboard/restaurant/events_log.blade.php"); ?>
-                    <div class="deleteme">
 
-                        <div class="box-shadow">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-globe"></i>Logs List
-                                </div>
-                                <div class="tools">
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+
+
+                                Logs
+
+
                             </div>
-                            <div class="portlet-body">
-                                <table class="table table-striped table-bordered table-responsive" id="sample_1">
+                            <div class="card-block p-a-0">
+                                <table class="table table-responsive">
                                     <thead>
                                     <tr>
                                         <th width="10%">ID</th>
                                         <th width="20%">User</th>
-                                        <th width="20%">Date</th>
+                                        <th width="20%">Datetime</th>
                                         <th width="50%">Event</th>
                                     </tr>
                                     </thead>
@@ -39,7 +38,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+
 
                     </div>
                 </div>

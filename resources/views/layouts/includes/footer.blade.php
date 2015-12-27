@@ -114,34 +114,27 @@
 
       </ul>
       <p>Designed and built with all the <i class="fa fa-heart"></i> in the world by <a
-                href="https://twitter.com/mdo"
-                target="_blank">@mdo</a> and
-        <a href="https://twitter.com/fat" target="_blank">@fat</a>. Maintained by the <a
-                href="https://github.com/orgs/twbs/people">core team</a> with the help of <a
-                href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</p>
+                href="#"
+                target="_blank">Trino Web</a>. Maintained by the <a
+                href="#">core team</a> with the help of <a
+                href="#">our contributors</a>.</p>
 
-      <p>Currently v4.0.0-alpha.2 / &copy; 2015 diduEAT / ALL Rights Reserved</p>
-
-
-      <p class="loadinfo"><?php
-        $end_loading_time = microtime(true);
-        printf("Page was generated in %f seconds", $end_loading_time - $start_loading_time);
-        echo "";
-        echo getOS();
-        echo " => ";
-        echo getUserBrowser();
-        ?></p>
-
-      <p class="copyrights">&copy;
-        <script language=javascript>var yr;
+      <p>Currently v1.0 / &copy;       <script language=javascript>var yr;
           Today = new Date();
-          document.write(Today.getFullYear());</script>
-        didueat.ca / ALL Rights Reserved.
+          document.write(Today.getFullYear());</script> diduEAT / ALL Rights Reserved
+
+      <?php
+      $end_loading_time = microtime(true);
+      printf(" Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+      echo "";
+      echo getOS();
+      echo " => ";
+      echo getUserBrowser();
+      ?>
+
+
+
       </p>
-
-
-
-
 
     </div>
   </div>
