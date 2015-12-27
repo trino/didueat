@@ -25,15 +25,14 @@
 
 
             <div class="card">
-                <div class="card-header">
+                <div class="card-header ">
 
 
                    My Addresses
-                        <a class="btn btn-primary btn-sm" data-toggle="modal"
+                        <a class="btn btn-primary   btn-sm" data-toggle="modal"
                            data-target="#addAddressModal">
                             Add Address
                         </a>
-
 
 
 

@@ -115,7 +115,7 @@
       </ul>
       <p>Designed and built with all the <i class="fa fa-heart"></i> in the world by <a
                 href="#"
-                target="_blank">Trino Web</a>. Maintained by the <a
+                target="_blank">trino web</a>. Maintained by the <a
                 href="#">core team</a> with the help of <a
                 href="#">our contributors</a>.</p>
 

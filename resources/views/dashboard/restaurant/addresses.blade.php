@@ -17,14 +17,13 @@
 
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary">
 
 
-                        Restaurant Notifications
 
-                        <a  class="btn btn-primary btn-sm editAddress" data-toggle="modal" data-target="#addAddressModal">
-                            Add Notification
-                        </a>
+                        <h4>Example heading <span class="label label-default">New</span></h4>
+
+
 
 
                     </div>

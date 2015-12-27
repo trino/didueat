@@ -42,15 +42,26 @@
                 <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log Out</a></li>
 
             @else
+                <li class="nav-item">
+
+
+                    <a  class="btn btn-danger  pull-right" data-toggle="modal" data-target="#loginModal">
+                        Log in
+                    </a>
+
+                </li>
 
                 <li class="nav-item">
-                <!--a href="#login-pop-up" class="nav-link fancybox-fast-view"> Log in <i
-                                class="fa fa-sign-in"></i></a-->
 
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#loginModal">
-                        Log in
-                    </button>
+
+                    <a class="btn btn-danger  pull-right" data-toggle="modal" data-target="#signupModal">
+                        Sign up
+                    </a>
+
                 </li>
+
+
+
             @endif
         </ul>
     </div>
