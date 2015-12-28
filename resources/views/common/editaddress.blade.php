@@ -7,39 +7,39 @@
         $addresse_detail->post_code = $addresse_detail->postal_code;
         $addresse_detail->phone_no = $addresse_detail->phone;
     }
+
+    if(!isset($new)){$new=false;}
+
+    function newrow($new, $name){
+        if($new){
+            return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label">' . $name. '</label>';
+        } else {
+            return '<div class="form-group row"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
+        }
+    }
 ?>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group">
-        <label class="control-label">Format Address </label>
+<?= newrow($new, "Format Address"); ?>
         <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
     </div>
 </div>
 
-<div class="form-group row">
-    <label class="col-sm-3">Street Address </label>
-    <div class="col-sm-9">
+<?= newrow($new, "Street Address"); ?>
         <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" required>
     </div>
 </div>
 
-<div class="form-group row">
-    <label class=" col-sm-3">Postal Code</label>
-    <div class="col-sm-9">
+<?= newrow($new, "Postal Code"); ?>
         <input type="text" name="post_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->post_code))?$addresse_detail->post_code: old('post_code') }}">
     </div>
 </div>
 
-<div class="form-group row">
-    <label class=" col-sm-3">Phone Number</label>
-    <div class="col-sm-9">
+<?= newrow($new, "Phone Number"); ?>
         <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no: old('phone_no') }}">
     </div>
 </div>
 
-<div class="form-group row">
-    <label class=" col-sm-3">Country </label>
-    <div class="col-sm-9">
+<?= newrow($new, "Country"); ?>
         <select name="country" id="country" class="form-control" id="country2" required onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
             @foreach($countries_list as $value)
@@ -49,18 +49,14 @@
     </div>
 </div>
 
-<div class="form-group row">
-    <label class=" col-sm-3">Province </label>
-    <div class="col-sm-9">
+<?= newrow($new, "Province"); ?>
         <select name="province" id="province" class="form-control" id="province2" required onchange="cities('{{ addslashes(url("ajax")) }}', old('province') );">
             <option value="">-Select One-</option>
         </select>
     </div>
 </div>
 
-<div class="form-group row">
-    <label class=" col-sm-3">City </label>
-    <div class="col-sm-9">
+<?= newrow($new, "City"); ?>
         <input type="text" id="city" name="city" class="form-control" id="city2" required value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
     </div>
 </div>
