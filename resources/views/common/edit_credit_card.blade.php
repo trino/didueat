@@ -38,14 +38,16 @@ foreach ($encryptedfields as $field) {
         <label for="user_type" class="col-sm-3">User Type </label>
 
         <div class="col-sm-9">
-            <input id="restaurant" type="radio" name="user_type" value="restaurant"
+            <LABEL>
+                <input id="restaurant" type="radio" name="user_type" value="restaurant"
                    @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif >
-            Restaurant
-
-            <input id="user" type="radio" name="user_type" value="user"
+                Restaurant
+            </LABEL>
+            <LABEL>
+                <input id="user" type="radio" name="user_type" value="user"
                    @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif >
-            User
-
+                User
+            </LABEL>
         </div>
     </div>
 
@@ -192,10 +194,8 @@ foreach ($encryptedfields as $field) {
 
     @if ( isset($credit_cards_list->id))
         <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}"/>
-        <input type="hidden" name="profile_id"
-               value="{{ (isset($credit_cards_list->profile_id))?$credit_cards_list->profile_id:'' }}"/>
-        <input type="hidden" name="user_type"
-               value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}"/>
+        <input type="hidden" name="profile_id" value="{{ (isset($credit_cards_list->profile_id))?$credit_cards_list->profile_id:'' }}"/>
+        <input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}"/>
     @endif
 
 

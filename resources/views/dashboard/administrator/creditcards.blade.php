@@ -66,8 +66,7 @@
                                 <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                                 <td>
 
-                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm"
-                                       data-toggle="modal" data-target="#editCreditCardModal">
+                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editCreditCardModal">
                                         Edit
                                     </a>
 
