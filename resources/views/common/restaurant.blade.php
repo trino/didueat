@@ -134,53 +134,7 @@
                             <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
                         </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Address </label>
-                            <input type="text" name="address" id="rout_street_number" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Postal Code </label>
-                            <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Country </label>
-                            <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');" required>
-                                <option value="">-Select One-</option>
-                                @foreach($countries_list as $value)
-                                    <option value="{{ $value->id }}" @if(old('country') == $value->id) selected @elseif($value->id == 40) selected @endif>{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Province </label>
-                            <select name="province" id="province" class="form-control" onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($resturant->province))?$resturant->province:'' }}');" required>
-                                <option value="">-Select One-</option>
-                                <!-- @foreach($states_list as $value)
-                                    <option value="{{ $value->id }}" @if(old('province') == $value->id) selected @endif>{{ $value->name }}</option>
-                                @endforeach -->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">City </label>
-                            {{--<select name="city" class="form-control" required id="city"></select>--}}
-                            <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}" required>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Phone Number </label>
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
-                        </div>
-                    </div>
+                    <?php echo view("common.editaddress", array("new" => true)); ?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Mobile Number (Optional)</label>
