@@ -355,7 +355,6 @@ class AdministratorController extends Controller {
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
             }
-
             \DB::beginTransaction();
             try {//save user's browser/OS info
                 $browser_info = getBrowser();
@@ -378,7 +377,7 @@ class AdministratorController extends Controller {
                     \DB::commit();
                 }
 
-                $this->success( 'User has been updated successfully.', 'restaurant/users', true);
+                return $this->success( 'User has been updated successfully.', 'restaurant/users', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
                 return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
