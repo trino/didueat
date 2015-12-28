@@ -12,11 +12,14 @@
 <div class="form-group row">
     <label class=" col-sm-3">Location Name</label>
     <div class="col-sm-9">
-        <input type="text" name="location" class="form-control" placeholder="Location Name" value="{{ (isset($addresse_detail->location))?$addresse_detail->location:'' }}">
+        <input type="text" name="location" class="form-control" placeholder="Location Name" value="<?php if(isset($addresse_detail->location)) { echo $addresse_detail->location;} ?>">
     </div>
 </div>
 
-<?php echo view("common.editaddress"); ?>
+<?php
+    $data["addresse_detail"] = $addresse_detail;
+    echo view("common.editaddress", $data);
+?>
 
 <div class="form-group row">
     <label class=" col-sm-3">Apartment </label>

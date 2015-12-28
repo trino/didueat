@@ -4,6 +4,8 @@
 
     if(!isset($addresse_detail) && isset($resturant)){
         $addresse_detail = $resturant;
+        $addresse_detail->post_code = $addresse_detail->postal_code;
+        $addresse_detail->phone_no = $addresse_detail->phone;
     }
 ?>
 
@@ -17,26 +19,14 @@
 <div class="form-group row">
     <label class=" col-sm-3">Postal Code</label>
     <div class="col-sm-9">
-        <input type="text" name="post_code" class="form-control" placeholder="Postal Code" value="<?php
-            if (isset($addresse_detail->post_code)) {
-                echo $addresse_detail->post_code;
-            } else if (isset($addresse_detail->postal_code)) {
-                echo $addresse_detail->postal_code;
-            }
-        ?>">
+        <input type="text" name="post_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->post_code))?$addresse_detail->post_code:'' }}">
     </div>
 </div>
 
 <div class="form-group row">
     <label class=" col-sm-3">Phone Number</label>
     <div class="col-sm-9">
-        <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="<?php
-            if (isset($addresse_detail->phone_no)){
-                echo $addresse_detail->phone_no;
-            } else if (isset($addresse_detail->phone)){
-                echo $addresse_detail->phone;
-            }
-        ?>">
+        <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no:'' }}">
     </div>
 </div>
 

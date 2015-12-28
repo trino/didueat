@@ -94,8 +94,8 @@ class UsersController extends Controller {
             die;
         }
         try {
-            $data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
-            $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
+            //$data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
+            //$data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);//load a specific address id
             ob_start();
             return view('ajax.addresse_edit', $data);

@@ -134,7 +134,8 @@ type="text/css"/-->
                     </div>
 
                     <?php
-                        echo view('common.editaddress');
+                        $data["resturant"] = $resturant;
+                        echo view('common.editaddress', $data);
                     ?>
 
                     <div class="form-group row">
