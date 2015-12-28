@@ -39,6 +39,12 @@
                     </a>
                 </li>
 
+                <?php
+                    if (read("oldid")){
+                        echo '<li class="nav-item"><a href="' . url('restaurant/users/action/user_depossess/' . read("oldid")) . '" class="nav-link">De-possess</a></li>';
+                    }
+                ?>
+
                 <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log Out</a></li>
 
             @else

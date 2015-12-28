@@ -108,19 +108,29 @@ class AdministratorController extends Controller {
             return $this->failure("[Type] is missing!", 'restaurant/users');
         }
         if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Order Id] is missing!", 'restaurant/users');
+            return $this->failure("[Profile Id] is missing!", 'restaurant/users');
         }
         try {
             $ob = \App\Http\Models\Profiles::find($id);//search for user $id
-            if ($type == "user_fire") {//fire user by deleting them
-                $ob->delete();
-            } else {//hire user by changing the profile type to employee
-                $ob->populate(array('profile_type' => 1));
-                $ob->save();
+            switch ($type){
+                case "user_fire"://fire user by deleting them
+                    $ob->delete();
+                    break;
+                case "user_hire"://hire user by changing the profile type to employee
+                    $ob->populate(array('profile_type' => 1));
+                    $ob->save();
+                    break;
+                case "user_possess":
+                    login($id, true);
+                    break;
+                case "user_depossess":
+                    login(read("oldid"));
+                    break;
+                default:
+                    return $this->failure("'" . $type . "' is not handled", 'restaurant/users');
             }
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            return $this->success('Status has been changed successfully!', 'Congratulations!');
-            return \Redirect::to('restaurant/users');
+            return $this->success('Status has been changed successfully!', 'restaurant/users');
         } catch (\Exception $e) {
             return $this->failure( $e->getMessage(), 'restaurant/users');
         }

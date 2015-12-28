@@ -81,13 +81,6 @@ function enum_profiletypes($Hierarchy = "", $toArray = true) {
     return $entries;
 }
 
-//shows what file is currently open in red text, use __FILE__ for $Filename
-function fileinclude($Filename) {//pass __FILE__
-    if ($_SERVER["SERVER_NAME"]) {
-        return '<FONT COLOR="RED">Include: ' . $Filename . '</FONT>';
-    }
-}
-
 function webroot($Local = false) {
     if ($Local) {
         return app_path() . "/";
@@ -193,12 +186,18 @@ function encryptpassword($Password) {
 }
 
 //login as a specific profile
-function login($Profile) {
+function login($Profile, $IsPossessing = false) {
     if (is_numeric($Profile)) {
         $Profile = get_profile($Profile);
     } else if (is_array($Profile)) {
         $Profile = (object) $Profile;
     }
+
+    \Session::forget('session_oldid');
+    if($IsPossessing){
+        write("oldid", read("id"));
+    }
+
     write('ID', $Profile->id);
     write('Name', $Profile->name);
     write('Email', $Profile->email);
@@ -1087,8 +1086,8 @@ function is_encrypted($Text){
 
 //if the server is localhost, print whatever file is specified in red text
 function printfile($File){//cannot user __FILE__ due to caching
-    if($_SERVER["SERVER_NAME"] == "localhost"){
-        echo '<FONT COLOR="RED">' . $File . '</FONT>';
+    if( config('app.debug')){
+        echo '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
     }
 }
 

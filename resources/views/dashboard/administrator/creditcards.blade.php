@@ -52,11 +52,11 @@
                         <tbody>
                         @foreach($credit_cards_list as $key => $value)
                             <?php
-                            foreach ($encryptedfields as $field) {
-                                if (is_encrypted($value->$field)) {
-                                    //   $value->$field = \Crypt::decrypt($value->$field);
+                                foreach ($encryptedfields as $field) {
+                                    if (is_encrypted($value->$field)) {
+                                        $value->$field = \Crypt::decrypt($value->$field);
+                                    }
                                 }
-                            }
                             ?>
                             <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                                 <td>{{ $value->user_type }}</td>
