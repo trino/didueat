@@ -51,8 +51,7 @@
                                             </div>
                                             <div id="radius_panel" style="display: none;">
                                                 <label>Radius</label>
-                                                <select name="radius" id="radius" class="form-control"
-                                                        onchange="createCookieValue('radius', this.value)">
+                                                <select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                                     <option value="">---</option>
                                                     <?php
                                                     foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
@@ -72,8 +71,7 @@
                                                     Pickup</label>
                                             </div>
                                             <div class="form-group">
-                                                <select name="minimum" id="minimum" class="form-control"
-                                                        onchange="createCookieValue('minimum', this.value)">
+                                                <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                                                     <option value="">Delivery Minimum</option>
                                                     <?php
                                                     for ($i = 5; $i < 50; $i += 5) {
@@ -94,8 +92,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <select name="rating" id="rating" class="form-control"
-                                                        onchange="createCookieValue('rating', this.value)">
+                                                <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
                                                     <option value="">Restaurant Rating</option>
                                                     <option value="5">5 Stars</option>
                                                     <option value="4">4 Stars or Better</option>
@@ -105,8 +102,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <select name="tags" id="tags" class="form-control"
-                                                        onchange="createCookieValue('tags', this.value)">
+                                                <select name="tags" id="tags" class="form-control" onchange="createCookieValue('tags', this.value)">
                                                     <option value="">Tags</option>
                                                     @foreach($tags as $value)
                                                         <option value="{{ $value->name }}">{{ $value->name }}</option>
@@ -114,8 +110,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <select name="SortOrder" id="SortOrder" class="form-control"
-                                                        onchange="createCookieValue('SortOrder', this.value)">
+                                                <select name="SortOrder" id="SortOrder" class="form-control" onchange="createCookieValue('SortOrder', this.value)">
                                                     <option value="">Sort By</option>
                                                     <option value="rating">Quality score</option>
                                                     <option value="delivery_fee">Delivery fee</option>

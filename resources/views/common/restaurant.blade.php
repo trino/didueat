@@ -270,3 +270,10 @@
         </div>
     </div>
 </DIV>
+<script src="{{ url("assets/global/scripts/googleaddress.js") }}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+<SCRIPT>
+    $(document).ready(function () {
+        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+    });
+</SCRIPT>

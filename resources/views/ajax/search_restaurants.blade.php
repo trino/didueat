@@ -1,17 +1,7 @@
-
-
 <div class="">
-
-<div class="list-group" id="restuarant_bar">
-
-
-
-
-    <?php printfile("views/ajax/search_restaurants.blade.php"); ?>
-
-
-
-    @if(isset($query) && $count > 0)
+    <div class="list-group" id="restuarant_bar">
+        <?php printfile("views/ajax/search_restaurants.blade.php"); ?>
+        @if(isset($query) && $count > 0)
             @foreach($query as $value)
 
                 <?php $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png'; ?>
