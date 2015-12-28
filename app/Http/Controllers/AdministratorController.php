@@ -316,8 +316,10 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function ajaxEditUserForm($id=0) {
-        $data['user_detail'] = \App\Http\Models\Profiles::find($id);
-        $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        if($id) {
+            $data['user_detail'] = \App\Http\Models\Profiles::find($id);
+            $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        }
         $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
         $data['states_list'] = \App\Http\Models\States::get();
         //echo '<pre>'; print_r($data['address_detail']); die;

@@ -14,13 +14,16 @@
 
             <div class="card">
                 <div class="card-header">
-
-
                     Users
-                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addNewUser">
+
+                    <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-id="0" data-target="#editNewUser">
                         Add
                     </a>
 
+
+                    <!--a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editNewUser">
+                        Add
+                    </a-->
 
                 </div>
                 <div class="card-block p-a-0">
@@ -46,8 +49,7 @@
                             <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                             <td>
 
-                                <a class="btn btn-info btn-sm editUser" data-toggle="modal"
-                                        data-id="{{ $value->id }}" data-target="#editNewUser">
+                                <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editNewUser">
                                     Edit
                                 </a>
                                 @if($value->id != \Session::get('session_id'))
@@ -98,37 +100,6 @@
         </div>
     </div>
 
-
-    <div class="modal  fade clearfix" id="addNewUser" tabindex="-1" role="dialog" aria-labelledby="addNewUserLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="addNewUserLabel">Add</h4>
-                </div>
-                <div class="modal-body">
-
-
-                    {!! Form::open(array('url' => '/restaurant/users', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    @include('common.edituser')
-                    {!! Form::close() !!}
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
     @include('common.tabletools')
 
     <script>
@@ -139,4 +110,7 @@
             });
         });
     </script>
+
+    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="edituser.blade" async defer></script>
 @stop

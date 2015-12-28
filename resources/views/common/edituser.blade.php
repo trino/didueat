@@ -61,7 +61,7 @@
     <h4 class="modal-title">Address Information</h4>
 </div>
 
-@include("common.editaddress", array("new" => true))
+@include("common.editaddress", array("new" => true, "dontinclude" => true))
 
 <div class="clearfix"></div>
 <div class="modal-header">
@@ -111,9 +111,9 @@
 </div>
 
 @if(isset($address_detail->id))
-<script type="text/javascript">
-    $(document).ready(function(){
-           //cities("{{ url('ajax') }}", '{{ (isset($address_detail->city))?$address_detail->city:0 }}');
-    });
-</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+               //cities("{{ url('ajax') }}", '{{ (isset($address_detail->city))?$address_detail->city:0 }}');
+        });
+    </script>
 @endif
