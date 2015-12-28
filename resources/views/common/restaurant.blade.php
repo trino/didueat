@@ -128,12 +128,6 @@
         <div class="portlet-body form">
             <div class="form-body">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Formate Address </label>
-                            <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
-                        </div>
-                    </div>
                     <?php echo view("common.editaddress", array("new" => true)); ?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
@@ -277,85 +271,3 @@
         </div>
     </div>
 </DIV>
-
-<script type="text/javascript">
-    //Google Api Codes.
-    var placeSearch, formatted_address;
-    function initAutocomplete(){
-      formatted_address = new google.maps.places.Autocomplete(
-          (document.getElementById('formatted_address')),
-          {types: ['geocode']});
-      formatted_address.addListener('place_changed', fillInAddress);
-    }
-
-    function fillInAddress() {
-      var place = formatted_address.getPlace();
-      var lat = place.geometry.location.lat();
-      var lng = place.geometry.location.lng();
-      $('#latitude').val(lat);
-      $('#longitude').val(lng);
-      var componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'long_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-      };
-      $('#city').val('');
-      $('#rout_street_number').val('');
-      $('#postal_code').val('');
-      provinces('{{ addslashes(url("ajax")) }}', '');
-      //$("#province option").attr("selected", false);
-      
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        if (componentForm[addressType]) {
-          var val = place.address_components[i][componentForm[addressType]];
-          if(addressType == "country"){
-            $("#country  option").filter(function() {
-                return this.text == val; 
-            }).attr('selected', true);
-          }
-          if(addressType == "administrative_area_level_1"){
-            $("#province option").filter(function() {
-                return this.text == val; 
-            }).attr('selected', true);
-          }
-          if(addressType == "locality"){
-            $('#city').val(val);
-          }
-          if(addressType == "postal_code"){
-            $('#postal_code').val(val);
-          }
-          if(addressType == "street_number"){
-            $('#rout_street_number').val(val);
-          }
-          if(addressType == "route"){
-              if($('#rout_street_number').val() != ""){
-                $('#rout_street_number').val($('#rout_street_number').val()+", "+val);
-              } else {
-                  $('#rout_street_number').val(val);
-              }
-          }
-        }
-      }
-    }
-
-    function geolocate() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var geolocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          var circle = new google.maps.Circle({
-            center: geolocation,
-            radius: position.coords.accuracy
-          });
-          formatted_address.setBounds(circle.getBounds());
-        });
-      }
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
