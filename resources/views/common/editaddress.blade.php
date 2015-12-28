@@ -19,6 +19,10 @@
     }
 ?>
 
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<input type="hidden" name="latitude" id="latitude" value=""/>
+<input type="hidden" name="longitude" id="longitude" value=""/>
+
 <?= newrow($new, "Format Address"); ?>
         <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
     </div>
@@ -141,5 +145,9 @@
             });
         }
     }
+
+    $(document).ready(function () {
+        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+    });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>

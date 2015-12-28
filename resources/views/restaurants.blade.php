@@ -124,8 +124,6 @@
                                                     <option value="name">Restaurant name</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" name="latitude" id="latitude" value=""/>
-                                            <input type="hidden" name="longitude" id="longitude" value=""/>
                                         </div>
                                         <br/>
 
@@ -436,42 +434,5 @@
             });
         });
 
-        //Google Api Codes.
-        var placeSearch, formatted_address;
-        function initAutocomplete() {
-            formatted_address = new google.maps.places.Autocomplete(
-                    (document.getElementById('formatted_address')),
-                    {types: ['geocode']});
-            formatted_address.addListener('place_changed', fillInAddress);
-        }
-
-        function fillInAddress() {
-            var place = formatted_address.getPlace();
-            var lat = place.geometry.location.lat();
-            var lng = place.geometry.location.lng();
-            $('#latitude').val(lat);
-            $('#longitude').val(lng);
-
-            createCookieValue('latitude', lat);
-            createCookieValue('longitude', lng);
-        }
-
-        function geolocate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle({
-                        center: geolocation,
-                        radius: position.coords.accuracy
-                    });
-                    formatted_address.setBounds(circle.getBounds());
-                });
-            }
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete"
-            async defer></script>
+      </script>
 @stop

@@ -1,4 +1,3 @@
-<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 <?php printfile("views/ajax/addresse_edit.blade.php"); ?>
@@ -38,9 +37,3 @@
 <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}"/>
     {!! Form::close() !!}
 <div class="clearfix"></div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
-    });
-</script>
