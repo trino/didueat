@@ -16,10 +16,7 @@
     </div>
 </div>
 
-<?php
-    $data["addresse_detail"] = $addresse_detail;
-    echo view("common.editaddress", $data);
-?>
+<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail)); ?>
 
 <div class="form-group row">
     <label class=" col-sm-3">Apartment </label>
