@@ -1084,9 +1084,13 @@ function is_encrypted($Text){
     return strpos($Text, "eyJpdiI6I") === 0;
 }
 
+function debugmode(){
+    return config('app.debug');
+}
+
 //if the server is localhost, print whatever file is specified in red text
 function printfile($File){//cannot user __FILE__ due to caching
-    if(config('app.debug')){
+    if(debugmode()){
         echo '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
     }
 }

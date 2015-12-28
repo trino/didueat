@@ -26,6 +26,9 @@ foreach ($encryptedfields as $field) {
         $credit_cards_list->$field = \Crypt::decrypt($credit_cards_list->$field);
     }
 }
+
+if(!isset($users_list)) {$users_list = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();}
+if(!isset($restaurants_list)) {$restaurants_list = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();}
 ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
 
@@ -39,12 +42,12 @@ foreach ($encryptedfields as $field) {
 
         <div class="col-sm-9">
             <LABEL>
-                <input id="restaurant" type="radio" name="user_type" value="restaurant"
+                <input type="radio" name="user_type" value="restaurant" ONCLICK="switchdivs(event);"
                    @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif >
                 Restaurant
             </LABEL>
             <LABEL>
-                <input id="user" type="radio" name="user_type" value="user"
+                <input type="radio" name="user_type" value="user" ONCLICK="switchdivs(event);"
                    @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif >
                 User
             </LABEL>
@@ -54,7 +57,7 @@ foreach ($encryptedfields as $field) {
 
     <div class="form-group row">
         <div class="col-sm-6">
-            <div id="restaurant_id">
+            <div id="restaurant_id" class="restaurant_id">
                 <select name="profile_id" class="form-control">
                     @foreach($restaurants_list as $restaurant)
                         <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
@@ -62,7 +65,7 @@ foreach ($encryptedfields as $field) {
                 </select>
             </div>
 
-            <div id="user_id">
+            <div id="user_id" class="user_id">
                 <select name="profile_id" class="form-control">
                     @foreach($users_list as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
@@ -201,20 +204,16 @@ foreach ($encryptedfields as $field) {
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(".restaurant_id").hide();
+    $(".user_id").hide();
 
-        $("#restaurant_id").hide();
-        $("#user_id").hide();
-
-        $('input[type=radio][name=user_type]').on("click", function () {
-            if ($(this).val() == "restaurant") {
-                $("#restaurant_id").show();
-                $("#user_id").hide();
-            }
-            if ($(this).val() == "user") {
-                $("#restaurant_id").hide();
-                $("#user_id").show();
-            }
-        });
-    });
+    function switchdivs(){
+        $(".restaurant_id").hide();
+        $(".user_id").hide();
+        if ($(event.target).val() == "restaurant") {
+            $(".restaurant_id").show();
+        } else {
+            $(".user_id").show();
+        }
+    }
 </script>

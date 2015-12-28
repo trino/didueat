@@ -66,7 +66,7 @@
                                 <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                                 <td>
 
-                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editCreditCardModal">
+                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editCreditCardModal">
                                         Edit
                                     </a>
 
@@ -90,51 +90,44 @@
         </div>
     </div>
 
+    <SCRIPT>
+        $('body').on('click', '.editRow', function () {
+            var id = $(this).attr('data-id');
+            $('#editCreditCardModal #editCreditCardModal').show();
+            $('#editCreditCardModal #contents').html('');
+            $.get("{{ url('users/credit-cards/edit') }}/" + id, {}, function (result) {
+                try {
+                    if (jQuery.parseJSON(result).type == "error") {
+                        var json = jQuery.parseJSON(result);
+                        $('#editCreditCardModal #message').show();
+                        $('#editCreditCardModal #message p').html(json.message);
+                        $('#editCreditCardModal #editContents').html('');
+                    }
+                } catch (e) {
+                    $('#editCreditCardModal #message').hide();
+                    $('#editCreditCardModal #editContents').html(result);
+                }
+                $('#editCreditCardModal #loading').hide();
+            });
+        });
+    </SCRIPT>
 
-    <div class="modal fade clearfix" id="addCreditCardModal" tabindex="-1" role="dialog"
-         aria-labelledby="addCreditCardModalLabel"
-         aria-hidden="true">
+    <div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog" aria-labelledby="editCreditCardModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="addCreditCardModalLabel">Update</h4>
+                    <h4 class="modal-title" id="editCreditCardModalLabel">Update Credit Card</h4>
                 </div>
                 <div class="modal-body">
-
-                    {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    @include('common.edit_credit_card')
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    {!! Form::close() !!}
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog"
-         aria-labelledby="editCreditCardModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="editCreditCardModalLabel">Update</h4>
-                </div>
-                <div class="modal-body">
-
 
                     {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    <div id="editContents"></div>
+                    <div id="editContents">
+                        <?php printfile("line 136"); ?>
+                        !include("common.edit_credit_card")
+                    </div>
                     {!! Form::close() !!}
 
                 </div>
@@ -155,6 +148,7 @@
                         <h4 class="modal-title">Add New</h4>
                     </div>
                     {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    <?php printfile("line 159"); ?>
                     @include('common.edit_credit_card')
                     {!! Form::close() !!}
                 </div>
