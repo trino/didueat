@@ -133,53 +133,9 @@ type="text/css"/-->
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Address</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ ((isset($resturant->address))?$resturant->address:'') }}" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3">Country</label>
-                        <div class="col-sm-9">
-                            <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', {{ (isset($resturant->province))?$resturant->province:'ON' }});" required>
-                                <option value="">-Select One-</option>
-                                @foreach($countries_list as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3">Province </label>
-                        <div class="col-sm-9">
-                            <select name="province" class="form-control" required id="province"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3">City</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="city" class="form-control" value="{{ ((isset($resturant->city))?$resturant->city:'') }}" required id="city">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3">Postal Code</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" value="{{ ((isset($resturant->postal_code))?$resturant->postal_code:'') }}" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-3">Phone Number</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ ((isset($resturant->phone))?$resturant->phone:'') }}">
-                        </div>
-                    </div>
+                    <?php
+                        echo view('common.editaddress');
+                    ?>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Hours</label>
