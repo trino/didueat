@@ -2,12 +2,6 @@
     printfile("views/common/editaddress.blade.php");
     $countries_list = \App\Http\Models\Countries::get();//load all countries
 
-    if(!isset($addresse_detail) && isset($resturant)){
-        $addresse_detail = $resturant;
-        $addresse_detail->post_code = $addresse_detail->postal_code;
-        $addresse_detail->phone_no = $addresse_detail->phone;
-    }
-
     if(!isset($new)){$new=false;}
 
     function newrow($new, $name){
@@ -24,7 +18,7 @@
 <input type="hidden" name="longitude" id="longitude" value=""/>
 
 <?= newrow($new, "Format Address"); ?>
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required autocomplete="off">
     </div>
 </div>
 
@@ -34,12 +28,12 @@
 </div>
 
 <?= newrow($new, "Postal Code"); ?>
-        <input type="text" name="post_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->post_code))?$addresse_detail->post_code: old('post_code') }}">
+        <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
     </div>
 </div>
 
 <?= newrow($new, "Phone Number"); ?>
-        <input type="text" name="phone_no" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone_no))?$addresse_detail->phone_no: old('phone_no') }}">
+        <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
     </div>
 </div>
 

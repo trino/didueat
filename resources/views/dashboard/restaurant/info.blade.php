@@ -133,7 +133,7 @@ type="text/css"/-->
                         </div>
                     </div>
 
-                    <?php echo view('common.editaddress', array("resturant" => $resturant)); ?>
+                    <?php echo view('common.editaddress', array("addresse_detail" => $resturant)); ?>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Hours</label>
