@@ -29,7 +29,8 @@
 
 
                     Credit Card ({{ ($type) }})
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addCreditCardModal">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                            data-target="#addCreditCardModal">
                         Add Credit Card
                     </button>
 
@@ -43,9 +44,7 @@
                             <th width="10%">Name</th>
                             <th width="10%">Card Type</th>
                             <th width="13%">Card Number</th>
-                            <th width="5%">Date</th>
-                            <th width="4%">Month</th>
-                            <th width="4%">Year</th>
+                            <th width="10%">Expiry Date</th>
                             <th width="14%">Actions</th>
                             <th width="14%">Order</th>
                         </tr>
@@ -64,14 +63,12 @@
                                 <td>{{ $value->first_name.' '.$value->last_name }}</td>
                                 <td>{{ $value->card_type }}</td>
                                 <td>{{ obfuscate($value->card_number) }}</td>
-                                <td>{{ $value->expiry_date }}</td>
-                                <td>{{ $value->expiry_month }}</td>
-                                <td>{{ $value->expiry_year }}</td>
+                                <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                                 <td>
 
-                                    <a  data-id="{{ $value->id }}" class="btn btn-danger btn-sm"
-                                            data-toggle="modal" data-target="#editCreditCardModal">
-                                        Edit Credit Card
+                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm"
+                                       data-toggle="modal" data-target="#editCreditCardModal">
+                                        Edit
                                     </a>
 
                                     @if($value->id != \Session::get('session_id'))
@@ -79,7 +76,8 @@
                                            class="btn btn-danger btn-sm"
                                            onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                                     @endif
-                                </td> <td>
+                                </td>
+                                <td>
                                     <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
                                     <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a>
                                 </td>
@@ -90,136 +88,136 @@
                 </div>
 
             </div>
-            </div>
-            </div>
+        </div>
+    </div>
 
 
-            <div class="modal fade clearfix" id="addCreditCardModal" tabindex="-1" role="dialog"
-                 aria-labelledby="addCreditCardModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="addCreditCardModalLabel">Update Credit Card</h4>
-                        </div>
-                        <div class="modal-body">
+    <div class="modal fade clearfix" id="addCreditCardModal" tabindex="-1" role="dialog"
+         aria-labelledby="addCreditCardModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="addCreditCardModalLabel">Update</h4>
+                </div>
+                <div class="modal-body">
 
-                            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                            @include('common.edit_credit_card')
-                            {!! Form::close() !!}
+                    {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    @include('common.edit_credit_card')
 
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
+        </div>
+    </div>
 
 
-            <div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog"
-                 aria-labelledby="editCreditCardModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="editCreditCardModalLabel">Update Credit Card</h4>
-                        </div>
-                        <div class="modal-body">
+    <div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog"
+         aria-labelledby="editCreditCardModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editCreditCardModalLabel">Update</h4>
+                </div>
+                <div class="modal-body">
 
 
-                            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                            <div id="editContents"></div>
-                            {!! Form::close() !!}
+                    {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    <div id="editContents"></div>
+                    {!! Form::close() !!}
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
+        </div>
+    </div>
 
 
-            @if(false)
-                <div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-                    <div class="modal-dialog2">
-                        <div class="fancy-modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add New</h4>
-                            </div>
-                            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                            @include('common.edit_credit_card')
-                            {!! Form::close() !!}
-                        </div>
+    @if(false)
+        <div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+            <div class="modal-dialog2">
+                <div class="fancy-modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add New</h4>
                     </div>
+                    {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    @include('common.edit_credit_card')
+                    {!! Form::close() !!}
                 </div>
+            </div>
+        </div>
 
-                <div id="NewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-                    <div class="modal-dialog2">
-                        <div class="fancy-modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Update Card</h4>
-                            </div>
-                            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                            <div id="editContents"></div>
-                            {!! Form::close() !!}
-                        </div>
+        <div id="NewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+            <div class="modal-dialog2">
+                <div class="fancy-modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Update Card</h4>
                     </div>
+                    {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+                    <div id="editContents"></div>
+                    {!! Form::close() !!}
                 </div>
-            @endif
+            </div>
+        </div>
+    @endif
 
 
-            @include('common.tabletools')
+    @include('common.tabletools')
 
-            <script type="text/javascript">
-                $('body').on('click', '.up, .down', function () {
-                    var row = $(this).parents("tr:first");
-                    var token = $('#addNewForm input[name=_token]').val();
-                    var order = $(this).parents("tr:first").attr('data-order');
+    <script type="text/javascript">
+        $('body').on('click', '.up, .down', function () {
+            var row = $(this).parents("tr:first");
+            var token = $('#addNewForm input[name=_token]').val();
+            var order = $(this).parents("tr:first").attr('data-order');
 
-                    if ($(this).is(".up")) {
-                        row.insertBefore(row.prev());
-                    } else {
-                        row.insertAfter(row.next());
-                    }
+            if ($(this).is(".up")) {
+                row.insertBefore(row.prev());
+            } else {
+                row.insertAfter(row.next());
+            }
 
-                    $(".rows").each(function (index) {
-                        $(this).attr("data-order", index);
-                    });
+            $(".rows").each(function (index) {
+                $(this).attr("data-order", index);
+            });
 
-                    var data_id = $(".rows").map(function () {
-                        return $(this).attr("data-id");
-                    }).get();
-                    var data_order = $(".rows").map(function () {
-                        return $(this).attr("data-order");
-                    }).get();
+            var data_id = $(".rows").map(function () {
+                return $(this).attr("data-id");
+            }).get();
+            var data_order = $(".rows").map(function () {
+                return $(this).attr("data-order");
+            }).get();
 
-                    $.post("{{ url('users/credit-cards/sequance') }}", {
-                        id: data_id.join('|'),
-                        order: data_order.join('|'),
-                        _token: token
-                    }, function (result) {
-                        if (result) {
-                            alert(result);
-                        }
-                    });
-                });
+            $.post("{{ url('users/credit-cards/sequance') }}", {
+                id: data_id.join('|'),
+                order: data_order.join('|'),
+                _token: token
+            }, function (result) {
+                if (result) {
+                    alert(result);
+                }
+            });
+        });
 
-                $('body').on('click', '.editUser', function () {
-                    var id = $(this).attr('data-id');
-                    $.get("{{ url("users/credit-cards/edit") }}/" + id, {}, function (result) {
-                        $('#editContents').html(result);
-                    });
-                });
-            </script>
+        $('body').on('click', '.editUser', function () {
+            var id = $(this).attr('data-id');
+            $.get("{{ url("users/credit-cards/edit") }}/" + id, {}, function (result) {
+                $('#editContents').html(result);
+            });
+        });
+    </script>
 @stop

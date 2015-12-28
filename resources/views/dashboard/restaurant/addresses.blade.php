@@ -21,7 +21,13 @@
 
 
 
-                        <h4>Example heading <span class="label label-default">New</span></h4>
+
+
+
+                        <h6 class="card-title">  Notifications         <button type="button" class="btn btn-danger btn-sm editAddress" data-toggle="modal" data-target="#addAddressModal">
+                                Add
+                            </button></h6>
+                        <h6 class="card-subtitle text-muted">Ways to get notified of an order</h6>
 
 
 

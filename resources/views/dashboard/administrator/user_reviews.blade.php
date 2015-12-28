@@ -18,7 +18,7 @@
 
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-primary">
 
 
                         Reviews
@@ -89,15 +89,18 @@
 
                     {!! Form::open(array('url' => '/user/reviews', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     <div id="editContents"></div>
+
+
                     {!! Form::close() !!}
 
 
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <!--div class="modal-footer">
+                    <button type="submit" class="btn red">Submit</button>
+                    <input type="hidden" name="id" value="{{ (isset($user_review_detail->id))?$user_review_detail->id:'' }}" />
+                </div-->
+
             </div>
         </div>
     </div>

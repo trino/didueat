@@ -20,7 +20,7 @@
 <div class="clearfix"></div>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="required">*</span></label>
+        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ (isset($user_detail->name))?$user_detail->name:'' }}" required="">
@@ -31,7 +31,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="required">*</span></label>
+        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ (isset($user_detail->email))?$user_detail->email:'' }}" required="">
@@ -63,7 +63,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address  <span class="required">*</span></label>
+        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address  </label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -75,7 +75,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code  <span class="required">*</span></label>
+        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code  </label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -87,7 +87,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number  <span class="required">*</span></label>
+        <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number  </label>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
@@ -99,7 +99,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country  <span class="required">*</span></label>
+        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country  </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <select name="country" id="{{ (isset($address_detail->country))?'country2':'country' }}" class="form-control" required onchange="provinces('{{ addslashes(url('ajax')) }}', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
@@ -115,7 +115,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  <span class="required">*</span></label>
+        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <select name="province" id="{{ (isset($address_detail->province))?'province2':'province' }}" class="form-control" required>
@@ -128,7 +128,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  <span class="required">*</span></label>
+        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">                
                 <input type="text" name="city" id="city" value="{{ (isset($address_detail->city))?'city2':'' }}" class="form-control" required>

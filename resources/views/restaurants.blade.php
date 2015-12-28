@@ -145,9 +145,9 @@
                     <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="container-fluid">
                             <div class="msgtop dropshadow"><span id="countRows" style="font: inherit;">No</span>
-                                Restaurant(s) Found
+                                restaurants found in your area
                             </div>
-                            <p id="start_up_message">Please enter address above to find restaurants near your area.</p>
+                            <p id="start_up_message">Please enter address above to find restaurants near you</p>
                             @include('ajax.search_restaurants')
                         </div>
                     </div>
@@ -280,7 +280,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>Please enter address above to find restaurants near your area.</p>
+                <p>Please enter address above to find restaurants near you</p>
             </div>
 
             <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -288,7 +288,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <span id="countRows" style="font: inherit;">No</span> Restaurant(s) Found
+                <span id="countRows" style="font: inherit;">No</span> restaurant found in your area
 
             </div>
 

@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Restaurant Name <span class="required">*</span></label>
+                            <label class="control-label">Restaurant Name </label>
                             <input type="text" name="restname" class="form-control" placeholder="Restaurant Name" value="{{ old('restname') }}" required>
                         </div>
                     </div>
@@ -130,25 +130,25 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Formate Address <span class="required">*</span></label>
+                            <label class="control-label">Formate Address </label>
                             <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Address <span class="required">*</span></label>
+                            <label class="control-label">Address </label>
                             <input type="text" name="address" id="rout_street_number" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Postal Code <span class="required">*</span></label>
+                            <label class="control-label">Postal Code </label>
                             <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ old('postal_code') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Country <span class="required">*</span></label>
+                            <label class="control-label">Country </label>
                             <select name="country" id="country" class="form-control" onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');" required>
                                 <option value="">-Select One-</option>
                                 @foreach($countries_list as $value)
@@ -159,7 +159,7 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Province <span class="required">*</span></label>
+                            <label class="control-label">Province </label>
                             <select name="province" id="province" class="form-control" onchange="cities('{{ addslashes(url('ajax')) }}', '{{ (isset($resturant->province))?$resturant->province:'' }}');" required>
                                 <option value="">-Select One-</option>
                                 <!-- @foreach($states_list as $value)
@@ -170,20 +170,20 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">City <span class="required">*</span></label>
+                            <label class="control-label">City </label>
                             {{--<select name="city" class="form-control" required id="city"></select>--}}
                             <input type="text" name="city" id="city" class="form-control" value="{{ old('city') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Phone Number <span class="required">*</span></label>
+                            <label class="control-label">Phone Number </label>
                             <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" required>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <label class="control-label">Mobile Number (<span class="required">Optional</span> )</label>
+                            <label class="control-label">Mobile Number (Optional)</label>
                             <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}" required>
                         </div>
                     </div>
@@ -249,7 +249,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
-                            <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Full Name <span class="required">*</span></label>
+                            <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Full Name </label>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
@@ -261,7 +261,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
-                            <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="required">*</span></label>
+                            <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email </label>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
@@ -281,7 +281,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
-                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Password <span class="required">*</span></label>
+                            <label for="password" class="col-md-12 col-sm-12 col-xs-12 control-label">Password </label>
 
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
@@ -293,7 +293,7 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
-                            <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password <span class="required">*</span></label>
+                            <label for="confirm_password" class="col-md-12 col-sm-12 col-xs-12 control-label">Re-type Password </label>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
                                     <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>

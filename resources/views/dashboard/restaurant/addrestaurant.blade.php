@@ -39,14 +39,14 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Restaurant Name <span class="required">*</span></label>
+                                                <label class="control-label">Restaurant Name </label>
                                                 <input type="text" name="restname" class="form-control" placeholder="Restaurant Name" value="{{ old('name') }}" required>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Email <span class="required">*</span></label>
+                                                <label class="control-label">Email </label>
                                                 <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ old('email') }}" required>
                                             </div>
                                         </div>
@@ -150,7 +150,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Address <span class="required" aria-required="true">*</span></label>
+                                                <label>Address </label>
                                                 <input type="text" name="address" class="form-control" placeholder="Street Address" value="{{ old('address') }}" required>
                                             </div>
                                         </div>
@@ -164,7 +164,7 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label class="control-label">Phone Number <span class="required" aria-required="true">*</span></label>
+                                                <label class="control-label">Phone Number </label>
                                                 <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}">
                                             </div>
                                         </div>
@@ -183,14 +183,14 @@
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>Province <span class="required">*</span></label>
+                                                <label>Province </label>
                                                 <SELECT name="province" id="province" class="form-control"></SELECT>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="form-group">
-                                                <label>City <span class="required" aria-required="true">*</span></label>
+                                                <label>City ></label>
                                                 <input type="text" name="city" class="form-control" placeholder="City" value="{{ old('city') }}" required>
                                             </div>
                                         </div>
