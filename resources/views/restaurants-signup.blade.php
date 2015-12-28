@@ -237,7 +237,7 @@ $(document).ready(function() {
 
     @if(old('city'))
         $(document).ready(function(){
-                cities("{{ url('ajax') }}", {{ old('city') }});
+                cities("{{ url('ajax') }}", "{{ old('city') }}");
         });
     @endif
     

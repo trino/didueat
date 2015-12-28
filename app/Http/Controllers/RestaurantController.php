@@ -197,6 +197,8 @@ class RestaurantController extends Controller {
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
+                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
+                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);
                         $ob2->save();
@@ -287,9 +289,13 @@ class RestaurantController extends Controller {
 
                 foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
-                        $hour['open'] = $this->cleanTime($value);
                         $hour['restaurant_id'] = $ob->id;
+
+                        $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
+                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
+                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
+
                         $hour['day_of_week'] = $post['day_of_week'][$key];
 
                         $hour['id'] = $post['idd'][$key];

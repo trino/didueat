@@ -212,30 +212,8 @@
                             </div>
                             <div class="portlet-body form">
                                 <div class="form-body">
-                                    <?php
-                                        $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                                        foreach ($day_of_week as $key => $value) {
-                                        $open[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'open');
-                                        $close[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'close');
-                                        $ID[$key] = select_field_where('hours', array('restaurant_id' => 0, 'day_of_week' => $value), 'id');
-                                    ?>
-                                    <div class="row">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
-                                            <div class=" col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="open[{{ $key }}]" value="{{ getTime($open[$key]) }}" class="form-control time"/>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3 col-xs-3" id="hour-to-style">to</div>
-                                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
-                                                <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                                                <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php } ?>
+                                    @include("dashboard.restaurant.hours")
                                 </div>
-
                             </div>
                         </div>
                     </div>

@@ -149,35 +149,7 @@
         </div>
         <div class="portlet-body form">
             <div class="form-body">
-                <?php
-                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                foreach ($day_of_week as $key => $value) {
-                if(isset($resturant->id)){
-                    $open[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'open');
-                    $close[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'close');
-                    $ID[$key] = select_field_where('hours', array('restaurant_id' => $resturant->id, 'day_of_week' => $value), 'id');
-                } else {
-                    $open[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'open');
-                    $close[$key] = select_field_where('hours', array('restaurant_id' => \Session::get('session_restaurant_id'), 'day_of_week' => $value), 'close');
-                }
-                ?>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3">{{ $value }}</label>
-                        <div class=" col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" name="open[{{ $key }}]" value="{{ getTime($open[$key]) }}" class="form-control time"/>
-                        </div>
-                        <div class="  col-md-3 col-sm-3 col-xs-3" id="hour-to-style"> to </div>
-                        <div class=" col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" name="close[{{ $key }}]" value="{{ getTime($close[$key]) }}" class="form-control time"/>
-                            <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                            @if(isset($ID))
-                                <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
+                @include("dashboard.restaurant.hours")
             </div>
         </div>
     </div>
@@ -275,7 +247,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 <SCRIPT>
     $(document).ready(function () {
-        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+        cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
     });
 </SCRIPT>
 -->

@@ -137,29 +137,7 @@ type="text/css"/-->
                     <div class="form-group row">
                         <label class="col-sm-3">Hours</label>
                         <div class="col-sm-9">
-                            <?php
-                            $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', "Offset");
-
-                            foreach ($day_of_week as $key => $value) {
-                                $open[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'open');
-                                $close[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'close');
-                                $ID[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'id');
-
-                                $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
-                                $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
-                                ?>
-                                    <div class="row">
-                                        <label class="col-sm-4">{{ $value }}</label>
-                                        <div class="col-sm-4">
-                                            <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                                            <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-                                            <input type="text" name="open[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time"/>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <input type="text" name="close[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time"/>
-                                        </div>
-                                    </div>
-                            <?php } ?>
+                            @include("dashboard.restaurant.hours")
                         </div>
                     </div>
                 </div>
@@ -211,7 +189,7 @@ initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags
 
         @if(isset($resturant->city))
         $(document).ready(function () {
-//cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
+//cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
                 });
         @endif
 
@@ -300,7 +278,7 @@ initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags
     <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
     <SCRIPT>
         $(document).ready(function () {
-            cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+            cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
         });
     </SCRIPT>
     -->

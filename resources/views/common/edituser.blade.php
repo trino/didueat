@@ -113,7 +113,7 @@
 @if(isset($address_detail->id))
 <script type="text/javascript">
     $(document).ready(function(){
-           //cities("{{ url('ajax') }}", {{ (isset($address_detail->city))?$address_detail->city:0 }});
+           //cities("{{ url('ajax') }}", '{{ (isset($address_detail->city))?$address_detail->city:0 }}');
     });
 </script>
 @endif

@@ -22,7 +22,7 @@
 <input type="hidden" name="longitude" id="longitude" value=""/>
 
 <?= newrow($new, "Format Address"); ?>
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" required autocomplete="off">
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" autocomplete="off">
     </div>
 </div>
 
@@ -52,7 +52,7 @@
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <select name="province" id="province" class="form-control" id="province2" required onchange="cities('{{ addslashes(url("ajax")) }}', old('province') );">
+        <select name="province" id="province" class="form-control" id="province2" required onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
             <option value="">-Select One-</option>
         </select>
     </div>
@@ -67,6 +67,6 @@
 <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 <SCRIPT>
     $(document).ready(function () {
-        cities("{{ url('ajax') }}", {{ (isset($addresse_detail->city))?$addresse_detail->city:0 }});
+        cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
     });
 </SCRIPT>
