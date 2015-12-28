@@ -11,6 +11,11 @@
             return '<div class="form-group row"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
         }
     }
+
+    if(!isset($addresse_detail) && isset($address_detail)){
+        $addresse_detail = $address_detail;
+    }
+
 ?>
 
 <input type="hidden" name="latitude" id="latitude" value=""/>
