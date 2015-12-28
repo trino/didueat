@@ -12,9 +12,7 @@
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
             <li class="nav-item">
-
-                <input type="text" name="formatted_address" id="formatted_address" class="form-control"
-                       placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
+                <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
             </li>
         @endif
     </ul>
