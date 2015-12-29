@@ -233,8 +233,6 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <input type="hidden" name="lat" id="latitude" value="" />
-                        <input type="hidden" name="lng" id="longitude" value="" />
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
                 </div>
