@@ -572,7 +572,7 @@ class RestaurantController extends Controller {
 
             try {
                 $ob = \App\Http\Models\Reservations::find($post['id']);
-                $ob->populate(array('status' => $status, 'note' => $post['note']));
+                $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                 $ob->save();
 
                 if ($ob->user_id) {

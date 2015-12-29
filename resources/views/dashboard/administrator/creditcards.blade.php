@@ -54,7 +54,7 @@
                             <?php
                                 foreach ($encryptedfields as $field) {
                                     if (is_encrypted($value->$field)) {
-                                     //   $value->$field = \Crypt::decrypt($value->$field);
+                                        $value->$field = \Crypt::decrypt($value->$field);
                                     }
                                 }
                             ?>
