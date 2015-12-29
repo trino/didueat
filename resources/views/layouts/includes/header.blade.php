@@ -14,6 +14,13 @@
             <li class="nav-item">
                 <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
             </li>
+            <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="editaddress.blade" async defer></script>
+            <SCRIPT>
+                $(document).ready(function() {
+                    initAutocomplete();
+                });
+            </SCRIPT>
         @endif
     </ul>
 
