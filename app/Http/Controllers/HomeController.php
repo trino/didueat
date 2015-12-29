@@ -118,6 +118,10 @@ class HomeController extends Controller {
         return view('home', $data);
     }
 
+    public function test(){
+        return view('test');
+    }
+
     /**
      * Search Menus Ajax
      * @param null

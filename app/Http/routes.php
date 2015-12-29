@@ -123,6 +123,8 @@ Route::post('user/ajax_register',                   		'UsersController@ajax_regi
 Route::resource('user/json_data',                   		'UsersController@json_data');
 Route::get('restaurant/changeOrderStatus/{status}', 		'RestaurantController@changeOrderStatus');
 
+Route::get('test',											'HomeController@test');
+
 Route::any('admin/(:any)/add/(:any?)', function($controller,$params=null) {
     return Controller::call('admin.'.$controller.'@edit', (array) $params);
 });
