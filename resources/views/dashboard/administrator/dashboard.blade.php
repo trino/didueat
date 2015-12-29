@@ -90,7 +90,7 @@
 
                         @if(Session::has('session_id'))                    <div class="form-group row">
 
-                    <label class="col-sm-3">Password</label>
+                    <label class="col-sm-3">Old Password</label>
                             <div class="col-sm-9">
 
                                 <input type="password" name="old_password" class="form-control" id="old_password"
@@ -98,17 +98,17 @@
                             </div></div>
                         @endif
 
-
                     <div class="form-group row">
-
-                    <label class="col-sm-3">Re-type Password</label>
-
+                        <label class="col-sm-3">New Password</label>
                         <div class="col-sm-9">
-
-                            <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-                                   placeholder="Re-type Password">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="New Password">
                         </div>
-
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3">Re-type Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
+                        </div>
                     </div>
 
 

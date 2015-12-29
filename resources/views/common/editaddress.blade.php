@@ -16,6 +16,10 @@
         $addresse_detail = $address_detail;
     }
 
+    if(!isset($required)){
+        $required = true;
+    }
+    $required = iif($required , " required");
 ?>
 
 <input type="hidden" name="lat" id="latitude" value="" />
@@ -30,7 +34,7 @@
 </div>
 
 <?= newrow($new, "Street Address"); ?>
-        <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" required>
+        <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}} >
     </div>
 </div>
 
@@ -45,7 +49,7 @@
 </div>
 
 <?= newrow($new, "Country"); ?>
-        <select name="country" id="country" class="form-control" id="country2" required onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
+        <select name="country" id="country" class="form-control" id="country2" {{$required}} onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
             @foreach($countries_list as $value)
                 <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
@@ -55,14 +59,14 @@
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <select name="province" id="province" class="form-control" id="province2" required onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
+        <select name="province" id="province" class="form-control" id="province2" {{$required}} onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
             <option value="">-Select One-</option>
         </select>
     </div>
 </div>
 
 <?= newrow($new, "City"); ?>
-        <input type="text" id="city" name="city" class="form-control" id="city2" required value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
+        <input type="text" id="city" name="city" class="form-control" id="city2" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
     </div>
 </div>
 

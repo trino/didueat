@@ -36,9 +36,9 @@ class AdministratorController extends Controller {
             if (!isset($post['name']) || empty($post['name'])) {
                 return $this->failure("[Name] field is missing!",'dashboard');
             }
-            if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure( "[Email] field is missing!",'dashboard');
-            }
+            /*if (!isset($post['email']) || empty($post['email'])) {
+                return $this->failure( "[Email] field is missing!",'dashboard');//doesn't get sent, thus this will never work
+            }*/
             try {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
                 //check old password, and both new passwords
@@ -63,7 +63,7 @@ class AdministratorController extends Controller {
                 if(isset($post['subscribed'])){
                     $data['subscribed'] = 1;
                 }
-                $data['email'] = $post['email'];
+                if (isset( $post['email'])) {$data['email'] = $post['email'];}
                 $data['name'] = $post['name'];
                 $data['phone_no'] = $post['phone_no'];
                 $data['mobile'] = $post['mobile'];

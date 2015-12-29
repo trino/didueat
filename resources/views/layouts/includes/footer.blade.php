@@ -107,11 +107,14 @@
                 <li class="list-inline-item"><a href="#">About</a></li>
                 <li class="list-inline-item"><a href="#">Email</a></li>
                 <li class="list-inline-item"><a href="#">FAQ</a></li>
-                <li class="list-inline-item"><a href="#">Log In</a></li>
-                <li class="list-inline-item"><a href="#">Sign Up</a></li>
-                <li class="list-inline-item"><a href="#">Restaurant Owner</a></li>
+                <?php
+                    if(!read("id")){
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a></li>';
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
+                    }
+                ?>
+                <li class="list-inline-item"><a href="{{ url("restaurants/signup") }}">Restaurant Owner</a></li>
                 <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
-
             </ul>
         </div>
         <div class="col-lg-2" style="">
