@@ -416,6 +416,11 @@ function clean_email($Email) {
     return strtolower(trim($Email));
 }
 
+function iif($Value, $True, $False = ""){
+    if($Value) {return $True;}
+    return $False;
+}
+
 //sanitize a postal code
 function clean_postalcode($PostalCode) {
     $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
