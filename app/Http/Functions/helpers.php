@@ -1,5 +1,16 @@
 <?php
 
+function includeJS($URL, $options = ""){
+    $Short = $URL;
+    $Start = strpos($Short, "?");
+    if($Start !== false){$Short = left($Short, $Start);}
+    if(!isset($GLOBALS["jsfiles"][$Short])) {
+        echo '<script src="' . $URL . '" ' . $options . '></script>';
+        $GLOBALS["jsfiles"][$Short] = true;
+        return true;
+    }
+}
+
 function handleexception($e){
     $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
     debugprint($Message . "\r\n Trace " . $e->getTraceAsString());

@@ -15,21 +15,7 @@
     </div>
 </div>
 
-<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail)); ?>
-
-<div class="form-group row">
-    <label class=" col-sm-3">Apartment </label>
-    <div class="col-sm-9">
-        <input type="text" name="apartment" class="form-control" placeholder="Apartment" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:'' }}" required>
-    </div>
-</div>
-
-<div class="form-group row">
-    <label class=" col-sm-3">Buzz Code </label>
-    <div class="col-sm-9">
-        <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:'' }}" required>
-    </div>
-</div>
+<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true)); ?>
 
 <button type="submit" class="btn btn-primary pull-right">Submit</button>
 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>

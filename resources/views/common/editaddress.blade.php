@@ -8,7 +8,7 @@
         if($new){
             return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label">' . $name. '</label>';
         } else {
-            return '<div class="form-group row"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
+            return '<div class="form-group row editaddress"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
         }
     }
 
@@ -70,15 +70,30 @@
     </div>
 </div>
 
+<?php if(isset($apartment)){ ?>
+    <?= newrow($new, "Apartment"); ?>
+            <input type="text" name="apartment" class="form-control" placeholder="Apartment" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}" {{$required}}>
+        </div>
+    </div>
+
+    <?= newrow($new, "Buzz Code"); ?>
+            <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}" {{$required}}>
+        </div>
+    </div>
+<?php }?>
+
 <?php if(isset($dontinclude)) { ?>
     <SCRIPT>
         $(document).ready(function() {
             initAutocomplete();
         });
     </SCRIPT>
-<?php } else { ?>
+<?php } else {
+    if(!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&source=editaddress", "async defer")){
+        echo '<script>initAutocomplete();</script>';
+    }
+?>
     <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="editaddress.blade" async defer></script>
     <SCRIPT>
         $(document).ready(function () {
             cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');

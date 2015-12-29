@@ -12,15 +12,23 @@
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
             <li class="nav-item">
-                <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
+                <input type="text" name="formatted_address" id="formatted_address2" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
             </li>
-            <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="editaddress.blade" async defer></script>
-            <SCRIPT>
-                $(document).ready(function() {
-                    initAutocomplete();
-                });
-            </SCRIPT>
+            <script>
+                var formatted_address2;
+                function initAutocomplete2(){
+                    var element = document.getElementById('formatted_address2');
+                    if(!element){return false;}
+                    formatted_address2 = new google.maps.places.Autocomplete(
+                            (element),
+                            {types: ['geocode']});
+                    formatted_address2.addListener('place_changed', fillInAddress);
+                    return element.value;
+                }
+            </script>
+            <?php if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")){
+                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+            } ?>
         @endif
     </ul>
 

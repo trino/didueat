@@ -116,4 +116,8 @@
 @stop
 
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="edituser.blade" async defer></script>
+<?php
+    /*if(!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&source=users", "async defer")){
+        echo '<script>initAutocomplete();</script>';
+    }*/
+?>
