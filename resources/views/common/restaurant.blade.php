@@ -102,10 +102,10 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                        <img id="picture" class="margin-bottom-10 full-width" src="{{ $restaurant_logo.'?'.mt_rand() }}" />
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <img id="picture" class="margin-bottom-10" style="max-width: 100%" src="{{ $restaurant_logo.'?'.mt_rand() }}" />
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
                             <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
                         </div>
                         <input type="hidden" name="logo" id="hiddenLogo" />
@@ -149,7 +149,7 @@
         </div>
         <div class="portlet-body form">
             <div class="form-body">
-                @include("dashboard.restaurant.hours")
+                @include("dashboard.restaurant.hours", array("layout" => true))
             </div>
         </div>
     </div>
