@@ -89,7 +89,9 @@
                 </div>
                 <div class="modal-body">
                     {!! Form::open(array('url' => '/restaurant/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                    <div id="editContents"></div>
+                    <div id="editContents">
+                        @include("common.edituser")
+                    </div>
                     {!! Form::close() !!}
                 </div>
                 <div class="modal-footer">
@@ -107,10 +109,11 @@
             var id = $(this).attr('data-id');
             $.get("{{ url("restaurant/users/edit") }}/" + id, {}, function (result) {
                 $('#editContents').html(result);
+                initAutocomplete();
             });
         });
     </script>
-
-    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="edituser.blade" async defer></script>
 @stop
+
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="edituser.blade" async defer></script>
