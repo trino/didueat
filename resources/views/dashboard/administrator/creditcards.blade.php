@@ -30,8 +30,8 @@
 
                     Credit Card ({{ ($type) }})
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                            data-target="#addCreditCardModal">
-                        Add Credit Card
+                            data-target="#editCreditCardModal">
+                        Add
                     </button>
 
 
@@ -54,7 +54,7 @@
                             <?php
                                 foreach ($encryptedfields as $field) {
                                     if (is_encrypted($value->$field)) {
-                                        $value->$field = \Crypt::decrypt($value->$field);
+                                     //   $value->$field = \Crypt::decrypt($value->$field);
                                     }
                                 }
                             ?>
@@ -90,27 +90,7 @@
         </div>
     </div>
 
-    <SCRIPT>
-        $('body').on('click', '.editRow', function () {
-            var id = $(this).attr('data-id');
-            $('#editCreditCardModal #editCreditCardModal').show();
-            $('#editCreditCardModal #contents').html('');
-            $.get("{{ url('users/credit-cards/edit') }}/" + id, {}, function (result) {
-                try {
-                    if (jQuery.parseJSON(result).type == "error") {
-                        var json = jQuery.parseJSON(result);
-                        $('#editCreditCardModal #message').show();
-                        $('#editCreditCardModal #message p').html(json.message);
-                        $('#editCreditCardModal #editContents').html('');
-                    }
-                } catch (e) {
-                    $('#editCreditCardModal #message').hide();
-                    $('#editCreditCardModal #editContents').html(result);
-                }
-                $('#editCreditCardModal #loading').hide();
-            });
-        });
-    </SCRIPT>
+
 
     <div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog" aria-labelledby="editCreditCardModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -126,7 +106,7 @@
                     {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     <div id="editContents">
                         <?php printfile("line 136"); ?>
-                        !include("common.edit_credit_card")
+                        @include("common.edit_credit_card")
                     </div>
                     {!! Form::close() !!}
 
@@ -171,6 +151,30 @@
 
 
     @include('common.tabletools')
+
+
+    <script>
+        $('body').on('click', '.editRow', function () {
+            var id = $(this).attr('data-id');
+            $('#editCreditCardModal #editCreditCardModal').show();
+            $('#editCreditCardModal #contents').html('');
+            $.get("{{ url('users/credit-cards/edit') }}/" + id, {}, function (result) {
+                try {
+                    if (jQuery.parseJSON(result).type == "error") {
+                        var json = jQuery.parseJSON(result);
+                        $('#editCreditCardModal #message').show();
+                        $('#editCreditCardModal #message p').html(json.message);
+                        $('#editCreditCardModal #editContents').html('');
+                    }
+                } catch (e) {
+                    $('#editCreditCardModal #message').hide();
+                    $('#editCreditCardModal #editContents').html(result);
+                }
+                $('#editCreditCardModal #loading').hide();
+            });
+        });
+    </script>
+
 
     <script type="text/javascript">
         $('body').on('click', '.up, .down', function () {

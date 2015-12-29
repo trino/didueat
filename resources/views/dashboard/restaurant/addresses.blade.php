@@ -21,13 +21,12 @@
 
 
 
-
-
-
-                        <h6 class="card-title">  Notifications         <button type="button" class="btn btn-danger btn-sm editAddress" data-toggle="modal" data-target="#addAddressModal">
-                                Add
-                            </button></h6>
-                        <h6 class="card-subtitle text-muted">Ways to get notified of an order</h6>
+                        <div class="card-title">
+ Notifications <button type="button" class="btn btn-danger btn-sm editAddress" data-toggle="modal" data-target="#addAddressModal">
+        Add
+    </button>
+</div>
+                        <div class="card-subtitle text-muted">Ways to get notified of an order</div>
 
 
 

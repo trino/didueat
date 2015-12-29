@@ -35,7 +35,7 @@
                                 <th width="7%">Type</th>
                                 <th width="5%">Rating</th>
                                 <th width="25%">Comment</th>
-                                <th width="15%">Comment Date</th>
+                                <th width="15%">Date</th>
                                 <th width="10%">Action</th>
                             </tr>
                             </thead>

@@ -18,7 +18,7 @@
 
 
                     Restaurants
-                    <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add New</a>
+                    <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
 
 
                 </div>

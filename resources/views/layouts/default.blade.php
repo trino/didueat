@@ -47,9 +47,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-
-        <!--link href="http://didueat.ca/assets/global/css/components-md.css" rel="stylesheet"-->
-
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>

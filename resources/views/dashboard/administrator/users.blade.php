@@ -16,7 +16,7 @@
                 <div class="card-header">
                     Users
 
-                    <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-id="0" data-target="#editNewUser">
+                    <a class="btn btn-primary btn-sm editUser" data-toggle="modal" data-id="0" data-target="#editNewUser">
                         Add
                     </a>
 
