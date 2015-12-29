@@ -90,7 +90,7 @@
                 <div class="modal-body">
                     {!! Form::open(array('url' => '/restaurant/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     <div id="editContents">
-                        @include("common.edituser")
+                        <!-- include("common.edituser") -->
                     </div>
                     {!! Form::close() !!}
                 </div>
