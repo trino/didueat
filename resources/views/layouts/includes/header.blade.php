@@ -49,7 +49,7 @@
                 <li class="nav-item">
 
 
-                    <a  class="btn btn-danger  pull-right" data-toggle="modal" data-target="#loginModal">
+                    <a  class="btn btn-danger secondary_red pull-right" data-toggle="modal" data-target="#loginModal">
                         Log in
                     </a>
 
@@ -58,7 +58,7 @@
                 <li class="nav-item">
 
 
-                    <a class="btn btn-danger  pull-right" data-toggle="modal" data-target="#signupModal">
+                    <a class="btn btn-danger secondary_red pull-right" data-toggle="modal" data-target="#signupModal">
                         Sign up
                     </a>
 

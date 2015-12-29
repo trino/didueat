@@ -54,7 +54,7 @@
                             <?php
                                 foreach ($encryptedfields as $field) {
                                     if (is_encrypted($value->$field)) {
-                                     //   $value->$field = \Crypt::decrypt($value->$field);
+                                     $value->$field = \Crypt::decrypt($value->$field);
                                     }
                                 }
                             ?>
@@ -77,8 +77,8 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
-                                    <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a>
+                                    <a class="btn btn-secondary-outline btn-sm up"><i class="fa fa-arrow-up"></i></a>
+                                    <a class="btn btn-secondary-outline btn-sm down"><i class="fa fa-arrow-down"></i></a>
                                 </td>
                             </tr>
                         @endforeach

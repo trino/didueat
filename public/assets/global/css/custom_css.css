@@ -1,4 +1,11 @@
 
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+	z-index: 2;
+	color: #fff;
+	background-color: #d50000;
+	border-color: #d50000;
+}
+
 * {
 
 }
@@ -22,6 +29,7 @@ body.modal-open {
 
 .secondary_red {
 	background: #ef0000 !important;
+	border: 1px solid #D50000 !important;
 }
 
 .image_placeholder {

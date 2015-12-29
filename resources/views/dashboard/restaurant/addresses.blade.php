@@ -76,8 +76,8 @@
 
                             </td>
                             <td>
-                                <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a></td>
+                                <a class="btn btn-secondary-outline  btn-sm up"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline btn-sm down"><i class="fa fa-arrow-down"></i></a></td>
                         </tr>
                     @endforeach
                     </tbody>

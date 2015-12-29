@@ -73,8 +73,16 @@
                                        onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
 
                                 </td>
-                                <td><a class="btn  btn-info up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                                    <a class="btn  btn-info down btn-sm"><i class="fa fa-arrow-down"></i></a></td>
+                                <td>
+
+
+                                    <div class="btn-group-vertical" role="group" aria-label="Basic example">
+
+                                        <a class="btn btn-secondary-outline  up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                        <a class="btn btn-secondary-outline  down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+
+</td>
                             </tr>
                         @endforeach
                         </tbody>
