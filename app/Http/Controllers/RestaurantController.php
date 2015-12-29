@@ -558,30 +558,38 @@ class RestaurantController extends Controller {
     /**
      * Change Order Status to $status, send email (using $subject/$email) and $flash
      * @param $id (POST)
+     * statuses can be cancelled, approved or pending
      * @return redirect
      */
-    public function changeOrderStatus($status, $subject, $email, $flash){
+    public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = ""){
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure("[Order Id] is missing!", 'restaurant/orders/admin');
             }
-            if (!isset($post['note']) || empty($post['note'])) {
+            if (is_numeric($post['id']) && (!isset($post['note']) || empty($post['note']))) {
                 return $this->failure("[Note Field] is missing!", 'restaurant/orders/admin');
             }
 
             try {
-                $ob = \App\Http\Models\Reservations::find($post['id']);
+                if(is_numeric($post['id'])) {
+                    $ob = \App\Http\Models\Reservations::find($post['id']);
+                    $URL = 'restaurant/orders/admin';
+                } else {
+                    $ob = \App\Http\Models\Reservations::where('guid', $post['id'])->first();
+                    $flash = "Order " . $status . " via email";
+                    $post['note'] = $flash;
+                }
                 $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                 $ob->save();
 
-                if ($ob->user_id) {
+                if ($ob->user_id && $subject && $email) {
                     $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
                     $userArray['mail_subject'] = $subject;
                     $userArray['note'] = $post['note'];
                     $this->sendEMail($email, $userArray);
                 }
-                return $this->success($flash, 'restaurant/orders/admin');
+                return $this->success($flash, $URL);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/orders/admin');
             }

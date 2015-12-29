@@ -20,6 +20,11 @@
                                 <br /><br />
                                 New order has been received.
                                 <br /><br />
+                                You can change the status of the order by clicking any of these links:
+                                <A HREF="{{ url("restaurant/changeOrderStatus/approved") }}?id={{ $guid }}">Approve</A>
+                                <A HREF="{{ url("restaurant/changeOrderStatus/pending") }}?id={{ $guid }}">Disapprove</A>
+                                <A HREF="{{ url("restaurant/changeOrderStatus/cancelled") }}?id={{ $guid }}">Cancel</A>
+                                <br /><br />
                                 If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
                                 <br /><br />
                                 Regards,
