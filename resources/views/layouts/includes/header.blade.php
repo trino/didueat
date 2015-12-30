@@ -1,4 +1,4 @@
-<?php printfile("views/dashboard/layouts/includes/header.blade.php"); ?>
+<?php printfile("views/dashboard/layouts/includes/header.blade.php"); $first = false; ?>
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top primary_red" role="navigation">
     <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
@@ -27,7 +27,6 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <?php
-                                    $first = false;
                                     foreach($addresses as $address){
                                         if(!$first){$first = $address->id;}
                                         echo '<LI><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A></LI>';
