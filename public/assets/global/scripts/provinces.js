@@ -77,11 +77,11 @@ $(document).ready(function() {
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
+    var element = document.getElementById(ID);
     var formatted_address = new google.maps.places.Autocomplete(
-        (document.getElementById(ID)),
+        (element),
         {types: ['geocode']});
     formatted_address.addListener('place_changed', fillInAddress);
-    alert("INIT'd " + ID);
     return formatted_address;
 }
 
