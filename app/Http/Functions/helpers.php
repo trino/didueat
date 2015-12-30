@@ -1,5 +1,16 @@
 <?php
 
+function includeJS($URL, $options = ""){
+    $Short = $URL;
+    $Start = strpos($Short, "?");
+    if($Start !== false){$Short = left($Short, $Start);}
+    if(!isset($GLOBALS["jsfiles"][$Short])) {
+        echo '<script src="' . $URL . '" ' . $options . '></script>';
+        $GLOBALS["jsfiles"][$Short] = true;
+        return true;
+    }
+}
+
 function handleexception($e){
     $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
     debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
@@ -79,13 +90,6 @@ function enum_profiletypes($Hierarchy = "", $toArray = true) {
         return my_iterator_to_array($entries, "id", "name");
     }
     return $entries;
-}
-
-//shows what file is currently open in red text, use __FILE__ for $Filename
-function fileinclude($Filename) {//pass __FILE__
-    if ($_SERVER["SERVER_NAME"]) {
-        return '<FONT COLOR="RED">Include: ' . $Filename . '</FONT>';
-    }
 }
 
 function webroot($Local = false) {
@@ -193,12 +197,18 @@ function encryptpassword($Password) {
 }
 
 //login as a specific profile
-function login($Profile) {
+function login($Profile, $IsPossessing = false) {
     if (is_numeric($Profile)) {
         $Profile = get_profile($Profile);
     } else if (is_array($Profile)) {
         $Profile = (object) $Profile;
     }
+
+    \Session::forget('session_oldid');
+    if($IsPossessing){
+        write("oldid", read("id"));
+    }
+
     write('ID', $Profile->id);
     write('Name', $Profile->name);
     write('Email', $Profile->email);
@@ -260,6 +270,16 @@ function check_permission($Permission, $UserID = "") {
     if (isset($PType->$Permission)) {
         return $PType->$Permission;
     }
+}
+
+function guidv4() {
+    if (function_exists('com_create_guid') === true) {
+        return trim(com_create_guid(), '{}');
+    }
+    $data = openssl_random_pseudo_bytes(16);
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // set version to 0100
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // set bits 6-7 to 10
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
 }
 
 /////////////////////////////////////Date API////////////////////////////////////////
@@ -405,6 +425,11 @@ function clean_phone($Phone) {
 //sanitize an email address
 function clean_email($Email) {
     return strtolower(trim($Email));
+}
+
+function iif($Value, $True, $False = ""){
+    if($Value) {return $True;}
+    return $False;
 }
 
 //sanitize a postal code
@@ -1085,10 +1110,14 @@ function is_encrypted($Text){
     return strpos($Text, "eyJpdiI6I") === 0;
 }
 
+function debugmode(){
+    return config('app.debug');
+}
+
 //if the server is localhost, print whatever file is specified in red text
 function printfile($File){//cannot user __FILE__ due to caching
-    if($_SERVER["SERVER_NAME"] == "localhost"){
-        echo '<FONT COLOR="RED">' . $File . '</FONT>';
+    if(debugmode()){
+        echo '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
     }
 }
 

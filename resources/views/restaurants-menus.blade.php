@@ -9,7 +9,7 @@
     <div class=" col-md-4 col-sm-4" id="printableArea">
         <div class="overlay overlay_reservation">
             <div class="clearfix"></div>
-            <div id="loadmoreajaxloader">
+            <div id="loadmoreajaxloader" style="x">
                 <img src="{{ asset('assets/images/ajax-loading.gif') }}">
             </div>
         </div>
@@ -613,92 +613,5 @@
                 window.location = "{{ url('restaurants') }}/" + $(this).val();
             }
         });
-
-        //Google Api Codes.
-        var formatted_address, formatted_address_checkout;
-        function initAutocompleteCheckOut() {
-            formatted_address = new google.maps.places.Autocomplete(
-                    (document.getElementById('formatted_address')),
-                    {types: ['geocode']}
-            );
-            formatted_address_checkout = new google.maps.places.Autocomplete(
-                    (document.getElementById('formatted_address_checkout')),
-                    {types: ['geocode']}
-            );
-            formatted_address_checkout.addListener('place_changed', fillInAddress2);
-        }
-
-        function fillInAddress2() {
-            var place = formatted_address_checkout.getPlace();
-            var lat = place.geometry.location.lat();
-            var lng = place.geometry.location.lng();
-            $('#latitude').val(lat);
-            $('#longitude').val(lng);
-            var componentForm = {
-                street_number: 'short_name',
-                route: 'long_name',
-                locality: 'long_name',
-                administrative_area_level_1: 'long_name',
-                country: 'long_name',
-                postal_code: 'short_name'
-            };
-            $('#ordered_city').val('');
-            $('#ordered_street').val('');
-            $('#ordered_code').val('');
-            //provinces('{{ addslashes(url("ajax")) }}', '');
-            $("#ordered_province option").attr("selected", false);
-
-            for (var i = 0; i < place.address_components.length; i++) {
-                var addressType = place.address_components[i].types[0];
-                if (componentForm[addressType]) {
-                    var val = place.address_components[i][componentForm[addressType]];
-                    if (addressType == "country") {
-                        $("#country  option").filter(function () {
-                            return this.text == val;
-                        }).attr('selected', true);
-                    }
-                    if (addressType == "administrative_area_level_1") {
-                        $("#ordered_province option").filter(function () {
-                            return this.text == val;
-                        }).attr('selected', true);
-                    }
-                    if (addressType == "locality") {
-                        $('#ordered_city').val(val);
-                    }
-                    if (addressType == "postal_code") {
-                        $('#ordered_code').val(val);
-                    }
-                    if (addressType == "street_number") {
-                        $('#ordered_street').val(val);
-                    }
-                    if (addressType == "route") {
-                        if ($('#ordered_street').val() != "") {
-                            $('#ordered_street').val($('#ordered_street').val() + ", " + val);
-                        } else {
-                            $('#ordered_street').val(val);
-                        }
-                    }
-                }
-            }
-        }
-
-        function geolocate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle({
-                        center: geolocation,
-                        radius: position.coords.accuracy
-                    });
-                    formatted_address.setBounds(circle.getBounds());
-                    formatted_address_checkout.setBounds(circle.getBounds());
-                });
-            }
-        }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocompleteCheckOut"
-            async defer></script>
 @stop

@@ -16,13 +16,17 @@
                 </div>
             @endif
 
-            <div class="container-fluid">
-                <div class="btn_wrapper margin-bottom-20 clearfix">
-                </div>
 
-               <h3> USER REVIEWS</h3>
+                <div class="card">
+                    <div class="card-header bg-primary">
 
-                <table class="table table-striped table-bordered table-hover" id="sample_1">
+
+                        Reviews
+
+
+                    </div>
+                    <div class="card-block p-a-0">
+                <table class="table table-striped table-responsive" id="sample_1">
                             <thead>
                             <tr>
                                 <th width="6%">ID</th>
@@ -31,7 +35,7 @@
                                 <th width="7%">Type</th>
                                 <th width="5%">Rating</th>
                                 <th width="25%">Comment</th>
-                                <th width="15%">Comment Date</th>
+                                <th width="15%">Date</th>
                                 <th width="10%">Action</th>
                             </tr>
                             </thead>
@@ -49,11 +53,11 @@
 
 
 
-                                        <button type="button" class="btn btn-danger editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">
-                                            Edit Review
-                                        </button>
+                                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">
+                                            Edit
+                                        </a>
 
-                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn red"
+                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm"
                                            onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
                                     </td>
                                 </tr>
@@ -63,6 +67,7 @@
 
 
 
+            </div>
             </div>
         </div>
     </div>
@@ -84,15 +89,18 @@
 
                     {!! Form::open(array('url' => '/user/reviews', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                     <div id="editContents"></div>
+
+
                     {!! Form::close() !!}
 
 
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <!--div class="modal-footer">
+                    <button type="submit" class="btn red">Submit</button>
+                    <input type="hidden" name="id" value="{{ (isset($user_review_detail->id))?$user_review_detail->id:'' }}" />
+                </div-->
+
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ class CreditCard extends BaseModel {
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function populate($data) {
+    public function populate($data) {//    encrypted
         $cells = array('first_name'     => true,
                        'user_type'      => false,
                        'profile_id'     => false,

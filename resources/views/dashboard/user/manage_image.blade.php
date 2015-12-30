@@ -81,7 +81,7 @@
             {!! Form::open(array('url' => '/user/images', 'id'=>'imageForm','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
             <div class="form-body">
                 <div class="form-group">
-                    <label>Restaurant Name <span class="required">*</span></label>
+                    <label>Restaurant Name </label>
                     <select name="restaurant_id" class="form-control input-lg" required>
                         <option value="">Select One</option>
                         @foreach($restaurants_list as $value)
@@ -90,11 +90,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Title <span class="required">*</span></label>
+                    <label>Title </label>
                     <input type="text" name="title" class="form-control" placeholder="Title" required>
                 </div>
                 <div class="form-group">
-                    <label>Image <span class="required">*</span></label>
+                    <label>Image </label>
                     <input type="file" name="image" class="form-control" required>
                 </div>
             </div>

@@ -20,7 +20,7 @@
 <div class="clearfix"></div>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name <span class="required">*</span></label>
+        <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Name </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ (isset($user_detail->name))?$user_detail->name:'' }}" required="">
@@ -31,7 +31,7 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
-        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email <span class="required">*</span></label>
+        <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email </label>
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ (isset($user_detail->email))?$user_detail->email:'' }}" required="">
@@ -58,84 +58,10 @@
 
 <div class="clearfix"></div>
 <div class="modal-header">
-    <h4 class="modal-title">Addressing Information</h4>
+    <h4 class="modal-title">Address Information</h4>
 </div>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="address" class="col-md-12 col-sm-12 col-xs-12 control-label">Street Address  <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="address" class="form-control" id="address" placeholder="Street Address" value="{{ (isset($address_detail->address))?$address_detail->address:'' }}" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="post_code" class="col-md-12 col-sm-12 col-xs-12 control-label">Postal Code  <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="post_code" class="form-control" id="post_code" placeholder="Postal Code" value="{{ (isset($address_detail->post_code))?$address_detail->post_code:'' }}" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="phone_no" class="col-md-12 col-sm-12 col-xs-12 control-label">Phone Number  <span class="required">*</span></label>
-
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="{{ (isset($address_detail->phone_no))?$address_detail->phone_no:'' }}" required>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="country" class="col-md-12 col-sm-12 col-xs-12 control-label">Country  <span class="required">*</span></label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <select name="country" id="{{ (isset($address_detail->country))?'country2':'country' }}" class="form-control" required onchange="provinces('{{ addslashes(url('ajax')) }}', '{{ (isset($address_detail->province))?$address_detail->province:'' }}');">
-                    <option value="">-Select One-</option>
-                    @foreach(select_field_where('countries', '', false, "name", $Dir = "ASC", "") as $value)
-                        <option value="{{ $value->id }}" @if(isset($address_detail->country) && $address_detail->country == $value->id) selected @endif>{{ $value->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="province" class="col-md-12 col-sm-12 col-xs-12 control-label">Province  <span class="required">*</span></label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">
-                <select name="province" id="{{ (isset($address_detail->province))?'province2':'province' }}" class="form-control" required>
-                    <option value="">-Select One-</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="city" class="col-md-12 col-sm-12 col-xs-12 control-label">City  <span class="required">*</span></label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="input-icon">                
-                <input type="text" name="city" id="city" value="{{ (isset($address_detail->city))?'city2':'' }}" class="form-control" required>
-            </div>
-        </div>
-    </div>
-</div>
+@include("common.editaddress", array("new" => true, "dontinclude" => true))
 
 <div class="clearfix"></div>
 <div class="modal-header">
@@ -185,9 +111,9 @@
 </div>
 
 @if(isset($address_detail->id))
-<script type="text/javascript">
-    $(document).ready(function(){
-           //cities("{{ url('ajax') }}", {{ (isset($address_detail->city))?$address_detail->city:0 }});
-    });
-</script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+               //cities("{{ url('ajax') }}", '{{ (isset($address_detail->city))?$address_detail->city:0 }}');
+        });
+    </script>
 @endif

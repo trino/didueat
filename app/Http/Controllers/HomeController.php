@@ -199,6 +199,10 @@ class HomeController extends Controller {
         return view('home', $data);
     }
 
+    public function test(){
+        return view('test');
+    }
+
     /**
      * Search Menus Ajax
      * @param null
@@ -368,6 +372,8 @@ class HomeController extends Controller {
                         $hour['open'] = $this->cleanTime($value);
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['day_of_week'] = $post['day_of_week'][$key];
+                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
+                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
 
                         $ob2 = new \App\Http\Models\Hours();
                         $ob2->populate($hour);

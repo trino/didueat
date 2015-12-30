@@ -36,9 +36,9 @@ class AdministratorController extends Controller {
             if (!isset($post['name']) || empty($post['name'])) {
                 return $this->failure("[Name] field is missing!",'dashboard');
             }
-            if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure( "[Email] field is missing!",'dashboard');
-            }
+            /*if (!isset($post['email']) || empty($post['email'])) {
+                return $this->failure( "[Email] field is missing!",'dashboard');//doesn't get sent, thus this will never work
+            }*/
             try {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
                 //check old password, and both new passwords
@@ -63,7 +63,7 @@ class AdministratorController extends Controller {
                 if(isset($post['subscribed'])){
                     $data['subscribed'] = 1;
                 }
-                $data['email'] = $post['email'];
+                if (isset( $post['email'])) {$data['email'] = $post['email'];}
                 $data['name'] = $post['name'];
                 $data['phone_no'] = $post['phone_no'];
                 $data['mobile'] = $post['mobile'];
@@ -108,19 +108,29 @@ class AdministratorController extends Controller {
             return $this->failure("[Type] is missing!", 'restaurant/users');
         }
         if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Order Id] is missing!", 'restaurant/users');
+            return $this->failure("[Profile Id] is missing!", 'restaurant/users');
         }
         try {
             $ob = \App\Http\Models\Profiles::find($id);//search for user $id
-            if ($type == "user_fire") {//fire user by deleting them
-                $ob->delete();
-            } else {//hire user by changing the profile type to employee
-                $ob->populate(array('profile_type' => 1));
-                $ob->save();
+            switch ($type){
+                case "user_fire"://fire user by deleting them
+                    $ob->delete();
+                    break;
+                case "user_hire"://hire user by changing the profile type to employee
+                    $ob->populate(array('profile_type' => 1));
+                    $ob->save();
+                    break;
+                case "user_possess":
+                    login($id, true);
+                    break;
+                case "user_depossess":
+                    login(read("oldid"));
+                    break;
+                default:
+                    return $this->failure("'" . $type . "' is not handled", 'restaurant/users');
             }
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            return $this->success('Status has been changed successfully!', 'Congratulations!');
-            return \Redirect::to('restaurant/users');
+            return $this->success('Status has been changed successfully!', 'restaurant/users');
         } catch (\Exception $e) {
             return $this->failure( $e->getMessage(), 'restaurant/users');
         }
@@ -306,8 +316,10 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function ajaxEditUserForm($id=0) {
-        $data['user_detail'] = \App\Http\Models\Profiles::find($id);
-        $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        if($id) {
+            $data['user_detail'] = \App\Http\Models\Profiles::find($id);
+            $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        }
         $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
         $data['states_list'] = \App\Http\Models\States::get();
         //echo '<pre>'; print_r($data['address_detail']); die;
@@ -345,7 +357,6 @@ class AdministratorController extends Controller {
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
             }
-
             \DB::beginTransaction();
             try {//save user's browser/OS info
                 $browser_info = getBrowser();
@@ -368,7 +379,7 @@ class AdministratorController extends Controller {
                     \DB::commit();
                 }
 
-                $this->success( 'User has been updated successfully.', 'restaurant/users', true);
+                return $this->success( 'User has been updated successfully.', 'restaurant/users', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
                 return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);

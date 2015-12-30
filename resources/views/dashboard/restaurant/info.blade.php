@@ -1,13 +1,9 @@
 @extends('layouts.default')
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
-    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-    <!-- BEGIN THEME STYLES -->
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
+type="text/css"/-->
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-    <!-- END THEME STYLES -->
-
 
     <div class="row">
 
@@ -15,335 +11,153 @@
 
         <div class="col-lg-9 ">
             <?php printfile("views/dashboard/restaurant/info.blade.php"); ?>
-            <div class="row">
-                <div class="">
-                    @if(\Session::has('message'))
-                        <div class="alert {!! Session::get('message-type') !!}">
-                            <strong>{!! Session::get('message-short') !!}</strong>
-                            &nbsp; {!! Session::get('message') !!}
-                        </div>
-                    @endif
+
+            @if(\Session::has('message'))
+                <div class="alert {!! Session::get('message-type') !!}">
+                    <strong>{!! Session::get('message-short') !!}</strong>
+                    &nbsp; {!! Session::get('message') !!}
                 </div>
+            @endif
 
 
-                <!-- BEGIN FORM-->
-                {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                ABOUT RESTAURANT
+            <div class="card">
+                <div class="card-header">
+                    Restaurant Info
+                </div>
+                <div class="card-block">
+
+                    <!-- BEGIN FORM-->
+                    {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-3">Restaurant Name </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" placeholder="Restaurant Name" value="{{ (isset($resturant->name))?$resturant->name:'' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Email </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ (isset($resturant->email))?$resturant->email:'' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Description</label>
+                        <div class="col-sm-9">
+                            <textarea name="description" class="form-control" placeholder="Description">{{ (isset($resturant->description))?$resturant->description:'' }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Cuisine Type</label>
+                        <div class="col-sm-9">
+                            <select name="cuisine" id="cuisine" class="form-control">
+                                <option value="">-Select One-</option>
+                                @foreach($cuisine_list as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(isset($resturant->cuisine) && $resturant->cuisine == $value->id) selected @endif>{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Tags</label>
+                        <div class="col-sm-9">
+                            <textarea id="demo4"></textarea>
+                            <input type="hidden" name="tags" id="responseTags" value="{!! (isset($resturant->tags))?$resturant->tags:'' !!}"/>
+                            <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Delivery</label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (isset($resturant->is_pickup) && $resturant->is_pickup > 0)?'checked':'' }} />
+                            Allow pickup
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">
+                            I Offer Delivery
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'checked':'' }} />
+                        </div>
+                    </div>
+
+                    <div id="is_delivery_options"
+                         style="display: {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'block':'none' }};">
+                        <div class="form-group row">
+                            <label class="col-sm-3">Delivery Fee </label>
+                            <div class="col-sm-9">
+                                <input type="number" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($resturant->delivery_fee))?$resturant->delivery_fee:'' }}"/>
                             </div>
                         </div>
-                        <div class="portlet-body form">
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Restaurant Name <span class="required">*</span></label>
-                                            <input type="text" name="name" class="form-control"
-                                                   placeholder="Restaurant Name"
-                                                   value="{{ (isset($resturant->name))?$resturant->name:'' }}" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Email <span class="required">*</span></label>
-                                            <input type="text" name="email" class="form-control"
-                                                   placeholder="Email Address"
-                                                   value="{{ (isset($resturant->email))?$resturant->email:'' }}"
-                                                   required>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Description</label>
-                                            <textarea name="description" class="form-control"
-                                                      placeholder="Description">{{ (isset($resturant->description))?$resturant->description:'' }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label>Cuisine Type</label>
-                                            <select name="cuisine" id="cuisine" class="form-control">
-                                                <option value="">-Select One-</option>
-                                                @foreach($cuisine_list as $value)
-                                                    <option value="{{ $value->id }}"
-                                                            @if(isset($resturant->cuisine) && $resturant->cuisine == $value->id) selected @endif>{{ $value->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Tags</label>
-                                            <textarea id="demo4"></textarea>
-                                            <input type="hidden" name="tags" id="responseTags"
-                                                   value="{!! (isset($resturant->tags))?$resturant->tags:'' !!}"/>
-
-                                            <p>e.g: Candian, Italian, Chinese, FastFood</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <h3 class="form-section">Delivery</h3>
-                                    </div>
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label"><input type="checkbox" name="is_pickup"
-                                                                                id="is_pickup"
-                                                                                value="1" {{ (isset($resturant->is_pickup) && $resturant->is_pickup > 0)?'checked':'' }} />
-                                                Allow pickup</label> <br/>
-                                            <label class="control-label"><input type="checkbox" name="is_delivery"
-                                                                                id="is_delivery"
-                                                                                value="1" {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'checked':'' }} />
-                                                Allow home delivery</label>
-                                        </div>
-                                    </div>
-                                    <div id="is_delivery_options"
-                                         style="display: {{ (isset($resturant->is_delivery) && $resturant->is_delivery > 0)?'block':'none' }};">
-                                        <div class="">
-                                            <div class="form-group">
-                                                <label class="control-label">Max Delivery Distance </label>
-                                                <select name="max_delivery_distance" id="max_delivery_distance"
-                                                        class="form-control">
-                                                    <option value="10">Between 1 and 10 km</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="form-group">
-                                                <label class="control-label">Delivery Fee </label>
-                                                <input type="number" name="delivery_fee" class="form-control"
-                                                       placeholder="Delivery Fee"
-                                                       value="{{ (isset($resturant->delivery_fee))?$resturant->delivery_fee:'' }}"/>
-                                            </div>
-                                        </div>
-                                        <div class="">
-                                            <div class="form-group">
-                                                <label class="control-label">Min. Subtotal before Delivery</label>
-                                                <input type="number" name="minimum" class="form-control"
-                                                       placeholder="Minimum Subtotal For Delivery"
-                                                       value="{{ (isset($resturant->minimum))?$resturant->minimum:'' }}"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <h3 class="form-section">Logo</h3>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="">
-                                            @if(isset($resturant->logo) && $resturant->logo != "")
-                                                <img id="picture" class="margin-bottom-10 full-width"
-                                                     src="{{ asset('assets/images/restaurants/'. ((isset($resturant->id))?$resturant->id:'') .'/thumb_'. ((isset($resturant->logo))?$resturant->logo:'')). '?'.mt_rand() }}"
-                                                     title=""/>
-                                            @else
-                                                <img id="picture" class="margin-bottom-10 full-width"
-                                                     src="{{ asset('assets/images/default.png') }}" title=""/>
-                                            @endif
-                                        </div>
-                                        <div class="">
-                                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change
-                                                Image</a>
-                                        </div>
-                                        <input type="hidden" name="logo" id="hiddenLogo"/>
-                                    </div>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3">Min. Subtotal Before Delivery</label>
+                            <div class="col-sm-9">
+                                <input type="number" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($resturant->minimum))?$resturant->minimum:'' }}"/>
                             </div>
+                        </div>
 
-                            <div class="form-actions">
-                                <input type="hidden" name="id"
-                                       value="{{ ((isset($resturant->id))?$resturant->id:'') }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                        <div class="form-group row">
+                            <label class="col-sm-3">Max Delivery Distance </label>
+                            <div class="col-sm-9">
+                                <select name="max_delivery_distance" id="max_delivery_distance" class="form-control">
+                                    <option value="10">Between 1 and 10 km</option>
+                                </select>
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-3">Logo</label>
+                        <div class="col-sm-9">
+                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change
+                                Image</a>
+                            <input type="hidden" name="logo" id="hiddenLogo"/>
+
+                            @if(isset($resturant->logo) && $resturant->logo != "")
+                                <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($resturant->id))?$resturant->id:'') .'/thumb_'. ((isset($resturant->logo))?$resturant->logo:'')). '?'.mt_rand() }}" title=""/>
+                            @else
+                                <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
+                            @endif
+
+                        </div>
+                    </div>
+
+                    <?php echo view('common.editaddress', array("addresse_detail" => $resturant)); ?>
+
+                    <div class="form-group row">
+                        <label class="col-sm-3">Hours</label>
+                        <div class="col-sm-9">
+                            @include("dashboard.restaurant.hours")
                         </div>
                     </div>
                 </div>
 
 
-                <div class="col-md-4">
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                ADDRESS
-                            </div>
-                        </div>
-                        <div class="portlet-body form">
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" name="address" class="form-control"
-                                                   placeholder="Street Address"
-                                                   value="{{ ((isset($resturant->address))?$resturant->address:'') }}"
-                                                   required>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label>Country</label>
-                                            <select name="country" id="country" class="form-control"
-                                                    onchange="provinces('{{ addslashes(url("ajax")) }}', {{ (isset($resturant->province))?$resturant->province:'ON' }});"
-                                                    required>
-                                                <option value="">-Select One-</option>
-                                                @foreach($countries_list as $value)
-                                                    <option value="{{ $value->id }}"
-                                                            @if((isset($resturant->country)) && $resturant->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Province <span
-                                                        class="required">*</span></label>
-                                            <select name="province" class="form-control" required
-                                                    id="province"></select>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <input type="text" name="city" class="form-control"
-                                                   value="{{ ((isset($resturant->city))?$resturant->city:'') }}"
-                                                   required id="city">
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label>Postal Code</label>
-                                            <input type="text" name="postal_code" class="form-control"
-                                                   placeholder="Postal Code"
-                                                   value="{{ ((isset($resturant->postal_code))?$resturant->postal_code:'') }}"
-                                                   required>
-                                        </div>
-                                    </div>
-
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="control-label">Phone Number</label>
-                                            <input type="text" name="phone" class="form-control"
-                                                   placeholder="Phone Number"
-                                                   value="{{ ((isset($resturant->phone))?$resturant->phone:'') }}">
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="form-actions">
-                                <input type="hidden" name="id"
-                                       value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-footer">
+                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+                    {!! Form::close() !!}
+                    <div class="clearfix"></div>
                 </div>
-
-
-                <div class="col-md-4 ">
-
-                    <div class="box-shadow">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                HOURS
-                            </div>
-                        </div>
-                        <div class="portlet-body form">
-                            <div class="form-body">
-                                <?php
-                                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', "Offset");
-                                foreach ($day_of_week as $key => $value) {
-                                $open[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'open');
-                                $close[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'close');
-                                $ID[$key] = select_field_where('hours', array('restaurant_id' => ((isset($resturant->id)) ? $resturant->id : 0), 'day_of_week' => $value), 'id');
-
-                                $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
-                                $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
-                                if($value == "Offset" && false){
-                                $opentime = explode(":", $opentime);
-                                $opentime = $opentime[0] * 3600 + $opentime[1] * 60 + $opentime[2];
-                                ?>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class="control-label ">Delay till you start
-                                            delivering</label>
-                                        <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                                        <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-
-                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                            <input type="number" name="open[{{ $key }}]" value="{{ $opentime }}"
-                                                   class="form-control">
-                                            <input type="hidden" name="close[{{ $key }}]" value="{{ $closetime }}"
-                                                   class="form-control">
-                                        </DIV>
-                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                            <LABEL>minutes</LABEL>
-                                        </DIV>
-                                    </DIV>
-                                </DIV>
-                                <?php
-                                } else {
-                                ?>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-4 col-sm-4 col-xs-4">{{ $value }}</label>
-                                        <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                                        <input type="hidden" name="idd[{{ $key }}]" value="{{ $ID[$key] }}"/>
-
-                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                            <input type="text" name="open[{{ $key }}]" value="{{ $opentime }}"
-                                                   title="Open" class="form-control time"/>
-                                        </div>
-                                        <div class="col-md-5 col-sm-5 col-xs-5">
-                                            <input type="text" name="close[{{ $key }}]" value="{{ $closetime }}"
-                                                   title="Close" class="form-control time"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                                }
-                                }
-                                ?>
-                            </div>
-
-                            <div class="form-actions">
-                                <input type="hidden" name="id"
-                                       value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                                <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                {!! Form::close() !!}
             </div>
-
         </div>
     </div>
 
-
-
-    <script type="text/javascript"
-            src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
-
-
 
     <script>
         $(document).ready(function () {
@@ -356,26 +170,26 @@
             });
 
             $('#demo4').tagEditor({
-                //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
-            initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}],
+//{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
+initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}],
                 placeholder: 'Enter tags ...',
-                //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-                //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
+//beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
+//onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
                 onChange: function (field, editor, tags) {
                     $('#responseTags').val((tags.length ? tags.join(', ') : ''));
                 },
                 beforeTagDelete: function (field, editor, tags, val) {
                     var q = confirm('Remove tag "' + val + '"?');
-                    //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-                    //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
+//if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
+//else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
                     return q;
                 }
             });
         });
 
         @if(isset($resturant->city))
-            $(document).ready(function () {
-                    //cities("{{ url('ajax') }}", {{ (isset($resturant->city))?$resturant->city:0 }});
+        $(document).ready(function () {
+//cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
                 });
         @endif
 
@@ -422,10 +236,11 @@
                 $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
                     var t = parseFloat($(this).text());
                     if (t > 12) {
-                        if (t < 22)
+                        if (t < 22) {
                             $(this).text('0' + (t - 12));
-                        else
+                        }else {
                             $(this).text(t - 12);
+                        }
                     }
                 });
             });
@@ -445,8 +260,7 @@
                     } else {
                         var ho = t - 12;
                     }
-                }
-                else {
+                } else {
                     var ho = arr[0];
                     var format = 'AM';
                     if (arr[0] == '00') {
@@ -459,4 +273,13 @@
         });
     </script>
 
+    <!--
+    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+    <SCRIPT>
+        $(document).ready(function () {
+            cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
+        });
+    </SCRIPT>
+    -->
 @stop

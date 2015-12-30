@@ -1,5 +1,61 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+WHAT PAGE IS THIS???
+
+@if(false)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @extends('layouts.default')
 @section('content')
+
+
+  <div class=" bg-danger m-y-2 p-t-3  p-b-1 secondary_red">
+    <div class="container">
+      <div class="row ">
+        <div class="col-lg-8">
+          <h1 class="display-3">diduEAT </h1>
+
+          <p class="lead">
+            The easiest way to order food from local restaurants.
+            <br>
+            Meal of the Day Business Model.
+          </p>
+        </div>
+        <div class="col-lg-4">
+          <div class="primary_red  p-a-2 ">
+            <p class="lead">Where are you located?</p>
+            <input class="form-control" type="text" placeholder="Address, City or Postal Code">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="content-page">
     <div class="container-fluid">
@@ -217,3 +273,5 @@
   </script>
 
 @stop
+
+@endif

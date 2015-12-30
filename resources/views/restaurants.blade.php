@@ -1,6 +1,31 @@
 @extends('layouts.default')
-@section('content')
 
+
+
+<div class=" bg-danger p-t-3  p-b-3 m-t-3 secondary_red">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-8">
+                <h1 class="display-3">diduEAT </h1>
+
+                <p class="lead">
+                    The easiest way to order food from local restaurants.
+                    <br>
+                    Meal of the Day Business Model.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="primary_red  p-a-2 ">
+                    <p class="lead">Where are you located?</p>
+                    <input class="form-control" type="text" placeholder="Address, City or Postal Code">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('content')
 
 
 
@@ -26,8 +51,7 @@
                                             </div>
                                             <div id="radius_panel" style="display: none;">
                                                 <label>Radius</label>
-                                                <select name="radius" id="radius" class="form-control"
-                                                        onchange="createCookieValue('radius', this.value)">
+                                                <select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                                     <option value="">---</option>
                                                     <?php
                                                     foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
@@ -47,8 +71,7 @@
                                                     Pickup</label>
                                             </div>
                                             <div class="form-group">
-                                                <select name="minimum" id="minimum" class="form-control"
-                                                        onchange="createCookieValue('minimum', this.value)">
+                                                <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                                                     <option value="">Delivery Minimum</option>
                                                     <?php
                                                     for ($i = 5; $i < 50; $i += 5) {
@@ -69,8 +92,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <select name="rating" id="rating" class="form-control"
-                                                        onchange="createCookieValue('rating', this.value)">
+                                                <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
                                                     <option value="">Restaurant Rating</option>
                                                     <option value="5">5 Stars</option>
                                                     <option value="4">4 Stars or Better</option>
@@ -80,8 +102,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <select name="tags" id="tags" class="form-control"
-                                                        onchange="createCookieValue('tags', this.value)">
+                                                <select name="tags" id="tags" class="form-control" onchange="createCookieValue('tags', this.value)">
                                                     <option value="">Tags</option>
                                                     @foreach($tags as $value)
                                                         <option value="{{ $value->name }}">{{ $value->name }}</option>
@@ -89,8 +110,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <select name="SortOrder" id="SortOrder" class="form-control"
-                                                        onchange="createCookieValue('SortOrder', this.value)">
+                                                <select name="SortOrder" id="SortOrder" class="form-control" onchange="createCookieValue('SortOrder', this.value)">
                                                     <option value="">Sort By</option>
                                                     <option value="rating">Quality score</option>
                                                     <option value="delivery_fee">Delivery fee</option>
@@ -99,8 +119,6 @@
                                                     <option value="name">Restaurant name</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" name="latitude" id="latitude" value=""/>
-                                            <input type="hidden" name="longitude" id="longitude" value=""/>
                                         </div>
                                         <br/>
 
@@ -120,17 +138,15 @@
                     <div class="col-md-9 col-sm-8 col-xs-12">
                         <div class="container-fluid">
                             <div class="msgtop dropshadow"><span id="countRows" style="font: inherit;">No</span>
-                                Restaurant(s) Found
+                                restaurants found in your area
                             </div>
-                            <p id="start_up_message">Please enter address above to find restaurants near your area.</p>
+                            <p id="start_up_message">Please enter address above to find restaurants near you</p>
                             @include('ajax.search_restaurants')
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
 
     @endif
 
@@ -251,13 +267,18 @@
         </div>
 
         <div class="col-lg-8 ">
-
+            @if(\Session::has('message'))
+                <div class="alert {!! Session::get('message-type') !!}">
+                    <strong>{!! Session::get('message-short') !!}</strong>
+                    &nbsp; {!! Session::get('message') !!}
+                </div>
+            @endif
 
             <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>Please enter address above to find restaurants near your area.</p>
+                <p>Please enter address above to find restaurants near you</p>
             </div>
 
             <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -265,7 +286,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <span id="countRows" style="font: inherit;">No</span> Restaurant(s) Found
+                <span id="countRows" style="font: inherit;">No</span> restaurant found in your area
 
             </div>
 
@@ -413,42 +434,5 @@
             });
         });
 
-        //Google Api Codes.
-        var placeSearch, formatted_address;
-        function initAutocomplete() {
-            formatted_address = new google.maps.places.Autocomplete(
-                    (document.getElementById('formatted_address')),
-                    {types: ['geocode']});
-            formatted_address.addListener('place_changed', fillInAddress);
-        }
-
-        function fillInAddress() {
-            var place = formatted_address.getPlace();
-            var lat = place.geometry.location.lat();
-            var lng = place.geometry.location.lng();
-            $('#latitude').val(lat);
-            $('#longitude').val(lng);
-
-            createCookieValue('latitude', lat);
-            createCookieValue('longitude', lng);
-        }
-
-        function geolocate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle({
-                        center: geolocation,
-                        radius: position.coords.accuracy
-                    });
-                    formatted_address.setBounds(circle.getBounds());
-                });
-            }
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete"
-            async defer></script>
+      </script>
 @stop
