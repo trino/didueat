@@ -53,31 +53,26 @@
                                     <h3>{{ $value->menu_item }} <span
                                                 class="menu-tag menu-price">${{ $value->price }}</span></h3>
                                 </a-->
-                                <h3>{{ $value->menu_item }} <span
-                                            class="menu-tag menu-price">${{ $value->price }}</span></h3>
-                                <p class="box-des">{{ substr($value->description, 0, 230) }}</p>
-                                <h4>Minimum Delivery</h4>
+                                <!--<h3>{{ $value->menu_item }} <span
+                                            class="menu-tag menu-price">${{ $value->price }}</span></h3>-->
+                                <p class="box-des"><strong>Description: </strong>{{ substr($value->description, 0, 230) }}</p>
+                                <p><strong>Minimum total for Delivery: </strong>{{$restaurant->minimum }}</p>
 
-                                <p>
-                                    {{$restaurant->minimum }}
-                                </p>
-                                <h4>Delivery Fee</h4>
+                                
+                                    
+                                
+                                <p><strong>Delivery Fee: </strong>{{ $restaurant->delivery_fee }}</p>
 
-                                <p>
-                                    {{ $restaurant->delivery_fee }}
-                                </p>
+                                
                                 @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                    <h4>Tags</h4>
+                                    
                                     <p>
                                         <?php
                                         $tags = $restaurant->tags;
                                         $tags = explode(',', $tags);
                                         for ($i = 0; $i < 5; $i++) {
-                                            if (isset($tags[$i]) && $i == 4) {
-                                                echo $tags[$i];
-                                            } else {
-                                                if(isset($tags[$i]))
-                                                echo $tags[$i] . ',';
+                                            if (isset($tags[$i])) {
+                                                echo "<span class='tags'>".$tags[$i]."</span>";
                                             }
                                         }
                                         ?>
@@ -104,7 +99,7 @@
                                                         class="fa fa-angle-right"></i></a>
                                         </p>
                                     @endif
-                                    <div class="row">
+                                    <div class="">
                                         {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
                                     </div>
                             </div>
@@ -112,17 +107,17 @@
                         <div class="col-md-3">
                             <div class="menu-img">
 
-
+                                <p>
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
                                    class="btn btn-danger insert-stats" data-toggle="modal"
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     View Menu Item
                                 </a>
-
+                                </p>
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
-                                   class="btn btn-danger insert-stats" data-toggle="modal"
+                                   class="btn insert-stats" data-toggle="modal"
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
 
 

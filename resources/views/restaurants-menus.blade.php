@@ -84,9 +84,9 @@
         @foreach($category as $cat)
             <div class="box-shadow clearfix">
                 <div class="portlet-title">
-                    <div class="caption">
-                        {{ $cat->title }}
-                    </div>
+                    <h1 class="caption">
+                        <span>{{ $cat->title }}</span>
+                    </h1>
                 </div>
                 <div class="portlet-body no-padding">
                     <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
