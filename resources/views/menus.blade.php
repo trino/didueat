@@ -76,6 +76,7 @@
                                             if (isset($tags[$i]) && $i == 4) {
                                                 echo $tags[$i];
                                             } else {
+                                                if(isset($tags[$i]))
                                                 echo $tags[$i] . ',';
                                             }
                                         }

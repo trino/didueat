@@ -33,12 +33,12 @@
                 @endif
             </div>
             <br class="ignore"/>
-            <a href="javascript:void(0)" class="btn btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
+            <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
         </div>
 
         <div class="col-sm-10 col-xs-12 lowheight ignore">
             @if(count($category))
-                <select class="cat_id">
+                <select class="cat_id form-control">
                     <option value="">Choose Category</option>
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
@@ -49,7 +49,7 @@
                 <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
                 <div class="catblock" style="display: none;">
                     <input type="text" class="form-control cat_title" placeholder="Add new category"/>
-                    <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Create</a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
 
                     <div class="clearfix"></div>
                 </div>
@@ -72,10 +72,10 @@
             <div class="col-md-12 col-sm-12 col-xs-12 ignore">
                 @if(!isset($ccount) || (isset($ccount) && $ccount == 0))
                     <div class="newaction ignore">
-                        <a href="javascript:void(0)" class="btn btn-info add_additional ignore blue"
+                        <a href="javascript:void(0)" class="btn btn-sm btn-info add_additional ignore blue"
                            id="add_additional{{ $menu_id }}">Add Addons</a>
                         <a href="javascript:void(0)" id="save{{ $menu_id }}" data-id="{{ $menu_id }}"
-                           class="btn btn-info blue savebtn ignore">Save</a>
+                           class="btn btn-sm btn-info blue savebtn ignore">Save</a>
                     </div>
                 @endif
             </div>

@@ -13,7 +13,7 @@ $('.add_additional').live('click', function () {
     $('.newaction').each(function () {
         //c++;
         //if(c!=1)
-        $(this).html('<a href="javascript:void(0)" class="btn btn-danger removenormal">Remove</a>');
+        $(this).html('<a href="javascript:void(0)" class="btn btn-sm btn-danger removenormal">Remove</a>');
         //else
         //$(this).hide();
     });
@@ -44,9 +44,9 @@ $('.removelast').live('click', function () {
             i++;
             if (i == tot - 1) {
                 if (i == 1)
-                    $(this).html('<a class="btn btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-info savebtn" href="javascript:void(0)">Save</a>');
+                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" href="javascript:void(0)">Save</a>');
                 else
-                    $(this).html('<a class="btn btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-info savebtn" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-danger removelast">Remove</a>');
+                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
 
                 $(this).show();
             }
@@ -57,10 +57,10 @@ $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-8 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1">' +
         '<input class="form-control cctitle" type="text" placeholder="Item" />' +
-        '<input class="form-control ccprice pricechk" type="text" placeholder="Price" style="margin-left:10px;" />' +
+        '<input class="form-control ccprice pricechk" type="text" placeholder="Price" />' +
         '</div>' +
         '<div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">' +
-        '<a href="javascript:void(0);" class="btn btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>' +
+        '<a href="javascript:void(0);" class="btn btn-sm btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>' +
         '</div><div class="clearfix"></div></div>');
 });
 $('.is_multiple').live('change', function () {

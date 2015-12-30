@@ -223,4 +223,8 @@ body.modal-open {
 	bottom: 0;
 	right: 0;
 }
+.newmenu input,.newmenu select,.newmenu textarea{margin-bottom:3px;}
+.menuimg{height:50px;background:#e5e5e5;border-radius:4px;}
+.cmore .col-md-8{padding-left:0!important;}
+.addmore{margin-top:20px;}
 
