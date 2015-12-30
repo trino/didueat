@@ -9,7 +9,7 @@
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" autocomplete="off">
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate(formatted_address)" autocomplete="off">
         <!--INPUT TYPE="button" onclick="getplace('formatted_address');" value="AUTOCOMPLETE"-->
     </div>
 </div>

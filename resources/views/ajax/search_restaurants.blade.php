@@ -1,18 +1,12 @@
 <div class="">
     <div class="list-group" id="restuarant_bar">
-        <?php printfile("views/ajax/search_restaurants.blade.php"); ?>
-        @if(isset($query) && $count > 0)
+        <?php printfile("views/ajax/search_restaurants.blade.php");?>
+        @if(isset($query) && $count > 0 && is_iterable($query))
             @foreach($query as $value)
-
                 <?php $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png'; ?>
-
-
-
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
 
-                        <img style="width:100px;" class="pull-right img-responsive full-width" alt=""
-                             src="{{ asset('assets/images/' . $logo) }}">
-
+                        <img style="width:100px;" class="pull-right img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
                         <h4>{{ $value['name'] }}</h4>
 
                         <p class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }},
@@ -26,15 +20,15 @@
 
                             <span class="label label-warning">Tags:
                                 <?php
-                                $tag = $value['tags'];
-                                $tags = explode(",", $tag);
-                                for ($i = 0; $i <= 4; $i++) {
-                                    if ($i == 4) {
-                                        echo (isset($tags[$i])) ? $tags[$i] : '';
-                                    } else {
-                                        echo (isset($tags[$i])) ? $tags[$i] . ',' : '';
+                                    $tag = $value['tags'];
+                                    $tags = explode(",", $tag);
+                                    for ($i = 0; $i <= 4; $i++) {
+                                        if ($i == 4) {
+                                            echo (isset($tags[$i])) ? $tags[$i] : '';
+                                        } else {
+                                            echo (isset($tags[$i])) ? $tags[$i] . ',' : '';
+                                        }
                                     }
-                                }
                                 ?>
                             </span>
 
@@ -125,8 +119,6 @@
             @endif
             <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
         </div>
-
-
     </div>
 </div>
 

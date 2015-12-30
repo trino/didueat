@@ -5,7 +5,6 @@
         <div class="row ">
             <div class="col-lg-8">
                 <h1 class="display-3">diduEAT </h1>
-
                 <p class="lead">
                     The easiest way to order food from local restaurants.
                     <br>
@@ -24,11 +23,10 @@
 </div>
 
 @section('content')
-
-
-
+    @if(debugmode())
+        <input type="file" accept="image/*;capture=camera">
+    @endif
     @if(false)
-
         <div class="content-page">
             <div class="container-fluid">
                 <div class="row">
@@ -43,39 +41,37 @@
                                         {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                                         <div class="sort search-form clearfix">
                                             <div class="form-group">
-                                                <input type="text" name="name" id="name" value="" class="form-control"
-                                                       placeholder="Restaurant Name"
-                                                       onkeyup="createCookieValue('cname', this.value)"/>
+                                                <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                                             </div>
                                             <div id="radius_panel" style="display: none;">
                                                 <label>Radius</label>
                                                 <select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                                     <option value="">---</option>
                                                     <?php
-                                                    foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
-                                                        echo '<option value="' . $km . '">' . $km . ' km</option>';
-                                                    }
+                                                        foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
+                                                            echo '<option value="' . $km . '">' . $km . ' km</option>';
+                                                        }
                                                     ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label><input type="radio" name="delivery_type" id="delivery_type"
-                                                              value="is_delivery" checked
-                                                              onclick="createCookieValue('delivery_type', this.value)"/>
-                                                    Delivery</label>
-                                                <label><input type="radio" name="delivery_type" id="delivery_type"
-                                                              value="is_pickup"
-                                                              onclick="createCookieValue('delivery_type', this.value)"/>
-                                                    Pickup</label>
+                                                <label>
+                                                    <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
+                                                    Delivery
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/>
+                                                    Pickup
+                                                </label>
                                             </div>
                                             <div class="form-group">
                                                 <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                                                     <option value="">Delivery Minimum</option>
                                                     <?php
-                                                    for ($i = 5; $i < 50; $i += 5) {
-                                                        echo '<option value="' . $i . '">$' . $i . ' - $' . $i + 5 . '</option>';
-                                                    }
-                                                    echo '<option value="' . $i . '">$' . $i . '</option>';
+                                                        for ($i = 5; $i < 50; $i += 5) {
+                                                            echo '<option value="' . $i . '">$' . $i . ' - $' . $i + 5 . '</option>';
+                                                        }
+                                                        echo '<option value="' . $i . '">$' . $i . '</option>';
                                                     ?>
                                                 </select>
                                             </div>
@@ -121,10 +117,8 @@
                                         <br/>
 
                                         <div class="form-group">
-                                            <input type="submit" name="search" class="btn custom-default-btn"
-                                                   value="Refine Search"/>
-                                            <input type="button" name="clearSearch" id="clearSearch"
-                                                   class="btn custom-default-btn" value="Clear Search"/>
+                                            <input type="submit" name="search" class="btn custom-default-btn" value="Refine Search"/>
+                                            <input type="button" name="clearSearch" id="clearSearch" class="btn custom-default-btn" value="Clear Search"/>
                                         </div>
                                         {!! Form::close() !!}
                                     </div>
@@ -252,7 +246,7 @@
 
                 <div class="card-footer  text-xs-right">
                     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link" value="Clear Search"/>
-                    <input type="submit" name="search" class="btn btn-primary" value="Refine Search"/>
+                    <input type="submit" name="search" class="btn btn-primary" value="Refine Search" id="search-form-submit"/>
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -277,15 +271,9 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-
                 <span id="countRows" style="font: inherit;">No</span> restaurants found in your area
-
             </div>
-
-
             @include('ajax.search_restaurants')
-
-
         </div>
     </div>
 

@@ -1123,9 +1123,11 @@ function debugmode(){
 }
 
 //if the server is localhost, print whatever file is specified in red text
-function printfile($File){//cannot user __FILE__ due to caching
+function printfile($File, $Ret = false){//cannot user __FILE__ due to caching
     if(debugmode()){
-        echo '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
+        $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
+        if($Ret){return $Return;}
+        echo $Return;
     }
 }
 

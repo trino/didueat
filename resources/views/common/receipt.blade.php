@@ -317,9 +317,7 @@
                     <div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-12  margin-bottom-10">
-                                <input type="text" name="formatted_address" id="formatted_address_checkout"
-                                       class="form-control" placeholder="Address, City or Postal Code" value=""
-                                       onFocus="geolocate()">
+                                <input type="text" name="formatted_address" id="formatted_address_checkout" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="" onFocus="geolocate(formatted_address)">
                             </div>
                         </div>
                         <div class="form-group margin-bottom-10">

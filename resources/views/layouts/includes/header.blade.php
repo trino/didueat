@@ -12,8 +12,8 @@
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
             <li class="nav-item">
-                <input type="text" name="formatted_address" id="formatted_address2" class="form-control" placeholder="Address, City or Postal Code" onFocus="geolocate()" onchange="changeevent();"
-                       ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
+                <input type="text" name="formatted_address" id="formatted_address2" class="form-control formatted_address" placeholder="Address, City or Postal Code"
+                       onFocus="geolocate(formatted_address2)" onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
             </li>
             @if(read("id"))
                 <?php
@@ -48,10 +48,11 @@
                     $("#formatted_address2").trigger("change");
                 }
                 function changeevent(){
+                    //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
                     setTimeout(function() {
-                        //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
+                        //document.getElementById("formatted_address2").setAttribute("style", "background-color: white;");//debug
                         if($("#search-form").length) {
-                            $( "#search-form" ).submit();
+                            $("#search-form-submit").trigger("click");
                         }
                     }, 100);
                 }

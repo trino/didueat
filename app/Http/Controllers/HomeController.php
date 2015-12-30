@@ -108,6 +108,7 @@ class HomeController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
+                $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL
                 $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
                 $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
@@ -137,11 +138,14 @@ class HomeController extends Controller {
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//search active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
         $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);//search 10 restaurants
+        $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0, true);//SQL
         $data['count'] = \App\Http\Models\Restaurants::get();//count restaurants
         $data['start'] = count($data['query']);
         $data['searchTerm'] = $searchTerm;
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
-
+        $data['hasMorePage'] = 10;
+        if(is_iterable($data['query'])){
+            $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
+        }
         return view('restaurants', $data);
     }
     
