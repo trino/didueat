@@ -1,5 +1,6 @@
 <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 <div class="row">
+  <?php printfile("views/ajax/search_menus.blade.php"); ?>
   @foreach($query as $value)
     <?php
     $item_image = asset('assets/images/restaurant-default.jpg');
@@ -94,20 +95,22 @@
                         <span><em> </em></span>
                         <span class="limit-options right-float">
                         <?php
-                          if ($sub->exact_upto == 0)
-                            $upto = "up to ";
-                          else
-                            $upto = "exactly ";
-                          if ($sub->req_opt == '0') {
-                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                              echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
-                            echo "(Optional)";
-
-                          } elseif ($sub->req_opt == '1') {
-                            if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
-                              echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
-                            echo "(Mandatory)";
-                          }
+                            if ($sub->exact_upto == 0){
+                                $upto = "up to ";
+                            }else{
+                                $upto = "exactly ";
+                            }
+                            if ($sub->req_opt == '0') {
+                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0'){
+                                    echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                }
+                                echo "(Optional)";
+                            } elseif ($sub->req_opt == '1') {
+                                if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0'){
+                                    echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                }
+                                echo "(Mandatory)";
+                            }
                         ?>
                         </span>
 

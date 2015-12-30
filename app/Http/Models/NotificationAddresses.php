@@ -3,16 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * NotificationAddresses
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class NotificationAddresses extends BaseModel
-{
+class NotificationAddresses extends BaseModel {
 
     protected $table = 'notification_addresses';
     protected $primaryKey = 'id';
@@ -22,9 +13,8 @@ class NotificationAddresses extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
-        $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type');
+    public function populate($data) {
+        $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type', 'order');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
@@ -34,8 +24,7 @@ class NotificationAddresses extends BaseModel
 
 
 /////////////////////////////////////Notification addresses API///////////////////////
-    function enum_notification_addresses($restaurant_id = "", $type = "")
-    {
+    function enum_notification_addresses($restaurant_id = "", $type = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
@@ -46,8 +35,7 @@ class NotificationAddresses extends BaseModel
         return enum_all("notification_addresses", $conditions);
     }
 
-    function count_notification_addresses($restaurant_id = "", $type = "")
-    {
+    function count_notification_addresses($restaurant_id = "", $type = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
@@ -58,8 +46,7 @@ class NotificationAddresses extends BaseModel
         return get_row_count("notification_addresses", $conditions);
     }
 
-    function sort_notification_addresses($restaurant_id = "")
-    {
+    function sort_notification_addresses($restaurant_id = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
@@ -73,8 +60,7 @@ class NotificationAddresses extends BaseModel
         }
     }
 
-    function find_notification_address($restaurant_id, $address)
-    {
+    function find_notification_address($restaurant_id, $address) {
         $type = data_type($address);
         if ($type == 0 || $type == 1) {//email and phone whitelisted
             $address = clean_data($address);
@@ -83,8 +69,7 @@ class NotificationAddresses extends BaseModel
         }
     }
 
-    function delete_notification_address($restaurant_id, $address = "")
-    {
+    function delete_notification_address($restaurant_id, $address = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
@@ -99,8 +84,7 @@ class NotificationAddresses extends BaseModel
         }
     }
 
-    function add_notification_addresses($restaurant_id, $address)
-    {
+    function add_notification_addresses($restaurant_id, $address) {
         $type = data_type($address);
         if ($type == 0 || $type == 1) {//email and phone whitelisted
             $address = clean_data($address);
@@ -111,5 +95,4 @@ class NotificationAddresses extends BaseModel
             }
         }
     }
-
 }

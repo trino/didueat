@@ -3,16 +3,8 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Reservations
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Reservations extends BaseModel
-{
+
+class Reservations extends BaseModel {
 
     protected $table = 'reservations';
     protected $primaryKey = 'id';
@@ -22,8 +14,7 @@ class Reservations extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -33,8 +24,7 @@ class Reservations extends BaseModel
     }
 
 
-    function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax)
-    {
+    function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax) {
         $Data = array();
         $Data['menu_ids'] = implode_data($menu_ids);
         $Data['prs'] = implode_data($prs);
@@ -62,8 +52,7 @@ class Reservations extends BaseModel
         return $att->id;
     }
 
-    function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $postal_code, $remarks, $order_till, $province, $Phone)
-    {
+    function edit_order_profile($OrderID, $email, $address2, $city, $ordered_by, $postal_code, $remarks, $order_till, $province, $Phone) {
         $Data = array();
         $Data['email'] = $email;
         $Data['address2'] = $address2;
@@ -80,8 +69,7 @@ class Reservations extends BaseModel
 
 
 /////////////////////////////////Orders API/////////////////////////////////////
-    function enum_orders($ID = "", $IsUser = false, $Approved = false)
-    {
+    function enum_orders($ID = "", $IsUser = false, $Approved = false) {
         $Conditions = array();
         $OrderBy = array('order_time' => 'desc');
         if ($IsUser) {
@@ -106,23 +94,19 @@ class Reservations extends BaseModel
         return enum_all("reservations", $Conditions, $OrderBy);
     }
 
-    function delete_order($ID)
-    {
+    function delete_order($ID) {
         delete_all("reservations", array('id' => $ID));
     }
 
-    function pending_order_count($restaurant_id = "")
-    {
+    function pending_order_count($restaurant_id = "") {
         return iterator_count($this->enum_orders($restaurant_id, false, false));
     }
 
-    function get_order($ID)
-    {
+    function get_order($ID) {
         return get_entry("reservations", $ID, "id");
     }
 
-    function order_status($Order)
-    {
+    function order_status($Order) {
         if (!is_object($Order)) {
             $Order = $this->get_order($Order);
         }
@@ -135,8 +119,7 @@ class Reservations extends BaseModel
         }
     }
 
-    function approve_order($OrderID, $Status = true)
-    {
+    function approve_order($OrderID, $Status = true) {
         if ($Status) {
             $Status = 'approved';
         } else {

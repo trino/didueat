@@ -3,16 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-/**
- * Users
- * @package    Laravel 5.1.11
- * @subpackage Controller
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       15 September, 2015
- */
-class UsersController extends Controller
-{
+class UsersController extends Controller {
     
     /**
      * Constructor
@@ -20,7 +11,6 @@ class UsersController extends Controller
      * @return redirect
      */
     public function __construct() {
-        
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
@@ -35,24 +25,18 @@ class UsersController extends Controller
     }
     
     /**
-     * Addresses
+     * adds an address to a profile, or edits an existing one
      * @param null
      * @return view
      */
     public function addresses($id = 0) {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['address']) || empty($post['address'])) {
-                \Session::flash('message', "[Street address] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                return $this->failure( "[Street address] field is missing!",'user/addresses');
             }
             if (!isset($post['city']) || empty($post['city'])) {
-                \Session::flash('message', "[City] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                return $this->failure("[City] field is missing!",'user/addresses');
             }
             if (!isset($post['province']) || empty($post['province'])) {
                 \Session::flash('message', "[Province] field is missing!");
@@ -61,116 +45,96 @@ class UsersController extends Controller
                 return \Redirect::to('user/addresses');
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                \Session::flash('message', "[Country] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                return $this->failure( "[Country] field is missing!",'user/addresses');
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
                 $idd = (isset($post['id'])) ? $post['id'] : '';
                 
-                if ($idd) {
+                if ($idd) {//id specified, edit it
                     $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
-                } 
-                else {
+                } else {//no id specified, make one
                     $ob = new \App\Http\Models\ProfilesAddresses();
                 }
                 $ob->populate($post);
                 $ob->save();
-                
-                \Session::flash('message', "Address created successfully");
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/addresses');
+
+                return $this->success("Address created successfully",'user/addresses');
+            } catch(\Exception $e) {
+                return $this->failure( $e->getMessage(),'user/addresses');
             }
-            catch(\Exception $e) {
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
-            }
-        } 
-        else {
+        } else {
             $data['title'] = "Addresses Manage";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['states_list'] = \App\Http\Models\States::get();
-            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::where('user_id', \Session::get('session_id'))->orderBy('id', 'DESC')->get();
-            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            $data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
+            $data['states_list'] = \App\Http\Models\States::get();//load all provinces/states
+            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::where('user_id', \Session::get('session_id'))->orderBy('order', 'ASC')->get();//load this user's addressess
+            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);//load a specific address id
+            //echo '<pre>';print_r($data['addresses_list']->toArray()); die;
             return view('dashboard.user.addresses', $data);
         }
     }
     
     /**
-     * Addresse Update
-     * @param $id
+     * Credit Card Sequance Change
+     * @param none
      * @return response
      */
+    public function addressesSequence() {
+        $this->saveCreditCardsSequance();
+    }
+    
+    /**
+     * Address
+     * @param $id
+     * @returns a view, or a JSON object
+     */
     public function addressesUpdate($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
+        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
             echo json_encode(array('type' => 'error', 'message' => "[Id] is missing!"));
             die;
         }
-        
         try {
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['states_list'] = \App\Http\Models\States::get();
-            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            $data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
+            $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
+            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);//load a specific address id
             ob_start();
             return view('ajax.addresse_edit', $data);
-            ob_get_contents();
+            ob_get_contents();//code will never run
             ob_get_flush();
-        }
-        catch(\Exception $e) {
+        } catch(\Exception $e) {
             echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
             die;
         }
     }
     
     /**
-     * Addresses Delete
+     * Delete profile Address $id
      * @param $id
      * @return redirect
      */
     public function addressesDelete($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
-            \Session::flash('message', "[Id] is missing!");
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('user/addresses');
+        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
+            return $this->failure("[Id] is missing!", 'user/addresses');
         }
-        
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
             $ob->delete();
-            
-            \Session::flash('message', "Address has been deleted successfully!");
-            \Session::flash('message-type', 'alert-sucess');
-            \Session::flash('message-short', 'Congratulations!');
-            return \Redirect::to('user/addresses');
-        }
-        catch(\Exception $e) {
-            
-            \Session::flash('message', $e->getMessage());
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('user/addresses');
+            return $this->success("Address has been deleted successfully!", 'user/addresses');
+        } catch(\Exception $e) {
+            return $this->failure(handleexception($e),'user/addresses');
         }
     }
     
     /**
-     * Addresses
-     * @param null
+     * edit review $id
+     * @param $id
      * @return view
      */
     public function reviews($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['id']) || empty($post['id'])) {
-                \Session::flash('message', '[ID] field is missing');
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/reviews')->withInput();
+            if (!isset($post['id']) || empty($post['id'])) {//check for missing data
+                return $this->failure( '[ID] field is missing','user/reviews',true);
             }
             
             \DB::beginTransaction();
@@ -179,47 +143,32 @@ class UsersController extends Controller
                 $review->populate(array_filter($post));
                 $review->save();
                 \DB::commit();
-                
-                \Session::flash('message', 'Review has been updated successfully.');
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/reviews')->withInput();
-            }
-            catch(\Illuminate\Database\QueryException $e) {
+
+                return $this->success('Review has been updated successfully.', 'user/reviews', true);
+            } catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                \Session::flash('message', trans('messages.user_email_already_exist.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/users')->withInput();
-            }
-            catch(\Exception $e) {
+                return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+            } catch(\Exception $e) {
                 \DB::rollback();
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('restaurant/users')->withInput();
+                return $this->failure(handleexception($e),'restaurant/users', true);
             }
-        } 
-        else {
+        } else {
             $data['title'] = "User Reviews";
-            $data['ratings'] = \App\Http\Models\RatingUsers::get();
+            $data['ratings'] = \App\Http\Models\RatingUsers::get();//get all reviews
             return view('dashboard.administrator.user_reviews', $data);
         }
     }
     
     /**
-     * Users Reviews Action
+     * delete Reviews $id
      * @param $id
      * @return redirect
      */
     public function reviewAction($id = 0) {
         $ob = \App\Http\Models\RatingUsers::find($id);
         $ob->delete();
-        
-        \Session::flash('message', 'Review has been deleted successfully!');
-        \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Congratulations!');
-        return \Redirect::to('user/reviews');
+
+        return $this->success('Review has been deleted successfully!', 'user/reviews');
     }
     
     /**
@@ -235,30 +184,21 @@ class UsersController extends Controller
     }
     
     /**
-     * Images Manage
+     * change a profile image
      * @param null
      * @return view
      */
     public function images() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['restaurant_id']) || empty($post['restaurant_id'])) {
-                \Session::flash('message', "[Restaurant] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                return $this->failure("[Restaurant] field is missing!", 'user/images');
             }
             if (!isset($post['title']) || empty($post['title'])) {
-                \Session::flash('message', "[Title] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                return $this->failure( "[Title] field is missing!",'user/images');
             }
             if (!\Input::hasFile('image')) {
-                \Session::flash('message', "[Image] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                return $this->failure( "[Image] field is missing!",'user/images');
             }
             try {
                 if (\Input::hasFile('image')) {
@@ -274,34 +214,28 @@ class UsersController extends Controller
                 $ob = new \App\Http\Models\ProfilesImages();
                 $ob->populate($post);
                 $ob->save();
-                
-                \Session::flash('message', "Image uploaded successfully");
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
-                return \Redirect::to('user/images');
+
+                return $this->success( "Image uploaded successfully", 'user/images');
             }
             catch(\Exception $e) {
-                
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/images');
+                return $this->failure(handleexception($e),'user/images');
             }
         } 
         else {
             $data['title'] = 'Images Manage';
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::get();
-            $data['images_list'] = \App\Http\Models\ProfilesImages::get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
+            $data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
             return view('dashboard.user.manage_image', $data);
         }
     }
-    
+
+    //create a new order via AJAX
     public function ajax_register() {
         $post = \Input::all();
         //echo '<pre>'.print_r($post); die;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             \DB::beginTransaction();
-            try {
+            try {//populate data array
                 $msg = "";
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -349,14 +283,14 @@ class UsersController extends Controller
                 $data['created_by'] = 0;
                 $data['subscribed'] = 0;
                 $data['restaurant_id'] = 0;
-                
+
+                //if the user is not logged in, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
                     $data['password'] = encryptpassword($post['password']);
                     if (\App\Http\Models\Profiles::where('email', $data['email'])->first()) {
                         echo '1';
                         die();
-                    } 
-                    else {
+                    } else {
                         //$data = array("name" => trim($name), "profile_type" => 2, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0');
                         $uid = new \App\Http\Models\Profiles();
                         $uid->populate($data);
@@ -424,24 +358,22 @@ class UsersController extends Controller
                 echo $msg . '6';
                 
                 \DB::commit();
-            }
-            catch(\Illuminate\Database\QueryException $e) {
+            } catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
                 echo "Some Error occured. Please Try Again.";
                 die();
-            }
-            catch(\Exception $e) {
+            } catch(\Exception $e) {
                 \DB::rollback();
                 echo $e->getMessage();
                 die();
             }
-        } 
-        else {
+        } else {
             echo "Invalid request!";
         }
         die();
     }
-    
+
+    //converts the current profile to JSON
     function json_data() {
         $id = $_POST['id'];
         $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();

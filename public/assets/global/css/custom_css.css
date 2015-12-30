@@ -1,6 +1,18 @@
 /** 01.CSS RESET
 **********************************/
-
+.avatarli{
+    margin-top: -3px;
+}
+.active{
+    color: #D50000 !important;
+}
+input[type="search"]{
+    width: 244px !important;
+}
+.fullcheck{
+    width:100%;
+    height:100%;
+}
 
 /**
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
@@ -176,10 +188,10 @@ h6 {
 .ecommerce h4,
 .ecommerce h5,
 .ecommerce h6 {
-    
+
     margin: 20px 0;
     text-transform: inherit;
-    
+
 }
 
 .ecommerce h1 {
@@ -2525,36 +2537,6 @@ body.ecommerce {
     transition: all 0.5s ease-in-out;
 }
 
-#menumanager2 input,
-#menumanager2 textarea,
-#menumanager2 select {
-    background: none;
-    border: medium none !important;
-    border-bottom: 2px solid #aaa !important;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-#menumanager2 input:focus,
-#menumanager2 textarea:focus,
-#menumanager2 select:focus {
-    border-bottom: 2px solid #D50000 !important;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-#menumanager2 .additional .ignore .menuwrapper,
-#menumanager2 .additional .menuwrapper {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 0;
-    vertical-align: top;
-    width: 45.3%;
-}
 
 #signupForm .control-label {
     text-align: left !important;
@@ -2563,7 +2545,7 @@ body.ecommerce {
 #signupForm .red,
 #login-ajax-form .btn {
     background: #D50000 !important;
-    font-size: 12px !important;
+    font-size: 16px !important;
 }
 
 #signupForm .red:hover,
@@ -4257,10 +4239,8 @@ Portlets
     }
     .additional .ignore .menuwrapper,
     .additional .menuwrapper,
-    #menumanager2 .additional .ignore .menuwrapper,
-    #menumanager2 .additional .menuwrapper {
-        width: 100%;
-    }
+
+
     .fancybox-inner > div {
         width: 500px !important;
     }
@@ -5774,10 +5754,10 @@ li {
     top: 2px;
 }
 
-#avatarImage {
+.avatarImage {
     width: 40px;
     max-height: 40px !important;
-    border-radius: 50%;
+    border-radius: 50% !important;
 }
 
 #top-address-search-input {
@@ -6127,14 +6107,14 @@ My css styling 27 Nov 2015
 }
 
 .custom-default-btn {
-    
+
     color: #D50000 !important;
     border-radius: 0px;
     padding: 10px 30px;
     line-height: 1;
     font-weight: bold;
     background: #e5e5e5 none repeat scroll 0% 0%;
-    
+
 }
 
 .custom-default-btn:hover,
@@ -6152,7 +6132,9 @@ My css styling 27 Nov 2015
 
 
 /*navbar styling*/
-
+.navbar-right{
+    margin-right:15px!important;
+}
 .my-navbar .navbar-default {
     background-color: #D50000;
     height: 76px;
@@ -6232,7 +6214,7 @@ My css styling 27 Nov 2015
 }
 
 .restaurant-name {
-    background: #F14E2D none repeat scroll 0% 0%;
+    background: #D50000 none repeat scroll 0% 0%;
     padding: 10px;
     margin-bottom: 20px;
 }
@@ -6249,11 +6231,11 @@ My css styling 27 Nov 2015
 }
 
 ul#top-menu li > a {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 500;
 }
 
-#top-search-creteria {    
+#top-search-creteria {
     position: absolute;
     left: 510px;
     top: 20px;
@@ -6391,7 +6373,7 @@ ul#top-menu li > a {
 }
 
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	background-image: url('fancybox_sprite.png');
+	background: url('../plugins/fancybox/source/fancybox_sprite_red.png');
 }
 
 #fancybox-loading {
@@ -6562,10 +6544,12 @@ ul#top-menu li > a {
 	background: #000;
 	background: rgba(0, 0, 0, .8);
 }
-.filterform{background:#d53211;color:#FFF!important;border-radius:0 30px 0 0;box-shadow: 10px 10px 5px #888888;}
+.filterform{background:#D50000;color:#FFF!important;border-radius:0 30px 0 0;box-shadow: 10px 10px 10px -1px #888888;}
 .filterform h1,.filterform h2,.filterform h3{color:#FFF!important;}
 .content-page{margin-left:15px;margin-right: 15px;}
-.msgtop{font-family: 'Montserrat', sans-serif;font-size:19px;background:#d53211;text-align:center;padding:5px;color:#FFF;}
+.msgtop{font-family: 'Montserrat', sans-serif;font-size:19px;background:#D50000;text-align:center;padding:5px;color:#FFF;}
 #start_up_message{margin-top:20px;font-size:18px;text-align:center;}
-a{font-family: 'Ubuntu', sans-serif;text-transform: uppercase;}
+a{font-family: 'Ubuntu', sans-serif;text-transform: capitalize;}
 
+.nomargin{margin-top: 0px !important;}
+.dropshadow{box-shadow: 10px 10px 10px -1px #888888;}

@@ -1,4 +1,5 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
+    <?php printfile("views/loadrestaurants.blade.php"); ?>
     <table class="table table-bordered table-hover">
         <tbody>
         @foreach ($restaurants_list as $value)

@@ -1,4 +1,5 @@
 <div class="modal-body">
+    <?php printfile("views/ajax/editaddress.blade.php"); ?>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

@@ -40,6 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
+                <?php printfile("views/dashboard/errors/503.blade.php"); ?>
                 <div class="title">Be right back.</div>
             </div>
         </div>

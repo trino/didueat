@@ -1,20 +1,12 @@
 @extends('layouts.default')
 @section('content')
-<div class="margin-bottom-40">
-    <!-- BEGIN CONTENT -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="content-page">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="">
 
-                </div>
-            </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 <div class="row">
                     @include('layouts.includes.leftsidebar')
 
-                    <div class="col-xs-12 col-md-10 col-sm-8">
+                    <div class="col-lg-9">
+                        <?php printfile("views/dashboard/restaurant/orders_detail.blade.php"); ?>
                         @if(\Session::has('message'))
                         <div class="alert {!! Session::get('message-type') !!}">
                             <strong>{!! Session::get('message-short') !!}</strong>
@@ -28,7 +20,7 @@
                                 @if(Session::get('session_profiletype') == 1)
                                     @if(strtolower($order->status) == 'pending')
                                     <a href="#cancel-popup-dialog" class="btn yellow pull-right fancybox-fast-view cancel-popup" id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
-                                    <a href="#approve-popup-dialog" class="btn blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
+                                    <a href="#approve-popup-dialog" class="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup" data-id="{{ $order->id }}">Approve</a>
                                     @endif
                                 @endif
                             </div>
@@ -68,12 +60,7 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- END CONTENT -->
-</div>
-<div class="clearfix"></div>
+
 @include('common.tabletools')
 
 @include('popups.approve_cancel')

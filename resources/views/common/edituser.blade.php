@@ -1,13 +1,18 @@
+<?php printfile("views/common/edituser.blade.php"); ?>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <meta name="_token" content="{{ csrf_token() }}" />
 
 <div class="form-group">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <select name="profile_type" class="form-control">
-            <option value="1" @if(isset($user_detail->profile_type) && $user_detail->profile_type == 1) selected @endif>Super</option>
-            <option value="2" @if(isset($user_detail->profile_type) && $user_detail->profile_type == 2) selected @endif>User</option>
-            <option value="3" @if(isset($user_detail->profile_type) && $user_detail->profile_type == 3) selected @endif>Owner</option>
-            <option value="4" @if(isset($user_detail->profile_type) && $user_detail->profile_type == 4) selected @endif>Employee</option>
+            <?php
+                $profiletypes = array(1 => "Super", 2 => "User", 3 => "Owner", 4 => "Employee");
+                foreach($profiletypes as $ID => $title){
+                    echo '<option value="' . $ID . '"';
+                    if(isset($user_detail->profile_type) && $user_detail->profile_type == $ID) {echo ' selected';}
+                    echo '>' . $title . '</option>';
+                }
+            ?>
         </select>
     </div>
 </div>

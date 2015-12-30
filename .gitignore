@@ -49,3 +49,5 @@ public/assets/images/restaurants/*
 *.xml
 *.bak
 nbproject
+public/royslog.txt
+config/app.php

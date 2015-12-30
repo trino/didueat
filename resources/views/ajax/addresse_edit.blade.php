@@ -1,8 +1,8 @@
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <meta name="_token" content="{{ csrf_token() }}" />
-
 <div class="modal-dialog2">
     <div class="fancy-modal-content">
+        <?php printfile("views/ajax/addresse_edit.blade.php"); ?>
         <div class="modal-header">
             <h4 class="modal-title">Update Location</h4>
         </div>

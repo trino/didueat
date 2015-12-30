@@ -4,6 +4,8 @@
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="margin-bottom-40">
+    <?php printfile("views/restaurants-detail.blade.php"); ?>
+
     <div class="col-md-2 col-sm-4 col-xs-12">
         <div class="well add-sidebar">
             <address>
@@ -447,7 +449,7 @@
                                 <ul class="scroller orders">
                                 </ul>
                                 <div class="slimScrollBar" style=""></div>
-                                <div class="slimScrollRail" style=""></div>  
+                                <div class="slimScrollRail" style=""></div>
                             </div>
                             <div class="totals col-md-12 col-sm-12 col-xs-12">
                                 <table class="table calculation-table">
@@ -585,8 +587,7 @@
                                 </div>
                             </form>
                             <script>
-                                function check_val(v)
-                                {
+                                function check_val(v){
                                     if (v != '') {
                                         $('.confirm_password').show();
                                         $('#confirm_password').attr('required', 'required');
@@ -596,7 +597,6 @@
                                         , confirm_password = document.getElementById("confirm_password");
 
                                 function validatePassword() {
-
                                     if (password.value != confirm_password.value) {
                                         confirm_password.setCustomValidity("Passwords Don't Match");
                                     } else {
@@ -623,12 +623,11 @@
                                             url: "{{ url('user/ajax_register') }}",
                                             data: datas + '&' + order_data,
                                             success: function(msg) {
-                                                if (msg == '0')
-                                                {
+                                                if (msg == '0') {
                                                     $('.top-cart-content ').html('<span class="thankyou">Thank You.</span>');
-                                                }
-                                                else if (msg == '1')
+                                                } else if (msg == '1') {
                                                     alert('Email Already Registred.');
+                                                }
                                             }
                                         })
                                     });

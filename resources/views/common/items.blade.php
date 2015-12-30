@@ -1,3 +1,4 @@
+<?php printfile("views/common/items.blade.php"); ?>
 <ul class="scroller orders @if(!isset($order)) order-style @endif">
 @if(isset($order))
     <?php
@@ -25,8 +26,8 @@
     ?>
     <li id="list{{ $order->listid }}" class="infolist">
         <span class="receipt_image">
-          <img src='{{ url("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34">
-          <span class="count">x {{ $arr_qty[$k] }}</span><input type="hidden" class="count" name="qtys[]" value="1" />
+              <img src='{{ url("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34">
+              <span class="count">x {{ $arr_qty[$k] }}</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </span>
         <strong><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</strong>
         <em class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</em>

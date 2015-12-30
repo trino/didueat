@@ -1,11 +1,11 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
-            <div class="col-xs-12 col-md-10 col-sm-8">
+            <div class="col-lg-9">
+                <?php printfile("views/dashboard/administrator/restaurants.blade.php"); ?>
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">
                         <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
@@ -43,20 +43,20 @@
                                         <td>{{ $value->id }}</td>
                                         <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90" /></td>
                                         <td>{{ $value->name }}</td>
-                                        <td>
-                                            {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                                        <td nowrap class="nowrap">
+                                            {!! rating_initialize("static-rating", "restaurant", $value['id'], true) !!}
                                         </td>
                                         <td>[@if($value->open == true) OPENED @else CLOSED @endif]</td>
                                         
                                         <td>
-                                            <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn blue">Orders</a>
-                                            <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info">Edit</a>
+                                            <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn red blue">Orders</a>
+                                            <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn nomargin btn-info">Edit</a>
                                             @if($value->open == true)
-                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning" onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
+                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn nomargin btn-warning" onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
                                             @else
-                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn green" onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a>
+                                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn red green" onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a>
                                             @endif
-                                            <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
+                                            <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn nomargin btn-primary" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -69,7 +69,7 @@
             </div>
 
         </div>
-    </div>
+
 
     @include('common.tabletools')
 @stop

@@ -3,16 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Restaurants
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Restaurants extends BaseModel
-{
+class Restaurants extends BaseModel {
 
     protected $table = 'restaurants';
     protected $primaryKey = 'id';
@@ -22,8 +13,7 @@ class Restaurants extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code', 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -38,8 +28,7 @@ class Restaurants extends BaseModel
      * @param $start
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0)
-    {
+    public static function searchRestaurants($data = '', $per_page = 10, $start = 0) {
         $query = "";
         $limit = "";
         if (isset($data['radius']) && $data['radius'] != "") {
@@ -104,8 +93,7 @@ class Restaurants extends BaseModel
 
     //////////////////////////////////////Restaurant API/////////////////////////////////
 
-    function blank_restaurant()
-    {
+    function blank_restaurant() {
         $Restaurant = getColumnNames("restaurants");
         $Restaurant = array_flip($Restaurant);
         foreach ($Restaurant as $Key => $Value) {
@@ -116,14 +104,12 @@ class Restaurants extends BaseModel
         return $Restaurant;
     }
 
-    function get_hours($restaurant_id)
-    {
+    function get_hours($restaurant_id) {
         $ob = new \App\Http\Models\Hours();
         return $ob->get_hours($restaurant_id);
     }
 
-    function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False)
-    {
+    function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False) {
         if (!$ID) {
             $ID = get_current_restaurant();
         }
@@ -143,8 +129,7 @@ class Restaurants extends BaseModel
         return $restaurant;
     }
 
-    function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, $Province, $Country, $PostalCode, $Description, $DeliveryFee, $Minimum)
-    {
+    function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, $Province, $Country, $PostalCode, $Description, $DeliveryFee, $Minimum) {
         if (!$ID) {
             $ID = new_anything("restaurants", $Name);
         }
@@ -156,8 +141,7 @@ class Restaurants extends BaseModel
         return $ID;
     }
 
-    function enum_employees($restaurant_id = "", $Hierarchy = "")
-    {
+    function enum_employees($restaurant_id = "", $Hierarchy = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();
         }
@@ -168,8 +152,7 @@ class Restaurants extends BaseModel
     }
 
 
-    function hire_employee($UserID, $restaurant_id = 0, $ProfileType = "")
-    {
+    function hire_employee($UserID, $restaurant_id = 0, $ProfileType = "") {
         if (!check_permission("CanHireOrFire")) {
             return false;
         }
@@ -195,8 +178,7 @@ class Restaurants extends BaseModel
         }
     }
 
-    public static function openclose_restaurant($restaurant_id, $Status = false)
-    {
+    public static function openclose_restaurant($restaurant_id, $Status = false) {
         if ($Status) {
             $Status = 1;
         } else {
@@ -206,36 +188,31 @@ class Restaurants extends BaseModel
         update_database("restaurants", "id", $restaurant_id, array("open" => $Status));
     }
 
-    public static function delete_restaurant($restaurant_id, $NewProfileType = 2)
-    {
+    public static function delete_restaurant($restaurant_id, $NewProfileType = 2) {
         logevent("Deleted restaurant", true, $restaurant_id);
         delete_all("restaurants", array("id" => $restaurant_id));
         update_database("profiles", "restaurant_id", $restaurant_id, array("restaurant_id" => 0, "profiletype" => $NewProfileType));
     }
 
 /////////////////////////////////////days off API////////////////////////////////////
-    function add_day_off($restaurant_id, $Day, $Month, $Year)
-    {
+    function add_day_off($restaurant_id, $Day, $Month, $Year) {
         $this->delete_day_off($restaurant_id, $Day, $Month, $Year, false);
         logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
         new_entry("daysoff", "ID", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
     }
 
-    public static function delete_day_off($restaurant_id, $Day, $Month, $Year, $IsNew = true)
-    {
+    public static function delete_day_off($restaurant_id, $Day, $Month, $Year, $IsNew = true) {
         if ($IsNew) {
             logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
         }
         delete_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
     }
 
-    public static function enum_days_off($restaurant_id)
-    {
+    public static function enum_days_off($restaurant_id) {
         return enum_all("daysoff", array("restaurant_id" => $restaurant_id));
     }
 
-    public static function is_day_off($restaurant_id, $Day, $Month, $Year)
-    {
+    public static function is_day_off($restaurant_id, $Day, $Month, $Year) {
         return first(enum_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year))) == true;
     }
 

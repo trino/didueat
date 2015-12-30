@@ -1,4 +1,3 @@
-
 @extends('layouts.default')
 @section('content')
 
@@ -7,6 +6,8 @@
 <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
 
 <div class="margin-bottom-40">
+    <?php printfile("views/restaurants-signup.blade.php"); ?>
+
     <div class="slide">
         <div class="text">
             We'll bring the customers to you
@@ -151,20 +152,21 @@ $(document).ready(function() {
         if (t > 11) {
             var format = 'PM';
             if (t < 22) {
-                if (t != 12)
+                if (t != 12) {
                     var ho = '0' + (t - 12);
-                else
+                }else {
                     var ho = 12;
-            }
-            else {
+                }
+            } else {
                 var ho = t - 12;
             }
         }
         else {
             var ho = arr[0];
             var format = 'AM';
-            if (arr[0] == '00')
+            if (arr[0] == '00') {
                 var ho = '12';
+            }
         }
         var tm = ho + ':' + arr[1] + ' ' + format;
         $(this).val(tm);
@@ -175,9 +177,7 @@ $(document).ready(function() {
         if (value.replace(' ', '').length == 6) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     });
     
     $("#signupForm").validate({

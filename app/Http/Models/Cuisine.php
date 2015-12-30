@@ -3,16 +3,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Genres
- * @package    Laravel 5.1.11
- * @subpackage Model
- * @author     Skp Software Technologies
- * @developer  Waqar Javed
- * @date       20 September, 2015
- */
-class Cuisine extends BaseModel
-{
+class Cuisine extends BaseModel {
 
     protected $table = 'cuisine';
     protected $primaryKey = 'id';
@@ -22,8 +13,7 @@ class Cuisine extends BaseModel
      * @param array
      * @return Array
      */
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('name', 'is_active');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
@@ -35,8 +25,7 @@ class Cuisine extends BaseModel
 
 
     //////////////////////////////////////Genre API//////////////////////////////////////
-    function add_genre($name)
-    {
+    function add_genre($name) {
         if (is_array($name)) {
             $Ret = array();
             foreach ($name as $Key => $Genre) {
@@ -52,15 +41,13 @@ class Cuisine extends BaseModel
         }
     }
 
-    public static function genre_exists($name)
-    {
+    public static function genre_exists($name) {
         if (get_entry("genres", $name, "name")) {
             return true;
         }
     }
 
-    function rename_genre($id, $new_name)
-    {
+    function rename_genre($id, $new_name) {
         if ($this->genre_exists($new_name)) {
             return false;
         }
@@ -68,16 +55,14 @@ class Cuisine extends BaseModel
         return true;
     }
 
-    public static function enum_restaurants($Genre = "")
-    {
+    public static function enum_restaurants($Genre = "") {
         if ($Genre) {
             return enum_anything("restaurants", "genre", $Genre);
         }
         return enum_table("restaurants");
     }
 
-    public static function enum_genres()
-    {
+    public static function enum_genres() {
         $entries = enum_all('genres');
         return my_iterator_to_array($entries, "id", "name");
     }

@@ -1,13 +1,12 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
-        <div class="container-fluid">
             <div class="row">
 
                 @include('layouts.includes.leftsidebar')
 
-                <div class="col-xs-12 col-md-10 col-sm-8">
+                <div class="col-lg-9">
+                    <?php printfile("views/dashboard/restaurant/events_log.blade.php"); ?>
                     <div class="deleteme">
 
                         <div class="box-shadow">
@@ -19,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                <table class="table table-striped table-bordered table-responsive" id="sample_1">
                                     <thead>
                                     <tr>
                                         <th width="10%">ID</th>
@@ -46,8 +45,7 @@
                 </div>
 
             </div>
-        </div>
-    </div>
+
 
     @include('common.tabletools')
 @stop

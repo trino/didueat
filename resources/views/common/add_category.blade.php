@@ -1,4 +1,5 @@
 <div class="add_category_popup">
+    <?php printfile("views/common/add_category.blade.php"); ?>
     <h2>Add Category</h2>
     <div class="category_titles margin-bottom-10">
         <strong>Category Title :</strong>
@@ -18,8 +19,7 @@
                 $('.overlay_loader').hide();
                 alert('Please enter category title');
                 return false;
-            }
-            else {
+            } else {
                 $.ajax({
                     url: "{{ url('restaurant/saveCat/') }}",
                     data: 'title=' + cat + "&_token={{ csrf_token() }}&res_id={{ $restaurant->id }}",

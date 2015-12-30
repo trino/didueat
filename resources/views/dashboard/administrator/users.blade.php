@@ -1,10 +1,10 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
         <div class="row">
             @include('layouts.includes.leftsidebar')
-            <div class="col-xs-12 col-md-10 col-sm-8">
+            <div class="col-lg-9">
+                <?php printfile("views/dashboard/administrator/users.blade.php"); ?>
                 @if(\Session::has('message'))
                     <div class="alert {!! Session::get('message-type') !!}">
                         <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
@@ -46,10 +46,10 @@
                                         <td>{{ $value->phone }}</td>
                                         <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                                         <td>
-                                            <a href="#editNewUser" class="btn red editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
+                                            <a href="#editNewUser" class="btn nomargin btn-info editUser fancybox-fast-view" data-id="{{ $value->id }}">Edit</a>
                                             @if($value->id != \Session::get('session_id'))
                                                 <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}" class="btn red" onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Fire</a>
-                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
+                                                <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}" class="btn red blue" onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
                                             @endif
                                         </td>
                                     </tr>
@@ -63,8 +63,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- END CONTENT -->
 
 
     <div id="editNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">

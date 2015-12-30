@@ -1,62 +1,71 @@
 <?php
-//Days list
-$starting_day  = 01;
-$ending_day    = 31;
-$already_selected_day = (isset($credit_cards_list->expiry_date))?$credit_cards_list->expiry_date:'';
+    printfile("views/common/edit_credit_card.blade.php");
 
-for($starting_day; $starting_day <= $ending_day; $starting_day++) {
-    $selected = ($already_selected_day == $starting_day) ? 'selected':'';    
-    $days[] = '<option value="'.$starting_day .'" '. $selected .' >'.$starting_day.'</option>';
-}
-//Year List
-$starting_year  = 2016;
-$ending_year    = 2035;
+    //Days list
+    $starting_day  = 01;
+    $ending_day    = 31;
+    $already_selected_day = (isset($credit_cards_list->expiry_date))?$credit_cards_list->expiry_date:'';
 
-$already_selected_year = (isset($credit_cards_list->expiry_year))?$credit_cards_list->expiry_year:'';
-for($starting_year; $starting_year <= $ending_year; $starting_year++) {
-    $selected = ($already_selected_year == $starting_year) ? 'selected':'';   
-    $years[] = '<option value="'.$starting_year .'" '. $selected .'  >'.$starting_year.'</option>';
-}
+    for($starting_day; $starting_day <= $ending_day; $starting_day++) {
+        $selected = ($already_selected_day == $starting_day) ? 'selected':'';
+        $days[] = '<option value="'.$starting_day .'" '. $selected .' >'.$starting_day.'</option>';
+    }
+    //Year List
+    $starting_year  = 2016;
+    $ending_year    = 2035;
+
+    $already_selected_year = (isset($credit_cards_list->expiry_year))?$credit_cards_list->expiry_year:'';
+    for($starting_year; $starting_year <= $ending_year; $starting_year++) {
+        $selected = ($already_selected_year == $starting_year) ? 'selected':'';
+        $years[] = '<option value="'.$starting_year .'" '. $selected .'  >'.$starting_year.'</option>';
+    }
+
+    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+    foreach($encryptedfields as $field){
+        if(isset($credit_cards_list->$field) && is_encrypted($credit_cards_list->$field)){
+            $credit_cards_list->$field = \Crypt::decrypt($credit_cards_list->$field);
+        }
+    }
 ?>
 <meta name="_token" content="{{ csrf_token() }}" />
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
-@if (! isset($credit_cards_list->id))
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group clearfix">
-            <label for="user_type" class="col-md-12 col-sm-12 col-xs-12 control-label">User Type <span class="required">*</span></label>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="input-icon">
-                     <input id="restaurant" type="radio" name="user_type" value="restaurant" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif > Restaurant
+    @if (! isset($credit_cards_list->id))
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group clearfix">
+                <label for="user_type" class="col-md-12 col-sm-12 col-xs-12 control-label">User Type <span class="required">*</span></label>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="input-icon">
+                         <input id="restaurant" type="radio" name="user_type" value="restaurant" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif > Restaurant
 
-                    <input id="user" type="radio" name="user_type" value="user" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif > User
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="form-group clearfix">        
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="input-icon">
-                    <div id="restaurant_id">
-                         <select name="profile_id" class="form-control" >
-                         @foreach($restaurants_list as $restaurant)
-                            <option value="{{$restaurant->id}}" >{{$restaurant->name}}</option>
-                        @endforeach
-                        </select>
-                    </div>
-                    <div id="user_id">
-                         <select name="profile_id" class="form-control" >
-                         @foreach($users_list as $user)
-                            <option value="{{$user->id}}" >{{$user->name}}</option>
-                        @endforeach
-                        </select>
+                        <input id="user" type="radio" name="user_type" value="user" @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif > User
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group clearfix">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="input-icon">
+                        <div id="restaurant_id">
+                             <select name="profile_id" class="form-control" >
+                                 @foreach($restaurants_list as $restaurant)
+                                    <option value="{{$restaurant->id}}" >{{$restaurant->name}}</option>
+                                 @endforeach
+                             </select>
+                        </div>
+                        <div id="user_id">
+                             <select name="profile_id" class="form-control" >
+                                 @foreach($users_list as $user)
+                                    <option value="{{$user->id}}" >{{$user->name}}</option>
+                                 @endforeach
+                             </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 @endif
 @if(\Session::has('session_type_user') && (\Session::get('session_type_user') == "user" || \Session::get('session_type_user') == "restaurant"))
     @if (! isset($credit_cards_list->id))
@@ -95,10 +104,14 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                  <select name="card_type" class="form-control" id="card_type" >
-                    <option value="visa" @if(isset($credit_cards_list->card_type) && $credit_cards_list->card_type == 'visa') selected @endif >Visa</option>
-                    <option value="mastercard" @if(isset($credit_cards_list->card_type) && $credit_cards_list->card_type == 'mastercard') selected @endif >Master Card</option>
-                    <option value="americanExpress" @if(isset($credit_cards_list->card_type) && $credit_cards_list->card_type == 'americanExpress') selected @endif >American Express</option>
-                    <option value="discover" @if(isset($credit_cards_list->card_type) && $credit_cards_list->card_type == 'discover') selected @endif >Discover</option>
+                     <?php
+                        $cards = array("visa" => "Visa", "mastercard" => "Master Card", "americanExpress" => "American Express", "discover" => "Discover");
+                        foreach($cards as $short => $long){
+                            echo '<option value="' . $short . '"';
+                            if(isset($credit_cards_list->card_type) && $credit_cards_list->card_type == $short ) {echo ' selected';}
+                            echo '>' . $long . '</option>';
+                        }
+                     ?>
                 </select>
             </div>
         </div>
@@ -136,18 +149,14 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="input-icon">
                 <select name="expiry_month" class="form-control" id="expiry_month">
-                    <option value="01" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 01 ) selected @endif >January</option>
-                    <option value="02" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 02 ) selected @endif >February</option>
-                    <option value="03" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 03 ) selected @endif >March</option>
-                    <option value="04" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 04 ) selected @endif >April</option>
-                    <option value="05" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 05 ) selected @endif >May</option>
-                    <option value="06" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 06 ) selected @endif >June</option>
-                    <option value="07" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 07 ) selected @endif >July</option>
-                    <option value="08" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 08 ) selected @endif >August</option>
-                    <option value="09" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 09 ) selected @endif >September</option>
-                    <option value="10" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 10 ) selected @endif >October</option>
-                    <option value="11" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 11 ) selected @endif >November</option>
-                    <option value="12" @if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == 12 ) selected @endif >December</option>
+                    <?php 
+                        $months = array("01" => "January", "02" => "February", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "August", "09" => "September", "10" => "October", "11" => "November", "12" => "December");
+                        foreach($months as $index => $month){
+                            echo '<option value="' . $index . '"';
+                            if(isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == $index ) {echo ' selected';}   
+                            echo '>' . $month . '</option>';
+                        }
+                    ?>
                 </select>
             </div>
         </div>
@@ -179,12 +188,11 @@ for($starting_year; $starting_year <= $ending_year; $starting_year++) {
 
 <div class="modal-footer">
     <button type="submit" class="btn red">Save changes</button>
-
-@if ( isset($credit_cards_list->id))
-    <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}" />
-    <input type="hidden" name="profile_id" value="{{ (isset($credit_cards_list->profile_id))?$credit_cards_list->profile_id:'' }}" />
-    <input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}" />
-@endif
+    @if ( isset($credit_cards_list->id))
+        <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}" />
+        <input type="hidden" name="profile_id" value="{{ (isset($credit_cards_list->profile_id))?$credit_cards_list->profile_id:'' }}" />
+        <input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}" />
+    @endif
 </div>
 
 

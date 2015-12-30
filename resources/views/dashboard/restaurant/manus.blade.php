@@ -1,12 +1,24 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="content-page">
-        <div class="container-fluid">
+
+
+
+
+@if(false)
+
+
+
+
+
+
+
+
             <div class="row">
                 @include('layouts.includes.leftsidebar')
 
                 <div class="col-xs-12 col-sm-8 col-md-10 menu_managers_edits">
+                    <?php printfile("views/dashboard/restaurant/manus.blade.php"); ?>
                     <div class="btn_wrapper margin-bottom-20 clearfix">
                         <a class="btn btn-primary red add_item pull-right" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                     </div>
@@ -73,8 +85,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
 
 
@@ -91,11 +101,10 @@
             $(".sorting_parent").live('click', function () {
                 //alert('test');
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
+                var sort = 'down';
                 if ($(this).attr('id') == 'up_parent_' + pid) {
-                    var sort = 'up';
+                    sort = 'up';
                 }
-                else
-                    var sort = 'down';
 
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('.parentinfo li').each(function (index) {
@@ -120,4 +129,6 @@
             //$( "#sortable" ).disableSelection();
         });
     </script>
+
+    @endif
 @stop

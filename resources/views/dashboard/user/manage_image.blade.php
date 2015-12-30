@@ -14,20 +14,21 @@
 <link href="{{ asset('assets/global/css/portfolio.css') }}" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 
-<div class="content-page">
-    <div class="container-fluid">
+
+
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
             <div class="col-xs-12 col-sm-8 col-md-10 ">
+                <?php printfile("views/dashboard/user/manage_image.blade.php"); ?>
                 <a href="#addNewUser" class="btn red pull-right fancybox-fast-view">Add New</a>
 
                 <div class="clearfix"></div>
 
                 @if(\Session::has('message'))
-                <div class="alert {!! Session::get('message-type') !!}">
-                    <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-                </div>
+                    <div class="alert {!! Session::get('message-type') !!}">
+                        <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
+                    </div>
                 @endif
 
                 <div class="box-shadow">
@@ -43,20 +44,20 @@
                         <div class="row mix-grid" style="">
                             <?php $count = 0; ?>
                             @foreach($images_list as $value)
-                            <?php $count++; ?>
-                            <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
-                                <div class="mix-inner">
-                                    <img class="img-responsive" src="{{ asset('assets/images/users/'.$value->filename) }}" alt="">
-                                    <div class="mix-details">
-                                        <h4>Cascusamus et iusto odio</h4>
-                                        <a class="mix-preview fancybox-button"
-                                           href="{{ asset('assets/images/users/'.$value->filename) }}"
-                                           title="Project Name" data-rel="fancybox-button">
-                                            <i class="fa fa-search"></i>
-                                        </a>
+                                <?php $count++; ?>
+                                <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
+                                    <div class="mix-inner">
+                                        <img class="img-responsive" src="{{ asset('assets/images/users/'.$value->filename) }}" alt="">
+                                        <div class="mix-details">
+                                            <h4>Cascusamus et iusto odio</h4>
+                                            <a class="mix-preview fancybox-button"
+                                               href="{{ asset('assets/images/users/'.$value->filename) }}"
+                                               title="Project Name" data-rel="fancybox-button">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                             @if($count == 0)
                                 <div align="center">No files have been uploaded</div>
@@ -67,8 +68,7 @@
 
             </div>
         </div>
-    </div>
-</div>
+
 
 
 <div id="addNewUser" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">

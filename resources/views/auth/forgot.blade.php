@@ -10,6 +10,7 @@
                 </div>
             @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->
+            <?php printfile("views/auth/forgot.blade.php"); ?>
             <div class="box-shadow clearfix">
                 <div class="portlet-title">
                     <div class="caption">
