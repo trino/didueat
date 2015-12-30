@@ -172,8 +172,7 @@
                     {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
                     <div class="sort search-form clearfix">
                         <div class="form-group">
-                            <input type="text" name="name" id="name" value="" class="form-control"
-                                   placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
+                            <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
                         <div id="radius_panel" class="form-group" style="display: none;">
                             <select name="radius" id="radius" class="form-control"
@@ -246,19 +245,14 @@
                                 <option value="name">Restaurant name</option>
                             </select>
                         </div>
-                        <input type="hidden" name="latitude" id="latitude" value=""/>
-                        <input type="hidden" name="longitude" id="longitude" value=""/>
                     </div>
 
 
                 </div>
 
                 <div class="card-footer  text-xs-right">
-                    <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link"
-                           value="Clear Search"/>
+                    <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link" value="Clear Search"/>
                     <input type="submit" name="search" class="btn btn-primary" value="Refine Search"/>
-
-
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -276,7 +270,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>Please enter address above to find restaurants near you</p>
+                <p>Please enter an address above to find restaurants near you</p>
             </div>
 
             <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -284,7 +278,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
 
-                <span id="countRows" style="font: inherit;">No</span> restaurant found in your area
+                <span id="countRows" style="font: inherit;">No</span> restaurants found in your area
 
             </div>
 
@@ -341,7 +335,6 @@
             if (getCookie('radius').trim() != "") {
                 $('#search-form #radius_panel').show();
                 $('#search-form #radius').val(getCookie('radius'));
-            } else {
             }
         }
         function setCookie(cname, cvalue, exdays) {
@@ -398,7 +391,7 @@
             var latitude = $('#latitude').val();
             var longitude = $('#longitude').val();
             if (latitude.trim() == "" || longitude.trim() == "") {
-                alert('Please enter address to proceed. thanks');
+                alert('Please enter an address to proceed.');
                 e.preventDefault();
                 return false;
             }

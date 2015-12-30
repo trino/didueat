@@ -49,7 +49,12 @@
                     $("#formatted_address2").trigger("change");
                 }
                 function changeevent(){
-                    document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//gndn
+                    setTimeout(function() {
+                        //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
+                        if($("#search-form").length) {
+                            $( "#search-form" ).submit();
+                        }
+                    }, 100);
                 }
                 @if($first)
                     //$("#addy{{ $first }}").trigger("click");

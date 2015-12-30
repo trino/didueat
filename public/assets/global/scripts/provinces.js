@@ -93,8 +93,25 @@ function initAutocomplete(){
     return formatted_address;
 }
 
+function isvalid(variable, element){
+    if( !isundefined(variable) ){
+        var element = document.getElementById(element);
+        if( element && element.value ){
+            return true;
+        }
+    }
+}
+
+function getplace(){
+    if(isvalid(formatted_address2, "formatted_address2")){ return formatted_address2.getPlace(); }
+    if(isvalid(formatted_address3, "formatted_address3")){ return formatted_address3.getPlace(); }
+    if(isvalid(formatted_address4, "formatted_address4")){ return formatted_address4.getPlace(); }
+    if(isvalid(formatted_address5, "formatted_address5")){ return formatted_address5.getPlace(); }
+    return formatted_address.getPlace();
+}
+
 function fillInAddress() {
-    var place = formatted_address.getPlace();
+    var place = getplace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     $('#latitude').val(lat);
@@ -150,11 +167,6 @@ function fillInAddress() {
 
 function isundefined(variable){
     return typeof variable === 'undefined';
-}
-
-function getplace(ID){
-    alert("TESTING FOR: " + initAutocomplete());
-    alert(simpleStringify(fillInAddress()));
 }
 
 function simpleStringify (object){

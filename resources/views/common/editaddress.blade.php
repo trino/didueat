@@ -6,8 +6,6 @@
     if(!isset($required)){$required = true;}
     $required = iif($required , " required");
 ?>
-<input type="hidden" name="lat" id="latitude" value="" />
-<input type="hidden" name="lng" id="longitude" value="" />
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
