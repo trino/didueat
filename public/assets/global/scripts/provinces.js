@@ -78,15 +78,19 @@ var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
     var element = document.getElementById(ID);
-    var formatted_address = new google.maps.places.Autocomplete(
-        (element),
-        {types: ['geocode']});
-    formatted_address.addListener('place_changed', fillInAddress);
-    return formatted_address;
+    if (!element.hasAttribute("hasgeocode")) {
+        var formatted_address = new google.maps.places.Autocomplete(
+            (element),
+            {types: ['geocode']});
+        formatted_address.addListener('place_changed', fillInAddress);
+        element.setAttribute("hasgeocode", true);
+        return formatted_address;
+    }
 }
 
 function initAutocomplete(){
     formatted_address = initAutocompleteWithID('formatted_address');
+    return formatted_address;
 }
 
 function fillInAddress() {
@@ -144,6 +148,10 @@ function fillInAddress() {
     return place;
 }
 
+function isundefined(variable){
+    return typeof variable === 'undefined';
+}
+
 function getplace(ID){
     alert("TESTING FOR: " + initAutocomplete());
     alert(simpleStringify(fillInAddress()));
@@ -177,6 +185,7 @@ function geolocate() {
                 center: geolocation,
                 radius: position.coords.accuracy
             });
+            //initAutocomplete();
             formatted_address.setBounds(circle.getBounds());
         });
     }

@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true)); ?>
+<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true, "dontinclude" => true)); ?>
 
 <button type="submit" class="btn btn-primary pull-right">Submit</button>
 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>

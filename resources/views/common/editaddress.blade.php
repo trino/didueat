@@ -6,14 +6,12 @@
     if(!isset($required)){$required = true;}
     $required = iif($required , " required");
 ?>
-
 <input type="hidden" name="lat" id="latitude" value="" />
 <input type="hidden" name="lng" id="longitude" value="" />
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-
 <?= newrow($new, "Format Address"); ?>
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" autocomplete="off">
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate()" autocomplete="off">
         <!--INPUT TYPE="button" onclick="getplace('formatted_address');" value="AUTOCOMPLETE"-->
     </div>
 </div>
@@ -66,7 +64,6 @@
         </div>
     </div>
 <?php }?>
-
 <?php if(isset($dontinclude)) { ?>
     <SCRIPT>
         $(document).ready(function() {
@@ -74,11 +71,11 @@
         });
     </SCRIPT>
 <?php } else {
-    if(!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete&source=editaddress", "async defer")){
+    echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
+    if(!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")){
         echo '<script>initAutocomplete();</script>';
     }
 ?>
-    <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
     <SCRIPT>
         $(document).ready(function () {
             cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
