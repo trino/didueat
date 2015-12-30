@@ -11,9 +11,14 @@
     <ul class="nav navbar-nav">
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
+            <LI class="nav-item">
+                <button class="btn btn-primary headerbutton" onclick="geolocate(formatted_address2)" title="Get location from your browser">
+                    <i class="fa fa-compass"></i>
+                </button>
+            </LI>
             <li class="nav-item">
                 <input type="text" name="formatted_address" id="formatted_address2" class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                       onFocus="geolocate(formatted_address2)" onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
+                       onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
             </li>
             @if(read("id"))
                 <?php
@@ -22,8 +27,8 @@
                 ?>
                     <LI class="nav-item" style="margin-left: 0px;">
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"  style="height:38px;">
-                                <span class="caret"></span>
+                            <button class="btn btn-primary " type="button" data-toggle="dropdown"  style="height:38px;">
+                                <i class="fa fa-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <?php
@@ -37,6 +42,11 @@
                     </LI>
                 <?php } ?>
             @endif
+            <LI class="nav-item">
+                <button class="btn btn-primary headerbutton" style="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
+                    <i class="fa fa-search"></i>
+                </button>
+            </LI>
             <script>
                 var formatted_address2;
                 function initAutocomplete2(){
@@ -52,7 +62,7 @@
                     setTimeout(function() {
                         //document.getElementById("formatted_address2").setAttribute("style", "background-color: white;");//debug
                         if($("#search-form").length) {
-                            $("#search-form-submit").trigger("click");
+                            $("#header-search-button").show();
                         }
                     }, 100);
                 }
