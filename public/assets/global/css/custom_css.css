@@ -75,10 +75,13 @@ body.modal-open {
 }
 
 .receipt_description_style {
-	background: red;
-	color: white;
-	padding: 20px;
+	background: #FFF;
+	color: #555;
+    padding: 0!important;
+	
 }
+.receipt_description_style h3{background:#d50000;padding:5px;font-size:20px;text-align:center;color:#FFF;}
+.receipt_description_style .rating{width:90%;font-size:17px;}
 
 
 /* Rating Start */

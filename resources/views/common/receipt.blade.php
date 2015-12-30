@@ -31,14 +31,15 @@
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
+            <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
                 <div class="col-md-11 col-sm-11 col-xs-11">
-                    <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                    
                     {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
                     {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}
                             <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
-                    <abbr title="Email">Email:</abbr> <a
+                    <br /><abbr title="Email">Email:</abbr> <a
                             href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
-                    <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                    <br /><abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </div>
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
 
