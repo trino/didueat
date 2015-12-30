@@ -1,3 +1,6 @@
+.dropdown-menu{
+	padding-left: 5px;
+}
 
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 	z-index: 2;
@@ -78,7 +81,7 @@ body.modal-open {
 	background: #FFF;
 	color: #555;
     padding: 0!important;
-	
+
 }
 .receipt_description_style h3{background:#d50000;padding:5px;font-size:20px;text-align:center;color:#FFF;}
 .receipt_description_style .rating{width:90%;font-size:17px;}
