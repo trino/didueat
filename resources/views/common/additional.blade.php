@@ -73,7 +73,7 @@
                     <div class="infolist ignore ignore2 ignore1">
                         <label><input type="radio" onclick="$(this).parent().find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="{{ $r1 }}" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif> Optional</label>
                             &nbsp; &nbsp; OR&nbsp; &nbsp;
-                        <label><input type="radio" value="1" onclick="$(this).parent().find('.is_req').val(1);" class="is_required ignore" name="{{ $r1 }}" @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif> Required</label>
+                        <label><input type="radio" value="1" onclick="$(this).parent().parent().find('.is_req').val(1);" class="is_required ignore" name="{{ $r1 }}" @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif> Required</label>
                         <input type="hidden" class="is_req ignore ignore2 ignore1" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) value="0" @else value="1" @endif />
                     </div>
                     <br class="ignore ignore2 ignore1"/>
@@ -82,7 +82,7 @@
                     <div class="infolist ignore2 ignore1 ignore">
                         <LABEL><input type="radio" onclick="$(this).parent().find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="{{ $r2 }}" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif> Single</LABEL>
                             &nbsp; &nbsp; OR&nbsp; &nbsp;
-                        <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().find('.is_mul').val(0);" name="{{ $r2 }}" @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif> Multiple</LABEL>
+                        <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().parent().find('.is_mul').val(0);" name="{{ $r2 }}" @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif> Multiple</LABEL>
                         <input type="hidden" class="is_mul ignore ignore2 ignore1" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) value="1" @else value="0" @endif />
                     </div>
                     <div @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) style="display: none;" @endif class="infolist exact ignore ignore2 ignore1">
@@ -116,7 +116,7 @@
                     @if(!isset($cmodel) || (isset($ccount) && $ccount == $k))
                     <?php if (!isset($menu_id)) { $menu_id = 0; } ?>
                         <a href="javascript:void(0)" class="btn btn-sm red btn-info add_additional ignore ignore2 ignore1" id="add_additional{{ $menu_id }}">Add Addons</a>
-                        <a href="javascript:void(0)" @if(!isset($menu_id) || (isset($menu_id) && !$menu_id)) id="save0" @else id="save{{ $menu_id }}" @endif class="btn red btn-info savebtn ignore ignore2 ignore1">Save</a>
+                        <a href="javascript:void(0)" @if(!isset($menu_id) || (isset($menu_id) && !$menu_id)) id="save0" @else id="save{{ $menu_id }}" @endif class="btn btn-sm red btn-info savebtn ignore ignore2 ignore1">Save</a>
                     @endif
                     <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>

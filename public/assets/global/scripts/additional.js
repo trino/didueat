@@ -65,9 +65,9 @@ $('.addmorebtn').live('click', function () {
 });
 $('.is_multiple').live('change', function () {
     if ($(this).val() == 0)
-        $(this).parent().parent().find('.exact').show();
+        $(this).parent().parent().parent().find('.exact').show();
     else
-        $(this).parent().parent().find('.exact').hide();
+        $(this).parent().parent().parent().find('.exact').hide();
 });
 
 $('.savebtn').live('click', function () {
