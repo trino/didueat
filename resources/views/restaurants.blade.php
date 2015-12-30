@@ -17,8 +17,8 @@
             <div class="col-lg-4">
                 <div class="primary_red  p-a-2 ">
                     <p class="lead">Where are you located?</p>
-                    <input class="form-control" type="text" placeholder="Address, City or Postal Code">
-
+                    <input class="form-control" type="text" id="formatted_address4" placeholder="Address, City or Postal Code">
+                    <body onload="formatted_address4 = initAutocompleteWithID('formatted_address4');">
                 </div>
             </div>
         </div>

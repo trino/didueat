@@ -75,14 +75,18 @@ $(document).ready(function() {
 
 //Google Api Codes.
 var placeSearch, formatted_address;
-function initAutocomplete(){
-    var element = document.getElementById('formatted_address');
-    if(!element){return false;}
-    formatted_address = new google.maps.places.Autocomplete(
-        (element),
+
+function initAutocompleteWithID(ID){
+    var formatted_address = new google.maps.places.Autocomplete(
+        (document.getElementById(ID)),
         {types: ['geocode']});
     formatted_address.addListener('place_changed', fillInAddress);
-    return element.value;
+    alert("INIT'd " + ID);
+    return formatted_address;
+}
+
+function initAutocomplete(){
+    formatted_address = initAutocompleteWithID('formatted_address');
 }
 
 function fillInAddress() {

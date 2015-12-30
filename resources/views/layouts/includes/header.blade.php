@@ -17,18 +17,15 @@
             <script>
                 var formatted_address2;
                 function initAutocomplete2(){
-                    var element = document.getElementById('formatted_address2');
-                    if(!element){return false;}
-                    formatted_address2 = new google.maps.places.Autocomplete(
-                            (element),
-                            {types: ['geocode']});
-                    formatted_address2.addListener('place_changed', fillInAddress);
-                    return element.value;
+                    formatted_address2 = initAutocompleteWithID('formatted_address2');
                 }
             </script>
-            <?php if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")){
-                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-            } ?>
+            <?php
+                includeJS(url("assets/global/scripts/provinces.js"));
+                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")){
+                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+                }
+            ?>
         @endif
     </ul>
 
