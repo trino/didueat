@@ -11,6 +11,14 @@ function includeJS($URL, $options = ""){
     }
 }
 
+function newrow($new, $name){
+    if($new){
+        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label">' . $name. '</label>';
+    } else {
+        return '<div class="form-group row editaddress"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
+    }
+}
+
 function handleexception($e){
     $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
     debugprint($Message . "\r\n Trace " . $e->getTraceAsString());

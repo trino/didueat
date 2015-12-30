@@ -1,24 +1,9 @@
 <?php
     printfile("views/common/editaddress.blade.php");
     $countries_list = \App\Http\Models\Countries::get();//load all countries
-
     if(!isset($new)){$new=false;}
-
-    function newrow($new, $name){
-        if($new){
-            return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label">' . $name. '</label>';
-        } else {
-            return '<div class="form-group row editaddress"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
-        }
-    }
-
-    if(!isset($addresse_detail) && isset($address_detail)){
-        $addresse_detail = $address_detail;
-    }
-
-    if(!isset($required)){
-        $required = true;
-    }
+    if(!isset($addresse_detail) && isset($address_detail)){$addresse_detail = $address_detail;}
+    if(!isset($required)){$required = true;}
     $required = iif($required , " required");
 ?>
 

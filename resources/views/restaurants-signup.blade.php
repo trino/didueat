@@ -160,8 +160,7 @@ $(document).ready(function() {
             } else {
                 var ho = t - 12;
             }
-        }
-        else {
+        } else {
             var ho = arr[0];
             var format = 'AM';
             if (arr[0] == '00') {
