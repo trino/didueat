@@ -1,8 +1,6 @@
 @extends('layouts.default')
 
-
-
-<div class=" bg-danger p-t-3  p-b-3 m-t-3 secondary_red">
+<div class="bg-danger p-t-3 p-b-3 m-t-3 secondary_red">
     <div class="container">
         <div class="row ">
             <div class="col-lg-8">
@@ -308,6 +306,7 @@
 
 
     <script type="text/javascript">
+        var elementname = '#formatted_address2';
         onloadpage();
         function onloadpage() {
             if (getCookie('cname')) {
@@ -383,11 +382,11 @@
             removeCookie('cuisine');
             removeCookie('rating');
             removeCookie('SortOrder');
-            $('#formatted_address').val('');
+            $(elementname).val('');
             $('#search-form #clearSearch').hide();
         });
 
-        $('body').on('keyup', '#formatted_address', function () {
+        $('body').on('keyup', elementname, function () {
             $('#radius_panel').hide();
             if ($(this).val()) {
                 $('#radius_panel').show();
@@ -395,7 +394,7 @@
         });
 
         $('body').on('submit', '#search-form', function (e) {
-            var formatted_address = $('#formatted_address').val();
+            var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val();
             var longitude = $('#longitude').val();
             if (latitude.trim() == "" || longitude.trim() == "") {

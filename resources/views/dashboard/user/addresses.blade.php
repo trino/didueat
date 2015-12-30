@@ -26,19 +26,10 @@
 
             <div class="card">
                 <div class="card-header ">
-
-
                     My Addresses
-                    <a class="btn btn-primary   btn-sm" data-toggle="modal"
-                       data-target="#addAddressModal">
-                        Add
-                    </a>
-
-
+                    <a class="btn btn-primary   btn-sm" data-toggle="modal" data-target="#addAddressModal">Add</a>
                 </div>
                 <div class="card-block p-a-0">
-
-
                     <table class="table table-responsive" id="sample_111">
                         <thead>
                         <tr>

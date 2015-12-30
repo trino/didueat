@@ -12,7 +12,8 @@
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
             <li class="nav-item">
-                <input type="text" name="formatted_address" id="formatted_address2" class="form-control" placeholder="Address, City or Postal Code" value="" onFocus="geolocate()">
+                <input type="text" name="formatted_address" id="formatted_address2" class="form-control" placeholder="Address, City or Postal Code" onFocus="geolocate()" onchange="changeevent();"
+                       ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
             </li>
             @if(read("id"))
                 <?php
@@ -26,9 +27,11 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <?php
-                                      foreach($addresses as $address){
-                                          echo '<LI><A ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A></LI>';
-                                      }
+                                    $first = false;
+                                    foreach($addresses as $address){
+                                        if(!$first){$first = $address->id;}
+                                        echo '<LI><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A></LI>';
+                                    }
                                 ?>
                             </ul>
                         </div>
@@ -43,7 +46,14 @@
                 function setaddress(Address){
                     document.getElementById("formatted_address2").value = Address;
                     $("#formatted_address2").trigger("focus");
+                    $("#formatted_address2").trigger("change");
                 }
+                function changeevent(){
+                    document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//gndn
+                }
+                @if($first)
+                    //$("#addy{{ $first }}").trigger("click");
+                @endif
             </script>
             <?php
                 includeJS(url("assets/global/scripts/provinces.js"));
