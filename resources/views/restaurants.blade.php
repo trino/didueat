@@ -76,8 +76,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <select name="cuisine" id="cuisine" class="form-control"
-                                                        onchange="createCookieValue('cuisine', this.value)">
+                                                <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
                                                     <option value="">Cuisine Types</option>
                                                     @foreach($cuisine as $value)
                                                         <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -168,16 +167,19 @@
                         <div class="form-group">
                             <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
-                        <div id="radius_panel" class="form-group" style="display: none;">
-                            <select name="radius" id="radius" class="form-control"
-                                    onchange="createCookieValue('radius', this.value)">
+                        <div id="radius_panel" class="form-group">
+                            <LABEL id="radius_panel_label">Distance (20 km)</LABEL>
+                            <BR>
+                            <input type="range" name="radius" min="1" max="20" value="20" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+
+                            <!--select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                 <option value="">Distance</option>
                                 <?php
-                                foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
-                                    echo '<option value="' . $km . '">' . $km . ' km radius</option>';
-                                }
+                                    foreach (array(1, 2, 3, 4, 5, 10, 20) as $km) {
+                                        echo '<option value="' . $km . '">' . $km . ' km radius</option>';
+                                    }
                                 ?>
-                            </select>
+                            </select-->
                         </div>
                         <div class="form-group">
                             <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery"
@@ -187,8 +189,7 @@
                                           onclick="createCookieValue('delivery_type', this.value)"/> Pickup</label>
                         </div>
                         <div class="form-group">
-                            <select name="minimum" id="minimum" class="form-control"
-                                    onchange="createCookieValue('minimum', this.value)">
+                            <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
                                 <option value="">Delivery Minimum</option>
                                 <?php
                                 for ($i = 5; $i < 50; $i += 5) {
@@ -199,8 +200,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="cuisine" id="cuisine" class="form-control"
-                                    onchange="createCookieValue('cuisine', this.value)">
+                            <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
                                 <option value="">Cuisine Types</option>
                                 @foreach($cuisine as $value)
                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -209,8 +209,7 @@
                         </div>
 
                         <div class="form-group">
-                            <select name="rating" id="rating" class="form-control"
-                                    onchange="createCookieValue('rating', this.value)">
+                            <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
                                 <option value="">Restaurant Rating</option>
                                 <option value="5">5 Stars</option>
                                 <option value="4">4 Stars or Better</option>
@@ -220,8 +219,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="tags" id="tags" class="form-control"
-                                    onchange="createCookieValue('tags', this.value)">
+                            <select name="tags" id="tags" class="form-control" onchange="createCookieValue('tags', this.value)">
                                 <option value="">Tags</option>
                                 @foreach($tags as $value)
                                     <option value="{{ $value->name }}">{{ $value->name }}</option>
@@ -229,8 +227,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="SortOrder" id="SortOrder" class="form-control"
-                                    onchange="createCookieValue('SortOrder', this.value)">
+                            <select name="SortOrder" id="SortOrder" class="form-control" onchange="createCookieValue('SortOrder', this.value)">
                                 <option value="">Sort By</option>
                                 <option value="rating">Quality score</option>
                                 <option value="delivery_fee">Delivery fee</option>
@@ -383,8 +380,9 @@
                 e.preventDefault();
                 return false;
             }
+
             var token = $('#search-form input[name=_token]').val();
-            var data = $(this).serialize();
+            var data = $(this).serialize() + "&latitude=" + latitude + "&longitude=" + longitude;
 
             $('#search-form #clearSearch').show();
             $('#restuarant_bar').html('');

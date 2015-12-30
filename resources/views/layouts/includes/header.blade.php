@@ -34,7 +34,10 @@
                                 <?php
                                     foreach($addresses as $address){
                                         if(!$first){$first = $address->id;}
-                                        echo '<LI><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A></LI>';
+                                        if(!trim($address->location)){
+                                            $address->location = "Address: " . $address->id;
+                                        }
+                                        echo '<LI><DIV CLASS="nowrap"><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A> [<font size="2">' . $address->address . '</font>]</DIV></LI>';
                                     }
                                 ?>
                             </ul>

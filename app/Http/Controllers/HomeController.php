@@ -107,6 +107,7 @@ class HomeController extends Controller {
         parse_str($post['data'], $data);
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
+                $data['data'] = $post;
                 $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
                 $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL
                 $data['count'] = count($data['query']);//count the previous results

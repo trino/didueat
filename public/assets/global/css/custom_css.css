@@ -12,6 +12,10 @@
 	border-color: #d50000;
 }
 
+.nowrap{
+	white-space: nowrap;
+}
+
 * {
 
 }

@@ -1,40 +1,76 @@
+<?php
+    function measuredistance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo, $earthRadius = "KM") {
+        switch($earthRadius){
+            case "KM":$earthRadius = 6371; break;//kilometers
+            case "M": $earthRadius = 6371000; break;//meters
+            case "m": $earthRadius = 3959; break;//miles
+        }
+
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $lonDelta = $lonTo - $lonFrom;
+        $a = pow(cos($latTo) * sin($lonDelta), 2) + pow(cos($latFrom) * sin($latTo) - sin($latFrom) * cos($latTo) * cos($lonDelta), 2);
+        $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
+
+        $angle = atan2(sqrt($a), $b);
+        return $angle * $earthRadius;
+    }
+
+    if(isset($data['data'])){
+        parse_str($data['data']);
+    }
+?>
+
 <div class="">
     <div class="list-group" id="restuarant_bar">
         <?php printfile("views/ajax/search_restaurants.blade.php");?>
         @if(isset($query) && $count > 0 && is_iterable($query))
             @foreach($query as $value)
-                <?php $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png'; ?>
+                <?php
+                    $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png';
+                    $distance = 0;
+                    if(isset($latitude)){
+                        $distance = measuredistance($latitude, $longitude, $value['lat'], $value['lng']);
+                    }
+                    if($distance <= $radius){
+                ?>
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
 
                         <img style="width:100px;" class="pull-right img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
                         <h4>{{ $value['name'] }}</h4>
 
-                        <p class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }},
-                            {{ select_field("countries", 'id', $value['country'], 'name') }}, {{ $value['phone'] }}</p>
-
-
+                        <p class="card-text">
+                            {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}, {{ $value['phone'] }}
+                        </p>
 
                         <span class="label label-primary">Minimum Delivery: {{ $value['minimum'] }}</span>
 
                         <span class="label label-success">Delivery Fee: {{ $value['delivery_fee'] }}</span>
 
-                            <span class="label label-warning">Tags:
-                                <?php
-                                    $tag = $value['tags'];
-                                    $tags = explode(",", $tag);
-                                    for ($i = 0; $i <= 4; $i++) {
-                                        if ($i == 4) {
-                                            echo (isset($tags[$i])) ? $tags[$i] : '';
-                                        } else {
-                                            echo (isset($tags[$i])) ? $tags[$i] . ',' : '';
-                                        }
+                        <span class="label label-warning">Tags:
+                            <?php
+                                $tag = $value['tags'];
+                                $tags = explode(",", $tag);
+                                for ($i = 0; $i <= 4; $i++) {
+                                    if ($i == 4) {
+                                        echo (isset($tags[$i])) ? $tags[$i] : '';
+                                    } else {
+                                        echo (isset($tags[$i])) ? $tags[$i] . ',' : '';
                                     }
-                                ?>
+                                }
+                            ?>
+                        </span>
+
+                        @if(isset($latitude))
+                            <span class="label label-info">Distance:
+                                {{ round($distance,2) }} km
                             </span>
+                        @endif
 
-                            {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-
-
+                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </a>
 
 
@@ -100,7 +136,7 @@
 
 
 
-
+                <?php } ?>
             @endforeach
         @endif
 

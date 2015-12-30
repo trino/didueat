@@ -723,7 +723,9 @@ if (! function_exists('view')) {
         $factory = app('Illuminate\Contracts\View\Factory');
         $append = "";
         if(debugmode()){
-            $append = printfile("VIEW: app/resources/views/" . str_replace(".", "/", $view) . ".blade.php ROUTE: " . Route::getCurrentRoute()->getActionName(), true);
+            if(is_object(Route::getCurrentRoute())) {
+                $append = printfile("VIEW: app/resources/views/" . str_replace(".", "/", $view) . ".blade.php ROUTE: " . Route::getCurrentRoute()->getActionName(), true);
+            }
         }
         if (func_num_args() === 0) {
             return $factory . $append ;
