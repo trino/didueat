@@ -19,7 +19,7 @@
                     <input type="hidden" name="action" value="login">
                     <input type="hidden" name="type" id="login_type" value=""/>
 
-                    <p id="invalid"></p>
+                    <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Email</label>

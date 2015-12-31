@@ -397,21 +397,20 @@
         $('body').on('submit', '#login-ajax-form', function (e) {
             var data = $('#login-ajax-form').serialize();
             var token = $('#login-ajax-form input[name=_token]').val();
+            $('#invalid').hide();
             $.ajax({
                 url: "{{ url('auth/login/ajax') }}",
                 data: data, _token: token,
                 type: "post",
                 success: function (msg) {
-
                     if (isNaN(Number(msg))) {
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
                             $('#invalid').text(msg);
-                            $('#invalid').show();
+                            $('#invalid').fadeIn(500);
                         }
-                    }
-                    else {
+                    } else {
                         if ($('#login_type').val() == 'reservation') {
                             $.ajax({
                                 url: "{{url('/user/json_data')}}",
@@ -433,13 +432,14 @@
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');
                                 }
                             });
-                        }
-                        else
+                        } else {
                             window.location = "{{ url('dashboard') }}";
+                        }
                     }
                 },
                 failure: function (msg) {
-                    setvalue("message", "ERROR: " + msg);
+                    $('#invalid').text("ERROR: " + msg);
+                    $('#invalid').fadeIn(1000);
                 }
             });
             e.preventDefault();
