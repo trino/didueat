@@ -43,14 +43,16 @@ class Reservations extends BaseModel {
                     }
                     
                     if($searchResults != ""){
-                          $query->orWhere('location', 'LIKE', "%$searchResults%")
-                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
+                          $query->orWhere('ordered_by', 'LIKE', "%$searchResults%")
+                                ->orWhere('contact', 'LIKE', "%$searchResults%")
+                                ->orWhere('payment_mode', 'LIKE', "%$searchResults%")
+                                ->orWhere('address1', 'LIKE', "%$searchResults%")
+                                ->orWhere('address2', 'LIKE', "%$searchResults%")
+                                ->orWhere('city', 'LIKE', "%$searchResults%")
                                 ->orWhere('postal_code', 'LIKE', "%$searchResults%")
-                                ->orWhere('phone', 'LIKE', "%$searchResults%")
-                                ->orWhere('apartment', 'LIKE', "%$searchResults%")
-                                ->orWhere('address', 'LIKE', "%$searchResults%")
-                                ->orWhere('buzz', 'LIKE', "%$searchResults%")
-                                ->orWhere('city', 'LIKE', "%$searchResults%");
+                                ->orWhere('note', 'LIKE', "%$searchResults%")
+                                ->orWhere('status', 'LIKE', "%$searchResults%")
+                                ->orWhere('remarks', 'LIKE', "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);

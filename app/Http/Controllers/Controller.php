@@ -20,6 +20,9 @@ abstract class Controller extends BaseController {
     public function __construct() {
         $this->beforeFilter(function () {
             initialize("cont");
+            if(\Session::has('message')){
+                \Session::forget('message');
+            }
         });
     }
 
