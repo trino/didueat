@@ -1,6 +1,6 @@
 <?php
     printfile("views/common/editaddress.blade.php");
-    $countries_list = \App\Http\Models\Countries::get();//load all countries
+    //$countries_list = \App\Http\Models\Countries::get();//load all countries
     if(!isset($new)){$new=false;}
     if(!isset($addresse_detail) && isset($address_detail)){$addresse_detail = $address_detail;}
     if(!isset($required)){$required = true;}
@@ -32,7 +32,7 @@
 <?= newrow($new, "Country"); ?>
         <select name="country" id="country" class="form-control" id="country2" {{$required}} onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
-            @foreach($countries_list as $value)
+            @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
         </select>
