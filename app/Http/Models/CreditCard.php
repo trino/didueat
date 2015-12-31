@@ -44,13 +44,11 @@ class CreditCard extends BaseModel {
                 ->Where(function($query) use ($searchResults, $query_type) {
                     if($query_type == 'user'){
                         //$query->where('user_type', $query_type);
-                        debugprint("Userid: " .  read('id'));
-                        $query->where('user_id', read('id'));//see it's a one
-                        //sql becomes: select * from `credit_cards` where (`user_id` = ?) order by `order` asc limit 10 offset 0
+                        $query->where('profile_id', read('id'));//see it's a one
                     }
                     if($query_type == 'restaurant'){
                         $query->where('user_type', $query_type);
-                        $query->where('user_id', \Session::get('session_restaurant_id'));
+                        $query->where('profile_id', \Session::get('session_restaurant_id'));
                     }
                     
                     if($searchResults != ""){
