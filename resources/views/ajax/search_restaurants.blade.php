@@ -126,16 +126,6 @@
                         </div>
                     </div>
                 </div-->
-
-
-
-
-
-
-
-
-
-
                 <?php } ?>
             @endforeach
         @endif

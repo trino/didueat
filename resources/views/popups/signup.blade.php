@@ -19,9 +19,9 @@
                 </div>
 
                 {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                @include('common.signupform')
-                @include('common.editaddress', array("required" => false, "apartment" => true))
-
+                <DIV class="editaddress">
+                    @include('common.signupform')
+                </DIV>
                 <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
 
             </div>
@@ -34,7 +34,6 @@
 
                 <button id="regButton" class="btn btn-primary" type="submit" onclick="$('.editaddress').hide();">Sign Up</button>
                 {!! Form::close() !!}
-
             </div>
         </div>
     </div>

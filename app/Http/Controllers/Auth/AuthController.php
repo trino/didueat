@@ -143,14 +143,11 @@ class AuthController extends Controller {
                     $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
 
-                    debugprint("pre: " . print_r($data, true) );
-
                     $user = new \App\Http\Models\Profiles();
                     $user->populate(array_filter($data));
                     $user->save();
 
                     if($user->id){
-                        debugprint("signup: " . print_r($data, true) );
                         if($this->saveaddress($data)) {
                             $add = new \App\Http\Models\ProfilesAddresses();
                             $data['user_id'] = $user->id;
@@ -198,7 +195,7 @@ class AuthController extends Controller {
     }
 
     public function saveaddress($data){
-        $fields = array("formatted_address", "address", "postal_code", "phone", "country", "province", "city");
+        $fields = array("formatted_address");//, "address", "postal_code", "phone", "country", "province", "city");
         foreach($fields as $field){
             if(!isset($data[$field]) || !$data[$field]){
                 return false;

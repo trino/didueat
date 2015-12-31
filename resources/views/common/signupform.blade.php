@@ -15,12 +15,12 @@
     </div>
 </div>
 
-<div class="form-group row">
+<!--div class="form-group row">
     <label for="phone_no" class="col-sm-3">Phone Number</label>
     <div class="col-sm-9">
-        <input type="text" name="phone_no" class="form-control" id="phone_no" placeholder="Phone Number" value="{{ priority(old('phone_no'), read('phone')) }}">
+        <input type="text" name="phone_no" class="form-control" id="phone" placeholder="Phone Number" value="{{ priority(old('phone'), read('phone')) }}">
     </div>
-</div>
+</div-->
 
 @if(Session::has('session_id'))
     <div class="form-group row">
@@ -44,6 +44,8 @@
         <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
     </div>
 </div>
+
+@include('common.editaddress', array("required" => false, "apartment" => true))
 
 <div class="form-group row">
     <div class="col-sm-12">

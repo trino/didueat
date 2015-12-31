@@ -457,11 +457,12 @@
 
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-            var Name = $("#register-form input[name=name]").val();
-            var Email = $("#register-form input[name=email]").val();
-            var phone_no = $("#register-form input[name=phone_no]").val();
-            var password = $("#register-form input[name=password]").val();
-            var confirm_password = $("#register-form input[name=confirm_password]").val();
+            <?php
+                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
+                foreach( $fields as $field){
+                    echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
+                }
+            ?>
             var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
@@ -471,11 +472,11 @@
             $("#register-form #regLoader").show();
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
-                name: Name,
-                email: Email,
-                phone_no: phone_no,
-                password: password,
-                confirm_password: confirm_password,
+                <?php
+                    foreach( $fields as $field){
+                        echo $field . ': ' . $field . ',' . "\r\n";
+                    }
+                ?>
                 subscribed: subscribed
             }, function (result) {
                 $("#register-form #regButton").show();
