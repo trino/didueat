@@ -48,7 +48,7 @@
                         <div id="radius_panel" class="form-group">
                             <LABEL id="radius_panel_label">Distance (20 km)</LABEL>
                             <BR>
-                            <input type="range" name="radius" min="1" max="20" value="20" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                            <input type="range" name="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
 
                             <!--select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                 <option value="">Distance</option>
