@@ -11,7 +11,7 @@ class CreditCard extends BaseModel {
     public function populate($data) {
         $cells = array('first_name'     => true,
                        'user_type'      => false,
-                       'profile_id'     => false,
+                       'user_id'     => false,
                        'last_name'      => true,
                        'card_type'      => false,
                        'card_number'    => true,
@@ -43,12 +43,12 @@ class CreditCard extends BaseModel {
         $query = CreditCard::select('*')
                 ->Where(function($query) use ($searchResults, $query_type) {
                     if($query_type == 'user'){
-                        //$query->where('user_type', $query_type);
-                        $query->where('profile_id', read('id'));//see it's a one
+                        //$query->where('user_type', $query_type);//doesn't work
+                        $query->where('user_id', read('id'));//see it's a one
                     }
                     if($query_type == 'restaurant'){
-                        $query->where('user_type', $query_type);
-                        $query->where('profile_id', \Session::get('session_restaurant_id'));
+                        //$query->where('user_type', $query_type);//doesn't work
+                        $query->where('user_id', \Session::get('session_restaurant_id'));
                     }
                     
                     if($searchResults != ""){
