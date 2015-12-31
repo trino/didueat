@@ -82,19 +82,6 @@
         @endforeach
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script type="text/javascript">
         function check_val(v) {
             if (v != '') {
@@ -203,7 +190,7 @@
                 var catarray = [];
                 var td_index = 0;
                 var td_temp = 9999;
-
+                
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
@@ -217,21 +204,20 @@
                             var cnn = 0;
                             var catid = $(this).attr('id');
                             catarray.push(catid);
-
+                            
                             var is_required = $('#required_' + catid).val();
                             var extra_no = $('#extra_no_' + catid).val();
                             if (extra_no == 0)
                                 extra_no = 1;
                             var multiples = $('#multiple_' + catid).val();
                             var upto = $('#upto_' + catid).val();
-
                             var ary_qty = "";
                             var ary_price = "";
                             $('.extra-' + catid).each(function () {
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
                                     //alert(mid);
-                                    var qty = Number($(this).parent().find('.span_' + mid).text().trim());
+                                    var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
 
                                     if (qty != "") {
                                         cnn += Number(qty);
@@ -346,6 +332,37 @@
 
                     }
                 });
+                if (err > 0) {
+                   /*
+                    var banner = $(this).parent().parent().parent().find('.bannerz');
+                    var l = banner.width();
+                    var total_td = banner.find('td').length;
+                    $(".bannerz").animate({scrollLeft: (l * td_temp)}, 800);
+                    td_temp = td_temp + 1;
+
+                    $(this).parent().parent().find('.nxt_button').attr('title', td_temp);
+                    $(this).parent().parent().find('.nxt_button').show();
+                    var id = banner.find('td:nth-child(' + td_temp + ')').attr('id').replace('td_', '');
+                    //alert(id);
+                    $('#boxes_' + id).focus();
+                    if (td_temp == 1) {
+                        $(this).parent().parent().find('.prv_button').hide();
+                    } else {
+                        $(this).parent().parent().find('.prv_button').show();
+                    }*/
+                    return false;
+                } else {
+                    var banner = $(this).parent().parent().parent().find('.bannerz');
+                    $(this).parent().parent().find('.nxt_button').attr('title', '1');
+                    $(this).parent().parent().find('.prv_button').hide();
+                    banner.animate({scrollLeft: 0}, 10);
+                    $(this).parent().parent().find('.nxt_button').show();
+                    catarray.forEach(function (catid) {
+                        $('#error_' + catid).html("");
+                    });
+                    $('.allspan').html('&nbsp;&nbsp;1&nbsp;&nbsp;');
+                }
+                
                 ids = ids.replace("__", "_");
 
                 //app_title =app_title.replace(",,"," ");
@@ -380,34 +397,7 @@
                 dbtitle = extratitle.split(",").join("%");
                 dbtitle = dbtitle.split("%%").join("");
                 //alert(dbtitle);
-                if (err > 0) {
-                    var banner = $(this).parent().parent().parent().find('.bannerz');
-                    var l = banner.width();
-                    var total_td = banner.find('td').length;
-                    $(".bannerz").animate({scrollLeft: (l * td_temp)}, 800);
-                    td_temp = td_temp + 1;
-
-                    $(this).parent().parent().find('.nxt_button').attr('title', td_temp);
-                    $(this).parent().parent().find('.nxt_button').show();
-                    var id = banner.find('td:nth-child(' + td_temp + ')').attr('id').replace('td_', '');
-                    //alert(id);
-                    $('#boxes_' + id).focus();
-                    if (td_temp == 1) {
-                        $(this).parent().parent().find('.prv_button').hide();
-                    } else {
-                        $(this).parent().parent().find('.prv_button').show();
-                    }
-                    return false;
-                } else {
-                    var banner = $(this).parent().parent().parent().find('.bannerz');
-                    $(this).parent().parent().find('.nxt_button').attr('title', '1');
-                    $(this).parent().parent().find('.prv_button').hide();
-                    banner.animate({scrollLeft: 0}, 10);
-                    $(this).parent().parent().find('.nxt_button').show();
-                    catarray.forEach(function (catid) {
-                        $('#error_' + catid).html("");
-                    })
-                }
+       
 
                 var pre_cnt = $('#list' + ids).find('.count').text();
                 pre_cnt = Number(pre_cnt.replace('x ', ''));
@@ -479,7 +469,7 @@
 
                 $('.number' + menu_id).text('1');
                 //$('#clear_' + menu_id).click();
-                $('.fancybox-close').click();
+                $('.close'+menu_id).click();
                 //$('.subitems_'+menu_id).hide();
             });
 
