@@ -65,7 +65,9 @@
         <?php
     }
 ?>
-<SCRIPT>
+
+
+<script>
     function change(type, id){
         if(document.getElementById("samehours").checked){
             var value = document.getElementById(type + "[" + id + "]").value;
@@ -80,4 +82,4 @@
             }
         }
     }
-</SCRIPT>
+</script>

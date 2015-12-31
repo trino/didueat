@@ -40,14 +40,14 @@ if (Request::path() !== null && Request::path() != "/") {
     <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
 
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
 
-        <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -80,17 +80,17 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
 
 
-        @if(false)
-            <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-            <!--google font open sans -->
-            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'
-                  rel='stylesheet' type='text/css'>
-            <!--google font Montserrat -->
-            <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-            <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500|Arimo&subset=latin,latin-ext'
-                  rel='stylesheet' type='text/css'>
-        @endif
+    @if(false)
+        <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+        <!--google font open sans -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'
+              rel='stylesheet' type='text/css'>
+        <!--google font Montserrat -->
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500|Arimo&subset=latin,latin-ext'
+              rel='stylesheet' type='text/css'>
+    @endif
 
 
 </head>

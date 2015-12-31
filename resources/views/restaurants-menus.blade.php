@@ -2,10 +2,6 @@
 @section('content')
 
 
-
-    <!--link rel="stylesheet" href="{{ asset('assets/global/css/popstyle.css') }}"-->
-
-
     <div class=" col-md-4 col-sm-4" id="printableArea">
         <div class="overlay overlay_reservation">
             <div class="clearfix"></div>
@@ -20,66 +16,45 @@
         <?php printfile("views/restaurants-menus.blade.php"); ?>
         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-
-
             <div class="category_btns margin-bottom-15">
 
-                <button id="add_item0" type="button" class="btn btn-danger additem" data-toggle="modal" data-target="#addMenuModel" >
+                <button id="add_item0" type="button" class="btn btn-danger additem" data-toggle="modal"
+                        data-target="#addMenuModel">
                     Add Menu Item
                 </button>
-
 
 
                 <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
             </div>
 
 
+            <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
+                 aria-labelledby="addMenuModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="addMenuModelLabel">Add Addresss</h4>
+                        </div>
+                        <div class="modal-body" id="menumanager2">
 
-
-
-
-
-
-
-
-                <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="addMenuModelLabel">Add Addresss</h4>
-                            </div>
-                            <div class="modal-body"  id="menumanager2">
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            </div>
 
 
         @endif
+
+
+
 
         @foreach($category as $cat)
             <div class="box-shadow clearfix">
@@ -106,34 +81,6 @@
             </script>
         @endforeach
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
