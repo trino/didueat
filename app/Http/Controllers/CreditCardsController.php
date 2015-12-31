@@ -98,6 +98,9 @@ class CreditCardsController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'ASC',
             'searchResults' => \Input::get('searchResults')
         );
+        if($type == "user"){
+            $data["profile_id"] = 10;//read("id");
+        }
         
         $Query = \App\Http\Models\CreditCard::listing($data, "list")->get();
         $recCount = \App\Http\Models\CreditCard::listing($data)->count();
@@ -149,7 +152,7 @@ class CreditCardsController extends Controller {
      * @return response
      */
     public function creditCardsSequence() {
-        $this->saveSequence('\App\Http\Models\CreditCard');
+        $this->saveSequance('\App\Http\Models\CreditCard');
     }
 
 }

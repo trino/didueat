@@ -33,19 +33,20 @@ class CreditCard extends BaseModel {
     }
     
     public static function listing($array = "", $type = "") {
-        //echo "<pre>".print_r($array)."</pre>"; exit();
         $query_type = $array['type'];
         $searchResults = $array['searchResults'];
         $meta = $array['meta'];
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
-        
+
         $query = CreditCard::select('*')
                 ->Where(function($query) use ($searchResults, $query_type) {
                     if($query_type == 'user'){
-                        $query->where('user_type', $query_type);
-                        $query->where('user_id', \Session::get('session_id'));
+                        //$query->where('user_type', $query_type);
+                        debugprint("Userid: " .  read('id'));
+                        $query->where('user_id', read('id'));//see it's a one
+                        //sql becomes: select * from `credit_cards` where (`user_id` = ?) order by `order` asc limit 10 offset 0
                     }
                     if($query_type == 'restaurant'){
                         $query->where('user_type', $query_type);
@@ -53,14 +54,15 @@ class CreditCard extends BaseModel {
                     }
                     
                     if($searchResults != ""){
-                          $query->orWhere('first_name', 'LIKE', "%$searchResults%")
-                                ->orWhere('last_name', 'LIKE', "%$searchResults%")
-                                ->orWhere('card_type', 'LIKE', "%$searchResults%")
-                                ->orWhere('card_number', 'LIKE', "%$searchResults%")
-                                ->orWhere('ccv', 'LIKE', "%$searchResults%")
-                                ->orWhere('expiry_date', 'LIKE', "%$searchResults%")
-                                ->orWhere('expiry_month', 'LIKE', "%$searchResults%")
-                                ->orWhere('expiry_year', 'LIKE', "%$searchResults%");
+                        debugprint("searchResults: " .  $searchResults);
+                        $query->orWhere('first_name',     'LIKE',     "%$searchResults%")
+                                ->orWhere('last_name',      'LIKE',     "%$searchResults%")
+                                ->orWhere('card_type',      'LIKE',     "%$searchResults%")
+                                ->orWhere('card_number',    'LIKE',     "%$searchResults%")
+                                ->orWhere('ccv',            'LIKE',     "%$searchResults%")
+                                ->orWhere('expiry_date',    'LIKE',     "%$searchResults%")
+                                ->orWhere('expiry_month',   'LIKE',     "%$searchResults%")
+                                ->orWhere('expiry_year',    'LIKE',     "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);
@@ -69,6 +71,9 @@ class CreditCard extends BaseModel {
             $query->take($per_page);
             $query->skip($start);
         }
+
+        debugprint("SQL : " . $query->toSql() );
+
         return $query;
     }
     
