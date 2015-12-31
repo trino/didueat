@@ -60,6 +60,7 @@ class AdministratorController extends Controller {
                 if(isset($post['subscribed'])){
                     $data['subscribed'] = 1;
                 }
+
                 $data['name'] = $post['name'];
                 $data['phone'] = $post['phone'];
                 $data['mobile'] = $post['mobile'];

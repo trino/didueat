@@ -22,23 +22,24 @@
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
             <div class="col-md-12 col-sm-12 col-xs-12 padding-margin-top-0">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                    <img style="height: 100px;width:100%;" class=" no-padding" alt=""
+                    <img style="width:100%;" class=" no-padding" alt=""
                          src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
-                    <img style="height: 100px;width:100%;" class=" no-padding" alt=""
+                    <img style="width:100%;" class=" no-padding" alt=""
                          src="{{ asset('assets/images/default.png') }}">
                 @endif
             </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
+            <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
                 <div class="col-md-11 col-sm-11 col-xs-11">
-                    <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                    
                     {!! (isset($restaurant->address))?$restaurant->address:'' . (isset($restaurant->city))?' , '.$restaurant->city:'' !!}
                     {!! (isset($restaurant->province))?$restaurant->province:'' . (isset($restaurant->country))?' , '.$restaurant->country:'' !!}
                             <!--<abbr title="Phone">P:</abbr> {{-- $restaurant->phone --}}<br>-->
-                    <abbr title="Email">Email:</abbr> <a
+                    <br /><abbr title="Email">Email:</abbr> <a
                             href="javascript:void(0);"> {!! (isset($restaurant->email))?$restaurant->email:'' !!} </a>
-                    <abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                    <br /><abbr title="Phone">Views:</abbr> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </div>
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
 
@@ -316,9 +317,7 @@
                     <div class="profile_delivery_detail" style="display: none;">
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-12  margin-bottom-10">
-                                <input type="text" name="formatted_address" id="formatted_address_checkout"
-                                       class="form-control" placeholder="Address, City or Postal Code" value=""
-                                       onFocus="geolocate()">
+                                <input type="text" name="formatted_address" id="formatted_address_checkout" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="" onFocus="geolocate(formatted_address)">
                             </div>
                         </div>
                         <div class="form-group margin-bottom-10">

@@ -41,7 +41,7 @@
                             <textarea name="description" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label>Cuisine Type</label>
@@ -66,14 +66,14 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <h3 class="form-section">Delivery</h3>
                     </div>
-                    
+
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label"><input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (old('is_pickup') && old('is_pickup') > 0)?'checked':'' }} /> Allow pickup</label> <br />
                             <label class="control-label"><input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (old('is_delivery') && old('is_delivery') > 0)?'checked':'' }} /> Allow home delivery</label>
                         </div>
                     </div>
-                    
+
                     <div id="is_delivery_options" style="display: {{ (old('is_delivery') && old('is_delivery') > 0)?'block':'none' }};">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
@@ -102,10 +102,10 @@
                     </div>
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                        <img id="picture" class="margin-bottom-10 full-width" src="{{ $restaurant_logo.'?'.mt_rand() }}" />
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <img id="picture" class="margin-bottom-10" style="max-width: 100%" src="{{ $restaurant_logo.'?'.mt_rand() }}" />
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
                             <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
                         </div>
                         <input type="hidden" name="logo" id="hiddenLogo" />
@@ -149,7 +149,7 @@
         </div>
         <div class="portlet-body form">
             <div class="form-body">
-                @include("dashboard.restaurant.hours")
+                @include("dashboard.restaurant.hours", array("layout" => true))
             </div>
         </div>
     </div>
@@ -166,10 +166,10 @@
         <div class="portlet-body form">
             <DIV CLASS="form-body">
                 <div class="row">
+
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
                             <label for="name" class="col-md-12 col-sm-12 col-xs-12 control-label">Full Name </label>
-
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
                                     <input type="text" name="full_name" class="form-control" id="name" placeholder="Full Name" value="{{ old('full_name') }}" required="">
@@ -181,7 +181,6 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group clearfix">
                             <label for="email" class="col-md-12 col-sm-12 col-xs-12 control-label">Email </label>
-
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-icon">
                                     <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required="">
@@ -233,8 +232,6 @@
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <input type="hidden" name="lat" id="latitude" value="" />
-                        <input type="hidden" name="lng" id="longitude" value="" />
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
                 </div>

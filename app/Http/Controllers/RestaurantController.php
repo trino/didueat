@@ -481,30 +481,38 @@ class RestaurantController extends Controller {
     /**
      * Change Order Status to $status, send email (using $subject/$email) and $flash
      * @param $id (POST)
+     * statuses can be cancelled, approved or pending
      * @return redirect
      */
-    public function changeOrderStatus($status, $subject, $email, $flash){
+    public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = ""){
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure("[Order Id] is missing!", 'restaurant/orders/admin');
             }
-            if (!isset($post['note']) || empty($post['note'])) {
+            if (is_numeric($post['id']) && (!isset($post['note']) || empty($post['note']))) {
                 return $this->failure("[Note Field] is missing!", 'restaurant/orders/admin');
             }
 
             try {
-                $ob = \App\Http\Models\Reservations::find($post['id']);
-                $ob->populate(array('status' => $status, 'note' => $post['note']));
+                if(is_numeric($post['id'])) {
+                    $ob = \App\Http\Models\Reservations::find($post['id']);
+                    $URL = 'restaurant/orders/admin';
+                } else {
+                    $ob = \App\Http\Models\Reservations::where('guid', $post['id'])->first();
+                    $flash = "Order " . $status . " via email";
+                    $post['note'] = $flash;
+                }
+                $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                 $ob->save();
 
-                if ($ob->user_id) {
+                if ($ob->user_id && $subject && $email) {
                     $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
                     $userArray['mail_subject'] = $subject;
                     $userArray['note'] = $post['note'];
                     $this->sendEMail($email, $userArray);
                 }
-                return $this->success($flash, 'restaurant/orders/admin');
+                return $this->success($flash, $URL);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/orders/admin');
             }
@@ -637,7 +645,7 @@ class RestaurantController extends Controller {
     public function menuadd() {
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
         //copy these keys to the $arr
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];

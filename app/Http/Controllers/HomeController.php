@@ -9,7 +9,6 @@ use App\Http\Models\PageViews;
 class HomeController extends Controller {
     public function __construct() {
         date_default_timezone_set('America/Toronto');
-
         $this->beforeFilter(function () {
             initialize("home");
         });
@@ -22,13 +21,78 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousine types
-        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tages
+
+        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
+        $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
+       // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
         $data['count'] = 0;
         $data['start'] = 0;
         $data['hasMorePage'] = 0;
         return view('restaurants', $data);
+    }
+
+    public function getTopTen() {
+        $tags = \App\Http\Models\Tag::where('is_active', 1)->get();
+        $restaurants = \App\Http\Models\Restaurants::get();
+        $tag = '0';
+        foreach($tags as $t) {
+            $tag = $tag.','.$t->name;
+        }
+        $used_tag = '';
+        foreach($restaurants as $t) {
+            if($used_tag) {
+                $used_tag = $used_tag . ',' . $t->tags;
+            }else {
+                $used_tag = $t->tags;
+            }
+        }
+        $used_tag = str_replace(' ','',$used_tag);
+        var_dump($used_tag);
+        $all_tags = explode(',',$tag);
+        $all_used_tags = explode(',',$used_tag);
+        $arr_final = array();
+        $arr_count = array();
+        foreach($all_used_tags as $aut) {
+            if(in_array($aut,$all_tags)) {
+                  if(!in_array($aut,$arr_final)) {
+                    $arr_final[] = $aut;
+                    $arr_count[] = 1;
+                  } else {
+                    $k = array_search($aut,$arr_final);
+                    $arr_count[$k]++;
+                  }
+            }
+        }
+        
+        var_dump($arr_final);
+        var_dump($arr_count);
+        
+        $keys = '';
+        $key_final = array();
+        for($i=0;$i<count($arr_count);$i++) {
+            foreach($arr_count as $k=>$ac) {
+                $check = 0;
+                if(in_array($k,$key_final)){
+                    continue;
+                }
+                $check = 1;
+                //$c++;
+                if($keys=='') {
+                    $keys=$k;
+                    $temp = $ac;
+                } else{
+                    if($ac>$temp)
+                    $keys = $k;
+                }
+
+            }
+            if($check) {
+                $key_final[] = $keys;
+            }
+        }
+        var_dump($key_final);
+        die();
     }
     
     /**
@@ -43,7 +107,9 @@ class HomeController extends Controller {
         parse_str($post['data'], $data);
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
+                $data['data'] = $post;
                 $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
+                $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL
                 $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
                 $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
@@ -73,11 +139,14 @@ class HomeController extends Controller {
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//search active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
         $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);//search 10 restaurants
+        $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0, true);//SQL
         $data['count'] = \App\Http\Models\Restaurants::get();//count restaurants
         $data['start'] = count($data['query']);
         $data['searchTerm'] = $searchTerm;
-        $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
-
+        $data['hasMorePage'] = 10;
+        if(is_iterable($data['query'])){
+            $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants('', 10, $data['start']));//remaining restauramts
+        }
         return view('restaurants', $data);
     }
     
@@ -116,6 +185,10 @@ class HomeController extends Controller {
         $data['title'] = "Search Menus";
 
         return view('home', $data);
+    }
+
+    public function test(){
+        return view('test');
     }
 
     /**

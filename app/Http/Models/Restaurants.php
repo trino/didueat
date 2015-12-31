@@ -57,7 +57,7 @@ class Restaurants extends BaseModel {
      * @param $start
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0) {
+    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
         $query = "";
         $limit = "";
         if (isset($data['radius']) && $data['radius'] != "") {
@@ -99,7 +99,7 @@ class Restaurants extends BaseModel {
                 $where .= " AND cuisine = '".$data['cuisine']."'";
             }
             if (isset($data['rating']) && $data['rating'] != "") {
-                $where .= " AND rating = '".$data['rating']."'";
+                $where .= " AND rating >= '".$data['rating']."'";
             }
             if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
                 $where .= " AND ".$data['delivery_type']." = '1'";
@@ -113,7 +113,9 @@ class Restaurants extends BaseModel {
             if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
                 $order = " ORDER BY ".$data['SortOrder'];
             }
-            $query = \DB::select("SELECT * FROM restaurants ".$where.$order.$limit);
+            $SQL = "SELECT * FROM restaurants ".$where.$order.$limit;
+            if($ReturnSQL){return $SQL;}
+            $query = \DB::select($SQL);
             $query = json_decode(json_encode($query),true);
         }
         return $query;

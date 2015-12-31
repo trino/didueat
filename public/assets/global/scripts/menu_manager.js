@@ -86,7 +86,7 @@ function ajaxuploadbtn(button_id, doc) {
             window.clearInterval(interval);
             this.enable();
 
-            $("." + button_id.replace('newbrowse', 'menuimg')).html('<img src="' + path + '" /><input type="hidden" class="hiddenimg" value="' + img + '" />');
+            $("." + button_id.replace('newbrowse', 'menuimg')).html('<img style="max-width:100%;" src="' + path + '" /><input type="hidden" class="hiddenimg" value="' + img + '" />');
             $("." + button_id.replace('newbrowse', 'menuimg')).attr('style', 'min-height:0px!important;')
             //$('#client_img').val(response);
             //$('.flashimg').show();

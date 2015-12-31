@@ -8,7 +8,7 @@
                 </button>
                 <h4 class="modal-title" id="signupModalLabel">Sign up</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="signupModalBody">
 
                 <?php printfile("views/popups/signup.blade.php"); ?>
 
@@ -19,11 +19,10 @@
                 </div>
 
                 {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                @include('common.signupform')
-
+                <DIV class="editaddress">
+                    @include('common.signupform')
+                </DIV>
                 <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-
-
 
             </div>
             <div class="modal-footer">
@@ -33,13 +32,8 @@
                     </a>
                 </div>
 
-
-
-
-
-                <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
+                <button id="regButton" class="btn btn-primary" type="submit" onclick="$('.editaddress').hide();">Sign Up</button>
                 {!! Form::close() !!}
-
             </div>
         </div>
     </div>

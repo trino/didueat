@@ -16,6 +16,9 @@
 
 
 
+<!-- delete this page???? -->
+@if(false)
+
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
@@ -107,6 +110,12 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+
+
+
+
+        @endif
+
 
 
 <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>

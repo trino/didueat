@@ -56,13 +56,14 @@
                                 </td>
                                 <td>
                                     <a href="{{ url('restaurant/orders/history/'.$value->id) }}"
-                                       class="btn btn-primary btn-sm">Orders</a>
+                                       class="btn btn-primary-outline btn-sm">Orders</a>
                                     <a href="{{ url('restaurant/info/'.$value->id) }}"
-                                       class="btn btn-info btn-sm">Edit</a>
+                                       class="btn btn-info-outline btn-sm">Edit</a>
 
                                     <a href="{{ url('restaurant/list/delete/'.$value->id) }}"
-                                       class="btn btn-danger btn-sm"
+                                       class="btn btn-danger-outline btn-sm"
                                        onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
+
                                 </td>
                             </tr>
                         @endforeach

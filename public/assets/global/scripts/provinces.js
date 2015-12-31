@@ -99,18 +99,43 @@ function simpleStringify (object){
 
 //Google Api Codes.
 var placeSearch, formatted_address;
+
+function initAutocompleteWithID(ID){
+    var element = document.getElementById(ID);
+    if (!element.hasAttribute("hasgeocode")) {
+        var formatted_address = new google.maps.places.Autocomplete(
+            (element),
+            {types: ['geocode']});
+        formatted_address.addListener('place_changed', fillInAddress);
+        element.setAttribute("hasgeocode", true);
+        return formatted_address;
+    }
+}
+
 function initAutocomplete(){
-    var element = document.getElementById('formatted_address');
-    if(!element){return false;}
-    formatted_address = new google.maps.places.Autocomplete(
-        (element),
-        {types: ['geocode']});
-    formatted_address.addListener('place_changed', fillInAddress);
-    return element.value;
+    formatted_address = initAutocompleteWithID('formatted_address');
+    return formatted_address;
+}
+
+function isvalid(variable, element){
+    if( !isundefined(variable) ){
+        var element = document.getElementById(element);
+        if( element && element.value ){
+            return true;
+        }
+    }
+}
+
+function getplace(){
+    if(isvalid(formatted_address2, "formatted_address2")){ return formatted_address2; }
+    if(isvalid(formatted_address3, "formatted_address3")){ return formatted_address3; }
+    if(isvalid(formatted_address4, "formatted_address4")){ return formatted_address4; }
+    if(isvalid(formatted_address5, "formatted_address5")){ return formatted_address5; }
+    return formatted_address;
 }
 
 function fillInAddress() {
-    var place = formatted_address.getPlace();
+    var place = getplace().getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     $('#latitude').val(lat);
@@ -164,13 +189,52 @@ function fillInAddress() {
     return place;
 }
 
-function geolocate() {
+function isundefined(variable){
+    return typeof variable === 'undefined';
+}
+
+function simpleStringify (object){
+    var simpleObject = {};
+    for (var prop in object ){
+        if (!object.hasOwnProperty(prop)){
+            continue;
+        }
+        if (typeof(object[prop]) == 'object'){
+            continue;
+        }
+        if (typeof(object[prop]) == 'function'){
+            continue;
+        }
+        simpleObject[prop] = object[prop];
+    }
+    return JSON.stringify(simpleObject); // returns cleaned up JSON
+};
+
+function geolocate(formatted_address) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var geolocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+
+            $('#latitude').val( position.coords.latitude );
+            $('#longitude').val( position.coords.longitude );
+
+            $.ajax({
+                url: 'http://maps.googleapis.com/maps/api/geocode/json',
+                type: "get",
+                dataType: "HTML",
+                data: 'sensor=false&latlng=' + position.coords.latitude + ',' + position.coords.longitude,
+                success: function(msg) {
+                    var data = JSON.parse(msg);
+                    data = data.results[0].formatted_address;
+                    $(".formatted_address").val(data);
+                    $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
+                    $(".formatted_address").trigger("change");
+                }
+            });
+
             var circle = new google.maps.Circle({
                 center: geolocation,
                 radius: position.coords.accuracy

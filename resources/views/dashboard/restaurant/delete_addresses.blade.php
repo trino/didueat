@@ -60,9 +60,14 @@
                                 <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
                             </td>
                             <td>
+<<<<<<< HEAD
                                 <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
                                 <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a>
                             </td>
+=======
+                                <a class="btn btn-secondary-outline  btn-sm up"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline btn-sm down"><i class="fa fa-arrow-down"></i></a></td>
+>>>>>>> 7bdffe0ba57e82410fd35a449684d83e0f32b05e
                         </tr>
                         @endforeach
                     </tbody>

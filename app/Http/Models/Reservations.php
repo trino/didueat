@@ -14,13 +14,14 @@ class Reservations extends BaseModel {
      * @param array
      * @return Array
      */
-    public function populate($data) {
+    public function populate($data, $Key = false) {
         $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
             }
         }
+        if($Key){$this->$Key = guidv4();}
     }
     
     public static function listing($array = "", $type = "") {
@@ -60,7 +61,6 @@ class Reservations extends BaseModel {
         }
         return $query;
     }
-
 
     function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax) {
         $Data = array();

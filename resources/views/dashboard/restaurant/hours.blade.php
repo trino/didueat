@@ -1,9 +1,15 @@
 <?php
+    printfile("dashboard/restaurant/hours.blade.php");
+    if(!isset($layout)){$layout=false;}
     $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 
     $restaurantID = \Session::get('session_restaurant_id');
     if(!$restaurantID){$restaurantID=0;}
     if(isset($resturant->id)){$restaurantID = $resturant->id;}
+
+    if($layout){
+        echo '<STYLE> .time{ padding-left: 8px; padding-right: 6px; }</STYLE>';
+    }
 
     foreach ($day_of_week as $key => $value) {
         if(strpos($value, ">") !== false){
@@ -26,45 +32,42 @@
 
             $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
             $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
-            ?>
-                <div class="row">
-                    <label class="col-sm-3">{{ $value }}</label>
-                    <div class="col-sm-4">
-                        <input type="hidden" name="day_of_week[{{ $key }}]" value="{{ $value }}"/>
-                        <input type="text" name="open[{{ $key }}]" id="open[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" onchange="change('open', {{ $key }});"/>
-                    </div>
-                    <div class="col-sm-1">
-                        to
-                    </div>
-                    <div class="col-sm-4">
-                        <input type="text" name="close[{{ $key }}]" id="close[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time" onchange="change('close', {{ $key }});"/>
-                    </div>
-                </div>
-            <?php
+            printrow($layout, $key, $value, $opentime, $closetime);
         }
     }
-    echo '</DIV></DIV><div class="form-group row"><label class="col-sm-3">Delivery times</label><div class="col-sm-9">';
+    if($layout){
+        echo '<div class="row"><div class="caption"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
+    } else {
+        echo '</DIV></DIV><div class="form-group row"><label class="col-sm-3">Delivery times</label><div class="col-sm-9">';
+    }
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
         $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+        printrow($layout, $key, $value, $opentime, $closetime, "_del");
+    }
+    echo '<BR><LABEL><input type="CHECKBOX" onclick="same(event);" ID="samehours"> Same as regular hours</LABEL>';
+
+    function printrow($layout, $key, $value, $opentime, $closetime, $suffix=""){
+        if($layout){$layout = 9; $width=5;} else {$layout = 3; $width=4;}
         ?>
         <div class="row">
-            <label class="col-sm-3">{{ $value }}</label>
-            <div class="col-sm-4">
-                <input type="text" name="open_del[{{ $key }}]" id="open_del[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time"/>
+            <label class="col-sm-{{ $layout }}">{{ $value }}</label>
+            <div class="col-sm-{{ $width }}">
+                <input type="text" name="open{{$suffix}}[{{ $key }}]" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time"/>
             </div>
             <div class="col-sm-1">
                 to
             </div>
-            <div class="col-sm-4">
-                <input type="text" name="close_del[{{ $key }}]" id="close_del[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time"/>
+            <div class="col-sm-{{ $width }}">
+                <input type="text" name="close{{$suffix}}[{{ $key }}]" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time"/>
             </div>
         </div>
         <?php
     }
-    echo '<LABEL><input type="CHECKBOX" onclick="same(event);" ID="samehours"> Same as regular hours</LABEL>';
 ?>
-<SCRIPT>
+
+
+<script>
     function change(type, id){
         if(document.getElementById("samehours").checked){
             var value = document.getElementById(type + "[" + id + "]").value;
@@ -79,4 +82,4 @@
             }
         }
     }
-</SCRIPT>
+</script>

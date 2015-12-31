@@ -66,8 +66,7 @@ class ResponseFactory implements FactoryContract
      * @param  array  $headers
      * @return \Illuminate\Http\Response
      */
-    public function view($view, $data = [], $status = 200, array $headers = [])
-    {
+    public function view($view, $data = [], $status = 200, array $headers = []) {
         return static::make($this->view->make($view, $data), $status, $headers);
     }
 

@@ -26,7 +26,7 @@ class AuthController extends Controller {
     }
 
     /**
-     * Post Login
+     * handles email address/password based login
      * @param  null
      * @return view
      */
@@ -36,44 +36,28 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        \Session::flash('message', trans('messages.user_inactive.message'));
-                        \Session::flash('message-type', 'alert-danger');
-                        \Session::flash('message-short', 'Oops!');
-                        return \Redirect::to('auth/login');
+                        return $this->failure(trans('messages.user_inactive.message') , 'auth/login');
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
                         login($user);
                         return redirect()->intended('dashboard');
                     } else {
-                        \Session::flash('message', trans('messages.user_login_invalid.message'));
-                        \Session::flash('message-type', 'alert-danger');
-                        \Session::flash('message-short', 'Oops!');
-                        return \Redirect::to('auth/login');
+                        return $this->failure(trans('messages.user_login_invalid.message') , 'auth/login');
                     }
                 } else {
-                    \Session::flash('message', trans('messages.user_not_registered.message'));
-                    \Session::flash('message-type', 'alert-danger');
-                    \Session::flash('message-short', 'Oops!');
-                    //return redirect()->intended('auth/login');
-                    return \Redirect::to('auth/login');
+                    return $this->failure(trans('messages.user_not_registered.message') , 'auth/login');
                 }
             } catch (Exception $e) {
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/login');
+                return $this->failure( handleexception($e) , 'auth/login');
             }
         } else {
-            \Session::flash('message', trans('messages.user_missing_email.message'));
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('auth/login');
+            return $this->failure(trans('messages.user_missing_email.message') , 'auth/login');
         }
     }
 
     /**
-     * Post Login Ajax
+     * a clone of authenticate, but by AJAX
      * @param  null
      * @return view
      */
@@ -121,50 +105,40 @@ class AuthController extends Controller {
         return view('auth.register', array('title' => 'Register Page'));
     }
 
+    function failure2($AsJSON, $message){
+        if ($AsJSON){
+            echo json_encode(array('type' => 'error', 'message' => $message));
+            die;
+        }
+        return $this->failure($message, 'auth/register', true);
+    }
+
     /**
-     * Post Registration
+     * handles user registration
      * @param  array
      * @return redirect
      */
-    public function postRegister()
-    {
-
+    public function postRegister($AsJSON = false) {
         $data = \Input::all();
-        if (isset($data) && count($data) > 0 && !is_null($data)) {
+        if (isset($data) && count($data) > 0 && !is_null($data)) {//check for missing data
             if (!isset($data['email']) || empty($data['email'])) {
-                \Session::flash('message', trans('messages.user_missing_email.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/register')->withInput();
+                return $this->failure2($AsJSON, trans('messages.user_missing_email.message'));
             }
-
             $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
             if ($is_email > 0) {
-                \Session::flash('message', trans('messages.user_email_already_exist.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/register')->withInput();
+                return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message.message'));
             }
             if (!isset($data['password']) || empty($data['password'])) {
-                \Session::flash('message', trans('messages.user_pass_field_missing.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/register')->withInput();
+                return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message.message'));
             }
             if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
-                \Session::flash('message', trans('messages.user_confim_pass_field_missing.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/register')->withInput();
+                return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message.message'));
             }
             if ($data['password'] != $data['confirm_password']) {
-                \Session::flash('message', trans('messages.user_passwords_mismatched.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/register')->withInput();
+                return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message.message'));
             } else {
                 \DB::beginTransaction();
-                try {
+                try {//add new user to the database
                     $data['status'] = 1;
                     $data['is_email_varified'] = 0;
                     $data['profile_type'] = 2;
@@ -174,127 +148,60 @@ class AuthController extends Controller {
                     $user->save();
 
                     if($user->id){
-                        $add = new \App\Http\Models\ProfilesAddresses();
-                        $data['user_id'] = $user->id;
-                        $add->populate(array_filter($data));
-                        $add->save();
+                        if($this->saveaddress($data)) {
+                            $add = new \App\Http\Models\ProfilesAddresses();
+                            $data['user_id'] = $user->id;
+                            $add->populate(array_filter($data));
+                            $add->save();
+                        }
                     }
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
+
+                    //$this->saveaddress($user->id, $data);
 
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
                     $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+
+                    if($AsJSON) {
+                        echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
+                        die;
+                    }
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
-                    \Session::flash('message', trans('messages.user_email_already_exist.message'));
-                    \Session::flash('message-type', 'alert-danger');
-                    \Session::flash('message-short', 'Oops!');
-                    return \Redirect::to('auth/register')->withInput();
+                    return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message.message'));
                 } catch (\Exception $e) {
                     \DB::rollback();
-                    \Session::flash('message', $e->getMessage());
-                    \Session::flash('message-type', 'alert-danger');
-                    \Session::flash('message-short', 'Oops!');
-                    return \Redirect::to('auth/register')->withInput();
+                    return $this->failure2($AsJSON, handleexception($e));
                 }
             }
         } else {
-            \Session::flash('message', trans('messages.user_invalid_data_parse.message'));
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('auth/register')->withInput();
+            return $this->failure2($AsJSON, trans('messages.user_invalid_data_parse.message'));
         }
     }
 
     /**
-     * Ajax Post Registration
+     * alias of postRegister, by ajax
      * @param  array
      * @return redirect
      */
-    public function postAjaxRegister()
-    {
-        $data = \Input::all();
-        if (isset($data) && count($data) > 0 && !is_null($data)) {
-            if (!isset($data['email']) || empty($data['email'])) {
-                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message')));
-                die;
+    public function postAjaxRegister() {
+        return $this->postRegister(true);//
+    }
+
+    public function saveaddress($data){
+        $fields = array("formatted_address");//, "address", "postal_code", "phone", "country", "province", "city");
+        foreach($fields as $field){
+            if(!isset($data[$field]) || !$data[$field]){
+                return false;
             }
-
-            $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
-            if ($is_email > 0) {
-                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message')));
-                die;
-            }
-            if (!isset($data['password']) || empty($data['password'])) {
-                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_pass_field_missing.message')));
-                die;
-            }
-            if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
-                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_confim_pass_field_missing.message')));
-                die;
-            }
-            if ($data['password'] != $data['confirm_password']) {
-                echo json_encode(array('type' => 'error', 'message' => trans('messages.user_passwords_mismatched.message')));
-                die;
-            } else {
-                \DB::beginTransaction();
-                try {
-                    $data['status'] = 1;
-                    $data['is_email_varified'] = 0;
-                    $data['profile_type'] = 2;
-                    $browser_info = getBrowser();
-                    $data['ip_address'] = get_client_ip_server();
-                    $data['browser_name'] = $browser_info['name'];
-                    $data['browser_version'] = $browser_info['version'];
-                    $data['browser_platform'] = $browser_info['platform'];
-
-                    $user = new \App\Http\Models\Profiles();
-                    $user->populate(array_filter($data));
-                    $user->save();
-                    
-                    event(new \App\Events\AppEvents($user, "User Created"));
-
-                    $nd1 = new \App\Http\Models\NotificationAddresses();
-                    $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
-                    $nd1->save();
-
-                    if($user->id){
-                        $add = new \App\Http\Models\ProfilesAddresses();
-                        $data['user_id'] = $user->id;
-                        $add->populate(array_filter($data));
-                        $add->save();
-
-                        $nd2 = new \App\Http\Models\NotificationAddresses();
-                        $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone_no));
-                        $nd2->save();
-                    }
-
-                    $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'Thank you for registration.';
-                    $this->sendEMail("emails.registration_welcome", $userArray);
-                    \DB::commit();
-
-                    echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
-                    die;
-                } catch (\Illuminate\Database\QueryException $e) {
-                    \DB::rollback();
-                    echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_already_exist.message')));
-                    die;
-                } catch (\Exception $e) {
-                    \DB::rollback();
-                    echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
-                    die;
-                }
-            }
-        } else {
-            echo json_encode(array('type' => 'error', 'message' => trans('messages.user_invalid_data_parse.message')));
-            die;
         }
+        return true;
     }
 
 
@@ -303,8 +210,7 @@ class AuthController extends Controller {
      * @param  $id
      * @return message
      */
-    public function resendPostEmail($email = 0)
-    {
+    public function resendPostEmail($email = 0) {
         $email = base64_decode($email);
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
 
@@ -326,8 +232,7 @@ class AuthController extends Controller {
      * @param  $id
      * @return message
      */
-    public function resendEmail($email = 0)
-    {
+    public function resendEmail($email = 0) {
         $email = base64_decode($email);
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
 
@@ -353,8 +258,7 @@ class AuthController extends Controller {
      * @param  $email
      * @return message
      */
-    public function verifyEmail($email = "")
-    {
+    public function verifyEmail($email = "") {
         $email = base64_decode($email);
         $count = \App\Http\Models\Profiles::where('email', $email)->where('is_email_varified', 1)->count();
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
@@ -391,8 +295,7 @@ class AuthController extends Controller {
      * @param  null
      * @return view
      */
-    public function forgotPassword()
-    {
+    public function forgotPassword() {
         return view('auth.forgot', array('title' => 'Forgot Password'));
     }
 
@@ -401,17 +304,13 @@ class AuthController extends Controller {
      * @param  array
      * @return message
      */
-    public function postForgotPassword()
-    {
+    public function postForgotPassword() {
         if (\Input::has('email')) {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        \Session::flash('message', trans('messages.user_inactive.message'));
-                        \Session::flash('message-type', 'alert-danger');
-                        \Session::flash('message-short', 'Oops!');
-                        return \Redirect::to('auth/forgot-passoword');
+                        return $this->failure(trans('messages.user_inactive.message'), 'auth/forgot-passoword');
                     }
 
                     $newpass = substr(dechex(round(rand(0, 999999999999999))), 0, 8);
@@ -429,22 +328,13 @@ class AuthController extends Controller {
                     return view('messages.message', $message);
 
                 } else {
-                    \Session::flash('message', trans('messages.user_email_not_verify.message'));
-                    \Session::flash('message-type', 'alert-danger');
-                    \Session::flash('message-short', 'Oops!');
-                    return \Redirect::to('auth/forgot-passoword');
+                    return $this->failure(trans('messages.user_email_not_verify.message'), 'auth/forgot-passoword');
                 }
             } catch (Exception $e) {
-                \Session::flash('message', $e->getMessage());
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('auth/forgot-passoword');
+                return $this->failure(handleexception($e), 'auth/forgot-passoword');
             }
         } else {
-            \Session::flash('message', trans('messages.user_missing_email.message'));
-            \Session::flash('message-type', 'alert-danger');
-            \Session::flash('message-short', 'Oops!');
-            return \Redirect::to('auth/forgot-passoword');
+            return $this->failure(trans('messages.user_missing_email.message'), 'auth/forgot-passoword');
         }
     }
 
@@ -453,8 +343,7 @@ class AuthController extends Controller {
      * @param  array
      * @return message
      */
-    public function postAjaxForgotPassword()
-    {
+    public function postAjaxForgotPassword() {
         if (\Input::has('email')) {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
@@ -493,8 +382,7 @@ class AuthController extends Controller {
      * @param  $email
      * @return string
      */
-    public function postAjaxValidateEmail()
-    {
+    public function postAjaxValidateEmail() {
         if (\Input::has('email')) {
             try {
                 $user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->count();
@@ -520,12 +408,8 @@ class AuthController extends Controller {
      * @param  null
      * @return redirect
      */
-    public function getLogout()
-    {
+    public function getLogout() {
         \Session::flush();
-        \Session::flash('message', trans('messages.user_logout.message'));
-        \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Congratulations!');
-        return \Redirect::to('/');
+        return $this->success(trans('messages.user_logout.message'), '/');
     }
 }

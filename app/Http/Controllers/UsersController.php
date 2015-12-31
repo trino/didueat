@@ -338,7 +338,7 @@ class UsersController extends Controller {
                 }
                 //echo '<pre>';print_r($res); die;
                 $ob2 = new \App\Http\Models\Reservations();
-                $ob2->populate($res);
+                $ob2->populate($res, "guid");
                 
                 $ob2->save();
                 $oid = $ob2->id;
@@ -411,11 +411,12 @@ class UsersController extends Controller {
                     
                     //->where('is_default', 1)
                     if ($notificationEmail->count() > 0) {
+                        $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
+                        $userArray3["guid"] = $ob2->guid;
                         foreach ($notificationEmail->get() as $resValue) {
                             if ($resValue->type == "Email") {
                                 $userArray3['name'] = $resValue->name;
                                 $userArray3['email'] = $resValue->address;
-                                $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
                                 $this->sendEMail("emails.order_owner_notification", $userArray3);
                             }
                         }

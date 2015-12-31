@@ -107,11 +107,14 @@
                 <li class="list-inline-item"><a href="#">About</a></li>
                 <li class="list-inline-item"><a href="#">Email</a></li>
                 <li class="list-inline-item"><a href="#">FAQ</a></li>
-                <li class="list-inline-item"><a href="#">Log In</a></li>
-                <li class="list-inline-item"><a href="#">Sign Up</a></li>
-                <li class="list-inline-item"><a href="#">Restaurant Owner</a></li>
+                <?php
+                    if(!read("id")){
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a></li>';
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
+                    }
+                ?>
+                <li class="list-inline-item"><a href="{{ url("restaurants/signup") }}">Restaurant Owner</a></li>
                 <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
-
             </ul>
         </div>
         <div class="col-lg-2" style="">
@@ -394,21 +397,20 @@
         $('body').on('submit', '#login-ajax-form', function (e) {
             var data = $('#login-ajax-form').serialize();
             var token = $('#login-ajax-form input[name=_token]').val();
+            $('#invalid').hide();
             $.ajax({
                 url: "{{ url('auth/login/ajax') }}",
                 data: data, _token: token,
                 type: "post",
                 success: function (msg) {
-
                     if (isNaN(Number(msg))) {
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
                             $('#invalid').text(msg);
-                            $('#invalid').show();
+                            $('#invalid').fadeIn(500);
                         }
-                    }
-                    else {
+                    } else {
                         if ($('#login_type').val() == 'reservation') {
                             $.ajax({
                                 url: "{{url('/user/json_data')}}",
@@ -430,13 +432,14 @@
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');
                                 }
                             });
-                        }
-                        else
+                        } else {
                             window.location = "{{ url('dashboard') }}";
+                        }
                     }
                 },
                 failure: function (msg) {
-                    setvalue("message", "ERROR: " + msg);
+                    $('#invalid').text("ERROR: " + msg);
+                    $('#invalid').fadeIn(1000);
                 }
             });
             e.preventDefault();
@@ -454,11 +457,12 @@
 
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-            var Name = $("#register-form input[name=name]").val();
-            var Email = $("#register-form input[name=email]").val();
-            var phone_no = $("#register-form input[name=phone_no]").val();
-            var password = $("#register-form input[name=password]").val();
-            var confirm_password = $("#register-form input[name=confirm_password]").val();
+            <?php
+                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
+                foreach( $fields as $field){
+                    echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
+                }
+            ?>
             var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
@@ -468,11 +472,11 @@
             $("#register-form #regLoader").show();
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
-                name: Name,
-                email: Email,
-                phone_no: phone_no,
-                password: password,
-                confirm_password: confirm_password,
+                <?php
+                    foreach( $fields as $field){
+                        echo $field . ': ' . $field . ',' . "\r\n";
+                    }
+                ?>
                 subscribed: subscribed
             }, function (result) {
                 $("#register-form #regButton").show();
