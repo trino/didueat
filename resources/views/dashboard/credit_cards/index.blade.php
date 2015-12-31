@@ -46,19 +46,17 @@
                 </button>
                 <h4 class="modal-title" id="editCreditCardModalLabel">Credit Card</h4>
             </div>
+            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
-
-                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                 <div id="editContents">
                     @include("common.edit_credit_card")
                 </div>
-                {!! Form::close() !!}
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

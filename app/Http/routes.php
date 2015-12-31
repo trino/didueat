@@ -69,9 +69,9 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('credit-cards/list/ajax/{type}',                    'CreditCardsController@listingAjax');
     Route::post('credit-cards/Sequence',                            'CreditCardsController@creditCardsSequence');
     Route::resource('users/credit-cards',                 	        'CreditCardsController@addCreditCards');
-    Route::post('users/credit-cards/{type}',                        'CreditCardsController@addCreditCards');
     Route::get('users/credit-cards/action/{id}/{type}',             'CreditCardsController@creditCardsAction');
     Route::get('users/credit-cards/edit/{id}',                      'CreditCardsController@ajaxEditCreditCardFrom');
+    Route::post('users/credit-cards/{type}',                        'CreditCardsController@addCreditCards');
     //Route::post('users/credit-cards/sequence',            	    'AdministratorController@saveCreditCardsSequence'); //MISSING
 });
 
