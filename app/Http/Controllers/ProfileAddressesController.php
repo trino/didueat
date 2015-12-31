@@ -94,12 +94,12 @@ class ProfileAddressesController extends Controller {
     }
     
     /**
-     * Addresses Sequance Change
+     * Addresses Sequence Change
      * @param none
      * @return response
      */
     public function addressesSequence() {
-        $this->saveSequance('\App\Http\Models\ProfilesAddresses');
+        $this->saveSequence('\App\Http\Models\ProfilesAddresses');
     }
     
     /**

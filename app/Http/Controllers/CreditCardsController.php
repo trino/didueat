@@ -144,12 +144,12 @@ class CreditCardsController extends Controller {
     }
     
     /**
-     * Credit Card Sequance Change
+     * Credit Card Sequence Change
      * @param none
      * @return response
      */
-    public function creditCardsSequance() {
-        $this->saveSequance('\App\Http\Models\CreditCard');
+    public function creditCardsSequence() {
+        $this->saveSequence('\App\Http\Models\CreditCard');
     }
 
 }

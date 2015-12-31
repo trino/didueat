@@ -54,6 +54,8 @@ class AdministratorController extends Controller {
                         return $this->failure("[Passwords] are mis-matched!",'dashboard');
                     }
                     $data['password'] = $post['confirm_password'];
+                } else if ($post['password'] || $post['confirm_password']) {
+                    return $this->failure("[Old Password] is missing!",'dashboard');
                 }
                 //copy post data to an array
                 $data['subscribed'] = 0;

@@ -47,11 +47,11 @@ abstract class Controller extends BaseController {
     }
 
     /**
-     * Credit Card Sequance Change
+     * Credit Card Sequence Change
      * @param none
      * @return response
      */
-    public function saveSequance($modal = '') {
+    public function saveSequence($modal = '') {
         $post = \Input::all();
         try {
             //splits $_POST["id"] into $idArray and $_POST["order"] into $orderArray, by the "|" character
