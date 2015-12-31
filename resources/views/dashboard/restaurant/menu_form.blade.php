@@ -50,7 +50,7 @@
                 </select>
                 &nbsp;&nbsp;&nbsp;<input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 
-                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_dicount) || (isset($model->has_discount) && $model->has_discount == 0))?>display: none;">
+                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
                 <select class="disc_per">
                 <option>Choose Discount Percentage: </option> 
@@ -63,9 +63,9 @@
                 <strong>Discount Applied for:</strong><br />
                 <?php
                 $days = array();
-                if(isset($model->days_dicount) && $model->days_dicount)
+                if(isset($model->days_discount) && $model->days_discount)
                 {
-                    $days = explode(',',$model->days_dicount);
+                    $days = explode(',',$model->days_discount);
                 }
                 ?>
                 <input type="checkbox" class="days_discount" <?php if(in_array('Sunday',$days)){?>checked="checked"<?php }?> value="Sunday"/> Sunday<br />
