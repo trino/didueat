@@ -30,70 +30,43 @@ class AuthController extends Controller {
      * @param  null
      * @return view
      */
-    public function authenticate() {
+    public function authenticate($AsJSON = false) {
         if (\Input::has('email')) {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        return $this->failure(trans('messages.user_inactive.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , 'auth/login');
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
                         login($user);
-                        return redirect()->intended('dashboard');
+                        if($AsJSON) {
+                            die();
+                        } else {
+                            return redirect()->intended('dashboard');
+                        }
                     } else {
-                        return $this->failure(trans('messages.user_login_invalid.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('user_login_invalid.user_inactive.message') , 'auth/login');
                     }
                 } else {
-                    return $this->failure(trans('messages.user_not_registered.message') , 'auth/login');
+                    return $this->failure2($AsJSON, trans('user_login_invalid.user_not_registered.message') , 'auth/login');
                 }
             } catch (Exception $e) {
-                return $this->failure( handleexception($e) , 'auth/login');
+                return $this->failure2($AsJSON, handleexception($e), 'auth/login');
             }
         } else {
-            return $this->failure(trans('messages.user_missing_email.message') , 'auth/login');
+            return $this->failure2($AsJSON, trans('user_login_invalid.user_missing_email.message') , 'auth/login');
         }
     }
 
     /**
-     * a clone of authenticate, but by AJAX
+     * alias of authenticate, but by AJAX
      * @param  null
      * @return view
      */
     public function authenticateAjax() {
-        if (\Input::has('email')) {
-            try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
-                if (!is_null($user) && count($user) > 0) {
-                    if ($user->is_email_varified == 0) {
-                        echo trans('messages.email_unvarified.message');
-                        die;
-                    }
-                    if ($user->status == 0) {
-                        echo trans('messages.user_inactive.message');
-                        die;
-                    }
-                    $password = \Input::get('password');
-                    if (\Hash::check($password, $user->password)) {
-                        echo login($user);
-                        die;
-                    } else {
-                        echo trans('messages.user_login_invalid.message');
-                        die;
-                    }
-                } else {
-                    echo trans('messages.user_not_registered.message');
-                    die;
-                }
-            } catch (Exception $e) {
-                echo $e->getMessage();
-                die;
-            }
-        } else {
-            echo trans('messages.user_missing_email.message');
-            die;
-        }
+        return $this->authenticate(true);
     }
 
     /**
@@ -105,12 +78,12 @@ class AuthController extends Controller {
         return view('auth.register', array('title' => 'Register Page'));
     }
 
-    function failure2($AsJSON, $message){
+    function failure2($AsJSON, $message, $redir = 'auth/register'){
         if ($AsJSON){
             echo json_encode(array('type' => 'error', 'message' => $message));
             die;
         }
-        return $this->failure($message, 'auth/register', true);
+        return $this->failure($message, $redir, true);
     }
 
     /**
@@ -211,20 +184,7 @@ class AuthController extends Controller {
      * @return message
      */
     public function resendPostEmail($email = 0) {
-        $email = base64_decode($email);
-        $user = \App\Http\Models\Profiles::where('email', $email)->first();
-
-        if (isset($user) && count($user) > 0 && !is_null($user)) {
-            $userArray = $user->toArray();
-            $userArray['mail_subject'] = 'Thank you for registration.';
-            $this->sendEMail("emails.registration_welcome", $userArray);
-
-            echo json_encode(array('type' => 'success', 'message' => "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you."));
-            die;
-        } else {
-            echo json_encode(array('type' => 'error', 'message' => "Invalid code found. Please <a href='" . url('auth/login') . "'><b>click here</b></a> to login."));
-            die;
-        }
+        return $this>resendEmail($email, true);
     }
 
     /**
@@ -232,7 +192,7 @@ class AuthController extends Controller {
      * @param  $id
      * @return message
      */
-    public function resendEmail($email = 0) {
+    public function resendEmail($email = 0, $AsJSON = false) {
         $email = base64_decode($email);
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
 
@@ -240,15 +200,18 @@ class AuthController extends Controller {
             $userArray = $user->toArray();
             $userArray['mail_subject'] = 'Thank you for registering.';
             $this->sendEMail("emails.registration_welcome", $userArray);
-
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";
             $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
-            return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
             $message['msg_type'] = "error";
             $message['msg_desc'] = "Invalid code found. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
+        }
+        if($AsJSON){
+            echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
+            die;
+        } else {
             return view('messages.message', $message);
         }
     }
@@ -304,13 +267,13 @@ class AuthController extends Controller {
      * @param  array
      * @return message
      */
-    public function postForgotPassword() {
+    public function postForgotPassword($AsJSON = false) {
         if (\Input::has('email')) {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        return $this->failure(trans('messages.user_inactive.message'), 'auth/forgot-passoword');
+                        return $this->failure2($AsJSON ,trans('messages.user_inactive.message'), 'auth/forgot-passoword');
                     }
 
                     $newpass = substr(dechex(round(rand(0, 999999999999999))), 0, 8);
@@ -325,56 +288,29 @@ class AuthController extends Controller {
                     $message['title'] = "Forgot Password";
                     $message['msg_type'] = "success";
                     $message['msg_desc'] = "Your password has been has been reset successfully. We sent an email to [$user->email]. Please check your inbox for your new password. If you still have any difficulties please contact us. Thank you";
+                    if($AsJSON){
+                        echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
+                        die;
+                    }
                     return view('messages.message', $message);
-
                 } else {
-                    return $this->failure(trans('messages.user_email_not_verify.message'), 'auth/forgot-passoword');
+                    return $this->failure2(trans($AsJSON, 'messages.user_email_not_verify.message'), 'auth/forgot-passoword');
                 }
             } catch (Exception $e) {
-                return $this->failure(handleexception($e), 'auth/forgot-passoword');
+                return $this->failure2($AsJSON, handleexception($e), 'auth/forgot-passoword');
             }
         } else {
-            return $this->failure(trans('messages.user_missing_email.message'), 'auth/forgot-passoword');
+            return $this->failure2($AsJSON, trans('messages.user_missing_email.message'), 'auth/forgot-passoword');
         }
     }
 
     /**
-     * Ajax Forgot Password Post
+     * alias of Ajax Forgot Password via Post
      * @param  array
      * @return message
      */
     public function postAjaxForgotPassword() {
-        if (\Input::has('email')) {
-            try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
-                if (!is_null($user) && count($user) > 0) {
-                    if ($user->status == 0) {
-                        echo json_encode(array('type' => 'error', 'message' => trans('messages.user_inactive.message')));
-                        die;
-                    }
-                    $newpass = substr(dechex(round(rand(0, 999999999999999))), 0, 8);
-                    $user->password = \bcrypt($newpass);
-                    $user->save();
-
-                    $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'New password request for your DidUEat account.';
-                    $userArray['new_pass'] = $newpass;
-                    $this->sendEMail("emails.forgot", $userArray);
-
-                    echo json_encode(array('type' => 'success', 'message' => "Your password has been has been reset successfully. We sent an email to [$user->email]. Please check your inbox for your new password. If you still have any difficulties please contact us. Thank you"));
-                    die;
-                } else {
-                    echo json_encode(array('type' => 'error', 'message' => trans('messages.user_email_not_verify.message')));
-                    die;
-                }
-            } catch (Exception $e) {
-                echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
-                die;
-            }
-        } else {
-            echo json_encode(array('type' => 'error', 'message' => trans('messages.user_missing_email.message')));
-            die;
-        }
+        return $this->postForgotPassword(true);
     }
     
     /**
