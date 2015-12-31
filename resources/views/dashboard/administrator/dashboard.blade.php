@@ -1,7 +1,8 @@
 @extends('layouts.default')
 @section('content')
-
+    
 <div class="row">
+
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
@@ -149,3 +150,4 @@
         }
     });
 </script>
+@stop

@@ -75,7 +75,6 @@
             </script>
             <?php
                 includeJS(url("assets/global/scripts/provinces.js"));
-                includeJS(url("assets/global/scripts/select.js"));
                 if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")){
                     echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
                 }
