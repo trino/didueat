@@ -137,7 +137,7 @@
             return $(this).attr("data-order");
         }).get();
 
-        $.post("{{ url('credit-cards/sequance') }}", {
+        $.post("{{ url('credit-cards/Sequence') }}", {
             id: data_id.join('|'),
             order: data_order.join('|'),
             _token: token

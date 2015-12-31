@@ -1528,10 +1528,96 @@ function strToTagsConversion($string=""){
     return $html;
 }
 
-function obfuscate($CardNumber, $maskingCharacter = "*"){
-    if (strlen($CardNumber) < 15) {
+function obfuscate($CardNumber, $maskingCharacter = "*") {
+    if (!isvalid_creditcard($CardNumber)) {
         return "[INVALID CARD NUMBER]";
     }
     return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
+}
+
+
+function isvalid_creditcard($CardNumber, $Invalid = ""){
+    $CardNumber=preg_replace('/\D/', '', $CardNumber);
+    // http://stackoverflow.com/questions/174730/what-is-the-best-way-to-validate-a-credit-card-in-php
+    // https://en.wikipedia.org/wiki/Bank_card_number#Issuer_identification_number_.28IIN.29
+    if($CardNumber){
+        $length=0;
+        $mod10 = true;
+        $Prefix = left($CardNumber,2);
+        if($Prefix >= 51 && $Prefix <= 55){
+            $length = 16;//mastercard
+            $type = "mastercard";
+        } else if ($Prefix == 34 || $Prefix == 37) {
+            $length = 15;//amex
+            $type = "americanExpress";
+        } else if (left($CardNumber, 1) == 4) {
+            $length = array(13,16);//visa
+            $type = "visa";
+        } else if ($Prefix == 65){
+            $length = 16;//discover
+            $type = "discover";
+        } else {
+            $Prefix = left($CardNumber,6);
+            if($Prefix >= 622126 || $Prefix <= 622925){
+                $length = 16;//discover
+                $type = "discover";
+            } else {
+                $Prefix = left($CardNumber,3);
+                if($Prefix >= 644 || $Prefix <= 649){
+                    $length = 16;//discover
+                    $type = "discover";
+                } else if (left($CardNumber, 4) == 6011){
+                    $length = 16;//discover
+                    $type = "discover";
+                }
+            }
+        }
+        if($length){
+            if(!is_array($length)){$length = array($length);}
+            $Prefix = false;
+            foreach( $length as $digits ){
+                if( strlen($CardNumber) == $digits){
+                    $Prefix = true;
+                }
+            }
+            if($Prefix){
+                if($mod10){
+                    if (luhn_check($CardNumber)){
+                        return $type;
+                    }
+                }
+                return $type;
+            }
+        }
+    }
+    return $Invalid;
+}
+
+function luhn_check($number) {
+    // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
+    $number=preg_replace('/\D/', '', $number);
+
+    // Set the string length and parity
+    $number_length=strlen($number);
+    $parity=$number_length % 2;
+
+    // Loop through each digit and do the maths
+    $total=0;
+    for ($i=0; $i<$number_length; $i++) {
+        $digit=$number[$i];
+        // Multiply alternate digits by two
+        if ($i % 2 == $parity) {
+            $digit*=2;
+            // If the sum is two digits, add them together (in effect)
+            if ($digit > 9) {
+                $digit-=9;
+            }
+        }
+        // Total up the digits
+        $total+=$digit;
+    }
+
+    // If the total mod 10 equals 0, the number is valid
+    return ($total % 10 == 0) ? TRUE : FALSE;
 }
 ?>

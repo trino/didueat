@@ -63,20 +63,14 @@
                             <div class="col-sm-9">
                                 <input type="checkbox" name="subscribed" id="subscribed" value="1" @if($user_detail->subscribed) checked @endif />
                                 Sign up for our Newsletter
-                            <label class="col-sm-3">Old Password</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3">Password</label>
                             <div class="col-sm-9">
                                 <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password">
                             </div>
                         </div>
-                    @endif
-
-                    @if(Session::has('session_id'))                    
-                    <div class="form-group row">
-                        <label class="col-sm-3">Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password">
-                        </div>
-                    </div>
                     @endif
 
                     <div class="form-group row">

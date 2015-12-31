@@ -22,6 +22,7 @@
     if(isset($data['data'])){
         parse_str($data['data']);
     }
+    $notfound=0;
 ?>
 
 <div class="">
@@ -126,10 +127,16 @@
                         </div>
                     </div>
                 </div-->
-                <?php } ?>
+                <?php } else {
+                    $notfound++;
+                }?>
             @endforeach
         @endif
-
+        @if($notfound)
+                <DIV class="list-group-item">
+                    {{$notfound}} restaurant(s) found outside your radius ({{$radius}} km)
+                </DIV>
+        @endif
 
         <div id="loadMoreBtnContainer">
             @if($hasMorePage > 0)
