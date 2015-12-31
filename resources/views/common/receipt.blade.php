@@ -20,7 +20,6 @@
     <?php printfile("views/common/receipt.blade.php"); ?>
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
-            <div class="col-md-12 col-sm-12 col-xs-12 padding-margin-top-0">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
                     <img style="width:100%;" class=" no-padding" alt=""
                          src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
@@ -28,7 +27,6 @@
                     <img style="width:100%;" class=" no-padding" alt=""
                          src="{{ asset('assets/images/default.png') }}">
                 @endif
-            </div>
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
             <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
