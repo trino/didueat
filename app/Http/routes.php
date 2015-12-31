@@ -59,7 +59,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses/sequence',                          'ProfileAddressesController@addressesSequence');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
-    
+    Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
     Route::get('user/info',                                         'AdministratorController@dashboard');
     Route::resource('user/images',                                  'UsersController@images');
     Route::resource('restaurant/info',                              'RestaurantController@restaurantInfo');
@@ -81,7 +81,6 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
     Route::get('restaurant/addresses/edit/{id}',                    'NotificationAddressesController@ajaxEditAddressForm');
     Route::get('restaurant/addresses/delete/{id}',                  'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
     Route::get('restaurant/addresses/default/{id}',                 'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
-
     Route::resource('restaurant/menus-manager',                     'RestaurantController@menuManager');
 });
 
