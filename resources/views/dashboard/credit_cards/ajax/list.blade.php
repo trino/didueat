@@ -1,3 +1,8 @@
+<?php
+    printfile("views/dashboard/credit_cards/ajax/list.blade.php");
+    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+?>
+
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
 @endif
@@ -60,6 +65,13 @@
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
+                <?php
+                    foreach ($encryptedfields as $field) {
+                        if (is_encrypted($value->$field)) {
+                            $value->$field = \Crypt::decrypt($value->$field);
+                        }
+                    }
+                ?>
                 <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                     <td>{{ $value->first_name.' '.$value->last_name }}</td>
                     <td>{{ $value->card_type }}</td>
