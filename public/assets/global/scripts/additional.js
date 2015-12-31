@@ -97,7 +97,43 @@ $('.savebtn').live('click', function () {
         $('.overlay_loader').hide();
         return false;
     }
-
+    var discount_per = $_parent.find('.disc_per').val();
+    if(discount_per == 'Choose Discount Percentage:')
+    discount_per ='';
+    var days_discount = '';
+    if(!discount_per && $_parent.find('.allow_dis').is(':checked'))
+    {
+        alert('Discount Percentage cannot be empty');
+        $_parent.find('.disc_per').focus();
+        $('.overlay_loader').hide();
+        return false;
+    }
+    else
+    {
+        if(!$_parent.find('.allow_dis').is(':checked'))
+        {
+            discount_per = '';
+            var has_discount = 0;
+            //alert('here');
+        }
+        else
+        {
+            //alert('there');
+            
+            var has_discount = 1;
+            $_parent.find('.days_discount').each(function(){
+                if($(this).is(':checked')){
+                    if(days_discount == '')
+                    {
+                        days_discount = $(this).val();
+                    }
+                    else
+                    days_discount = days_discount+','+$(this).val();
+                }
+               // alert(days_discount);
+            })
+        }
+    }
     var checkprc = 0;
     $_parent.find('.pricechk').each(function () {
         if (isNaN($(this).val())) {
@@ -132,7 +168,7 @@ $('.savebtn').live('click', function () {
     //alert(id);
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id,
+        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount,
         type: 'post',
         success: function (res) {
             // alert(res);
@@ -176,7 +212,7 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
-                                                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+                                                //window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
                                             }
                                         }
                                     });
@@ -186,7 +222,7 @@ $('.savebtn').live('click', function () {
                     });
                 });
             } else {
-                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+                //window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
             }
         }
     });

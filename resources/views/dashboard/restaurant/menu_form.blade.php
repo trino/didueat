@@ -40,13 +40,45 @@
             @if(count($category))
                 <select class="cat_id form-control">
                     <option value="">Choose Category</option>
+                    
+                    
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
                                 @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
                     @endforeach
+                    
                 </select>
-                <strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
-                <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>
+                &nbsp;&nbsp;&nbsp;<input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
+                
+                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_dicount) || (isset($model->has_discount) && $model->has_discount == 0))?>display: none;">
+                <br />
+                <select class="disc_per">
+                <option>Choose Discount Percentage: </option> 
+                <?php for($i=0;$i<101;$i=$i+5){ ?>
+                        <option value="{{ $i }}"
+                                <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
+                  <?php }?>
+                </select>
+                <br />
+                <strong>Discount Applied for:</strong><br />
+                <?php
+                $days = array();
+                if(isset($model->days_dicount) && $model->days_dicount)
+                {
+                    $days = explode(',',$model->days_dicount);
+                }
+                ?>
+                <input type="checkbox" class="days_discount" <?php if(in_array('Sunday',$days)){?>checked="checked"<?php }?> value="Sunday"/> Sunday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Monday',$days)){?>checked="checked"<?php }?> value="Monday"/> Monday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Tuesday',$days)){?>checked="checked"<?php }?> value="Tuesday"/> Tuesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Wednesday',$days)){?>checked="checked"<?php }?> value="Wednesday"/> Wednesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Thursday',$days)){?>checked="checked"<?php }?> value="Thursday"/> Thursday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Friday',$days)){?>checked="checked"<?php }?> value="Friday"/> Friday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Saturday',$days)){?>checked="checked"<?php }?> value="Saturday"/> Saturday<br /><br />
+                
+                </div>
+                <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
+                <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>-->
                 <div class="catblock" style="display: none;">
                     <input type="text" class="form-control cat_title" placeholder="Add new category"/>
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
