@@ -50,15 +50,8 @@
                                     <td>{{ substr($rating->comments, 0, 100) }}</td>
                                     <td>{{ $rating->created_at  }}</td>
                                     <td>
-
-
-
-                                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">
-                                            Edit
-                                        </a>
-
-                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm"
-                                           onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
+                                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">Edit</a>
+                                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

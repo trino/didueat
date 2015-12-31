@@ -33,10 +33,42 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurants() {
+    public function index() {
         $data['title'] = 'Restaurants List';
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
-        return view('dashboard.administrator.restaurants', $data);
+        return view('dashboard.restaurant.index', $data);
+    }
+    
+    /**
+     * Listing Ajax
+     * @return Response
+     */
+    public function listingAjax() {
+        $per_page = \Input::get('showEntries');
+        $page = \Input::get('page');
+        $cur_page = $page;
+        $page -= 1;
+        $start = $page * $per_page;
+
+        $data = array(
+            'page' => $page,
+            'cur_page' => $cur_page,
+            'per_page' => $per_page,
+            'start' => $start,
+            'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
+            'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
+            'searchResults' => \Input::get('searchResults')
+        );
+        
+        $Query = \App\Http\Models\Restaurants::listing($data, "list")->get();
+        $recCount = \App\Http\Models\Restaurants::listing($data)->count();
+        $no_of_paginations = ceil($recCount / $per_page);
+        
+        $data['Query'] = $Query;
+        $data['recCount'] = $recCount;
+        $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
+        
+        \Session::flash('message', \Input::get('message'));
+        return view('dashboard.restaurant.ajax.list', $data);
     }
 
     /**
@@ -319,115 +351,6 @@ class RestaurantController extends Controller {
     }
 
     /**
-     * Addresses for editing and creating notification addresses
-     * @param null
-     * @return view
-     */
-    public function addresses() {
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            try {
-                $post['user_id'] = \Session::get('session_id');
-                $post['type'] = "Phone";
-                $post['is_default'] = 1;
-                if(isset($post['is_contact_type']) && trim($post['is_contact_type']) > 0) {
-                    $post['is_call'] = (isset($post['is_call']) && $post['is_call'] > 0)?1:0;
-                    $post['is_sms'] = (isset($post['is_sms']) && $post['is_sms'] > 0)?1:0;
-                }
-                if(filter_var($post['address'], FILTER_VALIDATE_EMAIL)) {
-                    $post['type'] = "Email";
-                }
-                $update_id = (isset($post['id']))?$post['id']:0;
-                $ob = \App\Http\Models\NotificationAddresses::findOrNew($update_id);
-                $ob->populate($post);
-                $ob->save();
-
-                $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', $ob->type)->get();
-                foreach($ob2 as $value1){
-                    $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                    $in2->populate(array("is_default" => 0));
-                    $in2->save();
-                }
-
-                return $this->success("Notification address saved successfully!", 'restaurant/addresses');
-            } catch (Exception $e) {
-                return $this->failure( $e->getMessage(), 'restaurant/addresses');
-            }
-        } else {
-            $data['title'] = 'Addresses List';
-            $data['addresses_list'] = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->orderBy('order', 'ASC')->get();
-            return view('dashboard.restaurant.addresses', $data);
-        }
-    }
-    
-    /**
-     * Credit Card Sequance Change
-     * @param none
-     * @return response
-     */
-    public function addressesSequence() {
-        $this->saveCreditCardsSequance();
-    }
-
-    /**
-     * Edit Address Form
-     * @param $id
-     * @return view
-     */
-    public function ajaxEditAddressForm( $id=0 ) {
-        $data['address_detail'] = \App\Http\Models\NotificationAddresses::find($id);
-        return view('ajax.editaddress', $data);
-    }
-
-
-
-    /**
-     * Delete a notification Address
-     * @param $id of the address to delete
-     * @return redirect
-     */
-    public function deleteAddresses($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
-        }
-        try {
-            $ob = \App\Http\Models\NotificationAddresses::find($id);
-            $ob->delete();
-            return $this->success("Address has been deleted successfully!", 'restaurant/addresses');
-        } catch (\Exception $e) {
-            return $this->failure( $e->getMessage(), 'restaurant/addresses');
-        }
-    }
-
-    /**
-     * sets a Default notification Address, and sets all others to not the default
-     * @param $id
-     * @return redirect
-     */
-    public function defaultAddresses($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
-        }
-
-        try {
-            $ob = \App\Http\Models\NotificationAddresses::find($id);
-            $ob->populate(array("is_default" => 1));
-            $ob->save();
-
-            $ob2 = \App\Http\Models\NotificationAddresses::where('user_id', \Session::get('session_id'))->where('id', '!=', $ob->id)->where('type', $ob->type)->get();
-            foreach($ob2 as $value1){
-                $in2 = \App\Http\Models\NotificationAddresses::find($value1->id);
-                $in2->populate(array("is_default" => 0));
-                $in2->save();
-            }
-
-            return $this->success("Address has been default successfully!", 'restaurant/addresses');
-        } catch (\Exception $e) {
-            return $this->failure(handleexception($e), 'restaurant/addresses');
-        }
-    }
-
-    /**
      * Manu Manager
      * @param null
      * @return view
@@ -636,18 +559,6 @@ class RestaurantController extends Controller {
         $data['title'] = 'Orders History';
         $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', $resId)->orderBy('order_time', 'DESC')->get();
         return view('dashboard.restaurant.orders_history', $data);
-    }
-
-    /**
-     * Events Log
-     * gets all events for the user's restaurant
-     * @param null
-     * @return view
-     */
-    public function eventsLog() {
-        $data['title'] = 'Events Log';
-        $data['logs_list'] = \App\Http\Models\Eventlog::where('restaurant_id', \Session::get('session_restaurant_id'))->orderBy('created_at', 'DESC')->get();
-        return view('dashboard.restaurant.events_log', $data);
     }
 
     /**

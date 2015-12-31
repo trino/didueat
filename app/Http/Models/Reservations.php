@@ -22,6 +22,44 @@ class Reservations extends BaseModel {
             }
         }
     }
+    
+    public static function listing($array = "", $type = "") {
+        //echo "<pre>".print_r($array)."</pre>"; exit();
+        $query_type = $array['type'];
+        $searchResults = $array['searchResults'];
+        $meta = $array['meta'];
+        $order = $array['order'];
+        $per_page = $array['per_page'];
+        $start = $array['start'];
+        
+        $query = Reservations::select('*')
+                ->Where(function($query) use ($searchResults, $query_type) {
+                    if($query_type == 'user'){
+                        $query->where('user_id', \Session::get('session_id'));
+                    }
+                    if($query_type == 'restaurant'){
+                        $query->where('restaurant_id', \Session::get('session_restaurant_id'));
+                    }
+                    
+                    if($searchResults != ""){
+                          $query->orWhere('location', 'LIKE', "%$searchResults%")
+                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
+                                ->orWhere('postal_code', 'LIKE', "%$searchResults%")
+                                ->orWhere('phone', 'LIKE', "%$searchResults%")
+                                ->orWhere('apartment', 'LIKE', "%$searchResults%")
+                                ->orWhere('address', 'LIKE', "%$searchResults%")
+                                ->orWhere('buzz', 'LIKE', "%$searchResults%")
+                                ->orWhere('city', 'LIKE', "%$searchResults%");
+                    }
+                })
+                ->orderBy($meta, $order);
+
+        if ($type == "list") {
+            $query->take($per_page);
+            $query->skip($start);
+        }
+        return $query;
+    }
 
 
     function new_order($menu_ids, $prs, $qtys, $extras, $listid, $order_type, $delivery_fee, $res_id, $subtotal, $g_total, $tax) {

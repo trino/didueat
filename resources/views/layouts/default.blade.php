@@ -26,73 +26,47 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta content="Didueat" name="author">
     <meta name="content-language" content="fr-CA"/>
     <meta http-equiv="content-language" content="fr-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
-          name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}" name="description">
 
     <meta property="og:site_name" content="Didueat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
-    <meta property="og:description"
-          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
+    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
 
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css"
-          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
-
-        <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
-
-
-        @if(false)
-            <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-            <!--google font open sans -->
-            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'
-                  rel='stylesheet' type='text/css'>
-            <!--google font Montserrat -->
-            <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-            <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500|Arimo&subset=latin,latin-ext'
-                  rel='stylesheet' type='text/css'>
-        @endif
-
-
+    <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -101,17 +75,15 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('popups.forgotpassword')
 @include('layouts.includes.header')
 
+    <div class="container m-t-3">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
 
-<div class="container m-t-3">
-
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    @yield('content')
-</div>
+        @yield('content')
+    </div>
 
 @include('layouts.includes.footer')
 </body>

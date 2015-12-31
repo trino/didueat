@@ -21,9 +21,34 @@ class NotificationAddresses extends BaseModel {
             }
         }
     }
+    
+    public static function listing($array = "", $type = "") {
+        //echo "<pre>".print_r($array)."</pre>"; exit();
+        $searchResults = $array['searchResults'];
+        $meta = $array['meta'];
+        $order = $array['order'];
+        $per_page = $array['per_page'];
+        $start = $array['start'];
+
+        $query = NotificationAddresses::select('*')->where('user_id', \Session::get('session_id'))
+                ->Where(function($query) use ($searchResults) {
+                    if($searchResults != ""){
+                          $query->orWhere('address', 'LIKE', "%$searchResults%")
+                                ->orWhere('note', 'LIKE', "%$searchResults%")
+                                ->orWhere('type', 'LIKE', "%$searchResults%");
+                    }
+                })
+                ->orderBy($meta, $order);
+
+        if ($type == "list") {
+            $query->take($per_page);
+            $query->skip($start);
+        }
+        return $query;
+    }
 
 
-/////////////////////////////////////Notification addresses API///////////////////////
+    /////////////////////////////////////Notification addresses API///////////////////////
     function enum_notification_addresses($restaurant_id = "", $type = "") {
         if (!$restaurant_id) {
             $restaurant_id = get_current_restaurant();

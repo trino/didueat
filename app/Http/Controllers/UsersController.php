@@ -14,173 +14,240 @@ class UsersController extends Controller {
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);
-            /*if (!\Session::has('is_logged_in') && $act != 'ajax_register') {
-                //\Session::flash('message', trans('messages.user_session_exp.message'));
-                //\Session::flash('message-type', 'alert-danger');
-                //\Session::flash('message-short', 'Oops!');
-                //return \Redirect::to('auth/login');
-            }*/
             initialize("users");
         });
     }
     
     /**
-     * adds an address to a profile, or edits an existing one
+     * Users List
      * @param null
      * @return view
      */
-    public function addresses($id = 0) {
+    public function index() {
         $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
-            if (!isset($post['address']) || empty($post['address'])) {
-                return $this->failure( "[Street address] field is missing!",'user/addresses');
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            //check for missing data
+            if (!isset($post['name']) || empty($post['name'])) {
+                return $this->failure('[Name] field is missing','restaurant/users', true);
             }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!",'user/addresses');
+            if (!isset($post['email']) || empty($post['email'])) {
+                return $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
             }
-            if (!isset($post['province']) || empty($post['province'])) {
-                \Session::flash('message', "[Province] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
+            if ($is_email > 0) {
+                return $this->failure( trans('messages.user_email_already_exist.message'),'restaurant/users', true);
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure( "[Country] field is missing!",'user/addresses');
+            if (!isset($post['password']) || empty($post['password'])) {
+                return $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
             }
-            try {
-                $post['user_id'] = \Session::get('session_id');
-                $idd = (isset($post['id'])) ? $post['id'] : '';
-                
-                if ($idd) {//id specified, edit it
-                    $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
-                } else {//no id specified, make one
-                    $ob = new \App\Http\Models\ProfilesAddresses();
-                }
-                $ob->populate($post);
-                $ob->save();
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+            }
 
-                return $this->success("Address created successfully",'user/addresses');
-            } catch(\Exception $e) {
-                return $this->failure( $e->getMessage(),'user/addresses');
+            \DB::beginTransaction();
+            try {//construct profile as an array
+                $post['status'] = 1;
+                $post['is_email_varified'] = 0;
+                $post['profile_type'] = 2;
+                $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
+                $post['created_by'] = \Session::get('session_id');
+
+                $browser_info = getBrowser();//get user's web browser/OS data
+                $post['ip_address'] = get_client_ip_server();
+                $post['browser_name'] = $browser_info['name'];
+                $post['browser_version'] = $browser_info['version'];
+                $post['browser_platform'] = $browser_info['platform'];
+
+                $user = new \App\Http\Models\Profiles();
+                $user->populate(array_filter($post));
+                $user->save();
+                event(new \App\Events\AppEvents($user, "User created"));
+                
+                if(isset($user->id)){//save address
+                    $add = new \App\Http\Models\ProfilesAddresses();
+                    $post['user_id'] = $user->id;
+                    $add->populate(array_filter($post));
+                    $add->save();
+
+                    $userArray = $user->toArray();
+                    $userArray['mail_subject'] = 'Thank you for registration.';
+                    $this->sendEMail("emails.registration_welcome", $userArray);
+                    \DB::commit();
+                }
+
+                return $this->success('User has been added successfully. A confirmation email has been sent to the selected email address for verification.', 'restaurant/users', true);
+            } catch (\Illuminate\Database\QueryException $e) {
+                \DB::rollback();
+                return $this->failure(trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+            } catch (\Exception $e) {
+                \DB::rollback();
+                return $this->failure( $e->getMessage(), 'restaurant/users', true);
             }
-        } else {
-            $data['title'] = "Addresses Manage";
-            $data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
-            $data['states_list'] = \App\Http\Models\States::get();//load all provinces/states
-            $data['addresses_list'] = \App\Http\Models\ProfilesAddresses::where('user_id', \Session::get('session_id'))->orderBy('order', 'ASC')->get();//load this user's addressess
-            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);//load a specific address id
-            //echo '<pre>';print_r($data['addresses_list']->toArray()); die;
-            return view('dashboard.user.addresses', $data);
+        } else {//get data to load the page
+            $data['title'] = 'Users List';
+            $data['states_list'] = \App\Http\Models\States::get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+            return view('dashboard.user.index', $data);
         }
     }
     
     /**
-     * Credit Card Sequance Change
-     * @param none
-     * @return response
+     * Listing Ajax
+     * @return Response
      */
-    public function addressesSequence() {
-        $this->saveCreditCardsSequance();
+    public function listingAjax() {
+        $per_page = \Input::get('showEntries');
+        $page = \Input::get('page');
+        $cur_page = $page;
+        $page -= 1;
+        $start = $page * $per_page;
+
+        $data = array(
+            'page' => $page,
+            'cur_page' => $cur_page,
+            'per_page' => $per_page,
+            'start' => $start,
+            'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
+            'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
+            'searchResults' => \Input::get('searchResults')
+        );
+        
+        $Query = \App\Http\Models\Profiles::listing($data, "list")->get();
+        $recCount = \App\Http\Models\Profiles::listing($data)->count();
+        $no_of_paginations = ceil($recCount / $per_page);
+        
+        $data['Query'] = $Query;
+        $data['recCount'] = $recCount;
+        $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
+        
+        \Session::flash('message', \Input::get('message'));
+        return view('dashboard.user.ajax.list', $data);
     }
+
     
     /**
-     * Address
-     * @param $id
-     * @returns a view, or a JSON object
-     */
-    public function addressesUpdate($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            echo json_encode(array('type' => 'error', 'message' => "[Id] is missing!"));
-            die;
-        }
-        try {
-            //$data['countries_list'] = \App\Http\Models\Countries::get();//load all countries
-            //$data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
-            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);//load a specific address id
-            ob_start();
-            return view('ajax.addresse_edit', $data);
-            ob_get_contents();//code will never run
-            ob_get_flush();
-        } catch(\Exception $e) {
-            echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
-            die;
-        }
-    }
-    
-    /**
-     * Delete profile Address $id
-     * @param $id
-     * @return redirect
-     */
-    public function addressesDelete($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            return $this->failure("[Id] is missing!", 'user/addresses');
-        }
-        try {
-            $ob = \App\Http\Models\ProfilesAddresses::find($id);
-            $ob->delete();
-            return $this->success("Address has been deleted successfully!", 'user/addresses');
-        } catch(\Exception $e) {
-            return $this->failure(handleexception($e),'user/addresses');
-        }
-    }
-    
-    /**
-     * edit review $id
+     * Edit User Form
      * @param $id
      * @return view
      */
-    public function reviews($id = 0) {
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['id']) || empty($post['id'])) {//check for missing data
-                return $this->failure( '[ID] field is missing','user/reviews',true);
-            }
-            
-            \DB::beginTransaction();
-            try {
-                $review = \App\Http\Models\RatingUsers::find($post['id']);
-                $review->populate(array_filter($post));
-                $review->save();
-                \DB::commit();
+    public function ajaxEditUserForm($id=0) {
+        if($id) {
+            $data['user_detail'] = \App\Http\Models\Profiles::find($id);
+            $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
+        }
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+        $data['states_list'] = \App\Http\Models\States::get();
+        //echo '<pre>'; print_r($data['address_detail']); die;
+        return view('common.edituser', $data);
+    }
 
-                return $this->success('Review has been updated successfully.', 'user/reviews', true);
-            } catch(\Illuminate\Database\QueryException $e) {
+
+    /**
+     * Users List
+     * @param null
+     * @return view
+     */
+    public function userUpdate() {
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing or duplicate data
+            if (!isset($post['id']) || empty($post['id'])) {
+                return $this->failure('[ID] field is missing', 'restaurant/users', true);
+            }
+            if (!isset($post['name']) || empty($post['name'])) {
+                return $this->failure('[Name] field is missing','restaurant/users', true);
+            }
+            if (!isset($post['email']) || empty($post['email'])) {
+                return $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
+            }
+            $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->where('id', '!=', $post['id'])->count();
+            if ($is_email > 0) {
+                return $this->failure(trans('messages.user_email_already_exist.message'),'restaurant/users', true);
+            }
+            if (!isset($post['password']) || empty($post['password'])) {
+                return $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
+            }
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+            }
+            if ($post['password'] != $post['confirm_password']) {
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+            }
+            \DB::beginTransaction();
+            try {//save user's browser/OS info
+                $browser_info = getBrowser();
+                $post['ip_address'] = get_client_ip_server();
+                $post['browser_name'] = $browser_info['name'];
+                $post['browser_version'] = $browser_info['version'];
+                $post['browser_platform'] = $browser_info['platform'];
+
+                $user = \App\Http\Models\Profiles::find($post['id']);
+                $user->populate(array_filter($post));
+                $user->save();
+                
+                event(new \App\Events\AppEvents($user, "User updated"));
+
+                if(isset($post['adid']) && !empty($post['adid'])){
+                    $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);
+                    $add->populate(array_filter($post));
+                    $add->save();
+
+                    \DB::commit();
+                }
+
+                return $this->success( 'User has been updated successfully.', 'restaurant/users', true);
+            } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
                 return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 \DB::rollback();
                 return $this->failure(handleexception($e),'restaurant/users', true);
             }
         } else {
-            $data['title'] = "User Reviews";
-            $data['ratings'] = \App\Http\Models\RatingUsers::get();//get all reviews
-            return view('dashboard.administrator.user_reviews', $data);
+            return $this->failure( "Invalid parsed data!",'restaurant/users', true);
         }
     }
     
     /**
-     * delete Reviews $id
+     * Users Action
+     * @param $type
      * @param $id
      * @return redirect
      */
-    public function reviewAction($id = 0) {
-        $ob = \App\Http\Models\RatingUsers::find($id);
-        $ob->delete();
-
-        return $this->success('Review has been deleted successfully!', 'user/reviews');
-    }
-    
-    /**
-     * Edit User Review Form
-     * @param $id
-     * @return view
-     */
-    public function ajaxEditUserReviewForm($id = 0) {
-        $data['user_review_detail'] = \App\Http\Models\RatingUsers::find($id);
-        
-        //echo '<pre>'; print_r($data['address_detail']); die;
-        return view('common.edituserreview', $data);
+    public function usersAction($type = '', $id = 0) {
+        //check for missing type/id
+        if (!isset($type) || empty($type)) {
+            return $this->failure("[Type] is missing!", 'restaurant/users');
+        }
+        if (!isset($id) || empty($id) || $id == 0) {
+            return $this->failure("[Profile Id] is missing!", 'restaurant/users');
+        }
+        try {
+            $ob = \App\Http\Models\Profiles::find($id);//search for user $id
+            switch ($type){
+                case "user_fire"://fire user by deleting them
+                    $ob->delete();
+                    break;
+                case "user_hire"://hire user by changing the profile type to employee
+                    $ob->populate(array('profile_type' => 1));
+                    $ob->save();
+                    break;
+                case "user_possess":
+                    login($id, true);
+                    break;
+                case "user_depossess":
+                    login(read("oldid"));
+                    break;
+                default:
+                    return $this->failure("'" . $type . "' is not handled", 'restaurant/users');
+            }
+            event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
+            return $this->success('Status has been changed successfully!', 'restaurant/users');
+        } catch (\Exception $e) {
+            return $this->failure( $e->getMessage(), 'restaurant/users');
+        }
     }
     
     /**

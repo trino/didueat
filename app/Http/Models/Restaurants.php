@@ -21,6 +21,35 @@ class Restaurants extends BaseModel {
             }
         }
     }
+    
+    public static function listing($array = "", $type = "") {
+        //echo "<pre>".print_r($array)."</pre>"; exit();
+        $searchResults = $array['searchResults'];
+        $meta = $array['meta'];
+        $order = $array['order'];
+        $per_page = $array['per_page'];
+        $start = $array['start'];
+
+        $query = Restaurants::select('*')
+                ->Where(function($query) use ($searchResults){
+                    if($searchResults != ""){
+                          $query->orWhere('name', 'LIKE', "%$searchResults%")
+                                ->orWhere('email', 'LIKE', "%$searchResults%")
+                                ->orWhere('website', 'LIKE', "%$searchResults%")
+                                ->orWhere('phone', 'LIKE', "%$searchResults%")
+                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
+                                ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
+                                ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                    }
+                })
+                ->orderBy($meta, $order);
+
+        if ($type == "list") {
+            $query->take($per_page);
+            $query->skip($start);
+        }
+        return $query;
+    }
 
     /**
      * @param $term

@@ -1,18 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-    <?php
-    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
-    function obfuscate($CardNumber, $maskingCharacter = "*")
-    {
-        if (strlen($CardNumber) < 15) {
-            return "[INVALID CARD NUMBER]";
-        }
-        return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
-    }
-    ?>
-
-
     <div class="row">
         @include('layouts.includes.leftsidebar')
         <div class="col-lg-9">
@@ -26,15 +14,11 @@
 
             <div class="card">
                 <div class="card-header">
-
-
                     Credit Card ({{ ($type) }})
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
                             data-target="#editCreditCardModal">
                         Add
                     </button>
-
-
                 </div>
                 <div class="card-block p-a-0">
                     <table class="table table-responsive" id="">
@@ -50,6 +34,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <?php
+                            $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+                        ?>
                         @foreach($credit_cards_list as $key => $value)
                             <?php
                                 foreach ($encryptedfields as $field) {
@@ -85,8 +72,8 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
+            
         </div>
     </div>
 

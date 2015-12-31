@@ -4,116 +4,91 @@
 }
 .modal-header {background: #D50000 !important;color:#fff;border:1px solid #D50000 !important;}
 body {
-	background-color: #f7f7f7 !important;
-	font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7 !important;
+    font-family: 'Roboto', sans-serif;
 }
 .card {box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
-	border: 0 !important;}
+       border: 0 !important;}
 
 /* modal padding */
 body.modal-open {
-	overflow-y: auto !important;
-	padding-right: 0 !important;
+    overflow-y: auto !important;
+    padding-right: 0 !important;
 }
 
 .primary_red {
-	background: #D50000 !important;
+    background: #D50000 !important;
 }
 
 .secondary_red {
-	background: #ef0000 !important;
+    background: #ef0000 !important;
 }
 
 .image_placeholder {
-	background: #d9534f;
-	height: 100px;
-	width: 100px;
+    background: #d9534f;
+    height: 100px;
+    width: 100px;
 }
 
+#ajaxloader{background: rgba(0, 0, 0, 0) url("../../images/loader.gif") no-repeat scroll 0 0; height: 120px; width: 100%;}
 #loadmoreajaxloader{display: none;}
 .form-control{display: inline !important;}
 
 
 
-
-
-
-
 /* delete everything below */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .order-style {
-	height: 220px;
+    height: 220px;
 }
 
 .receipt_description_style {
-	background: red;
-	color: white;
-	padding: 20px;
+    background: red;
+    color: white;
+    padding: 20px;
 }
 
 
 /* Rating Start */
-
 .rating-font-size {
-	font-size: 18px;
+    font-size: 18px;
 }
 
 .rating-center-align {
-	float: none !important;
-	margin: 0 auto;
+    float: none !important;
+    margin: 0 auto;
 }
 
 .rating {
-	border: none;
-	float: none;
-	clear: both;
+    border: none;
+    float: none;
+    clear: both;
 }
 
 .rating > input {
-	display: none;
+    display: none;
 }
 
 .rating > label:before {
-	margin: 0px 2px 0px;
-	font-size: 1.25em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f005";
+    margin: 0px 2px 0px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
 }
 
 .rating > .half:before {
-	content: "\f089";
-	position: absolute;
+    content: "\f089";
+    position: absolute;
 }
 
 .rating > label {
-	color: #ddd;
-	float: right;
+    color: #ddd;
+    float: right;
 }
 
 .rating > .checked-stars ~ label {
-	color: #81B71A;
+    color: #81B71A;
 }
 
 
@@ -121,14 +96,14 @@ body.modal-open {
 
 .rating > input:checked ~ label,
 
-	/* show gold star when clicked */
+/* show gold star when clicked */
 
 .rating:not(:checked) > label:hover,
 
-	/* hover current star */
+/* hover current star */
 
 .rating:not(:checked) > label:hover ~ label {
-	color: #81B71A;
+    color: #81B71A;
 }
 
 
@@ -136,83 +111,83 @@ body.modal-open {
 
 .rating > input:checked + label:hover,
 
-	/* hover current star when changing rating */
+/* hover current star when changing rating */
 
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label,
 
-	/* lighten current selection */
+/* lighten current selection */
 
 .rating > input:checked ~ label:hover ~ label {
-	color: #81B71A;
+    color: #81B71A;
 }
 
 
 /*------Static Rating--------*/
 
 .static-rating {
-	border: none;
-	float: none;
-	clear: both;
+    border: none;
+    float: none;
+    clear: both;
 }
 
 .static-rating > input {
-	display: none;
+    display: none;
 }
 
 .static-rating > label:before {
-	margin: 0px 2px 0px;
-	font-size: 1.25em;
-	font-family: FontAwesome;
-	display: inline-block;
-	content: "\f005";
+    margin: 0px 2px 0px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
 }
 
 .static-rating > .half:before {
-	content: "\f089";
-	position: absolute;
+    content: "\f089";
+    position: absolute;
 }
 
 .static-rating > label {
-	color: #ddd;
-	float: right;
+    color: #ddd;
+    float: right;
 }
 
 .static-rating > .checked-stars ~ label {
-	color: #81B71A;
+    color: #81B71A;
 }
 
 .fancybox-wrap {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 8020;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 8020;
 }
 
 .fancybox-skin {
-	position: relative;
-	background: #f9f9f9;
-	color: #444;
-	text-shadow: none;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+    position: relative;
+    background: #f9f9f9;
+    color: #444;
+    text-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 
 
 .fancybox-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	overflow: hidden;
-	display: none;
-	z-index: 8010;
-	background: url('fancybox_overlay.png');
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: none;
+    z-index: 8010;
+    background: url('fancybox_overlay.png');
 }
 
 .fancybox-overlay-fixed {
-	position: fixed;
-	bottom: 0;
-	right: 0;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 

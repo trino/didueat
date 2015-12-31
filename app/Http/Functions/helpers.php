@@ -1,4 +1,105 @@
 <?php
+function message_show($msgtype, $description) {
+    if ($msgtype != "" && $description != "") {
+        return '<script type="text/javascript">
+                    Command: toastr["success"]("' . $description . '", "' . $msgtype . '")
+                    toastr.options = {
+                      "closeButton": true,
+                      "debug": false,
+                      "newestOnTop": true,
+                      "progressBar": true,
+                      "positionClass": "toast-top-left",
+                      "preventDuplicates": false,
+                      "showDuration": "300",
+                      "hideDuration": "1000",
+                      "timeOut": "5000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                    }
+            </script>';
+    }
+}
+
+/**
+ * Pagination of the resource.
+ *
+ * @return Response
+ */
+function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $last_btn, $previous_btn, $next_btn) {
+    $html = "";
+    /* -----Calculating the starting and endign values for the loop----- */
+    if ($cur_page >= 7) {
+        $start_loop = $cur_page - 3;
+        if ($no_of_paginations > $cur_page + 3)
+            $end_loop = $cur_page + 3;
+        else if ($cur_page <= $no_of_paginations && $cur_page > $no_of_paginations - 6) {
+            $start_loop = $no_of_paginations - 6;
+            $end_loop = $no_of_paginations;
+        } else {
+            $end_loop = $no_of_paginations;
+        }
+    } else {
+        $start_loop = 1;
+        if ($no_of_paginations > 7)
+            $end_loop = 7;
+        else
+            $end_loop = $no_of_paginations;
+    }
+
+    $html .= '<div class="pull-right">';
+    $html .= '<div class="dataTables_paginate paging_bs_normal" id="datatable1_paginate">';
+    $html .= '<ul class="pagination">';
+
+    if ($first_btn && $cur_page > 1) {
+        $html .= '<li p="1" class="first prev clickable"><a href="#">First</a></li>';
+    } else if ($first_btn) {
+        $html .= '<li p="1" class="first prev disabled"><a>First</a></li>';
+    }
+
+    if ($previous_btn && $cur_page > 1) {
+        $pre = $cur_page - 1;
+        $html .= '<li p=' . $pre . ' class="prev clickable"><a href="#">Previous</a></li>';
+    } else if ($previous_btn) {
+        $html .= '<li class="prev disabled"><a>Previous</a></li>';
+    }
+
+
+    for ($i = $start_loop; $i <= $end_loop; $i++) {
+        if ($cur_page == $i) {
+            $html .= '<li p=' . $i . ' class="active"><a>' . $i . '</a></li>';
+        } else {
+            $html .= '<li p=' . $i . ' class="clickable" ><a href="#">' . $i . '</a></li>';
+        }
+    }
+
+    // TO ENABLE THE NEXT BUTTON
+    if ($next_btn && $cur_page < $no_of_paginations) {
+        $nex = $cur_page + 1;
+        $html .= '<li p=' . $nex . ' class="next clickable"><a href="#">Next</a></li>';
+    } else if ($next_btn) {
+        $html .= '<li class="next disabled"><a>Next</a></li>';
+    }
+
+    // TO ENABLE THE END BUTTON
+    if ($last_btn && $cur_page < $no_of_paginations) {
+        $html .= '<li p=' . $no_of_paginations . ' class="last next clickable"><a href="#">Last</a></li>';
+    } else if ($last_btn) {
+        $html .= '<li p=' . $no_of_paginations . ' class="last next disabled"><a>Last</a></li>';
+    }
+
+    $html .= '</ul>';
+    $html .= '</div>';
+    $html .= '</div>';
+
+    $html .= '<div class="pull-left">';
+    $html .= '<div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite"><span class="total" a="' . $no_of_paginations . '">Total Records <b>' . $recCount . '</b>. Showing Page <b>' . $cur_page . '</b> of <b>' . $no_of_paginations . '</b></span><div>';
+    $html .= '</div>';
+
+    return $html;
+}
 
 function handleexception($e){
     $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
@@ -1391,4 +1492,10 @@ function strToTagsConversion($string=""){
     return $html;
 }
 
+function obfuscate($CardNumber, $maskingCharacter = "*"){
+    if (strlen($CardNumber) < 15) {
+        return "[INVALID CARD NUMBER]";
+    }
+    return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
+}
 ?>

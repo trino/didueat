@@ -21,9 +21,33 @@ class Newsletter extends BaseModel {
             }
         }
     }
+    
+    public static function listing($array = "", $type = "") {
+        //echo "<pre>".print_r($array)."</pre>"; exit();
+        $searchResults = $array['searchResults'];
+        $meta = $array['meta'];
+        $order = $array['order'];
+        $per_page = $array['per_page'];
+        $start = $array['start'];
+
+        $query = Newsletter::select('*')
+                ->Where(function($query) use ($searchResults) {
+                    if($searchResults != ""){
+                          $query->orWhere('email', 'LIKE', "%$searchResults%")
+                                ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                    }
+                })
+                ->orderBy($meta, $order);
+
+        if ($type == "list") {
+            $query->take($per_page);
+            $query->skip($start);
+        }
+        return $query;
+    }
 
 
-////////////////////////////////////Newsletter API//////////////////////////////////
+    ///////////////////////////////Newsletter API///////////////////////
     public static function add_subscriber($email, $authorized = false) {
         $email = clean_email($email);
         if (is_valid_email($email)) {
