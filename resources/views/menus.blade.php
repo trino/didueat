@@ -54,14 +54,14 @@
                                                 class="menu-tag menu-price">${{ $value->price }}</span></h3>
                                 </a-->
                                 <!--<h3>{{ $value->menu_item }} <span
-                                            class="menu-tag menu-price">${{ $value->price }}</span></h3>-->
+                                            class="menu-tag menu-price">${{ $value->price }}</span></h3>
                                 <p class="box-des"><strong>Description: </strong>{{ substr($value->description, 0, 230) }}</p>
                                 <p><strong>Minimum total for Delivery: </strong>{{$restaurant->minimum }}</p>
 
                                 
                                     
                                 
-                                <p><strong>Delivery Fee: </strong>{{ $restaurant->delivery_fee }}</p>
+                                <p><strong>Delivery Fee: </strong>{{ $restaurant->delivery_fee }}</p>-->
 
                                 
                                 @if(isset($restaurant->tags) && $restaurant->tags != "")
@@ -259,11 +259,11 @@
                                                                                     &nbsp;&nbsp; {{ $mm->menu_item }}
                                                                                     &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                                 </a>
-                                                                                <b style="display:none;">
+                                                                                <b >
                                                                                     <a id="remspan_{{ $mm->id }}"
                                                                                        class="remspan"
                                                                                        href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
-                                                                        <span id="sprice_0"
+                                                                        <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
                                                                                     <a id="addspan_{{ $mm->id }}"
                                                                                        class="addspan"
@@ -601,7 +601,66 @@
         $('div.grandtotal').text(gtotal);
         $('input.grandtotal').val(gtotal);
     });
-
+     $('.addspan').live('click',function(){
+            var id = $(this).attr('id').replace('addspan_','');
+            var qty = Number($(this).parent().find('.span_'+id).text());
+            
+            var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
+            var tit = $(this).parent().parent().find('#extra_'+id).attr('title');
+            var title = tit.split("_");
+            title[1]= title[1].replace(' x('+qty+")","");
+            //alert(id+","+qty+","+price+","+tit);
+            qty = Number(qty)+ Number(1);
+            $(this).parent().find('.span_'+id).html('&nbsp;&nbsp;'+qty+'&nbsp;&nbsp;');
+            if(qty ==0)
+            {
+                newtitle= title[1];
+                newprice= price;
+                
+            }
+            else
+            {
+                newtitle= title[1]+" x("+qty+")";
+                newprice= Number(price)*Number(qty);
+                
+            }
+            
+            newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
+            newtitle = newtitle.replace(" x(1)","");
+            //alert(newtitle);
+            $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
+        });
+        $('.remspan').live('click',function(){
+            
+            var id = $(this).attr('id').replace('remspan_','');
+            var qty = Number($(this).parent().find('.span_'+id).text());
+            var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
+            var tit = $(this).parent().parent().find('#extra_'+id).attr('title');
+            var title = tit.split("_");
+            if(qty !=1)
+            {
+                title[1]= title[1].replace('x('+qty+")","")
+                qty = Number(qty) -Number(1);
+                $(this).parent().find('.span_'+id).html('&nbsp;&nbsp;'+qty+'&nbsp;&nbsp;');
+            }
+            if(qty ==0)
+            {
+                newtitle = title[1];
+                newprice = price;
+                
+            }
+            else
+            {
+                newtitle= title[1]+" x("+qty+")";
+                newprice= Number(price)*Number(qty);
+                
+            }
+            
+            newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
+            newtitle = newtitle.replace(" x(1)","");
+            //alert(newtitle);
+            $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle) 
+        });
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
