@@ -243,3 +243,52 @@ $('.savebtn').live('click', function () {
         }
     });
 });
+function check_enable($this,$menu)
+{
+    $_parent = $this.closest('.par_wrap');
+    if($_parent.find('.cat_id').val()=='')
+    {
+        alert('Please choose category');
+        return false;
+    }
+    else
+    {
+    var cat_id =  $_parent.find('.cat_id').val(); 
+    if(cat_id == '1') 
+    {
+        var num = 7;
+    }
+    else
+    {
+        var num = 3;
+    }
+    if($this.is(':checked'))
+    {
+        var enable = 1;
+    }
+    else
+    var enable = 0;
+    
+    $.ajax({
+       url: base_url + 'restaurant/check_enable/'+$menu+'/'+cat_id+'/'+num+'/'+enable,
+       success:function(res)
+       {
+        if(res==1)
+        {
+            if(enable==1){
+            $_parent.find('.enabled').show();
+            $_parent.find('.disabled').hide();
+            }
+            else{
+            $_parent.find('.disabled').show();
+            $_parent.find('.enabled').hide();
+            }
+        }
+        else
+        {
+            alert(num+" item already selected. Please disable any other item to enable this item.");
+        }
+       } 
+    });
+    }
+}

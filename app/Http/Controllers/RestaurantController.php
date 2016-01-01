@@ -715,4 +715,19 @@ class RestaurantController extends Controller {
         echo $ob2->id;
         die();
     }
+    
+    public function check_enable($menu_id,$cat_id,$limit,$enable)
+    {
+        $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
+        if($count<$limit || $enable==0)
+        {
+           $ob = \App\Http\Models\Menus::findOrNew($menu_id);
+                $ob->populate(['is_active'=>$enable]);
+                $ob->save(); 
+                echo '1';
+        }
+        else
+        echo '0';
+        die();
+    }
 }
