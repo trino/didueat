@@ -68,6 +68,7 @@
                     $days = explode(',',$model->days_discount);
                 }
                 ?>
+                <input type="checkbox" class="days_discount_all"/> Select All<br />
                 <input type="checkbox" class="days_discount" <?php if(in_array('Sunday',$days)){?>checked="checked"<?php }?> value="Sunday"/> Sunday<br />
                 <input type="checkbox" class="days_discount" <?php if(in_array('Monday',$days)){?>checked="checked"<?php }?> value="Monday"/> Monday<br />
                 <input type="checkbox" class="days_discount" <?php if(in_array('Tuesday',$days)){?>checked="checked"<?php }?> value="Tuesday"/> Tuesday<br />
