@@ -719,17 +719,14 @@ if (! function_exists('view')) {
      * @param  array   $mergeData
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    function view($view = null, $data = [], $mergeData = []) {
+    function view($view = null, $data = [], $mergeData = [])
+    {
         $factory = app('Illuminate\Contracts\View\Factory');
-        $append = "";
-        if(debugmode()){
-            if(is_object(Route::getCurrentRoute())) {
-                $append = printfile("VIEW: app/resources/views/" . str_replace(".", "/", $view) . ".blade.php ROUTE: " . Route::getCurrentRoute()->getActionName(), true);
-            }
-        }
+
         if (func_num_args() === 0) {
-            return $factory . $append ;
+            return $factory;
         }
-        return $factory->make($view, $data, $mergeData) . $append ;
+
+        return $factory->make($view, $data, $mergeData);
     }
 }
