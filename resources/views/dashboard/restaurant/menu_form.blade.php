@@ -36,7 +36,7 @@
             <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
         </div>
 
-        <div class="col-sm-10 col-xs-12 lowheight ignore">
+        <div class="col-sm-10 col-xs-12 lowheight ignore par_wrap">
             @if(count($category))
                 <select class="cat_id form-control">
                     <option value="">Choose Category</option>
@@ -47,8 +47,8 @@
                                 @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
                     @endforeach
                     
-                </select>
-                &nbsp;&nbsp;&nbsp;<input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
+                </select><br />
+                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
                 
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />

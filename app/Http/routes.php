@@ -142,6 +142,8 @@ Route::post('restaurant/uploadimg',                                 'RestaurantC
 Route::post('restaurant/uploadimg/{type}',                          'RestaurantController@uploadimg')->where('type', '[a-z]+');
 Route::post('restaurant/menuadd',                                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                                    'RestaurantController@menuadd');
+Route::post('restaurant/check_enable/{id}/{cat}/{limit}/{status}',  'RestaurantController@check_enable');
+Route::get('restaurant/check_enable/{id}/{cat}/{limit}/{status}',   'RestaurantController@check_enable');
 Route::get('restaurant/orderCat',                                   'RestaurantController@orderCat');
 Route::post('restaurant/orderCat/{id}/{sort}',                      'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',                            'RestaurantController@deleteMenu');
