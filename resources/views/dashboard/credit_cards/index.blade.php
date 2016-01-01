@@ -16,13 +16,13 @@
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
-        <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
+        <?php printfile("views/dashboard/credit_cards/index.blade.php"); ?>
         
         @if(\Session::has('message'))
-        <div class="alert {!! Session::get('message-type') !!}">
-            <strong>{!! Session::get('message-short') !!}</strong>
-            &nbsp; {!! Session::get('message-detail') !!}
-        </div>
+            <div class="alert {!! Session::get('message-type') !!}">
+                <strong>{!! Session::get('message-short') !!}</strong>
+                &nbsp; {!! Session::get('message-detail') !!}
+            </div>
         @endif
         
         <div id="ajax_message_jgrowl"></div>
@@ -46,51 +46,48 @@
                 </button>
                 <h4 class="modal-title" id="editCreditCardModalLabel">Credit Card</h4>
             </div>
+            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
-
-                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
                 <div id="editContents">
                     @include("common.edit_credit_card")
                 </div>
-                {!! Form::close() !!}
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
 
-@if(false)
-    <div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-        <div class="modal-dialog2">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add New</h4>
-                </div>
-                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                <?php printfile("line 159"); ?>
-                @include('common.edit_credit_card')
-                {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
 
-    <div id="NewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-        <div class="modal-dialog2">
-            <div class="fancy-modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Update Card</h4>
-                </div>
-                {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                <div id="editContents"></div>
-                {!! Form::close() !!}
+<div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+    <div class="modal-dialog2">
+        <div class="fancy-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New</h4>
             </div>
+            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <?php printfile("line 159"); ?>
+            @include('common.edit_credit_card')
+            {!! Form::close() !!}
         </div>
     </div>
-@endif
+</div>
+
+<div id="NewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+    <div class="modal-dialog2">
+        <div class="fancy-modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Update Card</h4>
+            </div>
+            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <div id="editContents"></div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
 
 @include('common.tabletools')
 

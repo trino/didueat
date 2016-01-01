@@ -69,7 +69,23 @@ $('.is_multiple').live('change', function () {
     else
         $(this).parent().parent().parent().find('.exact').hide();
 });
-
+$('.days_discount_all').live('click',function(){
+   $_parent = $(this).closest('.newmenu');
+   if($(this).is(':checked'))
+   {
+    $_parent.find('.days_discount').each(function(){
+       if(!$(this).is(':checked'))
+       $(this).click(); 
+    });
+   }
+   else
+   {
+    $_parent.find('.days_discount').each(function(){
+       if($(this).is(':checked'))
+       $(this).click(); 
+    });
+   } 
+});
 $('.savebtn').live('click', function () {
     //var $_this = $(this);
     $('.overlay_loader').show();
