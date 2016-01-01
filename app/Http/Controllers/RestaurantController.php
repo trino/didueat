@@ -15,17 +15,12 @@ class RestaurantController extends Controller {
      */
     public function __construct() {
         date_default_timezone_set('America/Toronto');
-
         $this->beforeFilter(function () {
             initialize("restaurants");
-            /*if (!\Session::has('is_logged_in')) {
-                \Session::flash('message', trans('messages.user_session_exp.message'));
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('/restaurants');
-                return \Redirect::to('auth/login');
-            }*/
         });
+        if(\Session::has('message')){
+            \Session::forget('message');
+        }
     }
 
     /**
@@ -446,148 +441,6 @@ class RestaurantController extends Controller {
             return $data;
         }
         return false;
-    }
-
-    /**
-     * Pending Orders
-     * @param null
-     * @return view
-     */
-    public function pendingOrders($id=0) {
-        $data['title'] = 'Orders History';
-        $data['type'] = 'Pending';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', ($id > 0)?$id:\Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
-        return view('dashboard.restaurant.orders_pending', $data);
-    }
-
-    //gets all orders for this restaurant
-    public function history($id=0) {
-        $data['title'] = 'Orders History';
-        $data['type'] = 'History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', ($id > 0)?$id:\Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
-        return view('dashboard.restaurant.orders_pending', $data);
-    }
-
-    /**
-     * Change Order Status to Cancel
-     * @param $id
-     * @return redirect
-     */
-    public function changeOrderCancel() {
-        return $this->changeOrderStatus('cancelled', 'Your order has been cancelled.', "emails.order_cancel", 'Order has been cancelled successfully!');
-    }
-
-
-    /**
-     * Change Order Status to $status, send email (using $subject/$email) and $flash
-     * @param $id (POST)
-     * statuses can be cancelled, approved or pending
-     * @return redirect
-     */
-    public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = ""){
-        $post = \Input::all();
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['id']) || empty($post['id'])) {
-                return $this->failure("[Order Id] is missing!", 'restaurant/orders/admin');
-            }
-            if (is_numeric($post['id']) && (!isset($post['note']) || empty($post['note']))) {
-                return $this->failure("[Note Field] is missing!", 'restaurant/orders/admin');
-            }
-
-            try {
-                if(is_numeric($post['id'])) {
-                    $ob = \App\Http\Models\Reservations::find($post['id']);
-                    $URL = 'restaurant/orders/admin';
-                } else {
-                    $ob = \App\Http\Models\Reservations::where('guid', $post['id'])->first();
-                    $flash = "Order " . $status . " via email";
-                    $post['note'] = $flash;
-                }
-                $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
-                $ob->save();
-
-                if ($ob->user_id && $subject && $email) {
-                    $userArray = \App\Http\Models\Profiles::find($ob->user_id)->toArray();
-                    $userArray['mail_subject'] = $subject;
-                    $userArray['note'] = $post['note'];
-                    $this->sendEMail($email, $userArray);
-                }
-                return $this->success($flash, $URL);
-            } catch (\Exception $e) {
-                return $this->failure(handleexception($e), 'restaurant/orders/admin');
-            }
-        } else {
-            return $this->failure("Invalid request made!", 'restaurant/orders/admin');
-        }
-    }
-
-    /**
-     * Change Order Status to Approved
-     * @param $id
-     * @return redirect
-     */
-    public function changeOrderApprove() {
-        return $this->changeOrderStatus('approved', 'Your order has been approved.', "emails.order_approve", 'Order has been approved successfully!');
-    }
-
-    /**
-     * Change Order Status to Disapproved
-     * @param $id
-     * @return redirect
-     */
-    public function changeOrderDisapprove() {
-        return $this->changeOrderStatus('pending', 'Your order has been disapproved.', "emails.order_disapprove", 'Order has been disapproved successfully!');
-    }
-
-    /**
-     * Delete Order $id
-     * @param $id
-     * @return redirect
-     */
-    public function deleteOrder($id = 0) {
-        if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Order Id] is missing!", 'restaurant/orders/admin');
-        }
-        try {
-            $ob = \App\Http\Models\Reservations::find($id);
-            $ob->delete();
-            return $this->success('Order has been deleted successfully!', 'restaurant/orders/admin');
-        } catch (\Exception $e) {
-            return $this->failure(handleexception($e), 'restaurant/orders/admin');
-        }
-    }
-
-    /**
-     * gets orders placed for this restaurant
-     * @param null
-     * @return view
-     */
-    public function historyOrders($id = 0) {
-        $resId = ($id > 0) ? $id : \Session::get('session_restaurant_id');
-        $data['title'] = 'Orders History';
-        $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', $resId)->orderBy('order_time', 'DESC')->get();
-        return view('dashboard.restaurant.orders_history', $data);
-    }
-
-    /**
-     * gets orders between from and to time
-     * @param $res_id (restaurant ID)
-     * @return view
-     */
-    public function report($res_id = 0) {
-        if(!$res_id){$res_id = \Session::get('session_restaurant_id');}//gets all orders for this restaurant
-        $order = \App\Http\Models\Reservations::where('restaurant_id', $res_id)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id');
-        if (isset($_GET['from'])) {
-            $order = $order->where('order_time', '>=', $_GET['from']);//equal to and greater than from time
-        }
-        if (isset($_GET['to'])) {
-            $order = $order->where('order_time', '<=', $_GET['to']);//equal to and lesser than to time
-        }
-
-        $data['orders'] = $order->get();
-        $data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
-        $data['title'] = 'Report';
-        return view('dashboard.restaurant.report', $data);
     }
 
     //return a menu item and it's child items

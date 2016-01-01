@@ -41,17 +41,17 @@ Route::post('auth/validate/email/ajax',                             'Auth\AuthCo
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
     Route::resource('dashboard',                                    'AdministratorController@dashboard');
+    
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
     Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
-    Route::get('restaurant/orders/order_detail/{id}',               'OrdersController@order_detail')->where('id', '[0-9]+');
-    //Route::get('restaurant/orders/list',                          'RestaurantController@pendingOrders');
-    Route::get('restaurant/orders/view/{id}',                       'RestaurantController@viewOrder')->where('id', '[0-9]+');
-    Route::post('restaurant/orders/list/cancel',                    'RestaurantController@changeOrderCancel');
-    Route::post('restaurant/orders/list/approve',                   'RestaurantController@changeOrderApprove');
-    Route::post('restaurant/orders/list/disapprove',                'RestaurantController@changeOrderDisapprove');
-    Route::get('restaurant/orders/list/delete/{id}',                'RestaurantController@deleteOrder')->where('id', '[0-9]+');
-    Route::get('restaurant/report',                                 'RestaurantController@report');
+    Route::get('orders/order_detail/{id}',                          'OrdersController@order_detail')->where('id', '[0-9]+');
+    Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
+    Route::post('orders/list/cancel/{type}',                        'OrdersController@changeOrderCancel');
+    Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
+    Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
+    Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
+    Route::get('report',                                            'OrdersController@report');
     
     //Profiles Addresses Routes
     Route::resource('user/addresses',                               'ProfileAddressesController@index');

@@ -11,7 +11,7 @@ class CreditCard extends BaseModel {
     public function populate($data) {
         $cells = array('first_name'     => true,
                        'user_type'      => false,
-                       'profile_id'     => false,
+                       'user_id'     => false,
                        'last_name'      => true,
                        'card_type'      => false,
                        'card_number'    => true,
