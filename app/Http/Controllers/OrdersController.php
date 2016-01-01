@@ -77,6 +77,7 @@ class OrdersController extends Controller {
             return back()->with('status', 'Restaurant Not Found!');
         } else {
             $data['title'] = 'Orders Detail';
+            $data['type'] = '';
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
             $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
             $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
