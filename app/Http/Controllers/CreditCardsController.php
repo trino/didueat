@@ -30,44 +30,47 @@ class CreditCardsController extends Controller {
         \Session::get('session_id');
         //check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['profile_id']) || empty($post['profile_id'])) {
-                return $this->failure('[User Type] field is missing','users/credit-cards/'.$type, true);
-            }
             if (!isset($post['first_name']) || empty($post['first_name'])) {
-                return $this->failure('[Name] field is missing','users/credit-cards/'.$type, true);
+                return $this->failure('[Name] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['last_name']) || empty($post['last_name'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             if (!isset($post['card_type']) || empty($post['card_type'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             if (!isset($post['card_number']) || empty($post['card_number'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             if (!isset($post['ccv']) || empty($post['ccv'])) {
-                return $this->failure( trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure( trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
-                return $this->failure(trans('messages.user_missing_email.message'), 'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'), 'credit-cards/list/'.$type, true);
             }
             if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
+                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
             
             \DB::beginTransaction();
             try {//save credit card info
+                if(isset($post['select_restaurant_id']) && !empty($post['select_restaurant_id'])){
+                    $post['user_id'] = $post['select_restaurant_id'];
+                }
+                if(isset($post['select_user_id']) && !empty($post['select_user_id'])){
+                    $post['user_id'] = $post['select_user_id'];
+                }
                 $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
                 $creditcard->populate(array_filter($post));
                 $creditcard->save();
                 \DB::commit();
-                return $this->success( 'Credit card has been saved successfully.', 'users/credit-cards/'.$type);
+                return $this->success( 'Credit card has been saved successfully.', 'credit-cards/list/'.$type);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure(handleexception($e), 'users/credit-cards', true);
+                return $this->failure(handleexception($e), 'credit-cards/list/'.$type, true);
             }
         } else {
             //get list of credit cards
@@ -104,15 +107,15 @@ class CreditCardsController extends Controller {
         if($type == "user"){
             $data["user_id"] = read("id");
         }
-        
+
         $Query = \App\Http\Models\CreditCard::listing($data, "list")->get();
         $recCount = \App\Http\Models\CreditCard::listing($data)->count();
         $no_of_paginations = ceil($recCount / $per_page);
-        
+
         $data['Query'] = $Query;
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
-        
+
         \Session::flash('message', \Input::get('message'));
         return view('dashboard.credit_cards.ajax.list', $data);
     }
@@ -142,11 +145,19 @@ class CreditCardsController extends Controller {
      * @param $id
      * @return view
      */
-    public function ajaxEditCreditCardFrom($id=0) {
-        $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
-        $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
-        return view('common.edit_credit_card', $data);
+    public function creditCardFind($id=0) {
+        try {
+            $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
+            $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
+            ob_start();
+            return view('dashboard.credit_cards.ajax.edit', $data);
+            ob_get_contents();//code will never run
+            ob_get_flush();
+        } catch(\Exception $e) {
+            echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+            die;
+        }
     }
     
     /**

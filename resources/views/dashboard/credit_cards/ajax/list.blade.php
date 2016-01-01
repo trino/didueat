@@ -1,6 +1,6 @@
 <?php
     printfile("views/dashboard/credit_cards/ajax/list.blade.php");
-    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+    $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
 ?>
 
 @if(\Session::has('message'))
@@ -10,7 +10,7 @@
 <div class="card">
     <div class="card-header ">
         Credit Card ({{ ucwords($type) }})
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editCreditCardModal">Add</button>
+        <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</button>
     </div>
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
@@ -78,7 +78,7 @@
                     <td>{{ obfuscate($value->card_number) }}</td>
                     <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                     <td>
-                        <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editCreditCardModal">
+                        <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel">
                             Edit
                         </a>
                         @if($value->id != \Session::get('session_id'))

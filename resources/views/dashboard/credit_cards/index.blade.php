@@ -21,7 +21,7 @@
         @if(\Session::has('message'))
             <div class="alert {!! Session::get('message-type') !!}">
                 <strong>{!! Session::get('message-short') !!}</strong>
-                &nbsp; {!! Session::get('message-detail') !!}
+                &nbsp; {!! Session::get('message') !!}
             </div>
         @endif
         
@@ -37,20 +37,19 @@
 </div>
 
 
-<div class="modal fade clearfix" id="editCreditCardModal" tabindex="-1" role="dialog" aria-labelledby="editCreditCardModalLabel" aria-hidden="true">
+<div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="editCreditCardModalLabel">Credit Card</h4>
+                <h4 class="modal-title" id="editModelLabel">Credit Card</h4>
             </div>
-            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-            <div class="modal-body">
-                <div id="editContents">
-                    @include("common.edit_credit_card")
-                </div>
+            {!! Form::open(array('url' => 'credit-cards/list/'.$type, 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <div id="ajaxloader"></div>
+            <div class="modal-body" id="contents">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -62,7 +61,7 @@
 </div>
 
 
-<div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
+<!--<div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
     <div class="modal-dialog2">
         <div class="fancy-modal-content">
             <div class="modal-header">
@@ -87,28 +86,42 @@
             {!! Form::close() !!}
         </div>
     </div>
-</div>
+</div>-->
 
 @include('common.tabletools')
 
 <script type="text/javascript">
-    $('body').on('click', '.editRow', function () {
+    function switchdivs(event){
+        if (event == "restaurant") {
+            $(".restaurant_id").show();
+            $(".user_id").hide();
+        } else {
+            $(".user_id").show();
+            $(".restaurant_id").hide();
+        }
+    }
+    
+    $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
-        $('#editCreditCardModal #editCreditCardModal').show();
-        $('#editCreditCardModal #contents').html('');
+        if(id == null || id == undefined || id == ""){
+            id = 0;
+            $('#editLabel').text('Create Address');
+        }
+        $('#editModel #ajaxloader').show();
+        $('#editModel #contents').html('');
         $.get("{{ url('users/credit-cards/edit') }}/" + id, {}, function (result) {
+            $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
-                    var json = jQuery.parseJSON(result);
-                    $('#editCreditCardModal #message').show();
-                    $('#editCreditCardModal #message p').html(json.message);
-                    $('#editCreditCardModal #editContents').html('');
+                var json = jQuery.parseJSON(result);
+                        $('#editModel #message').show();
+                        $('#editModel #message p').html(json.message);
+                        $('#editModel #contents').html('');
                 }
             } catch (e) {
-                $('#editCreditCardModal #message').hide();
-                $('#editCreditCardModal #editContents').html(result);
+                $('#editModel #message').hide();
+                $('#editModel #contents').html(result);
             }
-            $('#editCreditCardModal #loading').hide();
         });
     });
     

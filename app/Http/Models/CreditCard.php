@@ -9,10 +9,10 @@ class CreditCard extends BaseModel {
     public $timestamps = false;
 
     public function populate($data) {
-        $cells = array('first_name'     => true,
+        $cells = array('first_name'     => false,
                        'user_type'      => false,
                        'user_id'     => false,
-                       'last_name'      => true,
+                       'last_name'      => false,
                        'card_type'      => false,
                        'card_number'    => true,
                        'expiry_date'    => true,
