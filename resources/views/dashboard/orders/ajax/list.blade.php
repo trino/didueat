@@ -65,7 +65,7 @@
                     <td>{{ $value->status }}</td>
                     <td>
                         @if(Session::get('session_profiletype') >= 1)
-                        <a href="{{ url('restaurant/orders/order_detail/'.$value->id) }}"
+                        <a href="{{ url('orders/order_detail/'.$value->id) }}"
                            class="btn btn-primary  btn-sm">View</a>
 
                         @if($value->restaurant_id > 0)
@@ -78,7 +78,6 @@
                         @endif
                         @if(strtolower($value->status) == 'cancelled' || strtolower($value->status) == 'pending')
                         @if(\Session::get('session_type_user') != 'user')
-
                         <a data-id="{{ $value->id }}"
                            class="btn btn-success btn-sm orderApproveModal"
                            data-toggle="modal"
@@ -89,9 +88,9 @@
                         @endif
                         @endif
                         @endif
-
+                        
                         @if(Session::get('session_profiletype') == 1)
-                        <a href="{{ url('restaurant/orders/list/delete/'.$value->id) }}" class="btn btn-danger btn-sm"
+                        <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}" class="btn btn-danger btn-sm"
                            onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
                             Delete
                         </a>

@@ -41,17 +41,17 @@ Route::post('auth/validate/email/ajax',                             'Auth\AuthCo
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
     Route::resource('dashboard',                                    'AdministratorController@dashboard');
+    
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
     Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
-    Route::get('restaurant/orders/order_detail/{id}',               'OrdersController@order_detail')->where('id', '[0-9]+');
-    //Route::get('restaurant/orders/list',                          'RestaurantController@pendingOrders');
-    Route::get('restaurant/orders/view/{id}',                       'RestaurantController@viewOrder')->where('id', '[0-9]+');
-    Route::post('restaurant/orders/list/cancel',                    'RestaurantController@changeOrderCancel');
-    Route::post('restaurant/orders/list/approve',                   'RestaurantController@changeOrderApprove');
-    Route::post('restaurant/orders/list/disapprove',                'RestaurantController@changeOrderDisapprove');
-    Route::get('restaurant/orders/list/delete/{id}',                'RestaurantController@deleteOrder')->where('id', '[0-9]+');
-    Route::get('restaurant/report',                                 'RestaurantController@report');
+    Route::get('orders/order_detail/{id}',                          'OrdersController@order_detail')->where('id', '[0-9]+');
+    Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
+    Route::post('orders/list/cancel/{type}',                        'OrdersController@changeOrderCancel');
+    Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
+    Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
+    Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
+    Route::get('report',                                            'OrdersController@report');
     
     //Profiles Addresses Routes
     Route::resource('user/addresses',                               'ProfileAddressesController@index');
@@ -68,23 +68,13 @@ Route::group(['middleware' => ['logged']], function() {
     Route::get('credit-cards/list/{type}',                          'CreditCardsController@index');
     Route::post('credit-cards/list/ajax/{type}',                    'CreditCardsController@listingAjax');
     Route::post('credit-cards/Sequence',                            'CreditCardsController@creditCardsSequence');
-    Route::resource('users/credit-cards',                 	        'CreditCardsController@addCreditCards');
+    Route::post('users/credit-cards/{type}',                        'CreditCardsController@addCreditCards');
     Route::get('users/credit-cards/action/{id}/{type}',             'CreditCardsController@creditCardsAction');
     Route::get('users/credit-cards/edit/{id}',                      'CreditCardsController@ajaxEditCreditCardFrom');
-    Route::post('users/credit-cards/{type}',                        'CreditCardsController@addCreditCards');
-    //Route::post('users/credit-cards/sequence',            	    'AdministratorController@saveCreditCardsSequence'); //MISSING
 });
 
 // Routes After Logged in and Role Restaurant Check
 Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
-    Route::get('restaurant/orders/list',                	        'RestaurantController@pendingOrders');
-    Route::get('restaurant/orders/list/delete/{id}',    	        'RestaurantController@deleteOrder')->where('id', '[0-9]+');
-    /* //MISSING
-    Route::get('restaurant/orders/view/{id}',           	        'RestaurantController@viewOrder')->where('id', '[0-9]+');
-    Route::post('restaurant/orders/list/cancel',        	        'RestaurantController@changeOrderCancel');
-    Route::post('restaurant/orders/list/approve',       	        'RestaurantController@changeOrderApprove');
-    Route::post('restaurant/orders/list/disapprove',    	        'RestaurantController@changeOrderDisapprove');
-    */
     Route::resource('restaurant/addresses',                         'NotificationAddressesController@index');
     Route::post('restaurant/addresses/ajax/list',                   'NotificationAddressesController@listingAjax');
     Route::post('restaurant/addresses/sequence',                    'NotificationAddressesController@addressesSequence');
@@ -96,15 +86,6 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
 
 // Routes After Logged in and Role Admin Check
 Route::group(['middleware' => ['logged', 'role:super']], function() {
-    /* //MISSING
-    Route::resource('restaurant/users',                 	        'AdministratorController@users');
-    Route::get('restaurant/users/edit/{id}',            	        'AdministratorController@ajaxEditUserForm');
-    Route::post('restaurant/users/update',              	        'AdministratorController@userUpdate');
-    Route::get('restaurant/users/action/{type}/{id}',   	        'AdministratorController@usersAction');
-    Route::get('restaurant/eventlog',                   	        'RestaurantController@eventsLog');
-    Route::resource('restaurant/subscribers',           	        'AdministratorController@subscribers');
-    */
-
     Route::get('users/list',                                        'UsersController@index');
     Route::post('users/list/ajax',                                  'UsersController@listingAjax');
     Route::get('users/edit/{id}',                                   'UsersController@ajaxEditUserForm');
@@ -158,9 +139,6 @@ Route::get('restaurant/getToken',                                   'HomeControl
 
 Route::post('user/ajax_register',                                   'UsersController@ajax_register');
 Route::resource('user/json_data',                                   'UsersController@json_data');
-
-Route::get('restaurant/changeOrderStatus/{status}', 		        'RestaurantController@changeOrderStatus');
-Route::get('test',						                            'HomeController@test');
 
 Route::any('admin/(:any)/add/(:any?)', function($controller, $params = null) {
     return Controller::call('admin.' . $controller . '@edit', (array) $params);

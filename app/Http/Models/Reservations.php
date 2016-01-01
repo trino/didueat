@@ -43,7 +43,8 @@ class Reservations extends BaseModel {
                     }
                     
                     if($searchResults != ""){
-                          $query->orWhere('ordered_by', 'LIKE', "%$searchResults%")
+                          $query->orWhere('id', 'LIKE', "%$searchResults%")
+                                ->orWhere('ordered_by', 'LIKE', "%$searchResults%")
                                 ->orWhere('contact', 'LIKE', "%$searchResults%")
                                 ->orWhere('payment_mode', 'LIKE', "%$searchResults%")
                                 ->orWhere('address1', 'LIKE', "%$searchResults%")
