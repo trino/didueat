@@ -32,11 +32,12 @@
 
                                     <a href="javascript:void(0)" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type="button"
-                                       class="btn btn-danger insert-stats" data-toggle="modal"
+                                       class="insert-stats" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
-                                        <p>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</p>
-                                        <h3>{{ $value->menu_item }} <span
+                                        <h3 class="menu-item">{{ $value->menu_item }} <span
                                                     class="menu-tag menu-price">${{ $value->price }}</span></h3>
+                                        <p><strong>Restaurant: </strong>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</p>
+                                        
                                     </a>
 
 
@@ -78,14 +79,15 @@
                                         ?>
                                         @endif
                                     </p>
+                                    <p class="res-desc">{{ $value->description }}</p>
                                     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
                                         <p>
                                             <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
-                                               class="btn custom-default-btn" onclick="return confirm('This will remove the menu item. Do you like to proceed?')">Remove</a>
+                                               class="btn btn-sm btn-danger" onclick="return confirm('This will remove the menu item. Do you like to proceed?')">Remove</a>
 
 
                                             <button id="add_item{{ $value->id }}" type="button"
-                                                    class="btn btn-danger additem" data-toggle="modal"
+                                                    class="btn btn-sm btn-info additem" data-toggle="modal"
                                                     data-target="#addMenuModel">
                                                 Edit
                                             </button>
