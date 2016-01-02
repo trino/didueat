@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Models\Profiles;
-use App\Http\Models\Restaurants;
 
 class CreditCardsController extends Controller {
 
@@ -27,7 +25,6 @@ class CreditCardsController extends Controller {
      */
     public function index($type = '') {
         $post = \Input::all();
-        \Session::get('session_id');
         //check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['first_name']) || empty($post['first_name'])) {
@@ -57,12 +54,18 @@ class CreditCardsController extends Controller {
             
             \DB::beginTransaction();
             try {//save credit card info
-                if(isset($post['select_restaurant_id']) && !empty($post['select_restaurant_id'])){
-                    $post['user_id'] = $post['select_restaurant_id'];
+                if(isset($post['user_type']) && !empty($post['user_type'])){
+                    if($post['user_type'] == "restaurant"){
+                        $post['user_id'] = $post['select_restaurant_id'];
+                    }
+                    if($post['user_type'] == "user"){
+                        $post['user_id'] = $post['select_user_id'];
+                    }
+                } else {
+                    $post['user_type'] = \Session::get('session_type_user');
+                    $post['user_id'] = \Session::get('session_id');
                 }
-                if(isset($post['select_user_id']) && !empty($post['select_user_id'])){
-                    $post['user_id'] = $post['select_user_id'];
-                }
+                
                 $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
                 $creditcard->populate(array_filter($post));
                 $creditcard->save();
@@ -76,7 +79,6 @@ class CreditCardsController extends Controller {
             //get list of credit cards
             $data['title'] = 'Credit Cards List';
             $data['type'] = $type;
-            
             $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
             return view('dashboard.credit_cards.index', $data);
@@ -128,15 +130,15 @@ class CreditCardsController extends Controller {
      */
     public function creditCardsAction($id = 0, $type = "") {
         if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            return $this->failure( "[card Id] is missing!",'users/credit-cards/'.$type);
+            return $this->failure( "[card Id] is missing!",'credit-cards/list/'.$type);
         }
         try {//delete credit card by $id
             $ob = \App\Http\Models\CreditCard::find($id);
             $ob->delete();
             event(new \App\Events\AppEvents($ob, "Card Delete"));
-            return $this->success('Card has been deleted successfully!', 'users/credit-cards/'.$type);
+            return $this->success('Card has been deleted successfully!', 'credit-cards/list/'.$type);
         } catch (\Exception $e) {
-            return $this->failure(handleexception($e), 'users/credit-cards/'.$type);
+            return $this->failure(handleexception($e), 'credit-cards/list/'.$type);
         }
     }
 
@@ -166,72 +168,7 @@ class CreditCardsController extends Controller {
      * @return response
      */
     public function creditCardsSequence() {
-        $this->saveSequance('\App\Http\Models\CreditCard');
-    }
-
-    /**
-     * CreditCards Add new
-     * @param null
-     * @return view
-     */
-    public function addCreditCards($type = '') {
-        $post = \Input::all();
-        \Session::get('session_id');
-        //check for missing data
-        if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['user_id']) || empty($post['user_id'])) {
-                return $this->failure('[User Type] field is missing','users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['first_name']) || empty($post['first_name'])) {
-                return $this->failure('[Name] field is missing','users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['last_name']) || empty($post['last_name'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['card_type']) || empty($post['card_type'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['card_number']) || empty($post['card_number'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['ccv']) || empty($post['ccv'])) {
-                return $this->failure( trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
-                return $this->failure(trans('messages.user_missing_email.message'), 'users/credit-cards/'.$type, true);
-            }
-            if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'users/credit-cards/'.$type, true);
-            }
-
-            \DB::beginTransaction();
-            try {//save credit card info
-                $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
-                $creditcard->populate(array_filter($post));
-                $creditcard->save();
-                \DB::commit();
-                return $this->success( 'Credit card has been saved successfully.', 'users/credit-cards/'.$type);
-            } catch (\Exception $e) {
-                \DB::rollback();
-                return $this->failure(handleexception($e), 'users/credit-cards', true);
-            }
-        } else {//get list of credit cards
-            $data['title'] = 'Credit Cards List';
-            $data['type'] = $type;
-            if ($type == 'user') {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('user_id', \Session::get('session_id'))->where('user_type', $type)->orderBy('order', 'ASC')->get();
-            } else if ($type == 'restaurant') {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::where('user_id', \Session::get('session_restaurant_id'))->where('user_type', $type)->orderBy('order', 'ASC')->get();
-            } else {
-                $data['credit_cards_list'] = \App\Http\Models\CreditCard::orderBy('order', 'ASC')->get();
-            }
-            $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
-            return view('dashboard.credit_cards.index', $data);
-        }
+        $this->saveSequence('\App\Http\Models\CreditCard');
     }
 
 

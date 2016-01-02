@@ -109,7 +109,7 @@
         }
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');
-        $.get("{{ url('users/credit-cards/edit') }}/" + id, {}, function (result) {
+        $.get("{{ url('credit-cards/edit') }}/" + id, {}, function (result) {
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
@@ -147,7 +147,7 @@
             return $(this).attr("data-order");
         }).get();
 
-        $.post("{{ url('credit-cards/Sequence') }}", {
+        $.post("{{ url('credit-cards/sequence') }}", {
             id: data_id.join('|'),
             order: data_order.join('|'),
             _token: token

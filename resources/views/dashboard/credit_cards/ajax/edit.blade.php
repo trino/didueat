@@ -157,5 +157,3 @@
 </div>
 
 <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}"/>
-<input type="hidden" name="user_id" value="{{ (isset($credit_cards_list->user_id))?$credit_cards_list->user_id : \Session::get('session_id') }}"/>
-<input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type : \Session::get('session_type_user') }}"/>

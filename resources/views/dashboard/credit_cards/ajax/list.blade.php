@@ -82,7 +82,7 @@
                             Edit
                         </a>
                         @if($value->id != \Session::get('session_id'))
-                            <a href="{{ url('users/credit-cards/action/'.$value->id."/".$type) }}"
+                            <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
                                class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
                         @endif

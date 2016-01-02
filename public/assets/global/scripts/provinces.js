@@ -9,20 +9,18 @@ function getelement(name) {
 
 function provinces(webroot, value) {
     var country = 40; //Canada
-    var element = getelement("country");
+    var element = document.getElementById("country");
     if (element) {
         country = element.value;
         if (isNaN(country)) {
             return false;
         }
     }
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name=_token]').attr('content')
         }
     });
-
     $.ajax({
         url: webroot,
         type: "post",

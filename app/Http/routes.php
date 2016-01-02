@@ -68,10 +68,9 @@ Route::group(['middleware' => ['logged']], function() {
     Route::get('credit-cards/list/{type}',                          'CreditCardsController@index');
     Route::post('credit-cards/list/{type}',                          'CreditCardsController@index');
     Route::post('credit-cards/list/ajax/{type}',                    'CreditCardsController@listingAjax');
-    Route::post('credit-cards/Sequence',                            'CreditCardsController@creditCardsSequence');
-    Route::post('users/credit-cards/{type}',                        'CreditCardsController@addCreditCards');
-    Route::get('users/credit-cards/action/{id}/{type}',             'CreditCardsController@creditCardsAction');
-    Route::get('users/credit-cards/edit/{id}',                      'CreditCardsController@creditCardFind');
+    Route::post('credit-cards/sequence',                            'CreditCardsController@creditCardsSequence');
+    Route::get('credit-cards/edit/{id}',                            'CreditCardsController@creditCardFind');
+    Route::get('credit-cards/delete/{id}/{type}',                   'CreditCardsController@creditCardsAction');
 });
 
 // Routes After Logged in and Role Restaurant Check
