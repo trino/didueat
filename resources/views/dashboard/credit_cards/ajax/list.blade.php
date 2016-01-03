@@ -10,19 +10,22 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 <div class="card">
     <div class="card-header ">
         <div class="row">
-        <div class="col-lg-6"><h6>
+            <div class="col-lg-6">
+                <h6>
 
-            Credit Card ({{ ucwords($type) }})
-        <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
-            Add
-        </button>
+                    Credit Card ({{ ucwords($type) }})
+                    <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal"
+                            data-target="#editModel">
+                        Add
+                    </button>
 
+                </h6>
+            </div>
 
-        </h6></div>
+            @include('common.table_controls')
 
-    @include('common.table_controls')
-
-</div></div>
+        </div>
+    </div>
 
     <!--table width="100%" border="0" cellpadding="0" cellspacing="0"
            style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
@@ -49,15 +52,6 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
         </tr>
     </table-->
 
-    <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries'
-           value='{!! ($per_page)?$per_page:5; !!}'/>
-    <input type='hidden' name='hiddenSearchResult' id='hiddenSearchResult'
-           value='{!! ($searchResults)?$searchResults:""; !!}'/>
-    <input type='hidden' name='hiddenShowMeta' id='hiddenShowMeta' value='{!! ($meta)?$meta:"id"; !!}'/>
-    <input type='hidden' name='hiddenShowOrder' id='hiddenShowOrder' value='{!! ($order)?$order:"ASC"; !!}'/>
-    <input type='hidden' name='hiddenPage' id='hiddenPage' value='{!! ($page)?$page:1; !!}'/>
-
-    <div id="ajaxBlock"></div>
 
     <div class="card-block p-a-0">
         <table class="table table-responsive">
@@ -122,8 +116,10 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                             @endif
                         </td>
                         <td>
-                            <a class="btn btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
-                            <a class="btn btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a>
+                            <div class="btn-group-vertical">
+                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -134,12 +130,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
             @endif
             </tbody>
         </table>
-
-
     </div>
-
-
-
     <div class="card-footer clearfix">
         {!! $Pagination; !!}    </div>
 </div>

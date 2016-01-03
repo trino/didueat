@@ -19,15 +19,7 @@
     </div>
 
 
-    <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries'
-           value='{!! ($per_page)?$per_page:5; !!}'/>
-    <input type='hidden' name='hiddenSearchResult' id='hiddenSearchResult'
-           value='{!! ($searchResults)?$searchResults:""; !!}'/>
-    <input type='hidden' name='hiddenShowMeta' id='hiddenShowMeta' value='{!! ($meta)?$meta:"id"; !!}'/>
-    <input type='hidden' name='hiddenShowOrder' id='hiddenShowOrder' value='{!! ($order)?$order:"ASC"; !!}'/>
-    <input type='hidden' name='hiddenPage' id='hiddenPage' value='{!! ($page)?$page:1; !!}'/>
 
-    <div id="ajaxBlock"></div>
 
     <div class="card-block p-a-0">
         <table class="table table-responsive">
@@ -84,8 +76,10 @@
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                         </td>
                         <td>
-                            <a class="btn  btn-info up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                            <a class="btn  btn-info down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            <div class="btn-group-vertical">
+                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
