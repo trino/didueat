@@ -68,18 +68,8 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
-    
-    @if(false)
-        <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-        <!--google font open sans -->
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic'
-              rel='stylesheet' type='text/css'>
-        <!--google font Montserrat -->
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500|Arimo&subset=latin,latin-ext'
-              rel='stylesheet' type='text/css'>
-    @endif
+
+
 </head>
 <body>
 @include('popups.login')

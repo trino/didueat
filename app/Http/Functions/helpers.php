@@ -54,40 +54,40 @@ function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $la
     $html .= '<ul class="pagination">';
 
     if ($first_btn && $cur_page > 1) {
-        $html .= '<li p="1" class="first prev clickable"><a href="#">First</a></li>';
+        $html .= '<li p="1" class="first prev page-item  clickable"><a href="#">First</a></li>';
     } else if ($first_btn) {
-        $html .= '<li p="1" class="first prev disabled"><a>First</a></li>';
+        $html .= '<li p="1" class="first prev page-item  disabled"><a  class="page-link" >First</a></li>';
     }
 
     if ($previous_btn && $cur_page > 1) {
         $pre = $cur_page - 1;
-        $html .= '<li p=' . $pre . ' class="prev clickable"><a href="#">Previous</a></li>';
+        $html .= '<li p=' . $pre . ' class="prev page-item  clickable"><a href="#">Previous</a></li>';
     } else if ($previous_btn) {
-        $html .= '<li class="prev disabled"><a>Previous</a></li>';
+        $html .= '<li class="prev disabled page-item "><a  class="page-link" >Previous</a></li>';
     }
 
 
     for ($i = $start_loop; $i <= $end_loop; $i++) {
         if ($cur_page == $i) {
-            $html .= '<li p=' . $i . ' class="active"><a>' . $i . '</a></li>';
+            $html .= '<li p=' . $i . ' class="active page-item "><a  class="page-link" >' . $i . '</a></li>';
         } else {
-            $html .= '<li p=' . $i . ' class="clickable" ><a href="#">' . $i . '</a></li>';
+            $html .= '<li p=' . $i . ' class="clickable page-item " ><a href="#">' . $i . '</a></li>';
         }
     }
 
     // TO ENABLE THE NEXT BUTTON
     if ($next_btn && $cur_page < $no_of_paginations) {
         $nex = $cur_page + 1;
-        $html .= '<li p=' . $nex . ' class="next clickable"><a href="#">Next</a></li>';
+        $html .= '<li p=' . $nex . ' class="next clickable page-item "><a href="#">Next</a></li>';
     } else if ($next_btn) {
-        $html .= '<li class="next disabled"><a>Next</a></li>';
+        $html .= '<li class="next disabled page-item "><a  class="page-link" >Next</a></li>';
     }
 
     // TO ENABLE THE END BUTTON
     if ($last_btn && $cur_page < $no_of_paginations) {
-        $html .= '<li p=' . $no_of_paginations . ' class="last next clickable"><a href="#">Last</a></li>';
+        $html .= '<li p=' . $no_of_paginations . ' class="page-item last next clickable"><a href="#">Last</a></li>';
     } else if ($last_btn) {
-        $html .= '<li p=' . $no_of_paginations . ' class="last next disabled"><a>Last</a></li>';
+        $html .= '<li p=' . $no_of_paginations . ' class="page-item last next disabled"><a  class="page-link" >Last</a></li>';
     }
 
     $html .= '</ul>';
@@ -95,7 +95,7 @@ function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $la
     $html .= '</div>';
 
     $html .= '<div class="pull-left">';
-    $html .= '<div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite"><span class="total" a="' . $no_of_paginations . '">Total Records <b>' . $recCount . '</b>. Showing Page <b>' . $cur_page . '</b> of <b>' . $no_of_paginations . '</b></span><div>';
+    $html .= '<div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite"><span class="total" a="' . $no_of_paginations . '">Total Records ' . $recCount . '. Showing Page ' . $cur_page . ' of ' . $no_of_paginations . '</span><div>';
     $html .= '</div>';
 
     return $html;
