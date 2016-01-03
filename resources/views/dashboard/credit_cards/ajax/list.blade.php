@@ -9,13 +9,22 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 
 <div class="card">
     <div class="card-header ">
-        Credit Card ({{ ucwords($type) }})
+        <div class="row">
+        <div class="col-lg-6"><h6>
+
+            Credit Card ({{ ucwords($type) }})
         <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
             Add
         </button>
-    </div>
 
-    <table width="100%" border="0" cellpadding="0" cellspacing="0"
+
+        </h6></div>
+
+    @include('common.table_controls')
+
+</div></div>
+
+    <!--table width="100%" border="0" cellpadding="0" cellspacing="0"
            style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
         <tr>
             <td align="left"><label>Show<select size="1" name="showDataEntries" id="showDataEntries" class="form-con">
@@ -38,7 +47,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                 </div>
             </td>
         </tr>
-    </table>
+    </table-->
 
     <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries'
            value='{!! ($per_page)?$per_page:5; !!}'/>
@@ -125,10 +134,12 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
             @endif
             </tbody>
         </table>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="pagination-table">
-            <tr>
-                <td>{!! $Pagination; !!}</td>
-            </tr>
-        </table>
+
+
     </div>
+
+
+
+    <div class="card-footer clearfix">
+        {!! $Pagination; !!}    </div>
 </div>

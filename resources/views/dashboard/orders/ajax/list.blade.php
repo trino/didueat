@@ -7,29 +7,17 @@
 
 
         <div class="row">
-            <div class="col-lg-6"><h6>My Orders ({{ ucwords($type) }}) <a class="btn btn-primary btn-sm"
+            <div class="col-lg-6"><h6>My Orders ({{ ucwords($type) }}) <a class="btn btn-primary btn-sm "
                                                                           href="{{ url('restaurant/report') }}"
                                                                           class="">Print Report</a>
                 </h6>
             </div>
-            <div class="col-lg-3">
-
-                <!--select size="1" name="showDataEntries" id="showDataEntries" class="form-control">
-                    <option value="10" {!! ($per_page == 10)?"selected":''; !!}>10</option>
-                    <option value="25" {!! ($per_page == 25)?"selected":''; !!}>25</option>
-                    <option value="50" {!! ($per_page == 50)?"selected":''; !!}>50</option>
-                    <option value="100" {!! ($per_page == 100)?"selected":''; !!}>100</option>
-                    <option value="300" {!! ($per_page == 300)?"selected":''; !!}>300</option>
-                    <option value="500" {!! ($per_page == 500)?"selected":''; !!}>500</option>
-                    <option value="1000" {!! ($per_page == 1000)?"selected":''; !!}>1000</option>
-                </select-->
-            </div>
-            <div class="col-lg-3">
-                <input type="text" class="form-control" id='searchResult' value='{!! $searchResults !!}'
-                       placeholder='Search...' autofocus='true' style=""/>
 
 
-            </div>
+            @include('common.table_controls')
+
+
+
         </div>
 
 
@@ -50,7 +38,7 @@
         <table class="table table-responsive">
             <thead>
             <tr>
-                <th width="10%">
+                <th width="15%">
                     <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
                                 class="fa fa-caret-down"></i></a>
                     Order Id
@@ -78,7 +66,7 @@
                     <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
                        title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="30%">Actions</th>
+                <th width="30%"></th>
             </tr>
             </thead>
             <tbody>

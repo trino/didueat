@@ -8,14 +8,14 @@
 .headerbutton{
 	height:38px; font-size: 24px;
 }
-
+/*
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 	z-index: 2;
 	color: #fff;
 	background-color: #d50000;
 	border-color: #d50000;
 }
-
+*/
 .nowrap{
 	white-space: nowrap;
 }
