@@ -84,6 +84,14 @@ if (Request::path() !== null && Request::path() != "/") {
             </div>
         @endif
 
+        @if(\Session::has('message'))
+            <div class="alert {!! Session::get('message-type') !!}">
+                <strong>{!! Session::get('message-short') !!}</strong>
+                &nbsp; {!! Session::get('message') !!}
+            </div>
+            {{ \Session::forget('message') }}
+        @endif
+
         @yield('content')
     </div>
 

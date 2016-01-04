@@ -9,9 +9,6 @@ use App\Http\Models\PageViews;
 class HomeController extends Controller {
     public function __construct() {
         date_default_timezone_set('America/Toronto');
-        if(\Session::has('message')){
-            \Session::forget('message');
-        }
         $this->beforeFilter(function () {
             initialize("home");
         });

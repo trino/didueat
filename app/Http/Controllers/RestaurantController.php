@@ -18,9 +18,6 @@ class RestaurantController extends Controller {
         $this->beforeFilter(function () {
             initialize("restaurants");
         });
-        if(\Session::has('message')){
-            \Session::forget('message');
-        }
     }
 
     /**

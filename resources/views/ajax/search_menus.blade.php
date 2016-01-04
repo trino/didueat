@@ -1,6 +1,7 @@
 <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 <div class="row">
   <?php printfile("views/ajax/search_menus.blade.php"); ?>
+
   @foreach($query as $value)
     <?php
     $item_image = asset('assets/images/restaurant-default.jpg');

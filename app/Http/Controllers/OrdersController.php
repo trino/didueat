@@ -15,9 +15,6 @@ class OrdersController extends Controller {
      */
     public function __construct() {
         date_default_timezone_set('America/Toronto');
-        if(\Session::has('message')){
-            \Session::forget('message');
-        }
     }
 
     /**
