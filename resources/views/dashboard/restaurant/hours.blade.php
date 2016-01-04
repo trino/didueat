@@ -48,11 +48,13 @@
     echo '<BR><LABEL class="is_delivery_options"><input type="CHECKBOX" onclick="same(event);" ID="samehours"> Same as regular hours</LABEL>';
 
     function printrow($layout, $key, $value, $opentime, $closetime, $suffix="", $class = ""){
-        if($layout){$layout = 9; $width=5;} else {$layout = 3; $width=4;}
+        if($layout){$layout = 9; $width=5;} else {$layout = 2; $width=4; if($suffix){$layout=3;}}//width: 4 is editor, 5 is signup
+        $closed = '<LABEL><input type="checkbox" onchange="closed(event, ' . $key . ');"> Closed</LABEL>';
         ?>
         <div class="row {{ $class }}">
             <label class="col-sm-{{ $layout }}">{{ $value }}</label>
-            @if(!$suffix) <LABEL><input type="checkbox" onchange="closed(event, {{ $key }});"> Closed</LABEL> @endif
+            @if(!$suffix && $layout == 2) <div class="col-sm-1" align="center"><SMALL><SMALL><?= $closed; ?></SMALL></SMALL></DIV> @endif
+            @if(!$suffix && $layout == 9) <?= $closed; ?> @endif
             <div class="col-sm-{{ $width }}">
                 <input type="text" name="open{{$suffix}}[{{ $key }}]" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time"/>
             </div>
