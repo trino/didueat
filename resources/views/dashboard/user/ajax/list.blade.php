@@ -6,21 +6,17 @@
 
 <div class="card">
 
-
-
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6"><h6>
-
-                    Users     <a class="btn btn-primary btn-sm editUser" data-toggle="modal" data-id="0" data-target="#editNewUser">Add</a>
-                </h6></div>
-
+            <div class="col-lg-6">
+                <h6>
+                    Users     
+                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-id="0" data-target="#editModel">Add</a>
+                </h6>
+            </div>
             @include('common.table_controls')
-
         </div>
     </div>
-
-
 
     <!--table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
         <tr>
@@ -35,8 +31,6 @@
         </tr>
     </table-->
 
-
-    
     <div class="card-block p-a-0">
         <table class="table table-responsive">
             <thead>
@@ -77,18 +71,14 @@
                     <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
                     <td>{{ $value->phone }}</td>
                     <td>
-
-                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editNewUser">
+                        <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
                             Edit
                         </a>
                         @if($value->id != \Session::get('session_id'))
-
-                            <a href="{{ url('restaurant/users/action/user_fire/'.$value->id) }}"
-                               class="btn btn-danger btn-sm"
+                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Fire</a>
 
-                            <a href="{{ url('restaurant/users/action/user_possess/'.$value->id) }}"
-                               class="btn btn-info btn-sm"
+                            <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-info btn-sm"
                                onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
                         @endif
                     </td>
@@ -101,11 +91,10 @@
                 @endif
             </tbody>
         </table>
-
-
     </div>
 
 
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
+        {!! $Pagination; !!}
+    </div>
 </div>

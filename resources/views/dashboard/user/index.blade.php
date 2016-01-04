@@ -28,36 +28,53 @@
 </div>
 
 
-<div class="modal  fade clearfix" id="editNewUser" tabindex="-1" role="dialog" aria-labelledby="editNewUserLabel"
+<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel"
          aria-hidden="true">
     <div class="modal-dialog" role="document">
+        {!! Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="editNewUserLabel">Edit</h4>
+                <h4 class="modal-title" id="editModelLabel">Edit</h4>
             </div>
-            <div class="modal-body">
-                {!! Form::open(array('url' => '/restaurant/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-                <div id="editContents"></div>
-                {!! Form::close() !!}
+            <div class="modal-body" id="contents">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
 </div>
 
 @include('common.tabletools')
 
-<script type="text/javascript">
-    $('body').on('click', '.editUser', function () {
+<script type="text/javascript">    
+    $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
-        $.get("{{ url("restaurant/users/edit") }}/" + id, {}, function (result) {
-            $('#editContents').html(result);
+        if(id == null || id == undefined || id == ""){
+            id = 0;
+            $('#editLabel').text('Create Address');
+        }
+        $('#editModel #ajaxloader').show();
+        $('#editModel #contents').html('');
+        $.get("{{ url('users/edit') }}/" + id, {}, function (result) {
+            $('#editModel #ajaxloader').hide();
+            try {
+                if (jQuery.parseJSON(result).type == "error") {
+                var json = jQuery.parseJSON(result);
+                        $('#editModel #message').show();
+                        $('#editModel #message p').html(json.message);
+                        $('#editModel #contents').html('');
+                }
+            } catch (e) {
+                $('#editModel #message').hide();
+                $('#editModel #contents').html(result);
+            }
         });
     });
 </script>

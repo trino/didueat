@@ -28,23 +28,23 @@ class UsersController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing data
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure('[Name] field is missing','restaurant/users', true);
+                return $this->failure('[Name] field is missing','users/list', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_missing_email.message'),'users/list', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
-                return $this->failure( trans('messages.user_email_already_exist.message'),'restaurant/users', true);
+                return $this->failure( trans('messages.user_email_already_exist.message'),'users/list', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
+                return $this->failure( trans('messages.user_pass_field_missing.message'),'users/list', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
             if ($post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
             }
 
             \DB::beginTransaction();
@@ -78,13 +78,13 @@ class UsersController extends Controller {
                     \DB::commit();
                 }
 
-                return $this->success('User has been added successfully. A confirmation email has been sent to the selected email address for verification.', 'restaurant/users', true);
+                return $this->success('User has been added successfully. A confirmation email has been sent to the selected email address for verification.', 'users/list', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                return $this->failure(trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+                return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure( $e->getMessage(), 'restaurant/users', true);
+                return $this->failure( $e->getMessage(), 'users/list', true);
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
@@ -154,26 +154,26 @@ class UsersController extends Controller {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing or duplicate data
             if (!isset($post['id']) || empty($post['id'])) {
-                return $this->failure('[ID] field is missing', 'restaurant/users', true);
+                return $this->failure('[ID] field is missing', 'users/list', true);
             }
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure('[Name] field is missing','restaurant/users', true);
+                return $this->failure('[Name] field is missing','users/list', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_missing_email.message'),'users/list', true);
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->where('id', '!=', $post['id'])->count();
             if ($is_email > 0) {
-                return $this->failure(trans('messages.user_email_already_exist.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_email_already_exist.message'),'users/list', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message'),'restaurant/users', true);
+                return $this->failure( trans('messages.user_pass_field_missing.message'),'users/list', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
-                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
             if ($post['password'] != $post['confirm_password']) {
-                return $this->failure(trans('messages.user_passwords_mismatched.message'),'restaurant/users', true);
+                return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
             }
             \DB::beginTransaction();
             try {//save user's browser/OS info
@@ -197,16 +197,16 @@ class UsersController extends Controller {
                     \DB::commit();
                 }
 
-                return $this->success( 'User has been updated successfully.', 'restaurant/users', true);
+                return $this->success( 'User has been updated successfully.', 'users/list', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                return $this->failure( trans('messages.user_email_already_exist.message'), 'restaurant/users', true);
+                return $this->failure( trans('messages.user_email_already_exist.message'), 'users/list', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure(handleexception($e),'restaurant/users', true);
+                return $this->failure(handleexception($e),'users/list', true);
             }
         } else {
-            return $this->failure( "Invalid parsed data!",'restaurant/users', true);
+            return $this->failure( "Invalid parsed data!",'users/list', true);
         }
     }
     
@@ -219,10 +219,10 @@ class UsersController extends Controller {
     public function usersAction($type = '', $id = 0) {
         //check for missing type/id
         if (!isset($type) || empty($type)) {
-            return $this->failure("[Type] is missing!", 'restaurant/users');
+            return $this->failure("[Type] is missing!", 'users/list');
         }
         if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Profile Id] is missing!", 'restaurant/users');
+            return $this->failure("[Profile Id] is missing!", 'users/list');
         }
         try {
             $ob = \App\Http\Models\Profiles::find($id);//search for user $id
@@ -241,12 +241,12 @@ class UsersController extends Controller {
                     login(read("oldid"));
                     break;
                 default:
-                    return $this->failure("'" . $type . "' is not handled", 'restaurant/users');
+                    return $this->failure("'" . $type . "' is not handled", 'users/list');
             }
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            return $this->success('Status has been changed successfully!', 'restaurant/users');
+            return $this->success('Status has been changed successfully!', 'users/list');
         } catch (\Exception $e) {
-            return $this->failure( $e->getMessage(), 'restaurant/users');
+            return $this->failure( $e->getMessage(), 'users/list');
         }
     }
     
