@@ -9,7 +9,7 @@
 
         <div class="col-lg-9">
 
-            <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
+            <?php printfile("views/dashboard/user/delete_addresses.blade.php"); ?>
 
             <div class="card">
                 <div class="card-header ">

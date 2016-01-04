@@ -34,8 +34,8 @@ if (Request::path() !== null && Request::path() != "/") {
         <meta property="og:type" content="website">
         <meta property="og:image" content="-CUSTOMER VALUE-">
         <meta property="og:url" content="{{ url('/') . $nextPath }}">
-        <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
-        <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
+        <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
+        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
         <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>

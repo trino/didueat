@@ -15,7 +15,7 @@
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
-        <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
+        <?php printfile("views/dashboard/notifications_address/index.blade.php"); ?>
 
         <div id="ajax_message_jgrowl"></div>
         
@@ -55,6 +55,7 @@
 
 <script type="text/javascript">
     function editnote(ID) {
+        return;
         var element = document.getElementById('note_' + ID);
         if (element.innerHTML.indexOf("<") == -1) {
             element.innerHTML = '<INPUT ID="text_note_' + ID + '" ONBLUR="editnote_event(' + ID + ');" ONKEYDOWN="editnote_keypress(' + ID + ');" TYPE="TEXTBOX" VALUE="' + element.getAttribute("value") + '">';

@@ -46,7 +46,7 @@
                 <?php } ?>
             @endif
             <LI class="nav-item">
-                <button class="btn btn-primary headerbutton" style="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
+                <button class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
                     <i class="fa fa-search"></i>
                 </button>
             </LI>

@@ -15,7 +15,7 @@
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
-        <?php printfile("views/dashboard/user/addresses.blade.php"); ?>
+        <?php printfile("views/dashboard/restaurant/index.blade.php"); ?>
         
         <div id="ajax_message_jgrowl"></div>
         

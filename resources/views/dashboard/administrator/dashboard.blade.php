@@ -14,6 +14,7 @@
             </div>
             <div class="card-block">
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
                     <div class="form-group row">
                         <label class="col-sm-3">Email</label>
@@ -25,21 +26,21 @@
                     <div class="form-group row">
                         <label class="col-sm-3">Name</label>
                         <div class="col-sm-9">
-                            <input type="text" name="name" class=" form-control  " id="name" placeholder="Full Name" value="{{ $user_detail->name }}">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ $user_detail->name }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Phone Number </label>
                         <div class="col-sm-9">
-                            <input type="text" name="phone" class=" form-control  " id="phone" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}">
+                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Mobile Number </label>
                         <div class="col-sm-9">
-                            <input type="text" name="mobile" class=" form-control  " id="mobile" placeholder="Mobile Number" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
+                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Mobile Number" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
                         </div>
                     </div>
 
@@ -55,7 +56,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3">Password</label>
                             <div class="col-sm-9">
-                                <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password">
+                                <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password" autocomplete="off">
                             </div>
                         </div>
                     @endif
@@ -63,16 +64,14 @@
                     <div class="form-group row">
                         <label class="col-sm-3">New Password</label>
                         <div class="col-sm-9">
-                            <input type="password" name="password" class="form-control" id="confirm_password"
-                                   placeholder="New Password">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="New Password" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Re-type Password</label>
                         <div class="col-sm-9">
-                            <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-                                   placeholder="Re-type Password">
+                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" autocomplete="off">
                         </div>
                     </div>
 
@@ -105,6 +104,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        setTimeout(function () {$(":password").val("");}, 500 );
+
         ajaxuploadbtn('uploadbtn');
 
         function ajaxuploadbtn(button_id) {
