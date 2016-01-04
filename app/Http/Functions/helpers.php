@@ -113,12 +113,12 @@ function includeJS($URL, $options = ""){
     }
 }
 
-function newrow($new = false, $name = false){
+function newrow($new = false, $name = false, $class = ""){
     $id=str_replace(" ", "_", strtolower($name)) . "_label";
     if($new){
-        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label" id="' . $id . '">' . $name. '</label>';
+        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label" id="' . $id . '">' . $name. '</label>';
     } else if($name) {
-        return '<div class="form-group row editaddress"><label class="col-sm-3" id="' . $id . '">' . $name . '</label><div class="col-sm-9">';
+        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3" id="' . $id . '">' . $name . '</label><div class="col-sm-9">';
     } else {
         return '</DIV></DIV>';
     }
