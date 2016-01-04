@@ -65,9 +65,9 @@
                    }
                    ?>"><i class="fa fa-angle-right"></i> My Menu </a>
 
-                <a href="{{ url('restaurant/addresses') }}"
+                <a href="{{ url('notification/addresses') }}"
                    class="list-group-item <?php
-                   if (Request::path() == 'restaurant/addresses') {
+                   if (Request::path() == 'notification/addresses') {
                        echo 'active';
                    }
                    ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a>

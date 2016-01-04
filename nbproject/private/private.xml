@@ -11,10 +11,12 @@
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
         </group>
         <group>
-            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/Controller.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/app/Http/Models/CreditCard.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/user_reviews/index.blade.php</file>
-            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/AdministratorController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/public/assets/global/scripts/provinces.js</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Controllers/HomeController.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/profiles_address/index.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/profiles_address/ajax/edit.blade.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/dashboard/profiles_address/ajax/list.blade.php</file>
         </group>
     </open-files>
 </project-private>

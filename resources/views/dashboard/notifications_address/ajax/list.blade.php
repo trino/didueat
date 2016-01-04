@@ -5,10 +5,7 @@
 <div class="card">
     <div class="card-header ">
         My Notifications Addresses
-        <a class="btn btn-primary   btn-sm" data-toggle="modal"
-           data-target="#addAddressModal">
-            Add
-        </a>
+        <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
     </div>
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
@@ -73,8 +70,8 @@
                     <td>{{ $value->type }}</td>
                     <td><INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck" <?php if ($value->enabled) { echo "CHECKED"; } ?> ONCLICK="add_enable({{ $value->id }});"></td>
                     <td>
-                        <a class="btn btn-info btn-sm editAddress" data-toggle="modal" data-target="#editAddressModal" data-id="{{ $value->id }}">Edit</a>
-                        <a href="{{ url('restaurant/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
+                        <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel" data-id="{{ $value->id }}">Edit</a>
+                        <a href="{{ url('notification/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
                     </td>
                     <td>
                         <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>

@@ -75,12 +75,14 @@ Route::group(['middleware' => ['logged']], function() {
 
 // Routes After Logged in and Role Restaurant Check
 Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
-    Route::resource('restaurant/addresses',                         'NotificationAddressesController@index');
-    Route::post('restaurant/addresses/ajax/list',                   'NotificationAddressesController@listingAjax');
-    Route::post('restaurant/addresses/sequence',                    'NotificationAddressesController@addressesSequence');
-    Route::get('restaurant/addresses/edit/{id}',                    'NotificationAddressesController@ajaxEditAddressForm');
-    Route::get('restaurant/addresses/delete/{id}',                  'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
-    Route::get('restaurant/addresses/default/{id}',                 'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
+    Route::get('notification/addresses',                              'NotificationAddressesController@index');
+    Route::post('notification/addresses',                             'NotificationAddressesController@index');
+    Route::post('notification/addresses/ajax/list',                   'NotificationAddressesController@listingAjax');
+    Route::post('notification/addresses/sequence',                    'NotificationAddressesController@addressesSequence');
+    Route::get('notification/addresses/edit/{id}',                    'NotificationAddressesController@ajaxEditAddressForm');
+    Route::get('notification/addresses/delete/{id}',                  'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
+    Route::get('notification/addresses/default/{id}',                 'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
+    
     Route::resource('restaurant/menus-manager',                     'RestaurantController@menuManager');
 });
 

@@ -51,9 +51,9 @@ class NotificationAddressesController extends Controller {
                     $in2->save();
                 }
 
-                return $this->success("Notification address saved successfully!", 'restaurant/addresses');
+                return $this->success("Notification address saved successfully!", 'notification/addresses');
             } catch (Exception $e) {
-                return $this->failure( $e->getMessage(), 'restaurant/addresses');
+                return $this->failure( $e->getMessage(), 'notification/addresses');
             }
         } else {
             $data['title'] = 'Notification Addresses List';
@@ -110,7 +110,7 @@ class NotificationAddressesController extends Controller {
      */
     public function ajaxEditAddressForm( $id=0 ) {
         $data['address_detail'] = \App\Http\Models\NotificationAddresses::find($id);
-        return view('ajax.editaddress', $data);
+        return view('dashboard.notifications_address.ajax.edit', $data);
     }
     
     /**
@@ -120,14 +120,14 @@ class NotificationAddressesController extends Controller {
      */
     public function deleteAddresses($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
+            return $this->failure("[Address Id] is missing!", 'notification/addresses');
         }
         try {
             $ob = \App\Http\Models\NotificationAddresses::find($id);
             $ob->delete();
-            return $this->success("Address has been deleted successfully!", 'restaurant/addresses');
+            return $this->success("Address has been deleted successfully!", 'notification/addresses');
         } catch (\Exception $e) {
-            return $this->failure( $e->getMessage(), 'restaurant/addresses');
+            return $this->failure( $e->getMessage(), 'notification/addresses');
         }
     }
 
@@ -138,7 +138,7 @@ class NotificationAddressesController extends Controller {
      */
     public function defaultAddresses($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {
-            return $this->failure("[Address Id] is missing!", 'restaurant/addresses');
+            return $this->failure("[Address Id] is missing!", 'notification/addresses');
         }
 
         try {
@@ -153,9 +153,9 @@ class NotificationAddressesController extends Controller {
                 $in2->save();
             }
 
-            return $this->success("Address has been default successfully!", 'restaurant/addresses');
+            return $this->success("Address has been default successfully!", 'notification/addresses');
         } catch (\Exception $e) {
-            return $this->failure(handleexception($e), 'restaurant/addresses');
+            return $this->failure(handleexception($e), 'notification/addresses');
         }
     }
 

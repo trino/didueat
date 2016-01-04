@@ -5,7 +5,7 @@
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;
-    window.pageUrlLoad = "{{ url('restaurant/addresses/ajax/list') }}";
+    window.pageUrlLoad = "{{ url('notification/addresses/ajax/list') }}";
 </script>
 <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script>
@@ -35,78 +35,26 @@
 </div>
 
 
-<div class="modal  fade clearfix" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
+       {!! Form::open(array('url' => '/notification/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
        <div class="modal-content">
            <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
-               <h4 class="modal-title" id="editAddressModalLabel">Add Addresss</h4>
+               <h4 class="modal-title" id="editModalLabel">Edit Addresss</h4>
            </div>
-           <div class="modal-body">
-
-               {!! Form::open(array('url' => '/restaurant/addresses', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-               <div class="modal-body">
-                   <div class="row">
-                       <div class="col-md-12">
-                           <div class="form-group">
-                               <label class="control-label col-md-3">Phone / Email</label>
-
-                               <div class="col-md-9">
-                                   <input type="text" name="address" class="form-control address" required>
-                               </div>
-                           </div>
-                           <div class="form-group">
-                               <label class="control-label col-md-3">&nbsp;</label>
-
-                               <div class="col-md-9 reach_type" style="display: none;">
-                                   <label><input type="checkbox" name="is_call" value="1" checked> Call</label>
-                                   &nbsp;
-                                   <label><input type="checkbox" name="is_sms" value="1" checked> SMS</label>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="clearfix"></div>
-               </div>
-               <div class="modal-footer">
-                   <input type="hidden" name="is_contact_type" class="is_contact_type" value=""/>
-                   <button type="submit" class="btn custom-default-btn saveNewBtn" disabled>Save changes</button>
-               </div>
-               {!! Form::close() !!}
-
+           <div id="ajaxloader"></div>
+           <div class="modal-body" id="contents">
+               
            </div>
            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
+               <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary saveNewBtn">Save changes</button>
            </div>
        </div>
-   </div>
-</div>
-
-
-<div class="modal  fade clearfix" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-       <div class="modal-content">
-           <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-               <h4 class="modal-title" id="editAddressModalLabel">Edit Addresss</h4>
-           </div>
-           <div class="modal-body">
-
-               {!! Form::open(array('url' => '/restaurant/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-               <div id="editContents"></div>
-               {!! Form::close() !!}
-
-           </div>
-           <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
-           </div>
-       </div>
+       {!! Form::close() !!}
    </div>
 </div>
 
@@ -172,18 +120,39 @@
             }
         });
     }
-
-    $('body').on('click', '.editAddress', function () {
+    
+    $('body').on('click', '.editRow, #addNew', function() {
         var id = $(this).attr('data-id');
-        $.get("{{ url("restaurant/addresses/edit") }}/" + id, {}, function (result) {
-            $('#editForm #editContents').html(result);
+        if(id == null || id == undefined || id == ""){
+            id = 0;
+            $('#editLabel').text('Create Address');
+        }
+        $('#editModel #ajaxloader').show();
+        $('#editModel #contents').html('');
+        $.get("{{ url('notification/addresses/edit') }}/" + id, {}, function (result) {
+            $('#editModel #ajaxloader').hide();
+            try {
+                if (jQuery.parseJSON(result).type == "error") {
+                var json = jQuery.parseJSON(result);
+                        $('#editModel #message').show();
+                        $('#editModel #message p').html(json.message);
+                        $('#editModel #contents').html('');
+                }
+            } catch (e) {
+                $('#editModel #message').hide();
+                $('#editModel #contents').html(result);
+            }
         });
     });
+    
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        return pattern.test(emailAddress);
+    };
 
     $('body').on('keyup', '.address', function () {
         var ep_emailval = $(this).val();
-        var intRegex = /[0-9 -()+]+$/;
-        if (intRegex.test(ep_emailval)) {
+        if (!isValidEmailAddress(ep_emailval)) {
             $('.reach_type').show();
             $('.is_contact_type').val(1);
         } else {
@@ -219,7 +188,7 @@
             return $(this).attr("data-order");
         }).get();
 
-        $.post("{{ url('restaurant/addresses/sequence') }}", {
+        $.post("{{ url('notification/addresses/sequence') }}", {
             id: data_id.join('|'),
             order: data_order.join('|'),
             _token: token
