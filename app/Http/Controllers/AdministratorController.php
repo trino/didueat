@@ -15,9 +15,6 @@ class AdministratorController extends Controller {
         $this->beforeFilter(function () {
             initialize("admin");
         });
-        if(\Session::has('message')){
-            \Session::forget('message');
-        }
     }
 
     /**

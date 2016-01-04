@@ -35,7 +35,7 @@
                    if (Request::path() == 'credit-cards/list/user') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a>
 
             </div>
         </div>
@@ -70,14 +70,14 @@
                    if (Request::path() == 'notification/addresses') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Notification Addresses</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Notifications</a>
 
                 <a href="{{ url('restaurant/info') }}"
                    class="list-group-item <?php
                    if (Request::path() == 'restaurant/info') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Restaurant Info</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Restaurant</a>
 
                 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
 
@@ -86,7 +86,7 @@
                    if (Request::path() == 'users/credit-cards/restaurant') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a>
 
                 @endif
             </div>
@@ -108,27 +108,27 @@
                    if (Request::path() == 'orders/list/admin') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Orders</a>
+                   ?>"><i class="fa fa-angle-right"></i> All Orders</a>
 
                 <a href="{{ url('users/list') }}"
                    class="list-group-item <?php
                    if (Request::path() == 'users/list') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Users</a>
+                   ?>"><i class="fa fa-angle-right"></i> All Users</a>
 
                 <a href="{{ url('restaurant/list') }}"
                    class="list-group-item <?php
                    if (Request::path() == 'restaurant/list') {
                        echo 'active';
-                   } ?>"><i class="fa fa-angle-right"></i> Restaurants</a>
+                   } ?>"><i class="fa fa-angle-right"></i> All Restaurants</a>
 
                 <a href="{{ url('subscribers/list') }}"
                    class="list-group-item <?php
                    if (Request::path() == 'subscribers/list') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Subscribers</a>
+                   ?>"><i class="fa fa-angle-right"></i> All Subscribers</a>
 
                 <a href="{{ url('eventlogs/list') }}"
                    class="list-group-item <?php
@@ -151,7 +151,7 @@
                    if (Request::path() == 'credit-cards/list/admin') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> Credit Cards</a>
+                   ?>"><i class="fa fa-angle-right"></i> All Credit Cards</a>
 
                 @endif
             </div>

@@ -3,8 +3,26 @@
 @endif
 
 <div class="card">
-    <div class="card-header ">Restaurants</div>
-    <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
+
+
+
+
+    <div class="card-header ">
+        <div class="row">
+            <div class="col-lg-6"><h6>
+
+                    Restaurants     <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>                </h6></div>
+
+            @include('common.table_controls')
+
+        </div>
+    </div>
+
+
+
+
+    <!--div class="card-header ">Restaurants</div>
+
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
         <tr>
@@ -17,15 +35,9 @@
                 </div>
             </td>
         </tr>
-    </table>
-    
-    <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries' value='{!! ($per_page)?$per_page:5; !!}' />
-    <input type='hidden' name='hiddenSearchResult' id='hiddenSearchResult' value='{!! ($searchResults)?$searchResults:""; !!}' />
-    <input type='hidden' name='hiddenShowMeta' id='hiddenShowMeta' value='{!! ($meta)?$meta:"id"; !!}' />
-    <input type='hidden' name='hiddenShowOrder' id='hiddenShowOrder' value='{!! ($order)?$order:"ASC"; !!}' />
-    <input type='hidden' name='hiddenPage' id='hiddenPage' value='{!! ($page)?$page:1; !!}' />
-    
-    <div id="ajaxBlock"></div>
+    </table-->
+
+
     
     <div class="card-block p-a-0">
         <table class="table table-responsive">
@@ -90,10 +102,11 @@
                 @endif
             </tbody>
         </table>
-        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="pagination-table">
-            <tr>
-                <td>{!! $Pagination; !!}</td>
-            </tr>
-        </table>
+
     </div>
+
+
+
+    <div class="card-footer clearfix">
+        {!! $Pagination; !!}    </div>
 </div>

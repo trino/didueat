@@ -2,6 +2,11 @@
 @section('content')
 
 
+    <!---- what page is this? -->
+
+
+@if(false)
+
                 <div class="row">
                     @include('layouts.includes.leftsidebar')
 
@@ -50,7 +55,7 @@
                                     @if($order->remarks != '')
                                         <div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong> {{ $order->remarks }}</div>
                                     @endif
-                                    
+
                                     @include('common.receipt')
                                     <div class="clearfix"></div>
                                 </div>
@@ -61,6 +66,15 @@
 
                 </div>
 
+
+
+                @endif
+
+
+
+
+
+
 @include('common.tabletools')
 
 @include('popups.approve_cancel')
@@ -68,7 +82,7 @@
 <script>
     $(function() {
         $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
-        
+
         $('.clearitems').click(function() {
             $('.orders').html('');
             $('.tax input').val('0');
@@ -90,7 +104,7 @@
             $('#cart-total').text('$' + grandtotal.toFixed(2));
         });
     });
-    
+
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;

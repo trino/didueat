@@ -8,8 +8,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler
-{
+class Handler extends ExceptionHandler {
     /**
      * A list of the exception types that should not be reported.
      *
@@ -28,8 +27,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $e
      * @return void
      */
-    public function report(Exception $e)
-    {
+    public function report(Exception $e) {
         return parent::report($e);
     }
 
@@ -41,16 +39,14 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e) {
-
         if($this->isHttpException($e)) {
             switch ($e->getStatusCode()) {
-                // not found
-                case 404:
-                    return $this->flash("Page not found");
+                case 404:// not found
+                    $Page = getProtectedValue($request, "pathInfo");
+                    return $this->flash("Page '" . right($Page, strlen($Page) -1) . "' not found");
                     break;
 
-                // internal error
-                case '500':
+                case '500':// internal error
                     return $this->flash("An error has occurred");
                     break;
             }
@@ -64,6 +60,7 @@ class Handler extends ExceptionHandler
     }
 
     function flash($message, $redirect = ''){
+        \Session::flash('messagetest', $message);
         \Session::flash('message', $message);
         \Session::flash('message-type',  'alert-danger');
         \Session::flash('message-short', 'Oops!');

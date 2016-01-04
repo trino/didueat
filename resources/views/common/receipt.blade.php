@@ -21,11 +21,9 @@
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                    <img style="width:100%;" class=" no-padding" alt=""
-                         src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
+                    <img style="width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
-                    <img style="width:100%;" class=" no-padding" alt=""
-                         src="{{ asset('assets/images/default.png') }}">
+                    <img style="width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/default.png') }}">
                 @endif
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
@@ -79,8 +77,7 @@
 
                         <div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                             <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
-                                <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                        src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
+                                <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
                                 </iframe>
                             </div>
 
@@ -200,12 +197,12 @@
                             <td><strong>Tax&nbsp;</strong></td>
                             <td nowrap>&nbsp;$ <SPAN
                                         class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</SPAN>
-                                &nbsp;(<SPAN id="tax inlineblock">13</SPAN>%)
+                                &nbsp;(<span id="tax inlineblock">13</span>%)
                                 <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax"
                                        class="tax"/>
                             </td>
                         </tr>
-                        <tr {{ (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"' }} id="df">
+                        <tr <?php if(isset($order) && $order->order_type == '1')echo 'style="display: table-column;"'; else echo 'style="display: none;"'; ?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
                             <td>&nbsp;$ <span
                                         class="df">{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>

@@ -11,9 +11,6 @@ class UsersController extends Controller {
      * @return redirect
      */
     public function __construct() {
-        if(\Session::has('message')){
-            \Session::forget('message');
-        }
         $this->beforeFilter(function () {
             $act = str_replace('user.', '', \Route::currentRouteName());
             $act = str_replace('.store', '', $act);

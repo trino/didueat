@@ -120,7 +120,9 @@ function changeqty(id, opr) {
             var qty = Number($(this).parent().find('.span_'+id).text());
             
             var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-            var tit = $(this).parent().parent().find('#extra_'+id).attr('title');
+            var chk = $(this).parent().parent().find('#extra_'+id);
+            chk.attr('checked','checked');
+            var tit = chk.attr('title');
             var title = tit.split("_");
             title[1]= title[1].replace(' x('+qty+")","");
             //alert(id+","+qty+","+price+","+tit);
@@ -149,9 +151,10 @@ function changeqty(id, opr) {
             var id = $(this).attr('id').replace('remspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
             var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-            var tit = $(this).parent().parent().find('#extra_'+id).attr('title');
+            var chk = $(this).parent().parent().find('#extra_'+id)
+            var tit = chk.attr('title');
             var title = tit.split("_");
-            if(qty !=1)
+            if(qty !=0)
             {
                 title[1]= title[1].replace('x('+qty+")","")
                 qty = Number(qty) -Number(1);
@@ -159,8 +162,10 @@ function changeqty(id, opr) {
             }
             if(qty ==0)
             {
+                chk.removeAttr('checked');
                 newtitle = title[1];
                 newprice = price;
+                
                 
             }
             else
