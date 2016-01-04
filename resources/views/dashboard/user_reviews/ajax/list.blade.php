@@ -1,24 +1,19 @@
 @if(\Session::has('message'))
-    {!! message_show("Message!", \Session::get('message')) !!}
+{!! message_show("Message!", \Session::get('message')) !!}
 @endif
 
 <div class="card">
-
-
-
+    
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6"><h6>
-
-                    Reviews                </h6></div>
-
+            <div class="col-lg-6">
+                <h6>
+                    Reviews                
+                </h6>
+            </div>
             @include('common.table_controls')
-
         </div>
     </div>
-
-
-
 
     <!--table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
         <tr>
@@ -32,10 +27,6 @@
             </td>
         </tr>
     </table-->
-
-
-
-    <div id="ajaxBlock"></div>
 
     <div class="card-block p-a-0">
         <table class="table table-responsive">
@@ -91,7 +82,7 @@
                     <td>{{ substr($rating->comments, 0, 100) }}</td>
                     <td>{{ $rating->created_at  }}</td>
                     <td>
-                        <a class="btn btn-info btn-sm editUser" data-toggle="modal" data-target="#editReviewModal"  data-id="{{ $rating->id }}">Edit</a>
+                        <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
                         <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
                     </td>
                 </tr>

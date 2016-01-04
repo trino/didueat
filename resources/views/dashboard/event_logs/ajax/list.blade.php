@@ -4,20 +4,14 @@
 
 <div class="card">
 
-
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6"><h6>
-
-                    Event Logs
-
-                </h6></div>
-
+            <div class="col-lg-6">
+                <h6>Event Logs</h6>
+            </div>
             @include('common.table_controls')
-
         </div>
     </div>
-
 
     <!--table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
         <tr>
@@ -32,31 +26,24 @@
         </tr>
     </table-->
 
-
     <div class="card-block p-a-0">
         <table class="table table-responsive">
             <thead>
             <tr>
                 <th>
-                    <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i
-                                class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
                     ID
-                    <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i
-                                class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="user_id" data-order="ASC" data-title="User" title="Sort [User] ASC"><i
-                                class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="user_id" data-order="ASC" data-title="User" title="Sort [User] ASC"><i class="fa fa-caret-down"></i></a>
                     User
-                    <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="User"
-                       title="Sort [User] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="User" title="Sort [User] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="created_at" data-order="ASC" data-title="Date"
-                       title="Sort [Date] ASC"><i class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="created_at" data-order="ASC" data-title="Date" title="Sort [Date] ASC"><i class="fa fa-caret-down"></i></a>
                     Date
-                    <a class="sortOrder" data-meta="created_at" data-order="DESC" data-title="Date"
-                       title="Sort [Date] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="created_at" data-order="DESC" data-title="Date" title="Sort [Date] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
                     Event
@@ -80,10 +67,9 @@
             @endif
             </tbody>
         </table>
-
     </div>
-
-
+    
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
+        {!! $Pagination; !!}    
+    </div>
 </div>

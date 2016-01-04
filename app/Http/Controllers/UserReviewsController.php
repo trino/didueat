@@ -102,9 +102,7 @@ class UserReviewsController extends Controller {
      */
     public function ajaxEditUserReviewForm($id = 0) {
         $data['user_review_detail'] = \App\Http\Models\RatingUsers::find($id);
-        
-        //echo '<pre>'; print_r($data['address_detail']); die;
-        return view('common.edituserreview', $data);
+        return view('dashboard.user_reviews.ajax.edit', $data);
     }
     
 
