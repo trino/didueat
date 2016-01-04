@@ -43,10 +43,11 @@ function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $la
         }
     } else {
         $start_loop = 1;
-        if ($no_of_paginations > 7)
+        if ($no_of_paginations > 7) {
             $end_loop = 7;
-        else
+        }else {
             $end_loop = $no_of_paginations;
+        }
     }
 
     $html .= '<div class="pull-right">';
@@ -112,11 +113,14 @@ function includeJS($URL, $options = ""){
     }
 }
 
-function newrow($new, $name){
+function newrow($new = false, $name = false){
+    $id=str_replace(" ", "_", strtolower($name)) . "_label";
     if($new){
-        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label">' . $name. '</label>';
+        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group"><label class="control-label" id="' . $id . '">' . $name. '</label>';
+    } else if($name) {
+        return '<div class="form-group row editaddress"><label class="col-sm-3" id="' . $id . '">' . $name . '</label><div class="col-sm-9">';
     } else {
-        return '<div class="form-group row editaddress"><label class="col-sm-3">' . $name . '</label><div class="col-sm-9">';
+        return '</DIV></DIV>';
     }
 }
 
