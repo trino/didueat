@@ -360,7 +360,7 @@
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-                    $('.allspan').html('&nbsp;&nbsp;1&nbsp;&nbsp;');
+                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
                 }
                 
                 ids = ids.replace("__", "_");
@@ -439,12 +439,15 @@
                 subtotal = subtotal.toFixed(2);
                 $('div.subtotal').text(subtotal);
                 $('input.subtotal').val(subtotal);
-
-                var tax = $('#tax').text();
+                subtotal = parseFloat(subtotal);
+                //var tax = $('#tax').text();
+                var tax = 13;
+                
                 tax = parseFloat(tax);
                 tax = (tax / 100) * subtotal;
+                
                 tax = tax.toFixed(2);
-                $('div.tax').text(tax);
+                $('span.tax').text(tax);
                 $('input.tax').val(tax);
 
                 if ($('#delivery_flag').val() == '1') {

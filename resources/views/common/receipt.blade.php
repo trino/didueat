@@ -200,12 +200,12 @@
                             <td><strong>Tax&nbsp;</strong></td>
                             <td nowrap>&nbsp;$ <SPAN
                                         class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</SPAN>
-                                &nbsp;(<SPAN id="tax inlineblock">13</SPAN>%)
+                                &nbsp;(<span id="tax inlineblock">13</span>%)
                                 <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax"
                                        class="tax"/>
                             </td>
                         </tr>
-                        <tr {{ (isset($order) && $order->order_type == '1') ? 'style="display: table-column;"' : 'style="display: none;"' }} id="df">
+                        <tr <?php if(isset($order) && $order->order_type == '1')echo 'style="display: table-column;"'; else echo 'style="display: none;"'; ?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
                             <td>&nbsp;$ <span
                                         class="df">{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>

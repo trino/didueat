@@ -251,13 +251,13 @@
                                                                                 <a id="buttons_{{ $mm->id }}"
                                                                                    class="buttons"
                                                                                    href="javascript:void(0);">
-                                                                                    <button class="btn btn-primary"></button>
+                                                                                    <!--button class="btn btn-primary"></button-->
                                                                                     <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                            id="extra_{{ $mm->id }}"
                                                                                            title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
                                                                                            class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
                                                                                            name="extra_{{ $sub->id }}"
-                                                                                           value="post"/>
+                                                                                           value="post" <?php if($sub->sing_mul=='0')echo "style='display:none'";?>/>
                                                                                    
                                                                                     &nbsp;&nbsp; {{ $mm->menu_item }}
                                                                                     &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
@@ -267,7 +267,7 @@
                                                                                        class="remspan"
                                                                                        href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
                                                                                     <span id="sprice_{{$mm->price}}"
-                                                                                          class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
+                                                                                          class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;0&nbsp;&nbsp;</span>
                                                                                     <a id="addspan_{{ $mm->id }}"
                                                                                        class="addspan"
                                                                                        href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
