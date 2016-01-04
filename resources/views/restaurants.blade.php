@@ -162,11 +162,14 @@
             if (getCookie('cname')) {
                 $('#search-form #name').val(getCookie('cname'));
             }
+            if (getCookie('address')) {
+                $('#formatted_address2').val(getCookie('address'));
+            }
             if (getCookie('latitude')) {
-                $('#search-form #latitude').val(getCookie('latitude'));
+                $('#latitude').val(getCookie('latitude'));
             }
             if (getCookie('longitude')) {
-                $('#search-form #longitude').val(getCookie('longitude'));
+                $('#longitude').val(getCookie('longitude'));
             }
             if (getCookie('delivery_type')) {
                 $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
@@ -246,6 +249,12 @@
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val();
             var longitude = $('#longitude').val();
+            var address_alias = $('#formatted_address2').val();
+
+            createCookieValue('longitude', longitude);
+            createCookieValue('latitude', latitude);
+            createCookieValue('address', address_alias);
+
             if (latitude.trim() == "" || longitude.trim() == "") {
                 alert('Please enter an address to proceed.');
                 e.preventDefault();
@@ -253,7 +262,7 @@
             }
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $(this).serialize() + "&latitude=" + latitude + "&longitude=" + longitude;
+            var data = $(this).serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
             $('#search-form #clearSearch').show();
             $('#restuarant_bar').html('');
