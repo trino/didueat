@@ -5,11 +5,6 @@
     <?php printfile("views/auth/login.blade.php"); ?>
     <div class="row"> 
         <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
-            @if(\Session::has('message'))
-                <div class="alert {!! Session::get('message-type') !!}">
-                    <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-                </div>
-            @endif
             <!-- BEGIN SAMPLE FORM PORTLET-->
             <div class="box-shadow clearfix">
                 <div class="portlet-title">

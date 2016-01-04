@@ -17,15 +17,6 @@
                 </div>
 
                 <div class="card-block">
-
-                    @if(\Session::has('message'))
-                        <div class="alert {!! Session::get('message-type') !!}">
-                            {!! Session::get('message-short') !!}
-                            &nbsp; {!! Session::get('message') !!}
-                        </div>
-                    @endif
-
-
                     @if(Session::get('session_profiletype') == 1)
                         @if(strtolower($order->status) == 'pending')
                             <a href="#cancel-popup-dialog" class="btn yellow pull-right fancybox-fast-view cancel-popup"

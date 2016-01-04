@@ -128,13 +128,6 @@
         </div>
 
         <div class="col-lg-8 ">
-            @if(\Session::has('message'))
-                <div class="alert {!! Session::get('message-type') !!}">
-                    <strong>{!! Session::get('message-short') !!}</strong>
-                    &nbsp; {!! Session::get('message') !!}
-                </div>
-            @endif
-
             <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

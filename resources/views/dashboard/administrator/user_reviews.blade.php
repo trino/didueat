@@ -9,21 +9,9 @@
 
         <div class="col-lg-9">
             <?php printfile("views/dashboard/administrator/user_reviews.blade.php"); ?>
-            @if(\Session::has('message'))
-                <div class="alert {!! Session::get('message-type') !!}">
-                    <strong>{!! Session::get('message-short') !!}</strong>
-                    &nbsp; {!! Session::get('message') !!}
-                </div>
-            @endif
-
-
                 <div class="card">
                     <div class="card-header bg-primary">
-
-
                         Reviews
-
-
                     </div>
                     <div class="card-block p-a-0">
                 <table class="table table-striped table-responsive" id="sample_1">

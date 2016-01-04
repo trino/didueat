@@ -3,15 +3,9 @@
 @endif
 
 <div class="card">
-
-
-
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6"><h6>
-
-                    Reviews                </h6></div>
-
+            <div class="col-lg-6"><h6>Reviews</h6></div>
             @include('common.table_controls')
 
         </div>
