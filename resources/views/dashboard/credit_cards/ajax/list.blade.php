@@ -57,36 +57,36 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
         <table class="table table-responsive">
             <thead>
             <tr>
-                <th width="15%">
+                <th>
                     <a class="sortOrder" data-meta="first_name" data-order="ASC" data-title="Name"
                        title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                     Name
                     <a class="sortOrder" data-meta="first_name" data-order="DESC" data-title="Name"
                        title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="10%">
+                <th>
                     <a class="sortOrder" data-meta="card_type" data-order="ASC" data-title="Card Type"
                        title="Sort [Card Type] ASC"><i class="fa fa-caret-down"></i></a>
                     Card Type
                     <a class="sortOrder" data-meta="card_type" data-order="DESC" data-title="Card Type"
                        title="Sort [Card Type] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="13%">
+                <th>
                     <a class="sortOrder" data-meta="card_number" data-order="ASC" data-title="Card Number"
                        title="Sort [Card Number] ASC"><i class="fa fa-caret-down"></i></a>
                     Card Number
                     <a class="sortOrder" data-meta="card_number" data-order="DESC" data-title="Card Number"
                        title="Sort [Card Number] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="10%">
+                <th>
                     <a class="sortOrder" data-meta="expiry_date" data-order="ASC" data-title="Expiry Date"
                        title="Sort [Expiry Date] ASC"><i class="fa fa-caret-down"></i></a>
                     Expiry Date
                     <a class="sortOrder" data-meta="expiry_date" data-order="DESC" data-title="Expiry Date"
                        title="Sort [Expiry Date] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="14%">Actions</th>
-                <th width="14%">Order</th>
+                <th>Actions</th>
+                <th>Order</th>
             </tr>
             </thead>
             <tbody>

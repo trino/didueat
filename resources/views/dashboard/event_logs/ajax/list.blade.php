@@ -33,33 +33,32 @@
     </table-->
 
 
-
     <div class="card-block p-a-0">
         <table class="table table-responsive">
             <thead>
             <tr>
-                <th width="20%">
+                <th>
                     <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i
                                 class="fa fa-caret-down"></i></a>
                     ID
                     <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i
                                 class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="25%">
+                <th>
                     <a class="sortOrder" data-meta="user_id" data-order="ASC" data-title="User" title="Sort [User] ASC"><i
                                 class="fa fa-caret-down"></i></a>
                     User
                     <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="User"
                        title="Sort [User] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="20%">
+                <th>
                     <a class="sortOrder" data-meta="created_at" data-order="ASC" data-title="Date"
                        title="Sort [Date] ASC"><i class="fa fa-caret-down"></i></a>
                     Date
                     <a class="sortOrder" data-meta="created_at" data-order="DESC" data-title="Date"
                        title="Sort [Date] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="20%">
+                <th>
                     Event
                 </th>
             </tr>

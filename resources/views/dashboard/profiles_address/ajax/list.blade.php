@@ -35,29 +35,29 @@
                     <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="Name"
                        title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                 </th-->
-                <th width="15%">
+                <th  class="">
                     <a class="sortOrder" data-meta="location" data-order="ASC" data-title="Location"
                        title="Sort [Location] ASC"><i class="fa fa-caret-down"></i></a>
                     Location
                     <a class="sortOrder" data-meta="location" data-order="DESC" data-title="Location"
                        title="Sort [Location] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="15%">
+                <th   class="">
                     <a class="sortOrder" data-meta="phone_no" data-order="ASC" data-title="Phone"
                        title="Sort [Phone] ASC"><i class="fa fa-caret-down"></i></a>
                     Phone
                     <a class="sortOrder" data-meta="phone_no" data-order="DESC" data-title="Phone"
                        title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="20%">
+                <th class="">
                     <a class="sortOrder" data-meta="address" data-order="ASC" data-title="Address"
                        title="Sort [Address] ASC"><i class="fa fa-caret-down"></i></a>
                     Address
                     <a class="sortOrder" data-meta="address" data-order="DESC" data-title="Address"
                        title="Sort [Address] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th width="20%">Action</th>
-                <th width="10%">Order</th>
+                <th   class="">Action</th>
+                <th   class="">Order</th>
             </tr>
             </thead>
             <tbody>
