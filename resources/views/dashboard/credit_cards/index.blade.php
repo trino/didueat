@@ -53,33 +53,6 @@
 </div>
 
 
-<!--<div id="addNewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-    <div class="modal-dialog2">
-        <div class="fancy-modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add New</h4>
-            </div>
-            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-            <?php printfile("line 159"); ?>
-            @include('common.edit_credit_card')
-            {!! Form::close() !!}
-        </div>
-    </div>
-</div>
-
-<div id="NewCreditCard" class="col-md-12 col-sm-12 col-xs-12 popup-dialog" style="display: none;">
-    <div class="modal-dialog2">
-        <div class="fancy-modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Update Card</h4>
-            </div>
-            {!! Form::open(array('url' => '/users/credit-cards/'.$type, 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-            <div id="editContents"></div>
-            {!! Form::close() !!}
-        </div>
-    </div>
-</div>-->
-
 @include('common.tabletools')
 
 <script type="text/javascript">
