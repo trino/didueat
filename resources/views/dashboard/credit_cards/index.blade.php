@@ -17,14 +17,6 @@
 
     <div class="col-lg-9">
         <?php printfile("views/dashboard/credit_cards/index.blade.php"); ?>
-        
-        @if(\Session::has('message'))
-            <div class="alert {!! Session::get('message-type') !!}">
-                <strong>{!! Session::get('message-short') !!}</strong>
-                &nbsp; {!! Session::get('message') !!}
-            </div>
-        @endif
-        
         <div id="ajax_message_jgrowl"></div>
         
         <!-- Panels Start -->

@@ -1,3 +1,5 @@
+{{ printfile("views/dashboard/event_logs/ajax/list.blade.php") }}
+
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
 @endif

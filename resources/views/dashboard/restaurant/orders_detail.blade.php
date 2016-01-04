@@ -12,13 +12,6 @@
 
                     <div class="col-lg-9">
                         <?php printfile("views/dashboard/restaurant/orders_detail.blade.php"); ?>
-                        @if(\Session::has('message'))
-                        <div class="alert {!! Session::get('message-type') !!}">
-                            <strong>{!! Session::get('message-short') !!}</strong>
-                            &nbsp; {!! Session::get('message') !!}
-                        </div>
-                        @endif
-
                         <div class="deleteme orders_details">
                             <div class="btn_wrapper margin-bottom-20 clearfix">
                                 <input type="button" style="margin: 0;" value="Print Report" onclick="printDiv('toPrintDetail')" class="btn red pull-right" />

@@ -7,15 +7,6 @@
         <?php printfile("views/dashboard/restaurant/orders_pending.blade.php"); ?>
 
         <div class="col-lg-9">
-
-            @if(\Session::has('message'))
-                <div class="alert {!! Session::get('message-type') !!}">
-                    <strong>{!! Session::get('message-short') !!}</strong>
-                    &nbsp; {!! Session::get('message') !!}
-                </div>
-            @endif
-
-
             <div class="card">
                 <div class="card-header">
                     My Orders ({{ ($type) }}) <a class="btn btn-primary btn-sm" href="{{ url('restaurant/report') }}"

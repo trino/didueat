@@ -14,16 +14,6 @@
         <div class="col-lg-9">
             <?php printfile("views/dashboard/restaurant/addrestaurant.blade.php"); ?>
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    @if(\Session::has('message'))
-                        <div class="alert {!! Session::get('message-type') !!}">
-                            <strong>{!! Session::get('message-short') !!}</strong>
-                            &nbsp; {!! Session::get('message') !!}
-                        </div>
-                    @endif
-                </div>
-
-
                 {!! Form::open(array('url' => 'restaurant/add/new', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
 

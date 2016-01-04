@@ -30,14 +30,6 @@
                         </div>
                         <div class="portlet-body form">
                             <div class="form-body">
-
-                                @if(\Session::has('message'))
-                                    <div class="alert {!! Session::get('message-type') !!}">
-                                        <strong>{!! Session::get('message-short') !!}</strong>
-                                        &nbsp; {!! Session::get('message') !!}
-                                    </div>
-                                @endif
-
                                 <div class="dashboard">
                                     <div class="menu-manager">
                                         <div class="addnew" style="display: none;"></div>

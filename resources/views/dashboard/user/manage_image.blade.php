@@ -28,12 +28,6 @@
 
                 <div class="clearfix"></div>
 
-                @if(\Session::has('message'))
-                    <div class="alert {!! Session::get('message-type') !!}">
-                        <strong>{!! Session::get('message-short') !!}</strong> &nbsp; {!! Session::get('message') !!}
-                    </div>
-                @endif
-
                 <div class="box-shadow">
                     <div class="portlet-title">
                         <div class="caption">
