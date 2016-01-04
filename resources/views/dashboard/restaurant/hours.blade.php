@@ -71,6 +71,16 @@
 
 
 <script>
+    function is_delivery_change(){
+        if ($('#is_delivery').is(':checked')) {
+            $('#is_delivery_options').show();
+            $('.is_delivery_options').show();
+        } else {
+            $('#is_delivery_options').hide();
+            $('.is_delivery_options').hide();
+        }
+    }
+
     function closed(event, ID){
         closed_element(event, ID, "open");
         closed_element(event, ID, "close");

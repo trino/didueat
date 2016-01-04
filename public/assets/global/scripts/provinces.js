@@ -16,11 +16,6 @@ function provinces(webroot, value) {
             return false;
         }
     }
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        }
-    });
     $.ajax({
         url: webroot,
         type: "post",
@@ -42,13 +37,6 @@ function cities(webroot, value) {
             return false;
         }
     }
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name=_token]').attr('content')
-        }
-    });
-
     $.ajax({
         url: webroot,
         type: "post",
@@ -154,6 +142,9 @@ function fillInAddress() {
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
+
+        alert(addressType +  " is not on record, is: ");
+
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
             if(addressType == "country"){
@@ -225,11 +216,36 @@ function geolocate(formatted_address) {
                 dataType: "HTML",
                 data: 'sensor=false&latlng=' + position.coords.latitude + ',' + position.coords.longitude,
                 success: function(msg) {
-                    var data = JSON.parse(msg);
-                    data = data.results[0].formatted_address;
-                    $(".formatted_address").val(data);
+                    var data = JSON.parse(msg).results[0];
+                    var street_number = 0;
+                    $(".formatted_address").val(data.formatted_address);
                     $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
                     $(".formatted_address").trigger("change");
+
+                    for(i = 0; i < data.address_components.length; i++){
+                        var withdata = data.address_components[i];
+                        var value = withdata.long_name;//also accepts short_name
+                        switch (withdata.types[0]){
+                            case "street_number":
+                                street_number = value;
+                                break;
+                            case "route":
+                                $("#rout_street_number").val(street_number + " " + value);
+                                break;
+                            case "postal_code":
+                                $("#postal_code").val(value);
+                                break;
+                            case "country":
+                                $("#country option").filter(function() {return this.text == value;}).attr('selected', true);
+                                break;
+                            case "locality":
+                                $("#city").val(value);
+                                break;
+                            case "administrative_area_level_1":
+                                $("#province").val(value);
+                                break;
+                        }
+                    }
                 }
             });
 
