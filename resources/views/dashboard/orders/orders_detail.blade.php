@@ -5,7 +5,7 @@
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/restaurant/orders_detail.blade.php"); ?>
+            <?php printfile("views/dashboard/orders/orders_detail.blade.php"); ?>
 
 
             <div class="card" id="toPrintDetail">
@@ -19,10 +19,13 @@
                 <div class="card-block">
                     @if(Session::get('session_profiletype') == 1)
                         @if(strtolower($order->status) == 'pending')
-                            <a href="#cancel-popup-dialog" class="btn yellow pull-right fancybox-fast-view cancel-popup"
+                            <a href="#cancel-popup-dialog"
+                               class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal" data-target="#orderCancelModal"
+                               oldclass="btn yellow pull-right fancybox-fast-view cancel-popup"
                                id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
                             <a href="#approve-popup-dialog"
-                               class="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup"
+                               class="btn btn-success btn-sm orderApproveModal" data-toggle="modal" data-target="#orderApproveModal"
+                               oldclass="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup"
                                data-id="{{ $order->id }}">Approve</a>
                         @else
                             {{strtolower($order->status)}}

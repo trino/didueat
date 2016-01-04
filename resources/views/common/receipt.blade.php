@@ -1,6 +1,6 @@
 @if(!isset($order))
     <div class="top-cart-info">
-        <?php printfile("views/common/receipt.blade.php"); ?>
+        <?php printfile("views/common/receipt.blade.php (top-cart-info)"); ?>
         <div class="col-md-6 col-sm-6 col-xs-12">
             <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
         </div>
@@ -17,13 +17,13 @@
 
 
 <div id="cartsz">
-    <?php printfile("views/common/receipt.blade.php"); ?>
+    <?php printfile("views/common/receipt.blade.php (cartsz)"); ?>
     <div class="row  resturant-logo-desc">
         <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                    <img style="width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
+                    <img style="width:100%; max-width: 200px;" class=" no-padding" alt="" src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
                 @else
-                    <img style="width:100%;" class=" no-padding" alt="" src="{{ asset('assets/images/default.png') }}">
+                    <img style="width:100%; max-width: 200px;" class=" no-padding" alt="" src="{{ asset('assets/images/default.png') }}">
                 @endif
 
             <div class="col-md-12 col-sm-12 col-xs-12 receipt_description_style">
@@ -72,7 +72,7 @@
                     <div class="modal-body">
 
 
-                        <?php printfile("views/common/receipt.blade.php"); ?>
+                        <?php printfile("views/common/receipt.blade.php (viewMapModel)"); ?>
                         <h3>Location On Map: </h3>
 
                         <div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
@@ -117,7 +117,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <?php printfile("views/common/receipt.blade.php"); ?>
+                        <?php printfile("views/common/receipt.blade.php (viewDetailModel)"); ?>
                         <h3>Description: </h3>
 
                         <p>{!! (isset($restaurant->name))?$restaurant->description:'' !!}</p>
@@ -171,15 +171,12 @@
                             <tr>
                                 <td>
                                     <label class="radio-inline">
-                                        <input type="radio" id="pickup1" name="delevery_type" class="deliverychecked"
-                                               checked='checked'
-                                               onclick="delivery('hide'); $(this).addClass('deliverychecked');"> Pickup
+                                        <input type="radio" id="pickup1" name="delevery_type" class="deliverychecked" checked='checked' onclick="delivery('hide'); $(this).addClass('deliverychecked');"> Pickup
                                     </label>
                                 </td>
                                 <td>
                                     <label class="radio-inline">
-                                        <input type="radio" id="delivery1" name="delevery_type"
-                                               onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">
+                                        <input type="radio" id="delivery1" name="delevery_type" onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">
                                         Delivery
                                     </label>
                                 </td>
@@ -187,25 +184,22 @@
                         @endif
                         <tr>
                             <td><strong>Subtotal&nbsp;</strong></td>
-                            <td>&nbsp;$
-                                <div class="subtotal inlineblock">{{ (isset($order)) ? $order->subtotal : '0' }}</div>
-                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
-                                       value="{{ (isset($order)) ? $order->subtotal : '0' }}"/>
+                            <td>
+                                <div class="subtotal inlineblock">&nbsp;${{ (isset($order)) ? $order->subtotal : '0' }}</div>
+                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="{{ (isset($order)) ? $order->subtotal : '0' }}"/>
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
-                            <td nowrap>&nbsp;$ <SPAN
-                                        class="tax inlineblock">{{ (isset($order)) ? $order->tax : '0' }}</SPAN>
+                            <td nowrap>
+                                <SPAN class="tax inlineblock">&nbsp;${{ (isset($order)) ? $order->tax : '0' }}</SPAN>
                                 &nbsp;(<span id="tax inlineblock">13</span>%)
-                                <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax"
-                                       class="tax"/>
+                                <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax" class="tax"/>
                             </td>
                         </tr>
                         <tr <?php if(isset($order) && $order->order_type == '1')echo 'style="display: table-column;"'; else echo 'style="display: none;"'; ?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
-                            <td>&nbsp;$ <span
-                                        class="df">{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
+                            <td><span class="df">&nbsp;$ {{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
                                 <input type="hidden"
                                        value="{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}"
                                        class="df" name="delivery_fee"/>
@@ -214,8 +208,8 @@
                         </tr>
                         <tr>
                             <td><strong>Total</strong>&nbsp;</td>
-                            <td>&nbsp;$
-                                <div class="grandtotal inlineblock">{{ (isset($order)) ? $order->g_total : '0' }}</div>
+                            <td>
+                                <div class="grandtotal inlineblock">&nbsp;${{ (isset($order)) ? $order->g_total : '0' }}</div>
                                 <input type="hidden" name="g_total" class="grandtotal"
                                        value="{{ (isset($order)) ? $order->g_total : '0' }}"/>
                                 <input type="hidden" name="res_id"
