@@ -1,6 +1,6 @@
 <?php
     echo printfile("views/dashboard/orders/ajax/list.blade.php");
-    $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 604800, 
+    $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 604800,
 ?>
 
 @if(\Session::has('message'))
