@@ -1,6 +1,6 @@
 <?php
     if(isset($GLOBALS["editaddress"])){
-        echo "editaddress.blade was included twice!";
+        echo "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
         die();
     }
     printfile("views/common/editaddress.blade.php");
