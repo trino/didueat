@@ -104,7 +104,7 @@ function initAutocomplete(){
 }
 
 function isvalid(variable, element){
-    if( !isundefined(variable) ){
+    if( !isundefined(variable) && $("#" + element).is(':visible') ){
         var element = document.getElementById(element);
         if( element && element.value ){
             return true;

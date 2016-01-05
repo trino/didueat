@@ -111,6 +111,7 @@ class ProfileAddressesController extends Controller {
         try {
             //load a specific address id
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            $data["apartment"] = true;
             ob_start();
             return view('common.editaddress', $data);
             ob_get_contents();//code will never run

@@ -38,6 +38,9 @@
             <div class="modal-body" id="contents">
 
             </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn custom-default-btn">Save changes</button>
+            </div>
         </div>
     </div>
 </div>
