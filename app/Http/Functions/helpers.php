@@ -1231,6 +1231,8 @@ function debugmode(){
 function printfile($File, $Ret = false){//cannot user __FILE__ due to caching
     if(debugmode()){
         $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
+        //if(isset($GLOBALS["currentfile"])){$Return .= " From: " . $GLOBALS["currentfile"];}//doesn't work as it expects a flat layout, not hierarchical
+        $GLOBALS["currentfile"] = $File;
         if($Ret){return $Return;}
         echo $Return;
     }
