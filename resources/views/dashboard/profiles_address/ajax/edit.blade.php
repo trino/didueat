@@ -5,19 +5,18 @@
 </div>
 
 {!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-
 <div class="form-group row">
     <label class=" col-sm-3">Location Name</label>
     <div class="col-sm-9">
         <input type="text" name="location" class="form-control" placeholder="Location Name" value="{{ (isset($addresse_detail->location))? $addresse_detail->location : old('location') }}">
     </div>
 </div>
-<!--<div class="form-group row">
+<div class="form-group row">
     <label class=" col-sm-3">Format Address</label>
     <div class="col-sm-9">
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ (isset($addresse_detail->formatted_address))? $addresse_detail->formatted_address : old('formatted_address') }}" onFocus="geolocate()" autocomplete="off">
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ (isset($addresse_detail->formatted_address))? $addresse_detail->formatted_address : old('formatted_address') }}" onkeyup="geolocate()">
     </div>
-</div>-->
+</div>
 <div class="form-group row">
     <label class=" col-sm-3">Street Address</label>
     <div class="col-sm-9">
@@ -88,9 +87,118 @@
 <button type="submit" class="btn btn-primary pull-right">Submit</button>
 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
 
-<input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}"/>
+<input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}" />
+<input type="hidden" name="latitude" id="latitude" value=""/>
+<input type="hidden" name="longitude" id="longitude" value=""/>
 {!! Form::close() !!}
 <div class="clearfix"></div>
 
-<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-<!--<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>-->
+<script type="text/javascript">
+// This example displays an address form, using the formatted_address feature
+// of the Google Places API to help users fill in the information.
+
+var placeSearch, formatted_address;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+  // Create the formatted_address object, restricting the search to geographical
+  // location types.
+  formatted_address = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('formatted_address')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  formatted_address.addListener('place_changed', fillInAddress);
+}
+
+// [START region_fillform]
+function fillInAddress() {
+    // Get the place details from the formatted_address object.
+    var place = formatted_address.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    $('#latitude').val(lat);
+    $('#longitude').val(lng);
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+    $('#city').val('');
+    $('#rout_street_number').val('');
+    $('#postal_code').val('');
+    //provinces('{{ addslashes(url("ajax")) }}', '');
+
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+
+        //alert(addressType +  " is not on record, is: ");
+
+        if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            if(addressType == "country"){
+                $("#country  option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
+            }
+            if(addressType == "administrative_area_level_1"){
+                $("#province option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
+            }
+            if(addressType == "locality"){
+                $('#city').val(val);
+            }
+            if(addressType == "postal_code"){
+                $('#postal_code').val(val);
+            }
+            if(addressType == "street_number"){
+                $('#rout_street_number').val(val);
+            }
+            if(addressType == "route"){
+                if($('#rout_street_number').val() != ""){
+                    $('#rout_street_number').val($('#rout_street_number').val()+", "+val);
+                } else {
+                    $('#rout_street_number').val(val);
+                }
+            }
+        }
+    }
+    return place;
+}
+// [END region_fillform]
+
+// [START region_geolocation]
+// Bias the formatted_address object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      formatted_address.setBounds(circle.getBounds());
+    });
+  }
+}
+// [END region_geolocation]
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+
+<!--<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>-->

@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-<meta name="_token" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;
@@ -22,8 +21,6 @@
         <div id="loadPageData">
             <div id="ajaxloader"></div>
         </div>
-        
-        
     </div>
 </div>
 
@@ -44,8 +41,6 @@
         </div>
     </div>
 </div>
-
-@include('common.tabletools')
 
 <script type="text/javascript">
     $('body').on('click', '.editRow, #addNew', function () {
@@ -102,4 +97,5 @@
         });
     });
 </script>
+
 @stop
