@@ -234,7 +234,7 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
-                                                //window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+                                                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
                                             }
                                         }
                                     });
@@ -244,7 +244,7 @@ $('.savebtn').live('click', function () {
                     });
                 });
             } else {
-                //window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
             }
         }
     });
