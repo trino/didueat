@@ -75,16 +75,12 @@ echo newrow($new, "Allow delivery"); ?>
 <?php echo newrow(); ?>
 
 <script>
-
-
     $(document).ready(function () {
+        is_delivery_change();
         $('body').on('change', '#is_delivery', function () {
-            if ($(this).is(':checked')) {
-                $('#is_delivery_options').show();
-            } else {
-                $('#is_delivery_options').hide();
-            }
+            is_delivery_change();
         });
+
 
         $('#demo4').tagEditor({
 //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}

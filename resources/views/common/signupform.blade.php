@@ -1,4 +1,5 @@
 <?php printfile("views/common/signupform.blade.php"); ?>
+@if(!read("id"))
 <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
 <div class="form-group row">
@@ -53,3 +54,4 @@
         Sign up for our Newsletter
     </div>
 </div>
+@endif

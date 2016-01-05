@@ -1,5 +1,10 @@
 <?php
+    if(isset($GLOBALS["editaddress"])){
+        echo "editaddress.blade was included twice!";
+        die();
+    }
     printfile("views/common/editaddress.blade.php");
+    $GLOBALS["editaddress"] = true;
     //$countries_list = \App\Http\Models\Countries::get();//load all countries
     if(!isset($new)){$new=false;}
     if(!isset($addresse_detail) && isset($address_detail)){$addresse_detail = $address_detail;}
@@ -9,8 +14,10 @@
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" onFocus="geolocate(formatted_address)" autocomplete="off">
-        <!--INPUT TYPE="button" onclick="getplace('formatted_address');" value="AUTOCOMPLETE"-->
+        <DIV CLASS="nowrap">
+        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" autocomplete="off" style="width:89%;">
+        <input type="button" class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" >
+        </DIV>
     </div>
 </div>
 
@@ -36,18 +43,20 @@
                 <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
         </select>
+    <!--input type="text" id="country" name="country" class="form-control" {{$required}} value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}"-->
     </div>
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <select name="province" id="province" class="form-control" id="province2" {{$required}} onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
+        <!--select name="province" id="province" class="form-control" id="province2" {{$required}} onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
             <option value="">-Select One-</option>
-        </select>
+        </select-->
+        <input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}">
     </div>
 </div>
 
 <?= newrow($new, "City"); ?>
-        <input type="text" id="city" name="city" class="form-control" id="city2" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
+        <input type="text" id="city" name="city" class="form-control" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
     </div>
 </div>
 
@@ -71,7 +80,7 @@
 <?php } else {
     echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
     if(!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")){
-        echo '<script>initAutocomplete();</script>';
+        //echo '<script>initAutocomplete();</script>';
     }
 ?>
     <SCRIPT>

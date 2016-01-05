@@ -164,6 +164,7 @@
             }
             if (getCookie('address')) {
                 $('#formatted_address2').val(getCookie('address'));
+                $("#header-search-button").show();
             }
             if (getCookie('latitude')) {
                 $('#latitude').val(getCookie('latitude'));

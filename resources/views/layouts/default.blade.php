@@ -34,8 +34,8 @@ if (Request::path() !== null && Request::path() != "/") {
         <meta property="og:type" content="website">
         <meta property="og:image" content="-CUSTOMER VALUE-">
         <meta property="og:url" content="{{ url('/') . $nextPath }}">
-        <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
-        <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
+        <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
+        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
         <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
         <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
@@ -44,7 +44,7 @@ if (Request::path() !== null && Request::path() != "/") {
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
+            @if(true)
         <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
@@ -68,13 +68,19 @@ if (Request::path() !== null && Request::path() != "/") {
         <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
-
+@endif
 
     </head>
     <body>
+
+
+    @if(true)
         @include('popups.login')
         @include('popups.signup')
         @include('popups.forgotpassword')
+
+    @endif
+
         @include('layouts.includes.header')
 
             <div class="container m-t-3">

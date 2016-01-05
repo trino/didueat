@@ -14,7 +14,7 @@ class NotificationAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type', 'order');
+        $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type', 'order', 'note');
         foreach ($cells as $cell) {
             if (array_key_exists($cell, $data)) {
                 $this->$cell = $data[$cell];
