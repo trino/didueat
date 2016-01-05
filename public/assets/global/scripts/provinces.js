@@ -121,6 +121,7 @@ function getplace(){
 }
 
 function fillInAddress() {
+    // Get the place details from the formatted_address object.
     var place = getplace().getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
@@ -137,8 +138,8 @@ function fillInAddress() {
     $('#city').val('');
     $('#rout_street_number').val('');
     $('#postal_code').val('');
-    provinces('{{ addslashes(url("ajax")) }}', '');
-    //$("#province option").attr("selected", false);
+    $("#province").val('');
+    //provinces('{{ addslashes(url("ajax")) }}', '');
 
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
@@ -150,9 +151,10 @@ function fillInAddress() {
                 }).attr('selected', true);
             }
             if(addressType == "administrative_area_level_1"){
-                $("#province option").filter(function() {
-                    return this.text == val;
-                }).attr('selected', true);
+                $('#province').val(val);
+//                $("#province option").filter(function() {
+//                    return this.text == val;
+//                }).attr('selected', true);
             }
             if(addressType == "locality"){
                 $('#city').val(val);

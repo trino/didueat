@@ -112,7 +112,7 @@ class ProfileAddressesController extends Controller {
             //load a specific address id
             $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             ob_start();
-            return view('dashboard.profiles_address.ajax.edit', $data);
+            return view('common.editaddress', $data);
             ob_get_contents();//code will never run
             ob_get_flush();
         } catch(\Exception $e) {
