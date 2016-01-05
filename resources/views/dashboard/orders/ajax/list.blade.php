@@ -19,13 +19,10 @@
             @include('common.table_controls')
 
 
-
         </div>
 
 
     </div>
-
-
 
 
     <div class="card-block p-a-0">
@@ -33,24 +30,32 @@
             <thead>
             <tr>
                 <th>
-                    <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
+                                class="fa fa-caret-down"></i></a>
                     Order Id
-                    <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
+                                class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By" title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
+                       title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a>
                     By
-                    <a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By" title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
+                       title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time" title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
+                       title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a>
                     On
-                    <a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time" title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
+                       title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status" title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a>
+                    <a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
+                       title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a>
                     Status
-                    <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status" title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
+                       title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th width="36%">
                     Actions
