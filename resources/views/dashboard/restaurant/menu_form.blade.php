@@ -48,7 +48,7 @@
                     @endforeach
                     
                 </select><br />
-                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
+                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
                 
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
