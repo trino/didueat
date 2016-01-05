@@ -151,10 +151,4 @@ initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags
             $(this).val(tm);
         });
     });
-
-    var p = document.getElementById("max_delivery_distance");
-    p.addEventListener("input", function() {
-        $("#max_delivery_distance").trigger("change");
-    }, false);
-    $("#max_delivery_distance").trigger("change");
 </script>

@@ -17,30 +17,27 @@
 
                 <?php  echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true)); ?>
 
-                <DIV>
-                    <div class="form-actions">
-                        <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
-                    </div>
-                </div>
-
-
                 <div class="col-md-6">
                     <i class="fa fa-long-arrow-right"></i> ADDRESS
                     @include("common.editaddress", array("new" => true))
                 </div>
 
-
                 <div class="col-md-12 ">
                     <i class="fa fa-long-arrow-right"></i> HOURS
-                    @include("dashboard.restaurant.hours", array("new" => true))
+                    @include("dashboard.restaurant.hours", array("new" => true, "layout" => true))
                 </div>
 
+                <DIV>
+                    <div class="form-actions">
+                        <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                    </div>
+                </div>
                 {!! Form::close() !!}
             </div>
 
         </div>
     </div>
-    
+
     <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>

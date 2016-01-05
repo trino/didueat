@@ -70,9 +70,9 @@ echo newrow($new, "Allow delivery"); ?>
         }
     }
     if($layout){
-        echo '<div class="row is_delivery_options"><div class="caption"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
+        echo '<div class="row is_delivery_options"><div class="caption is_delivery_options"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
     } else {
-        echo '</DIV></DIV><div class="form-group row"><label class="col-sm-3">Delivery times</label><div class="col-sm-9">';
+        echo '</DIV></DIV><div class="form-group row is_delivery_options"><label class="col-sm-3 ">Delivery times</label><div class="col-sm-9">';
     }
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
@@ -105,6 +105,7 @@ echo newrow($new, "Allow delivery"); ?>
 
 
 <script>
+    is_delivery_change();
     function is_delivery_change(){
         if ($('#is_delivery').is(':checked')) {
             $('#is_delivery_options').show();
@@ -144,4 +145,10 @@ echo newrow($new, "Allow delivery"); ?>
             }
         }
     }
+
+    var p = document.getElementById("max_delivery_distance");
+    p.addEventListener("input", function() {
+        $("#max_delivery_distance").trigger("change");
+    }, false);
+    $("#max_delivery_distance").trigger("change");
 </script>
