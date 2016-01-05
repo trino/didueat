@@ -1,4 +1,4 @@
-<?php printfile("views/dashboard/layouts/includes/header.blade.php"); $first = false; ?>
+<?php printfile("views/dashboard/layouts/includes/header.blade.php"); $first = false; $type = "hidden"; ?>
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top primary_red" role="navigation">
     <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
@@ -19,6 +19,7 @@
             <li class="nav-item">
                 <input type="text" name="formatted_address" id="formatted_address2" class="form-control formatted_address" placeholder="Address, City or Postal Code"
                        onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
+                <INPUT TYPE="{{ $type }}" name="latitude" id="latitude"><INPUT TYPE="{{ $type }}" name="longitude" id="longitude">
             </li>
             @if(read("id"))
                 <?php

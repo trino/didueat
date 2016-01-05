@@ -121,7 +121,7 @@
 
                 <div class="card-footer  text-xs-right">
                     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link" value="Clear Search"/>
-                    <input type="submit" name="search" class="btn btn-primary" value="Refine Search" id="search-form-submit"/>
+                    <input type="button" name="search" class="btn btn-primary" value="Refine Search" id="search-form-submit" onclick="submitform(event, 0);"/>
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -246,51 +246,56 @@
             }
         });
 
-        $('body').on('submit', '#search-form', function (e) {
+        function submitform(e, start){
             var formatted_address = $(elementname).val();
-            var latitude = $('#latitude').val();
-            var longitude = $('#longitude').val();
+            var latitude = $('#latitude').val().trim();
+            var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
 
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
 
-            if (latitude.trim() == "" || longitude.trim() == "") {
+            if (latitude == "" || longitude == "") {
                 alert('Please enter an address to proceed.');
                 e.preventDefault();
                 return false;
             }
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $(this).serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
+            var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
-            $('#search-form #clearSearch').show();
-            $('#restuarant_bar').html('');
-            $('.parentLoadingbar').show();
-            $('#start_up_message').remove();
-            $.post("{{ url('/search/restaurants/ajax') }}", {_token: token, data}, function (result) {
-                $('.parentLoadingbar').hide();
-                $('#restuarant_bar').html(result);
-                if (result.trim() != "") {
-                    $('#countRows').text($('#countTotalResult').val());
-                } else {
-                    $('#countRows').text(0);
-                }
-            });
-            e.preventDefault();
+            if(start == 0){
+                $('#search-form #clearSearch').show();
+                $('#restuarant_bar').html('');
+                $('.parentLoadingbar').show();
+                $('#start_up_message').remove();
+                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
+                    $('.parentLoadingbar').hide();
+                    $('#restuarant_bar').html(result);
+                    if (result.trim() != "") {
+                        $('#countRows').text($('#countTotalResult').val());
+                    } else {
+                        $('#countRows').text(0);
+                    }
+                });
+            } else {
+                $('.loadingbar').show();
+                $('#loadingbutton').hide();
+                $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data}, function (result) {
+                    $('#restuarant_bar').append(result);
+                    $('#loadMoreBtnContainer').remove();
+                });
+            }
+        }
+
+        $('body').on('submit', '#search-form', function (e) {
+           //doesn't work, tries to submit the form after the pos request
         });
 
-        $('body').on('click', '.loadMoreRestaurants', function () {
+        $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
-            var token = $('#search-form input[name=_token]').val();
-            var data = $('#search-form').serialize();
-            $('.loadingbar').show();
-            $('#loadingbutton').hide();
-            $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data}, function (result) {
-                $('#restuarant_bar').append(result);
-                $('#loadMoreBtnContainer').remove();
-            });
+            submitform(e, start);
         });
 
         var p = document.getElementById("radius");
