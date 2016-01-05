@@ -34,7 +34,7 @@
                     $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png';
                     $distance = 0;
                     if(isset($latitude)){
-                        $distance = measuredistance($latitude, $longitude, $value['lat'], $value['lng']);
+                        //$distance = measuredistance($latitude, $longitude, $value['lat'], $value['lng']);//done in the SQL
                     }
                     if($distance <= $radius){
                 ?>
@@ -65,7 +65,7 @@
                             ?>
                         </span>
 
-                        @if(isset($latitude))
+                        @if(isset($latitude) && $distance)
                             <span class="label label-info">Distance:
                                 {{ round($distance,2) }} km
                             </span>

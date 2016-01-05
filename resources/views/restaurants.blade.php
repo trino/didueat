@@ -40,7 +40,7 @@
 
                     <?php printfile("views/restaurants.blade.php"); ?>
 
-                    {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form')) !!}
+                    {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                     <div class="sort search-form clearfix">
                         <div class="form-group">
                             <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
@@ -156,6 +156,14 @@
     <script type="text/javascript">
         var elementname = '#formatted_address2';
         onloadpage();
+
+        function keypress(event){
+            if ( event.keyCode == 13 ) {
+                submitform(event, 0);
+                return false;
+            }
+        }
+
         function onloadpage() {
             if (getCookie('cname')) {
                 $('#search-form #name').val(getCookie('cname'));
@@ -253,12 +261,6 @@
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
-
-            if (latitude == "" || longitude == "") {
-                alert('Please enter an address to proceed.');
-                e.preventDefault();
-                return false;
-            }
 
             var token = $('#search-form input[name=_token]').val();
             var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;

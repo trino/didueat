@@ -60,65 +60,39 @@ class Restaurants extends BaseModel {
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
         $query = "";
         $limit = "";
-        if (isset($data['radius']) && $data['radius'] != "") {
-            $order = " ORDER BY distance";
-            $limit = " LIMIT $start, $per_page";
-            $where = "WHERE open = '1' AND status = '1'";
-            if (isset($data['minimum']) && $data['minimum'] != "") {
-                $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
-            }
-            if (isset($data['cuisine']) && $data['cuisine'] != "") {
-                $where .= " AND cuisine = '".$data['cuisine']."'";
-            }
-            if (isset($data['rating']) && $data['rating'] != "") {
-                $where .= " AND rating = '".$data['rating']."'";
-            }
-            if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
-                $where .= " AND ".$data['delivery_type']." = '1'";
-            }
-            if (isset($data['name']) && $data['name'] != "") {
-                $where .= " AND name LIKE '%".Encode($data['name'])."%'";
-            }
-            if (isset($data['tags']) && $data['tags'] != "") {
-                $where .= " AND tags LIKE '%".$data['tags']."%'";
-            }
-            if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
-                $order = " ORDER BY ".$data['SortOrder'];
-            }
-            
-            $query = \DB::select("SELECT *, ( 6371 * acos( cos( radians('".$data['latitude']."') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('".$data['longitude']."') ) + sin( radians('".$data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where HAVING distance < '".$data['radius']."' ".$order.$limit);
-            $query = json_decode(json_encode($query),true);
-        } else {
-            $order = " ORDER BY id";
-            $limit = " LIMIT $start, $per_page";
-            $where = "WHERE open = '1' AND status = '1'";
-            if (isset($data['minimum']) && $data['minimum'] != "") {
-                $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
-            }
-            if (isset($data['cuisine']) && $data['cuisine'] != "") {
-                $where .= " AND cuisine = '".$data['cuisine']."'";
-            }
-            if (isset($data['rating']) && $data['rating'] != "") {
-                $where .= " AND rating >= '".$data['rating']."'";
-            }
-            if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
-                $where .= " AND ".$data['delivery_type']." = '1'";
-            }
-            if (isset($data['name']) && $data['name'] != "") {
-                $where .= " AND name LIKE '%".Encode($data['name'])."%'";
-            }
-            if (isset($data['tags']) && $data['tags'] != "") {
-                $where .= " AND tags LIKE '%".$data['tags']."%'";
-            }
-            if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
-                $order = " ORDER BY ".$data['SortOrder'];
-            }
-            $SQL = "SELECT * FROM restaurants ".$where.$order.$limit;
-            if($ReturnSQL){return $SQL;}
-            $query = \DB::select($SQL);
-            $query = json_decode(json_encode($query),true);
+        $order = " ORDER BY distance";
+        $limit = " LIMIT $start, $per_page";
+        $where = "WHERE open = '1' AND status = '1'";
+        if (isset($data['minimum']) && $data['minimum'] != "") {
+            $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
-        return $query;
+        if (isset($data['cuisine']) && $data['cuisine'] != "") {
+            $where .= " AND cuisine = '".$data['cuisine']."'";
+        }
+        if (isset($data['rating']) && $data['rating'] != "") {
+            $where .= " AND rating = '".$data['rating']."'";
+        }
+        if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
+            $where .= " AND ".$data['delivery_type']." = '1'";
+        }
+        if (isset($data['name']) && $data['name'] != "") {
+            $where .= " AND name LIKE '%".Encode($data['name'])."%'";
+        }
+        if (isset($data['tags']) && $data['tags'] != "") {
+            $where .= " AND tags LIKE '%".$data['tags']."%'";
+        }
+        if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
+            $order = " ORDER BY ".$data['SortOrder'];
+        }
+
+        if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
+            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' " . $order . $limit;
+        } else {
+            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where . $order . $limit;
+        }
+        if($ReturnSQL){return $SQL;}
+        $query = \DB::select($SQL);
+        return json_decode(json_encode($query),true);
     }
 
 

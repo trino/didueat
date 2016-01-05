@@ -45,20 +45,9 @@
                 </div>
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
 
-
-
-
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#viewMapModel" >
                     Maps
                 </button>
-
-
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#viewDetailModel" >
-                    Details
-                </button>
-
-
-
             </div>
 
             <div class="clearfix"></div>
@@ -96,34 +85,8 @@
                                 }</style>
                         </div>
 
-                        <script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358"
-                                defer="defer" async="async"></script>
+                        <script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358" defer="defer" async="async"></script>
 
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="modal  fade clearfix" id="viewDetailModel" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="viewDetailModel">Add Addresss</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <?php printfile("views/common/receipt.blade.php (viewDetailModel)"); ?>
                         <h3>Description: </h3>
 
                         <p>{!! (isset($restaurant->name))?$restaurant->description:'' !!}</p>
