@@ -47,16 +47,16 @@ class AuthController extends Controller {
                             return redirect()->intended('dashboard');
                         }
                     } else {
-                        return $this->failure2($AsJSON, trans('user_login_invalid.user_inactive.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , 'auth/login');
                     }
                 } else {
-                    return $this->failure2($AsJSON, trans('user_login_invalid.user_not_registered.message') , 'auth/login');
+                    return $this->failure2($AsJSON, trans('messages.user_not_registered.message') , 'auth/login');
                 }
             } catch (Exception $e) {
                 return $this->failure2($AsJSON, handleexception($e), 'auth/login');
             }
         } else {
-            return $this->failure2($AsJSON, trans('user_login_invalid.user_missing_email.message') , 'auth/login');
+            return $this->failure2($AsJSON, trans('messages.user_missing_email.message') , 'auth/login');
         }
     }
 
@@ -80,7 +80,11 @@ class AuthController extends Controller {
 
     function failure2($AsJSON, $message, $redir = 'auth/register'){
         if ($AsJSON){
-            echo json_encode(array('type' => 'error', 'message' => $message));
+            if($redir='auth/login'){
+                echo $message;
+            } else {
+                echo json_encode(array('type' => 'error', 'message' => $message));
+            }
             die;
         }
         return $this->failure($message, $redir, true);

@@ -2,7 +2,6 @@
 //Access this message in global scope like this below.
 //echo trans('messages.logout.code');
 return [
-
     "user_logout" => array('message' => "You are logout successfully!"),
     "user_session_exp" => array('message' => "Session expired please relogin!"),
     "user_login" => array('message' => "Login successfully."),
