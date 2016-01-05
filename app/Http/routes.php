@@ -45,11 +45,13 @@ Route::group(['middleware' => ['logged']], function() {
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
     Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
-    Route::get('orders/order_detail/{id}',                          'OrdersController@order_detail')->where('id', '[0-9]+');
+    Route::get('orders/order_detail/{id}/{type}',                   'OrdersController@order_detail')->where('id', '[0-9]+');
     Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
+
     Route::post('orders/list/cancel/{type}',                        'OrdersController@changeOrderCancel');
     Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
     Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
+
     Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
     Route::get('report',                                            'OrdersController@report');
     

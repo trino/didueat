@@ -72,7 +72,7 @@
                         <td>{{ $value->status }}</td>
                         <td>
                             @if(Session::get('session_profiletype') >= 1)
-                                <a href="{{ url('orders/order_detail/'.$value->id) }}" class="btn btn-primary  btn-sm">View</a>
+                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">View</a>
                             @endif
 
                             @if(Session::get('session_profiletype') == 1)
@@ -87,7 +87,7 @@
                 @endforeach
             @else
                 <tr>
-                    <th scope="row" colspan="5" class="text-center">No record founds!</th>
+                    <th scope="row" colspan="5" class="text-center">No records found!</th>
                 </tr>
             @endif
             </tbody>
@@ -98,7 +98,7 @@
 
 
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
+        {!! $Pagination !!}    </div>
 
 
 </div>
