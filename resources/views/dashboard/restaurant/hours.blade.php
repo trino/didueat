@@ -11,6 +11,40 @@
         echo '<STYLE> .time{ padding-left: 8px; padding-right: 6px; }</STYLE>';
     }
 
+echo newrow($new, "Allow pickup"); ?>
+<LABEL>
+    <input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (old('is_pickup') || (isset($restaurant->is_pickup) && $restaurant->is_pickup > 0))?'checked':'' }} />
+    I Offer Pickup
+</LABEL>
+<?php echo newrow();
+
+echo newrow($new, "Allow delivery"); ?>
+<LABEL>
+    <input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />
+    I Offer Delivery
+</LABEL>
+<?php echo newrow(); ?>
+
+<div id="is_delivery_options" style="display: {{ (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0)?'block':'none' }};">
+    <?php echo newrow($new, "Delivery Fee"); ?>
+    <input type="number" min="0" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
+    <?php echo newrow();
+
+    echo newrow($new, "Min. Subtotal Before Delivery"); ?>
+    <input type="number" min="0" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
+    <?php echo newrow();
+
+    $value = (isset($restaurant->max_delivery_distance))?$restaurant->max_delivery_distance: old("max_delivery_distance");
+    echo newrow($new, "Max Delivery Distance"); ?>
+    <input name="max_delivery_distance" id="max_delivery_distance" type="range" min="1" max="20" class="form-control" value="{{ $value }}" onchange="$('#max_delivery_distance_label').html('Max Delivery Distance (' + p.value + ' km)');">
+
+    <!--select name="max_delivery_distance" id="max_delivery_distance" class="form-control">
+        <option value="10">Between 1 and 10 km</option>
+    </select-->
+    <?php echo newrow(); ?>
+</div>
+
+<?php
     foreach ($day_of_week as $key => $value) {
         if(strpos($value, ">") !== false){
             echo $value;
