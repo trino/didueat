@@ -111,6 +111,9 @@ abstract class Controller extends BaseController {
     //sanitize time data
     public function cleanTime($time) {
         if (strpos($time, ":") === false) {
+            if(!is_numeric($time)){
+                return "12:00:00";
+            }
             return gmdate("H:i:s", $time);
         }
         if (!$time) {

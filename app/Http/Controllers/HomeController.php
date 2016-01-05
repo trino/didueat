@@ -256,6 +256,8 @@ class HomeController extends Controller {
     public function signupRestaurants() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
+            //var_dump($post);die();
+
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
@@ -318,8 +320,13 @@ class HomeController extends Controller {
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
-                $update['lat'] = $post['lat'];
-                $update['lng'] = $post['lng'];
+                if(isset($post['latitude'])) {
+                    $update['lat'] = $post['latitude'];
+                    $update['lng'] = $post['longitude'];
+                } else {
+                    $update['lat'] = $post['lat'];
+                    $update['lng'] = $post['lng'];
+                }
                 $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 1;
                 $update['status'] = 1;
@@ -619,7 +626,7 @@ class HomeController extends Controller {
                     return \Response::json(array('type' => 'error', 'response' => "You already rated on this!"), 200);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
             }
         } else {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);

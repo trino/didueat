@@ -57,6 +57,7 @@ echo newrow($new, "Allow delivery"); ?>
                 $close_del[$key] = $day->close_del;
                 $ID[$key] = $day->id;
                 echo '<input type="hidden" name="idd[' . $key . ']" value="' . $day->id . '"/>';
+                echo '<input type="hidden" name="day_of_week[' . $key . ']" value="' . $value . '"/>';
             } else {
                 $open[$key] = "12:00:00";
                 $close[$key] = $open[$key];
