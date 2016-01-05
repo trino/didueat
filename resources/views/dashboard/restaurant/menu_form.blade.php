@@ -69,13 +69,13 @@
                 }
                 ?>
                 <input type="checkbox" class="days_discount_all"/> Select All<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Sunday',$days)){?>checked="checked"<?php }?> value="Sunday"/> Sunday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Monday',$days)){?>checked="checked"<?php }?> value="Monday"/> Monday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Tuesday',$days)){?>checked="checked"<?php }?> value="Tuesday"/> Tuesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Wednesday',$days)){?>checked="checked"<?php }?> value="Wednesday"/> Wednesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Thursday',$days)){?>checked="checked"<?php }?> value="Thursday"/> Thursday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Friday',$days)){?>checked="checked"<?php }?> value="Friday"/> Friday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Saturday',$days)){?>checked="checked"<?php }?> value="Saturday"/> Saturday<br /><br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Sun',$days)){?>checked="checked"<?php }?> value="Sun"/> Sunday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Mon',$days)){?>checked="checked"<?php }?> value="Mon"/> Monday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Tue',$days)){?>checked="checked"<?php }?> value="Tue"/> Tuesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Wed',$days)){?>checked="checked"<?php }?> value="Wed"/> Wednesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Thu',$days)){?>checked="checked"<?php }?> value="Thu"/> Thursday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Fri',$days)){?>checked="checked"<?php }?> value="Fri"/> Friday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Sat',$days)){?>checked="checked"<?php }?> value="Sat"/> Saturday<br /><br />
                 
                 </div>
                 <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
