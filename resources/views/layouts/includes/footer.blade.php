@@ -426,7 +426,7 @@
                                     $('#ordered_code').val(arr.post_code);
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
-                                    $('.reservation_signin').hide();
+                                    //$('.reservation_signin').hide();
                                     $('.fancybox-close').click();
                                     //only loads header
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');

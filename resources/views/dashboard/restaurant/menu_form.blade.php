@@ -1,23 +1,10 @@
 @if(!$menu_id)
-    <style> .resturant-arrows {
+    <style>
+        .resturant-arrows {
             display: none;
-        } </style>
+        }
+    </style>
 @endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="newmenu ignore" id="newmenu0">
     <?php printfile("views/dashboard/restaurant/menu_form.blade.php"); ?>
     <p>&nbsp;</p>
@@ -26,11 +13,10 @@
         <div class="col-sm-2 col-xs-12 nopadd ignore">
             <div class="menuimg ignore menuimg{{ $menu_id }}_1"
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
-                @if(isset($model) && $model->image)
-                    <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}"
-                         class="ignore" style="max-width:100%;"/>
+                 @if(isset($model) && $model->image)
+                    <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}" class="ignore" style="max-width:100%;"/>
                     <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
-                @endif
+                 @endif
             </div>
             <br class="ignore"/>
             <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
@@ -40,61 +26,60 @@
             @if(count($category))
                 <select class="cat_id form-control">
                     <option value="">Choose Category</option>
-                    
-                    
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
                                 @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
                     @endforeach
-                    
                 </select><br />
-                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
-                
+
+                <LABEL>
+                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
+                </LABEL>
+                &nbsp;&nbsp;&nbsp;
+                <LABEL>
+                    <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong>
+                    <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
+                </LABEL>
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
                 <select class="disc_per">
-                <option>Choose Discount Percentage: </option> 
-                <?php for($i=0;$i<101;$i=$i+5){ ?>
-                        <option value="{{ $i }}"
-                                <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
-                  <?php }?>
+                    <option>Choose Discount Percentage: </option>
+                    <?php for($i=0;$i<101;$i=$i+5){ ?>
+                            <option value="{{ $i }}"
+                                    <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
+                    <?php }?>
                 </select>
                 <br />
                 <strong>Discount Applied for:</strong><br />
+                <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
                 <?php
-                $days = array();
-                if(isset($model->days_discount) && $model->days_discount)
-                {
-                    $days = explode(',',$model->days_discount);
-                }
+                    $days = array();
+                    if(isset($model->days_discount) && $model->days_discount) {
+                        $days = explode(',',$model->days_discount);
+                    }
+                    $weekdays = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+                    foreach($weekdays as $weekday){
+                        $shortday = left($weekday, 3);
+                        echo '<LABEL><input type="checkbox" class="days_discount" ';
+                        if(in_array($shortday,$days)){echo 'checked="checked"';}
+                        echo 'value="' . $shortday . '"/> ' . $weekday . '</LABEL><br />';
+                    }
                 ?>
-                <input type="checkbox" class="days_discount_all"/> Select All<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Sun',$days)){?>checked="checked"<?php }?> value="Sun"/> Sunday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Mon',$days)){?>checked="checked"<?php }?> value="Mon"/> Monday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Tue',$days)){?>checked="checked"<?php }?> value="Tue"/> Tuesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Wed',$days)){?>checked="checked"<?php }?> value="Wed"/> Wednesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Thu',$days)){?>checked="checked"<?php }?> value="Thu"/> Thursday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Fri',$days)){?>checked="checked"<?php }?> value="Fri"/> Friday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Sat',$days)){?>checked="checked"<?php }?> value="Sat"/> Saturday<br /><br />
-                
+                <br />
                 </div>
                 <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
                 <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>-->
                 <div class="catblock" style="display: none;">
                     <input type="text" class="form-control cat_title" placeholder="Add new category"/>
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
-
                     <div class="clearfix"></div>
                 </div>
             @else
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
-            <input class="form-control newtitle ignore" type="text" placeholder="Title"
-                   value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/><br class="ignore"/>
-            <input class="form-control newprice pricechk ignore" type="text" placeholder="$"
-                   value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/>
-            <textarea class="form-control newdesc ignore"
-                      placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
+            <input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/><br class="ignore"/>
+            <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/>
+            <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
             <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
         </div>
         <div class="clearfix ignore"></div>
@@ -105,10 +90,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12 ignore">
                 @if(!isset($ccount) || (isset($ccount) && $ccount == 0))
                     <div class="newaction ignore">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-info add_additional ignore blue"
-                           id="add_additional{{ $menu_id }}">Add Addons</a>
-                        <a href="javascript:void(0)" id="save{{ $menu_id }}" data-id="{{ $menu_id }}"
-                           class="btn btn-sm btn-info blue savebtn ignore">Save</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-info add_additional ignore blue" id="add_additional{{ $menu_id }}">Add Addons</a>
+                        <a href="javascript:void(0)" id="save{{ $menu_id }}" data-id="{{ $menu_id }}" class="btn btn-sm btn-info blue savebtn ignore">Save</a>
                     </div>
                 @endif
             </div>
@@ -207,10 +190,9 @@
             var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
             if ($(this).attr('id') == 'child_up_' + pid) {
                 var sort = 'up';
-            }
-            else
+            } else {
                 var sort = 'down';
-
+            }
             var order = '';// array to hold the id of all the child li of the selected parent
             $('#subcat{{ $menu_id }} .menuwrapper').each(function (index) {
                 var val = $(this).attr('id').replace('sub', '');

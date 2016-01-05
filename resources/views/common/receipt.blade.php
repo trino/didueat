@@ -46,7 +46,7 @@
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
 
                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#viewMapModel" >
-                    Maps
+                    Maps & Details
                 </button>
             </div>
 
@@ -179,10 +179,8 @@
                             <td><strong>Total</strong>&nbsp;</td>
                             <td>
                                 <div class="grandtotal inlineblock">&nbsp;${{ (isset($order)) ? $order->g_total : '0' }}</div>
-                                <input type="hidden" name="g_total" class="grandtotal"
-                                       value="{{ (isset($order)) ? $order->g_total : '0' }}"/>
-                                <input type="hidden" name="res_id"
-                                       value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
+                                <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? $order->g_total : '0' }}"/>
+                                <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                             </td>
                         </tr>
                         </tbody>
@@ -208,19 +206,17 @@
                     $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                     ?>
                 @else
-                    <div class="form-group reservation_signin">
+                    <div class="form-group ">
                         <div class="col-xs-12">
-                            <a href="#login-pop-up" class="btn btn-danger fancybox-fast-view"
-                               onclick="$('#login_type').val('reservation')">Sign In</a>
-                            <span>(Provide Password to Create a Profile.)</span>
+                            <a class="btn btn-danger fancybox-fast-view" data-target="#loginModal" data-toggle="modal">Log in</a>
+                            <span>(Provide a Password to Create a Profile.)</span>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 @endif
                 <form name="checkout_form" id="profiles" novalidate>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    <input type="hidden" name="user_id" id="ordered_user_id"
-                           value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
+                    <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
 
                     <div class="form-group">
                         <div class="col-xs-12 margin-bottom-10">

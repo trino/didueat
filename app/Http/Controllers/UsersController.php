@@ -351,7 +351,7 @@ class UsersController extends Controller {
                 $data['subscribed'] = 0;
                 $data['restaurant_id'] = 0;
 
-                //if the user is not logged in, make a new user
+                //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
                     $data['password'] = encryptpassword($post['password']);
                     if (\App\Http\Models\Profiles::where('email', $data['email'])->first()) {
