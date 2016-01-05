@@ -458,7 +458,7 @@ class HomeController extends Controller {
     function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
 

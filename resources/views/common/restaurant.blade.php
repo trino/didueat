@@ -68,7 +68,7 @@
         </div>
         <div class="portlet-body form">
             <div class="form-body">
-                @include("dashboard.restaurant.hours", array("layout" => true))
+                @include("dashboard.restaurant.hours", array("layout" => true, "new" => true))
             </div>
         </div>
     </div>

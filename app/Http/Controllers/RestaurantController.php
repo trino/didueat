@@ -450,6 +450,7 @@ class RestaurantController extends Controller {
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
+            //var_dump($data['cmodel']);
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
      //       return view('dashboard.restaurant.menu_form', $data);
         }
@@ -495,7 +496,7 @@ class RestaurantController extends Controller {
     public function menuadd() {
         $arr['restaurant_id'] = \Session::get('session_restaurant_id');
         //copy these keys to the $arr
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active');
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -718,9 +719,9 @@ class RestaurantController extends Controller {
         $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
         if($count<$limit || $enable==0)
         {
-           $ob = \App\Http\Models\Menus::findOrNew($menu_id);
+           /*$ob = \App\Http\Models\Menus::findOrNew($menu_id);
                 $ob->populate(['is_active'=>$enable]);
-                $ob->save(); 
+                $ob->save(); */
                 echo '1';
         }
         else

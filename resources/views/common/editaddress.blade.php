@@ -1,6 +1,6 @@
 <?php
     if(isset($GLOBALS["editaddress"])){
-        echo "editaddress.blade was included twice!";
+        echo "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
         die();
     }
     printfile("views/common/editaddress.blade.php");
@@ -15,8 +15,10 @@
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
         <DIV CLASS="nowrap">
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" autocomplete="off" style="width:89%;">
-        <input type="button" class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" >
+            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" autocomplete="off" style="width:80%;">
+            <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
+                <i class="fa fa-search"></i>
+            </a>
         </DIV>
     </div>
 </div>

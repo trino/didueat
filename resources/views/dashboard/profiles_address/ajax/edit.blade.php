@@ -55,12 +55,9 @@
 <div class="form-group row">
     <label class=" col-sm-3">Province</label>
     <div class="col-sm-9">
-        <select name="province" id="province" class="form-control" id="province2" required>
-            <option value="">-Select One-</option>
-        </select>
+        <input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}">
     </div>
 </div>
-
 <div class="form-group row">
     <label class=" col-sm-3">City </label>
     <div class="col-sm-9">
@@ -68,24 +65,7 @@
     </div>
 </div>
 
-<?php //echo view("common.editaddress", array("addresse_detail" => $addresse_detail)); ?>
-
-<div class="form-group row">
-    <label class=" col-sm-3">Apartment </label>
-    <div class="col-sm-9">
-        <input type="text" name="apartment" class="form-control" placeholder="Apartment" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:'' }}" required>
-    </div>
-</div>
-
-<div class="form-group row">
-    <label class=" col-sm-3">Buzz Code </label>
-    <div class="col-sm-9">
-        <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:'' }}" required>
-    </div>
-</div>
-
-<button type="submit" class="btn btn-primary pull-right">Submit</button>
-<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
+<?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true, "dontinclude" => true)); ?>
 
 <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}" />
 <input type="hidden" name="latitude" id="latitude" value=""/>

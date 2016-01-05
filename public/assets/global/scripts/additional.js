@@ -117,6 +117,12 @@ $('.savebtn').live('click', function () {
     if(discount_per == 'Choose Discount Percentage:')
     discount_per ='';
     var days_discount = '';
+    if($_parent.find('.is_active').is(':checked'))
+    {
+        var is_active = 1;
+    }
+    else
+    var is_active = 0;
     if(!discount_per && $_parent.find('.allow_dis').is(':checked'))
     {
         alert('Discount Percentage cannot be empty');
@@ -184,7 +190,7 @@ $('.savebtn').live('click', function () {
     //alert(id);
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount,
+        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active,
         type: 'post',
         success: function (res) {
             // alert(res);

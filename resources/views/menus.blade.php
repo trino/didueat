@@ -1,3 +1,4 @@
+
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ $catid }}">
         @endif
@@ -17,17 +18,26 @@
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
             ?>
 
-
-
-
-
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
                 <div class="new-layout-box">
                     <div class="row">
                         <div class="col-md-9">
                             <div class="new-layout-box-content">
                                 <div class="restaurant-name">
-
+                                <?php
+                                    $main_price = $value->price;
+                                    $dis = '';
+                                    $days = explode(',',$value->days_discount);
+                                    $today = date('D');
+                                    if($value->has_discount=='1'&& in_array($today,$days))
+                                    {
+                                        $discount = $value->discount_per;
+                                        $d = $main_price*$discount/100;
+                                        $main_price=$main_price-$d;
+                                        $dis = "(".$discount."% Discount)";
+                                    }
+                                    
+                                ?>
 
 
                                     <a href="javascript:void(0)" id="{{ $value->id }}"
@@ -35,7 +45,7 @@
                                        class="insert-stats" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                         <h3 class="menu-item">{{ $value->menu_item }} <span
-                                                    class="menu-tag menu-price">${{ $value->price }}</span></h3>
+                                                    class="menu-tag menu-price">${{ $main_price." ".$dis }}</span></h3>
                                         <p><strong>Restaurant: </strong>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</p>
                                         
                                     </a>
@@ -172,7 +182,7 @@
 
                                 <div class="modal-bodys">
                                     <div class="col-sm-12 col-xs-12 title">
-                                        <h2>{{ $value->menu_item }}: $ {{ $value->price }}</h2>
+                                        <h2>{{ $value->menu_item }}: $ {{ $main_price." ".$dis }}</h2>
                                     </div>
                                     <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
                                         <strong>Menu Views:</strong>
@@ -191,7 +201,7 @@
                                         <div class="clearfix space10"></div>
                                         <div style="display:none;">
                                             <input type="checkbox" style="display: none;" checked="checked"
-                                                   title="{{ $value->id.'_'.$value->menu_item.'-_'.$value->price.'_' }}"
+                                                   title="{{ $value->id.'_'.$value->menu_item.'-_'.$main_price.'_' }}"
                                                    value=""
                                                    class="chk">
                                         </div>

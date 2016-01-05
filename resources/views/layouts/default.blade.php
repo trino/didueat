@@ -68,6 +68,7 @@ if (Request::path() !== null && Request::path() != "/") {
         <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
 @endif
 
     </head>

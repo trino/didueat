@@ -3,7 +3,7 @@
             display: none;
         } </style>
 @endif
-<script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
+
 
 
 
@@ -28,7 +28,7 @@
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                 @if(isset($model) && $model->image)
                     <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}"
-                         class="ignore"/>
+                         class="ignore" style="max-width:100%;"/>
                     <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
                 @endif
             </div>
@@ -48,7 +48,7 @@
                     @endforeach
                     
                 </select><br />
-                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
+                <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong> &nbsp;&nbsp;&nbsp; <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong> <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span> 
                 
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
@@ -69,13 +69,13 @@
                 }
                 ?>
                 <input type="checkbox" class="days_discount_all"/> Select All<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Sunday',$days)){?>checked="checked"<?php }?> value="Sunday"/> Sunday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Monday',$days)){?>checked="checked"<?php }?> value="Monday"/> Monday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Tuesday',$days)){?>checked="checked"<?php }?> value="Tuesday"/> Tuesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Wednesday',$days)){?>checked="checked"<?php }?> value="Wednesday"/> Wednesday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Thursday',$days)){?>checked="checked"<?php }?> value="Thursday"/> Thursday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Friday',$days)){?>checked="checked"<?php }?> value="Friday"/> Friday<br />
-                <input type="checkbox" class="days_discount" <?php if(in_array('Saturday',$days)){?>checked="checked"<?php }?> value="Saturday"/> Saturday<br /><br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Sun',$days)){?>checked="checked"<?php }?> value="Sun"/> Sunday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Mon',$days)){?>checked="checked"<?php }?> value="Mon"/> Monday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Tue',$days)){?>checked="checked"<?php }?> value="Tue"/> Tuesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Wed',$days)){?>checked="checked"<?php }?> value="Wed"/> Wednesday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Thu',$days)){?>checked="checked"<?php }?> value="Thu"/> Thursday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Fri',$days)){?>checked="checked"<?php }?> value="Fri"/> Friday<br />
+                <input type="checkbox" class="days_discount" <?php if(in_array('Sat',$days)){?>checked="checked"<?php }?> value="Sat"/> Saturday<br /><br />
                 
                 </div>
                 <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
@@ -129,9 +129,11 @@
         <?php
         $k = 0;
         if(isset($cmodel)){
+            
         if (isset($_GET['menu_id'])) {
             $menu_id = $_GET['menu_id'];
         }
+        //var_dump($cmodel);
         foreach($cmodel as $child){
         $k++;
         if ($k == 1)
