@@ -138,6 +138,7 @@ function fillInAddress() {
     $('#city').val('');
     $('#rout_street_number').val('');
     $('#postal_code').val('');
+    $("#province").val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
 
     for (var i = 0; i < place.address_components.length; i++) {
