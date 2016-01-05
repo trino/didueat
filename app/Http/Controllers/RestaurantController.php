@@ -231,7 +231,7 @@ class RestaurantController extends Controller {
 
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
-                return $this->failure("RestaurantController/addRestaurants:" . $e->getMessage(), '/restaurant/add/new');
+                return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
             }
         } else {
             $data['title'] = "Add New Restaurants";

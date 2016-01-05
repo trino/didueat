@@ -69,7 +69,7 @@ abstract class Controller extends BaseController {
             }
 
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            echo handleexception($e);
         }
     }
 

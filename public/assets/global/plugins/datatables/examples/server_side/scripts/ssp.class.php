@@ -274,7 +274,7 @@ class SSP {
 		catch (PDOException $e) {
 			self::fatal(
 				"An error occurred while connecting to the database. ".
-				"The error reported by the server was: ".$e->getMessage()
+				"The error reported by the server was: ".handleexception($e)
 			);
 		}
 
@@ -315,7 +315,7 @@ class SSP {
 			$stmt->execute();
 		}
 		catch (PDOException $e) {
-			self::fatal( "An SQL error occurred: ".$e->getMessage() );
+			self::fatal( "An SQL error occurred: ".handleexception($e) );
 		}
 
 		// Return all

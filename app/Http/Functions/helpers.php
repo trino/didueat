@@ -125,8 +125,11 @@ function newrow($new = false, $name = false, $class = ""){
 }
 
 function handleexception($e){
-    $Message = $e->getMessage() . "<BR>File " . $e->getFile() . " Line ".$e->getLine();
-    debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
+    $Message = $e->getMessage();
+    if(debugmode()) {
+        $Message .= "<BR>File " . $e->getFile() . " Line " . $e->getLine();
+        debugprint($Message . "\r\n Trace " . $e->getTraceAsString());
+    }
     return $Message;
 }
 
@@ -1224,7 +1227,7 @@ function is_encrypted($Text){
 }
 
 function debugmode(){
-    return config('app.debug');
+    return config('app.debug') || isset($_GET["debugmode"]);
 }
 
 //if the server is localhost, print whatever file is specified in red text
@@ -1240,23 +1243,12 @@ function printfile($File, $Ret = false){//cannot user __FILE__ due to caching
 
 // Function to get the client ip address
 function get_client_ip_server() {
-    $ipaddress = '';
-    if (isset($_SERVER['HTTP_CLIENT_IP']))
-        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-    else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    else if (isset($_SERVER['HTTP_X_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-    else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-    else if (isset($_SERVER['HTTP_FORWARDED']))
-        $ipaddress = $_SERVER['HTTP_FORWARDED'];
-    else if (isset($_SERVER['REMOTE_ADDR']))
-        $ipaddress = $_SERVER['REMOTE_ADDR'];
-    else
-        $ipaddress = 'UNKNOWN';
-
-    return $ipaddress;
+    foreach(array("HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR") as $field){
+        if (isset($_SERVER[$field])) {
+            return $_SERVER[$field];
+        }
+    }
+    return 'UNKNOWN';
 }
 
 //gets browser information about the user
@@ -1265,27 +1257,32 @@ function getBrowser() {
     $bname = 'Unknown';
     $version = "";
     $ub = "";
-
+    $ID=0;
     // Next get the name of the useragent yes seperately and for good reason
     if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
         $bname = 'Internet Explorer';
         $ub = "MSIE";
+        $ID=1;
     } elseif (preg_match('/Firefox/i', $u_agent)) {
         $bname = 'Mozilla Firefox';
         $ub = "Firefox";
+        $ID=2;
     } elseif (preg_match('/Chrome/i', $u_agent)) {
         $bname = 'Google Chrome';
         $ub = "Chrome";
+        $ID=3;
     } elseif (preg_match('/Safari/i', $u_agent)) {
         $bname = 'Apple Safari';
         $ub = "Safari";
+        $ID=4;
     } elseif (preg_match('/Opera/i', $u_agent)) {
         $bname = 'Opera';
-        $ub = "Opera";
+        $ID=5;
     } elseif (preg_match('/Netscape/i', $u_agent)) {
         $bname = 'Netscape';
-        $ub = "Netscape";
+        $ID=6;
     }
+    if(!$ub){$ub=$bname;}
 
     // finally get the correct version number
     $known = array('Version', $ub, 'other');
@@ -1316,7 +1313,9 @@ function getBrowser() {
 
     return array(
         'userAgent' => $u_agent,
+        'agentID' => $ID,
         'name' => $bname,
+        'short' => $ub,
         'version' => $version,
         'platform' => getOS(),
         'pattern' => $pattern

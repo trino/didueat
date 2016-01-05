@@ -50,7 +50,7 @@ class NotificationAddressesController extends Controller {
 
                 return $this->success("Notification address saved successfully!", 'notification/addresses');
             } catch (Exception $e) {
-                return $this->failure( $e->getMessage(), 'notification/addresses');
+                return $this->failure( handleexception($e), 'notification/addresses');
             }
         } else {
             $data['title'] = 'Notification Addresses List';
@@ -124,7 +124,7 @@ class NotificationAddressesController extends Controller {
             $ob->delete();
             return $this->success("Address has been deleted successfully!", 'notification/addresses');
         } catch (\Exception $e) {
-            return $this->failure( $e->getMessage(), 'notification/addresses');
+            return $this->failure( handleexception($e), 'notification/addresses');
         }
     }
 

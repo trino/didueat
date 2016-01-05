@@ -334,7 +334,7 @@ class AuthController extends Controller {
                     die;
                 }
             } catch (Exception $e) {
-                echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+                echo json_encode(array('type' => 'error', 'message' => handleexception($e)));
                 die;
             }
         } else {

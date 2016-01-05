@@ -52,7 +52,7 @@ class ProfileAddressesController extends Controller {
 
                 return $this->success("Address created successfully",'user/addresses');
             } catch(\Exception $e) {
-                return $this->failure( $e->getMessage(),'user/addresses');
+                return $this->failure( handleexception($e),'user/addresses');
             }
         } else {
             $data['title'] = "Addresses Manage";
@@ -119,7 +119,7 @@ class ProfileAddressesController extends Controller {
             ob_get_contents();//code will never run
             ob_get_flush();
         } catch(\Exception $e) {
-            echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+            echo json_encode(array('type' => 'error', 'message' => handleexception($e)));
             die;
         }
     }

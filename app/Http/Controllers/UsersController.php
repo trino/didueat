@@ -84,7 +84,7 @@ class UsersController extends Controller {
                 return $this->failure(trans('messages.user_email_already_exist.message'), 'users/list', true);
             } catch (\Exception $e) {
                 \DB::rollback();
-                return $this->failure( $e->getMessage(), 'users/list', true);
+                return $this->failure( handleexception($e), 'users/list', true);
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
@@ -246,7 +246,7 @@ class UsersController extends Controller {
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
             return $this->success('Status has been changed successfully!', 'users/list');
         } catch (\Exception $e) {
-            return $this->failure( $e->getMessage(), 'users/list');
+            return $this->failure( handleexception($e), 'users/list');
         }
     }
     
@@ -432,7 +432,7 @@ class UsersController extends Controller {
                 die();
             } catch(\Exception $e) {
                 \DB::rollback();
-                echo $e->getMessage();
+                echo handleexception($e);
                 die();
             }
         } else {

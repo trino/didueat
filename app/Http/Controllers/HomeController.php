@@ -119,7 +119,7 @@ class HomeController extends Controller {
                     return view('ajax.search_restaurants', $data);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+                return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
             }
         } else {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
@@ -209,7 +209,7 @@ class HomeController extends Controller {
                     return view('ajax.search_menus', $data);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+                return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
             }
         } else {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
@@ -241,7 +241,7 @@ class HomeController extends Controller {
 
                 return \Response::json(array('type' => 'success', 'message' => "You are subscribed successfully!"), 200);
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'message' => $e->getMessage()), 200);
+                return \Response::json(array('type' => 'error', 'message' => handleexception($e)), 200);
             }
         } else {
             return \Response::json(array('type' => 'error', 'message' => 'Invalid request made!'), 200);
@@ -419,7 +419,7 @@ class HomeController extends Controller {
                 return view('messages.message', $message);
                 //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
-                return $this->failure( $e->getMessage(),'/restaurants/signup');
+                return $this->failure(handleexception($e),'/restaurants/signup');
             }
         } else {
             $data['title'] = "Signup Restaurants Page";
@@ -619,7 +619,7 @@ class HomeController extends Controller {
                     return \Response::json(array('type' => 'error', 'response' => "You already rated on this!"), 200);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+                return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
             }
         } else {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);

@@ -956,7 +956,7 @@ class UploadHandler
                     }
                     return false;
                 } catch (Exception $e) {
-                    error_log($e->getMessage());
+                    error_log(handleexception($e));
                 }
             }
             if ($this->options['image_library'] === 2) {

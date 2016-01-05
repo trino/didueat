@@ -154,7 +154,7 @@ class CreditCardsController extends Controller {
             ob_get_contents();//code will never run
             ob_get_flush();
         } catch(\Exception $e) {
-            echo json_encode(array('type' => 'error', 'message' => $e->getMessage()));
+            echo json_encode(array('type' => 'error', 'message' => handleexception($e)));
             die;
         }
     }
