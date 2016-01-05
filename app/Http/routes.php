@@ -57,6 +57,7 @@ Route::group(['middleware' => ['logged']], function() {
     
     //Profiles Addresses Routes
     Route::resource('user/addresses',                               'ProfileAddressesController@index');
+    Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
     Route::post('user/addresses/ajax/list',                         'ProfileAddressesController@listingAjax');
     Route::post('user/addresses/sequence',                          'ProfileAddressesController@addressesSequence');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
@@ -68,7 +69,7 @@ Route::group(['middleware' => ['logged']], function() {
     
     //Credit Cards
     Route::get('credit-cards/list/{type}',                          'CreditCardsController@index');
-    Route::post('credit-cards/list/{type}',                          'CreditCardsController@index');
+    Route::post('credit-cards/list/{type}',                         'CreditCardsController@index');
     Route::post('credit-cards/list/ajax/{type}',                    'CreditCardsController@listingAjax');
     Route::post('credit-cards/sequence',                            'CreditCardsController@creditCardsSequence');
     Route::get('credit-cards/edit/{id}',                            'CreditCardsController@creditCardFind');
@@ -77,13 +78,13 @@ Route::group(['middleware' => ['logged']], function() {
 
 // Routes After Logged in and Role Restaurant Check
 Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
-    Route::get('notification/addresses',                              'NotificationAddressesController@index');
-    Route::post('notification/addresses',                             'NotificationAddressesController@index');
-    Route::post('notification/addresses/ajax/list',                   'NotificationAddressesController@listingAjax');
-    Route::post('notification/addresses/sequence',                    'NotificationAddressesController@addressesSequence');
-    Route::get('notification/addresses/edit/{id}',                    'NotificationAddressesController@ajaxEditAddressForm');
-    Route::get('notification/addresses/delete/{id}',                  'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
-    Route::get('notification/addresses/default/{id}',                 'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
+    Route::get('notification/addresses',                            'NotificationAddressesController@index');
+    Route::post('notification/addresses',                           'NotificationAddressesController@index');
+    Route::post('notification/addresses/ajax/list',                 'NotificationAddressesController@listingAjax');
+    Route::post('notification/addresses/sequence',                  'NotificationAddressesController@addressesSequence');
+    Route::get('notification/addresses/edit/{id}',                  'NotificationAddressesController@ajaxEditAddressForm');
+    Route::get('notification/addresses/delete/{id}',                'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
+    Route::get('notification/addresses/default/{id}',               'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
     
     Route::resource('restaurant/menus-manager',                     'RestaurantController@menuManager');
 });

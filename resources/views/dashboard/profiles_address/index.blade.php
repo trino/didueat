@@ -32,26 +32,34 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="editLabel">Update Address</h4>
+                <h4 class="modal-title" id="editLabel">Update Address
+                    @if(debugmode()) (index) @endif
+                </h4>
             </div>
             <div id="ajaxloader"></div>
-            <div class="modal-body" id="contents">
+            {!! Form::open(array('url' => 'user/addresses/0', 'id'=>'edit-form', 'method'=>'post','role'=>'form')) !!}
+                <div class="modal-body" id="contents">
 
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn custom-default-btn">Save changes</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn custom-default-btn">Save changes</button>
+                </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    var oldID = 0;
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
+        var URL = $("#edit-form").attr('action') + "end";
+        $('#edit-form').attr('action',  URL.replace("/" + oldID + "end", "/" + id));
         if(id == null || id == undefined || id == ""){
             id = 0;
             $('#editLabel').text('Create Address');
         }
+        oldID=id;
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('user/addresses/edit') }}/" + id, {}, function (result) {

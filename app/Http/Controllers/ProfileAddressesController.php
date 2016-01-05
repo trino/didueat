@@ -22,7 +22,7 @@ class ProfileAddressesController extends Controller {
      * @param null
      * @return view
      */
-    public function index() {
+    public function index($idd = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if (!isset($post['address']) || empty($post['address'])) {
@@ -42,7 +42,9 @@ class ProfileAddressesController extends Controller {
             }
             try {
                 $post['user_id'] = \Session::get('session_id');
-                $idd = (isset($post['id'])) ? $post['id'] : 0;
+                if(!$idd) {
+                    $idd = (isset($post['id'])) ? $post['id'] : 0;
+                }
                 // Create/Edit if idd is zero then it create ortherwise it updates.
                 $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
                 $ob->populate($post);

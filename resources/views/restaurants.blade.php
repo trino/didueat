@@ -60,11 +60,9 @@
                             </select-->
                         </div>
                         <div class="form-group">
-                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery"
-                                          checked onclick="createCookieValue('delivery_type', this.value)"/>
+                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
                                 Delivery</label>
-                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup"
-                                          onclick="createCookieValue('delivery_type', this.value)"/> Pickup</label>
+                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/> Pickup</label>
                         </div>
                         <div class="form-group">
                             <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">

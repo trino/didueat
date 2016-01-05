@@ -67,8 +67,7 @@
                         <td>{{ $value->phone_no }}</td>
                         <td>{{ $value->address.', '. $value->city .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                         <td>
-                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"
-                               data-target="#editModel">Edit</a>
+                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal" data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                         </td>
