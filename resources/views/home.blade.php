@@ -48,7 +48,7 @@ WHAT PAGE IS THIS???
         <div class="col-lg-4">
           <div class="primary_red  p-a-2 ">
             <p class="lead">Where are you located?</p>
-            <input class="form-control" type="text" ID="formatted_address3" placeholder="Address, City or Postal Code">
+            <input class="form-control" type="text" id="formatted_address3" placeholder="Address, City or Postal Code">
             <script>
                 var formatted_address3;
                 $( document ).ready(function() {

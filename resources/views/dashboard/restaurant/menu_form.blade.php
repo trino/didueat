@@ -3,7 +3,7 @@
             display: none;
         } </style>
 @endif
-<script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
+
 
 
 
@@ -28,7 +28,7 @@
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                 @if(isset($model) && $model->image)
                     <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}"
-                         class="ignore"/>
+                         class="ignore" style="max-width:100%;"/>
                     <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
                 @endif
             </div>
@@ -129,9 +129,11 @@
         <?php
         $k = 0;
         if(isset($cmodel)){
+            
         if (isset($_GET['menu_id'])) {
             $menu_id = $_GET['menu_id'];
         }
+        //var_dump($cmodel);
         foreach($cmodel as $child){
         $k++;
         if ($k == 1)

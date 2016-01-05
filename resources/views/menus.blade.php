@@ -1,3 +1,4 @@
+
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ $catid }}">
         @endif
