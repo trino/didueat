@@ -27,7 +27,9 @@
                                 <?php
                                     $main_price = $value->price;
                                     $dis = '';
-                                    if($value->has_discount=='1')
+                                    $days = explode(',',$value->days_discount);
+                                    $today = date('D');
+                                    if($value->has_discount=='1'&& in_array($today,$days))
                                     {
                                         $discount = $value->discount_per;
                                         $d = $main_price*$discount/100;
