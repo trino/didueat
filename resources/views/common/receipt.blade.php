@@ -1,3 +1,9 @@
+<STYLE>
+    .headerbutton{
+        padding-top: 0px !important;
+    }
+</STYLE>
+
 @if(!isset($order))
     <div class="top-cart-info">
         <?php printfile("views/common/receipt.blade.php (top-cart-info)"); ?>
