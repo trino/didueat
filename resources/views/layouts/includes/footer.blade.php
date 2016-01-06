@@ -130,8 +130,8 @@
         <div class="col-lg-12 " style="font-size: 90%;">
 
             <p>Designed and built with all the <i class="fa fa-heart"></i> in the world by <a
-                        href="#"
-                        target="_blank">trino</a>. Maintained by the <a
+                        href="http://trinoweb.com/"
+                        target="_blank"><B><SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN></B></a>. Maintained by the <a
                         href="#">core team</a> with the help of <a
                         href="#">our contributors</a>.</p>
 
