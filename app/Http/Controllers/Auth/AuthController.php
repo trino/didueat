@@ -32,11 +32,15 @@ class AuthController extends Controller {
      */
     public function authenticate($AsJSON = false) {
         if (\Input::has('email')) {
+            $url = 'auth/login';
+            if (\Input::has('url')) {
+                $url = \Input::get('url');
+            }
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , $url);
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
@@ -47,16 +51,16 @@ class AuthController extends Controller {
                             return redirect()->intended('dashboard');
                         }
                     } else {
-                        return $this->failure2($AsJSON, trans('messages.user_login_invalid.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('messages.user_login_invalid.message') , $url);
                     }
                 } else {
-                    return $this->failure2($AsJSON, trans('messages.user_not_registered.message') , 'auth/login');
+                    return $this->failure2($AsJSON, trans('messages.user_not_registered.message') , $url);
                 }
             } catch (Exception $e) {
-                return $this->failure2($AsJSON, handleexception($e), 'auth/login');
+                return $this->failure2($AsJSON, handleexception($e), $url);
             }
         } else {
-            return $this->failure2($AsJSON, trans('messages.user_missing_email.message') , 'auth/login');
+            return $this->failure2($AsJSON, trans('messages.user_missing_email.message') , $url);
         }
     }
 

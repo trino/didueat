@@ -1,7 +1,6 @@
 <INPUT TYPE="hidden" id="orderid">
 
-<div class="modal fade" id="orderApproveModal" tabindex="-1" role="dialog" aria-labelledby="orderApproveModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="orderApproveModal" tabindex="-1" role="dialog" aria-labelledby="orderApproveModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,6 +11,7 @@
             </div>
             {!! Form::open(array('url' => '/orders/list/approve/'.$type, 'id'=>'approve-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
+                <?php printfile("views/popups/approve_cancel.blade.php (approve)"); ?>
                 <DIV ID="message" align="center"></DIV>
                 <div class="form-group">
                     <label>Note to Customer</label>
@@ -30,8 +30,7 @@
 </div>
 
 
-<div class="modal fade" id="orderCancelModal" tabindex="-1" role="dialog" aria-labelledby="orderCancelModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="orderCancelModal" tabindex="-1" role="dialog" aria-labelledby="orderCancelModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,6 +41,7 @@
             </div>
             {!! Form::open(array('url' => '/orders/list/cancel/'.$type, 'id'=>'cancel-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
+                <?php printfile("views/popups/approve_cancel.blade.php (cancel)"); ?>
                 <div ID="message" align="center"></div>
                 <div class="form-group">
                     <label>Note to Customer</label>
