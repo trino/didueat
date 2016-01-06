@@ -137,7 +137,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <span id="countRows" style="font: inherit;">No</span> restaurants found in your area
+                <span id="countRows" style="font: inherit;">No</span> restaurant<Span id="countRowsS" style="font: inherit;">s</span> found in your area
             </div>
             @include('ajax.search_restaurants')
         </div>
@@ -273,8 +273,13 @@
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
                     $('.parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
+                    $('#countRowsS').text('s');
                     if (result.trim() != "") {
-                        $('#countRows').text($('#countTotalResult').val());
+                        var quantity = $('#countTotalResult').val();
+                        $('#countRows').text(quantity);
+                        if(quantity == "1" || quantity == 1){
+                            $('#countRowsS').text('');
+                        }
                     } else {
                         $('#countRows').text(0);
                     }
