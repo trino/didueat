@@ -72,6 +72,11 @@
             <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}" {{$required}}>
         </div>
     </div>
+
+    <?= newrow($new, "Notes"); ?>
+            <input type="text" name="notes" class="form-control" placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+        </div>
+    </div>
 <?php }?>
 <?php if(isset($dontinclude)) { ?>
     <SCRIPT>
