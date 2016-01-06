@@ -2,19 +2,19 @@
 //Access this message in global scope like this below.
 //echo trans('messages.logout.code');
 return [
-    "user_logout" => array('message' => "You are logout successfully!"),
-    "user_session_exp" => array('message' => "Session expired please relogin!"),
-    "user_login" => array('message' => "Login successfully."),
-    "email_unvarified" => array('message' => "Email is not verified."),
-    "exception" => array('code' => '100', 'message' => "Unexpected error occurs."),
-    "user_inactive" => array('code' => '101', 'message' => "This account has been blocked. please contact us at.... to reactivate."),
-    "user_login_invalid" => array('code' => '102', 'message' => "Invalid username and password."),
+    "user_logout" => array('message' => "You have been logged out successfully."),
+    "user_session_exp" => array('message' => "Session expired. Please re-login."),
+    "user_login" => array('message' => "You have been logged in successfully."),
+    "email_unvarified" => array('message' => "Email address has not been verified yet."),
+    "exception" => array('code' => '100', 'message' => "An unexpected error has occurred."),
+    "user_inactive" => array('code' => '101', 'message' => "This account has been blocked. Please contact us at .... to re-activate."),
+    "user_login_invalid" => array('code' => '102', 'message' => "Invalid username and/or password."),
 
     "user_not_registered" => array('code' => '103', 'message' => "User not registered."),
-    "user_passwords_mismatched" => array('code' => '104', 'message' => "Password fields are miss-matched."),
+    "user_passwords_mismatched" => array('code' => '104', 'message' => "Password fields are mis-matched."),
     "user_missing_email" => array('code' => '105', 'message' => "User email missing."),
     "user_invalid_data_parse" => array('code' => '106', 'message' => "Invalid data set parse."),
-    "user_email_already_exist" => array('code' => '107', 'message' => "User email address already exists."),
+    "user_email_already_exist" => array('code' => '107', 'message' => "That email address already exists."),
     "user_pass_field_missing" => array('code' => '108', 'message' => "User password field missing."),
     "user_confim_pass_field_missing" => array('code' => '109', 'message' => "User confirm password field missing."),
     "user_registration_success" => array('message' => "User account has been created successfully."),
