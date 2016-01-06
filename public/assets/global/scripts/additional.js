@@ -90,6 +90,7 @@ $('.savebtn').live('click', function () {
     //var $_this = $(this);
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
+    
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
@@ -187,7 +188,7 @@ $('.savebtn').live('click', function () {
 
     if ($_parent.find('.menuwrapper').length > 0)
         phas_addon = 1;
-    //alert(id);
+    
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
         data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active,
@@ -234,7 +235,7 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
-                                                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+                                                //window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
                                             }
                                         }
                                     });
@@ -244,7 +245,7 @@ $('.savebtn').live('click', function () {
                     });
                 });
             } else {
-                window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
+               // window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
             }
         }
     });
