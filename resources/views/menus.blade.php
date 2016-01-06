@@ -21,7 +21,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
                 <div class="new-layout-box">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9" style="padding-bottom: 26px">
                             <div class="new-layout-box-content">
                                 <div class="restaurant-name">
                                 <?php
@@ -125,6 +125,16 @@
                                     <div class="">
                                         {!! rating_initialize((session('session_id'))?"rating":"static-rating", "menu", $value->id) !!}
                                     </div>
+                                    
+                                    <?php if(isset($value) && !$value->is_active){
+                                        ?>
+                                    <div class="enable_disable">
+                                    
+                                        <span class="label label-default">Disabled</span>
+                                        
+                                    </div>
+                                    <?php
+                                    }?>
                             </div>
                         </div>
                         <div class="col-md-3">
