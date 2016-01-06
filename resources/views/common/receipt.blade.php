@@ -203,7 +203,7 @@
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        @if(\Session::has('session_id'))
+                        @if(\Session::has('is_logged_in'))
                             <?php
                             $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                                 echo "Welcome ". $profile->name;
@@ -240,7 +240,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    @if(!Session::has('session_id'))
+                    @if(!Session::has('is_logged_in'))
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <input type="password" name="password" id="password1"
