@@ -20,16 +20,18 @@
 }
 */
 
-
 .table thead th {
     white-space: nowrap;
-
 }
 
 
 
 .nowrap{
 	white-space: nowrap;
+}
+
+.formatted_address{
+    height: 38px;
 }
 
 * {
@@ -302,7 +304,7 @@ span.tags{background:#f5f5f5;color:#555;border:1px solid #CCC;padding:3px 5px;di
 .restaurant-name h3.menu-item{background: #d50000 none repeat scroll 0 0;
     border-radius: 0 15px 0 0;
     color: #fff;
-    
+
     font-size: 26px;
     padding: 5px 20px;
     text-transform: uppercase;

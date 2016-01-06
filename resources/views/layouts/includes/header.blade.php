@@ -83,7 +83,7 @@
         @endif
     </ul>
 
-    <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2">
+    <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="margin-right: 20px;">
         <ul class="nav navbar-nav">
 
             @if(Session::has('is_logged_in'))
