@@ -32,10 +32,7 @@ class ProfileAddressesController extends Controller {
                 return $this->failure("[City] field is missing!",'user/addresses');
             }
             if (!isset($post['province']) || empty($post['province'])) {
-                \Session::flash('message', "[Province] field is missing!");
-                \Session::flash('message-type', 'alert-danger');
-                \Session::flash('message-short', 'Oops!');
-                return \Redirect::to('user/addresses');
+                return $this->failure("[Province] field is missing!",'user/addresses');
             }
             if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure( "[Country] field is missing!",'user/addresses');

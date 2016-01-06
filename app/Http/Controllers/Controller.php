@@ -30,7 +30,7 @@ abstract class Controller extends BaseController {
 
     //automates the flash/flash with input and redirect for the failure condition
     public function failure($message, $redirect, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
-        \Session::flash('message', $message);
+        \Session::flash('message-parent', $message);
         \Session::flash('message-type', $type);
         \Session::flash('message-short', $title);
         if($withInput) {
