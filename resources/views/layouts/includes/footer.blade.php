@@ -119,11 +119,9 @@
         </div>
         <div class="col-lg-2" style="">
             <h5>
-
-                <i class="fa fa-instagram pull-right"></i>
-                <i class="fa fa-twitter pull-right"></i>
-                <i class="fa fa-facebook pull-right"></i>
-
+                <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram pull-right"></i></A>
+                <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter pull-right"></i></A>
+                <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook pull-right"></i></A>
             </h5>
 
         </div>
