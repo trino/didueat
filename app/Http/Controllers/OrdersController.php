@@ -50,7 +50,6 @@ class OrdersController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
-        
         $Query = \App\Http\Models\Reservations::listing($data, "list")->get();
         $recCount = \App\Http\Models\Reservations::listing($data)->count();
         $no_of_paginations = ceil($recCount / $per_page);

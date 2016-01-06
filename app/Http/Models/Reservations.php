@@ -34,16 +34,17 @@ class Reservations extends BaseModel {
         $start = $array['start'];
         
         $query = Reservations::select('*')
-                ->Where(function($query) use ($searchResults, $query_type) {
+                ->Where(function($query) use ($query_type) {
                     if($query_type == 'user'){
                         $query->where('user_id', \Session::get('session_id'));
                     }
                     if($query_type == 'restaurant'){
                         $query->where('restaurant_id', \Session::get('session_restaurant_id'));
                     }
-                    
+                })
+                ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
-                          $query->orWhere('id', 'LIKE', "%$searchResults%")
+                          $query->orWhere('id', '=', $searchResults)
                                 ->orWhere('ordered_by', 'LIKE', "%$searchResults%")
                                 ->orWhere('contact', 'LIKE', "%$searchResults%")
                                 ->orWhere('payment_mode', 'LIKE', "%$searchResults%")

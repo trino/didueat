@@ -47,19 +47,18 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
     Route::get('orders/order_detail/{id}/{type}',                   'OrdersController@order_detail')->where('id', '[0-9]+');
     Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
-
     Route::post('orders/list/cancel/{type}',                        'OrdersController@changeOrderCancel');
     Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
     Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
-
     Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
-    Route::get('report',                                            'OrdersController@report');
+    Route::get('orders/report',                                     'OrdersController@report');
     
     //Profiles Addresses Routes
-    Route::resource('user/addresses',                               'ProfileAddressesController@index');
-    Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
+    Route::get('user/addresses',                                    'ProfileAddressesController@index');
+    Route::post('user/addresses',                                   'ProfileAddressesController@index');
     Route::post('user/addresses/ajax/list',                         'ProfileAddressesController@listingAjax');
     Route::post('user/addresses/sequence',                          'ProfileAddressesController@addressesSequence');
+    Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');

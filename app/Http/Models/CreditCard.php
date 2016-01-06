@@ -41,16 +41,17 @@ class CreditCard extends BaseModel {
         $start = $array['start'];
 
         $query = CreditCard::select('*')
-                ->Where(function($query) use ($searchResults, $query_type) {
+                ->Where(function($query) use ($query_type) {
                     if($query_type == 'user'){
-                        //$query->where('user_type', $query_type);//doesn't work
+                        $query->where('user_type', $query_type);//doesn't work
                         $query->where('user_id', read('id'));//see it's a one
                     }
                     if($query_type == 'restaurant'){
-                        //$query->where('user_type', $query_type);//doesn't work
+                        $query->where('user_type', $query_type);//doesn't work
                         $query->where('user_id', \Session::get('session_restaurant_id'));
                     }
-                    
+                })
+                ->Where(function($query) use ($searchResults) {                    
                     if($searchResults != ""){
                         debugprint("searchResults: " .  $searchResults);
                         $query->orWhere('first_name',     'LIKE',     "%$searchResults%")

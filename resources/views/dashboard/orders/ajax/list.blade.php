@@ -13,7 +13,7 @@
             <div class="col-lg-6">
                 <h6>
                     My Orders ({{ ucwords($type) }})
-                    <a class="btn btn-primary btn-sm " href="{{ url('restaurant/report') }}" class="">Print Report</a>
+                    <a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a>
                 </h6>
             </div>
             @include('common.table_controls')
