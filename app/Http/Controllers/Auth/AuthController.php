@@ -47,7 +47,7 @@ class AuthController extends Controller {
                             return redirect()->intended('dashboard');
                         }
                     } else {
-                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , 'auth/login');
+                        return $this->failure2($AsJSON, trans('messages.user_login_invalid.message') , 'auth/login');
                     }
                 } else {
                     return $this->failure2($AsJSON, trans('messages.user_not_registered.message') , 'auth/login');
