@@ -160,10 +160,10 @@
                         </tr>
                         <tr>
                             <td><strong>Tax&nbsp;</strong></td>
-                            <td nowrap>
-                                <SPAN class="tax inlineblock">&nbsp;${{ (isset($order)) ? $order->tax : '0' }}</SPAN>
+                            <td >
+                                <span class="tax inlineblock">&nbsp;${{ (isset($order)) ? $order->tax : '0' }}</span>
                                 &nbsp;(<span id="tax inlineblock">13</span>%)
-                                <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax" class="tax"/>
+                                <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax" class="maintax tax"/>
                             </td>
                         </tr>
                         <tr <?php if(isset($order) && $order->order_type == '1')echo 'style="display: table-column;"'; else echo 'style="display: none;"'; ?> id="df">

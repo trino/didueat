@@ -44,13 +44,14 @@ function changeqty(id, opr) {
             $('.profile_delivery_detail input').each(function () {
                 $(this).attr('required', 'required');
             });
-            var tax = $('.tax').text();
+            var tax = $('.maintax').val();
+            
             var grandtotal = 0;
             var subtotal = $('input.subtotal').val();
             grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
             $('.df').val(df);
-            $('.grandtotal').text(grandtotal.toFixed(2));
-            $('.grandtotal').val(grandtotal.toFixed(2));
+            $('div .grandtotal').text('$'+grandtotal.toFixed(2));
+            $('input .grandtotal').val(grandtotal.toFixed(2));
             $('#delivery_flag').val('1');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
         } else {
@@ -61,8 +62,8 @@ function changeqty(id, opr) {
             } else {
                 var grandtotal = $('input.grandtotal').val();
                 grandtotal = Number(grandtotal) - Number(df);
-                $('.grandtotal').text(grandtotal.toFixed(2));
-                $('.grandtotal').val(grandtotal.toFixed(2));
+                $('div .grandtotal').text('$'+grandtotal.toFixed(2));
+                $('input .grandtotal').val(grandtotal.toFixed(2));
                 $('#df').hide();
                 $('#delivery_flag').val('0');
                 $('#cart-total').text('$' + grandtotal.toFixed(2));

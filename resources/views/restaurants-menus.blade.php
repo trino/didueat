@@ -1,14 +1,14 @@
 @extends('layouts.default')
 @section('content')
 
-
-    <div class=" col-md-4 col-sm-4" id="printableArea">
-        <div class="overlay overlay_reservation">
+    <div class="overlay overlay_reservation">
             <div class="clearfix"></div>
-            <div id="loadmoreajaxloader" style="">
+            <div class="loadmoreajaxloader" >
                 <img src="{{ asset('assets/images/ajax-loading.gif') }}">
             </div>
         </div>
+    <div class=" col-md-4 col-sm-4" id="printableArea">
+        
         @include('common.receipt')
     </div>
 
@@ -163,11 +163,13 @@
             $('.resetslider').live('click', function () {
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
+               
+                $('.number'+menu).html('1');
                 //alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
-                    $('.allspan').html('&nbsp;&nbsp;1&nbsp;&nbsp;');
+                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
                 });
                 $('.inp').val("");
                 $(this).parent().parent().find('.nxt_button').show();
@@ -437,7 +439,7 @@
                 subtotal = parseFloat(subtotal);
                 //subtotal = Number(subtotal)+Number(price);
                 subtotal = subtotal.toFixed(2);
-                $('div.subtotal').text(subtotal);
+                $('div.subtotal').text('$'+subtotal);
                 $('input.subtotal').val(subtotal);
                 subtotal = parseFloat(subtotal);
                 //var tax = $('#tax').text();
@@ -447,7 +449,7 @@
                 tax = (tax / 100) * subtotal;
                 
                 tax = tax.toFixed(2);
-                $('span.tax').text(tax);
+                $('span.tax').text('$'+tax);
                 $('input.tax').val(tax);
 
                 if ($('#delivery_flag').val() == '1') {
@@ -461,7 +463,7 @@
                 var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
                 gtotal = gtotal.toFixed(2);
 
-                $('div.grandtotal').text(gtotal);
+                $('div.grandtotal').text('$'+gtotal);
                 $('input.grandtotal').val(gtotal);
                 $('#cart-total').text(gtotal);
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {

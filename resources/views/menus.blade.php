@@ -27,14 +27,25 @@
                                 <?php
                                     $main_price = $value->price;
                                     $dis = '';
+                                    $everyday ='';
                                     $days = explode(',',$value->days_discount);
                                     $today = date('D');
                                     if($value->has_discount=='1'&& in_array($today,$days))
                                     {
+                                        if($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat')
+                                            $everyday= 'everyday';
+                                        else
+                                        {
+                                            $everyday = str_replace($today,',',$value->days_discount);
+                                            $everyday = 'Today and '.str_replace(',','/',$everyday);
+                                            $everyday = str_replace('//','',$everyday);
+                                            
+                                        }        
+                                
                                         $discount = $value->discount_per;
                                         $d = $main_price*$discount/100;
                                         $main_price=$main_price-$d;
-                                        $dis = "(".$discount."% Discount)";
+                                        $dis = "(".$discount."% Discount ".$everyday.")";
                                     }
                                     
                                 ?>
@@ -261,10 +272,15 @@
                                                                                 <a id="buttons_{{ $mm->id }}"
                                                                                    class="buttons"
                                                                                    href="javascript:void(0);">
+                                                                                   <?php if($mm->price!=0)
+                                                                                            $extra_price = '(+$'.$mm->price.')_';
+                                                                                        else
+                                                                                            $extra_price = '_';
+                                                                                   ?>
                                                                                     <!--button class="btn btn-primary"></button-->
                                                                                     <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                            id="extra_{{ $mm->id }}"
-                                                                                           title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
+                                                                                           title="{{ $mm->id.'_<br/> '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
                                                                                            class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
                                                                                            name="extra_{{ $sub->id }}"
                                                                                            value="post" <?php if($sub->sing_mul=='0')echo "style='display:none'";?>/>
@@ -272,7 +288,7 @@
                                                                                     &nbsp;&nbsp; {{ $mm->menu_item }}
                                                                                     &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                                 </a>
-                                                                                <b >
+                                                                                <b <?php if($sub->sing_mul=='1'){echo "style='display:none'";}?>>
                                                                                     <a id="remspan_{{ $mm->id }}"
                                                                                        class="remspan"
                                                                                        href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
@@ -310,8 +326,7 @@
                                             <a id="profilemenu{{ $value->id }}"
                                                class="btn btn-primary add_menu_profile add_end"
                                                href="javascript:void(0);" >Add</a>
-                                            <button id="clear_{{ $value->id }}" data-dismiss="modal"
-                                                    class="btn btn-warning resetslider" type="button">
+                                            <button id="clear_{{ $value->id }}"  class="btn btn-warning resetslider" type="button">
                                                 RESET
                                             </button>
                                             <div class="clearfix"></div>
