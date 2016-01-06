@@ -1,4 +1,4 @@
-<?php printfile("views/common/edituserreview.blade.php"); ?>
+<?php printfile("views/common/delete_edituserreview.blade.php"); ?>
 
     <div class="form-group row">
         <label for="rating" class="col-sm-3">Rating</label>
@@ -11,9 +11,7 @@
     <div class="form-group row">
         <label for="comment" class="col-sm-3">Comment</label>
         <div class="col-sm-9">
-            <textarea class="form-control" name="comments" id="comments" rows="5" required>
-                {{ (isset($user_review_detail->comments))?$user_review_detail->comments:'' }}
-            </textarea>                
+            <textarea class="form-control" name="comments" id="comments" rows="5" required>{{ (isset($user_review_detail->comments))?$user_review_detail->comments:'' }}</textarea>
         </div>
     </div>
 
