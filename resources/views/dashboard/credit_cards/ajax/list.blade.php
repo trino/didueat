@@ -125,7 +125,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                 @endforeach
             @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No record founds!</th>
+                    <th scope="row" colspan="7" class="text-center">No records found</th>
                 </tr>
             @endif
             </tbody>

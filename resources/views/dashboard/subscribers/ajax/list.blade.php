@@ -74,7 +74,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="4" class="text-center">No record founds!</th>
+                    <th scope="row" colspan="4" class="text-center">No records found</th>
                 </tr>
                 @endif
             </tbody>
