@@ -201,19 +201,20 @@
                         <h2 class="profile_delevery_type"></h2>
                     </div>
                 </div>
-                @if(\Session::has('session_id'))
-                    <?php
-                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
-                    ?>
-                @else
-                    <div class="form-group ">
-                        <div class="col-xs-12">
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        @if(\Session::has('session_id'))
+                            <?php
+                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+                                echo "Welcome ". $profile->name;
+                            ?>
+                        @else
                             <a class="btn btn-danger" data-target="#loginModal" data-toggle="modal">Log in</a>
-                            <span>(Provide a Password to Create a Profile.)</span>
-                        </div>
+                            <span>(Provide a password to create a profile)</span>
+                        @endif
                     </div>
-                    <div class="clearfix"></div>
-                @endif
+                </div>
+                <div class="clearfix"></div>
                 <form name="checkout_form" id="profiles" novalidate>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                     <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
