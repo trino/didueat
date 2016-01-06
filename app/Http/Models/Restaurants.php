@@ -141,7 +141,7 @@ class Restaurants extends BaseModel {
         $C = ', ';
         $PostalCode = clean_postalcode($PostalCode);
         logevent("Edited restaurant: " . $Name . $C . $GenreID . $C . $Email . $C . clean_phone($Phone) . $C . $Address . $C . $City . $C . $Province . $C . $Country . $C . $PostalCode . $C . $Description . $C . $DeliveryFee . $C . $Minimum);
-        $data = array("name" => $Name, "genre" => $GenreID, "email" => $Email, "phone" => clean_phone($Phone), "address" => $Address, "city" => $City, "province" => $Province, "country" => $Country, "post_code" => $PostalCode, "description" => $Description, "delivery_fee" => $DeliveryFee, "minimum" => $Minimum);
+        $data = array("name" => $Name, "genre" => $GenreID, "email" => $Email, "phone" => clean_phone($Phone), "address" => $Address, "city" => $City, "province" => $Province, "country" => $Country, "postal_code" => $PostalCode, "description" => $Description, "delivery_fee" => $DeliveryFee, "minimum" => $Minimum);
         update_database("restaurants", "id", $ID, $data);
         return $ID;
     }

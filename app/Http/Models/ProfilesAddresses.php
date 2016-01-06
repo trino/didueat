@@ -65,8 +65,8 @@ class ProfilesAddresses extends BaseModel {
         return get_entry("profiles_addresses", $id);
     }
 
-    function edit_profile_address($id, $user_id, $address, $phone_no, $address, $city, $province, $post_code, $country) {
-        $Data = array("user_id" => $user_id, "address" => $address, "phone_no" => clean_phone($phone_no), "address" => $address, "city" => $city, "province" => $province, "post_code" => clean_postalcode($post_code), "country" => $country);
+    function edit_profile_address($id, $user_id, $address, $phone, $address, $city, $province, $postal_code, $country) {
+        $Data = array("user_id" => $user_id, "address" => $address, "phone" => clean_phone($phone), "address" => $address, "city" => $city, "province" => $province, "postal_code" => clean_postalcode($postal_code), "country" => $country);
         return edit_database("profiles_addresses", "id", $id, $Data);
     }
 

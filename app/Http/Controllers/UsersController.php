@@ -344,7 +344,7 @@ class UsersController extends Controller {
                 $oid = $ob2->id;
                 
                 $data['email'] = $post['email'];
-                $data['phone_no'] = $post['contact'];
+                $data['phone'] = $post['contact'];
                 $data['name'] = trim($post['ordered_by']);
                 $data['profile_type'] = 2;
                 $data['created_by'] = 0;
@@ -377,7 +377,7 @@ class UsersController extends Controller {
                             $ad->save();
                             
                             $nd2 = new \App\Http\Models\NotificationAddresses();
-                            $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $uid->id, 'address' => $ad->phone_no));
+                            $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $uid->id, 'address' => $ad->phone));
                             $nd2->save();
                             
                             $userArray = $uid->toArray();
@@ -444,7 +444,7 @@ class UsersController extends Controller {
     //converts the current profile to JSON
     function json_data() {
         $id = $_POST['id'];
-        $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+        $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         
         //$user = \DB::table('profiles')->select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         

@@ -203,12 +203,12 @@
                 </div>
                 @if(\Session::has('session_id'))
                     <?php
-                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone_no as phone', 'profiles_addresses.address as street', 'profiles_addresses.post_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
                     ?>
                 @else
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <a class="btn btn-danger fancybox-fast-view" data-target="#loginModal" data-toggle="modal">Log in</a>
+                            <a class="btn btn-danger" data-target="#loginModal" data-toggle="modal">Log in</a>
                             <span>(Provide a Password to Create a Profile.)</span>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                             <div class="col-xs-12 col-sm-6">
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code"
                                        class="form-control form-control--contact" name="postal_code" id="postal_code"
-                                       value="{{ (isset($profile->post_code))?$profile->post_code:'' }}">
+                                       value="{{ (isset($profile->postal_code))?$profile->postal_code:'' }}">
                             </div>
                             <div class="clearfix"></div>
                         </div>

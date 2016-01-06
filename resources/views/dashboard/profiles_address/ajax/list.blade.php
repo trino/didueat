@@ -40,10 +40,10 @@
                        title="Sort [Location] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th   class="">
-                    <a class="sortOrder" data-meta="phone_no" data-order="ASC" data-title="Phone"
+                    <a class="sortOrder" data-meta="phone" data-order="ASC" data-title="Phone"
                        title="Sort [Phone] ASC"><i class="fa fa-caret-down"></i></a>
                     Phone
-                    <a class="sortOrder" data-meta="phone_no" data-order="DESC" data-title="Phone"
+                    <a class="sortOrder" data-meta="phone" data-order="DESC" data-title="Phone"
                        title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th class="">
@@ -64,8 +64,8 @@
                         <!--td>{{ $key+1 }}</td-->
                         <!--td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td-->
                         <td>{{ $value->location }}</td>
-                        <td>{{ $value->phone_no }}</td>
-                        <td>{{ $value->address.', '. $value->city .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                        <td>{{ $value->phone }}</td>
+                        <td>{{ $value->address.', '. $value->city .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->postal_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                         <td>
                             <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal" data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm"

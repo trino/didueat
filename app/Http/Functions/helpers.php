@@ -345,7 +345,7 @@ function login($Profile, $IsPossessing = false) {
     \Session::put('session_profiletype', $Profile->profile_type);
     \Session::put('session_name', $Profile->name);
     \Session::put('session_email', $Profile->email);
-    \Session::put('session_phone', select_field("profiles_addresses", "user_id", $Profile->id, "phone_no"));
+    \Session::put('session_phone', select_field("profiles_addresses", "user_id", $Profile->id, "phone"));
     \Session::put('session_subscribed', $Profile->subscribed);
     \Session::put('session_restaurant_id', $Profile->restaurant_id);
     \Session::put('session_createdBy', $Profile->created_by);

@@ -35,8 +35,8 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td>
                                 <td>{{ $value->location }}</td>
-                                <td>{{ $value->phone_no }}</td>
-                                <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->post_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                                <td>{{ $value->phone }}</td>
+                                <td>{{ $value->address.', '. select_field('cities', 'id', $value->city, 'city') .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->postal_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                                 <td>
 
 
@@ -119,7 +119,7 @@
 
                         <div class="col-sm-9">
 
-                            <input class="form-control" type="text" name="post_code"
+                            <input class="form-control" type="text" name="postal_code"
                                    placeholder="Postal Code"
                                    value=""></div>
                     </div>
@@ -129,7 +129,7 @@
 
                         <div class="col-sm-9">
 
-                            <input class="form-control" type="text" name="phone_no"
+                            <input class="form-control" type="text" name="phone"
                                    placeholder="Phone Number"
                                    value=""></div>
                     </div>

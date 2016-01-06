@@ -404,14 +404,14 @@ class HomeController extends Controller {
                 if($user->id){
                     $add = new \App\Http\Models\ProfilesAddresses();
                     $update['user_id'] = $user->id;
-                    $update['phone_no'] = $post['phone'];
+                    $update['phone'] = $post['phone'];
                     $update['mobile'] = $post['mobile'];
-                    $update['post_code'] = $post['postal_code'];
+                    $update['postal_code'] = $post['postal_code'];
                     $add->populate(array_filter($update));
                     $add->save();
 
                     $nd2 = new \App\Http\Models\NotificationAddresses();
-                    $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone_no));
+                    $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone));
                     $nd2->save();
                 }
 

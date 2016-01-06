@@ -17,9 +17,9 @@
 </div>
 
 <!--div class="form-group row">
-    <label for="phone_no" class="col-sm-3">Phone Number</label>
+    <label for="phone" class="col-sm-3">Phone Number</label>
     <div class="col-sm-9">
-        <input type="text" name="phone_no" class="form-control" id="phone" placeholder="Phone Number" value="{{ priority(old('phone'), read('phone')) }}">
+        <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" value="{{ priority(old('phone'), read('phone')) }}">
     </div>
 </div-->
 
