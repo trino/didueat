@@ -20,6 +20,11 @@ class ProfilesAddresses extends BaseModel {
                 $this->$cell = $data[$cell];
             }
         }
+        foreach(array('phone', 'mobile') as $cell){
+            if(isset($this->$cell)){
+                $this->$cell = phonenumber($this->$cell);
+            }
+        }
     }
     
     public static function listing($array = "", $type = "") {

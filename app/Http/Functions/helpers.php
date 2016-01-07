@@ -113,6 +113,13 @@ function includeJS($URL, $options = ""){
     }
 }
 
+function phonenumber($phone){
+    $phone = preg_replace("/[^0-9]/", "", $phone);// note: strip out everything but numbers
+    if(strlen($phone)==10) {
+        return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
+    }
+}
+
 function newrow($new = false, $name = false, $class = ""){
     $id=str_replace(" ", "_", strtolower($name)) . "_label";
     if($new){

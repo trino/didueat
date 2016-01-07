@@ -20,6 +20,9 @@ class NotificationAddresses extends BaseModel {
                 $this->$cell = $data[$cell];
             }
         }
+        if((isset($this->is_call) && $this->is_call) || (isset($this->is_sms) && $this->is_sms)){
+            $this->address = phonenumber($this->address);
+        }
     }
     
     public static function listing($array = "", $type = "") {
