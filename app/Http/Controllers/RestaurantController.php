@@ -631,10 +631,13 @@ class RestaurantController extends Controller {
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', 'Congratulations!');
+        
         if (!$slug) {
-            return \Redirect::to('restaurant/menus-manager');
+            return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
+           // return \Redirect::to('restaurant/menus-manager');
         }else {
-            return \Redirect::to('restaurants/' . $slug . '/menus');
+            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menus');
+           // return \Redirect::to('restaurants/' . $slug . '/menus');
         }
     }
 
