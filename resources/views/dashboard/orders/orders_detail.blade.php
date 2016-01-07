@@ -8,6 +8,7 @@
             <?php
                 printfile("views/dashboard/orders/orders_detail.blade.php");
                 $profiletype = Session::get('session_profiletype');
+                $date = new DateTime($order->order_time);
             ?>
 
 
@@ -38,20 +39,23 @@
 
                     <div>
 
-
-                        <?php $date = new DateTime($order->order_time); ?>
-                        <br>Ordered by: {{ $user_detail->name }}
-                            <br>Email: {{ $user_detail->email }}
-                            <br>Contact: {{ $order->contact }}
-                            <br>Order Type: {{ ($order->order_type == '1') ? 'Delivery' : 'Pickup' }}
-                            <br>Ordered On: {{ $date->format('l jS \of F Y h:i:s A') }}
-                            <br>Order ready: {{ $order->order_till }}
-                            <br>Restaurant {{ (isset($restaurant->name))?'['.$restaurant->name.']':'' }}
-
-                        @if($order->remarks != '')
-                                <br>Notes: {{ $order->remarks }}
+                        <TABLE WIDTH="50%">
+                        @if(is_object($user_detail))
+                            <TR><TD>Ordered by</TD>     <TD>{{ $user_detail->name }}</TD></TR>
+                            <TR><TD>Email</TD>          <TD>{{ $user_detail->email }}</TD></TR>
+                        @else
+                            <TR><TD COLSPAN="2">User is not on record!</TD></TR>
                         @endif
-
+                        <TR><TD>Contact</TD>            <TD>{{ $order->contact }}</TD></TR>
+                        <TR><TD>Order Type</TD>         <TD>{{ ($order->order_type == '1') ? 'Delivery':'Pickup' }}</TD></TR>
+                        <TR><TD>Ordered On</TD>         <TD>{{ $date->format('l jS \of F Y h:i:s A') }}</TD></TR>
+                        <TR><TD>Order ready</TD>        <TD>{{ $order->order_till }}</TD></TR>
+                        <TR><TD>Restaurant</TD>         <TD>{{ (isset($restaurant->name))?'['.$restaurant->name.']':'' }}</TD></TR>
+                        @if($order->remarks != '')
+                            <TR><TD>Notes</TD>          <TD>{{ $order->remarks }}
+                        @endif
+                        </TABLE>
+                        
                         @include('common.receipt')
 
                     </div>
