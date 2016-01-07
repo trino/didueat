@@ -25,6 +25,9 @@ class ProfilesAddresses extends BaseModel {
                 $this->$cell = phonenumber($this->$cell);
             }
         }
+        if(isset($this->postal_code)){
+            $this->postal_code = clean_postalcode($this->postal_code);
+        }
     }
     
     public static function listing($array = "", $type = "") {

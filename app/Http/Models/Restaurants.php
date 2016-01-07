@@ -20,6 +20,14 @@ class Restaurants extends BaseModel {
                 $this->$cell = $data[$cell];
             }
         }
+        foreach(array('phone', 'mobile') as $cell){
+            if(isset($this->$cell)){
+                $this->$cell = phonenumber($this->$cell);
+            }
+        }
+        if(isset($this->postal_code)){
+            $this->postal_code = clean_postalcode($this->postal_code);
+        }
     }
     
     public static function listing($array = "", $type = "") {

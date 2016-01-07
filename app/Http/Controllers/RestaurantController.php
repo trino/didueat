@@ -149,11 +149,11 @@ class RestaurantController extends Controller {
             if (!isset($post['province']) || empty($post['province'])) {
                 return $this->failure("[Province] field is missing!",'/restaurant/add/new', true);
             }
-            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                return $this->failure("[Postal Code] field is missing!", '/restaurant/add/new', true);
+            if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
+                return $this->failure("[Postal Code] field is missing or invalid!", '/restaurant/add/new', true);
             }
-            if (!isset($post['phone']) || empty($post['phone'])) {
-                return $this->failure("[Phone] field is missing!",'/restaurant/add/new', true);
+            if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
+                return $this->failure("[Phone] field is missing or invalid!",'/restaurant/add/new', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure("[Country] field is missing!", '/restaurant/add/new', true);

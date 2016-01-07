@@ -80,13 +80,13 @@
 </div>
 
 <?php if(isset($apartment)){ ?>
-    <?= newrow($new, "Apartment"); ?>
-            <input type="text" name="apartment" class="form-control" placeholder="Apartment" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}" {{$required}}>
+    <?= newrow($new, "Apartment/Unit"); ?>
+            <input type="text" name="apartment" class="form-control" placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}" {{$required}}>
         </div>
     </div>
 
     <?= newrow($new, "Buzz Code"); ?>
-            <input type="text" name="buzz" class="form-control" placeholder="Buzz Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}" {{$required}}>
+            <input type="text" name="buzz" class="form-control" placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}" {{$required}}>
         </div>
     </div>
 

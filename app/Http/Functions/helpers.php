@@ -586,10 +586,9 @@ function iif($Value, $True, $False = ""){
 }
 
 //sanitize a postal code
-function clean_postalcode($PostalCode) {
+function clean_postalcode($PostalCode, $delimeter = " ") {
     $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
     if (validateCanadaZip($PostalCode)) {
-        $delimeter = ""; //" "
         return left($PostalCode, 3) . $delimeter . right($PostalCode, 3);
     }
 }
