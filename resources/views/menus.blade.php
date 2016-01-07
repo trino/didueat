@@ -193,7 +193,7 @@
                             <button type="button" class="close close<?php echo $value->id;?>" data-dismiss="modal" aria-label="Close" id="clear_<?php echo $value->id;?>" >
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title" id="viewDetailModel">Add Addresss</h4>
+                            <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item;?></h4>
                         </div>
                         <div class="modal-body product-popup" id="product-pop-up_{{ $value->id }}">
 
@@ -203,7 +203,7 @@
 
                                 <div class="modal-bodys">
                                     <div class="col-sm-12 col-xs-12 title">
-                                        <h2>{{ $value->menu_item }}: $ {{ $main_price." ".$dis }}</h2>
+                                        <h3><span class="label label-info">$ {{ $main_price." ".$dis }}</span></h3>
                                     </div>
                                     <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
                                         <strong>Menu Views:</strong>
@@ -215,7 +215,7 @@
                                     <div class="clearfix"></div>
 
                                     <div class="product-titles">
-                                        <h2>{{ $value->description }}</h2>
+                                        <p class="res-desc">{{ $value->description }}</p>
                                     </div>
 
                                     <div class="subitems_{{ $value->id }} optionals">
@@ -248,9 +248,9 @@
                                                                            id="{{ $sub->id }}" style="display: none;"
                                                                            checked="checked" class="chk">
                                                                 </div>
-                                                                <a href="javascript:void(0);"><strong>{{ $sub->menu_item }}</strong></a>
+                                                                <a href="javascript:void(0);"><strong>{{ ucfirst($sub->menu_item) }}</strong></a>
                                                                 <span><em> </em></span>
-                                            <span class="limit-options">
+                                            <strong><span class="limit-options">
                                                 <?php
                                                 if ($sub->exact_upto == 0) {
                                                     $upto = "up to ";
@@ -269,7 +269,7 @@
                                                     echo "(Mandatory)";
                                                 }
                                                 ?>
-                                            </span>
+                                            </span></strong>
 
                                                                 <div class="clearfix"></div>
                                                                 <span class="error_{{ $sub->id }} errormsg"></span>
@@ -277,7 +277,8 @@
                                                                 <div class="list clearfix">
                                                                     <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
                                                                     @foreach($mini_menus as $mm)
-                                                                        <div class="col-xs-6 col-md-6 subin btn default btnxx">
+                                                                        <!--<div class="col-xs-6 col-md-6 subin btn default btnxx">-->
+                                                                        <div class="col-xs-6 col-md-6 subin padding-left-0">
                                                                             <div class="btnxx-inner">
                                                                                 <a id="buttons_{{ $mm->id }}"
                                                                                    class="buttons"
@@ -295,7 +296,7 @@
                                                                                            name="extra_{{ $sub->id }}"
                                                                                            value="post" <?php if($sub->sing_mul=='0')echo "style='display:none'";?>/>
                                                                                    
-                                                                                    &nbsp;&nbsp; {{ $mm->menu_item }}
+                                                                                    {{ $mm->menu_item }}
                                                                                     &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                                 </a>
                                                                                 <b <?php if($sub->sing_mul=='1'){echo "style='display:none'";}?>>
