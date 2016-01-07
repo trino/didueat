@@ -7,12 +7,14 @@
 .dropdown-menu{
 	padding-left: 5px;
 }
+
 .headerbutton{
 	height:38px;
     font-size: 24px;
     padding-top: 7px;
     padding-bottom: 8px;
 }
+
 /*
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 	z-index: 2;

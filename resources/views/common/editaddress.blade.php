@@ -15,13 +15,21 @@
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
         <DIV CLASS="nowrap">
-            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="{{ old('formatted_address') }}" autocomplete="off" style="width:80%;">
+            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
+            if (old('formatted_address')){
+                echo old('formatted_address');
+            } else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+                $country = select_field("countries", "id", $addresse_detail->country, "name");
+                echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+            }
+            ?>" autocomplete="off" style="width: -moz-calc(100% - 40px); width: -webkit-calc(100% - 40px); width: calc(100% - 40px);">
             <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
                 <i class="fa fa fa-compass"></i>
             </a>
         </DIV>
     </div>
 </div>
+<HR>
 
 <?= newrow($new, "Street Address"); ?>
         <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}} >
@@ -34,7 +42,7 @@
 </div>
 
 <?= newrow($new, "Phone Number"); ?>
-        <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
+        <input type="text" name="phone" class="form-control" placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
     </div>
 </div>
 
@@ -86,7 +94,8 @@
             <input type="text" name="notes" class="form-control" placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
         </div>
     </div>
-<?php }?>
+<?php } ?>
+The entrance must be safe (ie: well-lit, clear of ice<?php if(date("md") == "0401"){ echo ', Macaulay Culkin-esque traps';} ?>) Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)
 <?php if(isset($dontinclude)) { ?>
     <SCRIPT>
         $(document).ready(function() {
