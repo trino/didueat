@@ -257,6 +257,8 @@ function check_enable($this,$menu)
     if($_parent.find('.cat_id').val()=='')
     {
         alert('Please choose category');
+        $this.prop('checked', false); 
+        $('.disabled').hide();
         return false;
     }
     else
@@ -295,6 +297,9 @@ function check_enable($this,$menu)
         else
         {
             alert(num+" item already selected. Please disable any other item to enable this item.");
+            if($this.is(':checked'))
+            $this.prop('checked', false); 
+            $('.disabled').hide();
         }
        } 
     });
