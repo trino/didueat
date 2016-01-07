@@ -76,18 +76,18 @@
 </div>
 
 <?= newrow($new, "City"); ?>
-        <input type="text" id="city" name="city" class="form-control" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
+        <input type="text" id="city" name="city" class="form-control" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
 </div>
 
 <?php if(isset($apartment)){ ?>
     <?= newrow($new, "Apartment/Unit"); ?>
-            <input type="text" name="apartment" class="form-control" placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}" {{$required}}>
+            <input type="text" name="apartment" class="form-control" placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
         </div>
     </div>
 
     <?= newrow($new, "Buzz Code"); ?>
-            <input type="text" name="buzz" class="form-control" placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}" {{$required}}>
+            <input type="text" name="buzz" class="form-control" placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}">
         </div>
     </div>
 
