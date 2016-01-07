@@ -90,7 +90,7 @@ $('.savebtn').live('click', function () {
     //var $_this = $(this);
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
-    
+    alert(id);
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();

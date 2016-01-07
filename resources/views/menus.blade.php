@@ -300,14 +300,14 @@
                                                                                     &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                                 </a>
                                                                                 <b <?php if($sub->sing_mul=='1'){echo "style='display:none'";}?>>
-                                                                                    <a id="remspan_{{ $mm->id }}"
-                                                                                       class="remspan"
-                                                                                       href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                                                                    &nbsp; <a id="remspan_{{ $mm->id }}"
+                                                                                       class="remspan btn btn-danger btn-xs"
+                                                                                       href="javascript:;">-</a>
                                                                                     <span id="sprice_{{$mm->price}}"
                                                                                           class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;0&nbsp;&nbsp;</span>
                                                                                     <a id="addspan_{{ $mm->id }}"
-                                                                                       class="addspan"
-                                                                                       href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                                                                       class="addspan btn btn-xs btn-info"
+                                                                                       href="javascript:;">+</a>
                                                                                 </b>
                                                                             </div>
                                                                             <div class="clearfix"></div>
@@ -327,13 +327,14 @@
                                         <div class="clearfix"></div>
                                         <div class="col-xs-12 add-btn">
                                             <div class="add-minus-btn">
-                                                <a class="btn btn-primary minus" href="javascript:void(0);"
+                                                <a class="btn btn-danger btn-sm minus" href="javascript:void(0);"
                                                    onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
 
-                                                <div class="number{{ $value->id }}">1</div>
-                                                <a class="btn btn-primary add" href="javascript:void(0);"
+                                                &nbsp; <span class="number{{ $value->id }}">1</span> &nbsp; 
+                                                <a class="btn btn-info btn-sm add" href="javascript:void(0);"
                                                    onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
                                             </div>
+                                            <p>
                                             <a id="profilemenu{{ $value->id }}"
                                                class="btn btn-primary add_menu_profile add_end"
                                                href="javascript:void(0);" >Add</a>
@@ -341,6 +342,7 @@
                                                 RESET
                                             </button>
                                             <div class="clearfix"></div>
+                                            </p>
                                         </div>
 
 
