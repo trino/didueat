@@ -414,13 +414,13 @@
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');
-                $('#list' + ids).html('<span class="receipt_image"><img src="' + img + '" width="37" height="34">' +
-                        '<a style="padding: 6px;height: 18px;line-height: 6px" id="dec' + ids + '" class="decrease small btn btn-danger" href="javascript:void(0);">' +
-                        '<strong>-</strong></a><span class="count">x ' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + ' &nbsp;<a id="inc' + ids + '" class="increase btn btn-primary small " href="javascript:void(0);" style="padding: 6px;height: 18px;line-height: 6px">' +
-                        '<strong>+</strong></a></span>' +
+                $('#list' + ids).html('<span class="receipt_image"><img src="' + img + '">' +
+                        '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
+                        '-</a><span class="count">x ' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
+                        '+</a></span>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span>' +
-                        '<strong>' + app_title + '</strong>' +
+                        '<strong class="innerst">' + app_title + '</strong>' +
                         '<em class="total">$' + (pre_cnt * price).toFixed(2) + '</em>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
