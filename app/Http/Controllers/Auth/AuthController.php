@@ -201,16 +201,15 @@ class AuthController extends Controller {
      * @return message
      */
     public function resendEmail($email = 0, $AsJSON = false) {
-        $email = base64_decode($email);
+        if($this->validBase64($email)) {$email = base64_decode($email);}
         $user = \App\Http\Models\Profiles::where('email', $email)->first();
-
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $userArray = $user->toArray();
             $userArray['mail_subject'] = 'Thank you for registering.';
             $this->sendEMail("emails.registration_welcome", $userArray);
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";
-            $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [" . $user->email . "]. Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+            $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address (" . $user->email . "). Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
         } else {
             $message['title'] = "Email verification";
             $message['msg_type'] = "error";
@@ -220,10 +219,17 @@ class AuthController extends Controller {
             echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
             die;
         } else {
-            return view('messages.message', $message);
+            return view('messages.message', array_merge($userArray, $message));
         }
     }
 
+    function validBase64($string){
+        $decoded = base64_decode($string, true);// Check if there is no invalid character in strin
+        if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $string)) return false;// Decode the string in strict mode and send the responce
+        if(!base64_decode($string, true)) return false;// Encode and compare it to origional one
+        if(base64_encode($decoded) != $string) return false;
+        return true;
+    }
     /**
      * Verify email address
      * @param  $email

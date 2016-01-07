@@ -145,7 +145,6 @@
                         minlength: 10,
                         maxlength: 10,
                         number: true
-
                     },
                     email: {
                         required: true,
@@ -157,27 +156,27 @@
                     },
                     password1: {
                         required: true,
-                        minlength: 3
+                        minlength: 5
                     },
                     confirm_password1: {
                         required: true,
-                        minlength: 3,
+                        minlength: 5,
                         equalTo: "#password1"
                     }
                 },
                 messages: {
                     Phone: {
                         required: "Please enter a phone number",
-                        minlength: "Your phone number must consist of at least 10 Number",
-                        maxlength: "Your phone number must consist of at most 10 Number",
+                        minlength: "Your phone number must consist of at least 10 numbers",
+                        maxlength: "Your phone number must consist of at most 10 numbers",
                     },
                     email: {
-                        required: "Please Enter Email!",
-                        email: "This is not a valid email!",
-                        remote: "Email already in use!"
+                        required: "Please Enter an email address!",
+                        email: "This is not a valid email address!",
+                        remote: "This email address is already in use!"
                     },
                     confirm_password1: {
-                        equalTo: "Both password fields are mis-matched!"
+                        equalTo: "The password fields are mis-matched!"
                     }
                 }
             });

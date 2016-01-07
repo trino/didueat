@@ -5,19 +5,21 @@
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/orders/orders_detail.blade.php"); ?>
+            <?php
+                printfile("views/dashboard/orders/orders_detail.blade.php");
+                $profiletype = Session::get('session_profiletype');
+            ?>
 
 
             <div class="card" id="toPrintDetail">
                 <div class="card-header ">
                     <p>Order Detail
-                        <input type="button" style="" value="Print Report" onclick="printDiv('toPrintDetail')"
-                               class="btn btn-sm pull-right"/>
+                        <input type="button" style="" value="Print Report" onclick="printDiv('toPrintDetail')" class="btn btn-sm pull-right"/>
                     </p>
                 </div>
 
                 <div class="card-block">
-                    @if(Session::get('session_profiletype') == 1)
+                    @if($profiletype == 1 || $profiletype == 2)
                         @if(strtolower($order->status) == 'pending')
                             <a href="#cancel-popup-dialog"
                                class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal" data-target="#orderCancelModal"
@@ -28,8 +30,10 @@
                                oldclass="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup"
                                data-id="{{ $order->id }}">Approve</a>
                         @else
-                            {{strtolower($order->status)}}
+                            {{ "Status: " . strtolower($order->status)}}
                         @endif
+                    @else
+                        {{"Profile Type: " . Session::get('session_profiletype')}}
                     @endif
 
                     <div>

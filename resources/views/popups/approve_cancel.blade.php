@@ -13,11 +13,9 @@
             <div class="modal-body">
                 <?php printfile("views/popups/approve_cancel.blade.php (approve)"); ?>
                 <DIV ID="message" align="center"></DIV>
-                <div class="form-group">
-                    <label>Note to Customer</label>
-                    <textarea name="note" rows="6" id="approvetext" class="form-control" maxlength="5000" required></textarea>
-                    <input type="hidden" name="id" value="" />
-                </div>
+                <label>Note to Customer</label>
+                <textarea name="note" rows="6" id="approvetext" class="form-control" maxlength="5000" required></textarea>
+                <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -43,11 +41,9 @@
             <div class="modal-body">
                 <?php printfile("views/popups/approve_cancel.blade.php (cancel)"); ?>
                 <div ID="message" align="center"></div>
-                <div class="form-group">
-                    <label>Note to Customer</label>
-                    <textarea name="note" id="canceltext" rows="6" class="form-control" maxlength="5000" required></textarea>
-                    <input type="hidden" name="id" value="" />
-                </div>
+                <label>Note to Customer</label>
+                <textarea name="note" id="canceltext" rows="6" class="form-control" maxlength="5000" required></textarea>
+                <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

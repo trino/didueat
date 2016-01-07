@@ -3,7 +3,7 @@
     echo newrow($new, "Restaurant Name");
     $name = iif($new, "restname", "name");//why does it change to restname?
 ?>
-    <input type="text" name="{{ $name }}" class="form-control" placeholder="Restaurant Name" value="{{ (isset($restaurant->name))?$restaurant->name: old($name) }}" required>
+    <input type="text" name="{{ $name }}" class="form-control" placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old($name) }}" required>
 <?php echo newrow();
 
 echo newrow($new, "Email"); ?>

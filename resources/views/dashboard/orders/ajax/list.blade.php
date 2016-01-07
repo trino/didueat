@@ -66,8 +66,7 @@
                                 @endif
 
                                 @if(Session::get('session_profiletype') == 1)
-                                    <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
-                                       class="btn btn-danger btn-sm"
+                                    <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}" class="btn btn-danger btn-sm"
                                        onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
                                         Delete
                                     </a>
@@ -76,8 +75,16 @@
                             <TD>
                                 <?php
                                     if($value->time){
-                                        //$secondsper = array("week" => 604800, "day" => 86400, "hour" => 3600, "minute" => 60);
-                                        $delay = array('second' => strtotime($value->time) - strtotime($value->order_time), "total" => "");
+                                        echo '<FONT COLOR="';
+                                        $delay = floor((strtotime($value->time) - strtotime($value->order_time)) / 1000);
+                                        if($delay < 60){
+                                            echo 'GREEN">';
+                                        } else if($delay < 300){
+                                            echo 'ORANGE">';
+                                        } else {
+                                            echo 'RED">';
+                                        }
+                                        $delay = array('second' => $delay, "total" => "");
                                         $total = array();
                                         foreach($secondsper as $timeperiod => $seconds){
                                             $delay[$timeperiod] = floor($delay["second"] / $seconds);
@@ -89,7 +96,7 @@
                                         if($delay["second"]){
                                             $total[] = $delay["second"] . " second" . iif($delay["second"] != 1, "s");
                                         }
-                                        echo implode(", ", $total);
+                                        echo implode(", ", $total) . '</FONT>';
                                     }
                                 ?>
                             </TD>

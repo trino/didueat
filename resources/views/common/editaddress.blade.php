@@ -49,7 +49,7 @@
         <select name="country" id="country" class="form-control" id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
             @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
-                <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
+                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->country) && $addresse_detail->country == $value->id) || old('country') == $value->name || old('country') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
         </select>
     <!--input type="text" id="country" name="country" class="form-control" {{$required}} value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}"-->
@@ -62,9 +62,11 @@
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->name }}" <?php
                      if (isset($addresse_detail->province)){
-                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation){
-                            echo  'selected';
+                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation || $value->name == old('province')){
+                            echo 'selected';
                         }
+                     } else if ($value->name == old('province')){
+                         echo 'selected';
                      }
                 ?>>{{ $value->name }}</option>
             @endforeach
