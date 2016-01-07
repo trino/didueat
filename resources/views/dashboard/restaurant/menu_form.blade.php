@@ -24,14 +24,16 @@
 
         <div class="col-sm-10 col-xs-12 lowheight ignore par_wrap">
             @if(count($category))
+            <div class="col-md-3 padding-left-0">
                 <select class="cat_id form-control">
                     <option value="">Choose Category</option>
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
                                 @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
                     @endforeach
-                </select><br />
-
+                </select>
+            </div>
+            <div class="col-md-6 padding-left-0">
                 <LABEL>
                     <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 </LABEL>
@@ -40,17 +42,29 @@
                     <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong>
                     <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
                 </LABEL>
+            </div>
+            <div class="clearfix"></div>
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
-                <select class="disc_per">
+                <div class="form-group">
+                <label class="col-md-3 padding-left-0">Discount %</label>
+                <div class="col-md-6 padding-left-0">
+                <select class="disc_per form-control">
                     <option>Choose Discount Percentage: </option>
                     <?php for($i=0;$i<101;$i=$i+5){ ?>
                             <option value="{{ $i }}"
                                     <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
                     <?php }?>
                 </select>
-                <br />
-                <strong>Discount Applied for:</strong><br />
+                
+                </div>
+                <div class="clearfix"></div>
+                </div>
+                <div class="form-group">
+                <div class="col-md-3 padding-left-0">
+                <strong>Discount Applied for:</strong>
+                </div>
+                <div class="col-md-9 padding-left-0">
                 <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
                 <?php
                     $days = array();
@@ -58,14 +72,29 @@
                         $days = explode(',',$model->days_discount);
                     }
                     $weekdays = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-                    foreach($weekdays as $weekday){
+                    foreach($weekdays as $k=>$weekday){
                         $shortday = left($weekday, 3);
-                        echo '<LABEL><input type="checkbox" class="days_discount" ';
+                        if($k==0 || $k==4)
+                        {
+                            ?>
+                            <div class="col-md-6 padding-left-0">
+                            <?php
+                        }
+                        echo '<LABEL style="font-weight:normal;"><input type="checkbox" class="days_discount" ';
                         if(in_array($shortday,$days)){echo 'checked="checked"';}
                         echo 'value="' . $shortday . '"/> ' . $weekday . '</LABEL><br />';
+                        if($k==3 || $k==6)
+                        {
+                            ?>
+                            </div>
+                            <?php
+                        }
                     }
                 ?>
+                </div>
+                <div class="clearfix"></div>
                 <br />
+                </div>
                 </div>
                 <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
                 <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>-->

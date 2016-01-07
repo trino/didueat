@@ -151,7 +151,7 @@
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
                                    class="btn insert-stats" data-toggle="modal"
-                                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
+                                   data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}" style="max-width: 100%">
 
 
                                     <div class="card-image">
