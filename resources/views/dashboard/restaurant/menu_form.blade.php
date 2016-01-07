@@ -106,8 +106,11 @@
             @else
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
-            <input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/><br class="ignore"/>
-            <input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/>
+            <div class="form-group">
+            <div class="col-md-6 padding-left-0"><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
+            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/></div>
+            <div class="clearfix"></div>
+            </div>
             <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
             <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
         </div>
