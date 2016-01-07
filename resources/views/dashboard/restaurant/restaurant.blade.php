@@ -31,7 +31,7 @@ echo newrow($new, "Tags"); ?>
 <?php echo newrow();
 
 echo newrow($new, "Logo"); ?>
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">ChangeImage</a>
+    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
     <input type="hidden" name="logo" id="hiddenLogo"/>
 
     @if(isset($restaurant->logo) && $restaurant->logo != "")

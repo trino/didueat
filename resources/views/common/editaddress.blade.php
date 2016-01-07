@@ -1,7 +1,6 @@
 <?php
     if(isset($GLOBALS["editaddress"])){
-        echo "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
-        die();
+        return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
     }
     printfile("views/common/editaddress.blade.php");
     $GLOBALS["editaddress"] = true;
@@ -94,9 +93,13 @@
             <input type="text" name="notes" class="form-control" placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
         </div>
     </div>
-<?php } ?>
-The entrance must be safe (ie: well-lit, clear of ice<?php if(date("md") == "0401"){ echo ', Macaulay Culkin-esque traps';} ?>) Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)
-<?php if(isset($dontinclude)) { ?>
+<?php }
+    if(isset($disclaimer)){
+        echo 'The entrance must be safe (ie: well-lit, clear of ice';
+        if(date("md") == "0401"){ echo ' and Macaulay Culkin-esque traps';}
+        echo ') Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
+    }
+if(isset($dontinclude)) { ?>
     <SCRIPT>
         $(document).ready(function() {
             initAutocomplete();

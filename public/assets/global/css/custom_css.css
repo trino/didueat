@@ -28,8 +28,6 @@
     white-space: nowrap;
 }
 
-
-
 .nowrap{
 	white-space: nowrap;
 }
@@ -336,7 +334,7 @@ span.tags{background:#f5f5f5;color:#555;border:1px solid #CCC;padding:3px 5px;di
 }
 .enable_disable{position:absolute;bottom:5px; right:5px;display:inline-block;}
 .subin {
-    
+
     color: #555;
     text-align: center;
 }

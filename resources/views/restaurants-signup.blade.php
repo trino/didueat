@@ -1,24 +1,21 @@
 @extends('layouts.default')
 @section('content')
 
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
 
 
-    <?php printfile("views/restaurants-signup.blade.php"); ?>
+    <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
     <div class="row">
 
         <div class="col-sm-12">
-
             We'll bring the customers to you
             <h3>Put your menu online. Average revenue increase ranging 15-25% a year!</h3>
-
         </div>
-        <div class="col-sm-12">
 
+        <div class="col-sm-12">
             <b>How</b> It Works
 
             Did U Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
@@ -32,44 +29,29 @@
             We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
             eating. What are you waiting for? Sign up now and let the Did U Eat team bring the customers to you.
             By putting your restaurant online with Did U Eat, you'll be getting more business from hungry customers
-            in
-            your local area
+            in your local area
             Diners on our sites browse your menu and place an order from their computer or web app. Once that's
-            done,
-            our system sends you the order to be made and delivered just like you do now.
+            done, our system sends you the order to be made and delivered just like you do now.
             You'll only pay on orders we send you
-
-
         </div>
 
         <div class="col-sm-3">
-
             <img src="{{ asset('assets/images/click.png') }}">
-
             <h3>Sign Up</h3>
-
             <p>Sign up or contact us today to book an appointment with one of our team members.</p>
-
         </div>
-        <div class="col-sm-3">
 
+        <div class="col-sm-3">
             <img src="{{ asset('assets/images/clip.png') }}">
-
             <h3>Create Menu</h3>
-
             <p>Do it yourself menu creation, update anytime.</p>
-
         </div>
+
         <div class="col-sm-3">
-
             <img src="{{ asset('assets/images/box.png') }}">
-
             <h3>Receive Orders</h3>
-
             <p>Start receiving orders in as little as 10 minutes.</p>
-
         </div>
-
 
         <div class="col-sm-12">
             <div class="pricing-head pricing-head-active">
@@ -93,14 +75,9 @@
         </div>
 
         {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-
-        <?php $Layout = "rows"; ?>
         @include('common.restaurant')
         {!! Form::close() !!}
-
-
     </div>
-
 
     <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
@@ -108,11 +85,6 @@
     <script type="text/javascript" src="{{ asset('assets/global/scripts/metronic.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/scripts/demo.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
-
-
-
-
-
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -122,10 +94,11 @@
                 $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
                     var t = parseFloat($(this).text());
                     if (t > 12) {
-                        if (t < 22)
+                        if (t < 22) {
                             $(this).text('0' + (t - 12));
-                        else
+                        }else {
                             $(this).text(t - 12);
+                        }
                     }
                 });
             });
@@ -229,12 +202,12 @@
             @endif
 
             $('body').on('change', '#is_delivery', function () {
-                        if ($(this).is(':checked')) {
-                            $('#is_delivery_options').show();
-                        } else {
-                            $('#is_delivery_options').hide();
-                        }
-                    });
+                if ($(this).is(':checked')) {
+                    $('#is_delivery_options').show();
+                } else {
+                    $('#is_delivery_options').hide();
+                }
+            });
 
             function ajaxuploadbtn(button_id) {
                 var button = $('#' + button_id), interval;
