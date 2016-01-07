@@ -151,10 +151,9 @@ function fillInAddress() {
                 }).attr('selected', true);
             }
             if(addressType == "administrative_area_level_1"){
-                $('#province').val(val);
-//                $("#province option").filter(function() {
-//                    return this.text == val;
-//                }).attr('selected', true);
+                $("#province option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
             }
             if(addressType == "locality"){
                 $('#city').val(val);
@@ -241,7 +240,7 @@ function geolocate(formatted_address) {
                                 $("#city").val(value);
                                 break;
                             case "administrative_area_level_1":
-                                $("#province").val(value);
+                                $("#province option").filter(function() {return this.text == value;}).attr('selected', true);
                                 break;
                         }
                     }

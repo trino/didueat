@@ -113,9 +113,39 @@ function includeJS($URL, $options = ""){
     }
 }
 
-function phonenumber($phone){
+function areacodes(){
+    return array(
+        "AB" => array(403 => "S Alberta", 587 => "Province-wide", 780 => "N Alberta (Edmonton)", 825 => "Province-wide"),
+        "BC" => array(236 => "Province-wide", 250 => "Vancouver Island & Mainland excl. Lower Mainland", 604 => "Lower Mainland (Vancouver)", 778 => "Province-wide"),
+        "MB" => array(204 => "Province-wide", 431 => "Province-wide"),
+        "NB" => array(506 => "Province-wide"),
+        "NL" => array(709 => "Province-wide"),
+        "ON" => array(226 => "SW Ontario (Windsor, London, Waterloo)", 249 => "NE Ontario", 289 => "S Ontario", 343 => "E Ontario (Ottawa)", 365 => "S Ontario", 416 => "Toronto", 437 => "Toronto", 519 => "SW Ontario (Windsor, London, Waterloo)", 548 => "SW Ontario (Windsor, London, Waterloo)", 613 => "E Ontario (Ottawa)", 647 => "Toronto", 705 => "NE Ontario", 807 => "NW Ontario", 905 => "S Ontario"),
+        "QC" => array(418 => "NE Quebec (Quebec City)", 438 => "Montreal", 450 => "S Quebec", 514 => "Montreal", 579 => "S Quebec", 581 => "NE Quebec (Quebec City)", 819 => "NW Quebec", 873 => "NW Quebec"),
+        "SK" => array(306 => "Province-wide", 639 => "Province-wide"),
+        "MULTI" => array(782 => "Nova Scotia & Prince Edward Island (NS,PE)", 867 => "Northwest Territories, Nunavut & Yukon (NT,NU,YT)", 902 => "Nova Scotia & Prince Edward Island (NS,PE)")
+    );
+}
+function qualifyareacode($phone){
+    //$phone = preg_replace("/[^0-9]/", "", $phone);
+    //if(left($phone,1) == 0 || left($phone,1) == 1){$phone = right($phone, strlen($phone)-1);}
+    $phone = left($phone,3);
+    foreach ( areacodes() as $acronym => $province){
+        foreach ($province as $areacode => $district){
+            if($areacode == $phone){
+                return array("province" => $acronym, "areacode" => $areacode, "district" => $district);
+            }
+        }
+    }
+    return false;
+}
+function phonenumber($phone, $qualifyareacode = true){
     $phone = preg_replace("/[^0-9]/", "", $phone);// note: strip out everything but numbers
+    if(left($phone,1) == 0 || left($phone,1) == 1){$phone = right($phone, strlen($phone)-1);}
     if(strlen($phone)==10) {
+        if($qualifyareacode){
+            if(!qualifyareacode($phone)){return "";}
+        }
         return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
     }
 }

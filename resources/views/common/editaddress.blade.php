@@ -39,7 +39,7 @@
 </div>
 
 <?= newrow($new, "Country"); ?>
-        <select name="country" id="country" class="form-control" id="country2" {{$required}} onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
+        <select name="country" id="country" class="form-control" id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
             @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
@@ -50,10 +50,19 @@
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <!--select name="province" id="province" class="form-control" id="province2" {{$required}} onchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
+        <select name="province" id="province" class="form-control" {{$required}} onOLDchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
             <option value="">-Select One-</option>
-        </select-->
-        <input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}">
+            @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
+                <option value="{{ $value->name }}" <?php
+                     if (isset($addresse_detail->province)){
+                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation){
+                            echo  'selected';
+                        }
+                     }
+                ?>>{{ $value->name }}</option>
+            @endforeach
+        </select>
+        <!--input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}"-->
     </div>
 </div>
 

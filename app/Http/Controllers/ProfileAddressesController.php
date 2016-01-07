@@ -37,6 +37,10 @@ class ProfileAddressesController extends Controller {
             if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure( "[Country] field is missing!",'user/addresses');
             }
+            if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
+                return $this->failure( "[Phone number] field is missing or invalid!",'user/addresses');
+            }
+
             try {
                 $post['user_id'] = \Session::get('session_id');
                 if(!$idd) {
