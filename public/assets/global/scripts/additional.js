@@ -91,12 +91,13 @@ $('.savebtn').live('click', function () {
     //var $_this = $(this);
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
-    alert(id);
+    //alert(id);
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
     if (!cat_id || cat_id == '') {
         alert('Please select a category');
+        $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
         $('.overlay_loader').hide();
         return false;
@@ -105,6 +106,7 @@ $('.savebtn').live('click', function () {
     if (ptitle == '') {
         alert('Title cannot be blank');
         $_parent.find('.newtitle').focus();
+        $_parent.find('.newtitle').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
         return false;
     }
@@ -112,6 +114,7 @@ $('.savebtn').live('click', function () {
     if (pprice == '') {
         alert('Price cannot be blank');
         $_parent.find('.newprice').focus();
+        $_parent.find('.newprice').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
         return false;
     }
@@ -129,6 +132,7 @@ $('.savebtn').live('click', function () {
     {
         alert('Discount Percentage cannot be empty');
         $_parent.find('.disc_per').focus();
+        $_parent.find('.disc_per').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
         return false;
     }
@@ -257,6 +261,7 @@ function check_enable($this,$menu)
     if($_parent.find('.cat_id').val()=='')
     {
         alert('Please choose category');
+        $_parent.find('.cat_id').attr('style', 'border:1px solid red;margin-left:10px;');
         $this.prop('checked', false); 
         $('.disabled').hide();
         return false;
