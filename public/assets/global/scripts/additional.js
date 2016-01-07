@@ -36,6 +36,7 @@ $('.removelast').live('click', function () {
     $_this = $(this);
     var tot = $_this.closest('.newmenu').find('.newaction').length;
     var newmenu = $_this.closest('.newmenu').attr('id');
+    var id = newmenu.replace('newmenu','');
     //alert(tot);
     if (confirm('Are you sure you want to delete this item?')) {
         $_this.closest('.menuwrapper').remove();
@@ -44,9 +45,9 @@ $('.removelast').live('click', function () {
             i++;
             if (i == tot - 1) {
                 if (i == 1)
-                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" href="javascript:void(0)">Save</a>');
+                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a>');
                 else
-                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional0" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
+                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
 
                 $(this).show();
             }
@@ -56,8 +57,8 @@ $('.removelast').live('click', function () {
 $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-8 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1">' +
-        '<input class="form-control cctitle" type="text" placeholder="Item" />' +
-        '<input class="form-control ccprice pricechk" type="text" placeholder="Price" />' +
+        '<div class="col-md-6 padding-left-0"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
+        '<div class="col-md-6 padding-left-0"><input class="form-control ccprice pricechk" type="text" placeholder="Price" /></div>' +
         '</div>' +
         '<div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">' +
         '<a href="javascript:void(0);" class="btn btn-sm btn-danger btn-small" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>' +
@@ -65,9 +66,9 @@ $('.addmorebtn').live('click', function () {
 });
 $('.is_multiple').live('change', function () {
     if ($(this).val() == 0)
-        $(this).parent().parent().parent().find('.exact').show();
+        $(this).closest('.radios').find('.exact').show();
     else
-        $(this).parent().parent().parent().find('.exact').hide();
+        $(this).closest('.radios').find('.exact').hide();
 });
 $('.days_discount_all').live('click',function(){
    $_parent = $(this).closest('.newmenu');

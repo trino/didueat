@@ -26,7 +26,7 @@
             @if(count($category))
             <div class="col-md-3 padding-left-0">
                 <select class="cat_id form-control">
-                    <option value="">Choose Category</option>
+                    <option value="">Category</option>
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
                                 @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>

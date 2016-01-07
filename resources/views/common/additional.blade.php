@@ -73,9 +73,9 @@
                         <div class="col-md-6 padding-left-0">
                             <strong class="ignore ignore2 ignore1">These items are:</strong>
                             <div class="infolist ignore ignore2 ignore1">
-                                <label><input type="radio" onclick="$(this).parent().find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="{{ $r1 }}" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif> Optional</label>
+                                <label><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);" class="is_required ignore ignore2 ignore1" value="0" name="{{ $r1 }}" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif> Optional</label>
                                     &nbsp; &nbsp; OR&nbsp; &nbsp;
-                                <label><input type="radio" value="1" onclick="$(this).parent().parent().find('.is_req').val(1);" class="is_required ignore" name="{{ $r1 }}" @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif> Required</label>
+                                <label><input type="radio" value="1" onclick="$(this).closest('.radios').find('.is_req').val(1);" class="is_required ignore" name="{{ $r1 }}" @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif> Required</label>
                                 <input type="hidden" class="is_req ignore ignore2 ignore1" @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) value="0" @else value="1" @endif />
                             </div>
                          </div>
@@ -83,9 +83,9 @@
                             <strong class="ignore ignore2 ignore1">Customer can select:</strong>
         
                             <div class="infolist ignore2 ignore1 ignore">
-                                <LABEL><input type="radio" onclick="$(this).parent().find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="{{ $r2 }}" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif> Single</LABEL>
+                                <LABEL><input type="radio" onclick="$(this).closest('.radios').find('.is_mul').val(1);" class="is_multiple ignore ignore2 ignore1" value="1" name="{{ $r2 }}" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif> Single</LABEL>
                                     &nbsp; &nbsp; OR&nbsp; &nbsp;
-                                <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).parent().parent().find('.is_mul').val(0);" name="{{ $r2 }}" @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif> Multiple</LABEL>
+                                <LABEL><input type="radio" value="0" class="is_multiple ignore ignore2 ignore1" onclick="$(this).closest('.radios').find('.is_mul').val(0);" name="{{ $r2 }}" @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif> Multiple</LABEL>
                                 <input type="hidden" class="is_mul ignore ignore2 ignore1" @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) value="1" @else value="0" @endif />
                             </div>
                          </div>
