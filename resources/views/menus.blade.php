@@ -216,7 +216,7 @@
                                     </div>
                                     <div class="clearfix"></div>
 
-                                    <div class="product-titles">
+                                    <div class="product-titles col-md-12">
                                         <p class="res-desc">{{ $value->description }}</p>
                                     </div>
 

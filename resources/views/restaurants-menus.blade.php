@@ -540,7 +540,7 @@
                     data: 'ids=' + order + '&_token=<?php echo csrf_token(); ?>',
                     type: 'post',
                     success: function () {
-                        //location.reload();
+                        location.reload();
                     }
                 });
 
