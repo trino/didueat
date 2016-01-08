@@ -42,7 +42,7 @@ if (Request::path() !== null && Request::path() != "/") {
         <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
 
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-        <link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+        <!--link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet"-->
         <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
             @if(true)
