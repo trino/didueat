@@ -205,6 +205,7 @@ function changeqty(id, opr) {
         $('input.subtotal').val(subtotal);
 
         var tax = $('#tax').text();
+        var tax = 13;
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
@@ -269,7 +270,8 @@ function changeqty(id, opr) {
         subtotal = subtotal.toFixed(2);
         $('div.subtotal').text(subtotal);
         $('input.subtotal').val(subtotal);
-        var tax = $('#tax').text();
+        //var tax = $('#tax').text();
+        var tax = 13;
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
