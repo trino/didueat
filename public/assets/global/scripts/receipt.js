@@ -117,9 +117,28 @@ function changeqty(id, opr) {
     });
     
           $('.addspan').live('click',function(){
-            var td_id = $(this).parent().parent().closest('td').attr('id');
+            var td = $(this).parent().parent().closest('td');
+            var td_id =td.attr('id');
             td_id = td_id.replace('td_','');
             var extra_no = $('#extra_no_' + td_id).val();
+            
+            var upto = $('#upto_' + td_id).val();
+            var ut = 'exactly';
+            if(upto=='0')
+                ut = 'up to';
+            
+            var all = 1;
+            td.find('.allspan').each(function(){
+               all += Number($(this).text());
+            });
+            
+            if(all >extra_no)
+            {
+                $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
+                return false;
+            }
+            
+                
             
             var id = $(this).attr('id').replace('addspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
