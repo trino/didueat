@@ -201,10 +201,11 @@ function changeqty(id, opr) {
         subtotal = parseFloat(subtotal);
         subtotal = Number(subtotal) - Number(amount);
         subtotal = subtotal.toFixed(2);
-        $('div.subtotal').text(subtotal);
+        $('div.subtotal').text('$'+subtotal);
         $('input.subtotal').val(subtotal);
 
-        var tax = $('#tax').text();
+        //var tax = $('#tax').text();
+        var tax = 13;
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
@@ -220,7 +221,7 @@ function changeqty(id, opr) {
 
         var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
         gtotal = gtotal.toFixed(2);
-        $('div.grandtotal').text(gtotal);
+        $('div.grandtotal').text('$'+gtotal);
         $('input.grandtotal').val(gtotal);
 
         var total = $('#list' + numid + ' .total').text();
@@ -263,13 +264,15 @@ function changeqty(id, opr) {
         quant = parseFloat(quant);
         var amount = $('#list' + numid + ' .amount').text();
         amount = parseFloat(amount);
-        var subtotal = $('.subtotal').text();
+        var subtotal = $('#subtotal1').val();
+       
         subtotal = parseFloat(subtotal);
         subtotal = Number(subtotal) + Number(amount);
         subtotal = subtotal.toFixed(2);
-        $('div.subtotal').text(subtotal);
+        $('div.subtotal').text('$'+subtotal);
         $('input.subtotal').val(subtotal);
-        var tax = $('#tax').text();
+        //var tax = $('#tax').text();
+        var tax = 13;
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
@@ -282,7 +285,7 @@ function changeqty(id, opr) {
         del_fee = parseFloat(del_fee);
         var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
         gtotal = gtotal.toFixed(2);
-        $('div.grandtotal').text(gtotal);
+        $('div.grandtotal').text('$'+gtotal);
         $('input.grandtotal').val(gtotal);
         var total = $('#list' + numid + ' .total').text();
         total = total.replace("$", "");
