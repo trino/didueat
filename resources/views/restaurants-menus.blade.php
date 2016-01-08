@@ -31,7 +31,7 @@
             <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
                  aria-labelledby="addMenuModelLabel"
                  aria-hidden="true">
-                <div class="modal-dialog" role="document" style="width: 80%;">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -59,9 +59,9 @@
         @foreach($category as $cat)
             <div class="box-shadow clearfix">
                 <div class="portlet-title">
-                    <h1 class="caption">
-                        <span>{{ $cat->title }}</span>
-                    </h1>
+                    <h2>
+                        {{ $cat->title }}
+                    </h2>
                 </div>
                 <div class="portlet-body no-padding">
                     <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>

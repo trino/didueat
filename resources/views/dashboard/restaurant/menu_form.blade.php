@@ -24,7 +24,7 @@
 
         <div class="col-sm-10 col-xs-12 lowheight ignore par_wrap">
             @if(count($category))
-            <div class="col-md-3 padding-left-0">
+            <div class="col-md-6 padding-left-0">
                 <select class="cat_id form-control">
                     <option value="">Category</option>
                     @foreach($category as $cat)
@@ -47,7 +47,7 @@
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
                 <div class="form-group">
-                <label class="col-md-3 padding-left-0">Discount %</label>
+                <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
                 <div class="col-md-6 padding-left-0">
                 <select class="disc_per form-control">
                     <option>Choose Discount Percentage: </option>
@@ -61,10 +61,10 @@
                 <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
-                <div class="col-md-3 padding-left-0">
+                <div class="col-md-6 padding-left-0">
                 <strong>Discount Applied for:</strong>
                 </div>
-                <div class="col-md-9 padding-left-0">
+                <div class="col-md-6 padding-left-0 alldays">
                 <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
                 <?php
                     $days = array();
