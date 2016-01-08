@@ -117,9 +117,12 @@ function changeqty(id, opr) {
     });
     
           $('.addspan').live('click',function(){
+            var td_id = $(this).parent().parent().closest('td').attr('id');
+            td_id = td_id.replace('td_','');
+            var extra_no = $('#extra_no_' + td_id).val();
+            
             var id = $(this).attr('id').replace('addspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
-            
             var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
             var chk = $(this).parent().parent().find('#extra_'+id);
             chk.attr('checked','checked');
