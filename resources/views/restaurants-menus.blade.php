@@ -66,7 +66,7 @@
                 <div class="portlet-body no-padding">
                     <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                     <div class="clearfix"></div>
-                    <div id="loadmoreajaxloader_{{ $cat->id }}" style="display:none;">
+                    <div id="loadmoreajaxloader_{{ $cat->id }}">
                         <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
                     </div>
                     <div class="clearfix"></div>
@@ -520,7 +520,7 @@
                 var arr_pid = pid.split('_');
                 pid = arr_pid[0];
                 var cid = arr_pid[1];
-                if ($(this).attr('id') == 'up_parent_' + pid) {
+                if ($(this).attr('id') == 'up_parent_' + pid+'_'+cid) {
                     var sort = 'up';
                 } else {
                     var sort = 'down';
@@ -540,7 +540,7 @@
                     data: 'ids=' + order + '&_token=<?php echo csrf_token(); ?>',
                     type: 'post',
                     success: function () {
-                        location.reload();
+                        //location.reload();
                     }
                 });
 
