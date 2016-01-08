@@ -18,7 +18,7 @@
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
             ?>
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 parents menus-parent" id="parent{{ $value->id }}">
+            <div class="card card-block parents menus-parent" id="parent{{ $value->id }}">
                 <div class="new-layout-box">
                     <div class="row">
                         <div class="col-md-9" style="padding-bottom: 26px">
@@ -50,8 +50,9 @@
                                     
                                 ?>
 
-
-                                    <a href="javascript:void(0)" id="{{ $value->id }}"
+                                    <h4 class="card-title">{{ $value->menu_item }} <span
+                                                    class="menu-tag menu-price">${{ $main_price." ".$dis }}</span></h4>
+                                    <!--<a href="javascript:void(0)" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type="button"
                                        class="insert-stats" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
@@ -59,7 +60,7 @@
                                                     class="menu-tag menu-price">${{ $main_price." ".$dis }}</span></h3>
                                         <p><strong>Restaurant: </strong>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</p>
                                         
-                                    </a>
+                                    </a>-->
 
 
 
@@ -100,7 +101,8 @@
                                         ?>
                                         @endif
                                     </p>
-                                    <p class="res-desc">{{ $value->description }}</p>
+                                    <p class="card-text">
+                                    <!--<p class="res-desc">-->{{ $value->description }}</p>
                                     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
                                         <p>
                                             <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
@@ -143,7 +145,7 @@
                                 <p>
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
-                                   class="btn btn-danger insert-stats" data-toggle="modal"
+                                   class="card-link insert-stats" data-toggle="modal"
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     View Menu Item
                                 </a>
