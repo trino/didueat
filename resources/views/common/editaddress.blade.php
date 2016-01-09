@@ -57,15 +57,15 @@
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <select name="province" id="province" class="form-control" {{$required}} onOLDchange="cities('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');">
+        <select name="province" id="province" class="form-control" {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->name }}" <?php
-                     if (isset($addresse_detail->province)){
-                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation || $value->name == old('province')){
+                     if(isset($addresse_detail->province)){
+                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation){
                             echo 'selected';
                         }
-                     } else if ($value->name == old('province')){
+                     } else if($value->name == old('province')){
                          echo 'selected';
                      }
                 ?>>{{ $value->name }}</option>

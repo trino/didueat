@@ -40,7 +40,8 @@ echo newrow($new, "Logo"); ?>
         <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
     @endif
 <?php echo newrow(); ?>
-
+ 
+    
 <script>
     $(document).ready(function () {
         is_delivery_change();
@@ -50,18 +51,18 @@ echo newrow($new, "Logo"); ?>
 
 
         $('#demo4').tagEditor({
-//{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
-initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}],
+            //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
+            initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
             placeholder: 'Enter tags ...',
-//beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-//onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
+            //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
+            //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
             onChange: function (field, editor, tags) {
                 $('#responseTags').val((tags.length ? tags.join(', ') : ''));
             },
             beforeTagDelete: function (field, editor, tags, val) {
                 var q = confirm('Remove tag "' + val + '"?');
-//if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-//else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
+                //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
+                //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
                 return q;
             }
         });
@@ -69,8 +70,8 @@ initialTags: [{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags
 
     @if(isset($resturant->city))
     $(document).ready(function () {
-//cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
-            });
+        //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
+    });
     @endif
 
     function ajaxuploadbtn(button_id) {
