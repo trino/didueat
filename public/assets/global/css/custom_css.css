@@ -1,3 +1,7 @@
+* {
+    border-radius: 0 !important;
+}
+
 .pagination{margin: 0;}
 
 .error{color:rgb(255, 0, 0);}
@@ -143,20 +147,6 @@ body.modal-open {
 
 
 /* Rating Start */
-.rating-font-size {
-    font-size: 18px;
-}
-
-.rating-center-align {
-    float: none !important;
-    margin: 0 auto;
-}
-
-.rating {
-    border: none;
-    float: none;
-    clear: both;
-}
 
 .rating > input {
     display: none;

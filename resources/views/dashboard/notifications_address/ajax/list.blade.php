@@ -31,7 +31,7 @@
             </td>
         </tr>
     </table-->
-    
+
     <div class="card-block p-a-0">
         <table class="table table-responsive">
             <thead>
@@ -104,6 +104,6 @@
     </div>
 
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    
+        {!! $Pagination; !!}
     </div>
 </div>

@@ -87,6 +87,7 @@ function simpleStringify (object){
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
+    
     var element = document.getElementById(ID);
     if (!element.hasAttribute("hasgeocode")) {
         var formatted_address = new google.maps.places.Autocomplete(

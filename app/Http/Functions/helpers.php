@@ -1659,7 +1659,7 @@
             $user_id = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
             $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
 
-            $html .= '<div class="' . $type . ' rating-font-size rating-center-align nowrap">' . $value->title;
+            $html .= '<div class="' . $type . '">' . $value->title;
             if ($TwoLines) {
                 $html .= '<br>';
             }
@@ -1673,7 +1673,7 @@
             $html .= stars($target_id, $value, $countExit, $start1Half, "1.5");
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
-            $html .= '</DIV>';
+            $html .= '</div>';
         }
 
         return $html;

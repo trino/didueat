@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                             <div>
-                                <h3 class="footer-h3"><i class="fa fa-spoon"></i> Enjoy Your Meal</h3>
+                                <h3 class="footer-h3"><i class="fa fa-cutlery"></i> Enjoy Your Meal</h3>
                                 <em>No setup fees, hidden costs, or contracts</em>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
             <p>Get the best discount</p>
         </div>
         <div class="col-lg-4 ">
-            <h3 class="footer-h3"><i class="fa fa-spoon"></i> Enjoy Your Meal</h3>
+            <h3 class="footer-h3"><i class="fa fa-cutlery"></i> Enjoy Your Meal</h3>
 
             <p>No setup fees, hidden costs, or contracts</p>
         </div>
