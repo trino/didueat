@@ -345,8 +345,12 @@ span.tags{background:#f5f5f5;color:#555;border:1px solid #CCC;padding:3px 5px;di
 .add-minus-btn{display: inline-block;background: #f0f0f0;margin:10px 0 20px 0;}
 .subin a:hover{text-decoration: none;}
 ul.scroller{list-style: none;margin:0;padding:0}
-ul.scroller li{padding:5px;border-bottom: 1px solid #CCC;background:#e5e5e5;}
-.receipt_image img,.receipt_image a,.receipt_image span{display: inline-block;width:7%;text-align:center;}
+
+ul.scroller li{
+  /*  padding:5px;border-bottom: 1px solid #CCC;background:#e5e5e5; */
+}
+
+.receipt_image img,.receipt_image a,.receipt_image span{display: inline-block;text-align:center;}
 .receipt_image img{width:12%!important;}
 .innerst {
     display: inline-block;
