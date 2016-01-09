@@ -34,25 +34,28 @@
                 <div class="card-block">
 
 
-
-                    <p>{{ "Status: " . ($order->status)}}</p>
+                    <p>
+                        {{ "Status: " . ($order->status)}}
 
 
                     @if(is_object($user_detail))
-                        <p>Ordered By: {{ $user_detail->name }}</p>
-                        <p>Email: {{ $user_detail->email }}</p>
+                            <br>Ordered By: {{ $user_detail->name }}
+                            <br>Email: {{ $user_detail->email }}
                     @else
-                        <p>User is not on record!</p>
+                        User is not on record!
                     @endif
-                    <p>Phone: {{ $order->contact }}</p>
 
-                    <p>Order Type: {{ ($order->order_type == '1') ? 'Delivery':'Pickup' }}</p>
+                    <br>Phone: {{ $order->contact }}
 
-                    <p>Ordered On: {{ $date->format(get_date_format()) }}</p>
+                    <br>Order Type: {{ ($order->order_type == '1') ? 'Delivery':'Pickup' }}
+
+                    <br>Ordered On: {{ $date->format(get_date_format()) }}
 
                     <!--p>Order Ready: {{ $order->order_till }}</p-->
 
-                    <p>Restaurant: {{ (isset($restaurant->name))? $restaurant->name :'' }}</p>
+                    <br>Restaurant: {{ (isset($restaurant->name))? $restaurant->name :'' }}
+
+                    </p>
 
                     @if($order->remarks != '')
                         <p>Notes: {{ $order->remarks }}

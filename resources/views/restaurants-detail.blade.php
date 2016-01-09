@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('content')
-
+delete
+    @if(false)
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="margin-bottom-40">
@@ -872,4 +873,5 @@
     <!-- END SIDEBAR & CONTENT -->
 </div>
 
+    @endif
 @stop

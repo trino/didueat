@@ -1,7 +1,14 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="container">
+
+
+    delete me
+    @if(false)
+
+
+
+        <div class="container">
     <?php printfile("views/auth/login.blade.php"); ?>
     <div class="row"> 
         <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
@@ -54,5 +61,5 @@
         </div>
     </div>
 </div>
- 
+ @endif
 @stop

@@ -157,7 +157,7 @@
 
 
                                     <div class="card-image">
-                                        <img src="{{ $item_image1 }}" class="img-responsive"
+                                        <img style="max-width:100%" src="{{ $item_image1 }}" class="img-responsive"
                                              alt="{{ $value->menu_item }}"/>
                                     </div>
 

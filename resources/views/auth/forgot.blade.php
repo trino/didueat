@@ -1,6 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
+    delete me
+    @if(false)
+
 <div class="container"> 
     <div class="row">
         <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
@@ -41,5 +44,7 @@
         </div>
     </div>
 </div>
+
+    @endif
 
 @stop

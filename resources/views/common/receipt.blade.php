@@ -17,142 +17,70 @@
 <div id="cartsz">
     <?php printfile("views/common/receipt.blade.php (cartsz)"); ?>
 
-        @if(!isset($order))
-
-        <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-
-            @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                <img style="" class=" no-padding" alt=""
-                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}">
-            @else
-                <img style="" class=" no-padding" alt=""
-                     src="{{ asset('assets/images/default.png') }}">
-            @endif
 
 
-                <h3>{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
 
 
-                <p> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+    @if(!isset($order))
+
+
+        <div class="card card-inverse card-primary " style="border-radius:0;">
+
+            <img class="card-img-top"
+                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
+
+                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                 @else
+
+                 src="{{ asset('assets/images/default.png') }}"
+                 @endif
+
+
+                 alt="Card image cap">
+
+
+            <div class="card-block">
+
+                <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+
+                <p class="card-text"> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                     {!! (isset($restaurant->province))?$restaurant->province.' ':'' !!}
                     {!! (isset($restaurant->postal_code))?$restaurant->postal_code.', ':'' !!}
                     {!! (isset($restaurant->country))?' '.$restaurant->country:'' !!}
+                    <br>Email: {!! (isset($restaurant->email))?$restaurant->email:'' !!}
+                    <br>Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                    <br>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </p>
-
-                <p>Email: {!! (isset($restaurant->email))?$restaurant->email:'' !!}</p>
-
-                <p>Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}</p>
-
-                <p>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}</p>
-                <a class="btn btn-secondary" data-toggle="modal" data-target="#viewMapModel">Maps & Details</a>
+                <a class="card-text" data-toggle="modal" data-target="#viewMapModel">Maps & Details</a>
 
                 {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
 
-        </div>
-    </div>
-
-@endif
-
-
-
-
-
-
-    <div class="modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="viewMapModelLabel">Add Addresss</h4>
-                </div>
-                <div class="modal-body">
-
-
-                    <?php printfile("views/common/receipt.blade.php (viewMapModel)"); ?>
-                    <h3>Location On Map: </h3>
-
-                    <div style="height:500px;width:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
-                        <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
-                            <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                    src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
-                            </iframe>
-                        </div>
-
-                        <a class="google-html" href="https://www.bootstrapskins.com/themes/web-design"
-                           id="auth-map-data">web design bootstrap themes</a>
-                        <style>#gmap_display img {
-                                max-width: none !important;
-                                background: none !important;
-                                font-size: inherit;
-                            }</style>
-                    </div>
-
-                    <!--script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358"
-                            defer="defer" async="async"></script-->
-
-                    <h3>Description: </h3>
-                    {{
-
-                     $restaurant->description
-
-                    }}
-                    <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
-
-                    <h3>Tags: </h3>
-
-                    <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
-
-                    <h3>Hours: </h3>
-                    <TABLE WIDTH="100%">
-                        @foreach(select_field_where('hours', array('restaurant_id' => $restaurant->id), false, "id", "ASC") as $value)
-                            <TR>
-                                <TD>{{ $value->day_of_week }} </TD>
-                                <TD> {{ $value->open }} </TD>
-                                <TD> {{ $value->close }}</TR>
-                        @endforeach
-                    </TABLE>
-                    <h3>Reviews: </h3>
-
-                    <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
-    </div>
+
+    @endif
 
 
-
-
-
-
-
-
-
-
-
-
-
-    <div class="top-cart-content-wrapper">
+    <div class="top-cart-content-wrapper card">
         @if(isset($order))
-                <h3>
-                    Receipt
-                </h3>
+            <h3>
+                Receipt
+            </h3>
 
         @endif
 
         <div class="top-cart-content ">
             <div class="receipt_main">
 
+
+
+
                 @include('common.items')
+
+
+
+
 
                 <div class="totals">
                     <table class="table">
@@ -217,15 +145,24 @@
                         </tbody>
                     </table>
                 </div>
+
+
+
                 @if(!isset($order))
-                    <div class="text-right">
+                    <div class="col-md-12">
                         <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print"/>
                         <a href="javascript:void(0)" class="btn red blue clearitems"
                            onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn red btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
                 @endif
+
+
+
             </div>
+
+
+
             <div class="profiles" style="display: none;">
                 <div class="form-group">
                     <div class="col-xs-12">
@@ -374,9 +311,87 @@
                 </form>
             </div>
 
-        </div>                        <div class="clearfix"></div>
+
+
+
+
+        </div>
+        <div class="clearfix"></div>
 
     </div>
 
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="viewMapModelLabel">Add Addresss</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <h3>Location On Map: </h3>
+
+                <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                    <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
+                        <iframe style="height:100%;width:100%;border:0;" frameborder="0"
+                                src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
+                        </iframe>
+                    </div>
+
+
+
+
+
+                </div>
+
+                <!--script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358"
+                        defer="defer" async="async"></script-->
+
+                <h3>Description: </h3>
+                {{
+                 $restaurant->description
+                }}
+                <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
+
+                <h3>Tags: </h3>
+
+                <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
+
+                <h3>Hours: </h3>
+                <TABLE WIDTH="100%">
+                    @foreach(select_field_where('hours', array('restaurant_id' => $restaurant->id), false, "id", "ASC") as $value)
+                        <TR>
+                            <TD>{{ $value->day_of_week }} </TD>
+                            <TD> {{ $value->open }} </TD>
+                            <TD> {{ $value->close }}</TR>
+                    @endforeach
+                </TABLE>
+                <h3>Reviews: </h3>
+
+                <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

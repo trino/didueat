@@ -1,32 +1,46 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="overlay overlay_reservation">
-            <div class="clearfix"></div>
-            <div class="loadmoreajaxloader" >
-                <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+
+    @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+        <div class=" col-md-12">
+
+
+
+            <div class="alert alert-danger" role="alert">
+                <strong>Welcome!</strong> You are logged in to your restaurant menu editor
+
+                <a href="#" id="add_item0" type="button" class=" additem pull-right" data-toggle="modal"
+                        data-target="#addMenuModel">
+                    Add Menu Item Here
+                </a>
+
             </div>
+
+
+
+
+        <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+            </div>
+    @endif
+
+
+
+    <div class="overlay overlay_reservation">
+        <div class="loadmoreajaxloader">
+            <img src="{{ asset('assets/images/ajax-loading.gif') }}">
         </div>
+    </div>
+
+
     <div class=" col-md-4 col-sm-4" id="printableArea">
-        
+
         @include('common.receipt')
     </div>
 
-    <div class="col-md-8  col-sm-8 col-xs-12 menu_div">
+    <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
         <?php printfile("views/restaurants-menus.blade.php"); ?>
         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
-            <div class="category_btns margin-bottom-15">
-
-                <button id="add_item0" type="button" class="btn btn-danger additem" data-toggle="modal"
-                        data-target="#addMenuModel">
-                    Add Menu Item
-                </button>
-
-
-                <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-            </div>
-
 
             <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
                  aria-labelledby="addMenuModelLabel"
@@ -44,7 +58,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -57,21 +71,12 @@
 
 
         @foreach($category as $cat)
-            <div class="box-shadow clearfix">
-                <div class="portlet-title">
-                    <h2>
-                        {{ $cat->title }}
-                    </h2>
-                </div>
-                <div class="portlet-body no-padding">
-                    <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                    <div class="clearfix"></div>
-                    <div id="loadmoreajaxloader_{{ $cat->id }}">
-                        <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-                    </div>
-                    <div class="clearfix"></div>
-                    <br style="clear: both;">
-                </div>
+            <h2>
+                {{ $cat->title }}
+            </h2>
+            <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
+            <div id="loadmoreajaxloader_{{ $cat->id }}">
+                <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
             </div>
 
             <script>
@@ -163,8 +168,8 @@
             $('.resetslider').live('click', function () {
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
-               
-                $('.number'+menu).html('1');
+
+                $('.number' + menu).html('1');
                 //alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
@@ -192,7 +197,7 @@
                 var catarray = [];
                 var td_index = 0;
                 var td_temp = 9999;
-                
+
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
@@ -206,7 +211,7 @@
                             var cnn = 0;
                             var catid = $(this).attr('id');
                             catarray.push(catid);
-                            
+
                             var is_required = $('#required_' + catid).val();
                             var extra_no = $('#extra_no_' + catid).val();
                             if (extra_no == 0)
@@ -335,23 +340,23 @@
                     }
                 });
                 if (err > 0) {
-                   /*
-                    var banner = $(this).parent().parent().parent().find('.bannerz');
-                    var l = banner.width();
-                    var total_td = banner.find('td').length;
-                    $(".bannerz").animate({scrollLeft: (l * td_temp)}, 800);
-                    td_temp = td_temp + 1;
+                    /*
+                     var banner = $(this).parent().parent().parent().find('.bannerz');
+                     var l = banner.width();
+                     var total_td = banner.find('td').length;
+                     $(".bannerz").animate({scrollLeft: (l * td_temp)}, 800);
+                     td_temp = td_temp + 1;
 
-                    $(this).parent().parent().find('.nxt_button').attr('title', td_temp);
-                    $(this).parent().parent().find('.nxt_button').show();
-                    var id = banner.find('td:nth-child(' + td_temp + ')').attr('id').replace('td_', '');
-                    //alert(id);
-                    $('#boxes_' + id).focus();
-                    if (td_temp == 1) {
-                        $(this).parent().parent().find('.prv_button').hide();
-                    } else {
-                        $(this).parent().parent().find('.prv_button').show();
-                    }*/
+                     $(this).parent().parent().find('.nxt_button').attr('title', td_temp);
+                     $(this).parent().parent().find('.nxt_button').show();
+                     var id = banner.find('td:nth-child(' + td_temp + ')').attr('id').replace('td_', '');
+                     //alert(id);
+                     $('#boxes_' + id).focus();
+                     if (td_temp == 1) {
+                     $(this).parent().parent().find('.prv_button').hide();
+                     } else {
+                     $(this).parent().parent().find('.prv_button').show();
+                     }*/
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');
@@ -364,7 +369,7 @@
                     });
                     $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
                 }
-                
+
                 ids = ids.replace("__", "_");
 
                 //app_title =app_title.replace(",,"," ");
@@ -399,7 +404,7 @@
                 dbtitle = extratitle.split(",").join("%");
                 dbtitle = dbtitle.split("%%").join("");
                 //alert(dbtitle);
-       
+
 
                 var pre_cnt = $('#list' + ids).find('.count').text();
                 pre_cnt = Number(pre_cnt.replace('x ', ''));
@@ -439,17 +444,17 @@
                 subtotal = parseFloat(subtotal);
                 //subtotal = Number(subtotal)+Number(price);
                 subtotal = subtotal.toFixed(2);
-                $('div.subtotal').text('$'+subtotal);
+                $('div.subtotal').text('$' + subtotal);
                 $('input.subtotal').val(subtotal);
                 subtotal = parseFloat(subtotal);
                 //var tax = $('#tax').text();
                 var tax = 13;
-                
+
                 tax = parseFloat(tax);
                 tax = (tax / 100) * subtotal;
-                
+
                 tax = tax.toFixed(2);
-                $('span.tax').text('$'+tax);
+                $('span.tax').text('$' + tax);
                 $('input.tax').val(tax);
 
                 if ($('#delivery_flag').val() == '1') {
@@ -463,7 +468,7 @@
                 var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
                 gtotal = gtotal.toFixed(2);
 
-                $('div.grandtotal').text('$'+gtotal);
+                $('div.grandtotal').text('$' + gtotal);
                 $('input.grandtotal').val(gtotal);
                 $('#cart-total').text(gtotal);
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {
@@ -474,7 +479,7 @@
 
                 $('.number' + menu_id).text('1');
                 //$('#clear_' + menu_id).click();
-                $('.close'+menu_id).click();
+                $('.close' + menu_id).click();
                 //$('.subitems_'+menu_id).hide();
             });
 
@@ -520,7 +525,7 @@
                 var arr_pid = pid.split('_');
                 pid = arr_pid[0];
                 var cid = arr_pid[1];
-                if ($(this).attr('id') == 'up_parent_' + pid+'_'+cid) {
+                if ($(this).attr('id') == 'up_parent_' + pid + '_' + cid) {
                     var sort = 'up';
                 } else {
                     var sort = 'down';

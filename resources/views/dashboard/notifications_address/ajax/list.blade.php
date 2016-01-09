@@ -87,8 +87,10 @@
                         <a href="{{ url('notification/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">Delete</a>
                     </td>
                     <td>
-                        <a class="btn nomargin btn-info btn-sm up"><i class="fa fa-arrow-up"></i></a>
-                        <a class="btn nomargin btn-info btn-sm down"><i class="fa fa-arrow-down"></i></a>
+                        <div class="btn-group-vertical">
+                            <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                            <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
