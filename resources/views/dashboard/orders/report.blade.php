@@ -1,12 +1,15 @@
 @extends('layouts.default')
 @section('content')
+    delete?
 
+
+    @if(false)
 
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
+            <?php printfile("views/dashboard/orders/report.blade.php"); ?>
             <div class="restaurentsList deleteme">
                 <div class="toprint">
 
@@ -138,4 +141,6 @@
             });
         });
     </script>
+
+    @endif
 @stop

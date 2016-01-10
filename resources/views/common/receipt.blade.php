@@ -24,7 +24,7 @@
     @if(!isset($order))
 
 
-        <div class="card card-inverse card-primary " style="border-radius:0;">
+        <div class="card card-inverse card-primary " style="">
 
             <img class="card-img-top"
                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
@@ -74,12 +74,7 @@
             <div class="receipt_main">
 
 
-
-
                 @include('common.items')
-
-
-
 
 
                 <div class="totals">
@@ -147,7 +142,6 @@
                 </div>
 
 
-
                 @if(!isset($order))
                     <div class="col-md-12">
                         <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print"/>
@@ -158,9 +152,7 @@
                 @endif
 
 
-
             </div>
-
 
 
             <div class="profiles" style="display: none;">
@@ -312,25 +304,12 @@
             </div>
 
 
-
-
-
         </div>
         <div class="clearfix"></div>
 
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
@@ -354,9 +333,6 @@
                                 src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
                         </iframe>
                     </div>
-
-
-
 
 
                 </div>

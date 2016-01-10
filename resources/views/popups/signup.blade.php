@@ -15,19 +15,19 @@
                 <div id="registration-success" class="note note-success" style="display: none;">
                     <h1 class="block">success</h1>
 
-                    <p></p>
                 </div>
 
                 {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                <DIV class="editaddress">
+                <div class="editaddress">
                     @include('common.signupform')
-                </DIV>
+                </div>
                 <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
 
             </div>
             <div class="modal-footer">
                 <div class="pull-left">
-                    Already have an account?    <a href="javascript:void(0);" data-toggle="modal"  data-dismiss="modal" data-target="#loginModal">
+                    Already have an account?
+                    <a href="javascript:void(0);" data-toggle="modal"  data-dismiss="modal" data-target="#loginModal">
                         Log in
                     </a>
                 </div>
