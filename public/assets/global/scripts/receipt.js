@@ -134,7 +134,9 @@ function changeqty(id, opr) {
             
             if(all >extra_no)
             {
+                $('.error_'+td_id).show();
                 $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
+                $('.error_'+td_id).fadeOut(2000);
                 return false;
             }
             
@@ -170,7 +172,22 @@ function changeqty(id, opr) {
             $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
         });
         $('.remspan').live('click',function(){
+            var td = $(this).parent().parent().closest('td');
+            var td_id =td.attr('id');
+            td_id = td_id.replace('td_','');
+            var extra_no = $('#extra_no_' + td_id).val();
             
+            var upto = $('#upto_' + td_id).val();
+            var all = 0;
+            td.find('.allspan').each(function(){
+               all += Number($(this).text());
+            });
+            
+            if(all <=extra_no)
+            {
+                $('.error_' + td_id).html("");
+               
+            }                        
             var id = $(this).attr('id').replace('remspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
             var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));

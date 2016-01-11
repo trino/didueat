@@ -116,12 +116,12 @@
                                        class="maintax tax"/>
                             </td>
                         </tr>
-                        <tr <?php if (isset($order) && $order->order_type == '1') echo 'style="display: table-column;"'; else echo 'style="display: none;"'; ?> id="df">
+                        <tr <?php if (isset($order) && $order->order_type == '1')echo ''; else echo "style='display:none'"; ?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
                             <td>
-                                <span class="df">&nbsp;$ {{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
+                                <span class="df">&nbsp;$ {{ (isset($order)) ? $order->delivery_fee :(isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
                                 <input type="hidden"
-                                       value="{{ (isset($order)) ? $order->delivery_fee : '' }} {{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}"
+                                       value="{{ (isset($order)) ? $order->delivery_fee : (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}"
                                        class="df" name="delivery_fee"/>
                                 <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
                             </td>
