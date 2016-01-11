@@ -97,6 +97,7 @@
         $html .= '</div>';
 
         $html .= '<div class="pull-left">';
+        if(!$no_of_paginations){$cur_page=0;}
         $html .= '<div ><p class="" a="' . $no_of_paginations . '">Total Records ' . $recCount . '. Showing Page ' . $cur_page . ' of ' . $no_of_paginations . '</p><div>';
         $html .= '</div>';
 

@@ -70,7 +70,7 @@
                    if (Request::path() == 'notification/addresses') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> My Notifications</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Notification Addresses</a>
 
                 <a href="{{ url('restaurant/info') }}"
                    class="list-group-item <?php
