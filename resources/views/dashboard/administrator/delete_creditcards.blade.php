@@ -6,7 +6,7 @@
     <div class="row">
         @include('layouts.includes.leftsidebar')
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/administrator/creditcards.blade.php"); ?>
+            <?php printfile("views/dashboard/administrator/delete_creditcards.blade.php"); ?>
             <div class="card">
                 <div class="card-header">
                     Credit Card ({{ ($type) }})

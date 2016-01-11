@@ -1,5 +1,5 @@
+<?php printfile("views/common/table_controls.blade.php"); ?>
 <div class="col-lg-3">
-
     <!--select size="1" name="showDataEntries" id="showDataEntries" class="form-control">
         <option value="10" {!! ($per_page == 10)?"selected":''; !!}>10</option>
         <option value="25" {!! ($per_page == 25)?"selected":''; !!}>25</option>
@@ -11,13 +11,8 @@
     </select-->
 </div>
 <div class="col-lg-3">
-    <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>'
-           placeholder='Search...' autofocus='true' style=""/>
-
-
+    <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>' placeholder='Search...' autofocus='true' style=""/>
 </div>
-
-
 
 <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries' value='{!! ($per_page)?$per_page:5; !!}' />
 <input type='hidden' name='hiddenSearchResult' id='hiddenSearchResult' value='{!! ($searchResults)?$searchResults:""; !!}' />

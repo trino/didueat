@@ -14,7 +14,8 @@
                                 <!-- // END HEADER -->
                             </td>
                         </tr>
-                        <?php $data = \Input::all(); ?>
+                        <?php $data = \Input::all();
+                        printfile("views/emails/newsletter.blade.php"); ?>
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>

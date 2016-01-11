@@ -1,5 +1,6 @@
 <?php
-$APIkey = "AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids";
+    $APIkey = "AIzaSyAwyeePUZrNGd1UMUd5T1WDfBLSeaQ5ids";
+    printfile("views/test.blade.php");
 ?>
         <!DOCTYPE html>
 <html>

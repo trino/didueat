@@ -699,6 +699,7 @@ display:block !important;
 </style>
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+  <?php printfile("views/emails/contact.blade.php"); ?>
   <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
     <tr>
       <td align="left" valign="top" id="bodyCell"><!-- BEGIN TEMPLATE // -->

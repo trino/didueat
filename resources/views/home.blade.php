@@ -1,19 +1,5 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 WHAT PAGE IS THIS???
-
+<?php printfile("views/home.blade.php"); ?>
 @if(false)
 
 

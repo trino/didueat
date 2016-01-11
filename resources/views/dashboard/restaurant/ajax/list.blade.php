@@ -45,12 +45,12 @@
         <table class="table table-responsive">
             <thead>
                 <tr>
-                    <th width="10%">
+                    <th width="5%">
                         <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
                         ID
                         <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="20%">
+                    <th width="10%">
                         Logo
                     </th>
                     <th width="30%">
@@ -58,7 +58,7 @@
                         Name
                         <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="15%">
+                    <th width="20%">
                         <a class="sortOrder" data-meta="rating" data-order="ASC" data-title="Rating" title="Sort [Rating] ASC"><i class="fa fa-caret-down"></i></a>
                         Rating
                         <a class="sortOrder" data-meta="rating" data-order="DESC" data-title="Rating" title="Sort [Rating] DESC"><i class="fa fa-caret-up"></i></a>
@@ -79,15 +79,14 @@
                     <td>{{ $value->id }}</td>
                     <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90"/></td>
                     <td>{{ $value->name }}</td>
-                    <td>{!! rating_initialize("static-rating", "restaurant", $value['id'], true) !!}</td>
+                    <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true) !!}</td>
                     <td>
-                        @if($value->open == true)Open @else Closed @endif
                         @if($value->open == true)
-                            <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
+                            Open <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
                                onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
                         @else
                             <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm"
-                               onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a>
+                               onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a> Closed
                         @endif
                     </td>
                     <td>

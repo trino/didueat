@@ -2,7 +2,7 @@
 @section('content')
 
 
-
+    <?php printfile("views/dashboard/restaurant/manus.blade.php"); ?>
 
 
 @if(false)
