@@ -54,14 +54,18 @@ function changeqty(id, opr) {
             $('input .grandtotal').val(grandtotal.toFixed(2));
             $('#delivery_flag').val('1');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
-        } else {
+            }
+        else 
+        {
             $('.profile_delevery_type').text('Pickup Detail');
             $('.profile_delivery_detail').hide();
             if ($('#pickup1').hasClass("deliverychecked")) {
                 //alert('sss');
             } else {
-                var grandtotal = $('input.grandtotal').val();
-                grandtotal = Number(grandtotal) - Number(df);
+                var grandtotal = Number($('input.grandtotal').val());
+                if($('#subtotal1').val()!= 0)
+                    grandtotal = Number(grandtotal) - Number(df);
+                
                 $('div .grandtotal').text('$'+grandtotal.toFixed(2));
                 $('input .grandtotal').val(grandtotal.toFixed(2));
                 $('#df').hide();
