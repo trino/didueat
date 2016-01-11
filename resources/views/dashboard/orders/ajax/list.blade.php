@@ -86,7 +86,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                             <?php
                             if ($value->time) {
                                 echo '<FONT COLOR="';
-                                $delay = floor((strtotime($value->time) - strtotime($value->order_time)) / 1000);
+                                $delay = (strtotime($value->time) - strtotime($value->order_time));
                                 if ($delay < 60) {
                                     echo 'GREEN">';
                                 } else if ($delay < 300) {
