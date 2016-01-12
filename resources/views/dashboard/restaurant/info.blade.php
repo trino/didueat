@@ -29,7 +29,7 @@ type="text/css"/-->
                     <div class="form-group row">
                         <label class="col-sm-3">Hours</label>
                         <div class="col-sm-9">
-                            @include("dashboard.restaurant.hours", array("new" => false))
+                            @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant))
                         </div>
                     </div>
                 </div>
