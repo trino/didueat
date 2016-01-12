@@ -126,6 +126,7 @@ echo newrow($new, "Allow delivery"); ?>
             $('#is_delivery_options').hide();
             $('.is_delivery_options').hide();
         }
+        same(false);
     }
 
     function closed(event, ID){
