@@ -3,6 +3,9 @@ $first = false; $type = "hidden";
 ?>
 @extends('layouts.default')
 
+
+
+
 <div class="bg-danger p-t-3 p-b-3 m-t-3 secondary_red">
     <div class="container">
         <div class="row ">
@@ -25,11 +28,20 @@ $first = false; $type = "hidden";
     </div>
 </div>
 
+
+
+
 @section('content')
 
 <?php printfile("views/restaurants.blade.php"); ?>
 
+
+
     <div class="row ">
+
+
+
+
         <div class="col-lg-4">
             <div class="card">
 
@@ -45,11 +57,15 @@ $first = false; $type = "hidden";
                         <div class="form-group">
                             <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
-                        <div id="radius_panel" class="form-group">
-                            <LABEL id="radius_panel_label">Distance (20 km)</LABEL>
-                            <BR>
-                            <input type="range" name="radius" id="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                        <div id="radius_panel" class="form-group row">
 
+                            <div class=" col-md-6">
+                            <LABEL id="radius_panel_label">Distance (20 km)</LABEL>
+                            </div>
+                            <div class=" col-md-6">
+
+                            <input type="range" name="radius" id="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+</div>
                             <!--select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                 <option value="">Distance</option>
                                 <?php
@@ -58,6 +74,7 @@ $first = false; $type = "hidden";
                                     }
                                 ?>
                             </select-->
+                            <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>

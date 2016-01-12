@@ -21,7 +21,7 @@
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
             ?>
 
-            <div class="card card-block parents menus-parent" id="parent{{ $value->id }}">
+            <div class="card card-block parents" id="parent{{ $value->id }}">
                 <div class="">
                     <div class="row">
                         <div class="col-md-9" style="">
@@ -48,17 +48,21 @@
                                     }
                                     ?>
 
-                                    <h4 class="card-title">{{ $value->menu_item }}
+                                    <h2 class="card-title">
+
+
 
                                         <a href="javascript:void(0)" id="{{ $value->id }}"
                                            data-res-id="{{ $value->restaurant_id }}" type="button"
                                            class="card-link insert-stats" data-toggle="modal"
                                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
+
+                                            {{ $value->menu_item }}
                                             <i class="fa fa-cart-plus"></i>
 
                                         </a>
 
-                                    </h4>
+                                    </h2>
 
 
                                     @if($dis)

@@ -37,10 +37,21 @@ if (Request::path() !== null && Request::path() != "/") {
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
         <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+            <!--link href="https://bootswatch.com/lumen/bootstrap.css" rel="stylesheet" integrity="" crossorigin="anonymous"-->
+
+
+
         <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
+
+
+
+
+
         <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
 
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+
+
         <!--link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet"-->
         <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
         <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
@@ -78,7 +89,8 @@ if (Request::path() !== null && Request::path() != "/") {
         @include('popups.forgotpassword')
 
         @include('layouts.includes.header')
-
+        <div class="container m-t-2">
+            </div>
             <div class="container m-t-3">
                 @if (session('status'))
                     <div class="alert alert-success">
