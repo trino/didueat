@@ -355,6 +355,7 @@ $first = false; $type = "hidden";
             //for tags
             $('.tags-listing').each(function(){
                 var LiN = $(this).attr('id');
+                console.log(LiN);
                 if(LiN > 3){
                   $('.tags-listing').eq(2).nextAll().hide().addClass('tags-listing-toggleable');
                   $('#tags-listing-panel').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
