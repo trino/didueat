@@ -71,38 +71,39 @@
 
 
 
-<div class="container-fluid " style="background: white;">
-    <hr/>
+<div class="container-fluid  text-muted" style="background:white;border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1);">
 
+
+    <div class="container  p-y-2">
+        <div class="row ">
+            <div class="col-lg-12 title-v2 p-b-1">
+                <h2 class="text-xs-center side-lines"> HOW IT WORKS </h2>
+            </div>
+        </div>
+<div class="row">
+    <div class="col-lg-4 ">
+        <h3 class="footer-h3 text-xs-center "><i class="fa fa-search"></i> Enter Your Location</h3>
+
+        <p class="text-xs-center">We'll list all the restaurants in your area</p>
+    </div>
+    <div class="col-lg-4 ">
+        <h3 class="footer-h3 text-xs-center"><i class="fa fa-shopping-cart"></i> Pick A Restaurant</h3>
+
+        <p class="text-xs-center">What do you feel like eating?</p>
+    </div>
+    <div class="col-lg-4 ">
+        <h3 class="footer-h3 text-xs-center"><i class="fa fa-cutlery"></i> Order Online</h3>
+
+        <p class="text-xs-center">Receive your meal in under 45 mins</p>
+    </div>
+</div></div>
 
 
 <footer class=" p-y-1  container text-muted">
     <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
 
-        <div class="row  p-b-1">
 
-
-            <div class="col-lg-12 ">
-                <h2 class="text-xs-center side-lines2"> HOW IT WORKS </h2>
-            </div>
-            </div>
     <div class="row">
-
-        <div class="col-lg-4 ">
-            <h3 class="footer-h3 text-xs-center "><i class="fa fa-search"></i> Enter Your Location</h3>
-
-            <p class="text-xs-center">We'll list all the restaurants in your area</p>
-        </div>
-        <div class="col-lg-4 ">
-            <h3 class="footer-h3 text-xs-center"><i class="fa fa-shopping-cart"></i> Pick A Restaurant</h3>
-
-            <p class="text-xs-center">What do you feel like eating?</p>
-        </div>
-        <div class="col-lg-4 ">
-            <h3 class="footer-h3 text-xs-center"><i class="fa fa-cutlery"></i> Order Online</h3>
-
-            <p class="text-xs-center">Receive your meal in under 45 mins</p>
-        </div>
 
         <div class="col-lg-12 ">
             <hr/>
@@ -161,8 +162,8 @@
     </div>
 
 </footer>
-
 </div>
+
 <div class="overlay_loader">
     <div class="clearfix"></div>
     <div id="loadmoreajaxloader">

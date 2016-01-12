@@ -73,9 +73,11 @@
     height: 38px;
 }
 
+h1,h2,h3,h4,h5,h6{
+
+}
 .modal-header {background: #D50000 !important;color:#fff;border:1px solid #D50000 !important;}
 body {
-    background-color: #f4f7f8 !important;
 
   /*  font-family: 'Roboto', sans-serif; */
 }

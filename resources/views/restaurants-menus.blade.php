@@ -4,13 +4,14 @@
 <div class="row">
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
         <div class=" col-md-12">
-            <div class="alert alert-danger" role="alert">
-                <strong>Welcome!</strong> You are logged in to your restaurant menu editor
+            <div class="alert alert-success" role="alert">
+                <strong>Welcome!</strong> Only add main dishes/combos, you're allowed a maximum of 7 items. We will feature your deals every day of the week.
 
-                <a href="#" id="add_item0" type="button" class=" additem pull-right" data-toggle="modal"
+                <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
                    data-target="#addMenuModel">
-                    Add Menu Item Here
+                    Add Menu Item
                 </a>
+                <div class="clearfix"></div>
             </div>
             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
         </div>

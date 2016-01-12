@@ -23,7 +23,6 @@
              alt="Card image cap">
 
             <div class="card-block">
-                THIS BLOCK
                 <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
 
                 <p class="card-text"> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
