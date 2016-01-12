@@ -21,7 +21,6 @@ class HomeController extends Controller {
      */
     public function index() {
         $data['title'] = 'All Restaurants Page';
-
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
        // $data['top_ten'] = $this->getTopTen();

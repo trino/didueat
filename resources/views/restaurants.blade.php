@@ -3,9 +3,6 @@ $first = false; $type = "hidden";
 ?>
 @extends('layouts.default')
 
-
-
-
 <div class="bg-danger p-t-3 p-b-3 m-t-3 secondary_red">
     <div class="container">
         <div class="row ">
@@ -28,31 +25,20 @@ $first = false; $type = "hidden";
     </div>
 </div>
 
-
-
-
 @section('content')
 
 <?php printfile("views/restaurants.blade.php"); ?>
 
-
-
     <div class="row ">
-
-
-
-
         <div class="col-lg-4">
             <div class="card">
-
                 <div class="card-header">
                     Filter Search
                 </div>
+                {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                 <div class="card-block">
-
                     <?php printfile("views/restaurants.blade.php"); ?>
 
-                    {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                     <div class="sort search-form clearfix">
                         <div class="form-group">
                             <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
@@ -63,9 +49,8 @@ $first = false; $type = "hidden";
                             <LABEL id="radius_panel_label">Distance (20 km)</LABEL>
                             </div>
                             <div class=" col-md-6">
-
                             <input type="range" name="radius" id="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
-</div>
+                            </div>
                             <!--select name="radius" id="radius" class="form-control" onchange="createCookieValue('radius', this.value)">
                                 <option value="">Distance</option>
                                 <?php
@@ -77,9 +62,13 @@ $first = false; $type = "hidden";
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
-                                Delivery</label>
-                            <label><input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/> Pickup</label>
+                            <label>
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
+                                Delivery
+                            </label>
+                            <label>
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/> Pickup
+                            </label>
                         </div>
                         <div class="form-group">
                             <select name="minimum" id="minimum" class="form-control" onchange="createCookieValue('minimum', this.value)">
@@ -92,15 +81,6 @@ $first = false; $type = "hidden";
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
-                                <option value="">Cuisine Types</option>
-                                @foreach($cuisine as $value)
-                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
                         <div class="form-group">
                             <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
                                 <option value="">Restaurant Rating</option>
@@ -120,6 +100,24 @@ $first = false; $type = "hidden";
                             </select>
                         </div>
                         <div class="form-group">
+                            <label class="s-panel-header facet-category-label" for="browseFacet-toggle">
+                                <span onclick="expand_collapse('#cuisine-panel-body', '#cuisine-filter');"><i id="cuisine-filter" class="fa fa-minus-square"></i> Cuisine</span>
+                                <a href="javascript:void(0);" onclick="clear_search('.facet-checkbox-input')" class="clear-search">Clear</a>
+                            </label>
+                            <div id="cuisine-panel-body">
+                                @foreach($cuisine as $key => $value)
+                                <div id="{{ $key }}" class="cuisine-listing">
+                                    <label for="object:{{ $value->id }}">
+                                        <input type="checkbox" id="object:{{ $value->id }}" value="{{ $value->id }}" class="facet-checkbox-input"> 
+                                        <span class="facet-checkbox-box"></span> 
+                                        <span>{{ $value->name }}</span>
+                                        <span class="facet-count"> (<span>5</span>)</span>
+                                    </label>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <select name="SortOrder" id="SortOrder" class="form-control" onchange="createCookieValue('SortOrder', this.value)">
                                 <option value="">Sort By</option>
                                 <option value="rating">Quality score</option>
@@ -130,15 +128,12 @@ $first = false; $type = "hidden";
                             </select>
                         </div>
                     </div>
-
-
                 </div>
-
                 <div class="card-footer  text-xs-right">
                     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link" value="Clear Search"/>
                     <input type="button" name="search" class="btn btn-primary" value="Refine Search" id="search-form-submit" onclick="submitform(event, 0);"/>
-                    {!! Form::close() !!}
                 </div>
+                {!! Form::close() !!}
             </div>
         </div>
 
@@ -161,19 +156,9 @@ $first = false; $type = "hidden";
     </div>
 
 
-
-
-
-
-
-
-
-
-
     <script type="text/javascript">
         var elementname = '#formatted_address2';
         onloadpage();
-
         function keypress(event){
             if ( event.keyCode == 13 ) {
                 submitform(event, 0);
@@ -319,10 +304,42 @@ $first = false; $type = "hidden";
             var start = $(this).attr('data-id');
             submitform(e, start);
         });
-
+        
         var p = document.getElementById("radius");
         p.addEventListener("input", function() {
             $("#radius").trigger("change");
         }, false);
+        
+        //Cuisine Filter
+        function clear_search(target_id){
+            $(target_id+':checkbox').removeAttr('checked');
+        }
+        
+        function expand_collapse(target_id, target_icon){
+            if($(target_id).is(":visible") == true){
+                $(target_icon).removeClass("fa-minus-square").addClass("fa-plus-square");
+                $(target_id).hide();
+            } else {
+                $(target_icon).removeClass("fa-plus-square").addClass("fa-minus-square");
+                $(target_id).show();
+            }
+        }
+        
+        $('.cuisine-listing').each(function(){
+            var LiN = $(this).attr('id');
+            if(LiN > 6){
+              $('.cuisine-listing').eq(5).nextAll().hide().addClass('cuisine-listing-toggleable');
+              $('#cuisine-panel-body').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
+            }
+        });
+        
+        $('body').on('click','.more_show', function(){
+            if( $(this).hasClass('less') ){
+              $(this).text('+ See all').removeClass('less');    
+            }else{
+              $(this).text('- Show less').addClass('less'); 
+            }
+            $(this).siblings('div.cuisine-listing-toggleable').slideToggle();
+        }); 
       </script>
 @stop
