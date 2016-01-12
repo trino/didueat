@@ -7,7 +7,7 @@
                 </button>
                 <h4 class="modal-title" id="loginModalLabel">Log in</h4>
             </div>
-            <form role="form" action="" id="login-ajax-form" method="post" class="">
+            <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="">
                 <div class="modal-body">
                     <?php printfile("views/popups/login.blade.php"); ?>
                     <DIV ID="message" align="center"></DIV>
