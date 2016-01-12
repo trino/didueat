@@ -89,46 +89,6 @@
     <script type="text/javascript">
         $(document).ready(function () {
             Demo.init();
-            $('.time').timepicker();
-            $('.time').click(function () {
-                $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
-                    var t = parseFloat($(this).text());
-                    if (t > 12) {
-                        if (t < 22) {
-                            $(this).text('0' + (t - 12));
-                        }else {
-                            $(this).text(t - 12);
-                        }
-                    }
-                });
-            });
-
-            $('.time').change(function () {
-                var t = $(this).val();
-                var arr = t.split(':');
-                var h = arr[0];
-                var t = parseFloat(h);
-                if (t > 11) {
-                    var format = 'PM';
-                    if (t < 22) {
-                        if (t != 12) {
-                            var ho = '0' + (t - 12);
-                        } else {
-                            var ho = 12;
-                        }
-                    } else {
-                        var ho = t - 12;
-                    }
-                } else {
-                    var ho = arr[0];
-                    var format = 'AM';
-                    if (arr[0] == '00') {
-                        var ho = '12';
-                    }
-                }
-                var tm = ho + ':' + arr[1] + ' ' + format;
-                $(this).val(tm);
-            });
 
             jQuery.validator.addMethod("matchPattern", function (value, element) {
                 var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";

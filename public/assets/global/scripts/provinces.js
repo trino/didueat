@@ -256,3 +256,52 @@ function geolocate(formatted_address) {
         });
     }
 }
+
+var TimeFormat = 24;
+$(document).ready(function () {
+    $('.time').timepicker();
+    $('.time').click(function () {
+        $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
+            var t = parseFloat($(this).text());
+            if (t > 12) {
+                if (t < 22) {
+                    $(this).text('0' + (t - 12));
+                } else {
+                    $(this).text(t - 12);
+                }
+            }
+        });
+    });
+
+    $('.time').change(function () {
+        var t = $(this).val();
+        var arr = t.split(':');
+        var h = arr[0];
+        var t = parseFloat(h);//hour
+        var format = ":00";// + arr[2];
+        var ho = arr[0];
+
+        if(TimeFormat == 12) {
+            if (t > 11) {
+                format = ' PM';
+                if (t < 22) {
+                    if (t != 12) {
+                        var ho = '0' + (t - 12);
+                    } else {
+                        var ho = 12;
+                    }
+                } else {
+                    var ho = t - 12;
+                }
+            } else {
+                format = ' AM';
+                if (arr[0] == '00') {
+                    var ho = '12';
+                }
+            }
+        }
+
+        var tm = ho + ':' + arr[1] + format;
+        $(this).val(tm);
+    });
+});
