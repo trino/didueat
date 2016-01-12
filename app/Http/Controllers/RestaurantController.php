@@ -338,6 +338,7 @@ class RestaurantController extends Controller {
             $data['countries_list'] = \App\Http\Models\Countries::get();
             $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
+            $data["route"] = \Route::getCurrentRoute()->getPath();
             return view('dashboard.restaurant.info', $data);
         }
     }

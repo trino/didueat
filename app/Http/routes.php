@@ -39,6 +39,7 @@ Route::get('auth/forgot-passoword',                                 'Auth\AuthCo
 Route::post('auth/forgot-passoword',                                'Auth\AuthController@postForgotPassword');
 Route::post('auth/forgot-passoword/ajax',                           'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',                             'Auth\AuthController@postAjaxValidateEmail');
+Route::resource('restaurant/view',                                  'RestaurantController@restaurantInfo');
 
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
@@ -102,7 +103,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::post('restaurant/list/ajax',                             'RestaurantController@listingAjax');
     Route::get('restaurant/list/delete/{id}',                       'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
     Route::get('restaurant/list/status/{id}',                       'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
-    Route::get('restaurant/orders/history/{id}',                    'RestaurantController@history')->where('id', '[0-9]+');
+    Route::get('restaurant/orders/history/{id}',                    'OrdersController@history')->where('id', '[0-9]+');
     Route::resource('restaurant/add/new',                           'RestaurantController@addRestaurants');
     
     //Event Logs

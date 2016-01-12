@@ -22,25 +22,31 @@ type="text/css"/-->
                     {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
                     <?php
-                        echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false));
-                        echo view('common.editaddress', array("addresse_detail" => $resturant));
+                        $is_disabled=false;
+                        if(isset($route) && $route == "restaurant/view/{view}"){
+                            $is_disabled = " DISABLED";
+                        }
+
+                        echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
+                        echo view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled));
                     ?>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Hours</label>
                         <div class="col-sm-9">
-                            @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant))
+                            @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled))
                         </div>
                     </div>
                 </div>
 
-
-                <div class="card-footer">
-                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                    <button type="submit" class="btn btn-primary pull-right">Save</button>
-                    {!! Form::close() !!}
-                    <div class="clearfix"></div>
-                </div>
+                @if(!$is_disabled)
+                    <div class="card-footer">
+                        <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+                        {!! Form::close() !!}
+                        <div class="clearfix"></div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

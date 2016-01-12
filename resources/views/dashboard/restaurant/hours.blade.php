@@ -20,32 +20,34 @@
         }
     }
 
+    if(!isset($is_disabled)){$is_disabled=false;}
+
 echo newrow($new, "Allow pickup"); ?>
 <LABEL>
-    <input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />
+    <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />
     I Offer Pickup
 </LABEL>
 <?php echo newrow();
 
 echo newrow($new, "Allow delivery"); ?>
 <LABEL>
-    <input type="checkbox" name="is_delivery" id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />
+    <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />
     I Offer Delivery
 </LABEL>
 <?php echo newrow(); ?>
 
 <div id="is_delivery_options" style="display: {{ (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0)?'block':'none' }};">
     <?php echo newrow($new, "Delivery Fee"); ?>
-    <input type="number" min="0" name="delivery_fee" class="form-control" placeholder="Delivery Fee" value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
+    <input type="number" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" placeholder="Delivery Fee" value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
     <?php echo newrow();
 
     echo newrow($new, "Min. Subtotal Before Delivery"); ?>
-    <input type="number" min="0" name="minimum" class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
+    <input type="number" min="0" name="minimum" {{ $is_disabled }} class="form-control" placeholder="Minimum Subtotal For Delivery" value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
     <?php echo newrow();
 
     $value = (isset($restaurant->max_delivery_distance))?$restaurant->max_delivery_distance: old("max_delivery_distance");
     echo newrow($new, "Max Delivery Distance"); ?>
-    <input name="max_delivery_distance" id="max_delivery_distance" type="range" min="1" max="20" class="form-control" value="{{ $value }}" onchange="$('#max_delivery_distance_label').html('Max Delivery Distance (' + p.value + ' km)');">
+    <input name="max_delivery_distance" {{ $is_disabled }} id="max_delivery_distance" type="range" min="1" max="20" class="form-control" value="{{ $value }}" onchange="$('#max_delivery_distance_label').html('Max Delivery Distance (' + p.value + ' km)');">
 
     <!--select name="max_delivery_distance" id="max_delivery_distance" class="form-control">
         <option value="10">Between 1 and 10 km</option>
@@ -77,7 +79,7 @@ echo newrow($new, "Allow delivery"); ?>
 
             $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
             $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
-            printrow($layout, $key, $value, $opentime, $closetime);
+            printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled);
         }
     }
     if($layout){
@@ -89,11 +91,11 @@ echo newrow($new, "Allow delivery"); ?>
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
         $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
         if($opentime != $open[$key] || $closetime != $close[$key]){$isthesame=false;}
-        printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2");
+        printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
     }
-    echo '<BR><LABEL class="is_delivery_options"><input type="CHECKBOX" onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '> Same as regular hours</LABEL>';
+    echo '<BR><LABEL class="is_delivery_options"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '> Same as regular hours</LABEL>';
 
-    function printrow($layout, $key, $value, $opentime, $closetime, $suffix="", $class = ""){
+    function printrow($layout, $key, $value, $opentime, $closetime, $suffix="", $class = "", $is_disabled = false){
         if($layout){$layout = 9; $width=5;} else {$layout = 2; $width=4; if($suffix){$layout=3;}}//width: 4 is editor, 5 is signup
         $closed = '<LABEL><input type="checkbox" onchange="closed(event, ' . $key . ');" CHECKED> Open</LABEL>';
         ?>
@@ -102,13 +104,13 @@ echo newrow($new, "Allow delivery"); ?>
             @if(!$suffix && $layout == 2) <div class="col-sm-1" align="center"><SMALL><SMALL><?= $closed; ?></SMALL></SMALL></DIV> @endif
             @if(!$suffix && $layout == 9) <?= $closed; ?> @endif
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="open{{$suffix}}[{{ $key }}]" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time"/>
+                <input type="text" name="open{{$suffix}}[{{ $key }}]" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" {{ $is_disabled }}/>
             </div>
             <div class="col-sm-1">
                 to
             </div>
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="close{{$suffix}}[{{ $key }}]" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time"/>
+                <input type="text" name="close{{$suffix}}[{{ $key }}]" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time" {{ $is_disabled }}/>
             </div>
         </div>
         <?php

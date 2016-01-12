@@ -5,18 +5,14 @@
 @endif
 
 <div class="card">
-
-
-
-
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6"><h6>
-
-                    Restaurants     <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>                </h6></div>
-
+            <div class="col-lg-6">
+                <h6>
+                    Restaurants <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
+                </h6>
+            </div>
             @include('common.table_controls')
-
         </div>
     </div>
 
@@ -91,6 +87,7 @@
                     </td>
                     <td>
                         <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn btn-primary btn-sm">Orders</a>
+                        <a href="{{ url('restaurant/view/'.$value->id) }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
                     </td>

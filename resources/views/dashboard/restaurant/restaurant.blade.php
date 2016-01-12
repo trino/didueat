@@ -2,21 +2,22 @@
     printfile("views/dashboard/restaurant/restaurant.blade.php");
     echo newrow($new, "Restaurant Name");
     $name = iif($new, "restname", "name");//why does it change to restname?
+    if(!isset($is_disabled)){$is_disabled=false;}
 ?>
-    <input type="text" name="{{ $name }}" class="form-control" placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old($name) }}" required>
+    <input type="text" name="{{ $name }}" class="form-control" {{ $is_disabled }} placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old($name) }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
 echo newrow($new, "Email"); ?>
-    <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
+    <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 <?php echo newrow(); }
 
 echo newrow($new, "Description"); ?>
-    <textarea name="description" class="form-control" placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+    <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
 <?php echo newrow();
 
 echo newrow($new, "Cuisine Type"); ?>
-    <select name="cuisine" id="cuisine" class="form-control">
+    <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
         <option value="">-Select One-</option>
         @foreach($cuisine_list as $value)
             <option value="{{ $value->id }}"
@@ -32,7 +33,9 @@ echo newrow($new, "Tags"); ?>
 <?php echo newrow();
 
 echo newrow($new, "Logo"); ?>
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+    @if(!$is_disabled)
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+    @endif
     <input type="hidden" name="logo" id="hiddenLogo"/>
 
     @if(isset($restaurant->logo) && $restaurant->logo != "")

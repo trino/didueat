@@ -9,45 +9,50 @@
     if(!isset($addresse_detail) && isset($address_detail)){$addresse_detail = $address_detail;}
     if(!isset($required)){$required = true;}
     $required = iif($required , " required");
+    if(!isset($is_disabled)){$is_disabled=false;}
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <?= newrow($new, "Format Address"); ?>
-        <DIV CLASS="nowrap">
-            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
-            if (old('formatted_address')){
-                echo old('formatted_address');
-            } else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
-                $country = select_field("countries", "id", $addresse_detail->country, "name");
-                echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
-            }
-            $width=59;
-            ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
-            <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
-                <i class="fa fa fa-compass"></i>
-            </a>
-        </DIV>
+        @if($is_disabled)
+            <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
+        @else
+            <DIV CLASS="nowrap">
+                <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
+                if (old('formatted_address')){
+                    echo old('formatted_address');
+                } else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+                    $country = select_field("countries", "id", $addresse_detail->country, "name");
+                    echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+                }
+                $width=59;
+                ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
+                <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
+                    <i class="fa fa fa-compass"></i>
+                </a>
+            </DIV>
+        @endif
     </div>
 </div>
 <HR>
 
 <?= newrow($new, "Street Address"); ?>
-        <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}} >
+        <input type="text" id="rout_street_number" {{ $is_disabled }} name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}} >
     </div>
 </div>
 
 <?= newrow($new, "Postal Code"); ?>
-        <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
+        <input type="text" name="postal_code" id="postal_code" {{ $is_disabled }} class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
     </div>
 </div>
 
 <?= newrow($new, "Phone Number"); ?>
-        <input type="text" name="phone" class="form-control" placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
+        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
     </div>
 </div>
 
 <?= newrow($new, "Country"); ?>
-        <select name="country" id="country" class="form-control" id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
+        <select name="country" id="country" class="form-control" {{ $is_disabled }} id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
             <option value="">-Select One-</option>
             @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->country) && $addresse_detail->country == $value->id) || old('country') == $value->name || old('country') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
@@ -58,7 +63,7 @@
 </div>
 
 <?= newrow($new, "Province"); ?>
-        <select name="province" id="province" class="form-control" {{$required}}>
+        <select name="province" id="province" class="form-control" {{ $is_disabled }} {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->abbreviation }}" <?php
@@ -77,23 +82,23 @@
 </div>
 
 <?= newrow($new, "City"); ?>
-        <input type="text" id="city" name="city" class="form-control" {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
+        <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
 </div>
 
 <?php if(isset($apartment)){ ?>
     <?= newrow($new, "Apartment/Unit"); ?>
-            <input type="text" name="apartment" class="form-control" placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+            <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
         </div>
     </div>
 
     <?= newrow($new, "Buzz Code"); ?>
-            <input type="text" name="buzz" class="form-control" placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}">
+            <input type="text" name="buzz" class="form-control" {{ $is_disabled }} placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}">
         </div>
     </div>
 
     <?= newrow($new, "Notes"); ?>
-            <input type="text" name="notes" class="form-control" placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+            <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
         </div>
     </div>
 <?php }
