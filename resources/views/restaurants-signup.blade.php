@@ -106,6 +106,11 @@
                         maxlength: 10,
                         number: true
                     },
+                    mobile: {
+                        minlength: 10,
+                        maxlength: 10,
+                        number: true
+                    },
                     email: {
                         required: true,
                         email: true,
@@ -122,21 +127,27 @@
                         required: true,
                         minlength: 5,
                         equalTo: "#password1"
+                    },
+                    postal_code: {
+                        postal_code: true
                     }
                 },
                 messages: {
-                    Phone: {
+                    phone: {
                         required: "Please enter a phone number",
                         minlength: "Your phone number must consist of 10 numbers",
                         maxlength: "Your phone number must consist of 10 numbers",
                     },
                     email: {
                         required: "Please Enter an email address!",
-                        email: "This is not a valid email address!",
                         remote: "This email address is already in use!"
                     },
                     confirm_password1: {
                         equalTo: "The password fields are mis-matched!"
+                    },
+                    mobile: {
+                        minlength: "Your phone number must consist of 10 numbers",
+                        maxlength: "Your phone number must consist of 10 numbers",
                     }
                 }
             });

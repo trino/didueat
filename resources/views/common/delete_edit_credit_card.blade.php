@@ -33,7 +33,8 @@
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1 && (! isset($credit_cards_list->id)))
-    <div class="form-group row">
+    <INPUT TYPE="HIDDEN" name="user_type" value="restaurant">
+    <!--div class="form-group row">
         <label for="user_type" class="col-sm-3">User Type </label>
         <div class="col-sm-9">
             <LABEL>
@@ -47,10 +48,11 @@
                 User
             </LABEL>
         </div>
-    </div>
+    </div-->
 
     <div class="form-group row">
-        <div class="col-sm-6">
+        <label class="col-sm-3">Restaurant</label>
+        <div class="col-sm-9">
             <div id="restaurant_id" class="restaurant_id">
                 <select name="user_id" class="form-control">
                     @foreach($restaurants_list as $restaurant)
@@ -59,13 +61,13 @@
                 </select>
             </div>
 
-            <div id="user_id" class="user_id">
+            <!--div id="user_id" class="user_id">
                 <select name="user_id" class="form-control">
-                    @foreach($users_list as $user)
-                        <option value="{{$user->id}}">{{$user->name}}</option>
-                    @endforeach
+                    foreach($users_list as $user)
+                        <option value=" $user->id}}">   $user->name}}</option>
+                    endforeach
                 </select>
-            </div>
+            </div-->
 
         </div>
     </div>
@@ -168,8 +170,9 @@
 @endif
 
 <script type="text/javascript">
-    $(".restaurant_id").hide();
+    //$(".restaurant_id").hide();
     $(".user_id").hide();
+
     function switchdivs(){
         $(".restaurant_id").hide();
         $(".user_id").hide();

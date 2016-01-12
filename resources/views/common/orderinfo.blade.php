@@ -1,5 +1,6 @@
 <TABLE>
 <?php
+    printfile("views/common/orderinfo.blade.php");
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
 
     $Data = array("Ordered By" => $order->ordered_by);

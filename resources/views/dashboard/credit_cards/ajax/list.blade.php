@@ -10,7 +10,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 <div class="card">
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-9">
                 <h6>
 
                     Credit Card ({{ ucwords($type) }})
@@ -20,6 +20,11 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                     </button>
 
                 </h6>
+
+                <h6 class="card-subtitle text-muted">Your credit card will be billed on the 1st of each month. You must have at least 1 active for your store to be open.</h6>
+
+
+
             </div>
 
             @include('common.table_controls')

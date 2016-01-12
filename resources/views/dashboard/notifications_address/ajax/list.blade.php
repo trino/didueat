@@ -13,6 +13,10 @@
                     My Notifications Addresses
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h6>
+
+                <h6 class="card-subtitle text-muted">Notify me by these methods when I receive an order</h6>
+
+
             </div>
 
             @include('common.table_controls')

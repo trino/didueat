@@ -71,31 +71,37 @@
 
 
 
+<div class="container-fluid " style="background: white;">
+    <hr/>
 
 
-
-<hr/>
 
 <footer class=" p-y-1  container text-muted">
     <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
 
+        <div class="row  p-b-1">
+
+
+            <div class="col-lg-12 ">
+                <h2 class="text-xs-center side-lines2"> HOW IT WORKS </h2>
+            </div>
+            </div>
     <div class="row">
 
-
         <div class="col-lg-4 ">
-            <h3 class="footer-h3"><i class="fa fa-search"></i> Pick A Restaurant</h3>
+            <h3 class="footer-h3 text-xs-center "><i class="fa fa-search"></i> Enter Your Location</h3>
 
-            <p>Choose your preference</p>
+            <p class="text-xs-center">We'll list all the restaurants in your area</p>
         </div>
         <div class="col-lg-4 ">
-            <h3 class="footer-h3"><i class="fa fa-shopping-cart"></i> Order Online</h3>
+            <h3 class="footer-h3 text-xs-center"><i class="fa fa-shopping-cart"></i> Pick A Restaurant</h3>
 
-            <p>Get the best discount</p>
+            <p class="text-xs-center">What do you feel like eating?</p>
         </div>
         <div class="col-lg-4 ">
-            <h3 class="footer-h3"><i class="fa fa-cutlery"></i> Enjoy Your Meal</h3>
+            <h3 class="footer-h3 text-xs-center"><i class="fa fa-cutlery"></i> Order Online</h3>
 
-            <p>No setup fees, hidden costs, or contracts</p>
+            <p class="text-xs-center">Receive your meal in under 45 mins</p>
         </div>
 
         <div class="col-lg-12 ">
@@ -156,7 +162,7 @@
 
 </footer>
 
-
+</div>
 <div class="overlay_loader">
     <div class="clearfix"></div>
     <div id="loadmoreajaxloader">
