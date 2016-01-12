@@ -6,9 +6,10 @@
     <input type="text" name="{{ $name }}" class="form-control" placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old($name) }}" required>
 <?php echo newrow();
 
+if(!isset($email)){
 echo newrow($new, "Email"); ?>
     <input type="text" name="email" class="form-control" placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
-<?php echo newrow();
+<?php echo newrow(); }
 
 echo newrow($new, "Description"); ?>
     <textarea name="description" class="form-control" placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>

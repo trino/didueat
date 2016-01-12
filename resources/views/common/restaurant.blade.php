@@ -28,7 +28,7 @@
 
             <div class="form-body">
                 <div class="row">
-                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true)); ?>
+                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false)); ?>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="portlet-body form">
             <DIV CLASS="form-body">
                 <div class="row">
-                    @include("common.contactinfo", array("new"=>true, "email" => false))
+                    @include("common.contactinfo", array("new"=>true))
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
