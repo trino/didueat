@@ -158,8 +158,8 @@
 
             @if(old('city'))
                 $(document).ready(function () {
-                        cities("{{ url('ajax') }}", "{{ old('city') }}");
-                    });
+                    cities("{{ url('ajax') }}", "{{ old('city') }}");
+                });
             @endif
 
             $('body').on('change', '#is_delivery', function () {
@@ -194,7 +194,6 @@
                         var path = resp[0];
                         var img = resp[1];
                         button.html('Change Image');
-
                         window.clearInterval(interval);
                         this.enable();
                         $('#picture').attr('src', path);
@@ -204,7 +203,6 @@
             }
 
             ajaxuploadbtn('uploadbtn');
-
         });
     </script>
 @stop

@@ -257,7 +257,7 @@ function geolocate(formatted_address) {
     }
 }
 
-var TimeFormat = 24;
+var TimeFormat = 24;//valid options are 12 and 24
 $(document).ready(function () {
     $('.time').timepicker();
     $('.time').click(function () {
