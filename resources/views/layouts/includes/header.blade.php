@@ -1,6 +1,11 @@
-<?php printfile("views/dashboard/layouts/includes/header.blade.php"); $first = false; $type = "hidden"; ?>
+<?php
+printfile("views/dashboard/layouts/includes/header.blade.php");
+$first = false; $type = "hidden";
+?>
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top primary_red" role="navigation">
+
+    <div class="container">
     <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
         &#9776;
     </button>
@@ -12,60 +17,67 @@
 
         @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
             <LI class="nav-item">
-                <button class="btn btn-primary headerbutton" onclick="geolocate(formatted_address2)" title="Get location from your browser">
+                <button class="btn btn-primary headerbutton" onclick="geolocate(formatted_address2)"
+                        title="Get location from your browser">
                     <i class="fa fa-compass"></i>
                 </button>
             </LI>
             <li class="nav-item">
-                <input type="text" name="formatted_address" id="formatted_address2" class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                       onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();" ignore_oninput="this.onchange();">
-                <INPUT TYPE="{{ $type }}" name="latitude" id="latitude"><INPUT TYPE="{{ $type }}" name="longitude" id="longitude">
+                <input type="text" name="formatted_address" id="formatted_address2"
+                       class="form-control formatted_address" placeholder="Address, City or Postal Code"
+                       onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
+                       ignore_oninput="this.onchange();">
+                <INPUT TYPE="{{ $type }}" name="latitude" id="latitude"><INPUT TYPE="{{ $type }}" name="longitude"
+                                                                               id="longitude">
             </li>
             @if(read("id"))
                 <?php
-                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                    if($addresses->count()){
+                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                if($addresses->count()){
                 ?>
-                    <LI class="nav-item" style="margin-left: 0px;">
-                        <div class="dropdown">
-                            <button class="btn btn-primary " type="button" data-toggle="dropdown"  style="height:38px;">
-                                <i class="fa fa-caret-down"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <?php
-                                    foreach($addresses as $address){
-                                        if(!$first){$first = $address->id;}
-                                        if(!trim($address->location)){
-                                            $address->location = "Address: " . $address->id;
-                                        }
-                                        echo '<LI><DIV CLASS="nowrap"><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A> [<font size="2">' . $address->address . '</font>]</DIV></LI>';
-                                    }
-                                ?>
-                            </ul>
-                        </div>
-                    </LI>
+                <LI class="nav-item" style="margin-left: 0px;">
+                    <div class="dropdown">
+                        <button class="btn btn-primary " type="button" data-toggle="dropdown" style="height:38px;">
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <?php
+                            foreach ($addresses as $address) {
+                                if (!$first) {
+                                    $first = $address->id;
+                                }
+                                if (!trim($address->location)) {
+                                    $address->location = "Address: " . $address->id;
+                                }
+                                echo '<LI><DIV CLASS="nowrap"><A ID="addy' . $address->id . '" ONCLICK="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</A> [<font size="2">' . $address->address . '</font>]</DIV></LI>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                </LI>
                 <?php } ?>
             @endif
             <LI class="nav-item">
-                <button class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
+                <button class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button"
+                        onclick="$('#search-form-submit').trigger('click');">
                     <i class="fa fa-search"></i>
                 </button>
             </LI>
             <script>
                 var formatted_address2;
-                function initAutocomplete2(){
+                function initAutocomplete2() {
                     formatted_address2 = initAutocompleteWithID('formatted_address2');
                 }
-                function setaddress(Address){
+                function setaddress(Address) {
                     document.getElementById("formatted_address2").value = Address;
                     $("#formatted_address2").trigger("focus");
                     $("#formatted_address2").trigger("change");
                 }
-                function changeevent(){
+                function changeevent() {
                     //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
-                    setTimeout(function() {
+                    setTimeout(function () {
                         //document.getElementById("formatted_address2").setAttribute("style", "background-color: white;");//debug
-                        if($("#search-form").length) {
+                        if ($("#search-form").length) {
                             $("#header-search-button").show();
                         }
                     }, 100);
@@ -75,15 +87,15 @@
                 @endif
             </script>
             <?php
-                includeJS(url("assets/global/scripts/provinces.js"));
-                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")){
-                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-                }
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+            }
             ?>
         @endif
     </ul>
 
-    <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="margin-right: 20px;">
+    <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="">
         <ul class="nav navbar-nav">
 
             @if(Session::has('is_logged_in'))
@@ -104,7 +116,8 @@
                 </li>
 
                 @if (read("oldid"))
-                     <li class="nav-item"><a href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} " class="nav-link">De-possess</a></li>
+                    <li class="nav-item"><a href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
+                                            class="nav-link">De-possess</a></li>
                 @endif
 
                 <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log Out</a></li>
@@ -123,5 +136,6 @@
                 </li>
             @endif
         </ul>
+    </div>
     </div>
 </nav>

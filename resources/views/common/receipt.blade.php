@@ -1,28 +1,16 @@
 @if(!isset($order))
     <div class="top-cart-info">
         <?php printfile("views/common/receipt.blade.php (top-cart-info)"); ?>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
-        </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-            <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-md-3 col-sm-3 col-xs-12">
-            <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"></i>Cart</a>
-        </div>
+        <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
+        <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
+        <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"></i>Cart</a>
     </div>
 @endif
 
 <div id="cartsz">
     <?php printfile("views/common/receipt.blade.php (cartsz)"); ?>
 
-
-
-
-
     @if(!isset($order))
-
 
         <div class="card card-inverse card-primary " style="">
 
@@ -72,11 +60,7 @@
 
         <div class="top-cart-content ">
             <div class="receipt_main">
-
-
                 @include('common.items')
-
-
                 <div class="totals">
                     <table class="table">
                         <tbody>
@@ -116,7 +100,7 @@
                                        class="maintax tax"/>
                             </td>
                         </tr>
-                        <tr <?php if (isset($order) && $order->order_type == '1')echo ''; else echo "style='display:none'"; ?> id="df">
+                        <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
                             <td><strong>Delivery Fee&nbsp;</strong></td>
                             <td>
                                 <span class="df">&nbsp;$ {{ (isset($order)) ? $order->delivery_fee :(isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
@@ -141,7 +125,6 @@
                     </table>
                 </div>
 
-
                 @if(!isset($order))
                     <div class="col-md-12">
                         <input class="btn red margin-0" type="button" onclick="printDiv('cartsz')" value="Print"/>
@@ -150,10 +133,7 @@
                         <a href="javascript:void(0)" class="btn red btn-primary red" onclick="checkout();">Checkout</a>
                     </div>
                 @endif
-
-
             </div>
-
 
             <div class="profiles" style="display: none;">
                 <div class="form-group">
@@ -302,15 +282,10 @@
                     </div>
                 </form>
             </div>
-
-
         </div>
         <div class="clearfix"></div>
-
     </div>
-
 </div>
-
 
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
      aria-hidden="true">
@@ -333,8 +308,6 @@
                                 src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
                         </iframe>
                     </div>
-
-
                 </div>
 
                 <!--script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358"

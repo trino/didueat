@@ -1,30 +1,20 @@
 @extends('layouts.default')
 @section('content')
 
-
+<div class="row">
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
         <div class=" col-md-12">
-
-
-
             <div class="alert alert-danger" role="alert">
                 <strong>Welcome!</strong> You are logged in to your restaurant menu editor
 
                 <a href="#" id="add_item0" type="button" class=" additem pull-right" data-toggle="modal"
-                        data-target="#addMenuModel">
+                   data-target="#addMenuModel">
                     Add Menu Item Here
                 </a>
-
             </div>
-
-
-
-
-        <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-            </div>
+            <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+        </div>
     @endif
-
-
 
     <div class="overlay overlay_reservation">
         <div class="loadmoreajaxloader">
@@ -40,6 +30,7 @@
 
     <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
         <?php printfile("views/restaurants-menus.blade.php"); ?>
+
         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
             <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
@@ -64,7 +55,6 @@
                 </div>
             </div>
 
-
         @endif
 
 
@@ -85,8 +75,21 @@
                 });
             </script>
         @endforeach
+
+
+        @if(debugmode())
+            <input type="file" accept="image/*;capture=camera">
+        @endif
+
+
     </div>
 
+
+
+
+
+
+</div>
     <script type="text/javascript">
         function check_val(v) {
             if (v != '') {

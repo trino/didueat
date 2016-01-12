@@ -1,10 +1,13 @@
+<?php
+$first = false; $type = "hidden";
+?>
 @extends('layouts.default')
 
 <div class="bg-danger p-t-3 p-b-3 m-t-3 secondary_red">
     <div class="container">
         <div class="row ">
             <div class="col-lg-8">
-                <h1 class="display-3">diduEAT </h1>
+                <h1 class="display-3">diduEAT</h1>
                 <p class="lead">
                     The easiest way to order food from local restaurants.
                     <br>
@@ -23,11 +26,8 @@
 </div>
 
 @section('content')
-    @if(debugmode())
-        <input type="file" accept="image/*;capture=camera">
-    @endif
 
-
+<?php printfile("views/restaurants.blade.php"); ?>
 
     <div class="row ">
         <div class="col-lg-4">
