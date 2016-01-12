@@ -643,5 +643,8 @@ class HomeController extends Controller {
         echo csrf_token();
         die();
     }
-    
+
+    public function home($Type){
+        return view("home." . $Type);
+    }
 }

@@ -26,6 +26,8 @@ Route::post('auth/login/ajax',                                      'Auth\AuthCo
 Route::post('auth/login',                                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
 
+Route::get('home/{type}',                                           'HomeController@home');
+
 // Registration routes...
 Route::get('auth/register',                                         'Auth\AuthController@getRegister');
 Route::post('auth/register',                                        'Auth\AuthController@postRegister');

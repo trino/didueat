@@ -110,9 +110,9 @@
         <div class="col-lg-10 ">
 
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">About</a></li>
-                <li class="list-inline-item"><a href="#">Email</a></li>
-                <li class="list-inline-item"><a href="#">FAQ</a></li>
+                <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
+                <li class="list-inline-item"><a href="{{ url("home/email") }}">Email</a></li>
+                <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                 <?php
                     if(!read("id")){
                         echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a></li>';
@@ -120,7 +120,7 @@
                     }
                 ?>
                 <li class="list-inline-item"><a href="{{ url("restaurants/signup") }}">Restaurant Owner</a></li>
-                <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
+                <li class="list-inline-item"><a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
             </ul>
         </div>
         <div class="col-lg-2" style="">
@@ -136,8 +136,8 @@
             <p>Designed and built with all the <i class="fa fa-heart" style="color:red;"></i> in the world by <a
                         href="http://trinoweb.com/"
                         target="_blank"><B><SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN></B></a>. Maintained by the <a
-                        href="#">core team</a> with the help of <a
-                        href="#">our contributors</a>.</p>
+                        href="{{ url("home/team") }}">core team</a> with the help of <a
+                        href="{{ url("home/contributors") }}">our contributors</a>.</p>
 
             <p>Currently v1.0 / &copy;
                 <script language=javascript>var yr;
@@ -506,10 +506,11 @@
         }
 
         function checkUrl(textval) {
-            if (textval.replace('/dashboard', '') != textval)
+            if (textval.replace('/dashboard', '') != textval) {
                 return true;
-            else
+            }else {
                 return false;
+            }
         }
 
         $('.loadmore').click(function () {
@@ -520,24 +521,23 @@
                 $.ajax({
                     url: url1,
                     success: function (html) {
-
                         if (html) {
                             $('.nxtpage').remove();
                             $("#postswrapper").append(html);
                             $('div#loadmoreajaxloader').hide();
-                        } else
+                        } else {
                             $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
+                        }
                     }
                 });
-            }
-            else {
+            } else {
                 $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
                 $(this).parent().remove();
             }
         });
         
         var TimeFormat = 24;//valid options are 12 and 24
-        $(document).ready(function () {
+        if($('.time').length) {
             $('.time').timepicker();
             $('.time').click(function () {
                 $('.ui-timepicker-hour-cell .ui-state-default').each(function () {
@@ -560,7 +560,7 @@
                 var format = ":00";// + arr[2];
                 var ho = arr[0];
 
-                if(TimeFormat == 12) {
+                if (TimeFormat == 12) {
                     if (t > 11) {
                         format = ' PM';
                         if (t < 22) {
@@ -583,7 +583,6 @@
                 var tm = ho + ':' + arr[1] + format;
                 $(this).val(tm);
             });
-        });
-
+        }
     });
 </script>

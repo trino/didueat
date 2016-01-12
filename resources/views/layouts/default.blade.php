@@ -90,10 +90,10 @@ if (Request::path() !== null && Request::path() != "/") {
                     </div>
                 @endif
 
-                @if(\Session::has('message-parent'))
+                @if(\Session::has('message-type'))
                     <div class="alert {!! Session::get('message-type') !!}">
                         <strong>{!! Session::get('message-short') !!}</strong>
-                        &nbsp; {!! Session::get('message-parent') !!}
+                        &nbsp; {!! Session::get('message') !!}
                     </div>
                     <?php \Session::forget('message'); ?>
                 @endif
