@@ -75,25 +75,24 @@ $first = false; $type = "hidden";
                                 <option value="">Delivery Minimum</option>
                                 <?php
                                 for ($i = 5; $i < 50; $i += 5) {
-                                    echo '<option value="' . $i . '">$' . $i . ' - $' . $i + 5 . '</option>';
+                                    echo '<option value="'.$i.'">$'.$i.' - $'. ($i + 5) .'</option>';
                                 }
                                 echo '<option value="' . $i . '">$' . $i . '</option>';
                                 ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="rating" id="rating" class="form-control" onchange="createCookieValue('rating', this.value)">
-                                <option value="">Restaurant Rating</option>
-                                <option value="5">5 Stars</option>
-                                <option value="4">4 Stars or Better</option>
-                                <option value="3">3 Stars or Better</option>
-                                <option value="2">2 Stars or Better</option>
-                                <option value="1">1 Stars or Better</option>
-                            </select>
+                            <label class="s-panel-header facet-category-label">
+                                <span onclick="expand_collapse('#rating-listing-panel', '#rating-filter');"><i id="rating-filter" class="fa fa-minus-square"></i> <b>Rating</b></span>
+                                <a href="javascript:void(0);" class="clear-search">Clear</a>
+                            </label>
+                            <div id="rating-listing-panel">
+                                {!! rating_initialize("rating", "menu", 0, false, "update-rating-filter") !!}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="s-panel-header facet-category-label">
-                                <span onclick="expand_collapse('#tags-listing-panel', '#tags-filter');"><i id="tags-filter" class="fa fa-minus-square"></i> Tags</span>
+                                <span onclick="expand_collapse('#tags-listing-panel', '#tags-filter');"><i id="tags-filter" class="fa fa-minus-square"></i> <b>Tags</b></span>
                                 <a href="javascript:void(0);" onclick="clear_search('.tags-checkbox-input')" class="clear-search">Clear</a>
                             </label>
                             <div id="tags-listing-panel">
@@ -110,7 +109,7 @@ $first = false; $type = "hidden";
                         </div>
                         <div class="form-group">
                             <label class="s-panel-header facet-category-label">
-                                <span onclick="expand_collapse('#cuisine-listing-panel', '#cuisine-filter');"><i id="cuisine-filter" class="fa fa-minus-square"></i> Cuisine</span>
+                                <span onclick="expand_collapse('#cuisine-listing-panel', '#cuisine-filter');"><i id="cuisine-filter" class="fa fa-minus-square"></i> <b>Cuisine</b></span>
                                 <a href="javascript:void(0);" onclick="clear_search('.facet-checkbox-input')" class="clear-search">Clear</a>
                             </label>
                             <div id="cuisine-listing-panel">
@@ -304,10 +303,6 @@ $first = false; $type = "hidden";
                 });
             }
         }
-
-        $('body').on('submit', '#search-form', function (e) {
-           //doesn't work, tries to submit the form after the pos request
-        });
 
         $('body').on('click', '.loadMoreRestaurants', function (e) {
             var start = $(this).attr('data-id');
