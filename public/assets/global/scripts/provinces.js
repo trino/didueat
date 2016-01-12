@@ -256,4 +256,3 @@ function geolocate(formatted_address) {
         });
     }
 }
-
