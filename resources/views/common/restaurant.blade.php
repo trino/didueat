@@ -1,17 +1,17 @@
 <?php
-    if(!isset($resturant)){$resturant = "";}
-    $Genre = priority2($resturant, "genre");
+    if(!isset($restaurant)){$restaurant = "";}
+    $Genre = priority2($restaurant, "genre");
     $RestID = "";
     $Country = "";
     $Field = "restname";
-    if(isset($resturant->id)){
-        $RestID = '<input type="hidden" name="id" value="' . $resturant->id . '"/>';
-        $Country = $resturant->country;
+    if(isset($restaurant->id)){
+        $RestID = '<input type="hidden" name="id" value="' . $restaurant->id . '"/>';
+        $Country = $restaurant->country;
         $Field = "name";
     }
     $restaurant_logo = asset('assets/images/default.png');
-    if(isset($resturant->logo) && $resturant->logo){
-        $restaurant_logo = asset('assets/images/restaurants/'.$resturant->logo);
+    if(isset($restaurant->logo) && $restaurant->logo){
+        $restaurant_logo = asset('assets/images/restaurants/'.$restaurant->logo);
     }
 ?>
 <meta name="_token" content="{{ csrf_token() }}"/>

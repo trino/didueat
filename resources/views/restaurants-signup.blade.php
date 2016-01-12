@@ -181,6 +181,7 @@
                 }
             });
 
+            /* duplicates tag field
             $('#demo4').tagEditor({
                 initialTags: [{{ old('tags') }}],
                 placeholder: 'Enter tags ...',
@@ -193,6 +194,7 @@
                     return q;
                 }
             });
+            */
 
             @if(old('city'))
                 $(document).ready(function () {
