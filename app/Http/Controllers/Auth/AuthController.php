@@ -31,11 +31,9 @@ class AuthController extends Controller {
      * @return view
      */
     public function authenticate($AsJSON = false) {
+        $url = 'dashboard';//'auth/login';
+        //if (\Input::has('url')) {$url = \Input::get('url');}
         if (\Input::has('email')) {
-            $url = 'auth/login';
-            if (\Input::has('url')) {
-                $url = \Input::get('url');
-            }
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
