@@ -8,7 +8,6 @@
             <?php
             printfile("views/dashboard/orders/orders_detail.blade.php");
             $profiletype = Session::get('session_profiletype');
-            $date = new DateTime($order->order_time);
             ?>
             <div class="card" id="toPrinpetail">
                 <div class="card-header ">
@@ -32,35 +31,8 @@
                 </div>
 
                 <div class="card-block">
-
-
                     <p>
-                        {{ "Status: " . ($order->status)}}
-
-
-                    @if(is_object($user_detail))
-                            <br>Ordered By: {{ $user_detail->name }}
-                            <br>Email: {{ $user_detail->email }}
-                    @else
-                        User is not on record!
-                    @endif
-
-                    <br>Phone: {{ $order->contact }}
-
-                    <br>Order Type: {{ ($order->order_type == '1') ? 'Delivery':'Pickup' }}
-
-                    <br>Ordered On: {{ $date->format(get_date_format()) }}
-
-                    <!--p>Order Ready: {{ $order->order_till }}</p-->
-
-                    <br>Restaurant: {{ (isset($restaurant->name))? $restaurant->name :'' }}
-
-                    </p>
-
-                    @if($order->remarks != '')
-                        <p>Notes: {{ $order->remarks }}
-                    @endif
-
+                    @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
                     @include('common.receipt')
 
 
