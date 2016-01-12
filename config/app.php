@@ -149,6 +149,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+
+        /* custom validation */
+        App\Providers\ValidatorServiceProvider::class
     ],
 
     /*
