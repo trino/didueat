@@ -16,15 +16,13 @@
     </div>
 
 
-
-
     <div class="card-block p-a-0">
         <table class="table table-responsive">
             <thead>
             <tr>
-                <!--th width="5%">
+                <th>
                     ID
-                </th-->
+                </th>
                 <!--th width="15%">
                     <a class="sortOrder" data-meta="user_id" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i
                                 class="fa fa-caret-down"></i></a>
@@ -32,20 +30,14 @@
                     <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="Name"
                        title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                 </th-->
-                <th  class="">
+                <th>
                     <a class="sortOrder" data-meta="location" data-order="ASC" data-title="Location"
                        title="Sort [Location] ASC"><i class="fa fa-caret-down"></i></a>
                     Location
                     <a class="sortOrder" data-meta="location" data-order="DESC" data-title="Location"
                        title="Sort [Location] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th   class="">
-                    <a class="sortOrder" data-meta="phone" data-order="ASC" data-title="Phone"
-                       title="Sort [Phone] ASC"><i class="fa fa-caret-down"></i></a>
-                    Phone
-                    <a class="sortOrder" data-meta="phone" data-order="DESC" data-title="Phone"
-                       title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
-                </th>
+
                 <th class="">
                     <a class="sortOrder" data-meta="address" data-order="ASC" data-title="Address"
                        title="Sort [Address] ASC"><i class="fa fa-caret-down"></i></a>
@@ -53,21 +45,36 @@
                     <a class="sortOrder" data-meta="address" data-order="DESC" data-title="Address"
                        title="Sort [Address] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th   class="">Action</th>
-                <th   class="">Order</th>
+                <th>
+                    <a class="sortOrder" data-meta="phone" data-order="ASC" data-title="Phone"
+                       title="Sort [Phone] ASC"><i class="fa fa-caret-down"></i></a>
+                    Phone
+                    <a class="sortOrder" data-meta="phone" data-order="DESC" data-title="Phone"
+                       title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
+                </th>
+                <th>Action</th>
+                <th>Order</th>
             </tr>
             </thead>
             <tbody>
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <!--td>{{ $key+1 }}</td-->
+                        <td>{{ $key+1 }}
+
+                            <?php  if ($key + 1 == 1) {
+                                echo ' <span class="label label-default">Primary</span>';
+                            } ?>
+
+                        </td>
                         <!--td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td-->
                         <td>{{ $value->location }}</td>
-                        <td>{{ $value->phone }}</td>
                         <td>{{ $value->address.', '. $value->city .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->postal_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
+                        <td>{{ $value->phone }}</td>
+
                         <td>
-                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal" data-target="#editModel">Edit</a>
+                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"
+                               data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
                         </td>

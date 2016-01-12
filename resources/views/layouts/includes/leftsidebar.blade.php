@@ -30,12 +30,12 @@
                    }
                    ?>"><i class="fa fa-angle-right"></i> My Profile</a>
 
-                <a href="{{ url('credit-cards/list/user') }}"
+                <!--a href="{{ url('credit-cards/list/user') }}"
                    class="list-group-item <?php
                    if (Request::path() == 'credit-cards/list/user') {
                        echo 'active';
                    }
-                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a>
+                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a-->
 
             </div>
         </div>
@@ -79,7 +79,7 @@
                    }
                    ?>"><i class="fa fa-angle-right"></i> My Restaurant</a>
 
-                @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') != 1)
+                @if(\Session::has('session_profiletype') )
 
                 <a href="{{ url('users/credit-cards') }}"
                    class="list-group-item <?php
@@ -144,6 +144,8 @@
                    }
                    ?>"><i class="fa fa-angle-right"></i> User Reviews</a>
 
+
+                @if(false)
                 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
 
                 <a href="{{ url('credit-cards/list/admin') }}"
@@ -153,6 +155,7 @@
                    }
                    ?>"><i class="fa fa-angle-right"></i> All Credit Cards</a>
 
+                @endif
                 @endif
             </div>
         </div>
