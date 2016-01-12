@@ -85,7 +85,7 @@
         <div class="portlet-body form">
             <DIV CLASS="form-body">
                 <div class="row">
-                    @include("common.contactinfo", array("new"=>true))
+                    @include("common.contactinfo", array("new"=>true, "email" => false))
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>

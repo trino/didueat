@@ -100,7 +100,7 @@
 
             $("#signupForm").validate({
                 rules: {
-                    Phone: {
+                    phone: {
                         required: true,
                         minlength: 10,
                         maxlength: 10,
@@ -127,8 +127,8 @@
                 messages: {
                     Phone: {
                         required: "Please enter a phone number",
-                        minlength: "Your phone number must consist of at least 10 numbers",
-                        maxlength: "Your phone number must consist of at most 10 numbers",
+                        minlength: "Your phone number must consist of 10 numbers",
+                        maxlength: "Your phone number must consist of 10 numbers",
                     },
                     email: {
                         required: "Please Enter an email address!",
