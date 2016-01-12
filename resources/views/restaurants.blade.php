@@ -333,43 +333,30 @@ $first = false; $type = "hidden";
                 $(target_id).show();
             }
         }
-        $(document).ready(function(){      
-            //for cuisine
-            $('.cuisine-listing').each(function(){
+        function listing_less_more(selector, len){
+            $('.'+selector).each(function(){
                 var LiN = $(this).attr('id');
-                if(LiN > 6){
-                  $('.cuisine-listing').eq(5).nextAll().hide().addClass('cuisine-listing-toggleable');
-                  $('#cuisine-listing-panel').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
+                if(LiN > len){
+                  $('.'+selector).eq(parseInt(len)-1).nextAll().hide().addClass(selector+'-toggleable');
+                  if($('.'+selector+':last').attr('id') == LiN){
+                      $('#'+selector+'-panel').append('<a href="javascript:void(0);" class="more_show" data-class="less" data-toggle=".'+selector+'-toggleable">+ See all</a>');
+                  }
                 }
             });
+        }
 
-            $('body').on('click','.more_show', function(){
-                if( $(this).hasClass('less') ){
-                  $(this).text('+ See all').removeClass('less');    
-                }else{
-                  $(this).text('- Show less').addClass('less'); 
-                }
-                $(this).siblings('div.cuisine-listing-toggleable').slideToggle();
-            });
-            
-            //for tags
-            $('.tags-listing').each(function(){
-                var LiN = $(this).attr('id');
-                console.log(LiN);
-                if(LiN > 3){
-                  $('.tags-listing').eq(2).nextAll().hide().addClass('tags-listing-toggleable');
-                  $('#tags-listing-panel').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
-                }
-            });
-
-            $('body').on('click','.more_show', function(){
-                if( $(this).hasClass('less') ){
-                  $(this).text('+ See all').removeClass('less');    
-                }else{
-                  $(this).text('- Show less').addClass('less'); 
-                }
-                $(this).siblings('div.tags-listing-toggleable').slideToggle();
-            });
+        $('body').on('click','.more_show', function(){
+            var toggle = $(this).attr('data-toggle');
+            var attr = $(this).attr('data-class');
+            if(attr == 'less'){
+                $(this).text('- Show less').attr('data-class', '');
+            } else {
+                $(this).text('+ See all').attr('data-class', 'less');
+            }
+            $(this).siblings(toggle).slideToggle();
         });
+        
+        listing_less_more('tags-listing', 3);
+        listing_less_more('cuisine-listing', 6);
       </script>
 @stop
