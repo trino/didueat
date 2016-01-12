@@ -33,7 +33,8 @@
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1 && (! isset($credit_cards_list->id)))
-    <div class="form-group row">
+    <INPUT TYPE="HIDDEN" name="user_type" value="restaurant">
+    <!--div class="form-group row">
         <label for="user_type" class="col-sm-3">User Type </label>
         <div class="col-sm-9">
             <LABEL>
@@ -47,7 +48,7 @@
                 User
             </LABEL>
         </div>
-    </div>
+    </div-->
 
     <div class="form-group row">
         <div class="col-sm-6">
