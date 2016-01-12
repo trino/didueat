@@ -1,17 +1,17 @@
 <?php
-    if(!isset($resturant)){$resturant = "";}
-    $Genre = priority2($resturant, "genre");
+    if(!isset($restaurant)){$restaurant = "";}
+    $Genre = priority2($restaurant, "genre");
     $RestID = "";
     $Country = "";
     $Field = "restname";
-    if(isset($resturant->id)){
-        $RestID = '<input type="hidden" name="id" value="' . $resturant->id . '"/>';
-        $Country = $resturant->country;
+    if(isset($restaurant->id)){
+        $RestID = '<input type="hidden" name="id" value="' . $restaurant->id . '"/>';
+        $Country = $restaurant->country;
         $Field = "name";
     }
     $restaurant_logo = asset('assets/images/default.png');
-    if(isset($resturant->logo) && $resturant->logo){
-        $restaurant_logo = asset('assets/images/restaurants/'.$resturant->logo);
+    if(isset($restaurant->logo) && $restaurant->logo){
+        $restaurant_logo = asset('assets/images/restaurants/'.$restaurant->logo);
     }
 ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
@@ -68,7 +68,7 @@
         </div>
         <div class="portlet-body form">
             <div class="form-body">
-                @include("dashboard.restaurant.hours", array("layout" => true, "new" => true))
+                @include("dashboard.restaurant.hours", array("layout" => true, "new" => true, "restaurant" => $restaurant))
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
         <div class="portlet-body form">
             <DIV CLASS="form-body">
                 <div class="row">
-                    @include("common.contactinfo", array("new"=>true))
+                    @include("common.contactinfo", array("new"=>true, "email" => false))
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>

@@ -11,9 +11,18 @@
         echo '<STYLE> .time{ padding-left: 8px; padding-right: 6px; }</STYLE>';
     }
 
+    $IsPickup = old('is_pickup', -999);
+    if($IsPickup == -999){
+        if(isset($restaurant->is_pickup)){
+            $IsPickup = $restaurant->is_pickup;
+        } else {
+            $IsPickup = 1;
+        }
+    }
+
 echo newrow($new, "Allow pickup"); ?>
 <LABEL>
-    <input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ (old('is_pickup') || (isset($restaurant->is_pickup) && $restaurant->is_pickup > 0))?'checked':'' }} />
+    <input type="checkbox" name="is_pickup" id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />
     I Offer Pickup
 </LABEL>
 <?php echo newrow();
@@ -45,6 +54,7 @@ echo newrow($new, "Allow delivery"); ?>
 </div>
 
 <?php
+    $isthesame=true;
     foreach ($day_of_week as $key => $value) {
         if(strpos($value, ">") !== false){
             echo $value;
@@ -71,20 +81,21 @@ echo newrow($new, "Allow delivery"); ?>
         }
     }
     if($layout){
-        echo '<div class="row is_delivery_options"><div class="caption is_delivery_options"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
+        echo '<div class="row is_delivery_options"><div class="caption is_delivery_options is_delivery_2"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
     } else {
-        echo '</DIV></DIV><div class="form-group row is_delivery_options"><label class="col-sm-3 ">Delivery times</label><div class="col-sm-9">';
+        echo '</DIV></DIV><div class="form-group row is_delivery_options"><label class="col-sm-3"><SPAN class="is_delivery_2">Delivery times</SPAN></label><div class="col-sm-9">';
     }
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
         $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-        printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options");
+        if($opentime != $open[$key] || $closetime != $close[$key]){$isthesame=false;}
+        printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2");
     }
-    echo '<BR><LABEL class="is_delivery_options"><input type="CHECKBOX" onclick="same(event);" ID="samehours"> Same as regular hours</LABEL>';
+    echo '<BR><LABEL class="is_delivery_options"><input type="CHECKBOX" onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '> Same as regular hours</LABEL>';
 
     function printrow($layout, $key, $value, $opentime, $closetime, $suffix="", $class = ""){
         if($layout){$layout = 9; $width=5;} else {$layout = 2; $width=4; if($suffix){$layout=3;}}//width: 4 is editor, 5 is signup
-        $closed = '<LABEL><input type="checkbox" onchange="closed(event, ' . $key . ');"> Closed</LABEL>';
+        $closed = '<LABEL><input type="checkbox" onchange="closed(event, ' . $key . ');" CHECKED> Open</LABEL>';
         ?>
         <div class="row {{ $class }}">
             <label class="col-sm-{{ $layout }}">{{ $value }}</label>
@@ -123,7 +134,7 @@ echo newrow($new, "Allow delivery"); ?>
     }
     function closed_element(event, ID, name){
         var element = document.getElementById(name + "[" + ID + "]");
-        if (event.target.checked){
+        if (!event.target.checked){
             element.setAttribute("old", element.value);
             element.value = "";
         } else {
@@ -144,6 +155,9 @@ echo newrow($new, "Allow delivery"); ?>
                 change("open", i);
                 change("close", i);
             }
+            $(".is_delivery_2").hide();
+        } else {
+            $(".is_delivery_2").show();
         }
     }
 
@@ -152,4 +166,8 @@ echo newrow($new, "Allow delivery"); ?>
         $("#max_delivery_distance").trigger("change");
     }, false);
     $("#max_delivery_distance").trigger("change");
+
+    $( document ).ready(function() {
+        same(false);
+    });
 </script>

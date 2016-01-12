@@ -8,11 +8,12 @@ echo newrow($new, "Full Name", $size);
     </div>
 <?php echo newrow();
 
+if(!isset($email)){
 echo newrow($new, "Email", $size); ?>
     <div class="input-icon">
         <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required="">
     </div>
-<?php echo newrow(); ?>
+<?php echo newrow();} ?>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="portlet-title">

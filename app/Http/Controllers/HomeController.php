@@ -497,6 +497,9 @@ class HomeController extends Controller {
             } else {
                 $path = 'assets/images/products';
             }
+            if(!is_dir(public_path($path))) {
+                mkdir(public_path($path), 0777, true);
+            }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . '/' . $path . '/' . $file;
             //handle image resizing

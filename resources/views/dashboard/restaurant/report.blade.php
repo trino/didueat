@@ -37,25 +37,7 @@
                                     <h3>Orders List</h3>
                                     <?php
                                     $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first(); ?>
-                                    <div class="infolist noprint margin-top-10"><strong>RESTAURANT
-                                            NAME: </strong><?= $restaurant->name;?></div>
-                                    <div class="infolist noprint"><strong>ORDERED BY: </strong><?= $order->ordered_by;?>
-                                    </div>
-                                    <div class="infolist noprint"><strong>EMAIL: </strong>{{ $order->email }}</div>
-                                    <div class="infolist noprint"><strong>CONTACT: </strong>{{ $order->contact }}</div>
-                                    <div class="infolist noprint"><strong>ORDER
-                                            TYPE: </strong>{{ ($order->order_type == '1') ? 'Delivery' : 'Pickup' }}
-                                    </div>
-                                    <div class="infolist noprint"><strong>ORDERED
-                                            ON: </strong><?php $date = new DateTime($order->order_time);echo $date->format('l jS \of F Y h:i:s A'); ?>
-                                    </div>
-                                    <div class="infolist noprint"><strong>ORDER READY: </strong>{{ $order->order_till }}
-                                    </div>
-                                    <?php
-                                    if ($order->remarks != '') {
-                                        echo '<div class="infolist noprint" style="border-bottom: 1px solid #dfdfdf;padding-bottom:15px;margin-bottom:20px;"><strong>ADDITIONAL NOTES:</strong>' . $order->remarks . '</div>';
-                                    }
-                                    ?>
+                                    @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
                                     @include('common.receipt')
                                     <div class="clearfix"></div>
 

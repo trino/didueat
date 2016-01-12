@@ -21,7 +21,8 @@
                 $country = select_field("countries", "id", $addresse_detail->country, "name");
                 echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
             }
-            ?>" autocomplete="off" style="width: -moz-calc(100% - 40px); width: -webkit-calc(100% - 40px); width: calc(100% - 40px);">
+            $width=59;
+            ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
             <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
                 <i class="fa fa fa-compass"></i>
             </a>
@@ -60,7 +61,7 @@
         <select name="province" id="province" class="form-control" {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
-                <option value="{{ $value->name }}" <?php
+                <option value="{{ $value->abbreviation }}" <?php
                      if(isset($addresse_detail->province)){
                         if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation){
                             echo 'selected';
