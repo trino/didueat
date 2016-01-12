@@ -111,7 +111,7 @@ $first = false; $type = "hidden";
                                         <input type="checkbox" id="object:{{ $value->id }}" value="{{ $value->id }}" class="facet-checkbox-input"> 
                                         <span class="facet-checkbox-box"></span> 
                                         <span>{{ $value->name }}</span>
-                                        <span class="facet-count"> (<span>5</span>)</span>
+                                        <span class="facet-count"> (<span>{{ get_row_count("restaurants", array('cuisine' => $value->id)) }}</span>)</span>
                                     </label>
                                 </div>
                                 @endforeach
