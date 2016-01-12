@@ -92,23 +92,32 @@ $first = false; $type = "hidden";
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="tags" id="tags" class="form-control" onchange="createCookieValue('tags', this.value)">
-                                <option value="">Tags</option>
-                                @foreach($tags as $value)
-                                    <option value="{{ $value->name }}">{{ $value->name }}</option>
+                            <label class="s-panel-header facet-category-label">
+                                <span onclick="expand_collapse('#tags-listing-panel', '#tags-filter');"><i id="tags-filter" class="fa fa-minus-square"></i> Tags</span>
+                                <a href="javascript:void(0);" onclick="clear_search('.tags-checkbox-input')" class="clear-search">Clear</a>
+                            </label>
+                            <div id="tags-listing-panel">
+                                @foreach($tags as $key => $value)
+                                <div id="{{ $key }}" class="tags-listing">
+                                    <label for="tags:{{ $value->id }}">
+                                        <input type="checkbox" id="tags:{{ $value->id }}" value="{{ $value->name }}" class="facet-checkbox-input"> 
+                                        <span class="facet-checkbox-box"></span> 
+                                        <span>{{ $value->name }}</span>
+                                    </label>
+                                </div>
                                 @endforeach
-                            </select>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label class="s-panel-header facet-category-label" for="browseFacet-toggle">
-                                <span onclick="expand_collapse('#cuisine-panel-body', '#cuisine-filter');"><i id="cuisine-filter" class="fa fa-minus-square"></i> Cuisine</span>
+                            <label class="s-panel-header facet-category-label">
+                                <span onclick="expand_collapse('#cuisine-listing-panel', '#cuisine-filter');"><i id="cuisine-filter" class="fa fa-minus-square"></i> Cuisine</span>
                                 <a href="javascript:void(0);" onclick="clear_search('.facet-checkbox-input')" class="clear-search">Clear</a>
                             </label>
-                            <div id="cuisine-panel-body">
+                            <div id="cuisine-listing-panel">
                                 @foreach($cuisine as $key => $value)
                                 <div id="{{ $key }}" class="cuisine-listing">
-                                    <label for="object:{{ $value->id }}">
-                                        <input type="checkbox" id="object:{{ $value->id }}" value="{{ $value->id }}" class="facet-checkbox-input"> 
+                                    <label for="cuisine:{{ $value->id }}">
+                                        <input type="checkbox" id="cuisine:{{ $value->id }}" value="{{ $value->id }}" class="facet-checkbox-input"> 
                                         <span class="facet-checkbox-box"></span> 
                                         <span>{{ $value->name }}</span>
                                         <span class="facet-count"> (<span>{{ get_row_count("restaurants", array('cuisine' => $value->id)) }}</span>)</span>
@@ -314,7 +323,7 @@ $first = false; $type = "hidden";
         function clear_search(target_id){
             $(target_id+':checkbox').removeAttr('checked');
         }
-        
+
         function expand_collapse(target_id, target_icon){
             if($(target_id).is(":visible") == true){
                 $(target_icon).removeClass("fa-minus-square").addClass("fa-plus-square");
@@ -324,22 +333,42 @@ $first = false; $type = "hidden";
                 $(target_id).show();
             }
         }
-        
-        $('.cuisine-listing').each(function(){
-            var LiN = $(this).attr('id');
-            if(LiN > 6){
-              $('.cuisine-listing').eq(5).nextAll().hide().addClass('cuisine-listing-toggleable');
-              $('#cuisine-panel-body').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
-            }
+        $(document).ready(function(){      
+            //for cuisine
+            $('.cuisine-listing').each(function(){
+                var LiN = $(this).attr('id');
+                if(LiN > 6){
+                  $('.cuisine-listing').eq(5).nextAll().hide().addClass('cuisine-listing-toggleable');
+                  $('#cuisine-listing-panel').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
+                }
+            });
+
+            $('body').on('click','.more_show', function(){
+                if( $(this).hasClass('less') ){
+                  $(this).text('+ See all').removeClass('less');    
+                }else{
+                  $(this).text('- Show less').addClass('less'); 
+                }
+                $(this).siblings('div.cuisine-listing-toggleable').slideToggle();
+            });
+            
+            //for tags
+            $('.tags-listing').each(function(){
+                var LiN = $(this).attr('id');
+                if(LiN > 3){
+                  $('.tags-listing').eq(2).nextAll().hide().addClass('tags-listing-toggleable');
+                  $('#tags-listing-panel').append('<a href="javascript:void(0);" class="more_show">+ See all</a>');    
+                }
+            });
+
+            $('body').on('click','.more_show', function(){
+                if( $(this).hasClass('less') ){
+                  $(this).text('+ See all').removeClass('less');    
+                }else{
+                  $(this).text('- Show less').addClass('less'); 
+                }
+                $(this).siblings('div.tags-listing-toggleable').slideToggle();
+            });
         });
-        
-        $('body').on('click','.more_show', function(){
-            if( $(this).hasClass('less') ){
-              $(this).text('+ See all').removeClass('less');    
-            }else{
-              $(this).text('- Show less').addClass('less'); 
-            }
-            $(this).siblings('div.cuisine-listing-toggleable').slideToggle();
-        }); 
       </script>
 @stop
