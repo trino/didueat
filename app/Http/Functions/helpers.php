@@ -724,6 +724,15 @@
         }
     }
 
+    function mapcountryprovince($Value, $IsProvince = false){
+        if(is_numeric($Value)) {
+            return select_field(iif($IsProvince, "states", "countries"), "id", $Value, "name");
+        } else if ($IsProvince && strlen($Value) == 2){
+            return select_field("states", "abbreviation", strtoupper($Value), "name");
+        }
+        return $Value;
+    }
+
 //SELECT * FROM $table WHERE $column = $value
     function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
         return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
@@ -1685,5 +1694,4 @@
         // If the total mod 10 equals 0, the number is valid
         return ($total % 10 == 0) ? TRUE : FALSE;
     }
-
 ?>
