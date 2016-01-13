@@ -24,7 +24,6 @@
     }
     $notfound=0;
 ?>
-
 <div class="">
     <div class="list-group" id="restuarant_bar">
         <?php printfile("views/ajax/search_restaurants.blade.php");?>

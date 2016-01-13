@@ -29,8 +29,8 @@ $first = false; $type = "hidden";
                            class="form-control formatted_address" placeholder="Address, City or Postal Code"
                            onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
                            ignore_oninput="this.onchange();">
-                    <input type="{{ $type }}" name="latitude" id="latitude">
-                    <input type="{{ $type }}" name="longitude" id="longitude">
+                    <input type="{{ $type }}" name="latitude2" id="latitude2">
+                    <input type="{{ $type }}" name="latitude2" id="longitude2">
                 </li>
 
                 @if(read("id"))
