@@ -95,8 +95,8 @@ class Restaurants extends BaseModel {
 
         $DayOfWeek = jddayofweek( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
         $left = " LEFT JOIN hours on hours.restaurant_id = restaurants.id AND hours.day_of_week = '" . $DayOfWeek . "' ";
-        $now = date('H:m:s');
-        $where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
+        //$now = date('H:m:s');
+        //$where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
 
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where $left . HAVING distance <= '" . $data['radius'] . "' ";
