@@ -299,9 +299,8 @@ class HomeController extends Controller {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
             try {//populate data array
-                if ($post['logo'] != '') {
-                    $update['logo'] = $post['logo'];
-                }
+                $update['logo'] = "";
+                if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
                 $update['name'] = $post['restname'];
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
@@ -425,7 +424,7 @@ class HomeController extends Controller {
 
                 $message['title'] = "Registration Success";
                 $message['msg_type'] = "success";
-                $message['msg_desc'] = "Thank you for creating account with DidUEat.com.";
+                $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";
                 if($email_verification) {
                     $message['msg_desc'] .= " A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
                 }
