@@ -254,7 +254,7 @@ class HomeController extends Controller {
      */
     public function signupRestaurants() {
         $post = \Input::all();
-        $email_verification = true;
+        $email_verification = false;
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             //var_dump($post);die();
 

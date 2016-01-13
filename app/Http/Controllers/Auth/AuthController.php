@@ -102,7 +102,7 @@ class AuthController extends Controller {
      */
     public function postRegister($AsJSON = false) {
         $data = \Input::all();
-        $email_verification = true;
+        $email_verification = false;
         if (isset($data) && count($data) > 0 && !is_null($data)) {//check for missing data
             if (!isset($data['email']) || empty($data['email'])) {
                 return $this->failure2($AsJSON, trans('messages.user_missing_email.message'));
