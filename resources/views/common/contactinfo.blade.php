@@ -5,6 +5,7 @@ echo newrow($new, "Full Name", $size);
 ?>
     <div class="input-icon">
         <input type="text" name="full_name" class="form-control" id="name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+        <input type="hidden" name="gmt" id="gmt" value="">
     </div>
 <?php echo newrow();
 
@@ -46,3 +47,8 @@ echo newrow($new, "Re-type Password", $size); ?>
         </div>
     </div>
 </div>
+<SCRIPT>
+    var visitortime = new Date();
+    var visitortimezone = -visitortime.getTimezoneOffset()/60;
+    document.getElementById("gmt").value = visitortimezone;
+</SCRIPT>

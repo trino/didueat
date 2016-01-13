@@ -38,11 +38,14 @@ class AuthController extends Controller {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == 0) {
-                        return $this->failure2($AsJSON, trans('messages.user_inactive.message') , $url);
+                        return $this->failure2($AsJSON, trans('messages.user_inactive.message'), $url);
                     }
                     $password = \Input::get('password');
                     if (\Hash::check($password, $user->password)) {
-                        login($user);
+                        $gmt = \Input::get('gmt');
+                        edit_database("profiles", "id", $user->id, array("gmt" => $gmt));//update time zone
+                        $user->gmt = $gmt;
+                        login($user, false);
                         if($AsJSON) {
                             die();
                         } else {

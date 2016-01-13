@@ -19,12 +19,31 @@
         return $angle * $earthRadius;
     }
 
+    function offsettime($time, $hours = 0){
+        if($hours){
+            $time = explode(":", $time);
+            $time[0] = $time[0] + $hours;
+            if($time[0] < 0){$time[0] += 24;}
+            if($time[0] > 23){$time[0] -= 24;}
+            $time = implode(":", $time);
+        }
+        return $time;
+    }
+
     //if(isset($sql)) {var_dump($sql);}
     if(isset($data['data'])){
         parse_str($data['data']);
     //_token=psWfYnIjVSaEKZjgEpCjyxzbp5He3hJS3RLFIwnM&name=chuck&radius=20&delivery_type=is_pickup&minimum=&SortOrder=&latitude=&longitude=&formatted_address=' (length=152)
     }
     $notfound=0;
+
+    $server_gmt = date('Z') / 3600;
+    $user_gmt = \Session::get('session_gmt');
+    $difference = $server_gmt - $user_gmt;
+    $difference=1;
+    $server_time = date('H:i:s');
+    $user_time = date('H:i:s', strtotime(iif($difference >-1, '+') . $difference . ' hours'));
+    printfile("Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time. " User Time: " . $user_time);
 ?>
 <div class="">
     <div class="list-group" id="restuarant_bar">
@@ -64,12 +83,13 @@
                         </span>
                         <span class="label label-success">Cuisine: {{ select_field("cuisine", "id", $value['id'], "name") }}</span>
 
-                        <SPAN CLASS="label label-primary">Hours:
-                            <?php
+                        <SPAN CLASS="label label-<?php
                                 $key = iif($delivery_type == "is_delivery", "_del");
-                                echo $value["open" . $key] . " - " . $value["close" . $key];
-                        ?>
-                        </SPAN>
+                                $open = offsettime($value["open" . $key], $difference);
+                                $close = offsettime($value["close" . $key], $difference);
+                                $is_open = $open <= $user_time && $close >= $user_time;
+                                echo iif($is_open, "primary", "danger") . '" TITLE="' . current_day_of_week() . '">Hours: ' . left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3);
+                        ?></SPAN>
 
                         @if(isset($latitude) && $distance)
                             <span class="label label-info">Distance:
