@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-    delete me
     @if(false)
 
 <div class="container"> 

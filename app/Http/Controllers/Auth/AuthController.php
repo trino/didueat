@@ -108,16 +108,16 @@ class AuthController extends Controller {
             }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $data['email'])->count();
             if ($is_email > 0) {
-                return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message.message'));
+                return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message'));
             }
             if (!isset($data['password']) || empty($data['password'])) {
-                return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message.message'));
+                return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message'));
             }
             if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
-                return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message.message'));
+                return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message'));
             }
             if ($data['password'] != $data['confirm_password']) {
-                return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message.message'));
+                return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message'));
             } else {
                 \DB::beginTransaction();
                 try {//add new user to the database
@@ -156,7 +156,7 @@ class AuthController extends Controller {
                     return view('messages.message', $message);
                 } catch (\Illuminate\Database\QueryException $e) {
                     \DB::rollback();
-                    return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message.message'));
+                    return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message'));
                 } catch (\Exception $e) {
                     \DB::rollback();
                     return $this->failure2($AsJSON, handleexception($e));
