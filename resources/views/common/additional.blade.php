@@ -106,7 +106,7 @@
                             <div class="clearfix ignore ignore2 ignore1"></div>
                         </div>
 
-                        <input type="text" id="itemno{{ $r3 }}" class="itemno form-control ignore ignore2 ignore1" value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
+                        <input type="number" id="itemno{{ $r3 }}" class="itemno form-control ignore ignore2 ignore1" value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
                     </div>
                 </div>
 
