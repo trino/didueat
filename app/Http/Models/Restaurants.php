@@ -65,12 +65,12 @@ class Restaurants extends BaseModel {
      * @param $start
      * @return response
      */
-    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
+    public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, $DeliveryHours = false) {
         $query = "";
         $limit = "";
         $order = " ORDER BY distance";
         $limit = " LIMIT $start, $per_page";
-        $where = "WHERE open = '1' AND status = '1'";
+        $where = "WHERE restaurants.open = '1' AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
@@ -84,20 +84,27 @@ class Restaurants extends BaseModel {
             $where .= " AND ".$data['delivery_type']." = '1'";
         }
         if (isset($data['name']) && $data['name'] != "") {
-            $where .= " AND name LIKE '%".Encode($data['name'])."%'";
+            $where .= " AND name LIKE '%" . Encode($data['name']) . "%'";
         }
         if (isset($data['tags']) && $data['tags'] != "") {
-            $where .= " AND tags LIKE '%".$data['tags']."%'";
+            $where .= " AND tags LIKE '%" . $data['tags'] . "%'";
         }
         if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
-            $order = " ORDER BY ".$data['SortOrder'];
+            $order = " ORDER BY " . $data['SortOrder'];
         }
 
+        $DayOfWeek = jddayofweek( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
+        $left = " LEFT JOIN hours on hours.restaurant_id = restaurants.id AND hours.day_of_week = '" . $DayOfWeek . "' ";
+        $now = date('H:m:s');
+        $where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
+
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' " . $order . $limit;
+            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where $left . HAVING distance <= '" . $data['radius'] . "' ";
         } else {
-            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where . $order . $limit;
+            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $left . $where;
         }
+        $SQL .= $order . $limit;
+debugprint($SQL);
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
         return json_decode(json_encode($query),true);

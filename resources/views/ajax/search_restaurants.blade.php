@@ -19,8 +19,10 @@
         return $angle * $earthRadius;
     }
 
+    //if(isset($sql)) {var_dump($sql);}
     if(isset($data['data'])){
         parse_str($data['data']);
+    //_token=psWfYnIjVSaEKZjgEpCjyxzbp5He3hJS3RLFIwnM&name=chuck&radius=20&delivery_type=is_pickup&minimum=&SortOrder=&latitude=&longitude=&formatted_address=' (length=152)
     }
     $notfound=0;
 ?>
@@ -30,6 +32,7 @@
         @if(isset($query) && $count > 0 && is_iterable($query))
             @foreach($query as $value)
                 <?php
+                    //print_r($value);
                     $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png';
                     $distance = 0;
                     if(isset($latitude)){
@@ -63,6 +66,13 @@
                                 }
                             ?>
                         </span>
+
+                        <SPAN CLASS="label label-primary">Hours:
+                            <?php
+                                $key = iif($delivery_type == "is_delivery", "_del");
+                                echo $value["open" . $key] . " - " . $value["close" . $key];
+                        ?>
+                        </SPAN>
 
                         @if(isset($latitude) && $distance)
                             <span class="label label-info">Distance:
