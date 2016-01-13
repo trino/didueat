@@ -181,7 +181,15 @@
 
                                 <div class="modal-bodys">
                                     <div class="col-sm-12 col-xs-12 title">
-                                        <h3><span class="label label-info">$ {{ $main_price." ".$dis }}</span></h3>
+                                        <h3>
+                                        @if($dis)
+                                        <strike>${{$value->price}}</strike>
+                                        ${{$main_price}}
+                                        <span class='label label-warning'>{{$dis}}</span>
+                                    @else
+                                        ${{$value->price}}
+                                    @endif
+                                        </h3>
                                     </div>
                                     <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
                                         <strong>Menu Views:</strong>
