@@ -87,7 +87,7 @@
                     </td>
                     <td>
                         <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn btn-primary btn-sm">Orders</a>
-                        <a href="{{ url('restaurant/view/'.$value->id) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
                     </td>
