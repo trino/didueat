@@ -99,7 +99,7 @@ class Restaurants extends BaseModel {
         //$where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
 
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where $left . HAVING distance <= '" . $data['radius'] . "' ";
+            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $left $where HAVING distance <= '" . $data['radius'] . "' ";
         } else {
             $SQL = "SELECT *, 0 AS distance FROM restaurants " . $left . $where;
         }
