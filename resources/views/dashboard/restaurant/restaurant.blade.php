@@ -16,34 +16,37 @@ echo newrow($new, "Description"); ?>
     <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
 <?php echo newrow();
 
-echo newrow($new, "Cuisine Type"); ?>
-    <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
-        <option value="">-Select One-</option>
-        @foreach($cuisine_list as $value)
-            <option value="{{ $value->id }}"
-                    @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
-        @endforeach
-    </select>
-<?php echo newrow();
+if(!$minimum){
+    echo newrow($new, "Cuisine Type"); ?>
+        <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
+            <option value="">-Select One-</option>
+            @foreach($cuisine_list as $value)
+                <option value="{{ $value->id }}"
+                        @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
+            @endforeach
+        </select>
+    <?php echo newrow();
 
-echo newrow($new, "Tags"); ?>
-    <textarea id="demo4"></textarea>
-    <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-    <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
-<?php echo newrow();
+    echo newrow($new, "Tags"); ?>
+        <textarea id="demo4"></textarea>
+        <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
+        <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
+    <?php echo newrow();
 
-echo newrow($new, "Logo"); ?>
-    @if(!$is_disabled)
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
-    @endif
-    <input type="hidden" name="logo" id="hiddenLogo"/>
+    echo newrow($new, "Logo"); ?>
+        @if(!$is_disabled)
+            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+        @endif
+        <input type="hidden" name="logo" id="hiddenLogo"/>
 
-    @if(isset($restaurant->logo) && $restaurant->logo != "")
-        <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
-    @else
-        <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
-    @endif
-<?php echo newrow(); ?>
+        @if(isset($restaurant->logo) && $restaurant->logo != "")
+            <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
+        @else
+            <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
+        @endif
+    <?php echo newrow();
+}
+?>
  
     
 <script>
