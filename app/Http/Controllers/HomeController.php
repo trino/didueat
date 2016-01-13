@@ -261,8 +261,8 @@ class HomeController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
-            if (!isset($post['full_name']) || empty($post['full_name'])) {
-                return $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
+            if (!isset($post['name']) || empty($post['name'])) {
+                return $this->failure("[Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",'/restaurants/signup', true);
@@ -382,7 +382,7 @@ class HomeController extends Controller {
                 $data['status'] = 1;
                 $data['is_email_varified'] = iif($email_verification, 0, 1);
                 $data['profile_type'] = 2;
-                $data['name'] = $post['full_name'];
+                $data['name'] = $post['name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password1'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
