@@ -66,13 +66,27 @@
                 {{ $cat->title }}
             </h2>
             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-            <div id="loadmoreajaxloader_{{ $cat->id }}">
+            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
             </div>
 
             <script>
                 $(function () {
-                    $("#postswrapper_{{ $cat->id }}").load("{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}");
+                    $.ajax({
+                       url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
+                       success: function(res)
+                       {
+                        if(res!='no')
+                        {
+                           $("#postswrapper_{{ $cat->id }}").html(res); 
+                        }
+                        else
+                        {
+                            $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>'); 
+                        }
+                       }
+                    });
+                    //$("#postswrapper_{{ $cat->id }}").load();
                 });
             </script>
         @endforeach

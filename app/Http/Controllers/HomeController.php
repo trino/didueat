@@ -471,8 +471,11 @@ class HomeController extends Controller {
         $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
-
+        //var_dump(count($menus_list));
+        if(count($menus_list))
         return view('menus', $data);
+        else
+        die('no');
     }
 
     //loads contact us view
