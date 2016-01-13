@@ -16,43 +16,47 @@ echo newrow($new, "Description"); ?>
     <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
 <?php echo newrow();
 
-echo newrow($new, "Cuisine Type"); ?>
-    <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
-        <option value="">-Select One-</option>
-        @foreach($cuisine_list as $value)
-            <option value="{{ $value->id }}"
-                    @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
-        @endforeach
-    </select>
-<?php echo newrow();
+if(!$minimum){
+    echo newrow($new, "Cuisine Type"); ?>
+        <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
+            <option value="">-Select One-</option>
+            @foreach($cuisine_list as $value)
+                <option value="{{ $value->id }}"
+                        @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
+            @endforeach
+        </select>
+    <?php echo newrow();
 
-echo newrow($new, "Tags"); ?>
-    <textarea id="demo4"></textarea>
-    <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-    <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
-<?php echo newrow();
+    echo newrow($new, "Tags"); ?>
+        <textarea id="demo4"></textarea>
+        <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
+        <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
+    <?php echo newrow();
 
-echo newrow($new, "Logo"); ?>
-    @if(!$is_disabled)
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
-    @endif
-    <input type="hidden" name="logo" id="hiddenLogo"/>
+    echo newrow($new, "Logo"); ?>
+        @if(!$is_disabled)
+            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+        @endif
+        <input type="hidden" name="logo" id="hiddenLogo"/>
 
-    @if(isset($restaurant->logo) && $restaurant->logo != "")
-        <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
-    @else
-        <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
-    @endif
-<?php echo newrow(); ?>
+        @if(isset($restaurant->logo) && $restaurant->logo != "")
+            <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
+        @else
+            <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
+        @endif
+    <?php echo newrow();
+}
+?>
  
     
 <script>
     $(document).ready(function () {
-        is_delivery_change();
-        $('body').on('change', '#is_delivery', function () {
+        @if(!$minimum)
             is_delivery_change();
-        });
-
+            $('body').on('change', '#is_delivery', function () {
+                is_delivery_change();
+            });
+        @endif
 
         $('#demo4').tagEditor({
             //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
@@ -73,47 +77,51 @@ echo newrow($new, "Logo"); ?>
     });
 
     @if(isset($resturant->city))
-    $(document).ready(function () {
-        //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
-    });
+        $(document).ready(function () {
+            //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
+        });
     @endif
 
-    function ajaxuploadbtn(button_id) {
-        var button = $('#' + button_id), interval;
-        var token = $('#resturantForm input[name=_token]').val();
-        act = base_url + 'restaurant/uploadimg/restaurant';
-        new AjaxUpload(button, {
-            action: act,
-            name: 'myfile',
-            data: {'_token': token},
-            onSubmit: function (file, ext) {
-                button.text('Uploading...');
-                this.disable();
-                interval = window.setInterval(function () {
-                    var text = button.text();
-                    if (text.length < 13) {
-                        button.text(text + '.');
-                    } else {
-                        button.text('Uploading...');
-                    }
-                }, 200);
-            },
-            onComplete: function (file, response) {
-                var resp = response.split('___');
-                var path = resp[0];
-                var img = resp[1];
-                button.html('Change Image');
+    @if(!$minimum)
+        function ajaxuploadbtn(button_id) {
+            var button = $('#' + button_id), interval;
+            var token = $('#resturantForm input[name=_token]').val();
+            act = base_url + 'restaurant/uploadimg/restaurant';
+            new AjaxUpload(button, {
+                action: act,
+                name: 'myfile',
+                data: {'_token': token},
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    var resp = response.split('___');
+                    var path = resp[0];
+                    var img = resp[1];
+                    button.html('Change Image');
 
-                window.clearInterval(interval);
-                this.enable();
-                $('#picture').attr('src', path);
-                $('#hiddenLogo').val(img);
-            }
-        });
-    }
+                    window.clearInterval(interval);
+                    this.enable();
+                    $('#picture').attr('src', path);
+                    $('#hiddenLogo').val(img);
+                }
+            });
+        }
+    @endif
 
     jQuery(document).ready(function () {
         $("#resturantForm").validate();
-        ajaxuploadbtn('uploadbtn');
+        @if(!$minimum)
+            ajaxuploadbtn('uploadbtn');
+        @endif
     });
 </script>

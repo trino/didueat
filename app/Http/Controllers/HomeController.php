@@ -107,7 +107,7 @@ class HomeController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $data['data'] = $post;
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start);//search for restaurants matching the data in the post["data"]
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false, $data['delivery_type'] == "is_delivery" );//search for restaurants matching the data in the post["data"]
                 $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL
                 $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
@@ -308,7 +308,7 @@ class HomeController extends Controller {
                 $update['mobile'] = $post['mobile'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisine'];
+                //$update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
@@ -318,7 +318,7 @@ class HomeController extends Controller {
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                $update['tags'] = $post['tags'];
+                //$update['tags'] = $post['tags'];
                 if(isset($post['latitude'])) {
                     $update['lat'] = $post['latitude'];
                     $update['lng'] = $post['longitude'];
@@ -327,7 +327,7 @@ class HomeController extends Controller {
                     $update['lng'] = $post['lng'];
                 }
                 $update['formatted_address'] = $post['formatted_address'];
-                $update['open'] = 1;
+                $update['open'] = 0;
                 $update['status'] = 1;
                 $browser_info = getBrowser();
                 $update['ip_address'] = get_client_ip_server();
@@ -360,6 +360,7 @@ class HomeController extends Controller {
                     $res->where('id', $ob->id)->update(['logo' => $newName]);
                 }
 
+                /*
                 $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
                 foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
@@ -375,7 +376,8 @@ class HomeController extends Controller {
                         $ob2->save();
                     }
                 }
-
+                */
+                
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 1;
                 $data['is_email_varified'] = 0;
@@ -471,8 +473,11 @@ class HomeController extends Controller {
         $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
-
+        //var_dump(count($menus_list));
+        if(count($menus_list))
         return view('menus', $data);
+        else
+        die('no');
     }
 
     //loads contact us view

@@ -37,7 +37,7 @@
 <HR>
 
 <?= newrow($new, "Street Address"); ?>
-        <input type="text" id="rout_street_number" {{ $is_disabled }} name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}} >
+        <input type="text" id="rout_street_number" {{ $is_disabled }} name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}}>
     </div>
 </div>
 
@@ -47,7 +47,7 @@
 </div>
 
 <?= newrow($new, "Phone Number"); ?>
-        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
+        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
 </div>
 

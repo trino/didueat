@@ -12,20 +12,32 @@
                 @if($i != 1)
                     <p class="addon_ignore ignore ignore2 ignore1">&nbsp;</p>
                 @endif
-                <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
-                    <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}" />
-                    <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="{{ $cc->price }}" />
-                </div>
-                <div class="col-md-2 col-sm-2 col-xs-2 ignore no-padding ignore2" <?php if($i == 1){?>style="display: none;"<?php } ?>>
-                    <a href="javascript:void(0);" class="btn ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();">
+                
+                
+                
+                    <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
+                        <div class="col-md-6 padding-left-0">
+                            <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}" />
+                        </div>
+                        <div class="col-md-6 padding-left-0">
+                            <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="{{ $cc->price }}" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">
+                        <a href="javascript:void(0);" class="btn ignore btn-danger btn-sm ignore2" onclick="$(this).parent().parent().remove();">
                         <span class="fa fa-close ignore ignore2 ignore1"></span>
                     </a>
-                </div>
-                <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
-                    <a href="javascript:void(0)" id="child_up_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-up"></i></a>
-                    <a href="javascript:void(0)" id="child_down_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-down"></i></a>
-                </div>
-                <div class="clearfix ignore ignore2 ignore1"></div>
+                    </div>
+                    <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
+                        <a id="child_up_{{ $cc->id }}"  class="btn btn-sm btn-secondary sorting_child" href="javascript:void(0)">
+                            <i class="fa fa-angle-up"></i>
+                        </a>
+                        <a id="child_down_{{ $cc->id }}" class="btn btn-sm btn-secondary sorting_child" href="javascript:void(0)">
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                    </div>
+                    <div class="clearfix ignore ignore2 ignore1"></div>
+                
             </div>
         <?php } ?>
 @endif

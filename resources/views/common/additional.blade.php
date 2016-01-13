@@ -34,8 +34,8 @@
                                         <a href="javascript:void(0);" class="btn ignore btn-danger btn-sm ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a>
                                     </div>
                                     <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
-                                        <a href="javascript:void(0)" id="child_up_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-up"></i></a>
-                                        <a href="javascript:void(0)" id="child_down_{{ $cc->id }}" class="sorting_child"><i class="fa fa-angle-down"></i></a>
+                                        <a href="javascript:void(0)" id="child_up_{{ $cc->id }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
+                                        <a href="javascript:void(0)" id="child_down_{{ $cc->id }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
                                     </div>
                                     <div class="clearfix ignore ignore2 ignore1"></div>
                                 </div>
@@ -54,8 +54,8 @@
                             <a href="javascript:void(0);" class="btn btn-sm ignore btn-danger btn-small ignore2" onclick="$(this).parent().parent().remove();"><span class="fa fa-close ignore ignore2 ignore1"></span></a>
                         </div>
                         <div class="resturant-arrows col-md-2 col-sm-2 col-xs-2">
-                            <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="sorting_child"><i class="fa fa-angle-up"></i></a>
-                            <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="sorting_child"><i class="fa fa-angle-down"></i></a>
+                            <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
+                            <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
                         </div>
                         <div class="clearfix ignore ignore2 ignore1"></div>
                     </div>
@@ -106,7 +106,7 @@
                             <div class="clearfix ignore ignore2 ignore1"></div>
                         </div>
 
-                        <input type="text" id="itemno{{ $r3 }}" class="itemno form-control ignore ignore2 ignore1" value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
+                        <input type="number" id="itemno{{ $r3 }}" class="itemno form-control ignore ignore2 ignore1" value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
                     </div>
                 </div>
 
@@ -131,11 +131,13 @@
                     <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>
                 <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
-                    <a href="javascript:void(0)" class="addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
-                    <a href="javascript:void(0)" class="addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix ignore ignore2 ignore1"></div>
 </div>
+
+<hr />

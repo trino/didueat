@@ -241,7 +241,7 @@
                 data: 'ids=' + order + "&_token={{ csrf_token() }}",
                 type: 'post',
                 success: function (res) {
-                    $('#parent' + res).load(base_url + 'restaurant/menu_form/' + res, function () {
+                    $('#menumanager2').load(base_url + 'restaurant/menu_form/' + res, function () {
                         ajaxuploadbtn('newbrowse' + res + '_1');
                     });
                 }
