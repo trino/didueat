@@ -102,6 +102,7 @@ class AuthController extends Controller {
      */
     public function postRegister($AsJSON = false) {
         $data = \Input::all();
+        $email_verification = true;
         if (isset($data) && count($data) > 0 && !is_null($data)) {//check for missing data
             if (!isset($data['email']) || empty($data['email'])) {
                 return $this->failure2($AsJSON, trans('messages.user_missing_email.message'));
@@ -122,7 +123,7 @@ class AuthController extends Controller {
                 \DB::beginTransaction();
                 try {//add new user to the database
                     $data['status'] = 1;
-                    $data['is_email_varified'] = 0;
+                    $data['is_email_varified'] = iif($email_verification, 0, 1);
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
@@ -147,8 +148,10 @@ class AuthController extends Controller {
 
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating an account with DidUEat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
-
+                    $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";
+                    if($email_verification) {
+                        $message['msg_desc'] .= "A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+                    }
                     if($AsJSON) {
                         echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
                         die;

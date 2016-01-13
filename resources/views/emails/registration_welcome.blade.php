@@ -18,14 +18,16 @@
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
                                 <br /><br />
-                                Thank you for registering with Didueat. Please click on the verification link below to activate your account.
-                                <br /><br />
-                                <a href="{{ url('auth/verify_email') }}/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank">Activate Now</a>
-                                <br /><br />
-                                Please note that your account will not be activated until you verify your email address.
-                                <br /><br />
-                                Thank You
-                                
+                                Thank you for registering with Didueat.
+                                @if(!$is_email_varified)
+                                    Please click on the verification link below to activate your account.
+                                    <br /><br />
+                                    <a href="{{ url('auth/verify_email') }}/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank">Activate Now</a>
+                                    <br /><br />
+                                    Please note that your account will not be activated until you verify your email address.
+                                    <br /><br />
+                                    Thank You
+                                @endif
                                 <br /><br /><br />
                                 Regards,
                                 <br />
