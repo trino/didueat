@@ -3,6 +3,7 @@
     echo newrow($new, "Restaurant Name");
     $name = iif($new, "restname", "name");//why does it change to restname?
     if(!isset($is_disabled)){$is_disabled=false;}
+    if(!isset($minimum)){$minimum=false;}
 ?>
     <input type="text" name="{{ $name }}" class="form-control" {{ $is_disabled }} placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old($name) }}" required>
 <?php echo newrow();

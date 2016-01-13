@@ -37,11 +37,11 @@
                         Email
                         <a class="sortOrder" data-meta="email" data-order="DESC" data-title="Email" title="Sort [Email] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th>
+                    <!--th>
                         <a class="sortOrder" data-meta="profile_type" data-order="ASC" data-title="Type" title="Sort [Type] ASC"><i class="fa fa-caret-down"></i></a>
                         Type
                         <a class="sortOrder" data-meta="profile_type" data-order="DESC" data-title="Type" title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
+                    </th-->
                     <th>
                         Phone
                     </th>
@@ -55,7 +55,7 @@
                     <td>{{ $value->id }}</td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->email }}</td>
-                    <td>{{ select_field('profiletypes', 'id', $value->profile_type, 'name') }}</td>
+                    <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
                     <td>{{ $value->phone }}</td>
                     <td>
                         <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">

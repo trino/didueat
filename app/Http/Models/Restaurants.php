@@ -93,11 +93,11 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = jddayofweek( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
+        $DayOfWeek = current_day_of_week();
         $left = " LEFT JOIN hours on hours.restaurant_id = restaurants.id AND hours.day_of_week = '" . $DayOfWeek . "' ";
-        //$now = date('H:m:s');
+        //$now = date('H:i:s');
         //$where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
-
+        
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $left $where HAVING distance <= '" . $data['radius'] . "' ";
         } else {

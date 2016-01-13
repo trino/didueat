@@ -402,6 +402,7 @@ function login($Profile, $IsPossessing = false) {
     \Session::put('session_status', $Profile->status);
     \Session::put('session_created_at', $Profile->created_at);
     \Session::put('session_photo', $Profile->photo);
+    \Session::put('session_gmt', $Profile->gmt);
 
     \Session::put('is_logged_in', true);
     \Session::save();
@@ -420,6 +421,10 @@ function get_current_restaurant() {
         }
         return get_profile($Profile)->restaurant_id;
     }
+}
+
+function current_day_of_week(){
+    return jddayofweek( cal_to_jd(CAL_GREGORIAN, date("m"),date("d"), date("Y")) , 1 );
 }
 
 //check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
