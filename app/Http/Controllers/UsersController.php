@@ -89,7 +89,7 @@ class UsersController extends Controller {
         } else {//get data to load the page
             $data['title'] = 'Users List';
             $data['states_list'] = \App\Http\Models\States::get();
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
             return view('dashboard.user.index', $data);
         }
     }
@@ -138,7 +138,7 @@ class UsersController extends Controller {
             $data['user_detail'] = \App\Http\Models\Profiles::find($id);
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
         }
-        $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('id', 'DESC')->get();
+        $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
         $data['states_list'] = \App\Http\Models\States::get();
         //echo '<pre>'; print_r($data['address_detail']); die;
         return view('common.edituser', $data);
@@ -166,13 +166,15 @@ class UsersController extends Controller {
             if ($is_email > 0) {
                 return $this->failure(trans('messages.user_email_already_exist.message'),'users/list', true);
             }
+            /*
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message'),'users/list', true);
+                return $this->failure( trans('messages.user_pass_field_missing.message') . "(0x02)",'users/list', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
-            if ($post['password'] != $post['confirm_password']) {
+            */
+            if (isset($post['password']) && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
             }
             \DB::beginTransaction();
