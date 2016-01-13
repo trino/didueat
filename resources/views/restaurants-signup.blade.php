@@ -127,9 +127,6 @@
                         required: true,
                         minlength: 5,
                         equalTo: "#password1"
-                    },
-                    postal_code: {
-                        postal_code: true
                     }
                 },
                 messages: {

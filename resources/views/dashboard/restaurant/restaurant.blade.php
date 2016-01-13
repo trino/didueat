@@ -51,11 +51,12 @@ if(!$minimum){
     
 <script>
     $(document).ready(function () {
-        is_delivery_change();
-        $('body').on('change', '#is_delivery', function () {
+        @if(!$minimum)
             is_delivery_change();
-        });
-
+            $('body').on('change', '#is_delivery', function () {
+                is_delivery_change();
+            });
+        @endif
 
         $('#demo4').tagEditor({
             //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
@@ -76,47 +77,51 @@ if(!$minimum){
     });
 
     @if(isset($resturant->city))
-    $(document).ready(function () {
-        //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
-    });
+        $(document).ready(function () {
+            //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
+        });
     @endif
 
-    function ajaxuploadbtn(button_id) {
-        var button = $('#' + button_id), interval;
-        var token = $('#resturantForm input[name=_token]').val();
-        act = base_url + 'restaurant/uploadimg/restaurant';
-        new AjaxUpload(button, {
-            action: act,
-            name: 'myfile',
-            data: {'_token': token},
-            onSubmit: function (file, ext) {
-                button.text('Uploading...');
-                this.disable();
-                interval = window.setInterval(function () {
-                    var text = button.text();
-                    if (text.length < 13) {
-                        button.text(text + '.');
-                    } else {
-                        button.text('Uploading...');
-                    }
-                }, 200);
-            },
-            onComplete: function (file, response) {
-                var resp = response.split('___');
-                var path = resp[0];
-                var img = resp[1];
-                button.html('Change Image');
+    @if(!$minimum)
+        function ajaxuploadbtn(button_id) {
+            var button = $('#' + button_id), interval;
+            var token = $('#resturantForm input[name=_token]').val();
+            act = base_url + 'restaurant/uploadimg/restaurant';
+            new AjaxUpload(button, {
+                action: act,
+                name: 'myfile',
+                data: {'_token': token},
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
+                        }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    var resp = response.split('___');
+                    var path = resp[0];
+                    var img = resp[1];
+                    button.html('Change Image');
 
-                window.clearInterval(interval);
-                this.enable();
-                $('#picture').attr('src', path);
-                $('#hiddenLogo').val(img);
-            }
-        });
-    }
+                    window.clearInterval(interval);
+                    this.enable();
+                    $('#picture').attr('src', path);
+                    $('#hiddenLogo').val(img);
+                }
+            });
+        }
+    @endif
 
     jQuery(document).ready(function () {
         $("#resturantForm").validate();
-        ajaxuploadbtn('uploadbtn');
+        @if(!$minimum)
+            ajaxuploadbtn('uploadbtn');
+        @endif
     });
 </script>
