@@ -65,7 +65,7 @@
         <div class="portlet-body form">
             <div class="form-body">
                 <div class="row">
-                    <?php echo view("common.editaddress", array("new" => true)); ?>
+                    <?php echo view("common.editaddress", array("new" => true, "required" => true)); ?>
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Mobile Number (Optional)</label>
