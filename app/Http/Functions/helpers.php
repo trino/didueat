@@ -669,7 +669,11 @@ function implode_data($Data, $Delimeter = ",") {
 function debug($Iterator, $DoStacktrace = true) {
     if ($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
-        echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '();</B> ';
+        echo '<B>';
+        if(isset($Backtrace["file"])){echo $Backtrace["file"];}
+        if(isset($Backtrace["line"])){echo ' (line ' . $Backtrace["line"] . ')';}
+        if(isset($Backtrace["function"])){echo ' From function: ' . $Backtrace["function"];}
+        echo '();</B> ';
     }
 
     if (is_array($Iterator)) {
