@@ -423,7 +423,7 @@
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');
-                $('#list' + ids).html('<span class="receipt_image"><img src="' + img + '">' +
+                $('#list' + ids).html('<span class="receipt_image"> $' +price+
                         '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
                         '-</a><span class="count">x ' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
                         '+</a></span>' +

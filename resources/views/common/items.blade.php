@@ -26,7 +26,7 @@
     ?>
     <li id="list{{ $order->listid }}" class="infolist">
         <span class="receipt_image">
-              <img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34">
+              <!--img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34"-->
               <span class="count">x {{ $arr_qty[$k] }}</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </span>
         <strong><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</strong>
