@@ -4,14 +4,14 @@ $size = "col-md-12 col-sm-12 col-xs-12";
 echo newrow($new, "Full Name", $size);
 ?>
     <div class="input-icon">
-        <input type="text" name="full_name" class="form-control" id="name" placeholder="Full Name" value="{{ old('full_name') }}" required="">
+        <input type="text" name="full_name" class="form-control" id="name" placeholder="Full Name" value="{{ old('full_name') }}" required>
     </div>
 <?php echo newrow();
 
 if(!isset($email)){
 echo newrow($new, "Email", $size); ?>
     <div class="input-icon">
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required="">
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
     </div>
 <?php echo newrow();} ?>
 
