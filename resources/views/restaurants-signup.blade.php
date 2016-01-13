@@ -75,7 +75,7 @@
         </div>
 
         {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-        @include('common.restaurant')
+        @include('common.restaurant', array("hours" => false, "cols" => 2, "minimum" => true))
         {!! Form::close() !!}
     </div>
 
