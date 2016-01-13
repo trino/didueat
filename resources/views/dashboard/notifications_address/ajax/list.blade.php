@@ -8,11 +8,11 @@
 
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6">
-                <h6>
+            <div class="col-lg-9">
+                <h3>
                     My Notifications Addresses
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
-                </h6>
+                </h3>
 
                 <h6 class="card-subtitle text-muted">Notify me by these methods when I receive an order</h6>
 

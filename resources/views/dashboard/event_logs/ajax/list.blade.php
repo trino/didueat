@@ -8,8 +8,8 @@
 
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6">
-                <h6>Event Logs</h6>
+            <div class="col-lg-9">
+                <h3>Event Logs</h3>
             </div>
             @include('common.table_controls')
         </div>

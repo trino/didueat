@@ -1,6 +1,13 @@
 @extends('layouts.default')
 @section('content')
 
+
+
+    delet this page
+
+
+
+
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -10,8 +17,8 @@
                 <div class="card-header">
 
 
-                    Restaurants
-                    <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
+                    <h3>Restaurants
+                    <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a></h3>
 
 
                 </div>

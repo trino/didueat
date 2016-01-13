@@ -7,10 +7,10 @@
 <div class="card">
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6">
-                <h6>
+            <div class="col-lg-9">
+                <h3>
                     Restaurants <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
-                </h6>
+                </h3>
             </div>
             @include('common.table_controls')
         </div>

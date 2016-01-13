@@ -12,11 +12,11 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
 <div class="card">
     <div class="card-header">
         <div class="row">
-            <div class="col-lg-6">
-                <h2>
+            <div class="col-lg-9">
+                <h3>
                     My Orders ({{ ucwords($type) }})                    <a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a>
 
-                </h2>
+                </h3>
 
             </div>
             @include('common.table_controls')

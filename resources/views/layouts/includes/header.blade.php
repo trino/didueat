@@ -70,7 +70,7 @@ $first = false; $type = "hidden";
                 </li>
 
 
-                <li class="nav-item" style="width: 300px;">
+                <!--li class="nav-item" style="width: 300px;">
 
 
 
@@ -109,7 +109,7 @@ $first = false; $type = "hidden";
 
                         </div>
                     </div>
-                </li>
+                </li-->
 
 
 

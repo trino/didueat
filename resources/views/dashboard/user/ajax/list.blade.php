@@ -8,19 +8,19 @@
 
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-6">
-                <h6>
+            <div class="col-lg-9">
+                <h3>
                     Users
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-id="0" data-target="#editModel">Add</a>
-                </h6>
+                </h3>
             </div>
             @include('common.table_controls')
         </div>
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
-            <thead>
+        <table class="table table-responsive table ">
+            <thead class="">
                 <tr>
                     <th>
                         <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>

@@ -1,37 +1,13 @@
-.side-lines2 {
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    text-align: center;
+.card-header {
+    padding: 1.0rem 1.25rem;
+     background-color: #fff !important;
+     border-bottom: 1px solid #e5e5e5;
 }
-.side-lines2:before, .side-lines2:after {
-    position: absolute;
-    top: 51%;
-    overflow: hidden;
-    width: 50%;
-    height: 1px;
-    content: '\a0';
-    background-color:  rgba(0,0,0,.1);
-}
-.side-lines2:before {
-    margin-left: -50%;
-    text-align: right;
-}
-
-.side-lines:before, .side-lines:after {
-    position: absolute;
-    width: 10%;
-    height: 1px;
-    content: '';
-    border-top: 1px solid rgba(0,0,0,.1);
-    margin-top: .50em;
-}
-.side-lines:before {
-    margin-left: -11%;
-}
-.side-lines:after {
-    margin-left: 1%;
-}
+.card-footer{
+      padding: 1.25rem 1.25rem;
+      background-color: #fff !important;
+      border-bottom: 0px solid #e5e5e5;
+  }
 
 * {
     border-radius: 0 !important;
@@ -78,7 +54,7 @@ h1,h2,h3,h4,h5,h6{
 }
 .modal-header {background: #D50000 !important;color:#fff;border:1px solid #D50000 !important;}
 body {
-
+background: #f4f7f8;
   /*  font-family: 'Roboto', sans-serif; */
 }
 .card,.alert, .btn, button {

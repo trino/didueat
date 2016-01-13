@@ -10,7 +10,7 @@
 
         <div class="card">
             <div class="card-header">
-                My Info
+                <h3>My Info</h3>
             </div>
             <div class="card-block">
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
