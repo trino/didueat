@@ -38,9 +38,8 @@
     $notfound=0;
 
     $server_gmt = date('Z') / 3600;
-    $user_gmt = \Session::get('session_gmt');
+    $user_gmt = \Session::get('session_gmt', $server_gmt);
     $difference = $server_gmt - $user_gmt;
-    $difference=1;
     $server_time = date('H:i:s');
     $user_time = date('H:i:s', strtotime(iif($difference >-1, '+') . $difference . ' hours'));
     printfile("Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time. " User Time: " . $user_time);

@@ -19,7 +19,7 @@
 
                 {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                 <div class="editaddress">
-                    @include('common.signupform')
+                    @include('common.signupform', array("new" => true))
                 </div>
                 <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
 
