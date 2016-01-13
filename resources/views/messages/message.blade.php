@@ -1,4 +1,4 @@
-<!--<?php printfile("views/messages/message.blade.php"); ?>-->
+<?php printfile("views/messages/message.blade.php"); ?>
 @extends('layouts.default')
 @section('content')
 

@@ -9,12 +9,12 @@
                 <h4 class="modal-title" id="signupModalLabel">Sign up</h4>
             </div>
             <div class="modal-body" id="signupModalBody">
-
                 <?php printfile("views/popups/signup.blade.php"); ?>
 
                 <div id="registration-success" class="note note-success" style="display: none;">
+                    <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
                     <h1 class="block">success</h1>
-
+                    <P></P>
                 </div>
 
                 {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
