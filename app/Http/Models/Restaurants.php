@@ -99,7 +99,7 @@ class Restaurants extends BaseModel {
             $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where . $order . $limit;
         }
         if($ReturnSQL){return $SQL;}
-        $query = \DB::select($SQL);
+        $query = \DB::select(\DB::raw($SQL));
         return json_decode(json_encode($query),true);
     }
 

@@ -10,6 +10,11 @@
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants-menus.blade.php</file>
             <file>file:/F:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/routes.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/app/Http/Functions/helpers.php</file>
+            <file>file:/E:/xampp/htdocs/didueat/public/assets/global/css/custom_css.css</file>
+            <file>file:/E:/xampp/htdocs/didueat/resources/views/restaurants.blade.php</file>
+        </group>
     </open-files>
 </project-private>

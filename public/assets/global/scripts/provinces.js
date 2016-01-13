@@ -123,11 +123,16 @@ function getplace(){
 
 function fillInAddress() {
     // Get the place details from the formatted_address object.
-    var place = formatted_address.getPlace();
+    var place = getplace().getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     $('#latitude').val(lat);
     $('#longitude').val(lng);
+    $('#latitude2').val(lat);
+    $('#longitude2').val(lng);
+    $('#latitude3').val(lat);
+    $('#longitude3').val(lng);
+    
     var componentForm = {
         street_number: 'short_name',
         route: 'long_name',
