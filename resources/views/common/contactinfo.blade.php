@@ -4,7 +4,8 @@ $size = "col-md-12 col-sm-12 col-xs-12";
 echo newrow($new, "Full Name", $size);
 ?>
     <div class="input-icon">
-        <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+
+        <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ old('name') }}" required>
         <input type="hidden" name="gmt" id="gmt" value="">
     </div>
 <?php echo newrow();

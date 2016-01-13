@@ -263,7 +263,8 @@ class HomeController extends Controller {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
+
+                return $this->failure("[Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",'/restaurants/signup', true);
