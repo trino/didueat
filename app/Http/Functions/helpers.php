@@ -666,7 +666,7 @@ function implode_data($Data, $Delimeter = ",") {
 }
 
 //a clone of CakePHP's debug function
-function debug($Iterator, $DoStacktrace = true) {
+function debug222($Iterator, $DoStacktrace = true) {
     if ($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
         echo '<B>';

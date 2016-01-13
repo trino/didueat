@@ -256,12 +256,13 @@ class HomeController extends Controller {
         $post = \Input::all();
         $email_verification = false;
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
-            //var_dump($post);die();
+
+
 
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
-            if (!isset($post['full_name']) || empty($post['full_name'])) {
+            if (!isset($post['name']) || empty($post['name'])) {
                 return $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
@@ -298,12 +299,15 @@ class HomeController extends Controller {
             if ($post['password1'] != $post['confirm_password1']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
+
+
+
             try {//populate data array
                 $update['logo'] = "";
                 if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
                 $update['name'] = $post['restname'];
                 $update['slug'] = $this->createslug($post['restname']);
-                $update['email'] = $post['email'];
+               // $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['mobile'] = $post['mobile'];
                 $update['description'] = $post['description'];
@@ -338,7 +342,8 @@ class HomeController extends Controller {
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
                 $ob->save();
-                
+
+
                 event(new \App\Events\AppEvents($ob, "Restaurant Created"));
 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
@@ -377,12 +382,13 @@ class HomeController extends Controller {
                     }
                 }
                 */
-                
+
+
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 1;
                 $data['is_email_varified'] = iif($email_verification, 0, 1);
                 $data['profile_type'] = 2;
-                $data['name'] = $post['full_name'];
+                $data['name'] = $post['name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password1'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
@@ -393,8 +399,13 @@ class HomeController extends Controller {
                 $data['browser_version'] = $browser_info['version'];
                 $data['browser_platform'] = $browser_info['platform'];
 
+
+
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
+
+
+
                 $user->save();
                 
                 event(new \App\Events\AppEvents($user, "User Created"));
@@ -417,9 +428,16 @@ class HomeController extends Controller {
                     $nd2->save();
                 }
 
-                $userArray = $user->toArray();
-                $userArray['mail_subject'] = 'Thank you for registration.';
-                $this->sendEMail("emails.registration_welcome", $userArray);
+            //    $userArray = $user->toArray();
+            //    $userArray['mail_subject'] = 'Thank you for registration.';
+
+            //    $userArray['idd'] = '3';
+
+                $data['mail_subject'] = 'Thank you for registration.';
+            //    debugprint( print_r($userArray, true) );
+
+           //     die();
+                $this->sendEMail("emails.registration_welcome", $data);
                 \DB::commit();
 
                 $message['title'] = "Registration Success";
