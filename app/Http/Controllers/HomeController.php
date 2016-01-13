@@ -254,6 +254,7 @@ class HomeController extends Controller {
      */
     public function signupRestaurants() {
         $post = \Input::all();
+        $email_verification = false;
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             //var_dump($post);die();
 
@@ -298,9 +299,8 @@ class HomeController extends Controller {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
             try {//populate data array
-                if ($post['logo'] != '') {
-                    $update['logo'] = $post['logo'];
-                }
+                $update['logo'] = "";
+                if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
                 $update['name'] = $post['restname'];
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
@@ -380,7 +380,7 @@ class HomeController extends Controller {
                 
                 $data['restaurant_id'] = $ob->id;
                 $data['status'] = 1;
-                $data['is_email_varified'] = 0;
+                $data['is_email_varified'] = iif($email_verification, 0, 1);
                 $data['profile_type'] = 2;
                 $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
@@ -424,7 +424,10 @@ class HomeController extends Controller {
 
                 $message['title'] = "Registration Success";
                 $message['msg_type'] = "success";
-                $message['msg_desc'] = "Thank you for creating account with DidUEat.com. A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+                $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";
+                if($email_verification) {
+                    $message['msg_desc'] .= " A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+                }
                 return view('messages.message', $message);
                 //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
