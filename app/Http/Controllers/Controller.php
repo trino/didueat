@@ -40,9 +40,9 @@ abstract class Controller extends BaseController {
     }
 
     //makes a thumbnail of an image
-    public function make_thumb($filename, $new_width, $new_height, $CropToFit = false){
+    public function make_thumb($filename, $new_width, $new_height, $CropToFit = false, $MakeCornerTransparent = false){
         $output_filename = getdirectory($filename) . "/" . getfilename($filename) . "(" . $new_width . "x" . $new_height . ")." . getextension($filename);
-        make_thumb($filename, $output_filename, $new_width, $new_height, $CropToFit);
+        make_thumb($filename, $output_filename, $new_width, $new_height, $CropToFit, $MakeCornerTransparent);
         return $output_filename;
     }
 
