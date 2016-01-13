@@ -1,4 +1,6 @@
-{{ printfile("views/dashboard/user/ajax/list.blade.php") }}
+<?php
+    printfile("views/dashboard/user/ajax/list.blade.php");
+?>
 
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
@@ -52,7 +54,7 @@
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
                 <tr>
-                    <td>{{ $value->id }}</td>
+                    <td>{{ fontawesome($value->profile_type) . " " . $value->id }}</td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->email }}</td>
                     <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->

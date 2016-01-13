@@ -172,6 +172,21 @@ function newrow($new = false, $name = false, $class = "") {
     }
 }
 
+function fontawesome($profiletype, $icontype=0){
+    switch($icontype){
+        case 0://user types
+            switch($profiletype){
+                case 1: $icon = "user-secret"; break;//super
+                case 2: $icon = "shopping-basket"; break;//user
+                case 3: $icon = "user-plus"; break;//owner
+                case 4: $icon = "user"; break;//employee
+            }
+    }
+    if(isset($icon) && $icon){
+        echo '<i class="fa fa-' . $icon . '"></i>';
+    }
+}
+
 function handleexception($e) {
     $Message = $e->getMessage();
     if (debugmode()) {
