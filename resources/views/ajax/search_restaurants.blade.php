@@ -38,18 +38,14 @@
                     if($distance <= $radius){
                 ?>
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
-
                         <img style="width:100px;" class="pull-right img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
                         <h4>{{ $value['name'] }}</h4>
-
                         <p class="card-text">
                             {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}, {{ $value['phone'] }}
                         </p>
-
+                        <span class="label label-primary">{{ ($value['is_delivery'])?"Delivery":"" }} {{ ($value['is_delivery'])?", ":"" }} {{ ($value['is_pickup'] == 1)?"Pickup":"" }}</span>
                         <span class="label label-primary">Minimum Delivery: {{ $value['minimum'] }}</span>
-
                         <span class="label label-success">Delivery Fee: {{ $value['delivery_fee'] }}</span>
-
                         <span class="label label-warning">Tags:
                             <?php
                                 $tag = $value['tags'];
@@ -63,6 +59,7 @@
                                 }
                             ?>
                         </span>
+                        <span class="label label-success">Cuisine: {{ select_field("cuisine", "id", $value['id'], "name") }}</span>
 
                         @if(isset($latitude) && $distance)
                             <span class="label label-info">Distance:

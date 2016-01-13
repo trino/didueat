@@ -1559,8 +1559,8 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
         $user_id = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
         $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
 
-        $html .= '<div class="' . $type . '">' . 
-        $value->title;
+        $html .= '<div class="' . $type . '">&nbsp;';
+        //$value->title;
         if ($TwoLines) {
             $html .= '<br>';
         }
