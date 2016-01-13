@@ -213,7 +213,7 @@ function geolocate(formatted_address) {
 
             $('#latitude').val( position.coords.latitude );
             $('#longitude').val( position.coords.longitude );
-
+            
             $.ajax({
                 url: 'http://maps.googleapis.com/maps/api/geocode/json',
                 type: "get",
@@ -250,6 +250,9 @@ function geolocate(formatted_address) {
                                 break;
                         }
                     }
+                },
+                error: function(msg){
+                    alert("ERROR: " + msg);
                 }
             });
 
@@ -259,5 +262,7 @@ function geolocate(formatted_address) {
             });
             formatted_address.setBounds(circle.getBounds());
         });
+    } else {
+        alert("Sorry. Your browser does not support geo-location");
     }
 }
