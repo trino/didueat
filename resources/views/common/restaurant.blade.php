@@ -28,7 +28,6 @@
             </div>
         </div>
         <div class="portlet-body form">
-
             <div class="form-body">
                 <div class="row">
                     <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
