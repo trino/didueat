@@ -18,6 +18,9 @@ abstract class Controller extends BaseController {
     
     //sends an email using a template
     public function sendEMail($template_name = "", $array = array()) {
+
+
+
         \Mail::send($template_name, $array, function ($messages) use ($array) {
             $messages->to($array['email'])->subject($array['mail_subject']);
         });

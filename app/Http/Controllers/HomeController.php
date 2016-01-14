@@ -256,13 +256,11 @@ class HomeController extends Controller {
         $post = \Input::all();
         $email_verification = false;
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
-            //var_dump($post);die();
-
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",'/restaurants/signup', true);
             }
-            if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure("[Name] field is missing!",'/restaurants/signup', true);
+            if (!isset($post['full_name']) || empty($post['full_name'])) {
+                return $this->failure("[Full Name] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",'/restaurants/signup', true);
@@ -280,10 +278,10 @@ class HomeController extends Controller {
             if (!isset($post['province']) || empty($post['province'])) {
                 return $this->failure("[Province] field is missing!",'/restaurants/signup', true);
             }
-            if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
+            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
                 return $this->failure("[Postal Code] field is missing or invalid!",'/restaurants/signup', true);
             }
-            if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
+            if (!isset($post['phone']) || empty($post['phone'])){
                 return $this->failure("[Phone] field is missing or invalid!",'/restaurants/signup', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
@@ -334,7 +332,7 @@ class HomeController extends Controller {
                 $update['browser_name'] = $browser_info['name'];
                 $update['browser_version'] = $browser_info['version'];
                 $update['browser_platform'] = $browser_info['platform'];
-
+                
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
                 $ob->save();
@@ -382,17 +380,16 @@ class HomeController extends Controller {
                 $data['status'] = 1;
                 $data['is_email_varified'] = iif($email_verification, 0, 1);
                 $data['profile_type'] = 2;
-                $data['name'] = $post['name'];
+                $data['name'] = $post['full_name'];
                 $data['email'] = $post['email'];
                 $data['password'] = $post['password1'];
                 $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
-                
                 $browser_info = getBrowser();
                 $data['ip_address'] = get_client_ip_server();
                 $data['browser_name'] = $browser_info['name'];
                 $data['browser_version'] = $browser_info['version'];
                 $data['browser_platform'] = $browser_info['platform'];
-
+                
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
                 $user->save();

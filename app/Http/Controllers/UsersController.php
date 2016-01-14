@@ -74,6 +74,10 @@ class UsersController extends Controller {
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
+
+                    $userArray['idd'] = '4';
+
+
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     \DB::commit();
                 }
@@ -383,6 +387,9 @@ class UsersController extends Controller {
                             $nd2->save();
                             
                             $userArray = $uid->toArray();
+                            $userArray['idd'] = '1';
+
+
                             $userArray['mail_subject'] = 'Thank you for registration.';
                             $this->sendEMail("emails.registration_welcome", $userArray);
                         }
