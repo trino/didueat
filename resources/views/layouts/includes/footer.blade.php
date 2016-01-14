@@ -378,41 +378,7 @@
             e.preventDefault();
         });
 
-        $('body').on('submit', '#register-form', function (e) {
-            $(this).validate({
-                rules: {
-                    name: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        remote: {
-                            url: "{{ url('auth/validate/email/ajax') }}",
-                            type: "post"
-                        }
-                    },
-                    password0: {
-                        required: true,
-                        minlength: 5
-                    },
-                    confirm_password0: {
-                        required: true,
-                        minlength: 5,
-                        equalTo: "#password0"
-                    }
-                },
-                messages: {
-                    email: {
-                        required: "Please Enter an email address!",
-                        remote: "This email address is already in use!"
-                    },
-                    confirm_password0: {
-                        equalTo: "The password fields are mis-matched!"
-                    }
-                }
-            });
-            
+        $('body').on('submit', '#register-form', function (e) {            
             var token = $("#register-form input[name=_token]").val();
             <?php
                 $fields = array("name", "email", "password0", "confirm_password0", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");

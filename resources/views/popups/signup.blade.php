@@ -37,3 +37,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validationOnkeyup(){
+            $('#register-form').validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: "{{ url('auth/validate/email/ajax') }}",
+                            type: "post"
+                        }
+                    },
+                    password0: {
+                        required: true,
+                        minlength: 5
+                    },
+                    confirm_password0: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password0"
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Please Enter an email address!",
+                        remote: "This email address is already in use!"
+                    },
+                    confirm_password0: {
+                        equalTo: "The password fields are mis-matched!"
+                    }
+                }
+            });
+        }
+</script>

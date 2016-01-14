@@ -7,7 +7,7 @@
     </div></div>
 
     <?= newrow($new, "Email"); ?>
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ (isset($user_detail->email))?$user_detail->email: priority(old('email'), read('email')) }}" required>
+<input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ (isset($user_detail->email))?$user_detail->email: priority(old('email'), read('email')) }}" required onkeyup="validationOnkeyup()">
     </div></div>
 
     <!--newrow($new, "Phone Number"); ?>
