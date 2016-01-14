@@ -1071,7 +1071,7 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     if (is_array($sizes)) {
         $images = array();
         foreach ($sizes as $size) {
-            $images[] = resize($file, $size, $delimeter);
+            $images[] = resize($file, $size, $CropToFit, $delimeter);
         }
         return $images;
     } else {
@@ -1162,9 +1162,9 @@ function imagecreatefrombmp($filename) {
 
 //copies an image ($file) to a new location
 //$sizes contains an array of key=path, value=size
-function copyimages($sizes, $file, $name) {
+function copyimages($sizes, $file, $name, $CropToFit = false) {
     foreach ($sizes as $path => $size) {
-        $rsize = resize($file, $size, true);
+        $rsize = resize($file, $size, $CropToFit);
         copy(public_path($rsize), public_path($path . $name));
         @unlink(public_path($rsize));
     }

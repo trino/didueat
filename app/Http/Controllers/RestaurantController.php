@@ -479,17 +479,17 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
-                $MakeCornerTransparent = true;
+                //$MakeCornerTransparent = true;
                 $path = 'assets/images/users';
             } else {
                 $path = 'assets/images/products';
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . "/" . $path . "/" . $file;
-            //for each size in the array, make a thumbnail of the image.ext as image(WIDTHxHEIGHT).ext in the same folder
+            /*for each size in the array, make a thumbnail of the image.ext as image(WIDTHxHEIGHT).ext in the same folder
             foreach(array(150,300) as $size){
                 $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false, $MakeCornerTransparent );
-            }
+            }*/
             echo $file_path . '___' . $file;
         }
         die();

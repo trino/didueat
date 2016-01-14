@@ -42,12 +42,12 @@ abstract class Controller extends BaseController {
         return \Redirect::to($redirect);
     }
 
-    //makes a thumbnail of an image
+    /*makes a thumbnail of an image
     public function make_thumb($filename, $new_width, $new_height, $CropToFit = false, $MakeCornerTransparent = false){
         $output_filename = getdirectory($filename) . "/" . getfilename($filename) . "(" . $new_width . "x" . $new_height . ")." . getextension($filename);
         make_thumb($filename, $output_filename, $new_width, $new_height, $CropToFit, $MakeCornerTransparent);
         return $output_filename;
-    }
+    }*/
 
     /**
      * Credit Card Sequence Change
