@@ -296,7 +296,9 @@ class HomeController extends Controller {
             if ($post['password1'] != $post['confirm_password1']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'/restaurants/signup', true);
             }
+            \DB::beginTransaction();
             try {//populate data array
+                //echo '<pre>'; print_r($post); die;
                 $update['logo'] = "";
                 if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
                 $update['name'] = $post['restname'];
@@ -338,13 +340,13 @@ class HomeController extends Controller {
                 $ob->save();
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Created"));
-
+                
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
                 if ($image_file != '') {
                     $arr = explode('.', $image_file);
                     $ext = end($arr);
                     $newName = $ob->slug . '.' . $ext;
-
+                    
                     if (!file_exists(public_path('assets/images/restaurants/' . $ob->id))) {
                         mkdir('assets/images/restaurants/' . $ob->id, 0777, true);
                     }
@@ -376,22 +378,22 @@ class HomeController extends Controller {
                 }
                 */
                 
-                $data['restaurant_id'] = $ob->id;
-                $data['status'] = 1;
-                $data['is_email_varified'] = iif($email_verification, 0, 1);
-                $data['profile_type'] = 2;
-                $data['name'] = $post['full_name'];
-                $data['email'] = $post['email'];
-                $data['password'] = $post['password1'];
-                $data['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
+                $profile['name'] = $post['full_name'];
+                $profile['email'] = $post['email'];
+                $profile['password'] = $post['password1'];
+                $profile['restaurant_id'] = $ob->id;
+                $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
+                $profile['is_email_varified'] = iif($email_verification, 0, 1);
+                $profile['status'] = 1;
+                $profile['profile_type'] = 2;
                 $browser_info = getBrowser();
-                $data['ip_address'] = get_client_ip_server();
-                $data['browser_name'] = $browser_info['name'];
-                $data['browser_version'] = $browser_info['version'];
-                $data['browser_platform'] = $browser_info['platform'];
+                $profile['ip_address'] = get_client_ip_server();
+                $profile['browser_name'] = $browser_info['name'];
+                $profile['browser_version'] = $browser_info['version'];
+                $profile['browser_platform'] = $browser_info['platform'];
                 
                 $user = new \App\Http\Models\Profiles();
-                $user->populate($data);
+                $user->populate($profile);
                 $user->save();
                 
                 event(new \App\Events\AppEvents($user, "User Created"));
@@ -426,8 +428,8 @@ class HomeController extends Controller {
                     $message['msg_desc'] .= " A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
                 }
                 return view('messages.message', $message);
-                //return \Redirect::to('/auth/register');
             } catch (\Exception $e) {
+                \DB::rollback();
                 return $this->failure(handleexception($e),'/restaurants/signup');
             }
         } else {
