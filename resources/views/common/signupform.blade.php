@@ -28,7 +28,7 @@
         <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
     </div></div>
 
-    @include('common.editaddress', array("required" => false, "apartment" => true, "new" => $new, "dontinclude" => true))
+    <!-- include('common.editaddress', array("required" => false, "apartment" => true, "new" => $new, "dontinclude" => true)) -->
 
     <div class="form-group row">
         <div class="col-sm-12">

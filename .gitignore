@@ -45,9 +45,11 @@ Temporary Items
 .apdisk
 .idea/workspace.xml
 public/assets/images/restaurants/*
+public/assets/images/users/*
 *.jpg
 *.xml
 *.bak
 nbproject
 public/royslog.txt
 config/app.php
+.idea/misc.xml

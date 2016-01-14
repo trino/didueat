@@ -80,10 +80,11 @@
                         <div class="col-sm-9">
                             <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
+                            <img id="picture" class="logopic"
                             @if($user_detail->photo)
-                                <img id="picture" style="max-width:100%;" src="{{ asset('assets/images/users/'.$user_detail->photo). '?'.mt_rand() }}" >
+                                src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo). '?'.mt_rand() }}" >
                             @else
-                                <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title="" style="max-width:100%;" />
+                                src="{{ asset('assets/images/default.png') }}" >
                             @endif
                         </div>
                     </div>

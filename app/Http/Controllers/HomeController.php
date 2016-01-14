@@ -508,10 +508,10 @@ class HomeController extends Controller {
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . '/' . $path . '/' . $file;
-            //handle image resizing
+            /*handle image resizing, which didn't get used...
             foreach(array(150,300) as $size){
                 $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false);
-            }
+            }*/
             echo $file_path . '___' . $file;
         }
         die();

@@ -40,10 +40,11 @@ if(!$minimum){
         @endif
         <input type="hidden" name="logo" id="hiddenLogo"/>
 
+        <img id="picture" class="logopic"
         @if(isset($restaurant->logo) && $restaurant->logo != "")
-            <img id="picture" class="" src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
+            src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" title=""/>
         @else
-            <img id="picture" class="" src="{{ asset('assets/images/default.png') }}" title=""/>
+            src="{{ asset('assets/images/default.png') }}" title=""/>
         @endif
     <?php echo newrow();
 }

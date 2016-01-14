@@ -11,7 +11,11 @@
 
 * {
     border-radius: 0 !important;
+}
 
+.logopic{
+    max-width:100%;
+    max-height: 150px;
 }
 
 h1,h2,h3,h4,h5,h6{font-weight: 500;}
@@ -136,7 +140,7 @@ body.modal-open {
 /* delete icon */
 .tag-editor .tag-editor-delete { background: #e0eaf1; cursor: pointer; padding-right: 5px; border-radius: 0 2px 2px 0; }
 .tag-editor .tag-editor-delete i {
-    display: inline-block; width: 7px; height: 7px; vertical-align: middle; background: url(delete.png) 0 0 no-repeat;
+    display: inline-block; width: 7px; height: 7px; vertical-align: middle; background: url(../img/delete.png) 0 0 no-repeat;
     position: relative; top: -1px;
 }
 .tag-editor .tag-editor-delete:hover i { background-position: 0 -14px; }
@@ -292,7 +296,7 @@ span.tags{background:#f5f5f5;color:#555;border:1px solid #CCC;padding:3px 5px;di
 }
 .enable_disable{position:absolute;bottom:5px; right:5px;display:inline-block;}
 .subin {
-    
+
     color: #555;
     text-align: center;
 }
