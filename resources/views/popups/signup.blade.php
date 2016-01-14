@@ -30,7 +30,7 @@
                             Log in
                         </a>
                     </div>
-                    <button id="regButton" class="btn btn-primary" type="submit" onclick="$('.editaddress').hide();">Sign Up</button>
+                    <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
                 </div>
             </div>
             {!! Form::close() !!}

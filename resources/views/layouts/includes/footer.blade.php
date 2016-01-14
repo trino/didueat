@@ -119,7 +119,6 @@
 </div>
 
 <!-- END PRE-FOOTER -->
-
 <script type="text/javascript">
     jQuery(document).ready(function () {
         Layout.init();
@@ -380,9 +379,43 @@
         });
 
         $('body').on('submit', '#register-form', function (e) {
+            $(this).validate({
+                rules: {
+                    name: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: "{{ url('auth/validate/email/ajax') }}",
+                            type: "post"
+                        }
+                    },
+                    password0: {
+                        required: true,
+                        minlength: 5
+                    },
+                    confirm_password0: {
+                        required: true,
+                        minlength: 5,
+                        equalTo: "#password0"
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Please Enter an email address!",
+                        remote: "This email address is already in use!"
+                    },
+                    confirm_password0: {
+                        equalTo: "The password fields are mis-matched!"
+                    }
+                }
+            });
+            
             var token = $("#register-form input[name=_token]").val();
             <?php
-                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
+                $fields = array("name", "email", "password0", "confirm_password0", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
                 foreach( $fields as $field){
                     echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
                 }
@@ -408,16 +441,22 @@
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
+                    $('#register-form .editaddress').show();
                     $('#register-form #registration-error').show();
                     $('#register-form #registration-error').html(json.message);
                 } else {
                     $('#register-form').hide();
                     $('#registration-success').show();
                     $('#registration-success p').html(json.message);
+                    setTimeout(redirectToDashboard, 1000);
                 }
             });
             e.preventDefault();
         });
+        
+        function redirectToDashboard(){
+            return window.location.replace("{{ url('/dashboard') }}");
+        }
 
         function ValidURL(textval) {
             var urlregex = new RegExp(

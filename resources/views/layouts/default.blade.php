@@ -83,7 +83,8 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 </head>
 <body>
 

@@ -104,7 +104,6 @@ class AuthController extends Controller {
         $data = \Input::all();
         $email_verification = false;
         if (isset($data) && count($data) > 0 && !is_null($data)) {//check for missing data
-            //echo '<pre>'; print_r($data); die;
             if (!isset($data['email']) || empty($data['email'])) {
                 return $this->failure2($AsJSON, trans('messages.user_missing_email.message'));
             }
@@ -112,13 +111,13 @@ class AuthController extends Controller {
             if ($is_email > 0) {
                 return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message'));
             }
-            if (!isset($data['password']) || empty($data['password'])) {
+            if (!isset($data['password0']) || empty($data['password0'])) {
                 return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message'));
             }
-            if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
+            if (!isset($data['confirm_password0']) || empty($data['confirm_password0'])) {
                 return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message'));
             }
-            if ($data['password'] != $data['confirm_password']) {
+            if (trim($data['password0']) != trim($data['confirm_password0'])) {
                 return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message'));
             } else {
                 \DB::beginTransaction();
@@ -126,11 +125,14 @@ class AuthController extends Controller {
                     $data['status'] = 1;
                     $data['is_email_varified'] = iif($email_verification, 0, 1);
                     $data['profile_type'] = 2;
-
+                    $data['password'] = $data['password0'];
+                    
                     $user = new \App\Http\Models\Profiles();
                     $user->populate($data);
                     $user->save();
-
+                    
+                    login($user, false);
+                    
                     /*
                     if($user->id){
                         if($this->saveaddress($data)) {

@@ -78,14 +78,7 @@
         @include('common.restaurant', array("hours" => false, "cols" => 2, "minimum" => true))
         {!! Form::close() !!}
     </div>
-
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/scripts/metronic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/scripts/demo.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
-
+    
     <script type="text/javascript">
         $(document).ready(function () {
             Demo.init();

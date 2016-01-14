@@ -21,11 +21,11 @@
     @endif
 
     <?= newrow($new, "Password"); ?>
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        <input type="password" name="password0" class="form-control" id="password0" placeholder="Password" required>
     </div></div>
 
     <?= newrow($new, "Re-type Password"); ?>
-        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password">
+        <input type="password" name="confirm_password0" class="form-control" id="confirm_password0" placeholder="Re-type Password" required>
     </div></div>
 
     <!-- include('common.editaddress', array("required" => false, "apartment" => true, "new" => $new, "dontinclude" => true)) -->
