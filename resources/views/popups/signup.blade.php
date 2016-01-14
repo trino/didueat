@@ -8,33 +8,32 @@
                 </button>
                 <h4 class="modal-title" id="signupModalLabel">Sign up</h4>
             </div>
+            <div id="registration-error" style="display: none;"></div>
+            <div id="registration-success" class="note note-success" style="display: none;">
+                <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
+                <h1 class="block">success</h1>
+                <P></P>
+            </div>
+            {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
             <div class="modal-body" id="signupModalBody">
                 <?php printfile("views/popups/signup.blade.php"); ?>
-
-                <div id="registration-success" class="note note-success" style="display: none;">
-                    <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
-                    <h1 class="block">success</h1>
-                    <P></P>
-                </div>
-
-                {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                 <div class="editaddress">
                     @include('common.signupform', array("new" => true))
                 </div>
-                <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-
             </div>
+            <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
             <div class="modal-footer">
-                <div class="pull-left">
-                    Already have an account?
-                    <a href="javascript:void(0);" data-toggle="modal"  data-dismiss="modal" data-target="#loginModal">
-                        Log in
-                    </a>
+                <div id="actionBtn">
+                    <div class="pull-left">
+                        Already have an account?
+                        <a href="javascript:void(0);" data-toggle="modal"  data-dismiss="modal" data-target="#loginModal">
+                            Log in
+                        </a>
+                    </div>
+                    <button id="regButton" class="btn btn-primary" type="submit" onclick="$('.editaddress').hide();">Sign Up</button>
                 </div>
-
-                <button id="regButton" class="btn btn-primary" type="submit" onclick="$('.editaddress').hide();">Sign Up</button>
-                {!! Form::close() !!}
             </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

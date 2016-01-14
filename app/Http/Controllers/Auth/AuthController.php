@@ -104,6 +104,7 @@ class AuthController extends Controller {
         $data = \Input::all();
         $email_verification = false;
         if (isset($data) && count($data) > 0 && !is_null($data)) {//check for missing data
+            //echo '<pre>'; print_r($data); die;
             if (!isset($data['email']) || empty($data['email'])) {
                 return $this->failure2($AsJSON, trans('messages.user_missing_email.message'));
             }
@@ -127,7 +128,7 @@ class AuthController extends Controller {
                     $data['profile_type'] = 2;
 
                     $user = new \App\Http\Models\Profiles();
-                    $user->populate(array_filter($data));
+                    $user->populate($data);
                     $user->save();
 
                     if($user->id){
@@ -142,10 +143,8 @@ class AuthController extends Controller {
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
+                    
                     \DB::commit();
-
-                    //$this->saveaddress($user->id, $data);
-
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
                     $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";

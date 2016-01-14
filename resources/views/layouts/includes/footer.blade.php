@@ -1,8 +1,4 @@
-
-
-<div class="container-fluid text-muted p-y-2 m-t-2"
-     style="background:white;">
-
+<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;">
 
     <!--div class="container  p-y-2">
         <div class="row ">
@@ -29,19 +25,10 @@
         </div>
     </div-->
 
-
     <footer class=" p-t-2  container text-muted">
-
-
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-
-
         <div class="row">
-
-
-
             <div class="col-lg-10 ">
-
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
                     <li class="list-inline-item"><a href="{{ url("home/email") }}">Email</a></li>
@@ -56,38 +43,39 @@
                     <li class="list-inline-item"><a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
                 </ul>
             </div>
-
             <div class="col-lg-2" style="">
                 <h4>
-                    <A href="https://www.instagram.com/didueat/" target="_blank"><i
-                                class="fa fa-instagram pull-right"></i></A>
-                    <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
-                                class="fa fa-twitter pull-right"></i></A>
-                    <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
-                                class="fa fa-facebook pull-right"></i></A>
+                    <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram pull-right"></i></A>
+                    <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter pull-right"></i></A>
+                    <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook pull-right"></i></A>
                 </h4>
             </div>
             <div class="col-lg-12 " style="font-size: 90%;">
-
-                <p>Designed and built with all the <i class="fa fa-heart" style="color:red;"></i> in the world by <a
-                            href="http://trinoweb.com/"
-                            target="_blank"><B><SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN
-                                    style="color:black;">WEB</SPAN></B></a> and maintained by the <a
-                            href="{{ url("home/team") }}">core team</a>.</p>
-
-                <p>Currently v1.0 / &copy;
-                    <script language=javascript>var yr;
+                <p>
+                    Designed and built with all the <i class="fa fa-heart" style="color:red;"></i> in the world by 
+                    <a href="http://trinoweb.com/" target="_blank">
+                        <B>
+                            <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN>
+                            <SPAN style="color:black;">WEB</SPAN>
+                        </B>
+                    </a>
+                    and maintained by the <a href="{{ url("home/team") }}">core team</a>.
+                </p>
+                <p>
+                    Currently v1.0 / &copy;
+                    <script language=javascript>
+                        var yr;
                         Today = new Date();
-                        document.write(Today.getFullYear());</script>
+                        document.write(Today.getFullYear());
+                    </script>
                     diduEAT / ALL Rights Reserved
-
                     <?php
-                    $end_loading_time = microtime(true);
-                    printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                    echo "";
-                    echo getOS();
-                    echo " => ";
-                    echo getUserBrowser();
+                        $end_loading_time = microtime(true);
+                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                        echo "";
+                        echo getOS();
+                        echo " => ";
+                        echo getUserBrowser();
                     ?>
                 </p>
             </div>
@@ -393,18 +381,18 @@
 
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-                    <?php
-                        $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
-                        foreach( $fields as $field){
-                            echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
-                        }
-                    ?>
-                    var subscribed = 0;
+            <?php
+                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz");
+                foreach( $fields as $field){
+                    echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
+                }
+            ?>
+            var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
             }
 
-            $("#register-form #regButton").hide();
+            $("#register-form #actionBtn").hide();
             $("#register-form #regLoader").show();
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
@@ -415,7 +403,7 @@
                 ?>
                 subscribed: subscribed
             }, function (result) {
-                $("#register-form #regButton").show();
+                $("#register-form #actionBtn").show();
                 $("#register-form #regLoader").hide();
 
                 var json = jQuery.parseJSON(result);
