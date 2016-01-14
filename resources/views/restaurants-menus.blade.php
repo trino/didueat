@@ -23,9 +23,7 @@
         </div>
     </div>
 
-
     <div class=" col-md-4 col-sm-4" id="printableArea">
-
         @include('common.receipt')
     </div>
 
@@ -50,16 +48,11 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         @endif
-
-
-
 
         @foreach($category as $cat)
             <h2>
@@ -91,21 +84,13 @@
             </script>
         @endforeach
 
-
         @if(debugmode())
             <input type="file" accept="image/*;capture=camera">
         @endif
-
-
     </div>
-
-
-
-
-
-
 </div>
-    <script type="text/javascript">
+    
+<script type="text/javascript">
         function check_val(v) {
             if (v != '') {
                 $('.confirm_password').show();
@@ -116,7 +101,7 @@
         }
         $(document).ready(function () {
             $('body').on('click', '.insert-stats', function () {
-                var id = $(this).attr('data-id');
+                var id = $(this).attr('id');
                 $.get("{{ url('restaurants/menu/stats') }}/" + id, {}, function (result) {
                     $('#product-pop-up_' + id + " #stats_block").show();
                     $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);

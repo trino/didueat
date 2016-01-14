@@ -68,7 +68,7 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="control-label">Mobile Number (Optional)</label>
-                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}" required>
+                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}">
                         </div>
                     </div>
                 </div>

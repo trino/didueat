@@ -1685,4 +1685,8 @@ function luhn_check($number) {
     return ($total % 10 == 0) ? TRUE : FALSE;
 }
 
+
+function ViewsCountsType($id=0, $type=""){
+    return \App\Http\Models\PageViews::getView($id, $type);
+}
 ?>

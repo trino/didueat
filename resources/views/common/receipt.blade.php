@@ -36,7 +36,7 @@
                 </p>
                 <a class="card-text" data-toggle="modal" data-target="#viewMapModel">Maps & Details</a>
 
-                {!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}
+                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
 
             </div>
         </div>
