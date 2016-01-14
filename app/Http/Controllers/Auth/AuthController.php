@@ -130,6 +130,7 @@ class AuthController extends Controller {
                     $user->populate(array_filter($data));
                     $user->save();
 
+                    /*
                     if($user->id){
                         if($this->saveaddress($data)) {
                             $add = new \App\Http\Models\ProfilesAddresses();
@@ -138,6 +139,7 @@ class AuthController extends Controller {
                             $add->save();
                         }
                     }
+                    */
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'Thank you for registration.';
