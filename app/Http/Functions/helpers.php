@@ -1029,7 +1029,7 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     } else {
         $newsize = explode($delimeter, $sizes);
         $newfile = getfilename($file) . '-' . $sizes . "." . getextension($file);
-        return make_thumb($file, $newfile, $newsize[0], $newsize[1], false);
+        return getdirectory($file) . "/" . make_thumb($file, $newfile, $newsize[0], $newsize[1], false);
     }
 }
 
@@ -1119,8 +1119,8 @@ function imagecreatefrombmp($filename) {
 function copyimages($sizes, $file, $name, $CropToFit = false) {
     foreach ($sizes as $path => $size) {
         $rsize = resize($file, $size, $CropToFit);
-        copy(public_path($rsize), public_path($path . $name));
-        @unlink(public_path($rsize));
+        copy($rsize, public_path($path . $name));
+        @unlink($rsize);
     }
 }
 
@@ -1162,7 +1162,7 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
         $dst_img = ImageCreateTrueColor($new_width, $new_height);
         imagealphablending($dst_img, true);
         imagesavealpha($dst_img, true);
-        imagefill($dst_img,0,0,0x7fff0000);
+        imagefill($dst_img,0,0,0xFF000000);
         imageantialias($dst_img, true);
         imagecopyresampled($dst_img, $src_img, ($new_width * 0.5) - ($thumb_w * 0.5), ($new_height * 0.5) - ($thumb_h * 0.5), 0, 0, $thumb_w,$thumb_h, $old_x, $old_y);
         imagedestroy($src_img);

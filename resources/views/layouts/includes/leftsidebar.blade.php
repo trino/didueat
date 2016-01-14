@@ -1,166 +1,43 @@
 <div class=" col-lg-3">
-    <?php printfile("views/dashboard/layouts/leftsidebar.blade.php"); ?>
+    <?php
+        printfile("views/dashboard/layouts/leftsidebar.blade.php");
+        function makelink($URL, $Name){
+            if(is_array($URL)){
+                echo '<div class="card"><div class="card-header">' . $Name. '</div><div class="card-block p-a-0"><div class="list-group-flush">';
+                foreach($URL as $URL2 => $Name){
+                    makelink($URL2, $Name);
+                }
+                echo '</div></div></div>';
+            } else {
+                echo '<a href="' . url($URL) . '" class="list-group-item';
+                if (Request::path() == $URL) {echo ' active';}
+                echo '"><i class="fa fa-angle-right"></i> ' . $Name . '</a>';
+            }
+        }
 
-    <div class="card">
-        <div class="card-header">
-            User Navigation
-        </div>
-        <div class="card-block p-a-0">
+        makelink(array( 'orders/list/user' => 'My Orders',
+                        'user/addresses' => "My Addresses",
+                        'user/info' => "My Profile"
+                    ), "User Navigation");
 
-            <div class="list-group-flush">
+        if(\Session::get('session_restaurant_id')){
+            makelink(array( 'orders/list/restaurant' => 'My Orders',
+                            'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "My Menu",
+                            'notification/addresses' => "My Notification Addresses",
+                            'restaurant/info' => "My Restaurant",
+                            'credit-cards/list/restaurant' => "My Credit Cards" //if(\Session::has('session_profiletype') )
+            ), "Restaurant Navigation");
+        }
 
-                <a href="{{ url('orders/list/user') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'orders/list/user') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Orders</a>
-
-                <a href="{{ url('user/addresses') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'user/addresses') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Addresses</a>
-
-                <a href="{{ url('user/info') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'user/info') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Profile</a>
-
-                <!--a href="{{ url('credit-cards/list/user') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'credit-cards/list/user') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a-->
-
-            </div>
-        </div>
-    </div>
-
-
-    @if(\Session::get('session_restaurant_id'))
-
-    <div class="card">
-        <div class="card-header">
-            Restaurant Navigation
-        </div>
-        <div class="card-block p-a-0">
-            <div class=" list-group-flush">
-
-                <a href="{{ url('orders/list/restaurant') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'orders/list/restaurant') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Orders</a>
-
-                <a href="{{ url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == url('restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus')) {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Menu </a>
-
-                <a href="{{ url('notification/addresses') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'notification/addresses') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Notification Addresses</a>
-
-                <a href="{{ url('restaurant/info') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'restaurant/info') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Restaurant</a>
-
-                @if(\Session::has('session_profiletype') )
-
-                <a href="{{ url('users/credit-cards') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'users/credit-cards/restaurant') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> My Credit Cards</a>
-
-                @endif
-            </div>
-        </div>
-        @endif
-    </div>
-
-    
-    @if(check_permission("can_edit_global_settings"))
-    <div class="card">
-        <div class="card-header">
-            Admin Navigation
-        </div>
-        <div class="card-block p-a-0">
-            <div class="list-group-flush">
-
-                <a href="{{ url('orders/list/admin') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'orders/list/admin') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> All Orders</a>
-
-                <a href="{{ url('users/list') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'users/list') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> All Users</a>
-
-                <a href="{{ url('restaurant/list') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'restaurant/list') {
-                       echo 'active';
-                   } ?>"><i class="fa fa-angle-right"></i> All Restaurants</a>
-
-                <a href="{{ url('subscribers/list') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'subscribers/list') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> All Subscribers</a>
-
-                <a href="{{ url('eventlogs/list') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'eventlogs/list') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> Event Log</a>
-
-                <a href="{{ url('user/reviews') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'user/reviews') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> User Reviews</a>
-
-
-                @if(false)
-                @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1)
-
-                <a href="{{ url('credit-cards/list/admin') }}"
-                   class="list-group-item <?php
-                   if (Request::path() == 'credit-cards/list/admin') {
-                       echo 'active';
-                   }
-                   ?>"><i class="fa fa-angle-right"></i> All Credit Cards</a>
-
-                @endif
-                @endif
-            </div>
-        </div>
-    </div>
-    @endif
-
-
+        if(check_permission("can_edit_global_settings")){
+            makelink(array( 'orders/list/admin' => 'All Orders',
+                            'users/list' => "All Users",
+                            'restaurant/list' => "All Restaurants",
+                            'subscribers/list' => "All Subscribers",
+                            'eventlogs/list' => "Event Log",
+                            'user/reviews' => "User Reviews"
+                            //'cards/list/restaurant' => "All Credit Cards"//if(\Session::has('session_profiletype')  && \Session::get('session_profiletype') == 1)
+            ), "Admin Navigation");
+        }
+    ?>
 </div>
