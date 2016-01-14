@@ -14,20 +14,8 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code', 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
-//        foreach(array('phone', 'mobile') as $cell){
-//            if(isset($this->$cell)){
-//                $this->$cell = phonenumber($this->$cell);
-//            }
-//        }
-//        if(isset($this->postal_code)){
-//            $this->postal_code = clean_postalcode($this->postal_code);
-//        }
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+        $this->copycells($cells, $data);
     }
     
     public static function listing($array = "", $type = "") {

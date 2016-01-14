@@ -16,11 +16,7 @@ class Postalcodes extends BaseModel {
      */
     public function populate($data) {
         $cells = array('postal_code', 'number', 'street', 'city', 'province', 'lattitude', 'longitude', 'short_street', 'short_street_type', 'short_street_dir');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
 }

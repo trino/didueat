@@ -16,11 +16,7 @@ class RatingDefine extends BaseModel {
      */
     public function populate($data) {
         $cells = array('title', 'type', 'is_active');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
 }

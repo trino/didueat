@@ -14,20 +14,8 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('user_id', 'location', 'address', 'phone',  'mobile', 'postal_code', 'apartment', 'buzz', 'city', 'province', 'country', 'order', 'latitude', 'longitude', 'notes');
-        foreach ($cells as $cell){
-            if (array_key_exists($cell, $data)){
-                $this->$cell = $data[$cell];
-            }
-        }
-        foreach(array('phone', 'mobile') as $cell){
-            if(isset($this->$cell)){
-                $this->$cell = phonenumber($this->$cell);
-            }
-        }
-        if(isset($this->postal_code)){
-            $this->postal_code = clean_postalcode($this->postal_code);
-        }
+        $cells = array('user_id', 'location', 'address', 'phone' => "phone",  'mobile' => "phone", 'postal_code' => "postalcode", 'apartment', 'buzz', 'city', 'province', 'country', 'order', 'latitude', 'longitude', 'notes');
+        $this->copycells($cells, $data);
     }
     
     public static function listing($array = "", $type = "") {
@@ -59,24 +47,4 @@ class ProfilesAddresses extends BaseModel {
         }
         return $query;
     }
-
-    ////////////////////////////////////////Profile Address API ////////////////////////////////////
-    function enum_profile_addresses($profile_id) {
-        return enum_all("profiles_addresses", array("user_id" => $profile_id));
-    }
-
-    function delete_profile_address($id) {
-        delete_all("profiles_addresses", array("id" => $id));
-    }
-
-    function get_profile_address($id) {
-        return get_entry("profiles_addresses", $id);
-    }
-
-    function edit_profile_address($id, $user_id, $address, $phone, $address, $city, $province, $postal_code, $country) {
-        $Data = array("user_id" => $user_id, "address" => $address, "phone" => clean_phone($phone), "address" => $address, "city" => $city, "province" => $province, "postal_code" => clean_postalcode($postal_code), "country" => $country);
-        return edit_database("profiles_addresses", "id", $id, $Data);
-    }
-
-
 }

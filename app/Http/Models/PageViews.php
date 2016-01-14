@@ -11,11 +11,7 @@ class PageViews extends BaseModel {
 
     public function populate($data) {
         $cells = array('user_id', 'target_id', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'type');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
     public static function insertView($id = 0, $type = "") {

@@ -15,11 +15,7 @@ class RatingUsers extends BaseModel {
      */
     public function populate($data) {
         $cells = array('user_id', 'target_id', 'rating_id', 'rating', 'comments', 'type');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
     
     public static function listing($array = "", $type = "") {

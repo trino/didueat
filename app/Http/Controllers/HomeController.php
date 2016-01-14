@@ -398,9 +398,7 @@ class HomeController extends Controller {
                 
                 event(new \App\Events\AppEvents($user, "User Created"));
 
-                $nd1 = new \App\Http\Models\NotificationAddresses();
-                $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
-                $nd1->save();
+                \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
 
                 if($user->id){
                     $add = new \App\Http\Models\ProfilesAddresses();
@@ -411,9 +409,10 @@ class HomeController extends Controller {
                     $add->populate(array_filter($update));
                     $add->save();
 
-                    $nd2 = new \App\Http\Models\NotificationAddresses();
-                    $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone));
-                    $nd2->save();
+                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone));
+                    if($add->mobile){
+                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $add->mobile, "is_sms" => true));
+                    }
                 }
 
                 $userArray = $user->toArray();

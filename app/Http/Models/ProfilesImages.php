@@ -15,49 +15,6 @@ class ProfilesImages extends BaseModel {
      */
     public function populate($data) {
         $cells = array('user_id', 'restaurant_id', 'filename', 'title', 'order_id');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
-
-    ////////////////////////////////////profile image API///////////////////////////////////
-    function get_profile_image($filename, $user_id = "") {
-        if (!$user_id) {
-            $user_id = read("ID");
-        }
-        if (strpos($filename, "/")) {
-            $filename = pathinfo($filename, PATHINFO_BASENAME);
-        }
-        return enum_all("profiles_images", array("user_id" => $user_id, "filename" => $filename))->first();
-    }
-
-    function delete_profile_image($filename, $user_id = "") {
-        if (!$user_id) {
-            $user_id = read("ID");
-        }
-        if (strpos($filename, "/")) {
-            $filename = pathinfo($filename, PATHINFO_BASENAME);
-        }
-        $dir = "img/users/" . $user_id . "/" . $filename;
-        if (file_exists($dir)) {
-            unlink($dir);
-        }
-        delete_all("profiles_images", array("user_id" => $user_id, "filename" => $filename));
-    }
-
-    function edit_profile_image($user_id, $filename, $restaurant_id, $Title, $OrderID) {
-        $Entry = $this->get_profile_image($filename, $user_id);
-        $Data = array("restaurant_id" => $restaurant_id, "title" => $Title, "order_id" => $OrderID);
-        if ($Entry) {
-            edit_database("profiles_images", "ID", $Entry->id, $Data);
-        } else {
-            $Data["user_id"] = $user_id;
-            $Data["filename"] = $filename;
-            new_entry("profiles_images", "ID", $Data);
-        }
-    }
-
-
 }

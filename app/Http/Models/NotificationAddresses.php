@@ -15,13 +15,12 @@ class NotificationAddresses extends BaseModel {
      */
     public function populate($data) {
         $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type', 'order', 'note');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
-        if((isset($this->is_call) && $this->is_call) || (isset($this->is_sms) && $this->is_sms)){
+        $this->copycells($cells, $data);
+        if((isset($this->is_call) && $this->is_call) || (isset($this->is_sms) && $this->is_sms) || strpos($this->address, "@") !== false){
             $this->address = phonenumber($this->address);
+            if(!isset($this->is_sms) || !$this->is_sms){
+                $this->is_call = 1;
+            }
         }
     }
     
@@ -48,79 +47,5 @@ class NotificationAddresses extends BaseModel {
             $query->skip($start);
         }
         return $query;
-    }
-
-
-    /////////////////////////////////////Notification addresses API///////////////////////
-    function enum_notification_addresses($restaurant_id = "", $type = "") {
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        $conditions = array("restaurant_id" => $restaurant_id);
-        if (is_numeric($type)) {
-            $conditions["type"] = $type;
-        }
-        return enum_all("notification_addresses", $conditions);
-    }
-
-    function count_notification_addresses($restaurant_id = "", $type = "") {
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        $conditions = array("restaurant_id" => $restaurant_id);
-        if (is_numeric($type)) {
-            $conditions["type"] = $type;
-        }
-        return get_row_count("notification_addresses", $conditions);
-    }
-
-    function sort_notification_addresses($restaurant_id = "") {
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        $addresses = $this->enum_notification_addresses($restaurant_id);
-        if ($addresses) {
-            $Data = array("email" => array(), "phone" => array());
-            foreach ($addresses as $address) {
-                $Data[$address->type][] = $address->address;
-            }
-            return $Data;
-        }
-    }
-
-    function find_notification_address($restaurant_id, $address) {
-        $type = data_type($address);
-        if ($type == 0 || $type == 1) {//email and phone whitelisted
-            $address = clean_data($address);
-            $Data = enum_all("notification_addresses", array("restaurant_id" => $restaurant_id, "address" => $address));
-            return first($Data);
-        }
-    }
-
-    function delete_notification_address($restaurant_id, $address = "") {
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        if ($address) {
-            $type = data_type($address);
-            if ($type == 0 || $type == 1) {//email and phone whitelisted
-                $address = clean_data($address);
-                delete_all("notification_addresses", array("restaurant_id" => $restaurant_id, "address" => $address));
-            }
-        } else {//delete all
-            delete_all("notification_addresses", array("restaurant_id" => $restaurant_id));
-        }
-    }
-
-    function add_notification_addresses($restaurant_id, $address) {
-        $type = data_type($address);
-        if ($type == 0 || $type == 1) {//email and phone whitelisted
-            $address = clean_data($address);
-            if (!$this->find_notification_address($restaurant_id, $address)) {
-                $Data = array("restaurant_id" => $restaurant_id, "type" => $type, "address" => $address);
-                new_entry("notification_addresses", "id", $Data);
-                return true;
-            }
-        }
     }
 }

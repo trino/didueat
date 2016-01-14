@@ -13,7 +13,9 @@
     $Data["Phone"] = $order->contact;
     $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
     $Data["Ordered On"] =  $date->format(get_date_format());
-    $Data["Restaurant"] = iif(isset($restaurant->name), $restaurant->name);
+    if(isset($restaurant->name)){
+        $Data["Restaurant"] = $restaurant->name;
+    }
     if($order->order_till != "0000-00-00 00:00:00"){
         $Data["Order Ready"] = $order->order_till;
     }

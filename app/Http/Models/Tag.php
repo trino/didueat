@@ -10,14 +10,9 @@ class Tag extends BaseModel
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function populate($data)
-    {
+    public function populate($data) {
         $cells = array('name', 'is_active');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
 }

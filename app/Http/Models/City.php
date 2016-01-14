@@ -12,11 +12,7 @@ class City extends BaseModel {
 
     public function populate($data) {
         $cells = array('city', 'state_id', 'country_id');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
 }

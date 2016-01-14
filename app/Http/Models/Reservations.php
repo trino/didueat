@@ -15,13 +15,8 @@ class Reservations extends BaseModel {
      * @return Array
      */
     public function populate($data, $Key = false) {
-        $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id', 'time');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
-        if($Key){$this->$Key = guidv4();}
+        $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id', 'time', 'guid' => "guid");
+        $this->copycells($cells, $data);
     }
     
     public static function listing($array = "", $type = "") {
@@ -108,67 +103,4 @@ class Reservations extends BaseModel {
 
         edit_database('reservations', 'id', $OrderID, $Data);
     }
-
-
-/////////////////////////////////Orders API/////////////////////////////////////
-    function enum_orders($ID = "", $IsUser = false, $Approved = false) {
-        $Conditions = array();
-        $OrderBy = array('order_time' => 'desc');
-        if ($IsUser) {
-            if (!$ID) {
-                $ID = read("ID");
-            }
-            $Conditions["ordered_by"] = $ID;
-        } else {
-            if (!$ID) {
-                $ID = get_current_restaurant();
-            }
-            $Conditions["res_id"] = $ID;
-        }
-        if (strtolower($Approved != "any")) {
-            if ($Approved) {
-                $Conditions[] = '(approved = 1 OR cancelled=1)';
-            } else {
-                $Conditions['approved'] = 0;
-                $Conditions['cancelled'] = 0;
-            }
-        }
-        return enum_all("reservations", $Conditions, $OrderBy);
-    }
-
-    function delete_order($ID) {
-        delete_all("reservations", array('id' => $ID));
-    }
-
-    function pending_order_count($restaurant_id = "") {
-        return iterator_count($this->enum_orders($restaurant_id, false, false));
-    }
-
-    function get_order($ID) {
-        return get_entry("reservations", $ID, "id");
-    }
-
-    function order_status($Order) {
-        if (!is_object($Order)) {
-            $Order = $this->get_order($Order);
-        }
-        if ($Order->cancelled == 1) {
-            return 'Cancelled';
-        } else if ($Order->approved == 1) {
-            return 'Approved';
-        } else {
-            return 'Pending';
-        }
-    }
-
-    function approve_order($OrderID, $Status = true) {
-        if ($Status) {
-            $Status = 'approved';
-        } else {
-            $Status = 'cancelled';
-        }
-        edit_database('reservations', "ID", $OrderID, array($Status => 1));
-    }
-
-
 }

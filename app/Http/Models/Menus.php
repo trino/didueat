@@ -16,11 +16,7 @@ class Menus extends BaseModel {
      */
     public function populate($data) {
         $cells = array('restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id','has_discount','discount_per','days_discount','is_active');
-        foreach ($cells as $cell) {
-            if (array_key_exists($cell, $data)) {
-                $this->$cell = $data[$cell];
-            }
-        }
+        $this->copycells($cells, $data);
     }
 
     /**
@@ -60,25 +56,4 @@ class Menus extends BaseModel {
         }
         return $query;
     }
-
-////////////////////////////////////////Menus API/////////////////////////////////
-    public static function enum_menus($restaurant_id = "", $Sort = "") {
-        if ($restaurant_id == "all") {
-            return enum_all('menus', ['parent' => '0', 'image <> "undefined"']);
-        }
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        if ($Sort) {
-            $order = array('display_order' => $Sort);
-        } else {
-            $order = "";
-        }
-        return enum_all("menus", array('res_id' => $restaurant_id, 'parent' => '0', 'image<>"undefined"'), $order);
-    }
-
-    public static function get_menu($restaurant_id) {
-        return enum_all('menus', array('res_id' => $restaurant_id));
-    }
-
 }

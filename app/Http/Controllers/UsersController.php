@@ -315,7 +315,7 @@ class UsersController extends Controller {
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
                 $res['order_type'] = $post['order_type'];
-                $res['order_time'] = date('Y-m-d h:i:s');
+                $res['order_time'] = date('Y-m-d H:i:s');
                 $res['delivery_fee'] = $post['delivery_fee'];
                 $res['res_id'] = $post['res_id'];
                 $res['subtotal'] = $post['subtotal'];

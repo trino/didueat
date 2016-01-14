@@ -9,27 +9,8 @@ class CreditCard extends BaseModel {
     public $timestamps = false;
 
     public function populate($data) {
-        $cells = array('first_name'     => false,
-                       'user_type'      => false,
-                       'user_id'     => false,
-                       'last_name'      => false,
-                       'card_type'      => false,
-                       'card_number'    => true,
-                       'expiry_date'    => true,
-                       'expiry_month'   => true,
-                       'expiry_year'    => true,
-                       'ccv'            => true,
-                       'order'          => false,
-        );
-        foreach ($cells as $cell => $NeedsEncryption) {
-            if (array_key_exists($cell, $data)) {
-                if($NeedsEncryption){
-                    $data[$cell] = \Crypt::encrypt($data[$cell]);
-                    //use \Crypt::decrypt($encryptedValue); to decrypt
-                }
-                $this->$cell = $data[$cell];
-            }
-        }
+        $cells = array('first_name', 'user_type', 'user_id', 'last_name', 'card_type', 'card_number' => "encrypted", 'expiry_date' => "encrypted", 'expiry_month' => "encrypted", 'expiry_year' => "encrypted", 'ccv' => "encrypted", 'order');
+        $this->copycells($cells, $data);
     }
     
     public static function listing($array = "", $type = "") {
