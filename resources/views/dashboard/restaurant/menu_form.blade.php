@@ -5,7 +5,7 @@
         }
     </style>
 @endif
-<div class="newmenu ignore" id="newmenu0">
+<div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php printfile("views/dashboard/restaurant/menu_form.blade.php"); ?>
     <p>&nbsp;</p>
 
@@ -217,37 +217,7 @@
 
 <script>
     $(function () {
-        $(".addon_sorting").live('click', function () {
-            // alert('test');
-            var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
-            if ($(this).attr('id') == 'child_up_' + pid) {
-                var sort = 'up';
-            } else {
-                var sort = 'down';
-            }
-            var order = '';// array to hold the id of all the child li of the selected parent
-            $('#subcat{{ $menu_id }} .menuwrapper').each(function (index) {
-                var val = $(this).attr('id').replace('sub', '');
-                //var val=item[1];
-                if (order == '') {
-                    order = val;
-                } else {
-                    order = order + ',' + val;
-                }
-            });
-
-            $.ajax({
-                url: "{{ url('restaurant/orderCat/') }}/" + pid + '/' + sort,
-                data: 'ids=' + order + "&_token={{ csrf_token() }}",
-                type: 'post',
-                success: function (res) {
-                    $('#menumanager2').load(base_url + 'restaurant/menu_form/' + res, function () {
-                        ajaxuploadbtn('newbrowse' + res + '_1');
-                    });
-                }
-            });
-
-        });
+        
 
         $('#save_cat').live('click', function () {
             $('.overlay_loader').show();

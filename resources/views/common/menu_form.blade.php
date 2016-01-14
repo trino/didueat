@@ -1,4 +1,4 @@
-<div class="newmenu" id="newmenu0">
+<div class="newmenu" id="newmenu{{ $menu_id }}">
     <?php printfile("views/common/menu_form.blade.php"); ?>
     <p>&nbsp;</p>
 

@@ -3,7 +3,7 @@ printfile("views/dashboard/layouts/includes/header.blade.php");
 $first = false; $type = "hidden";
 ?>
 
-<nav class="navbar navbar-default navbar-dark navbar-fixed-top primary_red" role="navigation">
+<nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
     <div class="container">
         <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse"

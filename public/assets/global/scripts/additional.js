@@ -3,7 +3,49 @@ if (path.replace('didueat', '') != path)
     var base_url = 'http://localhost/didueat/public/';
 else
     var base_url = 'http://didueat.ca/';
+var token = '';
+$.ajax({
+    url: base_url + 'restaurant/getToken',
+    success: function (res) {
+        token = res;
+        //alert(token);
+        // return token;
+    }
+});
+$(".addon_sorting").live('click', function () {
+            var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
+            //alert(menu_id);
+            //var menu_id = $par.find('.savebtn').attr('id').replace('newmenu','');
+            // alert('test');
+            var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
+            if ($(this).attr('id') == 'addon_up_' + pid) {
+                var sort = 'up';
+            } else {
+                var sort = 'down';
+            }
+            var order = '';// array to hold the id of all the child li of the selected parent
+            $('#subcat'+menu_id+' .menuwrapper').each(function (index) {
+                var val = $(this).attr('id').replace('sub', '');
+                //var val=item[1];
+                if (order == '') {
+                    order = val;
+                } else {
+                    order = order + ',' + val;
+                }
+            });
 
+            $.ajax({
+                url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
+                data: 'ids=' + order + "&_token="+token,
+                type: 'post',
+                success: function (res) {
+                    $('#menumanager2').load(base_url + 'restaurant/menu_form/' + res, function () {
+                        ajaxuploadbtn('newbrowse' + res + '_1');
+                    });
+                }
+            });
+
+        });
 $('.add_additional').live('click', function () {
 
     var id = $(this).attr('id').replace('add_additional', '').replace(';', '');
