@@ -43,7 +43,7 @@
         <div class="portlet-body form">
             <DIV CLASS="form-body row">
                 <div class="row">
-                    @include("common.contactinfo", array("new"=>true))
+                    @include("common.contactinfo", array("new"=>true, "mobile" => true))
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
@@ -65,12 +65,6 @@
             <div class="form-body">
                 <div class="row">
                     <?php echo view("common.editaddress", array("new" => true, "required" => true)); ?>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <label class="control-label">Mobile Number (Optional)</label>
-                            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="{{ old('mobile') }}">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

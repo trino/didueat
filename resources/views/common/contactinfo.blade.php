@@ -34,7 +34,13 @@ echo newrow($new, "Re-type Password", $size); ?>
     <div class="input-icon">
         <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
     </div>
-<?php echo newrow(); ?>
+<?php echo newrow();
+
+if(isset($mobile)){
+    echo newrow($new, "Mobile Number (Optional)", $size);
+    echo '<input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="' . old('mobile') . '"></div></div>';
+}
+?>
 
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="form-group clearfix">
