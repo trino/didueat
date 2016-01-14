@@ -110,7 +110,9 @@
 if(isset($dontinclude)) { ?>
     <SCRIPT>
         $(document).ready(function() {
-            initAutocomplete();
+            if (typeof(initAutocomplete) == "function") {
+                initAutocomplete();//editaddress
+            }
         });
     </SCRIPT>
 <?php } else {

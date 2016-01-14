@@ -172,6 +172,21 @@ function newrow($new = false, $name = false, $class = "") {
     }
 }
 
+function fontawesome($profiletype, $icontype=0){
+    switch($icontype){
+        case 0://user types
+            switch($profiletype){
+                case 1: $icon = "user-secret"; break;//super
+                case 2: $icon = "shopping-basket"; break;//user
+                case 3: $icon = "user-plus"; break;//owner
+                case 4: $icon = "user"; break;//employee
+            }
+    }
+    if(isset($icon) && $icon){
+        echo '<i class="fa fa-' . $icon . '"></i>';
+    }
+}
+
 function handleexception($e) {
     $Message = $e->getMessage();
     if (debugmode()) {
@@ -651,10 +666,14 @@ function implode_data($Data, $Delimeter = ",") {
 }
 
 //a clone of CakePHP's debug function
-function debug($Iterator, $DoStacktrace = true) {
+function debug222($Iterator, $DoStacktrace = true) {
     if ($DoStacktrace) {
         $Backtrace = debug_string_backtrace();
-        echo '<B>' . $Backtrace["file"] . ' (line ' . $Backtrace["line"] . ') From function: ' . $Backtrace["function"] . '();</B> ';
+        echo '<B>';
+        if(isset($Backtrace["file"])){echo $Backtrace["file"];}
+        if(isset($Backtrace["line"])){echo ' (line ' . $Backtrace["line"] . ')';}
+        if(isset($Backtrace["function"])){echo ' From function: ' . $Backtrace["function"];}
+        echo '();</B> ';
     }
 
     if (is_array($Iterator)) {
@@ -1153,7 +1172,7 @@ function copyimages($sizes, $file, $name) {
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false) {
+function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $makeTransparent = false) {
     $src_img = loadimage($input_filename);
     if ($src_img) {
         //gets the dimmensions of the image
@@ -1179,11 +1198,15 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
                 $thumb_w = $thumb_w * $ratio1;
                 $thumb_h = $new_height;
             }
-            $dst_img = ImageCreateTrueColor($new_width, $new_height);
-            imagecopyresampled($dst_img, $src_img, $new_width / 2 - $thumb_w / 2, 0, $new_height / 2 - $thumb_h / 2, 0, $thumb_w, $thumb_h, $old_x, $old_y);
         } else {
-            $dst_img = ImageCreateTrueColor($thumb_w, $thumb_h);
-            imagecopyresampled($dst_img, $src_img, 0, 0, 0, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+            $thumb_w=$new_width;
+            $thumb_h=$new_height;
+        }
+        $dst_img = ImageCreateTrueColor($new_width, $new_height);
+        imagecopyresampled($dst_img, $src_img, $new_width / 2 - $thumb_w / 2, 0, $new_height / 2 - $thumb_h / 2, 0, $thumb_w, $thumb_h, $old_x, $old_y);
+        if($makeTransparent){
+            $makeTransparent = imagecolorat($dst_img , 0, 0);
+            imagecolortransparent($dst_img, $makeTransparent);
         }
 
         imagedestroy($src_img);

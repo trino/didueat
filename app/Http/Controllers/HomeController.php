@@ -389,7 +389,7 @@ class HomeController extends Controller {
                 $data['browser_name'] = $browser_info['name'];
                 $data['browser_version'] = $browser_info['version'];
                 $data['browser_platform'] = $browser_info['platform'];
-                //echo '<pre>';print_r($ob);die();
+                
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($data);
                 $user->save();

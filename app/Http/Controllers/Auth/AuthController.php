@@ -210,6 +210,10 @@ class AuthController extends Controller {
         if (isset($user) && count($user) > 0 && !is_null($user)) {
             $userArray = $user->toArray();
             $userArray['mail_subject'] = 'Thank you for registering.';
+
+            $userArray['idd'] = '2';
+
+
             $this->sendEMail("emails.registration_welcome", $userArray);
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";

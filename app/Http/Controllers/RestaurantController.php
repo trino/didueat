@@ -475,9 +475,11 @@ class RestaurantController extends Controller {
             $arr = explode('.', $name);
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
+            $MakeCornerTransparent = false;
             if ($type == 'restaurant') {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
+                $MakeCornerTransparent = true;
                 $path = 'assets/images/users';
             } else {
                 $path = 'assets/images/products';
@@ -486,7 +488,7 @@ class RestaurantController extends Controller {
             $file_path = url() . "/" . $path . "/" . $file;
             //for each size in the array, make a thumbnail of the image.ext as image(WIDTHxHEIGHT).ext in the same folder
             foreach(array(150,300) as $size){
-                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false);
+                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false, $MakeCornerTransparent );
             }
             echo $file_path . '___' . $file;
         }

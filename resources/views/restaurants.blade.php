@@ -34,25 +34,17 @@ $type = "hidden";
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header">
-                Filter Search
+                <i class="fa fa-filter "></i> Filter Search
             </div>
-            {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
+            {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
             <div class="card-block">
-                <?php printfile("views/restaurants.blade.php"); ?>
+
 
                 <div class="sort search-form clearfix">
                     <div class="form-group">
                         <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                     </div>
-                    <div id="radius_panel" class="form-group row">
-                        <div class=" col-md-6">
-                            <label id="radius_panel_label">Distance (20 km)</label>
-                        </div>
-                        <div class=" col-md-6">
-                            <input type="range" name="radius" id="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
+
                     <div class="form-group">
                         <label>
                             <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
@@ -64,17 +56,27 @@ $type = "hidden";
                     </div>
                     <div class="form-group">
                         <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
-                            <option value="">Cuisine Types</option>
+                            <option value="">Cuisine</option>
                             @foreach($cuisine as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                             @endforeach
                         </select>
                     </div>
+
+                    <div id="radius_panel" class="form-group row">
+                        <div class=" col-md-6">
+                            <label id="radius_panel_label">Distance (20 km)</label>
+                        </div>
+                        <div class=" col-md-6">
+                            <input type="range" name="radius" id="radius" min="1" max="20" value="20" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
             <div class="card-footer  text-xs-right">
-                <input type="button" name="clearSearch" id="clearSearch" class="btn btn-link" value="Clear Search"/>
-                <input type="button" name="search" class="btn btn-primary" value="Refine Search" id="search-form-submit" onclick="submitform(event, 0);"/>
+                <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary" value="Clear"/>
+                <input type="button" name="search" class="btn btn-primary" value="Filter" id="search-form-submit" onclick="submitform(event, 0);"/>
             </div>
             {!! Form::close() !!}
         </div>
@@ -138,17 +140,20 @@ $type = "hidden";
         if (getCookie('SortOrder')) {
             $('#search-form #SortOrder').val(getCookie('SortOrder'));
         }
+
+        /*
         if (getCookie('cname') || getCookie('latitude2') || getCookie('longitude2') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')) {
             $('#search-form #clearSearch').show();
         } else {
             $('#search-form #clearSearch').hide();
         }
+        */
         if (getCookie('radius').trim() != "") {
             $('#search-form #radius_panel').show();
             $('#search-form #radius').val(getCookie('radius'));
         }
     }
-    
+
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -188,16 +193,16 @@ $type = "hidden";
         removeCookie('rating');
         removeCookie('SortOrder');
         $(elementname).val('');
-        $('#search-form #clearSearch').hide();
+      //  $('#search-form #clearSearch').hide();
     });
-    
+
     $('body').on('keyup', elementname, function () {
         $('#radius_panel').hide();
         if ($(this).val()) {
             $('#radius_panel').show();
         }
     });
-    
+
     function submitform(e, start){
         var formatted_address = $(elementname).val();
         var latitude2 = $('#latitude2').val().trim();
@@ -210,7 +215,7 @@ $type = "hidden";
         var data = $('#search-form').serialize() + "&latitude=" + latitude2 + "&longitude=" + longitude2 + "&formatted_address=" + address_alias;
 
         if (start == 0){
-            $('#search-form #clearSearch').show();
+         //   $('#search-form #clearSearch').show();
             $('#restuarant_bar').html('');
             $('.parentLoadingbar').show();
             $('#start_up_message').remove();
@@ -242,7 +247,7 @@ $type = "hidden";
         var start = $(this).attr('data-id');
         submitform(e, start);
     });
-    
+
     var p = document.getElementById("radius");
     p.addEventListener("input", function() {
         $("#radius").trigger("change");

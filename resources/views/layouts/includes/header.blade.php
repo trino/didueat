@@ -18,105 +18,77 @@ $first = false; $type = "hidden";
 
             @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
 
-                <li class="nav-item m-r-0">
-                    <button class="btn btn-danger-outline" onclick="geolocate(formatted_address2)"
-                            title="Get location from your browser">
-                        &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button>
-                </li>
-
-                <li class="nav-item m-l-0">
-                    <input type="text" name="formatted_address" id="formatted_address2"
-                           class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                           onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
-                           ignore_oninput="this.onchange();">
-                    <input type="{{ $type }}" name="latitude2" id="latitude2">
-                    <input type="{{ $type }}" name="latitude2" id="longitude2">
-                </li>
-
-                @if(read("id"))
-                    <?php
-                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                    if($addresses->count()){
-                    ?>
-                    <li class="nav-item m-l-0">
-                        <div class="dropdown">
-                            <button class="btn btn-danger-outline" type="button" data-toggle="dropdown">
-                                &nbsp;<i class="fa fa-caret-down"></i>&nbsp;
-                            </button>
-                            <ul class="dropdown-menu">
-                                <?php
-                                foreach ($addresses as $address) {
-                                    if (!$first) {
-                                        $first = $address->id;
-                                    }
-                                    if (!trim($address->location)) {
-                                        $address->location = "Address: " . $address->id;
-                                    }
-                                    echo '<li><div class="nowrap"><a id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . '</a> [' . $address->address . ']</div></li>';
-                                }
-                                ?>
-                            </ul>
-                        </div>
-                    </li>
-                    <?php } ?>
-                @endif
 
 
-                <li class="nav-item m-l-0">
-                    <button class="btn btn-danger" oldstyle="display: none;" id="header-search-button"
-                            onclick="$('#search-form-submit').trigger('click');">
-                        &nbsp;<i class="fa fa-search"></i>&nbsp;
-                    </button>
-                </li>
-
-
-                <!--li class="nav-item" style="width: 300px;">
-
+                <li class="nav-item" style="width: 300px;">
 
 
                     <div class="input-group">
 
 
+                        <div class="input-group-btn">
 
-                        <input type="text" class="form-control" aria-label="Text input with segmented button dropdown">
+
+                            @if(read("id"))
+                                <?php
+                                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                                if($addresses->count()){
+                                ?>
+                                <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"><span
+                                            class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-left">
+                                    <?php
+                                    foreach ($addresses as $address) {
+                                        if (!$first) {
+                                            $first = $address->id;
+                                        }
+                                        if (!trim($address->location)) {
+                                            $address->location = "Address: " . $address->id;
+                                        }
+                                        echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
+                                    }
+                                    ?>
+                                </div>
+                                <? } ?>
+
+                            @else
+
+                                <button style="border-right:0;" class="btn  btn-secondary" onclick="geolocate(formatted_address2)"
+                                        title="Get location from your browser">
+                                    &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button>
+
+                            @endif
 
 
+                        </div>
+                        <input style="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
+                               class="form-control formatted_address" placeholder="Address, City or Postal Code"
+                               onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
+                               ignore_oninput="this.onchange();">
+                        <input type="{{ $type }}" name="latitude2" id="latitude2">
+                        <input type="{{ $type }}" name="latitude2" id="longitude2">
 
 
                         <div class="input-group-btn">
 
 
+                            <button class="btn  btn-primary" oldstyle="display: none;" id="header-search-button"
+                                    onclick="$('#search-form-submit').trigger('click');">
+                                &nbsp;<i class="fa fa-search"></i>&nbsp;
+                            </button>
 
-
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span>&nbsp;</button>
-
-
-
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div role="separator" class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-
-
-
-
-                            <button type="button" class="btn btn-secondary">&nbsp;<i class="fa fa-search"></i>&nbsp;</button>
 
                         </div>
                     </div>
-                </li-->
+                </li>
 
 
 
 
 
                 <script>
-
 
 
                     var formatted_address2;
@@ -139,11 +111,9 @@ $first = false; $type = "hidden";
                     }
 
 
-
                     @if($first)
                         //$("#addy{{ $first }}").trigger("click");
                     @endif
-
 
 
                 </script>
@@ -191,19 +161,20 @@ $first = false; $type = "hidden";
                     <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log Out</a></li>
 
                 @else
-                    <li class="nav-item">
-                        <a class="btn btn-danger secondary_red pull-right" data-toggle="modal"
-                           data-target="#loginModal">
-                            Log in
-                        </a>
-                    </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-danger secondary_red pull-right" data-toggle="modal"
+
+                        <a class="btn btn-danger" data-toggle="modal"
+                                data-target="#loginModal">
+                            Log in
+                        </a>
+
+                        <a class="btn  btn-danger" data-toggle="modal"
                            data-target="#signupModal">
                             Sign up
                         </a>
                     </li>
+
                 @endif
             </ul>
         </div>
