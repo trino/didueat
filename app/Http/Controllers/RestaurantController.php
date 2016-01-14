@@ -479,10 +479,12 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
-                //$MakeCornerTransparent = true;
-                $path = 'assets/images/users';
+                $path = 'assets/images/users/' . read("id");
             } else {
                 $path = 'assets/images/products';
+            }
+            if(!is_dir(public_path($path))){
+                mkdir(public_path($path));
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . "/" . $path . "/" . $file;

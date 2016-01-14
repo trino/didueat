@@ -274,16 +274,18 @@ class UsersController extends Controller {
                 return $this->failure( "[Image] field is missing!",'user/images');
             }
             try {
+                $post['user_id'] = \Session::get('session_id');
+
                 if (\Input::hasFile('image')) {
                     $image = \Input::file('image');
                     $ext = $image->getClientOriginalExtension();
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
-                    $destinationPath = public_path('assets/images/users');
+                    $destinationPath = public_path('assets/images/users/' . $post['user_id']);
+                    mkdir($destinationPath);
                     $image->move($destinationPath, $newName);
                     $post['filename'] = $newName;
                 }
-                $post['user_id'] = \Session::get('session_id');
-                
+
                 $ob = new \App\Http\Models\ProfilesImages();
                 $ob->populate($post);
                 $ob->save();

@@ -44,13 +44,11 @@
                                 <?php $count++; ?>
                                 <div class="col-md-3 col-sm-4 col-xs-12 mix category_1 mix_all" style=" display: block; opacity: 1;">
                                     <div class="mix-inner">
-                                        <img class="img-responsive" src="{{ asset('assets/images/users/'.$value->filename) }}" alt="">
+                                        <img class="img-responsive" src="{{ asset('assets/images/users/' . read("id") . "/" . $value->filename) }}" alt="">
                                         <div class="mix-details">
                                             <h4>Cascusamus et iusto odio</h4>
                                             <a class="mix-preview fancybox-button"
-                                               href="{{ asset('assets/images/users/'.$value->filename) }}"
-                                               title="Project Name" data-rel="fancybox-button">
-                                                <i class="fa fa-search"></i>
+                                               href="{{ asset('assets/images/users/'.$value->filename) }}" title="Project Name" data-rel="fancybox-button"><i class="fa fa-search"></i>
                                             </a>
                                         </div>
                                     </div>
