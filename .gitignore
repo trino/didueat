@@ -51,3 +51,4 @@ public/assets/images/restaurants/*
 nbproject
 public/royslog.txt
 config/app.php
+.idea/misc.xml
