@@ -1018,54 +1018,6 @@ function kill_non_numeric($text, $allowmore = "") {
     return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
 }
 
-function get_resize_details($case) {
-    switch ($case) {
-        case "restaurants":
-            return array(
-                0 => array(
-                    "width" => "120",
-                    "height" => "120",
-                    "new_path" => public_path('assets/images/restaurants/thumb'),
-                    "crop" => "true",
-                    "crop_type" => "center",
-                ),
-                1 => array(
-                    "width" => "400",
-                    "height" => "300",
-                    "new_path" => public_path('assets/images/restaurants/thumb1'),
-                    "crop" => "true",
-                    "crop_type" => "center",
-                ),
-            );
-            break;
-
-        case "menues":
-            return array(
-                0 => array(
-                    "width" => "37",
-                    "height" => "34",
-                    "new_path" => public_path('assets/images/products/thumb'),
-                    "crop" => "true",
-                    "crop_type" => "center",
-                ),
-                1 => array(
-                    "width" => "500",
-                    "height" => "380",
-                    "new_path" => public_path('assets/images/products/thumb1'),
-                    "crop" => "true",
-                    "crop_type" => "center",
-                ),
-                2 => array(
-                    "width" => "700",
-                    "height" => "600",
-                    "new_path" => public_path('assets/images/restaurants'),
-                    "crop" => "false",
-                )
-            );
-            break;
-    }
-}
-
 //resize an image
 function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     if (is_array($sizes)) {
@@ -1077,7 +1029,7 @@ function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
     } else {
         $newsize = explode($delimeter, $sizes);
         $newfile = getfilename($file) . '-' . $sizes . "." . getextension($file);
-        return make_thumb($file, $newfile, $newsize[0], $newsize[1], $CropToFit);
+        return make_thumb($file, $newfile, $newsize[0], $newsize[1], false);
     }
 }
 
@@ -1106,20 +1058,22 @@ function getextension($path) {
 
 //loads a jpg/png/gif/bmp as an image object
 function loadimage($filename) {
-    //get image extension.
-    $ext = getExtension($filename);
-    //creates the new image using the appropriate function from gd library
-    if (!strcmp("jpg", $ext) || !strcmp("jpeg", $ext)) {
-        return imagecreatefromjpeg($filename);
-    }
-    if (!strcmp("png", $ext)) {
-        return imagecreatefrompng($filename);
-    }
-    if (!strcmp("gif", $ext)) {
-        return imagecreatefromgif($filename);
-    }
-    if (!strcmp("bmp", $ext)) {
-        return imagecreatefrombmp($filename);
+    if(file_exists($filename)) {
+        //get image extension.
+        $ext = getExtension($filename);
+        //creates the new image using the appropriate function from gd library
+        if (!strcmp("jpg", $ext) || !strcmp("jpeg", $ext)) {
+            return imagecreatefromjpeg($filename);
+        }
+        if (!strcmp("png", $ext)) {
+            return imagecreatefrompng($filename);
+        }
+        if (!strcmp("gif", $ext)) {
+            return imagecreatefromgif($filename);
+        }
+        if (!strcmp("bmp", $ext)) {
+            return imagecreatefrombmp($filename);
+        }
     }
 }
 
@@ -1172,7 +1126,7 @@ function copyimages($sizes, $file, $name, $CropToFit = false) {
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $makeTransparent = false) {
+function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $Resize = false) {
     $src_img = loadimage($input_filename);
     if ($src_img) {
         //gets the dimmensions of the image
@@ -1181,11 +1135,12 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
 
         $ratio1 = $old_x / $new_width;
         $ratio2 = $old_y / $new_height;
+
+        $thumb_w=$new_width;
+        $thumb_h=$new_height;
         if ($ratio1 > $ratio2) {
-            $thumb_w = $new_width;
             $thumb_h = $old_y / $ratio1;
         } else {
-            $thumb_h = $new_height;
             $thumb_w = $old_x / $ratio2;
         }
         if ($CropToFit) {
@@ -1198,26 +1153,32 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
                 $thumb_w = $thumb_w * $ratio1;
                 $thumb_h = $new_height;
             }
-        } else {
-            $thumb_w=$new_width;
-            $thumb_h=$new_height;
         }
-        $dst_img = ImageCreateTrueColor($new_width, $new_height);
-        imagecopyresampled($dst_img, $src_img, $new_width / 2 - $thumb_w / 2, 0, $new_height / 2 - $thumb_h / 2, 0, $thumb_w, $thumb_h, $old_x, $old_y);
-        if($makeTransparent){
-            $makeTransparent = imagecolorat($dst_img , 0, 0);
-            imagecolortransparent($dst_img, $makeTransparent);
+        if($Resize){
+            if($thumb_w < $new_width){$new_width = $thumb_w;}
+            if($thumb_h < $new_height){$new_height = $thumb_h;}
         }
 
+        $dst_img = ImageCreateTrueColor($new_width, $new_height);
+        imagealphablending($dst_img, true);
+        imagesavealpha($dst_img, true);
+        imagefill($dst_img,0,0,0x7fff0000);
+        imageantialias($dst_img, true);
+        imagecopyresampled($dst_img, $src_img, ($new_width * 0.5) - ($thumb_w * 0.5), ($new_height * 0.5) - ($thumb_h * 0.5), 0, 0, $thumb_w,$thumb_h, $old_x, $old_y);
         imagedestroy($src_img);
+
         if ($output_filename) {
+            $Dir = "";
+            if(strpos($output_filename, "/") === false){
+                $Dir = getdirectory($input_filename) . "/";
+            }
             $ext = getExtension($output_filename);
             switch ($ext) {
                 case "png":
-                    imagepng($dst_img, $output_filename);
+                    imagepng($dst_img, $Dir . $output_filename);
                     break;
                 default:
-                    imagejpeg($dst_img, $output_filename);
+                    imagejpeg($dst_img, $Dir . $output_filename);
             }
             imagedestroy($dst_img);
         } else {
