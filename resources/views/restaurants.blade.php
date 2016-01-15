@@ -34,7 +34,7 @@ $type = "hidden";
         <div class="col-lg-3">
             <div class="card">
                 <div class="card-header">
-                   <p class="card-title m-b-0"> <i class="fa fa-filter color_red "></i> Filter Search</p>
+                   <p class="card-title m-b-0">Filter Search</p>
                 </div>
 
                 <div class="card-block">
