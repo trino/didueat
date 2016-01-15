@@ -137,7 +137,7 @@ $('.savebtn').live('click', function () {
     var id = $(this).attr('id').replace('save', '');
     //alert(id);
     //var id = $(this).attr('data-id');
-    $_parent = $(this).closest('.newmenu');
+    $_parent = $(this).closest('.modal-content').find('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
     if (!cat_id || cat_id == '') {
         alert('Please select a category');
