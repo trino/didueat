@@ -488,7 +488,7 @@ span.tags {
 .subin {
 
     color: #555;
-    text-align: center;
+    
 }
 
 .btnxx-inner {
@@ -593,3 +593,12 @@ em.total {
     position: absolute;
     right: 20px;
 }
+.inneritem{font-size:14px;}
+.btn-xs {
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 1px 5px;
+}
+.nopadd{padding:0!important;}
+.norightpadd{padding-right:0!important}
