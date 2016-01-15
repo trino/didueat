@@ -282,6 +282,7 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
+                                                if(d_o==$_parent.find('.menuwrapper').length && di_o==$_this2.find('.cmore').length)
                                                 alert('Item saved successfully!');
                                                 window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
                                             }
