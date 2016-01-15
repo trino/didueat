@@ -5,7 +5,7 @@ $first = false; $type = "hidden";
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
-    <div class="container">
+    <div class="">
         <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse"
                 data-target="#exCollapsingNavbar2">
             &#9776;

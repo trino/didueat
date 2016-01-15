@@ -55,9 +55,9 @@
         @endif
 
         @foreach($category as $cat)
-            <h2>
+            <h4>
                 {{ $cat->title }}
-            </h2>
+            </h4>
             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>

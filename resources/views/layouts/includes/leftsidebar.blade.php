@@ -11,23 +11,26 @@
             } else {
                 echo '<a href="' . url($URL) . '" class="list-group-item';
                 if (Request::path() == $URL) {echo ' active';}
-                echo '"><i class="fa fa-angle-right"></i> ' . $Name . '</a>';
+                echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a>';
             }
         }
 
-        makelink(array( 'orders/list/user' => 'My Orders',
+
+    if(\Session::get('session_restaurant_id')){
+        makelink(array( 'orders/list/restaurant' => 'My Orders',
+                'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "My Menu",
+                'notification/addresses' => "My Notification Addresses",
+                'restaurant/info' => "My Restaurant",
+                'credit-cards/list/restaurant' => "My Credit Cards" //if(\Session::has('session_profiletype') )
+        ), "<i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant Navigation");
+    }
+
+
+
+    makelink(array( 'orders/list/user' => 'My Orders',
                         'user/addresses' => "My Addresses",
                         'user/info' => "My Profile"
-                    ), "User Navigation");
-
-        if(\Session::get('session_restaurant_id')){
-            makelink(array( 'orders/list/restaurant' => 'My Orders',
-                            'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "My Menu",
-                            'notification/addresses' => "My Notification Addresses",
-                            'restaurant/info' => "My Restaurant",
-                            'credit-cards/list/restaurant' => "My Credit Cards" //if(\Session::has('session_profiletype') )
-            ), "Restaurant Navigation");
-        }
+                    ), "<i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User Navigation");
 
         if(check_permission("can_edit_global_settings")){
             makelink(array( 'orders/list/admin' => 'All Orders',
@@ -37,7 +40,7 @@
                             'eventlogs/list' => "Event Log",
                             'user/reviews' => "User Reviews"
                             //'cards/list/restaurant' => "All Credit Cards"//if(\Session::has('session_profiletype')  && \Session::get('session_profiletype') == 1)
-            ), "Admin Navigation");
+            ), "<i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin Navigation");
         }
     ?>
 </div>

@@ -14,7 +14,7 @@ type="text/css"/-->
 
             <div class="card">
                 <div class="card-header">
-                    Restaurant Info
+                    <h4 class="card-title">Restaurant Info</h4>
                 </div>
                 <div class="card-block">
 

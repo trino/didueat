@@ -166,9 +166,9 @@ function newrow($new = false, $name = false, $class = "") {
     if ($new) {
         return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label" id="' . $id . '">' . $name . '</label>';
     } else if ($name) {
-        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3" id="' . $id . '">' . $name . '</label><div class="col-sm-9">';
+        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right" id="' . $id . '">' . $name . '</label><div class="col-sm-9">';
     } else {
-        return '</DIV></DIV>';
+        return '</div></div>';
     }
 }
 

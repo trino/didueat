@@ -16,25 +16,25 @@
 
             <img class="card-img-top"
                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                    src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                  @else
-                    src="{{ asset('assets/images/default.png') }}"
+                 src="{{ asset('assets/images/default.png') }}"
                  @endif
-             alt="Card image cap">
+                 alt="Card image cap">
 
             <div class="card-block">
-                <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
 
-                <p class="card-text"> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                <p class="card-text" style="font-size:90%;"> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                     {!! (isset($restaurant->province))? mapcountryprovince($restaurant->province, true) .' ':'' !!}
                     {!! (isset($restaurant->postal_code))?$restaurant->postal_code.', ':'' !!}
                     {!! (isset($restaurant->country))?' '. mapcountryprovince($restaurant->country):'' !!}
-                    <br>Email: {!! (isset($restaurant->email))?$restaurant->email:'' !!}
+
                     <br>Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     <br>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                 </p>
-                <a class="card-text" data-toggle="modal" data-target="#viewMapModel">Maps & Details</a>
+                <a class="card-text" href="#" data-toggle="modal" data-target="#viewMapModel">Map & Details</a>
 
                 {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
 
@@ -214,7 +214,9 @@
                         </div>
                         <div class="form-group margin-bottom-10">
                             <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                <input type="text" placeholder="Address" id="ordered_street" class="form-control  form-control--contact" name="address" value="{{ (isset($profile))? $profile->street : '' }}">
+                                <input type="text" placeholder="Address" id="ordered_street"
+                                       class="form-control  form-control--contact" name="address"
+                                       value="{{ (isset($profile))? $profile->street : '' }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -257,7 +259,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <textarea placeholder="Additional Notes" class="form-control  form-control--contact" name="remarks"></textarea>
+                            <textarea placeholder="Additional Notes" class="form-control  form-control--contact"
+                                      name="remarks"></textarea>
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -43,7 +43,7 @@
                                 $dis = "" . $discount . "% discount " . $everyday . "";
                             }
                             ?>
-                            <h2 class="card-title">
+                            <h4 class="card-title">
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
                                    class="card-link insert-stats" data-toggle="modal"
@@ -51,7 +51,7 @@
                                     {{ $value->menu_item }}
                                     <i class="fa fa-cart-plus"></i>
                                 </a>
-                            </h2>
+                            </h4>
 
                             @if($dis)
                                 <strike>${{$value->price}}</strike>
@@ -199,9 +199,9 @@
                                                             <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
                                                             @foreach($mini_menus as $mm)
                                                             <div class="col-xs-6 col-md-6 subin padding-left-0">
-                                                                <div class="btnxx-inner">
+                                                                <div class="btnxx-inner inneritem">
                                                                     <a id="buttons_{{ $mm->id }}"
-                                                                       class="buttons"
+                                                                       class="buttons col-md-8 nopadd"
                                                                        href="javascript:void(0);">
                                                                            <?php
                                                                            if ($mm->price != 0)
@@ -214,12 +214,10 @@
                                                                         &nbsp;&nbsp; 
                                                                         <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                     </a>
-                                                                    <b <?php if ($sub->sing_mul == '1'){ echo "style='display:none'"; } ?>>
-                                                                        &nbsp; 
-                                                                        <a id="remspan_{{ $mm->id }}" class="remspan btn btn-danger btn-xs" href="javascript:;">-</a>
-                                                                        <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;0&nbsp;&nbsp;</span>
-                                                                        <a id="addspan_{{ $mm->id }}" class="addspan btn btn-xs btn-info" href="javascript:;">+</a>
+                                                                    <b <?php if ($sub->sing_mul == '1'){ echo "style='display:none'"; } ?> class="col-md-4 norightpadd">
+                                                                    <a id="remspan_{{ $mm->id }}" class="remspan btn btn-danger btn-xs" href="javascript:;">-</a> <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} allspan">0</span> <a id="addspan_{{ $mm->id }}" class="addspan btn btn-xs btn-info" href="javascript:;">+</a>
                                                                     </b>
+                                                                    <div class="clearfix"></div>
                                                                 </div>
                                                                 <div class="clearfix"></div>
                                                             </div>
