@@ -94,7 +94,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 @include('layouts.includes.header')
 
-<div class="container m-t-3 p-t-2">
+<div class="container-fluid m-t-3 p-t-2">
     @if (session('status'))
         <div class="alert alert-success">
             {{ session('status') }}

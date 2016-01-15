@@ -17,6 +17,9 @@
     if(!isset($minimum)){$minimum=false;}
     $cols = 12/$cols;
 ?>
+
+
+delete this pagfe????
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 <div class="col-md-{{ $cols }} col-sm-12 col-xs-12 ">

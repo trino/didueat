@@ -25,7 +25,7 @@
         </div>
     </div-->
 
-    <footer class=" p-t-2  container text-muted">
+    <footer class=" p-t-2  container-fluid text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row">
             <div class="col-lg-10 ">
@@ -52,11 +52,10 @@
             </div>
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
-                    Designed and built with all the <i class="fa fa-heart" style="color:red;"></i> in the world by 
+                    Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in the world by
                     <a href="http://trinoweb.com/" target="_blank">
                         <B>
-                            <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN>
-                            <SPAN style="color:black;">WEB</SPAN>
+                            <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
                         </B>
                     </a>
                     and maintained by the <a href="{{ url("home/team") }}">core team</a>.

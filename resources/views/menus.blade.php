@@ -43,7 +43,7 @@
                                 $dis = "" . $discount . "% discount " . $everyday . "";
                             }
                             ?>
-                            <h2 class="card-title">
+                            <h4 class="card-title">
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
                                    class="card-link insert-stats" data-toggle="modal"
@@ -51,7 +51,7 @@
                                     {{ $value->menu_item }}
                                     <i class="fa fa-cart-plus"></i>
                                 </a>
-                            </h2>
+                            </h4>
 
                             @if($dis)
                                 <strike>${{$value->price}}</strike>
