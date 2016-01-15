@@ -86,11 +86,13 @@ $('.removelast').live('click', function () {
         $('#' + newmenu + ' .newaction').each(function () {
             i++;
             if (i == tot - 1) {
-                if (i == 1)
-                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a>');
-                else
-                    $(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
-
+                if (i == 1){
+                    //$(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a>');
+                    }
+                else{
+                    //$(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
+                    $(this).html('<a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
+                    }
                 $(this).show();
             }
         })
