@@ -317,33 +317,28 @@ body.modal-open {
     float: none;
     clear: both;
 }
-
 .static-rating > input {
     display: none;
 }
-
 .static-rating > label:before {
-    margin: 0px 2px 0px;
-    font-size: 1.25em;
+    margin: 0 1.5px;
+    font-size: 1.01em;
     font-family: FontAwesome;
     display: inline-block;
     content: "\f005";
 }
-
 .static-rating > .half:before {
     content: "\f089";
     position: absolute;
 }
-
 .static-rating > label {
     color: #ddd;
     float: right;
 }
-
 .static-rating > .checked-stars ~ label {
     color: #81B71A;
 }
-
+.rating-it-btn {color: #d9534f; float: right; margin-left: 5px; cursor: pointer;}
 .fancybox-wrap {
     position: absolute;
     top: 0;

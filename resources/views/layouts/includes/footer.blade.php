@@ -90,32 +90,7 @@
 </div>
 
 
-<div id="fancybox-rating-commentbox" style="display:none;">
-    <div class="login-form popup-dialog" style="">
-        <h1>Your Comment</h1>
-        {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div id="message-error" class="alert alert-danger" style="display: none;"></div>
-            <div id="message-success" class="alert alert-success" style="display: none;"></div>
-            <div id="ratingContentArea">
-                <div class="form-group">
-                    <label>Comments: </label>
-                    <textarea rows="6" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn red" id="ratingSaveBtn" value="Save"/>
-                    <input type="hidden" id="rating_id" value=""/>
-                    <input type="hidden" id="data-rating-id" value=""/>
-                    <input type="hidden" id="data-target-id" value=""/>
-                    <input type="hidden" id="data-type" value=""/>
-                    <input type="hidden" id="ratingInputHidden" value=""/>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-</div>
+@include('popups.rating')
 
 <!-- END PRE-FOOTER -->
 <script type="text/javascript">
@@ -129,35 +104,30 @@
     });
 
     $(document).ready(function () {
-        $('body').on('click', '.update-rating', function () {
-            $('#rating-form #ratingContentArea').show();
-            var rating = $(this).val();
+        $('body').on('click', '.rating-it-btn', function () {
             var isAlreadyRated = $(this).attr('data-count-exist');
             var rating_id = $(this).attr('data-rating-id');
             var target_id = $(this).attr('data-target-id');
             var type = $(this).attr('data-type');
-
+            
             if (isAlreadyRated > 0) {
+                $('#ratingModal').modal('hide');
                 return alert('You already rated!');
             }
-
-            $('#rating_id').val(rating);
+            
             $('#rating-form #data-rating-id').val(rating_id);
             $('#rating-form #data-target-id').val(target_id);
             $('#rating-form #data-type').val(type);
-
-            $('#rating-form #message-success').hide();
-            $('#rating-form #message-error').hide();
-
-            $.fancybox({
-                'content': $('#fancybox-rating-commentbox').html(),
-                'hideOnContentClick': true
-            });
         });
 
         $('body').on('keyup', '#ratingInput', function () {
             var value = $(this).val();
             $('#rating-form #ratingInputHidden').val(value);
+        });
+        
+        $('body').on('click', '.update-rating', function () {
+            var value = $(this).val();
+            $('#rating-form #rating_id').val(value);
         });
 
         $('body').on('submit', '#rating-form', function (e) {
@@ -184,8 +154,6 @@
                     $('#rating-form #message-success').show();
                     $('#rating-form #message-success').text(json.response);
                     $('#rating-form #ratingInput').val('');
-                    $('#rating-form #ratingContentArea').hide();
-                    //$.fancybox.close();
                     $('.' + target_id + rating_id + type).attr('data-count-exist', 1);
                 }
             });
