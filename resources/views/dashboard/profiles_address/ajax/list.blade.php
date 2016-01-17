@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 <th>
-                    ID
+                    Order
                 </th>
                 <!--th width="15%">
                     <a class="sortOrder" data-meta="user_id" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i
@@ -30,13 +30,15 @@
                     <a class="sortOrder" data-meta="user_id" data-order="DESC" data-title="Name"
                        title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                 </th-->
+
                 <th>
-                    <a class="sortOrder" data-meta="location" data-order="ASC" data-title="Location"
-                       title="Sort [Location] ASC"><i class="fa fa-caret-down"></i></a>
-                    Location
-                    <a class="sortOrder" data-meta="location" data-order="DESC" data-title="Location"
-                       title="Sort [Location] DESC"><i class="fa fa-caret-up"></i></a>
+                    <a class="sortOrder" data-meta="location" data-order="ASC" data-title="Notes"
+                       title="Sort [Notes] ASC"><i class="fa fa-caret-down"></i></a>
+                    Notes
+                    <a class="sortOrder" data-meta="location" data-order="DESC" data-title="Notes"
+                       title="Sort [Notes] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
+
 
                 <th class="">
                     <a class="sortOrder" data-meta="address" data-order="ASC" data-title="Address"
@@ -52,8 +54,8 @@
                     <a class="sortOrder" data-meta="phone" data-order="DESC" data-title="Phone"
                        title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th>Action</th>
-                <th>Order</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -61,10 +63,13 @@
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                         <td>{{ $key+1 }}
-
-                            <?php  if ($key + 1 == 1) {
+                            <div class="btn-group-vertical">
+                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                            <!--?php  if ($key + 1 == 1) {
                                 echo ' <span class="label label-default">Primary</span>';
-                            } ?>
+                            } ?-->
 
                         </td>
                         <!--td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td-->
@@ -72,18 +77,17 @@
                         <td>{{ $value->address.', '. $value->city .', '. select_field('states', 'id', $value->province, 'name') .', '.$value->postal_code.', '.select_field('countries', 'id', $value->country, 'name') }}</td>
                         <td>{{ $value->phone }}</td>
 
+
+
+
                         <td>
-                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"
-                               data-target="#editModel">Edit</a>
-                            <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
+                            <!--a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"
+                               data-target="#editModel">Edit</a-->
+                            <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm pull-right"
+                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">X</a>
                         </td>
-                        <td>
-                            <div class="btn-group-vertical">
-                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
-                            </div>
-                        </td>
+
+
                     </tr>
                 @endforeach
             @else

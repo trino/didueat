@@ -285,7 +285,7 @@ class HomeController extends Controller {
                 return $this->failure("[Phone] field is missing or invalid!",'/restaurants/signup', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!",'/restaurants/signup', true);
+            //    return $this->failure("[Country] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['password1']) || empty($post['password1'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message'),'/restaurants/signup', true);
@@ -307,7 +307,7 @@ class HomeController extends Controller {
                 $update['phone'] = $post['phone'];
                 $update['mobile'] = $post['mobile'];
                 $update['description'] = $post['description'];
-                $update['country'] = $post['country'];
+             //   $update['country'] = $post['country'];
                 //$update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
@@ -326,7 +326,7 @@ class HomeController extends Controller {
                     $update['lat'] = $post['lat'];
                     $update['lng'] = $post['lng'];
                 }
-                $update['formatted_address'] = $post['formatted_address'];
+           //     $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 0;
                 $update['status'] = 1;
                 $browser_info = getBrowser();
@@ -415,8 +415,10 @@ class HomeController extends Controller {
                     }
                 }
 
+
                 $userArray = $user->toArray();
                 $userArray['mail_subject'] = 'Thank you for registration.';
+
                 $this->sendEMail("emails.registration_welcome", $userArray);
                 \DB::commit();
 

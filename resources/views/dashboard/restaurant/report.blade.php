@@ -11,10 +11,10 @@
                 <div class="toprint">
 
                     <div class="noprint">
-                        <h3 class="sidebar__title">Print Order Report</h3>
+                        <h3 class="sidebar__title">My Orders</h3>
                         <hr class="shop__divider">
                         <div>
-                            <strong>FILTER BY DATE</strong>
+                            <strong>Filter by Date</strong>
 
                             <form class="col-xs-12" id="report-form" method="get" action="">
                                 <input type="text" class="datepicker form-control--contact" name="from"
@@ -44,7 +44,7 @@
                                 </div>
                             @endforeach
                         @else
-                            Sorry! No Results Found.
+                            No orders found
                         @endif
                         <div class="clearfix"></div>
 

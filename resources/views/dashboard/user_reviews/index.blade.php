@@ -55,7 +55,7 @@
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){
             id = 0;
-            $('#editLabel').text('Create Address');
+            $('#editLabel').text('Add Address');
         }
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');

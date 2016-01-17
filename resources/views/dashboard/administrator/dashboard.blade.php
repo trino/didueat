@@ -30,17 +30,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    <!--div class="form-group row">
                         <label class="col-sm-3">Phone Number </label>
                         <div class="col-sm-9">
                             <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}">
                         </div>
-                    </div>
+                    </div-->
 
                     <div class="form-group row">
-                        <label class="col-sm-3">Mobile Number </label>
+                        <label class="col-sm-3">Cell Phone </label>
                         <div class="col-sm-9">
-                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="Mobile Number" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
+                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="416555555" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
                         </div>
                     </div>
 
@@ -54,9 +54,9 @@
 
                     @if(Session::has('session_id'))
                         <div class="form-group row">
-                            <label class="col-sm-3">Password</label>
+                            <label class="col-sm-3">Old Password</label>
                             <div class="col-sm-9">
-                                <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password" autocomplete="off">
+                                <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
                             </div>
                         </div>
                     @endif
@@ -64,21 +64,20 @@
                     <div class="form-group row">
                         <label class="col-sm-3">New Password</label>
                         <div class="col-sm-9">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="New Password" autocomplete="off">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Re-type Password</label>
                         <div class="col-sm-9">
-                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" autocomplete="off">
+                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="" autocomplete="off">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Profile Photo</label>
                         <div class="col-sm-9">
-                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
                             <img id="picture" class="logopic"
                             @if($user_detail->photo)
@@ -86,7 +85,10 @@
                             @else
                                 src="{{ asset('assets/images/default.png') }}" >
                             @endif
+                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
+
                         </div>
+
                     </div>
                 </div>
                 <div class="card-footer clearfix">

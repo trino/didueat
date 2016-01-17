@@ -137,16 +137,19 @@
                                     @endif
                                 </h3>
                             </div>
-                            <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
+
+                            <!--div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
                                 <strong>Menu Views:</strong>
                                 <span id="view_stats"></span>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
-                            </div>                                    
+                            </div-->
                             <div class="col-sm-12 col-xs-12">
                                 <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                             </div>
+
+                            <div class="col-sm-12 col-xs-12">
+                                <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
+                            </div>                                    
+
                             <div class="col-sm-12 col-xs-12">
                                 <p class="">{{ $value->description }}</p>
                             </div>

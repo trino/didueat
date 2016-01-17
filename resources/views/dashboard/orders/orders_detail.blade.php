@@ -11,23 +11,23 @@
             ?>
             <div class="card" id="toPrinpetail">
                 <div class="card-header ">
-                    <p>Order Detail
-
-                        <a href="#cancel-popup-dialog"
-                           class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal"
-                           data-target="#orderCancelModal"
-                           oldclass="btn yellow pull-right fancybox-fast-view cancel-popup"
-                           id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
+                    <h3 class="card-title">Order ID: {{ $order->id }}
                         <a href="#approve-popup-dialog"
                            class="btn btn-success btn-sm orderApproveModal" data-toggle="modal"
                            data-target="#orderApproveModal"
                            oldclass="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup"
                            data-id="{{ $order->id }}">Approve</a>
+                        <a href="#cancel-popup-dialog"
+                           class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal"
+                           data-target="#orderCancelModal"
+                           oldclass="btn yellow pull-right fancybox-fast-view cancel-popup"
+                           id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
 
 
-                        <input type="button" style="" value="Print Report" onclick="prinpiv('toPrinpetail')"
+
+                        <input type="button" style="" value="Print Receipt" onclick="prinpiv('toPrinpetail')"
                                class="btn btn-sm pull-right"/>
-                    </p>
+                    </h3>
                 </div>
 
                 <div class="card-block">

@@ -12,6 +12,7 @@ $first = false; $type = "hidden";
         </button>
 
         <a class="navbar-brand" href="{{ url('/') }}">
+            <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
             <img src="{{ asset('assets/images/logos/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
         <ul class="nav navbar-nav">

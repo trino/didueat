@@ -43,15 +43,19 @@ echo newrow($new, "Tags"); ?>
 <?php echo newrow();
 
 echo newrow($new, "Logo"); ?>
-@if(!$is_disabled)
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
-@endif
+
 <input type="hidden" name="logo" id="hiddenLogo"/>
 
 <img id="picture" class="logopic"
      @if(isset($restaurant->logo) && $restaurant->logo != "")
      src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"
      title=""/>
+
+@if(!$is_disabled)
+    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+@endif
+
+
 @else
     src="{{ asset('assets/images/default.png') }}" title=""/>
 @endif
@@ -134,6 +138,7 @@ echo newrow($new, "Logo"); ?>
                 @if(!$minimum)
                     ajaxuploadbtn('uploadbtn');
                 @endif
+
 
             });
 </script>

@@ -313,9 +313,7 @@ body.modal-open {
 
 /*------Static Rating--------*/
 .static-rating {
-    border: none;
-    float: none;
-    clear: both;
+    float: left;
 }
 .static-rating > input {
     display: none;

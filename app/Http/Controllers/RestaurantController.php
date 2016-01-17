@@ -253,7 +253,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
+              //  return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);

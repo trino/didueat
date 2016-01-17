@@ -14,7 +14,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
         <div class="row">
             <div class="col-lg-9">
                 <h3>
-                    My Orders ({{ ucwords($type) }})                    <a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a>
+                    My Orders <!-- ({{ ucwords($type) }})         -->           <!--a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a-->
 
                 </h3>
 
@@ -37,14 +37,14 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                 <th>
                     <a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
                        title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a>
-                    By
+                    Customer
                     <a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
                        title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>
                     <a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
                        title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a>
-                    On
+                    Date
                     <a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
                        title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
@@ -55,36 +55,29 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                     <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
                        title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
-                <th>
-                    Actions
-                </th>
+
                 <TH>
                     Response Time
-                </TH>
+                </TH>  <th>
+
+                </th>
             </tr>
             </thead>
             <tbody>
             @if($recCount > 0)
                 @foreach($Query as $value)
                     <tr>
-                        <td>{{ $value->id }}</td>
-                        <td>{{ $value->ordered_by }}</td>
-                        <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td>{{ $value->status }}</td>
-                        <td>
+                        <td>{{ $value->id }}
                             @if(Session::get('session_profiletype') >= 1)
                                 <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
                                    class="btn btn-primary  btn-sm">View</a>
                             @endif
-
-                            @if(Session::get('session_profiletype') == 1)
-                                <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
-                                    Delete
-                                </a>
-                            @endif
                         </td>
+                        <td>{{ $value->ordered_by }}</td>
+                        <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
+                        <td>{{ $value->status }}</td>
+
+
                         <TD>
                             <?php
                             if ($value->time) {
@@ -113,11 +106,26 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                             }
                             ?>
                         </TD>
+
+
+
+                        <td>
+
+
+                            @if(Session::get('session_profiletype') == 1)
+                                <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
+                                   class="btn btn-danger btn-sm pull-right"
+                                   onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
+                                    X
+                                </a>
+                            @endif
+                        </td>
+
                     </tr>
                 @endforeach
             @else
                 <tr>
-                    <th scope="row" colspan="5" class="text-center">No records found!</th>
+                    <td class="text-center  alert notification">No orders found</td>
                 </tr>
             @endif
             </tbody>
