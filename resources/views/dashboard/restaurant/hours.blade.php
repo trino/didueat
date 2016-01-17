@@ -118,6 +118,11 @@ echo newrow($new, "Allow delivery"); ?>
 ?>
 
 
+
+
+
+
+
 <script>
     is_delivery_change();
     function is_delivery_change(){

@@ -533,7 +533,7 @@ class HomeController extends Controller {
             switch (strtolower($_POST["type"])) {
                 case "provinces":
                     $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
-                    echo '<OPTION VALUE="">-select one-</OPTION>';
+                    echo '<OPTION VALUE="">Select Country</OPTION>';
                     foreach($Provinces as $Province){
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
@@ -556,7 +556,7 @@ class HomeController extends Controller {
                 case "cities":
                     $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
                     $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
-                    echo '<OPTION VALUE="">-select one-</OPTION>';
+                    echo '<OPTION VALUE="">Select Province</OPTION>';
                     foreach($Cities as $City){
                         $HasCities = true;
                         echo '<OPTION VALUE="' . $City->id . '"';

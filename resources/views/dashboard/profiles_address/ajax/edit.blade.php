@@ -45,7 +45,7 @@
     <label class=" col-sm-3">Country</label>
     <div class="col-sm-9">
         <select name="country" id="country" class="form-control" required onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))? $addresse_detail->province : old('province') }}');">
-            <option value="">-Select One-</option>
+            <option value="">Select Country</option>
             @foreach(select_field_where('countries', '', false, 'name', 'ASC') as $value)
                 <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach

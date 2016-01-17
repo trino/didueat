@@ -27,19 +27,23 @@ echo newrow($new, "Description"); ?>
 if(!$minimum){
 echo newrow($new, "Cuisine Type"); ?>
 <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
-    <option value="">-Select One-</option>
+    <option value="">Select Cuisine Type</option>
     @foreach($cuisine_list as $value)
         <option value="{{ $value->id }}"
                 @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
     @endforeach
 </select>
-<?php echo newrow();
+
+
+<!--?php echo newrow();
 
 echo newrow($new, "Tags"); ?>
 <textarea id="demo4"></textarea>
 <input type="hidden" name="tags" id="responseTags"
        value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-<p>e.g: Canadian, Italian, Chinese, Fast Food</p>
+<p>e.g: Canadian, Italian, Chinese, Fast Food</p-->
+
+
 <?php echo newrow();
 
 echo newrow($new, "Logo"); ?>
@@ -52,7 +56,7 @@ echo newrow($new, "Logo"); ?>
      title=""/>
 
 @if(!$is_disabled)
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
+    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
 @endif
 
 

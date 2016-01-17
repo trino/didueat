@@ -36,6 +36,16 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
         <table class="table table-responsive">
             <thead>
             <tr>
+
+                <th>
+                    <a class="sortOrder" data-meta="Id" data-order="ASC" data-title="Id"
+                       title="Sort [Id] ASC"><i class="fa fa-caret-down"></i></a>
+                    #
+                    <a class="sortOrder" data-meta="Id" data-order="DESC" data-title="Id"
+                       title="Sort [Id] DESC"><i class="fa fa-caret-up"></i></a>
+                </th>
+
+
                 <th>
                     <a class="sortOrder" data-meta="first_name" data-order="ASC" data-title="Name"
                        title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
@@ -79,27 +89,33 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                     }
                     ?>
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+
+                        <td>{{ $value->id }}
+                        &nbsp;    <div class="btn-group-vertical">
+                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                        </td>
+
+
+
+
                         <td>{{ $value->first_name.' '.$value->last_name }}</td>
                         <td>{{ $value->card_type }}</td>
                         <td>{{ obfuscate($value->card_number) }}</td>
                         <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                         <td>
+                            <div class="pull-right">
                             <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal"
                                data-target="#editModel">
                                 Edit
                             </a>
-                            @if($value->id != \Session::get('session_id'))
                                 <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">Delete</a>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="btn-group-vertical">
-                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                                   class="btn btn-danger btn-sm "
+                                   onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>
                             </div>
                         </td>
+
                     </tr>
                 @endforeach
             @else

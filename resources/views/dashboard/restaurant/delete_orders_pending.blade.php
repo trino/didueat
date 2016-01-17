@@ -1,6 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
+delete meeeee
+
+
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -9,7 +12,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    My Orders ({{ ($type) }}) <a class="btn btn-primary btn-sm" href="{{ url('restaurant/report') }}"
+                 3333   My Orders ({{ ($type) }}) <a class="btn btn-primary btn-sm" href="{{ url('restaurant/report') }}"
                                                  class="">Print Report</a>
                 </div>
                 <div class="card-block p-a-0">
@@ -18,11 +21,11 @@
                     <table class="table table-responsive">
                         <thead>
                         <tr>
-                            <th width="15%">Order ID</th>
-                            <th width="20%">Ordered By</th>
-                            <th width="15%">Date/Time</th>
-                            <th width="20%">Status</th>
-                            <th width="30%">Actions</th>
+                            <th>Order ID</th>
+                            <th >Ordered By</th>
+                            <th >Date/Time</th>
+                            <th >Status</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,7 +68,7 @@
                                         <a href="{{ url('restaurant/orders/list/delete/'.$value->id) }}"
                                                 class="btn btn-danger btn-sm"
                                                 onclick="return confirm('Are you sure you want to delete order # <?= $value->id; ?>?');">
-                                            Delete
+                                            X
                                         </a>
                                     @endif
                                 </td>
