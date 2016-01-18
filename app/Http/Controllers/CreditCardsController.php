@@ -52,10 +52,10 @@ class CreditCardsController extends Controller {
             \DB::beginTransaction();
             try {//save credit card info
                 if(isset($post['user_type']) && !empty($post['user_type'])){
-                    if($post['user_type'] == "restaurant"){
+                    if($post['user_type'] == "restaurant" && isset($post['select_restaurant_id'])){
                         $post['user_id'] = $post['select_restaurant_id'];
                     }
-                    if($post['user_type'] == "user"){
+                    if($post['user_type'] == "user" && isset($post['select_user_id'])){
                         $post['user_id'] = $post['select_user_id'];
                     }
                 } else {
@@ -77,7 +77,7 @@ class CreditCardsController extends Controller {
             $data['title'] = 'Credit Cards List';
             $data['type'] = $type;
             $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('name', 'ASC')->get();
             return view('dashboard.credit_cards.index', $data);
         }
     }
@@ -148,7 +148,7 @@ class CreditCardsController extends Controller {
         try {
             $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
             $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
+            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('name', 'ASC')->get();
             ob_start();
             return view('dashboard.credit_cards.ajax.edit', $data);
             ob_get_contents();//code will never run
