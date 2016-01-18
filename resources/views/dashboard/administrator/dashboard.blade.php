@@ -30,12 +30,12 @@
                         </div>
                     </div>
 
-                    <!--div class="form-group row">
+                    <div class="form-group row">
                         <label class="col-sm-3">Phone Number </label>
                         <div class="col-sm-9">
                             <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}">
                         </div>
-                    </div-->
+                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-3">Cell Phone </label>
