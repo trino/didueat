@@ -523,9 +523,10 @@ ul.scroller li {
 
 .innerst {
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 11px;
     padding-left: 2%;
+    vertical-align: top;
     width: 48%;
 }
 

@@ -118,26 +118,26 @@
                                 <td><strong>Subtotal</strong></td>
                                 <td>
                                     <div class="subtotal inlineblock">
-                                        ${{ (isset($order)) ? $order->subtotal : '0' }}</div>
+                                        ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}</div>
                                     <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
-                                           value="{{ (isset($order)) ? $order->subtotal : '0' }}"/>
+                                           value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td><strong>Tax</strong></td>
                                 <td>
-                                    <span class="tax inlineblock">&nbsp;${{ (isset($order)) ? $order->tax : '0' }}</span>
+                                    <span class="tax inlineblock">&nbsp;${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
                                     (<span id="tax inlineblock">13</span>%)
-                                    <input type="hidden" value="{{ (isset($order)) ? $order->tax : '0' }}" name="tax"
+                                    <input type="hidden" value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}" name="tax"
                                            class="maintax tax"/>
                                 </td>
                             </tr>
                             <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
                                 <td><strong>Delivery Fee</strong></td>
                                 <td>
-                                    <span class="df">${{ (isset($order)) ? $order->delivery_fee :(isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}</span>
+                                    <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
                                     <input type="hidden"
-                                           value="{{ (isset($order)) ? $order->delivery_fee : (isset($restaurant->delivery_fee))?$restaurant->delivery_fee:0 }}"
+                                           value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
                                            class="df" name="delivery_fee"/>
                                     <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
                                 </td>
@@ -146,9 +146,9 @@
                                 <td><strong>Total</strong></td>
                                 <td>
                                     <div class="grandtotal inlineblock">
-                                        &nbsp;${{ (isset($order)) ? $order->g_total : '0' }}</div>
+                                        &nbsp;${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
                                     <input type="hidden" name="g_total" class="grandtotal"
-                                           value="{{ (isset($order)) ? $order->g_total : '0' }}"/>
+                                           value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
                                     <input type="hidden" name="res_id"
                                            value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                                 </td>

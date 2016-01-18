@@ -156,7 +156,7 @@
                             <div class="subitems_{{ $value->id }} optionals">
                                 <div class="clearfix space10"></div>
                                 <div style="display:none;">
-                                    <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id.'_'.$value->menu_item.'-_'.$main_price.'_' }}" value="" class="chk">
+                                    <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id.'_<b>'.$value->menu_item.'</b>_'.$main_price.'_' }}" value="" class="chk">
                                 </div>
                                 <div class="banner bannerz">
                                     <table>
@@ -170,7 +170,7 @@
                                                     <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
                                                     <div style="" class="infolist col-xs-12">
                                                         <div style="display: none;">
-                                                            <input type="checkbox" value="{{ $sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;" checked="checked" class="chk">
+                                                            <input type="checkbox" value="{{ '<br/>'.$sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;" checked="checked" class="chk">
                                                         </div>
                                                         <a href="javascript:void(0);"><strong>{{ ucfirst($sub->menu_item) }}</strong></a>
                                                         <strong>

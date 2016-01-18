@@ -187,7 +187,7 @@
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
-                    $('.allspan').html('&nbsp;&nbsp;1&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 });
                 $('.inp').val("");
                 $('.fancybox-close').click();
@@ -202,7 +202,7 @@
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
-                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 });
                 $('.inp').val("");
                 $(this).parent().parent().find('.nxt_button').show();
@@ -225,7 +225,7 @@
                 var catarray = [];
                 var td_index = 0;
                 var td_temp = 9999;
-
+                var n_counter= 0;
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
@@ -352,15 +352,19 @@
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
                                 app_title = app_title + " " + su + ":";
+                                
                             }
+                            
+                            
                         }
                         var x = index;
                         if (title[0] != "") {
                             ids = ids + "_" + title[0];
                         }
-                        //if(app_title!="")
+                        
+                        
                         app_title = app_title + "," + title[1];
-
+                        
                         //else
                         //app_title = title[1];
                         price = Number(price) + Number(title[2]);
@@ -395,11 +399,11 @@
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 }
 
                 ids = ids.replace("__", "_");
-
+                
                 //app_title =app_title.replace(",,"," ");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -453,7 +457,7 @@
                         '+</a></span>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span>' +
-                        '<strong class="innerst">' + app_title + '</strong>' +
+                        '<span class="innerst">' + app_title + '</span>' +
                         '<em class="total">$' + (pre_cnt * price).toFixed(2) + '</em>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
