@@ -45,7 +45,7 @@
                         <a class="sortOrder" data-meta="profile_type" data-order="DESC" data-title="Type" title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
                     </th-->
                     <th>
-                        Cell Phone
+                        Phone Number
                     </th>
                     <th>Action</th>
                 </tr>
@@ -53,6 +53,15 @@
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
+                    <?php
+                        $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
+                        foreach($Addresses as $Address){
+                            $value->phone = phonenumber($Address->phone);
+                            if($value->phone){
+                                break;
+                            }
+                        }
+                    ?>
                 <tr>
                     <td>{{ fontawesome($value->profile_type) . " " . $value->id }}</td>
                     <td>{{ $value->name }}</td>
