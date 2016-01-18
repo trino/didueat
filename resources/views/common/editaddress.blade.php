@@ -13,7 +13,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-<?= newrow($new, "Format Address"); ?>
+<?= newrow($new, "Format Address", "", true); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
         @else
@@ -36,7 +36,7 @@
 </div>
 <HR>
 
-<?= newrow($new, "Street Address"); ?>
+<?= newrow($new, "Street Address", "", $required); ?>
         <input type="text" id="rout_street_number" {{ $is_disabled }} name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}}>
     </div>
 </div>
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<?= newrow($new, "Phone Number"); ?>
+<?= newrow($new, "Phone Number", "", $required); ?>
         <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
 </div>
@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<?= newrow($new, "City"); ?>
+<?= newrow($new, "City", "", $required); ?>
         <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
 </div>

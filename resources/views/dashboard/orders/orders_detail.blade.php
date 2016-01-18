@@ -6,27 +6,25 @@
 
         <div class="col-lg-9">
             <?php
-            printfile("views/dashboard/orders/orders_detail.blade.php");
-            $profiletype = Session::get('session_profiletype');
+                printfile("views/dashboard/orders/orders_detail.blade.php");
+                $profiletype = Session::get('session_profiletype');
+                $CanApprove = $profiletype == 1 || ($profiletype == 3 && Session::get('session_restaurant_id') == $restaurant->id);//is admin, or owner of the restaurant
             ?>
             <div class="card" id="toPrinpetail">
-                <div class="card-header ">
+                <div class="card-header">
                     <p>Order Detail
-
-                        <a href="#cancel-popup-dialog"
-                           class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal"
-                           data-target="#orderCancelModal"
-                           oldclass="btn yellow pull-right fancybox-fast-view cancel-popup"
-                           id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
-                        <a href="#approve-popup-dialog"
-                           class="btn btn-success btn-sm orderApproveModal" data-toggle="modal"
-                           data-target="#orderApproveModal"
-                           oldclass="btn red blue pull-right fancybox-fast-view approve-popup" id="approve-popup"
-                           data-id="{{ $order->id }}">Approve</a>
-
-
-                        <input type="button" style="" value="Print Report" onclick="prinpiv('toPrinpetail')"
-                               class="btn btn-sm pull-right"/>
+                        @if($CanApprove)
+                            <a href="#cancel-popup-dialog"
+                               class="btn btn-warning btn-sm orderCancelModal" data-toggle="modal"
+                               data-target="#orderCancelModal"
+                               id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
+                            <a href="#approve-popup-dialog"
+                               class="btn btn-success btn-sm orderApproveModal" data-toggle="modal"
+                               data-target="#orderApproveModal"
+                               id="approve-popup"
+                               data-id="{{ $order->id }}">Approve</a>
+                        @endif
+                        <input type="button" style="" value="Print Report" onclick="prinpiv('toPrinpetail')" class="btn btn-sm pull-right"/>
                     </p>
                 </div>
 
@@ -34,8 +32,6 @@
                     <p>
                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
                     @include('common.receipt')
-
-
                 </div>
             </div>
         </div>

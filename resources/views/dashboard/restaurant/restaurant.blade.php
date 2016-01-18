@@ -1,6 +1,6 @@
 <?php
     printfile("views/dashboard/restaurant/restaurant.blade.php");
-    echo newrow($new, "Restaurant Name");
+    echo newrow($new, "Restaurant Name", "", true);
     $name = iif($new, "restname", "name");//why does it change to restname?
     if(!isset($is_disabled)){$is_disabled=false;}
     if(!isset($minimum)){$minimum=false;}
@@ -9,7 +9,7 @@
 <?php echo newrow();
 
 if(!isset($email)){
-echo newrow($new, "Email"); ?>
+echo newrow($new, "Email", "", true); ?>
     <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 <?php echo newrow(); }
 

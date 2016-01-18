@@ -7,7 +7,12 @@
       padding: 1.25rem 1.25rem;
       background-color: #fff !important;
       border-bottom: 0px solid #e5e5e5;
-  }
+}
+.required:after {
+    content: " *";
+    color: #e32;
+}
+
 
 * {
     border-radius: 0 !important;

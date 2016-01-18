@@ -2,11 +2,11 @@
 @if(!read("id") || isset($user_detail))
     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-    <?= newrow($new, "Name"); ?>
+    <?= newrow($new, "Name", "", true); ?>
         <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ (isset($user_detail->name))?$user_detail->name: priority(old('name'), read('name')) }}" required>
     </div></div>
 
-    <?= newrow($new, "Email"); ?>
+    <?= newrow($new, "Email", "", true); ?>
 <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ (isset($user_detail->email))?$user_detail->email: priority(old('email'), read('email')) }}" required onkeyup="validationOnkeyup()">
     </div></div>
 
@@ -20,11 +20,11 @@
         </div></div>
     @endif
 
-    <?= newrow($new, "Password"); ?>
+    <?= newrow($new, "Password", "", true); ?>
         <input type="password" name="password0" class="form-control" id="password0" placeholder="Password" required onkeyup="validationOnkeyup()">
     </div></div>
 
-    <?= newrow($new, "Re-type Password"); ?>
+    <?= newrow($new, "Re-type Password", "", true); ?>
         <input type="password" name="confirm_password0" class="form-control" id="confirm_password0" placeholder="Re-type Password" required onkeyup="validationOnkeyup()">
     </div></div>
 

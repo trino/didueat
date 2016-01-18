@@ -1,7 +1,7 @@
 <?php
 printfile("views/common/contactinfo.blade.php");
 $size = "col-md-12 col-sm-12 col-xs-12";
-echo newrow($new, "Full Name", $size);
+echo newrow($new, "Full Name", $size, true);
 ?>
     <div class="input-icon">
         <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
@@ -10,7 +10,7 @@ echo newrow($new, "Full Name", $size);
 <?php echo newrow();
 
 if(!isset($email)){
-echo newrow($new, "Email", $size); ?>
+echo newrow($new, "Email", $size, true); ?>
     <div class="input-icon">
         <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
     </div>
@@ -24,13 +24,13 @@ echo newrow($new, "Email", $size); ?>
     </div>
 </div>
 
-<?php echo newrow($new, "Password", $size); ?>
+<?php echo newrow($new, "Password", $size, true); ?>
     <div class="input-icon">
         <input type="password" name="password1" class="form-control" id="password1" placeholder="Password" required>
     </div>
 <?php echo newrow();
 
-echo newrow($new, "Re-type Password", $size); ?>
+echo newrow($new, "Re-type Password", $size, true); ?>
     <div class="input-icon">
         <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
     </div>
