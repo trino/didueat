@@ -1161,9 +1161,16 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
         }
 
         $dst_img = ImageCreateTrueColor($new_width, $new_height);
+        $ext = "png";
+        if ($output_filename) {$ext = getExtension($output_filename);}
+        if($ext == "png" || $ext == "gif"){//transparent background
+            $bgcolor = imagecolorallocatealpha($dst_img, 128, 255, 128, 127);
+            imagesavealpha($dst_img, true);
+        } else {//white background
+            $bgcolor = imagecolorallocate($dst_img, 255, 255, 255);
+        }
+        imagefill($dst_img,0,0,$bgcolor);
         imagealphablending($dst_img, true);
-        imagesavealpha($dst_img, true);
-        imagefill($dst_img,0,0,0xFF000000);
         imageantialias($dst_img, true);
         imagecopyresampled($dst_img, $src_img, ($new_width * 0.5) - ($thumb_w * 0.5), ($new_height * 0.5) - ($thumb_h * 0.5), 0, 0, $thumb_w,$thumb_h, $old_x, $old_y);
         imagedestroy($src_img);
@@ -1173,7 +1180,6 @@ function make_thumb($input_filename, $output_filename, $new_width, $new_height, 
             if(strpos($output_filename, "/") === false){
                 $Dir = getdirectory($input_filename) . "/";
             }
-            $ext = getExtension($output_filename);
             switch ($ext) {
                 case "png":
                     imagepng($dst_img, $Dir . $output_filename);
