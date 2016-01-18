@@ -8,7 +8,8 @@
 
     <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
-    <div class="row">
+    <div class="container ">
+    <div class="row ">
 
         <div class="col-sm-12">
             We'll bring the customers to you
@@ -53,9 +54,9 @@
             <p>Start receiving orders in as little as 10 minutes.</p>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-3">
             <div class="pricing-head pricing-head-active">
-                <h3>Expert <span>Officia deserunt mollitia</span></h3>
+                <h3>Expert <span>Officia</span></h3>
                 <h4>
                     <i>$</i>13<i>.99</i>
                     <span>Per Month</span>
@@ -63,22 +64,26 @@
             </div>
             <ul class="pricing-content list-unstyled">
                 <li><i class="fa fa-tags"></i> At vero eos</li>
-                <li><i class="fa fa-asterisk"></i> No Support</li>
-                <li><i class="fa fa-heart"></i> Fusce condimentum</li>
-                <li><i class="fa fa-star"></i> Ut non libero</li>
                 <li><i class="fa fa-shopping-cart"></i> Consecte adiping elit</li>
             </ul>
             <div class="pricing-footer">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna psum olor.</p>
+                <p>Lorem ipsum dolor sit </p>
 
             </div>
         </div>
 
+    </div>
+
+
+<hr/>
         {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
         @include('common.restaurant', array("hours" => false, "cols" => 2, "minimum" => true))
         {!! Form::close() !!}
+
+
+
     </div>
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             Demo.init();

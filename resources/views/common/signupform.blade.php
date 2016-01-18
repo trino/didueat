@@ -23,7 +23,7 @@ if (!isset($new)) {
     </div></div>
 
     <?= newrow($new, "Cell Phone"); ?>
-    <input type="text" name="phone" class="form-control" id="phone" placeholder="Cell Phone"
+    <input type="number" name="phone" class="form-control" id="phone" placeholder="Cell Phone"
            value="{{ (isset($user_detail->phone))?$user_detail->phone: priority(old('phone'), read('phone')) }}">
     </div></div>
 

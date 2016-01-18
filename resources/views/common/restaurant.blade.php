@@ -18,29 +18,15 @@
     $cols = 12/$cols;
 ?>
 
-
-delete this pagfe????
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 <div class="col-md-{{ $cols }} col-sm-12 col-xs-12 ">
     <?php printfile("views/common/restaurant.blade.php"); ?>
     <div class="box-shadow">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="fa fa-long-arrow-right"></i> RESTAURANT INFO
-            </div>
-        </div>
-        <div class="portlet-body form">
-            <div class="form-body">
-                <div class="row">
-                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
-                </div>
-            </div>
-        </div>
 
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-long-arrow-right"></i> CREATE USERNAME & PASSWORD
+                CREATE USERNAME & PASSWORD
             </div>
         </div>
         <div class="portlet-body form">
@@ -61,12 +47,14 @@ delete this pagfe????
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa fa-long-arrow-right"></i> ADDRESS
+                ADDRESS
             </div>
         </div>
         <div class="portlet-body form">
             <div class="form-body">
                 <div class="row">
+                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
+
                     <?php echo view("common.editaddress", array("new" => true, "required" => true)); ?>
                 </div>
             </div>
@@ -79,7 +67,7 @@ delete this pagfe????
         <div class="box-shadow">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-long-arrow-right"></i> HOURS
+                    HOURS
                 </div>
             </div>
             <div class="portlet-body form">

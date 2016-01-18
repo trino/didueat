@@ -4,7 +4,7 @@ $size = "col-md-12 col-sm-12 col-xs-12";
 echo newrow($new, "Full Name", $size);
 ?>
     <div class="input-icon">
-        <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+        <input type="text" name="full_name" class="form-control" id="full_name" placeholder="" value="{{ old('full_name') }}" required>
         <input type="hidden" name="gmt" id="gmt" value="">
     </div>
 <?php echo newrow();
@@ -12,33 +12,25 @@ echo newrow($new, "Full Name", $size);
 if(!isset($email)){
 echo newrow($new, "Email", $size); ?>
     <div class="input-icon">
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
+        <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ old('email') }}" required>
     </div>
 <?php echo newrow();} ?>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-long-arrow-right"></i> Choose Password
-        </div>
-    </div>
-</div>
-
 <?php echo newrow($new, "Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="password1" class="form-control" id="password1" placeholder="Password" required>
+        <input type="password" name="password1" class="form-control" id="password1" placeholder="" required>
     </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
+        <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="" required>
     </div>
 <?php echo newrow();
 
 if(isset($mobile)){
-    echo newrow($new, "Mobile Number (Optional)", $size);
-    echo '<input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="' . old('mobile') . '"></div></div>';
+    echo newrow($new, "Cell Phone", $size);
+    echo '<input type="number" name="mobile" class="form-control" required placeholder="" value="' . old('mobile') . '"></div></div>';
 }
 ?>
 

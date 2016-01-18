@@ -49,7 +49,7 @@
                                    class="card-link insert-stats" data-toggle="modal"
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     {{ $value->menu_item }}
-                                    <i class="fa fa-cart-plus"></i>
+
                                 </a>
                             </h4>
 
@@ -80,7 +80,7 @@
 
                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
                            class="btn btn-sm btn-danger"
-                           onclick="return confirm('This will delete the menu item. Do you like to proceed?')">Delete</a>
+                           onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
                         <button id="add_item{{ $value->id }}" type="button"
                                 class="btn btn-sm btn-info additem" data-toggle="modal"
