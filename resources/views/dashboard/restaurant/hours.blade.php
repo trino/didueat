@@ -82,11 +82,17 @@ echo newrow($new, "Allow delivery"); ?>
             printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled);
         }
     }
-    if($layout){
-        echo '<div class="row is_delivery_options"><div class="caption is_delivery_options is_delivery_2"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
+
+    if(!isset($style)){
+        if($layout){
+            echo '<div class="row is_delivery_options"><div class="caption is_delivery_options is_delivery_2"><i class="fa fa-long-arrow-right" style="padding-left: 7px;"></i> DELIVERY TIMES</div></div>';
+        } else {
+            echo '</DIV></DIV><div class="form-group row is_delivery_options"><label class="col-sm-3"><SPAN class="is_delivery_2">Delivery times</SPAN></label><div class="col-sm-9">';
+        }
     } else {
-        echo '</DIV></DIV><div class="form-group row is_delivery_options"><label class="col-sm-3"><SPAN class="is_delivery_2">Delivery times</SPAN></label><div class="col-sm-9">';
+        echo '<label class="col-sm-12 row"><SPAN class="is_delivery_2">Delivery times</SPAN></label>';
     }
+
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
         $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);

@@ -13,19 +13,19 @@ echo newrow($new, "Email", "", true); ?>
     <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 <?php echo newrow(); }
 
-echo newrow($new, "Description"); ?>
-    <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+echo newrow($new, "Cuisine Type"); ?>
+<select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
+    <option value="">-Select One-</option>
+    @foreach($cuisine_list as $value)
+        <option value="{{ $value->id }}"
+                @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
+    @endforeach
+</select>
 <?php echo newrow();
 
 if(!$minimum){
-    echo newrow($new, "Cuisine Type"); ?>
-        <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
-            <option value="">-Select One-</option>
-            @foreach($cuisine_list as $value)
-                <option value="{{ $value->id }}"
-                        @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
-            @endforeach
-        </select>
+    echo newrow($new, "Description"); ?>
+        <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
     <?php echo newrow();
 
     echo newrow($new, "Tags"); ?>

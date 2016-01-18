@@ -42,7 +42,7 @@
                     <h4 class="card-title">Hours & Delivery</h4>
                 </div>
                 <div class="card-block">
-                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled))
+                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2))
                 </div>
             </div>
 
