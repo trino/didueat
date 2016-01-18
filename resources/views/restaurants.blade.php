@@ -31,7 +31,7 @@ $type = "hidden";
     <?php printfile("views/restaurants.blade.php"); ?>
 
     <div class="row ">
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
                    <p class="card-title m-b-0">Filter Search</p>
@@ -77,7 +77,7 @@ $type = "hidden";
                                 <label id="radius_panel_label">Distance (20 km)</label>
                             </div>
                             <div class=" col-md-6">
-                                <input type="range" name="radius" id="radius" min="1" max="20" value="20"
+                                <input type="range" name="radius" id="radius" min="1" max="10" value="10"
                                        class="form-control"
                                        onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
                             </div>
@@ -94,7 +94,7 @@ $type = "hidden";
             </div>
         </div>
 
-        <div class="col-lg-9 ">
+        <div class="col-lg-8 ">
             <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

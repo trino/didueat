@@ -62,7 +62,7 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td>{{ $key+1 }}
+                        <td>{{ $key+1 }}&nbsp;
                             <div class="btn-group-vertical">
                                 <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
                                 <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>

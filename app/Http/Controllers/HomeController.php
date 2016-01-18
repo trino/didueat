@@ -306,7 +306,7 @@ class HomeController extends Controller {
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['mobile'] = $post['mobile'];
-                $update['description'] = $post['description'];
+            //    $update['description'] = $post['description'];
              //   $update['country'] = $post['country'];
                 //$update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];

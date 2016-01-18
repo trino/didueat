@@ -2,8 +2,7 @@
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
 
-
-    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+    <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
 
     <div class="row">
 
@@ -17,9 +16,7 @@
                     <h4 class="card-title">Restaurant Info</h4>
                 </div>
                 <div class="card-block">
-
                     {!! Form::open(array('url' => 'restaurant/info', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
-
                     <?php
                     $is_disabled = false;
                     if (isset($route) && $route == "restaurant/view/{view}") {
@@ -29,8 +26,6 @@
                     <?php
                     echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
                     ?>
-
-
                 </div>
             </div>
 
@@ -48,37 +43,31 @@
 
 
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Restaurant Hours</h4>
-                    </div>
-                    <div class="card-block">
 
-
-                        <div class="form-group row">
-                            <label class="col-sm-3">Hours</label>
-
-                            <div class="col-sm-9">
-                                @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled))
-                            </div>
-                        </div>
-                    </div>
-
-
-                    @if(!$is_disabled)
-                        <div class="card-footer">
-                            <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-                            <button type="submit" class="btn btn-primary pull-right">Save</button>
-
-
-                            {!! Form::close() !!}
-
-
-                            <div class="clearfix"></div>
-                        </div>
-                    @endif
-                </div>
             </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Hours & Delivery</h4>
+                </div>
+                <div class="card-block">
+                            @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled))
+                </div>
+
+
+                @if(!$is_disabled)
+
+                    <div class="card-footer">
+                        <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
+
+                        {!! Form::close() !!}
+                        <div class="clearfix"></div>
+                    </div>
+                @endif
+            </div>
+
+
         </div>
 
 
