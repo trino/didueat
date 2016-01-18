@@ -310,6 +310,7 @@ class RestaurantController extends Controller {
                 $ob->save();
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Updated"));
+                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 
                 foreach ($post['open'] as $key => $value) {
                     if (!empty($value)) {
@@ -319,10 +320,11 @@ class RestaurantController extends Controller {
                         $hour['close'] = $this->cleanTime($post['close'][$key]);
                         $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
                         $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
-
-                        $hour['day_of_week'] = $post['day_of_week'][$key];
-
-                        $hour['id'] = $post['idd'][$key];
+                        $hour['day_of_week'] = $day_of_week[$key];
+                        $hour['id']=0;
+                        if(isset($post['idd'])) {
+                            $hour['id'] = $post['idd'][$key];
+                        }
                         $ob2 = \App\Http\Models\Hours::findOrNew($hour['id']);
                         $ob2->populate($hour);
                         $ob2->save();
