@@ -52,20 +52,21 @@ echo newrow($new, "Allow pickup"); ?>
 </div>
 
 <?php
+    function getkey($object, $key){
+        return $object->$key;
+    }
+
     $isthesame=true;
     foreach ($day_of_week as $key => $value) {
         if(strpos($value, ">") !== false){
             echo $value;
         } else {
-            $day = select_field_where('hours', array('restaurant_id' => $restaurantID, 'day_of_week' => $value));
-            if($day){
-                $open[$key] = $day->open;
-                $close[$key] = $day->close;
-                $open_del[$key] = $day->open_del;
-                $close_del[$key] = $day->close_del;
-                $ID[$key] = $day->id;
-                echo '<input type="hidden" name="idd[' . $key . ']" value="' . $day->id . '"/>';
-                echo '<input type="hidden" name="day_of_week[' . $key . ']" value="' . $value . '"/>';
+            //$day = select_field_where('hours', array('restaurant_id' => $restaurantID, 'day_of_week' => $value));
+            if(isset($restaurant)){
+                $open[$key] = getkey($restaurant, $value . "_open");
+                $close[$key] = getkey($restaurant, $value . "_close");
+                $open_del[$key] = getkey($restaurant, $value . "_open_del");
+                $close_del[$key] = getkey($restaurant, $value . "_close_del");
             } else {
                 $open[$key] = "12:00:00";
                 $close[$key] = $open[$key];
@@ -99,11 +100,11 @@ echo newrow($new, "Allow pickup"); ?>
             @if(!$suffix && $layout == 2) <div class="col-sm-1" align="center"><SMALL><SMALL><?= $closed; ?></SMALL></SMALL></DIV> @endif
             @if(!$suffix && $layout == 9) <?= $closed; ?> @endif
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="open{{$suffix}}[{{ $key }}]" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" {{ $is_disabled }}/>
+                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" {{ $is_disabled }}/>
             </div>
             <div class="col-sm-1">to</div>
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="close{{$suffix}}[{{ $key }}]" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time" {{ $is_disabled }}/>
+                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time" {{ $is_disabled }}/>
             </div>
         </div>
         <?php

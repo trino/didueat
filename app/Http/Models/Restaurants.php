@@ -15,6 +15,13 @@ class Restaurants extends BaseModel {
      */
     public function populate($data) {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+        $weekdays = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+        foreach($weekdays as $day){
+            $cells[] = $day . "_open";
+            $cells[] = $day . "_close";
+            $cells[] = $day . "_open_del";
+            $cells[] = $day . "_close_del";
+        }
         $this->copycells($cells, $data);
     }
     
@@ -81,15 +88,13 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = current_day_of_week();
-        $left = " LEFT JOIN hours on hours.restaurant_id = restaurants.id AND hours.day_of_week = '" . $DayOfWeek . "' ";
-        //$now = date('H:i:s');
-        //$where .= " AND hours.open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND hours.close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
-        
+        $DayOfWeek = current_day_of_week() . "_";
+        $now = date('H:i:s');
+        $where .= " AND " . $DayOfWeek . "open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND " . $DayOfWeek . "close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $left $where HAVING distance <= '" . $data['radius'] . "' ";
+            $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( lat ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' ";
         } else {
-            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $left . $where;
+            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where;
         }
         $SQL .= $order . $limit;
         if($ReturnSQL){return $SQL;}

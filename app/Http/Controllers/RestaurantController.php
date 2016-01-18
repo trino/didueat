@@ -214,21 +214,6 @@ class RestaurantController extends Controller {
                     $res->where('id', $ob->id)->update(['logo' => $newName]);
                 }
 
-                //save hours of operation
-                foreach ($post['open'] as $key => $value) {
-                    if (!empty($value)) {
-                        $hour['restaurant_id'] = $ob->id;
-                        $hour['open'] = $this->cleanTime($value);
-                        $hour['close'] = $this->cleanTime($post['close'][$key]);
-                        $hour['day_of_week'] = $post['day_of_week'][$key];
-                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
-                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
-                        $ob2 = new \App\Http\Models\Hours();
-                        $ob2->populate($hour);
-                        $ob2->save();
-                    }
-                }
-
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
@@ -262,6 +247,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Postal Code] field is missing!", 'restaurant/info/' . $post['id']);
             }
             try {
+                $update=$post;
                 if ($post['logo'] != '') {
                     $im = explode('.', $post['logo']);
                     $ext = end($im);
@@ -310,27 +296,6 @@ class RestaurantController extends Controller {
                 $ob->save();
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Updated"));
-                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-
-                foreach ($post['open'] as $key => $value) {
-                    if (!empty($value)) {
-                        $hour['restaurant_id'] = $ob->id;
-
-                        $hour['open'] = $this->cleanTime($value);
-                        $hour['close'] = $this->cleanTime($post['close'][$key]);
-                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
-                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
-                        $hour['day_of_week'] = $day_of_week[$key];
-                        $hour['id']=0;
-                        if(isset($post['idd'])) {
-                            $hour['id'] = $post['idd'][$key];
-                        }
-                        $ob2 = \App\Http\Models\Hours::findOrNew($hour['id']);
-                        $ob2->populate($hour);
-                        $ob2->save();
-                    }
-                }
-
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
