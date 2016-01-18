@@ -472,9 +472,9 @@ class HomeController extends Controller {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
         if(\Session::has('session_restaurant_id'))
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->paginate(5);
         else
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->paginate(5);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
         //var_dump(count($menus_list));

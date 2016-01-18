@@ -14,7 +14,7 @@
     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) {
         $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
     }
-    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
     ?>
 
     <div class="card card-block parents" id="parent{{ $value->id }}">
@@ -199,7 +199,7 @@
                                                         <span class="error_{{ $sub->id }} errormsg"></span>
 
                                                         <div class="list clearfix">
-                                                            <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
+                                                            <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                             @foreach($mini_menus as $mm)
                                                             <div class="col-xs-6 col-md-6 subin padding-left-0">
                                                                 <div class="btnxx-inner inneritem">
