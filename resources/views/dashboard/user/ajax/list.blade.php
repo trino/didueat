@@ -45,7 +45,7 @@
                         <a class="sortOrder" data-meta="profile_type" data-order="DESC" data-title="Type" title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
                     </th-->
                     <th>
-                        Phone
+                        Cell Phone
                     </th>
                     <th>Action</th>
                 </tr>
@@ -60,15 +60,18 @@
                     <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
                     <td>{{ $value->phone }}</td>
                     <td>
-                        <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
+                        <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
                             Edit
-                        </a>
+                        </a-->
                         @if($value->id != \Session::get('session_id'))
-                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
 
                             <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-warning btn-sm"
                                onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
+
+                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
+
+
                         @endif
                     </td>
                 </tr>

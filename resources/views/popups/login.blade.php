@@ -38,7 +38,7 @@
                         Forgot Password?
                     </a>
 
-                    <a class="btn btn-warning" href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal">
+                    <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal">
                         Sign up
                     </a>
                     <button class="btn btn-primary" type="submit">Log in</button>

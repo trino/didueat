@@ -41,30 +41,30 @@
         <table class="table table-responsive">
             <thead>
                 <tr>
-                    <th width="5%">
+                    <th >
                         <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
                         ID
                         <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="10%">
+                    <th >
                         Logo
                     </th>
-                    <th width="30%">
+                    <th >
                         <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                         Name
                         <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="20%">
+                    <th >
                         <a class="sortOrder" data-meta="rating" data-order="ASC" data-title="Rating" title="Sort [Rating] ASC"><i class="fa fa-caret-down"></i></a>
                         Rating
                         <a class="sortOrder" data-meta="rating" data-order="DESC" data-title="Rating" title="Sort [Rating] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="15%">
+                    <th ">
                         <a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status" title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a>
                         Status
                         <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status" title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
-                    <th width="10%">Action</th>
+                    <th ></th>
                 </tr>
             </thead>
             <tbody>
@@ -86,10 +86,10 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ url('restaurant/orders/history/'.$value->id) }}" class="btn btn-primary btn-sm">Orders</a>
-                        <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">View</a>
+                        <a href="{{ url('orders/list/restaurant') }}" class="btn btn-info btn-sm">Orders</a>
+                        <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">Menu</a>
                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
-                        <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">Delete</a>
+                        <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
                     </td>
                 </tr>
                 @endforeach

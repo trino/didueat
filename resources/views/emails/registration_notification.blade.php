@@ -48,7 +48,7 @@
                                                 @endif
                                                 @if(isset($mobileNumber))
                                                 <tr>
-                                                    <td><b>Mobile Number:</b></td>
+                                                    <td><b>Cell Phone</b></td>
                                                     <td>&nbsp;{{ $mobileNumber }}</td>
                                                 </tr>
                                                 @endif

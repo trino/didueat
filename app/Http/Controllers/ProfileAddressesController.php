@@ -35,7 +35,7 @@ class ProfileAddressesController extends Controller {
                 return $this->failure("[Province] field is missing!",'user/addresses');
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure( "[Country] field is missing!",'user/addresses');
+              //  return $this->failure( "[Country] field is missing!",'user/addresses');
             }
             if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
                 return $this->failure( "[Phone number] field is missing or invalid!",'user/addresses');

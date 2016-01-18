@@ -64,10 +64,10 @@
                         <p class="card-text">
                             {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}, {{ $value['phone'] }}
                         </p>
-                        <span class="label label-primary">{{ ($value['is_delivery'])?"Delivery":"" }} {{ ($value['is_delivery'])?", ":"" }} {{ ($value['is_pickup'] == 1)?"Pickup":"" }}</span>
-                        <span class="label label-primary">Minimum Delivery: {{ $value['minimum'] }}</span>
-                        <span class="label label-success">Delivery Fee: {{ $value['delivery_fee'] }}</span>
-                        <span class="label label-warning">Tags:
+                        <span class="label label-primary label-pill">{{ ($value['is_delivery'])?"Delivery":"" }} {{ ($value['is_delivery'])?", ":"" }} {{ ($value['is_pickup'] == 1)?"Pickup":"" }}</span>
+                        <span class="label label-warning label-pill">Minimum Delivery: {{ $value['minimum'] }}</span>
+                        <span class="label label-success label-pill">Delivery Fee: {{ $value['delivery_fee'] }}</span>
+                        <!--span class="label label-warning">Tags:
                             <?php
                                 $tag = $value['tags'];
                                 $tags = explode(",", $tag);
@@ -79,16 +79,16 @@
                                     }
                                 }
                             ?>
-                        </span>
-                        <span class="label label-success">Cuisine: {{ select_field("cuisine", "id", $value['id'], "name") }}</span>
+                        </span-->
+                        <span class="label label-success label-pill">Cuisine: {{ select_field("cuisine", "id", $value['id'], "name") }}</span>
 
-                        <SPAN CLASS="label label-<?php
+                        <span class="label label-pill label-<?php
                                 $key = iif($delivery_type == "is_delivery", "_del");
                                 $open = offsettime($value["open" . $key], $difference);
                                 $close = offsettime($value["close" . $key], $difference);
                                 $is_open = $open <= $user_time && $close >= $user_time;
                                 echo iif($is_open, "primary", "danger") . '" TITLE="' . current_day_of_week() . '">Hours: ' . left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3);
-                        ?></SPAN>
+                        ?></span>
 
                         @if(isset($latitude) && $distance)
                             <span class="label label-info">Distance:

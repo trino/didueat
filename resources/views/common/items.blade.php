@@ -26,6 +26,7 @@
     ?>
     <li id="list{{ $order->listid }}" class="infolist">
         <span class="receipt_image">
+                ${{$arr_prs[$k]}}
               <!--img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34"-->
               <span class="count">x {{ $arr_qty[$k] }}</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </span>
@@ -33,7 +34,7 @@
         <em class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</em>
         <span class="amount" style="display:none;"> {{ number_format($arr_prs[$k], 2) }}</span>
         <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>
-        <input type="hidden" name="extras[]" value="Watch Rolex Classic "/>
+        <input type="hidden" name="extras[]" value=""/>
         <input type="hidden" name="listid[]" value="2"/>
         <input type="hidden" class="prs" name="prs[]" value="{{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}" />
     </li>

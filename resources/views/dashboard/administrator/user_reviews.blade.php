@@ -1,5 +1,10 @@
 @extends('layouts.default')
 @section('content')
+
+    waht is this??? delete
+
+
+
     <meta name="_token" content="{{ csrf_token() }}"/>
     <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
@@ -10,7 +15,7 @@
         <div class="col-lg-9">
             <?php printfile("views/dashboard/administrator/user_reviews.blade.php"); ?>
                 <div class="card">
-                    <div class="card-header bg-primary">
+                    <div class="card-header">
                         Reviews
                     </div>
                     <div class="card-block p-a-0">

@@ -253,7 +253,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
+              //  return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
@@ -289,10 +289,10 @@ class RestaurantController extends Controller {
                 if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
                 }
-                $update['email'] = $post['email'];
+              //  $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
-                $update['country'] = $post['country'];
+             //   $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
@@ -303,7 +303,7 @@ class RestaurantController extends Controller {
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                $update['tags'] = $post['tags'];
+             //  $update['tags'] = $post['tags'];
                 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update);

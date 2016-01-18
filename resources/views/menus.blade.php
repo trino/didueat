@@ -14,7 +14,7 @@
     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))) {
         $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
     }
-    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
     ?>
 
     <div class="card card-block parents" id="parent{{ $value->id }}">
@@ -43,15 +43,15 @@
                                 $dis = "" . $discount . "% discount " . $everyday . "";
                             }
                             ?>
-                            <h2 class="card-title">
+                            <h4 class="card-title">
                                 <a href="javascript:void(0)" id="{{ $value->id }}"
                                    data-res-id="{{ $value->restaurant_id }}" type="button"
                                    class="card-link insert-stats" data-toggle="modal"
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     {{ $value->menu_item }}
-                                    <i class="fa fa-cart-plus"></i>
+
                                 </a>
-                            </h2>
+                            </h4>
 
                             @if($dis)
                                 <strike>${{$value->price}}</strike>
@@ -80,7 +80,7 @@
 
                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
                            class="btn btn-sm btn-danger"
-                           onclick="return confirm('This will delete the menu item. Do you like to proceed?')">Delete</a>
+                           onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
                         <button id="add_item{{ $value->id }}" type="button"
                                 class="btn btn-sm btn-info additem" data-toggle="modal"
@@ -137,23 +137,26 @@
                                     @endif
                                 </h3>
                             </div>
-                            <div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
+
+                            <!--div class="col-sm-12 col-xs-12" id="stats_block" style="display: none;">
                                 <strong>Menu Views:</strong>
                                 <span id="view_stats"></span>
-                            </div>
-                            <div class="col-sm-12 col-xs-12">
-                                <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
-                            </div>                                    
+                            </div-->
                             <div class="col-sm-12 col-xs-12">
                                 <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                             </div>
+
+                            <div class="col-sm-12 col-xs-12">
+                                <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
+                            </div>                                    
+
                             <div class="col-sm-12 col-xs-12">
                                 <p class="">{{ $value->description }}</p>
                             </div>
                             <div class="subitems_{{ $value->id }} optionals">
                                 <div class="clearfix space10"></div>
                                 <div style="display:none;">
-                                    <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id.'_'.$value->menu_item.'-_'.$main_price.'_' }}" value="" class="chk">
+                                    <input type="checkbox" style="display: none;" checked="checked" title="{{ $value->id.'_<b>'.$value->menu_item.'</b>_'.$main_price.'_' }}" value="" class="chk">
                                 </div>
                                 <div class="banner bannerz">
                                     <table>
@@ -167,7 +170,7 @@
                                                     <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
                                                     <div style="" class="infolist col-xs-12">
                                                         <div style="display: none;">
-                                                            <input type="checkbox" value="{{ $sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;" checked="checked" class="chk">
+                                                            <input type="checkbox" value="{{ '<br/>'.$sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;" checked="checked" class="chk">
                                                         </div>
                                                         <a href="javascript:void(0);"><strong>{{ ucfirst($sub->menu_item) }}</strong></a>
                                                         <strong>
@@ -196,12 +199,12 @@
                                                         <span class="error_{{ $sub->id }} errormsg"></span>
 
                                                         <div class="list clearfix">
-                                                            <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
+                                                            <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                             @foreach($mini_menus as $mm)
                                                             <div class="col-xs-6 col-md-6 subin padding-left-0">
-                                                                <div class="btnxx-inner">
+                                                                <div class="btnxx-inner inneritem">
                                                                     <a id="buttons_{{ $mm->id }}"
-                                                                       class="buttons"
+                                                                       class="buttons col-md-8 nopadd"
                                                                        href="javascript:void(0);">
                                                                            <?php
                                                                            if ($mm->price != 0)
@@ -214,12 +217,10 @@
                                                                         &nbsp;&nbsp; 
                                                                         <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
                                                                     </a>
-                                                                    <b <?php if ($sub->sing_mul == '1'){ echo "style='display:none'"; } ?>>
-                                                                        &nbsp; 
-                                                                        <a id="remspan_{{ $mm->id }}" class="remspan btn btn-danger btn-xs" href="javascript:;">-</a>
-                                                                        <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;0&nbsp;&nbsp;</span>
-                                                                        <a id="addspan_{{ $mm->id }}" class="addspan btn btn-xs btn-info" href="javascript:;">+</a>
+                                                                    <b <?php if ($sub->sing_mul == '1'){ echo "style='display:none'"; } ?> class="col-md-4 norightpadd">
+                                                                    <a id="remspan_{{ $mm->id }}" class="remspan btn btn-danger btn-xs" href="javascript:;">-</a> <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} allspan">0</span> <a id="addspan_{{ $mm->id }}" class="addspan btn btn-xs btn-info" href="javascript:;">+</a>
                                                                     </b>
+                                                                    <div class="clearfix"></div>
                                                                 </div>
                                                                 <div class="clearfix"></div>
                                                             </div>

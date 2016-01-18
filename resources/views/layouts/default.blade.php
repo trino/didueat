@@ -11,11 +11,11 @@ if (Request::path() !== null && Request::path() != "/") {
     $nextPath = "/" . Request::path();
 }
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <?php $start_loading_time = microtime(true); ?>
-    <title>{{ (isset($title))?$title.' | ':'' }}DidUEat</title>
+    <title>{{ (isset($title))?$title.' | ':'' }}diduEAT</title>
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

@@ -1,6 +1,24 @@
 @extends('layouts.default')
 @section('content')
 delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
+delete
     @if(false)
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
@@ -652,7 +670,7 @@ delete
                     var df = $('input.df').val();
                     if (t == 'show') {
                         $('#df').show();
-                        $('.profile_delevery_type').text('Delivery Detail');
+                        $('.profile_delevery_type').text('Delivery To');
                         $('.profile_delivery_detail').show();
                         $('.profile_delivery_detail input').each(function() {
                             $(this).attr('required', 'required');

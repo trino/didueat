@@ -2,20 +2,6 @@
 @section('content')
 
 <div class="row">
-    @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-        <div class=" col-md-12">
-            <div class="alert alert-success" role="alert">
-                <strong>Welcome!</strong> Only add main dishes/combos, you're allowed a maximum of 7 items. We will feature your deals every day of the week.
-
-                <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
-                   data-target="#addMenuModel">
-                    Add Menu Item
-                </a>
-                <div class="clearfix"></div>
-            </div>
-            <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-        </div>
-    @endif
 
     <div class="overlay overlay_reservation">
         <div class="loadmoreajaxloader">
@@ -30,34 +16,27 @@
     <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
         <?php printfile("views/restaurants-menus.blade.php"); ?>
 
-        @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-            <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
-                 aria-labelledby="addMenuModelLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="addMenuModelLabel">Add/Edit Menu</h4>
-                        </div>
-                        <div class="modal-body" id="menumanager2">
+            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                    <div class="alert alert-success" role="alert">
+                        <strong>Welcome</strong> to your restaurant menu, add your best selling meals or combos.
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
+                        <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
+                           data-target="#addMenuModel">
+                            Add Menu Item
+                        </a>
+                        <div class="clearfix"></div>
                     </div>
-                </div>
-            </div>
-        @endif
+                    <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+            @endif
+
+
+
 
         @foreach($category as $cat)
-            <h2>
+            <h4>
                 {{ $cat->title }}
-            </h2>
+            </h4>
             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
@@ -71,11 +50,11 @@
                        {
                         if(res!='no')
                         {
-                           $("#postswrapper_{{ $cat->id }}").html(res); 
+                           $("#postswrapper_{{ $cat->id }}").html(res);
                         }
                         else
                         {
-                            $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>'); 
+                            $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
                         }
                        }
                     });
@@ -87,9 +66,54 @@
         @if(debugmode())
             <input type="file" accept="image/*;capture=camera">
         @endif
+
+
+
+            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+@else
+            <div class="alert alert-success" role="alert">
+                <strong>Make Money!</strong> Upload menu item and make commision off of each order
+
+                <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal" data-target="#addMenuModel">
+                    Add Menu Item
+                </a>
+                <div class="clearfix"></div>
+            </div>
+@endif
+
     </div>
 </div>
-    
+
+
+
+
+
+@if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+@endif
+    <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
+         aria-labelledby="addMenuModelLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="addMenuModelLabel">Add/Edit Menu</h4>
+                </div>
+                <div class="modal-body" id="menumanager2">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 <script type="text/javascript">
         function check_val(v) {
             if (v != '') {
@@ -100,6 +124,7 @@
             }
         }
         $(document).ready(function () {
+            /*
             $('body').on('click', '.insert-stats', function () {
                 var id = $(this).attr('id');
                 $.get("{{ url('restaurants/menu/stats') }}/" + id, {}, function (result) {
@@ -107,7 +132,7 @@
                     $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
                 });
             });
-
+*/
             function validatePassword() {
                 var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -162,7 +187,7 @@
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
-                    $('.allspan').html('&nbsp;&nbsp;1&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 });
                 $('.inp').val("");
                 $('.fancybox-close').click();
@@ -177,7 +202,7 @@
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
-                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 });
                 $('.inp').val("");
                 $(this).parent().parent().find('.nxt_button').show();
@@ -200,7 +225,7 @@
                 var catarray = [];
                 var td_index = 0;
                 var td_temp = 9999;
-
+                var n_counter= 0;
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
@@ -327,15 +352,19 @@
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
                                 app_title = app_title + " " + su + ":";
+                                
                             }
+                            
+                            
                         }
                         var x = index;
                         if (title[0] != "") {
                             ids = ids + "_" + title[0];
                         }
-                        //if(app_title!="")
+                        
+                        
                         app_title = app_title + "," + title[1];
-
+                        
                         //else
                         //app_title = title[1];
                         price = Number(price) + Number(title[2]);
@@ -370,11 +399,11 @@
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-                    $('.allspan').html('&nbsp;&nbsp;0&nbsp;&nbsp;');
+                    $('.allspan').html('0');
                 }
 
                 ids = ids.replace("__", "_");
-
+                
                 //app_title =app_title.replace(",,"," ");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -428,7 +457,7 @@
                         '+</a></span>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span>' +
-                        '<strong class="innerst">' + app_title + '</strong>' +
+                        '<span class="innerst">' + app_title + '</span>' +
                         '<em class="total">$' + (pre_cnt * price).toFixed(2) + '</em>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +

@@ -285,7 +285,7 @@ class HomeController extends Controller {
                 return $this->failure("[Phone] field is missing or invalid!",'/restaurants/signup', true);
             }
             if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!",'/restaurants/signup', true);
+            //    return $this->failure("[Country] field is missing!",'/restaurants/signup', true);
             }
             if (!isset($post['password1']) || empty($post['password1'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message'),'/restaurants/signup', true);
@@ -306,8 +306,8 @@ class HomeController extends Controller {
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
                 $update['mobile'] = $post['mobile'];
-                $update['description'] = $post['description'];
-                $update['country'] = $post['country'];
+            //    $update['description'] = $post['description'];
+             //   $update['country'] = $post['country'];
                 //$update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
@@ -326,7 +326,7 @@ class HomeController extends Controller {
                     $update['lat'] = $post['lat'];
                     $update['lng'] = $post['lng'];
                 }
-                $update['formatted_address'] = $post['formatted_address'];
+           //     $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 0;
                 $update['status'] = 1;
                 $browser_info = getBrowser();
@@ -415,8 +415,10 @@ class HomeController extends Controller {
                     }
                 }
 
+
                 $userArray = $user->toArray();
                 $userArray['mail_subject'] = 'Thank you for registration.';
+
                 $this->sendEMail("emails.registration_welcome", $userArray);
                 \DB::commit();
 
@@ -470,9 +472,9 @@ class HomeController extends Controller {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
         if(\Session::has('session_restaurant_id'))
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->paginate(5);
         else
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->orderBy('display_order', 'ASC')->where('cat_id', $catid)->paginate(5);
+        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->paginate(5);
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
         //var_dump(count($menus_list));
@@ -531,7 +533,7 @@ class HomeController extends Controller {
             switch (strtolower($_POST["type"])) {
                 case "provinces":
                     $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
-                    echo '<OPTION VALUE="">-select one-</OPTION>';
+                    echo '<OPTION VALUE="">Select Country</OPTION>';
                     foreach($Provinces as $Province){
                         $HasProvinces = true;
                         echo '<OPTION VALUE="' . $Province->id . '"';
@@ -554,7 +556,7 @@ class HomeController extends Controller {
                 case "cities":
                     $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
                     $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
-                    echo '<OPTION VALUE="">-select one-</OPTION>';
+                    echo '<OPTION VALUE="">Select Province</OPTION>';
                     foreach($Cities as $City){
                         $HasCities = true;
                         echo '<OPTION VALUE="' . $City->id . '"';

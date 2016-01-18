@@ -145,6 +145,7 @@ class AuthController extends Controller {
                     */
 
                     $userArray = $user->toArray();
+                    $userArray['password'] = $data['password0'];
                     $userArray['mail_subject'] = 'Thank you for registration.';
                     $this->sendEMail("emails.registration_welcome", $userArray);
                     

@@ -1,6 +1,15 @@
 @extends('layouts.default')
 @section('content')
     delete?
+    delete?
+    delete?
+    delete?
+    delete?
+    delete?
+    delete?
+    delete?
+    delete?
+    delete?
 
 
     @if(false)
@@ -48,7 +57,7 @@
                                 </div>
                             @endforeach
                         @else
-                            Sorry! No Results Found.
+                            No orders found
                         @endif
                         <div class="clearfix"></div>
 

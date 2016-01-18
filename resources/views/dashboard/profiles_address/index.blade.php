@@ -16,12 +16,16 @@
     <div class="col-lg-9">
         <?php printfile("views/dashboard/profiles_address/index.blade.php"); ?>
         <div id="ajax_message_jgrowl"></div>
-        
+
         <!-- Panels Start -->
         <div id="loadPageData">
             <div id="ajaxloader"></div>
         </div>
     </div>
+
+
+
+
 </div>
 
 
@@ -42,7 +46,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn custom-default-btn">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             {!! Form::close() !!}
         </div>
@@ -57,7 +61,7 @@
         $('#edit-form').attr('action',  URL.replace("/" + oldID + "end", "/" + id));
         if(id == null || id == undefined || id == ""){
             id = 0;
-            $('#editLabel').text('Create Address');
+            $('#editLabel').text('Add/Edit Address');
         }
         oldID=id;
         $('#editModel #ajaxloader').show();
@@ -77,12 +81,12 @@
             }
         });
     });
-                    
+
     $('body').on('click', '.up, .down', function () {
         var row = $(this).parents("tr:first");
         var token = $('#addressesForm input[name=_token]').val();
         var order = $(this).parents("tr:first").attr('data-order');
-        
+
         if($(this).is(".up")) {
             row.insertBefore(row.prev());
         } else {
@@ -92,7 +96,7 @@
         $(".rows").each(function (index) {
             $(this).attr("data-order", index);
         });
-        
+
         var data_id = $(".rows").map(function () {
             return $(this).attr("data-id");
         }).get();
@@ -100,7 +104,7 @@
         var data_order = $(".rows").map(function () {
             return $(this).attr("data-order");
         }).get();
-        
+
         $.post("{{ url('user/addresses/sequence') }}", { id: data_id.join('|'), order: data_order.join('|'), _token: token }, function (result) {
             if (result) {
                 alert(result);

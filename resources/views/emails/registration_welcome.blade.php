@@ -22,7 +22,12 @@
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
                                 <br /><br />
-                                Thank you for registering with Didueat.
+                                Thank you for registering with Didueat. As a reminder below are you credentials:
+                                <br /><br />
+                                <b>Login Email:</b> {{ $email }}
+                                <br />
+                                <b>Login Password:</b> {{ $password }}
+                                <br /><br />
                                 @if(!$is_email_varified)
                                     Please click on the verification link below to activate your account.
                                     <br /><br />

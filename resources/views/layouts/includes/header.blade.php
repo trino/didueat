@@ -5,13 +5,14 @@ $first = false; $type = "hidden";
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
-    <div class="container">
+    <div class="">
         <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse"
                 data-target="#exCollapsingNavbar2">
             &#9776;
         </button>
 
         <a class="navbar-brand" href="{{ url('/') }}">
+            <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
             <img src="{{ asset('assets/images/logos/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
         <ul class="nav navbar-nav">

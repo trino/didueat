@@ -39,7 +39,7 @@ function changeqty(id, opr) {
         var df = $('input.df').val();
         if (t == 'show') {
             $('#df').show();
-            $('.profile_delevery_type').text('Delivery Detail');
+            $('.profile_delevery_type').text('Delivery To');
             $('.profile_delivery_detail').show();
             $('.profile_delivery_detail input').each(function () {
                 $(this).attr('required', 'required');
@@ -156,7 +156,7 @@ function changeqty(id, opr) {
             title[1]= title[1].replace(' x('+qty+")","");
             //alert(id+","+qty+","+price+","+tit);
             qty = Number(qty)+ Number(1);
-            $(this).parent().find('.span_'+id).html('&nbsp;&nbsp;'+qty+'&nbsp;&nbsp;');
+            $(this).parent().find('.span_'+id).html(qty);
             if(qty ==0)
             {
                 newtitle= title[1];
@@ -202,7 +202,7 @@ function changeqty(id, opr) {
             {
                 title[1]= title[1].replace('x('+qty+")","")
                 qty = Number(qty) -Number(1);
-                $(this).parent().find('.span_'+id).html('&nbsp;&nbsp;'+qty+'&nbsp;&nbsp;');
+                $(this).parent().find('.span_'+id).html(qty);
             }
             if(qty ==0)
             {
