@@ -1,7 +1,7 @@
 <?php printfile("views/common/items.blade.php"); ?>
 <table class="table scroller orders @if(!isset($order)) order-style @endif">
 <thead>
-    <th width='15%'>Qty</th><th>Item</th><th>Price</th>
+    <th width='24%'>Qty</th><th>Item</th><th>Price</th>
 </thead>
 @if(isset($order))
     <?php
@@ -31,7 +31,7 @@
         <td class="receipt_image">
                 
               <!--img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34"-->
-              <b><span class="count">{{ $arr_qty[$k] }} x</span></b><input type="hidden" class="count" name="qtys[]" value="1" />
+              <span class="count">{{ $arr_qty[$k] }} x</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </td>
         <td><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</td>
         <td class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</td>
