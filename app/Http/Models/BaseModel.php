@@ -24,34 +24,50 @@ class BaseModel extends Model {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
                     $this->$cell = trim($data[$cell]);
+                    $data[$cell]=$this->$cell;
                 }
             } else {
                 if (array_key_exists($key, $data)) {
                     $this->$key = trim($data[$key]);
-                    switch($cell){
-                        case "phone":
-                            $this->$key = phonenumber($this->$key);
-                            break;
-                        case "postalcode":
-                            $this->$key = clean_postalcode($this->$key);
-                            break;
-                        case "encrypted":
-                            $this->$key = \Crypt::encrypt($this->$key);
-                            break;
-                        case "password":
-                            $this->$key = $this->encryptPassword($this->$key);
-                            break;
+                    if($this->$key) {
+                        switch ($cell) {
+                            case "phone":
+                                $this->$key = phonenumber($this->$key);
+                                break;
+                            case "postalcode":
+                                $this->$key = clean_postalcode($this->$key);
+                                break;
+                            case "encrypted":
+                                $this->$key = \Crypt::encrypt($this->$key);
+                                break;
+                            case "password":
+                                $this->$key = $this->encryptPassword($this->$key);
+                                break;
+                        }
+                        if(!$this->$key){
+                            $keys = array();
+                            if(\Session::has('invalid-data')){
+                                $keys[] = \Session::get('invalid-data');
+                            }
+                            if(!isset($keys[$key])) {
+                                $keys[] = $key;
+                            }
+                            \Session::put('invalid-data', $keys);
+                        }
                     }
+                    $data[$cell]=$this->$cell;
                 }
                 if(!isset($this->$key) || !$this->$key) {//empty or doesn't exist
                     switch ($cell) {
                         case "guid":
                             $this->$key = guidv4();
+                            $data[$cell]=$this->$cell;
                             break;
                     }
                 }
             }
         }
+        return $data;
     }
 
     /**

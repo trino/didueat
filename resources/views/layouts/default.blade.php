@@ -130,9 +130,15 @@
                 }
             }
         }
+        if(\Session::has('invalid-data')){
+            $fields = Session::get('invalid-data');
+            $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
+            echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
+            \Session::forget('invalid-data');
+        }
     ?>
 
-    @if(\Session::has('message-type'))
+    @if(\Session::has('message-type') && Session::get('message'))
         <div class="alert {!! Session::get('message-type') !!}">
             <strong>{!! Session::get('message-short') !!}</strong>
             &nbsp; {!! Session::get('message') !!}
@@ -146,3 +152,33 @@
 @include('layouts.includes.footer')
 </body>
 </html>
+<SCRIPT>
+    //attempts to replace the field name with it's label for invalid data
+    $(document).ready(function() {
+        var element = document.getElementById("invalid-fields");
+        if (element) {
+            var fields = element.innerHTML.split(", ");
+            for(i = 0; i < fields.length; i++){
+                fields[i] = getfieldlabel(fields[i]);
+            }
+            element.innerHTML = fields.join(", ");
+        }
+    });
+
+    function getfieldlabel(field){
+        element = document.getElementsByName(field)[0];
+        if(element) {
+            element = element.parentElement.parentElement;
+            if(element) {
+                var children = element.children;
+                for (var j = 0; j < children.length; j++) {
+                    element = children[j];
+                    if (element.tagName = "label" && element.innerText) {
+                        field = element.innerText;
+                    }
+                }
+            }
+        }
+        return field;
+    }
+</SCRIPT>
