@@ -517,32 +517,7 @@ delete
                                 </div>
                             </div>
                             <form id="profiles">
-                                <div class="form-group">
-                                    <div class="col-xs-12 margin-bottom-10">
-                                        <input type="text" placeholder="Name" class="form-control padding-margin-top-0 form-control--contact" name="ordered_by" id="fullname" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12 col-sm-6 margin-bottom-10">
-                                        <input type="email" placeholder="Email" class="form-control  form-control--contact" name="email" id="ordered_email" required="">
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6">
-                                        <input type="text" placeholder="Phone Number" class="form-control  form-control--contact" name="contact" id="ordered_contact" required="">
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <input type="password" name="password" id="password1" class="form-control  form-control--contact" placeholder="Password" onkeyup="check_val(this.value);">
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="form-group confirm_password" style="display: none;">
-                                    <div class="col-xs-12">
-                                        <input type="password" id="confirm_password" name="" class="form-control  form-control--contact" placeholder="Confirm Password">
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                                @include("common.contactinfo")
 
                                 <div class="form-group">
                                     <div class="col-xs-12">
@@ -612,7 +587,7 @@ delete
                                         $('#confirm_password').attr('required', 'required');
                                     }
                                 }
-                                var password = document.getElementById("password1")
+                                var password = document.getElementById("password")
                                         , confirm_password = document.getElementById("confirm_password");
 
                                 function validatePassword() {

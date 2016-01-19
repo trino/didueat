@@ -117,14 +117,14 @@
                             type: "post"
                         }
                     },
-                    password1: {
+                    password: {
                         required: true,
                         minlength: 5
                     },
-                    confirm_password1: {
+                    confirm_password: {
                         required: true,
                         minlength: 5,
-                        equalTo: "#password1"
+                        equalTo: "#password"
                     }
                 },
                 messages: {
@@ -137,7 +137,7 @@
                         required: "Please Enter an email address!",
                         remote: "This email address is already in use!"
                     },
-                    confirm_password1: {
+                    confirm_password: {
                         equalTo: "The password fields are mis-matched!"
                     },
                     mobile: {

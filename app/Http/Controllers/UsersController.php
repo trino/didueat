@@ -391,7 +391,6 @@ class UsersController extends Controller {
                             $userArray = $uid->toArray();
                             $userArray['idd'] = '1';
 
-
                             $userArray['mail_subject'] = 'Thank you for registration.';
                             $this->sendEMail("emails.registration_welcome", $userArray);
                         }

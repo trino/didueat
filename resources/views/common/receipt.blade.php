@@ -221,7 +221,7 @@
                         @if(!Session::has('is_logged_in'))
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <input type="password" name="password" id="password1"
+                                    <input type="password" name="password" id="password"
                                            class="form-control  form-control--contact" placeholder="Provide a password"
                                            onkeyup="check_val(this.value);">
 

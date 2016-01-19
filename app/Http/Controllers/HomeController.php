@@ -288,13 +288,13 @@ class HomeController extends Controller {
             if (!isset($post['country']) || empty($post['country'])) {
             //    return $this->failure("[Country] field is missing!",$Redirect, true);
             }
-            if (!isset($post['password1']) || empty($post['password1'])) {
+            if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message'),$Redirect, true);
             }
-            if (!isset($post['confirm_password1']) || empty($post['confirm_password1'])) {
+            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
             }
-            if ($post['password1'] != $post['confirm_password1']) {
+            if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }
             \DB::beginTransaction();
@@ -381,7 +381,7 @@ class HomeController extends Controller {
                 
                 $profile['name'] = $post['full_name'];
                 $profile['email'] = $post['email'];
-                $profile['password'] = $post['password1'];
+                $profile['password'] = $post['password'];
                 $profile['restaurant_id'] = $ob->id;
                 $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
                 $profile['is_email_varified'] = iif($email_verification, 0, 1);
@@ -420,7 +420,7 @@ class HomeController extends Controller {
                 $userArray = $user->toArray();
                 $userArray['mail_subject'] = 'Thank you for registration.';
 
-                $this->sendEMail("emails.registration_welcome", $userArray);
+                $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
                 \DB::commit();
 
                 $message['title'] = "Registration Success";

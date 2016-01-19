@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <input type="password" name="password" id="password1" class="form-control form-control--contact" placeholder="Password" onkeyup="check_val(this.value);"/>
+            <input type="password" name="password" id="password" class="form-control form-control--contact" placeholder="Password" onkeyup="check_val(this.value);"/>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -94,7 +94,7 @@
             }
         }
         
-        var password = document.getElementById("password1"), confirm_password = document.getElementById("confirm_password");
+        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
         function validatePassword() {
             if (password.value != confirm_password.value) {

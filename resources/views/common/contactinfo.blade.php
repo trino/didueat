@@ -26,13 +26,13 @@ echo newrow($new, "Email", $size, true); ?>
 
 <?php echo newrow($new, "Password", $size, true); ?>
     <div class="input-icon">
-        <input type="password" name="password1" class="form-control" id="password1" placeholder="Password" required>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
     </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, true); ?>
     <div class="input-icon">
-        <input type="password" name="confirm_password1" class="form-control" id="confirm_password1" placeholder="Re-type Password" required>
+        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required>
     </div>
 <?php echo newrow();
 

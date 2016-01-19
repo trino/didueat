@@ -94,38 +94,40 @@
         $Restaurant = \Session::get('session_restaurant_id', 0);
         if ($Restaurant && !\Session::has('message-type')){
             $Restaurant = select_field("restaurants", "id", $Restaurant);
-            $MissingData = array();
-            $MissingDataOptional = array();
-            if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "to be set for pickup or delivery";}
-            if(!$Restaurant->lat || !$Restaurant->lng){$MissingData[] = "an address";}
-            if(!$Restaurant->open){$MissingData[] = "to be set to open";}
-            if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
-            if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
-            if(!$Restaurant->minimum){$MissingDataOptional[] = "possibly a minimum delivery sub-total";}
+            if($Restaurant){
+                $MissingData = array();
+                $MissingDataOptional = array();
+                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "to be set for pickup or delivery";}
+                if(!$Restaurant->lat || !$Restaurant->lng){$MissingData[] = "an address";}
+                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
+                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
+                if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
+                if(!$Restaurant->minimum){$MissingDataOptional[] = "possibly a minimum delivery sub-total";}
 
-            //check hours of operation
-            $weekdays = getweekdays();
-            foreach($weekdays as $weekday){
-                foreach(array("_open", "_close", "_open_del", "_close_del") as $field){
-                    $field = $weekday . $field;
-                    if($Restaurant->$field != "12:00:00"){
-                        $weekdays = false;
-                        break;
+                //check hours of operation
+                $weekdays = getweekdays();
+                foreach($weekdays as $weekday){
+                    foreach(array("_open", "_close", "_open_del", "_close_del") as $field){
+                        $field = $weekday . $field;
+                        if($Restaurant->$field != "12:00:00"){
+                            $weekdays = false;
+                            break;
+                        }
                     }
+                        if(!$weekdays){break;}
                 }
-                    if(!$weekdays){break;}
-            }
-            if($weekdays){$MissingData[] = "hours of operation";}
+                if($weekdays){$MissingData[] = "hours of operation";}
 
-            //check credit card
-            $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-            if(!$creditcards){$MissingData[] = "a credit card";}
+                //check credit card
+                $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
+                if(!$creditcards){$MissingData[] = "a credit card";}
 
-            if($MissingData){
-                $MissingData = array_merge($MissingData, $MissingDataOptional);
-                Session::put('message-type', "alert-danger");
-                Session::put('message-short', "Missing Data");
-                Session::put('message', "You need the following to open a store: " . implode(", ", $MissingData) );
+                if($MissingData){
+                    $MissingData = array_merge($MissingData, $MissingDataOptional);
+                    Session::put('message-type', "alert-danger");
+                    Session::put('message-short', "Missing Data");
+                    Session::put('message', "You need the following to open a store: " . implode(", ", $MissingData) );
+                }
             }
         }
     ?>

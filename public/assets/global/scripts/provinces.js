@@ -122,7 +122,7 @@ function getplace(){
 
 function fillInAddress() {
     // Get the place details from the formatted_address object.
-    var place = getplace().getPlace();
+    var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     $('#latitude').val(lat);
