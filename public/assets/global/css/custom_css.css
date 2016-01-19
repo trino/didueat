@@ -346,3 +346,4 @@ em.total{width:14%;padding-left:2%;}
 .facet-count {color: #999;}
 .clear-search {position: absolute; right: 20px;}
 td .count{font-size:12px;display:inline-block;padding:0 2px;}
+table.orders thead{background: #e5e5e5;}

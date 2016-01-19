@@ -1,7 +1,7 @@
 <?php printfile("views/common/items.blade.php"); ?>
 <table class="table scroller orders @if(!isset($order)) order-style @endif">
 <thead>
-    <th width='24%'>Qty</th><th>Item</th><th>Price</th>
+    <th width='26%'>Qty</th><th width="50%">Item</th><th>Price</th>
 </thead>
 @if(isset($order))
     <?php
