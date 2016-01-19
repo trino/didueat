@@ -110,6 +110,10 @@
             var target_id = $(this).attr('data-target-id');
             var type = $(this).attr('data-type');
             
+            $("#ratingModal #message-error").hide();
+            $("#ratingModal #message-success").hide();
+            $("#ratingModal .rating input").attr("checked", false);
+            
             if (isAlreadyRated > 0) {
                 $('#ratingModal').modal('hide');
                 return alert('You already rated!');
@@ -164,7 +168,7 @@
                             $(this).addClass("checked-stars");
                             $(this).attr("checked", true);
                         });
-                    }, 1000);
+                    }, 500);
                 }
             });
             e.preventDefault();
