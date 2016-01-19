@@ -281,7 +281,7 @@ class RestaurantController extends Controller {
                 $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
-                $update['address'] = $post['address'];
+                $update['address'] = $post['formatted_address'];//was address
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;

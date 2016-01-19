@@ -16,13 +16,24 @@ class Restaurants extends BaseModel {
     public function populate($data) {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'lat', 'lng', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
         $weekdays = getweekdays();
+        $this->is_complete = true;
+        $doesopen = false;
         foreach($weekdays as $day){
-            $cells[] = $day . "_open";
-            $cells[] = $day . "_close";
-            $cells[] = $day . "_open_del";
-            $cells[] = $day . "_close_del";
+            foreach(array("_open","_close","_open_del","_close_del") as $field){
+                $cells[] = $day . $field;
+                if(!isset($data[$day . $field])){
+                    $this->is_complete = false;
+                } else if($data[$day . $field] != "12:00:00"){
+                    $doesopen = true;
+                }
+            }
         }
         $this->copycells($cells, $data);
+        if(!$doesopen){$this->is_complete=false;}
+        if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
+        if(!$this->lat || !$this->lng){$this->is_complete=false;}
+        if(!$this->open){$this->is_complete=false;}
+        if(!$this->status){$this->is_complete=false;}
     }
     
     public static function listing($array = "", $type = "") {
@@ -65,7 +76,7 @@ class Restaurants extends BaseModel {
         $limit = "";
         $order = " ORDER BY distance";
         $limit = " LIMIT $start, $per_page";
-        $where = "WHERE restaurants.open = '1' AND status = '1'";
+        $where = "WHERE restaurants.open = '1' AND status = '1' AND is_complete = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
