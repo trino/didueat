@@ -113,6 +113,8 @@
             if (isAlreadyRated > 0) {
                 $('#ratingModal').modal('hide');
                 return alert('You already rated!');
+            } else {
+                $('#ratingModal').modal('show');
             }
             
             $('#rating-form #data-rating-id').val(rating_id);
@@ -154,7 +156,15 @@
                     $('#rating-form #message-success').show();
                     $('#rating-form #message-success').text(json.response);
                     $('#rating-form #ratingInput').val('');
-                    $('.' + target_id + rating_id + type).attr('data-count-exist', 1);
+                    
+                    setTimeout(function(){
+                        $('#ratingModal').modal('hide');
+                        $('#parent'+target_id+' .static-rating .rating-it-btn').attr('data-count-exist', 1);
+                        $.each($('#parent'+target_id+' .static-rating input[value='+rating+']'), function( index, value ) {
+                            $(this).addClass("checked-stars");
+                            $(this).attr("checked", true);
+                        });
+                    }, 1000);
                 }
             });
             e.preventDefault();

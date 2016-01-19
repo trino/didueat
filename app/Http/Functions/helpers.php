@@ -1563,7 +1563,7 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
         if ($TwoLines) {
             $html .= '<br>';
         }
-        $html .= '<a style="color:white;" class="rating-it-btn" data-toggle="modal" data-target="#ratingModal" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
+        $html .= '<a style="color:white;" class="rating-it-btn" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
         $html .= stars($target_id, $value, $countExit, $start5, "5");
         $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
         $html .= stars($target_id, $value, $countExit, $start4, "4");
