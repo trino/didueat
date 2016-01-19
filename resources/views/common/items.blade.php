@@ -1,5 +1,5 @@
 <?php printfile("views/common/items.blade.php"); ?>
-<table class="table scroller orders @if(!isset($order)) order-style @endif">
+<table class="scroller orders @if(!isset($order)) order-style @endif">
 <thead>
     <th width='26%'>Qty</th><th width="50%">Item</th><th>Price</th>
 </thead>

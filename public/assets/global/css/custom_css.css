@@ -346,4 +346,8 @@ em.total{width:14%;padding-left:2%;}
 .facet-count {color: #999;}
 .clear-search {position: absolute; right: 20px;}
 td .count{font-size:12px;display:inline-block;padding:0 2px;}
+table.orders{width:100%!important;}
+table.orders td,table.orders th{padding:5px 2px 3px 2px!important;vertical-align: top;}
+table.orders th{text-align: center;font-size:14px;}
 table.orders thead{background: #e5e5e5;}
+.norightpadd{padding-right:0px;}
