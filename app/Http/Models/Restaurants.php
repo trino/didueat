@@ -76,7 +76,10 @@ class Restaurants extends BaseModel {
         $limit = "";
         $order = " ORDER BY distance";
         $limit = " LIMIT $start, $per_page";
-        $where = "WHERE restaurants.open = '1' AND status = '1' AND is_complete = '1'";
+        $where = "WHERE restaurants.open = '1' AND status = '1'";
+        if(isset($data['is_complete'])){
+            $where .= " AND is_complete = '1' AND (SELECT COUNT(*) FROM `credit_cards` WHERE user_type = 'restaurant' AND user_id = restaurants.id) > 0";
+        }
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }

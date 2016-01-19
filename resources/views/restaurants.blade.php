@@ -44,27 +44,32 @@ $type = "hidden";
 
                         <div class="form-group">
 
+                            <label class="c-input c-radio">
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
+                                <span class="c-indicator"></span>
+                                Delivery
+                            </label>
 
                             <label class="c-input c-radio">
-                                <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked
-                                       onclick="createCookieValue('delivery_type', this.value)"/> <span
-                                        class="c-indicator"></span>
-                                Delivery </label>
-                            <label class="c-input c-radio">
-                                <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup"
-                                       onclick="createCookieValue('delivery_type', this.value)"/> <span
-                                        class="c-indicator"></span>
-                                Pickup </label>
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/>
+                                <span class="c-indicator"></span>
+                                Pickup
+                            </label>
 
+                            <label class="c-input c-checkbox">
+                                <input type="checkbox" name="is_complete" id="is_complete" value="true" checked onclick="createCookieValue('is_complete', this.value)"/>
+                                <span class="c-indicator"></span>
+                                Is signed up
+                            </label>
 
-                        </div>       <div class="form-group">
-                            <input type="text" name="name" id="name" value="" class="form-control"
-                                   placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
 
                         <div class="form-group">
-                            <select name="cuisine" id="cuisine" class="form-control"
-                                    onchange="createCookieValue('cuisine', this.value)">
+                            <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
+                        </div>
+
+                        <div class="form-group">
+                            <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
                                 <option value="">Cuisine</option>
                                 @foreach($cuisine as $value)
                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -77,9 +82,7 @@ $type = "hidden";
                                 <label id="radius_panel_label">Distance (20 km)</label>
                             </div>
                             <div class=" col-md-6">
-                                <input type="range" name="radius" id="radius" min="1" max="10" value="10"
-                                       class="form-control"
-                                       onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                                <input type="range" name="radius" id="radius" min="1" max="10" value="10" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -87,8 +90,7 @@ $type = "hidden";
                 </div>
                 <div class="card-footer  text-xs-right">
                     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary" value="Clear"/>
-                    <input type="button" name="search" class="btn btn-primary" value="Filter" id="search-form-submit"
-                           onclick="submitform(event, 0);"/>
+                    <input type="button" name="search" class="btn btn-primary" value="Filter" id="search-form-submit" onclick="submitform(event, 0);"/>
                 </div>
                 {!! Form::close() !!}
             </div>
