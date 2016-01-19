@@ -92,7 +92,7 @@
 
     <?php
         $Restaurant = \Session::get('session_restaurant_id', 0);
-        if ($Restaurant){
+        if ($Restaurant && !\Session::has('message-type')){
             $Restaurant = select_field("restaurants", "id", $Restaurant);
             $MissingData = array();
             $MissingDataOptional = array();

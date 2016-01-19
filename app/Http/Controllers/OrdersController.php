@@ -22,10 +22,10 @@ class OrdersController extends Controller {
      * @param $type
      * @return view
      */
-    public function index($type = '') {
+    public function index($type = '', $id = '') {
         $data['title'] = 'Orders';
         $data['type'] = $type;
-        
+        $data['id'] = $id;
         return view('dashboard.orders.index', $data);
     }
     
@@ -33,7 +33,7 @@ class OrdersController extends Controller {
      * Ajax Listing Ajax
      * @return Response
      */
-    public function listingAjax($type = '') {
+    public function listingAjax($type = '', $id = '') {
         $per_page = \Input::get('showEntries');
         $page = \Input::get('page');
         $cur_page = $page;
@@ -50,6 +50,8 @@ class OrdersController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
+        if($id){$data["id"] = $id;}
+
         $Query = \App\Http\Models\Reservations::listing($data, "list")->get();
         $recCount = \App\Http\Models\Reservations::listing($data)->count();
         $no_of_paginations = ceil($recCount / $per_page);
