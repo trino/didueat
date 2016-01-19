@@ -57,7 +57,7 @@ class Restaurants extends BaseModel {
     /**
      * @param $term
      * @param $per_page
-     * @param $start
+     * @param $start 
      * @return response
      */
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false, $DeliveryHours = false) {
@@ -102,7 +102,7 @@ class Restaurants extends BaseModel {
         return json_decode(json_encode($query),true);
     }
 
-
+           
     //////////////////////////////////////Restaurant API/////////////////////////////////
 
     function blank_restaurant() {
