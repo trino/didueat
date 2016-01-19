@@ -167,13 +167,13 @@ function fillInAddress() {
                 $('#postal_code').val(val);
             }
             if(addressType == "street_number"){
-                $('#rout_street_number').val(val);
+                $('#formatted_address').val(val);
             }
             if(addressType == "route"){
-                if($('#rout_street_number').val() != ""){
-                    $('#rout_street_number').val($('#rout_street_number').val()+", "+val);
+                if($('#formatted_address').val() != ""){
+                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
                 } else {
-                    $('#rout_street_number').val(val);
+                    $('#formatted_address').val(val);
                 }
             }
         }

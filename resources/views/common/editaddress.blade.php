@@ -13,7 +13,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-<?= newrow($new, "Format Address", "", true); ?>
+<?= newrow($new, "Street Address", "", true); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
         @else
@@ -21,9 +21,11 @@
                 <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
                 if (old('formatted_address')){
                     echo old('formatted_address');
-                } else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+                //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+                } else if(isset($addresse_detail->address)) {
                     $country = select_field("countries", "id", $addresse_detail->country, "name");
-                    echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+                    //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+                    echo $addresse_detail->address;
                 }
                 $width=59;
                 ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
@@ -36,10 +38,10 @@
 </div>
 <HR>
 
-<?= newrow($new, "Street Address", "", $required); ?>
+<!--  newrow($new, "Street Address", "", $required); ?>
         <input type="text" id="rout_street_number" {{ $is_disabled }} name="address" class="form-control" placeholder="Street address" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" {{$required}}>
     </div>
-</div>
+</div-->
 
 <?= newrow($new, "Postal Code"); ?>
         <input type="text" name="postal_code" id="postal_code" {{ $is_disabled }} class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">

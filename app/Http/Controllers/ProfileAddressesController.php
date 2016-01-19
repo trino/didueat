@@ -25,6 +25,9 @@ class ProfileAddressesController extends Controller {
     public function index($idd = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
+            if ((isset($post['formatted_address']) && !empty($post['formatted_address'])) && (!isset($post['address']) || empty($post['address']))) {
+                $post['address'] = $post['formatted_address'];
+            }
             if (!isset($post['address']) || empty($post['address'])) {
                 return $this->failure( "[Street address] field is missing!",'user/addresses');
             }

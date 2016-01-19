@@ -5,7 +5,8 @@
 </div>
 
 {!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-<div class="form-group row">
+
+<!--div class="form-group row">
     <label class=" col-sm-3">Address</label>
     <div class="col-sm-9">
         <input type="text" name="location" class="form-control" placeholder="Address" value="{{ (isset($addresse_detail->location))? $addresse_detail->location : old('location') }}">
@@ -63,7 +64,7 @@
     <div class="col-sm-9">
         <input type="text" id="city" name="city" class="form-control" id="city2" required value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
     </div>
-</div>
+</div-->
 
 <?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true, "dontinclude" => true)); ?>
 
@@ -116,7 +117,7 @@ function fillInAddress() {
         postal_code: 'short_name'
     };
     $('#city').val('');
-    $('#rout_street_number').val('');
+    //$('#rout_street_number').val('');
     $('#postal_code').val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
 
@@ -144,13 +145,13 @@ function fillInAddress() {
                 $('#postal_code').val(val);
             }
             if(addressType == "street_number"){
-                $('#rout_street_number').val(val);
+                $('#formatted_address').val(val);
             }
             if(addressType == "route"){
-                if($('#rout_street_number').val() != ""){
-                    $('#rout_street_number').val($('#rout_street_number').val()+", "+val);
+                if($('#formatted_address').val() != ""){
+                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
                 } else {
-                    $('#rout_street_number').val(val);
+                    $('#formatted_address').val(val);
                 }
             }
         }
