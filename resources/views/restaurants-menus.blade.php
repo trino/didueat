@@ -450,15 +450,15 @@
                 img = img.replace('thumb', 'thumb2');
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
-                $('.orders').prepend('<li id="list' + ids + '" class="infolist" ></li>');
-                $('#list' + ids).html('<span class="receipt_image"> $' +price+
+                $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
+                $('#list' + ids).html('<td class="receipt_image">'+
                         '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
-                        '-</a><span class="count">x ' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
-                        '+</a></span>' +
+                        '-</a><b><span class="count">' + pre_cnt + 'x</span></b><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
+                        '+</a>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
-                        '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span>' +
-                        '<span class="innerst">' + app_title + '</span>' +
-                        '<em class="total">$' + (pre_cnt * price).toFixed(2) + '</em>' +
+                        '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
+                        '<td class="innerst">' + app_title + '</td>' +
+                        '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +

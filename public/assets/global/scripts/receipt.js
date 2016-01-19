@@ -231,7 +231,7 @@ function changeqty(id, opr) {
         var numid = menuid.replace('dec', '');
 
         var quant = $('#list' + numid + ' span.count').text();
-        quant = quant.replace('x ', '');
+        quant = quant.replace('x', '');
 
         var amount = $('#list' + numid + ' .amount').text();
         amount = parseFloat(amount);
@@ -292,7 +292,7 @@ function changeqty(id, opr) {
             $('.orders').show();
         } else {
             quant--;
-            $('#list' + numid + ' span.count').text('x ' + quant);
+            $('#list' + numid + ' span.count').text(quant+'x');
             $('#list' + numid + ' input.count').val(quant);
             //$('#list'+numid+' .count').val(quant-1);
         }
@@ -303,7 +303,7 @@ function changeqty(id, opr) {
         var numid = menuid.replace('inc', '');
         var quant = '';
         quant = $('#list' + numid + ' span.count').text();
-        quant = quant.replace('x ', '');
+        quant = quant.replace('x', '');
         quant = parseFloat(quant);
         var amount = $('#list' + numid + ' .amount').text();
         amount = parseFloat(amount);
@@ -337,7 +337,7 @@ function changeqty(id, opr) {
         total = total.toFixed(2);
         $('#list' + numid + ' .total').text('$' + total);
         quant++;
-        $('#list' + numid + ' span.count').text('x ' + quant);
+        $('#list' + numid + ' span.count').text(quant+'x');
         $('#list' + numid + ' input.count').val(quant);
     });
         
