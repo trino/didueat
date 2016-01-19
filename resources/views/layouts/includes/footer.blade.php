@@ -113,6 +113,7 @@
             $("#ratingModal #message-error").hide();
             $("#ratingModal #message-success").hide();
             $("#ratingModal .rating input").attr("checked", false);
+            $("#ratingModal #ratingInput").val('');
             
             if (isAlreadyRated > 0) {
                 $('#ratingModal').modal('hide');
@@ -164,7 +165,12 @@
                     setTimeout(function(){
                         $('#ratingModal').modal('hide');
                         $('#parent'+target_id+' .static-rating .rating-it-btn').attr('data-count-exist', 1);
-                        $.each($('#parent'+target_id+' .static-rating input[value='+rating+']'), function( index, value ) {
+                        $.each($('#parent'+target_id+' .static-rating input[value="'+rating+'"]'), function( index, value ) {
+                            $(this).addClass("checked-stars");
+                            $(this).attr("checked", true);
+                        });
+                        $('#restaurant_rating .static-rating .rating-it-btn').attr('data-count-exist', 1);
+                        $.each($('#restaurant_rating .static-rating input[value="'+rating+'"]'), function( index, value ) {
                             $(this).addClass("checked-stars");
                             $(this).attr("checked", true);
                         });

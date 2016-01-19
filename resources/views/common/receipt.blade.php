@@ -10,10 +10,6 @@
 @endif
 
 
-
-
-
-
 <div id="cartsz">
 
 
@@ -41,7 +37,6 @@
                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                     {!! (isset($restaurant->province))? mapcountryprovince($restaurant->province, true) .' ':'' !!}
                     {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-
                     <br>{!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     <br>Wed: 8am - 8pm
                     <br>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
@@ -51,8 +46,9 @@
 
                 <a style="color:white;" class="btn btn-info-outline pull-right" href="#" data-toggle="modal"
                    data-target="#viewMapModel">More Detail</a>
-
-                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                <div id="restaurant_rating">
+                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                </div>
                 <div class="clearfix"></div>
             </div>
         </div>

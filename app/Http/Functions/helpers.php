@@ -1515,7 +1515,7 @@ function rating_get($target_id = 0, $rating_id = 0, $type = "") {
 }
 
 //prints a rating
-function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name='update-rating') {
+function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name='update-rating', $add_rate_brn = true) {
     $html = "";
     foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
         $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';
@@ -1563,7 +1563,9 @@ function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $T
         if ($TwoLines) {
             $html .= '<br>';
         }
-        $html .= '<a style="color:white;" class="rating-it-btn" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
+        if($add_rate_brn){
+            $html .= '<a style="color:white;" class="rating-it-btn" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
+        }
         $html .= stars($target_id, $value, $countExit, $start5, "5");
         $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
         $html .= stars($target_id, $value, $countExit, $start4, "4");

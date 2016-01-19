@@ -75,7 +75,7 @@
                     <td>{{ $value->id }}</td>
                     <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90"/></td>
                     <td>{{ $value->name }}</td>
-                    <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true) !!}</td>
+                    <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
                     <td>
                         @if($value->open == true)
                             Open <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
