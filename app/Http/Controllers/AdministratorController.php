@@ -16,7 +16,6 @@ class AdministratorController extends Controller {
             initialize("admin");
         });
     }
-
     /**
      * Dashboard
      * @param null
