@@ -48,6 +48,7 @@ Route::group(['middleware' => ['logged']], function() {
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
     Route::get('orders/list/{type}/{id}',                           'OrdersController@index')->where('slug', '[a-z]+');
+    Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
     Route::post('orders/list/ajax/{type}/{id}',                     'OrdersController@listingAjax')->where('slug', '[a-z]+');
     Route::get('orders/order_detail/{id}/{type}',                   'OrdersController@order_detail')->where('id', '[0-9]+');
     Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
