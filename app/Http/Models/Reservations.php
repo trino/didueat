@@ -29,12 +29,18 @@ class Reservations extends BaseModel {
         $start = $array['start'];
         
         $query = Reservations::select('*')
-                ->Where(function($query) use ($query_type) {
+                ->Where(function($query) use ($query_type, $array) {
+                    $userid=\Session::get('session_id');
+                    $restaurantid=\Session::get('session_restaurant_id');
+                    if(isset($array['id'])){
+                        $userid=$array['id'];
+                        $restaurantid=$array['id'];
+                    }
                     if($query_type == 'user'){
-                        $query->where('user_id', \Session::get('session_id'));
+                        $query->where('user_id', $userid);
                     }
                     if($query_type == 'restaurant'){
-                        $query->where('restaurant_id', \Session::get('session_restaurant_id'));
+                        $query->where('restaurant_id', $restaurantid);
                     }
                 })
                 ->Where(function($query) use ($searchResults) {
