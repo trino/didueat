@@ -39,5 +39,4 @@ class PageViews extends BaseModel {
     public static function getView($id = 0, $type = "") {
         return \App\Http\Models\PageViews::where('target_id', $id)->where('type', $type)->count();
     }
-
 }
