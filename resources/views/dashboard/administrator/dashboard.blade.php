@@ -16,68 +16,85 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
-                    <div class="form-group row">
-                        <label class="col-sm-3">Email</label>
-                        <div class="col-sm-9">
-                            <input type="email" name="email" class="form-control readonly" id="email" placeholder="Email Address" value="{{ $user_detail->email }}" disabled>
+                    
+
+
+<?php
+
+$new = false;
+
+echo newrow($new, "Email", "", false); ?>
+    <input type="text" name="email" class="form-control" disabled placeholder="Email Address" value="{{ $user_detail->email }}" >
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Name</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Full Name" value="{{ $user_detail->name }}">
+
+<?php
+
+echo newrow($new, "Name", "", true); ?>
+    <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ $user_detail->name }}" required>
+                        </div>
+                    </div>
+<?php
+
+echo newrow($new, "Phone Number", "", false); ?>
+    <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}" >
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Phone Number </label>
-                        <div class="col-sm-9">
-                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}">
+
+<?php
+
+echo newrow($new, "Cell Phone", "", true); ?>
+    <input type="text" name="mobile" class="form-control" placeholder="Cell Phone" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}" required>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Cell Phone </label>
-                        <div class="col-sm-9">
-                            <input type="text" name="mobile" class="form-control" id="mobile" placeholder="416555555" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}">
-                        </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-9">
+
+
+<?php
+
+echo newrow($new, " ", "", false); ?>
                             <input type="checkbox" name="subscribed" id="subscribed" value="1" @if($user_detail->subscribed) checked @endif />
                             Sign up for our Newsletter
                         </div>
                     </div>
+                    
+
 
                     @if(Session::has('session_id'))
-                        <div class="form-group row">
-                            <label class="col-sm-3">Old Password</label>
-                            <div class="col-sm-9">
-                                <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
-                            </div>
+<?php
+
+echo newrow($new, "Old Password", "", false); ?>
+    <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
                         </div>
+                    </div>
                     @endif
+                    
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">New Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off">
+
+<?php
+
+echo newrow($new, "New Password", "", false); ?>
+    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off">
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Re-type Password</label>
-                        <div class="col-sm-9">
-                            <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="" autocomplete="off">
+
+
+<?php
+
+echo newrow($new, "Re-type Password", "", false); ?>
+    <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="" autocomplete="off">
                         </div>
                     </div>
+                    
 
-                    <div class="form-group row">
-                        <label class="col-sm-3">Profile Photo</label>
-                        <div class="col-sm-9">
+
+<?php
+
+echo newrow($new, "Profile Photo", "", false); ?>
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
                             <img id="picture" class="logopic"
                             @if($user_detail->photo)
@@ -86,10 +103,10 @@
                                 src="{{ asset('assets/images/default.png') }}" >
                             @endif
                             <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
-
                         </div>
-
                     </div>
+
+
                 </div>
                 <div class="card-footer clearfix">
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
