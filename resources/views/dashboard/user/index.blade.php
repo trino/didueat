@@ -28,8 +28,7 @@
 </div>
 
 
-<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel"
-         aria-hidden="true">
+<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         {!! Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
         <div class="modal-content">
@@ -40,7 +39,7 @@
                 <h4 class="modal-title" id="editModelLabel">Edit</h4>
             </div>
             <div class="modal-body" id="contents">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -53,7 +52,7 @@
 
 @include('common.tabletools')
 
-<script type="text/javascript">    
+<script type="text/javascript">
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){
@@ -66,10 +65,10 @@
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
-                var json = jQuery.parseJSON(result);
-                        $('#editModel #message').show();
-                        $('#editModel #message p').html(json.message);
-                        $('#editModel #contents').html('');
+                    var json = jQuery.parseJSON(result);
+                    $('#editModel #message').show();
+                    $('#editModel #message p').html(json.message);
+                    $('#editModel #contents').html('');
                 }
             } catch (e) {
                 $('#editModel #message').hide();

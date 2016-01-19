@@ -24,6 +24,10 @@ function message_show($msgtype, $description) {
     }
 }
 
+function getweekdays(){
+    return array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+}
+
 /**
  * Pagination of the resource.
  *
@@ -796,6 +800,9 @@ function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "
     }
     if ($query->count() > 0) {
         if ($getcol) {
+            if($getcol == "COUNT()"){
+                return $query->count();
+            }
             return $query->first()->$getcol;
         }
         return $query->first();
