@@ -21,14 +21,23 @@
                     <div class="alert alert-success" role="alert">
                         <strong>Welcome</strong> to your restaurant menu, add your best selling meals or combos.
 
-                        <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
+                        <a href="#" id="add_item0_{{ $restaurant->id }}" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
                            data-target="#addMenuModel">
                             Add Menu Item
                         </a>
                         <div class="clearfix"></div>
                     </div>
-                    <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+                    
             @endif
+            <?php 
+            if(isset($restaurant))
+            {
+                ?>
+                <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+                <?php
+                            
+            }            
+            ?>            
 
 
 

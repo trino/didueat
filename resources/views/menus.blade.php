@@ -82,7 +82,7 @@
                            class="btn btn-sm btn-danger"
                            onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
-                        <button id="add_item{{ $value->id }}" type="button"
+                        <button id="add_item{{ $value->id }}_{{ $restaurant->id }}" type="button"
                                 class="btn btn-sm btn-info additem" data-toggle="modal"
                                 data-target="#addMenuModel">Edit</button>
 
@@ -94,6 +94,20 @@
                         @endif
 
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                        
+                        <?php
+                        if($value->uploaded_by)
+                        {
+                            ?>
+                            <div class="uploaded_by">
+                            <?php
+                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                            echo "<strong>Uploaded by: </strong>".$uploaded_by->name;
+                            ?>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="col-md-3">
