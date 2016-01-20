@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-6 padding-left-0">
                 <LABEL>
-                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
+                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" checked="" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 </LABEL>
                 &nbsp;&nbsp;&nbsp;
                 <LABEL>
@@ -44,7 +44,7 @@
                 </LABEL>
             </div>
             <div class="clearfix"></div>
-                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model->has_discount) || (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
+                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(isset($model->has_discount) && $model->has_discount == 0){?>display: none;<?php }?>">
                 <br />
                 <div class="form-group">
                 <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
