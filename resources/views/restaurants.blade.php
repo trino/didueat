@@ -79,7 +79,7 @@ $type = "hidden";
 
                         <div id="radius_panel" class="form-group row">
                             <div class=" col-md-6">
-                                <label id="radius_panel_label">Distance (20 km)</label>
+                                <label id="radius_panel_label">Distance (10 km)</label>
                             </div>
                             <div class=" col-md-6">
                                 <input type="range" name="radius" id="radius" min="1" max="10" value="10" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
@@ -108,8 +108,7 @@ $type = "hidden";
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <span id="countRows" style="font: inherit;">No</span> restaurant<Span id="countRowsS"
-                                                                                      style="font: inherit;">s</span>
+                <span id="countRows" style="font: inherit;">No</span> restaurant<Span id="countRowsS" style="font: inherit;">s</span>
                 found in your area
             </div>
             @include('ajax.search_restaurants')

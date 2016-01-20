@@ -116,6 +116,8 @@ class HomeController extends Controller {
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 if (!is_null($data['query']) && count($data['query']) > 0){
                     return view('ajax.search_restaurants', $data);
+                } else if (debugmode()){
+                    var_dump($data);
                 }
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);

@@ -43,21 +43,14 @@
     $server_time = date('H:i:s');
     $user_time = date('H:i:s', strtotime(iif($difference >-1, '+') . $difference . ' hours'));
     printfile("Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time. " User Time: " . $user_time);
+    if(isset($sql)){printfile("<BR>" . $sql);}
 ?>
 <div class="">
     <div class="list-group" id="restuarant_bar">
         <?php printfile("views/ajax/search_restaurants.blade.php");?>
         @if(isset($query) && $count > 0 && is_iterable($query))
             @foreach($query as $value)
-                <?php
-                    //print_r($value);
-                    $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png';
-                    $distance = 0;
-                    if(isset($latitude)){
-                        //$distance = measuredistance($latitude, $longitude, $value['lat'], $value['lng']);//done in the SQL
-                    }
-                    if($distance <= $radius){
-                ?>
+                <?php $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'default.png'; ?>
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
                         <img style="width:100px;" class="pull-right img-responsive full-width" alt="" src="{{ asset('assets/images/' . $logo) }}">
                         <h4>{{ $value['name'] }}</h4>
@@ -152,15 +145,7 @@
                         </div>
                     </div>
                 </div-->
-                <?php } else {
-                    $notfound++;
-                }?>
             @endforeach
-        @endif
-        @if($notfound)
-                <DIV class="list-group-item">
-                    {{$notfound}} restaurant(s) found outside your radius ({{$radius}} km)
-                </DIV>
         @endif
 
         <div id="loadMoreBtnContainer">
