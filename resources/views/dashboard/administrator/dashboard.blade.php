@@ -15,39 +15,8 @@
             <div class="card-block">
                 {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
-                    <?= newrow(false, "Email"); ?>
-                        <input type="text" name="email" class="form-control" disabled placeholder="Email Address" value="{{ $user_detail->email }}" >
-                    </div></div>
 
-                    <?= newrow(false, "Name", "", true); ?>
-                        <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ $user_detail->name }}" required>
-                    </div></div>
-
-                    <?= newrow(false, "Phone Number"); ?>
-                        <input type="text" name="phone" class="form-control" placeholder="Phone Number" value="{{ (isset($address_detail->phone))?$address_detail->phone:'' }}" >
-                    </div></div>
-
-                    <?= newrow(false, "Cell Phone", "", true); ?>
-                        <input type="text" name="mobile" class="form-control" placeholder="Cell Phone" value="{{ (isset($address_detail->mobile))?$address_detail->mobile:'' }}" required>
-                    </div></div>
-
-                    <?= newrow(false, "Newsletter"); ?>
-                        <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($user_detail->subscribed) checked @endif /> Sign up for our Newsletter</LABEL>
-                    </div></div>
-
-                    @if(Session::has('session_id'))
-                        <?= newrow(false, "Old Password"); ?>
-                            <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
-                        </div></div>
-                    @endif
-
-                    <?= newrow(false, "New Password"); ?>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off">
-                    </div></div>
-
-                    <?= newrow(false, "Re-type Password"); ?>
-                        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="" autocomplete="off">
-                    </div></div>
+                    @include("common.contactinfo", array("user_detail" => $user_detail))
 
                     <?= newrow(false, "Profile Photo"); ?>
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>

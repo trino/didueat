@@ -1,10 +1,19 @@
 <?php
 printfile("views/common/contactinfo.blade.php");
 $size = "col-md-12 col-sm-12 col-xs-12";
+if(!isset($new)){$new = false;}
+$Fields = array("name", "email", "phone", "mobile", "subscribed");
+foreach($Fields as $Field){
+    if(isset($user_detail->$Field)){
+        $$Field = $user_detail->$Field;
+    } else {
+        $$Field = old($Field);
+    }
+}
 echo newrow($new, "Full Name", $size, true);
 ?>
     <div class="input-icon">
-        <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Full Name" value="{{ old('full_name') }}" required>
+        <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}" required>
         <input type="hidden" name="gmt" id="gmt" value="">
     </div>
 <?php echo newrow();
@@ -12,17 +21,25 @@ echo newrow($new, "Full Name", $size, true);
 if(!isset($email)){
 echo newrow($new, "Email", $size, true); ?>
     <div class="input-icon">
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $email }}" required>
     </div>
 <?php echo newrow();} ?>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="fa fa-long-arrow-right"></i> Choose Password
+@if(!isset($user_detail))
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-long-arrow-right"></i> Choose Password
+            </div>
         </div>
     </div>
-</div>
+@else
+    <?= newrow(false, "Old Password", $size); ?>
+    <div class="input-icon">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password" autocomplete="off">
+    </div>
+    </div></div>
+@endif
 
 <?php echo newrow($new, "Password", $size, true); ?>
     <div class="input-icon">
@@ -37,22 +54,14 @@ echo newrow($new, "Re-type Password", $size, true); ?>
 <?php echo newrow();
 
 if(isset($mobile)){
-    echo newrow($new, "Mobile Number (Optional)", $size);
-    echo '<input type="text" name="mobile" class="form-control" placeholder="Mobile Number" value="' . old('mobile') . '"></div></div>';
+    echo newrow($new, "Cell Phone", $size);
+    echo '<input type="text" name="mobile" class="form-control" placeholder="Cell Phone Number" value="' . $phone . '"></div></div>';
 }
-?>
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="form-group clearfix">
-        <label for="subscribed" class="col-md-12 col-sm-12 col-xs-12 control-label">&nbsp;</label>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <label>
-                <input type="checkbox" name="subscribed" id="subscribed" value="1" checked />
-                Sign up for our Newsletter
-            </label>
-        </div>
-    </div>
-</div>
+echo  newrow(false, "Newsletter"); ?>
+    <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> Sign up for our Newsletter</LABEL>
+</div></div>
+
 <SCRIPT>
     var visitortime = new Date();
     var visitortimezone = -visitortime.getTimezoneOffset()/60;

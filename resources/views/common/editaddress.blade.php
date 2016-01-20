@@ -10,6 +10,7 @@
     if(!isset($required)){$required = true;}
     $required = iif($required , " required");
     if(!isset($is_disabled)){$is_disabled=false;}
+    $isUser = isset($apartment);
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
@@ -87,12 +88,12 @@
     </div>
 </div>
 
-<?php echo newrow($new, "Phone Number", "", $required, 4); ?>
+<?php echo newrow($new, iif($isUser, "Cell Phone", "Phone Number"), "", $required, 4); ?>
         <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
 </div>
 
-<?php if(isset($apartment)){ ?>
+<?php if($isUser){ ?>
     <?php echo newrow($new, "Apartment/Unit", "", false, 4); ?>
             <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
         </div>

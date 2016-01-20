@@ -263,8 +263,8 @@ class HomeController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!",$Redirect, true);
             }
-            if (!isset($post['full_name']) || empty($post['full_name'])) {
-                return $this->failure("[Full Name] field is missing!",$Redirect, true);
+            if (!isset($post['name']) || empty($post['name'])) {
+                return $this->failure("[Name] field is missing!",$Redirect, true);
             }
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",$Redirect, true);
@@ -382,7 +382,7 @@ class HomeController extends Controller {
                 }
                 */
                 
-                $profile['name'] = $post['full_name'];
+                $profile['name'] = $post['name'];
                 $profile['email'] = $post['email'];
                 $profile['password'] = $post['password'];
                 $profile['restaurant_id'] = $ob->id;
