@@ -35,6 +35,8 @@ echo newrow($new, "Name", "", true); ?>
     <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ $user_detail->name }}" required>
                         </div>
                     </div>
+                    
+                    
 <?php
 
 echo newrow($new, "Phone Number", "", false); ?>

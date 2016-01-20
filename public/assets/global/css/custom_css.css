@@ -97,6 +97,7 @@ body.modal-open {
 #ajaxloader{background: rgba(0, 0, 0, 0) url("../../images/loader.gif") no-repeat scroll 0 0; height: 120px; width: 100%;}
 #loadmoreajaxloader{display: none;}
 .form-control{display: inline !important;}
+.form-control-nobord{display: inline !important; border:none}
 .pac-container { z-index: 1051 !important; }
 
 

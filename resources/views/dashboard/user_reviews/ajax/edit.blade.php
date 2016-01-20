@@ -1,15 +1,17 @@
 <?php printfile("views/dashboard/user_reviews/ajax/edit.blade.php"); ?>
 
-<div class="form-group row">
-    <label for="rating" class="col-sm-3">Rating</label>
-    <div class="col-sm-9">
-        <input type="number" min = "1" max = "5"  name="rating" class="form-control" id="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}" required="">
+<?php
+
+echo newrow(false, "Rating", "", false); ?>
+        <input type="text" name="rating" class="form-control" id="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}">
     </div>
 </div>
 
-<div class="form-group row">
-    <label for="comment" class="col-sm-3">Comment</label>
-    <div class="col-sm-9">
+
+<?php
+
+echo newrow(false, "Comment", "", false); ?>
+
         <textarea class="form-control" name="comments" id="comments" rows="5" required>{{ (isset($user_review_detail->comments))?trim($user_review_detail->comments):'' }}</textarea>
     </div>
 </div>

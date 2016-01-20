@@ -55,7 +55,11 @@
 
 <?= newrow($new, "Country"); ?>
         <select name="country" id="country" class="form-control" {{ $is_disabled }} id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
+        
             <option value="">-Select One-</option>
+                            <option value="40">Canada</option>
+                            <option value="236">United States</option>
+                            <option value="">---------------</option>
             @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
                 <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->country) && $addresse_detail->country == $value->id) || old('country') == $value->name || old('country') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
