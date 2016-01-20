@@ -89,7 +89,7 @@ if (!isset($restaurants_list)) {
 
 $new = false;
 
-echo newrow($new, "First Name", "", true); ?>
+echo newrow($new, "First Name", "", true, 5); ?>
 <input type="text" name="first_name" class="form-control"
        value="{{ (isset($credit_cards_list->first_name))?$credit_cards_list->first_name:'' }}" id="first_name"
        placeholder="First Name" required>
@@ -98,7 +98,7 @@ echo newrow($new, "First Name", "", true); ?>
 
 <?php
 
-echo newrow($new, "Last Name", "", true); ?>
+echo newrow($new, "Last Name", "", true, 5); ?>
 <input type="text" name="last_name" class="form-control"
        value="{{ (isset($credit_cards_list->last_name))?$credit_cards_list->last_name:'' }}" id="last_name"
        placeholder="Last Name" required>
@@ -107,8 +107,9 @@ echo newrow($new, "Last Name", "", true); ?>
 
 <?php
 
-echo newrow($new, "Card Type", "", true); ?>
-<select name="card_type" class="form-control" id="card_type">
+echo newrow($new, "Card Type", "", true, 5); ?>
+<select name="card_type" class="form-control" id="card_type" required>
+<option value="">Select Card Type</option>
     <?php
     $cards = array("visa" => "Visa", "mastercard" => "MasterCard", "americanExpress" => "American Express", "discover" => "Discover");
     foreach ($cards as $short => $long) {
@@ -125,26 +126,19 @@ echo newrow($new, "Card Type", "", true); ?>
 
 <?php
 
-echo newrow($new, "Card Number", "", true); ?>
+echo newrow($new, "Card Number", "", true, 5); ?>
 <input type="text" name="card_number" class="form-control"
        value="{{ (isset($credit_cards_list->card_number))?$credit_cards_list->card_number:'' }}" id="card_number"
        placeholder="Card Number" required>
 </div>
 </div>
 
-<!--?php
-
-echo newrow($new, "Expiry Date", "", false,5); ?>        <select name="expiry_date" class="form-control" id="expiry_date"
-                                                               style="">
-    <?php echo implode("\n\r", $days);  ?>
-</select>
-</div>
-</div-->
 
 <?php
 
-echo newrow($new, "Expiry Month", "", true,4); ?>        <select name="expiry_month" class="form-control"
-                                                               id="expiry_month" style="">
+echo newrow($new, "Expiry Month", "", true,5); ?>        
+<select name="expiry_month" class="form-control" id="expiry_month" required>
+<option value="">Select Expiry Month</option>
     <?php
     $months = array("01" => "01 (January)", "02" => "02 (February)", "03" => "03 (March)", "04" => "05 (April)", "05" => "06 (May)", "06" => "06 (June)", "07" => "07 (July)", "08" => "08 (August)", "09" => "09 (September)", "10" => "10 (October)", "11" => "11 (November)", "12" => "12 (December)");
     foreach ($months as $index => $month) {
@@ -161,21 +155,26 @@ echo newrow($new, "Expiry Month", "", true,4); ?>        <select name="expiry_mo
 
 <?php
 
-echo newrow($new, "Expiry Year", "", true); ?>
-<select name="expiry_year" class="form-control" id="expiry_year" style="width:155px">
+echo newrow($new, "Expiry Year", "", true, 5); ?>
+<select name="expiry_year" class="form-control" id="expiry_year" style="width:155px" required>
+<option value="">Select Expiry Year</option>
     <?php echo implode("\n\r", $years);  ?>
 </select>
 </div>
 </div>
 
+<script>
+ccvimg = new Image();
+ccvimg.src = base_url+"assets/images/security_code_sample.gif";
+ccvimgph = new Image();
+ccvimgph.src = base_url+"assets/images/ccvimgph.gif";
+</script>
+
 <?php
 
-echo newrow($new, "CCV", "", true); ?>
+echo newrow($new, "CCV", "", true, 4); ?>
 <input type="text" name="ccv" class="form-control"
-       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="CCV" required
-       style="width:155px">&nbsp; <a href="#"
-                                     onclick="alert('For MasterCard, VISA and Discover, this number is located on the back of your card; for American Express it is located on the front of your card');return false;"
-                                     style="font-size:12px">What's This?</a>
+       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="CCV" required size="3" ><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px" /><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is This Located?</u></a>
 </div>
 </div>
 

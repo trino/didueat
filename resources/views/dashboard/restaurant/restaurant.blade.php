@@ -1,6 +1,6 @@
 <?php
     printfile("views/dashboard/restaurant/restaurant.blade.php");
-    echo newrow($new, "Restaurant Name", "", true);
+    echo newrow($new, "Restaurant Name", "", true, 6);
     $name = iif($new, "restname", "name");//why does it change to restname?
     if(!isset($is_disabled)){$is_disabled=false;}
     if(!isset($minimum)){$minimum=false;}
@@ -9,11 +9,11 @@
 <?php echo newrow();
 
 if(!isset($email)){
-echo newrow($new, "Email", "", true); ?>
+echo newrow($new, "Email", "", true, 7); ?>
     <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 <?php echo newrow(); }
 
-echo newrow($new, "Cuisine Type"); ?>
+echo newrow($new, "Cuisine Type", "", true, 4); ?>
 <select name="cuisine" id="cuisine" class="form-control" {{ $is_disabled }}>
     <option value="">-Select One-</option>
     @foreach($cuisine_list as $value)
@@ -24,7 +24,7 @@ echo newrow($new, "Cuisine Type"); ?>
 <?php echo newrow();
 
 if(!$minimum){
-    echo newrow($new, "Description"); ?>
+    echo newrow($new, "Description", "", true, 8); ?>
         <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
     <?php echo newrow();
 
@@ -34,10 +34,8 @@ if(!$minimum){
         <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
     <?php echo newrow();
 
-    echo newrow($new, "Logo"); ?>
-        @if(!$is_disabled)
-            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a>
-        @endif
+    echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?>
+
         <input type="hidden" name="logo" id="hiddenLogo"/>
 
         <img id="picture" class="logopic"

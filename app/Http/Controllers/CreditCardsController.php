@@ -25,30 +25,25 @@ class CreditCardsController extends Controller {
         //check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['first_name']) || empty($post['first_name'])) {
-                return $this->failure('[Name] field is missing','credit-cards/list/'.$type, true);
+                return $this->failure('[First Name] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['last_name']) || empty($post['last_name'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
+                return $this->failure('[Last Name] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['card_type']) || empty($post['card_type'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
+                return $this->failure('[Credit Card Type] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['card_number']) || empty($post['card_number'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
+                return $this->failure('[Card Number] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['ccv']) || empty($post['ccv'])) {
-                return $this->failure( trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
+                return $this->failure('[CCV] field is missing','credit-cards/list/'.$type, true);
             }
-            /*
-            if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
-            }
-            */
             if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
-                return $this->failure(trans('messages.user_missing_email.message'), 'credit-cards/list/'.$type, true);
+                return $this->failure('[Expiry Month] field is missing','credit-cards/list/'.$type, true);
             }
             if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
-                return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
+                return $this->failure('[Expiry Year] field is missing','credit-cards/list/'.$type, true);
             }
             
             \DB::beginTransaction();

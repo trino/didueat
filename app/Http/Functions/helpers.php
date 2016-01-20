@@ -165,13 +165,15 @@ function phonenumber($phone, $qualifyareacode = true) {
     }
 }
 
-function newrow($new = false, $name = false, $class = "", $Required = false,$columns = 9) {
+function newrow($new = false, $name = false, $class = "", $Required = false,$columns = 9, $labelStr = "") {
     $id = str_replace(" ", "_", strtolower($name)) . "_label";
     if($Required){$Required = " required";}
     if ($new) {
-        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $Required . '" id="' . $id . '">' . $name . '</label>';
-    } else if ($name) {
-        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
+        return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $Required . '" id="' . $id . '"><b>' . $name . ':</b><br/>'.$labelStr.'</label>';
+    } else if ($name && !$labelStr) {
+        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '"><b>' . $name . ':</b></label><div class="col-sm-' . $columns . '">';
+    } else if ($labelStr) {
+        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '">'.$labelStr.'</label><div class="col-sm-' . $columns . '">';
     } else {
         return '</div></div>';
     }

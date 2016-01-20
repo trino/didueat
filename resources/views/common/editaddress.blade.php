@@ -13,7 +13,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-<?= newrow($new, "Street Address", "", true); ?>
+<?php echo newrow($new, "Street Address", "", true); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
         @else
@@ -43,32 +43,12 @@
     </div>
 </div-->
 
-<?= newrow($new, "Postal Code"); ?>
-        <input type="text" name="postal_code" id="postal_code" {{ $is_disabled }} class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
+<?php echo newrow($new, "City", "", $required, 4); ?>
+        <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
 </div>
 
-<?= newrow($new, "Phone Number", "", $required); ?>
-        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
-    </div>
-</div>
-
-<?= newrow($new, "Country"); ?>
-        <select name="country" id="country" class="form-control" {{ $is_disabled }} id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
-        
-            <option value="">-Select One-</option>
-                            <option value="40">Canada</option>
-                            <option value="236">United States</option>
-                            <option value="">---------------</option>
-            @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
-                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->country) && $addresse_detail->country == $value->id) || old('country') == $value->name || old('country') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
-            @endforeach
-        </select>
-    <!--input type="text" id="country" name="country" class="form-control" {{$required}} value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}"-->
-    </div>
-</div>
-
-<?= newrow($new, "Province"); ?>
+<?php echo newrow($new, "Province", "", true, 4); ?>
         <select name="province" id="province" class="form-control" {{ $is_disabled }} {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
@@ -87,23 +67,43 @@
     </div>
 </div>
 
-<?= newrow($new, "City", "", $required); ?>
-        <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
+<?php echo newrow($new, "Postal Code", "", true, 4); ?>
+        <input type="text" name="postal_code" id="postal_code" {{ $is_disabled }} class="form-control" placeholder="Postal Code" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
+    </div>
+</div>
+
+<?php echo newrow($new, "Country", "", true, 4); ?>
+        <select name="country" id="country" class="form-control" {{ $is_disabled }} id="country2" {{$required}} onOLDchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))?$addresse_detail->province: old('province') }}');">
+        
+            <option value="">-Select One-</option>
+                            <option value="40">Canada</option>
+                            <option value="236">United States</option>
+                            <option value="">---------------</option>
+            @foreach(select_field_where("countries", "", false, "name", "ASC") as $value)
+                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->country) && $addresse_detail->country == $value->id) || old('country') == $value->name || old('country') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
+            @endforeach
+        </select>
+    <!--input type="text" id="country" name="country" class="form-control" {{$required}} value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}"-->
+    </div>
+</div>
+
+<?php echo newrow($new, "Phone Number", "", $required, 4); ?>
+        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
 </div>
 
 <?php if(isset($apartment)){ ?>
-    <?= newrow($new, "Apartment/Unit"); ?>
+    <?php echo newrow($new, "Apartment/Unit", "", false, 4); ?>
             <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse" value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
         </div>
     </div>
 
-    <?= newrow($new, "Buzz Code"); ?>
+    <?php echo newrow($new, "Buzz Code", "", false, 4); ?>
             <input type="text" name="buzz" class="form-control" {{ $is_disabled }} placeholder="Buzz/ringer/doorbell Code" value="{{ (isset($addresse_detail->buzz))?$addresse_detail->buzz:old('buzz') }}">
         </div>
     </div>
 
-    <?= newrow($new, "Notes"); ?>
+    <?php echo newrow($new, "Notes", "", false, 9); ?>
             <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="ie: Side door" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
         </div>
     </div>
