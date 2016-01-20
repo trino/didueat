@@ -114,11 +114,12 @@ class HomeController extends Controller {
                 $data['hasMorePage'] = count(\App\Http\Models\Restaurants::searchRestaurants($data, 10, $data['start']));//count remaining results
                 $data['loadmore'] = (isset($post['loadmore']))?$post['loadmore']:0;
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
+                $SQL = "";
+                if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
                 if (!is_null($data['query']) && count($data['query']) > 0){
-                    return view('ajax.search_restaurants', $data);
-                } else if (debugmode()){
-                    return "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"],true));
+                    return $SQL . view('ajax.search_restaurants', $data);
                 }
+                return $SQL;
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => handleexception($e)), 500);
             }
