@@ -39,9 +39,11 @@ class CreditCardsController extends Controller {
             if (!isset($post['ccv']) || empty($post['ccv'])) {
                 return $this->failure( trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
+            /*
             if (!isset($post['expiry_date']) || empty($post['expiry_date'])) {
                 return $this->failure(trans('messages.user_missing_email.message'),'credit-cards/list/'.$type, true);
             }
+            */
             if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
                 return $this->failure(trans('messages.user_missing_email.message'), 'credit-cards/list/'.$type, true);
             }
