@@ -302,7 +302,7 @@ $('.savebtn').live('click', function () {
         }
     });
 });
-function check_enable($this,$menu)
+/*function check_enable($this,$menu)
 {
     $_parent = $this.closest('.par_wrap');
     if($_parent.find('.cat_id').val()=='')
@@ -356,4 +356,4 @@ function check_enable($this,$menu)
        } 
     });
     }
-}
+}*/

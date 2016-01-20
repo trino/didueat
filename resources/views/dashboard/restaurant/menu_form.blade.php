@@ -39,7 +39,7 @@
                 </LABEL>
                 &nbsp;&nbsp;&nbsp;
                 <LABEL>
-                    <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" onclick="check_enable($(this),<?php echo $menu_id?>);" /> &nbsp;&nbsp;<strong>Enable Item</strong>
+                    <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" <?php /*onclick="check_enable($(this),<?php echo $menu_id?>);"*/?> /> &nbsp;&nbsp;<strong>Enable Item</strong>
                     <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
                 </LABEL>
             </div>
@@ -120,12 +120,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12 ignore">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 ignore">
-                @if(!isset($ccount) || (isset($ccount) && $ccount == 0))
-                    <div class="newaction ignore">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-info add_additional ignore blue" id="add_additional{{ $menu_id }}">Add Addons</a>
-                        <a href="javascript:void(0)" id="save{{ $menu_id }}" data-id="{{ $menu_id }}" class="btn btn-sm btn-info blue savebtn ignore">Save</a>
-                    </div>
-                @endif
+                <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
             </div>
         </div>
     </div>
@@ -134,11 +129,12 @@
     <div class="clearfix ignore"></div>
 
 
-    <hr class=" ignore"/>
+    
 
 
     <div class="additional additional{{ $menu_id }} ignore"
-         style="@if(isset($cmodel) && $cmodel) display:block; @endif">
+         style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+         <hr class=" ignore"/>
         <div class="col-md-12 ignore"><h2 class="ignore">Addons</h2></div>
         <div class="clearfix ignore"></div>
         <?php

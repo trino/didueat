@@ -22,6 +22,9 @@ $('.add_item').live('click', function () {
 });
 
 $('.additem').live('click', function () {
+    
+    $('.savebtn').remove();
+    $('.add_additional').remove();
     //('TEST');
     var id = $(this).attr('id').replace('add_item', '');
     if ($("#res_id").length == 0) {
