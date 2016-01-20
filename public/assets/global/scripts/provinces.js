@@ -225,9 +225,7 @@ function geolocate(formatted_address) {
                 success: function(msg) {
                     var data = JSON.parse(msg).results[0];
                     var street_number = 0;
-                    $(".formatted_address").val(data.formatted_address);
-                    $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
-                    $(".formatted_address").trigger("change");
+                    //$(".formatted_address").val(data.formatted_address);
 
                     for(i = 0; i < data.address_components.length; i++){
                         var withdata = data.address_components[i];
@@ -237,6 +235,7 @@ function geolocate(formatted_address) {
                                 street_number = value;
                                 break;
                             case "route":
+                                $(".formatted_address").val(street_number + " " + value);
                                 $("#rout_street_number").val(street_number + " " + value);
                                 break;
                             case "postal_code":
@@ -253,6 +252,9 @@ function geolocate(formatted_address) {
                                 break;
                         }
                     }
+
+                    $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
+                    $(".formatted_address").trigger("change");
                 },
                 error: function(msg){
                     alert("ERROR: " + msg);
