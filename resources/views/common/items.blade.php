@@ -1,8 +1,14 @@
 <?php printfile("views/common/items.blade.php"); ?>
-<table class="scroller orders @if(!isset($order)) order-style @endif">
+
+<table width="100%">
 <thead>
     <th width='26%'>Qty</th><th width="50%">Item</th><th>Price</th>
 </thead>
+<tr>
+    <td colspan="3">
+        <div style="scroller">
+        <table class="orders @if(!isset($order)) order-style @endif">    
+
 @if(isset($order))
     <?php
         $menu_ids = $order->menu_ids;
@@ -28,12 +34,12 @@
             $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
     ?>
     <tr id="list{{ $order->listid }}" class="infolist">
-        <td class="receipt_image">
+        <td class="receipt_image" width='26%'>
                 
               <!--img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34"-->
               <span class="count">{{ $arr_qty[$k] }} x</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </td>
-        <td><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</td>
+        <td style="50%"><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</td>
         <td class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</td>
         <span class="amount" style="display:none;"> {{ number_format($arr_prs[$k], 2) }}</span>
         <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>
@@ -43,4 +49,7 @@
     </tr>
     <?php } ?>
     @endif
+</table>
+</div>
+</td></tr>
 </table>

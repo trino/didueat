@@ -326,7 +326,7 @@ ul.scroller li{
 .receipt_image img,.receipt_image a,.receipt_image span{display: inline-block;text-align:center;}
 .receipt_image img{width:12%!important;}
 .innerst {
-    display: inline-block;
+    
     font-size: 11px;
     line-height: 11px;
     padding-left: 2%;

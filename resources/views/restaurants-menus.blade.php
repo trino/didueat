@@ -439,7 +439,7 @@
 
 
                 var pre_cnt = $('#list' + ids).find('.count').text();
-                pre_cnt = Number(pre_cnt.replace('x ', ''));
+                pre_cnt = Number(pre_cnt.replace('x', ''));
                 var n = $('.number' + menu_id).text();
                 if (pre_cnt != "") {
                     pre_cnt = Number(pre_cnt) + Number(n);
@@ -451,13 +451,13 @@
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image">'+
+                $('#list' + ids).html('<td class="receipt_image" width="26%">'+
                         '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
                         '-</a><span class="count">' + pre_cnt + 'x</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
                         '+</a>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
-                        '<td class="innerst">' + app_title + '</td>' +
+                        '<td class="innerst" width="50%">' + app_title + '</td>' +
                         '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
