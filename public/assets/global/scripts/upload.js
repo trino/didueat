@@ -289,7 +289,7 @@
         }
         
         if ( ! button || button.nodeType !== 1){
-            
+            return "Please make sure that you're passing a valid element";
             throw new Error("Please make sure that you're passing a valid element"); 
         }
                 
