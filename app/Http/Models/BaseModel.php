@@ -47,7 +47,7 @@ class BaseModel extends Model {
                         if(!$this->$key){
                             $keys = array();
                             if(\Session::has('invalid-data')){
-                                $keys[] = \Session::get('invalid-data');
+                                $keys = \Session::get('invalid-data');
                             }
                             if(!isset($keys[$key])) {
                                 $keys[] = $key;

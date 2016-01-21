@@ -5,7 +5,7 @@
     if(!isset($is_disabled)){$is_disabled=false;}
     if(!isset($minimum)){$minimum=false;}
 ?>
-    <input type="text" name="restname" class="form-control" style="width:90%" {{ $is_disabled }} placeholder="Restaurant Name" value="{{ (isset($restaurant->restname) && $restaurant->restname)?$restaurant->restname: old("restname") }}" required>
+    <input type="text" name="restname" class="form-control" style="width:90%" {{ $is_disabled }} placeholder="Restaurant Name" value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){

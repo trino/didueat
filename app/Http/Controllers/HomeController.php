@@ -409,17 +409,9 @@ class HomeController extends Controller {
                 \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
 
                 if($user->id){
-                    $add = new \App\Http\Models\ProfilesAddresses();
-                    $update['user_id'] = $user->id;
-                    $update['phone'] = $post['phone'];
-                    $update['mobile'] = $post['mobile'];
-                    $update['postal_code'] = $post['postal_code'];
-                    $add->populate(array_filter($update));
-                    $add->save();
-
-                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone));
-                    if($add->mobile){
-                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $add->mobile, "is_sms" => true));
+                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $post['phone']));
+                    if(isset($post['mobile'])){
+                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $post['mobile'], "is_sms" => true));
                     }
                     login($user->id);
                 }
