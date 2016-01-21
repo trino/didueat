@@ -22,8 +22,6 @@
                 <?php printfile("views/popups/signup.blade.php"); ?>
                 <div class="editaddress">
                     @include('common.signupform', array("new" => true))
-
-
                 </div>
             </div>
 
@@ -65,14 +63,14 @@
                         type: "post"
                     }
                 },
-                password0: {
+                password: {
                     required: true,
                     minlength: 5
                 },
-                confirm_password0: {
+                confirm_password: {
                     required: true,
                     minlength: 5,
-                    equalTo: "#password0"
+                    equalTo: "#password"
                 }
             },
             messages: {
@@ -80,7 +78,7 @@
                     required: "Please enter an email address!",
                     remote: "This email address is already in use!"
                 },
-                confirm_password0: {
+                confirm_password: {
                     equalTo: "The password fields are mis-matched!"
                 }
             }

@@ -50,7 +50,7 @@ class CreditCardsController extends Controller {
             try {//save credit card info
                 if(isset($post['user_type']) && !empty($post['user_type'])){
                     if($post['user_type'] == "restaurant" && isset($post['select_restaurant_id'])){
-                        $post['user_id'] = $post['select_restaurant_id'];
+                        $post['user_id'] = $post['select_restaurant_id'];//for some reason this ends up being the user id
                     }
                     if($post['user_type'] == "user" && isset($post['select_user_id'])){
                         $post['user_id'] = $post['select_user_id'];
