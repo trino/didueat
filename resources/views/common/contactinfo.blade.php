@@ -1,21 +1,19 @@
 <?php
-printfile("views/common/contactinfo.blade.php");
-$size = "col-md-12 col-sm-12 col-xs-12";
-if(!isset($new)){$new = false;}
+    printfile("views/common/contactinfo.blade.php");
+    $size = "col-md-12 col-sm-12 col-xs-12";
+    if(!isset($new)){$new = false;}
+    $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
 
-
-$Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
-foreach($Fields as $Field){
-    if(isset($user_detail->$Field)){
-        $$Field = $user_detail->$Field;
-    } else {
-        $$Field = old($Field);
+    $Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
+    foreach($Fields as $Field){
+        if(isset($user_detail->$Field)){
+            $$Field = $user_detail->$Field;
+        } else {
+            $$Field = old($Field);
+        }
     }
-}
-echo newrow($new, "Your Full Name", $size, true);
+    echo newrow($new, "Your Full Name", $size, true);
 ?>
-
-
     <div class="input-icon">
         <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}" required>
         <input type="hidden" name="gmt" id="gmt" value="">
@@ -44,15 +42,15 @@ echo newrow($new, "Email", $size, true); ?>
     </div></div>
 @endif
 
-<?php echo newrow($new, "Password", $size, true); ?>
+<?php echo newrow($new, "Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ $password }}" required>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ $password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
 
-echo newrow($new, "Re-type Password", $size, true); ?>
+echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
-        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="{{ $confirm_password }}" required >
+        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
 
