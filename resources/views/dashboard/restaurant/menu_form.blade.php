@@ -39,16 +39,16 @@
             </div>
             <div class="col-md-6 padding-left-0">
                 <LABEL>
-                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" checked="" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
+                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 </LABEL>
                 &nbsp;&nbsp;&nbsp;
                 <LABEL>
-                    <input <?php if(isset($model->is_active) && $model->is_active == 1){?>checked="checked"<?php }?> type="checkbox" class="is_active" <?php /*onclick="check_enable($(this),<?php echo $menu_id?>);"*/?> /> &nbsp;&nbsp;<strong>Enable Item</strong>
+                    <input <?php if(!isset($model) || (isset($model->is_active) && $model->is_active == 1)){?>checked="checked"<?php }?> type="checkbox" class="is_active" <?php /*onclick="check_enable($(this),<?php echo $menu_id?>);"*/?> /> &nbsp;&nbsp;<strong>Enable Item</strong>
                     <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
                 </LABEL>
             </div>
             <div class="clearfix"></div>
-                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(isset($model->has_discount) && $model->has_discount == 0){?>display: none;<?php }?>">
+                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model)|| (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
                 <div class="form-group">
                 <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
