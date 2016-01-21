@@ -234,7 +234,7 @@ class RestaurantController extends Controller {
     public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
-            if (!isset($post['name']) || empty($post['name'])) {
+            if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['country']) || empty($post['country'])) {
@@ -243,8 +243,8 @@ class RestaurantController extends Controller {
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
-            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                return $this->failure("[Postal Code] field is missing!", 'restaurant/info/' . $post['id']);
+            if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
+                return $this->failure("[Postal Code] field is missing or invalid!", 'restaurant/info/' . $post['id']);
             }
             try {
                 $update=$post;
@@ -271,7 +271,7 @@ class RestaurantController extends Controller {
                     $update['logo'] = $newName;
                 }
 
-                $update['name'] = $post['name'];
+                $update['name'] = $post['restname'];
                 if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
                 }
@@ -290,7 +290,7 @@ class RestaurantController extends Controller {
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
-                
+
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update);
                 $ob->save();

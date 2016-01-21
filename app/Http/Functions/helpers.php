@@ -1,5 +1,11 @@
 <?php
 
+define("MAX_DELIVERY_DISTANCE", 30);
+
+function asmoney($value){
+    return "$" . number_format($value, 2);
+}
+
 function message_show($msgtype, $description) {
     if ($msgtype != "" && $description != "") {
         return '<script type="text/javascript">

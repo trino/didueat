@@ -107,7 +107,7 @@ class HomeController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $data['data'] = $post;
-                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false, $data['delivery_type'] == "is_delivery" );//search for restaurants matching the data in the post["data"]
+                $data['query'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, false);//search for restaurants matching the data in the post["data"]
                 $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants($data, 10, $start, true);//SQL
                 $data['count'] = count($data['query']);//count the previous results
                 $data['start'] = $start+10;
@@ -116,8 +116,12 @@ class HomeController extends Controller {
                 $data['ajaxcall'] = (isset($post['ajaxcall']))?$post['ajaxcall']:0;
                 $SQL = "";
                 if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
+
+                //$SQL = is_null($data['query']);
+                //$SQL = var_export($data['query']);
+
                 if (!is_null($data['query']) && count($data['query']) > 0){
-                    return $SQL . view('ajax.search_restaurants', $data);
+                    return view('ajax.search_restaurants', $data);
                 }
                 return $SQL;
             } catch (Exception $e) {
@@ -405,17 +409,9 @@ class HomeController extends Controller {
                 \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
 
                 if($user->id){
-                    $add = new \App\Http\Models\ProfilesAddresses();
-                    $update['user_id'] = $user->id;
-                    $update['phone'] = $post['phone'];
-                    $update['mobile'] = $post['mobile'];
-                    $update['postal_code'] = $post['postal_code'];
-                    $add->populate(array_filter($update));
-                    $add->save();
-
-                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $add->phone));
-                    if($add->mobile){
-                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $add->mobile, "is_sms" => true));
+                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $post['phone']));
+                    if(isset($post['mobile'])){
+                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $post['mobile'], "is_sms" => true));
                     }
                     login($user->id);
                 }
