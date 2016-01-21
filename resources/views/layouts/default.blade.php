@@ -92,7 +92,7 @@
 
     <?php
         $Restaurant = \Session::get('session_restaurant_id', 0);
-        if ($Restaurant && !\Session::has('message-type')){
+        if ($Restaurant){
             $Restaurant = select_field("restaurants", "id", $Restaurant);
             if($Restaurant){
                 $MissingData = array();
@@ -101,6 +101,13 @@
                 if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "an address";}
                 if(!$Restaurant->open){$MissingData[] = "to be set to open";}
                 if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
+
+                $DayOfWeek = current_day_of_week() . "_";
+                $now = date('H:i:s');
+                //$open
+                //$DeliveryHours = $data['delivery_type'] == "is_delivery";
+                //$where .= " AND " . $DayOfWeek . "open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND " . $DayOfWeek . "close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
+
                 if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
                 if(!$Restaurant->minimum){$MissingDataOptional[] = "possibly a minimum delivery sub-total";}
 
@@ -124,9 +131,8 @@
 
                 if($MissingData){
                     $MissingData = array_merge($MissingData, $MissingDataOptional);
-                    Session::put('message-type', "alert-danger");
-                    Session::put('message-short', "Missing Data");
-                    Session::put('message', "You need the following to open a store: " . implode(", ", $MissingData) );
+                    $MissingData = "You need the following to open a store: " . implode(", ", $MissingData);
+                    echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Missing Data</STRONG>&nbsp;' . $MissingData . '</DIV>';
                 }
             }
         }
