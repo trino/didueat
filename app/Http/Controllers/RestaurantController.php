@@ -468,17 +468,20 @@ class RestaurantController extends Controller {
     public function menuadd() {
         if(\Session::get('session_restaurant_id'))
         $arr['uploaded_by'] = 0;
-        else
+        else{
         $arr['uploaded_by'] = \Session::get('session_ID');
         
+        }
+        
         //copy these keys to the $arr
-        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active');
+        $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active','restaurant_id');
         //$arr['uploaded_by'] = 
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
             }
         }
+        //var_dump($arr);
         //add this restaurant to the categories table
         if (!is_numeric($arr['cat_id'])) {
             $arrs['title'] = $arr['cat_id'];

@@ -26,10 +26,9 @@ $('.additem').live('click', function () {
     $('.savebtn').remove();
     $('.add_additional').remove();
     //('TEST');
-    var id_arr = $(this).attr('id').replace('add_item', '').split('_');
+    var id = $(this).attr('id').replace('add_item', '');
     
-    var id = id_arr[0];
-    var rest_id = id_arr[1];
+    
     if ($("#res_id").length == 0) {
 
         var res_id = 0;
