@@ -120,7 +120,7 @@
                         if($value->uploaded_by)
                         {
                             ?>
-                            <div class="uploaded_by col-md-6">
+                            <div class="uploaded_by col-md-6 padding-left-0">
                             <?php
                             $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
                             echo "<strong>Uploaded by: </strong>".$uploaded_by->name."<br/>";
@@ -128,13 +128,11 @@
                             ?>
                             </div>
                             <?php 
-                            if($value->uploaded_on)echo "<div class='uploaded_on'><strong>Uploaded On: </strong>".$value->uploaded_on."</div>";
+                            }
+                            if($value->uploaded_on)echo "<div class='uploaded_on padding-left-0'><strong>Uploaded On: </strong>".$value->uploaded_on."</div>";
                             ?>
                             <div class="clearfix"></div>
                             
-                            <?php
-                        }
-                        ?>
     </div>
     
 
@@ -229,7 +227,7 @@
                                                             <div class="col-xs-6 col-md-6 subin padding-left-0">
                                                                 <div class="btnxx-inner inneritem">
                                                                     <a id="buttons_{{ $mm->id }}"
-                                                                       class="buttons col-md-8 nopadd"
+                                                                       class="buttons <?php if($sub->sing_mul != '1'){?>col-md-8 <?php }?>nopadd"
                                                                        href="javascript:void(0);">
                                                                            <?php
                                                                            if ($mm->price != 0)
