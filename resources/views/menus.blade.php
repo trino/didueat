@@ -1,4 +1,8 @@
-@if(!isset($_GET['page']))
+
+<?php
+//$data = Session::all();
+//print_r($data);
+?>@if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
 @endif
 
