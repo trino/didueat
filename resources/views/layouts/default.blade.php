@@ -98,7 +98,7 @@
                 $MissingData = array();
                 $MissingDataOptional = array();
                 if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "to be set for pickup or delivery";}
-                if(!$Restaurant->lat || !$Restaurant->lng){$MissingData[] = "an address";}
+                if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "an address";}
                 if(!$Restaurant->open){$MissingData[] = "to be set to open";}
                 if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
                 if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
