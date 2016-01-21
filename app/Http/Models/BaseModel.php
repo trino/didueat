@@ -19,16 +19,20 @@ class BaseModel extends Model {
         return $ob;
     }
 
+    public function cleantext($text){
+        return str_replace('"', "''", trim($text));
+    }
+
     public function copycells($cells, $data){
         foreach ($cells as $key => $cell) {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
-                    $this->$cell = trim($data[$cell]);
+                    $this->$cell = cleantext($data[$cell]);
                     $data[$cell] = $this->$cell;
                 }
             } else {
                 if (array_key_exists($key, $data)) {
-                    $this->$key = trim($data[$key]);
+                    $this->$key = cleantext($data[$key]);
                     if($this->$key) {
                         switch ($cell) {
                             case "phone":

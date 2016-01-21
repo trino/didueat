@@ -1,4 +1,3 @@
-
 function changeqty(id, opr) {
         var num = Number($('.number' + id).text());
         if (num == '1') {
@@ -54,9 +53,7 @@ function changeqty(id, opr) {
             $('input .grandtotal').val(grandtotal.toFixed(2));
             $('#delivery_flag').val('1');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
-            }
-        else 
-        {
+        } else {
             $('.profile_delevery_type').text('Pickup Detail');
             $('.profile_delivery_detail').hide();
             if ($('#pickup1').hasClass("deliverychecked")) {
@@ -74,11 +71,6 @@ function changeqty(id, opr) {
             }
         }
     }
-
-
-    
-
-
 
     function printDiv(divName) {
         var printContents = document.getElementById(divName).innerHTML;
@@ -136,8 +128,7 @@ function changeqty(id, opr) {
                all += Number($(this).text());
             });
             
-            if(all >extra_no)
-            {
+            if(all >extra_no) {
                 $('.error_'+td_id).show();
                 $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
                 $('.error_'+td_id).fadeOut(2000);
@@ -157,17 +148,12 @@ function changeqty(id, opr) {
             //alert(id+","+qty+","+price+","+tit);
             qty = Number(qty)+ Number(1);
             $(this).parent().find('.span_'+id).html(qty);
-            if(qty ==0)
-            {
+            if(qty ==0) {
                 newtitle= title[1];
                 newprice= price;
-                
-            }
-            else
-            {
+            } else {
                 newtitle= title[1]+" x("+qty+")";
                 newprice= Number(price)*Number(qty);
-                
             }
             
             newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
@@ -187,10 +173,8 @@ function changeqty(id, opr) {
                all += Number($(this).text());
             });
             
-            if(all <=extra_no)
-            {
+            if(all <=extra_no) {
                 $('.error_' + td_id).html("");
-               
             }                        
             var id = $(this).attr('id').replace('remspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
@@ -198,25 +182,18 @@ function changeqty(id, opr) {
             var chk = $(this).parent().parent().find('#extra_'+id)
             var tit = chk.attr('title');
             var title = tit.split("_");
-            if(qty !=0)
-            {
+            if(qty !=0) {
                 title[1]= title[1].replace('x('+qty+")","")
                 qty = Number(qty) -Number(1);
                 $(this).parent().find('.span_'+id).html(qty);
             }
-            if(qty ==0)
-            {
+            if(qty ==0) {
                 chk.removeAttr('checked');
                 newtitle = title[1];
                 newprice = price;
-                
-                
-            }
-            else
-            {
+            } else {
                 newtitle= title[1]+" x("+qty+")";
                 newprice= Number(price)*Number(qty);
-                
             }
             
             newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
@@ -341,5 +318,5 @@ function changeqty(id, opr) {
         $('#list' + numid + ' input.count').val(quant);
     });
         
-    })
+})
     
