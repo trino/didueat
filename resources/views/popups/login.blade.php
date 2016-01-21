@@ -22,13 +22,13 @@
                         <div class="form-group row">
                             <label class="col-sm-3">Email my Address</label>
                             <div class="col-sm-9">
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required/>
+                                <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3">Password</label>
                             <div class="col-sm-9">
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
 
