@@ -24,7 +24,7 @@ class BaseModel extends Model {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
                     $this->$cell = trim($data[$cell]);
-                    $data[$cell]=$this->$cell;
+                    $data[$cell] = $this->$cell;
                 }
             } else {
                 if (array_key_exists($key, $data)) {
@@ -44,7 +44,9 @@ class BaseModel extends Model {
                                 $this->$key = $this->encryptPassword($this->$key);
                                 break;
                         }
-                        if(!$this->$key){
+                        if($this->$key) {
+                            $data[$key] = $this->$key;
+                        } else {
                             $keys = array();
                             if(\Session::has('invalid-data')){
                                 $keys = \Session::get('invalid-data');
@@ -55,7 +57,6 @@ class BaseModel extends Model {
                             \Session::put('invalid-data', $keys);
                         }
                     }
-                    $data[$cell]=$this->$cell;
                 }
                 if(!isset($this->$key) || !$this->$key) {//empty or doesn't exist
                     switch ($cell) {

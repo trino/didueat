@@ -53,7 +53,7 @@
         <select name="province" id="province" class="form-control" {{ $is_disabled }} {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
-                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->state) && $addresse_detail->state == $value->id) || old('province') == $value->name || old('province') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
+                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->province) && $addresse_detail->province == $value->id) || old('province') == $value->name || old('province') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
         </select>
         <!--input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}"-->

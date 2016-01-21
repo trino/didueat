@@ -167,7 +167,8 @@ function phonenumber($phone, $qualifyareacode = true) {
                 return "";
             }
         }
-        return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
+        return $phone;
+        //return preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
     }
 }
 
