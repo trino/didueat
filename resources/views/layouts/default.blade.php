@@ -101,18 +101,13 @@
                 if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "an address";}
                 if(!$Restaurant->open){$MissingData[] = "to be set to open";}
                 if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
-
-                $DayOfWeek = current_day_of_week() . "_";
-                $now = date('H:i:s');
-                //$open
-                //$DeliveryHours = $data['delivery_type'] == "is_delivery";
-                //$where .= " AND " . $DayOfWeek . "open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND " . $DayOfWeek . "close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
-
                 if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
                 if(!$Restaurant->minimum){$MissingDataOptional[] = "possibly a minimum delivery sub-total";}
 
                 //check hours of operation
                 $weekdays = getweekdays();
+                $DayOfWeek = current_day_of_week();
+                $now = date('H:i:s');
                 foreach($weekdays as $weekday){
                     foreach(array("_open", "_close", "_open_del", "_close_del") as $field){
                         $field = $weekday . $field;
@@ -123,7 +118,12 @@
                     }
                         if(!$weekdays){break;}
                 }
-                if($weekdays){$MissingData[] = "hours of operation";}
+                if($weekdays){
+                    $MissingData[] = "hours of operation";
+                } else {
+                    if(getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now){$MissingData[] = "open hours extended";}
+                    if(getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now){$MissingData[] = "delivery hours extended";}
+                }
 
                 //check credit card
                 $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
