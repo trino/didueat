@@ -99,19 +99,7 @@
 
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
                         
-                        <?php
-                        if($value->uploaded_by)
-                        {
-                            ?>
-                            <div class="uploaded_by">
-                            <?php
-                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                            echo "<strong>Uploaded by: </strong>".$uploaded_by->name;
-                            ?>
-                            </div>
-                            <?php
-                        }
-                        ?>
+                        
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -128,6 +116,25 @@
                 </div>
             </div>
         </div>
+        <?php
+                        if($value->uploaded_by)
+                        {
+                            ?>
+                            <div class="uploaded_by col-md-6">
+                            <?php
+                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                            echo "<strong>Uploaded by: </strong>".$uploaded_by->name."<br/>";
+                            
+                            ?>
+                            </div>
+                            <?php 
+                            if($value->uploaded_on)echo "<div class='uploaded_on'><strong>Uploaded On: </strong>".$value->uploaded_on."</div>";
+                            ?>
+                            <div class="clearfix"></div>
+                            
+                            <?php
+                        }
+                        ?>
     </div>
     
 

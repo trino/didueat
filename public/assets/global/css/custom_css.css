@@ -360,3 +360,5 @@ table.orders thead{background: #e5e5e5;}
     font-weight: bold;
     padding-left: 9px;
 }
+.uploaded_by{font-size:14px;}
+.uploaded_on{font-size:14px;font-style: italic;float:right;}

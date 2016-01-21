@@ -466,6 +466,7 @@ class RestaurantController extends Controller {
 
     //add a menu item
     public function menuadd() {
+        
         \Session::flash('message', \Input::get('message'));
         if(\Session::get('session_restaurant_id'))
         $arr['uploaded_by'] = 0;
@@ -529,6 +530,7 @@ class RestaurantController extends Controller {
             }
             die();
         } else {
+            $arr['uploaded_on'] = date('Y-m-d');
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
                 $orders = $orders_mod[0];
