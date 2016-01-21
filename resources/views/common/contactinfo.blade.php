@@ -3,7 +3,7 @@
     $size = "col-md-12 col-sm-12 col-xs-12";
     if(!isset($new)){$new = false;}
     $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-
+    $needsmobile = isset($mobile);
     $Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
     foreach($Fields as $Field){
         if(isset($user_detail->$Field)){
@@ -54,8 +54,8 @@ echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
     </div>
 <?php echo newrow();
 
-if(isset($mobile)){
-    echo newrow($new, "Cell Phone", $size);
+if($needsmobile){
+    echo newrow($new, "Cell Phone", $size, true);
     echo '<input type="text" name="mobile" class="form-control" placeholder="Cell Phone Number" value="' . $phone . '"></div></div>';
 }
 

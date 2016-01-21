@@ -16,7 +16,7 @@
                 {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail))
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true))
 
                     <?= newrow(false, "Profile Photo"); ?>
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
