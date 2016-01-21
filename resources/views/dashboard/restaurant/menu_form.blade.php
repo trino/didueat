@@ -121,13 +121,13 @@
         <div class="clearfix ignore"></div>
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 ignore">
+    <!--<div class="col-md-12 col-sm-12 col-xs-12 ignore">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 ignore">
                 <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
     <div class="clearfix ignore"></div>
