@@ -54,7 +54,7 @@
                                    data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
                                     {{ $value->menu_item }}
 
-                                </a>
+                                </a> <span class="cat_name">{{ $value->cat_name }}</span>
                             </h4>
 
                             @if($dis)

@@ -43,9 +43,9 @@
 
 
         @foreach($category as $cat)
-            <h4>
+            <!--<h4>
                 {{ $cat->title }}
-            </h4>
+            </h4>-->
             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>

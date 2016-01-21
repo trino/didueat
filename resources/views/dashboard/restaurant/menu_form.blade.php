@@ -25,13 +25,17 @@
         <div class="col-sm-10 col-xs-12 lowheight ignore par_wrap">
             @if(count($category))
             <div class="col-md-6 padding-left-0">
-                <select class="cat_id form-control">
+                <div><strong>Category:</strong></div>
+                <input class="form-control cat_name" />
+                <div style="display: none;">
+                <select class="cat_id form-control" >
                     <option value="">Category</option>
                     @foreach($category as $cat)
                         <option value="{{ $cat->id }}"
-                                @if(isset($model->cat_id) && $cat->id == $model->cat_id) selected="selected" @endif>{{ $cat->title }}</option>
+                                @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
                     @endforeach
                 </select>
+                </div>
             </div>
             <div class="col-md-6 padding-left-0">
                 <LABEL>

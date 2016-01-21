@@ -353,3 +353,10 @@ table.orders th{text-align: center;font-size:14px;}
 table.orders thead{background: #e5e5e5;}
 .norightpadd{padding-right:0px;}
 .rating-it-btn {color: #D9534F !important;}
+.cat_name {
+    color: #777;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 9px;
+}

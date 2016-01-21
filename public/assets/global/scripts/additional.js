@@ -139,6 +139,7 @@ $('.savebtn').live('click', function () {
     //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
+    var cat_name = $_parent.find('.cat_name').val();
     if (!cat_id || cat_id == '') {
         alert('Please select a category');
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
@@ -240,7 +241,7 @@ $('.savebtn').live('click', function () {
     
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val(),
+        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
         type: 'post',
         success: function (res) {
             // alert(res);
