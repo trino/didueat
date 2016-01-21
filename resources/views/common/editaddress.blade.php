@@ -44,12 +44,6 @@
     </div>
 </div-->
 
-
-<?php echo newrow($new, "Address", "", $required, 4); ?>
-        <input type="text" id="address" name="address" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->address))?$addresse_detail->address:old('address') }}" {{$required}}>
-    </div>
-</div>
-
 <?php echo newrow($new, "City", "", $required, 4); ?>
         <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
