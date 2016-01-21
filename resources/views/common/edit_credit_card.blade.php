@@ -1,38 +1,27 @@
 <?php
-printfile("views/common/edit_credit_card.blade.php");
+    printfile("views/common/edit_credit_card.blade.php");
+    $new = false;
+    //Days list
+    $starting_day = 01;
+    $ending_day = 31;
 
-//Days list
-$starting_day = 01;
-$ending_day = 31;
-$already_selected_day = (isset($credit_cards_list->expiry_date)) ? $credit_cards_list->expiry_date : '';
-
-for ($starting_day; $starting_day <= $ending_day; $starting_day++) {
-    $selected = ($already_selected_day == $starting_day) ? 'selected' : '';
-    $days[] = '<option value="' . $starting_day . '" ' . $selected . ' >' . $starting_day . '</option>';
-}
-//Year List
-$starting_year = 2016;
-$ending_year = 2035;
-
-$already_selected_year = (isset($credit_cards_list->expiry_year)) ? $credit_cards_list->expiry_year : '';
-for ($starting_year; $starting_year <= $ending_year; $starting_year++) {
-    $selected = ($already_selected_year == $starting_year) ? 'selected' : '';
-    $years[] = '<option value="' . $starting_year . '" ' . $selected . '  >' . $starting_year . '</option>';
-}
-
-$encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
-foreach ($encryptedfields as $field) {
-    if (isset($credit_cards_list->$field) && is_encrypted($credit_cards_list->$field)) {
-        $credit_cards_list->$field = \Crypt::decrypt($credit_cards_list->$field);
+    $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+    foreach ($encryptedfields as $field) {
+        if (isset($credit_cards_list->$field) && is_encrypted($credit_cards_list->$field)) {
+            $credit_cards_list->$field = \Crypt::decrypt($credit_cards_list->$field);
+        }
     }
-}
 
-if (!isset($users_list)) {
-    $users_list = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-}
-if (!isset($restaurants_list)) {
-    $restaurants_list = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
-}
+    //Year List
+    $starting_year = date("Y");
+    $ending_year = $starting_year + 10;
+
+    if (!isset($users_list)) {
+        $users_list = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+    }
+    if (!isset($restaurants_list)) {
+        $restaurants_list = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
+    }
 ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
 
@@ -83,112 +72,87 @@ if (!isset($restaurants_list)) {
     <input type="hidden" name="user_type" value="{{ \Session::get('session_type_user') }}"/>
 @endif
 
-
-
-<?php
-
-$new = false;
-
-echo newrow($new, "First Name", "", true, 5); ?>
+<?= newrow($new, "First Name", "", true, 5); ?>
 <input type="text" name="first_name" class="form-control"
        value="{{ (isset($credit_cards_list->first_name))?$credit_cards_list->first_name:'' }}" id="first_name"
        placeholder="First Name" required>
-</div>
-</div>
+</div></div>
 
-<?php
-
-echo newrow($new, "Last Name", "", true, 5); ?>
+<?= newrow($new, "Last Name", "", true, 5); ?>
 <input type="text" name="last_name" class="form-control"
        value="{{ (isset($credit_cards_list->last_name))?$credit_cards_list->last_name:'' }}" id="last_name"
        placeholder="Last Name" required>
-</div>
-</div>
+</div></div>
 
-<?php
+<?= newrow($new, "Card Type", "", true, 5); ?>
+    <select name="card_type" class="form-control" id="card_type" required>
+        <option value="">Select Card Type</option>
+            <?php
+                $cards = array("visa" => "Visa", "mastercard" => "MasterCard", "americanExpress" => "American Express", "discover" => "Discover");
+                foreach ($cards as $short => $long) {
+                    echo '<option value="' . $short . '"';
+                    if (isset($credit_cards_list->card_type) && $credit_cards_list->card_type == $short) {
+                        echo ' selected';
+                    }
+                    echo '>' . $long . '</option>';
+                }
+            ?>
+    </select>
+</div></div>
 
-echo newrow($new, "Card Type", "", true, 5); ?>
-<select name="card_type" class="form-control" id="card_type" required>
-<option value="">Select Card Type</option>
-    <?php
-    $cards = array("visa" => "Visa", "mastercard" => "MasterCard", "americanExpress" => "American Express", "discover" => "Discover");
-    foreach ($cards as $short => $long) {
-        echo '<option value="' . $short . '"';
-        if (isset($credit_cards_list->card_type) && $credit_cards_list->card_type == $short) {
-            echo ' selected';
-        }
-        echo '>' . $long . '</option>';
-    }
-    ?>
-</select>
-</div>
-</div>
-
-<?php
-
-echo newrow($new, "Card Number", "", true, 5); ?>
+<?= newrow($new, "Card Number", "", true, 5); ?>
 <input type="text" name="card_number" class="form-control"
        value="{{ (isset($credit_cards_list->card_number))?$credit_cards_list->card_number:'' }}" id="card_number"
        placeholder="Card Number" required>
-</div>
-</div>
+</div></div>
 
 
-<?php
+<?= newrow($new, "Expiry Month", "", true,5); ?>
+    <select name="expiry_month" class="form-control" id="expiry_month" required>
+        <option value="">Select Expiry Month</option>
+            <?php
+            $months = array("01" => "January", "02" => "February", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "August", "09" => "September", "10" => "October", "11" => "November", "12" => "December");
+            foreach ($months as $index => $month) {
+                echo '<option value="' . $index . '"';
+                if (isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == $index) {
+                    echo ' selected';
+                }
+                echo '>' . $index . " (" . $month . ')</option>';
+            }
+            ?>
+    </select>
+</div></div>
 
-echo newrow($new, "Expiry Month", "", true,5); ?>        
-<select name="expiry_month" class="form-control" id="expiry_month" required>
-<option value="">Select Expiry Month</option>
-    <?php
-    $months = array("01" => "01 (January)", "02" => "02 (February)", "03" => "03 (March)", "04" => "05 (April)", "05" => "06 (May)", "06" => "06 (June)", "07" => "07 (July)", "08" => "08 (August)", "09" => "09 (September)", "10" => "10 (October)", "11" => "11 (November)", "12" => "12 (December)");
-    foreach ($months as $index => $month) {
-        echo '<option value="' . $index . '"';
-        if (isset($credit_cards_list->expiry_month) && $credit_cards_list->expiry_month == $index) {
-            echo ' selected';
-        }
-        echo '>' . $month . '</option>';
-    }
-    ?>
-</select>
-</div>
-</div>
+<?= newrow($new, "Expiry Year", "", true, 5); ?>
+    <select name="expiry_year" class="form-control" id="expiry_year" style="width:155px" required>
+    <option value="">Select Expiry Year</option>
+        <?php
+            $already_selected_year = (isset($credit_cards_list->expiry_year)) ? $credit_cards_list->expiry_year : '';
+            for ($starting_year; $starting_year <= $ending_year; $starting_year++) {
+                $selected = ($already_selected_year == $starting_year) ? ' selected' : '';
+                echo "\r\n".  '<option value="' . $starting_year . '" ' . $selected . ' >' . $starting_year . '</option>';
+            }
+        ?>
+    </select>
+</div></div>
 
-<?php
-
-echo newrow($new, "Expiry Year", "", true, 5); ?>
-<select name="expiry_year" class="form-control" id="expiry_year" style="width:155px" required>
-<option value="">Select Expiry Year</option>
-    <?php echo implode("\n\r", $years);  ?>
-</select>
-</div>
-</div>
-
-<script>
-ccvimg = new Image();
-ccvimg.src = base_url+"assets/images/security_code_sample.gif";
-ccvimgph = new Image();
-ccvimgph.src = base_url+"assets/images/ccvimgph.gif";
-</script>
-
-<?php
-
-echo newrow($new, "CCV", "", true, 4); ?>
+<?= newrow($new, "CCV", "", true, 4); ?>
 <input type="text" name="ccv" class="form-control"
        value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="CCV" required size="3" ><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px" /><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is This Located?</u></a>
-</div>
-</div>
-
-
+</div></div>
 
 @if ( isset($credit_cards_list->id))
     <input type="hidden" name="id" value="{{ (isset($credit_cards_list->id))?$credit_cards_list->id:'' }}"/>
-    <input type="hidden" name="user_id"
-           value="{{ (isset($credit_cards_list->user_id))?$credit_cards_list->user_id:'' }}"/>
-    <input type="hidden" name="user_type"
-           value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}"/>
+    <input type="hidden" name="user_id" value="{{ (isset($credit_cards_list->user_id))?$credit_cards_list->user_id:'' }}"/>
+    <input type="hidden" name="user_type" value="{{ (isset($credit_cards_list->user_type))?$credit_cards_list->user_type:'' }}"/>
 @endif
 
 <script type="text/javascript">
+    ccvimg = new Image();
+    ccvimg.src = base_url+"assets/images/security_code_sample.gif";
+    ccvimgph = new Image();
+    ccvimgph.src = base_url+"assets/images/ccvimgph.gif";
+
     //$(".restaurant_id").hide();
     $(".user_id").hide();
 
