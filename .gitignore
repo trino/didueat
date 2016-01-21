@@ -55,3 +55,14 @@ config/app.php
 .idea/misc.xml
 .idea/misc.xml
 *.xml
+resources/views/common/delete_edit_credit_card.blade.php
+resources/views/common/delete_edit_credit_card.blade_backupJan19,2016.php
+resources/views/common/editaddress.blade_backupJan19,2016.php
+resources/views/dashboard/notifications_address/ajax/edit.blade_backupJan19,2016.php
+resources/views/dashboard/user_reviews/ajax/edit.blade_backupJan19,2016.php
+*.CPT
+public/assets/images/where.png
+public/assets/images/security_code_sample_backup.gif
+resources/views/common/editaddress.blade_backupJan21,2016.php
+resources/views/common/restaurant.blade_backupJan21,2015.php
+resources/views/restaurants-signup.blade_backupJan20,2016.php

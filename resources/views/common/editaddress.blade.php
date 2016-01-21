@@ -14,7 +14,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-<?php echo newrow($new, "Street Address", "", true); ?>
+<?php echo newrow($new, "Search Address <span style='font-size:11px;font-weight:normal;color:#f00'>(Start typing address then click from dropdown to populate all address fields)</span>", "", false); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
         @else
@@ -44,6 +44,12 @@
     </div>
 </div-->
 
+
+<?php echo newrow($new, "Address", "", $required, 4); ?>
+        <input type="text" id="address" name="address" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->address))?$addresse_detail->address:old('address') }}" {{$required}}>
+    </div>
+</div>
+
 <?php echo newrow($new, "City", "", $required, 4); ?>
         <input type="text" id="city" name="city" class="form-control" {{ $is_disabled }} {{$required}} value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div>
@@ -53,15 +59,7 @@
         <select name="province" id="province" class="form-control" {{ $is_disabled }} {{$required}}>
             <option value="">-Select One-</option>
             @foreach(select_field_where("states", "", false, "name", "ASC") as $value)
-                <option value="{{ $value->abbreviation }}" <?php
-                     if(isset($addresse_detail->province)){
-                        if($addresse_detail->province == $value->name || $addresse_detail->province == $value->id  || $addresse_detail->province == $value->abbreviation){
-                            echo 'selected';
-                        }
-                     } else if($value->name == old('province')){
-                         echo 'selected';
-                     }
-                ?>>{{ $value->name }}</option>
+                <option value="{{ $value->id }}" {{ ( (isset($addresse_detail->state) && $addresse_detail->state == $value->id) || old('province') == $value->name || old('province') == $value->id )? 'selected' :'' }}>{{ $value->name }}</option>
             @endforeach
         </select>
         <!--input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}"-->

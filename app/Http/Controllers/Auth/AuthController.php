@@ -32,6 +32,7 @@ class AuthController extends Controller {
      */
     public function authenticate($AsJSON = false) {
         $url = 'dashboard';//'auth/login';
+        print("<script>alert('hello ".$url."');</script>");
         //if (\Input::has('url')) {$url = \Input::get('url');}
         if (\Input::has('email')) {
             try {

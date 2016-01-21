@@ -309,7 +309,7 @@ class HomeController extends Controller {
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
-                $update['mobile'] = $post['mobile'];
+//                $update['mobile'] = $post['mobile'];
             //    $update['description'] = $post['description'];
              //   $update['country'] = $post['country'];
                 //$update['cuisine'] = $post['cuisine'];

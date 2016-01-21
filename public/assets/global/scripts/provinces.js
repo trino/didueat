@@ -121,6 +121,7 @@ function getplace(){
 }
 
 function fillInAddress() {
+
     // Get the place details from the formatted_address object.
     if(isundefined(formatted_address)){
         var place = formatted_address2.getPlace();
@@ -171,15 +172,17 @@ function fillInAddress() {
                 $('#postal_code').val(val);
             }
             if(addressType == "street_number"){
-                $('#formatted_address').val(val);
+                $('#address').val(val);
             }
             if(addressType == "route"){
-                if($('#formatted_address').val() != ""){
-                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
+                if($('#address').val() != ""){
+                    $('#address').val($('#address').val()+" "+val);
                 } else {
-                    $('#formatted_address').val(val);
+                    $('#address').val(val);
                 }
             }
+
+
         }
     }
     return place;
@@ -207,6 +210,7 @@ function simpleStringify (object){
 };
 
 function geolocate(formatted_address) {
+alert("Hello Bentley")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var geolocation = {

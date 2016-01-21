@@ -141,7 +141,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Minimum Sub Total For Delivery] field is missing!",'/restaurant/add/new', true);
             }
             if (!isset($post['address']) || empty($post['address'])) {
-                return $this->failure("[Address] field is missing!",'/restaurant/add/new', true);
+                return $this->failure("[Address] field is missing in result!",'/restaurant/add/new', true);
             }
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure( "[City] field is missing!",'/restaurant/add/new', true);

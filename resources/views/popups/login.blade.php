@@ -7,7 +7,7 @@
                 </button>
                 <h4 class="modal-title" id="loginModalLabel">Log in</h4>
             </div>
-            <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="">
+            <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="" onsubmit="validate(this)">
                 <div class="modal-body">
                     <?php printfile("views/popups/login.blade.php"); ?>
                     <DIV ID="message" align="center"></DIV>
@@ -19,7 +19,7 @@
                     <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
                     <div class="form-group row">
-                        <label class="col-sm-3">Email</label>
+                        <label class="col-sm-3">Email my Address</label>
                         <div class="col-sm-9">
                             <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required/>
                         </div>

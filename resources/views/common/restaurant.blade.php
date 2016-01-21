@@ -23,17 +23,27 @@
 <div class="col-md-{{ $cols }} col-sm-12 col-xs-12 ">
     <?php printfile("views/common/restaurant.blade.php"); ?>
     <div class="box-shadow">
-
-        <div class="portlet-title">
-            <div class="caption">
-                CREATE USERNAME & PASSWORD
-            </div>
-        </div>
         <div class="portlet-body form">
             <DIV CLASS="form-body row">
+
                 <div class="row">
+        <div class="portlet-title">
+            <div class="caption">
+                <b><u>CREATE USERNAME & PASSWORD</u></b>
+            </div>
+        </div>
+                
+                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
+                </div>
+        
+                <div class="row">
+        <div class="portlet-title">
+            <div class="caption">
+                <u><b>NAME, EMAIL & PASSWORD</b></u>
+            </div>
+        </div>
                     @include("common.contactinfo", array("new"=>true, "mobile" => true))
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
                         <input type="submit" class="btn btn-primary red" value="Save Changes">
                     </div>
                 </div>
@@ -47,14 +57,12 @@
     <div class="box-shadow">
         <div class="portlet-title">
             <div class="caption">
-                ADDRESS
+                <u><b>RESTAURANT ADDRESS</b></u>
             </div>
         </div>
         <div class="portlet-body form">
             <div class="form-body">
                 <div class="row">
-                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
-
                     <?php echo view("common.editaddress", array("new" => true, "required" => true)); ?>
                 </div>
             </div>

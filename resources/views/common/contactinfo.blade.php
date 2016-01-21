@@ -2,7 +2,9 @@
 printfile("views/common/contactinfo.blade.php");
 $size = "col-md-12 col-sm-12 col-xs-12";
 if(!isset($new)){$new = false;}
-$Fields = array("name", "email", "phone", "mobile", "subscribed");
+
+
+$Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
 foreach($Fields as $Field){
     if(isset($user_detail->$Field)){
         $$Field = $user_detail->$Field;
@@ -10,20 +12,21 @@ foreach($Fields as $Field){
         $$Field = old($Field);
     }
 }
-echo newrow($new, "Full Name", $size, true);
+echo newrow($new, "Your Full Name", $size, true);
 ?>
+
+
     <div class="input-icon">
         <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}" required>
         <input type="hidden" name="gmt" id="gmt" value="">
     </div>
 <?php echo newrow();
 
-if(!isset($email)){
 echo newrow($new, "Email", $size, true); ?>
     <div class="input-icon">
         <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $email }}" required>
     </div>
-<?php echo newrow();} ?>
+<?php echo newrow(); ?>
 
 @if(!isset($user_detail))
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -43,13 +46,13 @@ echo newrow($new, "Email", $size, true); ?>
 
 <?php echo newrow($new, "Password", $size, true); ?>
     <div class="input-icon">
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ $password }}" required>
     </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, true); ?>
     <div class="input-icon">
-        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" required>
+        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="{{ $confirm_password }}" required >
     </div>
 <?php echo newrow();
 
@@ -58,8 +61,8 @@ if(isset($mobile)){
     echo '<input type="text" name="mobile" class="form-control" placeholder="Cell Phone Number" value="' . $phone . '"></div></div>';
 }
 
-echo  newrow(false, "Newsletter"); ?>
-    <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> Sign up for our Newsletter</LABEL>
+echo  newrow(false, "Newsletter", "", false, 9, true); ?>
+    <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> &nbsp;<b>Sign up for our Newsletter</b></LABEL>
 </div></div>
 
 <SCRIPT>

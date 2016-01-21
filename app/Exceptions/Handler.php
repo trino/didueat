@@ -60,6 +60,7 @@ class Handler extends ExceptionHandler {
     }
 
     function flash($message, $redirect = ''){
+    print("<script>alert('".$message."');</script>");
         \Session::flash('message', $message);
         \Session::flash('message-type',  'alert-danger');
         \Session::flash('message-short', 'Oops!');
