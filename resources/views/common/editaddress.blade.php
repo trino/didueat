@@ -14,7 +14,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
-<?php echo newrow($new, "Search Address <span style='font-size:11px;font-weight:normal;color:#f00'>(Start typing address then click from dropdown to populate all address fields)</span>", "", false); ?>
+<?php echo newrow($new, "Search Address", "", false); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
         @else
@@ -33,6 +33,9 @@
                 <a class="btn btn-primary headerbutton" oldstyle="display: none;" id="header-search-button" onclick="geolocate(formatted_address);" style="padding-top: 0px;position:relative;top:-2px;">
                     <i class="fa fa fa-compass"></i>
                 </a>
+            </DIV>
+            <DIV>
+                <span style='font-size:11px;font-weight:normal;color:#f00'>(Start typing address then click from dropdown to populate all address fields)</span>
             </DIV>
         @endif
     </div>

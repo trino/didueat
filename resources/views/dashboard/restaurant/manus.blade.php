@@ -87,7 +87,6 @@
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     <script>
         jQuery(document).ready(function () {
-            Demo.init();
             $("#menuForm").validate();
 
             $(".sorting_parent").live('click', function () {

@@ -123,7 +123,6 @@
 <script>
     jQuery(document).ready(function() {
         Metronic.init();
-        Demo.init();
         Portfolio.init();
         $("#imageForm").validate();
     });
