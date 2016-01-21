@@ -6,7 +6,7 @@
 </thead>
 <tr>
     <td colspan="3">
-        <div style="scroller">
+        <div class="scroller" data-height='150px'>
         <table class="orders @if(!isset($order)) order-style @endif">    
 
 @if(isset($order))

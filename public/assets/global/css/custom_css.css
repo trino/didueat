@@ -152,7 +152,7 @@ body.modal-open {
 .tag-editor .tag-editor-tag.active+.tag-editor-delete i { background: none; cursor: text; }
 .tag-editor .tag-editor-tag.active { background: none !important; }
 
-.order-style { height: 220px;}
+/*.order-style { height: 220px;}*/
 .receipt_description_style { background: #FFF; color: #555; padding: 0!important; }
 .receipt_description_style h3{background:#d50000;padding:5px;font-size:20px;text-align:center;color:#FFF;}
 .receipt_description_style .rating{width:90%;font-size:17px;}
