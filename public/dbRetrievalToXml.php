@@ -5,8 +5,8 @@
 require("db_didueatConn.php");
 
 // Get parameters from URL
-$center_lat = $_GET["lat"];
-$center_lng = $_GET["lng"];
+$center_lat = $_GET["latitude"];
+$center_lng = $_GET["longitude"];
 $radius = $_GET["radius"];
 //$city = $_GET['city'];
 
@@ -26,7 +26,7 @@ id,name,slug,genre,email,phone,formatted_address,address,city,province,country,p
 
 // Search the rows in the markers table
 // Note: each %s represents one of the trailing arguments in the sprintf function in order (ie, $center_lat or $center_lng etc)
-$query = sprintf("SELECT id,name,slug,genre,email,website,phone,formatted_address,postal_code, lat, lng, ( 3959 * acos( cos( radians('%s') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( lat ) ) ) ) AS distance, description,logo,delivery_fee,minimum,rating from restaurants WHERE open=1 AND status=1 HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
+$query = sprintf("SELECT id,name,slug,genre,email,website,phone,formatted_address,postal_code, lat, lng, ( 3959 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( lng ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( longitude ) ) ) ) AS distance, description,logo,delivery_fee,minimum,rating from restaurants WHERE open=1 AND status=1 HAVING distance < '%s' ORDER BY distance LIMIT 0 , 20",
   $mysqli->real_escape_string($center_lat),
   $mysqli->real_escape_string($center_lng),
   $mysqli->real_escape_string($center_lat),
@@ -53,8 +53,8 @@ while ($row = @mysqli_fetch_assoc($result)){
   $newnode->setAttribute("phone", $row['phone']);
   $newnode->setAttribute("address", $row['formatted_address']);
   $newnode->setAttribute("postal_code", $row['postal_code']);
-  $newnode->setAttribute("lat", $row['lat']);
-  $newnode->setAttribute("lng", $row['lng']);
+  $newnode->setAttribute("latitude", $row['latitude']);
+  $newnode->setAttribute("longitude", $row['longitude']);
   $newnode->setAttribute("distance", $row['distance']);
   $newnode->setAttribute("description", $row['description']);
   $newnode->setAttribute("logo", $row['logo']);

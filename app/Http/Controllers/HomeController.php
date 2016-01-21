@@ -331,11 +331,8 @@ class HomeController extends Controller {
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 //$update['tags'] = $post['tags'];
                 if(isset($post['latitude'])) {
-                    $update['lat'] = $post['latitude'];
-                    $update['lng'] = $post['longitude'];
-                } else {
-                    $update['lat'] = $post['lat'];
-                    $update['lng'] = $post['lng'];
+                    $update['latitude'] = $post['latitude'];
+                    $update['longitude'] = $post['longitude'];
                 }
            //     $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 0;
