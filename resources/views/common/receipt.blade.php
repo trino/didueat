@@ -341,7 +341,6 @@
                 <!--script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358" defer="defer" async="async"></script-->
 
                 <h3>Description: </h3>
-                {{ $restaurant->description }}
                 <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
                 <h3>Tags: </h3>
