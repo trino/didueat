@@ -86,7 +86,7 @@
                            class="btn btn-sm btn-danger"
                            onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
-                        <button id="add_item{{ $value->id }}_{{ $restaurant->id }}" type="button"
+                        <button id="add_item{{ $value->id }}" type="button"
                                 class="btn btn-sm btn-info additem" data-toggle="modal"
                                 data-target="#addMenuModel">Edit</button>
 

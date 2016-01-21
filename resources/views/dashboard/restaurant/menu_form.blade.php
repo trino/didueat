@@ -26,7 +26,7 @@
             @if(count($category))
             <div class="col-md-6 padding-left-0">
                 <div><strong>Category:</strong></div>
-                <input class="form-control cat_name" />
+                <input class="form-control cat_name" value="<?php if(isset($model) && $model->cat_name){echo $model->cat_name;}?>" />
                 <div style="display: none;">
                 <select class="cat_id form-control" >
                     <option value="">Category</option>
