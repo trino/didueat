@@ -49,17 +49,14 @@ class AdministratorController extends Controller {
                 } else if ($post['password'] || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
                 }
+
                 //copy post data to an array
                 $data['subscribed'] = 0;
-                if(isset($post['subscribed'])){
-                    $data['subscribed'] = 1;
+                foreach(array('name','phone','mobile','status','photo','subscribed') as $field){
+                    if(isset($post[$field])){
+                        $data[$field] = $post[$field];
+                    }
                 }
-
-                $data['name'] = $post['name'];
-                $data['phone'] = $post['phone'];
-                $data['mobile'] = $post['mobile'];
-                $data['status'] = $post['status'];
-                $data['photo'] = $post['photo'];
 
                 //save the array to the database
                 $ob->populate($data);

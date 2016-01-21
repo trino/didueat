@@ -121,7 +121,6 @@ function getplace(){
 }
 
 function fillInAddress() {
-
     // Get the place details from the formatted_address object.
     if(isundefined(formatted_address)){
         var place = formatted_address2.getPlace();
@@ -146,7 +145,7 @@ function fillInAddress() {
         postal_code: 'short_name'
     };
     $('#city').val('');
-    $('#rout_street_number').val('');
+    $('#formatted_address').val('');
     $('#postal_code').val('');
     $("#province").val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
@@ -172,13 +171,13 @@ function fillInAddress() {
                 $('#postal_code').val(val);
             }
             if(addressType == "street_number"){
-                $('#address').val(val);
+                $('#formatted_address').val(val);
             }
             if(addressType == "route"){
-                if($('#address').val() != ""){
-                    $('#address').val($('#address').val()+" "+val);
+                if($('#formatted_address').val() != ""){
+                    $('#formatted_address').val($('#formatted_address').val()+" "+val);
                 } else {
-                    $('#address').val(val);
+                    $('#formatted_address').val(val);
                 }
             }
 
@@ -210,7 +209,6 @@ function simpleStringify (object){
 };
 
 function geolocate(formatted_address) {
-alert("Hello Bentley")
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
             var geolocation = {
@@ -240,7 +238,7 @@ alert("Hello Bentley")
                                 break;
                             case "route":
                                 $(".formatted_address").val(street_number + " " + value);
-                                $("#rout_street_number").val(street_number + " " + value);
+                                //$("#rout_street_number").val(street_number + " " + value);
                                 break;
                             case "postal_code":
                                 $("#postal_code").val(value);
