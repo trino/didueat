@@ -1,7 +1,7 @@
 <?php
     printfile("dashboard/restaurant/hours.blade.php");
     $layout=false;
-    $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+    $day_of_week = getweekdays();
 
     $restaurantID = \Session::get('session_restaurant_id');
     if(!$restaurantID){$restaurantID=0;}
@@ -41,7 +41,7 @@ echo newrow($new, "Allow pickup"); ?>
     </DIV></DIV>
 
     <?php echo newrow($new, "Max Delivery Distance","", true, 9); ?>
-        <input name="max_delivery_distance" {{ $is_disabled }} id="max_delivery_distance" type="range" min="1" max="30" class="form-control" value="{{ $value }}" onchange="$('#max_delivery_distance_label').html('<b>Max Delivery Distance:<br/><span style=\'color:#f00\'>(' + p.value + ' km)</span></b>');">
+        <input name="max_delivery_distance" {{ $is_disabled }} id="max_delivery_distance" type="range" min="1" max="<?= MAX_DELIVERY_DISTANCE; ?>" class="form-control" value="{{ $value }}" onchange="$('#max_delivery_distance_label').html('<b>Max Delivery Distance:<br/><span style=\'color:#f00\'>(' + p.value + ' km)</span></b>');">
 
         <!--select name="max_delivery_distance" id="max_delivery_distance" class="form-control">
             <option value="10">Between 1 and 10 km</option>

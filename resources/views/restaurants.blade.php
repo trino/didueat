@@ -79,10 +79,10 @@ $type = "hidden";
 
                         <div id="radius_panel" class="form-group row">
                             <div class=" col-md-6">
-                                <label id="radius_panel_label">Distance (10 km)</label>
+                                <label id="radius_panel_label">Distance (<?= MAX_DELIVERY_DISTANCE; ?> km)</label>
                             </div>
                             <div class=" col-md-6">
-                                <input type="range" name="radius" id="radius" min="1" max="10" value="10" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                                <input type="range" name="radius" id="radius" min="1" max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
                             </div>
                             <div class="clearfix"></div>
                         </div>
