@@ -27,12 +27,12 @@ class BaseModel extends Model {
         foreach ($cells as $key => $cell) {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
-                    $this->$cell = cleantext($data[$cell]);
+                    $this->$cell = $this->cleantext($data[$cell]);
                     $data[$cell] = $this->$cell;
                 }
             } else {
                 if (array_key_exists($key, $data)) {
-                    $this->$key = cleantext($data[$key]);
+                    $this->$key = $this->cleantext($data[$key]);
                     if($this->$key) {
                         switch ($cell) {
                             case "phone":
@@ -51,6 +51,7 @@ class BaseModel extends Model {
                         if($this->$key) {
                             $data[$key] = $this->$key;
                         } else {
+                            $data["invalid-data"][] = $key;
                             $keys = array();
                             if(\Session::has('invalid-data')){
                                 $keys = \Session::get('invalid-data');

@@ -257,6 +257,7 @@ function geolocate(formatted_address) {
 
                     $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
                     $(".formatted_address").trigger("change");
+                    alert('Please make sure the address is correct');
                 },
                 error: function(msg){
                     alert("ERROR: " + msg);

@@ -86,8 +86,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Demo.init();
-
             jQuery.validator.addMethod("matchPattern", function (value, element) {
                 var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
                 if (value.replace(' ', '').length == 6) {

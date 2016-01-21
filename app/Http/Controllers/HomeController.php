@@ -277,6 +277,9 @@ class HomeController extends Controller {
             if ($is_email > 0) {
                 return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
             }
+            if ((!isset($post['address']) || empty($post['address'])) && isset($post['formatted_address']) && $post['formatted_address']) {
+                $post['address'] = $post["formatted_address"];
+            }
             if (!isset($post['address']) || empty($post['address'])) {
                 return $this->failure("[Address] field is missing!",$Redirect, true);
             }
