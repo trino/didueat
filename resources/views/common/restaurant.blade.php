@@ -1,4 +1,6 @@
 <?php
+
+
     if(!isset($restaurant)){$restaurant = "";}
     $Genre = priority2($restaurant, "genre");
     $RestID = "";
@@ -15,8 +17,15 @@
     }
     if(!isset($cols)){$cols=3;}
     if(!isset($minimum)){$minimum=false;}
-    $cols = 12/$cols;
+    $cols = 12/$cols; 
+    
+
+if(Session::get('session_type_user') != "restaurant"){
+ // means they are logged in and have already registered as a restaurant
+
 ?>
+
+
 
 <meta name="_token" content="{{ csrf_token() }}"/>
 
@@ -29,7 +38,7 @@
                 <div class="row">
         <div class="portlet-title">
             <div class="caption">
-                <b><u>CREATE USERNAME & PASSWORD</u></b>
+                <b><u>RESTAURANT & CUISINE</u></b>
             </div>
         </div>
                 
@@ -86,6 +95,13 @@
         </div>
     </div>
 @endif
+
+<?php
+
+}
+
+?>
+
 
 <!--
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>

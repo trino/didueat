@@ -3,7 +3,6 @@
     $size = "col-md-12 col-sm-12 col-xs-12";
     if(!isset($new)){$new = false;}
     $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-    $needsmobile = isset($mobile);
     $Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
     foreach($Fields as $Field){
         if(isset($user_detail->$Field)){
@@ -53,11 +52,6 @@ echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
         <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
-
-if($needsmobile){
-    echo newrow($new, "Cell Phone", $size, true);
-    echo '<input type="text" name="mobile" class="form-control" placeholder="Cell Phone Number" value="' . $phone . '"></div></div>';
-}
 
 echo  newrow(false, "Newsletter", "", false, 9, true); ?>
     <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> &nbsp;<b>Sign up for our Newsletter</b></LABEL>

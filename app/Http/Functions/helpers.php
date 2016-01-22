@@ -996,6 +996,8 @@ function delete_all($Table, $Conditions = "") {
 //updates an existing entry in the database
 //only use when you know the primary key value exists
 function update_database($Table, $PrimaryKey, $Value, $Data) {
+print_r($Data);
+print("<br/>");
     DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
     $Data[$PrimaryKey] = $Value;
     return $Data;

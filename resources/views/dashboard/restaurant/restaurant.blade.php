@@ -13,12 +13,16 @@ echo newrow($new, "Email", "", true, 7); ?>
     <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 <?php echo newrow(); }
 
-echo newrow($new, "Restaurant Cuisine Type", "", true, 4); ?>
-<select name="cuisine" id="cuisine" class="form-control" style="width:90%" {{ $is_disabled }}>
+echo newrow($new, "Restaurant Cuisine Type", "", true, 4); 
+
+
+?>
+
+<select name="cuisine" id="cuisine" class="form-control" multiple size="4" style="width:90%" {{ $is_disabled }}>
     <option value="">-Select One-</option>
     @foreach($cuisine_list as $value)
         <option value="{{ $value->id }}"
-                @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)) selected @endif>{{ $value->name }}</option>
+                @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)): selected @endif>{{ $value->name }}</option>
     @endforeach
 </select>
 <?php echo newrow();
@@ -31,7 +35,7 @@ if(!$minimum){
     echo newrow($new, "Tags"); ?>
         <textarea id="demo4"></textarea>
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-        <p>e.g: Canadian, Italian, Chinese, Fast Food</p>
+        <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
     <?php echo newrow();
 
     echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?>

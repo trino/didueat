@@ -31,8 +31,8 @@
                     </div>
 
                 </div>
-                <div class="card-footer clearfix">
-                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                <div class="card-footer clearfix" style="text-align:center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                     <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                     <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
                     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}"/>    

@@ -303,6 +303,26 @@ $('.savebtn').live('click', function () {
         }
     });
 });
+
+
+    var morevisible=false;
+    function toggleMore(){
+    
+      if(!morevisible){
+        document.getElementById('moreInfo').style.display='block'
+        document.getElementById('readmore').innerHTML="Hide More";
+        morevisible=true;
+      }
+      else{
+        document.getElementById('moreInfo').style.display='none'
+        document.getElementById('readmore').innerHTML="Read More";
+        morevisible=false;
+      }
+     
+    ////
+    }
+
+
 /*function check_enable($this,$menu)
 {
     $_parent = $this.closest('.par_wrap');

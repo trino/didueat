@@ -11,9 +11,10 @@
     <div class="container ">
     <div class="row ">
 
+
         <div class="col-sm-12">
             We'll bring the customers to you
-            <h3>Put your menu online. Average revenue increase ranging 15-25% a year!</h3>
+            <h3>Put your menu online. Average revenue increase between 15 and 25% a year!</h3>
         </div>
 
         <div class="col-sm-12">
@@ -26,16 +27,13 @@
             day for each day of the week. The customer simply selects the food category they feel like having,
             choose
             the meal that appeals to them, place their order through the site, pick up/wait for delivery, and enjoy.
-            That's it!
-            We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
+            That's it! <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f">... <span id="readmore" style="text-decoration:underline">Read More</span></a><span id="moreInfo" style="display:none"><div style="margin:0px;font-size:5px;line-height:5px"><br/><br/></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
             eating. What are you waiting for? Sign up now and let the Did U Eat team bring the customers to you.
             By putting your restaurant online with Did U Eat, you'll be getting more business from hungry customers
             in your local area
             Diners on our sites browse your menu and place an order from their computer or web app. Once that's
             done, our system sends you the order to be made and delivered just like you do now.
-            You'll only pay on orders we send you
-        </div>
-
+            You'll only pay on orders we send you!<br/>
         <div class="col-sm-3">
             <img src="{{ asset('assets/images/click.png') }}">
             <h3>Sign Up</h3>
@@ -71,12 +69,16 @@
 
             </div>
         </div>
+        </div></span>
+
 
     </div>
 
-
-<hr/>
-        {!! Form::open(array('url' => '/restaurants/signup', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+        <div class="col-sm-12"><br/>
+            <h1 align="center" style="line-height:33px">Restaurant Sign-up Form<br/><span style="font-size:16px">(Sign-up for Free)</span></h1>
+<hr width="100%" align="center" />
+        </div>
+        {!! Form::open(array('url' => '/restaurants/signup', 'onsubmit'=>'return validateFn(this)', 'id'=>'signupForm', 'class'=>'form-restaurants','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
         @include('common.restaurant', array("hours" => false, "cols" => 2, "minimum" => true))
         {!! Form::close() !!}
 
@@ -85,6 +87,10 @@
     </div>
 
     <script type="text/javascript">
+    
+    function validateFn(f){
+     alert(f.cuisine.value)
+    }
 
     
         $(document).ready(function () {

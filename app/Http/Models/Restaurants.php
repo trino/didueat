@@ -14,7 +14,7 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "mobile", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
 
         $weekdays = getweekdays();
         $this->is_complete = true;
@@ -50,6 +50,7 @@ class Restaurants extends BaseModel {
                 ->Where(function($query) use ($searchResults){
                     if($searchResults != ""){
                           $query->orWhere('name', 'LIKE', "%$searchResults%")
+                                ->orWhere('cuisine', 'LIKE', "%$searchResults%")
                                 ->orWhere('email', 'LIKE', "%$searchResults%")
                                 ->orWhere('website', 'LIKE', "%$searchResults%")
                                 ->orWhere('phone', 'LIKE', "%$searchResults%")

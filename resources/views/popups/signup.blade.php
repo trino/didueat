@@ -63,22 +63,22 @@
                         type: "post"
                     }
                 },
-                password: {
+                password0: {
                     required: true,
                     minlength: 5
                 },
-                confirm_password: {
+                confirm_password0: {
                     required: true,
                     minlength: 5,
-                    equalTo: "#password"
+                    equalTo: "#password0"
                 }
             },
             messages: {
                 email: {
                     required: "Please enter an email address!",
-                    remote: "This email address is already in use!"
+                    remote: "This email address is in use already!"
                 },
-                confirm_password: {
+                confirm_password0: {
                     equalTo: "The password fields are mis-matched!"
                 }
             }

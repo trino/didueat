@@ -97,12 +97,12 @@
             if($Restaurant){
                 $MissingData = array();
                 $MissingDataOptional = array();
-                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "to be set for pickup or delivery";}
-                if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "an address";}
-                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
-                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
-                if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "possibly a larger delivery range";}
-                if(!$Restaurant->minimum){$MissingDataOptional[] = "possibly a minimum delivery sub-total";}
+                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "<br/>&bull; pickup or delivery options";}
+                if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "<br/>&bull; Restaurant address";}
+//                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
+//                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
+                if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "<br/>&bull; Delivery range";}
+                if(!$Restaurant->minimum){$MissingDataOptional[] = "<br/>&bull; Minimum delivery sub-total";}
 
                 //check hours of operation
                 $weekdays = getweekdays();
@@ -119,7 +119,7 @@
                         if(!$weekdays){break;}
                 }
                 if($weekdays){
-                    $MissingData[] = "hours of operation";
+                    $MissingData[] = "<br/>&bull; hours of operation";
                 } else {
                     if(getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now){$MissingData[] = "open hours extended";}
                     if(getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now){$MissingData[] = "delivery hours extended";}
@@ -127,12 +127,12 @@
 
                 //check credit card
                 $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-                if(!$creditcards){$MissingData[] = "a credit card";}
+                if(!$creditcards){$MissingData[] = "<br/>&bull; a credit card";}
 
                 if($MissingData){
                     $MissingData = array_merge($MissingData, $MissingDataOptional);
-                    $MissingData = "You need the following to open a store: " . implode(", ", $MissingData);
-                    echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Missing Data</STRONG>&nbsp;' . $MissingData . '</DIV>';
+                    $MissingData = "<br/>Please scroll down the page to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData)."</div>";
+                    echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>STEP 1 OF REGISTRATION COMPLETE!</u></STRONG>' . $MissingData . '</DIV>';
                 }
             }
         }

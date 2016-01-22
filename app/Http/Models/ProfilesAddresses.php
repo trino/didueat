@@ -14,7 +14,7 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('user_id', 'location', 'address', 'phone' => "phone",  'mobile' => "phone", 'postal_code' => "postalcode", 'apartment', 'buzz', 'city', 'province', 'country', 'order', 'latitude', 'longitude', 'notes');
+        $cells = array('user_id', 'location', 'address', 'phone' => "phone",  'mobile' => "mobile", 'postal_code' => "postalcode", 'apartment', 'buzz', 'city', 'province', 'country', 'order', 'latitude', 'longitude', 'notes');
         $this->copycells($cells, $data);
     }
     
