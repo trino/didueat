@@ -85,6 +85,8 @@
     </div>
 
     <script type="text/javascript">
+
+    
         $(document).ready(function () {
 //            Demo.init();
 
@@ -95,19 +97,48 @@
                 }
                 return false;
             });
+            
+
+					       var phoneRep = /[\-\ \,\(\)\.]/g;
+            
+            jQuery.validator.addMethod("checkPhone", function (value, element) {
+					            var numStr = "0123456789";
+					            var cleanedPhone = value.replace(phoneRep, '');
+					            var numOK=true;                
+                 for(var i=0;i<cleanedPhone.length;i++){
+		                 if(numStr.indexOf(cleanedPhone.charAt(i)) == -1){
+                    numOK=false;
+                    break;
+		                 }
+                 }
+                
+                if(numOK){
+                 return true;
+                }
+                else{
+                 return false;               
+                }
+            });
+
+            jQuery.validator.addMethod("checkLen", function (value, element) {
+				            var cleanedPhone = value.replace(phoneRep, '');
+                if (cleanedPhone.length != 10) {
+                 return false;
+                }
+                return true;
+            });
+            
 
             $("#signupForm").validate({
                 rules: {
                     phone: {
                         required: true,
-                        minlength: 10,
-                        maxlength: 10,
-                        number: true
+                        checkPhone: true,
+                        checkLen: true
                     },
                     mobile: {
-                        minlength: 10,
-                        maxlength: 10,
-                        number: true
+                        checkPhone: true,
+                        checkLen: true
                     },
                     email: {
                         required: true,
@@ -122,27 +153,22 @@
                         minlength: 5
                     },
                     confirm_password: {
-                        required: true,
-                        minlength: 5,
                         equalTo: "#password"
                     }
                 },
                 messages: {
                     phone: {
                         required: "Please enter a phone number",
-                        minlength: "Your phone number must consist of 10 numbers",
-                        maxlength: "Your phone number must consist of 10 numbers",
+                        checkPhone: "Invalid character. Please just use numbers and hyphens",
+                        checkLen: "Phone number must be 10 numbers long"
                     },
                     email: {
                         required: "Please Enter an email address!",
                         remote: "This email address is already in use!"
                     },
-                    confirm_password: {
-                        equalTo: "The password fields are mis-matched!"
-                    },
                     mobile: {
-                        minlength: "Your phone number must consist of 10 numbers",
-                        maxlength: "Your phone number must consist of 10 numbers",
+                        checkPhone: "Invalid character. Please just use numbers and hyphens",
+                        checkLen: "Phone number must be 10 numbers long"
                     }
                 }
             });
