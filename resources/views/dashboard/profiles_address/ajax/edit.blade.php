@@ -144,7 +144,10 @@ function fillInAddress() {
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
             }
-            if(addressType == "street_number"){
+            if(addressType == "formatted_address"){
+                $('#formatted_addressForDB').val(val);
+            }
+            if(addressType == "formatted_address"){
                 $('#formatted_address').val(val);
             }
             if(addressType == "route"){

@@ -97,7 +97,8 @@
             if($Restaurant){
                 $MissingData = array();
                 $MissingDataOptional = array();
-                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "<br/>&bull; pickup or delivery options";}
+                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "<br/>&bull; Pickup or delivery options";}
+                if(!$Restaurant->logo){$MissingData[] = "<br/>&bull; Your logo";}
                 if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "<br/>&bull; Restaurant address";}
 //                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
 //                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
@@ -119,7 +120,7 @@
                         if(!$weekdays){break;}
                 }
                 if($weekdays){
-                    $MissingData[] = "<br/>&bull; hours of operation";
+                    $MissingData[] = "<br/>&bull; Hours of operation";
                 } else {
                     if(getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now){$MissingData[] = "open hours extended";}
                     if(getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now){$MissingData[] = "delivery hours extended";}
@@ -127,7 +128,7 @@
 
                 //check credit card
                 $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-                if(!$creditcards){$MissingData[] = "<br/>&bull; a credit card";}
+                if(!$creditcards){$MissingData[] = "<br/>&bull; Your credit card authorization";}
 
                 if($MissingData){
                     $MissingData = array_merge($MissingData, $MissingDataOptional);

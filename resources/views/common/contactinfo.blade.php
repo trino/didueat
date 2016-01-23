@@ -14,14 +14,14 @@
     echo newrow($new, "Your Full Name", $size, true);
 ?>
     <div class="input-icon">
-        <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}" required>
-        <input type="hidden" name="gmt" id="gmt" value="">
+        <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="Paul Bentley{{ $name  }}" required>
+        <input type="hidden" name="gmt2" id="gmt2" value="">
     </div>
 <?php echo newrow();
 
 echo newrow($new, "Email", $size, true); ?>
     <div class="input-icon">
-        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $email }}" required>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="paulduncanbentley@gmail.com{{ $email }}" required>
     </div>
 <?php echo newrow(); ?>
 
@@ -43,13 +43,13 @@ echo newrow($new, "Email", $size, true); ?>
 
 <?php echo newrow($new, "Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
-        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="{{ $password }}" {{ $PasswordRequired }}>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="12345{{ $password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
-        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
+        <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="12345{{ $confirm_password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
 
@@ -60,5 +60,5 @@ echo  newrow(false, "Newsletter", "", false, 9, true); ?>
 <SCRIPT>
     var visitortime = new Date();
     var visitortimezone = -visitortime.getTimezoneOffset()/60;
-    document.getElementById("gmt").value = visitortimezone;
+    document.getElementById("gmt2").value = visitortimezone;
 </SCRIPT>

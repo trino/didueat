@@ -155,6 +155,9 @@ class RestaurantController extends Controller {
             if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
                 return $this->failure("[Phone] field is missing or invalid!",'/restaurant/add/new', true);
             }
+            if (!isset($post['mobile']) || empty(phonenumber($post['mobile']))) {
+                return $this->failure("[Mobile] field is missing or invalid!",'/restaurant/add/new', true);
+            }
             if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure("[Country] field is missing!", '/restaurant/add/new', true);
             }
@@ -163,12 +166,13 @@ class RestaurantController extends Controller {
                     $update['logo'] = $post['logo'];
                 }
                 $update['name'] = $post['restname'];
+                $update['cuisine'] = $post['cuisine'];
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
+                $update['mobile'] = $post['mobile'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['address'];
                 $update['city'] = $post['city'];
@@ -281,7 +285,8 @@ class RestaurantController extends Controller {
                 $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
-                $update['address'] = $post['formatted_address'];//was address
+                $update['address'] = $post['formatted_address'];
+                $update['formatted_address'] = $post['formatted_addressForDB']; // hidden field on signup page
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;

@@ -277,10 +277,10 @@ class HomeController extends Controller {
             if ($is_email > 0) {
                 return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
             }
-            if ((!isset($post['address']) || empty($post['address'])) && isset($post['formatted_address']) && $post['formatted_address']) {
-                $post['address'] = $post["formatted_address"];
+            if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
+                $post['formatted_address'] = $post["formatted_addressForDB"];
             }
-            if (!isset($post['address']) || empty($post['address'])) {
+            if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
                 return $this->failure("[Address] field is missing!",$Redirect, true);
             }
             if (!isset($post['city']) || empty($post['city'])) {
@@ -316,12 +316,13 @@ class HomeController extends Controller {
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
-//                $update['mobile'] = $post['mobile'];
+                $update['mobile'] = $post['mobile'];
             //    $update['description'] = $post['description'];
-             //   $update['country'] = $post['country'];
-                //$update['cuisine'] = $post['cuisine'];
+                $update['country'] = $post['country'];
+                $update['cuisine'] = $post['cuisine'];
                 $update['province'] = $post['province'];
-                $update['address'] = $post['address'];
+                $update['address'] = $post['formatted_address'];
+                $update['formatted_address'] = $post['formatted_addressForDB'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
@@ -334,7 +335,6 @@ class HomeController extends Controller {
                     $update['latitude'] = $post['latitude'];
                     $update['longitude'] = $post['longitude'];
                 }
-           //     $update['formatted_address'] = $post['formatted_address'];
                 $update['open'] = 0;
                 $update['status'] = 1;
                 $browser_info = getBrowser();
@@ -388,6 +388,8 @@ class HomeController extends Controller {
                 
                 $profile['name'] = $post['name'];
                 $profile['email'] = $post['email'];
+                $profile['phone'] = $post['phone'];
+                $profile['mobile'] = $post['mobile'];
                 $profile['password'] = $post['password'];
                 $profile['restaurant_id'] = $ob->id;
                 $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
@@ -399,6 +401,7 @@ class HomeController extends Controller {
                 $profile['browser_name'] = $browser_info['name'];
                 $profile['browser_version'] = $browser_info['version'];
                 $profile['browser_platform'] = $browser_info['platform'];
+                $profile['gmt'] = $post['gmt2'];
                 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($profile);

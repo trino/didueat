@@ -14,7 +14,14 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "mobile", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+
+
+/* 
+$cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "mobile", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
+*/
+
+ 
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
 
         $weekdays = getweekdays();
         $this->is_complete = true;
@@ -29,6 +36,7 @@ class Restaurants extends BaseModel {
                 }
             }
         }
+
         $this->copycells($cells, $data);
 
         if(!$doesopen){$this->is_complete=false;}
@@ -167,6 +175,7 @@ class Restaurants extends BaseModel {
         $PostalCode = clean_postalcode($PostalCode);
         logevent("Edited restaurant: " . $Name . $C . $GenreID . $C . $Email . $C . clean_phone($Phone) . $C . $Address . $C . $City . $C . $Province . $C . $Country . $C . $PostalCode . $C . $Description . $C . $DeliveryFee . $C . $Minimum);
         $data = array("name" => $Name, "genre" => $GenreID, "email" => $Email, "phone" => clean_phone($Phone), "address" => $Address, "city" => $City, "province" => $Province, "country" => $Country, "postal_code" => $PostalCode, "description" => $Description, "delivery_fee" => $DeliveryFee, "minimum" => $Minimum);
+
         update_database("restaurants", "id", $ID, $data);
         return $ID;
     }

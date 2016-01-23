@@ -24,6 +24,8 @@ class BaseModel extends Model {
     }
 
     public function copycells($cells, $data){
+
+    
         foreach ($cells as $key => $cell) {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
@@ -36,6 +38,9 @@ class BaseModel extends Model {
                     if($this->$key) {
                         switch ($cell) {
                             case "phone":
+                                $this->$key = phonenumber($this->$key);
+                                break;
+                            case "mobile":
                                 $this->$key = phonenumber($this->$key);
                                 break;
                             case "postalcode":
@@ -73,6 +78,7 @@ class BaseModel extends Model {
                 }
             }
         }
+
         return $data;
     }
 

@@ -15,6 +15,7 @@
 ?>
 <input type="hidden" name="latitude" id="latitude" value=""/>
 <input type="hidden" name="longitude" id="longitude" value=""/>
+<input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" value=""/>
 <?php echo newrow($new, "Search Address", "", false); ?>
         @if($is_disabled)
             <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
@@ -36,7 +37,7 @@
                 </a>
             </DIV>
             <DIV>
-                <span style='font-size:11px;font-weight:normal;color:#f00'>(Start typing address then click from dropdown to populate all address fields)</span>
+                <span style='font-size:12px;font-weight:normal;color:#000080'>(Start typing address then click from dropdown to populate all address fields)</span>
             </DIV>
         @endif
     </div>
@@ -85,13 +86,13 @@
 </div>
 
 <?php echo newrow($new, "Phone Number", "", $required, 4); ?>
-        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
+        <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number" value="9055255682{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
 </div>
 
 
 <?php echo newrow($new, "Cellphone Number", "", $required, 4); ?>
-        <input type="text" name="mobile" class="form-control" {{ $is_disabled }} placeholder="Cellphone Number" value="{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
+        <input type="text" name="mobile" class="form-control" {{ $is_disabled }} placeholder="Cellphone Number" value="9058074205{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
     </div>
 </div>
 

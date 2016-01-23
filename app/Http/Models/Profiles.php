@@ -16,10 +16,13 @@ class Profiles extends BaseModel {
      */
 
     public function populate($data) {
-        $cells = array('profile_type', 'name', 'email', 'password' => "password", 'photo', 'subscribed', 'restaurant_id', 'created_by', 'is_email_varified', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'created_at', 'updated_at', 'deleted_at', 'gmt', 'phone' => "phone");
+        $cells = array('profile_type', 'name', 'email', 'password' => "password", 'photo', 'subscribed', 'restaurant_id', 'created_by', 'is_email_varified', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'created_at', 'updated_at', 'deleted_at', 'gmt', 'phone', 'mobile');
+        
         if((isset($data["mobile"]) && phonenumber(isset($data["mobile"])) && (!isset($data["phone"]) || !phonenumber($data["phone"]))) ){
             $data["phone"] = $data["mobile"];
         }
+
+
         $this->copycells($cells, $data);
     }
 

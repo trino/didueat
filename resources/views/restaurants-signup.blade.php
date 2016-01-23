@@ -89,7 +89,7 @@
     <script type="text/javascript">
     
     function validateFn(f){
-     alert(f.cuisine.value)
+//     alert(f.action)
     }
 
     

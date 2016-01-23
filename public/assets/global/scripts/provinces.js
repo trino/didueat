@@ -129,6 +129,11 @@ function fillInAddress() {
     }
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
+    
+    if(!isundefined(formatted_address)){
+     $('#formatted_addressForDB').val(place.formatted_address); // this formatted_address is a google maps object
+    }
+    
     $('#latitude').val(lat);
     $('#longitude').val(lng);
     $('#latitude2').val(lat);
