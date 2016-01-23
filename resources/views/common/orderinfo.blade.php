@@ -26,7 +26,7 @@
         $Data["Notes"] = $order->remarks;
     }
     foreach($Data as $Key => $Value){
-        echo '<TR class="infolist noprint"><TD>' . $Key . ':</TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>\r\n";
+        echo '<TR class="infolist noprint nowrap"><TD>' . $Key . ': </TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>\r\n";
     }
 ?>
 </TABLE>

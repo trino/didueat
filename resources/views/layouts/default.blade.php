@@ -1,17 +1,17 @@
 <?php
-    printfile("views/dashboard/layouts/default.blade.php");
-    if (!isset($userAddress)) {
-        $userAddress = "";
-    }
-    if (!isset($radiusSelect)) {
-        $radiusSelect = "";
-    }
-    $nextPath = "";
-    if (Request::path() !== null && Request::path() != "/") {
-        $nextPath = "/" . Request::path();
-    }
+printfile("views/dashboard/layouts/default.blade.php");
+if (!isset($userAddress)) {
+    $userAddress = "";
+}
+if (!isset($radiusSelect)) {
+    $radiusSelect = "";
+}
+$nextPath = "";
+if (Request::path() !== null && Request::path() != "/") {
+    $nextPath = "/" . Request::path();
+}
 ?>
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php $start_loading_time = microtime(true); ?>
@@ -25,18 +25,21 @@
     <meta content="Didueat" name="author">
     <meta name="content-language" content="fr-CA"/>
     <meta http-equiv="content-language" content="fr-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}" name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
+          name="description">
 
     <meta property="og:site_name" content="Didueat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
-    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
+    <meta property="og:description"
+          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
-    <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
+          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <!--link href="https://bootswatch.com/lumen/bootstrap.css" rel="stylesheet" integrity="" crossorigin="anonymous"-->
 
     <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
@@ -51,18 +54,26 @@
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
 
@@ -72,8 +83,10 @@
     <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 </head>
 <body>
 
@@ -91,58 +104,79 @@
     @endif
 
     <?php
-        $Restaurant = \Session::get('session_restaurant_id', 0);
-        if ($Restaurant){
-            $Restaurant = select_field("restaurants", "id", $Restaurant);
-            if($Restaurant){
-                $MissingData = array();
-                $MissingDataOptional = array();
-                if(!$Restaurant->is_delivery && !$Restaurant->is_pickup){$MissingData[] = "<br/>&bull; Pickup or delivery options";}
-                if(!$Restaurant->logo){$MissingData[] = "<br/>&bull; Your logo";}
-                if(!$Restaurant->latitude || !$Restaurant->longitude){$MissingData[] = "<br/>&bull; Restaurant address";}
+    $Restaurant = \Session::get('session_restaurant_id', 0);
+    if ($Restaurant) {
+        $Restaurant = select_field("restaurants", "id", $Restaurant);
+        if ($Restaurant) {
+            $MissingData = array();
+            $MissingDataOptional = array();
+            if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
+                $MissingData[] = "<br/>&bull; Pickup or delivery options";
+            }
+            if (!$Restaurant->logo) {
+                $MissingData[] = "<br/>&bull; Your logo";
+            }
+
+       //     echo $Restaurant->latitude .' '. $Restaurant->longitude;
+
+            if (!$Restaurant->latitude || !$Restaurant->longitude) {
+                $MissingData[] = "<br/>&bull; Restaurant address";
+            }
 //                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
 //                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
-                if($Restaurant->max_delivery_distance < 2){$MissingDataOptional[] = "<br/>&bull; Delivery range";}
-                if(!$Restaurant->minimum){$MissingDataOptional[] = "<br/>&bull; Minimum delivery sub-total";}
+            if ($Restaurant->max_delivery_distance < 2) {
+                $MissingDataOptional[] = "<br/>&bull; Delivery range";
+            }
+            if (!$Restaurant->minimum) {
+                $MissingDataOptional[] = "<br/>&bull; Minimum delivery sub-total";
+            }
 
-                //check hours of operation
-                $weekdays = getweekdays();
-                $DayOfWeek = current_day_of_week();
-                $now = date('H:i:s');
-                foreach($weekdays as $weekday){
-                    foreach(array("_open", "_close", "_open_del", "_close_del") as $field){
-                        $field = $weekday . $field;
-                        if($Restaurant->$field != "12:00:00"){
-                            $weekdays = false;
-                            break;
-                        }
+            //check hours of operation
+            $weekdays = getweekdays();
+            $DayOfWeek = current_day_of_week();
+            $now = date('H:i:s');
+            foreach ($weekdays as $weekday) {
+                foreach (array("_open", "_close", "_open_del", "_close_del") as $field) {
+                    $field = $weekday . $field;
+                    if ($Restaurant->$field != "12:00:00") {
+                        $weekdays = false;
+                        break;
                     }
-                        if(!$weekdays){break;}
                 }
-                if($weekdays){
-                    $MissingData[] = "<br/>&bull; Hours of operation";
-                } else {
-                    if(getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now){$MissingData[] = "open hours extended";}
-                    if(getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now){$MissingData[] = "delivery hours extended";}
-                }
-
-                //check credit card
-                $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-                if(!$creditcards){$MissingData[] = "<br/>&bull; Your credit card authorization";}
-
-                if($MissingData){
-                    $MissingData = array_merge($MissingData, $MissingDataOptional);
-                    $MissingData = "<br/>Please scroll down the page to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData)."</div>";
-                    echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>STEP 1 OF REGISTRATION COMPLETE!</u></STRONG>' . $MissingData . '</DIV>';
+                if (!$weekdays) {
+                    break;
                 }
             }
+            if ($weekdays) {
+                $MissingData[] = "<br/>&bull; Hours of operation";
+            } else {
+                if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
+                    $MissingData[] = "open hours extended";
+                }
+                if (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now) {
+                    $MissingData[] = "delivery hours extended";
+                }
+            }
+
+            //check credit card
+            $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
+            if (!$creditcards) {
+                $MissingData[] = "<br/>&bull; Your credit card authorization";
+            }
+
+            if ($MissingData) {
+                $MissingData = array_merge($MissingData, $MissingDataOptional);
+                $MissingData = "<br/>Please scroll down the page to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData) . "</div>";
+                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>STEP 1 OF REGISTRATION COMPLETE!</u></STRONG>' . $MissingData . '</DIV>';
+            }
         }
-        if(\Session::has('invalid-data')){
-            $fields = Session::get('invalid-data');
-            $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
-            echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
-            \Session::forget('invalid-data');
-        }
+    }
+    if (\Session::has('invalid-data')) {
+        $fields = Session::get('invalid-data');
+        $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
+        echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
+        \Session::forget('invalid-data');
+    }
     ?>
 
     @if(\Session::has('message-type') && Session::get('message'))
@@ -161,22 +195,22 @@
 </html>
 <SCRIPT>
     //attempts to replace the field name with it's label for invalid data
-    $(document).ready(function() {
+    $(document).ready(function () {
         var element = document.getElementById("invalid-fields");
         if (element) {
             var fields = element.innerHTML.split(", ");
-            for(i = 0; i < fields.length; i++){
+            for (i = 0; i < fields.length; i++) {
                 fields[i] = getfieldlabel(fields[i]);
             }
             element.innerHTML = fields.join(", ");
         }
     });
 
-    function getfieldlabel(field){
+    function getfieldlabel(field) {
         element = document.getElementsByName(field)[0];
-        if(element) {
+        if (element) {
             element = element.parentElement.parentElement;
-            if(element) {
+            if (element) {
                 var children = element.children;
                 for (var j = 0; j < children.length; j++) {
                     element = children[j];
