@@ -149,5 +149,6 @@ echo newrow($new, "Logo"); ?>
                     ajaxuploadbtn('uploadbtn');
                 @endif
 
+
             });
 </script>

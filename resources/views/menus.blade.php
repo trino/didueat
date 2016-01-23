@@ -83,7 +83,7 @@
                         @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
-                           class="btn btn-sm btn-danger"
+                           class="btn btn-sm btn-danger-outline"
                            onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
                         <button id="add_item{{ $value->id }}" type="button"

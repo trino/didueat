@@ -47,7 +47,7 @@
                     <a class="sortOrder" data-meta="phone" data-order="DESC" data-title="Phone" title="Sort [Phone] DESC"><i class="fa fa-caret-up"></i></a>
                 </th>
                 <th>Action</th>
-                <th>Order</th>
+
             </tr>
             </thead>
             <tbody>
@@ -55,9 +55,19 @@
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
                         <td>{{ $key+1 }}
+
+
+                            @if($recCount > 1)
+                                <div class="btn-group-vertical">
+                                    <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                    <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
+                                </div>
+                            @endif
                             @if ($key == 0)
                                 <span class="label label-default">Primary</span>
                             @endif
+
+
                         </td>
                         <!--td>{{ select_field('profiles', 'id', $value->user_id, 'name') }}</td-->
                         <td>{{ $value->location }}</td>
@@ -65,17 +75,10 @@
                         <td>{{ $value->phone }}</td>
                         <td>
                             <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal" data-target="#editModel">Edit</a>
-                            <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger btn-sm"
-                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">Delete</a>
+                            <a href="{{ url('user/addresses/delete/'.$value->id) }}" class="btn btn-danger-outline btn-sm"
+                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">X</a>
                         </td>
-                        <td>
-                            @if($recCount > 1)
-                            <div class="btn-group-vertical">
-                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
-                            </div>
-                            @endif
-                        </td>
+
                     </tr>
                 @endforeach
             @else

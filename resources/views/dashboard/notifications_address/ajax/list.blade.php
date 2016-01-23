@@ -100,8 +100,8 @@
                                                          data-target="#editModel" data-id="{{ $value->id }}">Edit</a>
 
                                 <a href="{{ url('notification/addresses/delete/'.$value->id) }}"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">X</a>
+                                   class="btn btn-danger-outline btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">x</a>
                             </div>
                         </td>
 

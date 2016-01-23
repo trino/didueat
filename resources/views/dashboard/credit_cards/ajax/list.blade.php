@@ -111,7 +111,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                                 Edit
                             </a>
                                 <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
-                                   class="btn btn-danger btn-sm "
+                                   class="btn btn-danger-outline btn-sm "
                                    onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>
                             </div>
                         </td>

@@ -1,51 +1,71 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="row">
+    <div class="row">
 
-    <div class="overlay overlay_reservation">
-        <div class="loadmoreajaxloader">
-            <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+        <div class="overlay overlay_reservation">
+            <div class="loadmoreajaxloader">
+                <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+            </div>
         </div>
-    </div>
 
-    <div class=" col-md-4 col-sm-4" id="printableArea">
-        @include('common.receipt')
-    </div>
+        <div class=" col-md-4 col-sm-4" id="printableArea">
+            @include('common.receipt')
+        </div>
 
-    <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
-        <?php printfile("views/restaurants-menus.blade.php"); ?>
+        <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
+            <?php printfile("views/restaurants-menus.blade.php"); ?>
 
 
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                    <div class="alert alert-success" role="alert">
-                        <strong>Welcome</strong> to your restaurant menu, add your best selling meals or combos.
+                <div class="alert alert-success" role="alert">
+                    <strong>Welcome</strong> to your restaurant menu, add your best selling meals or combos.
 
-                        <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal"
-                           data-target="#addMenuModel">
-                            Add Menu Item
-                        </a>
-                        <div class="clearfix"></div>
-                    </div>
-                    
+                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
+                       data-toggle="modal"
+                       data-target="#addMenuModel">
+                        Add Menu Item
+                    </a>
+
+                    <div class="clearfix"></div>
+                </div>
+
             @endif
-            <?php 
+
+
+
+
+            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+            @else
+                <div class="alert alert-success" role="alert">
+                    <strong>Make Money!</strong> Upload menu item and make commision off of each order
+
+                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
+                       data-toggle="modal" data-target="#addMenuModel">
+                        Add Menu Item
+                    </a>
+
+                    <div class="clearfix"></div>
+                </div>
+            @endif
+            
+
+
+            <?php
             if(isset($restaurant))
             {
-                ?>
-                <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-                <?php
-                            
-            }            
-            ?>            
+            ?>
+            <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+            <?php
+
+            }
+            ?>
 
 
-
-
-        @foreach($category as $cat)
-            <!--<h4>
+            @foreach($category as $cat)
+                    <!--<h4>
                 {{ $cat->title }}
-            </h4>-->
+                    </h4>-->
             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
@@ -54,51 +74,35 @@
             <script>
                 $(function () {
                     $.ajax({
-                       url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
-                       success: function(res)
-                       {
-                        if(res!='no')
-                        {
-                           $("#postswrapper_{{ $cat->id }}").html(res);
+                        url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
+                        success: function (res) {
+                            if (res != 'no') {
+                                $("#postswrapper_{{ $cat->id }}").html(res);
+                            }
+                            else {
+                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
+                            }
                         }
-                        else
-                        {
-                            $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
-                        }
-                       }
                     });
                     //$("#postswrapper_{{ $cat->id }}").load();
                 });
             </script>
-        @endforeach
+            @endforeach
 
-        @if(debugmode())
-            <input type="file" accept="image/*;capture=camera">
-        @endif
+            @if(debugmode())
+                <input type="file" accept="image/*;capture=camera">
+            @endif
 
 
-
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-@else
-            <div class="alert alert-success" role="alert">
-                <strong>Make Money!</strong> Upload menu item and make commision off of each order
-
-                <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right" data-toggle="modal" data-target="#addMenuModel">
-                    Add Menu Item
-                </a>
-                <div class="clearfix"></div>
-            </div>
-@endif
-
+        </div>
     </div>
-</div>
 
 
 
 
 
-@if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-@endif
+    @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+    @endif
     <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
          aria-labelledby="addMenuModelLabel"
          aria-hidden="true">
@@ -123,7 +127,7 @@
 
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
         function check_val(v) {
             if (v != '') {
                 $('.confirm_password').show();
@@ -134,14 +138,15 @@
         }
         $(document).ready(function () {
             /*
-            $('body').on('click', '.insert-stats', function () {
-                var id = $(this).attr('id');
-                $.get("{{ url('restaurants/menu/stats') }}/" + id, {}, function (result) {
-                    $('#product-pop-up_' + id + " #stats_block").show();
-                    $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
-                });
-            });
-*/
+             $('body').on('click', '.insert-stats', function () {
+             var id = $(this).attr('id');
+             $.get("
+            {{ url('restaurants/menu/stats') }}/" + id, {}, function (result) {
+             $('#product-pop-up_' + id + " #stats_block").show();
+             $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
+             });
+             });
+             */
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -234,7 +239,7 @@
                 var catarray = [];
                 var td_index = 0;
                 var td_temp = 9999;
-                var n_counter= 0;
+                var n_counter = 0;
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
@@ -361,19 +366,19 @@
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
                                 app_title = app_title + " " + su + ":";
-                                
+
                             }
-                            
-                            
+
+
                         }
                         var x = index;
                         if (title[0] != "") {
                             ids = ids + "_" + title[0];
                         }
-                        
-                        
+
+
                         app_title = app_title + "," + title[1];
-                        
+
                         //else
                         //app_title = title[1];
                         price = Number(price) + Number(title[2]);
@@ -412,7 +417,7 @@
                 }
 
                 ids = ids.replace("__", "_");
-                
+
                 //app_title =app_title.replace(",,"," ");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -460,7 +465,7 @@
                 //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" width="26%">'+
+                $('#list' + ids).html('<td class="receipt_image" width="26%">' +
                         '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
                         '-</a><span class="count">' + pre_cnt + 'x</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
                         '+</a>' +

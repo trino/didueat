@@ -9,6 +9,14 @@
 @endif
 
 <div id="cartsz">
+
+
+
+
+
+
+
+
     @if(!isset($order))
         <div class="card card-inverse card-primary " style="">
             <div class="card-block">
@@ -53,11 +61,24 @@
         </div>
     @endif
 
+
+
+
+
+
+
+
+
     <div class="card " style="">
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-                    <h4 class="card-title">Receipt</h4>
+
+
+
+
+
+                    <h3 class="card-title">Receipt</h3>
 
                    @include('common.items')
 
@@ -134,7 +155,6 @@
                     </div>
 
                     @if(!isset($order))
-                            <!--input  class="btn  btn-secondary " type="button" onclick="printDiv('cartsz')" value="Print"/-->
                     <div class="form-group   pull-right ">
                         <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
@@ -340,8 +360,34 @@
             </div>
         </div>
     </div>
+
+
+
+
+
     <div class="clearfix"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<! -- add addresss modal -->
+<! -- add addresss modal -->
+<! -- add addresss modal -->
+<! -- add addresss modal -->
+<! -- add addresss modal -->
+
+
 
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
      aria-hidden="true">
@@ -363,10 +409,7 @@
                     </div>
                 </div>
 
-                <!--script src="https://www.bootstrapskins.com/google-maps-authorization.js?id=35f94ed7-b93b-cf0a-e541-80e3b29c8a7d&c=google-html&u=1450094358" defer="defer" async="async"></script-->
-
                 <h3>Description: </h3>
-
                 <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
                 <h3>Tags: </h3>
