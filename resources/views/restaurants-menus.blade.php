@@ -38,7 +38,7 @@
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
             @else
                 <div class="alert alert-success" role="alert">
-                    <strong>Make Money!</strong> Upload menu item and make commision off of each order
+                    <strong>Make Money!</strong> Design meals that others will want to eat.
 
                     <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
                        data-toggle="modal" data-target="#addMenuModel">
@@ -48,45 +48,38 @@
                     <div class="clearfix"></div>
                 </div>
             @endif
-            
 
 
-            <?php
-            if(isset($restaurant))
-            {
-            ?>
+
+            @if(isset($restaurant))
+
             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-            <?php
 
-            }
-            ?>
-
+            @endif
 
             @foreach($category as $cat)
-                    <!--<h4>
-                {{ $cat->title }}
-                    </h4>-->
-            <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-                <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-            </div>
+              <!--  {{ $cat->title }} -->
+                <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
+                <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
+                    <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                </div>
 
-            <script>
-                $(function () {
-                    $.ajax({
-                        url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
-                        success: function (res) {
-                            if (res != 'no') {
-                                $("#postswrapper_{{ $cat->id }}").html(res);
+                <script>
+                    $(function () {
+                        $.ajax({
+                            url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
+                            success: function (res) {
+                                if (res != 'no') {
+                                    $("#postswrapper_{{ $cat->id }}").html(res);
+                                }
+                                else {
+                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
+                                }
                             }
-                            else {
-                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
-                            }
-                        }
+                        });
+                        //$("#postswrapper_{{ $cat->id }}").load();
                     });
-                    //$("#postswrapper_{{ $cat->id }}").load();
-                });
-            </script>
+                </script>
             @endforeach
 
             @if(debugmode())
@@ -466,8 +459,8 @@
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" width="26%">' +
-                        '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger" href="javascript:void(0);">' +
-                        '-</a><span class="count">' + pre_cnt + 'x</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary small " href="javascript:void(0);">' +
+                        '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger-outline" href="javascript:void(0);">' +
+                        '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary-outline small " href="javascript:void(0);">' +
                         '+</a>' +
                             //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +

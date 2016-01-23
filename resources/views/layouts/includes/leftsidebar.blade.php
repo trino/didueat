@@ -17,18 +17,18 @@
 
 
     if(\Session::get('session_restaurant_id')){
-        makelink(array( 'orders/list/restaurant' => 'My Orders',
-                'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "My Menu",
-                'notification/addresses' => "My Notification Addresses",
-                'restaurant/info' => "My Restaurant",
-                'credit-cards/list/restaurant' => "My Credit Cards" //if(\Session::has('session_profiletype') )
+        makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
+                'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
+                'notification/addresses' => "Receive Notifications",
+                'restaurant/info' => "Restaurant Info",
+                'credit-cards/list/restaurant' => "Credit Card" //if(\Session::has('session_profiletype') )
         ), "<i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant Navigation");
     }
 
 
 
     makelink(array( 'orders/list/user' => 'My Orders',
-                        'user/addresses' => "My Addresses",
+                        'user/addresses' => "My Address",
                         'user/info' => "My Profile"
                     ), "<i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User Navigation");
 

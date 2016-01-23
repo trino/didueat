@@ -9,7 +9,7 @@
       border-bottom: 0px solid #e5e5e5;
 }
 .required:after {
-    content: " *";
+    content: "*";
     color: #e32;
 }
 * {
@@ -21,17 +21,7 @@
     max-height: 150px;
 }
 
-h1,h2,h3,h4,h5,h6{font-weight: 500;}
 
-
-.primary_red {
-    background: #D50000 !important;
-}
-
-.secondary_red {
-    background: #ef0000 !important;
-    border: 1px solid #D50000 !important;
-}
 
 .pagination{margin: 0;}
 
@@ -188,7 +178,7 @@ body.modal-open {
 /*------Static Rating--------*/
 .static-rating {
     border: none;
-    float: none;
+    float: left;
     clear: both;
 }
 

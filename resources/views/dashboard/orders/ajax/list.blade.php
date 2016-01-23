@@ -14,7 +14,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
         <div class="row">
             <div class="col-lg-9">
                 <h3>
-                    My Orders <!-- ({{ ucwords($type) }})         -->           <!--a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a-->
+                    Restaurant Orders <!-- ({{ ucwords($type) }})         -->           <!--a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a-->
 
                 </h3>
 
@@ -114,7 +114,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
 
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
-                                   class="btn btn-danger btn-sm pull-right"
+                                   class="btn btn-danger-outline btn-sm pull-right"
                                    onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
                                     X
                                 </a>

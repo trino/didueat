@@ -47,7 +47,7 @@
                     <th>
                         Phone Number
                     </th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +63,7 @@
                         }
                     ?>
                 <tr>
-                    <td>{{ fontawesome($value->profile_type) . " " . $value->id }}</td>
+                    <td>{{ $value->id }}</td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->email }}</td>
                     <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
