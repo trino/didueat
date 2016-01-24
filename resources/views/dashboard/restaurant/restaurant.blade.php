@@ -27,6 +27,7 @@ echo newrow($new, "Restaurant Cuisine Type", "", true, 4);
 <input name="cuisines" type="hidden" />
 <select name="cuisine" id="cuisine" class="form-control" multiple size="4" style="width:90%" {{ $is_disabled }}>
     <option value="">-Select One-</option>
+    
     @foreach($cuisine_list as $value)
         <option value="{{ $value->id }}"
                 @if(old('cuisine') == $value->id || (isset($restaurant->cuisine) && $restaurant->cuisine == $value->id)):

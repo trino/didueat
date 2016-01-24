@@ -37,7 +37,7 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->status == 0) {
+                    if ($user->status != "active") {
                         return $this->failure2($AsJSON, trans('messages.user_inactive.message'), $url);
                     }
                     $password = \Input::get('password');
