@@ -425,10 +425,10 @@ class HomeController extends Controller {
 
 // add to profile_addresses
 
-                \App\Http\Models\ProfilesAddresses::makenew(array('user_id' => $ob->id, 'email' => $post['email'], 'phone' => $post['phone'], 'mobile' => $post['mobile'], 'formatted_address' => $post['formatted_addressForDB'], 'address' => $post['formatted_address'], 'city' => $post['city'], 'province' => $post['province'], 'postal_code' => $post['postal_code'], 'country' => $post['country'], 'latitude' => $post['latitude'], 'longitude' => $post['longitude']));
+                \App\Http\Models\ProfilesAddresses::makenew(array('user_id' => $user->id, 'email' => $post['email'], 'phone' => $post['phone'], 'mobile' => $post['mobile'], 'formatted_address' => $post['formatted_addressForDB'], 'address' => $post['formatted_address'], 'city' => $post['city'], 'province' => $post['province'], 'postal_code' => $post['postal_code'], 'country' => $post['country'], 'latitude' => $post['latitude'], 'longitude' => $post['longitude']));
 
                 if($user->id){
-                    login($ob->id);
+                    login($user->id);
                 }
 
                 $userArray = $user->toArray();
