@@ -129,6 +129,7 @@ class RestaurantController extends Controller {
      * @return view
      */
     public function addRestaurants() {
+// Note: HomeController.php is what is actually used to add new restaurant, not this file
         $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['restname']) || empty($post['restname'])) {

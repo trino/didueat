@@ -319,7 +319,7 @@ class HomeController extends Controller {
                 $update['mobile'] = $post['mobile'];
             //    $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisine'];
+                $update['cuisine'] = $post['cuisines']; // a csv string of one or more cuisines
                 $update['province'] = $post['province'];
                 $update['address'] = $post['formatted_address'];
                 $update['formatted_address'] = $post['formatted_addressForDB'];
@@ -347,6 +347,7 @@ class HomeController extends Controller {
                 $ob->populate($update);
                 $ob->save();
                 
+                                
                 event(new \App\Events\AppEvents($ob, "Restaurant Created"));
                 
                 $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
@@ -385,23 +386,34 @@ class HomeController extends Controller {
                     }
                 }
                 */
-                
+
+
+// add cuisines separately to table, with foreign key restID
+                $cuisinesExpl = explode(",",$post['cuisines']);
+                $cuisinesExplCnt=count($cuisinesExpl);
+                for($i=0;$i<$cuisinesExplCnt;$i++){
+                  \App\Http\Models\Cuisines::makenew(array('restID' => $ob->id, 'cuisine' => $cuisinesExpl[$i]));
+
+                }
+
+// add to profiles table
+
+                $profile['restaurant_id'] = $ob->id;
+                $profile['profile_type'] = 2;  // restaurant
                 $profile['name'] = $post['name'];
                 $profile['email'] = $post['email'];
                 $profile['phone'] = $post['phone'];
                 $profile['mobile'] = $post['mobile'];
                 $profile['password'] = $post['password'];
-                $profile['restaurant_id'] = $ob->id;
                 $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
                 $profile['is_email_varified'] = iif($email_verification, 0, 1);
-                $profile['status'] = 1;
-                $profile['profile_type'] = 2;
                 $browser_info = getBrowser();
                 $profile['ip_address'] = get_client_ip_server();
                 $profile['browser_name'] = $browser_info['name'];
                 $profile['browser_version'] = $browser_info['version'];
                 $profile['browser_platform'] = $browser_info['platform'];
                 $profile['gmt'] = $post['gmt2'];
+                $profile['status'] = 'active';
                 
                 $user = new \App\Http\Models\Profiles();
                 $user->populate($profile);
@@ -409,18 +421,18 @@ class HomeController extends Controller {
                 
                 event(new \App\Events\AppEvents($user, "User Created"));
 
-                \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Email", 'user_id' => $user->id, 'address' => $user->email));
+
+
+// add to profile_addresses
+
+                \App\Http\Models\ProfilesAddresses::makenew(array('user_id' => $ob->id, 'email' => $post['email'], 'phone' => $post['phone'], 'mobile' => $post['mobile'], 'formatted_address' => $post['formatted_addressForDB'], 'address' => $post['formatted_address'], 'city' => $post['city'], 'province' => $post['province'], 'postal_code' => $post['postal_code'], 'country' => $post['country'], 'latitude' => $post['latitude'], 'longitude' => $post['longitude']));
 
                 if($user->id){
-                    \App\Http\Models\ProfilesAddresses::makenew(array("is_default" => 1, 'type' => "Phone", 'user_id' => $user->id, 'address' => $post['phone']));
-                    if(isset($post['mobile'])){
-                        \App\Http\Models\ProfilesAddresses::makenew(array('type' => "Phone", 'user_id' => $user->id, 'address' => $post['mobile'], "is_sms" => true));
-                    }
-                    login($user->id);
+                    login($ob->id);
                 }
 
                 $userArray = $user->toArray();
-                $userArray['mail_subject'] = 'Thank you for registration.';
+                $userArray['mail_subject'] = 'Thank you for your registration at DidUEat.';
 
                 $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
                 \DB::commit();

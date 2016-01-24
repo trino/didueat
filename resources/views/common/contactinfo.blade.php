@@ -16,7 +16,7 @@ foreach ($Fields as $Field) {
 echo newrow($new, "Your Full Name", $size, true);
 ?>
 <div class="input-icon">
-    <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}"
+    <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="Paul{{ $name  }}"
            required>
     <input type="hidden" name="gmt2" id="gmt2" value="">
 </div>
@@ -49,14 +49,14 @@ echo newrow($new, "Email", $size, true); ?>
 <?php echo newrow($new, "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
     <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-           value="{{ $password }}" {{ $PasswordRequired }}>
+           value="12345{{ $password }}" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
     <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-           placeholder="Re-type Password" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
+           placeholder="Re-type Password" value="12345{{ $confirm_password }}" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 

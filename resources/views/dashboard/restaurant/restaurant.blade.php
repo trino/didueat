@@ -11,7 +11,7 @@ if (!isset($minimum)) {
 ?>
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
-       value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+       value="My Place{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
@@ -24,7 +24,7 @@ echo newrow($new, "Restaurant Cuisine Type", "", true, 4);
 
 
 ?>
-
+<input name="cuisines" type="hidden" />
 <select name="cuisine" id="cuisine" class="form-control" multiple size="4" style="width:90%" {{ $is_disabled }}>
     <option value="">-Select One-</option>
     @foreach($cuisine_list as $value)
