@@ -16,16 +16,14 @@ foreach ($Fields as $Field) {
 echo newrow($new, "Your Full Name", $size, true);
 ?>
 <div class="input-icon">
-    <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="Paul{{ $name  }}"
-           required>
+    <input type="text" name="name" class="form-control" id="full_name" placeholder="Full Name" value="{{ $name  }}" required>
     <input type="hidden" name="gmt2" id="gmt2" value="">
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
-    <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $email }}"
-           required>
+    <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ $email }}" required>
 </div>
 <?php echo newrow(); ?>
 
@@ -40,29 +38,25 @@ echo newrow($new, "Email", $size, true); ?>
 @else
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password"
-               autocomplete="off">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password" autocomplete="off">
     </div>
     </div></div>
 @endif
 
 <?php echo newrow($new, "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-           value="12345{{ $password }}" {{ $PasswordRequired }}>
+    <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="12345{{ $password }}" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-           placeholder="Re-type Password" value="12345{{ $confirm_password }}" {{ $PasswordRequired }}>
+    <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Re-type Password" value="12345{{ $confirm_password }}" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 
 echo newrow(false, "Newsletter", "", false, 9, true); ?>
-<LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> &nbsp;<b>Sign
-        up for our Newsletter</b></LABEL>
+    <LABEL><input type="checkbox" name="subscribed" id="subscribed" value="1" @if($subscribed) checked @endif /> &nbsp;<b>Signup for our Newsletter</b></LABEL>
 </div></div>
 
 <SCRIPT>

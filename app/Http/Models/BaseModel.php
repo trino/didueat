@@ -24,8 +24,6 @@ class BaseModel extends Model {
     }
 
     public function copycells($cells, $data){
-
-    
         foreach ($cells as $key => $cell) {
             if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
