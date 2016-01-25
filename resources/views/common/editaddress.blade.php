@@ -55,7 +55,7 @@ $needsmobile = isset($mobile);
 
     </DIV>
     <DIV>
-        <span style=''>(Start typing address then click from dropdown to populate all address fields)</span>
+        <span>(Start typing address then click from dropdown to populate all address fields)</span>
     </DIV>
     @endif
 
@@ -126,7 +126,20 @@ $needsmobile = isset($mobile);
     </div>
 
 
-    <?php if($isUser){ ?>
+    <?php  
+    if(!$restSignUp){
+		    echo newrow($new,"Save","","",12,true); 
+    ?>
+
+		    <hr width="100%" align="center" />
+		    <button type="submit" class="btn btn-primary" style="margin-left:auto;margin-right:auto;">Save</button>
+		    </div>
+		    </div>
+		    
+    <?php 
+    }
+    
+    if($isUser){ ?>
     <?php echo newrow($new, "Apartment/Unit", "", false, 4); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">

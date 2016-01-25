@@ -87,20 +87,19 @@
     </div>
 
     <script type="text/javascript">
-    
+     
     function validateFn(f){
-    var cuisinesStr="";
-    var comma="";
-     for(var i=0;i<f.cuisine.length;i++){
-      if(f.cuisine.options[i].selected){
-       if(cuisinesStr != ""){
-        comma=",";
-       }
-       cuisinesStr+=comma+f.cuisine.options[i].text
-      }
-     }
-     f.cuisines.value=cuisinesStr
-
+			   var cuisinesStr="";
+			   var comma="";
+						for(var i=0;i<cuisineCnt;i++){
+						 if(f.elements["cuisine"+i].checked){
+			       if(cuisinesStr != ""){
+			        comma=",";
+			       }
+			       cuisinesStr+=comma+f.elements["cuisine"+i].value
+						 }
+						}
+			   f.cuisines.value=cuisinesStr;
     }
 
     

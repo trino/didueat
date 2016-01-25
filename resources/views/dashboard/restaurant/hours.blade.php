@@ -21,13 +21,13 @@
 
 echo newrow($new, "Allow pickup"); ?>
     <LABEL>
-        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; I Offer Pickup
+        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
     </LABEL>
 </DIV></DIV>
 
 <?php echo newrow($new, "Allow delivery"); ?>
     <LABEL>
-        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp; I Offer Delivery
+        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp; We Offer Delivery
     </LABEL>
 </DIV></DIV>
 
@@ -49,7 +49,7 @@ echo newrow($new, "Allow pickup"); ?>
         </DIV></DIV>
 </div>
 
-<label class="col-sm-12 row"><SPAN class="is_delivery_2"><b><u>Hours Open</u>:</b></SPAN></label>
+<label class="col-sm-12 row"><SPAN class="is_delivery_2b"><b><u>Hours Open</u>:</b></SPAN></label>
 
 <?php
     function getkey($object, $key){
@@ -83,7 +83,7 @@ echo newrow($new, "Allow pickup"); ?>
     echo '<label class="col-sm-12 row"><hr width="100%" align="center" /></label>';
     
 
-    echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL class="is_delivery_options"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as regular Hours</LABEL></div>';
+    echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL class="is_delivery_options"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
 
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
@@ -126,8 +126,8 @@ echo newrow($new, "Allow pickup"); ?>
             $('#is_delivery_options').show();
             $('.is_delivery_options').show();
         } else {
-            $('#is_delivery_options').hide();
-            $('.is_delivery_options').hide();
+//            $('#is_delivery_options').hide();
+//            $('.is_delivery_options').hide();
         }
         same(false);
     }

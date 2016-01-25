@@ -284,7 +284,7 @@ class RestaurantController extends Controller {
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisine'];
+                $update['cuisine'] = $post['cuisines'];
                 $update['province'] = $post['province'];
                 $update['address'] = $post['formatted_address'];
                 $update['formatted_address'] = $post['formatted_addressForDB']; // hidden field on signup page
@@ -300,6 +300,22 @@ class RestaurantController extends Controller {
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update);
                 $ob->save();
+                
+                
+                // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
+                
+                $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
+				            foreach ($restCuisine_ids as $c) {
+                    \App\Http\Models\Cuisines::where('id', $c->id)->delete();
+				            }
+                
+                // add cuisines separately to table, with foreign key restID
+                $cuisinesExpl = explode(",",$post['cuisines']);
+                $cuisinesExplCnt=count($cuisinesExpl);
+                for($i=0;$i<$cuisinesExplCnt;$i++){
+                  \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                }
+                
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant Updated"));
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);

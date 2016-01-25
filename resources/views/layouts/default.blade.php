@@ -98,12 +98,15 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <div class="container m-t-3 p-t-2">
     @if (session('status'))
-        <div class="alert alert-success">
+        <div class="alert alert-success"> 
             {{ session('status') }}
         </div>
     @endif
 
     <?php
+    
+    $step1CompleteMsg="";
+    
     $Restaurant = \Session::get('session_restaurant_id', 0);
     if ($Restaurant) {
         $Restaurant = select_field("restaurants", "id", $Restaurant);
@@ -164,10 +167,10 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "<br/>&bull; Your credit card authorization";
             }
 
-            if ($MissingData) {
+            if ($MissingData) { 
                 $MissingData = array_merge($MissingData, $MissingDataOptional);
-                $MissingData = "<br/>Please scroll down the page to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData) . "</div>";
-                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>STEP 1 OF REGISTRATION COMPLETE!</u></STRONG>' . $MissingData . '</DIV>';
+                $MissingData = "<br/>Please scroll down the page, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData) . "</div>";
+                $step1CompleteMsg = '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>PARTIAL REGISTRATION COMPLETED!</u></STRONG>' . $MissingData . '</DIV>';
             }
         }
     }
@@ -184,7 +187,9 @@ if (Request::path() !== null && Request::path() != "/") {
             <strong>{!! Session::get('message-short') !!}</strong>
             &nbsp; {!! Session::get('message') !!}
         </div>
-        <?php \Session::forget('message'); ?>
+        <?php echo $step1CompleteMsg;
+        
+        \Session::forget('message'); ?>
     @endif
 
     @yield('content')

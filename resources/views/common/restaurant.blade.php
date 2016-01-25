@@ -72,7 +72,7 @@ if(Session::get('session_type_user') != "restaurant"){
         <div class="portlet-body form">
             <div class="form-body">
                 <div class="row">
-                    <?php echo view("common.editaddress", array("new" => true, "required" => true)); ?>
+                    <?php echo view("common.editaddress", array("new" => true, "required" => true, "restSignUp" => true)); ?>
                 </div>
             </div>
         </div>
