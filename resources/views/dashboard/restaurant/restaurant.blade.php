@@ -11,104 +11,86 @@ if (!isset($minimum)) {
 ?>
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
-       value="My Place{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+       value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
 echo newrow($new, "Email", "", true, 7); ?>
 <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address"
        value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
-       </div>
-       </div>
+</div></div>
+<?php }
 
-
-<?php 
-}
 echo newrow($new, "Restaurant Cuisine", "", true, 9); 
-?>
-<input name="cuisines" type="hidden" />
-<?php
- $cuisineExpl="";
- if(isset($restaurant->cuisine)){
-  $cuisineExpl = explode(",",$restaurant->cuisine);
- }
+echo '<input name="cuisines" type="hidden" />';
+$cuisineExpl="";
+if(isset($restaurant->cuisine)){
+    $cuisineExpl = explode(",",$restaurant->cuisine);
+}
 
-    $cnt=0;
-    $cuisineListA=array();
-    foreach($cuisine_list as $value){
-     $cuisineListA[$value->id] = $value->name;
-    }
-    sort($cuisineListA);
-    foreach($cuisineListA as $value => $name){
-        echo "<div class='cuisineCB'><input name='cuisine".$cnt."' type='checkbox' value='".$name."'";
-        if(isset($restaurant->cuisine)){
-		        if(in_array($name, $cuisineExpl)){
-		              echo " checked";
-		        }
+$cnt=0;
+$cuisineListA=array();
+foreach($cuisine_list as $value){
+    $cuisineListA[$value->id] = $value->name;
+}
+
+sort($cuisineListA);
+foreach($cuisineListA as $value => $name){
+    echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' value='" . $name . "'";
+    if(isset($restaurant->cuisine)){
+        if(in_array($name, $cuisineExpl)){
+            echo " checked";
         }
-        echo " />&nbsp;".$name." &nbsp; &nbsp; &nbsp;</div>";
-    $cnt++;
     }
+    echo " />&nbsp;" . $name . " &nbsp; &nbsp; &nbsp;</LABEL></div>";
+    $cnt++;
+}
+
+echo '<script>var cuisineCnt = ' . $cnt . ';</script></div></div>';
+
+if(!$minimum){
+    echo newrow($new, "Description", "", true, 8); ?>
+        <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+    <?php echo newrow();
+
+    echo newrow($new, "Tags"); ?>
+        <textarea id="demo4"></textarea>
+        <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
+        <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
+    </div></div>
+    <!--?php echo newrow();
+    echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?-->
+
+    <?php echo newrow($new, "Logo","","",6); ?>
+
+    @if(!$is_disabled)
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a> &nbsp;
+    @endif
+
+    <input type="hidden" name="logo" id="hiddenLogo"/>
+
+    <img id="picture" class="logopic" align="right"
+    @if(isset($restaurant->logo) && $restaurant->logo != "")
+         src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" />
+    @else
+        src="{{ asset('assets/images/didueatdefault.png') }}" />
+        <script>
+            document.getElementById('uploadbtn').innerHTML="Set Your Own Logo";
+        </script>
+    @endif
+
+    </div>
+    </div>
+
+    <?php
+     echo newrow($new,"Save","","",12,true);
     ?>
 
-<script>
-var cuisineCnt=<?php echo $cnt;?>;
-</script>
-</div>
-</div>
+    <hr width="100%" align="center" />
+    <button type="submit" class="btn btn-primary" style="margin-left:auto;margin-right:auto;">Save</button>
 
-<?php
-if(!$minimum){
-echo newrow($new, "Description", "", true, 8); ?>
-<textarea name="description" class="form-control"
-          {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-
-<?php echo newrow();
-
-echo newrow($new, "Tags"); ?>
-<textarea id="demo4"></textarea>
-<input type="hidden" name="tags" id="responseTags"
-       value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-<p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
-</div>
-</div>
-<!--?php echo newrow();
-echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?-->
-
-
-<?php echo newrow($new, "Logo","","",6); ?>
-
-@if(!$is_disabled)
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a> &nbsp; 
-@endif
-
-
-
-<input type="hidden" name="logo" id="hiddenLogo"/>
-
-<img id="picture" class="logopic" align="right"
-     @if(isset($restaurant->logo) && $restaurant->logo != "")
-     src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"
-     title=""/>
-@else
-    src="{{ asset('assets/images/didueatdefault.png') }}" title=""/>
-    <script>
-    document.getElementById('uploadbtn').innerHTML="Set Your Own Logo";
-    </script>
-@endif
-
-</div>
-</div>
- 
-<?php
- echo newrow($new,"Save","","",12,true);
-?>
-
-<hr width="100%" align="center" />
-<button type="submit" class="btn btn-primary" style="margin-left:auto;margin-right:auto;">Save</button>
-
-<?php
- echo newrow();
+    <?php
+     echo newrow();
 }
 ?>
 

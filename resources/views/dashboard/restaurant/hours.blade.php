@@ -67,6 +67,7 @@ echo newrow($new, "Allow pickup"); ?>
                 $close[$key] = getkey($restaurant, $value . "_close");
                 $open_del[$key] = getkey($restaurant, $value . "_open_del");
                 $close_del[$key] = getkey($restaurant, $value . "_close_del");
+                if($open_del[$key] != $open[$key] || $close_del[$key] != $close[$key]){$isthesame=false;}
             } else {
                 $open[$key] = "12:00:00";
                 $close[$key] = $open[$key];
@@ -82,13 +83,11 @@ echo newrow($new, "Allow pickup"); ?>
     
     echo '<label class="col-sm-12 row"><hr width="100%" align="center" /></label>';
     
-
     echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL class="is_delivery_options"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
 
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
         $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-        if($opentime != $open[$key] || $closetime != $close[$key]){$isthesame=false;}
         printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
     }
 
@@ -126,8 +125,8 @@ echo newrow($new, "Allow pickup"); ?>
             $('#is_delivery_options').show();
             $('.is_delivery_options').show();
         } else {
-//            $('#is_delivery_options').hide();
-//            $('.is_delivery_options').hide();
+            $('#is_delivery_options').hide();
+            $('.is_delivery_options').hide();
         }
         same(false);
     }
@@ -173,6 +172,7 @@ echo newrow($new, "Allow pickup"); ?>
     $("#max_delivery_distance").trigger("change");
 
     $( document ).ready(function() {
+        fhgfhfdhfd;
         same(false);
     });
 </script>

@@ -300,20 +300,18 @@ class RestaurantController extends Controller {
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update);
                 $ob->save();
-                
-                
+
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
-                
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
-				            foreach ($restCuisine_ids as $c) {
+                foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
-				            }
+                }
                 
                 // add cuisines separately to table, with foreign key restID
                 $cuisinesExpl = explode(",",$post['cuisines']);
                 $cuisinesExplCnt=count($cuisinesExpl);
                 for($i=0;$i<$cuisinesExplCnt;$i++){
-                  \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                    \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
                 }
                 
                 
