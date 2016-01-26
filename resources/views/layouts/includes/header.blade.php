@@ -22,8 +22,8 @@ $first = false; $type = "hidden";
                         <div class="input-group-btn">
                             @if(read("id"))
                                 <?php
-                                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                                if($addresses->count()){
+                                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                                    if($addresses->count()){
                                 ?>
                                 <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false"><span
@@ -31,15 +31,15 @@ $first = false; $type = "hidden";
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-left">
                                     <?php
-                                    foreach ($addresses as $address) {
-                                        if (!$first) {
-                                            $first = $address->id;
+                                        foreach ($addresses as $address) {
+                                            if (!$first) {
+                                                $first = $address->id;
+                                            }
+                                            if (!trim($address->location)) {
+                                                $address->location = "Address: " . $address->id;
+                                            }
+                                            echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
                                         }
-                                        if (!trim($address->location)) {
-                                            $address->location = "Address: " . $address->id;
-                                        }
-                                        echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
-                                    }
                                     ?>
                                 </div>
                                 <?php } ?>

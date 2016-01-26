@@ -21,7 +21,7 @@
                     <div class="portlet-body">
                         <h4>Please enter all the required fields to proceed!</h4>
                         {!! Form::open(array('url' => '/auth/register', 'id'=>'login-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                        @include('common.signupform')
+                        @include('common.contactinfo')
                         {!! Form::close() !!}
                     </div>
                 </div>

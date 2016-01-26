@@ -111,45 +111,19 @@ class AuthController extends Controller {
             if ($is_email > 0) {
                 return $this->failure2($AsJSON, trans('messages.user_email_already_exist.message'));
             }
-            if (!isset($data['password0']) || empty($data['password0'])) {
-                return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message'));
+            if (!isset($data['password']) || empty($data['password'])) {
+                return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message') . " (0x04)");
             }
-            if (!isset($data['confirm_password0']) || empty($data['confirm_password0'])) {
+            if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message'));
             }
-            if (trim($data['password0']) != trim($data['confirm_password0'])) {
+            if (trim($data['password']) != trim($data['confirm_password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message'));
             } else {
                 \DB::beginTransaction();
                 try {//add new user to the database
-                    $data['status'] = 'active';
-                    $data['is_email_varified'] = iif($email_verification, 0, 1);
-                    $data['profile_type'] = 2;
-                    $data['password'] = $data['password0'];
-                    
-                    $user = new \App\Http\Models\Profiles();
-                    $user->populate($data);
-                    $user->save();
-                    
-                    login($user, false);
-                    
-                    /*
-                    if($user->id){
-                        if($this->saveaddress($data)) {
-                            $add = new \App\Http\Models\ProfilesAddresses();
-                            $data['user_id'] = $user->id;
-                            $add->populate(array_filter($data));
-                            $add->save();
-                        }
-                    }
-                    */
+                    $user = $this->registeruser($data);
 
-                    $userArray = $user->toArray();
-                    $userArray['password'] = $data['password0'];
-                    $userArray['mail_subject'] = 'Thank you for your registration with DidUEat.';
-                    $this->sendEMail("emails.registration_welcome", $userArray);
-                    
-                    \DB::commit();
                     $message['title'] = "Registration Success";
                     $message['msg_type'] = "success";
                     $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";

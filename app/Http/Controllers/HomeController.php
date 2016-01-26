@@ -299,7 +299,7 @@ class HomeController extends Controller {
             //    return $this->failure("[Country] field is missing!",$Redirect, true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure(trans('messages.user_pass_field_missing.message'),$Redirect, true);
+                return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
@@ -369,26 +369,7 @@ class HomeController extends Controller {
                     $res->where('id', $ob->id)->update(['logo' => $newName]);
                 }
 
-                /*
-                $day_of_week = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-                foreach ($post['open'] as $key => $value) {
-                    if (!empty($value)) {
-                        $hour['restaurant_id'] = $ob->id;
-                        $hour['open'] = $this->cleanTime($value);
-                        $hour['close'] = $this->cleanTime($post['close'][$key]);
-                        $hour['day_of_week'] = $day_of_week[$key];//not going with the post anymore
-                        $hour['open_del'] = $this->cleanTime($post['open_del'][$key]);
-                        $hour['close_del'] = $this->cleanTime($post['close_del'][$key]);
-
-                        $ob2 = new \App\Http\Models\Hours();
-                        $ob2->populate($hour);
-                        $ob2->save();
-                    }
-                }
-                */
-
-
-// add cuisines separately to table, with foreign key restID
+                // add cuisines separately to table, with foreign key restID
                 $cuisinesExpl = explode(",",$post['cuisines']);
                 $cuisinesExplCnt=count($cuisinesExpl);
                 for($i=0;$i<$cuisinesExplCnt;$i++){
@@ -396,46 +377,7 @@ class HomeController extends Controller {
 
                 }
 
-// add to profiles table
-
-                $profile['restaurant_id'] = $ob->id;
-                $profile['profile_type'] = 2;  // restaurant
-                $profile['name'] = $post['name'];
-                $profile['email'] = $post['email'];
-                $profile['phone'] = $post['phone'];
-                $profile['mobile'] = $post['mobile'];
-                $profile['password'] = $post['password'];
-                $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
-                $profile['is_email_varified'] = iif($email_verification, 0, 1);
-                $browser_info = getBrowser();
-                $profile['ip_address'] = get_client_ip_server();
-                $profile['browser_name'] = $browser_info['name'];
-                $profile['browser_version'] = $browser_info['version'];
-                $profile['browser_platform'] = $browser_info['platform'];
-                $profile['gmt'] = $post['gmt2'];
-                $profile['status'] = 'active';
-                
-                $user = new \App\Http\Models\Profiles();
-                $user->populate($profile);
-                $user->save();
-                
-                event(new \App\Events\AppEvents($user, "User Created"));
-
-
-
-// add to profile_addresses
-
-                \App\Http\Models\ProfilesAddresses::makenew(array('user_id' => $user->id, 'email' => $post['email'], 'phone' => $post['phone'], 'mobile' => $post['mobile'], 'formatted_address' => $post['formatted_addressForDB'], 'address' => $post['formatted_address'], 'city' => $post['city'], 'province' => $post['province'], 'postal_code' => $post['postal_code'], 'country' => $post['country'], 'latitude' => $post['latitude'], 'longitude' => $post['longitude']));
-
-                if($user->id){
-                    login($user->id);
-                }
-
-                $userArray = $user->toArray();
-                $userArray['mail_subject'] = 'Thank you for your registration at DidUEat.';
-
-                $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
-                \DB::commit();
+                $user = $this->registeruser("Home@signupRestaurants", $post, 2, $ob->id, $browser_info);
 
                 $message['title'] = "Registration Success";
                 $message['msg_type'] = "success";

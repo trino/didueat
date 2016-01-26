@@ -38,7 +38,7 @@ class UsersController extends Controller {
                 return $this->failure( trans('messages.user_email_already_exist.message'),'users/list', true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
-                return $this->failure( trans('messages.user_pass_field_missing.message'),'users/list', true);
+                return $this->failure( trans('messages.user_pass_field_missing.message') . " (0x03)",'users/list', true);
             }
             if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
@@ -48,40 +48,8 @@ class UsersController extends Controller {
             }
 
             \DB::beginTransaction();
-            try {//construct profile as an array
-                $post['status'] = 'active';
-                $post['is_email_varified'] = 0;
-                $post['profile_type'] = 2;
-                $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
-                $post['created_by'] = \Session::get('session_id');
-
-                $browser_info = getBrowser();//get user's web browser/OS data
-                $post['ip_address'] = get_client_ip_server();
-                $post['browser_name'] = $browser_info['name'];
-                $post['browser_version'] = $browser_info['version'];
-                $post['browser_platform'] = $browser_info['platform'];
-
-                $user = new \App\Http\Models\Profiles();
-                $user->populate(array_filter($post));
-                $user->save();
-                event(new \App\Events\AppEvents($user, "User created"));
-                
-                if(isset($user->id)){//save address
-                    $add = new \App\Http\Models\ProfilesAddresses();
-                    $post['user_id'] = $user->id;
-                    $add->populate(array_filter($post));
-                    $add->save();
-
-                    $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'Thank you for registration.';
-
-                    $userArray['idd'] = '4';
-
-
-                    $this->sendEMail("emails.registration_welcome", $userArray);
-                    \DB::commit();
-                }
-
+            try {
+                $this->registeruser("Users@index", $post, 2, 0, false, true);
                 return $this->success('User has been added successfully. A confirmation email has been sent to the selected email address for verification.', 'users/list', true);
             } catch (\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
@@ -350,63 +318,34 @@ class UsersController extends Controller {
                 
                 $ob2->save();
                 $oid = $ob2->id;
-                
-                $data['email'] = $post['email'];
-                $data['phone'] = $post['contact'];
-                $data['name'] = trim($post['ordered_by']);
-                $data['profile_type'] = 2;
-                $data['created_by'] = 0;
-                $data['subscribed'] = 0;
-                $data['restaurant_id'] = 0;
+
+                $post['phone'] = $post['contact'];
+                $post['name'] = trim($post['ordered_by']);
 
                 //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
-                    $data['password'] = encryptpassword($post['password']);
-                    if (\App\Http\Models\Profiles::where('email', $data['email'])->first()) {
+                    if (\App\Http\Models\Profiles::where('email', $post['email'])->first()) {
                         echo '1';
                         die();
                     } else {
                         //$data = array("name" => trim($name), "profile_type" => 2, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0');
-                        $uid = new \App\Http\Models\Profiles();
-                        $uid->populate($data);
-                        $uid->save();
-                        
-                        event(new \App\Events\AppEvents($uid, "User Created"));
-                        
-                        $data['user_id'] = $uid->id;
-                        
-                        $nd1 = new \App\Http\Models\NotificationAddresses();
-                        $nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $uid->id, 'address' => $uid->email));
-                        $nd1->save();
-                        
-                        if ($uid->id) {
-                            $ad = new \App\Http\Models\ProfilesAddresses();
-                            $ad->populate($data);
-                            $ad->save();
-                            
-                            $nd2 = new \App\Http\Models\NotificationAddresses();
-                            $nd2->populate(array("is_default" => 1, 'type' => "Phone", 'user_id' => $uid->id, 'address' => $ad->phone));
-                            $nd2->save();
-                            
-                            $userArray = $uid->toArray();
-                            $userArray['idd'] = '1';
+                        $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
 
-                            $userArray['mail_subject'] = 'Thank you for registration.';
-                            $this->sendEMail("emails.registration_welcome", $userArray);
-                        }
+                        $post['user_id'] = $uid->id;
+
+                        //users should not have notification addresses, these are for stores only!!!
+                        //$nd1 = new \App\Http\Models\NotificationAddresses();
+                        //$nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $uid->id, 'address' => $uid->email));
+                        //$nd1->save();
                         $msg = "78";
                     }
                 }
-                
-                $data['restaurant_id'] = $res['restaurant_id'];
-                $data['remarks'] = $post['remarks'];
-                $data['order_till'] = $post['order_till'];
-                $data['contact'] = $post['contact'];
-                $data['ordered_by'] = $data['name'];
+
+                $post['ordered_by'] = $post['name'];
                 
                 //$res_data = array('email' => $post['email'], /*'address2' => $post['address2'], 'city' => $post['city'], 'ordered_by' => $post['postal_code'],*/ 'remarks' => $post['remarks'], 'order_till' => $post['order_till'], 'contact' => $phone);
                 $res = \App\Http\Models\Reservations::find($oid);
-                $res->populate($data);
+                $res->populate($post);
                 $res->save();
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));

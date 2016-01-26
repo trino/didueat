@@ -21,7 +21,7 @@
             <div class="modal-body" id="signupModalBody">
                 <?php printfile("views/popups/signup.blade.php"); ?>
                 <div class="editaddress">
-                    @include('common.signupform', array("new" => true))
+                    @include('common.contactinfo', array("new" => true))
                 </div>
             </div>
 
@@ -40,8 +40,6 @@
                     <button id="regButton" class="btn btn-primary" type="submit">Sign Up</button>
                 </div>
             </div>
-
-
 
             {!! Form::close() !!}
         </div>
@@ -63,14 +61,14 @@
                         type: "post"
                     }
                 },
-                password0: {
+                password: {
                     required: true,
                     minlength: 5
                 },
-                confirm_password0: {
+                confirm_password: {
                     required: true,
                     minlength: 5,
-                    equalTo: "#password0"
+                    equalTo: "#password"
                 }
             },
             messages: {
@@ -78,7 +76,7 @@
                     required: "Please enter an email address!",
                     remote: "This email address is in use already!"
                 },
-                confirm_password0: {
+                confirm_password: {
                     equalTo: "The password fields are mis-matched!"
                 }
             }

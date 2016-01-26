@@ -15,7 +15,7 @@
                         {!! csrf_field() !!}
                         <input type="hidden" name="action" value="login">
                         <input type="hidden" name="type" id="login_type" value=""/>
-                        <input type="hidden" name="gmt" id="gmt" value="">
+                        <input type="hidden" name="gmt" id="gmt" class="gmt">
 
                         <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
@@ -51,6 +51,6 @@
     <SCRIPT>
         var visitortime = new Date();
         var visitortimezone = -visitortime.getTimezoneOffset()/60;
-        document.getElementById("gmt").value = visitortimezone;
+        $(".gmt").val(visitortimezone);
     </SCRIPT>
 @endif

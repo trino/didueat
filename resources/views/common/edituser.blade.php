@@ -31,8 +31,7 @@
         </div>
     </div>
 </div>
-
-@include("common.signupform", array("user_detail" => $user_detail, "needsoldpassword" => false))
+@include('common.contactinfo', array("user_detail" => $user_detail, "needsoldpassword" => false))
 
 <div class="clearfix"></div>
 
