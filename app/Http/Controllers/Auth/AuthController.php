@@ -282,7 +282,7 @@ class AuthController extends Controller {
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'New password request for your DidUEat account.';
-                    $userArray['new_pass'] = $newpass . " = " . $user->password;
+                    $userArray['new_pass'] = $newpass;
                     $this->sendEMail("emails.forgot", $userArray);
 
                     $message['title'] = "Forgot Password";
