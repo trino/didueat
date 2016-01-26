@@ -38,9 +38,6 @@ class BaseModel extends Model {
                             case "phone":
                                 $this->$key = phonenumber($this->$key);
                                 break;
-                            case "mobile":
-                                $this->$key = phonenumber($this->$key);
-                                break;
                             case "postalcode":
                                 $this->$key = clean_postalcode($this->$key);
                                 break;

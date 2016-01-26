@@ -12,13 +12,12 @@ if (!isset($minimum)) {
 <input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
-       value="My Resto {{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+       value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
 echo newrow($new, "Email", "", true, 7); ?>
-<input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address"
-       value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
+    <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 </div></div>
 <?php }
 
