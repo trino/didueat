@@ -24,9 +24,8 @@ class BaseModel extends Model {
     }
 
     public function copycells($cells, $data){
-
         foreach ($cells as $key => $cell) {
-            if(is_numeric($key) && $this->$cell != "password") {
+            if(is_numeric($key)) {
                 if (array_key_exists($cell, $data)) {
                     $this->$cell = $this->cleantext($data[$cell]);
                     $data[$cell] = $this->$cell;
@@ -89,6 +88,7 @@ class BaseModel extends Model {
      */
 
     public function encryptPassword($password) {
+        if(is_encrypted($password)){return $password;}
         if($password) {return \bcrypt($password);}
     }
 }
