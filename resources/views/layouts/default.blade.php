@@ -92,7 +92,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 @include('popups.login')
 @include('popups.signup')
-@include('popups.forgotpassword')
+@include('popups.forgot-password')
 
 @include('layouts.includes.header')
 
@@ -126,7 +126,7 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "<br/>&bull; Restaurant address";
             }
 //                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
-//                if(!$Restaurant->status){$MissingData[] = "status to be set to 1";}
+//                if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
             if ($Restaurant->max_delivery_distance < 2) {
                 $MissingDataOptional[] = "<br/>&bull; Delivery range";
             }
@@ -167,10 +167,18 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "<br/>&bull; Your credit card authorization";
             }
 
-            if ($MissingData) { 
+            if ($MissingData) {
+            
+              if(isset($post['initialRestSignup'])){
+               $missingHead="PARTIAL REGISTRATION COMPLETED!";
+              }
+              else{
+               $missingHead="PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
+              }
+            
                 $MissingData = array_merge($MissingData, $MissingDataOptional);
                 $MissingData = "<br/>Please scroll down the page, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData) . "</div>";
-                $step1CompleteMsg = '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>PARTIAL REGISTRATION COMPLETED!</u></STRONG>' . $MissingData . '</DIV>';
+                $step1CompleteMsg = '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>'.$missingHead.'</u></STRONG>' . $MissingData . '</DIV>';
             }
         }
     }

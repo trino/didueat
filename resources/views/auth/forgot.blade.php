@@ -21,13 +21,13 @@
                 </div>
                 <div class="portlet-body">
                     <h4>Enter your email address</h4>
-                    {!! Form::open(array('url' => '/auth/forgot-passoword', 'id'=>'login-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+                    {!! Form::open(array('url' => '/auth/forgot-password', 'id'=>'login-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div class="form-group clearfix">
                         <label for="email" class="col-md-2 col-sm-4 col-xs-4 control-label">Email</label>
                         <div class="col-md-10 col-sm-8 col-xs-8">
                             <div class="input-icon">
                                 <i class="fa fa-envelope"></i>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}"required>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="{{ old('email') }}" required>
                             </div>
                         </div>
                     </div>

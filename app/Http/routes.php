@@ -35,9 +35,9 @@ Route::post('auth/register/ajax',                                   'Auth\AuthCo
 Route::get('auth/resend_email/{email}',                             'Auth\AuthController@resendEmail');
 Route::get('auth/resend_email/ajax/{email}',                        'Auth\AuthController@resendPostEmail');
 Route::get('auth/verify_email/{email}',                             'Auth\AuthController@verifyEmail');
-Route::get('auth/forgot-passoword',                                 'Auth\AuthController@forgotPassword');
-Route::post('auth/forgot-passoword',                                'Auth\AuthController@postForgotPassword');
-Route::post('auth/forgot-passoword/ajax',                           'Auth\AuthController@postAjaxForgotPassword');
+Route::get('auth/forgot-password',                                 'Auth\AuthController@forgotPassword');
+Route::post('auth/forgot-password',                                'Auth\AuthController@postForgotPassword');
+Route::post('auth/forgot-password/ajax',                           'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',                             'Auth\AuthController@postAjaxValidateEmail');
 Route::resource('restaurant/view',                                  'RestaurantController@restaurantInfo');
 

@@ -22,6 +22,7 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function dashboard() {
+    
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email
@@ -49,6 +50,33 @@ class AdministratorController extends Controller {
                 } else if ($post['password'] || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
                 }
+
+
+
+                $update=$post;
+                if ($post['photo'] != '') {
+                    $im = explode('.', $post['photo']);
+                    $ext = end($im);
+                    $res = \App\Http\Models\Restaurants::find($post['restaurant_id']);
+                    $newName = $res->photo;
+                    if ($newName != $post['photo']){
+                        $newName = $res->slug . '.' . $ext;
+                        if(file_exists(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName))){
+                            @unlink(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName));
+                        }
+                    }
+                    if (!file_exists(public_path('assets/images/restaurants/' . $post['restaurant_id']))) {
+                        mkdir('assets/images/restaurants/' . $post['restaurant_id'], 0777, true);
+                    }
+                    $destinationPath = public_path('assets/images/restaurants/' . $post['restaurant_id']);
+                    $filename = $destinationPath . "/" . $newName;
+                    copy(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']), $filename);
+                    @unlink(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']));
+                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
+                    copyimages($sizes, $filename, $newName);
+                    $update['photo'] = $newName;
+                }
+
 
                 //copy post data to an array
                 $data['subscribed'] = 0;

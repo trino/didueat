@@ -49,7 +49,7 @@ class UsersController extends Controller {
 
             \DB::beginTransaction();
             try {//construct profile as an array
-                $post['status'] = 1;
+                $post['status'] = 'active';
                 $post['is_email_varified'] = 0;
                 $post['profile_type'] = 2;
                 $post['subscribed'] = (isset($post['subscribed']))?$post['subscribed']:0;
@@ -115,7 +115,7 @@ class UsersController extends Controller {
             'per_page' => $per_page,
             'start' => $start,
             'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
-            'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
+            'order' => (\Input::get('emal')) ? \Input::get('email') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
         

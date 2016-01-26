@@ -55,7 +55,7 @@ $needsmobile = isset($mobile);
 
     </DIV>
     <DIV>
-        <span>(Start typing address then click from dropdown to populate all address fields)</span>
+        <span class="alldays">(Start typing address then click from dropdown to populate all address fields)</span>
     </DIV>
     @endif
 

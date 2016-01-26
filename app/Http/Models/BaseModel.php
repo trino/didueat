@@ -24,8 +24,9 @@ class BaseModel extends Model {
     }
 
     public function copycells($cells, $data){
+
         foreach ($cells as $key => $cell) {
-            if(is_numeric($key)) {
+            if(is_numeric($key) && $this->$cell != "password") {
                 if (array_key_exists($cell, $data)) {
                     $this->$cell = $this->cleantext($data[$cell]);
                     $data[$cell] = $this->$cell;

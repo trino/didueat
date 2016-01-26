@@ -172,7 +172,6 @@ echo newrow($new, "Allow pickup"); ?>
     $("#max_delivery_distance").trigger("change");
 
     $( document ).ready(function() {
-        fhgfhfdhfd;
         same(false);
     });
 </script>

@@ -287,17 +287,16 @@
         function escapechars(text) {
             return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
+        
 
         $('body').on('submit', '#forgot-pass-form', function (e) {
             var token = $("#forgot-pass-form input[name=_token]").val();
             var email = $("#forgot-pass-form input[name=email]").val();
-
-            $("#forgot-pass-form #regButton").hide();
+            $("#forgot-pass-form #lostPWregButton").hide();
             $("#forgot-pass-form #regLoader").show();
-            $.post("{{ url('auth/forgot-passoword/ajax') }}", {_token: token, email: email}, function (result) {
-                $("#forgot-pass-form #regButton").show();
+            $.post("{{ url('auth/forgot-password/ajax') }}", {_token: token, email: email}, function (result) {
+                $("#forgot-pass-form #lostPWregButton").show();
                 $("#forgot-pass-form #regLoader").hide();
-
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
                     $('#forgot-pass-form #error').show();
@@ -305,6 +304,8 @@
                 } else {
                     $('#forgot-pass-form').hide();
                     $('#forgot-pass-success').show();
+                    $('#closeBtn').show();
+                    $('#lostPWregButton').hide();
                     $('#forgot-pass-success p').html(json.message);
                 }
             });

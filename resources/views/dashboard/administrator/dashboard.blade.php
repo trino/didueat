@@ -10,7 +10,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3>My Info</h3>
+                <h3>My Personal Profile</h3>
             </div>
             <div class="card-block">
                 {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
@@ -18,21 +18,30 @@
 
                     @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true))
 
-                    <?= newrow(false, "Profile Photo"); ?>
+
+
+                    <?= newrow(false, "Profile Photo","","",7); ?>
+
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Click to Change Image</a> &nbsp;
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
-                            <img id="picture" class="logopic"
+                            <img id="picture" class="logopic" align="right"
                             @if($user_detail->photo)
                                 src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo). '?'.mt_rand() }}" >
                             @else
-                                src="{{ asset('assets/images/default.png') }}" >
+                                src="{{ asset('assets/images/didueatdefault.png') }}" >  
+        <script>
+            document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
+        </script>
                             @endif
-                            <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Change Image</a>
                         </div>
                     </div>
+
+<hr width="100%" align="center" />
 
                 </div>
                 <div class="card-footer clearfix" style="text-align:center">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <input name="user_idDir" id="user_idDir" type="hidden" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
                     <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                     <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
                     <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}"/>    
@@ -75,7 +84,6 @@
                     var path = resp[0];
                     var img = resp[1];
                     button.html('Change Image');
-
                     window.clearInterval(interval);
                     this.enable();
                     $('#picture').attr('src', path);

@@ -17,13 +17,12 @@ class Profiles extends BaseModel {
 
     public function populate($data) {
     
-
-       $cells = array('profile_type', 'restaurant_id', 'name', 'email', 'phone', 'mobile', 'password', 'subscribed', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'gmt', 'status');
+// requires associative array for phone, mobile, password so that copycells will know to modify
+       $cells = array('profile_type', 'restaurant_id', 'name', 'email', 'phone' => 'phone', 'mobile' => 'mobile', 'password' => 'password', 'subscribed', 'ip_address', 'browser_name', 'browser_version', 'browser_platform', 'gmt', 'status'); 
         
         if((isset($data["mobile"]) && phonenumber(isset($data["mobile"])) && (!isset($data["phone"]) || !phonenumber($data["phone"]))) ){
             $data["phone"] = $data["mobile"];
         }
-
 
         $this->copycells($cells, $data);
     }
@@ -32,7 +31,7 @@ class Profiles extends BaseModel {
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
         $meta = $array['meta'];
-        $order = $array['order'];
+        $order = $array['email'];
         $per_page = $array['per_page'];
         $start = $array['start'];
 

@@ -53,7 +53,7 @@ if(Session::get('session_type_user') != "restaurant"){
         </div>
                     @include("common.contactinfo", array("new"=>true, "mobile" => true))
                     <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
-                        <input type="submit" class="btn btn-primary red" value="Save Changes">
+                        <input type="submit" class="btn btn-primary red" value="Create Restaurant Profile">
                     </div>
                 </div>
             </div>

@@ -122,7 +122,7 @@ class AuthController extends Controller {
             } else {
                 \DB::beginTransaction();
                 try {//add new user to the database
-                    $data['status'] = 1;
+                    $data['status'] = 'active';
                     $data['is_email_varified'] = iif($email_verification, 0, 1);
                     $data['profile_type'] = 2;
                     $data['password'] = $data['password0'];
@@ -257,7 +257,7 @@ class AuthController extends Controller {
         }
 
         if (isset($user) && count($user) > 0 && !is_null($user)) {
-            $user->status = 1;
+            $user->status = 'active';
             $user->is_email_varified = 1;
             $user->save();
 
@@ -295,8 +295,8 @@ class AuthController extends Controller {
             try {
                 $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
-                    if ($user->status == 0) {
-                        return $this->failure2($AsJSON ,trans('messages.user_inactive.message'), 'auth/forgot-passoword');
+                    if ($user->status == "") {
+                        return $this->failure2($AsJSON ,trans('messages.user_inactive.message'), 'auth/forgot-password');
                     }
 
                     $newpass = substr(dechex(round(rand(0, 999999999999999))), 0, 8);
@@ -309,21 +309,21 @@ class AuthController extends Controller {
                     $this->sendEMail("emails.forgot", $userArray);
 
                     $message['title'] = "Forgot Password";
-                    $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Your password has been has been reset successfully. We sent an email to [$user->email]. Please check your inbox for your new password. If you still have any difficulties please contact us. Thank you";
+                    $message['msg_type'] = "Password Emailed";
+                    $message['msg_desc'] = "Your password has been has been reset successfully. We sent an email to [<span style='color:#0000FF'>$user->email</span>]. Please check your inbox for your new password. If you still have any difficulties please contact us. Thank you";
                     if($AsJSON){
                         echo json_encode(array('type' => $message['msg_type'], 'message' => $message['msg_desc']));
                         die;
                     }
                     return view('messages.message', $message);
                 } else {
-                    return $this->failure2(trans($AsJSON, 'messages.user_email_not_verify.message'), 'auth/forgot-passoword');
+                    return $this->failure2(trans($AsJSON, 'messages.user_email_not_verify.message'), 'auth/forgot-password');
                 }
             } catch (Exception $e) {
-                return $this->failure2($AsJSON, handleexception($e), 'auth/forgot-passoword');
+                return $this->failure2($AsJSON, handleexception($e), 'auth/forgot-password');
             }
         } else {
-            return $this->failure2($AsJSON, trans('messages.user_missing_email.message'), 'auth/forgot-passoword');
+            return $this->failure2($AsJSON, trans('messages.user_missing_email.message'), 'auth/forgot-password');
         }
     }
 

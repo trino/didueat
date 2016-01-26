@@ -182,10 +182,12 @@ function newrow($new = false, $name = false, $class = "", $Required = false,$col
     if ($new) {
         return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $Required . '" id="' . $id . '"><b>' . $name . ':</b></label><BR>' . $labelStr;
     } else if ($name && ($labelStr=="" || !$labelStr)) {
-        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '"><b>' . $name . ':</b></label><div class="col-sm-' . $columns . '">';
+      ($name==" ")? $colon="" : $colon=":";
+        return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '"><b>' . $name.$colon.'</b></label><div class="col-sm-' . $columns . '">';
     } else if ($labelStr!="" && !$labelStr) {
         return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $Required . '" id="' . $id . '">' . $labelStr .  '</label><div class="col-sm-' . $columns . '">';
     } elseif($labelStr){
+    // don't display label on left column
         return '<div class="form-group row editaddress ' . $class . '"><div class="col-sm-' . $columns . '">';
     } else {
         return '</div></div>';

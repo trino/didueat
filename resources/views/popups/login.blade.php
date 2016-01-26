@@ -19,15 +19,14 @@
 
                         <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
-                        <div class="form-group row">
-                            <label class="col-sm-3">Email Address</label>
-                            <div class="col-sm-9">
+
+<?php echo newrow(false, "Email Address", "", true); ?>
                                 <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3">Password</label>
-                            <div class="col-sm-9">
+                        
+                        
+<?php echo newrow(false, "Password", "", true); ?>
                                 <input type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>

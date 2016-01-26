@@ -69,3 +69,9 @@ resources/views/restaurants-signup.blade_backupJan20,2016.php
 app/Http/Models/ProfilesAddresses_backupJan20,2016.php
 laravel-session-values.txt
 resources/views/dashboard/restaurant/restaurant.blade_backupJan25,2016.php
+app/Http/Functions/helpers_backupJan25,2016.php
+app/Http/Models/BaseModel_backupJan25,2016.php
+resources/views/common/contactinfo.blade_backupJan25,2016.php
+app/Http/Models/Restaurants_backupJan25,2016.php
+resources/views/dashboard/restaurant/hours.blade_backupJan25,2016.php
+resources/views/dashboard/restaurant/restaurant.blade_backupJan25,2016b.php

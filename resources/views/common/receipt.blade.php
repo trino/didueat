@@ -231,9 +231,9 @@
                                     <SELECT CLASS="form-control form-control--contact"
                                             ONCHANGE="addresschanged(event);">
                                         <OPTION VALUE="0" ID="add0">Select Address</OPTION>
-                                        <?php
+                                        <?php  
                                         //NOTE: AT NO POINT SHOULD WE ASSUME WHAT ADDRESS THE CUST WANTS TO USE, NO DEFAULTS
-                                        $addresses = select_field("profiles_addresses", "user_id", $profile->id, false, "order");
+                                        $addresses = select_field("profiles_addresses", "user_id", $profile->id, false, "email");
                                         foreach ($addresses as $address) {
                                             echo '<OPTION VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
                                             echo 'BUZZ="' . $address->buzz . '" COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';

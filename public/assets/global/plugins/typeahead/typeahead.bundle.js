@@ -967,7 +967,6 @@
             40: "down"
         };
         function Input(o) {
-        alert("Hello")
             var that = this, onBlur, onFocus, onKeydown, onInput;
             o = o || {};
             if (!o.input) {

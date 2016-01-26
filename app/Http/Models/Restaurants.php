@@ -14,6 +14,8 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data) {
+    
+// requires associative array for postal_code so that copycells will know to modify
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone', 'mobile', 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'logo', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
 
         $weekdays = getweekdays();

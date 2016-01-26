@@ -40,7 +40,7 @@
                     <div class="form-group clearfix">
                         <div class="col-md-offset-2 col-md-10 col-sm-10 col-xs-12">
                             <span>Forgot your account password? </span>
-                            <a href="{{ url('auth/forgot-passoword') }}">Click here</a>
+                            <a href="{{ url('auth/forgot-password') }}">Click here</a>
                         </div>
                     </div>
                     <div class="form-group clearfix">

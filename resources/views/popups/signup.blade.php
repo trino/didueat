@@ -26,7 +26,7 @@
             </div>
 
 
-            <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+            <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;margin-left:auto;margin-right:auto;"/>
 
             <div class="modal-footer">
                 <div id="actionBtn">

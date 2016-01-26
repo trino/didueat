@@ -28,8 +28,8 @@
 
 
     makelink(array( 'orders/list/user' => 'My Orders',
-                        'user/addresses' => "My Address",
-                        'user/info' => "My Profile"
+                        'user/addresses' => "My Home Address",
+                        'user/info' => "My Personal Profile"
                     ), "<i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User Navigation");
 
         if(check_permission("can_edit_global_settings")){

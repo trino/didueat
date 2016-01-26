@@ -9,9 +9,10 @@ if (!isset($minimum)) {
     $minimum = false;
 }
 ?>
+<input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
-       value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+       value="My Resto {{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
@@ -61,10 +62,10 @@ if(!$minimum){
     <!--?php echo newrow();
     echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?-->
 
-    <?php echo newrow($new, "Logo","","",6); ?>
+    <?php echo newrow($new, "Logo","","",7); ?>
 
     @if(!$is_disabled)
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Change Image</a> &nbsp;
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Click to Change Image</a> &nbsp;
     @endif
 
     <input type="hidden" name="logo" id="hiddenLogo"/>
@@ -75,7 +76,7 @@ if(!$minimum){
     @else
         src="{{ asset('assets/images/didueatdefault.png') }}" />
         <script>
-            document.getElementById('uploadbtn').innerHTML="Set Your Own Logo";
+            document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
         </script>
     @endif
 
