@@ -229,7 +229,7 @@ function changeqty(id, opr) {
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
-        $('div.tax').text(tax);
+        $('span.tax').text('$'+tax);
         $('input.tax').val(tax);
 
         var del_fee = 0;
@@ -296,7 +296,7 @@ function changeqty(id, opr) {
         tax = parseFloat(tax);
         tax = (tax / 100) * subtotal;
         tax = tax.toFixed(2);
-        $('div.tax').text(tax);
+        $('span.tax').text('$'+tax);
         $('input.tax').val(tax);
         var del_fee = 0;
         if ($('#delivery_flag').val() == '1') {
