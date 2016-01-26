@@ -85,7 +85,6 @@ class BaseModel extends Model {
      */
 
     public function encryptPassword($password) {
-        if(is_encrypted($password)){return $password;}
-        if($password) {return \bcrypt($password);}
+        if($password) {return encryptpassword($password);}
     }
 }

@@ -40,8 +40,11 @@ class AuthController extends Controller {
                     if ($user->status != "active") {
                         return $this->failure2($AsJSON, trans('messages.user_inactive.message'), $url);
                     }
+
                     $password = encryptpassword(\Input::get('password'));
-                    if (\Hash::check($password, $user->password)) {
+                    debugprint($password . " = " . $user->password);
+
+                    if ($password == $user->password) {
                         $gmt = \Input::get('gmt');
                         edit_database("profiles", "id", $user->id, array("gmt" => $gmt));//update time zone
                         $user->gmt = $gmt;
@@ -274,12 +277,12 @@ class AuthController extends Controller {
                     }
 
                     $newpass = substr(dechex(round(rand(0, 999999999999999))), 0, 8);
-                    $user->password = \bcrypt($newpass);;
+                    $user->password = encryptpassword($newpass);;
                     $user->save();
 
                     $userArray = $user->toArray();
                     $userArray['mail_subject'] = 'New password request for your DidUEat account.';
-                    $userArray['new_pass'] = $newpass;
+                    $userArray['new_pass'] = $newpass . " = " . $user->password;
                     $this->sendEMail("emails.forgot", $userArray);
 
                     $message['title'] = "Forgot Password";

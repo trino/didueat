@@ -396,6 +396,10 @@ function is_valid_email($EmailAddress) {
 
 //encrypts the password using salt
 function encryptpassword($Password) {
+    /*if(is_encrypted($Password)){
+        return $Password;
+    }*/
+    //return \bcrypt($Password);
     return \crypt($Password, salt());
 }
 
