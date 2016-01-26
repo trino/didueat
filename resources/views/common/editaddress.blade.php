@@ -114,14 +114,14 @@ $needsmobile = isset($mobile);
     <?php echo newrow($new, "Phone Number", "", $required, 4); ?>
     <input type="text" name="phone" class="form-control"
            {{ $is_disabled }} placeholder="Phone Number must be a valid, in-service, Canadian number"
-           value="9055255682{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
+           value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}" {{$required}}>
     </div>
     </div>
 
 
     <?php echo newrow($new, "Cellphone Number", "", $required, 4); ?>
     <input type="text" name="mobile" class="form-control" {{ $is_disabled }} placeholder="Cellphone Number"
-           value="9058074205{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
+           value="{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
     </div>
     </div>
 

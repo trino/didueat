@@ -233,6 +233,6 @@ if (Request::path() !== null && Request::path() != "/") {
                 }
             }
         }
-        return field;
+        return field.replace(":", "");
     }
 </SCRIPT>

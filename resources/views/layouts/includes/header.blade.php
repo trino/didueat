@@ -44,8 +44,7 @@ $first = false; $type = "hidden";
                                 </div>
                                 <?php } ?>
                             @else
-                                <button style="border-right:0;" class="btn  btn-secondary" onclick="geolocate(formatted_address2)"
-                                        title="Get location from your browser">
+                                <button style="border-right:0;" class="btn  btn-secondary" onclick="geolocate(formatted_address2)" title="Get location from your browser">
                                     &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button>
                             @endif
                         </div>

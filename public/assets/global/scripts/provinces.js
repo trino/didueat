@@ -1,8 +1,4 @@
 function getelement(name) {
-    var element = document.getElementById(name + "2");
-    if (element) {
-        return element;
-    }
     var element = document.getElementById(name);
     return element;
 }
