@@ -467,12 +467,15 @@ class RestaurantController extends Controller {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
+                $file="profile." . $ext;
+                //\App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
             } else {
                 $path = 'assets/images/products';
             }
             if(!is_dir(public_path($path))){
                 mkdir(public_path($path));
             }
+
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . "/" . $path . "/" . $file;
             /*for each size in the array, make a thumbnail of the image.ext as image(WIDTHxHEIGHT).ext in the same folder

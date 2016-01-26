@@ -1153,10 +1153,12 @@ function imagecreatefrombmp($filename) {
 //copies an image ($file) to a new location
 //$sizes contains an array of key=path, value=size
 function copyimages($sizes, $file, $name, $CropToFit = false) {
-    foreach ($sizes as $path => $size) {
-        $rsize = resize($file, $size, $CropToFit);
-        copy($rsize, public_path($path . $name));
-        @unlink($rsize);
+    if(file_exists($file) && !is_dir($file)) {
+        foreach ($sizes as $path => $size) {
+            $rsize = resize($file, $size, $CropToFit);
+            copy($rsize, public_path($path . $name));
+            @unlink($rsize);
+        }
     }
 }
 

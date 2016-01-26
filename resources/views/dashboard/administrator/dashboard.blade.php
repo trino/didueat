@@ -26,12 +26,13 @@
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
                             <img id="picture" class="logopic" align="right"
                             @if($user_detail->photo)
-                                src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo). '?'.mt_rand() }}" >
+                                test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
+                                src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) }}" >
                             @else
                                 src="{{ asset('assets/images/didueatdefault.png') }}" >  
-        <script>
-            document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
-        </script>
+                                <script>
+                                    document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
+                                </script>
                             @endif
                         </div>
                     </div>

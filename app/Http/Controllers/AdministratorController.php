@@ -69,11 +69,14 @@ class AdministratorController extends Controller {
                         mkdir('assets/images/restaurants/' . $post['restaurant_id'], 0777, true);
                     }
                     $destinationPath = public_path('assets/images/restaurants/' . $post['restaurant_id']);
-                    $filename = $destinationPath . "/" . $newName;
-                    copy(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']), $filename);
-                    @unlink(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']));
-                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
-                    copyimages($sizes, $filename, $newName);
+
+                    //code is broken, deletes images it shouldn't.
+                    //$filename = $destinationPath . "/" . $newName;
+                    //copy(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']), $filename);
+                    //@unlink(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']));
+                    //$sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
+                    //copyimages($sizes, $filename, $newName);
+
                     $update['photo'] = $newName;
                 }
 

@@ -223,7 +223,28 @@ class UsersController extends Controller {
             return $this->failure( handleexception($e), 'users/list');
         }
     }
-    
+
+    public function save_profile_image($Keyname = "image", $UserID = false){
+        if(!$UserID){
+            $UserID= \Session::get('session_id');
+        }
+        $post['user_id'] = $UserID;
+
+        if (\Input::hasFile($Keyname)) {
+            $image = \Input::file($Keyname);
+            $ext = $image->getClientOriginalExtension();
+            $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
+            $destinationPath = public_path('assets/images/users/' . $UserID);
+            mkdir($destinationPath);
+            $image->move($destinationPath, $newName);
+            $post['filename'] = $newName;
+        }
+
+        $ob = new \App\Http\Models\ProfilesImages();
+        $ob->populate($post);
+        $ob->save();
+    }
+
     /**
      * change a profile image
      * @param null
@@ -242,22 +263,7 @@ class UsersController extends Controller {
                 return $this->failure( "[Image] field is missing!",'user/images');
             }
             try {
-                $post['user_id'] = \Session::get('session_id');
-
-                if (\Input::hasFile('image')) {
-                    $image = \Input::file('image');
-                    $ext = $image->getClientOriginalExtension();
-                    $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
-                    $destinationPath = public_path('assets/images/users/' . $post['user_id']);
-                    mkdir($destinationPath);
-                    $image->move($destinationPath, $newName);
-                    $post['filename'] = $newName;
-                }
-
-                $ob = new \App\Http\Models\ProfilesImages();
-                $ob->populate($post);
-                $ob->save();
-
+                $this->save_profile_image();
                 return $this->success( "Image uploaded successfully", 'user/images');
             }
             catch(\Exception $e) {
