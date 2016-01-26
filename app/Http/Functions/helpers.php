@@ -1085,7 +1085,18 @@ function getextension($path) {
 function loadimage($filename) {
     if(file_exists($filename)) {
         //get image extension.
-        $ext = getExtension($filename);
+        $ext = "";
+        $data = file_get_contents($filename);
+        $types = array("png" => "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a", "jpg" => "\xFF\xD8\xFF", "gif" => "GIF", "bmp" => "BM");//, "psd" => "8BPS", "swf" => "FWS");
+        foreach($types as $extension => $headerdata){
+            if ( substr( $data, 0, strlen($headerdata) ) === $headerdata ) {
+                $ext = $extension;
+            }
+        }
+        if(!$ext){
+            $ext = getExtension($filename);
+        }
+
         //creates the new image using the appropriate function from gd library
         if (!strcmp("jpg", $ext) || !strcmp("jpeg", $ext)) {
             return imagecreatefromjpeg($filename);
