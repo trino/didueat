@@ -40,7 +40,7 @@ class AuthController extends Controller {
                     if ($user->status != "active") {
                         return $this->failure2($AsJSON, trans('messages.user_inactive.message'), $url);
                     }
-                    $password = \Input::get('password');
+                    $password = encryptpassword(\Input::get('password'));
                     if (\Hash::check($password, $user->password)) {
                         $gmt = \Input::get('gmt');
                         edit_database("profiles", "id", $user->id, array("gmt" => $gmt));//update time zone

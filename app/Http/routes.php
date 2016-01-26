@@ -75,6 +75,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::get('credit-cards/list/{type}',                          'CreditCardsController@index');
     Route::post('credit-cards/list/{type}',                         'CreditCardsController@index');
     Route::post('credit-cards/list/ajax/{type}',                    'CreditCardsController@listingAjax');
+    Route::get('credit-cards/list/ajax/{type}',                     'CreditCardsController@listingAjax');
     Route::post('credit-cards/sequence',                            'CreditCardsController@creditCardsSequence');
     Route::get('credit-cards/edit/{id}',                            'CreditCardsController@creditCardFind');
     Route::get('credit-cards/delete/{id}/{type}',                   'CreditCardsController@creditCardsAction');
