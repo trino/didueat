@@ -71,11 +71,6 @@
                                         @endif
 
                                     </p>
-
-
-
-
-
                                 </div>
 
                                 @if(false) <!-- no tags yet -->

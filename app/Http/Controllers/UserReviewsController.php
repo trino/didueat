@@ -105,5 +105,19 @@ class UserReviewsController extends Controller {
         return view('dashboard.user_reviews.ajax.edit', $data);
     }
     
+    /**
+     * Edit User Review Form
+     * @param $id
+     * @return view
+     */
+    public function ajaxGetReviewUsersList() {
+        $post = \Input::all();
+        $rating_id = $post['rating_id'];
+        $type = $post['type'];
+        $data['detail'] = \App\Http\Models\RatingUsers::select('user_id', 'target_id', 'comments', 'created_at')->where('rating_id', $rating_id)->where('type', $type)->get();
+        $data['type'] = $type;
+        return view('ajax.reviewed_users', $data);
+    }
+    
 
 }

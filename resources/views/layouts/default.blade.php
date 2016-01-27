@@ -35,6 +35,8 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
+    <meta name="_token" content="{{ csrf_token() }}"/>
+    
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 

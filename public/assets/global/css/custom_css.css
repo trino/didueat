@@ -202,6 +202,7 @@ body.modal-open {
 .static-rating > label {
     color: #ddd;
     float: right;
+    position: relative;
 }
 
 .static-rating > .checked-stars ~ label {
@@ -354,3 +355,9 @@ table.orders thead{background: #e5e5e5;}
 .uploaded_on{font-size:14px;font-style: italic;float:right;}
 
 .cuisineCB{display:inline-block}
+.reviews_detail {color: #D9534F;}
+
+#modal_table_max_height { width: 100%; overflow: hidden;}
+#modal_table_max_height tr {display: block; }
+#modal_table_max_height td {overflow: visible !important; }
+#modal_table_max_height tbody { display: block; height: 400px; overflow: auto;}

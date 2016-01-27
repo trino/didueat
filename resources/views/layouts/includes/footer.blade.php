@@ -111,6 +111,21 @@
     });
 
     $(document).ready(function () {
+        $('body').on('click', '.reviews_detail', function(){
+            var rating_id = $(this).attr('data-rating-id');
+            var datatype = $(this).attr('data-item-type');
+            var dataname = $(this).attr('data-item-name');
+            var detail = $(this).attr('data-reviews-detail');
+            
+            $("#ratingDetailModal #ratingModalLabel").text(dataname);
+            $("#ratingDetailModal #reviews").text(detail);
+            $('#ratingDetailModal').modal('show');
+            
+            $.post("{{ url('reviews/users/get') }}", {rating_id:rating_id, type:datatype}, function(result){
+                $("#ratingDetailModal #modal_contents").html(result);
+            });
+        });
+        
         $('body').on('click', '.rating-it-btn', function () {
             var isAlreadyRated = $(this).attr('data-count-exist');
             var rating_id = $(this).attr('data-rating-id');

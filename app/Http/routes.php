@@ -147,6 +147,8 @@ Route::get('restaurant/saveCat',                                    'RestaurantC
 Route::post('restaurant/saveCat',                                   'RestaurantController@saveCat');
 Route::get('restaurant/getToken',                                   'HomeController@getToken');
 
+Route::post('reviews/users/get',                                    'UserReviewsController@ajaxGetReviewUsersList');
+
 Route::post('user/ajax_register',                                   'UsersController@ajax_register');
 Route::resource('user/json_data',                                   'UsersController@json_data');
 
