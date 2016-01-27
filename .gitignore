@@ -60,3 +60,8 @@ public/assets/images/where.png
 public/assets/images/security_code_sample_backup.gif
 *.blade_backup*
 laravel-session-values.txt
+app/Http/Functions/helpers_backupJan25,2016.php
+app/Http/Models/Restaurants_backupJan25,2016.php
+app/Http/Models/ProfilesAddresses_backupJan20,2016.php
+app/Http/Models/BaseModel_backupJan25,2016.php
+app/Http/Controllers/AdministratorController_backupJan26,2016.php

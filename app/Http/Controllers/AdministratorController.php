@@ -70,14 +70,13 @@ class AdministratorController extends Controller {
                     }
                     $destinationPath = public_path('assets/images/restaurants/' . $post['restaurant_id']);
 
-                    //code is broken, deletes images it shouldn't.
-                    //$filename = $destinationPath . "/" . $newName;
-                    //copy(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']), $filename);
-                    //@unlink(public_path('assets/images/users/' . $post['user_idDir'] . '/' . $post['photo']));
-                    //$sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
-                    //copyimages($sizes, $filename, $newName);
+                    $filename = $destinationPath . "/" . $newName;
+                    copy($post['userPhotoTemp'], public_path('assets/images/users/' . $post['user_idDir'] . '/'."profile.".$ext));
+                    @unlink($post['userPhotoTemp']);
+                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
+                    copyimages($sizes, $filename, $newName);
 
-                    $update['photo'] = $newName;
+                    $post['photo'] = "profile.".$ext;
                 }
 
 

@@ -467,8 +467,8 @@ class RestaurantController extends Controller {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-                $file="profile." . $ext;
-                //\App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
+//                $file="profile." . $ext;
+                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
             } else {
                 $path = 'assets/images/products';
             }

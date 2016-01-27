@@ -83,7 +83,7 @@ echo newrow($new, "Allow pickup"); ?>
     
     echo '<label class="col-sm-12 row"><hr width="100%" align="center" /></label>';
     
-    echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL class="is_delivery_options"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
+    echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL id="is_delivery_optionsCB"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours" name="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
 
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
@@ -123,10 +123,10 @@ echo newrow($new, "Allow pickup"); ?>
     function is_delivery_change(){
         if ($('#is_delivery').is(':checked')) {
             $('#is_delivery_options').show();
-            $('.is_delivery_options').show();
+//            $('.is_delivery_options').show();
         } else {
             $('#is_delivery_options').hide();
-            $('.is_delivery_options').hide();
+//            $('.is_delivery_options').hide();
         }
         same(false);
     }

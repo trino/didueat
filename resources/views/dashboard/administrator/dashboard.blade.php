@@ -42,6 +42,7 @@
                 </div>
                 <div class="card-footer clearfix" style="text-align:center">
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <input name="userPhotoTemp" type="hidden" id="userPhotoTemp" />
                     <input name="user_idDir" id="user_idDir" type="hidden" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
                     <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
                     <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
@@ -84,6 +85,7 @@
                     var resp = response.split('___');
                     var path = resp[0];
                     var img = resp[1];
+                    document.getElementById('userPhotoTemp').value=path;
                     button.html('Change Image');
                     window.clearInterval(interval);
                     this.enable();
