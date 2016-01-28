@@ -58,8 +58,7 @@ if(!$minimum){
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
     </div></div>
-    <!--?php echo newrow();
-    echo newrow($new, "Logo", "", false, 9, '<a href="#" id="uploadbtn" class="btn btn-success red">Change Logo</a>'); ?-->
+    
 
     <?php echo newrow($new, "Logo","","",7); ?>
 
@@ -106,18 +105,16 @@ if(!$minimum){
         @endif
 
         $('#demo4').tagEditor({
-                    //{!! (isset($resturant->tags))?strToTagsConversion($resturant->tags):'' !!}
+                    
             initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
                     placeholder: 'Enter tags ...',
-                    //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
-                    //onChange: function(field, editor, tags) { $('#response').prepend('Tags changed to: <i>'+(tags.length ? tags.join(', ') : '----')+'</i><hr>'); },
+                    
                     onChange: function (field, editor, tags) {
                         $('#responseTags').val((tags.length ? tags.join(', ') : ''));
                     },
                     beforeTagDelete: function (field, editor, tags, val) {
                         var q = confirm('Remove tag "' + val + '"?');
-                        //if (q) $('#responseTags').prepend('Tag <i>'+val+'</i> deleted.<hr>');
-                        //else $('#responseTags').prepend('Removal of <i>'+val+'</i> discarded.<hr>');
+                        
                         return q;
                     }
                 });
@@ -125,7 +122,7 @@ if(!$minimum){
 
     @if(isset($resturant->city))
         $(document).ready(function () {
-                //cities("{{ url('ajax') }}", '{{ (isset($resturant->city))?$resturant->city:0 }}');
+                
             });
     @endif
 

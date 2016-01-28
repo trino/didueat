@@ -100,8 +100,6 @@
                 <br />
                 </div>
                 </div>
-                <!--<strong>&nbsp; &nbsp; OR</strong> &nbsp; &nbsp;
-                <a href="javascript:void(0);" onclick="$('.catblock').toggle();">Create New</a><br/>-->
                 <div class="catblock" style="display: none;">
                     <input type="text" class="form-control cat_title" placeholder="Add new category"/>
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
@@ -120,21 +118,8 @@
         </div>
         <div class="clearfix ignore"></div>
     </div>
-
-    <!--<div class="col-md-12 col-sm-12 col-xs-12 ignore">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 ignore">
-                <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
-            </div>
-        </div>
-    </div>-->
-
-
-    <div class="clearfix ignore"></div>
-
-
     
-
+    <div class="clearfix ignore"></div>
 
     <div class="additional additional{{ $menu_id }} ignore"
          style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
@@ -147,8 +132,6 @@
             
         if (isset($_GET['menu_id'])) {
             $menu_id = $_GET['menu_id'];
-        }
-        //var_dump($cmodel);
         foreach($cmodel as $child){
         $k++;
         if ($k == 1)
@@ -164,17 +147,15 @@
         <script class="ignore ignore2 ignore1">
             $(function () {
                 $(".sorting_child").live('click', function () {
-                    // alert('test');
                     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
                     var sort = 'down';
                     if ($(this).attr('id') == 'child_up_' + pid) {
                         sort = 'up';
                     }
 
-                    var order = '';// array to hold the id of all the child li of the selected parent
+                    var order = '';
                     $('#subcat{{ $menu_id }} .cmore').each(function (index) {
                         var val = $(this).attr('id').replace('cmore', '');
-                        //var val=item[1];
                         if (order == '') {
                             order = val;
                         } else {
