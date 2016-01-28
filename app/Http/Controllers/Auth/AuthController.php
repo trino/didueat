@@ -52,6 +52,7 @@ class AuthController extends Controller {
                         if($AsJSON) {
                             die();
                         } else {
+                            die();
                             return redirect()->intended('dashboard');
                         }
                     } else {

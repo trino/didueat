@@ -190,17 +190,17 @@
                                 echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @else
-                                <a class="btn btn-danger" data-target="#loginModal" data-toggle="modal">Log in</a>
+                                <a class="btn btn-danger" data-target="#loginModal" data-toggle="modal" onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
                             @endif
                         </div>
                     </div>
 
-
+                    
                     <form name="checkout_form" id="profiles" novalidate class="m-b-0">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="user_id" id="ordered_user_id"
                                value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-
+                       <div style="<?php if(!Session::has('is_logged_in'))echo "display:none;";?>" class="reservation_address"> 
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
@@ -228,6 +228,7 @@
                         <div class="profile_delivery_detail" style="display: none;">
                             @if(isset($profile))
                                 <div class="col-xs-12">
+                                
                                     <SELECT CLASS="form-control form-control--contact"
                                             ONCHANGE="addresschanged(event);">
                                         <OPTION VALUE="0" ID="add0">Select Address</OPTION>
@@ -236,7 +237,7 @@
                                         $addresses = select_field("profiles_addresses", "user_id", $profile->id, false, "email");
                                         foreach ($addresses as $address) {
                                             echo '<OPTION VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                                            echo 'BUZZ="' . $address->buzz . '" COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
+                                            echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
                                             echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '">';
                                             echo $address->address;
                                             echo '</OPTION>';
@@ -345,11 +346,11 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-
+                     </div>
                         <div class="form-group   pull-right ">
                             <div class="col-xs-12">
                                 <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
-                                <button type="submit" class="btn btn-primary">Checkout</button>
+                                <?php if(Session::has('is_logged_in')){?><button type="submit" class="btn btn-primary">Checkout</button><?php }?>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
                                        value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>

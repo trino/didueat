@@ -328,7 +328,10 @@
         });
 
         $('body').on('submit', '#login-ajax-form', function (e) {
+           
+            e.preventDefault();
             var data = $('#login-ajax-form').serialize();
+            var reserv = $(this).attr('data-route');
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
             $.ajax({
@@ -336,6 +339,7 @@
                 data: data, _token: token,
                 type: "post",
                 success: function (msg) {
+                    
                     if (isNaN(Number(msg))) {
                         if (checkUrl(msg)) {
                             window.location = msg;
@@ -344,13 +348,14 @@
                             $('#invalid').fadeIn(500);
                         }
                     } else {
-                        if ($('#login_type').val() == 'reservation') {
+                        if ($('#login_type').val() == 'reservation'|| reserv == 'reservation') {
                             $.ajax({
                                 url: "{{url('/user/json_data')}}",
                                 type: "post",
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
+                                    $('.reservation_address').show();
                                     $('#fullname').val(arr.name);
                                     $('#ordered_user_id').val(arr.user_id);
                                     $('#ordered_email').val(arr.email);
@@ -360,7 +365,7 @@
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
                                     //$('.reservation_signin').hide();
-                                    $('.fancybox-close').click();
+                                    $('.close').click();
                                     //only loads header
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');
                                 }
@@ -375,7 +380,7 @@
                     $('#invalid').fadeIn(1000);
                 }
             });
-            e.preventDefault();
+            
         });
 
         $('body').on('click', '#resendMeEmail', function (e) {

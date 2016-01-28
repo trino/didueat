@@ -189,14 +189,16 @@
 
             $('.clearall , .close').click(function () {
                 var menu = $(this).attr('id');
-                menu = menu.replace('clear_', '');
-                //alert(menu);
-                $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
-                    if (!$(this).hasClass('chk'))
-                        $(this).removeAttr("checked");
-                    $('.allspan').html('0');
-                });
-                $('.inp').val("");
+                if(menu){
+                    menu = menu.replace('clear_', '');
+                    //alert(menu);
+                    $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
+                        if (!$(this).hasClass('chk'))
+                            $(this).removeAttr("checked");
+                        $('.allspan').html('0');
+                    });
+                    $('.inp').val("");
+                }
                 $('.fancybox-close').click();
             });
 
