@@ -8,15 +8,10 @@ $.ajax({
     url: base_url + 'restaurant/getToken',
     success: function (res) {
         token = res;
-        //alert(token);
-        // return token;
     }
 });
 $(".addon_sorting").live('click', function () {
             var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
-            //alert(menu_id);
-            //var menu_id = $par.find('.savebtn').attr('id').replace('newmenu','');
-            // alert('test');
             var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
             if ($(this).attr('id') == 'addon_up_' + pid) {
                 var sort = 'up';
@@ -26,7 +21,6 @@ $(".addon_sorting").live('click', function () {
             var order = '';// array to hold the id of all the child li of the selected parent
             $('#subcat'+menu_id+' .menuwrapper').each(function (index) {
                 var val = $(this).attr('id').replace('sub', '');
-                //var val=item[1];
                 if (order == '') {
                     order = val;
                 } else {
@@ -53,11 +47,7 @@ $('.add_additional').live('click', function () {
     $('.additional' + id).show();
     var c = 0;
     $('.newaction').each(function () {
-        //c++;
-        //if(c!=1)
         $(this).html('<a href="javascript:void(0)" class="btn btn-sm btn-danger removenormal">Remove</a>');
-        //else
-        //$(this).hide();
     });
     var ajax_load = '';
     $.ajax({
@@ -79,7 +69,6 @@ $('.removelast').live('click', function () {
     var tot = $_this.closest('.newmenu').find('.newaction').length;
     var newmenu = $_this.closest('.newmenu').attr('id');
     var id = newmenu.replace('newmenu','');
-    //alert(tot);
     if (confirm('Are you sure you want to delete this item?')) {
         $_this.closest('.menuwrapper').remove();
         var i = 0;
@@ -87,10 +76,10 @@ $('.removelast').live('click', function () {
             i++;
             if (i == tot - 1) {
                 if (i == 1){
-                    //$(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a>');
+                   
                     }
                 else{
-                    //$(this).html('<a class="btn btn-sm btn-info add_additional" id="add_additional'+id+'" href="javascript:void(0)">Add Addons</a> <a class="btn btn-sm btn-info savebtn" id = "save'+id+'" href="javascript:void(0)">Save</a><br/> <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
+                    
                     $(this).html('<a href="javascript:void(0)" class="btn btn-sm btn-danger removelast">Remove</a>');
                     }
                 $(this).show();
@@ -132,11 +121,9 @@ $('.days_discount_all').live('click',function(){
    } 
 });
 $('.savebtn').live('click', function () {
-    //var $_this = $(this);
+    
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
-    //alert(id);
-    //var id = $(this).attr('data-id');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
@@ -187,12 +174,9 @@ $('.savebtn').live('click', function () {
         {
             discount_per = '';
             var has_discount = 0;
-            //alert('here');
         }
         else
         {
-            //alert('there');
-            
             var has_discount = 1;
             $_parent.find('.days_discount').each(function(){
                 if($(this).is(':checked')){
@@ -203,7 +187,6 @@ $('.savebtn').live('click', function () {
                     else
                     days_discount = days_discount+','+$(this).val();
                 }
-               // alert(days_discount);
             })
         }
     }
@@ -227,7 +210,6 @@ $('.savebtn').live('click', function () {
         return false;
     }
 
-    // $_parent.find('.savebtn').attr('disabled','disabled');
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
 
@@ -244,8 +226,6 @@ $('.savebtn').live('click', function () {
         data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
         type: 'post',
         success: function (res) {
-            // alert(res);
-            //console.log(res); return;
             if ($_parent.find('.menuwrapper').length > 0) {
                 var d_o = 0;
                 var $_this = $(this);
@@ -285,8 +265,6 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
-                                                //if(d_o==$_parent.find('.menuwrapper').length && di_o==$_this2.find('.cmore').length)
-                                               // alert('Item saved successfully!');
                                                 window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
                                             }
                                         }
@@ -297,7 +275,6 @@ $('.savebtn').live('click', function () {
                     });
                 });
             } else {
-                //alert('Item saved successfully!');
                 window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus';
             }
         }
@@ -319,62 +296,4 @@ $('.savebtn').live('click', function () {
         morevisible=false;
       }
      
-    ////
     }
-
-
-/*function check_enable($this,$menu)
-{
-    $_parent = $this.closest('.par_wrap');
-    if($_parent.find('.cat_id').val()=='')
-    {
-        alert('Please choose category');
-        $_parent.find('.cat_id').attr('style', 'border:1px solid red;margin-left:10px;');
-        $this.prop('checked', false); 
-        $('.disabled').hide();
-        return false;
-    }
-    else
-    {
-    var cat_id =  $_parent.find('.cat_id').val(); 
-    if(cat_id == '1') 
-    {
-        var num = 7;
-    }
-    else
-    {
-        var num = 3;
-    }
-    if($this.is(':checked'))
-    {
-        var enable = 1;
-    }
-    else
-    var enable = 0;
-    
-    $.ajax({
-       url: base_url + 'restaurant/check_enable/'+$menu+'/'+cat_id+'/'+num+'/'+enable,
-       success:function(res)
-       {
-        if(res==1)
-        {
-            if(enable==1){
-            $_parent.find('.enabled').show();
-            $_parent.find('.disabled').hide();
-            }
-            else{
-            $_parent.find('.disabled').show();
-            $_parent.find('.enabled').hide();
-            }
-        }
-        else
-        {
-            alert(num+" item already selected. Please disable any other item to enable this item.");
-            if($this.is(':checked'))
-            $this.prop('checked', false); 
-            $('.disabled').hide();
-        }
-       } 
-    });
-    }
-}*/
