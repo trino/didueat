@@ -4,11 +4,11 @@
     <div class="top-cart-info">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
         <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
-        <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"></i>Cart</a>
+        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); "><i class="fa fa-shopping-cart"></i>Cart</a>
     </div>
 @endif
 
-<div id="cartsz">
+<div class="clearfix" id="cartsz">
 
 
 
