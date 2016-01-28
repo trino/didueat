@@ -29,9 +29,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(!isset($ccount) || (isset($ccount) && $ccount==0))
                 <div class="newaction">
-                    <!--<a href="javascript:void(0)" class="btn red btn-info add_additional"
-                       id="add_additional{{ $menu_id }}">Add Addons</a>
-                    <a href="javascript:void(0)" id="save0" data-id="{{ $menu_id }}" class="btn red btn-info savebtn">Save</a>-->
+                    
                 </div>
             @endif
         </div>
@@ -69,7 +67,6 @@
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('.parentinfo li').each(function (index) {
                     var val = $(this).attr('id').replace('parent', '');
-                    //var val=item[1];
                     if (order == '') {
                         order = val;
                     } else {
@@ -81,7 +78,6 @@
                     data: 'ids=' + order + "&_token={{ csrf_token() }}",
                     type: 'post',
                     success: function () {
-                        //
                     }
                 });
             },
