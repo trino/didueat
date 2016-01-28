@@ -223,6 +223,8 @@ class OrdersController extends Controller {
             ->get();
 
         echo '<H1>Pending orders: ' . count($Orders) . '</H1><TABLE BORDER="1"><TR><TH>Order</TH><TH>Restaurant</TH><TH>Address</TH><TH>Delivery Time</TH><TH>GUID</TH><TH>Actions</TH></TR>';
+        $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
+        $Addresses = array();
         foreach($Orders as $Order){
             if(!$Order->province_name) {$Order->province_name = "." . select_field('states', 'id', $Order->province, 'name');}
             if(!$Order->country_name) {$Order->country_name = "." . select_field('countries', 'id', $Order->country, 'name');}
@@ -239,15 +241,23 @@ class OrdersController extends Controller {
                     foreach($NotificationAddresses as $NotificationAddress){
                         if($NotificationAddress->address) {
                             $NotificationAddress->address=trim($NotificationAddress->address);
+                            if(isset($Addresses[$NotificationAddress->address])){
+                                $Addresses[$NotificationAddress->address] = $Addresses[$NotificationAddress->address]+1;
+                            } else {
+                                $Addresses[$NotificationAddress->address] = 1;
+                            }
                             if ($NotificationAddress->type == "Email") {
                                 $Actions["Email"][] = $NotificationAddress->address;
                                 $Actions["Email"]=array_unique($Actions["Email"]);
+                                $TotalActions["Email"][] = $NotificationAddress->address;
                             } else if ($NotificationAddress->is_sms) {
                                 $Actions["SMS"][] = phonenumber($NotificationAddress->address);
                                 $Actions["SMS"]=array_unique($Actions["SMS"]);
+                                $TotalActions["SMS"][] = $NotificationAddress->address;
                             } else {
                                 $Actions["Call"][] = phonenumber($NotificationAddress->address);
                                 $Actions["Call"]=array_unique($Actions["Call"]);
+                                $TotalActions["Call"][] = $NotificationAddress->address;
                             }
                         }
                     }
@@ -258,7 +268,41 @@ class OrdersController extends Controller {
         }
         echo '</TABLE>';
 
-        //$this->sendSMS("9055123067", "THIS IS A TEST", true);
+        echo '<TABLE BORDER="1"><TR><TH>Action</TH><TH>Address</TH><TH>Orders</TH></TR>';
+        foreach($TotalActions as $Key => $Value){
+            $Value=array_unique($Value);
+            foreach($Value as $Address) {
+                $Orders = $Addresses[$Address];
+                if($Orders == 1){
+                    $Message = "There is 1 order pending for your approval at ";
+                } else {
+                    $Message = "There are " . $Orders . " orders pending for your approval at ";
+                }
+                if(debugmode() && false){
+                    if($Key == "Email"){
+                        $Address = "roy@trinoweb.com";
+                    } else {
+                        $Address = "9055123067";
+                    }
+                }
+                echo '<TR><TD>' . $Key. '</TD><TD>' . $Address .'</TD><TD>' . $Orders . '</TD></TR>';
+                if(true) {//set to false to disable contacting
+                    switch ($Key) {
+                        case "Call":
+                            $this->sendSMS($Address, $Message . "did you eat dot com", true);
+                            break;
+                        case "SMS":
+                            $this->sendSMS($Address, $Message . "didueat.com");
+                            break;
+                        case "Email":
+                            $Email = array("mail_subject" => $Message . "didueat.com", "email" => $Address, "body" => $Message . "didueat.com", "name" => "DidUeat.com user");
+                            $this->sendEMail("emails.newsletter", $Email);
+                            break;
+                    }
+                }
+            }
+        }
+        echo '</TABLE>';
         die();
     }
 

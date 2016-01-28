@@ -14,13 +14,26 @@
                                 <!-- // END HEADER -->
                             </td>
                         </tr>
-                        <?php $data = \Input::all();
-                        printfile("views/emails/newsletter.blade.php"); ?>
+                        <?php
+                            $data = \Input::all();
+                            printfile("views/emails/newsletter.blade.php");
+                            if(!isset($data['message'])){
+                                $data['message']=$body;
+                            }
+                        ?>
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
+                                @if(isset($name))
                                 <h2>Dear {{ $name }},</h2>
+                                @endif
                                 
                                 {{ $data['message'] }}
+                                <br /><br />
+                                If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
+                                <br /><br />
+                                Regards,
+                                <br />
+                                Team <?php echo \Config::get('app.company_name'); ?>
                             </td>
                         </tr>
                     </table>
