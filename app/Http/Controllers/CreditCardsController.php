@@ -62,9 +62,14 @@ class CreditCardsController extends Controller {
                 
                 $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
                 $creditcard->populate(array_filter($post));
-                $creditcard->save();
-                \DB::commit();
-                return $this->success( 'Credit card has been saved successfully.', 'credit-cards/list/'.$type);
+                if(!\Session::has('invalid-data')) {
+                    $creditcard->save();
+                    \DB::commit();
+                    return $this->success('Credit card has been saved successfully.', 'credit-cards/list/' . $type);
+                } else {
+                    \Session::forget('invalid-data');
+                    return $this->failure('The credit card number was not valid', 'credit-cards/list/'.$type, true);
+                }
             } catch (\Exception $e) {
                 \DB::rollback();
                 return $this->failure(handleexception($e), 'credit-cards/list/'.$type, true);
