@@ -438,9 +438,7 @@ class RestaurantController extends Controller {
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();
-            //var_dump($data['cmodel']);
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
-     //       return view('dashboard.restaurant.menu_form', $data);
         }
 
         return view('dashboard.restaurant.menu_form', $data);
@@ -467,7 +465,6 @@ class RestaurantController extends Controller {
                 $path = 'assets/images/restaurants';
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-//                $file="profile." . $ext;
                 \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
             } else {
                 $path = 'assets/images/products';
@@ -478,10 +475,6 @@ class RestaurantController extends Controller {
 
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             $file_path = url() . "/" . $path . "/" . $file;
-            /*for each size in the array, make a thumbnail of the image.ext as image(WIDTHxHEIGHT).ext in the same folder
-            foreach(array(150,300) as $size){
-                $this->make_thumb(public_path($path) . '/' . $file, $size, $size, false, $MakeCornerTransparent );
-            }*/
             echo $file_path . '___' . $file;
         }
         die();
@@ -500,7 +493,7 @@ class RestaurantController extends Controller {
         
         //copy these keys to the $arr
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active','restaurant_id','cat_name');
-        //$arr['uploaded_by'] = 
+        
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
@@ -508,8 +501,6 @@ class RestaurantController extends Controller {
                 $arr[$Key] = 1;
             }
         }
-        //var_dump($arr);
-        //add this restaurant to the categories table
         if (!is_numeric($arr['cat_id'])) {
             $arrs['title'] = $arr['cat_id'];
             $arrs['res_id'] = $arr['restaurant_id'];
@@ -629,8 +620,6 @@ class RestaurantController extends Controller {
         \App\Http\Models\Menus::where('id', $id)->delete();
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
-            /*$dir = public_path('assets/images/restaurants/'.$c->restaurant_id."/menus/".$c->id);
-            $this->deleteDir($dir);*/
             \App\Http\Models\Menus::where('parent', $c->id)->delete();
         }
         \App\Http\Models\Menus::where('parent', $id)->delete();
@@ -642,10 +631,8 @@ class RestaurantController extends Controller {
         
         if (!$slug) {
             return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
-           // return \Redirect::to('restaurant/menus-manager');
         }else {
             return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menus');
-           // return \Redirect::to('restaurants/' . $slug . '/menus');
         }
     }
 
@@ -730,9 +717,6 @@ class RestaurantController extends Controller {
         $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
         if($count<$limit || $enable==0)
         {
-           /*$ob = \App\Http\Models\Menus::findOrNew($menu_id);
-                $ob->populate(['is_active'=>$enable]);
-                $ob->save(); */
                 echo '1';
         }
         else
