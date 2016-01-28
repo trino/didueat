@@ -215,7 +215,7 @@ class OrdersController extends Controller {
 
     public function alertstore(){
         $Orders = \DB::table('reservations')
-            ->select(\DB::raw("reservations.*, restaurants.*, states.name as province_name, countries.name as country_name"))
+            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, states.name as province_name, countries.name as country_name"))
             ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
             ->leftJoin('states', 'reservations.province', '=', 'states.id')
             ->leftJoin('countries', 'reservations.country', '=', 'countries.id')
@@ -227,7 +227,7 @@ class OrdersController extends Controller {
             if(!$Order->province_name) {$Order->province_name = "." . select_field('states', 'id', $Order->province, 'name');}
             if(!$Order->country_name) {$Order->country_name = "." . select_field('countries', 'id', $Order->country, 'name');}
             echo '<TR>';
-                echo '<TD>' . $Order->id . '</TD>';
+                echo '<TD>' . $Order->order_id . '</TD>';
                 echo '<TD>' . $Order->restaurant_id . '</TD>';
                 echo '<TD>' . $Order->address1 . ' ' . $Order->address2 . '<BR>' . $Order->city . ' ' .  $Order->province_name . '<BR>' .  $Order->country_name . ' ' . $Order->postal_code . '</TD>';
                 echo '<TD>' . $Order->order_till . '</TD>';
