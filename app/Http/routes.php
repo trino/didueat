@@ -27,6 +27,7 @@ Route::post('auth/login',                                           'Auth\AuthCo
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
 
 Route::get('home/{type}',                                           'HomeController@home');
+Route::get('orders/alertstore',                                     'OrdersController@alertstore');
 
 // Registration routes...
 Route::get('auth/register',                                         'Auth\AuthController@getRegister');
@@ -35,9 +36,9 @@ Route::post('auth/register/ajax',                                   'Auth\AuthCo
 Route::get('auth/resend_email/{email}',                             'Auth\AuthController@resendEmail');
 Route::get('auth/resend_email/ajax/{email}',                        'Auth\AuthController@resendPostEmail');
 Route::get('auth/verify_email/{email}',                             'Auth\AuthController@verifyEmail');
-Route::get('auth/forgot-password',                                 'Auth\AuthController@forgotPassword');
-Route::post('auth/forgot-password',                                'Auth\AuthController@postForgotPassword');
-Route::post('auth/forgot-password/ajax',                           'Auth\AuthController@postAjaxForgotPassword');
+Route::get('auth/forgot-password',                                  'Auth\AuthController@forgotPassword');
+Route::post('auth/forgot-password',                                 'Auth\AuthController@postForgotPassword');
+Route::post('auth/forgot-password/ajax',                            'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',                             'Auth\AuthController@postAjaxValidateEmail');
 Route::resource('restaurant/view',                                  'RestaurantController@restaurantInfo');
 
@@ -146,8 +147,6 @@ Route::get('restaurant/loadChild/{id}/{flag}',                      'RestaurantC
 Route::get('restaurant/saveCat',                                    'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                                   'RestaurantController@saveCat');
 Route::get('restaurant/getToken',                                   'HomeController@getToken');
-
-Route::post('reviews/users/get',                                    'UserReviewsController@ajaxGetReviewUsersList');
 
 Route::post('user/ajax_register',                                   'UsersController@ajax_register');
 Route::resource('user/json_data',                                   'UsersController@json_data');
