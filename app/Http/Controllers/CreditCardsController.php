@@ -30,9 +30,6 @@ class CreditCardsController extends Controller {
             if (!isset($post['last_name']) || empty($post['last_name'])) {
                 return $this->failure('[Last Name] field is missing','credit-cards/list/'.$type, true);
             }
-            if (!isset($post['card_type']) || empty($post['card_type'])) {
-                return $this->failure('[Credit Card Type] field is missing','credit-cards/list/'.$type, true);
-            }
             if (!isset($post['card_number']) || empty($post['card_number'])) {
                 return $this->failure('[Card Number] field is missing','credit-cards/list/'.$type, true);
             }

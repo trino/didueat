@@ -84,22 +84,6 @@
        placeholder="Last Name" required>
 </div></div>
 
-<?= newrow($new, "Card Type", "", true, 5); ?>
-    <select name="card_type" class="form-control" id="card_type" required>
-        <option value="">Select Card Type</option>
-            <?php
-                $cards = array("visa" => "Visa", "mastercard" => "MasterCard", "americanExpress" => "American Express", "discover" => "Discover");
-                foreach ($cards as $short => $long) {
-                    echo '<option value="' . $short . '"';
-                    if (isset($credit_cards_list->card_type) && $credit_cards_list->card_type == $short) {
-                        echo ' selected';
-                    }
-                    echo '>' . $long . '</option>';
-                }
-            ?>
-    </select>
-</div></div>
-
 <?= newrow($new, "Card Number", "", true, 5); ?>
 <input type="text" name="card_number" class="form-control"
        value="{{ (isset($credit_cards_list->card_number))?$credit_cards_list->card_number:'' }}" id="card_number"
