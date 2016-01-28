@@ -116,24 +116,23 @@ if (Request::path() !== null && Request::path() != "/") {
             $MissingData = array();
             $MissingDataOptional = array();
             if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
-                $MissingData[] = "<br/>&bull; Pickup or delivery options";
+                $MissingData[] = "Pickup or delivery options";
             }
             if (!$Restaurant->logo) {
-                $MissingData[] = "<br/>&bull; Your logo";
+                $MissingData[] = "Your logo";
             }
-
-       //     echo $Restaurant->latitude .' '. $Restaurant->longitude;
 
             if (!$Restaurant->latitude || !$Restaurant->longitude) {
-                $MissingData[] = "<br/>&bull; Restaurant address";
+                $MissingData[] = "Restaurant address";
             }
-//                if(!$Restaurant->open){$MissingData[] = "to be set to open";}
-//                if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
+
+//          if(!$Restaurant->open){$MissingData[] = "to be set to open";}
+//          if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
             if ($Restaurant->max_delivery_distance < 2) {
-                $MissingDataOptional[] = "<br/>&bull; Delivery range";
+                $MissingDataOptional[] = "Delivery range";
             }
             if (!$Restaurant->minimum) {
-                $MissingDataOptional[] = "<br/>&bull; Minimum delivery sub-total";
+                $MissingDataOptional[] = "Minimum delivery sub-total";
             }
 
             //check hours of operation
@@ -156,31 +155,29 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "<br/>&bull; Hours of operation";
             } else {
                 if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
-                    $MissingData[] = "open hours extended";
+                    $MissingData[] = "Open hours";
                 }
                 if (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now) {
-                    $MissingData[] = "delivery hours extended";
+                    $MissingData[] = "Delivery hours";
                 }
             }
 
             //check credit card
             $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
             if (!$creditcards) {
-                $MissingData[] = "<br/>&bull; Your credit card authorization";
+                $MissingData[] = "Your credit card authorization";
             }
 
             if ($MissingData) {
-            
-              if(isset($post['initialRestSignup'])){
-               $missingHead="PARTIAL REGISTRATION COMPLETED!";
-              }
-              else{
-               $missingHead="PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
-              }
-            
+                if(isset($post['initialRestSignup'])){
+                      $missingHead="PARTIAL REGISTRATION COMPLETED!";
+                } else{
+                      $missingHead="PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
+                }
+
                 $MissingData = array_merge($MissingData, $MissingDataOptional);
-                $MissingData = "<br/>Please scroll down the page, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-top:-20px;margin-left:100px;color:#000;font-weight:bold'>" . implode(", ", $MissingData) . "</div>";
-                $step1CompleteMsg = '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>'.$missingHead.'</u></STRONG>' . $MissingData . '</DIV>';
+                $MissingData = "<br/>Please scroll down the page, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-left:100px;color:#000;font-weight:bold'>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
+                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>'.$missingHead.'</u></STRONG>' . $MissingData . '</DIV>';
             }
         }
     }
@@ -197,9 +194,7 @@ if (Request::path() !== null && Request::path() != "/") {
             <strong>{!! Session::get('message-short') !!}</strong>
             &nbsp; {!! Session::get('message') !!}
         </div>
-        <?php echo $step1CompleteMsg;
-        
-        \Session::forget('message'); ?>
+        <?php \Session::forget('message'); ?>
     @endif
 
     @yield('content')

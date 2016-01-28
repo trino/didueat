@@ -35,6 +35,13 @@ class BaseModel extends Model {
                     $this->$key = $this->cleantext($data[$key]);
                     if($this->$key) {
                         switch ($cell) {
+                            case "creditcard":
+                                if (isvalid_creditcard($this->$key)){
+                                    $this->$key = \Crypt::encrypt($this->$key);
+                                } else {
+                                    $this->$key = "";
+                                }
+                                break;
                             case "phone":
                                 $this->$key = phonenumber($this->$key);
                                 break;

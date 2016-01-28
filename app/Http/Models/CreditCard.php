@@ -9,7 +9,7 @@ class CreditCard extends BaseModel {
     public $timestamps = false;
 
     public function populate($data) {
-        $cells = array('first_name', 'user_type', 'user_id', 'last_name', 'card_type', 'card_number' => "encrypted", 'expiry_date' => "encrypted", 'expiry_month' => "encrypted", 'expiry_year' => "encrypted", 'ccv' => "encrypted", 'order');
+        $cells = array('first_name', 'user_type', 'user_id', 'last_name', 'card_type', 'card_number' => "creditcard", 'expiry_date' => "encrypted", 'expiry_month' => "encrypted", 'expiry_year' => "encrypted", 'ccv' => "encrypted", 'order');
         $this->copycells($cells, $data);
         if($this->user_type == "restaurant"){
             $this->user_id = \Session::get('session_restaurant_id');
