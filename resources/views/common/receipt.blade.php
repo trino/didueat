@@ -225,43 +225,28 @@
                         @endif
 
 
+
                         <div class="profile_delivery_detail" style="display: none;">
                             @if(isset($profile))
                                 <div class="col-xs-12">
+                                @include('common.addressbar')
+                                @include('popups.addaddress')
                                 
-                                    <SELECT CLASS="form-control form-control--contact"
-                                            ONCHANGE="addresschanged(event);">
-                                        <OPTION VALUE="0" ID="add0">Select Address</OPTION>
-                                        <?php  
-                                        //NOTE: AT NO POINT SHOULD WE ASSUME WHAT ADDRESS THE CUST WANTS TO USE, NO DEFAULTS
-                                        $addresses = select_field("profiles_addresses", "user_id", $profile->id, false, "email");
-                                        foreach ($addresses as $address) {
-                                            echo '<OPTION VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                                            echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
-                                            echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '">';
-                                            echo $address->address;
-                                            echo '</OPTION>';
-                                        }
-                                        ?>
-                                    </SELECT>
                                     <SCRIPT>
-                                        function addresschanged(event) {
-                                            var element = event.target;
-                                            var selected = element.options[element.selectedIndex];
-                                            if (selected.value) {
-                                                var value = selected.text;
-                                                selected = document.getElementById("add" + selected.value);
+                                        function addresschanged(thiss) {
+                                            
                                                 $(".resetme").val(' ');
-
-                                                $("#phone").val(selected.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-                                                $("#ordered_street").val(selected.getAttribute("ADDRESS"));
-                                                $("#ordered_city").val(selected.getAttribute("CITY"));
-                                                $("#ordered_province").val(selected.getAttribute("PROVINCE"));
-                                                $("#ordered_apartment").val(selected.getAttribute("APARTMENT"));
-                                                $("#ordered_buzz").val(selected.getAttribute("BUZZ"));
-                                                $("#ordered_code").val(selected.getAttribute("POSTAL"));
-                                                $("#ordered_notes").val(selected.getAttribute("NOTES"));
-                                            }
+                                                alert(thiss.getAttribute("PROVINCE"));
+                                                
+                                                $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
+                                                $(".phone").val(thiss.getAttribute("PHONE"));
+                                                $("#ordered_city").val(thiss.getAttribute("CITY"));
+                                                $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
+                                                $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
+                                                $("#ordered_buzz").val(thiss.getAttribute("BUZZ"));
+                                                $("#ordered_code").val(thiss.getAttribute("POSTAL"));
+                                                $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+                                            
                                         }
                                     </SCRIPT>
                                 </div>
@@ -269,9 +254,9 @@
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="number" pattern="[0-9]*" maxlength="10" min="10"
+                                    <input type="text" pattern="[0-9]*" maxlength="10" min="10"
                                            placeholder="Cell Phone" id="phone"
-                                           class="form-control form-control--contact" name="contact"
+                                           class="form-control form-control--contact phone" name="contact"
                                            id="ordered_contact" required="">
                                 </div>
                             </div>

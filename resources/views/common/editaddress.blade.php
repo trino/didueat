@@ -148,14 +148,19 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
             });
         </SCRIPT>
     <?php } else {
+        if(Request::path()=='user/addresses/edit/0'){
         echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-            //echo '<script>initAutocomplete();</script>';
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                //echo '<script>initAutocomplete();</script>';
+            }
         }
         ?>
         <SCRIPT>
+        
             $(document).ready(function () {
                 cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
             });
+                        
         </SCRIPT>
     <?php } ?>
+    

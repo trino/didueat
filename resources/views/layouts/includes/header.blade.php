@@ -40,6 +40,7 @@ $first = false; $type = "hidden";
                                             }
                                             echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
                                         }
+
                                     ?>
                                 </div>
                                 <?php } ?>
@@ -67,6 +68,8 @@ $first = false; $type = "hidden";
                     var formatted_address2;
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
+                        formatted_address3 = initAutocompleteWithID('formatted_address3');
+                        foramtteed_address = initAutocompleteWithID('formatted_address')
                     }
                     function setaddress(Address) {
                         document.getElementById("formatted_address2").value = Address;
