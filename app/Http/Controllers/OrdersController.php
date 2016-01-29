@@ -199,4 +199,164 @@ class OrdersController extends Controller {
         return view('dashboard.restaurant.report', $data);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function alertstore(){
+        $Orders = \DB::table('reservations')
+            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, states.name as province_name, countries.name as country_name"))
+            ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
+            ->leftJoin('states', 'reservations.province', '=', 'states.id')
+            ->leftJoin('countries', 'reservations.country', '=', 'countries.id')
+            ->where('reservations.status', '=', 'pending')
+            ->get();
+
+        echo '<H1>Pending orders: ' . count($Orders) . '</H1><TABLE BORDER="1"><TR><TH>Order</TH><TH>Restaurant</TH><TH>Address</TH><TH>Delivery Time</TH><TH>GUID</TH><TH>Actions</TH></TR>';
+        $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
+        $Addresses = array();
+        foreach($Orders as $Order){
+            if(!$Order->province_name) {$Order->province_name = "." . select_field('states', 'id', $Order->province, 'name');}
+            if(!$Order->country_name) {$Order->country_name = "." . select_field('countries', 'id', $Order->country, 'name');}
+            echo '<TR>';
+                echo '<TD>' . $Order->order_id . '</TD>';
+                echo '<TD>' . $Order->restaurant_id . '</TD>';
+                echo '<TD>' . $Order->address1 . ' ' . $Order->address2 . '<BR>' . $Order->city . ' ' .  $Order->province_name . '<BR>' .  $Order->country_name . ' ' . $Order->postal_code . '</TD>';
+                echo '<TD>' . $Order->order_till . '</TD>';
+                echo '<TD>' . $Order->guid . '</TD>';
+
+                $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $Order->restaurant_id);
+                echo '<TD>';//is_call, is_sms, type, address, profile: email,phone, mobile
+                    $Actions = array();
+                    foreach($NotificationAddresses as $NotificationAddress){
+                        if($NotificationAddress->address) {
+                            $NotificationAddress->address=trim($NotificationAddress->address);
+                            if(isset($Addresses[$NotificationAddress->address])){
+                                $Addresses[$NotificationAddress->address] = $Addresses[$NotificationAddress->address]+1;
+                            } else {
+                                $Addresses[$NotificationAddress->address] = 1;
+                            }
+                            if ($NotificationAddress->type == "Email") {
+                                $Actions["Email"][] = $NotificationAddress->address;
+                                $Actions["Email"]=array_unique($Actions["Email"]);
+                                $TotalActions["Email"][] = $NotificationAddress->address;
+                            } else if ($NotificationAddress->is_sms) {
+                                $Actions["SMS"][] = phonenumber($NotificationAddress->address);
+                                $Actions["SMS"]=array_unique($Actions["SMS"]);
+                                $TotalActions["SMS"][] = $NotificationAddress->address;
+                            } else {
+                                $Actions["Call"][] = phonenumber($NotificationAddress->address);
+                                $Actions["Call"]=array_unique($Actions["Call"]);
+                                $TotalActions["Call"][] = $NotificationAddress->address;
+                            }
+                        }
+                    }
+                    var_dump($Actions);
+                echo '</TD>';
+
+            echo '</TR>';
+        }
+        echo '</TABLE>';
+
+        echo '<TABLE BORDER="1"><TR><TH>Action</TH><TH>Address</TH><TH>Orders</TH></TR>';
+        foreach($TotalActions as $Key => $Value){
+            $Value=array_unique($Value);
+            foreach($Value as $Address) {
+                $Orders = $Addresses[$Address];
+                if($Orders == 1){
+                    $Message = "There is 1 order pending for your approval at ";
+                } else {
+                    $Message = "There are " . $Orders . " orders pending for your approval at ";
+                }
+                if(debugmode() && false){
+                    if($Key == "Email"){
+                        $Address = "roy@trinoweb.com";
+                    } else {
+                        $Address = "9055123067";
+                    }
+                }
+                echo '<TR><TD>' . $Key. '</TD><TD>' . $Address .'</TD><TD>' . $Orders . '</TD></TR>';
+                if(true) {//set to false to disable contacting
+                    switch ($Key) {
+                        case "Call":
+                            $this->sendSMS($Address, $Message . "did you eat dot com", true);
+                            break;
+                        case "SMS":
+                            $this->sendSMS($Address, $Message . "didueat.com");
+                            break;
+                        case "Email":
+                            $Email = array("mail_subject" => $Message . "didueat.com", "email" => $Address, "body" => $Message . "didueat.com", "name" => "DidUeat.com user");
+                            $this->sendEMail("emails.newsletter", $Email);
+                            break;
+                    }
+                }
+            }
+        }
+        echo '</TABLE>';
+        die();
+    }
+
+    function isJson($string) {
+        if($string && !is_array($string)){
+            json_decode($string);
+            return (json_last_error() == JSON_ERROR_NONE);
+        }
+    }
+
+    function cURL($URL, $data = "", $username = "", $password = ""){
+        $session = curl_init($URL);
+        curl_setopt($session, CURLOPT_HEADER, false);
+        curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//not in post production
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($session, CURLOPT_POST, true);
+        if($data) { curl_setopt ($session, CURLOPT_POSTFIELDS, $data);}
+
+        $datatype = "x-www-form-urlencoded;charset=UTF-8";
+        if($this->isJson($data)){$datatype  = "json";}
+        $header = array('Content-type: application/' . $datatype, "User-Agent: Charlies");
+        if ($username && $password){
+            $header[] =	"Authorization: Basic " . base64_encode($username . ":" . $password);
+        } else if ($username) {
+            $header[] =	"Authorization: Bearer " .  $username;
+            $header[] =	"Accept-Encoding: gzip";
+        } else if ($password) {
+            $header[] =	"Authorization: AccessKey " .  $password;
+        }
+        curl_setopt($session, CURLOPT_HTTPHEADER, $header);
+
+        $response = curl_exec($session);
+        if(curl_errno($session)){
+            $response = "Error: " . curl_error($session);
+        }
+        curl_close($session);
+        return $response;
+    }
+
+    //$0.0075 per SMS, + $1 per month
+    function sendSMS($Phone, $Message, $Call = false){//works if you can get the from number....
+        //https://www.twilio.com/
+        $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
+        $token = "3fd30e06e99b5c9882610a033ec59cbd";
+        $fromnumber = "2897685936";
+        if($Call){
+            $Message = "http://charlieschopsticks.com/pages/call?message=" .  urlencode($Message);
+            $URL = "https://api.twilio.com/2010-04-01/Accounts/" . $sid . "/Calls";
+            $data = array("From" => $fromnumber, "To" => $Phone, "Url" => $Message);
+        } else {
+            $URL = "https://api.twilio.com/2010-04-01/Accounts/" . $sid . "/Messages";
+            $data = array("From" => $fromnumber, "To" => $Phone, "Body" => $Message);
+        }
+        return $this->cURL($URL, http_build_query($data), $sid, $token);
+    }
+
 }

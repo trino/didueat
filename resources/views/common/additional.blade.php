@@ -124,8 +124,7 @@
                     if(isset($_GET['menu_id']))
                     $menu_id = $_GET['menu_id'];
                      ?>
-                        <!--<a href="javascript:void(0)" class="btn btn-sm red btn-info add_additional ignore ignore2 ignore1" id="add_additional{{ $menu_id }}">Add Addons</a>
-                        <a href="javascript:void(0)" @if(!isset($menu_id) || (isset($menu_id) && !$menu_id)) id="save0" @else id="save{{ $menu_id }}" @endif class="btn btn-sm red btn-info savebtn ignore ignore2 ignore1">Save</a>-->
+                        
                     @endif
                     
                     <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>

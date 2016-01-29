@@ -36,7 +36,7 @@
     <tr id="list{{ $order->listid }}" class="infolist">
         <td class="receipt_image" width='26%'>
                 
-              <!--img src='{{ asset("assets/images/products/".$image) }}' alt="{{ $menu_item }}" width="37" height="34"-->
+             
               <span class="count">{{ $arr_qty[$k] }} x</span><input type="hidden" class="count" name="qtys[]" value="1" />
         </td>
         <td style="50%"><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</td>

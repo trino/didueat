@@ -13,7 +13,9 @@
 
             <div id="registration-success" class="note note-success" style="display: none;">
                 <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
-                <h1 class="block">success</h1>
+                <div style="padding: 20px;">
+                    <h1 class="block">success</h1>
+                </div>
             </div>
 
 

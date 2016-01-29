@@ -25,7 +25,6 @@ $('.additem').live('click', function () {
     
     $('.savebtn').remove();
     $('.add_additional').remove();
-    //('TEST');
     var id = $(this).attr('id').replace('add_item', '');
     
     
@@ -60,8 +59,6 @@ $.ajax({
     url: base_url + 'restaurant/getToken',
     success: function (res) {
         token = res;
-        //alert(token);
-        // return token;
     }
 });
 
@@ -86,8 +83,6 @@ function ajaxuploadbtn(button_id, doc) {
             }, 200);
         },
         onComplete: function (file, response) {
-            //alert(response);return;
-            //alert(response);
             var resp = response.split('___');
             var path = resp[0];
             var img = resp[1];
@@ -98,8 +93,7 @@ function ajaxuploadbtn(button_id, doc) {
 
             $("." + button_id.replace('newbrowse', 'menuimg')).html('<img style="max-width:100%;" src="' + path + '" /><input type="hidden" class="hiddenimg" value="' + img + '" />');
             $("." + button_id.replace('newbrowse', 'menuimg')).attr('style', 'min-height:0px!important;')
-            //$('#client_img').val(response);
-            //$('.flashimg').show();
+            
         }
     });
 }

@@ -37,11 +37,10 @@
                         </div>
                     </div>
 
-<hr width="100%" align="center" />
 
                 </div>
                 <div class="card-footer clearfix" style="text-align:center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save It Man</button>
                     <input name="userPhotoTemp" type="hidden" id="userPhotoTemp" />
                     <input name="user_idDir" id="user_idDir" type="hidden" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
                     <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
@@ -86,7 +85,7 @@
                     var path = resp[0];
                     var img = resp[1];
                     document.getElementById('userPhotoTemp').value=path;
-                    button.html('Change Image');
+                    button.html('Click Submit to Save Photo');
                     window.clearInterval(interval);
                     this.enable();
                     $('#picture').attr('src', path);

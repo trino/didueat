@@ -4,11 +4,11 @@
     <div class="top-cart-info">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
         <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
-        <a href="#cartsz" class="fancybox-fast-view"><i class="fa fa-shopping-cart"></i>Cart</a>
+        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); "><i class="fa fa-shopping-cart"></i>Cart</a>
     </div>
 @endif
 
-<div id="cartsz">
+<div class="clearfix" id="cartsz">
 
 
 
@@ -166,8 +166,6 @@
 
 
                 <!-- display profile info -->
-                <!-- display profile info -->
-                <!-- display profile info -->
 
                 <div class="profiles row" style="display: none;">
                     <div class="form-group">
@@ -181,12 +179,6 @@
                             @if(\Session::has('is_logged_in'))
                                 <?php
                                 $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email')->where('profiles.id', \Session::get('session_id'))->first();
-
-                                /*
-                                 *  'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province'
-                                 * LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
-                                 * DO NOT ASSUME THE CUSTOMERS ADDRESS!!!
-                                 */
                                 echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @else
@@ -235,18 +227,17 @@
                                     <SCRIPT>
                                         function addresschanged(thiss) {
                                             
-                                                $(".resetme").val(' ');
-                                                alert(thiss.getAttribute("PROVINCE"));
-                                                
-                                                $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
-                                                $(".phone").val(thiss.getAttribute("PHONE"));
-                                                $("#ordered_city").val(thiss.getAttribute("CITY"));
-                                                $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
-                                                $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-                                                $("#ordered_buzz").val(thiss.getAttribute("BUZZ"));
-                                                $("#ordered_code").val(thiss.getAttribute("POSTAL"));
-                                                $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-                                            
+
+
+                                                $("#phone").val(selected.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+                                                $("#ordered_street").val(selected.getAttribute("ADDRESS"));
+                                                $("#ordered_city").val(selected.getAttribute("CITY"));
+                                                $("#ordered_province").val(selected.getAttribute("PROVINCE"));
+                                                $("#ordered_apartment").val(selected.getAttribute("APARTMENT"));
+                                                $("#ordered_code").val(selected.getAttribute("POSTAL"));
+                                                $("#ordered_notes").val(selected.getAttribute("NOTES"));
+                                          
+
                                         }
                                     </SCRIPT>
                                 </div>
@@ -272,10 +263,6 @@
                                 <input type="text" placeholder="Apartment" id="ordered_apartment"
                                        class="form-control form-control--contact resetme" name="apartment">
                             </div>
-                            <div class="col-xs-6">
-                                <input type="text" placeholder="Buzz" id="ordered_buzz"
-                                       class="form-control form-control--contact resetme" name="buzz">
-                            </div>
 
                             <div class="col-xs-12">
                                 <input type="text" placeholder="City" id="ordered_city"
@@ -297,18 +284,6 @@
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code"
                                        class="form-control form-control--contact resetme" name="postal_code">
                             </div>
-
-                            <!--div class="col-xs-12 col-sm-6  margin-bottom-10">
-                                <select name="country" id="country" class="form-control"
-                                        onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ old('province') }}');"
-                                        required>
-                                    <option value="">-Select One-</option>
-                                    @foreach(select_field_where('countries', '', false, "name", "ASC") as $value)
-                                    <option value="{{ $value->id }}"
-                                                @if(isset($profile->country) && $profile->country == $value->id) selected @endif>{{ $value->name }}</option>
-                                    @endforeach
-                                    </select>
-                                </div-->
 
                             <div class="clearfix"></div>
                         </div>
@@ -346,32 +321,11 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     <div class="clearfix"></div>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<! -- add addresss modal -->
-<! -- add addresss modal -->
-<! -- add addresss modal -->
-<! -- add addresss modal -->
-<! -- add addresss modal -->
+<!-- add addresss modal -->
 
 
 
@@ -419,7 +373,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary pull-right">Save changes</button>
             </div>
         </div>
     </div>

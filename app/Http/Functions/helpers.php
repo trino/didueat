@@ -1753,10 +1753,7 @@ function isvalid_creditcard($CardNumber, $Invalid = "") {
                 $type = "discover";
             } else {
                 $Prefix = left($CardNumber, 3);
-                if ($Prefix >= 644 || $Prefix <= 649) {
-                    $length = 16; //discover
-                    $type = "discover";
-                } else if (left($CardNumber, 4) == 6011) {
+                if ($Prefix >= 644 || $Prefix <= 649 || left($CardNumber, 4) == 6011) {
                     $length = 16; //discover
                     $type = "discover";
                 }

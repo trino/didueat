@@ -396,7 +396,7 @@
         $('body').on('submit', '#register-form', function (e) {            
             var token = $("#register-form input[name=_token]").val();
             <?php
-                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "buzz", "gmt");
+                $fields = array("name", "email", "password", "confirm_password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");
                 foreach( $fields as $field){
                     echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
                 }

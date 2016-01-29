@@ -22,7 +22,7 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function dashboard() {
-    
+
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email
@@ -54,11 +54,11 @@ class AdministratorController extends Controller {
 
 
                 $update=$post;
-                if ($post['photo'] != '') {
+                if ($post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
                     $ext = end($im);
                     $res = \App\Http\Models\Restaurants::find($post['restaurant_id']);
-                    $newName = $res->photo;
+                    $newName = $res->photo; // (OK for now, but not properly written, as it will always be named profile with a customized ext)
                     if ($newName != $post['photo']){
                         $newName = $res->slug . '.' . $ext;
                         if(file_exists(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName))){

@@ -77,7 +77,6 @@
                                 }
                             }
                         });
-                        //$("#postswrapper_{{ $cat->id }}").load();
                     });
                 </script>
             @endforeach
@@ -130,16 +129,7 @@
             }
         }
         $(document).ready(function () {
-            /*
-             $('body').on('click', '.insert-stats', function () {
-             var id = $(this).attr('id');
-             $.get("
-            {{ url('restaurants/menu/stats') }}/" + id, {}, function (result) {
-             $('#product-pop-up_' + id + " #stats_block").show();
-             $('#product-pop-up_' + id + " #stats_block #view_stats").text(result);
-             });
-             });
-             */
+            
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -223,7 +213,6 @@
             //add items to receipt
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
-                //alert(123);
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -260,14 +249,10 @@
                             $('.extra-' + catid).each(function () {
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
-                                    //alert(mid);
                                     var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
 
                                     if (qty != "") {
                                         cnn += Number(qty);
-                                        //ary_qty = ary_qty+"_"+qty;
-                                        //qprice = Number()*Number(qty);
-                                        //ary_price = ary_price+"_"+qprice;
                                     } else {
                                         cnn++;
                                     }
@@ -280,7 +265,6 @@
                                     if (cnn == 0) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -290,7 +274,6 @@
                                     } else if (multiples == 0 && cnn > extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -304,7 +287,6 @@
                                     if (cnn == 0) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -314,7 +296,6 @@
                                     } else if (multiples == 0 && cnn != extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -330,7 +311,6 @@
                                     if (multiples == 0 && cnn > 0 && cnn > extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -344,8 +324,6 @@
                                     if (multiples == 0 && cnn > 0 && cnn != extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
-
-                                        //alert(td_index);
                                         if (td_temp >= td_index) {
                                             td_temp = td_index;
                                         } else {
@@ -373,31 +351,12 @@
 
 
                         app_title = app_title + "," + title[1];
-
-                        //else
-                        //app_title = title[1];
                         price = Number(price) + Number(title[2]);
 
                     }
                 });
                 if (err > 0) {
-                    /*
-                     var banner = $(this).parent().parent().parent().find('.bannerz');
-                     var l = banner.width();
-                     var total_td = banner.find('td').length;
-                     $(".bannerz").animate({scrollLeft: (l * td_temp)}, 800);
-                     td_temp = td_temp + 1;
-
-                     $(this).parent().parent().find('.nxt_button').attr('title', td_temp);
-                     $(this).parent().parent().find('.nxt_button').show();
-                     var id = banner.find('td:nth-child(' + td_temp + ')').attr('id').replace('td_', '');
-                     //alert(id);
-                     $('#boxes_' + id).focus();
-                     if (td_temp == 1) {
-                     $(this).parent().parent().find('.prv_button').hide();
-                     } else {
-                     $(this).parent().parent().find('.prv_button').show();
-                     }*/
+                    
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');
@@ -412,8 +371,6 @@
                 }
 
                 ids = ids.replace("__", "_");
-
-                //app_title =app_title.replace(",,"," ");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
                 var last = app_title.substring(app_title.length, app_title.length - 1);
@@ -444,7 +401,6 @@
                 }
                 dbtitle = extratitle.split(",").join("%");
                 dbtitle = dbtitle.split("%%").join("");
-                //alert(dbtitle);
 
 
                 var pre_cnt = $('#list' + ids).find('.count').text();
@@ -457,14 +413,12 @@
                 }
                 var img = $('.popimage_' + menu_id).attr('src');
                 img = img.replace('thumb', 'thumb2');
-                //price = price*pre_cnt;
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" width="26%">' +
                         '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger-outline" href="javascript:void(0);">' +
                         '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary-outline small " href="javascript:void(0);">' +
                         '+</a>' +
-                            //'<span class="cart-content-count">x '+pre_cnt+'</span>'+
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
                         '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +
@@ -483,12 +437,10 @@
                 var items = (ccc == '1') ? ccc + ' item' : ccc + ' items';
                 $('#cart-items').text(items);
                 subtotal = parseFloat(subtotal);
-                //subtotal = Number(subtotal)+Number(price);
                 subtotal = subtotal.toFixed(2);
                 $('div.subtotal').text('$' + subtotal);
                 $('input.subtotal').val(subtotal);
                 subtotal = parseFloat(subtotal);
-                //var tax = $('#tax').text();
                 var tax = 13;
 
                 tax = parseFloat(tax);
@@ -504,7 +456,6 @@
                     var del_fee = 0;
                 }
                 del_fee = parseFloat(del_fee);
-                //alert(del_fee);
 
                 var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
                 gtotal = gtotal.toFixed(2);
@@ -519,9 +470,7 @@
                 });
 
                 $('.number' + menu_id).text('1');
-                //$('#clear_' + menu_id).click();
                 $('.close' + menu_id).click();
-                //$('.subitems_'+menu_id).hide();
             });
 
             function inArray(needle, haystack) {
@@ -561,7 +510,6 @@
 
             $(".sorting_parent").live('click', function () {
                 $('.overlay_loader').show();
-                //alert('test');
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
                 pid = arr_pid[0];
@@ -574,7 +522,6 @@
                 var order = '';// array to hold the id of all the child li of the selected parent
                 $('#loadmenus_' + cid + ' .parents').each(function (index) {
                     var val = $(this).attr('id').replace('parent', '');
-                    //var val=item[1];
                     if (order == '') {
                         order = val;
                     } else {
@@ -591,7 +538,6 @@
                 });
 
             });
-            //$( "#sortable" ).disableSelection();
         });
     </script>
     <script type="text/javascript">
