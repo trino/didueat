@@ -88,6 +88,8 @@ body.modal-open {
 #loadmoreajaxloader{display: none;}
 .form-control{display: inline !important;}
 .form-control-nobord{display: inline !important; border:none}
+.form-control2{display: inline !important; cursor:not-allowed; background:#e6e6e6}
+.form-control3{display: inline !important; cursor:context-menu; background:#e6e6e6}
 .pac-container { z-index: 1051 !important; }
 
 

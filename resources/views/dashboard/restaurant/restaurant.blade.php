@@ -74,7 +74,7 @@ if(!$minimum){
     @else
         src="{{ asset('assets/images/didueatdefault.png') }}" />
         <script>
-            document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
+            document.getElementById('uploadbtn').innerHTML="Click to Set Restaurant Logo";
         </script>
     @endif
 
@@ -86,7 +86,8 @@ if(!$minimum){
     ?>
 
     <hr width="100%" align="center" />
-    <button type="submit" class="btn btn-primary" style="margin-left:auto;margin-right:auto;">Save</button>
+    <input name="restLogoTemp" type="hidden" id="restLogoTemp" />
+    <button type="submit" class="btn btn-primary pull-right">Save it Dude</button>
 
     <?php
      echo newrow();
@@ -151,8 +152,8 @@ if(!$minimum){
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
-                button.html('Change Image');
-
+                document.getElementById('restLogoTemp').value=path;
+                button.html('Click Save to Update Logo');
                 window.clearInterval(interval);
                 this.enable();
                 $('#picture').attr('src', path);

@@ -250,7 +250,6 @@
                                                 $("#ordered_city").val(selected.getAttribute("CITY"));
                                                 $("#ordered_province").val(selected.getAttribute("PROVINCE"));
                                                 $("#ordered_apartment").val(selected.getAttribute("APARTMENT"));
-                                                $("#ordered_buzz").val(selected.getAttribute("BUZZ"));
                                                 $("#ordered_code").val(selected.getAttribute("POSTAL"));
                                                 $("#ordered_notes").val(selected.getAttribute("NOTES"));
                                             }
@@ -278,10 +277,6 @@
                             <div class="col-xs-6">
                                 <input type="text" placeholder="Apartment" id="ordered_apartment"
                                        class="form-control form-control--contact resetme" name="apartment">
-                            </div>
-                            <div class="col-xs-6">
-                                <input type="text" placeholder="Buzz" id="ordered_buzz"
-                                       class="form-control form-control--contact resetme" name="buzz">
                             </div>
 
                             <div class="col-xs-12">
@@ -393,7 +388,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary pull-right">Save changes</button>
             </div>
         </div>
     </div>

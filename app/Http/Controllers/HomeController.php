@@ -544,7 +544,7 @@ class HomeController extends Controller {
                     if($doit) {
                         \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('enabled' => $_POST["value"]));
                     } else {
-                        echo "You must have a minimum of 1 notification address";
+                        echo "You must have a minimum of 1 notification set";
                     }
                     break;
                 case "change_note":

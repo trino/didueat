@@ -91,7 +91,6 @@ echo newrow($new, "Allow pickup"); ?>
         printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
     }
 
-
     function printrow($layout, $key, $value, $opentime, $closetime, $suffix="", $class = "", $is_disabled = false){
         if($layout){$layout = 9; $width=5;} else {$layout = 2; $width=4; if($suffix){$layout=3;}}//width: 4 is editor, 5 is signup
         $closed = '<LABEL><input type="checkbox" onchange="closed(event, ' . $key . ');" CHECKED> Open</LABEL>';
@@ -101,11 +100,11 @@ echo newrow($new, "Allow pickup"); ?>
             @if(!$suffix && $layout == 2) <div class="col-sm-1" align="center"><SMALL><SMALL><?php echo $closed; ?></SMALL></SMALL></DIV> @endif
             @if(!$suffix && $layout == 9) <?php echo $closed; ?> @endif
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time" {{ $is_disabled }}/>
+                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control3 time" onfocus="this.blur();" />
             </div>
             <div class="col-sm-1">to</div>
             <div class="col-sm-{{ $width }}">
-                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control time" {{ $is_disabled }}/>
+                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="form-control3 time" onfocus="this.blur();" />
             </div>
         </div>
         <?php
@@ -119,6 +118,7 @@ echo newrow($new, "Allow pickup"); ?>
 
 
 <script>
+
     is_delivery_change();
     function is_delivery_change(){
         if ($('#is_delivery').is(':checked')) {

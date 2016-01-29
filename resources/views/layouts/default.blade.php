@@ -119,7 +119,7 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "Pickup or delivery options";
             }
             if (!$Restaurant->logo) {
-                $MissingData[] = "Your logo";
+                $MissingData[] = "Your Restaurant logo";
             }
 
             if (!$Restaurant->latitude || !$Restaurant->longitude) {

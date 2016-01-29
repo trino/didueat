@@ -17,6 +17,7 @@ function validateFn(f){
 			 }
 			}
    f.cuisines.value=cuisinesStr;
+   
 }
 </script>
 
@@ -66,7 +67,7 @@ function validateFn(f){
                 <div class="card-footer">
                     <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/><br/>
                     <hr width="100%" align="center" />
-                    <button type="submit" class="btn btn-primary pull-left">Save</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
                     {!! Form::close() !!}
                     <div class="clearfix"></div>
                 </div>
@@ -77,10 +78,13 @@ function validateFn(f){
             @endif
         </div>
 
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+<!--    Already loaded in default.blade
+ <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script> 
+-->
         <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+        <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
         <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
 @stop
