@@ -226,16 +226,14 @@
                                 
                                     <SCRIPT>
                                         function addresschanged(thiss) {
-                                            
-
-
-                                                $("#phone").val(selected.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-                                                $("#ordered_street").val(selected.getAttribute("ADDRESS"));
-                                                $("#ordered_city").val(selected.getAttribute("CITY"));
-                                                $("#ordered_province").val(selected.getAttribute("PROVINCE"));
-                                                $("#ordered_apartment").val(selected.getAttribute("APARTMENT"));
-                                                $("#ordered_code").val(selected.getAttribute("POSTAL"));
-                                                $("#ordered_notes").val(selected.getAttribute("NOTES"));
+                                                $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+                                                $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
+                                                $("#ordered_city").val(thiss.getAttribute("CITY"));
+                                                $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
+                                                $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
+                                                $("#ordered_code").val(thiss.getAttribute("POSTAL"));
+                                                $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+                                                $('#formatted_address3').val('');
                                           
 
                                         }

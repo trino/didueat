@@ -120,9 +120,16 @@ function getplace(){
 
 function fillInAddress() {
     // Get the place details from the formatted_address object.
-    if(isundefined(formatted_address)){
+    if(isundefined(formatted_address))
+    {
+        
         var place = formatted_address2.getPlace();
-    } else {
+        if(isundefined(place))
+            var place = formatted_address3.getPlace();
+       
+    }
+    else
+    {
         var place = formatted_address.getPlace();
     }
     var lat = place.geometry.location.lat();
@@ -166,21 +173,39 @@ function fillInAddress() {
                 $("#province option").filter(function() {
                     return this.text == val;
                 }).attr('selected', true);
+                if($('#ordered_province').is(':visible'))
+                 $("#ordered_province option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
+                
             }
             if(addressType == "locality"){
                 $('#city').val(val);
+                if($('#ordered_city').is(':visible'))
+                    $('#ordered_city').val(val);
             }
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
+                if($('#ordered_code').is(':visible'))
+                    $('#ordered_code').val(val);
             }
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);
+                if($('#ordered_street').is(':visible'))
+                    $('#ordered_street').val(val);
+                
             }
             if(addressType == "route"){
                 if($('#formatted_address').val() != ""){
                     $('#formatted_address').val($('#formatted_address').val()+" "+val);
                 } else {
                     $('#formatted_address').val(val);
+                }
+                if($('#ordered_street').is(':visible'))
+                if($('#ordered_street').val() != ""){
+                    $('#ordered_street').val($('#ordered_street').val()+" "+val);
+                } else {
+                    $('#ordered_street').val(val);
                 }
             }
 

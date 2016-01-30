@@ -65,7 +65,7 @@ $first = false; $type = "hidden";
                 </li>
 
                 <script>
-                    var formatted_address2;
+                    var formatted_address2,  formatted_address3,  formatted_address;
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
                         formatted_address3 = initAutocompleteWithID('formatted_address3');
