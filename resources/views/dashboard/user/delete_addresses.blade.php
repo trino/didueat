@@ -230,7 +230,6 @@
 
 
 
-    @include('common.tabletools')
 
 
     <script type="text/javascript">

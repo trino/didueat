@@ -20,6 +20,6 @@
             </div>
         </div>
     </div>
-    @include('common.tabletools')
+
     @include('popups.approve_cancel')
 @stop

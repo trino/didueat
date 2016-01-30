@@ -76,5 +76,4 @@
 
 
 
-    @include('common.tabletools')
 @stop

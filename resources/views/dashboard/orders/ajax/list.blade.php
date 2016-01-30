@@ -28,32 +28,32 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
             <thead>
             <tr>
                 <th>
-                    <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
-                                class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
+                                class="fa fa-caret-down"></i></a-->
                     Order Id
-                    <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
-                                class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
+                                class="fa fa-caret-up"></i></a-->
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
-                       title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
+                       title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
                     Customer
-                    <a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
-                       title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
+                       title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
-                       title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
+                       title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
                     Date
-                    <a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
-                       title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
+                       title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
-                       title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
+                       title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
                     Status
-                    <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
-                       title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
+                       title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
 
                 <TH>
@@ -110,8 +110,6 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
 
 
                         <td>
-
-
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-danger-outline btn-sm pull-right"
@@ -120,7 +118,6 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                                 </a>
                             @endif
                         </td>
-
                     </tr>
                 @endforeach
             @else

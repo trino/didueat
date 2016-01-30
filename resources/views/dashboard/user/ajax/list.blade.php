@@ -54,13 +54,18 @@
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <?php
+                            /*
+                            var_dump($value);
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-                        foreach($Addresses as $Address){
+                    var_dump($Addresses);
+
+                    foreach($Addresses as $Address){
                             $value->phone = phonenumber($Address->phone);
                             if($value->phone){
                                 break;
                             }
                         }
+                            */
                     ?>
                 <tr>
                     <td>{{ $value->id }}</td>
@@ -79,8 +84,6 @@
 
                             <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger-outline btn-sm"
                                onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
-
-
                         @endif
                     </td>
                 </tr>
@@ -93,7 +96,6 @@
             </tbody>
         </table>
     </div>
-
 
     <div class="card-footer clearfix">
         {!! $Pagination !!}

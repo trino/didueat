@@ -3,7 +3,7 @@
 
 <meta name="_token" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
-    window.showEntries = 10;
+    window.showEntries = 20;
     window.page = 1;
     window.pageUrlLoad = "{{ url('eventlogs/list/ajax') }}";
 </script>
@@ -18,16 +18,14 @@
         <?php printfile("views/dashboard/user/event_logs/index.blade.php"); ?>
 
         <div id="ajax_message_jgrowl"></div>
-        
+
         <!-- Panels Start -->
         <div id="loadPageData">
             <div id="ajaxloader"></div>
         </div>
-        
+
     </div>
 </div>
 
-
-@include('common.tabletools')
 
 @stop

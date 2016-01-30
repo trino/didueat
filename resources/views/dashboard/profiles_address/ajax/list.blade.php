@@ -63,9 +63,6 @@
                                     <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
                                 </div>
                             @endif
-                            @if ($key == 0)
-                                <span class="label label-default">Primary</span>
-                            @endif
 
 
                         </td>

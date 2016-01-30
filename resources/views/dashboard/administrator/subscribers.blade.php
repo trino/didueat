@@ -41,6 +41,5 @@
 
     <!-- END CONTENT -->
 
-    @include('common.tabletools')
 
 @stop

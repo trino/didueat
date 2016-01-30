@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    @include('common.tabletools')
+
 
     <script>
         $('body').on('click', '.editUser', function () {

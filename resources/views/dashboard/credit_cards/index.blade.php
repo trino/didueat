@@ -7,6 +7,7 @@
     window.page = 1;
     window.pageUrlLoad = "{{ url('credit-cards/list/ajax/'.$type) }}";
 </script>
+
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script>
@@ -23,8 +24,7 @@
         <div id="loadPageData">
             <div id="ajaxloader"></div>
         </div>
-        
-        
+
     </div>
 </div>
 
@@ -53,7 +53,6 @@
 </div>
 
 
-@include('common.tabletools')
 
 <script type="text/javascript">
     function switchdivs(event){

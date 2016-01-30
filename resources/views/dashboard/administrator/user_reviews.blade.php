@@ -92,7 +92,6 @@
     </div>
 
 
-    @include('common.tabletools')
 
 
 

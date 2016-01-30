@@ -18,8 +18,18 @@
 
 
             </div>
+            @if(Session::get('session_type_user') == "super")
+
+            <div class="col-lg-3">
+                <?php printfile("views/common/table_controls.blade.php"); ?>
+                <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>' placeholder='Search...' autofocus='true' style=""/>
+            </div>
+
 
             @include('common.table_controls')
+
+@endif
+
         </div>
     </div>
 
@@ -31,33 +41,27 @@
                     #
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="enabled" data-order="ASC" data-title="Enabled"
-                       title="Sort [Enabled] ASC"><i class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="enabled" data-order="ASC" data-title="Enabled"
+                       title="Sort [Enabled] ASC"><i class="fa fa-caret-down"></i></a-->
                     Enable
-                    <a class="sortOrder" data-meta="enabled" data-order="DESC" data-title="Enabled"
-                       title="Sort [Enabled] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="enabled" data-order="DESC" data-title="Enabled"
+                       title="Sort [Enabled] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="address" data-order="ASC" data-title="Phone/Email"
-                       title="Sort [Phone/Email] ASC"><i class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="address" data-order="ASC" data-title="Phone/Email"
+                       title="Sort [Phone/Email] ASC"><i class="fa fa-caret-down"></i></a-->
                     Phone/Email
-                    <a class="sortOrder" data-meta="address" data-order="DESC" data-title="Phone/Email"
-                       title="Sort [Phone/Email] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="address" data-order="DESC" data-title="Phone/Email"
+                       title="Sort [Phone/Email] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
                 <th>
-                    <a class="sortOrder" data-meta="note" data-order="ASC" data-title="Note" title="Sort [Note] ASC"><i
-                                class="fa fa-caret-down"></i></a>
+                    <!--a class="sortOrder" data-meta="note" data-order="ASC" data-title="Note" title="Sort [Note] ASC"><i
+                                class="fa fa-caret-down"></i></a-->
                     Note
-                    <a class="sortOrder" data-meta="note" data-order="DESC" data-title="Note"
-                       title="Sort [Note] DESC"><i class="fa fa-caret-up"></i></a>
+                    <!--a class="sortOrder" data-meta="note" data-order="DESC" data-title="Note"
+                       title="Sort [Note] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
-                <th>
-                    <a class="sortOrder" data-meta="type" data-order="ASC" data-title="Type" title="Sort [Type] ASC"><i
-                                class="fa fa-caret-down"></i></a>
-                    Type
-                    <a class="sortOrder" data-meta="type" data-order="DESC" data-title="Type"
-                       title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
-                </th>
+
 
                 <th></th>
             </tr>
@@ -107,6 +111,10 @@
 
 
                     </tr>
+
+
+
+
                 @endforeach
             @else
                 <tr>
@@ -116,8 +124,11 @@
             </tbody>
         </table>
     </div>
+    @if(Session::get('session_type_user') == "super")
 
     <div class="card-footer clearfix">
         {!! $Pagination; !!}
     </div>
+
+        @endif
 </div>

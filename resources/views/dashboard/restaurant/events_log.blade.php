@@ -46,5 +46,5 @@
             </div>
 
 
-    @include('common.tabletools')
+
 @stop

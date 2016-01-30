@@ -50,7 +50,6 @@
     </div>
 </div>
 
-@include('common.tabletools')
 
 <script type="text/javascript">
     $('body').on('click', '.editRow, #addNew', function () {
