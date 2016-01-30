@@ -21,7 +21,7 @@ echo newrow($new, "Email", "", true, 7); ?>
 </div></div>
 <?php }
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9); 
+echo newrow($new, "Restaurant Cuisine", "", true, 9, '(Check Between 1 & 3)'); 
 echo '<input name="cuisines" type="hidden" />';
 $cuisineExpl="";
 if(isset($restaurant->cuisine)){
@@ -29,24 +29,26 @@ if(isset($restaurant->cuisine)){
 }
 
 $cnt=0;
+$cuisinesChkd=0;
 $cuisineListA=array();
 foreach($cuisine_list as $value){
     $cuisineListA[$value->id] = $value->name;
 }
 
 sort($cuisineListA);
-foreach($cuisineListA as $value => $name){
-    echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' value='" . $name . "'";
+foreach($cuisineListA as $value => $name){ 
+    echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if(isset($restaurant->cuisine)){
         if(in_array($name, $cuisineExpl)){
             echo " checked";
+            $cuisinesChkd++;
         }
     }
     echo " />&nbsp;" . $name . " &nbsp; &nbsp; &nbsp;</LABEL></div>";
     $cnt++;
 }
 
-echo '<script>var cuisineCnt = ' . $cnt . ';</script></div></div>';
+echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = '.$cuisinesChkd.';</script></div></div>';
 
 if(!$minimum){
     echo newrow($new, "Description", "", true, 8); ?>

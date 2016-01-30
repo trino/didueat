@@ -5,6 +5,24 @@
     <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
 
 <script>
+function chkCBs(cb){
+  if(cb){
+   if(cbchkd > 2){
+    alert("You may check a maximum of only 3 cuisine types. Please adjust your selection accordingly.");
+    return false;
+   }
+   else{
+    cbchkd++;
+    return true;
+   }
+  }
+  else{
+   cbchkd--;
+   return false;
+  }
+////
+}
+    
 function validateFn(f){
    var cuisinesStr="";
    var comma="";
@@ -50,7 +68,7 @@ function validateFn(f){
                     <h4 class="card-title">Restaurant Address</h4>
                 </div>
                 <div class="card-block">
-                    <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false)); ?>
+                    <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false, "restEdit" => true)); ?>
                 </div>
             </div>
 

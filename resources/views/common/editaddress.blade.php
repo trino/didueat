@@ -72,6 +72,11 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
            value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
 </div></div>
 
+<?= newrow($new, "Province", "", $required, 4); ?>
+    <input type="text" id="province" name="province" class="form-control2" onfocus="this.blur();"
+           value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
+</div></div>
+
 <?= newrow($new, "Postal Code", "", true, 4); ?>
     <input type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control2"
            placeholder="Postal Code"
@@ -107,14 +112,14 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
         </div></div>
     <?php }
 
-/*
 
-    if(!$restSignUp){
-		    echo newrow($new,"Save","","",12,true); 
-            echo '<hr width="100%" align="center" /><button type="submit" class="btn btn-primary pull-right" style="margin-left:auto;margin-right:auto;">Save</button></div></div>';
+
+    if($restSignUp || $restEdit){
+		    echo newrow($new,"Save","","",12,"Save"); 
+            echo '<hr width="100%" align="center" /><span class="instruct pull-right">Please Ensure Address was Correctly Filled-out &nbsp; &nbsp; &nbsp; <button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     }
 
-*/
+
 
     if (isset($disclaimer)) {
         echo 'The entrance must be safe (ie: well-lit, clear of ice';
@@ -123,6 +128,7 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
         }
         echo ') Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
     }
+    
     if(isset($dontinclude)) { ?>
         <SCRIPT>
             $(document).ready(function () {
@@ -133,18 +139,12 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
         </SCRIPT>
     <?php } else {
         if(Request::path()=='user/addresses/edit/0'){
-        echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
+//        echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
             if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
                 //echo '<script>initAutocomplete();</script>';
             }
         }
         ?>
-        <SCRIPT>
-        
-            $(document).ready(function () {
-                cities("{{ url('ajax') }}", '{{ (isset($addresse_detail->city))?$addresse_detail->city:0 }}');
-            });
-                        
-        </SCRIPT>
+
     <?php } ?>
     
