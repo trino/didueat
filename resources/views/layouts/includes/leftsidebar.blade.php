@@ -19,7 +19,7 @@
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-                'notification/addresses' => "Notification Addresses",
+                'notification/addresses' => "Notification Settings",
                 'restaurant/info' => "Restaurant Info",
                 'credit-cards/list/restaurant' => "Credit Card" //if(\Session::has('session_profiletype') )
         ), "<i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant Navigation");

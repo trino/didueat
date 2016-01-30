@@ -87,7 +87,7 @@ if(!$minimum){
 
     <hr width="100%" align="center" />
     <input name="restLogoTemp" type="hidden" id="restLogoTemp" />
-    <button type="submit" class="btn btn-primary pull-right">Save it Dude</button>
+    <button type="submit" class="btn btn-primary pull-right">Save</button>
 
     <?php
      echo newrow();

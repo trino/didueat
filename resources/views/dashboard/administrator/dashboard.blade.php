@@ -40,7 +40,7 @@
 
                 </div>
                 <div class="card-footer clearfix" style="text-align:center">
-                    <button type="submit" class="btn btn-primary pull-right">Save It Man</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
                     <input name="userPhotoTemp" type="hidden" id="userPhotoTemp" />
                     <input name="user_idDir" id="user_idDir" type="hidden" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}" />
                     <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
