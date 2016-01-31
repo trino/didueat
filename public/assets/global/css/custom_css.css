@@ -1,3 +1,7 @@
+.list-inline-item:not(:last-child) {
+    margin-right: 15px;
+}
+
 .table td, .table th{padding: 1.30rem;}
 
 .card-header {
@@ -15,7 +19,8 @@
     color: #e32;
 }
 * {
-    border-radius: 0 !important;
+
+    
 }
 
 .logopic{

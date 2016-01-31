@@ -185,6 +185,10 @@
         }
     }
 
+
+
+
+
     function newrow($new = false, $name = false, $class = "", $Required = false, $columns = 9, $labelStr = "")
     {
         $id = str_replace(" ", "_", strtolower($name)) . "_label";
@@ -209,6 +213,10 @@
         }
     }
 
+
+
+
+    /*
     function fontawesome($profiletype, $icontype = 0)
     {
         switch ($icontype) {
@@ -232,7 +240,7 @@
             echo '<i class="fa fa-' . $icon . '"></i>';
         }
     }
-
+*/
     function handleexception($e)
     {
         $Message = $e->getMessage();
@@ -502,9 +510,11 @@
         if ($Profile) {
             if (isset($_GET["restaurant_id"])) {
                 $ProfileType = get_profile_type($Profile);
+                /*
                 if ($ProfileType->can_edit_global_settings) {
                     return $_GET["restaurant_id"];
                 }
+                */
             }
             return get_profile($Profile)->restaurant_id;
         }

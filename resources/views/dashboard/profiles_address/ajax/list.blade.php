@@ -7,10 +7,10 @@
 <div class="card">
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-9"><h3>
-                    My Addresses
+            <div class="col-lg-9"><h4>
+                    My Address
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
-                </h3></div>
+                </h4></div>
             @include('common.table_controls')
         </div>
     </div>

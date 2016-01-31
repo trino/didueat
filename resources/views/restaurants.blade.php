@@ -38,7 +38,7 @@ $type = "hidden";
                             <label class="c-input c-checkbox">
                                 <input type="checkbox" name="is_complete" id="is_complete" value="true" checked onclick="createCookieValue('is_complete', this.value)"/>
                                 <span class="c-indicator"></span>
-                                Is signed up
+                                Order Online
                             </label>
 
                         </div>

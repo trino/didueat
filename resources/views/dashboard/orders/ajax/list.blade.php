@@ -77,10 +77,9 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                 @foreach($Query as $value)
                     <tr>
                         <td>{{ $value->id }}
-                            @if(Session::get('session_profiletype') >= 1)
                                 <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
                                    class="btn btn-primary  btn-sm">View</a>
-                            @endif
+
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>

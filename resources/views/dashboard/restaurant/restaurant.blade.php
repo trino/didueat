@@ -9,7 +9,7 @@ if (!isset($minimum)) {
     $minimum = false;
 }
 ?>
-<input name="initialRestSignup" type="hidden" value="1" />
+<input name="initialRestSignup" type="hidden" value="1"/>
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
@@ -17,29 +17,30 @@ if (!isset($minimum)) {
 
 if(!isset($email)){
 echo newrow($new, "Email", "", true, 7); ?>
-    <input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address" value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
+<input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address"
+       value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
 </div></div>
 <?php }
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, '(Check Between 1 & 3)'); 
+echo newrow($new, "Restaurant Cuisine", "", true, 9, '(Check Between 1 & 3)');
 echo '<input name="cuisines" type="hidden" />';
-$cuisineExpl="";
-if(isset($restaurant->cuisine)){
-    $cuisineExpl = explode(",",$restaurant->cuisine);
+$cuisineExpl = "";
+if (isset($restaurant->cuisine)) {
+    $cuisineExpl = explode(",", $restaurant->cuisine);
 }
 
-$cnt=0;
-$cuisinesChkd=0;
-$cuisineListA=array();
-foreach($cuisine_list as $value){
+$cnt = 0;
+$cuisinesChkd = 0;
+$cuisineListA = array();
+foreach ($cuisine_list as $value) {
     $cuisineListA[$value->id] = $value->name;
 }
 
 sort($cuisineListA);
-foreach($cuisineListA as $value => $name){ 
+foreach ($cuisineListA as $value => $name) {
     echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
-    if(isset($restaurant->cuisine)){
-        if(in_array($name, $cuisineExpl)){
+    if (isset($restaurant->cuisine)) {
+        if (in_array($name, $cuisineExpl)) {
             echo " checked";
             $cuisinesChkd++;
         }
@@ -48,54 +49,59 @@ foreach($cuisineListA as $value => $name){
     $cnt++;
 }
 
-echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = '.$cuisinesChkd.';</script></div></div>';
+echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
-    echo newrow($new, "Description", "", true, 8); ?>
-        <textarea name="description" class="form-control" {{ $is_disabled }} placeholder="Description">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-    <?php echo newrow();
+echo newrow($new, "Description", "", true, 8); ?>
+<textarea required name="description" class="form-control"
+          {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+<?php echo newrow();
 
-    echo newrow($new, "Tags"); ?>
-        <textarea id="demo4"></textarea>
-        <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-        <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
-    </div></div>
-    
+echo newrow($new, "Tags"); ?>
+<textarea id="demo4"></textarea>
+<input type="hidden" name="tags" id="responseTags"
+       value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
+<p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
+</div></div>
 
-    <?php echo newrow($new, "Logo","","",7); ?>
 
-    @if(!$is_disabled)
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Click to Change Image</a> &nbsp;
-    @endif
+<?php echo newrow($new, "Logo", "", "", 7); ?>
 
+
+    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left">Upload</a>
+
+
+<div class="clearfix pull-left">
     <input type="hidden" name="logo" id="hiddenLogo"/>
 
-    <img id="picture" class="logopic" align="right"
-    @if(isset($restaurant->logo) && $restaurant->logo != "")
-         src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}" />
+    <img id="picture" class="logopic" align=""
+         @if(isset($restaurant->logo) && $restaurant->logo != "")
+         src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"/>
     @else
         src="{{ asset('assets/images/didueatdefault.png') }}" />
         <script>
-            document.getElementById('uploadbtn').innerHTML="Click to Set Restaurant Logo";
+            document.getElementById('uploadbtn').innerHTML = "Update";
         </script>
     @endif
+</div>
 
-    </div>
-    </div>
 
-    <?php
-     echo newrow($new,"Save","","",12,true);
-    ?>
 
-    <hr width="100%" align="center" />
-    <input name="restLogoTemp" type="hidden" id="restLogoTemp" />
-    <button type="submit" class="btn btn-primary pull-right">Save</button>
+</div>
+</div>
 
-    <?php
-     echo newrow();
-}
+<?php
+echo newrow($new, "Save", "", "", 12, true);
 ?>
 
+<hr width="100%" align="center"/>
+<input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
+<button type="submit" class="btn btn-primary pull-right">Save</button>
+
+<?php
+echo newrow();
+}
+?>
 
 
 <script>
@@ -108,16 +114,16 @@ if(!$minimum){
         @endif
 
         $('#demo4').tagEditor({
-                    
-            initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
+
+                    initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
                     placeholder: 'Enter tags ...',
-                    
+
                     onChange: function (field, editor, tags) {
                         $('#responseTags').val((tags.length ? tags.join(', ') : ''));
                     },
                     beforeTagDelete: function (field, editor, tags, val) {
                         var q = confirm('Remove tag "' + val + '"?');
-                        
+
                         return q;
                     }
                 });
@@ -125,7 +131,7 @@ if(!$minimum){
 
     @if(isset($resturant->city))
         $(document).ready(function () {
-                
+
             });
     @endif
 
@@ -154,8 +160,8 @@ if(!$minimum){
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
-                document.getElementById('restLogoTemp').value=path;
-                button.html('Click Save to Update Logo');
+                document.getElementById('restLogoTemp').value = path;
+                button.html('Upload');
                 window.clearInterval(interval);
                 this.enable();
                 $('#picture').attr('src', path);
@@ -170,7 +176,5 @@ if(!$minimum){
                 @if(!$minimum)
                     ajaxuploadbtn('uploadbtn');
                 @endif
-
-
-            });
+           });
 </script>

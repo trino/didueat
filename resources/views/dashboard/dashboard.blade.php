@@ -10,7 +10,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h3>My Personal Profile</h3>
+                <h4>My Profile</h4>
             </div>
             <div class="card-block">
                 {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
@@ -22,16 +22,18 @@
 
                     <?= newrow(false, "Profile Photo","","",7); ?>
 
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Click to Change Image</a> &nbsp;
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success red">Upload</a>
+
+
                             <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
-                            <img id="picture" class="logopic" align="right"
+                            <img id="picture" class="logopic"
                             @if($user_detail->photo)
                                 test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
-                                src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) }}" >
+                                src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) }}" />
                             @else
-                                src="{{ asset('assets/images/didueatdefault.png') }}" >  
+                                src="{{ asset('assets/images/didueatdefault.png') }}" />
                                 <script>
-                                    document.getElementById('uploadbtn').innerHTML="Click to Set Your Own Logo";
+                                    document.getElementById('uploadbtn').innerHTML="Update";
                                 </script>
                             @endif
                         </div>
