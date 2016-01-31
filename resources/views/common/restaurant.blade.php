@@ -42,7 +42,7 @@ if(Session::get('session_type_user') != "restaurant"){
             </div>
         </div>
                 
-                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum)); ?>
+                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
                 </div>
         
                 <div class="row">

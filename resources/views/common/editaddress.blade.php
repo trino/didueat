@@ -22,8 +22,8 @@ $isUser = isset($apartment);
 $needsmobile = isset($mobile);
 $restSignUp=!isset($addresse_detail);//no idea what this needs to be
 ?>
-<input type="hidden" name="latitude" id="latitude" value=""/>
-<input type="hidden" name="longitude" id="longitude" value=""/>
+<input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
+<input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" />
     
 <?php echo newrow($new, "Street Address", "", false); ?>
@@ -88,6 +88,17 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
            value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
 </div></div>
 
+<?php 
+    if(isset($restSignUp)){
+      echo newrow($new, "Important", "", true, 10, true);
+?>
+    <div id="verifyAddress" style="display:none">
+        <div class="instruct">Please Ensure Address was Correctly Filled-out</div>
+    </div>
+<?php 
+echo newrow(); 
+}
+?>
 
 <?php echo newrow($new, "Phone Number", "", $required, 7); ?>
     <input type="text" name="phone" class="form-control"
@@ -114,9 +125,9 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
 
 
 
-    if($restSignUp || $restEdit){
+    if(isset($restEdit)){
 		    echo newrow($new,"Save","","",12,"Save"); 
-            echo '<hr width="100%" align="center" /><span class="instruct pull-right">Please Ensure Address was Correctly Filled-out &nbsp; &nbsp; &nbsp; <button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
+            echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     }
 
 
@@ -128,23 +139,13 @@ $restSignUp=!isset($addresse_detail);//no idea what this needs to be
         }
         echo ') Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
     }
-    
-    if(isset($dontinclude)) { ?>
-        <SCRIPT>
-            $(document).ready(function () {
-                if (typeof(initAutocomplete) == "function") {
-                    initAutocomplete();//editaddress
-                }
-            });
-        </SCRIPT>
-    <?php } else {
-        if(Request::path()=='user/addresses/edit/0'){
-//        echo '<script src="' . url("assets/global/scripts/provinces.js") . '" type="text/javascript"></script>';
-            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-                //echo '<script>initAutocomplete();</script>';
-            }
-        }
-        ?>
 
-    <?php } ?>
+    
+                includeJS(url("assets/global/scripts/provinces.js"));
+                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+                }
+
+
+ ?>
     

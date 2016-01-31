@@ -22,7 +22,7 @@ class ProfileAddressesController extends Controller {
      * @param null
      * @return view
      */ 
-    public function index($idd = 0) {
+    public function index($idd = 0) {  
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if ((isset($post['formatted_addressForDB']) && !empty($post['formatted_addressForDB'])) && (!isset($post['formatted_address']) || empty($post['formatted_address']))) {

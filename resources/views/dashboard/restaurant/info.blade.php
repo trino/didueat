@@ -63,7 +63,7 @@ function validateFn(f){
             </div>
 
 
-            <div class="card">
+            <div class="card"><a name="RestaurantAddress"></a>
                 <div class="card-header">
                     <h4 class="card-title">Restaurant Address</h4>
                 </div>
@@ -73,11 +73,11 @@ function validateFn(f){
             </div>
 
             <div class="card">
-                <div class="card-header">
+                <div class="card-header"><a name="PickupAndDelivery"></a>
                     <h4 class="card-title">Hours & Delivery</h4>
                 </div>
                 <div class="card-block">
-                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2))
+                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                 </div>
             </div>
 

@@ -5,12 +5,12 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title" id="editLabel">Update Address
+                                    <h4 class="modal-title" id="editLabel">My Home Address
                                         @if(debugmode()) (index) @endif
                                     </h4>
                                 </div>
                                 <div id="ajaxloader"></div>
-                                {!! Form::open(array('url' => 'user/addresses/0', 'id'=>'edit-form', 'method'=>'post','role'=>'form')) !!}
+                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form')) !!}
                                     <div class="modal-body" id="contents">
                     
                                     </div>

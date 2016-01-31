@@ -25,7 +25,7 @@ $first = false; $type = "hidden";
                                     $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                                     if($addresses->count()){
                                 ?>
-                                <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
+                                <button style="border-right:0;height:33px" type="button" class="btn btn-secondary" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false"><span
                                             class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
                                 </button>
@@ -56,10 +56,8 @@ $first = false; $type = "hidden";
                         <input type="{{ $type }}" name="latitude2" id="latitude2">
                         <input type="{{ $type }}" name="latitude2" id="longitude2">
                         <div class="input-group-btn">
-                            <button class="btn  btn-primary" oldstyle="display: none;" id="header-search-button"
-                                    onclick="$('#search-form-submit').trigger('click');">
-                                &nbsp;<i class="fa fa-search"></i>&nbsp;
-                            </button>
+                            <button class="btn  btn-primary dueBtn" oldstyle="display: none;" id="header-search-button"
+                                    onclick="$('#search-form-submit').trigger('click');">Find</button>
                         </div>
                     </div>
                 </li>

@@ -46,7 +46,7 @@
 }
 
 .formatted_address{
-    height: 38px;
+    height: 33px;
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -86,7 +86,7 @@ body.modal-open {
 
 #ajaxloader{background: rgba(0, 0, 0, 0) url("../../images/loader.gif") no-repeat scroll 0 0; height: 120px; width: 100%;}
 #loadmoreajaxloader{display: none;}
-.form-control{display: inline !important;}
+.form-control{display: inline !important;height:33px}
 .form-control-nobord{display: inline !important; border:none}
 .form-control2{display: inline !important; cursor:not-allowed; background:#e6e6e6}
 .form-control3{display: inline !important; cursor:context-menu; background:#e6e6e6}
@@ -282,6 +282,10 @@ span.tags{background:#f5f5f5;color:#555;border:1px solid #CCC;padding:3px 5px;di
     line-height: 1.5;
     padding: 1px 5px;
 }
+.dueBtn{
+    height:33px;
+    padding:6px 5px 1px 6px;
+}
 .overlay_reservation{
     background-color: rgba(255, 255, 220, 0.8);
     z-index: 99999;
@@ -330,7 +334,7 @@ em.total{width:14%;padding-left:2%;}
 
 .newaction{margin-top: 20px}
 .alldays{font-size:12px;}
-.instruct{font-size:16px;color:#f00;}
+.instruct{font-size:16px;color:#f00;margin-left:auto;margin-right:auto; text-align:center}
 
 /****Filter******/
 .facet-checkbox-box{display:inline}
@@ -359,6 +363,7 @@ table.orders thead{background: #e5e5e5;}
 
 .cuisineCB{display:inline-block}
 .reviews_detail {color: #D9534F;}
+.missLnk{color:#f00;font-weight:normal;text-decoration:underline}
 
 #modal_table_max_height { width: 100%; overflow: hidden;}
 #modal_table_max_height tr {display: block; }

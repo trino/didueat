@@ -30,8 +30,8 @@ echo newrow($new, "Allow pickup"); ?>
         <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp; We Offer Delivery
     </LABEL>
 </DIV></DIV>
-
-<div id="is_delivery_options" style="display: {{ (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0)?'block':'none' }};">
+<a name="HoursOpen"></a>
+<div id="is_delivery_options" style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($post['initialRestSignup']) || isset($showDeliveryOptions))?'block':'none' }};">
     <?php echo newrow($new, "Delivery Fee ($)", "", true, 4); ?>
         <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style="width:60px" placeholder="Delivery Fee" value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
     </DIV></DIV>
@@ -83,7 +83,7 @@ echo newrow($new, "Allow pickup"); ?>
     
     echo '<label class="col-sm-12 row"><hr width="100%" align="center" /></label>';
     
-    echo '<label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL id="is_delivery_optionsCB"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours" name="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
+    echo '<a name="DeliveryTimes"></a><label class="col-sm-3 row"><SPAN><b><u>Delivery Times</u>:</b></SPAN></label><div class="col-sm-9"><LABEL id="is_delivery_optionsCB"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours" name="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours</LABEL></div>';
 
     foreach ($day_of_week as $key => $value) {
         $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
@@ -125,7 +125,7 @@ echo newrow($new, "Allow pickup"); ?>
             $('#is_delivery_options').show();
 //            $('.is_delivery_options').show();
         } else {
-            $('#is_delivery_options').hide();
+//            $('#is_delivery_options').hide();
 //            $('.is_delivery_options').hide();
         }
         same(false);

@@ -87,6 +87,25 @@
     </div>
 
     <script type="text/javascript">
+    
+
+function chkCBs(cb){
+  if(cb){
+   if(cbchkd > 2){
+    alert("You may check a maximum of only 3 cuisine types. Please adjust your selection accordingly.");
+    return false;
+   }
+   else{
+    cbchkd++;
+    return true;
+   }
+  }
+  else{
+   cbchkd--;
+   return false;
+  }
+////
+}
      
     function validateFn(f){
 			   var cuisinesStr="";

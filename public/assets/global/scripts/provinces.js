@@ -119,6 +119,12 @@ function getplace(){
 }
 
 function fillInAddress() {
+
+    if($('#formatted_address').is(':visible')){
+     // meaning edit page is showing, as the top search field uses formatted_address2
+     document.getElementById('verifyAddress').style.display="block";
+    }
+
     // Get the place details from the formatted_address object.
     if(isundefined(formatted_address))
     {
@@ -164,21 +170,18 @@ function fillInAddress() {
         var addressType = place.address_components[i].types[0];
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
+
             if(addressType == "country"){
-                $("#country  option").filter(function() {
-                    return this.text == val;
-                }).attr('selected', true);
+                $('#country').val(val);
             }
+
             if(addressType == "administrative_area_level_1"){
-                $("#province option").filter(function() {
-                    return this.text == val;
-                }).attr('selected', true);
+                $('#province').val(val);
                 if($('#ordered_province').is(':visible'))
-                 $("#ordered_province option").filter(function() {
-                    return this.text == val;
-                }).attr('selected', true);
-                
+                    $('#ordered_province').val(val);
             }
+
+
             if(addressType == "locality"){
                 $('#city').val(val);
                 if($('#ordered_city').is(':visible'))

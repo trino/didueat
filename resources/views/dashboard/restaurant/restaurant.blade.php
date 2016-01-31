@@ -9,6 +9,7 @@ if (!isset($minimum)) {
     $minimum = false;
 }
 ?>
+
 <input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder="Restaurant Name"
@@ -21,7 +22,15 @@ echo newrow($new, "Email", "", true, 7); ?>
 </div></div>
 <?php }
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, '(Check Between 1 & 3)'); 
+$brTag="<br/>";
+$brTag2="";
+if(isset($restSignUpPg)){
+ $brTag="";
+ $brTag2="<br/>";
+}
+
+
+echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Check Between 1 & 3)'.$brTag2); 
 echo '<input name="cuisines" type="hidden" />';
 $cuisineExpl="";
 if(isset($restaurant->cuisine)){
@@ -56,6 +65,7 @@ if(!$minimum){
     <?php echo newrow();
 
     echo newrow($new, "Tags"); ?>
+        <a name="setlogo"></a>
         <textarea id="demo4"></textarea>
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
