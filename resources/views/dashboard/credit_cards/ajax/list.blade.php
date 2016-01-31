@@ -27,11 +27,6 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
             @if (Session::get('session_type_user') == "super")
 
 
-            <div class="col-lg-3">
-                <?php printfile("views/common/table_controls.blade.php"); ?>
-                <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>'
-                       placeholder='Search...' autofocus='true' style=""/>
-            </div>
 
 
             @include('common.table_controls')
@@ -142,7 +137,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 
 
 
-    @if (Session::get('session_type_user') == "super")
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
     <div class="card-footer clearfix">
         {!! $Pagination; !!}    </div>
     @endif

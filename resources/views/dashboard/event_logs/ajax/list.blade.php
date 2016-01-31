@@ -57,8 +57,10 @@
             </tbody>
         </table>
     </div>
-    
+    @if(Session::get('session_type_user') == "super"  && $recCount > 0)
+
     <div class="card-footer clearfix">
         {!! $Pagination; !!}    
     </div>
+        @endif
 </div>

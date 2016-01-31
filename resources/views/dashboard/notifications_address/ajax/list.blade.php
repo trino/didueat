@@ -5,8 +5,7 @@
 @endif
 
 <div class="card">
-
-    <div class="card-header ">
+    <div class="card-header">
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
@@ -15,20 +14,11 @@
                 </h4>
 
                 <p class="card-subtitle text-muted">Notify me by these methods when I receive an order</p>
-
-
             </div>
-            @if(Session::get('session_type_user') == "super")
 
-                <div class="col-lg-3">
-                    <?php printfile("views/common/table_controls.blade.php"); ?>
-                    <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>'
-                           placeholder='Search...' autofocus='true' style=""/>
-                </div>
-
+            @if(Session::get('session_type_user') == "super" || $recCount > 10)
 
                 @include('common.table_controls')
-
             @endif
 
         </div>
@@ -127,7 +117,7 @@
             </tbody>
         </table>
     </div>
-    @if(Session::get('session_type_user') == "super")
+    @if(Session::get('session_type_user') == "super"  && $recCount > 0)
 
         <div class="card-footer clearfix">
             {!! $Pagination; !!}

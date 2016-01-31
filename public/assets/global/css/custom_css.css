@@ -2,12 +2,12 @@
     margin-right: 15px;
 }
 
-.table td, .table th{padding: 1.30rem;}
-
+.table td, .table th{padding: 1.30rem;
+}
+.table thead th{border-bottom:0;}
 .card-header {
     padding: 1.0rem 1.25rem;
      background-color: #fff !important;
-     border-bottom: 1px solid #e5e5e5;
 }
 .card-footer{
       padding: 1.25rem 1.25rem;
@@ -20,7 +20,7 @@
 }
 * {
 
-    
+
 }
 
 .logopic{

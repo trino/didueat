@@ -1,3 +1,8 @@
+<div class="col-lg-3">
+    <?php printfile("views/common/table_controls.blade.php"); ?>
+    <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>'
+           placeholder='Search...' autofocus='true' style=""/>
+</div>
 
 
 <input type='hidden' name='hiddenShowDataEntries' id='hiddenShowDataEntries' value='{!! ($per_page)?$per_page:5; !!}' />

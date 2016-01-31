@@ -36,7 +36,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <meta name="_token" content="{{ csrf_token() }}"/>
-    
+
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
@@ -99,22 +99,27 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 <div class="container m-t-3 p-t-2">
+
+
     @if (session('status'))
-        <div class="alert alert-success"> 
+        <div class="alert alert-success">
             {{ session('status') }}
         </div>
     @endif
 
     <?php
-    
-    $step1CompleteMsg="";
-    
+
+        //////////////////////////////////COMPLETE RESTAURANT SIGNUP
+
+        $step1CompleteMsg = "";
     $Restaurant = \Session::get('session_restaurant_id', 0);
     if ($Restaurant) {
         $Restaurant = select_field("restaurants", "id", $Restaurant);
         if ($Restaurant) {
+
             $MissingData = array();
             $MissingDataOptional = array();
+
             if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
                 $MissingData[] = "Pickup or delivery options";
             }
@@ -128,9 +133,11 @@ if (Request::path() !== null && Request::path() != "/") {
 
 //          if(!$Restaurant->open){$MissingData[] = "to be set to open";}
 //          if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
+
             if ($Restaurant->max_delivery_distance < 2) {
                 $MissingDataOptional[] = "Delivery range";
             }
+
             if (!$Restaurant->minimum) {
                 $MissingDataOptional[] = "Minimum delivery sub-total";
             }
@@ -169,24 +176,29 @@ if (Request::path() !== null && Request::path() != "/") {
             }
 
             if ($MissingData) {
-                if(isset($post['initialRestSignup'])){
-                      $missingHead="PARTIAL REGISTRATION COMPLETED!";
-                } else{
-                      $missingHead="PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
+                if (isset($post['initialRestSignup'])) {
+                    $missingHead = "COMPLETE REGISTRATION TO START RECEIVING ORDERS";
+                } else {
+                    $missingHead = "COMPLETE REGISTRATION TO START RECEIVING ORDERS";
                 }
 
                 $MissingData = array_merge($MissingData, $MissingDataOptional);
-                $MissingData = "<br/>Please scroll down the page, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-left:100px;color:#000;font-weight:bold'>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
-                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>'.$missingHead.'</u></STRONG>' . $MissingData . '</DIV>';
+                $MissingData = "<br/><div >&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
+
+                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>' . $missingHead . '</STRONG>' . $MissingData . '</DIV>';
             }
         }
     }
+
     if (\Session::has('invalid-data')) {
         $fields = Session::get('invalid-data');
         $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
         echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
         \Session::forget('invalid-data');
     }
+
+
+            //////////////////////////////////COMPLETE RESTAURANT SIGNUP
     ?>
 
     @if(\Session::has('message-type') && Session::get('message'))
@@ -203,6 +215,9 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.footer')
 </body>
 </html>
+
+
+
 <SCRIPT>
     //attempts to replace the field name with it's label for invalid data
     $(document).ready(function () {

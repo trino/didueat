@@ -22,6 +22,8 @@
 
     <div class="card-block p-a-0">
         <table class="table table-responsive  m-b-0 ">
+            @if($recCount > 0)
+
             <thead class="">
                 <tr>
                     <th>
@@ -50,6 +52,7 @@
                     <th></th>
                 </tr>
             </thead>
+            @endif
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
@@ -94,8 +97,10 @@
             </tbody>
         </table>
     </div>
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
 
     <div class="card-footer clearfix">
         {!! $Pagination !!}
     </div>
+        @endif
 </div>

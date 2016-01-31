@@ -3,7 +3,7 @@
 
 <meta name="_token" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
-    window.showEntries = 20;
+    window.showEntries = 10;
     window.page = 1;
     window.pageUrlLoad = "{{ url('eventlogs/list/ajax') }}";
 </script>

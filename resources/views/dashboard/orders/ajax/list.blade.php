@@ -71,7 +71,6 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                 <tbody>
 
 
-                <tbody>
 
 
                 @foreach($Query as $value)
@@ -145,7 +144,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
             </tbody>
         </table>
     </div>
-    @if (Session::get('session_type_user') == "super")
+    @if($recCount > 0)
 
     <div class="card-footer clearfix">
         {!! $Pagination !!}
