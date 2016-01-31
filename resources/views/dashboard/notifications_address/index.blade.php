@@ -51,7 +51,7 @@
    </div>
 </div>
 
-@include('common.tabletools')
+
 
 <script type="text/javascript">
     function editnote(ID) {

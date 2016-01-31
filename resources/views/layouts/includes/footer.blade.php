@@ -30,13 +30,13 @@
         <div class="row">
             <div class="col-lg-10 ">
                 <ul class="list-inline">
-                    <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a>&nbsp; &nbsp;|</li>
-                    <li class="list-inline-item"><a href="{{ url("home/email") }}">Email</a>&nbsp; &nbsp;|</li>
-                    <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a>&nbsp; &nbsp;|</li>
+                    <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
+                    <li class="list-inline-item"><a href="{{ url("home/email") }}">Email</a></li>
+                    <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                     <?php
                     if (!read("id")) {
-                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a>&nbsp; &nbsp;|</li>';
-                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#signupModal">Sign Up</a>&nbsp; &nbsp;|</li>';
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a></li>';
+                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
                     
                     if(Session::get('session_type_user') == "restaurant"){
@@ -46,7 +46,7 @@
                      $ownerSignup="Signup";
                     }
                     ?>
-                    <li class="list-inline-item"><a href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a>&nbsp; &nbsp;|</li>
+                    <li class="list-inline-item"><a href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a></li>
                     <li class="list-inline-item"><a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
                 </ul>
             </div>
@@ -355,6 +355,7 @@
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
+                                    $('.reserve_login').hide();
                                     $('.reservation_address').show();
                                     $('#fullname').val(arr.name);
                                     $('#ordered_user_id').val(arr.user_id);
@@ -366,6 +367,7 @@
                                     $('#ordered_city').val(arr.city);
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
+                                    $('.addressdropdown').load(document.URL +' .addressdropdown>');
                                     //only loads header
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');
                                 }

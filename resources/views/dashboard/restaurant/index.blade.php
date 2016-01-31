@@ -27,6 +27,6 @@
     </div>
 </div>
 
-@include('common.tabletools')
+
 
 @stop

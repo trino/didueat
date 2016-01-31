@@ -29,7 +29,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             @if(!isset($ccount) || (isset($ccount) && $ccount==0))
                 <div class="newaction">
-                    
+
                 </div>
             @endif
         </div>

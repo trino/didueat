@@ -30,8 +30,10 @@ class Profiles extends BaseModel {
     public static function listing($array = "", $type = "") {
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
+
+      //  var_dump($array);die();
         $meta = $array['meta'];
-        $order = $array['email'];
+      //  $order = $array['email'];
         $per_page = $array['per_page'];
         $start = $array['start'];
 
@@ -43,7 +45,7 @@ class Profiles extends BaseModel {
                                 ->orWhere('created_at', 'LIKE', "%$searchResults%");
                     }
                 })
-                ->orderBy($meta, $order);
+               ;
 
         if ($type == "list") {
             $query->take($per_page);

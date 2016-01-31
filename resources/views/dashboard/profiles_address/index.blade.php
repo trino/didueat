@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+    <meta name="_token" content="{{ csrf_token() }}"/>
 
 <script type="text/javascript">
     window.showEntries = 10;

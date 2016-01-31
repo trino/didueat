@@ -1,4 +1,5 @@
 <div class=" col-lg-3">
+
     <?php
         printfile("views/dashboard/layouts/leftsidebar.blade.php");
         function makelink($URL, $Name){
@@ -15,32 +16,31 @@
             }
         }
 
+    if (Session::get('session_type_user') == "super"){
+        makelink(array( 'orders/list/admin' => 'All Orders',
+                'users/list' => "All Users",
+                'restaurant/list' => "All Restaurants",
+                'subscribers/list' => "All Subscribers",
+                'user/reviews' => "User Reviews",
+                'eventlogs/list' => "Event Log"
+
+        ), "<h4><i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin</h4>");
+    }
 
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-                'notification/addresses' => "Notification Settings",
+                'notification/addresses' => "Receive Notification",
                 'restaurant/info' => "Restaurant Info",
                 'credit-cards/list/restaurant' => "Credit Card" //if(\Session::has('session_profiletype') )
-        ), "<i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant Navigation");
+        ), "<h4><i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant</h4>");
     }
 
-
-
     makelink(array( 'orders/list/user' => 'My Orders',
-                        'user/addresses' => "My Home Address",
-                        'user/info' => "My Personal Profile"
-                    ), "<i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User Navigation");
+                        'user/addresses' => "My Address",
+                        'user/info' => "My Profile"
+                    ), "<h4><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
 
-        if(check_permission("can_edit_global_settings")){
-            makelink(array( 'orders/list/admin' => 'All Orders',
-                            'users/list' => "All Users",
-                            'restaurant/list' => "All Restaurants",
-                            'subscribers/list' => "All Subscribers",
-                            'eventlogs/list' => "Event Log",
-                            'user/reviews' => "User Reviews"
-                            //'cards/list/restaurant' => "All Credit Cards"//if(\Session::has('session_profiletype')  && \Session::get('session_profiletype') == 1)
-            ), "<i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin Navigation");
-        }
+
     ?>
 </div>

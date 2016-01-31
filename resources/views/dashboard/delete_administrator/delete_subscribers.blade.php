@@ -11,7 +11,7 @@
                         </div>
 
                         <div class="card-block p-a-0">
-                            <table class="table table-responsive" id="sample_1">
+                            <table class="table table-responsive m-b-0">
                                 <thead>
                                     <tr>
                                         <th width="10%">ID</th>
@@ -41,6 +41,5 @@
 
     <!-- END CONTENT -->
 
-    @include('common.tabletools')
 
 @stop

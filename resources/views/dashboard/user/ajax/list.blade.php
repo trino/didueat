@@ -21,7 +21,9 @@
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive table ">
+        <table class="table table-responsive  m-b-0 ">
+            @if($recCount > 0)
+
             <thead class="">
                 <tr>
                     <th>
@@ -50,17 +52,21 @@
                     <th></th>
                 </tr>
             </thead>
+            @endif
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <?php
+
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-                        foreach($Addresses as $Address){
+
+                    foreach($Addresses as $Address){
                             $value->phone = phonenumber($Address->phone);
                             if($value->phone){
                                 break;
                             }
                         }
+
                     ?>
                 <tr>
                     <td>{{ $value->id }}</td>
@@ -79,23 +85,22 @@
 
                             <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger-outline btn-sm"
                                onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
-
-
                         @endif
                     </td>
                 </tr>
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Records</span></td>
                 </tr>
                 @endif
             </tbody>
         </table>
     </div>
-
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
 
     <div class="card-footer clearfix">
         {!! $Pagination !!}
     </div>
+        @endif
 </div>

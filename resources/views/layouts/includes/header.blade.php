@@ -6,10 +6,7 @@ $first = false; $type = "hidden";
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
     <div class="">
-        <button class="navbar-toggler hidden-xs-up" type="button" data-toggle="collapse"
-                data-target="#exCollapsingNavbar2">
-            &#9776;
-        </button>
+
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
@@ -63,11 +60,11 @@ $first = false; $type = "hidden";
                 </li>
 
                 <script>
-                    var formatted_address2,  formatted_address3,  formatted_address;
+                    var formatted_address2,  formatted_address3;
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
                         formatted_address3 = initAutocompleteWithID('formatted_address3');
-                        foramtteed_address = initAutocompleteWithID('formatted_address')
+                        
                     }
                     function setaddress(Address) {
                         document.getElementById("formatted_address2").value = Address;
@@ -83,9 +80,7 @@ $first = false; $type = "hidden";
                             }
                         }, 100);
                     }
-                    @if($first)
-                        //$("#addy{{ $first }}").trigger("click");
-                    @endif
+
                 </script>
                 <?php
                 includeJS(url("assets/global/scripts/provinces.js"));
@@ -98,6 +93,15 @@ $first = false; $type = "hidden";
 
         <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="">
             <ul class="nav navbar-nav">
+
+                <li class="nav-item">
+                    <h3>
+                        Logged in as {{Session::get('session_type_user')}}
+                    </h3>
+                </li>
+
+
+
                 @if(Session::has('is_logged_in'))
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">Hi, {{ explode(' ', Session::get('session_name'))[0] }} </a>

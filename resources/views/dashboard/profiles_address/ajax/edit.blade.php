@@ -6,65 +6,6 @@
 
 {!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 
-<!--div class="form-group row">
-    <label class=" col-sm-3">Address</label>
-    <div class="col-sm-9">
-        <input type="text" name="location" class="form-control" placeholder="Address" value="{{ (isset($addresse_detail->location))? $addresse_detail->location : old('location') }}">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Format Address</label>
-    <div class="col-sm-9">
-        <input type="text" name="formatted_address" id="formatted_address" class="form-control" placeholder="Address, City or Postal Code" value="{{ (isset($addresse_detail->formatted_address))? $addresse_detail->formatted_address : old('formatted_address') }}" onkeyup="geolocate()">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Street Address</label>
-    <div class="col-sm-9">
-        <input type="text" id="rout_street_number" name="address" class="form-control" placeholder="" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" required>
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Postal Code</label>
-    <div class="col-sm-9">
-        <input type="text" name="postal_code" id="postal_code" class="form-control" placeholder="" value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Phone Number</label>
-    <div class="col-sm-9">
-        <input type="number" name="phone" class="form-control" placeholder="" value="{{ (isset($addresse_detail->phone))?$addresse_detail->phone: old('phone') }}">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Cell Phone</label>
-    <div class="col-sm-9">
-        <input type="number" name="mobile" class="form-control" placeholder="" value="{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Country</label>
-    <div class="col-sm-9">
-        <select name="country" id="country" class="form-control" required onchange="provinces('{{ addslashes(url("ajax")) }}', '{{ (isset($addresse_detail->province))? $addresse_detail->province : old('province') }}');">
-            <option value="">Select Country</option>
-            @foreach(select_field_where('countries', '', false, 'name', 'ASC') as $value)
-                <option value="{{ $value->id }}" {{ (isset($addresse_detail->country) && $addresse_detail->country == $value->id)? 'selected' :'' }}>{{ $value->name }}</option>
-            @endforeach
-        </select>
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">Province</label>
-    <div class="col-sm-9">
-        <input type="text" id="province" name="province" class="form-control" {{$required}} value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}">
-    </div>
-</div>
-<div class="form-group row">
-    <label class=" col-sm-3">City </label>
-    <div class="col-sm-9">
-        <input type="text" id="city" name="city" class="form-control" id="city2" required value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}">
-    </div>
-</div-->
 
 <?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true, "dontinclude" => true, "restSignUp" => false)); ?>
 

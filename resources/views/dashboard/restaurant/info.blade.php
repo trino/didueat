@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+
     <meta name="_token" content="{{ csrf_token() }}"/>
 
     <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
@@ -50,6 +51,7 @@ function validateFn(f){
                 <div class="card-header">
                     <h4 class="card-title">Restaurant Info</h4>
                 </div>
+
                 <div class="card-block">
                     {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                     <?php

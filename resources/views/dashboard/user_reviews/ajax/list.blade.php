@@ -8,13 +8,21 @@
 
     <div class="card-header ">
         <div class="row">
-        <h3>Reviews</h3>
+            <div class="col-lg-9">
+            <h3>Reviews</h3>
+                </div>
             @include('common.table_controls')
         </div>
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
+
+
+        <table class="table table-responsive m-b-0">
+
+
+            @if($recCount > 0)
+
             <thead>
                 <tr>
                     <th width="10%">
@@ -55,6 +63,8 @@
                     <th width="10%">Action</th>
                 </tr>
             </thead>
+
+            @endif
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $rating)
@@ -68,13 +78,13 @@
                     <td>{{ $rating->created_at  }}</td>
                     <td>
                         <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
-                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">Delete</a>
+                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">X</a>
                     </td>
                 </tr>
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Records</span></td>
                 </tr>
                 @endif
             </tbody>
@@ -83,6 +93,11 @@
     </div>
 
 
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
+
+
     <div class="card-footer clearfix">
         {!! $Pagination; !!}    </div>
+
+        @endif
 </div>

@@ -37,7 +37,7 @@
 
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
+        <table class="table table-responsive m-b-0">
             <thead>
                 <tr>
                     <th width="10%">
@@ -74,7 +74,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="4" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Records</span></td>
                 </tr>
                 @endif
             </tbody>
@@ -83,8 +83,11 @@
 
     </div>
 
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
 
 
     <div class="card-footer clearfix">
         {!! $Pagination; !!}    </div>
+
+        @endif
 </div>
