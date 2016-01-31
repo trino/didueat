@@ -1,6 +1,8 @@
 <?php
 printfile("views/dashboard/restaurant/restaurant.blade.php");
-echo newrow($new, "Restaurant Name", "", true, 6);
+
+
+echo newrow($new, "Restaurant Name", "", true);
 $name = iif($new, "restname", "name");//why does it change to restname?
 if (!isset($is_disabled)) {
     $is_disabled = false;
@@ -9,16 +11,21 @@ if (!isset($minimum)) {
     $minimum = false;
 }
 ?>
+
+
+
+
+
 <input name="initialRestSignup" type="hidden" value="1"/>
-<input type="text" name="restname" class="form-control" style="width:90%"
-       {{ $is_disabled }} placeholder="Restaurant Name"
+<input type="text" name="restname" class="form-control" style=""
+       {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
 if(!isset($email)){
-echo newrow($new, "Email", "", true, 7); ?>
-<input type="text" name="email" class="form-control" {{ $is_disabled }} placeholder="Email Address"
-       value="{{ (isset($restaurant->email))?$restaurant->email: old("email")}}" required>
+echo newrow($new, "Phone", "", true, 7); ?>
+<input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
+       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("email")}}" required>
 </div></div>
 <?php }
 
@@ -52,6 +59,7 @@ foreach ($cuisineListA as $value => $name) {
 echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
+
 echo newrow($new, "Description", "", true, 8); ?>
 <textarea required name="description" class="form-control"
           {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>

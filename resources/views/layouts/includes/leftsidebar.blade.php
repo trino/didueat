@@ -1,8 +1,5 @@
 <div class=" col-lg-3">
 
-<h4>
-   Logged in as {{Session::get('session_type_user')}}
-</h4>
     <?php
         printfile("views/dashboard/layouts/leftsidebar.blade.php");
         function makelink($URL, $Name){

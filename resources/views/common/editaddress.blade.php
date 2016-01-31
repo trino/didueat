@@ -26,13 +26,13 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <input type="hidden" name="longitude" id="longitude" value=""/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<?php echo newrow($new, "Address", "", true); ?>
+<?php echo newrow($new, "Address", "", 9); ?>
 
 @if($is_disabled)
     <input required type="text" id="formatted_address" disabled name="formatted_address" class="form-control"
            value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
 @else
-    <DIV CLASS="nowrap">
+
         <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address"
                placeholder="Start by typing in your address" value="<?php
         if (old('formatted_address')) {
@@ -43,13 +43,14 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
         }
         ?>" required autocomplete="off">
 
-    </DIV>
+
 
 @endif
 
-
-
 <?php echo newrow();?>
+
+
+
 
 <?php echo newrow($new, "Apartment", "", false, 5); ?>
 <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
