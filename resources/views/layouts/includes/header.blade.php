@@ -62,11 +62,11 @@ $first = false; $type = "hidden";
                 </li>
 
                 <script>
-                    var formatted_address2,  formatted_address3,  formatted_address;
+                    var formatted_address2,  formatted_address3;
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
                         formatted_address3 = initAutocompleteWithID('formatted_address3');
-                        foramtteed_address = initAutocompleteWithID('formatted_address')
+                        
                     }
                     function setaddress(Address) {
                         document.getElementById("formatted_address2").value = Address;

@@ -1,9 +1,10 @@
         <?php $sec =false; $type1 = "hidden";?>
         <ul class="nav navbar-nav">
-            @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
+            
                 <li class="nav-item" style="width: 100%;">
                     <div class="input-group">
-                        <div class="input-group-btn">
+                        <div class="input-group-btn addressdropdown">
+                        @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
                             @if(read("id"))
                                 <?php
                                     $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
@@ -38,6 +39,7 @@
                                 <button style="border-right:0;" class="btn  btn-secondary" onclick="geolocate(formatted_address3)" title="Get location from your browser">
                                     &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button>
                             @endif
+                        @endif
                         </div>
                         <input style="width: 100%;" type="text" name="formatted_address" id="formatted_address3"
                                class="form-control formatted_address" placeholder="Address, City or Postal Code"
@@ -55,5 +57,5 @@
                    // echo '<SCRIPT>initAutocomplete2("formatted_address2","1");</SCRIPT>';
                 //}
                 ?>
-            @endif
+            
         </ul>

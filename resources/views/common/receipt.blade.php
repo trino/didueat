@@ -182,7 +182,7 @@
                                 echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @else
-                                <a class="btn btn-danger" data-target="#loginModal" data-toggle="modal" onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
+                                <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal" onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
                             @endif
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                                    name="email" id="ordered_email" required=""
                                    value="{{ (isset($profile))? $profile->email : '' }}">
                         </div>
-
+                        <?php /*
                         @if(!Session::has('is_logged_in'))
                             <div class="form-group">
                                 <div class="col-xs-12">
@@ -215,32 +215,31 @@
                                 <div class="clearfix"></div>
                             </div>
                         @endif
+                        <?php */ ?>
+
+                        
+                        <script>
+                            function addresschanged(thiss) {
+                                    $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+                                    $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
+                                    $("#ordered_city").val(thiss.getAttribute("CITY"));
+                                    $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
+                                    $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
+                                    $("#ordered_code").val(thiss.getAttribute("POSTAL"));
+                                    $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+                                    $('#formatted_address3').val('');
 
 
-
+                            }
+                        </script>
                         <div class="profile_delivery_detail" style="display: none;">
-                            @if(isset($profile))
+                            
                                 <div class="col-xs-12">
                                 @include('common.addressbar')
                                 @include('popups.addaddress')
 
-                                    <SCRIPT>
-                                        function addresschanged(thiss) {
-                                                $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-                                                $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
-                                                $("#ordered_city").val(thiss.getAttribute("CITY"));
-                                                $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
-                                                $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-                                                $("#ordered_code").val(thiss.getAttribute("POSTAL"));
-                                                $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-                                                $('#formatted_address3').val('');
-
-
-                                        }
-                                    </SCRIPT>
                                 </div>
-                            @endif
-
+                           
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
                                     <input type="text" pattern="[0-9]*" maxlength="10" min="10"

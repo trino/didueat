@@ -355,6 +355,7 @@
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
+                                    $('.reserve_login').hide();
                                     $('.reservation_address').show();
                                     $('#fullname').val(arr.name);
                                     $('#ordered_user_id').val(arr.user_id);
@@ -366,6 +367,7 @@
                                     $('#ordered_city').val(arr.city);
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
+                                    $('.addressdropdown').load(document.URL +' .addressdropdown>');
                                     //only loads header
                                     $('#header-nav').load(document.URL + ' #header-nav>ul');
                                 }

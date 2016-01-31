@@ -83,7 +83,7 @@ function simpleStringify (object){
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
-    
+  
     var element = document.getElementById(ID);
     if(element)
     if (!element.hasAttribute("hasgeocode")) {
@@ -97,8 +97,14 @@ function initAutocompleteWithID(ID){
 }
 
 function initAutocomplete(){
-    formatted_address = initAutocompleteWithID('formatted_address');
-    return formatted_address;
+    
+     formatted_address = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('formatted_address')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  formatted_address.addListener('place_changed', fillInAddress1);
 }
 
 function isvalid(variable, element){
@@ -111,11 +117,73 @@ function isvalid(variable, element){
 }
 
 function getplace(){
+    if(isvalid(formatted_address, "formatted_address")){ return formatted_address; }
     if(isvalid(formatted_address2, "formatted_address2")){ return formatted_address2; }
     if(isvalid(formatted_address3, "formatted_address3")){ return formatted_address3; }
     if(isvalid(formatted_address4, "formatted_address4")){ return formatted_address4; }
     if(isvalid(formatted_address5, "formatted_address5")){ return formatted_address5; }
     return formatted_address;
+}
+function fillInAddress1() {
+    // Get the place details from the formatted_address object.
+    var place = formatted_address.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    alert(place);
+    $('#latitude').val(lat);
+    $('#longitude').val(lng);
+    var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+    };
+    $('#city').val('');
+    //$('#rout_street_number').val('');
+    $('#postal_code').val('');
+    //provinces('{{ addslashes(url("ajax")) }}', '');
+
+    for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+
+        //alert(addressType +  " is not on record, is: ");
+
+        if (componentForm[addressType]) {
+            var val = place.address_components[i][componentForm[addressType]];
+            if(addressType == "country"){
+                $("#country  option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
+            }
+            if(addressType == "administrative_area_level_1"){
+                $("#province option").filter(function() {
+                    return this.text == val;
+                }).attr('selected', true);
+            }
+            if(addressType == "locality"){
+                $('#city').val(val);
+            }
+            if(addressType == "postal_code"){
+                $('#postal_code').val(val);
+            }
+            if(addressType == "formatted_address"){
+                $('#formatted_addressForDB').val(val);
+            }
+            if(addressType == "formatted_address"){
+                $('#formatted_address').val(val);
+            }
+            if(addressType == "route"){
+                if($('#formatted_address').val() != ""){
+                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
+                } else {
+                    $('#formatted_address').val(val);
+                }
+            }
+        }
+    }
+    return place;
 }
 
 function fillInAddress() {
@@ -126,12 +194,15 @@ function fillInAddress() {
         var place = formatted_address2.getPlace();
         if(isundefined(place))
             var place = formatted_address3.getPlace();
+        else
+            var place = formatted-address.getPlace();
        
     }
     else
     {
         var place = formatted_address.getPlace();
     }
+    
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
     
