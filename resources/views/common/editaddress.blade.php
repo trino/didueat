@@ -107,10 +107,16 @@ echo newrow($new, "Notes", "", false, 9);
 </SCRIPT>
 @else
     <?php
-    if (Request::path() == 'user/addresses/edit/0') {
+   
+    if (!isset($_GET['route'])) {
+        includeJS(url("assets/global/scripts/provinces.js"));
         if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+            //echo "<script>initAutocomplete();</script>";
         }
+        
     }
+    else
+        echo "<script>initAutocomplete();</script>";
     ?>
 
    @endif

@@ -129,7 +129,7 @@ function fillInAddress1() {
     var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
-    alert(place);
+    
     $('#latitude').val(lat);
     $('#longitude').val(lng);
     var componentForm = {

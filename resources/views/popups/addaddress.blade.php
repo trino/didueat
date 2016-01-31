@@ -26,6 +26,10 @@
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
         var URL = $("#edit-form").attr('action') + "end";
+        var route ='';
+        if($(this).attr('data-route'))
+            route = "?route="+$(this).attr('data-route');
+      
         $('#edit-form').attr('action',  URL.replace("/" + oldID + "end", "/" + id));
         if(id == null || id == undefined || id == ""){
             id = 0;
@@ -34,7 +38,7 @@
         oldID=id;
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');
-        $.get("{{ url('user/addresses/edit') }}/" + id, {}, function (result) {
+        $.get("{{ url('user/addresses/edit') }}/" + id+route, {}, function (result) {
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
