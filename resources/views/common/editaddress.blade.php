@@ -114,19 +114,41 @@ echo newrow($new, "Notes", "", false, 9);
        value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div></div>
 
-<?php }
+<?php 
+ }
+?>
 
+@if(isset($dontinclude))
+<SCRIPT>
+    $(document).ready(function () {
+        if (typeof(initAutocomplete) == "function") {
+            initAutocomplete();//editaddress
+        }
+    });
+</SCRIPT>
+@else
+    <?php
+   
+    if (!isset($_GET['route'])) {
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+            //echo "<script>initAutocomplete();</script>";
+        }
+        
+    }
+    else{
 
-        echo '(Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
-
-
-    
                 includeJS(url("assets/global/scripts/provinces.js"));
                 if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
                     echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
                 }
+   }
+?>
 
+@endif
 
- ?>
+<?php
+        echo '(Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
 
-    
+?>   
+
