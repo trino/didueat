@@ -187,12 +187,12 @@
                         </div>
                     </div>
 
-                    
+
                     <form name="checkout_form" id="profiles" novalidate class="m-b-0">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="user_id" id="ordered_user_id"
                                value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-                       <div style="<?php if(!Session::has('is_logged_in'))echo "display:none;";?>" class="reservation_address"> 
+                       <div style="<?php if(!Session::has('is_logged_in'))echo "display:none;";?>" class="reservation_address">
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
@@ -223,7 +223,7 @@
                                 <div class="col-xs-12">
                                 @include('common.addressbar')
                                 @include('popups.addaddress')
-                                
+
                                     <SCRIPT>
                                         function addresschanged(thiss) {
                                                 $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
@@ -234,7 +234,7 @@
                                                 $("#ordered_code").val(thiss.getAttribute("POSTAL"));
                                                 $("#ordered_notes").val(thiss.getAttribute("NOTES"));
                                                 $('#formatted_address3').val('');
-                                          
+
 
                                         }
                                     </SCRIPT>

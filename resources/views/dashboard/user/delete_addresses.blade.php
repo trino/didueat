@@ -20,7 +20,7 @@
                     <a class="btn btn-primary   btn-sm" data-toggle="modal" data-target="#addAddressModal">Add</a>
                 </div>
                 <div class="card-block p-a-0">
-                    <table class="table table-responsive" id="sample_111">
+                    <table class="table table-responsive m-b-0">
                         <thead>
                         <tr>
                             <th width="5%">ID</th>

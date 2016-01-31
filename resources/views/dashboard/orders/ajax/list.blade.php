@@ -13,10 +13,10 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
     <div class="card-header">
         <div class="row">
             <div class="col-lg-9">
-                <h3>
+                <h4>
                     Restaurant Orders <!-- ({{ ucwords($type) }})         -->           <!--a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a-->
 
-                </h3>
+                </h4>
 
             </div>
             @include('common.table_controls')
@@ -24,47 +24,56 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
-            <thead>
-            <tr>
-                <th>
-                    <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
-                                class="fa fa-caret-down"></i></a-->
-                    Order Id
-                    <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
-                                class="fa fa-caret-up"></i></a-->
-                </th>
-                <th>
-                    <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
-                       title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
-                    Customer
-                    <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
-                       title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
-                </th>
-                <th>
-                    <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
-                       title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                    Date
-                    <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
-                       title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
-                </th>
-                <th>
-                    <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
-                       title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
-                    Status
-                    <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
-                       title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
-                </th>
+        <table class="table table-responsive m-b-0">
 
-                <TH>
-                    Response Time
-                </TH>  <th>
-
-                </th>
-            </tr>
-            </thead>
-            <tbody>
             @if($recCount > 0)
+
+
+
+                <thead>
+                <tr>
+                    <th>
+                        <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
+                                    class="fa fa-caret-down"></i></a-->
+                        Order Id
+                        <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
+                                    class="fa fa-caret-up"></i></a-->
+                    </th>
+                    <th>
+                        <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
+                           title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
+                        Customer
+                        <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
+                           title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
+                    </th>
+                    <th>
+                        <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
+                           title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
+                        Date
+                        <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
+                           title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
+                    </th>
+                    <th>
+                        <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
+                           title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
+                        Status
+                        <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
+                           title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
+                    </th>
+
+                    <TH>
+                        Response Time
+                    </TH>  <th>
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                <tbody>
+
+
                 @foreach($Query as $value)
                     <tr>
                         <td>{{ $value->id }}
@@ -121,14 +130,26 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                     </tr>
                 @endforeach
             @else
+
+
+
+
+
+
+
+
+
                 <tr>
-                    <td class="text-center  alert notification">No orders found</td>
+                    <td><span class="text-muted">No Orders Yet</span></td>
                 </tr>
             @endif
             </tbody>
         </table>
     </div>
+    @if (Session::get('session_type_user') == "super")
+
     <div class="card-footer clearfix">
         {!! $Pagination !!}
     </div>
+        @endif
 </div>

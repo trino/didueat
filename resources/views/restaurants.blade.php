@@ -4,27 +4,6 @@ $type = "hidden";
 ?>
 @extends('layouts.default')
 
-        <!--div class="bg-danger p-t-3 p-b-3 m-t-3 secondary_red">
-    <div class="container">
-        <div class="row ">
-            <div class="col-lg-8">
-                <h1 class="display-3">diduEAT</h1>
-                <p class="lead">
-                    The easiest way to order food from local restaurants.
-                    <br>
-                    Meal of the Day Business Model.
-                </p>
-            </div>
-            <div class="col-lg-4">
-                <div class="primary_red  p-a-2 ">
-                    <p class="lead">Show me deals near...</p>
-                    <input class="form-control" type="text" id="formatted_address4" placeholder="Address, City or Postal Code">
-                    <body onload="formatted_address4 = initAutocompleteWithID('formatted_address4');">
-                </div>
-            </div>
-        </div>
-    </div>
-</div-->
 
 @section('content')
 

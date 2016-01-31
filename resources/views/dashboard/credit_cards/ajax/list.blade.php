@@ -41,7 +41,10 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
+        <table class="table table-responsive m-b-0">
+
+            @if (Session::get('session_type_user') == "super")
+
             <thead>
             <tr>
                 <!--th>
@@ -85,6 +88,8 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                 <th></th>
             </tr>
             </thead>
+
+@endif
             <tbody>
 
 
@@ -128,7 +133,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                 @endforeach
             @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Credit Cards </span></td>
                 </tr>
             @endif
             </tbody>

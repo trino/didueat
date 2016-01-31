@@ -38,7 +38,7 @@
 
     
     <div class="card-block p-a-0">
-        <table class="table table-responsive">
+        <table class="table table-responsive m-b-0">
             <thead>
                 <tr>
                     <th >
@@ -95,7 +95,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Restaurants Found</span></td>
                 </tr>
                 @endif
             </tbody>

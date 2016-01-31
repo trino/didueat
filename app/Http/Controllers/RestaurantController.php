@@ -440,11 +440,20 @@ class RestaurantController extends Controller {
 
     //return a menu item and it's child items
     public function menu_form($id, $res_id = 0) {
+
         $data['menu_id'] = $id;
-        if(!$res_id){$res_id = \Session::get('session_restaurant_id');}
+        if(!$res_id){
+            $res_id = \Session::get('session_restaurant_id');
+        }
+
+
+
+
+
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
         $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
+
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
             $data['cmodel'] = \App\Http\Models\Menus::where('parent', $id)->orderBy('display_order', 'ASC')->get();

@@ -60,7 +60,7 @@
                                     <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
                     <?php }?>
                 </select>
-                
+
                 </div>
                 <div class="clearfix"></div>
                 </div>
@@ -118,18 +118,23 @@
         </div>
         <div class="clearfix ignore"></div>
     </div>
-    
+
     <div class="clearfix ignore"></div>
 
-    <div class="additional additional{{ $menu_id }} ignore"
-         style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
-         <hr class=" ignore"/>
+    <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+
+        <hr class=" ignore"/>
+
+
         <div class="col-md-12 ignore"><h2 class="ignore">Addons</h2></div>
         <div class="clearfix ignore"></div>
+
+
+
         <?php
         $k = 0;
         if(isset($cmodel)){
-            
+
         if (isset($_GET['menu_id'])) {
             $menu_id = $_GET['menu_id'];
         foreach($cmodel as $child){
@@ -173,7 +178,11 @@
                 });
             });
         </script>
-        <?php } ?>
+
+
+
+
+        <?php }} ?>
 
 
     </div>
@@ -198,8 +207,6 @@
 
 <script>
     $(function () {
-        
-
         $('#save_cat').live('click', function () {
             $('.overlay_loader').show();
             var cat = $('.cat_title').val();
@@ -225,10 +232,3 @@
 
     });
 </script>
-
-<style>
-    .cat_id {
-        display: inline-block !important;
-        width: 60%;
-    }
-</style>

@@ -21,7 +21,7 @@
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive table ">
+        <table class="table table-responsive  m-b-0 ">
             <thead class="">
                 <tr>
                     <th>
@@ -54,10 +54,8 @@
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <?php
-                            /*
-                            var_dump($value);
+
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-                    var_dump($Addresses);
 
                     foreach($Addresses as $Address){
                             $value->phone = phonenumber($Address->phone);
@@ -65,7 +63,7 @@
                                 break;
                             }
                         }
-                            */
+
                     ?>
                 <tr>
                     <td>{{ $value->id }}</td>
@@ -90,7 +88,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <th scope="row" colspan="7" class="text-center">No records found</th>
+                    <td><span class="text-muted">No Records</span></td>
                 </tr>
                 @endif
             </tbody>
