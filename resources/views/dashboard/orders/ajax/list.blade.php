@@ -1,6 +1,7 @@
 <?php
 echo printfile("views/dashboard/orders/ajax/list.blade.php");
-$secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 604800,
+$secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
+$secondsTitle="sec";
 ?>
 
 @if(\Session::has('message'))
@@ -76,9 +77,7 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                 @foreach($Query as $value)
                     <tr>
                         <td>{{ $value->id }}
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                                   class="btn btn-primary  btn-sm">View</a>
-
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">View</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
@@ -97,19 +96,19 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                                 } else {
                                     echo 'RED">';
                                 }
-                                $delay = array('second' => $delay, "total" => "");
+                                $delay = array($secondsTitle => $delay, "total" => "");
                                 $total = array();
                                 foreach ($secondsper as $timeperiod => $seconds) {
-                                    $delay[$timeperiod] = floor($delay["second"] / $seconds);
-                                    $delay["second"] = $delay["second"] - ($seconds * $delay[$timeperiod]);
+                                    $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
+                                    $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
                                     if ($delay[$timeperiod]) {
-                                        $total[] = $delay[$timeperiod] . " " . $timeperiod . iif($delay[$timeperiod] != 1, "s");
+                                        $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
                                     }
                                 }
-                                if ($delay["second"]) {
-                                    $total[] = $delay["second"] . " second" . iif($delay["second"] != 1, "s");
+                                if ($delay[$secondsTitle]) {
+                                    $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
                                 }
-                                echo implode(", ", $total) . '</FONT>';
+                                echo implode(" ", $total) . '</FONT>';
                             }
                             ?>
                         </TD>

@@ -87,7 +87,7 @@
         }
 
         jQuery(document).ready(function () {
-            $('#demo4').tagEditor({
+            /*$('#demo4').tagEditor({
                 initialTags: [],
                 placeholder: 'Enter tags ...',
                 //beforeTagSave: function(field, editor, tags, tag, val) { $('#response').prepend('Tag <i>'+val+'</i> saved'+(tag ? ' over <i>'+tag+'</i>' : '')+'.<hr>'); },
@@ -102,7 +102,7 @@
                     return q;
                 }
             });
-
+*/
             $("#resturantForm").validate();
             ajaxuploadbtn('uploadbtn');
         });

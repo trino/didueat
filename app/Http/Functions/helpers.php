@@ -1,19 +1,15 @@
 <?php
-
     define("MAX_DELIVERY_DISTANCE", 30);
 
-    function asmoney($value)
-    {
+    function asmoney($value) {
         return "$" . number_format($value, 2);
     }
 
-    function getfield($object, $Field)
-    {
+    function getfield($object, $Field) {
         return $object->$Field;
     }
 
-    function message_show($msgtype, $description)
-    {
+    function message_show($msgtype, $description) {
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                     Command: toastr["success"]("' . $description . '", "' . $msgtype . '")
@@ -37,8 +33,7 @@
         }
     }
 
-    function getweekdays()
-    {
+    function getweekdays() {
         return array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     }
 
@@ -47,8 +42,7 @@
      *
      * @return Response
      */
-    function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $last_btn, $previous_btn, $next_btn)
-    {
+    function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $last_btn, $previous_btn, $next_btn) {
         $html = "";
         /* -----Calculating the starting and endign values for the loop----- */
         if ($cur_page >= 7) {
@@ -124,8 +118,7 @@
         return $html;
     }
 
-    function includeJS($URL, $options = "")
-    {
+    function includeJS($URL, $options = "") {
         $Short = $URL;
         $Start = strpos($Short, "?");
         if ($Start !== false) {
@@ -138,8 +131,7 @@
         }
     }
 
-    function areacodes()
-    {
+    function areacodes() {
         return array(
             "AB" => array(403 => "S Alberta", 587 => "Province-wide", 780 => "N Alberta (Edmonton)", 825 => "Province-wide"),
             "BC" => array(236 => "Province-wide", 250 => "Vancouver Island & Mainland excl. Lower Mainland", 604 => "Lower Mainland (Vancouver)", 778 => "Province-wide"),
@@ -153,8 +145,7 @@
         );
     }
 
-    function qualifyareacode($phone)
-    {
+    function qualifyareacode($phone) {
         //$phone = preg_replace("/[^0-9]/", "", $phone);
         //if(left($phone,1) == 0 || left($phone,1) == 1){$phone = right($phone, strlen($phone)-1);}
         $phone = left($phone, 3);
@@ -168,8 +159,7 @@
         return false;
     }
 
-    function phonenumber($phone, $qualifyareacode = true)
-    {
+    function phonenumber($phone, $qualifyareacode = true) {
         $phone = preg_replace("/[^0-9]/", "", $phone); // note: strip out everything but numbers
         if (left($phone, 1) == 0 || left($phone, 1) == 1) {
             $phone = right($phone, strlen($phone) - 1);
@@ -178,8 +168,7 @@
     }
 
 
-    function newrow($new = false, $name = false, $class = "", $Required = false, $columns = 9, $labelStr = "")
-    {
+    function newrow($new = false, $name = false, $class = "", $Required = false, $columns = 9, $labelStr = "") {
         $id = str_replace(" ", "_", strtolower($name)) . "_label";
 
         if ($Required) {
@@ -253,8 +242,7 @@ function fontawesome($profiletype, $icontype=0){
         }
     }
 */
-    function handleexception($e)
-    {
+    function handleexception($e) {
         $Message = $e->getMessage();
         if (debugmode()) {
             $Message .= "<BR>File " . $e->getFile() . " Line " . $e->getLine();
@@ -264,34 +252,29 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //starts listening for SQL queries
-    function initialize($Source = "")
-    {
+    function initialize($Source = "") {
         DB::enableQueryLog();
         handle_action();
     }
 
 //encodes text to a URL-compatible string
-    function Encode($str)
-    {
+    function Encode($str) {
         return trim(htmlentities(addslashes($str)));
     }
 
 //decodes a URL-compatible string back to text
-    function Decode($str)
-    {
+    function Decode($str) {
         return html_entity_decode(stripslashes($str));
     }
 
 //allows you to call a function from another controller
-    function call($controller, $action, $parameters = array())
-    {
+    function call($controller, $action, $parameters = array()) {
         $app = app();
         $controller = $app->make($controller);
         return $controller->callAction($app, $app['router'], $action, $parameters);
     }
 
-    function handle_action($Action = "")
-    {
+    function handle_action($Action = "") {
         //http://localhost/didueat/public/restaurant/users?action=test
         if (!$Action) {
             $Action = getpost("action");
@@ -326,14 +309,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //count orders
-    function countOrders($type = 'pending')
-    {
+    function countOrders($type = 'pending') {
         return DB::table('reservations')->where('status', $type)->count();
     }
 
 //returns an array of all the profile types with a hierarchy above $Hierarchy
-    function enum_profiletypes($Hierarchy = "", $toArray = true)
-    {
+    function enum_profiletypes($Hierarchy = "", $toArray = true) {
         $Condition = "1=1";
         if ($Hierarchy) {
             $Condition = "Hierarchy > " . $Hierarchy;
@@ -345,8 +326,7 @@ function fontawesome($profiletype, $icontype=0){
         return $entries;
     }
 
-    function webroot($Local = false)
-    {
+    function webroot($Local = false) {
         if ($Local) {
             return app_path() . "/";
         }
@@ -355,16 +335,14 @@ function fontawesome($profiletype, $icontype=0){
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
 //read from session
-    function read($Name)
-    {
+    function read($Name) {
         if (\Session::has('session_' . $Name)) {
             return \Session::get('session_' . $Name);
         }
     }
 
 //write to session
-    function write($Name, $Value, $Save = false)
-    {
+    function write($Name, $Value, $Save = false) {
         \Session::put('session_' . $Name, $Value);
         if ($Save) {
             \Session::save();
@@ -372,20 +350,17 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //returns the salt used for MD5ing
-    function salt()
-    {
+    function salt() {
         return "18eb00e8-f835-48cb-bbda-49ee6960261f";
     }
 
 //enumerate all profiles
-    function enum_profiles($Key, $Value)
-    {
+    function enum_profiles($Key, $Value) {
         return enum_all('profiles', array($Key => $Value));
     }
 
 //get a specific profile, if not specified it will get the current user's profile
-    function get_profile($ID = "")
-    {
+    function get_profile($ID = "") {
         if (!$ID) {
             $ID = read("ID");
         }
@@ -393,8 +368,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //check if the email address is in use by someone who is not $NotByUserID
-    function is_email_in_use($EmailAddress, $NotByUserID = 0)
-    {
+    function is_email_in_use($EmailAddress, $NotByUserID = 0) {
         $EmailAddress = clean_email($EmailAddress);
         if ($NotByUserID) {
             return first("SELECT * FROM profiles WHERE Email = '" . $EmailAddress . "' AND ID != " . $NotByUserID);
@@ -406,8 +380,7 @@ function fontawesome($profiletype, $icontype=0){
 //gets a profile type
 //if $GetByType is true: it gets the profile type specified by $ProfileID
 //otherwise it gets the profile type of the user specified by $ProfileID
-    function get_profile_type($ProfileID = false, $GetByType = false)
-    {
+    function get_profile_type($ProfileID = false, $GetByType = false) {
         if (!$ProfileID && $GetByType) {
             $ProfileID = get_entry("profiles", read("ID"), "id")->profile_type;
         }
@@ -427,14 +400,12 @@ function fontawesome($profiletype, $icontype=0){
         }
     }
 
-    function get_date_format()
-    {
+    function get_date_format() {
         return "M d, Y h:i A";
     }
 
 //generates a random password of $Length digits
-    function randomPassword($Length = 8)
-    {
+    function randomPassword($Length = 8) {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
         $pass = "";
         $alphaLength = strlen($alphabet) - 1;
@@ -446,8 +417,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //checks if $EmailAddress is valid, returns it if it is. otherwise returns nothing
-    function is_valid_email($EmailAddress)
-    {
+    function is_valid_email($EmailAddress) {
         //http://php.net/manual/en/function.filter-var.php
         //filter_var can also validate: FILTER_VALIDATE_IP FILTER_VALIDATE_INT FILTER_VALIDATE_BOOLEAN FILTER_VALIDATE_URL FILTER_SANITIZE_STRING
         //flags FILTER_NULL_ON_FAILURE FILTER_FLAG_PATH_REQUIRED FILTER_FLAG_STRIP_LOW FILTER_FLAG_STRIP_HIGH
@@ -458,8 +428,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //encrypts the password using salt
-    function encryptpassword($Password)
-    {
+    function encryptpassword($Password) {
         /*if(is_encrypted($Password)){
             return $Password;
         }*/
@@ -468,8 +437,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //login as a specific profile
-    function login($Profile, $IsPossessing = false)
-    {
+    function login($Profile, $IsPossessing = false) {
         if (is_numeric($Profile)) {
             $Profile = get_profile($Profile);
         } else if (is_array($Profile)) {
@@ -516,8 +484,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //gets the restaurant of the current user
-    function get_current_restaurant()
-    {
+    function get_current_restaurant() {
         $Profile = read('id');
         if ($Profile) {
             if (isset($_GET["restaurant_id"])) {
@@ -532,14 +499,12 @@ function fontawesome($profiletype, $icontype=0){
         }
     }
 
-    function current_day_of_week()
-    {
+    function current_day_of_week() {
         return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m"), date("d"), date("Y")), 1);
     }
 
 //check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
-    function check_permission($Permission, $UserID = "")
-    {
+    function check_permission($Permission, $UserID = "") {
         if (!$UserID) {
             $UserID = read("id");
         }
@@ -554,8 +519,7 @@ function fontawesome($profiletype, $icontype=0){
         }
     }
 
-    function guidv4()
-    {
+    function guidv4() {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
         }
@@ -567,49 +531,41 @@ function fontawesome($profiletype, $icontype=0){
 
 /////////////////////////////////////Date API////////////////////////////////////////
 //returns the current date/time
-    function now()
-    {
+    function now() {
         return date("Y-m-d H:i:s");
     }
 
 //returns date stamp of a date/time
-    function parse_date($Date)
-    {
+    function parse_date($Date) {
         if (strpos($Date, "-")) {
             return strtotime($Date);
         }
         return $Date;
     }
 
-    function get_day_of_week($Date)
-    {//0 is sunday, 6=saturday
+    function get_day_of_week($Date) {//0 is sunday, 6=saturday
         return date('w', parse_date($Date));
     }
 
-    function get_time($Date)
-    {//800
+    function get_time($Date) {//800
         return date('Gi', parse_date($Date));
     }
 
-    function get_year($Date)
-    {//2015
+    function get_year($Date) {//2015
         return date('Y', parse_date($Date));
     }
 
-    function get_month($Date)
-    {//01-12
+    function get_month($Date) {//01-12
         return date('m', parse_date($Date));
     }
 
-    function get_day($Date)
-    {//3 (no leading zero)
+    function get_day($Date) {//3 (no leading zero)
         return date('j', parse_date($Date));
     }
 
 /////////////////////////////////Event log API////////////////////////////////////
 //event logging for security, no longer used
-    function logevent($Event, $DoRestaurant = true, $restaurant_id = 0)
-    {
+    function logevent($Event, $DoRestaurant = true, $restaurant_id = 0) {
         $UserID = read('ID');
         if (!$UserID) {
             $UserID = 0;
@@ -625,8 +581,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //returns the type ID of type string given
-    function data_type_name($Type)
-    {
+    function data_type_name($Type) {
         $Values = array("Email Address", "Phone Number", "Postal Code");
         if ($Type < 0 or $Type >= count($Values)) {
             return "Unknown";
@@ -635,8 +590,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //returns the type ID of the data given
-    function data_type($Data)
-    {
+    function data_type($Data) {
         if (strpos($Data, "@")) {
             return 0;
         } //email
@@ -651,8 +605,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //cleans/sanitizes data by it's type
-    function clean_data($Data)
-    {
+    function clean_data($Data) {
         switch (data_type($Data)) {
             case -1:
                 return trim($Data);
@@ -670,8 +623,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //check if a table exists in the database
-    function tableexists($Table, $Column = "")
-    {
+    function tableexists($Table, $Column = "") {
         if ($Column) {
             return \Schema::hasColumn($Table, $Column);
         }
@@ -681,8 +633,7 @@ function fontawesome($profiletype, $icontype=0){
 //gets an array of columns for a table
 //$Ignore an array of columns that will be filtered from the results
 //$Full if true, will return more data than just an array of column names
-    function getColumnNames($Table, $Ignore = "", $Full = false)
-    {
+    function getColumnNames($Table, $Ignore = "", $Full = false) {
         if (!is_array($Ignore)) {
             $Ignore = array($Ignore);
         }
@@ -709,8 +660,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //sanitize a phone number
-    function clean_phone($Phone)
-    {
+    function clean_phone($Phone) {
         $Phone = kill_non_numeric($Phone, "+"); //add a check to be sure only the first digit is a +
         if ($Phone != "+") {
             return $Phone;
@@ -718,13 +668,11 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //sanitize an email address
-    function clean_email($Email)
-    {
+    function clean_email($Email) {
         return strtolower(trim($Email));
     }
 
-    function iif($Value, $True, $False = "")
-    {
+    function iif($Value, $True, $False = "") {
         if ($Value) {
             return $True;
         }
@@ -732,8 +680,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //sanitize a postal code
-    function clean_postalcode($PostalCode, $delimeter = " ")
-    {
+    function clean_postalcode($PostalCode, $delimeter = " ") {
         $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
         if (validateCanadaZip($PostalCode)) {
             return left($PostalCode, 3) . $delimeter . right($PostalCode, 3);
@@ -741,14 +688,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //check if data is a valid postal code
-    function validateCanadaZip($PostalCode)
-    {//function by Roshan Bhattara(http://roshanbh.com.np)
+    function validateCanadaZip($PostalCode) {//function by Roshan Bhattara(http://roshanbh.com.np)
         return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
     }
 
 //write text to royslog.txt
-    function debugprint($text)
-    {
+    function debugprint($text) {
         $path = "royslog.txt";
         $dashes = "----------------------------------------------------------------------------------------------\r\n";
         if (is_array($text)) {
@@ -758,8 +703,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //get the current function and line number
-    function debug_string_backtrace()
-    {
+    function debug_string_backtrace() {
         $BACK = debug_backtrace(0);
         $BACK[2]["line"] = $BACK[1]["line"];
         return $BACK[2];
@@ -767,8 +711,7 @@ function fontawesome($profiletype, $icontype=0){
 
 //implodes uusing both the key and value
 //[key]$SmallGlue[value]$BigGlue[key]$SmallGlue[value]
-    function implode2($Array, $SmallGlue, $BigGlue)
-    {
+    function implode2($Array, $SmallGlue, $BigGlue) {
         foreach ($Array as $Key => $Value) {
             $Array[$Key] = $Key . $SmallGlue . $Value;
         }
@@ -776,8 +719,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //like implode, but makes sure it's being run on an array first
-    function implode_data($Data, $Delimeter = ",")
-    {
+    function implode_data($Data, $Delimeter = ",") {
         if (is_array($Data)) {
             return implode($Delimeter, $Data);
         }
@@ -785,8 +727,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //a clone of CakePHP's debug function
-    function debug222($Iterator, $DoStacktrace = true)
-    {
+    function debug222($Iterator, $DoStacktrace = true) {
         if ($DoStacktrace) {
             $Backtrace = debug_string_backtrace();
             echo '<B>';
@@ -822,20 +763,17 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //checks if a variable can be used in a foreach() loop
-    function is_iterable($var)
-    {
+    function is_iterable($var) {
         return (is_array($var) || $var instanceof Traversable);
     }
 
 //returns an array of table names in this database
-    function enum_tables()
-    {
+    function enum_tables() {
         return collapsearray(DB::select('SHOW TABLES'));
     }
 
 //collapses a multidimensional array into a single one
-    function collapsearray($Array, $Key = "")
-    {
+    function collapsearray($Array, $Key = "") {
         $NewArray = array();
         foreach ($Array as $Value) {
             if ($Key) {
@@ -850,8 +788,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //clones the flash message
-    function message($msgtype, $description)
-    {
+    function message($msgtype, $description) {
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                         $(document).ready(function() {
@@ -878,8 +815,7 @@ function fontawesome($profiletype, $icontype=0){
         }
     }
 
-    function mapcountryprovince($Value, $IsProvince = false)
-    {
+    function mapcountryprovince($Value, $IsProvince = false) {
         if (is_numeric($Value)) {
             return select_field(iif($IsProvince, "states", "countries"), "id", $Value, "name");
         } else if ($IsProvince && strlen($Value) == 2) {
@@ -889,14 +825,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //SELECT * FROM $table WHERE $column = $value
-    function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "")
-    {
+    function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
         return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
     }
 
 //$getcol = false, returns all results after the get(), true returns before the get()
-    function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "")
-    {
+    function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
         $query = DB::table($table);
         if ($getcol) {
             if ($getcol !== true) {
@@ -938,21 +872,18 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //SELECT * FROM $Table WHERE $conditions
-    function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC")
-    {
+    function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC") {
         return select_field_where($Table, $conditions, false, $order, $Dir);
     }
 
 //SELECT * FROM $Table WHERE $key = $value
-    function enum_anything($Table, $Key, $Value)
-    {
+    function enum_anything($Table, $Key, $Value) {
         return select_field_where($Table, array($Key => $Value), false);
     }
 
 //SELECT * FROM $Table WHERE $PrimaryKey = $value, return fist result
 //if $PrimaryKey is blank, get it from the database
-    function get_entry($Table, $Value, $PrimaryKey = "id")
-    {
+    function get_entry($Table, $Value, $PrimaryKey = "id") {
         if (!$PrimaryKey) {
             $PrimaryKey = get_primary_key($Table);
         }
@@ -961,8 +892,7 @@ function fontawesome($profiletype, $icontype=0){
 
 /////////////////////////RAW SQL
 //gets the primary key of a table
-    function get_primary_key($Table)
-    {
+    function get_primary_key($Table) {
         if (is_string($Table)) {
             $Table = getColumnNames($Table, "", true);
         }
@@ -976,27 +906,23 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //SELECT * FROM $Table
-    function enum_table($Table)
-    {
+    function enum_table($Table) {
         return select_query("SELECT * FROM " . $Table . " WHERE 1=1");
     }
 
 //returns Laravel's connection to the Pdo object to run raw SQL
-    function getDatasource()
-    {
+    function getDatasource() {
         return DB::connection()->getPdo();
     }
 
 //run an SQL query
-    function select_query($Query)
-    {
+    function select_query($Query) {
         $con = getDatasource();
         return $con->query($Query);
     }
 
 //get the first result of a query
-    function first($query)
-    {
+    function first($query) {
         if (is_array($query)) {
             if (count($query)) {
                 return $query[0];
@@ -1012,14 +938,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //count how many tables are in the database
-    function table_count($Table, $Conditions = "1=1")
-    {
+    function table_count($Table, $Conditions = "1=1") {
         return count(select_field_where($Table, $Conditions, false));
     }
 
 //convert an iterable object to an array
-    function my_iterator_to_array($entries, $PrimaryKey, $Key)
-    {
+    function my_iterator_to_array($entries, $PrimaryKey, $Key) {
         $data = array();
         foreach ($entries as $profiletype) {
             if ($PrimaryKey) {
@@ -1032,14 +956,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //count how many rows are in a table that match $conditions
-    function get_row_count($Table, $Conditions = "1=1")
-    {
+    function get_row_count($Table, $Conditions = "1=1") {
         return table_count($Table, $Conditions);
     }
 
 //remove empty values from an array
-    function remove_empties($Array)
-    {
+    function remove_empties($Array) {
         foreach ($Array as $Key => $Value) {
             if (!$Value) {
                 unset($Array[$Key]);
@@ -1049,15 +971,13 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //get all SQL queries that have run since initialize() was called
-    function getallQueries()
-    {
+    function getallQueries() {
         $queries = DB::getQueryLog();
         return collapsearray($queries, "query");
     }
 
 //get the last SQL query that was wun
-    function lastQuery()
-    {
+    function lastQuery() {
         $queries = DB::getQueryLog();
         $queries = end($queries);
         if (!$queries) {
@@ -1067,8 +987,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //check if an array is associative (the keys are strings) or not (the keys are numbers)
-    function isassocarray($my_array)
-    {
+    function isassocarray($my_array) {
         if (!is_array($my_array)) {
             return false;
         }
@@ -1079,8 +998,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //go through an iterable object to find the one where $Fieldname = $Value
-    function getIterator($Objects, $Fieldname, $Value)
-    {
+    function getIterator($Objects, $Fieldname, $Value) {
         foreach ($Objects as $Object) {
             if ($Object->$Fieldname == $Value) {
                 return $Object;
@@ -1090,27 +1008,23 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //get the left-most $length digits of $text
-    function left($text, $length)
-    {
+    function left($text, $length) {
         return substr($text, 0, $length);
     }
 
 //get the right-most $length digits of $text
-    function right($text, $length)
-    {
+    function right($text, $length) {
         return substr($text, -$length);
     }
 
 //convert an associative array to an object
-    function array_to_object($Array)
-    {
+    function array_to_object($Array) {
         $object = (object)$Array;
         return $object;
     }
 
 //add a new row to a table
-    function new_anything($Table, $Data, $Column = "ID")
-    {
+    function new_anything($Table, $Data, $Column = "ID") {
         if (!is_array($Data)) {
             $Data = array($Column = $Data);
         }
@@ -1118,8 +1032,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //delete all rows in a table that match $conditions
-    function delete_all($Table, $Conditions = "")
-    {
+    function delete_all($Table, $Conditions = "") {
         if ($Conditions) {
             DB::table($Table)->where($Conditions)->delete();
         } else {
@@ -1129,8 +1042,7 @@ function fontawesome($profiletype, $icontype=0){
 
 //updates an existing entry in the database
 //only use when you know the primary key value exists
-    function update_database($Table, $PrimaryKey, $Value, $Data)
-    {
+    function update_database($Table, $PrimaryKey, $Value, $Data) {
         DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
         $Data[$PrimaryKey] = $Value;
         return $Data;
@@ -1140,8 +1052,7 @@ function fontawesome($profiletype, $icontype=0){
 //if found, edit it using $Data
 //if not found, create it
 //returns $Data with the primary key added
-    function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true)
-    {
+    function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true) {
         $entry = false;
         if ($PrimaryKey && $Value) {
             $entry = select_field($Table, $PrimaryKey, $Value);
@@ -1159,14 +1070,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //adds a new row to the database filled with $Data
-    function new_entry($Table, $PrimaryKey, $Data)
-    {
+    function new_entry($Table, $PrimaryKey, $Data) {
         return edit_database($Table, $PrimaryKey, "", $Data);
     }
 
 //gets the protected value of an object ("_properties" is one used by most objects)
-    function getProtectedValue($obj, $name = "_properties")
-    {
+    function getProtectedValue($obj, $name = "_properties") {
         $array = (array)$obj;
         $prefix = chr(0) . '*' . chr(0);
         if (isset($array[$prefix . $name])) {
@@ -1175,14 +1084,12 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //remove anything that isn't a number from $text
-    function kill_non_numeric($text, $allowmore = "")
-    {
+    function kill_non_numeric($text, $allowmore = "") {
         return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
     }
 
 //resize an image
-    function resize($file, $sizes, $CropToFit = false, $delimeter = "x")
-    {
+    function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
         if (is_array($sizes)) {
             $images = array();
             foreach ($sizes as $size) {
@@ -1198,16 +1105,14 @@ function fontawesome($profiletype, $icontype=0){
 
 //get the directory of a file path
 //HOME/WINDOWS/TEST.JPG returns HOME/WINDOWS
-    function getdirectory($path)
-    {
+    function getdirectory($path) {
         return pathinfo(str_replace("\\", "/", $path), PATHINFO_DIRNAME);
     }
 
 //get the filename of a file path
 //$WithExtension = true, HOME/WINDOWS/TEST.JPG returns TEST.JPG
 //$WithExtension = false, HOME/WINDOWS/TEST.JPG returns TEST
-    function getfilename($path, $WithExtension = false)
-    {
+    function getfilename($path, $WithExtension = false) {
         if ($WithExtension) {
             return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
         } else {
@@ -1217,14 +1122,12 @@ function fontawesome($profiletype, $icontype=0){
 
 //get the extension of a file path
 //HOME/WINDOWS/TEST.JPG returns jpg
-    function getextension($path)
-    {
+    function getextension($path) {
         return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
     }
 
 //loads a jpg/png/gif/bmp as an image object
-    function loadimage($filename)
-    {
+    function loadimage($filename) {
         if (file_exists($filename)) {
             //get image extension.
             $ext = "";
@@ -1256,8 +1159,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //loads a BMP manually
-    function imagecreatefrombmp($filename)
-    {
+    function imagecreatefrombmp($filename) {
         $file = fopen($filename, "rb");
         $read = fread($file, 10);
         while (!feof($file) && $read != "") {
@@ -1295,8 +1197,7 @@ function fontawesome($profiletype, $icontype=0){
 
 //copies an image ($file) to a new location
 //$sizes contains an array of key=path, value=size
-    function copyimages($sizes, $file, $name, $CropToFit = false)
-    {
+    function copyimages($sizes, $file, $name, $CropToFit = false) {
         if (file_exists($file) && !is_dir($file)) {
             foreach ($sizes as $path => $size) {
                 $rsize = resize($file, $size, $CropToFit);
@@ -1308,8 +1209,7 @@ function fontawesome($profiletype, $icontype=0){
 
 // this is the function that will create the thumbnail image from the uploaded image
 // the resize will be done considering the width and height defined, but without deforming the image
-    function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $Resize = false)
-    {
+    function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $Resize = false) {
         $src_img = loadimage($input_filename);
         if ($src_img) {
             //gets the dimmensions of the image
@@ -1384,8 +1284,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //automatically handle uploading of files
-    function handle_upload($Dir)
-    {
+    function handle_upload($Dir) {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             if (right($Dir, 1) != "/") {
                 $Dir .= "/";
@@ -1405,8 +1304,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //convert a relative path with ..'s to a full path name
-    function resolve_path($str)
-    {
+    function resolve_path($str) {
         $str = str_replace('\\', '/', $str);
         $array = explode('/', $str);
         $domain = array_shift($array);
@@ -1429,8 +1327,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //gets a key from the get or post, or returns $default if it doesn't exist
-    function getpost($Key, $Default = "")
-    {
+    function getpost($Key, $Default = "") {
         if (isset($_GET[$Key])) {
             return $_GET[$Key];
         }
@@ -1441,8 +1338,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //this code is broken
-    function get_time_interval()
-    {
+    function get_time_interval() {
         $min = date('i');
         $mod = $min % 15;
         $diff = 15 - $mod;
@@ -1473,19 +1369,16 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //checks if $Text is encrypted, might not work if the encrpytion key is changed
-    function is_encrypted($Text)
-    {
+    function is_encrypted($Text) {
         return strpos($Text, "eyJpdiI6I") === 0;
     }
 
-    function debugmode()
-    {
+    function debugmode() {
         return config('app.debug') || isset($_GET["debugmode"]);
     }
 
 //if the server is localhost, print whatever file is specified in red text
-    function printfile($File, $Ret = false)
-    {//cannot use __FILE__ due to caching
+    function printfile($File, $Ret = false) {//cannot use __FILE__ due to caching
     $showdebug=true;
         if (debugmode() || $showdebug) {
             $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
@@ -1499,8 +1392,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 // Function to get the client ip address
-    function get_client_ip_server()
-    {
+    function get_client_ip_server() {
         foreach (array("HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR") as $field) {
             if (isset($_SERVER[$field])) {
                 return $_SERVER[$field];
@@ -1510,8 +1402,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //gets browser information about the user
-    function getBrowser()
-    {
+    function getBrowser() {
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
         $version = "";
@@ -1584,8 +1475,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //gets the user's OS
-    function getOS()
-    {
+    function getOS() {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $os_platform = "Unknown OS Platform";
         $os_array = array(
@@ -1621,8 +1511,7 @@ function fontawesome($profiletype, $icontype=0){
         return $os_platform;
     }
 
-    function getUserBrowser()
-    {
+    function getUserBrowser() {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $browser = "Unknown Browser";
         if (preg_match('~MSIE|Internet Explorer~i', $_SERVER['HTTP_USER_AGENT']) || (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') !== false)) {
@@ -1650,9 +1539,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
     if (!function_exists("priority")) {
-
-        function priority($Alpha, $Beta = false)
-        {
+        function priority($Alpha, $Beta = false) {
             if ($Alpha) {
                 return $Alpha;
             }
@@ -1661,11 +1548,9 @@ function fontawesome($profiletype, $icontype=0){
             }
             return "";
         }
-
     }
 
-    function priority2($resturant, $Field, $Old = "")
-    {
+    function priority2($resturant, $Field, $Old = "") {
         if (!$Old) {
             $Old = $Field;
         }
@@ -1676,8 +1561,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //code is broken, will only return 12:00 AM
-    function getTime($time)
-    {
+    function getTime($time) {
         if (strpos($time, "AM") !== false || strpos($time, "PM") !== false || strpos($time, ":") === false) {
             return $time;
         }
@@ -1702,8 +1586,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //rounds down by 0.5
-    function roundDownToHalf($number)
-    {
+    function roundDownToHalf($number) {
         $remainder = ($number * 10) % 10;
         $half = ($remainder > 0) ? 0.5 : 0;
         $value = floatval(intval($number) + $half);
@@ -1711,8 +1594,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //gets a rating
-    function rating_get($target_id = 0, $rating_id = 0, $type = "")
-    {
+    function rating_get($target_id = 0, $rating_id = 0, $type = "") {
         $fetch = App\Http\Models\RatingUsers::select(DB::raw('SUM(rating) as rating'))->where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->first();
         $numberOfratings = App\Http\Models\RatingUsers::where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->count();
         $numberOfratings = ($numberOfratings > 0) ? $numberOfratings : 1;
@@ -1720,8 +1602,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //prints a rating
-    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true)
-    {
+    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true) {
         $html = "";
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
             $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';
@@ -1797,8 +1678,7 @@ function fontawesome($profiletype, $icontype=0){
         return $html;
     }
 
-    function select_rating_starts($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating')
-    {
+    function select_rating_starts($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating') {
         $html = "";
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
             $update_class = ($type == "rating") ? $class_name : '';
@@ -1863,8 +1743,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //prints 1 star
-    function stars($target_id, $value, $countExit, $start, $Number)
-    {
+    function stars($target_id, $value, $countExit, $start, $Number) {
         $half = "";
         $class = "full";
         if (strpos($Number, ".")) {
@@ -1875,8 +1754,7 @@ function fontawesome($profiletype, $icontype=0){
     }
 
 //converts a CSV array into one where each value is in a single quote
-    function strToTagsConversion($string = "")
-    {
+    function strToTagsConversion($string = "") {
         $html = "";
         if ($string) {
             foreach (explode(", ", $string) as $value) {
@@ -1886,16 +1764,14 @@ function fontawesome($profiletype, $icontype=0){
         return $html;
     }
 
-    function obfuscate($CardNumber, $maskingCharacter = "*")
-    {
+    function obfuscate($CardNumber, $maskingCharacter = "*") {
         if (!isvalid_creditcard($CardNumber)) {
             return "[INVALID CARD NUMBER]";
         }
         return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
     }
 
-    function isvalid_creditcard($CardNumber, $Invalid = "")
-    {
+    function isvalid_creditcard($CardNumber, $Invalid = "") {
         $CardNumber = preg_replace('/\D/', '', $CardNumber);
         // http://stackoverflow.com/questions/174730/what-is-the-best-way-to-validate-a-credit-card-in-php
         // https://en.wikipedia.org/wiki/Bank_card_number#Issuer_identification_number_.28IIN.29
@@ -1951,8 +1827,7 @@ function fontawesome($profiletype, $icontype=0){
         return $Invalid;
     }
 
-    function luhn_check($number)
-    {
+    function luhn_check($number) {
         // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
         $number = preg_replace('/\D/', '', $number);
 
@@ -1980,8 +1855,7 @@ function fontawesome($profiletype, $icontype=0){
         return ($total % 10 == 0) ? TRUE : FALSE;
     }
 
-    function ViewsCountsType($id = 0, $type = "")
-    {
+    function ViewsCountsType($id = 0, $type = "") {
         return \App\Http\Models\PageViews::getView($id, $type);
     }
 
