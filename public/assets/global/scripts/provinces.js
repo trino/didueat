@@ -80,6 +80,13 @@ function simpleStringify (object){
 
 
 //Google Api Codes.
+$('#formatted_address, #formatted_address1, #formatted_address2, #formatted_address3, #formatted_address4').keydown(function (e) {
+  if (e.which == 13 && $('.pac-container:visible').length) return false;
+});
+$('#formatted_address, #formatted_address1, #formatted_address2, #formatted_address3, #formatted_address4').change(function () {
+  return false;
+});
+
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
