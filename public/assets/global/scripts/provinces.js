@@ -176,12 +176,13 @@ function fillInAddress1() {
             if(addressType == "formatted_address"){
                 $('#formatted_addressForDB').val(val);
             }
-            if(addressType == "formatted_address"){
-                $('#formatted_address').val(val);
+
+            if(addressType == "street_number"){
+                $('#formatted_address').val(val);                
             }
             if(addressType == "route"){
                 if($('#formatted_address').val() != ""){
-                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
+                    $('#formatted_address').val($('#formatted_address').val()+" "+val);
                 } else {
                     $('#formatted_address').val(val);
                 }
@@ -269,21 +270,6 @@ function fillInAddress() {
                 if($('#ordered_code').is(':visible'))
                     $('#ordered_code').val(val);
             }
-                        
-           
-           if(addressType == "formatted_address"){
-                $('#formatted_address').val(val);
-            }
-            if(addressType == "route"){
-                if($('#formatted_address').val() != ""){
-                    $('#formatted_address').val($('#formatted_address').val()+", "+val);
-                } else {
-                    $('#formatted_address').val(val);
-                }
-            }
-
-/*
-This is messing up Restaurant Info page
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);
                 if($('#ordered_street').is(':visible'))
@@ -303,8 +289,6 @@ This is messing up Restaurant Info page
                     $('#ordered_street').val(val);
                 }
             }
-
-*/
 
 
         }
