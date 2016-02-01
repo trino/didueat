@@ -351,6 +351,7 @@ em.total{width:14%;padding-left:2%;}
 .newaction{margin-top: 20px}
 .alldays{font-size:12px;}
 .instruct{font-size:16px;color:#f00;margin-left:auto;margin-right:auto; text-align:center}
+.rightmarg{margin-right:10px}
 
 /****Filter******/
 .facet-checkbox-box{display:inline}

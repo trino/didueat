@@ -70,3 +70,5 @@ MySQL alter commands - Jan 27, 2016.txt
 public/assets/global/css/timepicker_backupJan28,2016.css
 Jan30,2016_latestdb.sql
 public/assets/global/scripts/provinces_backupJan30,2016.js
+vendor/laravel/framework/src/Illuminate/Support/Facades/Input.php
+vendor/symfony/debug/Debug.php

@@ -180,7 +180,6 @@
 
     function newrow($new = false, $name = false, $class = "", $Required = false, $columns = 9, $labelStr = "")
     {
-    
         $id = str_replace(" ", "_", strtolower($name)) . "_label";
 
         if ($Required) {
@@ -1487,7 +1486,8 @@ function fontawesome($profiletype, $icontype=0){
 //if the server is localhost, print whatever file is specified in red text
     function printfile($File, $Ret = false)
     {//cannot use __FILE__ due to caching
-        if (debugmode()) {
+    $showdebug=true;
+        if (debugmode() || $showdebug) {
             $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
             //if(isset($GLOBALS["currentfile"])){$Return .= " From: " . $GLOBALS["currentfile"];}//doesn't work as it expects a flat layout, not hierarchical
             $GLOBALS["currentfile"] = $File;
@@ -1678,8 +1678,27 @@ function fontawesome($profiletype, $icontype=0){
 //code is broken, will only return 12:00 AM
     function getTime($time)
     {
-
+        if (strpos($time, "AM") !== false || strpos($time, "PM") !== false || strpos($time, ":") === false) {
+            return $time;
+        }
         return "12:00 AM";
+        if (!$time) {
+            return $time;
+        } else {
+            $arr = explode(':', $time);
+        }
+        $hour = $arr[0];
+        $min = $arr[1];
+        $sec = $arr[2];
+        $suffix = 'AM';
+        if ($hour >= 12) {
+            $hour = $hour - 12;
+            $suffix = 'PM';
+        }
+        if (strlen($hour) == 1) {
+            $hour = '0' . $hour;
+        }
+        return $hour . ':' . $min . ' ' . $suffix;
     }
 
 //rounds down by 0.5

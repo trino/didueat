@@ -34,7 +34,7 @@ if(isset($restSignUpPg)){
 }
 
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Check Between 1 & 3)'.$brTag2); 
+echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Check Between 1 & 3 Genres)'.$brTag2); 
 
 echo '<input name="cuisines" type="hidden" />';
 $cuisineExpl = "";
@@ -42,15 +42,15 @@ if (isset($restaurant->cuisine)) {
     $cuisineExpl = explode(",", $restaurant->cuisine);
 }
 
-$cnt = 0;
+$cnt = 0; 
 $cuisinesChkd = 0;
 $cuisineListA = array();
 foreach ($cuisine_list as $value) {
-    $cuisineListA[$value->id] = $value->name;
+    $cuisineListA[] = $value;
 }
 
 sort($cuisineListA);
-foreach ($cuisineListA as $value => $name) {
+foreach ($cuisineListA as $name) {
     echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
@@ -84,7 +84,7 @@ echo newrow($new, "Description", "", true, 8); ?>
  echo newrow($new, "Logo", "", "", 7); ?>
 
 
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left">Upload</a>
+    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload New Logo</a>
 
 
 <div class="clearfix pull-left">

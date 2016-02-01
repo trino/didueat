@@ -25,6 +25,7 @@ function chkCBs(cb){
 }
     
 function validateFn(f){
+
    var cuisinesStr="";
    var comma="";
 			for(var i=0;i<cuisineCnt;i++){

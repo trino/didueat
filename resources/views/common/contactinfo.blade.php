@@ -32,7 +32,7 @@ echo newrow($new, "Email", $size, true); ?>
 <?php
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required>
+    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="" value="{{ $mobile }}" required>
 </div>
 <?php echo newrow(); ?>
 

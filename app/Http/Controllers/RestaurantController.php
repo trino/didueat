@@ -232,8 +232,11 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = "Add New Restaurants";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
+//            $data['countries_list'] = \App\Http\Models\Countries::get();
+//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
+            
+            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+
             return view('dashboard.restaurant.addrestaurant', $data);
         }
     }
@@ -332,9 +335,13 @@ class RestaurantController extends Controller {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
         } else {
+// not from submit, so load data
             $data['title'] = "Resturant Manage";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
+//            $data['countries_list'] = \App\Http\Models\Countries::get();
+//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
+
+            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             $data["route"] = \Route::getCurrentRoute()->getPath();
             return view('dashboard.restaurant.info', $data);

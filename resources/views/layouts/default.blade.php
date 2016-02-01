@@ -119,7 +119,11 @@ if (Request::path() !== null && Request::path() != "/") {
                 $MissingData[] = "Pickup and/or Delivery options <a href=\"".url('restaurant/info')."#PickupAndDelivery\">(<u>Click to Set Delivery Options</u>)</a>";
             }
             if (!$Restaurant->logo) {
-                $MissingData[] = "Your Restaurant logo <a href=\"".url('restaurant/info')."#setlogo\">(<u>Click to Set Restaurant Logo</u>)</a>";
+                $MissingData[] = "Your Restaurant Logo <a href=\"".url('restaurant/info')."#setlogo\">(<u>Click to Set Restaurant Logo</u>)</a>";
+            }
+            
+            if (!$Restaurant->description) {
+                $MissingData[] = "Your Restaurant Description <a href=\"".url('restaurant/info')."#setlogo\">(<u>Click to Set Restaurant Description</u>)</a>";
             }
 
             if (!$Restaurant->latitude || !$Restaurant->longitude) {

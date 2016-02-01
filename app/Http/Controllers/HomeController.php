@@ -327,6 +327,7 @@ class HomeController extends Controller {
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
+                print("<script>alert('Home: ".$post['is_delivery']."');</script>");
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
@@ -393,10 +394,13 @@ class HomeController extends Controller {
             }
         } else {
             $data['title'] = "Signup Restaurants Page";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['states_list'] = \App\Http\Models\States::get();
-            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
-            //$data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
+//            $data['countries_list'] = \App\Http\Models\Countries::get();
+//            $data['states_list'] = \App\Http\Models\States::get();
+//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
+//            $data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
+            
+            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+            
             return view('restaurants-signup', $data);
         }
     }
