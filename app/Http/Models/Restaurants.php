@@ -25,18 +25,25 @@ class Restaurants extends BaseModel {
         $weekdays = getweekdays();
         $this->is_complete = true;
         $doesopen = false;
+
+        $this->copycells($cells, $data);
+
+        $Fields = array("_open","_close");
+        if($this->is_delivery){
+            $Fields[] = "_open_del";
+            $Fields[] = "_close_del";
+        }
+
         foreach($weekdays as $day){
-            foreach(array("_open","_close","_open_del","_close_del") as $field){
+            foreach(array($Fields) as $field){
                 $cells[] = $day . $field;
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
-                } else if($data[$day . $field] != "12:00:00"){
+                } else if($data[$day . $field] != "00:00:00"){
                     $doesopen = true;
                 }
             }
         }
-
-        $this->copycells($cells, $data);
 
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}

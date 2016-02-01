@@ -5,7 +5,7 @@
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;
-    window.pageUrlLoad = "{{ url('credit-cards/list/ajax/'.$type) }}";
+    window.pageUrlLoad = "{{ url('credit-cards/list/ajax/'. $type) }}";
 </script>
 
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
@@ -38,7 +38,7 @@
                 </button>
                 <h4 class="modal-title" id="editModelLabel">Credit Card</h4>
             </div>
-            {!! Form::open(array('url' => 'credit-cards/list/'.$type, 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            {!! Form::open(array('url' => 'credit-cards/list/'. $type, 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
             <div id="ajaxloader"></div>
             <div class="modal-body" id="contents">
                 
@@ -120,6 +120,75 @@
                 alert(result);
             }
         });
+    });
+
+    function validateCardNumber(number) {
+        number = number.replace(/\D/g,'');
+        if (luhnCheck(number)){
+            var prefix = number.substring(0, 2);
+            var length = 0;
+            if (prefix >= 51 && prefix <= 55) {
+                length = 16; //mastercard
+                var type = "mastercard";
+            } else if (prefix == 34 || prefix == 37) {
+                length = 15; //amex
+                var type = "americanExpress";
+            } else if (number.substring(0, 1) == 4) {
+                length = number.length;
+                if (length != 13 && length != 16){length=length+1;}
+                var type = "visa";
+            } else if (prefix == 65) {
+                length = 16; //discover
+                var type = "discover";
+            } else {
+                prefix = number.substring(0, 6);
+                if (prefix >= 622126 || prefix <= 622925) {
+                    length = 16; //discover
+                    var type = "discover";
+                } else {
+                    prefix = number.substring(0, 3);
+                    if (prefix >= 644 || prefix <= 649 || number.substring(0, 4) == 6011) {
+                        length = 16; //discover
+                        var type = "discover";
+                    }
+                }
+            }
+            if(length == number.length){return type;}
+        }
+        return false;
+    }
+
+    function luhnCheck(val) {
+        var sum = 0;
+        for (var i = 0; i < val.length; i++) {
+            var intVal = parseInt(val.substr(i, 1));
+            if (i % 2 == 0) {
+                intVal *= 2;
+                if (intVal > 9) {
+                    intVal = 1 + (intVal % 10);
+                }
+            }
+            sum += intVal;
+        }
+        return (sum % 10) == 0;
+    }
+
+    jQuery.validator.addMethod("creditcard", function (value, element) {
+        return validateCardNumber(value);
+    });
+
+    $("#editForm").validate({
+        rules: {
+            card_number: {
+                required: true,
+                creditcard: true
+            }
+        },
+        messages: {
+            card_number: {
+                creditcard: "The card number is not valid",
+            },
+        }
     });
 </script>
 @stop

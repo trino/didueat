@@ -1379,7 +1379,9 @@ function fontawesome($profiletype, $icontype=0){
 
 //if the server is localhost, print whatever file is specified in red text
     function printfile($File, $Ret = false) {//cannot use __FILE__ due to caching
-    $showdebug=false;
+
+        $showdebug=false;
+
         if (debugmode() || $showdebug) {
             $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
             //if(isset($GLOBALS["currentfile"])){$Return .= " From: " . $GLOBALS["currentfile"];}//doesn't work as it expects a flat layout, not hierarchical
