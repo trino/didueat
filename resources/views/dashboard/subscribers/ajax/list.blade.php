@@ -38,10 +38,12 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
-                <h3>Subscribers</h3>
-                <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
-                    Send
-                </button>
+                <h3>Subscribers
+                    <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
+                        Send Message
+                    </button>
+                </h3>
+
             </div>
                 @include('common.table_controls')
         </div>

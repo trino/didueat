@@ -47,14 +47,10 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             }
             $width = 59;
             ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
-
         </DIV>
 
-        <DIV>
-            <span class="alldays">(Start typing the address then click from the dropdown to populate all address fields)</span>
-        </DIV>
     @endif
-</div></div>
+<?php echo newrow(); ?>
 
 
 <?php

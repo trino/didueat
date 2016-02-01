@@ -11,7 +11,11 @@
                     My Addresses
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4></div>
+            @if (Session::get('session_type_user') == "super" && $recCount > 10)
+
             @include('common.table_controls')
+
+                @endif
         </div>
     </div>
 
