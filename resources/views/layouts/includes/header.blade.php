@@ -94,15 +94,12 @@ $first = false; $type = "hidden";
         <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="">
             <ul class="nav navbar-nav">
 
-                <li class="nav-item">
-                    <h3>
-                        Logged in as {{Session::get('session_type_user')}}
-                    </h3>
-                </li>
-
-
-
                 @if(Session::has('is_logged_in'))
+                    <li class="nav-item">
+                        <h4>
+                            Logged in as {{Session::get('session_type_user')}}
+                        </h4>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">Hi, {{ explode(' ', Session::get('session_name'))[0] }} </a>
                     </li>
