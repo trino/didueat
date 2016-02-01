@@ -8,7 +8,7 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9"><h4>
-                    My Address
+                    My Addresses
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4></div>
             @include('common.table_controls')

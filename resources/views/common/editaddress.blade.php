@@ -17,7 +17,11 @@ if (!isset($required)) {
 $required = iif($required, " required");
 if (!isset($is_disabled)) {
     $is_disabled = false;
+} else {
+    $is_disabled = " readonly";
 }
+
+$readonly = " readonly";
 $isUser = isset($apartment);
 $needsmobile = isset($mobile);
 $restSignUp = !isset($addresse_detail);//no idea what this needs to be
@@ -53,30 +57,32 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 </div></div>
 
 
-<?php echo newrow($new, "Apartment", "", false, 5); ?>
-<input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
-       value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-</div></div>
+<?php
+if(isset($apartment)){
+    echo newrow($new, "Apartment", "", false, 5); ?>
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
+           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+    </div></div>
+<?php }
 
-
-<?= newrow($new, "City", "", $required, 5); ?>
-<input required disabled type="text" id="city" name="city" class="form-control" onfocus="this.blur();"
+echo newrow($new, "City", "", $required, 5); ?>
+<input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
 </div></div>
 
 <?= newrow($new, "Province", "", $required, 5); ?>
-<input required disabled type="text" id="province" name="province" class="form-control" onfocus="this.blur();"
+<input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
 </div></div>
 
 <?= newrow($new, "Postal Code", "", true, 5); ?>
-<input required disabled type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control"
+<input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control"
        placeholder="Postal Code"
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
 <?= newrow($new, "Country", "", $required, 5); ?>
-<input disabled type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
+<input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
 </div></div>
 
@@ -100,23 +106,19 @@ echo newrow();
 
 
 <?php
-
     if(isset($restEdit)){
 		    echo newrow($new,"Save","","",12,"Save"); 
             echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     }
 
-
 if($isUser){
-echo newrow($new, "Notes", "", false, 9);
-?>
-<input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-       value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-</div></div>
+    echo newrow($new, "Notes", "", false, 9);
+    ?>
+    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    </div></div>
 
-<?php 
- }
-?>
+<?php } ?>
 
 @if(isset($dontinclude))
 <SCRIPT>
@@ -128,27 +130,17 @@ echo newrow($new, "Notes", "", false, 9);
 </SCRIPT>
 @else
     <?php
-   
-    if (!isset($_GET['route'])) {
-        includeJS(url("assets/global/scripts/provinces.js"));
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-            //echo "<script>initAutocomplete();</script>";
-        }
-        
-    }
-    else{
+        if (!isset($_GET['route'])) {
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                //echo "<script>initAutocomplete();</script>";
+            }
 
-                includeJS(url("assets/global/scripts/provinces.js"));
-                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-                }
-   }
-?>
-
+        } else{
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+            }
+       }
+    ?>
 @endif
-
-<?php
-        echo '(Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
-
-?>   
-

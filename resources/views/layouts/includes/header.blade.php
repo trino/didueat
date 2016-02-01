@@ -48,7 +48,7 @@ $first = false; $type = "hidden";
                         </div>
                         <input style="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
                                class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                               onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
+                               onchange="change_address_event();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
                                ignore_oninput="this.onchange();">
                         <input type="{{ $type }}" name="latitude2" id="latitude2">
                         <input type="{{ $type }}" name="latitude2" id="longitude2">
@@ -71,7 +71,7 @@ $first = false; $type = "hidden";
                         $("#formatted_address2").trigger("focus");
                         $("#formatted_address2").trigger("change");
                     }
-                    function changeevent() {
+                    function change_address_event() {
                         //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
                         setTimeout(function () {
                             //document.getElementById("formatted_address2").setAttribute("style", "background-color: white;");//debug
@@ -83,10 +83,10 @@ $first = false; $type = "hidden";
 
                 </script>
                 <?php
-                includeJS(url("assets/global/scripts/provinces.js"));
-                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-                }
+                    includeJS(url("assets/global/scripts/provinces.js"));
+                    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+                        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+                    }
                 ?>
             @endif
         </ul>

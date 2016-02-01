@@ -37,7 +37,7 @@
     }
 
     makelink(array( 'orders/list/user' => 'My Orders',
-                        'user/addresses' => "My Address",
+                        'user/addresses' => "My Addresses",
                         'user/info' => "My Profile"
                     ), "<h4><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
 

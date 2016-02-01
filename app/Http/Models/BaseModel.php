@@ -12,8 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BaseModel extends Model {
     //populate, and save a new entry
-    public static function makenew($columns){
-        $ob = self::findOrNew(0);
+    public static function makenew($columns=false, $ID=0){
+        $ob = self::findOrNew($ID);
+        if(!$columns){$columns=\Input::all();}
         $ob->populate($columns);
         $ob->save();
         return $ob;

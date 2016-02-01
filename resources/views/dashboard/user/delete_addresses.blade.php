@@ -16,7 +16,7 @@
 
             <div class="card">
                 <div class="card-header ">
-                    My Addresses
+                    My Addresseses
                     <a class="btn btn-primary   btn-sm" data-toggle="modal" data-target="#addAddressModal">Add</a>
                 </div>
                 <div class="card-block p-a-0">
