@@ -100,23 +100,19 @@ echo newrow();
 
 
 <?php
-
     if(isset($restEdit)){
 		    echo newrow($new,"Save","","",12,"Save"); 
             echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     }
 
-
 if($isUser){
-echo newrow($new, "Notes", "", false, 9);
-?>
-<input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-       value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-</div></div>
+    echo newrow($new, "Notes", "", false, 9);
+    ?>
+    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    </div></div>
 
-<?php 
- }
-?>
+<?php } ?>
 
 @if(isset($dontinclude))
 <SCRIPT>
@@ -128,27 +124,17 @@ echo newrow($new, "Notes", "", false, 9);
 </SCRIPT>
 @else
     <?php
-   
-    if (!isset($_GET['route'])) {
-        includeJS(url("assets/global/scripts/provinces.js"));
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-            //echo "<script>initAutocomplete();</script>";
-        }
-        
-    }
-    else{
+        if (!isset($_GET['route'])) {
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                //echo "<script>initAutocomplete();</script>";
+            }
 
-                includeJS(url("assets/global/scripts/provinces.js"));
-                if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-                    echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-                }
-   }
-?>
-
+        } else{
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+            }
+       }
+    ?>
 @endif
-
-<?php
-        echo '(Drivers are not required to go up stairs, any time guarantees a store may have ends at the lobby, or when they call on arrival (whether or not they are able to reach you)';
-
-?>   
-

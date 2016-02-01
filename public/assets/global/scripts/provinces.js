@@ -83,7 +83,6 @@ function simpleStringify (object){
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
-  
     var element = document.getElementById(ID);
     if(element)
     if (!element.hasAttribute("hasgeocode")) {
@@ -97,7 +96,6 @@ function initAutocompleteWithID(ID){
 }
 
 function initAutocomplete(){
-    
      formatted_address = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(document.getElementById('formatted_address')),
       {types: ['geocode']});
@@ -200,18 +198,14 @@ function fillInAddress() {
     }
 
     // Get the place details from the formatted_address object.
-    if(isundefined(formatted_address))
-    {
-        
+    if(isundefined(formatted_address)) {
         var place = formatted_address2.getPlace();
-        if(isundefined(place))
+        if(isundefined(place)) {
             var place = formatted_address3.getPlace();
-        else
-            var place = formatted-address.getPlace();
-       
-    }
-    else
-    {
+        }else {
+            var place = formatted - address.getPlace();
+        }
+    } else {
         var place = formatted_address.getPlace();
     }
     
