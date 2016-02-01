@@ -291,15 +291,15 @@ class RestaurantController extends Controller {
                 $update['name'] = $post['restname'];
                 if ($post['id'] == ''){
                     $update['slug'] = $this->createslug($post['name']);
-                    
                 }
-                $update['email'] = $post['email'];
+
+                if(isset($post['email'])) {$update['email'] = $post['email'];}
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisines'];
                 $update['province'] = $post['province'];
-                $update['address'] = $post['formatted_address'];
+                if(isset($post['formatted_address'])){ $update['address'] = $post['formatted_address'];}
                 $update['formatted_address'] = $post['formatted_addressForDB']; // hidden field on signup page
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];

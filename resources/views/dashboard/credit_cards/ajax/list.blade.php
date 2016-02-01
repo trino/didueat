@@ -75,7 +75,6 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                        title="Sort [Expiry Date] DESC"><i class="fa fa-caret-up"></i></a-->
                 </th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
 
@@ -109,10 +108,10 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                         <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                         <td>
                             <div class="pull-right">
-                                <!--a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal"
+                                <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal"
                                    data-target="#editModel">
                                     Edit
-                                </a-->
+                                </a>
                                 <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
                                    class="btn btn-danger-outline btn-sm "
                                    onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>

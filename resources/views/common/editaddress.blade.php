@@ -20,6 +20,8 @@ if (!isset($is_disabled)) {
 } else {
     $is_disabled = " readonly";
 }
+
+$readonly = " readonly";
 $isUser = isset($apartment);
 $needsmobile = isset($mobile);
 $restSignUp = !isset($addresse_detail);//no idea what this needs to be
@@ -55,30 +57,32 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 </div></div>
 
 
-<?php echo newrow($new, "Apartment", "", false, 5); ?>
-<input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
-       value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-</div></div>
+<?php
+if(isset($apartment)){
+    echo newrow($new, "Apartment", "", false, 5); ?>
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
+           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+    </div></div>
+<?php }
 
-
-<?= newrow($new, "City", "", $required, 5); ?>
-<input required readonly type="text" id="city" name="city" class="form-control" onfocus="this.blur();"
+echo newrow($new, "City", "", $required, 5); ?>
+<input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
 </div></div>
 
 <?= newrow($new, "Province", "", $required, 5); ?>
-<input required readonly type="text" id="province" name="province" class="form-control" onfocus="this.blur();"
+<input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
 </div></div>
 
 <?= newrow($new, "Postal Code", "", true, 5); ?>
-<input required readonly type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control"
+<input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control"
        placeholder="Postal Code"
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
 <?= newrow($new, "Country", "", $required, 5); ?>
-<input readonly type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
+<input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
 </div></div>
 

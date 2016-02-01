@@ -6,35 +6,14 @@
 
 <div class="card">
 
-
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-9"><h3>
-
-                    Subscribers</h3></div>
-
-            @include('common.table_controls')
-
+            <div class="col-lg-9">
+                <h3>Subscribers</h3>
+            </div>
+                @include('common.table_controls')
         </div>
     </div>
-
-
-
-
-    <!--table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
-        <tr>
-            <td align="left"><label>Show<select size="1" name="showDataEntries" id="showDataEntries"  class="form-con"><option value="10" {!! ($per_page == 10)?"selected":''; !!}>10</option><option value="25" {!! ($per_page == 25)?"selected":''; !!}>25</option><option value="50" {!! ($per_page == 50)?"selected":''; !!}>50</option><option value="100" {!! ($per_page == 100)?"selected":''; !!}>100</option><option value="300" {!! ($per_page == 300)?"selected":''; !!}>300</option><option value="500" {!! ($per_page == 500)?"selected":''; !!}>500</option><option value="1000" {!! ($per_page == 1000)?"selected":''; !!}>1000</option></select> entries</label></td>
-            <td align="right">
-                <div>
-                    <label>
-                        <b class="search-input">  Search: </b><input type="text" class="form-control" id='searchResult' value='{!! $searchResults !!}' placeholder='Enter Keyword...' autofocus='true' style="width:220px !important;" />
-                    </label>
-                </div>
-            </td>
-        </tr>
-    </table-->
-
-
 
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
@@ -64,30 +43,24 @@
             </thead>
             <tbody>
                 @if($recCount > 0)
-                @foreach($Query as $key => $value)
-                <tr>
-                    <td>{{ $value->id }}</td>
-                    <td>{{ $value->email }}</td>
-                    <td>{{ date('d M, Y', strtotime($value->created_at)) }}</td>
-                    <td>{{ ($value->status == 1)?"Active":"Inactive" }}</td>
-                </tr>
-                @endforeach
+                    @foreach($Query as $key => $value)
+                        <tr>
+                            <td>{{ $value->id }}</td>
+                            <td>{{ $value->email }}</td>
+                            <td>{{ date('d M, Y', strtotime($value->created_at)) }}</td>
+                            <td>{{ ($value->status == 1)?"Active":"Inactive" }}</td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
-                    <td><span class="text-muted">No Records</span></td>
-                </tr>
+                    <tr>
+                        <td><span class="text-muted">No Records</span></td>
+                    </tr>
                 @endif
             </tbody>
         </table>
-
-
     </div>
 
     @if(Session::get('session_type_user') == "super"  && $recCount > 10)
-
-
-    <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
-
-        @endif
+        <div class="card-footer clearfix">{!! $Pagination !!}    </div>
+    @endif
 </div>
