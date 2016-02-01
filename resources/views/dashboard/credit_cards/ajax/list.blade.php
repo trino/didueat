@@ -19,7 +19,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                 </h4>
 
                 <p class="card-subtitle text-muted">
-                    Your credit card will be billed on the 1st of each month. You musthave at least 1 active for your store to be open.
+                    Your credit card will be billed on the 1st of each month. You must have at least 1 active for your store to be open.
                 </p>
 
             </div>
@@ -108,8 +108,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
                         <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
                         <td>
                             <div class="pull-right">
-                                <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal"
-                                   data-target="#editModel">
+                                <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel">
                                     Edit
                                 </a>
                                 <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
@@ -131,7 +130,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 
     @if(Session::get('session_type_user') == "super"  && $recCount > 10)
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
+        {!! $Pagination !!}    </div>
     @endif
 
 </div>

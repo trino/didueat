@@ -19,9 +19,17 @@ abstract class Controller extends BaseController {
     //sends an email using a template
     public function sendEMail($template_name = "", $array = array()) {
         if(isset($array["message"])){die("array[message] is reserved and cannot be used!!!");}
-        \Mail::send($template_name, $array, function ($messages) use ($array) {
-            $messages->to($array['email'])->subject($array['mail_subject']);
-        });
+        if(is_array($array['email'])){
+            $emails = $array['email'];
+            foreach($emails as $email){
+                $array["email"] = $email;
+                $this->sendEMail($template_name, $array);
+            }
+        } else {
+            \Mail::send($template_name, $array, function ($messages) use ($array) {
+                $messages->to($array['email'])->subject($array['mail_subject']);
+            });
+        }
     }
 
     //automates the flash/flash with input and redirect for the success condition

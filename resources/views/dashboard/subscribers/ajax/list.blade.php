@@ -4,12 +4,44 @@
 {!! message_show("Message!", \Session::get('message')) !!}
 @endif
 
+<div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editModelLabel">Newsletter</h4>
+            </div>
+            {!! Form::open(array('url' => 'subscribers/send', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <div id="ajaxloader"></div>
+            <div class="modal-body" id="contents">
+                <?= newrow(false, "Subject:"); ?>
+                    <INPUT TYPE="TEXT" NAME="subject" CLASS="form-control" REQUIRED>
+                </DIV></DIV>
+
+                <?= newrow(false, "Contents:"); ?>
+                    <TEXTAREA NAME="newsletter" CLASS="form-control" REQUIRED></TEXTAREA>
+                </DIV></DIV>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 <div class="card">
 
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
                 <h3>Subscribers</h3>
+                <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
+                    Send
+                </button>
             </div>
                 @include('common.table_controls')
         </div>
