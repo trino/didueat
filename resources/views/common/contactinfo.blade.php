@@ -1,6 +1,6 @@
 <?php
 printfile("views/common/contactinfo.blade.php");
-$size = "12";
+$size = "2";
 
 if (!isset($new)) {
     $new = false;
@@ -15,6 +15,9 @@ foreach ($Fields as $Field) {
         $$Field = old($Field);
     }
 }
+?>
+
+<?php
 echo newrow($new, "Your Name", $size, true);
 ?>
 <div class="input-icon">
@@ -38,50 +41,38 @@ echo newrow($new, "Cell Phone", $size, true); ?>
 
 
 
-@if(!isset($user_detail))
+<?= newrow(false, " ", "", false, 7, false); ?>
+
+<label class="c-input c-checkbox">
+    <input type="checkbox" name="subscribed" id="subscribed" value="true"
+           @if($subscribed || (!isset($subscribed))) checked @endif />
+    <span class="c-indicator"></span>
+    Signup for our lewsletter
+</label>
+</div></div>
 
 
-@else
-
+@if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="Old Password"
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder=""
                autocomplete="off">
     </div>
-    </div></div>
+    <?php echo newrow(); ?>
 @endif
 
 <?= newrow($new, "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder="Password"
-           value="{{ $password }}" {{ $PasswordRequired }}>
+    <input type="password" name="password" class="form-control" id="password" placeholder=""
+           autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
     <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-           placeholder="Re-type Password" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
+           autocomplete="off" placeholder="" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
 </div>
-
-</div></div>
-
-
-
-
-<?= newrow(false, " ", "", false, 7, false); ?>
-
-
-<label class="c-input c-checkbox">
-
-    <input type="checkbox" name="subscribed" id="subscribed" value="true"
-           @if($subscribed || (!isset($subscribed))) checked @endif />
-
-    <span class="c-indicator"></span>
-
-    Signup for our Newsletter
-</label>
-
 
 </div></div>
 

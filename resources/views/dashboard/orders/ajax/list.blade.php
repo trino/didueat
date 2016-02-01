@@ -7,19 +7,29 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
     {!! message_show("Message!", \Session::get('message')) !!}
 @endif
 
-
-
 <div class="card">
     <div class="card-header">
         <div class="row">
             <div class="col-lg-9">
                 <h4>
-                    Restaurant Orders <!-- ({{ ucwords($type) }})         -->           <!--a class="btn btn-primary btn-sm " href="{{ url('orders/report') }}" class="">Print Report</a-->
+                    @if($type=='user')
+                        My
+                    @else
+                        Restaurant
+                    @endif
+                    Orders
+                @if(Session::get('session_type_user') == "super" || $recCount > 10)
+
+                <a class="btn btn-primary btn-sm pull-right" href="{{ url('orders/report') }}" class="">Print Report</a>
+@endif
 
                 </h4>
-
+                
             </div>
-            @include('common.table_controls')
+            @if($recCount > 10)
+
+                @include('common.table_controls')
+            @endif
         </div>
     </div>
 
@@ -27,8 +37,6 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
         <table class="table table-responsive m-b-0">
 
             @if($recCount > 0)
-
-
 
                 <thead>
                 <tr>
@@ -63,7 +71,8 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
 
                     <TH>
                         Response Time
-                    </TH>  <th>
+                    </TH>
+                    <th>
 
                     </th>
                 </tr>
@@ -71,13 +80,11 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                 <tbody>
 
 
-
-
                 @foreach($Query as $value)
                     <tr>
                         <td>{{ $value->id }}
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                                   class="btn btn-primary  btn-sm">View</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
+                               class="btn btn-primary  btn-sm">View</a>
 
                         </td>
                         <td>{{ $value->ordered_by }}</td>
@@ -115,7 +122,6 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                         </TD>
 
 
-
                         <td>
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
@@ -127,27 +133,22 @@ $secondsper = array("day" => 86400, "hour" => 3600, "minute" => 60);//"week" => 
                         </td>
                     </tr>
                 @endforeach
-            @else
+                @else
 
 
 
-
-
-
-
-
-
-                <tr>
-                    <td><span class="text-muted">No Orders Yet</span></td>
-                </tr>
-            @endif
-            </tbody>
+                    <tr>
+                        <td><span class="text-muted">No Orders Yet</span></td>
+                    </tr>
+                @endif
+                </tbody>
         </table>
     </div>
-    @if($recCount > 0)
 
-    <div class="card-footer clearfix">
-        {!! $Pagination !!}
-    </div>
-        @endif
+    @if($recCount > 10)
+        <div class="card-footer clearfix">
+            {!! $Pagination !!}
+        </div>
+    @endif
+
 </div>
