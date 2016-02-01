@@ -51,22 +51,20 @@ foreach ($cuisine_list as $value) {
 
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-    echo "<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "&nbsp; &nbsp; &nbsp;<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
             $cuisinesChkd++;
         }
     }
-    echo " />&nbsp;" . $name . " &nbsp; &nbsp; &nbsp;<span class='c-indicator'></span></LABEL></div>";
+    echo " />&nbsp;" . $name . "<span class='c-indicator'></span></LABEL></div>";
     $cnt++;
 }
 
 echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
-
-
     echo newrow($new, "Tags"); ?>
         <a name="setlogo"></a>
         <textarea id="demo4"></textarea>
@@ -74,48 +72,34 @@ if(!$minimum){
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
     </div></div>
     
-<?php
-echo newrow($new, "Description", "", true, 8); ?>
-<textarea required name="description" class="form-control"
-          {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-<?php echo newrow();
+    <?= newrow($new, "Description", "", true, 8); ?>
+        <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+        <?php
+            echo newrow();
+            echo newrow($new, "Logo", "", "", 7);
+        ?>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload New Logo</a>
 
+        <div class="clearfix pull-left">
+            <input type="hidden" name="logo" id="hiddenLogo"/>
 
- echo newrow($new, "Logo", "", "", 7); ?>
+            <img id="picture" class="logopic" align=""
+                 @if(isset($restaurant->logo) && $restaurant->logo != "")
+                 src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"/>
+            @else
+                src="{{ asset('assets/images/didueatdefault.png') }}" />
+                <script>
+                    document.getElementById('uploadbtn').innerHTML = "Update";
+                </script>
+            @endif
+        </div>
+    </div></div>
 
-
-    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload New Logo</a>
-
-
-<div class="clearfix pull-left">
-    <input type="hidden" name="logo" id="hiddenLogo"/>
-
-    <img id="picture" class="logopic" align=""
-         @if(isset($restaurant->logo) && $restaurant->logo != "")
-         src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"/>
-    @else
-        src="{{ asset('assets/images/didueatdefault.png') }}" />
-        <script>
-            document.getElementById('uploadbtn').innerHTML = "Update";
-        </script>
-    @endif
-</div>
-
-
-
-</div>
-</div>
-
-<?php
-echo newrow($new, "Save", "", "", 12, true);
-?>
-
-<hr width="100%" align="center"/>
-<input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
-<button type="submit" class="btn btn-primary pull-right">Save</button>
-
-<?php
-echo newrow();
+    <?= newrow($new, "", "", "", 12, true);?>
+        <hr width="100%" align="center"/>
+        <input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
+        <button type="submit" class="btn btn-primary pull-right">Save</button>
+    <?= newrow();
 }
 ?>
 
@@ -131,25 +115,19 @@ echo newrow();
 
         $('#demo4').tagEditor({
 
-                    initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
-                    placeholder: 'Enter tags ...',
+            initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
+            placeholder: 'Enter tags ...',
 
-                    onChange: function (field, editor, tags) {
-                        $('#responseTags').val((tags.length ? tags.join(', ') : ''));
-                    },
-                    beforeTagDelete: function (field, editor, tags, val) {
-                        var q = confirm('Remove tag "' + val + '"?');
+            onChange: function (field, editor, tags) {
+                $('#responseTags').val((tags.length ? tags.join(', ') : ''));
+            },
+            beforeTagDelete: function (field, editor, tags, val) {
+                var q = confirm('Remove tag "' + val + '"?');
 
-                        return q;
-                    }
-                });
+                return q;
+            }
+        });
     });
-
-    @if(isset($resturant->city))
-        $(document).ready(function () {
-
-            });
-    @endif
 
     @if(!$minimum)
         function ajaxuploadbtn(button_id) {
@@ -188,9 +166,9 @@ echo newrow();
     @endif
 
     jQuery(document).ready(function () {
-                $("#resturantForm").validate();
-                @if(!$minimum)
-                    ajaxuploadbtn('uploadbtn');
-                @endif
-           });
+        $("#resturantForm").validate();
+        @if(!$minimum)
+            ajaxuploadbtn('uploadbtn');
+        @endif
+    });
 </script>

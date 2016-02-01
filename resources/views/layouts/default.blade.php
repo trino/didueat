@@ -132,7 +132,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 //          if(!$Restaurant->open){$MissingData[] = "to be set to open";}
 //          if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
-            if ($Restaurant->max_delivery_distance < 2) {
+            if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
                 $MissingDataOptional[] = "Delivery range <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Delivery Range</u>)</a>";
             }
             if (!$Restaurant->minimum || $Restaurant->minimum == "0.00") {
@@ -161,7 +161,7 @@ if (Request::path() !== null && Request::path() != "/") {
                 if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
                     $MissingData[] = "Hours Open <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Hours Open</u>)</a>";
                 }
-                if (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now) {
+                if ($Restaurant->is_delivery && (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now)) {
                     $MissingData[] = "Delivery Times <a href=\"".url('restaurant/info')."#DeliveryTimes\">(<u>Click to Set Delivery Times</u>)</a>";
                 }
             }
