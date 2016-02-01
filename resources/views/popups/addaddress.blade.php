@@ -21,16 +21,17 @@
                             </div>
                         </div>
                     </div>
-    <script>
-                    var oldID = 0;
+<script>
+    var oldID = 0;
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
-        var URL = $("#edit-form").attr('action') + "end";
+        var URL = "{{ url("user/addresses/save") }}/" + id;
+
         var route ='';
-        if($(this).attr('data-route'))
-            route = "?route="+$(this).attr('data-route');
-      
-        $('#edit-form').attr('action',  URL.replace("/" + oldID + "end", "/" + id));
+        if($(this).attr('data-route')) {
+            route = "?route=" + $(this).attr('data-route');
+        }
+        $('#edit-form').attr('action',  URL);
         if(id == null || id == undefined || id == ""){
             id = 0;
             $('#editLabel').text('Add/Edit Address');
@@ -53,4 +54,4 @@
             }
         });
     });
-                    </script>
+</script>

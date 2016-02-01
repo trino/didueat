@@ -64,6 +64,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses',                                   'ProfileAddressesController@index');
     Route::post('user/addresses/ajax/list',                         'ProfileAddressesController@listingAjax');
     Route::post('user/addresses/sequence',                          'ProfileAddressesController@addressesSequence');
+    Route::post('user/addresses/save/{id}',                         'ProfileAddressesController@addressEdit');
     Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
