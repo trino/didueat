@@ -1,5 +1,7 @@
 <div class="modal-body">
-    <?php printfile("views/ajax/editaddress.blade.php"); ?>
+    <?php printfile("views/ajax/editaddress.blade.php");
+    //seems to be a duplicate of views/dashboard/notifications_address/ajax/editaddress.blade.php. merge if it is
+    ?>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -11,8 +13,8 @@
             <div class="form-group">
                 <label class="control-label col-md-3">&nbsp;</label>
                 <div class="col-md-9 reach_type" style="display: @if($address_detail->is_call == 1 || $address_detail->is_sms == 1) block @else none @endif;">
-                    <label><input type="checkbox" name="is_call" value="1" @if($address_detail->is_call == 1) checked @endif> Call</label> &nbsp;
-                    <label><input type="checkbox" name="is_sms" value="1" @if($address_detail->is_sms == 1) checked @endif> SMS</label>
+                    <label class="c-input c-radio"><input type="checkbox" name="is_call" value="1" @if($address_detail->is_call == 1) checked @endif> Call</label> &nbsp;
+                    <label class="c-input c-radio"><input type="checkbox" name="is_sms" value="1" @if($address_detail->is_sms == 1) checked @endif> SMS</label>
                 </div>
             </div>
         </div>

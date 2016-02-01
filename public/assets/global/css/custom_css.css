@@ -105,7 +105,14 @@ body.modal-open {
 .form-control3{display: inline !important; cursor:context-menu; background:#e6e6e6}
 .pac-container { z-index: 1051 !important; }
 
-
+.form-control.time{
+    width:86px;
+}
+.to-span{
+    padding-right: 30px;
+    padding-top: 7px;
+    height: 38px;
+}
 
 
 

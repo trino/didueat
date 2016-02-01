@@ -51,14 +51,14 @@ foreach ($cuisine_list as $value) {
 
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-    echo "<div class='cuisineCB'><LABEL><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
             $cuisinesChkd++;
         }
     }
-    echo " />&nbsp;" . $name . " &nbsp; &nbsp; &nbsp;</LABEL></div>";
+    echo " />&nbsp;" . $name . " &nbsp; &nbsp; &nbsp;<span class='c-indicator'></span></LABEL></div>";
     $cnt++;
 }
 
