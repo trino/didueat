@@ -62,6 +62,9 @@ class CreditCardsController extends Controller {
                 if(!\Session::has('invalid-data')) {
                     $creditcard->save();
                     \DB::commit();
+                    if($post['user_type'] == "restaurant"){
+                        $this->updatestore($post['user_id']);
+                    }
                     return $this->success('Credit card has been saved successfully.', 'credit-cards/list/' . $type);
                 } else {
                     \Session::forget('invalid-data');
@@ -130,7 +133,12 @@ class CreditCardsController extends Controller {
         }
         try {//delete credit card by $id
             $ob = \App\Http\Models\CreditCard::find($id);
+            $restaurant=0;
+            if($ob->user_type == "restaurant" ){
+                $restaurant = $ob->user_id;
+            }
             $ob->delete();
+            $this->updatestore($restaurant);
             event(new \App\Events\AppEvents($ob, "Card Delete"));
             return $this->success('Card has been deleted successfully!', 'credit-cards/list/'.$type);
         } catch (\Exception $e) {
@@ -157,6 +165,14 @@ class CreditCardsController extends Controller {
             die;
         }
     }
+
+    public function updatestore($ID=0){
+        if($ID){
+            $Cards = \App\Http\Models\CreditCard::where(array("user_type" => "restaurant", 'user_id' => $ID))->count();
+            if($Cards){$Cards=1;}
+            edit_database("restaurants", "id", $ID, array("has_creditcard" => $Cards));
+        }
+    }
     
     /**
      * Credit Card Sequence Change
@@ -166,6 +182,4 @@ class CreditCardsController extends Controller {
     public function creditCardsSequence() {
         $this->saveSequence('\App\Http\Models\CreditCard');
     }
-
-
 }

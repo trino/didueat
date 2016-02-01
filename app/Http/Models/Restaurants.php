@@ -35,7 +35,7 @@ class Restaurants extends BaseModel {
         }
 
         foreach($weekdays as $day){
-            foreach(array($Fields) as $field){
+            foreach($Fields as $field){
                 $cells[] = $day . $field;
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
@@ -95,7 +95,7 @@ class Restaurants extends BaseModel {
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE restaurants.open = '1' AND status = '1'";
         if(isset($data['is_complete'])){
-            $where .= " AND is_complete = '1' AND (SELECT COUNT(*) FROM `credit_cards` WHERE user_type = 'restaurant' AND user_id = restaurants.id) > 0";
+            $where .= " AND is_complete = '1' AND has_creditcard = '1'";
         }
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
