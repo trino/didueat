@@ -102,7 +102,9 @@ body.modal-open {
 
 #ajaxloader{background: rgba(0, 0, 0, 0) url("../../images/loader.gif") no-repeat scroll 0 0; height: 120px; width: 100%;}
 #loadmoreajaxloader{display: none;}
+/*
 .form-control{display: inline !important;height:33px}
+*/
 .form-control-nobord{display: inline !important; border:none}
 .form-control2{display: inline !important; cursor:not-allowed; background:#e6e6e6}
 .form-control3{display: inline !important; cursor:context-menu; background:#e6e6e6}
