@@ -60,5 +60,18 @@ class SubscribersController extends Controller {
         return view('dashboard.subscribers.ajax.list', $data);
     }
     
-
+    public function send(){
+        $array['mail_subject'] = \Input::get('subject');
+        $array['body']= \Input::get('newsletter');
+        $Emails = \App\Http\Models\Newsletter::select('email')->where('status', 1)->get();
+        foreach($Emails as $Email){
+            $array['email'][] = $Email->email;
+        }
+        if(isset($array['email']) && $array['mail_subject'] && $array['body']) {
+            $this->sendEMail("emails.newsletter", $array);
+            return $this->success("Newsletter sent", "subscribers/list");
+        } else {
+            return $this->failure("No subscribers, or missing subject/contents", "subscribers/list");
+        }
+    }
 }

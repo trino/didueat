@@ -118,6 +118,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     //Subscribers List
     Route::get('subscribers/list',                                  'SubscribersController@index');
     Route::post('subscribers/list/ajax',                            'SubscribersController@listingAjax');
+    Route::post('subscribers/send',                                 'SubscribersController@send');
     
     Route::resource('restaurant/newsletter',                        'AdministratorController@newsletter');
 
