@@ -149,7 +149,6 @@ function chkCBs(cb){
 
 
             var phoneRep = /[\-\ \,\(\)\.]/g;
-
             jQuery.validator.addMethod("checkPhone", function (value, element) {
                 var numStr = "0123456789";
                 var cleanedPhone = value.replace(phoneRep, '');
@@ -160,13 +159,7 @@ function chkCBs(cb){
                         break;
                     }
                 }
-
-                if (numOK) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return numOK;
             });
 
             jQuery.validator.addMethod("checkLen", function (value, element) {

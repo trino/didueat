@@ -17,8 +17,7 @@ foreach ($Fields as $Field) {
 }
 ?>
 
-<?php
-echo newrow($new, "Your Name", $size, true);
+<?= newrow($new, "Your Name", $size, true);
 ?>
 <div class="input-icon">
     <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" required>
@@ -75,9 +74,6 @@ echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 </div>
 
 </div></div>
-
-
-
 
 <SCRIPT>
     var visitortime = new Date();

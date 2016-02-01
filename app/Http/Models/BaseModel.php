@@ -38,11 +38,13 @@ class BaseModel extends Model {
                         switch ($cell) {
                             case "creditcard":
                                 if (isvalid_creditcard($this->$key)){
-                                    $this->$key = \Crypt::encrypt($this->$key);
+                                    $this->$key = \Crypt::encrypt(filter_var($this->$key, FILTER_SANITIZE_NUMBER_INT));
                                 } else {
                                     $this->$key = "";
                                 }
                                 break;
+                            case "number":
+                                $this->$key = filter_var($this->$key, FILTER_SANITIZE_NUMBER_FLOAT);
                             case "phone":
                                 $this->$key = phonenumber($this->$key);
                                 break;
