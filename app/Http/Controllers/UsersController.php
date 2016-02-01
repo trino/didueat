@@ -324,9 +324,9 @@ class UsersController extends Controller {
                 
                 $ob2->save();
                 $oid = $ob2->id;
-
-                $post['phone'] = $post['contact'];
-                $post['name'] = trim($post['ordered_by']);
+                
+                $res['phone'] = $post['contact'];
+                $res['name'] = trim($post['ordered_by']);
 
                 //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
@@ -337,7 +337,7 @@ class UsersController extends Controller {
                         //$data = array("name" => trim($name), "profile_type" => 2, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0');
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
 
-                        $post['user_id'] = $uid->id;
+                        $res['user_id'] = $uid->id;
 
                         //users should not have notification addresses, these are for stores only!!!
                         //$nd1 = new \App\Http\Models\NotificationAddresses();
@@ -347,22 +347,23 @@ class UsersController extends Controller {
                     }
                 }
 
-                $post['ordered_by'] = $post['name'];
+                $res['ordered_by'] = $post['ordered_by'];
                 
                 //$res_data = array('email' => $post['email'], /*'address2' => $post['address2'], 'city' => $post['city'], 'ordered_by' => $post['postal_code'],*/ 'remarks' => $post['remarks'], 'order_till' => $post['order_till'], 'contact' => $phone);
-                $res = \App\Http\Models\Reservations::find($oid);
-                $res->populate($post);
-                $res->save();
+                $res1 = \App\Http\Models\Reservations::find($oid);
+                $res1->populate($res);
+                $res1->save();
+                
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
                 
-                if ($res->user_id) {
-                    $u2 = \App\Http\Models\Profiles::find($res->user_id);
+                if ($res1->user_id) {
+                    $u2 = \App\Http\Models\Profiles::find($res1->user_id);
                     $userArray2 = $u2->toArray();
                     $userArray2['mail_subject'] = 'Your order has been received!';
                     $this->sendEMail("emails.order_user_notification", $userArray2);
                     
-                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res->restaurant_id);
+                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res1->restaurant_id);
                     
                     //->where('is_default', 1)
                     $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
