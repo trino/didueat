@@ -147,7 +147,11 @@ class ProfileAddressesController extends Controller {
     }
 
     public function addressEdit($id=0){
-        \App\Http\Models\ProfilesAddresses::makenew(false, $id);
+        $post = \Input::all();
+        if(!$id){
+            $post["user_id"] = read("id");
+        }
+        \App\Http\Models\ProfilesAddresses::makenew($post, $id);
         return $this->success("Address " . $id . " has been edited successfully!", 'user/addresses');
     }
 }
