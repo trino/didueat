@@ -127,7 +127,7 @@ if (Request::path() !== null && Request::path() != "/") {
             }
 
             if (!$Restaurant->latitude || !$Restaurant->longitude) {
-                $MissingData[] = "Restaurant address <a href=\"".url('restaurant/info')."#RestaurantAddress\" class=\"missLnk\">(<u>Click to Set Restaurant Address</u>)</a>";
+                $MissingData[] = "Restaurant address <a href=\"".url('restaurant/info')."#RestaurantAddress\">(<u>Click to Set Restaurant Address</u>)</a>";
             }
 
 //          if(!$Restaurant->open){$MissingData[] = "to be set to open";}
