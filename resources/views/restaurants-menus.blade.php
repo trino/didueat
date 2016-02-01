@@ -148,6 +148,7 @@
                 $('.profiles').hide();
             });
             $('#profiles').submit(function (e) {
+                
                 e.preventDefault();
                 $('.overlay_reservation').show();
                 var token = $('#profiles input[name=_token]').val();
