@@ -27,7 +27,7 @@ class RatingUsers extends BaseModel {
         $start = $array['start'];
 
         $query = RatingUsers::select('*')
-                ->Where(function($query) use ($searchResults) {
+                ->Where(function($query) use ($searchResults){
                     if($searchResults != ""){
                           $query->orWhere('type', 'LIKE', "%$searchResults%")
                                 ->orWhere('comments', 'LIKE', "%$searchResults%")

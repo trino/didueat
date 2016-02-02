@@ -83,7 +83,7 @@ class UsersController extends Controller {
             'per_page' => $per_page,
             'start' => $start,
             'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
-            'order' => (\Input::get('emal')) ? \Input::get('email') : 'DESC',
+            'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
         

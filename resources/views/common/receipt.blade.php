@@ -10,13 +10,6 @@
 
 <div class="clearfix" id="cartsz">
 
-
-
-
-
-
-
-
     @if(!isset($order))
         <div class="card card-inverse card-primary " style="">
             <div class="card-block">
@@ -62,26 +55,12 @@
     @endif
 
 
-
-
-
-
-
-
-
     <div class="card " style="">
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-
-
-
-
-
                     <h3 class="card-title">Receipt</h3>
-
-                   @include('common.items')
-
+                    @include('common.items')
                     <div class="totals">
                         <table class="table">
                             <tbody>
@@ -312,9 +291,6 @@
 
 
 <!-- add addresss modal -->
-
-
-
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

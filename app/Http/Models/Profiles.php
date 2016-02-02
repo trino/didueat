@@ -27,16 +27,14 @@ class Profiles extends BaseModel {
         $this->copycells($cells, $data);
     }
 
-    public static function listing($array = "", $type = "") {
+    public static function listing($array = "", $type = ""){
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
-
-      //  var_dump($array);die();
         $meta = $array['meta'];
-      //  $order = $array['email'];
+        $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
-
+        
         $query = Profiles::select('*')
                 ->Where(function($query) use ($searchResults){
                     if($searchResults != ""){
@@ -45,7 +43,7 @@ class Profiles extends BaseModel {
                                 ->orWhere('created_at', 'LIKE', "%$searchResults%");
                     }
                 })
-               ;
+                ->orderBy($meta, $order);
 
         if ($type == "list") {
             $query->take($per_page);
