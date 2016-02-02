@@ -156,6 +156,7 @@ class RestaurantController extends Controller {
     public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
+            if(!isset($post['id'])){$post['id']=$id;}
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
@@ -174,7 +175,7 @@ class RestaurantController extends Controller {
                 if ($post['logo'] != '') {
                     $im = explode('.', $post['logo']);
                     $ext = end($im);
-                    $res = \App\Http\Models\Restaurants::find($post['id']);
+                    $res = \App\Http\Models\Restaurants::findOrNew($post['id']);
                     $newName = $res->logo;
                     if ($newName != $post['logo']){
                         $newName = $res->slug . '.' . $ext;

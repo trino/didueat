@@ -38,8 +38,7 @@ if(isset($restSignUpPg)){
  $brTag2="<br/>";
 }
 
-
-echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Select up to 3)'.$brTag2);
+echo newrow($new, "Restaurant Cuisine (Select up to 3)", "", true, 9, '<div class="row">');
 
 echo '<input name="cuisines" type="hidden" />';
 $cuisineExpl = "";
@@ -56,10 +55,7 @@ foreach ($cuisine_list as $value) {
 
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-			 if($cnt > 0){
-			  echo " &nbsp; &nbsp; &nbsp; ";
-			 }
-    echo "<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "<div class='cuisineCB col-sm-3'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
@@ -70,7 +66,7 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
+echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
     echo newrow($new, "Tags"); ?>
