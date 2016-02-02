@@ -45,7 +45,7 @@
                                     }
                                     ?>
                                     <h4 class="card-title">
-                                        <a href="javascript:void(0)" id="{{ $value->id }}"
+                                        <a href="#" id="{{ $value->id }}"
                                            data-res-id="{{ $value->restaurant_id }}" type="button"
                                            class="card-link" data-toggle="modal"
                                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <a href="javascript:void(0)" id="{{ $value->id }}"
+                            <a href="#" id="{{ $value->id }}"
                                data-res-id="{{ $value->restaurant_id }}" type="button"
                                class="" data-toggle="modal"
                                data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
