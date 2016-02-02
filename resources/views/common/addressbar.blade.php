@@ -41,7 +41,7 @@
                         </div>
                         <input style="width: 100%;" type="text" name="formatted_address" id="formatted_address3"
                                class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                               onchange="changeevent();" ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
+                               ignore_onkeyup="this.onchange();" onpaste="this.onchange();"
                                ignore_oninput="this.onchange();" data-route="reservation" />
                        <input id="latitude3" type="hidden" name="latitude3" value="">
                        <input id="longitude3" type="hidden" name="latitude3" value="">

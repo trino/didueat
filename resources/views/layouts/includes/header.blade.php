@@ -94,7 +94,7 @@ $first = false; $type = "hidden";
             @endif
         </ul>
 
-        <div class="collapse navbar-toggleable-xs pull-right" id="exCollapsingNavbar2" style="">
+        <div class="collapse navbar-toggleable-xs pull-right header-nav" id="exCollapsingNavbar2" style="">
             <ul class="nav navbar-nav">
 
                 @if(Session::has('is_logged_in'))

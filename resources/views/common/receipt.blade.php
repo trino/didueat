@@ -377,4 +377,7 @@
 
 
     }
+    $(function(){
+        $('#delivery1').click();
+    })
 </script>

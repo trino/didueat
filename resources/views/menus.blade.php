@@ -53,10 +53,10 @@
 
                                         </a>
                                         @if($dis)
-                                            <strike>${{$value->price}}</strike>
-                                            ${{$main_price}}
+                                            <strike>${{number_format($value->price,2)}}</strike>
+                                            ${{number_format($main_price,2)}}
                                         @else
-                                            ${{$value->price}}
+                                            ${{number_format($value->price,2)}}
                                         @endif
 
 
@@ -164,11 +164,11 @@
                                     <div class="col-sm-12 col-xs-12 title">
                                         <h3>
                                             @if($dis)
-                                                <strike>${{$value->price}}</strike>
-                                                ${{$main_price}}
+                                                <strike>${{number_format($value->price,2)}}</strike>
+                                                ${{number_format($main_price,2)}}
                                                 <span class='label label-warning'>{{$dis}}</span>
                                             @else
-                                                ${{$value->price}}
+                                                ${{number_format($value->price,2)}}
                                             @endif
                                         </h3>
                                     </div>
