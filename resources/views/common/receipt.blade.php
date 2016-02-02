@@ -306,8 +306,10 @@
 
                 <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
+                        @if(!empty($restaurant->formatted_address))
                         <iframe style="height:100%;width:100%;border:0;" frameborder="0"
                                 src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+                        @end
                     </div>
                 </div>
 
