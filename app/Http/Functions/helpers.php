@@ -13,6 +13,7 @@
 
     function message_show($msgtype, $description)
     {
+        /*
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                     Command: toastr["success"]("' . $description . '", "' . $msgtype . '")
@@ -34,6 +35,7 @@
                     }
             </script>';
         }
+        */
     }
 
     function getweekdays()
@@ -855,6 +857,7 @@
 //clones the flash message
     function message($msgtype, $description)
     {
+
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                         $(document).ready(function() {
@@ -879,6 +882,7 @@
                         });
                         </script>';
         }
+
     }
 
     function mapcountryprovince($Value, $IsProvince = false)

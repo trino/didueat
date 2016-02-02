@@ -49,7 +49,7 @@ if (Request::path() !== null && Request::path() != "/") {
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet"-->
     <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>

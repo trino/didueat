@@ -13,7 +13,7 @@
             <div class="col-lg-9">
                 <h3>
                     Users
-                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-id="0" data-target="#editModel">Add</a>
+                    <!--a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-id="0" data-target="#editModel">Add</a-->
                 </h3>
             </div>
             @include('common.table_controls')
