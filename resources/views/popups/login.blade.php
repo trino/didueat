@@ -19,17 +19,13 @@
 
                         <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
-
-<?php echo newrow(false, "Email Address", "", true); ?>
+                        <?= newrow(false, "Email Address", "", true); ?>
                                 <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
-                            </div>
-                        </div>
+                        </div></div>
                         
-                        
-<?php echo newrow(false, "Password", "", true); ?>
+                        <?= newrow(false, "Password", "", true); ?>
                                 <input type="password" name="password" class="form-control" placeholder="Password" required>
-                            </div>
-                        </div>
+                        </div></div>
 
                         <input type="hidden" name="url" value="{{ Request::path() }}">
                     </div>

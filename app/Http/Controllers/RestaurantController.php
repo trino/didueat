@@ -132,100 +132,8 @@ class RestaurantController extends Controller {
 // Note: HomeController.php is what is actually used to add new restaurant, not this file, which is used to update/edit a restaurant
         $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['restname']) || empty($post['restname'])) {
-                return $this->failure("[Restaurant Name] field is missing!", '/restaurant/add/new', true);
-            }
-            if (!isset($post['delivery_fee']) || empty($post['delivery_fee'])) {
-                return $this->failure("[Delivery Fee] field is missing!", '/restaurant/add/new', true);
-            }
-            if (!isset($post['minimum']) || empty($post['minimum'])) {
-                return $this->failure("[Minimum Sub Total For Delivery] field is missing!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['address']) || empty($post['address'])) {
-                return $this->failure("[Address] field is missing in result!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure( "[City] field is missing!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['province']) || empty($post['province'])) {
-                return $this->failure("[Province] field is missing!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
-                return $this->failure("[Postal Code] field is missing or invalid!", '/restaurant/add/new', true);
-            }
-            if (!isset($post['phone']) || empty(phonenumber($post['phone']))) {
-                return $this->failure("[Phone] field is missing or invalid!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['mobile']) || empty(phonenumber($post['mobile']))) {
-                return $this->failure("[Mobile] field is missing or invalid!",'/restaurant/add/new', true);
-            }
-            if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!", '/restaurant/add/new', true);
-            }
-
             try {//populate data array from the post
-                if (array_key_exists('logo',$post)) {
-                    $update['logo'] = $post['logo'];
-                    $addlogo=true;
-                }
-
-                $update['name'] = $post['restname'];
-                $update['cuisine'] = $post['cuisine'];
-                $update['slug'] = $this->createslug($post['restname']);
-                $update['email'] = $post['email'];
-                $update['phone'] = $post['phone'];
-                $update['mobile'] = $post['mobile'];
-                $update['description'] = $post['description'];
-                $update['country'] = $post['country'];
-                $update['province'] = $post['province'];
-                $update['address'] = $post['address'];
-                $update['city'] = $post['city'];
-                $update['postal_code'] = $post['postal_code'];
-                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
-                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
-                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
-                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                $update['tags'] = $post['tags'];
-                $update['open'] = 1;
-                $update['status'] = 1;
-
-                $browser_info = getBrowser();
-                $update['ip_address'] = get_client_ip_server();
-                $update['browser_name'] = $browser_info['name'];
-                $update['browser_version'] = $browser_info['version'];
-                $update['browser_platform'] = $browser_info['platform'];
-
-                $ob = new \App\Http\Models\Restaurants();
-                $ob->populate(array_filter($update),$addlogo);
-                $ob->save();
-                
-                event(new \App\Events\AppEvents($ob, "Restaurant Created"));
-
-/*
-// logo is not uploaded during initial restaurant creation
-                //handle resizing of its logo
-                $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
-                if ($image_file != '') {
-                    $arr = explode('.', $image_file);
-                    $ext = end($arr);
-                    $newName = $ob->slug . '.' . $ext;
-
-                    if (!file_exists(public_path('assets/images/restaurants/' . $ob->id))) {
-                        mkdir('assets/images/restaurants/' . $ob->id, 0777, true);
-                    }
-                    $destinationPath = public_path('assets/images/restaurants/' . $ob->id);
-                    $filename = $destinationPath . "/" . $newName;
-                    copy(public_path('assets/images/restaurants/' . $image_file), $filename);
-                    @unlink(public_path('assets/images/restaurants/' . $image_file));
-                    $sizes = ['assets/images/restaurants/' . $ob->id . '/thumb_' => '145x100', 'assets/images/restaurants/' . $ob->id . '/thumb1_' => '120x85'];
-                    copyimages($sizes, $filename, $newName);
-                    $res = new \App\Http\Models\Restaurants();
-                    $res->where('id', $ob->id)->update(['logo' => $newName]);
-                }
-*/
-
-
+                $this->restaurantInfo();
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
@@ -236,13 +144,12 @@ class RestaurantController extends Controller {
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             
             $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
-
             return view('dashboard.restaurant.addrestaurant', $data);
         }
     }
 
     /**
-     * seems to be a duplicate of addRestaurants
+     * edits restaurant data
      * @param null
      * @return view
      */
@@ -252,9 +159,9 @@ class RestaurantController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-              //  return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
-            }
+            /*if (!isset($post['country']) || empty($post['country'])) {
+                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
+            }*/
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
@@ -306,7 +213,7 @@ class RestaurantController extends Controller {
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
- // if delivery is not allowed, don't save any values for delivery_fee, minimum or max_delivery_distance
+                // if delivery is not allowed, don't save any values for delivery_fee, minimum or max_delivery_distance
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
@@ -330,7 +237,7 @@ class RestaurantController extends Controller {
                 }
                 
                 
-                event(new \App\Events\AppEvents($ob, "Restaurant Updated"));
+                event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
@@ -449,15 +356,10 @@ class RestaurantController extends Controller {
 
     //return a menu item and it's child items
     public function menu_form($id, $res_id = 0) {
-
         $data['menu_id'] = $id;
         if(!$res_id){
             $res_id = \Session::get('session_restaurant_id');
         }
-
-
-
-
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
@@ -510,13 +412,11 @@ class RestaurantController extends Controller {
 
     //add a menu item
     public function menuadd() {
-        
         \Session::flash('message', \Input::get('message'));
         //if(\Session::get('session_restaurant_id'))
         //$arr['uploaded_by'] = 0;
         //else{
         $arr['uploaded_by'] = \Session::get('session_ID');
-        
         //}
         
         //copy these keys to the $arr
@@ -740,11 +640,9 @@ class RestaurantController extends Controller {
         die();
     }
     
-    public function check_enable($menu_id,$cat_id,$limit,$enable)
-    {
+    public function check_enable($menu_id,$cat_id,$limit,$enable) {
         $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
-        if($count<$limit || $enable==0)
-        {
+        if($count<$limit || $enable==0) {
                 echo '1';
         }
         else

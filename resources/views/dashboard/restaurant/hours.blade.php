@@ -78,7 +78,6 @@ $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery
     </div>
 </LABEL>
 
-
 <?php
     function getkey($object, $key) {
         return $object->$key;
@@ -138,21 +137,22 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
             </SMALL>
         </DIV>
 
-        <div class="col-sm-{{ $width }} nowrap">
+        <div class="col-sm-{{ 9 }} nowrap">
             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
             <SPAN class="col-xs-1 to-span">to</SPAN>
             <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style="width:86px;"/>
-        </div>
 
         <?php if($del_class){
             $suffix = "_del"
             ?>
-            <div class="col-sm-{{ $width . " " . $del_class}}">
+            <SPAN class="col-xs-1 to-span"></SPAN>
+            <div class="{{ $del_class }}">
                 <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime_del }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
                 <SPAN class="col-xs-1 to-span">to</SPAN>
                 <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime_del }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();"/>
             </div>
         <?php }
+        echo '</DIV>';
 }
 
 echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
