@@ -511,12 +511,12 @@ class RestaurantController extends Controller {
     public function menuadd() {
         
         \Session::flash('message', \Input::get('message'));
-        if(\Session::get('session_restaurant_id'))
-        $arr['uploaded_by'] = 0;
-        else{
+        //if(\Session::get('session_restaurant_id'))
+        //$arr['uploaded_by'] = 0;
+        //else{
         $arr['uploaded_by'] = \Session::get('session_ID');
         
-        }
+        //}
         
         //copy these keys to the $arr
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active','restaurant_id','cat_name');
@@ -571,7 +571,7 @@ class RestaurantController extends Controller {
             }
             die();
         } else {
-            $arr['uploaded_on'] = date('Y-m-d');
+            $arr['uploaded_on'] = date('Y-m-d H:i:s');
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
                 $orders = $orders_mod[0];
