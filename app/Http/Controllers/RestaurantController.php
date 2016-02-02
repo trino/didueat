@@ -294,6 +294,7 @@ class RestaurantController extends Controller {
                 }
 
                 if(isset($post['email'])) {$update['email'] = $post['email'];}
+                $update['website'] = $post['website'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];

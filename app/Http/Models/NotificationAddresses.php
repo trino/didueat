@@ -15,18 +15,7 @@ class NotificationAddresses extends BaseModel {
      */
     public function populate($data) {
         $cells = array( 'user_id', 'address', 'is_default', 'is_call', 'is_sms', 'type', 'order', 'note');
-        $this->copycells($cells, $data);
-        if(isset($this->address) && strpos($this->address, "@") !== false){
-            $this->type = "Email";
-            $this->is_sms = 0;
-            $this->is_call = 0;
-        } else {
-            $this->type = "Phone";
-            $this->address = phonenumber($this->address);
-            if(!isset($this->is_sms) || !$this->is_sms){
-                $this->is_call = 1;
-            }
-        }
+        $this->copycells($cells, $data);  
     }
     
     public static function listing($array = "", $type = "") {
