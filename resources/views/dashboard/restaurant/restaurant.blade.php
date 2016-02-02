@@ -1,15 +1,14 @@
 <?php
-printfile("views/dashboard/restaurant/restaurant.blade.php");
+    printfile("views/dashboard/restaurant/restaurant.blade.php");
 
-
-echo newrow($new, "Restaurant Name", "", true);
-$name = iif($new, "restname", "name");//why does it change to restname?
-if (!isset($is_disabled)) {
-    $is_disabled = false;
-}
-if (!isset($minimum)) {
-    $minimum = false;
-}
+    echo newrow($new, "Restaurant Name", "", true);
+    $name = iif($new, "restname", "name");//why does it change to restname?
+    if (!isset($is_disabled)) {
+        $is_disabled = false;
+    }
+    if (!isset($minimum)) {
+        $minimum = false;
+    }
 ?>
 
 
@@ -17,19 +16,18 @@ if (!isset($minimum)) {
 <input type="text" name="restname" class="form-control" style="width:90%"
        {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
-<?php echo newrow();
-
-echo newrow($new, "Website", "", false, 7); ?>
-<input type="text" name="website" class="form-control" placeholder=""
-       value="{{ (isset($restaurant->website))?$restaurant->website: old("website")}}">
 </div></div>
 
-<?php
+<?php if($minimum){
+echo newrow($new, "Description", "", false); ?>
+    <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+</div></div>
+<?php }
 
 if(!isset($email)){
-echo newrow($new, "Phone", "", true, 7); ?>
+echo newrow($new, "Phone", "", true); ?>
 <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
-       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("email")}}" required>
+       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
 </div></div>
 <?php }
 
