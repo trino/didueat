@@ -72,9 +72,7 @@ echo newrow($new, "Cell Phone", $size, true); ?>
 <!--div class="input-icon">
     <input type="password" name="confirm_password" class="form-control" id="confirm_password"
            autocomplete="off" placeholder="" value=" $confirm_password " $PasswordRequired >
-</div-->
-
-</div></div>
+</div></div></div-->
 
 <SCRIPT>
     var visitortime = new Date();
