@@ -3,7 +3,10 @@
 .list-inline-item:not(:last-child) {
     margin-right: 15px;
 }
+.table th, .table td{
 
+    padding: .75rem 1.30rem !important;
+}
 .table td, .table th {
     padding: 1.30rem;
 }
@@ -20,7 +23,11 @@
     padding: 1.0rem 1.25rem;
     background-color: #fff !important;
 }
+tr{
+    padding: 1.0rem 1.25rem;
 
+
+}
 .card-footer {
     padding: 1.25rem 1.25rem;
     background-color: #fff !important;
@@ -42,7 +49,7 @@
 }
 
 .pagination {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .error {
@@ -77,9 +84,9 @@
 }
 
 body {
-    background: #f4f7f8;
+    background: #f4f7f8 !important;
     /*  font-family: 'Roboto', sans-serif;*/
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 
 }
 

@@ -16,11 +16,6 @@
                 <p class="card-subtitle text-muted">Notify me by these methods when I receive an order</p>
             </div>
 
-            @if(Session::get('session_type_user') == "super" || $recCount > 10)
-
-                @include('common.table_controls')
-            @endif
-
         </div>
     </div>
 
@@ -115,7 +110,7 @@
             </tbody>
         </table>
     </div>
-    @if(Session::get('session_type_user') == "super"  && $recCount > 0)
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
 
         <div class="card-footer clearfix">
             {!! $Pagination; !!}

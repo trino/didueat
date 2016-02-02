@@ -9,7 +9,7 @@ $first = false; $type = "hidden";
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
-            <img src="{{ asset('assets/images/logos/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
+            <img src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
         <ul class="nav navbar-nav">
             @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
