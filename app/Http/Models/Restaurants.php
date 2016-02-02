@@ -26,12 +26,7 @@ class Restaurants extends BaseModel {
         $this->is_complete = true;
         $doesopen = false;
 
-        $Fields = array("_open","_close");
-        if($this->is_delivery){
-            $Fields[] = "_open_del";
-            $Fields[] = "_close_del";
-        }
-
+        $Fields = array("_open","_close", "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
                 $cells[] = $day . $field;
@@ -44,7 +39,6 @@ class Restaurants extends BaseModel {
         }
 
         $this->copycells($cells, $data);
-
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
         if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
@@ -122,7 +116,10 @@ class Restaurants extends BaseModel {
         $DayOfWeek = current_day_of_week() . "_";
         $now = date('H:i:s');
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
-        $where .= " AND " . $DayOfWeek . "open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND " . $DayOfWeek . "close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
+        $open = $DayOfWeek . "open" . iif($DeliveryHours, "_del");
+        $close = $DayOfWeek . "close" . iif($DeliveryHours, "_del");
+        $where .= " AND " . $open . " <= '" . $now . "' AND " . $close . " >= '" . $now . "'";
+
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' ";
         } else {
