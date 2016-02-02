@@ -24,7 +24,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
 
             </div>
 
-            @if (Session::get('session_type_user') == "super")
+            @if (false)
                 @include('common.table_controls')
             @endif
         </div>

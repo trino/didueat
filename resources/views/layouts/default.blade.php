@@ -23,8 +23,8 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <meta content="{{ (isset($title))?$title.' | ':'' }}Did u eat" name="keywords">
     <meta content="Didueat" name="author">
-    <meta name="content-language" content="fr-CA"/>
-    <meta http-equiv="content-language" content="fr-CA"/>
+    <meta name="content-language" content="en-CA"/>
+    <meta http-equiv="content-language" content="en-CA"/>
     <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
           name="description">
 
@@ -43,10 +43,14 @@ if (Request::path() !== null && Request::path() != "/") {
     <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
     <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
+
+
+
+        <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -69,6 +73,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
+
     <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script type="text/javascript"

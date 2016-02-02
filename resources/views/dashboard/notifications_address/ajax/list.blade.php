@@ -26,7 +26,7 @@
 
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
-            @if (Session::get('session_type_user') == "super"  || $recCount > 0)
+            @if ($recCount > 0)
 
                 <thead>
                 <tr>
