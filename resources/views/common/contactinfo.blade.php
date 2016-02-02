@@ -8,7 +8,7 @@ if (!isset($new)) {
 $new = false;
 
 $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-$Fields = array("name", "email", "phone", "mobile", "subscribed", "password");//, "confirm_password");
+$Fields = array("name", "email", "phone", "subscribed", "password");//, "confirm_password");
 foreach ($Fields as $Field) {
     if (isset($user_detail->$Field)) {
         $$Field = $user_detail->$Field;
@@ -35,7 +35,7 @@ echo newrow($new, "Email", $size, true); ?>
 <?php
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="mobile" class="form-control" id="mobile" placeholder="" value="{{ $mobile }}" required>
+    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
 </div>
 <?php echo newrow(); ?>
 
