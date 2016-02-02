@@ -3,26 +3,26 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="control-label col-md-4 text-xs-right">Contact Me By:</label>
-                <div class="col-md-8 reach_type">
+                <label class="control-label col-md-3">Contact Me By:</label>
+                <div class="col-md-9 reach_type">
                     <label class="form-control-nobord c-input c-radio">
                         <input type="radio" value="1" id="is_email"
-                               @if(!$address_detail->is_call && !$address_detail->is_sms) checked
+                               @if(isset($address_detail->is_call) && !$address_detail->is_call && !$address_detail->is_sms) checked
                                @endif
-                               onchange="uncheck('is_sms');uncheck('is_call');document.getElementById('phone_or_email_label').innerHTML='Email Address:'" style="border:none"> Email
+                               onchange="uncheck('is_sms');uncheck('is_call');" style="border:none"> Email
                         <span class="c-indicator"></span>
                     </label>
                     <label class="form-control-nobord c-input c-radio">
                         <input type="radio" name="is_call" id="is_call" value="1"
-                               @if($address_detail->is_call == 1) checked @endif
-                               onchange="uncheck('is_sms');uncheck('is_email');document.getElementById('phone_or_email_label').innerHTML='Phone Number:';"> Phone Call
+                               @if(isset($address_detail->is_call) && $address_detail->is_call == 1) checked @endif
+                               onchange="uncheck('is_sms');uncheck('is_email');"> Phone Call
                         <span class="c-indicator"></span>
                     </label>
                     <label class="form-control-nobord c-input c-radio">
                         <input type="radio" name="is_sms" id="is_sms" value="1"
-                               @if($address_detail->is_sms == 1)) checked
+                               @if(!isset($address_detail) || (isset($address_detail->is_sms) && $address_detail->is_sms == 1)) checked
                                @endif
-                               onchange="uncheck('is_call');uncheck('is_email');document.getElementById('phone_or_email_label').innerHTML='Cellphone Number:';"> Text Message
+                               onchange="uncheck('is_call');uncheck('is_email');"> Text Message
                         <span class="c-indicator"></span>
                     </label>
                 </div>
@@ -31,10 +31,9 @@
     </div>
 </div>
 
-<div class="form-group row editaddress "><label class="col-sm-4 text-xs-right" id="phone_or_email_label">Phone or Email:</label><div class="col-sm-8"><input type="text" placeholder="" name="address" class="form-control" value="{{ (isset($address_detail->address))?$address_detail->address:'' }}" required style="width:175px">
+<?= newrow(false, "Phone or Email", "", false); ?>
+    <input type="text" placeholder="" name="address" class="form-control" value="{{ (isset($address_detail->address))?$address_detail->address:'' }}" required style="width:175px">
 </div></div>
-
-
 
 <?= newrow(false, "Notes", "", false); ?>
     <input type="text" placeholder="Optional" name="note" class="form-control" value="{{ (isset($address_detail->note))?$address_detail->note:'' }}">
