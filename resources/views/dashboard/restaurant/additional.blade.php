@@ -1,2 +1,2 @@
 <?php printfile("views/dashboard/restaurant/additional.blade.php"); ?>
-@include('common.additional')
+@include('popups.additional')
