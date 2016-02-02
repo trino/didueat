@@ -195,7 +195,7 @@ function chkCBs(cb){
                         minlength: 5
                     },
                     confirm_password: {
-                        equalTo: "#password"
+                        //equalTo: "#password"
                     }
                 },
                 messages: {

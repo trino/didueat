@@ -118,12 +118,15 @@ class AuthController extends Controller {
             if (!isset($data['password']) || empty($data['password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_pass_field_missing.message') . " (0x04)");
             }
+            /*
             if (!isset($data['confirm_password']) || empty($data['confirm_password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_confim_pass_field_missing.message'));
             }
             if (trim($data['password']) != trim($data['confirm_password'])) {
                 return $this->failure2($AsJSON, trans('messages.user_passwords_mismatched.message'));
             } else {
+            */
+            if(true){
                 \DB::beginTransaction();
                 try {//add new user to the database
                     $user = $this->registeruser($data);

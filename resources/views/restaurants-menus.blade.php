@@ -122,10 +122,10 @@
     <script type="text/javascript">
         function check_val(v) {
             if (v != '') {
-                $('.confirm_password').show();
-                $('#confirm_password').attr('required', 'required');
+                //$('.confirm_password').show();
+                //$('#confirm_password').attr('required', 'required');
             } else {
-                $('#confirm_password').removeAttr('required');
+                //$('#confirm_password').removeAttr('required');
             }
         }
         $(document).ready(function () {
@@ -139,8 +139,8 @@
                     $('#confirm_password').removeAttr('required');
                 }
 
-                password.onchange = validatePassword;
-                confirm_password.onkeyup = validatePassword;
+                //password.onchange = validatePassword;
+                //confirm_password.onkeyup = validatePassword;
             }
 
             $('.back').live('click', function () {

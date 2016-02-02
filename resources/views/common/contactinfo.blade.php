@@ -4,10 +4,11 @@ $size = "2";
 
 if (!isset($new)) {
     $new = false;
-}$new = false;
+}
+$new = false;
 
 $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-$Fields = array("name", "email", "phone", "mobile", "subscribed", "password", "confirm_password");
+$Fields = array("name", "email", "phone", "mobile", "subscribed", "password");//, "confirm_password");
 foreach ($Fields as $Field) {
     if (isset($user_detail->$Field)) {
         $$Field = $user_detail->$Field;
@@ -67,11 +68,11 @@ echo newrow($new, "Cell Phone", $size, true); ?>
 </div>
 <?php echo newrow();
 
-echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
-<div class="input-icon">
+//echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
+<!--div class="input-icon">
     <input type="password" name="confirm_password" class="form-control" id="confirm_password"
-           autocomplete="off" placeholder="" value="{{ $confirm_password }}" {{ $PasswordRequired }}>
-</div>
+           autocomplete="off" placeholder="" value=" $confirm_password " $PasswordRequired >
+</div-->
 
 </div></div>
 

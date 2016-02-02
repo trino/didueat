@@ -301,12 +301,12 @@ class HomeController extends Controller {
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+            /* if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
             }
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
-            }
+            }*/
             \DB::beginTransaction();
             try {//populate data array
                 //echo '<pre>'; print_r($post); die;

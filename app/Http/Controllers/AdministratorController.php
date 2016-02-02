@@ -40,14 +40,16 @@ class AdministratorController extends Controller {
                     if (empty($post['password'])) {
                         return $this->failure( "[New Password] is missing!",'dashboard');
                     }
+                    /*
                     if (empty($post['confirm_password'])) {
                         return $this->failure("[Confirm Password] is missing!",'dashboard');
                     }
                     if ($post['password'] != $post['confirm_password']) {
                         return $this->failure("[Passwords] are mis-matched!",'dashboard');
                     }
-                    $data['password'] = $post['confirm_password'];
-                } else if ($post['password'] || $post['confirm_password']) {
+                    */
+                    $data['password'] = $post['password'];
+                } else if ($post['password']){// || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
                 }
 

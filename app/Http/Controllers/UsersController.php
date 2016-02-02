@@ -40,13 +40,13 @@ class UsersController extends Controller {
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure( trans('messages.user_pass_field_missing.message') . " (0x03)",'users/list', true);
             }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+            /*if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
             }
-
+            */
             \DB::beginTransaction();
             try {
                 $this->registeruser("Users@index", $post, 2, 0, false, true);
@@ -146,7 +146,7 @@ class UsersController extends Controller {
                 return $this->failure(trans('messages.user_confim_pass_field_missing.message'),'users/list', true);
             }
             */
-            if (isset($post['password']) && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
+            if (isset($post['password'])){// && isset($post['confirm_password']) && $post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),'users/list', true);
             }
             \DB::beginTransaction();
@@ -339,6 +339,7 @@ class UsersController extends Controller {
 
                         $res['user_id'] = $uid->id;
 
+                        //users should not have notification addresses, these are for stores only!!!
                         //$nd1 = new \App\Http\Models\NotificationAddresses();
                         //$nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $uid->id, 'address' => $uid->email));
                         //$nd1->save();
