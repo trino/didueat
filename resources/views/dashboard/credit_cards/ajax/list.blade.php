@@ -33,7 +33,7 @@ $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_y
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
 
-            @if (Session::get('session_type_user') == "super")
+            @if (Session::get('session_type_user') == "super"  && $recCount > 10)
 
             <thead>
             <tr>

@@ -46,7 +46,7 @@ echo newrow($new, "Cell Phone", $size, true); ?>
     <input type="checkbox" name="subscribed" id="subscribed" value="true"
            @if($subscribed || (!isset($subscribed))) checked @endif />
     <span class="c-indicator"></span>
-    Signup for our lewsletter
+    Signup for our newsletter
 </label>
 </div></div>
 

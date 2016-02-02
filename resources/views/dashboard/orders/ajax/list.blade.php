@@ -1,7 +1,7 @@
 <?php
 echo printfile("views/dashboard/orders/ajax/list.blade.php");
 $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
-$secondsTitle="sec";
+$secondsTitle = "sec";
 ?>
 
 @if(\Session::has('message'))
@@ -19,16 +19,16 @@ $secondsTitle="sec";
                         Restaurant
                     @endif
                     Orders
-                @if(Session::get('session_type_user') == "super" || $recCount > 10)
+                    @if(Session::get('session_type_user') == "super" || $recCount > 10)
 
-                <a class="btn btn-primary btn-sm pull-right" href="{{ url('orders/report') }}" class="">Print Report</a>
-@endif
+                        <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print
+                            Report</a>
+                    @endif
 
                 </h4>
-                
+
             </div>
             @if($recCount > 10)
-
                 @include('common.table_controls')
             @endif
         </div>
@@ -84,7 +84,8 @@ $secondsTitle="sec";
                 @foreach($Query as $value)
                     <tr>
                         <td>{{ $value->id }}
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">View</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
+                               class="btn btn-primary  btn-sm">View</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>

@@ -5,7 +5,6 @@ $first = false; $type = "hidden";
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
-    <div class="">
 
 
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -57,7 +56,7 @@ $first = false; $type = "hidden";
 
                         <div class="input-group-btn">
                             <button class="btn  btn-primary dueBtn" oldstyle="display: none;" id="header-search-button"
-                                    onclick="$('#search-form-submit').trigger('click');">Find
+                                    onclick="$('#search-form-submit').trigger('click')">&nbsp;<i class="fa fa-search"></i>&nbsp;
                             </button>
                         </div>
                     </div>
@@ -134,5 +133,5 @@ $first = false; $type = "hidden";
                 @endif
             </ul>
         </div>
-    </div>
+
 </nav>

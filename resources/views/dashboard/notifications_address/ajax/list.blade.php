@@ -26,7 +26,7 @@
 
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
-            @if (Session::get('session_type_user') == "super")
+            @if (Session::get('session_type_user') == "super"  || $recCount > 0)
 
                 <thead>
                 <tr>
@@ -64,15 +64,21 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td>{{ $key+1 }} &nbsp;
-                            <div class="btn-group-vertical">
-                                <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
-                                <a class="btn btn-secondary-outline down btn-sm"><i class="fa fa-arrow-down"></i></a>
-                            </div>
+                        <td>{{ $key+1 }}
+                            @if($recCount > 1)
+
+                                &nbsp;
+                                <div class="btn-group-vertical">
+                                    <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                    <a class="btn btn-secondary-outline down btn-sm"><i
+                                                class="fa fa-arrow-down"></i></a>
+                                </div>
+
+                            @endif
                         </td>
 
                         <td class="text-xs-center">
-                            <label class="c-input c-checkbox">
+                            <label class="c-input c-checkbox pull-left">
                                 <INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck"
                                        <?php if ($value->enabled) {
                                            echo "CHECKED";
@@ -81,17 +87,19 @@
                             </label>
                         </td>
 
-                        <td>{{ $value->type }} : {{ $value->address }}</td>
-                        <td id="note_{{ $value->id }}" value="{{ $value->note }}" onclick="editnote({{ $value->id }});">{{ $value->note }}</td>
+                        <td>{{ $value->type }}: {{ $value->address }}</td>
+                        <td id="note_{{ $value->id }}" value="{{ $value->note }}"
+                            onclick="editnote({{ $value->id }});">{{ $value->note }}</td>
 
                         <td>
                             <div class=" pull-right ">
                                 @if (Session::get('session_type_user') == "super")
-                                    <a class="btn btn-info btn-sm editRow " data-toggle="modal" data-target="#editModel" data-id="{{ $value->id }}">Edit</a>
+                                    <a class="btn btn-info btn-sm editRow " data-toggle="modal" data-target="#editModel"
+                                       data-id="{{ $value->id }}">Edit</a>
                                 @endif
                                 <a href="{{ url('notification/addresses/delete/'.$value->id) }}"
-                                       class="btn btn-danger-outline btn-sm"
-                                       onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">x</a>
+                                   class="btn btn-danger-outline btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">x</a>
                             </div>
                         </td>
 

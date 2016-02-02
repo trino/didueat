@@ -36,22 +36,17 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <meta name="_token" content="{{ csrf_token() }}"/>
-    
+
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
+    <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
     <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-    <!--link href="https://bootswatch.com/lumen/bootstrap.css" rel="stylesheet" integrity="" crossorigin="anonymous"-->
-
     <link href="{{ asset('assets/global/css/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"/>
-
     <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-
-    <!--link href="{{ asset('assets/global/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-    <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -63,22 +58,13 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
     <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
             type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
@@ -89,6 +75,21 @@ if (Request::path() !== null && Request::path() != "/") {
             src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript"
             src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+
+
+    @if(false)
+        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
+                type="text/javascript"></script>
+
+        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
+                type="text/javascript"></script>
+
+        <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+                type="text/javascript"></script>
+    @endif
+
 </head>
 <body>
 
@@ -99,92 +100,20 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 <div class="container m-t-3 p-t-2">
+
     @if (session('status'))
-        <div class="alert alert-success"> 
+        <div class="alert alert-success">
             {{ session('status') }}
         </div>
     @endif
 
+    <?php $Restaurant = \Session::get('session_restaurant_id', 0) ; ?>
+    @if ($Restaurant)
+        @include('common.required_to_open')
+    @endif
+
     <?php
-    
-    $step1CompleteMsg="";
 
-    $Restaurant = \Session::get('session_restaurant_id', 0);
-    if ($Restaurant) {
-        $Restaurant = select_field("restaurants", "id", $Restaurant);
-        if ($Restaurant) {
-            $MissingData = [];
-            $MissingDataOptional = [];
-            if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
-                $MissingData[] = "Pickup and/or Delivery options <a href=\"".url('restaurant/info')."#PickupAndDelivery\">(<u>Click to Set Delivery Options</u>)</a>";
-            }
-            if (!$Restaurant->logo) {
-                $MissingData[] = "Your Restaurant Logo <a href=\"".url('restaurant/info')."#setlogo\">(<u>Click to Set Restaurant Logo</u>)</a>";
-            }
-            
-            if (!$Restaurant->description) {
-                $MissingData[] = "Your Restaurant Description <a href=\"".url('restaurant/info')."#setlogo\">(<u>Click to Set Restaurant Description</u>)</a>";
-            }
-
-            if (!$Restaurant->latitude || !$Restaurant->longitude) {
-                $MissingData[] = "Restaurant address <a href=\"".url('restaurant/info')."#RestaurantAddress\">(<u>Click to Set Restaurant Address</u>)</a>";
-            }
-
-//          if(!$Restaurant->open){$MissingData[] = "to be set to open";}
-//          if(!$Restaurant->status){$MissingData[] = "status to be set to 'Active'";}
-            if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
-                $MissingDataOptional[] = "Delivery range <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Delivery Range</u>)</a>";
-            }
-            if (!$Restaurant->minimum || $Restaurant->minimum == "0.00") {
-                $MissingDataOptional[] = "Minimum delivery sub-total <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Delivery Minimum</u>)</a>";
-            }
-
-            //check hours of operation
-            $weekdays = getweekdays();
-            $DayOfWeek = current_day_of_week();
-            $now = date('H:i:s');
-            foreach ($weekdays as $weekday) {
-                foreach (array("_open", "_close", "_open_del", "_close_del") as $field) {
-                    $field = $weekday . $field;
-                    if ($Restaurant->$field != "12:00:00") {
-                        $weekdays = false;
-                        break;
-                    }
-                }
-                if (!$weekdays) {
-                    break;
-                }
-            }
-            if ($weekdays) {
-                $MissingData[] = "Hours of operation <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Hours of Operation</u>)</a>";
-            } else {
-                if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
-                    $MissingData[] = "Hours Open <a href=\"".url('restaurant/info')."#HoursOpen\">(<u>Click to Set Hours Open</u>)</a>";
-                }
-                if ($Restaurant->is_delivery && (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now)) {
-                    $MissingData[] = "Delivery Times <a href=\"".url('restaurant/info')."#DeliveryTimes\">(<u>Click to Set Delivery Times</u>)</a>";
-                }
-            }
-
-            //check credit card
-            $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
-            if (!$creditcards) {
-                $MissingData[] = "Your credit card authorization <a href=\"".url('credit-cards/list/restaurant')."\">(<u>Click to Set Credit Card</u>)</a>";
-            }
-
-            if ($MissingData) {
-                if(isset($post['initialRestSignup'])){
-                      $missingHead="PARTIAL REGISTRATION COMPLETED!";
-                } else{
-                      $missingHead="PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
-                }
-                $MissingData = array_merge($MissingData, $MissingDataOptional);
-
-                $MissingData = "<br/>Please click the links below, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style='margin-left:100px;color:#000;font-weight:bold'>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
-                echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>'.$missingHead.'</u></STRONG>' . $MissingData . '</DIV>';
-            }
-        }
-    }
     if (\Session::has('invalid-data')) {
         $fields = Session::get('invalid-data');
         $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
@@ -205,6 +134,7 @@ if (Request::path() !== null && Request::path() != "/") {
 </div>
 
 @include('layouts.includes.footer')
+
 </body>
 </html>
 <SCRIPT>

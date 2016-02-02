@@ -56,7 +56,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <?php
 if(isset($apartment)){
     echo newrow($new, "Apartment", "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit/Townhouse"
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit"
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     </div></div>
 <?php }

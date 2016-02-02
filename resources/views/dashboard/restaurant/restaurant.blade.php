@@ -15,7 +15,7 @@ if (!isset($minimum)) {
 
 <input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style="width:90%"
-       {{ $is_disabled }} placeholder="Restaurant Name"
+       {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
@@ -34,7 +34,7 @@ if(isset($restSignUpPg)){
 }
 
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Check Between 1 & 3 Genres)'.$brTag2); 
+echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Select up to 3)'.$brTag2);
 
 echo '<input name="cuisines" type="hidden" />';
 $cuisineExpl = "";

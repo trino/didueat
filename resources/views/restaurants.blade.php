@@ -4,7 +4,6 @@ $type = "hidden";
 ?>
 @extends('layouts.default')
 
-
 @section('content')
 
     <?php printfile("views/restaurants.blade.php"); ?>
@@ -13,7 +12,7 @@ $type = "hidden";
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                   <p class="card-title m-b-0">Filter Search</p>
+                    <p class="card-title m-b-0">Filter Search</p>
                 </div>
 
                 <div class="card-block">
@@ -24,19 +23,22 @@ $type = "hidden";
                         <div class="form-group">
 
                             <label class="c-input c-radio">
-                                <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked onclick="createCookieValue('delivery_type', this.value)"/>
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery" checked
+                                       onclick="createCookieValue('delivery_type', this.value)"/>
                                 <span class="c-indicator"></span>
                                 Delivery
                             </label>
 
                             <label class="c-input c-radio">
-                                <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup" onclick="createCookieValue('delivery_type', this.value)"/>
+                                <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup"
+                                       onclick="createCookieValue('delivery_type', this.value)"/>
                                 <span class="c-indicator"></span>
                                 Pickup
                             </label>
 
                             <label class="c-input c-checkbox">
-                                <input type="checkbox" name="is_complete" id="is_complete" value="true" checked onclick="createCookieValue('is_complete', this.value)"/>
+                                <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
+                                       onclick="createCookieValue('is_complete', this.value)"/>
                                 <span class="c-indicator"></span>
                                 Order Online
                             </label>
@@ -44,11 +46,13 @@ $type = "hidden";
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="name" id="name" value="" class="form-control" placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
+                            <input type="text" name="name" id="name" value="" class="form-control"
+                                   placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
                         </div>
 
                         <div class="form-group">
-                            <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
+                            <select name="cuisine" id="cuisine" class="form-control"
+                                    onchange="createCookieValue('cuisine', this.value)">
                                 <option value="">Cuisine</option>
                                 @foreach($cuisine as $value)
                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -61,15 +65,19 @@ $type = "hidden";
                                 <label id="radius_panel_label">Distance (<?= MAX_DELIVERY_DISTANCE; ?> km)</label>
                             </div>
                             <div class=" col-md-6">
-                                <input type="range" name="radius" id="radius" min="1" max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>" class="form-control" onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                                <input type="range" name="radius" id="radius" min="1"
+                                       max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>"
+                                       class="form-control"
+                                       onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
                             </div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer  text-xs-right">
+                <div class="card-footer text-xs-right">
                     <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary" value="Clear"/>
-                    <input type="button" name="search" class="btn btn-primary" value="Filter" id="search-form-submit" onclick="submitform(event, 0);"/>
+                    <input type="button" name="search" class="btn btn-primary" value="Filter" id="search-form-submit"
+                           onclick="submitform(event, 0);"/>
                 </div>
                 {!! Form::close() !!}
             </div>
@@ -80,14 +88,15 @@ $type = "hidden";
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>Please enter an address above to find restaurants near you</p>
+                <p>Please enter your address above to find meals near you</p>
             </div>
 
             <div class="alert alert-success alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <span id="countRows" style="font: inherit;">No</span> restaurant<Span id="countRowsS" style="font: inherit;">s</span>
+                <span id="countRows" style="">No</span> restaurant<Span id="countRowsS"
+                                                                                      style="">s</span>
                 found in your area
             </div>
             @include('ajax.search_restaurants')
@@ -153,7 +162,7 @@ $type = "hidden";
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
             var expires = "expires=" + d.toUTCString();
             document.cookie = cname + "=" + cvalue + "; " + expires;
-        }      
+        }
 
         function getCookie(cname) {
             var name = cname + "=";

@@ -339,7 +339,6 @@ class UsersController extends Controller {
 
                         $res['user_id'] = $uid->id;
 
-                        //users should not have notification addresses, these are for stores only!!!
                         //$nd1 = new \App\Http\Models\NotificationAddresses();
                         //$nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $uid->id, 'address' => $uid->email));
                         //$nd1->save();
