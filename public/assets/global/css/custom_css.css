@@ -121,11 +121,14 @@ body.modal-open {
 
 .form-control.time{
     width:86px;
+    padding-left: 10px;
+    padding-right: 8px;
 }
 .to-span{
     padding-right: 30px;
     padding-top: 7px;
     height: 38px;
+    margin-right: 15px;
 }
 
 .form-control-nobord {
