@@ -19,6 +19,13 @@ if (!isset($minimum)) {
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 <?php echo newrow();
 
+echo newrow($new, "Website", "", false, 7); ?>
+<input type="text" name="website" class="form-control" placeholder=""
+       value="{{ (isset($restaurant->website))?$restaurant->website: old("website")}}">
+</div></div>
+
+<?php
+
 if(!isset($email)){
 echo newrow($new, "Phone", "", true, 7); ?>
 <input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
@@ -51,14 +58,17 @@ foreach ($cuisine_list as $value) {
 
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-    echo "&nbsp; &nbsp; &nbsp;<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+			 if($cnt > 0){
+			  echo " &nbsp; &nbsp; &nbsp; ";
+			 }
+    echo "<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
             $cuisinesChkd++;
         }
     }
-    echo " />&nbsp;" . $name . "<span class='c-indicator'></span></LABEL></div>";
+    echo " />" . $name . "<span class='c-indicator'></span></LABEL></div>";
     $cnt++;
 }
 

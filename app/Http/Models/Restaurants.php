@@ -26,8 +26,6 @@ class Restaurants extends BaseModel {
         $this->is_complete = true;
         $doesopen = false;
 
-        $this->copycells($cells, $data);
-
         $Fields = array("_open","_close");
         if($this->is_delivery){
             $Fields[] = "_open_del";
@@ -44,6 +42,8 @@ class Restaurants extends BaseModel {
                 }
             }
         }
+
+        $this->copycells($cells, $data);
 
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}

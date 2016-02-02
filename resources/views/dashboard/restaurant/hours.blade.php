@@ -65,8 +65,9 @@ $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery
 
 </div>
 
-<label class="col-sm-8"><SPAN class="is_delivery_2b"><b><u>Hours Open</u>:</b></SPAN></label>
-<LABEL class="col-sm-4"><SPAN class="is_delivery_2b"><b><u>Delivery Times</u>:</b></SPAN></LABEL>
+<label class="col-sm-7"><SPAN class="is_delivery_2b"><b><u>Hours Open</u>:</b></SPAN><br/></label>
+<LABEL class="col-sm-5"><SPAN class="is_delivery_2b"><b><u>Delivery Times</u>:</b></SPAN>
+<div><LABEL class="is_delivery_options c-input c-checkbox"><input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>Same as Regular Hours<span class="c-indicator"></span></LABEL></div></LABEL>
 
 <?php
     function getkey($object, $key) {
@@ -100,7 +101,7 @@ $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery
             printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled, $opentime_del, $closetime_del, "is_delivery_options is_delivery_2");
         }
     }
-    echo '<div class="offset-sm-3 col-sm-9"><LABEL class="is_delivery_options c-input c-checkbox"><input type="CHECKBOX" ' . $is_disabled . ' onclick="same(event);" ID="samehours"' . iif($isthesame, " checked") . '>&nbsp; Same as Regular Hours<span class="c-indicator"></span></LABEL></div>';
+
 
     /*
 foreach ($day_of_week as $key => $value) {

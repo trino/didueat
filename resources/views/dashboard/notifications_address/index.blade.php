@@ -26,11 +26,73 @@
 
     </div>
 </div>
+<script>
+function validateNotif(f){
 
+ if(!f.is_email.checked && !f.is_call.checked && !f.is_sms.checked){
+  alert("Please select one of the options for Contact Me By");
+  return false;
+ }
+    phonetype="";
+    notifType="";
+    if(f.is_call.checked){
+      phonetype="Phone";
+      notifType="Phone";
+    }
+    else if(f.is_sms.checked){
+      phonetype="Cellphone";
+      notifType="Text Msg";
+    }
+    else{
+      notifType="Email";
+    }
+
+ f.type.value=notifType;
+
+ if(f.is_email.checked){
+  // email
+  var x=f.address.value;
+  var filter=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  
+  if(!filter.test(x)){
+  alert("Please Enter a Valid Email Address");
+  f.address.focus()
+  return false;
+  }
+ }
+ else{
+ // verify it is a number, at the correct length
+   var phoneRep = /[\-\ \,\(\)\.]/g;
+   var numStr = "0123456789";
+   var cleanedPhone = f.address.value.replace(phoneRep, '');
+   if(cleanedPhone.length != 10){
+     alert("Your "+phonetype+" Number must have exactly 10 digits.");
+     f.address.focus();
+     return false
+   }
+   var numOK = true;
+   for (var i = 0; i < cleanedPhone.length; i++) {
+       if (numStr.indexOf(cleanedPhone.charAt(i)) == -1) {
+           numOK = false;
+           break;
+       }
+   }
+   if(!numOK){
+    alert("Please enter a valid "+phonetype+" Number");
+    return false
+   }
+   else{
+     return numOK;
+   }
+ }
+////
+}
+</script>
 
 <div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
-       {!! Form::open(array('url' => '/notification/addresses', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+       {!! Form::open(array('url' => '/notification/addresses', 'name'=>'editForm', 'onsubmit'=>'return validateNotif(this)', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+       <input name="type" type="hidden" />
        <div class="modal-content">
            <div class="modal-header">
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -140,6 +202,7 @@
     });
 
     function isValidEmailAddress(emailAddress) {
+    alert("Hello")
         var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
         return pattern.test(emailAddress);
     };

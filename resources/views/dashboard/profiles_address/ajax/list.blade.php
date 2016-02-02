@@ -62,9 +62,13 @@
                             @endif
 
                         </td>
+<?php
 
+(isset($value->apartment))? $aptV="Unit ".$value->apartment.", " : $aptV="";
 
-                        <td>{{ $value->address . ', ' . $value->city . ', ' . select_field('states', 'id', $value->province, 'name') . ', ' . $value->postal_code . ', ' . select_field('countries', 'id', $value->country, 'name') }}</td>
+?>
+
+                        <td>{{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code . ', ' . $value->country }}</td>
 
                         <td>
                             <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"

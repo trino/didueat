@@ -27,7 +27,6 @@ class NotificationAddressesController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {
                 $post['user_id'] = \Session::get('session_id');
-                $post['type'] = "Phone";
                 $post['is_default'] = 1;
                 if(isset($post['is_contact_type']) && trim($post['is_contact_type']) > 0) {
                     $post['is_call'] = (isset($post['is_call']) && $post['is_call'] > 0)?1:0;
@@ -48,12 +47,12 @@ class NotificationAddressesController extends Controller {
                     $in2->save();
                 }
 
-                return $this->success("Notification address saved successfully!", 'notification/addresses');
+                return $this->success("Notification email/number saved successfully!", 'notification/addresses');
             } catch (Exception $e) {
                 return $this->failure( handleexception($e), 'notification/addresses');
             }
         } else {
-            $data['title'] = 'Notification Addresses List';
+            $data['title'] = 'Notification Email/Number List';
             return view('dashboard.notifications_address.index', $data);
         }
     }

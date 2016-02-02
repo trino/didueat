@@ -38,29 +38,35 @@
 
             //check hours of operation
             $weekdays = getweekdays();
+            $someHoursNotOK=false; // to encourage restaurant to finish setting up hours
             $DayOfWeek = current_day_of_week();
             $now = date('H:i:s');
             foreach ($weekdays as $weekday) {
-                foreach (array("_open", "_close", "_open_del", "_close_del") as $field) {
+                foreach (array("_close", "_close_del") as $field) { // only the close needs to be checked, as 12:00 is often an opening time
                     $field = $weekday . $field;
                     if ($Restaurant->$field != "12:00:00") {
                         $weekdays = false;
-                        break;
+                    }
+                    else{
+                      $someHoursNotOK=true;                      
                     }
                 }
-                if (!$weekdays) {
-                    break;
-                }
+
             }
             if ($weekdays) {
                 $MissingData[] = "Hours of operation <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Hours of Operation</u>)</a>";
-            } else {
-                if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
+            } elseif($someHoursNotOK) {
+                $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Complete Hours Open</u>)</a>";
+        
+        /*  What is the point of this?
+              if (getfield($Restaurant, $DayOfWeek . "_open") > $now || getfield($Restaurant, $DayOfWeek . "_close") < $now) {
                     $MissingData[] = "Hours Open <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Hours Open</u>)</a>";
                 }
                 if ($Restaurant->is_delivery && (getfield($Restaurant, $DayOfWeek . "_open_del") > $now || getfield($Restaurant, $DayOfWeek . "_close_del") < $now)) {
                     $MissingData[] = "Delivery Times <a href=\"" . url('restaurant/info') . "#DeliveryTimes\">(<u>Click to Set Delivery Times</u>)</a>";
                 }
+        */
+                
             }
 
             //check credit card
