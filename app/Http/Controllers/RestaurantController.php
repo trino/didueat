@@ -133,7 +133,11 @@ class RestaurantController extends Controller {
         $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//populate data array from the post
-                $this->restaurantInfo();
+                $ob = \App\Http\Models\Restaurants::findOrNew(0);
+                $ob->populate(array(),false);
+                $ob->save();
+
+                $this->restaurantInfo($ob->id);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');

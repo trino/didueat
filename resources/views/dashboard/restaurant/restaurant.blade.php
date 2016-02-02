@@ -38,9 +38,9 @@ if(isset($restSignUpPg)){
  $brTag2="<br/>";
 }
 
-echo newrow($new, "Restaurant Cuisine (Select up to 3)", "", true, 9, '<div class="row">');
+echo newrow($new, "Restaurant Cuisine", "", true, 9, '<BR>(Select up to 3)');
 
-echo '<input name="cuisines" type="hidden" />';
+echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
     $cuisineExpl = explode(",", $restaurant->cuisine);

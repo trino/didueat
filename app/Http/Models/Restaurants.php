@@ -19,7 +19,7 @@ class Restaurants extends BaseModel {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
         
         if($addlogo){
-         array_push($cells,'logo');
+            array_push($cells,'logo');
         }
         
         $weekdays = getweekdays();
