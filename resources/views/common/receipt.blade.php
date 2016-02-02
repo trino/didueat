@@ -247,8 +247,7 @@
                             </div>
 
                             <div class="col-xs-12">
-                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code"
-                                       class="form-control form-control--contact resetme" name="postal_code">
+                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact resetme" name="postal_code">
                             </div>
 
                             <div class="clearfix"></div>
@@ -256,8 +255,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <select class="form-control  form-control--contact" name="order_till"
-                                        id="ordered_on_time" required="">
+                                <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                     <option value="Order ASAP">Order ASAP</option>
                                     {{ get_time_interval() }}
                                 </select>
@@ -267,8 +265,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <textarea placeholder="Additional Notes" id="ordered_notes"
-                                          class="form-control form-control--contact resetme" name="remarks"></textarea>
+                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control form-control--contact resetme" name="remarks"></textarea>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -277,8 +274,7 @@
                             <div class="col-xs-12">
                                 <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
                                 <button type="submit" class="btn btn-primary">Checkout</button>
-                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
-                                       value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
+                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
                         </div>
                         <div class="clearfix"></div>

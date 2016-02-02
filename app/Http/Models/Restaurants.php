@@ -119,7 +119,7 @@ class Restaurants extends BaseModel {
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_open <= now AND today_close > now) OR (now < today_open AND now < yesterday_close))";
+        $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
