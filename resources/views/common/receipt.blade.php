@@ -8,6 +8,7 @@
     </div>
 @endif
 
+
 <div class="clearfix" id="cartsz">
 
     @if(!isset($order))
@@ -134,10 +135,10 @@
                     </div>
 
                     @if(!isset($order))
-                    <div class="form-group   pull-right ">
-                        <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
-                    </div>
+                        <div class="form-group   pull-right ">
+                            <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        </div>
                     @endif
 
                     <div class="clearfix"></div>
@@ -171,7 +172,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="user_id" id="ordered_user_id"
                                value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-                       
+
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
@@ -183,7 +184,7 @@
                                    name="email" id="ordered_email" required=""
                                    value="{{ (isset($profile))? $profile->email : '' }}">
                         </div>
-                        
+
                         @if(!Session::has('is_logged_in'))
                             <div class="form-group">
                                 <div class="col-xs-12">
@@ -194,19 +195,19 @@
                                 <div class="clearfix"></div>
                             </div>
                         @endif
-                    
 
-                        
-                        
+
+
+
                         <div class="profile_delivery_detail" style="display: none;">
-                             <div class="form-group">
+                            <div class="form-group">
                                 <div class="col-xs-12">
-                                @include('common.addressbar')
-                                
+                                    @include('common.addressbar')
+
 
                                 </div>
-                             </div>
-                             
+                            </div>
+
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
@@ -271,11 +272,11 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                     
+
                         <div class="form-group   pull-right ">
                             <div class="col-xs-12">
                                 <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
-                               <button type="submit" class="btn btn-primary">Checkout</button>
+                                <button type="submit" class="btn btn-primary">Checkout</button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
                                        value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
@@ -289,10 +290,8 @@
     <div class="clearfix"></div>
 </div>
 
-
-<!-- add addresss modal -->
-<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
-     aria-hidden="true">
+    <!-- add addresss modal -->
+<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -307,9 +306,9 @@
                 <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
                         @if(!empty($restaurant->formatted_address))
-                        <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
-                        @end
+                            <iframe style="height:100%;width:100%;border:0;" frameborder="0"
+                                    src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+                        @endif
                     </div>
                 </div>
 
@@ -342,16 +341,17 @@
         </div>
     </div>
 </div>
+
 <script>
     function addresschanged(thiss) {
-            $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-            $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
-            $("#ordered_city").val(thiss.getAttribute("CITY"));
-            $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
-            $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-            $("#ordered_code").val(thiss.getAttribute("POSTAL"));
-            $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-            $('#formatted_address3').val('');
+        $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+        $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
+        $("#ordered_city").val(thiss.getAttribute("CITY"));
+        $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
+        $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
+        $("#ordered_code").val(thiss.getAttribute("POSTAL"));
+        $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+        $('#formatted_address3').val('');
 
 
     }
