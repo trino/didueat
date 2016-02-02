@@ -537,14 +537,14 @@
         }
     }
 
-    function current_day_of_week()
-    {
-        return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m"), date("d"), date("Y")), 1);
+    //date: leave blank for today, a negative number will be in relation to today (ie: -1 with units=day, will be yesterday)
+    function current_day_of_week($date = 0, $units = "day") {
+        if($date <0){$date = strtotime($date . ' ' . $units, time());} else if(!$date) {$date = time();}
+        return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m", $date), date("d", $date), date("Y", $date)), 1);
     }
 
 //check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
-    function check_permission($Permission, $UserID = "")
-    {
+    function check_permission($Permission, $UserID = "") {
         if (!$UserID) {
             $UserID = read("id");
         }

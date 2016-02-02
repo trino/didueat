@@ -32,7 +32,7 @@ class Restaurants extends BaseModel {
                 $cells[] = $day . $field;
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
-                } else if($data[$day . $field] != "00:00:00"){
+                } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){
                     $doesopen = true;
                 }
             }
@@ -113,12 +113,14 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = current_day_of_week() . "_";
-        $now = date('H:i:s');
+        $DayOfWeek = current_day_of_week();
+        $now = "02:00:00"; //date('H:i:s');
+        $Yesterday = current_day_of_week(-1);
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
-        $open = $DayOfWeek . "open" . iif($DeliveryHours, "_del");
-        $close = $DayOfWeek . "close" . iif($DeliveryHours, "_del");
-        $where .= " AND " . $open . " <= '" . $now . "' AND " . $close . " >= '" . $now . "'";
+        $open = "open" . iif($DeliveryHours, "_del");
+        $close = "close" . iif($DeliveryHours, "_del");
+        $hours = " AND ((today_open <= now AND today_close > now) OR (now < today_open AND now < yesterday_close))";
+        $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' ";
