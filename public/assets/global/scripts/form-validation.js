@@ -1,5 +1,4 @@
 var FormValidation = function () {
-
     // basic validation
     var handleValidation1 = function() {
         // for more info visit the official plugin documentation: 
@@ -65,18 +64,15 @@ var FormValidation = function () {
                 },
 
                 highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
                 },
 
                 unhighlight: function (element) { // revert the change done by hightlight
-                    $(element)
-                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
                 },
 
                 success: function (label) {
-                    label
-                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    label.closest('.form-group').removeClass('has-error'); // set success class to the control group
                 },
 
                 submitHandler: function (form) {
@@ -147,8 +143,7 @@ var FormValidation = function () {
                 },
 
                 highlight: function (element) { // hightlight error inputs
-                    $(element)
-                        .closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group   
+                    $(element).closest('.form-group').removeClass("has-success").addClass('has-error'); // set error class to the control group
                 },
 
                 unhighlight: function (element) { // revert the change done by hightlight
@@ -315,7 +310,6 @@ var FormValidation = function () {
 
     var handleWysihtml5 = function() {
         if (!jQuery().wysihtml5) {
-            
             return;
         }
 
@@ -340,3 +334,48 @@ var FormValidation = function () {
     };
 
 }();
+
+
+//Custom validators
+var phoneRep = /[\-\ \,\(\)\.]/g;
+
+function add_all(pattern, phone, length){
+    if(pattern){add_matchpattern();}
+    if(phone){add_checkphone();}
+    if(length){add_checklength();}
+}
+
+function add_matchpattern() {
+    jQuery.validator.addMethod("matchPattern", function (value, element) {
+        var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
+        if (value.replace(' ', '').length == 6) {
+            return true;
+        }
+        return false;
+    });
+}
+
+function add_checkphone() {
+    jQuery.validator.addMethod("checkPhone", function (value, element) {
+        var numStr = "0123456789";
+        var cleanedPhone = value.replace(phoneRep, '');
+        var numOK = true;
+        for (var i = 0; i < cleanedPhone.length; i++) {
+            if (numStr.indexOf(cleanedPhone.charAt(i)) == -1) {
+                numOK = false;
+                break;
+            }
+        }
+        return numOK;
+    });
+}
+
+function add_checklength() {
+    jQuery.validator.addMethod("checkLen", function (value, element) {
+        var cleanedPhone = value.replace(phoneRep, '');
+        if (cleanedPhone.length != 10) {
+            return false;
+        }
+        return true;
+    });
+}
