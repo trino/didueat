@@ -133,7 +133,12 @@ function fillInAddress1() {
     // Get the place details from the formatted_address object.
     var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();
-    var lng = place.geometry.location.lng();
+    var lng = place.geometry.location.lng();    
+    
+  if(!isundefined(formatted_address)){
+   $('#formatted_addressForDB').val(place.formatted_address); // formatted_address is google maps variable, and not part of address_components
+  }
+    
     
     $('#latitude').val(lat);
     $('#longitude').val(lng);
@@ -178,9 +183,13 @@ function fillInAddress1() {
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
             }
+            
+/*  formatted_address is not part of the google maps address_components array
+
             if(addressType == "formatted_address"){
                 $('#formatted_addressForDB').val(val);
             }
+*/
 
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);                

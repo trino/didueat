@@ -207,6 +207,7 @@ class RestaurantController extends Controller {
 
                 if(isset($post['email'])) {$update['email'] = $post['email'];}
                 //$update['website'] = $post['website'];
+                $update['unit'] = $post['unit'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
@@ -223,6 +224,7 @@ class RestaurantController extends Controller {
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                 $update['tags'] = $post['tags'];
+                $update['initialReg'] = 0; // only true after initial registration
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
@@ -594,7 +596,7 @@ class RestaurantController extends Controller {
             $data['title'] = 'Orders Detail';
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
             $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
-            $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
+//            $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
             return view('dashboard.restaurant.orders_detail', $data);
         }
     }

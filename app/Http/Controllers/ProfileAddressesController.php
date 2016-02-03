@@ -49,7 +49,8 @@ class ProfileAddressesController extends Controller {
                 if(!$idd) {
                     $idd = (isset($post['id'])) ? $post['id'] : 0;
                 }
-                // Create/Edit if idd is zero then it create ortherwise it updates.
+
+                // Create/Edit if idd is zero then it create otherwise it updates.
                 $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
                 $ob->populate($post);
                 $ob->save();
@@ -60,8 +61,8 @@ class ProfileAddressesController extends Controller {
             }
         } else {
             $data['title'] = "Addresses Manage";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['states_list'] = \App\Http\Models\States::get();
+//            $data['countries_list'] = \App\Http\Models\Countries::get();
+//            $data['states_list'] = \App\Http\Models\States::get();
             return view('dashboard.profiles_address.index', $data);
         }
     }
@@ -86,7 +87,7 @@ class ProfileAddressesController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'ASC',
             'searchResults' => \Input::get('searchResults')
         );
-        
+
         $Query = \App\Http\Models\ProfilesAddresses::listing($data, "list")->get();
         $recCount = \App\Http\Models\ProfilesAddresses::listing($data)->count();
         $no_of_paginations = ceil($recCount / $per_page);
@@ -154,6 +155,6 @@ class ProfileAddressesController extends Controller {
             $id = 0;
         }
         \App\Http\Models\ProfilesAddresses::makenew($post);
-        return $this->success("Address " . $id . " has been edited successfully!", 'user/addresses');
+        return $this->success("Your Address has been edited successfully!", 'user/addresses');
     }
 }

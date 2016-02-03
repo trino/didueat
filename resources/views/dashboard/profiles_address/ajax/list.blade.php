@@ -66,8 +66,8 @@
 
                         <?php
 
-                        (isset($value->apartment)) ? $aptV = "Unit " . $value->apartment . ", " : $aptV = "";
-
+                        (isset($value->apartment) && strlen($value->apartment) > 0) ? $aptV = "Unit " . $value->apartment . ", " : $aptV = "";
+                        
                         ?>
 
                         <td>

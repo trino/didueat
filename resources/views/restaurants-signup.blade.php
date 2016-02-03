@@ -99,9 +99,11 @@
     <script type="text/javascript">
         function validateFn(f) {
             var cuisinesStr = "";
+            var noneChkd=true;
             var comma = "";
             for (var i = 0; i < cuisineCnt; i++) {
                 if (f.elements["cuisine" + i].checked) {
+                    noneChkd=false;
                     if (cuisinesStr != "") {
                         comma = ",";
                     }
@@ -109,6 +111,12 @@
                 }
             }
             f.cuisines.value = cuisinesStr;
+          
+            if(noneChkd){
+              alert("You must select at least one Cuisine in order to signup. You may make adjustments later.");
+              f.description.focus(); // bring user to cuisine list
+              return false;
+            }
         }
 
         $(document).ready(function () {

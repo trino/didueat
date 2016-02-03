@@ -14,9 +14,7 @@ class Cuisine extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-    print_r($data);
-    print("<br/>");
-    exit;
+
         $cells = array('name', 'is_active');
         $this->copycells($cells, $data);
     }

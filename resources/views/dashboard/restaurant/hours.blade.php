@@ -44,7 +44,7 @@ $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery
 </DIV></DIV>
 
 <a name="HoursOpen"></a>
-<div id="is_delivery_options" style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($post['initialRestSignup']) || isset($showDeliveryOptions))?'block':'none' }};">
+<div id="is_delivery_options" style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($showDeliveryOptions))?'block':'none' }};">
         <?= newrow($new, "Delivery Fee ($)", "", true, 2); ?>
             <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style=""
                    placeholder="Delivery Fee"

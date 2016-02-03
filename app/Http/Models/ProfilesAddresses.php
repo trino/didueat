@@ -18,6 +18,7 @@ class ProfilesAddresses extends BaseModel {
         if(!isset($data["address"]) && isset($data["formatted_address"])){
             $data["address"] = $data["formatted_address"];
         }
+        
         $this->copycells($cells, $data);
     }
     
@@ -28,7 +29,6 @@ class ProfilesAddresses extends BaseModel {
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
-
         $query = ProfilesAddresses::select('*')->where('user_id', \Session::get('session_id'))
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
@@ -38,15 +38,16 @@ class ProfilesAddresses extends BaseModel {
                                 ->orWhere('phone', 'LIKE', "%$searchResults%")
                                 ->orWhere('apartment', 'LIKE', "%$searchResults%")
                                 ->orWhere('address', 'LIKE', "%$searchResults%")
+                                ->orWhere('notes', 'LIKE', "%$searchResults%")
                                 ->orWhere('city', 'LIKE', "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);
-
         if ($type == "list") {
             $query->take($per_page);
             $query->skip($start);
         }
+
         return $query;
     }
 }

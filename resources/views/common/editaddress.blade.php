@@ -4,7 +4,7 @@ if (isset($GLOBALS["editaddress"])) {
 }
 printfile("views/common/editaddress.blade.php");
 $GLOBALS["editaddress"] = true;
-//$countries_list = \App\Http\Models\Countries::get();//load all countries
+
 if (!isset($new)) {
     $new = false;
 }
@@ -31,7 +31,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" />
     
-<?php echo newrow($new, "Street Address", "", false); ?>
+<?php echo newrow($new, "Street Address", "", true); ?>
     @if($is_disabled)
         <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
     @else
@@ -41,7 +41,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                 echo old('formatted_address');
                 //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
             } else if (isset($addresse_detail->address)) {
-                $country = select_field("countries", "id", $addresse_detail->country, "name");
+//                $country = select_field("countries", "id", $addresse_detail->country, "name");
                 //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
                 echo $addresse_detail->address;
             }
@@ -50,17 +50,14 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
         </DIV>
 
     @endif
-<?php echo newrow(); ?>
+<?php echo newrow(); 
 
+    echo newrow($new, "Unit #", "", false, 5); ?>
+    <input type="text" name="unit" class="form-control" {{ $is_disabled }} placeholder="Unit #"
+           value="{{ (isset($addresse_detail->unit))?$addresse_detail->unit:old('unit') }}">
+    </div></div>
 
 <?php
-if(isset($apartment)){
-    echo newrow($new, "Apartment", "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="Apartment/Unit"
-           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-    </div></div>
-<?php }
-
 echo newrow($new, "City", "", $required, 5); ?>
 <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
@@ -73,7 +70,7 @@ echo newrow($new, "City", "", $required, 5); ?>
 
 <?= newrow($new, "Postal Code", "", true, 5); ?>
 <input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control"
-       placeholder="Postal Code"
+       placeholder=""
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
@@ -111,7 +108,7 @@ if($isUser){
     echo newrow($new, "Notes", "", false, 9);
     ?>
     <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+           value=""{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}"">
     </div></div>
 
 <?php } ?>

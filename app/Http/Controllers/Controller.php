@@ -49,6 +49,7 @@ abstract class Controller extends BaseController {
     }
 
     public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
+
         $email_verification = false;
         if(!$post){
             $post = \Input::all();
@@ -68,7 +69,7 @@ abstract class Controller extends BaseController {
         if(isset($post['phone'])) {$profile['phone'] = $post['phone'];}
         if(isset($post['mobile'])) {$profile['mobile'] = $post['mobile'];}
         $profile['password'] = $post['password'];
-        $profile['subscribed'] = (isset($post['subscribed'])) ? $post['subscribed'] : 0;
+        $profile['subscribed'] = (isset($post['subscribed'])) ? 1 : 0;
         $profile['is_email_varified'] = iif($email_verification, 0, 1);
         $browser_info = getBrowser();
         $profile['ip_address'] = get_client_ip_server();

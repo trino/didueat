@@ -12,17 +12,17 @@
 ?>
 
 
-<input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style=""
        {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 </div></div>
 
-<?php if($minimum){
-echo newrow($new, "Description", "", false); ?>
-    <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-</div></div>
-<?php }
+
+<?= newrow($new, "Description", "", true, 9); ?>
+<textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+<?php
+echo newrow();
+
 
 if(!isset($email)){
 echo newrow($new, "Phone", "", true); ?>
@@ -31,16 +31,6 @@ echo newrow($new, "Phone", "", true); ?>
 </div></div>
 <?php }
 
-?>
-
-
-<?= newrow($new, "Description", "", true, 9); ?>
-<textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-<?php
-echo newrow();
-?>
-
-<?
 
 $brTag="<br/>";
 $brTag2="";
@@ -49,7 +39,7 @@ if(isset($restSignUpPg)){
  $brTag2="<br/>";
 }
 
-echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
+echo newrow($new, "Cuisine", "", true, 9, '&nbsp;(Select up to 3)');
 
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
