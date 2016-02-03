@@ -1,4 +1,4 @@
-<div class="menuwrapper" id="sub{{ (isset($child))? $child->id : 0 }}" class="ignore ignore1">
+<div class="menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}" >
     <?php
         printfile("views/common/additional.blade.php");
         $r1 = rand('1000000', '999999999');

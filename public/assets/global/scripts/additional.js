@@ -125,6 +125,23 @@ $('.savebtn').live('click', function () {
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
     $_parent = $(this).closest('.modal-content').find('.newmenu');
+    var subber_html = '';
+    var stop_id = 0;
+    $_parent.find('.subber').each(function(){
+        var subber_id = $(this).attr('id').replace('sub','');
+        subber_html = $('#addmore'+subber_id).text().replace(/ /g,'').length;
+        if(subber_html<5)
+        {
+            stop_id = 1;
+        }        
+        
+    });
+    //alert(stop_id);
+    if(stop_id)
+    {
+        alert('One or more of your addons is empty. Please add some options to your addon');
+        return false;
+    }
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
     if (!cat_id || cat_id == '') {
@@ -244,6 +261,7 @@ $('.savebtn').live('click', function () {
                     }
                     else
                         var has_addon2 = '0';
+                        
                     $.ajax({
                         url: base_url + 'restaurant/menuadd',
                         data: 'menu_item=' + ctitle + '&description=' + cdescription + '&has_addon=' + has_addon2 + '&parent=' + res + '&req_opt=' + req_opt + '&sing_mul=' + sing_mul + '&exact_upto=' + exact_upto + '&exact_upto_qty=' + exact_upto_qty + '&_token=' + token + '&display_order=' + d_o + '&cat_id=0',
