@@ -16,7 +16,7 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true))
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true))
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
@@ -103,7 +103,15 @@
                         required: true,
                         checkPhone: true,
                         checkLen: true
-                    }
+                    }/*,
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: "{{ url('auth/validate/email/ajax') }}",
+                            type: "post"
+                        }
+                    }*/
                 },
                 messages: {
                     phone: {
@@ -111,6 +119,10 @@
                         checkPhone: "Invalid character. Please just use numbers and hyphens",
                         checkLen: "Phone number must be 10 numbers long"
                     }
+                },
+                email: {
+                    required: "Please enter an email address!",
+                    remote: "This email address is already in use!"
                 }
             });
         });

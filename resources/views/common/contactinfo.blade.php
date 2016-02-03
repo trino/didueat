@@ -35,7 +35,7 @@ echo newrow($new, "Cell Phone", $size, true); ?>
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
-    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required>
+    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required @if(isset($emaillocked)) readonly @endif >
 </div>
 <?php echo newrow(); ?>
 
