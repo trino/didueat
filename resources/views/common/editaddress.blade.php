@@ -153,9 +153,12 @@ if($isUser){
     </div></div>
 
 <?php }?>
-<?php if(!isset($type)){
-    echo "<script>initAutocomplete();</script>"
-    ?>
+<?php if(isset($type))
+{
+    //echo "<script>initAutocomplete();</script>";
+}
+else
+{?>
 @if(isset($dontinclude))
 <SCRIPT>
     $(document).ready(function () {
