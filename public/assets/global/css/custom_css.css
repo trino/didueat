@@ -1,7 +1,19 @@
-.ui-timepicker-table{background: #fff;}
+.modal-header{
+    background: #d9534f !important;
+    color:white;
+
+}
+
+.ui-timepicker-table {
+    background: #fff;
+}
 
 .list-inline-item:not(:last-child) {
     margin-right: 15px;
+}
+
+.table th, .table td {
+    padding: .75rem 1.30rem !important;
 }
 
 .table td, .table th {
@@ -17,8 +29,13 @@
 }
 
 .card-header {
-    padding: 1.0rem 1.25rem;
+    padding: 1.25rem 1.25rem !important;
     background-color: #fff !important;
+}
+
+tr {
+    padding: 1.0rem 1.25rem;
+
 }
 
 .card-footer {
@@ -32,17 +49,13 @@
     color: #e32;
 }
 
-* {
-
-}
-
 .logopic {
     max-width: 100%;
     max-height: 150px;
 }
 
 .pagination {
-    margin: 0;
+    margin: 0 !important;
 }
 
 .error {
@@ -70,16 +83,10 @@
 
 
 
-.modal-header {
-    background: #D50000 !important;
-    color: #fff;
-    border: 1px solid #D50000 !important;
-}
-
 body {
-    background: #f4f7f8;
+    background: #f4f7f8 !important;
     /*  font-family: 'Roboto', sans-serif;*/
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 
 }
 
@@ -119,10 +126,13 @@ body.modal-open {
 .form-control{display: inline !important;height:33px}
 */
 
-.form-control.time{
-    width:86px;
+.form-control.time {
+    width: 86px;
+    padding-left: 10px;
+    padding-right: 8px;
 }
-.to-span{
+
+.to-span {
     padding-right: 30px;
     padding-top: 7px;
     height: 38px;
@@ -481,8 +491,6 @@ span.tags {
     padding: 1px 5px;
 }
 
-
-
 .overlay_reservation {
     background-color: rgba(255, 255, 220, 0.8);
     z-index: 99999;
@@ -669,10 +677,6 @@ table.orders thead {
     padding-left: 9px;
 }
 
-.uploaded_by {
-    font-size: 14px;
-    white-space: nowrap;
-}
 
 .uploaded_on {
     font-size: 14px;

@@ -301,12 +301,12 @@ class HomeController extends Controller {
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
-            if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
+            /* if (!isset($post['confirm_password']) || empty($post['confirm_password'])) {
                 return $this->failure( trans('messages.user_confim_pass_field_missing.message'),$Redirect, true);
             }
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
-            }
+            }*/
             \DB::beginTransaction();
             try {//populate data array
                 //echo '<pre>'; print_r($post); die;
@@ -316,7 +316,7 @@ class HomeController extends Controller {
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
-                $update['mobile'] = $post['mobile'];
+                //$update['mobile'] = $post['mobile'];
             //    $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisines']; // a csv string of one or more cuisines
@@ -327,7 +327,7 @@ class HomeController extends Controller {
                 $update['postal_code'] = $post['postal_code'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
-                print("<script>alert('Home: ".$post['is_delivery']."');</script>");
+
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;

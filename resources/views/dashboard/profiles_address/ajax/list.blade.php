@@ -13,9 +13,9 @@
                 </h4></div>
             @if (Session::get('session_type_user') == "super" && $recCount > 10)
 
-            @include('common.table_controls')
+                @include('common.table_controls')
 
-                @endif
+            @endif
         </div>
     </div>
 
@@ -52,7 +52,7 @@
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
 
-                        <td>{{ $key+1 }}
+                        <td style="min-width: 100px;">{{ $key+1 }}
                             @if($recCount > 1)
                                 <div class="btn-group-vertical">
                                     <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
@@ -62,13 +62,23 @@
                             @endif
 
                         </td>
-<?php
 
-(isset($value->apartment))? $aptV="Unit ".$value->apartment.", " : $aptV="";
 
-?>
+                        <?php
 
-                        <td>{{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code . ', ' . $value->country }}</td>
+                        (isset($value->apartment)) ? $aptV = "Unit " . $value->apartment . ", " : $aptV = "";
+
+                        ?>
+
+                        <td>
+
+                            <?php
+                            if (isset($value->notes) && $value->notes!='') {
+                                echo '<b>' . $value->notes . '</b><br>';
+                            }
+                            ?>
+
+                            {{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code }}</td>
 
                         <td>
                             <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"

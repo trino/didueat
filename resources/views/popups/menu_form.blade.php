@@ -54,8 +54,8 @@
                 <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
                 <div class="col-md-6 padding-left-0">
                 <select class="disc_per form-control">
-                    <option>Choose Discount Percentage: </option>
-                    <?php for($i=0;$i<101;$i=$i+5){ ?>
+                    <option>Discount Percentage</option>
+                    <?php for($i=5;$i<96;$i=$i+5){ ?>
                             <option value="{{ $i }}"
                                     <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
                     <?php }?>
@@ -110,7 +110,7 @@
             @endif
             <div class="form-group">
             <div class="col-md-6 padding-left-0"><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="text" placeholder="$" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/></div>
+            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/></div>
             <div class="clearfix"></div>
             </div>
             <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>

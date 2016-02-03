@@ -127,7 +127,7 @@
                         
                     @endif
                     
-                    <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>
                 <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
                     <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>

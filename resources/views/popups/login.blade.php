@@ -1,5 +1,6 @@
 @if(!\Session::has('session_id'))
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -8,8 +9,8 @@
                     </button>
                     <h4 class="modal-title" id="loginModalLabel">Log in</h4>
                 </div>
-                <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="">
-                    <div class="modal-body">
+                <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="m-b-0">
+                    <div class="modal-body m-t-1">
                         <?php printfile("views/popups/login.blade.php"); ?>
                         <DIV ID="message" align="center"></DIV>
                         {!! csrf_field() !!}
@@ -19,26 +20,26 @@
 
                         <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
+                        <?= newrow(false, "Email", "", true); ?>
+                        <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
+                        <?=newrow()?>
 
-<?php echo newrow(false, "Email Address", "", true); ?>
-                                <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
-                            </div>
-                        </div>
-                        
-                        
-<?php echo newrow(false, "Password", "", true); ?>
-                                <input type="password" name="password" class="form-control" placeholder="Password" required>
-                            </div>
-                        </div>
+                        <?= newrow(false, "Password", "", true); ?>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+                        <p class="m-t-1 m-b-0"><a href="javascript:void(0);" class="" data-toggle="modal" data-target="#forgotpasswordModal"
+                              data-dismiss="modal">
+                                Forgot Password?
+                            </a></p>
+                        <?=newrow()?>
 
                         <input type="hidden" name="url" value="{{ Request::path() }}">
                     </div>
                     <div class="modal-footer">
-                        <a href="javascript:void(0);" class="btn btn-secondary" data-toggle="modal" data-target="#forgotpasswordModal"  data-dismiss="modal">
-                            Forgot Password?
-                        </a>
 
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal">
+
+                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal"
+                           data-target="#signupModal" data-dismiss="modal">
                             Sign up
                         </a>
                         <button class="btn btn-primary" type="submit">Log in</button>
@@ -50,7 +51,7 @@
     </div>
     <SCRIPT>
         var visitortime = new Date();
-        var visitortimezone = -visitortime.getTimezoneOffset()/60;
+        var visitortimezone = -visitortime.getTimezoneOffset() / 60;
         $(".gmt").val(visitortimezone);
     </SCRIPT>
 @endif

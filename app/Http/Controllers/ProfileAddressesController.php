@@ -148,10 +148,12 @@ class ProfileAddressesController extends Controller {
 
     public function addressEdit($id=0){
         $post = \Input::all();
-        if(!$id){
+        if(!$id || !is_numeric($id)){
             $post["user_id"] = read("id");
+            $post["id"] = 0;
+            $id = 0;
         }
-        \App\Http\Models\ProfilesAddresses::makenew($post, $id);
+        \App\Http\Models\ProfilesAddresses::makenew($post);
         return $this->success("Address " . $id . " has been edited successfully!", 'user/addresses');
     }
 }

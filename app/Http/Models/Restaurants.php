@@ -19,32 +19,26 @@ class Restaurants extends BaseModel {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform');
         
         if($addlogo){
-         array_push($cells,'logo');
+            array_push($cells,'logo');
         }
         
         $weekdays = getweekdays();
         $this->is_complete = true;
         $doesopen = false;
 
-        $Fields = array("_open","_close");
-        if($this->is_delivery){
-            $Fields[] = "_open_del";
-            $Fields[] = "_close_del";
-        }
-
+        $Fields = array("_open","_close", "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
                 $cells[] = $day . $field;
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
-                } else if($data[$day . $field] != "00:00:00"){
+                } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){
                     $doesopen = true;
                 }
             }
         }
 
         $this->copycells($cells, $data);
-
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
         if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
@@ -119,10 +113,15 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = current_day_of_week() . "_";
-        $now = date('H:i:s');
+        $DayOfWeek = current_day_of_week();
+        $now = "02:00:00"; //date('H:i:s');
+        $Yesterday = current_day_of_week(-1);
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
-        $where .= " AND " . $DayOfWeek . "open" . iif($DeliveryHours, "_del") . " <= '" . $now . "' AND " . $DayOfWeek . "close" . iif($DeliveryHours, "_del") . " >= '" . $now . "'";
+        $open = "open" . iif($DeliveryHours, "_del");
+        $close = "close" . iif($DeliveryHours, "_del");
+        $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
+        $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
+
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= '" . $data['radius'] . "' ";
         } else {

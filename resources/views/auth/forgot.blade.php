@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group clearfix">
                         <div class="col-md-offset-2 col-md-10 col-sm-10 col-xs-12">
-                            <button type="submit" class="btn red">Send New Password Request</button>
+                            <button type="submit" class="btn">Send New Password Request</button>
                         </div>
                     </div>
                     {!! Form::close() !!}

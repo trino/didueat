@@ -1,37 +1,46 @@
 <?php
-printfile("views/dashboard/restaurant/restaurant.blade.php");
+    printfile("views/dashboard/restaurant/restaurant.blade.php");
 
-
-echo newrow($new, "Restaurant Name", "", true);
-$name = iif($new, "restname", "name");//why does it change to restname?
-if (!isset($is_disabled)) {
-    $is_disabled = false;
-}
-if (!isset($minimum)) {
-    $minimum = false;
-}
+    echo newrow($new, "Restaurant Name", "", true);
+    $name = iif($new, "restname", "name");//why does it change to restname?
+    if (!isset($is_disabled)) {
+        $is_disabled = false;
+    }
+    if (!isset($minimum)) {
+        $minimum = false;
+    }
 ?>
 
 
 <input name="initialRestSignup" type="hidden" value="1" />
-<input type="text" name="restname" class="form-control" style="width:90%"
+<input type="text" name="restname" class="form-control" style=""
        {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
-<?php echo newrow();
-
-echo newrow($new, "Website", "", false, 7); ?>
-<input type="text" name="website" class="form-control" placeholder=""
-       value="{{ (isset($restaurant->website))?$restaurant->website: old("website")}}">
 </div></div>
 
-<?php
-
-if(!isset($email)){
-echo newrow($new, "Phone", "", true, 7); ?>
-<input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
-       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("email")}}" required>
+<?php if($minimum){
+echo newrow($new, "Description", "", false); ?>
+    <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
 </div></div>
 <?php }
+
+if(!isset($email)){
+echo newrow($new, "Phone", "", true); ?>
+<input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
+       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
+</div></div>
+<?php }
+
+?>
+
+
+<?= newrow($new, "Description", "", true, 9); ?>
+<textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+<?php
+echo newrow();
+?>
+
+<?
 
 $brTag="<br/>";
 $brTag2="";
@@ -40,10 +49,9 @@ if(isset($restSignUpPg)){
  $brTag2="<br/>";
 }
 
+echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, $brTag.' (Select up to 3)'.$brTag2);
-
-echo '<input name="cuisines" type="hidden" />';
+echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
     $cuisineExpl = explode(",", $restaurant->cuisine);
@@ -58,10 +66,7 @@ foreach ($cuisine_list as $value) {
 
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-			 if($cnt > 0){
-			  echo " &nbsp; &nbsp; &nbsp; ";
-			 }
-    echo "<div class='cuisineCB'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "<div class='cuisineCB col-sm-3'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
@@ -72,23 +77,24 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '<script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
+echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
-    echo newrow($new, "Tags"); ?>
-        <a name="setlogo"></a>
-        <textarea id="demo4"></textarea>
+
+     //   disable tags for now
+ //   echo newrow($new, "Tags");
+?>
+        <!--a name="setlogo"></a>
+        <textarea id="demo4" class="form-control"></textarea>
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
-    </div></div>
-    
-    <?= newrow($new, "Description", "", true, 8); ?>
-        <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-        <?php
-            echo newrow();
+    </div></div-->
+
+
+<?php
             echo newrow($new, "Logo", "", "", 7);
         ?>
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload New Logo</a>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload</a>
 
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>

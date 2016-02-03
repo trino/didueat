@@ -25,61 +25,44 @@ if(Session::get('session_type_user') != "restaurant"){
 <?php printfile("views/common/restaurant.blade.php"); ?>
 
 <div class="col-md-8  col-md-offset-2">
-
-
     <div class="card">
         <div class="card-header ">
+            <h4>Your Restaurant</h4>
 
-                    <h3>Your Restaurant</h3>
 
-
-                <div class="row">
-        <div class="portlet-title">
-            <div class="caption">
-                <b><u>RESTAURANT & CUISINE</u></b>
-            </div>
-        </div>
-                
-                    <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
+            <div class="row">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <b><u>RESTAURANT & CUISINE</u></b>
+                    </div>
                 </div>
-        
-                <div class="row">
-        <div class="portlet-title">
-            <div class="caption">
-                <u><b>NAME, EMAIL & PASSWORD</b></u>
+                
+                <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
             </div>
-        </div>
-
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
-                        <input type="submit" class="btn btn-primary red" value="Create Restaurant Profile">
+        
+            <div class="row">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <u><b>NAME, EMAIL & PASSWORD</b></u>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="card-block ">
-
             @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
-</div>
+        </div>
 
         <div class="card-header ">
-
-            <h3>Your Profile</h3>
-
+            <h4>Your Profile</h4>
         </div>
+
         <div class="card-block ">
-
-        @include("common.contactinfo", array("new"=>false, "mobile" => true))
-
-
+            @include("common.contactinfo", array("new"=>false, "mobile" => true))
         </div>
 
         <div class="card-footer clearfix">
-
             <input type="submit" class="btn btn-primary pull-right" value="Signup">
-
-
         </div>
     </div>
 
@@ -112,3 +95,4 @@ if(Session::get('session_type_user') != "restaurant"){
 }
 ?>
 
+</div>

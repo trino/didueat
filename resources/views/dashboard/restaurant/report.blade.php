@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <a href="javascript:void(0);" class="btn red noprint" onclick="return printDiv('toprint')">Print Receipt</a>
+            <a href="javascript:void(0);" class="btn noprint" onclick="return printDiv('toprint')">Print Receipt</a>
             <hr class="shop__divider">
         </div>
 

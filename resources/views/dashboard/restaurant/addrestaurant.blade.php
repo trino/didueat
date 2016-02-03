@@ -22,14 +22,14 @@
                     @include("common.editaddress", array("new" => true))
                 </div>
 
-                <div class="col-md-12 ">
+                <!--div class="col-md-12 ">
                     <i class="fa fa-long-arrow-right"></i> HOURS
                     @include("dashboard.restaurant.hours", array("new" => true, "layout" => true))
-                </div>
+                </div-->
 
                 <DIV>
                     <div class="form-actions">
-                        <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                        <button type="submit" class="btn"><i class="fa fa-check"></i> SAVE</button>
                     </div>
                 </div>
                 {!! Form::close() !!}

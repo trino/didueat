@@ -13,6 +13,7 @@
 
     function message_show($msgtype, $description)
     {
+        /*
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                     Command: toastr["success"]("' . $description . '", "' . $msgtype . '")
@@ -34,6 +35,7 @@
                     }
             </script>';
         }
+        */
     }
 
     function getweekdays()
@@ -535,9 +537,15 @@
         }
     }
 
-    function current_day_of_week()
+    //date: leave blank for today, a negative number will be in relation to today (ie: -1 with units=day, will be yesterday)
+    function current_day_of_week($date = 0, $units = "day")
     {
-        return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m"), date("d"), date("Y")), 1);
+        if ($date < 0) {
+            $date = strtotime($date . ' ' . $units, time());
+        } else if (!$date) {
+            $date = time();
+        }
+        return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m", $date), date("d", $date), date("Y", $date)), 1);
     }
 
 //check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
@@ -855,6 +863,7 @@
 //clones the flash message
     function message($msgtype, $description)
     {
+
         if ($msgtype != "" && $description != "") {
             return '<script type="text/javascript">
                         $(document).ready(function() {
@@ -879,6 +888,7 @@
                         });
                         </script>';
         }
+
     }
 
     function mapcountryprovince($Value, $IsProvince = false)
@@ -1778,9 +1788,9 @@
             if ($TwoLines) {
                 $html .= '<br>';
             }
-            if ($add_rate_brn == true && \Session::has('session_id')) {
-                $html .= '<a style="color:white;" class="rating-it-btn" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
-            }
+
+
+
             $html .= stars($target_id, $value, $countExit, $start5, "5");
             $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
             $html .= stars($target_id, $value, $countExit, $start4, "4");
@@ -1791,8 +1801,13 @@
             $html .= stars($target_id, $value, $countExit, $start1Half, "1.5");
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
+
             if ($add_rate_brn == true) {
-                $html .= ' <br /> <a class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="' . $item_name . '" data-reviews-detail="Reviews Based Upon Users: ' . $count_rating . '">Reviews: ' . $count_rating . '</a> ';
+                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '">Reviews (' . $count_rating . ')</a> ';
+            }
+
+            if ($add_rate_brn == true && \Session::has('session_id')) {
+                $html .= '<a href="#" style="color:white;" class="rating-it-btn" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Rate it</a>';
             }
             $html .= ' </div>';
         }

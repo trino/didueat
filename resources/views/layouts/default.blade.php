@@ -41,16 +41,18 @@ if (Request::path() !== null && Request::path() != "/") {
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
     <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
-    <link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
-          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-
-
-        <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
+          integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"-->
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet">
+    <!--link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet"-->
     <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
+          crossorigin="anonymous">
+
+    <!--script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
+            crossorigin="anonymous"></script-->
+        <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -104,7 +106,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 @include('layouts.includes.header')
 
-<div class="container m-t-3 p-t-2">
+<div class="container m-t-3 p-t-3">
 
     @if (session('status'))
         <div class="alert alert-success">
@@ -112,7 +114,7 @@ if (Request::path() !== null && Request::path() != "/") {
         </div>
     @endif
 
-    <?php $Restaurant = \Session::get('session_restaurant_id', 0) ; ?>
+    <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
     @if ($Restaurant)
         @include('common.required_to_open')
     @endif

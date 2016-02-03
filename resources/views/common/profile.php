@@ -28,12 +28,12 @@
         </div>
         <div class="clearfix"></div>
     </div>
-    <div class="form-group confirm_password" style="display: none;">
+    <!--div class="form-group confirm_password" style="display: none;">
         <div class="col-xs-12">
             <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control--contact" placeholder="Confirm Password"/>
         </div>
         <div class="clearfix"></div>
-    </div>
+    </div-->
 
     <div class="form-group">
         <div class="col-xs-12">
@@ -89,12 +89,10 @@
     $(function () {
         function check_val(v) {
             if (v != '') {
-                $('.confirm_password').show();
-                $('#confirm_password').attr('required', 'required');
+                //$('.confirm_password').show();
+                //$('#confirm_password').attr('required', 'required');
             }
         }
-        
-        var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
 
         function validatePassword() {
             if (password.value != confirm_password.value) {
@@ -105,8 +103,11 @@
             }
         }
 
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
+        /*
+            var password = document.getElementById("password");, confirm_password = document.getElementById("confirm_password");
+            password.onchange = validatePassword;
+            confirm_password.onkeyup = validatePassword;
+        */
 
         $('.back').live('click', function () {
             $('.receipt_main').show();

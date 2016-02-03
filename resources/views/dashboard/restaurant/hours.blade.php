@@ -27,47 +27,56 @@ if (!isset($is_disabled)) {
 $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
 ?>
 <?php echo newrow($new, "Allow pickup"); ?>
-<LABEL class="c-input c-checkbox">
-    <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
-           value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
-    <span class="c-indicator"></span>
-</LABEL>
+    <LABEL class="c-input c-checkbox">
+        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
+               value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
+        <span class="c-indicator"></span>
+    </LABEL>
 </DIV></DIV>
 
 <?php echo newrow($new, "Allow delivery"); ?>
-<LABEL class="c-input c-checkbox">
-    <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
-           value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp;
-    We Offer Delivery
-    <span class="c-indicator"></span>
-</LABEL>
+    <LABEL class="c-input c-checkbox">
+        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
+               value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp;
+        We Offer Delivery
+        <span class="c-indicator"></span>
+    </LABEL>
 </DIV></DIV>
 
 <a name="HoursOpen"></a>
 <div id="is_delivery_options" style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($post['initialRestSignup']) || isset($showDeliveryOptions))?'block':'none' }};">
-    <?php echo newrow($new, "Delivery Fee ($)", "", true, 4); ?>
-    <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style="width:60px"
-           placeholder="Delivery Fee"
-           value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
-</DIV></DIV>
+        <?= newrow($new, "Delivery Fee ($)", "", true, 2); ?>
+            <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style=""
+                   placeholder="Delivery Fee"
+                   value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
+        </DIV></DIV>
 
-<?php echo newrow($new, "Min. Order Subtotal ($)<br/>(Before Delivery)", "", true, 4); ?>
-<input type="text" min="0" name="minimum" {{ $is_disabled }} class="form-control" style="width:60px"
-       placeholder="Minimum Subtotal For Delivery"
-       value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
-</DIV></DIV>
+        <?= newrow($new, "Min. Order Subtotal ($)<br/>(Before Delivery)", "", true, 2); ?>
+            <input type="text" min="0" name="minimum" {{ $is_disabled }} class="form-control" style=""
+                   placeholder="Minimum Subtotal For Delivery"
+                   value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
+        </DIV></DIV>
 
-<?php echo newrow($new, "Max Delivery Distance", "", true, 9); ?>
-<input name="max_delivery_distance" {{ $is_disabled }} id="max_delivery_distance" type="range" min="1"
-       max="<?= MAX_DELIVERY_DISTANCE; ?>" class="form-control" value="{{ $value }}"
-       onchange="$('#max_delivery_distance_label').html('Max Delivery Distance:<br/><span>(' + p.value + ' km)</span>');">
-</DIV></DIV>
-
+        <?= newrow($new, "Max Delivery Distance", "", true, 9); ?>
+            <input name="max_delivery_distance" {{ $is_disabled }} id="max_delivery_distance" type="range" min="1"
+                   max="<?= MAX_DELIVERY_DISTANCE; ?>" class="form-control" value="{{ $value }}"
+                   onchange="$('#max_delivery_distance_label').html('Max Delivery Distance:<br/><span>(' + p.value + ' km)</span>');">
+        </DIV></DIV>
 </div>
 
+
 <label class="col-sm-7"><SPAN class="is_delivery_2b"><b><u>Hours Open</u>:</b></SPAN><br/></label>
-<LABEL class="col-sm-5"><SPAN class="is_delivery_2b"><b><u>Delivery Times</u>:</b></SPAN>
-<div><LABEL class="is_delivery_options c-input c-checkbox"><input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>Same as Regular Hours<span class="c-indicator"></span></LABEL></div></LABEL>
+
+<LABEL class="col-sm-5">
+    <SPAN class="is_delivery_2b"><b><u>Delivery Times</u>:</b></SPAN>
+    <div>
+        <LABEL class="is_delivery_options c-input c-checkbox">
+            <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>
+            Same as Regular Hours
+            <span class="c-indicator"></span>
+        </LABEL>
+    </div>
+</LABEL>
 
 <?php
     function getkey($object, $key) {
@@ -113,14 +122,13 @@ foreach ($day_of_week as $key => $value) {
 function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false,$opentime_del = "", $closetime_del = "", $del_class = ""){
     $layout=2;
     $width=4;
-
+    $inputclass= "form-control time col-sm-1";
     $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
     if($opentime != "00:00:00" || $closetime != "00:00:00"){
         $closed .= " CHECKED";
     }
     $closed .= '> Open<span class="c-indicator"></span></LABEL>';
     ?>
-    <div class="row {{ $class }}">
         <label class="col-sm-{{ $layout }}">{{ $value }}</label>
 
         <div class="col-sm-1" align="center">
@@ -129,32 +137,29 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
             </SMALL>
         </DIV>
 
-        <div class="col-sm-{{ $width }} nowrap">
-            <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="form-control time col-sm-1" onfocus="this.blur();"/>
+        <div class="col-sm-{{ 9 }} nowrap">
+            <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
             <SPAN class="col-xs-1 to-span">to</SPAN>
-            <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}"
-                   title="Close" class="form-control time col-sm-1" onfocus="this.blur();" style="width:86px;"/>
-        </div>
+            <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style="width:86px;"/>
 
         <?php if($del_class){
             $suffix = "_del"
             ?>
-            <div class="col-sm-{{ $width . " " . $del_class}}">
-                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime_del }}"
-                       title="Open" class="form-control time col-sm-1" onfocus="this.blur();"/>
+            <SPAN class="col-xs-1 to-span"></SPAN>
+            <div class="{{ $del_class }}">
+                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime_del }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
                 <SPAN class="col-xs-1 to-span">to</SPAN>
-                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime_del }}"
-                       title="Close" class="form-control time col-sm-1" onfocus="this.blur();"/>
+                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime_del }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();"/>
             </div>
         <?php }
-    echo '</div>';
+        echo '</DIV>';
 }
-?>
 
+echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
+</DIV></DIV>
 
 <script>
-
-    is_delivery_change();
+    //is_delivery_change();
     function is_delivery_change() {
         if ($('#is_delivery').is(':checked')) {
             $('#is_delivery_options').show();
@@ -172,6 +177,7 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
         closed_element(event, ID, "open_del");
         closed_element(event, ID, "close_del");
     }
+
     function closed_element(event, ID, name) {
         var element = document.getElementById(name + "[" + ID + "]");
         if (!event.target.checked) {

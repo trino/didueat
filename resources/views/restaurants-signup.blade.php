@@ -97,29 +97,6 @@
     </div>
 
     <script type="text/javascript">
-
-    
-
-function chkCBs(cb){
-  if(cb){
-   if(cbchkd > 2){
-    alert("You may check a maximum of only 3 cuisine types. Please adjust your selection accordingly.");
-    return false;
-   }
-   else{
-    cbchkd++;
-    return true;
-   }
-  }
-  else{
-   cbchkd--;
-   return false;
-  }
-////
-}
-     
-
-
         function validateFn(f) {
             var cuisinesStr = "";
             var comma = "";
@@ -133,8 +110,6 @@ function chkCBs(cb){
             }
             f.cuisines.value = cuisinesStr;
         }
-
-
 
         $(document).ready(function () {
 //            Demo.init();
@@ -195,7 +170,7 @@ function chkCBs(cb){
                         minlength: 5
                     },
                     confirm_password: {
-                        equalTo: "#password"
+                        //equalTo: "#password"
                     }
                 },
                 messages: {

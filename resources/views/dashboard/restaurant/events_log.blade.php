@@ -1,3 +1,4 @@
+delete me
 @extends('layouts.default')
 @section('content')
 

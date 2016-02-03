@@ -9,13 +9,14 @@ $first = false; $type = "hidden";
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
-            <img src="{{ asset('assets/images/logos/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
+            <img src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
         <ul class="nav navbar-nav">
             @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
                 <li class="nav-item" style="width: 300px;">
                     <div class="input-group">
                         <div class="input-group-btn">
+
                             @if(read("id"))
                                 <?php
                                 $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
@@ -41,9 +42,9 @@ $first = false; $type = "hidden";
                                 </div>
                                 <?php } ?>
                             @else
-                                <button style="border-right:0;" class="btn  btn-secondary"
+                                <!--button style="border-right:0;" class="btn  btn-secondary"
                                         onclick="geolocate(formatted_address2)" title="Get location from your browser">
-                                    &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button>
+                                    &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button-->
                             @endif
                         </div>
                         <input style="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
@@ -62,22 +63,26 @@ $first = false; $type = "hidden";
                     </div>
                 </li>
 
+
+
                 <script>
+
                     var formatted_address2, formatted_address3;
+
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
                         formatted_address3 = initAutocompleteWithID('formatted_address3');
 
                     }
+
                     function setaddress(Address) {
                         document.getElementById("formatted_address2").value = Address;
                         $("#formatted_address2").trigger("focus");
                         $("#formatted_address2").trigger("change");
                     }
+
                     function change_address_event() {
-                        //document.getElementById("formatted_address2").setAttribute("style", "background-color: red;");//debug
                         setTimeout(function () {
-                            //document.getElementById("formatted_address2").setAttribute("style", "background-color: white;");//debug
                             if ($("#search-form").length) {
                                 $("#header-search-button").show();
                             }
@@ -85,12 +90,17 @@ $first = false; $type = "hidden";
                     }
 
                 </script>
+
+
                 <?php
                 includeJS(url("assets/global/scripts/provinces.js"));
                 if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
                     echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
                 }
                 ?>
+
+
+
             @endif
         </ul>
 

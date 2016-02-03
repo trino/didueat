@@ -9,17 +9,12 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    Notification Email/Numbers
+                    Receive Notifications
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4>
 
                 <p class="card-subtitle text-muted">Notify me by these methods when I receive an order</p>
             </div>
-
-            @if(Session::get('session_type_user') == "super" || $recCount > 10)
-
-                @include('common.table_controls')
-            @endif
 
         </div>
     </div>
@@ -64,7 +59,7 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td>{{ $key+1 }}
+                        <td style="min-width: 100px;">{{ $key+1 }}
                             @if($recCount > 1)
 
                                 &nbsp;
@@ -115,7 +110,7 @@
             </tbody>
         </table>
     </div>
-    @if(Session::get('session_type_user') == "super"  && $recCount > 0)
+    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
 
         <div class="card-footer clearfix">
             {!! $Pagination; !!}

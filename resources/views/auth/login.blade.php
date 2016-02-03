@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group clearfix">
                         <div class="col-md-offset-2 col-md-10 col-sm-10 col-xs-12">
-                            <button type="submit" class="btn red">Sign in</button>
+                            <button type="submit" class="btn">Sign in</button>
                             &nbsp;
                             <span>Don't have account? </span>
                             <a href="{{ url('auth/register') }}">Create here</a>

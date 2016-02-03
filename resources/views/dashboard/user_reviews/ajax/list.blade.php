@@ -9,7 +9,7 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
-            <h3>Reviews</h3>
+            <h4>Reviews</h4>
                 </div>
             @include('common.table_controls')
         </div>

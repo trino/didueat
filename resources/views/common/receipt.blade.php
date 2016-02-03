@@ -8,14 +8,8 @@
     </div>
 @endif
 
+
 <div class="clearfix" id="cartsz">
-
-
-
-
-
-
-
 
     @if(!isset($order))
         <div class="card card-inverse card-primary " style="">
@@ -62,26 +56,12 @@
     @endif
 
 
-
-
-
-
-
-
-
     <div class="card " style="">
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-
-
-
-
-
                     <h3 class="card-title">Receipt</h3>
-
-                   @include('common.items')
-
+                    @include('common.items')
                     <div class="totals">
                         <table class="table">
                             <tbody>
@@ -155,10 +135,10 @@
                     </div>
 
                     @if(!isset($order))
-                    <div class="form-group   pull-right ">
-                        <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
-                    </div>
+                        <div class="form-group   pull-right ">
+                            <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        </div>
                     @endif
 
                     <div class="clearfix"></div>
@@ -192,7 +172,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="user_id" id="ordered_user_id"
                                value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-                       
+
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
@@ -204,7 +184,7 @@
                                    name="email" id="ordered_email" required=""
                                    value="{{ (isset($profile))? $profile->email : '' }}">
                         </div>
-                        
+
                         @if(!Session::has('is_logged_in'))
                             <div class="form-group">
                                 <div class="col-xs-12">
@@ -215,19 +195,12 @@
                                 <div class="clearfix"></div>
                             </div>
                         @endif
-                    
 
-                        
-                        
+
+
+
                         <div class="profile_delivery_detail" style="display: none;">
-                             <div class="form-group">
-                                <div class="col-xs-12">
-                                
-                                
 
-                                </div>
-                             </div>
-                             
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
@@ -268,8 +241,7 @@
                             </div>
 
                             <div class="col-xs-12">
-                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code"
-                                       class="form-control form-control--contact resetme" name="postal_code">
+                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact resetme" name="postal_code">
                             </div>
                             <?php */ ?>
                             <div class="clearfix"></div>
@@ -277,8 +249,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <select class="form-control  form-control--contact" name="order_till"
-                                        id="ordered_on_time" required="">
+                                <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
                                     <option value="Order ASAP">Order ASAP</option>
                                     {{ get_time_interval() }}
                                 </select>
@@ -288,18 +259,16 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <textarea placeholder="Additional Notes" id="ordered_notes"
-                                          class="form-control form-control--contact resetme" name="remarks"></textarea>
+                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control form-control--contact resetme" name="remarks"></textarea>
                             </div>
                             <div class="clearfix"></div>
                         </div>
-                     
+
                         <div class="form-group   pull-right ">
                             <div class="col-xs-12">
                                 <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
-                               <button type="submit" class="btn btn-primary">Checkout</button>
-                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
-                                       value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
+                                <button type="submit" class="btn btn-primary">Checkout</button>
+                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -311,13 +280,8 @@
     <div class="clearfix"></div>
 </div>
 
-
-<!-- add addresss modal -->
-
-
-
-<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
-     aria-hidden="true">
+    <!-- add addresss modal -->
+<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -331,8 +295,10 @@
 
                 <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
-                        <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+                        @if(!empty($restaurant->formatted_address))
+                            <iframe style="height:100%;width:100%;border:0;" frameborder="0"
+                                    src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+                        @endif
                     </div>
                 </div>
 
@@ -365,8 +331,10 @@
         </div>
     </div>
 </div>
-<script>
+
+<script> 
     function addresschanged(thiss) {
+
             $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
             $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
             $("#city").val(thiss.getAttribute("CITY"));
@@ -378,6 +346,7 @@
 
 
     }
+    
     $(function(){
         $('#delivery1').click();
     })
