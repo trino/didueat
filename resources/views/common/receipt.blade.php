@@ -189,8 +189,8 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <input type="password" name="password" id="password"
-                                           class="form-control  form-control--contact" placeholder="Provide a password"
-                                           onkeyup="check_val(this.value);">
+                                           class="form-control  form-control--contact password_reservation" placeholder="Provide a password"
+                                           onkeyup="check_val(this.value);" required="required" />
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

@@ -369,7 +369,8 @@
                                     $('.close').click();
                                     $('.addressdropdown').load(document.URL +' .addressdropdown>');
                                     //only loads header
-                                    $('#header-nav').load(document.URL + ' #header-nav>ul');
+                                    $('.header-nav').load(document.URL + ' .header-nav>ul');
+                                    $('.password_reservation').hide();
                                 }
                             });
                         } else {

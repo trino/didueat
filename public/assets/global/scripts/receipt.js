@@ -36,7 +36,11 @@ function changeqty(id, opr) {
 
     function delivery(t) {
         var df = $('input.df').val();
-        if (t == 'show') {
+        if (t == 'show')
+        {
+              $('.profile_delivery_detail input').each(function(){
+                $(this).attr('required','required');
+            });
             $('#df').show();
             $('.profile_delevery_type').text('Delivery To');
             $('.profile_delivery_detail').show();
@@ -53,9 +57,14 @@ function changeqty(id, opr) {
             $('input .grandtotal').val(grandtotal.toFixed(2));
             $('#delivery_flag').val('1');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
-        } else {
+        } 
+        else 
+        {
             $('.profile_delevery_type').text('Pickup Detail');
             $('.profile_delivery_detail').hide();
+            $('.profile_delivery_detail input').each(function(){
+                $(this).removeAttr('required');
+            });
             if ($('#pickup1').hasClass("deliverychecked")) {
                 //alert('sss');
             } else {
@@ -269,7 +278,7 @@ function changeqty(id, opr) {
             $('.orders').show();
         } else {
             quant--;
-            $('#list' + numid + ' span.count').text(quant+'x');
+            $('#list' + numid + ' span.count').text(quant);
             $('#list' + numid + ' input.count').val(quant);
             //$('#list'+numid+' .count').val(quant-1);
         }
@@ -314,7 +323,7 @@ function changeqty(id, opr) {
         total = total.toFixed(2);
         $('#list' + numid + ' .total').text('$' + total);
         quant++;
-        $('#list' + numid + ' span.count').text(quant+'x');
+        $('#list' + numid + ' span.count').text(quant);
         $('#list' + numid + ' input.count').val(quant);
     });
         
