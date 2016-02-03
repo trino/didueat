@@ -25,14 +25,14 @@ foreach ($Fields as $Field) {
     <input type="hidden" name="gmt" id="gmt" class="gmt">
 </div>
 <?php echo newrow();
-        ?>
-<?php
+
+
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
     <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
 </div>
-<?php echo newrow(); ?>
-<?
+<?php echo newrow();
+
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
     <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required>
@@ -45,21 +45,18 @@ echo newrow($new, "Email", $size, true); ?>
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder=""
-               autocomplete="off">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
     </div>
     <?php echo newrow(); ?>
 @endif
 
 <?= newrow($new, "Password", $size, $PasswordRequired); ?>
-<div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder=""
-           autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
-</div>
+    <div class="input-icon">
+        <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
+    </div>
 <?php echo newrow();
 
-?>
-<?= newrow(false, " ", "", false, 7, false); ?>
+echo newrow(false, " ", "", false, 7, false); ?>
 <label class="c-input c-checkbox">
     <input type="checkbox" name="subscribed" id="subscribed" value="true"
            @if($subscribed || (!isset($subscribed))) checked @endif />

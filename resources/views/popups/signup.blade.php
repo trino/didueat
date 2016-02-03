@@ -1,5 +1,6 @@
-<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel"
-     aria-hidden="true">
+<script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -49,7 +50,8 @@
 </div>
 
 <script>
-    function validationOnkeyup() {
+    $(document).ready(function () {
+        add_all(true, true, true);
         $('#register-form').validate({
             rules: {
                 name: {
@@ -67,10 +69,10 @@
                     required: true,
                     minlength: 5
                 },
-                confirm_password: {
-                    //required: true,
-                    //minlength: 5,
-                    //equalTo: "#password"
+                phone: {
+                    required: true,
+                    checkPhone: true,
+                    checkLen: true
                 }
             },
             messages: {
@@ -78,10 +80,12 @@
                     required: "Please enter an email address!",
                     remote: "This email address is in use already!"
                 },
-                confirm_password: {
-                    equalTo: "The password fields are mis-matched!"
+                phone: {
+                    required: "Please enter a phone number",
+                    checkPhone: "Invalid character. Please just use numbers and hyphens",
+                    checkLen: "Phone number must be 10 numbers long"
                 }
             }
         });
-    }
+    });
 </script>

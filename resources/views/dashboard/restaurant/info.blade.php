@@ -3,6 +3,11 @@
 
     <meta name="_token" content="{{ csrf_token() }}"/>
     <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
+    <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+    <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
     <script>
         function validateFn(f){
@@ -18,6 +23,26 @@
             }
             f.cuisines.value=cuisinesStr;
         }
+
+        $(document).ready(function () {
+            add_all(true, true, true);
+            $("#resturantForm").validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        checkPhone: true,
+                        checkLen: true
+                    }
+                },
+                messages: {
+                    phone: {
+                        required: "Please enter a phone number",
+                        checkPhone: "Invalid character. Please just use numbers and hyphens",
+                        checkLen: "Phone number must be 10 numbers long"
+                    }
+                }
+            });
+        });
     </script>
 
     <div class="row">
@@ -77,10 +102,4 @@
                 </div>
             @endif
         </div>
-
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-        <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
-        <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
-        <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 @stop
