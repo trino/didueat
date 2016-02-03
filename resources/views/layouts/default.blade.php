@@ -108,7 +108,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <div class="container m-t-3 p-t-3">
 <div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
-Menu item updated successfully
+Item has been added/updated successfully
 </div>
 
 <div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
