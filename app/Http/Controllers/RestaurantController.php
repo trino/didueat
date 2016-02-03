@@ -147,7 +147,7 @@ class RestaurantController extends Controller {
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             
-            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+            $data['cuisine_list'] = cuisinelist();
             return view('dashboard.restaurant.addrestaurant', $data);
         }
     }
@@ -173,7 +173,7 @@ class RestaurantController extends Controller {
             try {
                 $update=$post;
                 $addlogo='';
-                if ($post['logo'] != '') {
+                if (isset($post['logo']) && $post['logo'] && $post['id']) {//logo can only be added to existing restaurants
                     $im = explode('.', $post['logo']);
                     $ext = end($im);
                     $res = \App\Http\Models\Restaurants::findOrNew($post['id']);
@@ -205,7 +205,7 @@ class RestaurantController extends Controller {
                 if(isset($post['email'])) {$update['email'] = $post['email'];}
                 //$update['website'] = $post['website'];
                 $update['phone'] = $post['phone'];
-                $update['description'] = $post['description'];
+                if(isset($post['description'])){$update['description'] = $post['description'];}
                 $update['cuisine'] = $post['cuisines'];
                 $update['province'] = $post['province'];
                 if(isset($post['formatted_address'])){ $update['address'] = $post['formatted_address'];}
@@ -219,6 +219,11 @@ class RestaurantController extends Controller {
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
                // $update['tags'] = $post['tags'];
+                $browser_info = getBrowser();
+                $update['ip_address'] = get_client_ip_server();
+                $update['browser_name'] = $browser_info['name'];
+                $update['browser_version'] = $browser_info['version'];
+                $update['browser_platform'] = $browser_info['platform'];
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
@@ -236,8 +241,7 @@ class RestaurantController extends Controller {
                 for($i=0;$i<$cuisinesExplCnt;$i++){
                     \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
                 }
-                
-                
+
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
