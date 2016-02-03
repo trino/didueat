@@ -2,26 +2,23 @@
 @section('content')
 
     <meta name="_token" content="{{ csrf_token() }}"/>
-
     <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
 
-<script>
-function validateFn(f){
-
-   var cuisinesStr="";
-   var comma="";
-			for(var i=0;i<cuisineCnt;i++){
-			 if(f.elements["cuisine"+i].checked){
-       if(cuisinesStr != ""){
-        comma=",";
-       }
-       cuisinesStr+=comma+f.elements["cuisine"+i].value
-			 }
-			}
-   f.cuisines.value=cuisinesStr;
-   
-}
-</script>
+    <script>
+        function validateFn(f){
+            var cuisinesStr="";
+            var comma="";
+            for(var i=0;i<cuisineCnt;i++){
+                if(f.elements["cuisine"+i].checked){
+                    if(cuisinesStr != ""){
+                        comma=",";
+                    }
+                    cuisinesStr+=comma+f.elements["cuisine"+i].value
+                }
+            }
+            f.cuisines.value=cuisinesStr;
+        }
+    </script>
 
     <div class="row">
 
@@ -62,7 +59,7 @@ function validateFn(f){
                     <h4 class="card-title">Hours & Delivery</h4>
                 </div>
                 <div class="card-block">
-                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
+                     @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                 </div>
             </div>
 
@@ -81,13 +78,9 @@ function validateFn(f){
             @endif
         </div>
 
-<!--    Already loaded in default.blade
- <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script> 
--->
         <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
         <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
         <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
-
 @stop

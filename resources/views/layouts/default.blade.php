@@ -107,10 +107,21 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 <div class="container m-t-3 p-t-3">
-
-    @if (session('status'))
+<?php Session();?>
+    @if (session('status')|| isset($_GET['flash']))
         <div class="alert alert-success">
-            {{ session('status') }}
+        <?php if(isset($_GET['flash'])){?>
+            <strong>Thank you!</strong>
+            <?php if($_GET['flash']=='1')
+                echo "your order has been received.";
+            elseif($_GET['flash']=='2')
+                echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";    
+            
+            }
+            else
+            {
+                 session('status');
+            }?>
         </div>
     @endif
 

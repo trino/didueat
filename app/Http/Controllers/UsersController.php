@@ -383,7 +383,9 @@ class UsersController extends Controller {
                         $this->sendEMail("emails.order_owner_notification", $userArray3);
                     }
                 }
-                
+                 \Session::flash('message', 'Thank you! your order has been received.');
+                \Session::flash('message-type', 'alert-success');
+                \Session::flash('message-short', 'Congratulations!');
                 echo $msg . '6';
                 
                 \DB::commit();
