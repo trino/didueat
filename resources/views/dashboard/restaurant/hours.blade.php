@@ -45,14 +45,14 @@ $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery
 
 <a name="HoursOpen"></a>
 <div id="is_delivery_options" style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($post['initialRestSignup']) || isset($showDeliveryOptions))?'block':'none' }};">
-        <?= newrow($new, "Delivery Fee ($)", "", true, 4); ?>
-            <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style="width:60px"
+        <?= newrow($new, "Delivery Fee ($)", "", true, 2); ?>
+            <input type="text" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style=""
                    placeholder="Delivery Fee"
                    value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
         </DIV></DIV>
 
-        <?= newrow($new, "Min. Order Subtotal ($)<br/>(Before Delivery)", "", true, 4); ?>
-            <input type="text" min="0" name="minimum" {{ $is_disabled }} class="form-control" style="width:60px"
+        <?= newrow($new, "Min. Order Subtotal ($)<br/>(Before Delivery)", "", true, 2); ?>
+            <input type="text" min="0" name="minimum" {{ $is_disabled }} class="form-control" style=""
                    placeholder="Minimum Subtotal For Delivery"
                    value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
         </DIV></DIV>

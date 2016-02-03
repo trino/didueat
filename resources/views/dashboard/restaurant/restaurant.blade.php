@@ -13,7 +13,7 @@
 
 
 <input name="initialRestSignup" type="hidden" value="1" />
-<input type="text" name="restname" class="form-control" style="width:90%"
+<input type="text" name="restname" class="form-control" style=""
        {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
 </div></div>
@@ -31,6 +31,17 @@ echo newrow($new, "Phone", "", true); ?>
 </div></div>
 <?php }
 
+?>
+
+
+<?= newrow($new, "Description", "", true, 9); ?>
+<textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
+<?php
+echo newrow();
+?>
+
+<?
+
 $brTag="<br/>";
 $brTag2="";
 if(isset($restSignUpPg)){
@@ -38,7 +49,7 @@ if(isset($restSignUpPg)){
  $brTag2="<br/>";
 }
 
-echo newrow($new, "Restaurant Cuisine", "", true, 9, '<BR>(Select up to 3)');
+echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
 
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
@@ -71,18 +82,16 @@ echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChk
 if(!$minimum){
     echo newrow($new, "Tags"); ?>
         <a name="setlogo"></a>
-        <textarea id="demo4"></textarea>
+        <textarea id="demo4" class="form-control"></textarea>
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
     </div></div>
-    
-    <?= newrow($new, "Description", "", true, 8); ?>
-        <textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-        <?php
-            echo newrow();
+
+
+<?php
             echo newrow($new, "Logo", "", "", 7);
         ?>
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload New Logo</a>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload</a>
 
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>

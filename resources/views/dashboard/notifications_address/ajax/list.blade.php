@@ -59,7 +59,7 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td>{{ $key+1 }}
+                        <td style="min-width: 100px;">{{ $key+1 }}
                             @if($recCount > 1)
 
                                 &nbsp;

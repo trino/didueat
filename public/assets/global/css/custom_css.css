@@ -1,12 +1,15 @@
-.ui-timepicker-table{background: #fff;}
+.ui-timepicker-table {
+    background: #fff;
+}
 
 .list-inline-item:not(:last-child) {
     margin-right: 15px;
 }
-.table th, .table td{
 
+.table th, .table td {
     padding: .75rem 1.30rem !important;
 }
+
 .table td, .table th {
     padding: 1.30rem;
 }
@@ -20,14 +23,15 @@
 }
 
 .card-header {
-    padding: 1.0rem 1.25rem;
+    padding: 1.25rem 1.25rem !important;
     background-color: #fff !important;
 }
-tr{
+
+tr {
     padding: 1.0rem 1.25rem;
 
-
 }
+
 .card-footer {
     padding: 1.25rem 1.25rem;
     background-color: #fff !important;
@@ -37,10 +41,6 @@ tr{
 .required:after {
     content: "*";
     color: #e32;
-}
-
-* {
-
 }
 
 .logopic {
@@ -74,8 +74,6 @@ tr{
 .nowrap {
     white-space: nowrap;
 }
-
-
 
 .modal-header {
     background: #D50000 !important;
@@ -126,12 +124,13 @@ body.modal-open {
 .form-control{display: inline !important;height:33px}
 */
 
-.form-control.time{
-    width:86px;
+.form-control.time {
+    width: 86px;
     padding-left: 10px;
     padding-right: 8px;
 }
-.to-span{
+
+.to-span {
     padding-right: 30px;
     padding-top: 7px;
     height: 38px;
@@ -489,8 +488,6 @@ span.tags {
     line-height: 1.5;
     padding: 1px 5px;
 }
-
-
 
 .overlay_reservation {
     background-color: rgba(255, 255, 220, 0.8);
