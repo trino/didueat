@@ -18,6 +18,8 @@ foreach ($Fields as $Field) {
 }
 ?>
 
+
+
 <?= newrow($new, "Your Name", $size, true);
 ?>
 <div class="input-icon">
@@ -32,6 +34,7 @@ echo newrow($new, "Cell Phone", $size, true); ?>
     <input type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
+
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
