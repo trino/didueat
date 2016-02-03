@@ -307,92 +307,7 @@ class HomeController extends Controller {
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
-            \DB::beginTransaction();
-            try {//populate data array
-                //echo '<pre>'; print_r($post); die;
-                $update['logo'] = "";
-                if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
-                $update['name'] = $post['restname'];
-                $update['slug'] = $this->createslug($post['restname']);
-                $update['email'] = $post['email'];
-                $update['phone'] = $post['phone'];
-                $update['description'] = $post['description'];
-                //$update['mobile'] = $post['mobile'];
-            //    $update['description'] = $post['description'];
-                //$update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisines']; // a csv string of one or more cuisines
-                $update['province'] = $post['province'];
-                $update['address'] = $post['formatted_address'];
-                $update['formatted_address'] = $post['formatted_addressForDB'];
-                $update['city'] = $post['city'];
-                $update['postal_code'] = $post['postal_code'];
-                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
-                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
-
-                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
-                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                //$update['tags'] = $post['tags'];
-                if(isset($post['latitude'])) {
-                    $update['latitude'] = $post['latitude'];
-                    $update['longitude'] = $post['longitude'];
-                }
-                $update['open'] = 0;
-                $update['status'] = 1;
-                $browser_info = getBrowser();
-                $update['ip_address'] = get_client_ip_server();
-                $update['browser_name'] = $browser_info['name'];
-                $update['browser_version'] = $browser_info['version'];
-                $update['browser_platform'] = $browser_info['platform'];
-                
-                $ob = new \App\Http\Models\Restaurants();
-                $ob->populate($update);
-                $ob->save();
-                
-                                
-                event(new \App\Events\AppEvents($ob, "Restaurant Created"));
-                
-                $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
-                if ($image_file != '') {
-                    $arr = explode('.', $image_file);
-                    $ext = end($arr);
-                    $newName = $ob->slug . '.' . $ext;
-                    
-                    if (!file_exists(public_path('assets/images/restaurants/' . $ob->id))) {
-                        mkdir('assets/images/restaurants/' . $ob->id, 0777, true);
-                    }
-                    $destinationPath = public_path('assets/images/restaurants/' . $ob->id);
-                    $filename = $destinationPath . "/" . $newName;
-                    copy(public_path('assets/images/restaurants/' . $image_file), $filename);
-                    @unlink(public_path('assets/images/restaurants/' . $image_file));
-                    $sizes = ['assets/images/restaurants/' . $ob->id . '/thumb_' => '145x100', 'assets/images/restaurants/' . $ob->id . '/thumb1_' => '120x85'];
-                    copyimages($sizes, $filename, $newName);
-                    $res = new \App\Http\Models\Restaurants();
-                    $res->where('id', $ob->id)->update(['logo' => $newName]);
-                }
-
-                // add cuisines separately to table, with foreign key restID
-                $cuisinesExpl = explode(",",$post['cuisines']);
-                $cuisinesExplCnt=count($cuisinesExpl);
-                for($i=0;$i<$cuisinesExplCnt;$i++){
-                  \App\Http\Models\Cuisines::makenew(array('restID' => $ob->id, 'cuisine' => $cuisinesExpl[$i]));
-
-                }
-
-                $user = $this->registeruser("Home@signupRestaurants", $post, 2, $ob->id, $browser_info);
-
-                $message['title'] = "Registration Success";
-                $message['msg_type'] = "success";
-                $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";
-                if($email_verification) {
-                    $message['msg_desc'] .= " A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
-                }
-                //return view('messages.message', $message);
-                return $this->success($message['msg_desc'], 'restaurant/info');
-            } catch (\Exception $e) {
-                \DB::rollback();
-                return $this->failure(handleexception($e),$Redirect);
-            }
+            return app('App\Http\Controllers\RestaurantController')->restaurantInfo();
         } else {
             $data['title'] = "Signup Restaurants Page";
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
@@ -400,7 +315,7 @@ class HomeController extends Controller {
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
 //            $data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
             
-            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+            $data['cuisine_list'] = cuisinelist();
             
             return view('restaurants-signup', $data);
         }

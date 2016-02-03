@@ -1859,4 +1859,7 @@
         return \App\Http\Models\PageViews::getView($id, $type);
     }
 
+    function cuisinelist(){//why is this hard-coded?
+        return array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+    }
 ?>
