@@ -49,16 +49,17 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="ratingModalLabel">Reviews Detail</h4>
+                <h4 class="modal-title" id="ratingModalLabel">Reviews</h4>
             </div>
             <div class="modal-body">
+                <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" id="reviews"></div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" id="modal_contents"><img src="{{ asset('assets/images/loader.gif') }}" /></div>
                 </div>
-            </div>
+            </div></div>
             <div class="clearfix"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -1,3 +1,9 @@
+.modal-header{
+    background: #d9534f !important;
+    color:white;
+
+}
+
 .ui-timepicker-table {
     background: #fff;
 }
@@ -75,11 +81,7 @@ tr {
     white-space: nowrap;
 }
 
-.modal-header {
-    background: #D50000 !important;
-    color: #fff;
-    border: 1px solid #D50000 !important;
-}
+
 
 body {
     background: #f4f7f8 !important;

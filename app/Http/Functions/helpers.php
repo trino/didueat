@@ -1803,7 +1803,7 @@
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
 
             if ($add_rate_brn == true) {
-                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '">Reviews (' . $count_rating . ')</a> ';
+                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '">Reviews (' . $count_rating . ')</a> ';
             }
 
             if ($add_rate_brn == true && \Session::has('session_id')) {

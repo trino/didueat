@@ -80,12 +80,15 @@ foreach ($cuisineListA as $name) {
 echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
 
 if(!$minimum){
-    echo newrow($new, "Tags"); ?>
-        <a name="setlogo"></a>
+
+     //   disable tags for now
+ //   echo newrow($new, "Tags");
+?>
+        <!--a name="setlogo"></a>
         <textarea id="demo4" class="form-control"></textarea>
         <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
         <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
-    </div></div>
+    </div></div-->
 
 
 <?php
