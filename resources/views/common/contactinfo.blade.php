@@ -29,13 +29,13 @@ foreach ($Fields as $Field) {
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
+    <input type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
-    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required @if(isset($emaillocked)) readonly @endif >
+    <input maxlength="10" type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required @if(isset($emaillocked)) readonly @endif >
 </div>
 <?php echo newrow(); ?>
 

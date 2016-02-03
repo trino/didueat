@@ -11,7 +11,9 @@
                 </div>
                 <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="m-b-0">
                     <div class="modal-body m-t-1">
+
                         <?php printfile("views/popups/login.blade.php"); ?>
+
                         <DIV ID="message" align="center"></DIV>
                         {!! csrf_field() !!}
                         <input type="hidden" name="action" value="login">
@@ -21,11 +23,11 @@
                         <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
 
                         <?= newrow(false, "Email", "", true); ?>
-                        <input type="email" name="email" class="form-control" placeholder="Email Address" required/>
+                        <input type="email" name="email" class="form-control" placeholder="" required/>
                         <?=newrow()?>
 
                         <?= newrow(false, "Password", "", true); ?>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" class="form-control" placeholder="" required>
 
                         <p class="m-t-1 m-b-0"><a href="javascript:void(0);" class="" data-toggle="modal" data-target="#forgotpasswordModal"
                               data-dismiss="modal">
@@ -38,10 +40,17 @@
                     <div class="modal-footer">
 
 
-                        <a class="btn btn-success" href="javascript:void(0);" data-toggle="modal"
-                           data-target="#signupModal" data-dismiss="modal">
-                            Sign up
-                        </a>
+
+
+                        <div class="pull-left">
+                            Don't have an account?
+                            <a class="" href="javascript:void(0);" data-toggle="modal"
+                               data-target="#signupModal" data-dismiss="modal">
+                                Sign up
+                            </a>
+                        </div>
+
+
                         <button class="btn btn-primary" type="submit">Log in</button>
                         <div class="clearfix"></div>
                     </div>
