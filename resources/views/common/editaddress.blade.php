@@ -78,7 +78,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             echo old('formatted_address');
             //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
         } else if (isset($addresse_detail->address)) {
-            $country = select_field("countries", "id", $addresse_detail->country, "name");
+            $country = "Canada";// select_field("countries", "id", $addresse_detail->country, "name");
             //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
             echo $addresse_detail->address;
         }
@@ -108,11 +108,6 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
-<?= newrow($new, "Country", "", $required, 5); ?>
-    <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
-       value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
-</div></div>
-
 <?php 
     if(isset($restSignUp)){
         echo newrow($new, "Important", "", true, 10, true);
@@ -128,10 +123,11 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 if($isUser){
     echo newrow($new, "Notes", "", false, 9);
     ?>
-    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-    </div></div>
-<?php }
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+               value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+        </div></div>
+    <?php
+}
 
 if(isset($type)){
     //echo "<script>initAutocomplete();</script>";

@@ -354,7 +354,7 @@ function geolocate(formatted_address) {
                                 $("#postal_code").val(value);
                                 break;
                             case "country":
-                                $("#country option").filter(function() {return this.text == value;}).attr('selected', true);
+                                //$("#country option").filter(function() {return this.text == value;}).attr('selected', true);
                                 break;
                             case "locality":
                                 $("#city").val(value);

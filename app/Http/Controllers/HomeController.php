@@ -167,7 +167,7 @@ class HomeController extends Controller {
         $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();//count all open restaurants
         $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
         $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
-        $data['countries'] = \App\Http\Models\Countries::get();//load all countries
+        //$data['countries'] = \App\Http\Models\Countries::get();//load all countries
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
         $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
@@ -506,14 +506,6 @@ class HomeController extends Controller {
                             echo ' SELECTED';
                         }
                         echo '>' . $Province->name . '</OPTION>' . "\r\n";
-                    }
-                    if(!isset($HasProvinces)){
-                        $Provinces = get_entry("countries", $_POST["country"]);
-                        if($Provinces) {
-                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Provinces->name . ' has no provinces/states</OPTION>';
-                        } else {
-                            echo '<OPTION SELECTED DISABLED VALUE="">Country: ' . $_POST["country"] . ' not found</OPTION>';
-                        }
                     }
                     break;
                 case "cities":
