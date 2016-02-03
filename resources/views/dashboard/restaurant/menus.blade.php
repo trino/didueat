@@ -20,7 +20,7 @@
                 <div class="col-xs-12 col-sm-8 col-md-10 menu_managers_edits">
                     <?php printfile("views/dashboard/restaurant/manus.blade.php"); ?>
                     <div class="btn_wrapper margin-bottom-20 clearfix">
-                        <a class="btn btn-primary red add_item pull-right" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
+                        <a class="btn btn-primary add_item pull-right" id="add_item0" href="javascript:void(0)">Add Menu Item</a>
                     </div>
                     <div class="box-shadow">
                         <div class="portlet-title">
@@ -57,7 +57,7 @@
                                                         <div class="row">
                                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                                 <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
-                                                                <a href="{{ url('/restaurant/deleteMenu/'.$value->id) }}" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->menu_item . "'") }} ?');" id="deleteitem{{ $value->id }}" class="deletecat btn red ignore">Delete</a>
+                                                                <a href="{{ url('/restaurant/deleteMenu/'.$value->id) }}" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->menu_item . "'") }} ?');" id="deleteitem{{ $value->id }}" class="deletecat btn ignore">Delete</a>
                                                                 <div style="clear: both;" class="ignore"></div>
                                                             </div>
                                                             <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">

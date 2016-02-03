@@ -675,10 +675,6 @@ table.orders thead {
     padding-left: 9px;
 }
 
-.uploaded_by {
-    font-size: 14px;
-    white-space: nowrap;
-}
 
 .uploaded_on {
     font-size: 14px;

@@ -1,5 +1,4 @@
 @if(!isset($_GET['page']))
-
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
         @endif
 
@@ -24,6 +23,8 @@
                         <div class="col-md-9" style="">
                             <div class="">
                                 <div class="">
+
+
                                     <?php
                                     $main_price = $value->price;
                                     $dis = '';
@@ -44,6 +45,8 @@
                                         $dis = "" . $discount . "% discount " . $everyday . "";
                                     }
                                     ?>
+
+
                                     <h4 class="card-title">
                                         <a href="#" id="{{ $value->id }}"
                                            data-res-id="{{ $value->restaurant_id }}" type="button"
@@ -52,25 +55,41 @@
                                             {{ $value->menu_item }}
 
                                         </a>
-                                        @if($dis)
-                                            <strike>${{number_format($value->price,2)}}</strike>
-                                            ${{number_format($main_price,2)}}
-                                        @else
-                                            ${{number_format($value->price,2)}}
-                                        @endif
 
+                                        <div class="pull-right">
+                                            @if($dis)
+                                                <strike class="text-muted">${{number_format($value->price,2)}}</strike>
+                                                ${{number_format($main_price,2)}}
+                                            @else
+                                                ${{number_format($value->price,2)}}
+                                            @endif
 
+                                        </div>
                                     </h4>
-                                        <p class="card-text m-a-0">{{ $value->description }}</p>
 
-                                    <p class="text-muted m-a-0">{{ $value->cat_name }} {{$dis}}
+
+                                    <p class="card-text m-a-0">{{ $value->description }}</p>
+
+                                    <p class="card-text m-a-0">
+                                       {{$dis}}
+                                    </p>
+
+                                    <p class="card-text m-a-0 text-muted">
+                                        Category: {{ $value->cat_name }}
 
                                         @if($value->uploaded_on)
-                                            <strong>Submitted: </strong>{{$value->uploaded_on}}
-                                            <strong>By: </strong> Van T.
+                                            Submitted: {{$value->uploaded_on}}
                                         @endif
 
+                                        @if($value->uploaded_by)
+                                            <?php
+                                            $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                            echo "by: " . $uploaded_by->name . "";
+                                            ?>
+                                        @endif
                                     </p>
+
+
                                 </div>
 
                                 @if(false) <!-- no tags yet -->
@@ -89,28 +108,35 @@
 
 
                                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                                    <div class="pull-right">
 
-                                    <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
-                                       class="btn btn-sm btn-danger-outline"
-                                       onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
 
-                                    <button id="add_item{{ $value->id }}" type="button"
-                                            class="btn btn-sm btn-info additem" data-toggle="modal"
-                                            data-target="#addMenuModel">Edit
-                                    </button>
+                                        <a id="up_parent_{{ $value->id.'_'.$catid }}"
+                                           class="btn btn-sm btn-secondary sorting_parent" href="javascript:void(0);"><i
+                                                    class="fa fa-angle-left"></i></a>
 
-                                    <a id="up_parent_{{ $value->id.'_'.$catid }}"
-                                       class="btn btn-sm btn-secondary sorting_parent" href="javascript:void(0);"><i
-                                                class="fa fa-angle-left"></i></a>
+                                        <a id="down_parent_{{ $value->id.'_'.$catid }}"
+                                           class="btn btn-sm btn-secondary sorting_parent" href="javascript:void(0);"><i
+                                                    class="fa fa-angle-right"></i></a>
+                                        <button id="add_item{{ $value->id }}" type="button"
+                                                class="btn btn-sm btn-info additem" data-toggle="modal"
+                                                data-target="#addMenuModel">Edit
+                                        </button>
 
-                                    <a id="down_parent_{{ $value->id.'_'.$catid }}"
-                                       class="btn btn-sm btn-secondary sorting_parent" href="javascript:void(0);"><i
-                                                class="fa fa-angle-right"></i></a>
+
+                                        <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
+                                           class="btn btn-sm btn-danger-outline"
+                                           onclick="return confirm('This will delete the menu item. Do you like to proceed?')">X</a>
+
+
+                                    </div>
+
                                 @endif
+                                <div class="pull-left">
 
-                                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
 
-
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -127,20 +153,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-                if($value->uploaded_by)
-                {
-                ?>
-                <div class="uploaded_by col-md-6 padding-left-0">
-                    <?php
-                    $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                    echo "<strong>Uploaded by: </strong>" . $uploaded_by->name . "<br/>";
 
-                    ?>
-                </div>
-                <?php
-                }
-                ?>
 
                 <div class="clearfix"></div>
 
@@ -334,12 +347,9 @@
 @if( $menus_list->hasMorePages() === true)
     <div class="row" id="LoadMoreBtnContainer{{ $catid }}">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <button align="center" class="loadmore red btn btn-primary" title="{{ $catid }}">Load More</button>
-            </div>
+            <button align="center" class="loadmore btn btn-primary btn-block" title="{{ $catid }}">Load More</button>
         </div>
     </div>
 @endif
-
 
 <div class="clearfix"></div>

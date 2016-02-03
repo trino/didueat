@@ -24,7 +24,7 @@
 
             <div class="col-xs-12 col-sm-8 col-md-10 ">
                 <?php printfile("views/dashboard/user/manage_image.blade.php"); ?>
-                <a href="#addNewUser" class="btn red pull-right fancybox-fast-view">Add New</a>
+                <a href="#addNewUser" class="btn pull-right fancybox-fast-view">Add New</a>
 
                 <div class="clearfix"></div>
 
@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="form-actions">
-                <button type="submit" class="btn red">Save Changes</button>
+                <button type="submit" class="btn">Save Changes</button>
             </div>
             {!! Form::close() !!}
         </div>

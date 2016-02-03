@@ -73,7 +73,7 @@
                                     $("#postswrapper_{{ $cat->id }}").html(res);
                                 }
                                 else {
-                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
+                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
                                 }
                             }
                         });
