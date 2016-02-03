@@ -19,8 +19,8 @@ $first = false; $type = "hidden";
 
                             @if(read("id"))
                                 <?php
-                                $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                                if($addresses->count()){
+                                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                                    if($addresses->count()){
                                 ?>
                                 <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false"><span
@@ -66,13 +66,11 @@ $first = false; $type = "hidden";
 
 
                 <script>
-
                     var formatted_address2, formatted_address3;
 
                     function initAutocomplete2() {
                         formatted_address2 = initAutocompleteWithID('formatted_address2');
                         formatted_address3 = initAutocompleteWithID('formatted_address3');
-
                     }
 
                     function setaddress(Address) {
@@ -89,6 +87,9 @@ $first = false; $type = "hidden";
                         }, 100);
                     }
 
+                    <?php if($first){
+                        echo '$("#addy' . $first . '").trigger("click");';
+                    } ?>
                 </script>
 
 
