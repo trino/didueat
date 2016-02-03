@@ -60,8 +60,8 @@ class ProfileAddressesController extends Controller {
             }
         } else {
             $data['title'] = "Addresses Manage";
-            $data['countries_list'] = \App\Http\Models\Countries::get();
-            $data['states_list'] = \App\Http\Models\States::get();
+            //$data['countries_list'] = \App\Http\Models\Countries::get();
+            //$data['states_list'] = \App\Http\Models\States::get();
             return view('dashboard.profiles_address.index', $data);
         }
     }
