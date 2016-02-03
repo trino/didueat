@@ -76,7 +76,8 @@ class BaseModel extends Model {
                 if(!isset($this->$key) || !$this->$key) {//empty or doesn't exist
                     switch ($cell) {
                         case "guid":
-                            $this->$key = guidv4();
+                            //$this->$key = guidv4();
+                            $this->$key = strtoupper(base_convert(microtime(false), 10, 36));
                             $data[$cell]=$this->$cell;
                             break;
                     }
