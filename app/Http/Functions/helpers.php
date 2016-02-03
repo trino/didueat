@@ -815,14 +815,6 @@
 
     }
 
-    function mapcountryprovince($Value, $IsProvince = false) {
-        if (is_numeric($Value)) {
-            return select_field(iif($IsProvince, "states", "countries"), "id", $Value, "name");
-        } else if ($IsProvince && strlen($Value) == 2) {
-            return select_field("states", "abbreviation", strtoupper($Value), "name");
-        }
-        return $Value;
-    }
 
 //SELECT * FROM $table WHERE $column = $value
     function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {

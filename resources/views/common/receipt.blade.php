@@ -232,11 +232,14 @@
                             <div class="col-xs-12">
                                 <select class="form-control form-control--contact resetme" name="province"
                                         id="ordered_province">
-                                    <option value="">Province</option>
-                                    @foreach($states_list as $value)
+                                    <option value="ON" SELECTED>Ontario</option>
+
+                                    <?php
+                                        /*foreach($states_list as $value)
                                         <option value="{{ $value->id }}"
-                                                @if(isset($profile->province) && $profile->province == $value->id) selected @endif>{{ $value->name }}</option>
-                                    @endforeach
+                                                if(isset($profile->province) && $profile->province == $value->id) selected endif>$value->name</option>
+                                        endforeach */
+                                    ?>
                                 </select>
                             </div>
 
