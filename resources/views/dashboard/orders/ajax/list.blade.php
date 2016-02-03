@@ -83,9 +83,9 @@ $secondsTitle = "sec";
 
                 @foreach($Query as $value)
                     <tr>
-                        <td>{{ $value->id }}
+                        <td>
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">View</a>
+                               class="btn btn-primary  btn-sm">{{ $value->id }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>

@@ -35,8 +35,8 @@
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                     <?php
                     if (!read("id")) {
-                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#loginModal">Log In</a></li>';
-                        echo '<li class="list-inline-item"><a data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
+                        echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>';
+                        echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
                     if (Session::get('session_type_user') == "restaurant") {
