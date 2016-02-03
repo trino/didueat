@@ -34,7 +34,7 @@
                 <div id="actionBtn">
                     <div class="pull-left">
                         Already have an account?
-                        <a href="javascript:void(0);" data-toggle="modal" data-dismiss="modal"
+                        <a href="#" data-toggle="modal" data-dismiss="modal"
                            data-target="#loginModal">
                             Log in
                         </a>

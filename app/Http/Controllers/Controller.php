@@ -63,7 +63,7 @@ abstract class Controller extends BaseController {
 
         $profile['restaurant_id'] = $restaurantid;
         $profile['profile_type'] = $profile_type;  // restaurant
-        $profile['name'] = $post['name'];
+        $profile['name'] = $post['ordered_by'];
         $profile['email'] = $post['email'];
         if(isset($post['phone'])) {$profile['phone'] = $post['phone'];}
         if(isset($post['mobile'])) {$profile['mobile'] = $post['mobile'];}
@@ -75,6 +75,7 @@ abstract class Controller extends BaseController {
         $profile['browser_name'] = $browser_info['name'];
         $profile['browser_version'] = $browser_info['version'];
         $profile['browser_platform'] = $browser_info['platform'];
+        if(isset($_POST['gmt']))
         $profile['gmt'] = $post['gmt'];
         $profile['status'] = 'active';
 

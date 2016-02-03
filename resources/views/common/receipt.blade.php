@@ -222,7 +222,7 @@
                         <div class="profile_delivery_detail" style="display: none;">
                              <div class="form-group">
                                 <div class="col-xs-12">
-                                @include('common.addressbar')
+                                
                                 
 
                                 </div>
@@ -231,13 +231,14 @@
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text" pattern="[0-9]*" maxlength="10" min="10"
+                                    <input type="text"  maxlength="10" min="10"
                                            placeholder="Cell Phone" id="phone"
                                            class="form-control form-control--contact phone" name="contact"
                                            id="ordered_contact" required="">
                                 </div>
                             </div>
-
+                            @include('common.editaddress',['type'=>'reservation'])
+                            <?php /*?>
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
                                     <input type="text" placeholder="Address" id="ordered_street"
@@ -270,7 +271,7 @@
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code"
                                        class="form-control form-control--contact resetme" name="postal_code">
                             </div>
-
+                            <?php */ ?>
                             <div class="clearfix"></div>
                         </div>
 
@@ -367,13 +368,13 @@
 <script>
     function addresschanged(thiss) {
             $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-            $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
-            $("#ordered_city").val(thiss.getAttribute("CITY"));
-            $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
+            $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
+            $("#city").val(thiss.getAttribute("CITY"));
+            $("#province").val(thiss.getAttribute("PROVINCE"));
             $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-            $("#ordered_code").val(thiss.getAttribute("POSTAL"));
+            $("#postal_code").val(thiss.getAttribute("POSTAL"));
             $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-            $('#formatted_address3').val('');
+            //$('#formatted_address3').val('');
 
 
     }

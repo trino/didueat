@@ -31,7 +31,7 @@
                                             echo '</a>';
                                         }
                                     ?>
-                                        <a href="javascript:void(0);" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" class="dropdown-item">Add New Address</a>
+                                        <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" class="dropdown-item">Add New Address</a>
                                         
                                 </div>
                                 <?php } ?>
