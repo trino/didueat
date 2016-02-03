@@ -160,16 +160,18 @@ class RestaurantController extends Controller {
     public function restaurantInfo($id = 0) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
-            if(!isset($post['id'])){$post['id']=$id;}
+            if(!isset($post['id'])){$post['id']=$id;} else {$id = $post['id'];}
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
+            /*
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
                 return $this->failure("[Postal Code] field is missing or invalid!", 'restaurant/info/' . $post['id']);
             }
+            */
             try {
                 $update=$post;
                 $addlogo='';
@@ -202,28 +204,26 @@ class RestaurantController extends Controller {
                     $update['slug'] = $this->createslug($post['name']);
                 }
 
-                if(isset($post['email'])) {$update['email'] = $post['email'];}
-                //$update['website'] = $post['website'];
-                $update['phone'] = $post['phone'];
-                if(isset($post['description'])){$update['description'] = $post['description'];}
-                $update['cuisine'] = $post['cuisines'];
-                $update['province'] = $post['province'];
-                if(isset($post['formatted_address'])){ $update['address'] = $post['formatted_address'];}
-                $update['formatted_address'] = $post['formatted_addressForDB']; // hidden field on signup page
-                $update['city'] = $post['city'];
-                $update['postal_code'] = $post['postal_code'];
-                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
-                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
-                // if delivery is not allowed, don't save any values for delivery_fee, minimum or max_delivery_distance
-                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
-                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-               // $update['tags'] = $post['tags'];
-                $browser_info = getBrowser();
-                $update['ip_address'] = get_client_ip_server();
-                $update['browser_name'] = $browser_info['name'];
-                $update['browser_version'] = $browser_info['version'];
-                $update['browser_platform'] = $browser_info['platform'];
+                if(isset($post["claim"]) && $post["claim"]){
+                    $post = array_filter($post);
+                    $update=array_filter($update);
+                } else {
+                    // if delivery is not allowed, don't save any values for delivery_fee, minimum or max_delivery_distance
+                    $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
+                    $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
+                    $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
+                    $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
+                    $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
+                }
+                $Fields = array("email", "phone", "description", "cuisines", "province", "city", "postal_code", "address" => "formatted_address", "formatted_address" => "formatted_addressForDB");
+                foreach($Fields as $Key => $Field){
+                    if(is_numeric($Key)){
+                        $Key = $Field;
+                    }
+                    if(isset($post[$Field])){
+                        $update[$Key] = $post[$Field];
+                    }
+                }
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
@@ -236,10 +236,12 @@ class RestaurantController extends Controller {
                 }
                 
                 // add cuisines separately to table, with foreign key restID
-                $cuisinesExpl = explode(",",$post['cuisines']);
-                $cuisinesExplCnt=count($cuisinesExpl);
-                for($i=0;$i<$cuisinesExplCnt;$i++){
-                    \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                if(isset($post['cuisines'])) {
+                    $cuisinesExpl = explode(",", $post['cuisines']);
+                    $cuisinesExplCnt = count($cuisinesExpl);
+                    for ($i = 0; $i < $cuisinesExplCnt; $i++) {
+                        \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                    }
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));

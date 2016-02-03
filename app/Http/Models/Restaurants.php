@@ -38,6 +38,12 @@ class Restaurants extends BaseModel {
             }
         }
 
+        $browser_info = getBrowser();
+        $data['ip_address'] = get_client_ip_server();
+        $data['browser_name'] = $browser_info['name'];
+        $data['browser_version'] = $browser_info['version'];
+        $data['browser_platform'] = $browser_info['platform'];
+
         $this->copycells($cells, $data);
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}

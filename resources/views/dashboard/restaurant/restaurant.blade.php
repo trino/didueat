@@ -16,24 +16,43 @@
         $brTag="";
         $brTag2="<br/>";
     }
+    if(!isset($new) || !$new){
+        $new = false;
+        $searchcode= "";
+    } else {
+        $searchcode = ' ONKEYUP="restsearch(event);"';
+    }
 
 echo newrow($new, "Restaurant Name", "", true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
-    <input type="text" name="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+    <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required <?= $searchcode; ?>>
 </div></div>
 
 <?= newrow($new, "Phone", "", true); ?>
-    <input type="text" name="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
+    <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required <?= $searchcode; ?>>
 </div></div>
 
-<?php if(!isset($new) || !$new){
+<?php if(!$new){
     echo newrow($new, "Description", "", true, 9);
     echo '<textarea required name="description" class="form-control"' . $is_disabled . '>';
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
+} else {
+    echo '<DIV ID="restsearch" CLASS="col-sm-12"></DIV><INPUT TYPE="hidden" name="id" id="restid"><INPUT TYPE="hidden" name="claim" id="claim"><BR>';
+
+    /*
+    echo '<DIV CLASS="col-sm-12" style="display: none;" ID="claimrestaurant">';
+        echo newrow(true, "Email Address:", "", true);
+
+        echo '<INPUT TYPE="TEXT" ID="restemail" CLASS="form-control">';
+        echo '</DIV></DIV>';
+        echo '<input type="button" class="btn btn-primary pull-right" value="Claim" ONCLICK="finishclaim();">';
+
+    echo '</DIV>';
+    */
 }
 
-
+echo '<DIV id="cuisinelist">';
 echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
@@ -57,7 +76,7 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
+echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum){
         echo newrow($new, "Logo", "", "", 7);
@@ -89,6 +108,41 @@ if(!$minimum){
 
 
 <script>
+    function claimrestaurant(id){
+        $("#claimrestaurant").show();
+        $("#restname").val( $("#restname" + id).html() );
+        $("#cuisinelist").hide();
+        $("#common_editaddress").hide();
+        $("#restid").val(id);
+        $("#claim").val("true");
+    }
+
+    function finishclaim(){
+        if(!$("#restemail-error").is(":visible") && $("#restemail").val()) {
+            alert("Done");
+        } else {
+            alert("Please enter a valid email address");
+        }
+    }
+
+    function restsearch(event){
+        var RestaurantName = $("#restname").val();
+        var PhoneNumber = $("#phone").val();
+        RestaurantName = encodeURIComponent(RestaurantName.trim());
+        PhoneNumber = PhoneNumber.replace(/\D/g,'');
+        if(RestaurantName){// && PhoneNumber.length == 10) {
+            $.ajax({
+                url: "{{ url('/ajax') }}",
+                type: "post",
+                dataType: "HTML",
+                data: "type=restsearch&name=" + RestaurantName + "&phone=" + PhoneNumber,
+                success: function (msg) {
+                    $("#restsearch").html(msg);
+                }
+            });
+        }
+    }
+
     $(document).ready(function () {
         @if(!$minimum)
             is_delivery_change();

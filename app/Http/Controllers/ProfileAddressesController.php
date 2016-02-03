@@ -28,14 +28,16 @@ class ProfileAddressesController extends Controller {
             if ((isset($post['formatted_addressForDB']) && !empty($post['formatted_addressForDB'])) && (!isset($post['formatted_address']) || empty($post['formatted_address']))) {
               $post['formatted_address'] = $post['formatted_addressForDB'];
             }
-            if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
-                return $this->failure( "[Street address] field is missing!",'user/addresses');
-            }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!",'user/addresses');
-            }
-            if (!isset($post['province']) || empty($post['province'])) {
-                return $this->failure("[Province] field is missing!",'user/addresses');
+            if(false) {
+                if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
+                    return $this->failure("[Street address] field is missing!", 'user/addresses');
+                }
+                if (!isset($post['city']) || empty($post['city'])) {
+                    return $this->failure("[City] field is missing!", 'user/addresses');
+                }
+                if (!isset($post['province']) || empty($post['province'])) {
+                    return $this->failure("[Province] field is missing!", 'user/addresses');
+                }
             }
             if (!isset($post['country']) || empty($post['country'])) {
               //  return $this->failure( "[Country] field is missing!",'user/addresses');

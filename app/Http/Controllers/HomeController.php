@@ -277,27 +277,32 @@ class HomeController extends Controller {
             if ($is_email > 0) {
                 return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
             }
-            if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
-                $post['formatted_address'] = $post["formatted_addressForDB"];
+
+            if(!isset($post["id"])) {
+                if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
+                    $post['formatted_address'] = $post["formatted_addressForDB"];
+                }
+                if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
+                    return $this->failure("[Address] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['city']) || empty($post['city'])) {
+                    return $this->failure("[City] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['province']) || empty($post['province'])) {
+                    return $this->failure("[Province] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['postal_code']) || empty($post['postal_code'])) {
+                    return $this->failure("[Postal Code] field is missing or invalid!", $Redirect, true);
+                }
+                if (!isset($post['country']) || empty($post['country'])) {
+                    //    return $this->failure("[Country] field is missing!",$Redirect, true);
+                }
             }
-            if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
-                return $this->failure("[Address] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['province']) || empty($post['province'])) {
-                return $this->failure("[Province] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                return $this->failure("[Postal Code] field is missing or invalid!",$Redirect, true);
-            }
+
             if (!isset($post['phone']) || empty($post['phone'])){
                 return $this->failure("[Phone] field is missing or invalid!",$Redirect, true);
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-            //    return $this->failure("[Country] field is missing!",$Redirect, true);
-            }
+
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
@@ -307,6 +312,7 @@ class HomeController extends Controller {
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
+
             return app('App\Http\Controllers\RestaurantController')->restaurantInfo();
         } else {
             $data['title'] = "Signup Restaurants Page";
@@ -357,10 +363,11 @@ class HomeController extends Controller {
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
         //var_dump(count($menus_list));
-        if(count($menus_list))
-        return view('menus', $data);
-        else
-        die('no');
+        if(count($menus_list)) {
+            return view('menus', $data);
+        }else {
+            die('no');
+        }
     }
 
     //loads contact us view
@@ -410,40 +417,13 @@ class HomeController extends Controller {
         if (!isset($_POST["type"])) {$_POST = $_GET;}
         if (isset($_POST["type"])) {
             switch (strtolower($_POST["type"])) {
-                case "provinces":
-                    $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
-                    echo '<OPTION VALUE="">Select Country</OPTION>';
-                    foreach($Provinces as $Province){
-                        $HasProvinces = true;
-                        echo '<OPTION VALUE="' . $Province->id . '"';
-                        if (!empty($_POST["value"])){
-                            if($Province->id == $_POST["value"]){ echo ' SELECTED'; }
-                        }elseif($Province->id == 7){
-                            echo ' SELECTED';
-                        }
-                        echo '>' . $Province->name . '</OPTION>' . "\r\n";
-                    }
-                    break;
-                case "cities":
-                    $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
-                    $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
-                    echo '<OPTION VALUE="">Select Province</OPTION>';
-                    foreach($Cities as $City){
-                        $HasCities = true;
-                        echo '<OPTION VALUE="' . $City->id . '"';
-                        if ( $City->id == $_POST["value"]){
-                            echo ' SELECTED';
-                        }
-                        echo '>' . $City->city . '</OPTION>' . "\r\n";
-                    }
-                    if(!isset($HasCities)){
-                        $Cities = get_entry("cities", $_POST["province"]);
-                        if($Cities){
-                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Cities->city . ' has no provinces/states</OPTION>';
-                        } else {
-                            echo '<OPTION SELECTED DISABLED VALUE="">Province: ' . $_POST["province"] . ' not found</OPTION>';
-                        }
-                    }
+                case "restsearch":
+                    //name and phone
+                    $restaurants = \App\Http\Models\Restaurants::where('name', 'LIKE', '%' .  $_POST["name"] . '%')
+                        ->where("is_complete", 0)
+                        //->orWhere(function($query) {$query->where('phone', $_POST["phone"])->where('mobile', $_POST["phone"]);})
+                        ->get();
+                    return view('dashboard.restaurant.ajax.search', array("restaurants" => $restaurants));
                     break;
 
                 case "add_enable":
