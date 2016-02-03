@@ -27,7 +27,7 @@
                 <p class="card-text" style="font-size:90%;">
                     {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                    {!! (isset($restaurant->province))? mapcountryprovince($restaurant->province, true) .' ':'' !!}
+                    {!! (isset($restaurant->province))? 'ON':'' !!}
                     {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     <br>{!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     <br>Wed: 8am - 8pm
@@ -211,7 +211,7 @@
                                 </div>
                             </div>
                             @include('common.editaddress',['type'=>'reservation'])
-                            <?php /*?>
+                            <?php if(false){  ?>
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
                                     <input type="text" placeholder="Address" id="ordered_street"
@@ -246,7 +246,7 @@
                             <div class="col-xs-12">
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact resetme" name="postal_code">
                             </div>
-                            <?php */ ?>
+                            <?php } ?>
                             <div class="clearfix"></div>
                         </div>
 
