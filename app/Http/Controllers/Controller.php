@@ -63,6 +63,7 @@ abstract class Controller extends BaseController {
 
         $profile['restaurant_id'] = $restaurantid;
         $profile['profile_type'] = $profile_type;  // restaurant
+        if(!isset($post['ordered_by'])){$post['ordered_by']=0;}
         $profile['name'] = $post['ordered_by'];
         $profile['email'] = $post['email'];
         if(isset($post['phone'])) {$profile['phone'] = $post['phone'];}

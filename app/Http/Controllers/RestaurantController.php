@@ -164,9 +164,6 @@ class RestaurantController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
-            /*if (!isset($post['country']) || empty($post['country'])) {
-                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
-            }*/
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
@@ -209,7 +206,6 @@ class RestaurantController extends Controller {
                 //$update['website'] = $post['website'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
-                $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisines'];
                 $update['province'] = $post['province'];
                 if(isset($post['formatted_address'])){ $update['address'] = $post['formatted_address'];}
