@@ -1,4 +1,4 @@
-<div class=" col-lg-3">
+<div class="col-lg-3">
 
     <?php
         printfile("views/dashboard/layouts/leftsidebar.blade.php");
@@ -24,22 +24,22 @@
                 'user/reviews' => "User Reviews",
                 'eventlogs/list' => "Event Log"
 
-        ), "<h4><i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin</h4>");
+        ), "<h4 class='card-title'><i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin</h4>");
     }
 
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-                'notification/addresses' => "Notification Email/Number",
+                'notification/addresses' => "Receive Notifications",
                 'restaurant/info' => "Restaurant Info",
                 'credit-cards/list/restaurant' => "Credit Card" //if(\Session::has('session_profiletype') )
-        ), "<h4><i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant</h4>");
+        ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant</h4>");
     }
 
     makelink(array( 'orders/list/user' => 'My Orders',
                         'user/addresses' => "My Addresses",
                         'user/info' => "My Profile"
-                    ), "<h4><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
+                    ), "<h4 class='card-title'><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
 
 
     ?>

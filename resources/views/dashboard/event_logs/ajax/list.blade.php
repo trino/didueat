@@ -9,7 +9,7 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
-                <h3>Event Logs</h3>
+                <h4>Event Logs</h4>
             </div>
             @include('common.table_controls')
         </div>

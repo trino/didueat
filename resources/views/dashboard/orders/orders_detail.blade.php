@@ -11,11 +11,11 @@
 
             <div class="card" id="toPrinpetail">
                 <div class="card-header">
-                    <h3>Order Detail
+                    <h4>Order Detail
 
                         <input type="button" style="" value="Print Report" onclick="prinpiv('toPrinpetail')"
                                class="btn btn-sm pull-right"/>
-                    </h3>
+                    </h4>
                 </div>
 
                 <div class="card-block">

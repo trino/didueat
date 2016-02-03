@@ -27,7 +27,7 @@ if(Session::get('session_type_user') != "restaurant"){
 <div class="col-md-8  col-md-offset-2">
     <div class="card">
         <div class="card-header ">
-            <h3>Your Restaurant</h3>
+            <h4>Your Restaurant</h4>
 
 
             <div class="row">
@@ -54,7 +54,7 @@ if(Session::get('session_type_user') != "restaurant"){
         </div>
 
         <div class="card-header ">
-            <h3>Your Profile</h3>
+            <h4>Your Profile</h4>
         </div>
 
         <div class="card-block ">

@@ -50,8 +50,8 @@ if (Request::path() !== null && Request::path() != "/") {
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
           crossorigin="anonymous">
 
-    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
-            crossorigin="anonymous"></script>
+    <!--script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
+            crossorigin="anonymous"></script-->
         <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>

@@ -11,10 +11,10 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
-                <h3>
+                <h4>
                     Users
                     <!--a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-id="0" data-target="#editModel">Add</a-->
-                </h3>
+                </h4>
             </div>
             @include('common.table_controls')
         </div>

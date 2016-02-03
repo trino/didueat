@@ -39,8 +39,6 @@ echo newrow($new, "Cell Phone", $size, true); ?>
 </div>
 <?php echo newrow(); ?>
 
-
-
 <?= newrow(false, " ", "", false, 7, false); ?>
 
 <label class="c-input c-checkbox">
