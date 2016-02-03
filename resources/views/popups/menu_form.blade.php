@@ -120,7 +120,7 @@
     </div>
 
     <div class="clearfix ignore"></div>
-
+    <?php //echo count($cmodel).'_'.$menu_id;?>
     <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
 
         <hr class=" ignore"/>
@@ -134,16 +134,20 @@
         <?php
         $k = 0;
         if(isset($cmodel)){
+            
 
         if (isset($_GET['menu_id'])) {
-            $menu_id = $_GET['menu_id'];
+             $menu_id = $_GET['menu_id'];
+             }
+            // echo $menu_id;
         foreach($cmodel as $child){
+            //die('here');
         $k++;
         if ($k == 1)
             echo "<div class='ignore' id='subcat" . $menu_id . "'>";
 
         ?>
-        @include('common.additional')
+        @include('popups.additional')
         <?php
         }
         if ($k > 0)
@@ -182,7 +186,8 @@
 
 
 
-        <?php }} ?>
+        <?php }
+        //} ?>
 
 
     </div>

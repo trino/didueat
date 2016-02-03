@@ -514,6 +514,7 @@ class RestaurantController extends Controller {
             }
             die();
         }
+        \Session::flash('message', 'Restaurant menu updated successfully');
     }
 
     //unknown
