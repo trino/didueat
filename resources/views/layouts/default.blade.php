@@ -107,6 +107,13 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 <div class="container m-t-3 p-t-3">
+<div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
+Menu item updated successfully
+</div>
+
+<div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
+Menu item moved successfully
+</div>
 <?php Session();?>
     @if (session('status')|| isset($_GET['flash']))
         <div class="alert alert-success">

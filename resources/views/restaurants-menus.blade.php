@@ -513,6 +513,8 @@
             });
 
             $(".sorting_parent").live('click', function () {
+                var path = window.location.pathname+'?sorted';
+                alert(path);
                 $('.overlay_loader').show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
@@ -537,7 +539,7 @@
                     data: 'ids=' + order + '&_token=<?php echo csrf_token(); ?>',
                     type: 'post',
                     success: function () {
-                        location.reload();
+                        window.location = path;
                     }
                 });
 
