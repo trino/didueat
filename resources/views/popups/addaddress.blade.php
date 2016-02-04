@@ -10,7 +10,12 @@
                                     </h4>
                                 </div>
                                 <div id="ajaxloader"></div>
-                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form')) !!}
+                                <?php
+                                        $class = '';
+                                     if(isset($loaded_from))
+                                        $class= $loaded_from;
+                                ?>
+                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class)) !!}
                                     <div class="modal-body" id="contents">
                     
                                     </div>

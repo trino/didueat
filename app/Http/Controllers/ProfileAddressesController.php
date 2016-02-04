@@ -152,7 +152,14 @@ class ProfileAddressesController extends Controller {
             $post["user_id"] = read("id");
         }
         $post["id"] = $id;
-        \App\Http\Models\ProfilesAddresses::makenew($post, $id);
+        $add = \App\Http\Models\ProfilesAddresses::makenew($post, $id);
+        if(isset($_GET['ajax']))
+        {
+            $address = \App\Http\Models\ProfilesAddresses::find($add->id);
+            return json_encode($address);
+            die();
+        }
+        else
         return $this->success("Address " . $id . " has been edited successfully!", 'user/addresses');
     }
 }

@@ -39,14 +39,16 @@ function changeqty(id, opr) {
         if (t == 'show')
         {
               $('.profile_delivery_detail input').each(function(){
-                $(this).attr('required','required');
+               
+                if($(this).attr('name')!='apartment'){
+                     
+                    $(this).attr('required','required');
+                    }
             });
             $('#df').show();
             $('.profile_delevery_type').text('Delivery To');
             $('.profile_delivery_detail').show();
-            $('.profile_delivery_detail input').each(function () {
-                $(this).attr('required', 'required');
-            });
+          
             var tax = $('.maintax').val();
             
             var grandtotal = 0;
@@ -63,6 +65,7 @@ function changeqty(id, opr) {
             $('.profile_delevery_type').text('Pickup Detail');
             $('.profile_delivery_detail').hide();
             $('.profile_delivery_detail input').each(function(){
+                
                 $(this).removeAttr('required');
             });
             if ($('#pickup1').hasClass("deliverychecked")) {
@@ -259,6 +262,7 @@ function changeqty(id, opr) {
         total = Number(total) - Number(amount);
         total = total.toFixed(2);
         $('#list' + numid + ' .total').text('$' + total);
+         $('#list' + numid + ' .prs').val(total);
 
         quant = parseFloat(quant);
         //alert(quant);
@@ -322,6 +326,8 @@ function changeqty(id, opr) {
         total = Number(total) + Number(amount);
         total = total.toFixed(2);
         $('#list' + numid + ' .total').text('$' + total);
+        $('#list' + numid + ' .prs').val(total);
+        
         quant++;
         $('#list' + numid + ' span.count').text(quant);
         $('#list' + numid + ' input.count').val(quant);

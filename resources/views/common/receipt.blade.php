@@ -61,7 +61,7 @@
             <div class="top-cart-content ">
                 <div class="receipt_main">
                     <h3 class="card-title">Receipt</h3>
-                    @include('common.items')
+                    @include('common.items',['receiptz'=>'from_receipt'])
                     <div class="totals">
                         <table class="table">
                             <tbody>
@@ -158,7 +158,7 @@
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                                 <?php
-                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email')->where('profiles.id', \Session::get('session_id'))->first();
+                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email','profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
                                 echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @else
@@ -167,7 +167,7 @@
                         </div>
                     </div>
 
-                    @include('popups.addaddress')
+                    @include('popups.addaddress',['loaded_from'=>'reservation'])
                     <form name="checkout_form" id="profiles"  class="m-b-0">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="user_id" id="ordered_user_id"
@@ -176,13 +176,13 @@
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
-                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="">
+                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "disabled";?> >
                         </div>
 
                         <div class="col-sm-12">
                             <input type="email" placeholder="Email" class="form-control  form-control--contact"
                                    name="email" id="ordered_email" required=""
-                                   value="{{ (isset($profile))? $profile->email : '' }}">
+                                   value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "disabled";?> />
                         </div>
 
                         @if(!Session::has('is_logged_in'))
@@ -196,20 +196,20 @@
                             </div>
                         @endif
 
-
+                          <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                                    <input type="text"  maxlength="10" min="10"
+                                           placeholder="Cell Phone" id="phone"
+                                           class="form-control form-control--contact phone" name="contact"
+                                           id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "disabled";?> />
+                                </div>
+                            </div>
 
 
                         <div class="profile_delivery_detail" style="display: none;">
 
 
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text"  maxlength="10" min="10"
-                                           placeholder="Cell Phone" id="phone"
-                                           class="form-control form-control--contact phone" name="contact"
-                                           id="ordered_contact" required="">
-                                </div>
-                            </div>
+                          
                             @include('common.editaddress',['type'=>'reservation'])
                             <?php if(false){  ?>
                             <div class="form-group">
@@ -220,7 +220,7 @@
                             </div>
 
                             <div class="col-xs-6">
-                                <input type="text" placeholder="Apartment" id="ordered_apartment"
+                                <input type="text" id="apartment" placeholder="Apartment" id="ordered_apartment"
                                        class="form-control form-control--contact resetme" name="apartment">
                             </div>
 
@@ -340,10 +340,10 @@
 
             $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
             $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
-            $("#city").val(thiss.getAttribute("CITY"));
-            $("#province").val(thiss.getAttribute("PROVINCE"));
-            $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-            $("#postal_code").val(thiss.getAttribute("POSTAL"));
+            $(".city").val(thiss.getAttribute("CITY"));
+            $(".province").val(thiss.getAttribute("PROVINCE"));
+            $(".apartment").val(thiss.getAttribute("APARTMENT"));
+            $(".postal_code").val(thiss.getAttribute("POSTAL"));
             $("#ordered_notes").val(thiss.getAttribute("NOTES"));
             //$('#formatted_address3').val('');
 
@@ -352,5 +352,39 @@
     
     $(function(){
         $('#delivery1').click();
+        //save address
+        $('#edit-form').submit(function(e){
+            if($(this).hasClass('reservation'))
+            {
+                e.preventDefault();
+                var url = $(this).attr('action');
+                var datas = $(this).serialize();
+                
+                $.ajax({
+                    url:url+'?ajax',
+                    type:"post",
+                    data:datas,
+                    dataType:"json",
+                    success:function(msg)
+                    {
+                        
+                        $('.close').click();
+                        $('#formatted_address3').val(msg['formatted_address']);
+                        $('.apratment').val(msg['apartment']);
+                        $('.city').val(msg['city']);
+                        $('.province').val(msg['province']);
+                        $('.postal_code').val(msg['postal_code']);
+                        $('#ordered_notes').text(msg['notes'])
+                        
+                        
+                    }
+                    
+                })
+                
+            }
+        })
+        
+        
+        
     })
 </script>
