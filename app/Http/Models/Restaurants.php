@@ -75,7 +75,7 @@ class Restaurants extends BaseModel {
         }
         return $query;
     }
-
+    
     /**
      * @param $term
      * @param $per_page
@@ -114,7 +114,7 @@ class Restaurants extends BaseModel {
         }
 
         $DayOfWeek = current_day_of_week();
-        $now = "02:00:00"; //date('H:i:s');
+        $now = date('H:i:s');
         $Yesterday = current_day_of_week(-1);
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
