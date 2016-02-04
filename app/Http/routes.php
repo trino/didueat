@@ -66,7 +66,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses/sequence',                          'ProfileAddressesController@addressesSequence');
     Route::post('user/addresses/save/{id}',                         'ProfileAddressesController@addressEdit');
     Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
-    Route::get('user/addresses/edit/{user_id}',                     'ProfileAddressesController@addressesFind')->where('user_id', '[0-9]+');
+    Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
     Route::get('user/info',                                         'AdministratorController@dashboard');
