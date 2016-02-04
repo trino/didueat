@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-
+DELETE THIS PAGE
     <?php printfile("views/dashboard/restaurant/manus.blade.php"); ?>
 
 

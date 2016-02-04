@@ -5,7 +5,7 @@ $first = false; $type = "hidden";
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
-
+<div class="container">
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
@@ -141,8 +141,11 @@ $first = false; $type = "hidden";
                         <a class="btn btn-danger" data-toggle="modal" data-target="#loginModal">Log in</a>
                         <a class="btn btn-danger" data-toggle="modal" data-target="#signupModal">Sign up</a>
                     </li>
+
+
+
                 @endif
             </ul>
         </div>
-
+</div>
 </nav>

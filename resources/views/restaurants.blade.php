@@ -6,6 +6,9 @@ $type = "hidden";
 
 @section('content')
 
+
+
+
     <?php printfile("views/restaurants.blade.php"); ?>
 
     <div class="row ">

@@ -25,7 +25,7 @@
         </div>
     </div-->
 
-    <footer class=" p-t-2  container-fluid text-muted">
+    <footer class=" p-t-2  container text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row">
             <div class="col-lg-10 ">

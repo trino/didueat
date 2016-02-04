@@ -12,18 +12,22 @@
 <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
 
 <div class="row">
+
+
+
+
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
         <?php printfile("views/dashboard/restaurant/index.blade.php"); ?>
-        
+
         <div id="ajax_message_jgrowl"></div>
-        
+
         <!-- Panels Start -->
         <div id="loadPageData">
             <div id="ajaxloader"></div>
         </div>
-        
+
     </div>
 </div>
 

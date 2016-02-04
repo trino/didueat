@@ -1,7 +1,12 @@
 @if(!\Session::has('session_id'))
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+
+
+
+
+
+    <div class="modal fade  " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -36,8 +41,13 @@
                         <?=newrow()?>
 
                         <input type="hidden" name="url" value="{{ Request::path() }}">
+
+                            <button class="btn btn-primary btn-block" type="submit">Log in</button>
+
+
+                        <div class="clearfix"></div>
                     </div>
-                    <div class="modal-footer">
+                    <!--div class="modal-footer">
 
 
 
@@ -51,9 +61,8 @@
                         </div>
 
 
-                        <button class="btn btn-primary" type="submit">Log in</button>
                         <div class="clearfix"></div>
-                    </div>
+                    </div-->
                 </form>
             </div>
         </div>

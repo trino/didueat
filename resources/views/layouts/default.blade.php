@@ -157,6 +157,12 @@ Menu item moved successfully
     @endif
 
     @yield('content')
+
+
+
+
+
+
 </div>
 
 @include('layouts.includes.footer')

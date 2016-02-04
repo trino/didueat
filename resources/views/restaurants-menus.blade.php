@@ -1,5 +1,69 @@
 @extends('layouts.default')
+
+
+
+
+
+<div class="card  row container-fluid">
+    <div class="container p-t-3 p-a-0" style="">
+        <div class="card-block p-b-0">
+
+<div class="col-md-2 p-x-0">
+            <img style="width:150px;" class="pull-left"
+                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                 @else
+                 src="{{ asset('assets/images/default.png') }}"
+                 @endif
+                 alt="Card image cap">
+</div>
+            <div class="col-md-10 p-x-0">
+
+            <h2 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h2>
+
+                <div id="restaurant_rating">
+                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                </div>                <div class="clearfix"></div>
+
+
+                <p class="card-text m-b-0">
+
+
+
+                {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                {!! (isset($restaurant->province))? 'ON':'' !!}
+                {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+
+            </p>
+
+            <p class="card-text " style="">
+             {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                Open today: 8am - 8pm
+                Delivery: 9am - 8pm
+                @if (Session::get('session_type_user') == "super" )
+
+                   Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                @endif
+            </p>
+
+            <div class="clearfix"></div>
+
+            <a style="color:white;" class="" href="#" data-toggle="modal"
+               data-target="#viewMapModel">More Detail</a>
+
+</div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
 @section('content')
+
+
 
     <div class="row">
 
@@ -8,6 +72,10 @@
                 <img src="{{ asset('assets/images/ajax-loading.gif') }}">
             </div>
         </div>
+
+
+
+
 
         <div class=" col-md-4 col-sm-4" id="printableArea">
             @include('common.receipt')
@@ -34,7 +102,6 @@
 
 
 
-
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
             @else
                 <div class="alert alert-success" role="alert">
@@ -49,6 +116,7 @@
                 </div>
             @endif
 
+                <h4>Online Specials</h4>
 
 
             @if(isset($restaurant))
@@ -129,7 +197,7 @@
             }
         }
         $(document).ready(function () {
-            
+
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -148,7 +216,7 @@
                 $('.profiles').hide();
             });
             $('#profiles').submit(function (e) {
-                
+
                 e.preventDefault();
                 $('.overlay_reservation').show();
                 var token = $('#profiles input[name=_token]').val();
@@ -163,7 +231,7 @@
                         if (msg == '1') {
                             alert('Email Already Registred.');
                         } else if (msg == '6') {
-                         
+
                             window.location="{{url('orders/list/user?flash=1')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
                         } else if (msg == '786') {
@@ -360,7 +428,7 @@
                     }
                 });
                 if (err > 0) {
-                    
+
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');

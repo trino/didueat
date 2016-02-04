@@ -3,6 +3,10 @@
     color:white;
 
 }
+
+
+
+
 .primary{background: green !important;: }
 .ui-timepicker-table {
     background: #fff;
@@ -689,7 +693,7 @@ table.orders thead {
 }
 
 .reviews_detail {
-    color: #D9534F;
+    color: #0275d8;
 }
 
 .missLnk {

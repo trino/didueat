@@ -9,7 +9,7 @@
     if (!isset($minimum)) {
         $minimum = false;
     }
-        
+
     $brTag="<br/>";
     $brTag2="";
     if(isset($restSignUpPg)){
@@ -60,7 +60,7 @@ if (isset($restaurant->cuisine)) {
     $cuisineExpl = explode(",", $restaurant->cuisine);
 }
 
-$cnt = 0; 
+$cnt = 0;
 $cuisinesChkd = 0;
 $cuisineListA = $cuisine_list;
 sort($cuisineListA);
