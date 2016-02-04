@@ -104,7 +104,7 @@ if(!$minimum){
         var id = $('#restid option:selected').val();
         if(id){
             $("#restname").val( $("#restname" + id).attr("TITLE") );
-            
+
             $("#cuisinelist").hide();
             $("#common_editaddress").hide();
             $("#claim").val("true");
@@ -142,8 +142,9 @@ if(!$minimum){
     }
 
     $(document).ready(function () {
-        @if(!$minimum)
+        @if(!$minimum){
             is_delivery_change();
+        }
         $('body').on('change', '#is_delivery', function () {
             is_delivery_change();
         });
