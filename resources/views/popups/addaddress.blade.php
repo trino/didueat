@@ -11,16 +11,14 @@
                                     </h4>
                                 </div>
                                 <div id="ajaxloader"></div>
-<<<<<<< HEAD
+
                                 <?php
                                         $class = '';
                                      if(isset($loaded_from))
                                         $class= $loaded_from;
                                 ?>
                                 {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class)) !!}
-=======
-                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form',)) !!}
->>>>>>> origin/master
+
                                     <div class="modal-body" id="contents">
                     
                                     </div>

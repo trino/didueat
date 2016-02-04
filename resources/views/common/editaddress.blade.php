@@ -121,27 +121,8 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
     <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit">
     <input name="addOrEdit" type="hidden" id="addOrEdit" />
 </div></div>
-    
-<?php echo newrow($new, "Street Address", "", true); ?>
-    @if($is_disabled)
-        <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
-    @else
-        <DIV CLASS="nowrap">
-            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
-            if (old('formatted_address')) {
-                echo old('formatted_address');
-                //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
-            } else if (isset($addresse_detail->address)) {
-//                $country = select_field("countries", "id", $addresse_detail->country, "name");
-                //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
-                echo $addresse_detail->address;
-            }
-            $width = 59;
-            ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
-        </DIV>
 
-    @endif  
-<?php echo newrow();
+<?php 
 
 if($isUser){
     $aptUnit="Apartment";
@@ -175,7 +156,7 @@ if($isUser){
 <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
        value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
 </div></div>
-
+</div>
 
 <?php 
     if(isset($restSignUp)){
@@ -214,7 +195,8 @@ if($isUser){
     }
  ?>
 
-
+<?php if(!isset($type))
+{?>
 @if(isset($dontinclude))
 <SCRIPT>
     $(document).ready(function () {
@@ -239,3 +221,4 @@ if($isUser){
        }
     ?>
 @endif
+<?php }?>

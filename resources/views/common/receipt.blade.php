@@ -145,13 +145,13 @@
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control form-control--contact" name="ordered_by"
-                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "disabled";?> >
+                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "readonly";?> >
                         </div>
 
                         <div class="col-sm-12">
                             <input type="email" placeholder="Email" class="form-control  form-control--contact"
                                    name="email" id="ordered_email" required=""
-                                   value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "disabled";?> />
+                                   value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "readonly";?> />
                         </div>
 
                         @if(!Session::has('is_logged_in'))
@@ -170,7 +170,7 @@
                                     <input type="text"  maxlength="10" min="10"
                                            placeholder="Cell Phone" id="phone"
                                            class="form-control form-control--contact phone" name="contact"
-                                           id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "disabled";?> />
+                                           id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
                                 </div>
                             </div>
 
