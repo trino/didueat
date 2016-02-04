@@ -1,7 +1,7 @@
 <?php
     printfile("views/dashboard/restaurant/restaurant.blade.php");
+    //var_dump(get_defined_vars());
 
-    echo newrow($new, "Restaurant Name", "", true);
     $name = iif($new, "restname", "name");//why does it change to restname?
     if (!isset($is_disabled)) {
         $is_disabled = false;
@@ -9,51 +9,60 @@
     if (!isset($minimum)) {
         $minimum = false;
     }
-?>
 
-<input name="initialRestSignup" type="hidden" value="1" />
-<input type="text" name="restname" class="form-control" style=""
-       {{ $is_disabled }} placeholder=""
-       value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>
+    $brTag="<br/>";
+    $brTag2="";
+    if(isset($restSignUpPg)){
+        $brTag="";
+        $brTag2="<br/>";
+    }
+    if(!isset($new) || !$new){
+        $new = false;
+        $searchcode= "";
+    } else {
+        $searchcode = ' ONKEYUP="restsearch(event);"';
+    }
+
+echo newrow($new, "Restaurant Name", "", true); ?>
+    <input name="initialRestSignup" type="hidden" value="1" />
+    <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required <?= $searchcode; ?>>
 </div></div>
 
-
-<?= newrow($new, "Description", "", true, 9); ?>
-<textarea required name="description" class="form-control" {{ $is_disabled }} placeholder="">{{ (isset($restaurant->description))?$restaurant->description: old('description') }}</textarea>
-<?php
-echo newrow();
-
-
-if(!isset($email)){
-echo newrow($new, "Phone", "", true); ?>
-<input type="text" name="phone" class="form-control" {{ $is_disabled }} placeholder=""
-       value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
+<?= newrow($new, "Phone", "", true); ?>
+    <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required <?= $searchcode; ?>>
 </div></div>
-<?php }
 
+<?php if(!$new){
+    echo newrow($new, "Description", "", true, 9);
+    echo '<textarea required name="description" class="form-control"' . $is_disabled . '>';
+    if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
+    echo '</textarea>' . newrow();
+} else {
+    echo '<DIV ID="restsearch" CLASS="col-sm-12"></DIV><INPUT TYPE="hidden" name="id" id="restid"><INPUT TYPE="hidden" name="claim" id="claim"><BR>';
 
-$brTag="<br/>";
-$brTag2="";
-if(isset($restSignUpPg)){
- $brTag="";
- $brTag2="<br/>";
+    /*
+    echo '<DIV CLASS="col-sm-12" style="display: none;" ID="claimrestaurant">';
+        echo newrow(true, "Email Address:", "", true);
+
+        echo '<INPUT TYPE="TEXT" ID="restemail" CLASS="form-control">';
+        echo '</DIV></DIV>';
+        echo '<input type="button" class="btn btn-primary pull-right" value="Claim" ONCLICK="finishclaim();">';
+
+    echo '</DIV>';
+    */
 }
 
-echo newrow($new, "Cuisine", "", true, 9, '&nbsp;(Select up to 3)');
-
+echo '<DIV id="cuisinelist">';
+echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
     $cuisineExpl = explode(",", $restaurant->cuisine);
 }
 
-$cnt = 0; 
+$cnt = 0;
 $cuisinesChkd = 0;
-$cuisineListA = array();
-foreach ($cuisine_list as $value) {
-    $cuisineListA[] = $value;
-}
-
+$cuisineListA = $cuisine_list;
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
     echo "<div class='cuisineCB col-sm-3'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
@@ -67,19 +76,10 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div>';
+echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum){
-    echo newrow($new, "Tags"); ?>
-        <a name="setlogo"></a>
-        <textarea id="demo4" class="form-control"></textarea>
-        <input type="hidden" name="tags" id="responseTags" value="{!! (isset($restaurant->tags))?$restaurant->tags:old('tags') !!}"/>
-        <p>Separate tags by commas (e.g: Canadian, Italian, Chinese, Fast Food)</p>
-    </div></div>
-
-
-<?php
-            echo newrow($new, "Logo", "", "", 7);
+        echo newrow($new, "Logo", "", "", 7);
         ?>
         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload</a>
 
@@ -108,6 +108,41 @@ if(!$minimum){
 
 
 <script>
+    function claimrestaurant(id){
+        $("#claimrestaurant").show();
+        $("#restname").val( $("#restname" + id).html() );
+        $("#cuisinelist").hide();
+        $("#common_editaddress").hide();
+        $("#restid").val(id);
+        $("#claim").val("true");
+    }
+
+    function finishclaim(){
+        if(!$("#restemail-error").is(":visible") && $("#restemail").val()) {
+            alert("Done");
+        } else {
+            alert("Please enter a valid email address");
+        }
+    }
+
+    function restsearch(event){
+        var RestaurantName = $("#restname").val();
+        var PhoneNumber = $("#phone").val();
+        RestaurantName = encodeURIComponent(RestaurantName.trim());
+        PhoneNumber = PhoneNumber.replace(/\D/g,'');
+        if(RestaurantName){// && PhoneNumber.length == 10) {
+            $.ajax({
+                url: "{{ url('/ajax') }}",
+                type: "post",
+                dataType: "HTML",
+                data: "type=restsearch&name=" + RestaurantName + "&phone=" + PhoneNumber,
+                success: function (msg) {
+                    $("#restsearch").html(msg);
+                }
+            });
+        }
+    }
+
     $(document).ready(function () {
         @if(!$minimum)
             is_delivery_change();
@@ -117,7 +152,6 @@ if(!$minimum){
         @endif
 
         $('#demo4').tagEditor({
-
             initialTags: [{!! (isset($restaurant->tags))?strToTagsConversion($restaurant->tags):'' !!}],
             placeholder: 'Enter tags ...',
 
