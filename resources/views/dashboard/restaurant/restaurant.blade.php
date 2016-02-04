@@ -25,11 +25,17 @@
 
 echo newrow($new, "Restaurant Name", "", true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
-    <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required <?= $searchcode; ?>>
+    <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required
+    <?= $searchcode; ?>>
+    @if($new)
+        <DIV ID="restsearch" CLASS="col-sm-12"></DIV>
+        <INPUT TYPE="hidden" name="claim" id="claim">
+        <BR>
+    @endif
 </div></div>
 
 <?= newrow($new, "Phone", "", true); ?>
-    <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required <?= $searchcode; ?>>
+    <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
 </div></div>
 
 <?php if(!$new){
@@ -37,21 +43,7 @@ echo newrow($new, "Restaurant Name", "", true); ?>
     echo '<textarea required name="description" class="form-control"' . $is_disabled . '>';
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
-} else {
-    echo '<DIV ID="restsearch" CLASS="col-sm-12"></DIV><INPUT TYPE="hidden" name="id" id="restid"><INPUT TYPE="hidden" name="claim" id="claim"><BR>';
-
-    /*
-    echo '<DIV CLASS="col-sm-12" style="display: none;" ID="claimrestaurant">';
-        echo newrow(true, "Email Address:", "", true);
-
-        echo '<INPUT TYPE="TEXT" ID="restemail" CLASS="form-control">';
-        echo '</DIV></DIV>';
-        echo '<input type="button" class="btn btn-primary pull-right" value="Claim" ONCLICK="finishclaim();">';
-
-    echo '</DIV>';
-    */
 }
-
 echo '<DIV id="cuisinelist">';
 echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
@@ -108,13 +100,19 @@ if(!$minimum){
 
 
 <script>
-    function claimrestaurant(id){
-        $("#claimrestaurant").show();
-        $("#restname").val( $("#restname" + id).html() );
-        $("#cuisinelist").hide();
-        $("#common_editaddress").hide();
-        $("#restid").val(id);
-        $("#claim").val("true");
+    function claimrestaurant(){
+        var id = $('#restid option:selected').val();
+        if(id){
+            $("#restname").val( $("#restname" + id).attr("TITLE") );
+            
+            $("#cuisinelist").hide();
+            $("#common_editaddress").hide();
+            $("#claim").val("true");
+        } else {
+            $("#cuisinelist").show();
+            $("#common_editaddress").show();
+            $("#claim").val("");
+        }
     }
 
     function finishclaim(){
