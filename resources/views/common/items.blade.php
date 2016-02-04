@@ -1,7 +1,7 @@
 <?php printfile("views/common/items.blade.php"); ?>
 
 <table width="100%">
-<thead class="itmQty" <?php if(isset($receiptz))echo "style='display:none'";?>>
+<thead class="itmQty" >
     <th width='26%'>Qty</th><th width="50%">Item</th><th>Price</th>
 </thead>
 <tr>

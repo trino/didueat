@@ -29,7 +29,7 @@
                 <div class="receipt_main">
 
                     <h4 class="card-title">Receipt</h4>
-                    @include('common.items',['receiptz'=>'from_receipt'])
+                    @include('common.items')
 
                     <div class="totals">
                         <table class="table">
