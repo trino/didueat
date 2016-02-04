@@ -1,60 +1,54 @@
 @extends('layouts.default')
 
-
-
-
-
 <div class=" card row container-fluid" style="">
     <div class=" container p-t-2 p-a-0 m-t-2" style="">
         <div class="card-block p-b-0">
 
-<div class="col-md-2 p-x-0">
-            <img style="width:150px;" class="pull-left"
-                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                 @else
-                 src="{{ asset('assets/images/default.png') }}"
-                 @endif
-                 alt="Card image cap">
-</div>
+            <div class="col-md-2 p-x-0">
+                <?= printfile("views/restaurants-menus.blade.php"); ?>
+                <img style="width:150px;" class="pull-left"
+                     @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                     @else
+                     src="{{ asset('assets/images/default.png') }}"
+                     @endif
+                     alt="Card image cap">
+            </div>
+
             <div class="col-md-10 p-x-0">
 
-            <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
+                <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
 
-                <div id="restaurant_rating">
-                    <a style="" class="" href="#" data-toggle="modal"
-                       data-target="#viewMapModel">More Detail</a>
+                    <div id="restaurant_rating">
+                        <a style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
+                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                    </div>
 
-                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
-                </div>                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
+                    <p class="card-text m-b-0">
+                        {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                        {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                        {!! (isset($restaurant->province))? 'ON':'' !!}
+                        {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+                    </p>
 
-                <p class="card-text m-b-0">
+                <p class="card-text " style="">
+                 {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                    <?php
+                        $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                        echo "Open today: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close");
+                        echo " - Delivery: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del");
+                    ?>
+                    @if (Session::get('session_type_user') == "super" )
+                       Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                    @endif
+                </p>
 
+                <div class="clearfix"></div>
 
+            </div>
 
-                {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                {!! (isset($restaurant->province))? 'ON':'' !!}
-                {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-
-            </p>
-
-            <p class="card-text " style="">
-             {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                Open today: 8am - 8pm
-                Delivery: 9am - 8pm
-                @if (Session::get('session_type_user') == "super" )
-
-                   Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                @endif
-            </p>
-
-            <div class="clearfix"></div>
-
-
-
-</div>
             <div class="clearfix"></div>
         </div>
     </div>
