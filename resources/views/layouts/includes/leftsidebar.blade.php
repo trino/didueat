@@ -30,17 +30,18 @@
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-                'notification/addresses' => "Receive Notifications",
+                'notification/addresses' => "Notification Addresses",//do not change this to "Receive notifications", as that does not describe what this does
                 'restaurant/info' => "Restaurant Info",
-                'credit-cards/list/restaurant' => "Credit Card" //if(\Session::has('session_profiletype') )
+                'credit-cards/list/restaurant' => "Credit Card"
         ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant</h4>");
     }
 
     makelink(array( 'orders/list/user' => 'My Orders',
                         'user/addresses' => "My Addresses",
                         'user/info' => "My Profile",
-                        'auth/logout' => "Log out"
-                    ), "<h4 class='card-title'><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
+                        'auth/logout' => "Log out",
+                        'credit-cards/list/user' => "Credit Card"
+                ), "<h4 class='card-title'><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
 
 
     ?>
