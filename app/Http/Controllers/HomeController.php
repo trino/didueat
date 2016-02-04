@@ -20,7 +20,6 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
-    // this function is no longer valid
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
@@ -64,10 +63,10 @@ class HomeController extends Controller {
                   }
             }
         }
-        
+
         var_dump($arr_final);
         var_dump($arr_count);
-        
+
         $keys = '';
         $key_final = array();
         for($i=0;$i<count($arr_count);$i++) {
@@ -94,7 +93,7 @@ class HomeController extends Controller {
         var_dump($key_final);
         die();
     }
-    
+
     /**
      * Search Restaurants Ajax
      * @param null
@@ -133,7 +132,7 @@ class HomeController extends Controller {
         }
 
     }
-    
+
     /**
      * Search Restaurants
      * @param $term
@@ -156,7 +155,7 @@ class HomeController extends Controller {
         }
         return view('restaurants', $data);
     }
-    
+
     /**
      * All Restaurants Lists
      * @param null
@@ -168,7 +167,7 @@ class HomeController extends Controller {
         $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();//count all open restaurants
         $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
         $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
-        $data['countries'] = \App\Http\Models\Countries::get();//load all countries
+        //$data['countries'] = \App\Http\Models\Countries::get();//load all countries
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
         $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
@@ -223,7 +222,7 @@ class HomeController extends Controller {
         }
 
     }
-   
+
     /**
      * Subscribe to the Newsletter
      * @param null
@@ -274,41 +273,36 @@ class HomeController extends Controller {
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",$Redirect, true);
             }
-            if (!isset($post['cuisines']) || empty($post['cuisines'])) {
-                return $this->failure("[Cuisine] must have at least one selected!",$Redirect, true);
-            }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
                 return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
             }
 
-/*
-            if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
-                $post['formatted_address'] = $post["formatted_addressForDB"];
+            if(!isset($post["id"])) {
+                if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
+                    $post['formatted_address'] = $post["formatted_addressForDB"];
+                }
+                if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
+                    return $this->failure("[Address] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['city']) || empty($post['city'])) {
+                    return $this->failure("[City] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['province']) || empty($post['province'])) {
+                    return $this->failure("[Province] field is missing!", $Redirect, true);
+                }
+                if (!isset($post['postal_code']) || empty($post['postal_code'])) {
+                    return $this->failure("[Postal Code] field is missing or invalid!", $Redirect, true);
+                }
+                if (!isset($post['country']) || empty($post['country'])) {
+                    //    return $this->failure("[Country] field is missing!",$Redirect, true);
+                }
             }
-*/
 
-            if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
-                return $this->failure("[Address] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['province']) || empty($post['province'])) {
-                return $this->failure("[Province] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                return $this->failure("[Postal Code] field is missing or invalid!",$Redirect, true);
-            }
             if (!isset($post['phone']) || empty($post['phone'])){
                 return $this->failure("[Phone] field is missing or invalid!",$Redirect, true);
             }
-            if (!isset($post['country']) || empty($post['country'])) {
-            //    return $this->failure("[Country] field is missing!",$Redirect, true);
-            }
-            if (!isset($post['description']) || empty($post['description'])) {
-                return $this->failure("[Description] of your restaurant is missing!",$Redirect, true);
-            }
+
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
             }
@@ -318,102 +312,17 @@ class HomeController extends Controller {
             if ($post['password'] != $post['confirm_password']) {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
-            \DB::beginTransaction();
-            try {//populate data array
-                //echo '<pre>'; print_r($post); die;
-                $update['logo'] = "";
-                if (isset($post['logo'] ) && $post['logo'] != '') {$update['logo'] = $post['logo'];}
-                $update['name'] = $post['restname'];
-                $update['slug'] = $this->createslug($post['restname']);
-                $update['email'] = $post['email'];
-                $update['phone'] = $post['phone'];
-                //$update['mobile'] = $post['mobile'];
-                $update['country'] = $post['country'];
-                $update['cuisine'] = $post['cuisines']; // a csv string of one or more cuisines
-                $update['province'] = $post['province'];
-                $update['address'] = $post['formatted_address'];
-                $update['formatted_address'] = $post['formatted_addressForDB'];
-                $update['apartment'] = $post['apartment'];
-                $update['city'] = $post['city'];
-                $update['postal_code'] = $post['postal_code'];
-                $update['description'] = $post['description'];
-                $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
-                $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
 
-                $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
-                $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
-                $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-                //$update['tags'] = $post['tags'];
-                if(isset($post['latitude'])) {
-                    $update['latitude'] = $post['latitude'];
-                    $update['longitude'] = $post['longitude'];
-                }
-                $update['open'] = 0;
-                $update['status'] = 1;
-                $update['initialReg'] = 1;
-                $browser_info = getBrowser();
-                $update['ip_address'] = get_client_ip_server();
-                $update['browser_name'] = $browser_info['name'];
-                $update['browser_version'] = $browser_info['version'];
-                $update['browser_platform'] = $browser_info['platform'];
-                                
-                $ob = new \App\Http\Models\Restaurants();
-                $ob->populate($update);
-                $ob->save();
-                
-                                
-                event(new \App\Events\AppEvents($ob, "Restaurant Created"));
-                
-                $image_file = \App\Http\Models\Restaurants::select('logo')->where('id', $ob->id)->get()[0]->logo;
-                if ($image_file != '') {
-                    $arr = explode('.', $image_file);
-                    $ext = end($arr);
-                    $newName = $ob->slug . '.' . $ext;
-                    
-                    if (!file_exists(public_path('assets/images/restaurants/' . $ob->id))) {
-                        mkdir('assets/images/restaurants/' . $ob->id, 0777, true);
-                    }
-                    $destinationPath = public_path('assets/images/restaurants/' . $ob->id);
-                    $filename = $destinationPath . "/" . $newName;
-                    copy(public_path('assets/images/restaurants/' . $image_file), $filename);
-                    @unlink(public_path('assets/images/restaurants/' . $image_file));
-                    $sizes = ['assets/images/restaurants/' . $ob->id . '/thumb_' => '145x100', 'assets/images/restaurants/' . $ob->id . '/thumb1_' => '120x85'];
-                    copyimages($sizes, $filename, $newName);
-                    $res = new \App\Http\Models\Restaurants();
-                    $res->where('id', $ob->id)->update(['logo' => $newName]);
-                }
-
-                // add cuisines separately to table, with foreign key restID
-                $cuisinesExpl = explode(",",$post['cuisines']);
-                $cuisinesExplCnt=count($cuisinesExpl);
-                for($i=0;$i<$cuisinesExplCnt;$i++){
-                  \App\Http\Models\Cuisines::makenew(array('restID' => $ob->id, 'cuisine' => $cuisinesExpl[$i]));
-
-                }
-
-                $user = $this->registeruser("Home@signupRestaurants", $post, 2, $ob->id, $browser_info);
-
-                $message['title'] = "Registration Success";
-                $message['msg_type'] = "success";
-                $message['msg_desc'] = "Thank you for creating an account with DidUEat.com.";
-                if($email_verification) {
-                    $message['msg_desc'] .= " A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us then <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
-                }
-                //return view('messages.message', $message);
-                return $this->success($message['msg_desc'], 'restaurant/info');
-            } catch (\Exception $e) {
-                \DB::rollback();
-                return $this->failure(handleexception($e),$Redirect);
-            }
+            return app('App\Http\Controllers\RestaurantController')->restaurantInfo();
         } else {
             $data['title'] = "Signup Restaurants Page";
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
 //            $data['states_list'] = \App\Http\Models\States::get();
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
 //            $data['resturant'] = \App\Http\Models\Restaurants::find(\Session::get('session_restaurant_id'));
-            
-            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
-            
+
+            $data['cuisine_list'] = cuisinelist();
+
             return view('restaurants-signup', $data);
         }
     }
@@ -435,7 +344,7 @@ class HomeController extends Controller {
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
         //$data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
-        
+
         if (isset($_GET['page'])) {
             return view('menus', $data);
         } else {
@@ -454,10 +363,11 @@ class HomeController extends Controller {
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
         //var_dump(count($menus_list));
-        if(count($menus_list))
-        return view('menus', $data);
-        else
-        die('no');
+        if(count($menus_list)) {
+            return view('menus', $data);
+        }else {
+            die('no');
+        }
     }
 
     //loads contact us view
@@ -507,48 +417,13 @@ class HomeController extends Controller {
         if (!isset($_POST["type"])) {$_POST = $_GET;}
         if (isset($_POST["type"])) {
             switch (strtolower($_POST["type"])) {
-                case "provinces":
-                    $Provinces = select_field_where("states", array("country_id" => $_POST["country"]), false, "name", "ASC");
-                    echo '<OPTION VALUE="">Select Country</OPTION>';
-                    foreach($Provinces as $Province){
-                        $HasProvinces = true;
-                        echo '<OPTION VALUE="' . $Province->id . '"';
-                        if (!empty($_POST["value"])){
-                            if($Province->id == $_POST["value"]){ echo ' SELECTED'; }
-                        }elseif($Province->id == 7){
-                            echo ' SELECTED';
-                        }
-                        echo '>' . $Province->name . '</OPTION>' . "\r\n";
-                    }
-                    if(!isset($HasProvinces)){
-                        $Provinces = get_entry("countries", $_POST["country"]);
-                        if($Provinces) {
-                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Provinces->name . ' has no provinces/states</OPTION>';
-                        } else {
-                            echo '<OPTION SELECTED DISABLED VALUE="">Country: ' . $_POST["country"] . ' not found</OPTION>';
-                        }
-                    }
-                    break;
-                case "cities":
-                    $city_where = (isset($_POST["province"]) && $_POST["province"] > 0)?array("state_id" => $_POST["province"]):"";
-                    $Cities = select_field_where("cities", $city_where, false, "city", "ASC");
-                    echo '<OPTION VALUE="">Select Province</OPTION>';
-                    foreach($Cities as $City){
-                        $HasCities = true;
-                        echo '<OPTION VALUE="' . $City->id . '"';
-                        if ( $City->id == $_POST["value"]){
-                            echo ' SELECTED';
-                        }
-                        echo '>' . $City->city . '</OPTION>' . "\r\n";
-                    }
-                    if(!isset($HasCities)){
-                        $Cities = get_entry("cities", $_POST["province"]);
-                        if($Cities){
-                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Cities->city . ' has no provinces/states</OPTION>';
-                        } else {
-                            echo '<OPTION SELECTED DISABLED VALUE="">Province: ' . $_POST["province"] . ' not found</OPTION>';
-                        }
-                    }
+                case "restsearch":
+                    //name and phone
+                    $restaurants = \App\Http\Models\Restaurants::where('name', 'LIKE', '%' .  $_POST["name"] . '%')
+                        ->where("is_complete", 0)
+                        //->orWhere(function($query) {$query->where('phone', $_POST["phone"])->where('mobile', $_POST["phone"]);})
+                        ->get();
+                    return view('dashboard.restaurant.ajax.search', array("restaurants" => $restaurants));
                     break;
 
                 case "add_enable":
