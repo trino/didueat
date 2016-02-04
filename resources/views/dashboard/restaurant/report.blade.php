@@ -1,7 +1,6 @@
 @extends('layouts.default')
 @section('content')
-
-
+    <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -17,20 +16,19 @@
 
                             <form id="report-form" method="get">
                                 <div class="col-md-2">
-                                <input type="text" class="datepicker form-control" name="from"
-                                       placeholder="From" value="{{ old('from') }}">
-                                </div>                                <div class="col-md-2">
+                                    <input type="text" class="datepicker form-control" name="from" placeholder="From" value="{{ old('from') }}">
+                                </div>
 
-                                <input type="text" class="datepicker form-control" name="to"
-                                       placeholder="To" value="{{ old('to') }}">
-                                </div>                                <div class="col-md-2">
+                                <div class="col-md-2">
+                                    <input type="text" class="datepicker form-control" name="to" placeholder="To" value="{{ old('to') }}">
+                                </div>
 
-                                <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
-                                       onclick="return checkFilter();">
-</div>
+                                <div class="col-md-2">
+                                    <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
+                                </div>
+
                                 <div class="clearfix"></div>
                             </form>
-
 
                         <input type="checkbox" checked data-toggle="toggle">
 
