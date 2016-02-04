@@ -107,7 +107,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
 @include('layouts.includes.header')
 
-<div class="container m-t-3 p-t-3">
+<div class="container m-t-3 p-t-2">
 <div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
 Item has been added/updated successfully
 </div>

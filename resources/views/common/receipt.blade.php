@@ -27,7 +27,7 @@
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-                    <h3 class="card-title">Receipt</h3>
+                    <h4 class="card-title">Receipt</h4>
                     @include('common.items')
                     <div class="totals">
                         <table class="table">
