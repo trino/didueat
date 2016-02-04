@@ -269,6 +269,7 @@
             //add items to receipt
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
+                
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -527,6 +528,7 @@
 
                 $('.number' + menu_id).text('1');
                 $('.close' + menu_id).click();
+                show_header();
             });
 
             function inArray(needle, haystack) {

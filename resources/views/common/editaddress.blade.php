@@ -31,10 +31,10 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" />
 
-                        
-<?php echo newrow($new, (!isset($type))?"Street Address":"Select Address", "", false); ?>
+<div class="<?php if(!isset($type))echo "nput-group-btn";?> addressdropdown">                        
+<?php if(read('id')){echo newrow($new, (!isset($type))?"Street Address":"Select Address", "", false); ?>
 <!--div class="input-group-btn addressdropdown"-->
-<div class="<?php if(!isset($type))echo "nput-group-btn";?> addressdropdown">
+
     @if(isset($type) && (Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
         @if(read("id"))
             <?php
@@ -67,7 +67,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
             </div>
             <?php }else{?>
-            <select class="col-md-11 form-control" >
+            <select class="col-md-11 form-control reservation_address_dropdown" >
                 <option value="">Select Address</option>
                  <?php
                     $sec=false;
@@ -94,7 +94,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
         @endif
     @endif
-</div>
+
 
 @if($is_disabled)
     <input type="text" id="formatted_address<?php if(isset($type))echo '3';?>" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
@@ -115,7 +115,8 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 @endif
 
 </div></div>
-
+<?php }?>
+</div>
 <div class="hidden_elements" <?php if(isset($type)&& $type=='reservation')echo "style='display:none;'";?> >
 <?= newrow($new, "Apartment", "", false, 5); ?>
     <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit">

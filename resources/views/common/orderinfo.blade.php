@@ -15,6 +15,13 @@
     $Data["Contact"] = $order->contact;
     $Data["Phone"] = $order->contact;
     $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
+    if($order->order_type=='1')
+    {
+        $Data['Street Address'] = $order->address2;
+        $Data['City'] = $order->city;
+        $Data['Postal Code'] = $order->postal_code;
+        
+    }
     $Data["Ordered On"] =  $date->format(get_date_format());
     if(isset($restaurant->name)){
         $Data["Restaurant"] = $restaurant->name;

@@ -302,7 +302,7 @@ class UsersController extends Controller {
                 $res['menu_ids'] = implode(',', $post['menu_ids']);
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
-                
+                $res['contact'] = $post['contact'];
                 if (\Input::has('address')) {
                     $res['address2'] = $post['address'];
                 }
@@ -325,7 +325,7 @@ class UsersController extends Controller {
                 $ob2->save();
                 $oid = $ob2->id;
                 
-                $res['phone'] = $post['contact'];
+                
                 $res['name'] = trim($post['ordered_by']);
 
                 //if the user is not logged in and specified a password, make a new user

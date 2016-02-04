@@ -257,8 +257,15 @@
     </div>
 </div>
 
-
 <script>
+    function show_header() {
+        if($('#subtotal1').val()=='0.00' || $('#subtotal1').val()=='0') {
+            $('.itmQty').hide();
+        } else {
+            $('.itmQty').show();
+        }
+    }
+
     function addresschanged(thiss) {
         $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
         $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
@@ -270,6 +277,7 @@
     }
 
     $(function(){
+        show_header();
         $('#delivery1').click();
         //save address
         $('#edit-form').submit(function(e){
@@ -285,6 +293,10 @@
                     dataType:"json",
                     success:function(msg) {
                         $('.close').click();
+                        $('.addressdropdown').load(document.URL + ' .addressdropdown>', function(){
+                            $('.reservation_address_dropdown option[value="' + msg['id'] + '"]').attr('selected','selected');
+                        });
+                        
                         $('#formatted_address3').val(msg['formatted_address']);
                         $('.apratment').val(msg['apartment']);
                         $('.city').val(msg['city']);
