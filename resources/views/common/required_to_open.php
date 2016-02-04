@@ -7,6 +7,9 @@
      */
 
     $Restaurant = select_field("restaurants", "id", $Restaurant);
+    
+    $post = \Input::all();
+    
     if ($Restaurant) {
         $MissingData = [];
         $MissingDataOptional = [];
@@ -73,7 +76,7 @@
 
         if ($MissingData) {
             $missingHeadInitialReg="";
-            if (isset($Restaurant->initialReg)) {
+            if (isset($post['initialRestSignup'])) {
                 $missingHeadInitialReg = '<span style="font-size:20px">PARTIAL REGISTRATION COMPLETED!</span> &nbsp;';
             } 
               

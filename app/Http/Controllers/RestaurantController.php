@@ -207,7 +207,7 @@ class RestaurantController extends Controller {
 
                 if(isset($post['email'])) {$update['email'] = $post['email'];}
                 //$update['website'] = $post['website'];
-                $update['unit'] = $post['unit'];
+                $update['apartment'] = $post['apartment'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
                 $update['country'] = $post['country'];
@@ -232,6 +232,7 @@ class RestaurantController extends Controller {
 
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
+
                 foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
                 }

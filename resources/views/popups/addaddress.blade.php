@@ -1,3 +1,4 @@
+
                         <div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -10,7 +11,7 @@
                                     </h4>
                                 </div>
                                 <div id="ajaxloader"></div>
-                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form')) !!}
+                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form',)) !!}
                                     <div class="modal-body" id="contents">
                     
                                     </div>
@@ -25,6 +26,8 @@
     var oldID = 0;
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
+        var addOrEdit = $(this).attr('data-addOrEdit');
+
         var URL = "{{ url("user/addresses/save") }}/" + id;
 
         var route ='';
@@ -52,6 +55,7 @@
                 $('#editModel #message').hide();
                 $('#editModel #contents').html(result);
             }
+        document.getElementById('addOrEdit').value=addOrEdit;
         });
     });
 </script>

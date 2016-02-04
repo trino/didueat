@@ -11,7 +11,7 @@
     }
 ?>
 
-
+<input name="initialRestSignup" type="hidden" value="1" />
 <input type="text" name="restname" class="form-control" style=""
        {{ $is_disabled }} placeholder=""
        value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required>

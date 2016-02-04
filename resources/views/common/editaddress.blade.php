@@ -22,7 +22,7 @@ if (!isset($is_disabled)) {
 }
 
 $readonly = " readonly";
-$isUser = isset($apartment);
+$isUser = isset($apartment); // set by addressesFind 
 $needsmobile = isset($mobile);
 $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 ?>
@@ -30,6 +30,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" />
+<input name="addOrEdit" type="hidden" id="addOrEdit" />
     
 <?php echo newrow($new, "Street Address", "", true); ?>
     @if($is_disabled)
@@ -49,13 +50,21 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
         </DIV>
 
-    @endif
-<?php echo newrow(); 
+    @endif  
+<?php echo newrow();
 
-    echo newrow($new, "Unit #", "", false, 5); ?>
-    <input type="text" name="unit" class="form-control" {{ $is_disabled }} placeholder="Unit #"
-           value="{{ (isset($addresse_detail->unit))?$addresse_detail->unit:old('unit') }}">
+if($isUser){
+ $aptUnit="Apartment";
+}
+else{
+ $aptUnit="Unit";
+}
+ 
+    echo newrow($new, $aptUnit." #", "", false, 5); ?>
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
+           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
     </div></div>
+
 
 <?php
 echo newrow($new, "City", "", $required, 5); ?>
@@ -89,6 +98,16 @@ echo newrow($new, "City", "", $required, 5); ?>
 <?php 
 echo newrow(); 
 }
+
+
+if($isUser){
+    echo newrow($new, "Notes", "", false, 9);
+    ?>
+    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    </div></div>
+
+<?php }
 ?>
 
 <!--?php echo newrow($new, "Cell Phone", "", $required, 5); ?>
@@ -103,15 +122,7 @@ echo newrow();
 		    echo newrow($new,"Save","","",12,"Save"); 
             echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     }
-
-if($isUser){
-    echo newrow($new, "Notes", "", false, 9);
-    ?>
-    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-           value=""{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}"">
-    </div></div>
-
-<?php } ?>
+ ?>
 
 @if(isset($dontinclude))
 <SCRIPT>

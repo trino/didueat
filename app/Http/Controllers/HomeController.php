@@ -333,7 +333,7 @@ class HomeController extends Controller {
                 $update['province'] = $post['province'];
                 $update['address'] = $post['formatted_address'];
                 $update['formatted_address'] = $post['formatted_addressForDB'];
-                $update['unit'] = $post['unit'];
+                $update['apartment'] = $post['apartment'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
                 $update['description'] = $post['description'];

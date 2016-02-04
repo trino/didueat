@@ -8,8 +8,8 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9"><h4>
-                    My Addresses
-                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
+                    My Addresses 
+                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
                 </h4></div>
             @if (Session::get('session_type_user') == "super" && $recCount > 10)
 
@@ -66,7 +66,7 @@
 
                         <?php
 
-                        (isset($value->apartment) && strlen($value->apartment) > 0) ? $aptV = "Unit " . $value->apartment . ", " : $aptV = "";
+                        (isset($value->apartment) && strlen($value->apartment) > 0) ? $aptV = "Apt " . $value->apartment . ", " : $aptV = "";
                         
                         ?>
 
@@ -81,7 +81,7 @@
                             {{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code }}</td>
 
                         <td>
-                            <a data-id="{{ $value->id }}" class="btn btn-info editRow btn-sm" data-toggle="modal"
+                            <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-info editRow btn-sm" data-toggle="modal"
                                data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}"
                                class="btn btn-danger-outline btn-sm"

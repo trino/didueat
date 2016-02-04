@@ -130,6 +130,7 @@ function getplace(){
     return formatted_address;
 }
 function fillInAddress1() {
+
     // Get the place details from the formatted_address object.
     var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();

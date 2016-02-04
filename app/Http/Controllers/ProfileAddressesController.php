@@ -48,6 +48,10 @@ class ProfileAddressesController extends Controller {
                 $post['user_id'] = \Session::get('session_id');
                 if(!$idd) {
                     $idd = (isset($post['id'])) ? $post['id'] : 0;
+                    $createUpd="created";
+                }
+                else{
+                  $createUpd="updated";
                 }
 
                 // Create/Edit if idd is zero then it create otherwise it updates.
@@ -55,7 +59,7 @@ class ProfileAddressesController extends Controller {
                 $ob->populate($post);
                 $ob->save();
 
-                return $this->success("Address created successfully",'user/addresses');
+                return $this->success("Address ".$createUpd." successfully",'user/addresses');
             } catch(\Exception $e) {
                 return $this->failure( handleexception($e),'user/addresses');
             }
@@ -145,7 +149,7 @@ class ProfileAddressesController extends Controller {
         } catch(\Exception $e) {
             return $this->failure(handleexception($e),'user/addresses');
         }
-    }
+    } 
 
     public function addressEdit($id=0){
         $post = \Input::all();
@@ -154,7 +158,18 @@ class ProfileAddressesController extends Controller {
             $post["id"] = 0;
             $id = 0;
         }
-        \App\Http\Models\ProfilesAddresses::makenew($post);
-        return $this->success("Your Address has been edited successfully!", 'user/addresses');
+
+        if($_POST['addOrEdit'] == "edit"){
+             $ob = \App\Http\Models\ProfilesAddresses::findOrNew($id);
+             $ob->populate($post);
+             $ob->save();
+             $thismsg="edited";
+        }
+        else{
+           \App\Http\Models\ProfilesAddresses::makenew($post);
+           $thismsg="added";
+        }
+
+        return $this->success("Your Address has been ".$thismsg." successfully!", 'user/addresses');
     }
 }
