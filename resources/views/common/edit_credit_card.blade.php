@@ -133,7 +133,7 @@
 
 <script type="text/javascript">
     ccvimg = new Image();
-    ccvimg.src = base_url+"assets/images/security_code_sample.gif";
+    ccvimg.src = base_url+"assets/images/security_code_sample.png";
     ccvimgph = new Image();
     ccvimgph.src = base_url+"assets/images/ccvimgph.gif";
 
