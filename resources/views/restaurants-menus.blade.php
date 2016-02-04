@@ -4,8 +4,8 @@
 
 
 
-<div class="card  row container-fluid">
-    <div class="container p-t-3 p-a-0" style="">
+<div class=" card row container-fluid" style="">
+    <div class=" container p-t-2 p-a-0 m-t-2" style="">
         <div class="card-block p-b-0">
 
 <div class="col-md-2 p-x-0">
@@ -19,9 +19,12 @@
 </div>
             <div class="col-md-10 p-x-0">
 
-            <h2 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h2>
+            <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
 
                 <div id="restaurant_rating">
+                    <a style="" class="" href="#" data-toggle="modal"
+                       data-target="#viewMapModel">More Detail</a>
+
                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
                 </div>                <div class="clearfix"></div>
 
@@ -49,8 +52,7 @@
 
             <div class="clearfix"></div>
 
-            <a style="color:white;" class="" href="#" data-toggle="modal"
-               data-target="#viewMapModel">More Detail</a>
+
 
 </div>
             <div class="clearfix"></div>
@@ -102,19 +104,7 @@
 
 
 
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-            @else
-                <div class="alert alert-success" role="alert">
-                    <strong>Make Money!</strong> Design meals that others will want to eat.
 
-                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
-                       data-toggle="modal" data-target="#addMenuModel">
-                        Add Menu Item
-                    </a>
-
-                    <div class="clearfix"></div>
-                </div>
-            @endif
 
                 <h4>Online Specials</h4>
 

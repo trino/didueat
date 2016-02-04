@@ -109,11 +109,8 @@ $first = false; $type = "hidden";
             <ul class="nav navbar-nav">
 
                 @if(Session::has('is_logged_in'))
-                    <li class="nav-item">
-                        <h4>
-                            Logged in as {{Session::get('session_type_user')}}
-                        </h4>
-                    </li>
+
+
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}"
                            class="nav-link">Hi, {{ explode(' ', Session::get('session_name'))[0] }} </a>
@@ -127,7 +124,7 @@ $first = false; $type = "hidden";
                             } else {
                                 echo asset('assets/images/default.png');
                             }
-                            ?>" class="" style="height: 20px;">
+                            ?>" class="img-circle" style="height: 25px;width:25px;">
                         </a>
                     </li>
                     @if (read("oldid"))
