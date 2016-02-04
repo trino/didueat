@@ -166,17 +166,18 @@ class RestaurantController extends Controller {
             }
             /*if (!isset($post['country']) || empty($post['country'])) {
                 return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
-            }*/
-            if (!isset($post['city']) || empty($post['city'])) {
-                return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
             if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
                 return $this->failure("[Postal Code] field is missing or invalid!", 'restaurant/info/' . $post['id']);
             }
+            */
+            if (!isset($post['city']) || empty($post['city'])) {
+                return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
+            }
             try {
                 $update=$post;
                 $addlogo='';
-                if ($post['logo'] != '') {
+                if (isset($post['logo']) && $post['logo']) {
                     $im = explode('.', $post['logo']);
                     $ext = end($im);
                     $res = \App\Http\Models\Restaurants::findOrNew($post['id']);

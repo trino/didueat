@@ -131,11 +131,11 @@ if($isUser){
     $aptUnit="Unit";
 }
  
-    echo newrow($new, $aptUnit." #", "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
+echo newrow($new, $aptUnit." #", "", false, 5); ?>
+<input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
 
-           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-    </div></div>
+       value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+</div></div>
 
 
 <?= newrow($new, "City", "", $required, 5); ?>
@@ -148,8 +148,8 @@ if($isUser){
            value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
 </div></div>
 
-<?= newrow($new, "Postal Code", "", true, 5); ?>
-    <input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control postal_code" placeholder="Postal Code"
+<?= newrow($new, "Postal Code", "", false, 5); ?>
+    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control postal_code" placeholder="Postal Code"
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
