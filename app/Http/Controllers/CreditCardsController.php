@@ -151,13 +151,20 @@ class CreditCardsController extends Controller {
      * @param $id
      * @return view
      */
-    public function creditCardFind($id=0) {
+    public function creditCardFind($id=0, $type="restaurant") {
         try {
             $data['credit_cards_list'] = \App\Http\Models\CreditCard::find($id);
-            $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
-            $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('name', 'ASC')->get();
+            if($type == "admin"){
+                $data['users_list'] = \App\Http\Models\Profiles::orderBy('id', 'DESC')->get();
+                $data['restaurants_list'] = \App\Http\Models\Restaurants::orderBy('name', 'ASC')->get();
+            } else {
+                $data['users_list'] =  \App\Http\Models\Profiles::where(array("id" => read("id")))->get();
+                $data['restaurants_list'] = \App\Http\Models\Restaurants::where(array("id" => read("restaurant_id")))->get();
+                $data["user_id"] = read(iif($type=="restaurant", "restaurant_id", "id"));
+            }
+            $data["type"] = $type;
             ob_start();
-            return view('dashboard.credit_cards.ajax.edit', $data);
+            return view('common.edit_credit_card', $data);
             ob_get_contents();//code will never run
             ob_get_flush();
         } catch(\Exception $e) {
