@@ -6,11 +6,14 @@ $type = "hidden";
 
 @section('content')
 
+
+
+
     <?php printfile("views/restaurants.blade.php"); ?>
 
     <div class="row ">
-        <div class="col-lg-4">
-            <div class="card">
+        <div class="col-lg-4 ">
+            <div class="card ">
                 <div class="card-header">
                     <p class="card-title m-b-0">Filter Search</p>
                 </div>

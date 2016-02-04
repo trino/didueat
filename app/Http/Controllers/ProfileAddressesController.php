@@ -48,20 +48,25 @@ class ProfileAddressesController extends Controller {
                 $post['user_id'] = \Session::get('session_id');
                 if(!$idd) {
                     $idd = (isset($post['id'])) ? $post['id'] : 0;
+                    $createUpd="created";
                 }
-                // Create/Edit if idd is zero then it create ortherwise it updates.
+                else{
+                  $createUpd="updated";
+                }
+
+                // Create/Edit if idd is zero then it create otherwise it updates.
                 $ob = \App\Http\Models\ProfilesAddresses::findOrNew($idd);
                 $ob->populate($post);
                 $ob->save();
 
-                return $this->success("Address created successfully",'user/addresses');
+                return $this->success("Address ".$createUpd." successfully",'user/addresses');
             } catch(\Exception $e) {
                 return $this->failure( handleexception($e),'user/addresses');
             }
         } else {
             $data['title'] = "Addresses Manage";
-            //$data['countries_list'] = \App\Http\Models\Countries::get();
-            //$data['states_list'] = \App\Http\Models\States::get();
+//            $data['countries_list'] = \App\Http\Models\Countries::get();
+//            $data['states_list'] = \App\Http\Models\States::get();
             return view('dashboard.profiles_address.index', $data);
         }
     }
@@ -86,7 +91,7 @@ class ProfileAddressesController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'ASC',
             'searchResults' => \Input::get('searchResults')
         );
-        
+
         $Query = \App\Http\Models\ProfilesAddresses::listing($data, "list")->get();
         $recCount = \App\Http\Models\ProfilesAddresses::listing($data)->count();
         $no_of_paginations = ceil($recCount / $per_page);
@@ -144,22 +149,37 @@ class ProfileAddressesController extends Controller {
         } catch(\Exception $e) {
             return $this->failure(handleexception($e),'user/addresses');
         }
-    }
+    } 
 
     public function addressEdit($id=0){
         $post = \Input::all();
-        if(!isset($post["user_id"])){
+        if(!$id || !is_numeric($id)){
             $post["user_id"] = read("id");
+            $post["id"] = 0;
+            $id = 0;
         }
+
         $post["id"] = $id;
-        $add = \App\Http\Models\ProfilesAddresses::makenew($post, $id);
-        if(isset($_GET['ajax']))
-        {
-            $address = \App\Http\Models\ProfilesAddresses::find($add->id);
-            return json_encode($address);
-            die();
+        
+        if($_POST['addOrEdit'] == "edit"){
+             $ob = \App\Http\Models\ProfilesAddresses::findOrNew($id);
+             $ob->populate($post);
+             $ob->save();
+             $thismsg="edited";
         }
         else
-        return $this->success("Address " . $id . " has been edited successfully!", 'user/addresses');
+        {
+            $add = \App\Http\Models\ProfilesAddresses::makenew($post, $id);
+            if(isset($_GET['ajax']))
+            {
+                $address = \App\Http\Models\ProfilesAddresses::find($add->id);
+                return json_encode($address);
+                die();
+            }
+           
+           $thismsg="added";
+        }
+
+        return $this->success("Your Address has been ".$thismsg." successfully!", 'user/addresses');
     }
 }

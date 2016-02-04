@@ -20,6 +20,7 @@ class HomeController extends Controller {
      * @return view
      */
     public function index() {
+    // this function is no longer valid
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
@@ -167,7 +168,7 @@ class HomeController extends Controller {
         $data['count'] = \App\Http\Models\Restaurants::where('open', 1)->count();//count all open restaurants
         $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
         $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
-        //$data['countries'] = \App\Http\Models\Countries::get();//load all countries
+        $data['countries'] = \App\Http\Models\Countries::get();//load all countries
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
         $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
@@ -273,13 +274,20 @@ class HomeController extends Controller {
             if (!isset($post['email']) || empty($post['email'])) {
                 return $this->failure("[Email] field is missing!",$Redirect, true);
             }
+            if (!isset($post['cuisines']) || empty($post['cuisines'])) {
+                return $this->failure("[Cuisine] must have at least one selected!",$Redirect, true);
+            }
             $is_email = \App\Http\Models\Profiles::where('email', '=', $post['email'])->count();
             if ($is_email > 0) {
                 return $this->failure("Email address [".$post['email']."] already exists!",$Redirect, true);
             }
+
+/*
             if ((!isset($post['formatted_address']) || empty($post['formatted_address'])) && isset($post['formatted_addressForDB']) && $post['formatted_addressForDB']) {
                 $post['formatted_address'] = $post["formatted_addressForDB"];
             }
+*/
+
             if (!isset($post['formatted_address']) || empty($post['formatted_address'])) {
                 return $this->failure("[Address] field is missing!",$Redirect, true);
             }
@@ -297,6 +305,9 @@ class HomeController extends Controller {
             }
             if (!isset($post['country']) || empty($post['country'])) {
             //    return $this->failure("[Country] field is missing!",$Redirect, true);
+            }
+            if (!isset($post['description']) || empty($post['description'])) {
+                return $this->failure("[Description] of your restaurant is missing!",$Redirect, true);
             }
             if (!isset($post['password']) || empty($post['password'])) {
                 return $this->failure(trans('messages.user_pass_field_missing.message') . " (0x01)",$Redirect, true);
@@ -316,16 +327,16 @@ class HomeController extends Controller {
                 $update['slug'] = $this->createslug($post['restname']);
                 $update['email'] = $post['email'];
                 $update['phone'] = $post['phone'];
-                $update['description'] = $post['description'];
                 //$update['mobile'] = $post['mobile'];
-            //    $update['description'] = $post['description'];
-                //$update['country'] = $post['country'];
+                $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisines']; // a csv string of one or more cuisines
                 $update['province'] = $post['province'];
                 $update['address'] = $post['formatted_address'];
                 $update['formatted_address'] = $post['formatted_addressForDB'];
+                $update['apartment'] = $post['apartment'];
                 $update['city'] = $post['city'];
                 $update['postal_code'] = $post['postal_code'];
+                $update['description'] = $post['description'];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
 
@@ -339,12 +350,13 @@ class HomeController extends Controller {
                 }
                 $update['open'] = 0;
                 $update['status'] = 1;
+                $update['initialReg'] = 1;
                 $browser_info = getBrowser();
                 $update['ip_address'] = get_client_ip_server();
                 $update['browser_name'] = $browser_info['name'];
                 $update['browser_version'] = $browser_info['version'];
                 $update['browser_platform'] = $browser_info['platform'];
-                
+                                
                 $ob = new \App\Http\Models\Restaurants();
                 $ob->populate($update);
                 $ob->save();
@@ -422,7 +434,7 @@ class HomeController extends Controller {
         $data['restaurant'] = $res_slug;
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
-        //$data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
+        $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
         
         if (isset($_GET['page'])) {
             return view('menus', $data);
@@ -507,6 +519,14 @@ class HomeController extends Controller {
                             echo ' SELECTED';
                         }
                         echo '>' . $Province->name . '</OPTION>' . "\r\n";
+                    }
+                    if(!isset($HasProvinces)){
+                        $Provinces = get_entry("countries", $_POST["country"]);
+                        if($Provinces) {
+                            echo '<OPTION SELECTED DISABLED VALUE="">' . $Provinces->name . ' has no provinces/states</OPTION>';
+                        } else {
+                            echo '<OPTION SELECTED DISABLED VALUE="">Country: ' . $_POST["country"] . ' not found</OPTION>';
+                        }
                     }
                     break;
                 case "cities":

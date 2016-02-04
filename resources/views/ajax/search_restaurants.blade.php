@@ -21,7 +21,7 @@
     }
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 ?>
-<DIV class="">
+
     <DIV class="list-group" id="restuarant_bar">
         @if(isset($query) && $count > 0 && is_iterable($query))
             @foreach($query as $value)
@@ -69,5 +69,5 @@
             <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
         </div>
     </DIV>
-</DIV>
+
 <img class='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>

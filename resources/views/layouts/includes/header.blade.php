@@ -5,7 +5,7 @@ $first = false; $type = "hidden";
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
 
-
+<div class="container">
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
@@ -109,11 +109,8 @@ $first = false; $type = "hidden";
             <ul class="nav navbar-nav">
 
                 @if(Session::has('is_logged_in'))
-                    <li class="nav-item">
-                        <h4>
-                            Logged in as {{Session::get('session_type_user')}}
-                        </h4>
-                    </li>
+
+
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}"
                            class="nav-link">Hi, {{ explode(' ', Session::get('session_name'))[0] }} </a>
@@ -127,7 +124,7 @@ $first = false; $type = "hidden";
                             } else {
                                 echo asset('assets/images/default.png');
                             }
-                            ?>" class="" style="height: 20px;">
+                            ?>" class="img-circle" style="height: 25px;width:25px;">
                         </a>
                     </li>
                     @if (read("oldid"))
@@ -141,8 +138,11 @@ $first = false; $type = "hidden";
                         <a class="btn btn-danger" data-toggle="modal" data-target="#loginModal">Log in</a>
                         <a class="btn btn-danger" data-toggle="modal" data-target="#signupModal">Sign up</a>
                     </li>
+
+
+
                 @endif
             </ul>
         </div>
-
+</div>
 </nav>

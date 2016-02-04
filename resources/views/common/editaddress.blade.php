@@ -1,11 +1,10 @@
 <?php
-$sec =false; $type1 = "hidden";
 if (isset($GLOBALS["editaddress"])) {
     return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
 }
 printfile("views/common/editaddress.blade.php");
 $GLOBALS["editaddress"] = true;
-//$countries_list = \App\Http\Models\Countries::get();//load all countries
+
 if (!isset($new)) {
     $new = false;
 }
@@ -23,14 +22,15 @@ if (!isset($is_disabled)) {
 }
 
 $readonly = " readonly";
-$isUser = isset($apartment);
+$isUser = isset($apartment); // set by addressesFind 
 $needsmobile = isset($mobile);
 $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 ?>
 
-<input type="hidden" name="latitude" id="latitude<?php if(isset($type))echo '3';?>" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
-<input type="hidden" name="longitude" id="longitude<?php if(isset($type))echo '3';?>" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
+<input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
+<input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB" />
+
                         
 <?php echo newrow($new, (!isset($type))?"Street Address":"Select Address", "", false); ?>
 <!--div class="input-group-btn addressdropdown"-->
@@ -118,8 +118,43 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <div class="hidden_elements" <?php if(isset($type)&& $type=='reservation')echo "style='display:none;'";?> >
 <?= newrow($new, "Apartment", "", false, 5); ?>
     <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit"
+
+<input name="addOrEdit" type="hidden" id="addOrEdit" />
+    
+<?php echo newrow($new, "Street Address", "", true); ?>
+    @if($is_disabled)
+        <input type="text" id="formatted_address" disabled name="formatted_address" class="form-control" value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
+    @else
+        <DIV CLASS="nowrap">
+            <input type="text" name="formatted_address" id="formatted_address" class="form-control formatted_address" placeholder="Address, City or Postal Code" value="<?php
+            if (old('formatted_address')) {
+                echo old('formatted_address');
+                //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+            } else if (isset($addresse_detail->address)) {
+//                $country = select_field("countries", "id", $addresse_detail->country, "name");
+                //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+                echo $addresse_detail->address;
+            }
+            $width = 59;
+            ?>" autocomplete="off" style="width: -moz-calc(100% - {{$width}}px); width: -webkit-calc(100% - {{$width}}px); width: calc(100% - {{$width}}px);">
+        </DIV>
+
+    @endif  
+<?php echo newrow();
+
+if($isUser){
+ $aptUnit="Apartment";
+}
+else{
+ $aptUnit="Unit";
+}
+ 
+    echo newrow($new, $aptUnit." #", "", false, 5); ?>
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
+
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-</div></div>
+    </div></div>
+
 
 <?= newrow($new, "City", "", $required, 5); ?>
     <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city" onfocus="this.blur();"
@@ -136,30 +171,52 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 </div>
+
+
+<?= newrow($new, "Country", "", $required, 5); ?>
+<input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
+       value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
+</div></div>
+
+
 <?php 
     if(isset($restSignUp)){
-        echo newrow($new, "Important", "", true, 10, true);
-            echo '<div id="verifyAddress" style="display:none"><div class="instruct">Please Ensure the Address was Correctly Filled-out</div></div>';
-        echo newrow();
-    }
+      echo newrow($new, "Important", "", true, 10, true);
+?>
+    <div id="verifyAddress" style="display:none">
+        <div class="instruct">Please Ensure Address was Correctly Filled-out</div>
+    </div>
+<?php 
+echo newrow(); 
+}
 
-    if(isset($restEdit)){
-		    echo newrow($new,"Save","","",12,"Save"); 
-            echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
-    }
 
 if($isUser){
     echo newrow($new, "Notes", "", false, 9);
     ?>
-        <input type="text" name="notes" class="form-control notes" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-               value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-        </div></div>
-    <?php
-}
 
-if(isset($type)){
-    //echo "<script>initAutocomplete();</script>";
-} else { ?>
+    <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+           value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    </div></div>
+
+<?php }
+?>
+
+<!--?php echo newrow($new, "Cell Phone", "", $required, 5); ?>
+    <input type="text" name="mobile" class="form-control" {{ $is_disabled }} placeholder=""
+           value="{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
+</div></div-->
+
+
+
+<?php
+    if(isset($restEdit)){
+		    echo newrow($new,"Save","","",12,"Save"); 
+            echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
+    }
+ ?>
+
+
 @if(isset($dontinclude))
 <SCRIPT>
     $(document).ready(function () {
@@ -184,4 +241,3 @@ if(isset($type)){
        }
     ?>
 @endif
-<?php }?>

@@ -37,12 +37,12 @@
                 </select>
                 </div>
             </div>
-            <div class="col-md-6 padding-left-0">
-                <LABEL>
+            <div class="col-md-6 padding-left-0 pad-top-18">
+                <LABEL class="nomar">
                     <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 </LABEL>
                 &nbsp;&nbsp;&nbsp;
-                <LABEL>
+                <LABEL class="nomar">
                     <input <?php if(!isset($model) || (isset($model->is_active) && $model->is_active == 1)){?>checked="checked"<?php }?> type="checkbox" class="is_active" <?php /*onclick="check_enable($(this),<?php echo $menu_id?>);"*/?> /> &nbsp;&nbsp;<strong>Enable Item</strong>
                     <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
                 </LABEL>
@@ -108,9 +108,9 @@
             @else
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
-            <div class="form-group">
+            <div class="form-group nomar">
             <div class="col-md-6 padding-left-0"><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/><br class="ignore"/></div>
+            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
             <div class="clearfix"></div>
             </div>
             <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
@@ -121,13 +121,16 @@
 
     <div class="clearfix ignore"></div>
     <?php //echo count($cmodel).'_'.$menu_id;?>
-    <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+    
+    <div class="col-md-12">
+    <div class="col-md-12">
+    <div class="additional additional{{ $menu_id }} ignore card" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
 
-        <hr class=" ignore"/>
+        
 
 
-        <div class="col-md-12 ignore"><h2 class="ignore">Addons</h2></div>
-        <div class="clearfix ignore"></div>
+        <div class="col-md-12 ignore card-header">Addons</div>
+        
 
 
 
@@ -144,7 +147,7 @@
             //die('here');
         $k++;
         if ($k == 1)
-            echo "<div class='ignore' id='subcat" . $menu_id . "'>";
+            echo "<div class='ignore card-block' id='subcat" . $menu_id . "'>";
 
         ?>
         @include('popups.additional')
@@ -190,6 +193,8 @@
         //} ?>
 
 
+    </div>
+    </div>
     </div>
     <div class="clearfix ignore"></div>
 

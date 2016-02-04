@@ -2,48 +2,33 @@
 @section('content')
 
     <meta name="_token" content="{{ csrf_token() }}"/>
+
     <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
-    <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
-    <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
 
-    <script>
-        function validateFn(f){
-            var cuisinesStr="";
-            var comma="";
-            for(var i=0;i<cuisineCnt;i++){
-                if(f.elements["cuisine"+i].checked){
-                    if(cuisinesStr != ""){
-                        comma=",";
-                    }
-                    cuisinesStr+=comma+f.elements["cuisine"+i].value
-                }
-            }
-            f.cuisines.value=cuisinesStr;
-        }
-
-        $(document).ready(function () {
-            add_all(true, true, true);
-            $("#resturantForm").validate({
-                rules: {
-                    phone: {
-                        required: true,
-                        checkPhone: true,
-                        checkLen: true
-                    }
-                },
-                messages: {
-                    phone: {
-                        required: "Please enter a phone number",
-                        checkPhone: "Invalid character. Please just use numbers and hyphens",
-                        checkLen: "Phone number must be 10 numbers long"
-                    }
-                }
-            });
-        });
-    </script>
+<script>
+function validateFn(f){
+   var cuisinesStr="";
+   var noneChkd=true;
+   var comma="";
+			for(var i=0;i<cuisineCnt;i++){
+			 if(f.elements["cuisine"+i].checked){
+       noneChkd=false;
+       if(cuisinesStr != ""){
+        comma=",";
+       }
+       cuisinesStr+=comma+f.elements["cuisine"+i].value
+			 }
+			}
+   f.cuisines.value=cuisinesStr;
+          
+   if(noneChkd){
+     alert("You must select at least one Cuisine in order to continue. You may make adjustments later.");
+     f.description.focus(); // bring user to cuisine list
+     return false;
+   }
+   
+}
+</script>
 
     <div class="row">
 
@@ -84,7 +69,7 @@
                     <h4 class="card-title">Hours & Delivery</h4>
                 </div>
                 <div class="card-block">
-                     @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
+                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                 </div>
             </div>
 
@@ -102,4 +87,14 @@
                 </div>
             @endif
         </div>
+
+<!--    Already loaded in default.blade
+ <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script> 
+-->
+        <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
+        <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+        <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+        <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+
 @stop

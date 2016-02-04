@@ -22,7 +22,7 @@
                 </div>
 
                 <?php echo newrow(false, "Email", '', true); ?>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email Address" required/>
+                <input type="email" name="email" class="form-control" id="email" placeholder="" required/>
             </div>
 
 
@@ -34,8 +34,6 @@
     </div>
     <div class="modal-footer">
 
-        <button id="closeBtn" type="button" class="btn btn-secondary-outline pull-right" data-dismiss="modal" aria-label="Close"
-                style="">Close</button>
         <button id="lostPWregButton" class="btn btn-primary pull-right" type="submit" style="">Submit</button>
         {!! Form::close() !!}
     </div>

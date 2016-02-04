@@ -60,7 +60,7 @@ class UsersController extends Controller {
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
-            //$data['states_list'] = \App\Http\Models\States::get();
+            $data['states_list'] = \App\Http\Models\States::get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
             return view('dashboard.user.index', $data);
         }
@@ -111,7 +111,7 @@ class UsersController extends Controller {
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
         }
         $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
-        //$data['states_list'] = \App\Http\Models\States::get();
+//        $data['states_list'] = \App\Http\Models\States::get();
         //echo '<pre>'; print_r($data['address_detail']); die;
         return view('common.edituser', $data);
     }
@@ -383,9 +383,7 @@ class UsersController extends Controller {
                         $this->sendEMail("emails.order_owner_notification", $userArray3);
                     }
                 }
-                 \Session::flash('message', 'Thank you! your order has been received.');
-                \Session::flash('message-type', 'alert-success');
-                \Session::flash('message-short', 'Congratulations!');
+                
                 echo $msg . '6';
                 
                 \DB::commit();
@@ -407,7 +405,7 @@ class UsersController extends Controller {
     //converts the current profile to JSON
     function json_data() {
         $id = $_POST['id'];
-        $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
+        $user = \App\Http\Models\Profiles::select('profiles.id as user_id', 'profiles.name', 'profiles.email', 'profiles_addresses.phone as phone', 'profiles_addresses.address as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province', 'profiles_addresses.notes as notes')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         
         //$user = \DB::table('profiles')->select('profiles.name', 'profiles.phone', 'profiles.email', 'profiles_addresses.street as street', 'profiles_addresses.postal_code', 'profiles_addresses.city', 'profiles_addresses.province')->where('profiles.id', \Session::get('session_id'))->LeftJoin('profiles_addresses', 'profiles.id', '=', 'profiles_addresses.user_id')->first();
         

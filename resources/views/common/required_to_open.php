@@ -7,6 +7,9 @@
      */
 
     $Restaurant = select_field("restaurants", "id", $Restaurant);
+    
+    $post = \Input::all();
+    
     if ($Restaurant) {
         $MissingData = [];
         $MissingDataOptional = [];
@@ -72,14 +75,16 @@
         }
 
         if ($MissingData) {
+            $missingHeadInitialReg="";
             if (isset($post['initialRestSignup'])) {
-                $missingHead = "PARTIAL REGISTRATION COMPLETED!";
-            } else {
-                $missingHead = "PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
-            }
+                $missingHeadInitialReg = '<span style="font-size:20px">PARTIAL REGISTRATION COMPLETED!</span> &nbsp;';
+            } 
+              
+                $missingHead = $missingHeadInitialReg."PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
+
             $MissingData = array_merge($MissingData, $MissingDataOptional);
 
-            $MissingData = "<br/>Please click the links below, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div style=''>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
+            $MissingData = "<br/>Please click the links below, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
             echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>' . $missingHead . '</u></STRONG>' . $MissingData . '</DIV>';
         }
     }

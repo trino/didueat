@@ -164,6 +164,9 @@ class RestaurantController extends Controller {
             if (!isset($post['restname']) || empty($post['restname'])) {
                 return $this->failure("[Restaurant Name] field is missing!", 'restaurant/info/' . $post['id']);
             }
+            /*if (!isset($post['country']) || empty($post['country'])) {
+                return $this->failure("[Country] field is missing!", 'restaurant/info/' . $post['id']);
+            }*/
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
@@ -204,8 +207,10 @@ class RestaurantController extends Controller {
 
                 if(isset($post['email'])) {$update['email'] = $post['email'];}
                 //$update['website'] = $post['website'];
+                $update['apartment'] = $post['apartment'];
                 $update['phone'] = $post['phone'];
                 $update['description'] = $post['description'];
+                $update['country'] = $post['country'];
                 $update['cuisine'] = $post['cuisines'];
                 $update['province'] = $post['province'];
                 if(isset($post['formatted_address'])){ $update['address'] = $post['formatted_address'];}
@@ -218,7 +223,8 @@ class RestaurantController extends Controller {
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
                 $update['minimum'] = (isset($post['is_delivery']))?$post['minimum']:0;
                 $update['max_delivery_distance'] = (isset($post['is_delivery']))?$post['max_delivery_distance']:0;
-               // $update['tags'] = $post['tags'];
+                $update['tags'] = $post['tags'];
+                $update['initialReg'] = 0; // only true after initial registration
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
@@ -226,6 +232,7 @@ class RestaurantController extends Controller {
 
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
+
                 foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
                 }
@@ -414,9 +421,12 @@ class RestaurantController extends Controller {
     //add a menu item
     public function menuadd() {
         \Session::flash('message', \Input::get('message'));
-
+        //if(\Session::get('session_restaurant_id'))
+        //$arr['uploaded_by'] = 0;
+        //else{
         $arr['uploaded_by'] = \Session::get('session_ID');
-
+        //}
+        
         //copy these keys to the $arr
         $Copy = array('menu_item', 'price', 'description', 'image', 'parent', 'has_addon', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'req_opt', 'has_addon', 'display_order', 'cat_id','has_discount','days_discount','discount_per','is_active','restaurant_id','cat_name');
         
@@ -510,7 +520,6 @@ class RestaurantController extends Controller {
             }
             die();
         }
-        \Session::flash('message', 'Restaurant menu updated successfully');
     }
 
     //unknown
@@ -588,7 +597,7 @@ class RestaurantController extends Controller {
             $data['title'] = 'Orders Detail';
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
             $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
-            //$data['states_list'] = \App\Http\Models\States::get();//load provinces/states
+//            $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
             return view('dashboard.restaurant.orders_detail', $data);
         }
     }

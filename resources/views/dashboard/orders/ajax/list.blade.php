@@ -19,7 +19,7 @@ $secondsTitle = "sec";
                         Restaurant
                     @endif
                     Orders
-                    @if(Session::get('session_type_user') == "super" || $recCount > 10)
+                    @if(true)
 
                         <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print
                             Report</a>
@@ -28,7 +28,7 @@ $secondsTitle = "sec";
                 </h4>
 
             </div>
-            @if($recCount > 10)
+            @if(true)
                 @include('common.table_controls')
             @endif
         </div>

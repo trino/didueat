@@ -90,6 +90,7 @@ class AdministratorController extends Controller {
                     }
                 }
 
+                $data['subscribed'] = (isset($post['subscribed'])) ? 1 : 0;
                 //save the array to the database
                 $ob->populate($data);
                 $ob->save();

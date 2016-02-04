@@ -12,39 +12,6 @@
 <div class="clearfix" id="cartsz">
 
     @if(!isset($order))
-        <div class="card card-inverse card-primary " style="">
-            <div class="card-block">
-                <img style="" class="pull-right"
-                     @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                     @else
-                     src="{{ asset('assets/images/default.png') }}"
-                     @endif
-                     alt="Card image cap">
-
-                <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
-
-                <p class="card-text" style="font-size:90%;">
-                    {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                    {!! (isset($restaurant->province))? 'ON':'' !!}
-                    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-                    <br>{!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    <br>Wed: 8am - 8pm
-                    <br>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                </p>
-
-                <div class="clearfix"></div>
-
-                <a style="color:white;" class="btn btn-info-outline pull-right" href="#" data-toggle="modal"
-                   data-target="#viewMapModel">More Detail</a>
-
-                <div id="restaurant_rating">
-                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
 
 
         <div class="card card-inverse card-danger " style="">
@@ -60,8 +27,10 @@
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-                    <h3 class="card-title">Receipt</h3>
+
+                    <h4 class="card-title">Receipt</h4>
                     @include('common.items',['receiptz'=>'from_receipt'])
+
                     <div class="totals">
                         <table class="table">
                             <tbody>
