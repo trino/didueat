@@ -48,10 +48,9 @@
                             @foreach($orders as $order)
                                 <div class="restaurentDetail">
                                     <h3>Orders List</h3>
-                                    <?php
-                                    $restaurant = \App\Http\Models\Restaurants::where('id', $order->restaurant_id)->first(); ?>
+                                    <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
-                                    @include('common.receipt')
+                                    @include('common.receipt', array("type" => "report"))
                                     <div class="clearfix"></div>
 
                                 </div>
@@ -59,9 +58,11 @@
                         @else
                             No orders found
                         @endif
+
                         <div class="clearfix"></div>
 
                         <div class="clearfix  hidden-xs"></div>
+
                         <script>
                             function checkFilter() {
                                 var date1 = $('.date1').val();

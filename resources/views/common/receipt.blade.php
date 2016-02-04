@@ -12,8 +12,6 @@
 <div class="clearfix" id="cartsz">
 
     @if(!isset($order))
-
-
         <div class="card card-inverse card-danger " style="">
             <div class="card-block ">
                 <h4 class="card-title text-xs-center m-b-0">Restaurant doesn't offer online ordering</h4>
@@ -22,13 +20,12 @@
         </div>
     @endif
 
-
     <div class="card " style="">
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-
                     <h4 class="card-title">Receipt</h4>
+
                     @include('common.items')
 
                     <div class="totals">
@@ -38,8 +35,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <label class="radio-inline c-input c-radio">
-                                            <input type="radio" id="delivery1" name="delevery_type"
-                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">
+                                            <input type="radio" id="delivery1" name="delevery_type" onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">
                                             <span class="c-indicator"></span>
                                             <strong>Delivery</strong>
                                         </label>
@@ -64,8 +60,7 @@
                                     <div class="subtotal inlineblock">
                                         ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}
                                     </div>
-                                    <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
-                                           value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
+                                    <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
                                 </td>
                             </tr>
                             <tr>
@@ -73,9 +68,7 @@
                                 <td>
                                     <span class="tax inlineblock">&nbsp;${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
                                     (<span id="tax inlineblock">13</span>%)
-                                    <input type="hidden"
-                                           value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}"
-                                           name="tax" class="maintax tax"/>
+                                    <input type="hidden" value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}" name="tax" class="maintax tax"/>
                                 </td>
                             </tr>
                             <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
@@ -91,12 +84,9 @@
                             <tr>
                                 <td><strong>Total</strong></td>
                                 <td>
-                                    <div class="grandtotal inlineblock">
-                                        &nbsp;${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
-                                    <input type="hidden" name="g_total" class="grandtotal"
-                                           value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
-                                    <input type="hidden" name="res_id"
-                                           value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
+                                    <div class="grandtotal inlineblock">&nbsp;${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
+                                    <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
+                                    <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                                 </td>
                             </tr>
                             </tbody>
@@ -113,8 +103,8 @@
                     <div class="clearfix"></div>
                 </div>
 
-
                 <!-- display profile info -->
+
 
                 <div class="profiles row" style="display: none;">
                     <div class="form-group">
@@ -137,10 +127,10 @@
                     </div>
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
+
                     <form name="checkout_form" id="profiles"  class="m-b-0">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <input type="hidden" name="user_id" id="ordered_user_id"
-                               value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
+                        <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
 
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
@@ -165,57 +155,19 @@
                             </div>
                         @endif
 
-                          <div class="form-group">
-                                <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text"  maxlength="10" min="10"
-                                           placeholder="Cell Phone" id="phone"
-                                           class="form-control form-control--contact phone" name="contact"
-                                           id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
-                                </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                                <input type="text"  maxlength="10" min="10"
+                                       placeholder="Cell Phone" id="phone"
+                                       class="form-control form-control--contact phone" name="contact"
+                                       id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
                             </div>
-
+                        </div>
 
                         <div class="profile_delivery_detail" style="display: none;">
-
-
-                          
-                            @include('common.editaddress',['type'=>'reservation'])
-                            <?php if(false){  ?>
-                            <div class="form-group">
-                                <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text" placeholder="Address" id="ordered_street"
-                                           class="form-control form-control--contact resetme" name="address">
-                                </div>
-                            </div>
-
-                            <div class="col-xs-6">
-                                <input type="text" id="apartment" placeholder="Apartment" id="ordered_apartment"
-                                       class="form-control form-control--contact resetme" name="apartment">
-                            </div>
-
-                            <div class="col-xs-12">
-                                <input type="text" placeholder="City" id="ordered_city"
-                                       class="form-control form-control--contact resetme" name="city">
-                            </div>
-
-                            <div class="col-xs-12">
-                                <select class="form-control form-control--contact resetme" name="province"
-                                        id="ordered_province">
-                                    <option value="ON" SELECTED>Ontario</option>
-
-                                    <?php
-                                        /*foreach($states_list as $value)
-                                        <option value="{{ $value->id }}"
-                                                if(isset($profile->province) && $profile->province == $value->id) selected endif>$value->name</option>
-                                        endforeach */
-                                    ?>
-                                </select>
-                            </div>
-
-                            <div class="col-xs-12">
-                                <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact resetme" name="postal_code">
-                            </div>
-                            <?php } ?>
+                            @if(!isset($type) || $type != "report")
+                                @include('common.editaddress',['type'=>'reservation'])
+                            @endif
                             <div class="clearfix"></div>
                         </div>
 
@@ -249,10 +201,11 @@
             </div>
         </div>
     </div>
+
     <div class="clearfix"></div>
 </div>
 
-    <!-- add addresss modal -->
+<!-- add addresss modal -->
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -284,10 +237,10 @@
                 <h3>Hours: </h3>
                 <TABLE WIDTH="100%">
                     <?php
-                    $days = getweekdays();
-                    foreach ($days as $day) {
-                        echo '<TR><TD>' . $day . '</TD><TD>' . getfield($restaurant, $day . "_open") . '</TD><TD>' . getfield($restaurant, $day . "_close") . '</TD></TR>';
-                    }
+                        $days = getweekdays();
+                        foreach ($days as $day) {
+                            echo '<TR><TD>' . $day . '</TD><TD>' . getfield($restaurant, $day . "_open") . '</TD><TD>' . getfield($restaurant, $day . "_close") . '</TD></TR>';
+                        }
                     ?>
                 </TABLE>
 
@@ -304,39 +257,33 @@
     </div>
 </div>
 
-<script> 
+
+<script>
     function addresschanged(thiss) {
-
-            $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-            $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
-            $(".city").val(thiss.getAttribute("CITY"));
-            $(".province").val(thiss.getAttribute("PROVINCE"));
-            $(".apartment").val(thiss.getAttribute("APARTMENT"));
-            $(".postal_code").val(thiss.getAttribute("POSTAL"));
-            $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-            //$('#formatted_address3').val('');
-
-
+        $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+        $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
+        $(".city").val(thiss.getAttribute("CITY"));
+        $(".province").val(thiss.getAttribute("PROVINCE"));
+        $(".apartment").val(thiss.getAttribute("APARTMENT"));
+        $(".postal_code").val(thiss.getAttribute("POSTAL"));
+        $("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
-    
+
     $(function(){
         $('#delivery1').click();
         //save address
         $('#edit-form').submit(function(e){
-            if($(this).hasClass('reservation'))
-            {
+            if($(this).hasClass('reservation')) {
                 e.preventDefault();
                 var url = $(this).attr('action');
                 var datas = $(this).serialize();
-                
+
                 $.ajax({
                     url:url+'?ajax',
                     type:"post",
                     data:datas,
                     dataType:"json",
-                    success:function(msg)
-                    {
-                        
+                    success:function(msg) {
                         $('.close').click();
                         $('#formatted_address3').val(msg['formatted_address']);
                         $('.apratment').val(msg['apartment']);
@@ -344,16 +291,9 @@
                         $('.province').val(msg['province']);
                         $('.postal_code').val(msg['postal_code']);
                         $('#ordered_notes').text(msg['notes'])
-                        
-                        
                     }
-                    
                 })
-                
             }
         })
-        
-        
-        
     })
 </script>

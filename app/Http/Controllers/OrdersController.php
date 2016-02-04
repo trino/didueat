@@ -192,7 +192,6 @@ class OrdersController extends Controller {
         if (isset($_GET['to'])) {
             $order = $order->where('order_time', '<=', $_GET['to']);//equal to and lesser than to time
         }
-
         $data['orders'] = $order->get();
         //$data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
         $data['title'] = 'Report';
