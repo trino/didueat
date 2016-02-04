@@ -17,26 +17,37 @@
                 {!! Form::open(array('url' => '/auth/forgot-password', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div id="error" class="alert alert-danger" style="display: none;"></div>
                 <div class="form-group row">
-                    <div class="col-sm-12"><p style="">Click Submit, and a new
-                            password will be emailed to you:</p></div>
+                    <div class="col-sm-12"><p style="">A new password will be emailed to you.</p></div>
                 </div>
 
                 <?php echo newrow(false, "Email", '', true); ?>
                 <input type="email" name="email" class="form-control" id="email" placeholder="" required/>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                    <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit" style="">Submit</button>
+
+
+                </div>
+                </div>
+                    {!! Form::close() !!}
             </div>
+
+
+
+
+
 
 
             <img src="{{ asset('assets/images/loader.gif') }}" id="regLoader"
                  style="display: none;margin-left:auto;margin-right:auto;"/>
 
 
+
         </div>
     </div>
-    <div class="modal-footer">
 
-        <button id="lostPWregButton" class="btn btn-primary pull-right" type="submit" style="">Submit</button>
-        {!! Form::close() !!}
-    </div>
 </div>
 </div>
 </div>
