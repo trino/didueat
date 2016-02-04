@@ -380,6 +380,7 @@
                                     //only loads header
                                     $('.header-nav').load(document.URL + ' .header-nav>ul');
                                     $('.password_reservation').hide();
+                                    $('.password_reservation').removeAttr('required');
                                 }
                             });
                         } else {
