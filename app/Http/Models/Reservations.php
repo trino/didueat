@@ -17,10 +17,15 @@ class Reservations extends BaseModel {
     public function populate($data, $Key = false) {
         $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id', 'time', );
         $this->copycells($cells, $data);
+        $this->guid = $this->guid($data["restaurant_id"]);
+    }
 
-        $guid = implode("-", str_split(strtoupper(base_convert(microtime(false), 10, 36)), 4));
-        $guid = str_pad(dechex($data["restaurant_id"]), 4, '0', STR_PAD_LEFT) . "-" . str_replace("0", "O", $guid);
-        $this->guid = $guid;
+    public function guid($restaurantID){
+        $restaurant = get_entry("restaurants", $restaurantID);
+        $today = date("ymd");
+        $OrderID = iif($restaurant->lastorder_date == $today, $restaurant->lastorder_id, 0) + 1;
+        edit_database("restaurants", "id", $restaurantID, array("lastorder_id" => $OrderID, "lastorder_date" => $today));
+        return str_pad($restaurantID, 3, '0', STR_PAD_LEFT) . "-" . str_pad($OrderID, 3, '0', STR_PAD_LEFT);
     }
     
     public static function listing($array = "", $type = "") {
