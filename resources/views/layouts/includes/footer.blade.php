@@ -451,14 +451,18 @@
                     $('#register-form').hide();
                     $('#registration-success').show();
                     $('#registration-success p').html(json.message);
-                    setTimeout(redirectToDashboard, 1000);
+                    setTimeout(redirectToDashboard(true), 1000);
                 }
             });
             e.preventDefault();
         });
 
-        function redirectToDashboard() {
-            return window.location.replace("{{ url('/dashboard') }}");
+        function redirectToDashboard(is_first_login) {
+            if(is_first_login){
+                return window.location.replace("{{ url('/dashboard/1') }}");
+            } else {
+                return window.location.replace("{{ url('/dashboard') }}");
+            }
         }
 
         function ValidURL(textval) {

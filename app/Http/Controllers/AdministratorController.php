@@ -21,7 +21,7 @@ class AdministratorController extends Controller {
      * @param null
      * @return view
      */
-    public function dashboard() {
+    public function dashboard($is_first_login=false) {
 
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
@@ -108,7 +108,7 @@ class AdministratorController extends Controller {
                 return $this->failure(handleexception($e), 'dashboard');
             }
         } else {
-            if(\Session::get('session_profiletype') == 2){
+            if(\Session::get('session_profiletype') == 2 && $is_first_login == true){
                 return redirect('/');
             }
             $data['title'] = 'Dashboard';
