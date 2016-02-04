@@ -1,15 +1,12 @@
-<A NAME="search" />
 <?php
     printfile("views/dashboard/restaurant/ajax/search.blade.php");
     if(iterator_count($restaurants)){
         echo '<DIV class="row">';
-        echo '<DIV CLASS="col-sm-12">We have found similar restaurant(s), click one to claim it:</DIV>';
+        echo '<SELECT name="id" id="restid" CLASS="form-control" onchange="claimrestaurant();"><OPTION VALUE="">We have found similar restaurant(s), click one to claim it</OPTION>';
         foreach($restaurants as $restaurant){
-            echo '<A HREF="#search" ONCLICK="claimrestaurant(' . $restaurant->id . ')"><DIV CLASS="col-sm-6">';
-            echo '<H4 id="restname' . $restaurant->id . '">' . $restaurant->name . '</H4>';
-            echo $restaurant->address . " " . $restaurant->city;
-            echo '</DIV></A>';
+            echo '<OPTION VALUE="' . $restaurant->id . '" TITLE="' . $restaurant->name. '" ID="restname' . $restaurant->id. '">';
+            echo $restaurant->name . ' [' . $restaurant->address . " " . $restaurant->city . '] (' . $restaurant->phone . ')</OPTION>';
         }
-        echo '</div>';
+        echo '</SELECT></div>';
     }
 ?>

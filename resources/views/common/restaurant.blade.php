@@ -1,23 +1,23 @@
 <?php
-if (!isset($restaurant)) {
-    $restaurant = "";
-}
-$Genre = priority2($restaurant, "genre");
-$RestID = "";
-$Country = "";
-$Field = "restname";
-if (isset($restaurant->id)) {
-    $RestID = '<input type="hidden" name="id" value="' . $restaurant->id . '"/>';
-    $Country = $restaurant->country;
-    $Field = "name";
-}
-$restaurant_logo = asset('assets/images/default.png');
-if (isset($restaurant->logo) && $restaurant->logo) {
-    $restaurant_logo = asset('assets/images/restaurants/' . $restaurant->logo);
-}
+    if (!isset($restaurant)) {
+        $restaurant = "";
+    }
+    $Genre = priority2($restaurant, "genre");
+    $RestID = "";
+    $Country = "";
+    $Field = "restname";
+    if (isset($restaurant->id)) {
+        $RestID = '<input type="hidden" name="id" value="' . $restaurant->id . '"/>';
+        $Country = $restaurant->country;
+        $Field = "name";
+    }
+    $restaurant_logo = asset('assets/images/default.png');
+    if (isset($restaurant->logo) && $restaurant->logo) {
+        $restaurant_logo = asset('assets/images/restaurants/' . $restaurant->logo);
+    }
 
-if(Session::get('session_type_user') != "restaurant"){
-// means they are logged in and have already registered as a restaurant
+    if(Session::get('session_type_user') != "restaurant"){
+    // means they are logged in and have already registered as a restaurant
 ?>
 
 

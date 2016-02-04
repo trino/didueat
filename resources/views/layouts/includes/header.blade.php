@@ -1,6 +1,7 @@
 <?php
-printfile("views/dashboard/layouts/includes/header.blade.php");
-$first = false; $type = "hidden";
+    printfile("views/dashboard/layouts/includes/header.blade.php");
+    $first = false;
+    $type = "hidden";
 ?>
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-danger" role="navigation">
@@ -77,6 +78,10 @@ $first = false; $type = "hidden";
                         document.getElementById("formatted_address2").value = Address;
                         $("#formatted_address2").trigger("focus");
                         $("#formatted_address2").trigger("change");
+
+                        setTimeout(function(){
+                            $(".pac-container.pac-logo").hide();
+                        }, 100);
                     }
 
                     function change_address_event() {

@@ -76,6 +76,23 @@ class Restaurants extends BaseModel {
         return $query;
     }
 
+    public static function getbusinessday($restaurant){
+        $now = date('H:i:s');
+        $Today = current_day_of_week();
+        $Yesterday = current_day_of_week(-1);
+        if(!is_object($restaurant)) {
+            $restaurant = get_entry("restaurants", $restaurant);
+        }
+        $Today_Open = getfield($restaurant, $Today . "_open");
+        $Yesterday_Open = getfield($restaurant, $Yesterday . "_open");
+        $Yesterday_Close = getfield($restaurant, $Yesterday . "_close");
+        if ($Yesterday_Close > $now && $Yesterday_Open > $Yesterday_Close && $now < $Today_Open){
+            return $Yesterday;
+        }
+        return $Today;
+    }
+
+
     /**
      * @param $term
      * @param $per_page
@@ -114,7 +131,7 @@ class Restaurants extends BaseModel {
         }
 
         $DayOfWeek = current_day_of_week();
-        $now = "02:00:00"; //date('H:i:s');
+        $now = date('H:i:s');
         $Yesterday = current_day_of_week(-1);
         $DeliveryHours = $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
