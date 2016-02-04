@@ -60,7 +60,7 @@ class UsersController extends Controller {
             }
         } else {//get data to load the page
             $data['title'] = 'Users List';
-            $data['states_list'] = \App\Http\Models\States::get();
+            //$data['states_list'] = \App\Http\Models\States::get();
             $data['restaurants_list'] = \App\Http\Models\Restaurants::where('open', 1)->orderBy('name', 'ASC')->get();
             return view('dashboard.user.index', $data);
         }

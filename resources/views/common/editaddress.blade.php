@@ -70,6 +70,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             <select class="col-md-11 form-control" >
                 <option value="">Select Address</option>
                  <?php
+                    $sec=false;
                     foreach ($addresses as $address) {
                         if (!$sec) {
                             $sec = $address->id;
@@ -117,9 +118,9 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
 <div class="hidden_elements" <?php if(isset($type)&& $type=='reservation')echo "style='display:none;'";?> >
 <?= newrow($new, "Apartment", "", false, 5); ?>
-    <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit"
-
-<input name="addOrEdit" type="hidden" id="addOrEdit" />
+    <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit">
+    <input name="addOrEdit" type="hidden" id="addOrEdit" />
+</div></div>
     
 <?php echo newrow($new, "Street Address", "", true); ?>
     @if($is_disabled)
@@ -143,10 +144,9 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <?php echo newrow();
 
 if($isUser){
- $aptUnit="Apartment";
-}
-else{
- $aptUnit="Unit";
+    $aptUnit="Apartment";
+} else{
+    $aptUnit="Unit";
 }
  
     echo newrow($new, $aptUnit." #", "", false, 5); ?>
@@ -170,8 +170,6 @@ else{
     <input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control postal_code" placeholder="Postal Code"
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
-</div>
-
 
 <?= newrow($new, "Country", "", $required, 5); ?>
 <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"

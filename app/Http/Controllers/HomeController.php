@@ -434,7 +434,7 @@ class HomeController extends Controller {
         $data['restaurant'] = $res_slug;
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
         $data['total_restaurant_views'] = \App\Http\Models\PageViews::getView($res_slug->id, "restaurant");
-        $data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
+        //$data['states_list'] = \App\Http\Models\States::get();//load all states/provinces
         
         if (isset($_GET['page'])) {
             return view('menus', $data);
