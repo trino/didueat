@@ -13,9 +13,6 @@
 
 <div class="row">
 
-
-
-
     @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
