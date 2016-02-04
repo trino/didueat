@@ -307,7 +307,7 @@
 <script>
     function show_header()
     {
-        alert($('#subtotal1').val());
+        
         if($('#subtotal1').val()=='0.00' || $('#subtotal1').val()=='0')
         {
             $('.itmQty').hide();
