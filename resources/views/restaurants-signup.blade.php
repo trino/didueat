@@ -97,6 +97,14 @@
             var cuisinesStr = "";
             var noneChkd=true;
             var comma = "";
+
+            if($("#restid").is(":visible")){
+                var id = $('#restid option:selected').val();
+                if(id){
+                    noneChkd=false;
+                }
+            }
+
             for (var i = 0; i < cuisineCnt; i++) {
                 if (f.elements["cuisine" + i].checked) {
                     noneChkd=false;

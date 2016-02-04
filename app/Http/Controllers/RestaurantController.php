@@ -170,10 +170,10 @@ class RestaurantController extends Controller {
             if (!isset($post['postal_code']) || empty(clean_postalcode($post['postal_code']))) {
                 return $this->failure("[Postal Code] field is missing or invalid!", 'restaurant/info/' . $post['id']);
             }
-            */
             if (!isset($post['city']) || empty($post['city'])) {
                 return $this->failure("[City] field is missing!", 'restaurant/info/' . $post['id']);
             }
+            */
             try {
                 $update=$post;
                 $addlogo='';
