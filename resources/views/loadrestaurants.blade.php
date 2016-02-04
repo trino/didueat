@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success red">Order Online</a></td>
+                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success">Order Online</a></td>
                 </td>
             </tr>
         @endforeach

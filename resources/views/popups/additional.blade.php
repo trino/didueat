@@ -1,13 +1,13 @@
-<div class="menuwrapper" id="sub{{ (isset($child))? $child->id : 0 }}" class="ignore ignore1">
+<div class="menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}" >
     <?php
-        printfile("views/common/additional.blade.php");
+        printfile("views/popups/additional.blade.php");
         $r1 = rand('1000000', '999999999');
         $r2 = rand('1000000', '999999999');
     ?>
     <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
         <div class="col-sm-12 lowheight row ignore ignore1">
             <input class="form-control ctitle ignore ignore1" type="text" placeholder="Title" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
-            <br class="ignore"/>
+            
             <textarea class="form-control cdescription ignore ignore1" placeholder="description">{{ (isset($child->description))? $child->description : "" }}</textarea>
         </div>
         <div class="col-sm-12 additionalitems ignore ignore1">
@@ -127,16 +127,24 @@
                         
                     @endif
                     
-                    <a href="javascript:void(0)" class="btn btn-sm red btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast ignore ignore2 ignore1" onclick="">Remove</a>
                 </div>
+                <?php
+                if(isset($cmodel) && count($cmodel)>1)
+                {
+                    ?>
+                    
                 <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">
                     <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
                     <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
                 </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
     <div class="clearfix ignore ignore2 ignore1"></div>
+    <hr />
 </div>
 
-<hr />

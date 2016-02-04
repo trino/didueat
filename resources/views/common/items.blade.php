@@ -37,9 +37,9 @@
         <td class="receipt_image" width='26%'>
                 
              
-              <span class="count">{{ $arr_qty[$k] }} x</span><input type="hidden" class="count" name="qtys[]" value="1" />
+              <span class="count">{{ $arr_qty[$k] }} </span><input type="hidden" class="count" name="qtys[]" value="1" />
         </td>
-        <td style="50%"><span class='menu_bold'>{{ $tt }}</span>: {{ str_replace('<br/>', '', $extz) }}</td>
+        <td><span class='menu_bold'>{{ $tt }}</span><?php if($extz!='')echo ":";?> {{ str_replace('<br/>', '', $extz) }}</td>
         <td class="total">$ {{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}</td>
         <span class="amount" style="display:none;"> {{ number_format($arr_prs[$k], 2) }}</span>
         <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>

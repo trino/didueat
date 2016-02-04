@@ -1,11 +1,10 @@
 @extends('layouts.default')
 @section('content')
 
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
     <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
@@ -22,15 +21,12 @@
                 <b>How</b> It Works
 
                 Did U Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
-                exhausting
-                menu for customers to look through, we do things a bit differently. Our restaurants feature a meal of
-                the
-                day for each day of the week. The customer simply selects the food category they feel like having,
-                choose
-                the meal that appeals to them, place their order through the site, pick up/wait for delivery, and enjoy.
+                exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a meal of
+                the day for each day of the week. The customer simply selects the food category they feel like having,
+                choose the meal that appeals to them, place their order through the site, pick up/wait for delivery, and enjoy.
                 That's it! <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f">...
-                    <span id="readmore" style="text-decoration:underline">Read More</span></a><span id="moreInfo"
-                                                                                                    style="display:none"><div
+                    <span id="readmore" style="text-decoration:underline">Read More</span></a><span id="moreInfo" style="display:none">
+                    <div
                             style="margin:0px;font-size:5px;line-height:5px"><br/><br/></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
             eating. What are you waiting for? Sign up now and let the Did U Eat team bring the customers to you.
             By putting your restaurant online with Did U Eat, you'll be getting more business from hungry customers
@@ -120,39 +116,8 @@
         }
 
         $(document).ready(function () {
-//            Demo.init();
-
-            jQuery.validator.addMethod("matchPattern", function (value, element) {
-                var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
-                if (value.replace(' ', '').length == 6) {
-                    return true;
-                }
-                return false;
-            });
-
-
-            var phoneRep = /[\-\ \,\(\)\.]/g;
-            jQuery.validator.addMethod("checkPhone", function (value, element) {
-                var numStr = "0123456789";
-                var cleanedPhone = value.replace(phoneRep, '');
-                var numOK = true;
-                for (var i = 0; i < cleanedPhone.length; i++) {
-                    if (numStr.indexOf(cleanedPhone.charAt(i)) == -1) {
-                        numOK = false;
-                        break;
-                    }
-                }
-                return numOK;
-            });
-
-            jQuery.validator.addMethod("checkLen", function (value, element) {
-                var cleanedPhone = value.replace(phoneRep, '');
-                if (cleanedPhone.length != 10) {
-                    return false;
-                }
-                return true;
-            });
-
+//          Demo.init();
+            add_all(true, true, true);
 
             $("#signupForm").validate({
                 rules: {

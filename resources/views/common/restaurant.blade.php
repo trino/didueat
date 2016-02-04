@@ -29,7 +29,6 @@ if(Session::get('session_type_user') != "restaurant"){
         <div class="card-header ">
             <h4>Your Restaurant</h4>
 
-
             <div class="row">
                 <div class="portlet-title">
                     <div class="caption">
@@ -49,7 +48,7 @@ if(Session::get('session_type_user') != "restaurant"){
             </div>
         </div>
 
-        <div class="card-block ">
+        <div class="card-block" ID="common_editaddress">
             @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
         </div>
 

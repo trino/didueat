@@ -1,8 +1,8 @@
 @extends('layouts.default')
 @section('content')
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
     <div class="row">
-
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
@@ -16,7 +16,8 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true))
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true))
+
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
@@ -36,21 +37,19 @@
                     @endif
                 </div>
             </div>
-
-
         </div>
+
         <div class="card-footer clearfix" style="">
             <button type="submit" class="btn btn-primary pull-right">Save</button>
             <input name="userPhotoTemp" type="hidden" id="userPhotoTemp"/>
-            <input name="user_idDir" id="user_idDir" type="hidden"
-                   value="{{ (isset($user_detail->id))?$user_detail->id:'' }}"/>
-            <input type="hidden" name="restaurant_id"
-                   value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
+            <input name="user_idDir" id="user_idDir" type="hidden" value="{{ (isset($user_detail->id))?$user_detail->id:'' }}"/>
+            <input type="hidden" name="restaurant_id" value="{{ (isset($user_detail->restaurant_id))?$user_detail->restaurant_id:'' }}"/>
             <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
             <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}"/>
         </div>
         {!! Form::close() !!}
     </div>
+
     </div>
     </div>
     </div>
@@ -97,6 +96,36 @@
                     }
                 });
             }
+
+            add_all(true, true, true);
+            $("#profileForm").validate({
+                rules: {
+                    phone: {
+                        required: true,
+                        checkPhone: true,
+                        checkLen: true
+                    }/*,
+                    email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: "{{ url('auth/validate/email/ajax') }}",
+                            type: "post"
+                        }
+                    }*/
+                },
+                messages: {
+                    phone: {
+                        required: "Please enter a phone number",
+                        checkPhone: "Invalid character. Please just use numbers and hyphens",
+                        checkLen: "Phone number must be 10 numbers long"
+                    }
+                },
+                email: {
+                    required: "Please enter an email address!",
+                    remote: "This email address is already in use!"
+                }
+            });
         });
     </script>
 @stop

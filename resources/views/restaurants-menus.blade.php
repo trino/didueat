@@ -1,5 +1,71 @@
 @extends('layouts.default')
+
+
+
+
+
+<div class=" card row container-fluid" style="">
+    <div class=" container p-t-2 p-a-0 m-t-2" style="">
+        <div class="card-block p-b-0">
+
+<div class="col-md-2 p-x-0">
+            <img style="width:150px;" class="pull-left"
+                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                 @else
+                 src="{{ asset('assets/images/default.png') }}"
+                 @endif
+                 alt="Card image cap">
+</div>
+            <div class="col-md-10 p-x-0">
+
+            <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
+
+                <div id="restaurant_rating">
+                    <a style="" class="" href="#" data-toggle="modal"
+                       data-target="#viewMapModel">More Detail</a>
+
+                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                </div>                <div class="clearfix"></div>
+
+
+                <p class="card-text m-b-0">
+
+
+
+                {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                {!! (isset($restaurant->province))? 'ON':'' !!}
+                {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+
+            </p>
+
+            <p class="card-text " style="">
+             {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                Open today: 8am - 8pm
+                Delivery: 9am - 8pm
+                @if (Session::get('session_type_user') == "super" )
+
+                   Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                @endif
+            </p>
+
+            <div class="clearfix"></div>
+
+
+
+</div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
 @section('content')
+
+
 
     <div class="row">
 
@@ -8,6 +74,10 @@
                 <img src="{{ asset('assets/images/ajax-loading.gif') }}">
             </div>
         </div>
+
+
+
+
 
         <div class=" col-md-4 col-sm-4" id="printableArea">
             @include('common.receipt')
@@ -35,20 +105,8 @@
 
 
 
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-            @else
-                <div class="alert alert-success" role="alert">
-                    <strong>Make Money!</strong> Design meals that others will want to eat.
 
-                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
-                       data-toggle="modal" data-target="#addMenuModel">
-                        Add Menu Item
-                    </a>
-
-                    <div class="clearfix"></div>
-                </div>
-            @endif
-
+                <h4>Online Specials</h4>
 
 
             @if(isset($restaurant))
@@ -73,7 +131,7 @@
                                     $("#postswrapper_{{ $cat->id }}").html(res);
                                 }
                                 else {
-                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No item added in this category<div class="clearfix"></div></div>');
+                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
                                 }
                             }
                         });
@@ -129,7 +187,7 @@
             }
         }
         $(document).ready(function () {
-            
+
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -148,7 +206,7 @@
                 $('.profiles').hide();
             });
             $('#profiles').submit(function (e) {
-                
+
                 e.preventDefault();
                 $('.overlay_reservation').show();
                 var token = $('#profiles input[name=_token]').val();
@@ -163,8 +221,11 @@
                         if (msg == '1') {
                             alert('Email Already Registred.');
                         } else if (msg == '6') {
+
+                            window.location="{{url('orders/list/user?flash=1')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
                         } else if (msg == '786') {
+                            window.location="{{url('orders/list/user?flash=2')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.</span>");
                         } else {
                             alert(msg);
@@ -357,7 +418,7 @@
                     }
                 });
                 if (err > 0) {
-                    
+
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');
@@ -510,6 +571,8 @@
             });
 
             $(".sorting_parent").live('click', function () {
+                var path = window.location.pathname+'?sorted';
+                alert(path);
                 $('.overlay_loader').show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
@@ -534,7 +597,7 @@
                     data: 'ids=' + order + '&_token=<?php echo csrf_token(); ?>',
                     type: 'post',
                     success: function () {
-                        location.reload();
+                        window.location = path;
                     }
                 });
 

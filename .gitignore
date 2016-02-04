@@ -72,3 +72,13 @@ Jan30,2016_latestdb.sql
 public/assets/global/scripts/provinces_backupJan30,2016.js
 vendor/laravel/framework/src/Illuminate/Support/Facades/Input.php
 vendor/symfony/debug/Debug.php
+resources/views/common/required_to_open_backupB4Sync_Feb4.php
+public/assets/global/scripts/provinces_backupB4Sync_Feb4.js
+app/Http/Models/Restaurants_backupB4Sync_Feb4.php
+app/Http/Models/ProfilesAddresses_backupB4Sync_Feb4.php
+app/Http/Models/Cuisine_backupB4Sync_Feb4.php
+app/Http/Controllers/UsersController_backupB4Sync_Feb4.php
+app/Http/Controllers/RestaurantController_backupB4Sync_Feb4.php
+app/Http/Controllers/ProfileAddressesController_backupB4Sync_Feb4.php
+app/Http/Controllers/HomeController_backupB4Sync_Feb4.php
+app/Http/Controllers/Controller_backupB4Sync_Feb4.php

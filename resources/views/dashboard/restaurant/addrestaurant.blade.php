@@ -29,7 +29,7 @@
 
                 <DIV>
                     <div class="form-actions">
-                        <button type="submit" class="btn red"><i class="fa fa-check"></i> SAVE</button>
+                        <button type="submit" class="btn"><i class="fa fa-check"></i> SAVE</button>
                     </div>
                 </div>
                 {!! Form::close() !!}

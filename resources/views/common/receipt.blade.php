@@ -12,39 +12,6 @@
 <div class="clearfix" id="cartsz">
 
     @if(!isset($order))
-        <div class="card card-inverse card-primary " style="">
-            <div class="card-block">
-                <img style="" class="pull-right"
-                     @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                     @else
-                     src="{{ asset('assets/images/default.png') }}"
-                     @endif
-                     alt="Card image cap">
-
-                <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
-
-                <p class="card-text" style="font-size:90%;">
-                    {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                    {!! (isset($restaurant->province))? mapcountryprovince($restaurant->province, true) .' ':'' !!}
-                    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-                    <br>{!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    <br>Wed: 8am - 8pm
-                    <br>Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                </p>
-
-                <div class="clearfix"></div>
-
-                <a style="color:white;" class="btn btn-info-outline pull-right" href="#" data-toggle="modal"
-                   data-target="#viewMapModel">More Detail</a>
-
-                <div id="restaurant_rating">
-                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
 
 
         <div class="card card-inverse card-danger " style="">
@@ -60,7 +27,7 @@
         <div class="card-block ">
             <div class="top-cart-content ">
                 <div class="receipt_main">
-                    <h3 class="card-title">Receipt</h3>
+                    <h4 class="card-title">Receipt</h4>
                     @include('common.items')
                     <div class="totals">
                         <table class="table">
@@ -189,8 +156,8 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <input type="password" name="password" id="password"
-                                           class="form-control  form-control--contact" placeholder="Provide a password"
-                                           onkeyup="check_val(this.value);">
+                                           class="form-control  form-control--contact password_reservation" placeholder="Provide a password"
+                                           onkeyup="check_val(this.value);" required="required" />
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -200,24 +167,18 @@
 
 
                         <div class="profile_delivery_detail" style="display: none;">
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    @include('common.addressbar')
-
-
-                                </div>
-                            </div>
 
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text" pattern="[0-9]*" maxlength="10" min="10"
+                                    <input type="text"  maxlength="10" min="10"
                                            placeholder="Cell Phone" id="phone"
                                            class="form-control form-control--contact phone" name="contact"
                                            id="ordered_contact" required="">
                                 </div>
                             </div>
-
+                            @include('common.editaddress',['type'=>'reservation'])
+                            <?php if(false){  ?>
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
                                     <input type="text" placeholder="Address" id="ordered_street"
@@ -238,18 +199,21 @@
                             <div class="col-xs-12">
                                 <select class="form-control form-control--contact resetme" name="province"
                                         id="ordered_province">
-                                    <option value="">Province</option>
-                                    @foreach($states_list as $value)
+                                    <option value="ON" SELECTED>Ontario</option>
+
+                                    <?php
+                                        /*foreach($states_list as $value)
                                         <option value="{{ $value->id }}"
-                                                @if(isset($profile->province) && $profile->province == $value->id) selected @endif>{{ $value->name }}</option>
-                                    @endforeach
+                                                if(isset($profile->province) && $profile->province == $value->id) selected endif>$value->name</option>
+                                        endforeach */
+                                    ?>
                                 </select>
                             </div>
 
                             <div class="col-xs-12">
                                 <input type="text" maxlength="7" min="3" id="ordered_code" placeholder="Postal Code" class="form-control form-control--contact resetme" name="postal_code">
                             </div>
-
+                            <?php } ?>
                             <div class="clearfix"></div>
                         </div>
 
@@ -338,19 +302,21 @@
     </div>
 </div>
 
-<script>
+<script> 
     function addresschanged(thiss) {
-        $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-        $("#ordered_street").val(thiss.getAttribute("ADDRESS"));
-        $("#ordered_city").val(thiss.getAttribute("CITY"));
-        $("#ordered_province").val(thiss.getAttribute("PROVINCE"));
-        $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
-        $("#ordered_code").val(thiss.getAttribute("POSTAL"));
-        $("#ordered_notes").val(thiss.getAttribute("NOTES"));
-        $('#formatted_address3').val('');
+
+            $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
+            $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
+            $("#city").val(thiss.getAttribute("CITY"));
+            $("#province").val(thiss.getAttribute("PROVINCE"));
+            $("#ordered_apartment").val(thiss.getAttribute("APARTMENT"));
+            $("#postal_code").val(thiss.getAttribute("POSTAL"));
+            $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+            //$('#formatted_address3').val('');
 
 
     }
+    
     $(function(){
         $('#delivery1').click();
     })

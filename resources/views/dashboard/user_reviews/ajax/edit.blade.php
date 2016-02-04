@@ -2,17 +2,17 @@
 
 <?php
 
-echo newrow(false, "Rating", "", false); ?>
-        <input type="text" name="rating" class="form-control" id="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}">
+echo newrow(false, "Rating", "", true); ?>
+        <input type="number" min="0" max="5" class="form-control" id="rating" value="{{ (isset($user_review_detail->rating))?$user_review_detail->rating:'' }}">
     </div>
 </div>
 
 
 <?php
 
-echo newrow(false, "Comment", "", false); ?>
+echo newrow(false, "Comments", "", true); ?>
 
-        <textarea class="form-control" name="comments" id="comments" rows="5" required>{{ (isset($user_review_detail->comments))?trim($user_review_detail->comments):'' }}</textarea>
+        <textarea class="form-control" name="comments" id="comments" rows="4" required>{{ (isset($user_review_detail->comments))?trim($user_review_detail->comments):'' }}</textarea>
     </div>
 </div>
 

@@ -26,45 +26,47 @@ foreach ($Fields as $Field) {
 </div>
 <?php echo newrow();
 
-echo newrow($new, "Email", $size, true); ?>
-<div class="input-icon">
-    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required>
-</div>
-<?php echo newrow(); ?>
 
-<?php
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
+    <input maxlength="10" type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
+</div>
+<?php echo newrow();
+
+echo newrow($new, "Email", $size, true); ?>
+<div class="input-icon">
+    <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required @if(isset($emaillocked)) readonly @endif >
 </div>
 <?php echo newrow(); ?>
 
-<?= newrow(false, " ", "", false, 7, false); ?>
 
+
+
+@if(isset($user_detail))
+    <?= newrow(false, "Old Password", $size); ?>
+    <div class="input-icon">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
+    </div>
+    <?php echo newrow(); ?>
+@endif
+
+<?= newrow($new, "Password", $size, $PasswordRequired); ?>
+    <div class="input-icon">
+        <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
+    </div>
+<?php echo newrow();
+
+if(isset($user_detail)){
+echo newrow(false, " ", "", false, 7, false); ?>
 <label class="c-input c-checkbox">
     <input type="checkbox" name="subscribed" id="subscribed" value="true"
            @if($subscribed || (!isset($subscribed))) checked @endif />
     <span class="c-indicator"></span>
     Signup for our newsletter
 </label>
-</div></div>
+<?= newrow();
+}
 
-
-@if(isset($user_detail))
-    <?= newrow(false, "Old Password", $size); ?>
-    <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder=""
-               autocomplete="off">
-    </div>
-    <?php echo newrow(); ?>
-@endif
-
-<?= newrow($new, "Password", $size, $PasswordRequired); ?>
-<div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder=""
-           autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
-</div>
-<?php echo newrow();
 
 //echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 <!--div class="input-icon">

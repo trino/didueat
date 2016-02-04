@@ -1,3 +1,13 @@
+.modal-header{
+    background: #d9534f !important;
+    color:white;
+
+}
+
+
+
+
+.primary{background: green !important;: }
 .ui-timepicker-table {
     background: #fff;
 }
@@ -75,11 +85,7 @@ tr {
     white-space: nowrap;
 }
 
-.modal-header {
-    background: #D50000 !important;
-    color: #fff;
-    border: 1px solid #D50000 !important;
-}
+
 
 body {
     background: #f4f7f8 !important;
@@ -413,7 +419,7 @@ body.modal-open {
 }
 
 .addmore {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 h1.caption {
@@ -629,12 +635,18 @@ em.total {
 .facet-count {
     color: #999;
 }
-
+.additional{margin-top:15px;}
+.pad-top-18{padding-top:18px;}
+.nomar{margin-bottom:0!important;}
 .clear-search {
     position: absolute;
     right: 20px;
 }
-
+.card-header {
+    background-color: #f5f5f5!important;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 0.75rem 1.25rem;
+}
 td .count {
     font-size: 12px;
     display: inline-block;
@@ -675,10 +687,6 @@ table.orders thead {
     padding-left: 9px;
 }
 
-.uploaded_by {
-    font-size: 14px;
-    white-space: nowrap;
-}
 
 .uploaded_on {
     font-size: 14px;
@@ -691,7 +699,7 @@ table.orders thead {
 }
 
 .reviews_detail {
-    color: #D9534F;
+    color: #0275d8;
 }
 
 .missLnk {

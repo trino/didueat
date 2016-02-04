@@ -78,7 +78,7 @@ class OrdersController extends Controller {
             $data['type'] = $type;
             $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
             $data['user_detail'] = \App\Http\Models\Profiles::find($data['order']->user_id);//load user that placed the order
-            $data['states_list'] = \App\Http\Models\States::get();//load provinces/states
+            //$data['states_list'] = \App\Http\Models\States::get();//load provinces/states
             return view('dashboard.orders.orders_detail', $data);
         }
     }
@@ -194,7 +194,7 @@ class OrdersController extends Controller {
         }
 
         $data['orders'] = $order->get();
-        $data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
+        //$data['states_list'] = \App\Http\Models\States::get();//gets all states/provinces
         $data['title'] = 'Report';
         return view('dashboard.restaurant.report', $data);
     }
@@ -215,10 +215,10 @@ class OrdersController extends Controller {
 
     public function alertstore(){
         $Orders = \DB::table('reservations')
-            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, states.name as province_name, countries.name as country_name"))
+            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id 'Canada' as country_name"))
             ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
-            ->leftJoin('states', 'reservations.province', '=', 'states.id')
-            ->leftJoin('countries', 'reservations.country', '=', 'countries.id')
+            //->leftJoin('states', 'reservations.province', '=', 'states.id')
+            //->leftJoin('countries', 'reservations.country', '=', 'countries.id')
             ->where('reservations.status', '=', 'pending')
             ->get();
 
@@ -226,8 +226,8 @@ class OrdersController extends Controller {
         $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
         $Addresses = array();
         foreach($Orders as $Order){
-            if(!$Order->province_name) {$Order->province_name = "." . select_field('states', 'id', $Order->province, 'name');}
-            if(!$Order->country_name) {$Order->country_name = "." . select_field('countries', 'id', $Order->country, 'name');}
+            if(!$Order->province_name) {$Order->province_name = "ON";} //"." . select_field('states', 'id', $Order->province, 'name');}
+            if(!$Order->country_name) {$Order->country_name = "Canada";} //"." . select_field('countries', 'id', $Order->country, 'name');}
             echo '<TR>';
                 echo '<TD>' . $Order->order_id . '</TD>';
                 echo '<TD>' . $Order->restaurant_id . '</TD>';
