@@ -5,7 +5,7 @@
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;
-    window.pageUrlLoad = "{{ url('notification/addresses/ajax/list') }}";
+    window.pageUrlLoad = "{{ url('notification/addresses/ajax/list') . "?" . http_build_query($_GET) }}";
 </script>
 <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
 <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->

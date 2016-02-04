@@ -9,85 +9,113 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4>
-                    Restaurants <!--a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a-->
+                    Restaurants
+
+                    <?php
+                        $incomplete = isset($_GET["incomplete"]);
+                        echo '<a class="btn btn-primary btn-sm" ';
+                        //href="{{ url('restaurant/list') }}">Add
+                        if($incomplete){
+                            echo 'HREF="' . url('/restaurant/list') . '">All';
+                        } else {
+                            echo 'HREF="' . url('/restaurant/list?incomplete') . '">Incomplete';
+                        }
+                        echo '</a>';
+                    ?>
                 </h4>
             </div>
             @include('common.table_controls')
         </div>
     </div>
 
-
-
-
-    <!--div class="card-header ">Restaurants</div>
-
-    
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" style=" border: #BCBCBC solid 1px; padding:5px; margin: 0 auto;background-color: darkgray;">
-        <tr>
-            <td align="left"><label>Show<select size="1" name="showDataEntries" id="showDataEntries"  class="form-con"><option value="10" {!! ($per_page == 10)?"selected":''; !!}>10</option><option value="25" {!! ($per_page == 25)?"selected":''; !!}>25</option><option value="50" {!! ($per_page == 50)?"selected":''; !!}>50</option><option value="100" {!! ($per_page == 100)?"selected":''; !!}>100</option><option value="300" {!! ($per_page == 300)?"selected":''; !!}>300</option><option value="500" {!! ($per_page == 500)?"selected":''; !!}>500</option><option value="1000" {!! ($per_page == 1000)?"selected":''; !!}>1000</option></select> entries</label></td>
-            <td align="right">
-                <div>
-                    <label>
-                        <b class="search-input">  Search: </b><input type="text" class="form-control" id='searchResult' value='{!! $searchResults !!}' placeholder='Enter Keyword...' autofocus='true' style="width:220px !important;" />
-                    </label>
-                </div>
-            </td>
-        </tr>
-    </table-->
-
-
-    
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
-            <thead>
-                <tr>
-                    <th >
-                        <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
-                        ID
-                        <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        Logo
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
-                        Name
-                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="rating" data-order="ASC" data-title="Rating" title="Sort [Rating] ASC"><i class="fa fa-caret-down"></i></a>
-                        Rating
-                        <a class="sortOrder" data-meta="rating" data-order="DESC" data-title="Rating" title="Sort [Rating] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th ">
-                        <a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status" title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a>
-                        Status
-                        <a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status" title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th ></th>
-                </tr>
-            </thead>
+            <?php
+                if($incomplete){
+                    TH(array("id" => "ID", "name", "reasons" => array("sort" => false), "" => array("sort" => false)));
+                } else {
+                    TH(array("id" => "ID", 'logo' => array("sort" => false), "name", "rating", "status", "" => array("sort" => false)));
+                }
+            ?>
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
                 <?php $resLogo = (isset($value->logo) && $value->logo != "") ? 'restaurants/' . $value->id . '/thumb_' . $value->logo : 'default.png'; ?>
                 <tr>
                     <td>{{ $value->id }}</td>
-                    <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90"/></td>
+                    @if(!$incomplete)
+                        <td><img src="{{ asset('assets/images/'.$resLogo) }}" width="90"/></td>
+                    @endif
                     <td>{{ $value->name }}</td>
-                    <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
+
+                    @if($incomplete)
+                        <TD>
+                            <?php
+                                $reasons = array();
+                                if(!$value->has_creditcard){
+                                    $reasons["fa-credit-card"] = "Missing Credit Card information";
+                                }
+                                if(!$value->is_delivery){
+                                    $reasons["fa-car"] = "Delivery is disabled";
+                                }
+                                if(!$value->is_pickup){
+                                    $reasons["fa-bicycle"] = "Pickup is disabled";
+                                }
+                                if (!$value->latitude || !$value->longitude) {
+                                    $reasons["fa-envelope"] = "Missing address";
+                                }
+                                if ($value->max_delivery_distance < 2 && $value->is_delivery) {
+                                    $reasons["fa-hand-lizard-o"] = "Maximum delivery distance might be too small";
+                                }
+                                if (!$value->minimum || $value->minimum == "0.00") {
+                                    $reasons["fa-usd"] = "Minimum delivery charge might be missing";
+                                }
+                                //check hours of operation
+                                $weekdays = getweekdays();
+                                $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
+                                $DayOfWeek = current_day_of_week();
+                                $now = date('H:i:s');
+                                foreach ($weekdays as $weekday) {
+                                    foreach (array("_close", "_close_del") as $field) { // only the close needs to be checked, as 12:00 is often an opening time
+                                        $field = $weekday . $field;
+                                        if ($value->$field != "12:00:00" && $value->$field != "00:00:00") {
+                                            $weekdays = false;
+                                        } else {
+                                            $someHoursNotOK = true;
+                                        }
+                                    }
+                                }
+                                if ($weekdays || $someHoursNotOK) {
+                                    $reasons["fa-clock-o"] = "Hours of operations";
+                                }
+
+                                foreach($reasons as $icon => $title){
+                                    if(is_numeric($icon)){
+                                        echo $title;
+                                    } else {
+                                        echo '<i class="fa ' . $icon . '" title="' . $title . '"></i>&nbsp;';
+                                    }
+                                }
+                            ?>
+                        </TD>
+                    @else
+                        <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
+                        <td>
+                            @if($value->open == true)
+                                Open <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
+                                   onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
+                            @else
+                                <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm"
+                                   onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a> Closed
+                            @endif
+                        </td>
+                    @endif
+
                     <td>
-                        @if($value->open == true)
-                            Open <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
-                               onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
-                        @else
-                            <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm"
-                               onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a> Closed
+                        @if(!$incomplete)
+                            <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm">Orders</a>
+                            <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">Menu</a>
                         @endif
-                    </td>
-                    <td>
-                        <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm">Orders</a>
-                        <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">Menu</a>
                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-danger-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
                     </td>

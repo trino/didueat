@@ -48,8 +48,13 @@ class RestaurantController extends Controller {
             'start' => $start,
             'meta' => (\Input::get('meta')) ? \Input::get('meta') : 'id',
             'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
-            'searchResults' => \Input::get('searchResults')
+            'searchResults' => \Input::get('searchResults'),
+            'incomplete' => false
         );
+
+        if(isset($_GET["incomplete"])){
+            $data["incomplete"] = true;
+        }
         
         $Query = \App\Http\Models\Restaurants::listing($data, "list")->get();
         $recCount = \App\Http\Models\Restaurants::listing($data)->count();
@@ -58,6 +63,7 @@ class RestaurantController extends Controller {
         $data['Query'] = $Query;
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
+        $data["_GET"] = $_GET;
         
         \Session::flash('message', \Input::get('message'));
         return view('dashboard.restaurant.ajax.list', $data);

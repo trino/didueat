@@ -116,6 +116,7 @@ class CreditCardsController extends Controller {
         $data['Query'] = $Query;
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
+        $data["_GET"] = $_GET;
 
         \Session::flash('message', \Input::get('message'));
         return view('dashboard.credit_cards.ajax.list', $data);

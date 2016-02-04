@@ -49,13 +49,18 @@ class Restaurants extends BaseModel {
     public static function listing($array = "", $type = "") {
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
+        $incomplete = $array['incomplete'];
         $meta = $array['meta'];
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
 
         $query = Restaurants::select('*')
-                ->Where(function($query) use ($searchResults){
+                ->Where(function($query) use ($searchResults, $incomplete){
+                    if($incomplete){
+                        $query->orWhere('is_complete', '0')
+                            ->orWhere('has_creditcard', '0');
+                    }
                     if($searchResults != ""){
                           $query->orWhere('name', 'LIKE', "%$searchResults%")
                                 ->orWhere('cuisine', 'LIKE', "%$searchResults%")

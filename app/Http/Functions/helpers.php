@@ -1860,4 +1860,35 @@
     function cuisinelist(){//why is this hard-coded?
         return array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
     }
+
+
+    function TH($data, $name="", $sort = true){
+        if(is_array($data)){
+            echo '<thead><tr>';
+            foreach($data as $Key => $Value){
+                $sort=true;
+                if(is_array($Value)){
+                    if(isset($Value["sort"])){
+                        $sort = $Value["sort"];
+                    }
+                    if(isset($Value["name"])){
+                        $Value = $Value["name"];
+                    } else {
+                        $Value = ucfirst($Key);
+                    }
+                }
+                if(is_numeric($Key)){
+                    TH($Value, ucfirst($Value), $sort);
+                } else {
+                    TH($Key, $Value, $sort);
+                }
+            }
+            echo '</tr></thead>';
+        } else if($sort) {
+            echo '<th><a class="sortOrder" data-meta="' . $data . '" data-order="ASC" data-title="' . $name . '" title="Sort [' . $name . '] ASC"><i class="fa fa-caret-down"></i></a>';
+            echo $name . '<a class="sortOrder" data-meta="' . $data . '" data-order="DESC" data-title="' . $name . '" title="Sort [' . $name . '] DESC"><i class="fa fa-caret-up"></i></a></th>';
+        } else {
+            echo '<th>' . $name . '</th>';
+        }
+    }
 ?>

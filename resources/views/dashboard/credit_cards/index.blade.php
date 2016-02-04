@@ -5,7 +5,7 @@
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;
-    window.pageUrlLoad = "{{ url('credit-cards/list/ajax/'. $type) }}";
+    window.pageUrlLoad = "{{ url('credit-cards/list/ajax/'. $type) . "?" . http_build_query($_GET) }}";
 </script>
 
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>

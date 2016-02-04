@@ -118,7 +118,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 </div>
 <div class="hidden_elements" <?php if(isset($type)&& $type=='reservation')echo "style='display:none;'";?> >
 
-<?php 
+<?php
     if($isUser){
         $aptUnit="Apartment";
     } else{
