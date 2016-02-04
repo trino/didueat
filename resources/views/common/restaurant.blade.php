@@ -26,8 +26,10 @@
 
 <div class="col-md-8  col-md-offset-2">
     <div class="card">
-        <div class="card-header ">
+        <div class="card-header">
             <h4>Your Restaurant</h4>
+        </div>
+        <div class="card-block">
 
             <div class="row">
                 <div class="portlet-title">
