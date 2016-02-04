@@ -47,6 +47,14 @@
                     ?>
                     <li class="list-inline-item"><a
                                 href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a></li>
+
+                    <li class="list-inline-item"> <a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
+
+
+
+
+
+
                 </ul>
             </div>
             <div class="col-lg-2" style="">
@@ -90,8 +98,7 @@
                         ?>
                     @endif
 
-
-                    / <a href="{{ url("home/terms") }}">Terms & Conditions</a></p>
+</p>
 
             </div>
         </div>

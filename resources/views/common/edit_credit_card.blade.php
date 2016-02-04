@@ -26,45 +26,52 @@
 <meta name="_token" content="{{ csrf_token() }}"/>
 
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1 && (! isset($credit_cards_list->id)))
-    <INPUT TYPE="HIDDEN" name="user_type" value="restaurant">
-    <!--div class="form-group row">
-        <label for="user_type" class="col-sm-3">User Type </label>
-        <div class="col-sm-9">
-            <LABEL>
-                <input type="radio" name="user_type" value="restaurant" ONCLICK="switchdivs(event);"
-                   @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif >
-                Restaurant
-            </LABEL>
-            <LABEL>
-                <input type="radio" name="user_type" value="user" ONCLICK="switchdivs(event);"
-                   @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif >
-                User
-            </LABEL>
-        </div>
-    </div-->
+    <INPUT TYPE="HIDDEN" name="user_type" value="{{  $type }}">
 
-    <div class="form-group row">
-        <label class="col-sm-3">Restaurant</label>
-
-        <div class="col-sm-9">
-            <div id="restaurant_id" class="restaurant_id">
-                <select name="user_id" class="form-control">
-                    @foreach($restaurants_list as $restaurant)
-                        <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
-                    @endforeach
-                </select>
+    @if($type == "admin")
+        <div class="form-group row">
+            <label for="user_type" class="col-sm-3">User Type </label>
+            <div class="col-sm-9">
+                <LABEL>
+                    <input type="radio" name="user_type" value="restaurant" ONCLICK="switchdivs(event);"
+                       @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'restaurant') checked @endif >
+                    Restaurant
+                </LABEL>
+                <LABEL>
+                    <input type="radio" name="user_type" value="user" ONCLICK="switchdivs(event);"
+                       @if(isset($credit_cards_list->user_type) && $credit_cards_list->user_type == 'user') checked @endif >
+                    User
+                </LABEL>
             </div>
-
-            <!--div id="user_id" class="user_id">
-                <select name="user_id" class="form-control">
-                    foreach($users_list as $user)
-                        <option value=" $user->id}}">   $user->name}}</option>
-                    endforeach
-                </select>
-            </div-->
-
         </div>
-    </div>
+
+        <div class="form-group row">
+            <label class="col-sm-3">Restaurant</label>
+
+            <div class="col-sm-9">
+                <div id="restaurant_id" class="restaurant_id">
+                    <select name="user_id" class="form-control">
+                        @foreach($restaurants_list as $restaurant)
+                            <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div id="user_id" class="user_id">
+                    <select name="user_id" class="form-control">
+                        foreach($users_list as $user)
+                            <option value="{{  $user->id }}">   $user->name}}</option>
+                        endforeach
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    @elseif($type == "restaurant")
+        <INPUT TYPE="HIDDEN" NAME="restaurant_id" VALUE="{{  $user_id }}">
+    @else
+        <INPUT TYPE="HIDDEN" NAME="user_id" VALUE="{{  $user_id }}">
+    @endif
 @endif
 
 @if(\Session::has('session_type_user') && (\Session::get('session_type_user') == "user" || \Session::get('session_type_user') == "restaurant") && (! isset($credit_cards_list->id)))
@@ -133,7 +140,7 @@
 
 <script type="text/javascript">
     ccvimg = new Image();
-    ccvimg.src = base_url+"assets/images/security_code_sample.gif";
+    ccvimg.src = base_url+"assets/images/security_code_sample.png";
     ccvimgph = new Image();
     ccvimgph.src = base_url+"assets/images/ccvimgph.gif";
 

@@ -42,9 +42,8 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                 if($addresses->count()){
             ?>
             <?php if(!isset($type)){?>
-            <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><span
-                        class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
+            <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
             </button>
             <div class="dropdown-menu dropdown-menu-left">
                 <?php
@@ -118,24 +117,17 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <?php }?>
 </div>
 <div class="hidden_elements" <?php if(isset($type)&& $type=='reservation')echo "style='display:none;'";?> >
-<?= newrow($new, "Apartment", "", false, 5); ?>
-    <input type="text" name="apartment" id="apartment" class="form-control apartment" placeholder="Apartment/Unit">
-    <input name="addOrEdit" type="hidden" id="addOrEdit" />
-</div></div>
 
 <?php 
-
-if($isUser){
-    $aptUnit="Apartment";
-} else{
-    $aptUnit="Unit";
-}
- 
-    echo newrow($new, $aptUnit." #", "", false, 5); ?>
+    if($isUser){
+        $aptUnit="Apartment";
+    } else{
+        $aptUnit="Unit";
+    }
+    echo newrow($new, $aptUnit . " #", "", false, 5); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
-
-           value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-    </div></div>
+       value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
+</div></div>
 
 
 <?= newrow($new, "City", "", $required, 5); ?>
@@ -148,8 +140,8 @@ if($isUser){
            value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
 </div></div>
 
-<?= newrow($new, "Postal Code", "", true, 5); ?>
-    <input required <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control postal_code" placeholder="Postal Code"
+<?= newrow($new, "Postal Code", "", false, 5); ?>
+    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();" class="form-control postal_code" placeholder="Postal Code"
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 

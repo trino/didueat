@@ -73,7 +73,7 @@
         }
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');
-        $.get("{{ url('credit-cards/edit') }}/" + id, {}, function (result) {
+        $.get("{{ url('credit-cards/edit') }}/" + id + '/{{  $type }}', {}, function (result) {
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {

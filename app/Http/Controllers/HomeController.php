@@ -291,12 +291,6 @@ class HomeController extends Controller {
                 if (!isset($post['province']) || empty($post['province'])) {
                     return $this->failure("[Province] field is missing!", $Redirect, true);
                 }
-                if (!isset($post['postal_code']) || empty($post['postal_code'])) {
-                    return $this->failure("[Postal Code] field is missing or invalid!", $Redirect, true);
-                }
-                if (!isset($post['country']) || empty($post['country'])) {
-                    //    return $this->failure("[Country] field is missing!",$Redirect, true);
-                }
             }
 
             if (!isset($post['phone']) || empty($post['phone'])){
