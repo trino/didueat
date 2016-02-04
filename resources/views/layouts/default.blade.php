@@ -158,9 +158,7 @@ Menu item moved successfully
 
     @yield('content')
 </div>
-<?
-echo $unique_id = time();
-?>
+
 @include('layouts.includes.footer')
 
 </body>

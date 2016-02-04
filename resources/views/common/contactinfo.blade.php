@@ -18,8 +18,6 @@ foreach ($Fields as $Field) {
 }
 ?>
 
-
-
 <?= newrow($new, "Your Name", $size, true);
 ?>
 <div class="input-icon">
@@ -31,10 +29,9 @@ foreach ($Fields as $Field) {
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input maxlength="10"  type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
+    <input maxlength="10" type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
-
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
@@ -59,6 +56,7 @@ echo newrow($new, "Email", $size, true); ?>
     </div>
 <?php echo newrow();
 
+if(isset($user_detail)){
 echo newrow(false, " ", "", false, 7, false); ?>
 <label class="c-input c-checkbox">
     <input type="checkbox" name="subscribed" id="subscribed" value="true"
@@ -67,7 +65,7 @@ echo newrow(false, " ", "", false, 7, false); ?>
     Signup for our newsletter
 </label>
 <?= newrow();
-
+}
 
 
 //echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>

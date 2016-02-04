@@ -18,6 +18,7 @@
 
                     @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true))
 
+
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
                     <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Upload</a>
