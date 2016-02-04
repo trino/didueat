@@ -1,3 +1,4 @@
+@if(isset($detail) && !is_null($detail) && count($detail) > 0)
 <table class="table table-striped" id="modal_table_max_height">
     <tbody>
     @foreach($detail as $value)
@@ -20,3 +21,4 @@
     @endforeach
     </tbody>
 </table>
+@endif

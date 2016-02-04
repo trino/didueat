@@ -52,9 +52,7 @@ class AdministratorController extends Controller {
                 } else if ($post['password']){// || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
                 }
-
-
-
+                
                 $update=$post;
                 if ($post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
@@ -110,7 +108,9 @@ class AdministratorController extends Controller {
                 return $this->failure(handleexception($e), 'dashboard');
             }
         } else {
-
+            if(\Session::get('session_profiletype') == 2){
+                return redirect('/');
+            }
             $data['title'] = 'Dashboard';
             $data['user_detail'] = \App\Http\Models\Profiles::find(\Session::get('session_id'));
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();

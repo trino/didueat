@@ -122,16 +122,20 @@
     $(document).ready(function () {
         $('body').on('click', '.reviews_detail', function () {
             var rating_id = $(this).attr('data-rating-id');
-            var datatype = $(this).attr('data-item-type');
+            var type = $(this).attr('data-type');
             var dataname = $(this).attr('data-item-name');
             var detail = $(this).attr('data-reviews-detail');
 
-            $("#ratingDetailModal #ratingModalLabel").text(dataname);
-            $("#ratingDetailModal #reviews").text(detail);
-            $('#ratingDetailModal').modal('show');
-
-            $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: datatype}, function (result) {
-                $("#ratingDetailModal #modal_contents").html(result);
+            $("#ratingModal #ratingModalLabel").text(dataname);
+            $("#ratingModal #reviews").text(detail);
+            $("#ratingModal #modal_contents").show();
+            
+            $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type}, function (result) {
+                if(result){
+                    $("#ratingModal #modal_contents").html(result);
+                } else {
+                    $("#ratingModal #modal_contents").hide();
+                }
             });
         });
 
@@ -140,17 +144,17 @@
             var rating_id = $(this).attr('data-rating-id');
             var target_id = $(this).attr('data-target-id');
             var type = $(this).attr('data-type');
-
+            
+            $('#ratingModal').modal('show');
             $("#ratingModal #message-error").hide();
             $("#ratingModal #message-success").hide();
             $("#ratingModal .rating input").attr("checked", false);
             $("#ratingModal #ratingInput").val('');
 
             if (isAlreadyRated > 0) {
-                $('#ratingModal').modal('hide');
-                return alert('You already rated!');
+                $('#ratingModal #rating-form').hide();
             } else {
-                $('#ratingModal').modal('show');
+                $('#ratingModal #rating-form').show();
             }
 
             $('#rating-form #data-rating-id').val(rating_id);
@@ -222,7 +226,7 @@
             }
 
             $.post("{{ url('newsletter/subscribe') }}", {email: email, _token: token}, function (jason) {
-//var jason = $.parseJSON(result);
+                //var jason = $.parseJSON(result);
                 if (jason.type == "error") {
                     alert(jason.message);
                     $('#subscribe-email input[name=email]').focus();
@@ -321,10 +325,12 @@
             $.post("{{ url('auth/forgot-password/ajax') }}", {_token: token, email: email}, function (result) {
                 $("#forgot-pass-form #lostPWregButton").show();
                 $("#forgot-pass-form #regLoader").hide();
+                
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
-                    $('#forgot-pass-form #error').show();
-                    $('#forgot-pass-form #error').html(json.message);
+                    alert(json.message);
+//                    $('#forgot-pass-form #error').show();
+//                    $('#forgot-pass-form #error').html(json.message);
                 } else {
                     $('#forgot-pass-form').hide();
                     $('#forgot-pass-success').show();
@@ -332,6 +338,7 @@
                     $('#lostPWregButton').hide();
                     $('#forgot-pass-success p').html(json.message);
                 }
+                    
             });
             e.preventDefault();
         });
@@ -353,8 +360,9 @@
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
-                            $('#invalid').text(msg);
-                            $('#invalid').fadeIn(500);
+                            alert(msg);
+//                            $('#invalid').text(msg);
+//                            $('#invalid').fadeIn(500);
                         }
                     } else {
                         if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
@@ -407,13 +415,13 @@
 
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-                    <?php
-                    $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
-                    foreach( $fields as $field){
-                    echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
-                    }
-                    ?>
-                    var subscribed = 0;
+            <?php
+                $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
+                foreach( $fields as $field){
+                echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
+                }
+            ?>
+            var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
             }
@@ -435,8 +443,9 @@
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
                     $('#register-form .editaddress').show();
-                    $('#register-form #registration-error').show();
-                    $('#register-form #registration-error').html(json.message);
+                    alert(json.message);
+                    //$('#register-form #registration-error').show();
+                    //$('#register-form #registration-error').html(json.message);
                 } else {
                     $('#register-form').hide();
                     $('#registration-success').show();

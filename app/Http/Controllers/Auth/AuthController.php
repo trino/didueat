@@ -89,10 +89,10 @@ class AuthController extends Controller {
 
     function failure2($AsJSON, $message, $redir = 'auth/register'){
         if ($AsJSON){
-            if($redir='auth/login'){
-                echo $message;
+            if($redir == 'auth/login'){
+                return $message;
             } else {
-                echo json_encode(array('type' => 'error', 'message' => $message));
+                return json_encode(array('type' => 'error', 'message' => $message));
             }
             die;
         }
@@ -274,7 +274,7 @@ class AuthController extends Controller {
     public function postForgotPassword($AsJSON = false) {
         if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', '=', \Input::get('email'))->first();
+                $user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->first();
                 if (!is_null($user) && count($user) > 0) {
                     if ($user->status == "") {
                         return $this->failure2($AsJSON ,trans('messages.user_inactive.message'), 'auth/forgot-password');
@@ -298,7 +298,7 @@ class AuthController extends Controller {
                     }
                     return view('messages.message', $message);
                 } else {
-                    return $this->failure2(trans($AsJSON, 'messages.user_email_not_verify.message'), 'auth/forgot-password');
+                    return $this->failure2($AsJSON, trans('messages.user_email_not_verify.message'), 'auth/forgot-password');
                 }
             } catch (Exception $e) {
                 return $this->failure2($AsJSON, handleexception($e), 'auth/forgot-password');
