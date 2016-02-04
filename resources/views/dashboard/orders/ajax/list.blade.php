@@ -19,7 +19,7 @@ $secondsTitle = "sec";
                         Restaurant
                     @endif
                     Orders
-                    @if(Session::get('session_type_user') == "super" || $recCount > 10)
+                    @if(true)
 
                         <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print
                             Report</a>
@@ -28,7 +28,7 @@ $secondsTitle = "sec";
                 </h4>
 
             </div>
-            @if($recCount > 10)
+            @if(true)
                 @include('common.table_controls')
             @endif
         </div>
@@ -83,9 +83,9 @@ $secondsTitle = "sec";
 
                 @foreach($Query as $value)
                     <tr>
-                        <td>
+                        <td>{{ $value->id }}
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">{{ $value->id }}</a>
+                               class="btn btn-primary  btn-sm">View</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>

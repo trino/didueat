@@ -11,23 +11,36 @@
                 <div class="toprint">
 
                     <div class="noprint">
-                        <h3 class="sidebar__title">My Orders</h3>
-                        <hr class="shop__divider">
-                        <div>
+                        <h3 class="">My Orders</h3>
+
                             <strong>Filter by Date</strong>
 
-                            <form class="col-xs-12" id="report-form" method="get" action="">
-                                <input type="text" class="datepicker form-control--contact" name="from"
-                                       placeholder="FROM (Date)" value="{{ old('from') }}">
-                                <input type="text" class="datepicker form-control--contact" name="to"
-                                       placeholder="TO (Date)" value="{{ old('to') }}">
+                            <form id="report-form" method="get">
+                                <div class="col-md-2">
+                                <input type="text" class="datepicker form-control" name="from"
+                                       placeholder="From" value="{{ old('from') }}">
+                                </div>                                <div class="col-md-2">
+
+                                <input type="text" class="datepicker form-control" name="to"
+                                       placeholder="To" value="{{ old('to') }}">
+                                </div>                                <div class="col-md-2">
+
                                 <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
                                        onclick="return checkFilter();">
-
+</div>
                                 <div class="clearfix"></div>
                             </form>
-                            <div class="clearfix"></div>
-                        </div>
+
+
+                        <input type="checkbox" checked data-toggle="toggle">
+
+
+
+
+
+
+
+
                     </div>
 
                     <div id="toprint">

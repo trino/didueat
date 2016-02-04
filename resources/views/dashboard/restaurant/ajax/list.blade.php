@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4>
-                    Restaurants <a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a>
+                    Restaurants <!--a class="btn btn-primary btn-sm" href="{{ url('restaurant/add/new') }}">Add</a-->
                 </h4>
             </div>
             @include('common.table_controls')
