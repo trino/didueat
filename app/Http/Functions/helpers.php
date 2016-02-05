@@ -1651,7 +1651,7 @@
             if ($TwoLines) {
                 $html .= '<br>';
             }
-            
+
             $html .= stars($target_id, $value, $countExit, $start5, "5");
             $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
             $html .= stars($target_id, $value, $countExit, $start4, "4");
@@ -1668,8 +1668,9 @@
 //            }
 
             if ($add_rate_brn == true && \Session::has('session_id')) {
-                $html .= '<a href="#" style="color:white;" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
+                $html .= '<a href="#" style="" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
             }
+
             $html .= ' </div>';
         }
 

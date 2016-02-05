@@ -15,11 +15,11 @@
                 
                 
                 
-                    <div class="col-md-8 col-sm-10 col-xs-10 nopadd ignore ignore2 ignore1">
-                        <div class="col-md-6 padding-left-0">
+                    <div class="col-md-8 col-sm-10 col-xs-10 ignore ignore2 ignore1">
+                        <div class="col-md-6 ">
                             <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}" />
                         </div>
-                        <div class="col-md-6 padding-left-0">
+                        <div class="col-md-6">
                             <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="{{ $cc->price }}" />
                         </div>
                     </div>

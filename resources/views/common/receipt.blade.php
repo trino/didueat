@@ -11,7 +11,7 @@
 
 <div class="clearfix" id="cartsz">
 
-    @if(!isset($order))
+    @if(!isset($order) && false)
         <div class="card card-inverse card-danger " style="">
             <div class="card-block ">
                 <h4 class="card-title text-xs-center m-b-0">Restaurant doesn't offer online ordering</h4>
@@ -64,10 +64,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Tax</strong></td>
+                                <td><strong>Tax (<span id="tax inlineblock">13</span>%)</strong></td>
                                 <td>
-                                    <span class="tax inlineblock">&nbsp;${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
-                                    (<span id="tax inlineblock">13</span>%)
+                                    <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
                                     <input type="hidden" value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}" name="tax" class="maintax tax"/>
                                 </td>
                             </tr>

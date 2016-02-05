@@ -53,7 +53,7 @@
 
 
     <div id="product-pop-up_{{ $value->id }}" class="popup-dialog-800" style="display: none;">
-      <div class="product-page product-pop-up p-popup">
+      <div class="product-page row product-pop-up p-popup">
         <div class="modal-body">
           <div class="col-sm-12 col-xs-12 title">
             <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
@@ -122,7 +122,7 @@
                           <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
                           @foreach($mini_menus as $mm)
                             <div class="col-xs-6 col-md-6"
-                                 class="subin btn default btnxx pad-17">
+                                 class="btn default btnxx pad-17">
                               <div class="pad-17">
                                 <a title="" id="buttons_{{ $mm->id }}" class="buttons btn-plain" href="javascript:void(0);">
                                   <button class="btn btn-primary btn-curved"></button>

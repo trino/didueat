@@ -1,8 +1,13 @@
 @extends('layouts.default')
 
-<div class=" card row container-fluid" style="">
-    <div class=" container p-t-2 p-a-0 m-t-2" style="">
-        <div class="card-block p-b-0">
+<!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
+"-->
+
+<div class=" bg-danger container-fluid">
+
+    <div class=" row" style="">
+    <div class=" container p-t-0  m-t-3" style="">
+        <div class="card-block p-a-0">
 
             <div class="col-md-2 p-x-0">
                 <?= printfile("views/restaurants-menus.blade.php"); ?>
@@ -53,7 +58,8 @@
         </div>
     </div>
 </div>
-
+</div>
+<div class="clearfix"></div>
 
 
 
@@ -97,10 +103,6 @@
             @endif
 
 
-
-
-
-                <h4>Online Specials</h4>
 
 
             @if(isset($restaurant))
@@ -473,8 +475,8 @@
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" width="26%">' +
-                        '<a id="dec' + ids + '" class="decrease small btn btn-xs btn-danger-outline" href="javascript:void(0);">' +
-                        '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-primary-outline small " href="javascript:void(0);">' +
+                        '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
+                        '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
                         '+</a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +

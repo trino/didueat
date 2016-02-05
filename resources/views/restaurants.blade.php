@@ -39,12 +39,12 @@ $type = "hidden";
                                 Pickup
                             </label>
 
-                            <label class="c-input c-checkbox">
+                            <!--label class="c-input c-checkbox">
                                 <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
                                        onclick="createCookieValue('is_complete', this.value)"/>
                                 <span class="c-indicator"></span>
                                 Order Online
-                            </label>
+                            </label-->
 
                         </div>
 
@@ -94,12 +94,11 @@ $type = "hidden";
                 <p>Please enter your address above to find meals near you</p>
             </div>
 
-            <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <div class="alert alert-success alert-dismissible fade in" role="alert"  id="results_show" style="display: none;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <span id="countRows" style="">No</span> restaurant<Span id="countRowsS"
-                                                                                      style="">s</span>
+                <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
                 found in your area
             </div>
             @include('ajax.search_restaurants')
@@ -225,6 +224,7 @@ $type = "hidden";
                 $('#restuarant_bar').html('');
                 $('.parentLoadingbar').show();
                 $('#start_up_message').remove();
+                $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
                     $('.parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);

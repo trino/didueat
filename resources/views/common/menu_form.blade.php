@@ -3,7 +3,7 @@
     <p>&nbsp;</p>
 
     <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="col-sm-5 col-xs-12 nopadd">
+        <div class="col-sm-5 col-xs-12">
             <div class="menuimg menuimg{{ $menu_id }}_1"
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                 @if(isset($model) && $model->image)
