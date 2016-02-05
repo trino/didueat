@@ -74,7 +74,7 @@
 
 
                             <div class="col-md-2">
-                                <a href="javascript:void(0);" class="btn btn-sm  btn-secondary-outline"
+                                <a href="javascript:void(0);" class="pull-right btn btn-sm  btn-secondary-outline"
                                    onclick="$(this).parent().parent().remove();" style="">x</a>
                                 <!--div class="resturant-arrows">
                                 <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
@@ -122,7 +122,7 @@
                                               class="is_multiple" value="1" name="{{ $r2 }}"
                                               @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif>
                                     Single Item</LABEL>
-                                &nbsp; or &nbsp;
+                                &nbsp; OR &nbsp;
                                 <LABEL><input type="radio" value="0" class="is_multiple"
                                               onclick="$(this).closest('.radios').find('.is_mul').val(0);"
                                               name="{{ $r2 }}"
@@ -143,24 +143,30 @@
                             <div class=" ">
                                 <strong class="">Enter # of items</strong>
                             </div>
-                            <div class=" ">
+                            <div class="">
                                 <?php $r3 = rand('1000000', '999999999'); ?>
                                 <input type="hidden" class="up_t"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) value="0"
-                                       @else value="1" @endif /><input type="radio"
+                                       @else value="1" @endif />
+
+                                    <input type="radio"
                                                                        onclick="$(this).parent().find('.up_t').val(0);"
                                                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
                                                                        @endif class="up_to up_to_selected" value="0"
-                                                                       name="{{ $r3 }}"> Up to &nbsp; <input
+                                                                       name="{{ $r3 }}">
+
+                                    Up to
+
+
+                                    <input
                                         type="radio" onclick="$(this).parent().find('.up_t').val(1);" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
-                            </div>
 
-
-                            <input type="number" id="itemno{{ $r3 }}" class="itemno form-control"
+                            <input placeholder="How many?" type="number" id="itemno{{ $r3 }}" class="itemno form-control col-md-4"
                                    value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
+                        </div>
                         </div>
                     </div>
                 </div>

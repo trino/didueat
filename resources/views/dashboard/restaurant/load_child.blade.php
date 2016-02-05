@@ -3,6 +3,9 @@
 @section('content')
 
 @if($child)
+
+
+
     <?php
         $i = 0;
         foreach($child as $cc){
@@ -12,9 +15,9 @@
                 @if($i != 1)
                     <p class="addon_ignore ignore ignore2 ignore1">&nbsp;</p>
                 @endif
-                
-                
-                
+
+
+
                     <div class="col-md-8 col-sm-10 col-xs-10 ignore ignore2 ignore1">
                         <div class="col-md-6 ">
                             <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="{{ $cc->menu_item }}" />
@@ -40,5 +43,8 @@
                 
             </div>
         <?php } ?>
+
+
+
 @endif
 @stop
