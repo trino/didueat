@@ -2,7 +2,7 @@
 
 <!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
 "-->
-
+ 
 <div class=" bg-danger container-fluid">
 
     <div class=" row" style="">
