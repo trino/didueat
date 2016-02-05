@@ -6,13 +6,21 @@
      * Time: 8:30 PM
      */
 
+    $RestaurantID=$Restaurant; // copy ID before it variable changes
     $Restaurant = select_field("restaurants", "id", $Restaurant);
-    
-    $post = \Input::all();
+
+    $MenuTst = select_field("menus", array("restaurant_id","is_active"), array($RestaurantID,1),"menu_item");
+
+    $post = \Input::all(); // testing for intial setup
     
     if ($Restaurant) {
         $MissingData = [];
         $MissingDataOptional = [];
+        
+        if (!isset($MenuTst)) {
+            $MissingData[] = "At least one menu item must be added, and <u>Enabled</u> <a href=\"" . url('restaurants/'.$Restaurant->slug.'/menus') . "\">(<u>Click to Add Menu Items</u>)</a>";
+        }        
+        
         if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
             $MissingData[] = "Pickup and/or Delivery options <a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">(<u>Click to Set Delivery Options</u>)</a>";
         }
