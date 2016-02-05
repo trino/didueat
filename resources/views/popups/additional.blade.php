@@ -4,13 +4,13 @@
         $r1 = rand('1000000', '999999999');
         $r2 = rand('1000000', '999999999');
     ?>
-    <div class="col-md-12 col-sm-12 col-xs-12 ignore ignore1">
-        <div class="col-sm-12 lowheight row ignore ignore1">
+    <div class="ignore ignore1">
+        <div class="lowheight row ignore ignore1">
             <input class="form-control ctitle ignore ignore1" type="text" placeholder="Title" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
             
             <textarea class="form-control cdescription ignore ignore1" placeholder="description">{{ (isset($child->description))? $child->description : "" }}</textarea>
         </div>
-        <div class="col-sm-12 additionalitems ignore ignore1">
+        <div class=" additionalitems ignore ignore1">
             <div class="aitems row ignore ignore1">
                 <div class="addmore ignore ignore1" id="addmore{{ (isset($child))? $child->id : 0 }}">
                     @if(isset($child->id))
