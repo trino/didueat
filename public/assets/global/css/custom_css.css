@@ -404,9 +404,6 @@ body.modal-open {
     right: 0;
 }
 
-.newmenu input, .newmenu select, .newmenu textarea {
-    margin-bottom: 3px;
-}
 
 .menuimg {
     height: auto;
@@ -414,13 +411,6 @@ body.modal-open {
     border-radius: 4px;
 }
 
-.cmore .col-md-8 {
-    padding-left: 0 !important;
-}
-
-.addmore {
-    /*margin-top: 20px;*/
-}
 
 h1.caption {
     background: rgba(0, 0, 0, 0) url("../../images/title.gif") repeat-x scroll center 10px;
@@ -542,9 +532,6 @@ ul.scroller li {
     margin-top: 20px
 }
 
-.alldays {
-    font-size: 12px;
-}
 
 .instruct {
     font-size: 16px;
@@ -594,74 +581,7 @@ ul.scroller li {
 .facet-count {
     color: #999;
 }
-.additional{margin-top:15px;}
-.pad-top-18{padding-top:18px;}
-.nomar{margin-bottom:0!important;}
-.clear-search {
-    position: absolute;
-    right: 20px;
-}
 
-
-td .count {
-    font-size: 12px;
-    display: inline-block;
-    padding: 0 2px;
-}
-
-table.orders {
-    width: 100% !important;
-}
-
-table.orders td, table.orders th {
-    padding: 5px 2px 3px 2px !important;
-    vertical-align: top;
-}
-
-table.orders th {
-    text-align: center;
-    font-size: 14px;
-}
-
-table.orders thead {
-    background: #e5e5e5;
-}
-
-.norightpadd {
-    padding-right: 0px;
-}
-
-.rating-it-btn {
-}
-
-.cat_name {
-    color: #777;
-    display: inline-block;
-    font-size: 15px;
-    font-weight: bold;
-    padding-left: 9px;
-}
-
-
-.uploaded_on {
-    font-size: 14px;
-    font-style: italic;
-    float: right;
-}
-
-.cuisineCB {
-    display: inline-block
-}
-
-.reviews_detail {
-    color: #0275d8;
-}
-
-.missLnk {
-    color: #f00;
-    font-weight: normal;
-    text-decoration: underline
-}
 
 #modal_table_max_height {
     width: 100%;
@@ -681,9 +601,3 @@ table.orders thead {
     height: 400px;
     overflow: auto;
 }
-.subber{background:#f5f5f5;border-radius:4px;padding-top:10px;padding-bottom:10px;}
-.padleft0{padding-left:0;}
-.padleft5{padding-left:5px;}
-font{background:none!important;}
-.radios{font-size:15px;}
-.resturant-arrows{float:right;}

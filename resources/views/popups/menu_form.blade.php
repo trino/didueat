@@ -7,7 +7,7 @@
 
     <div class=" ignore row">
 
-        <div class=" ignore col-md-12" style="margin-bottom:5px; ">
+        <div class=" ignore col-md-12" style="margin-bottom:3px; ">
             <div class="menuimg ignore menuimg{{ $menu_id }}_1"
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                  @if(isset($model) && $model->image)

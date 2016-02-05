@@ -14,7 +14,7 @@
             <br/>
             <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse{{ $menu_id }}_1">Image</a>
         </div>
-        <div class="col-sm-7 col-xs-12 lowheight">
+        <div class="col-sm-7 col-xs-12 >
             <input class="form-control newtitle" type="text" placeholder="Title"
                    value="{{ (isset($model->menu_item))? $model->menu_item : '' }}"/><br/>
             <input class="form-control newprice" type="text" placeholder="$"

@@ -89,12 +89,12 @@ $('.removelast').live('click', function () {
 });
 $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
-        '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-10 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1 padleft0">' +
-        '<div class="col-md-6  padleft0"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
-        '<div class="col-md-6  padleft0"><input class="form-control ccprice pricechk" type="text" placeholder="Price" /></div>' +
+        '<div class="cmore"><p style="">&nbsp;</p><div class="col-md-10 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1 padleft0">' +
+        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
+        '<div class="col-md-5"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
         '</div>' +
-        '<div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">' +
-        '<a href="javascript:void(0);" class="btn btn-sm btn-danger btn-small" style="padding: 0.5rem 0.75rem;" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>' +
+        '<div class="col-md-2 ignore top-padd ignore2">' +
+        '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline" style="" onclick="$(this).parent().parent().remove();">x</a>' +
         '</div><div class="clearfix"></div></div>');
 });
 $('.is_multiple').live('change', function () {

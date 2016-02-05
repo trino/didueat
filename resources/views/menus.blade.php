@@ -57,7 +57,7 @@
                                             $discount = $value->discount_per;
                                             $d = $main_price * $discount / 100;
                                             $main_price = $main_price - $d;
-                                            $dis = "" . $discount . "% discount " . $everyday . "";
+                                            $dis = "" . $discount . "% off " . $everyday . "";
                                         }
                                         ?>
 
@@ -90,13 +90,14 @@
                                             </a>
 
                                             <div class="pull-right">
+                                                <p>
                                                 @if($dis)
                                                     <strike class="text-muted">${{number_format($value->price,2)}}</strike>
                                                     ${{number_format($main_price,2)}}
                                                 @else
                                                     ${{number_format($value->price,2)}}
                                                 @endif
-
+                                                </p>
                                             </div>
 
 
@@ -215,7 +216,7 @@
                                         <div class="col-sm-12 col-xs-12 title">
                                             <h3>
                                                 @if($dis)
-                                                    <strike>${{number_format($value->price,2)}}</strike>
+                                                    <strike class="text-muted">${{number_format($value->price,2)}}</strike>
                                                     ${{number_format($main_price,2)}}
                                                     <span class='label label-warning'>{{$dis}}</span>
                                                 @else
