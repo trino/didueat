@@ -37,7 +37,7 @@
                 <div class="">
                     <div class="row">
 
-                            <div class="col-md-10">
+                            <div class="col-md-12">
 
 
                                         <?php
@@ -62,11 +62,29 @@
                                         ?>
 
 
+
+
+
+
+
                                         <h4 class="card-title">
                                             <a href="#" id="{{ $value->id }}"
                                                data-res-id="{{ $value->restaurant_id }}" type="button"
                                                class="card-link" data-toggle="modal"
                                                data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
+
+
+
+
+                                                @if(!$has_image)
+                                                    <img  src="{{ $item_image1 }}"
+                                                          class="img-circle" style="height: 25px;width:25px;"
+                                                          alt="{{ $value->menu_item }}"/>
+                                                @else
+                                                    <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
+                                                @endif
+
+
                                                 {{ $value->menu_item }}
 
                                             </a>
@@ -81,31 +99,6 @@
 
                                             </div>
 
-
-                                            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                                                <div class="btn-group" role="group">
-
-                                                    <a id="up_parent_{{ $value->id.'_'.$catid }}"
-                                                       class="btn btn-sm btn-secondary-outline sorting_parent"
-                                                       href="javascript:void(0);">
-                                                        &nbsp;<i class="fa fa-angle-left"></i>&nbsp;</a>
-
-                                                    <a id="down_parent_{{ $value->id.'_'.$catid }}"
-                                                       class="btn btn-sm btn-secondary-outline sorting_parent"
-                                                       href="javascript:void(0);">
-                                                        &nbsp;<i class="fa fa-angle-right"></i>&nbsp;</a>
-
-                                                    <button id="add_item{{ $value->id }}" type="button"
-                                                            class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
-                                                            data-target="#addMenuModel">Edit Item
-                                                    </button>
-
-                                                    <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
-                                                       class="btn btn-sm btn-secondary-outline"
-                                                       onclick="return confirm('This will delete the menu item. Do you wish to proceed?')">X</a>
-                                                </div>
-
-                                            @endif
 
 
 
@@ -161,28 +154,43 @@
 
                                     </div>
 
-                                        <div class="col-md-2" style="">
-                                            @if(!$has_image)
-                                            <a href="#" id="{{ $value->id }}"
-                                               data-res-id="{{ $value->restaurant_id }}" type="button"
-                                               class="" data-toggle="modal"
-                                               data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
-                                                <div class="">
-                                                    <img style="max-width:100%" src="{{ $item_image1 }}"
-                                                         class="pull-right"
-                                                         alt="{{ $value->menu_item }}"/>
-                                                </div>
-                                            </a>
-                                                @else
-                                                <i class="fa fa-arrow-right" style="font-size:60px;padding:20px;color:#fafafa;"></i>
 
 
-                                            @endif
-
-                                        </div>
 
 
+
+                        <div class="col-md-12" style="">
+
+
+                        @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                            <div class="btn-group" role="group">
+
+                                <a id="up_parent_{{ $value->id.'_'.$catid }}"
+                                   class="btn btn-sm btn-secondary-outline sorting_parent"
+                                   href="javascript:void(0);">
+                                    &nbsp;<i class="fa fa-angle-left"></i>&nbsp;</a>
+
+                                <a id="down_parent_{{ $value->id.'_'.$catid }}"
+                                   class="btn btn-sm btn-secondary-outline sorting_parent"
+                                   href="javascript:void(0);">
+                                    &nbsp;<i class="fa fa-angle-right"></i>&nbsp;</a>
+
+                                <button id="add_item{{ $value->id }}" type="button"
+                                        class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
+                                        data-target="#addMenuModel">Edit Item
+                                </button>
+
+                                <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
+                                   class="btn btn-sm btn-secondary-outline"
+                                   onclick="return confirm('This will delete the menu item. Do you wish to proceed?')">X</a>
                             </div>
+
+                        @endif
+
+
+
+                    </div>
+                    </div>
                     </div>
 
                     <div class="clearfix"></div>
@@ -216,9 +224,9 @@
                                             </h3>
                                         </div>
     @if (Session::get('session_type_user') == "super" )
-                                           <div class="col-sm-12 col-xs-12">
+                                           <!--div class="col-sm-12 col-xs-12">
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
-                                           </div>
+                                           </div-->
    @endif
                                            <div class="col-sm-12 col-xs-12">
                                                <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
@@ -256,9 +264,9 @@
                                                                                   title="___" id="{{ $sub->id }}"
                                                                                   style="display: none;" checked="checked"
                                                                                   class="chk">
-                                                                       </div>
-                                                                       <a href="javascript:void(0);"><strong>{{ ucfirst($sub->menu_item) }}</strong></a>
-                                                                       <strong>
+                                                                       </div>  <strong>
+                                                                       {{ ucfirst($sub->menu_item) }}     </strong>
+
                                                            <span class="limit-options">
                                                                <?php
                                                                if ($sub->exact_upto == 0) {
@@ -279,7 +287,7 @@
                                                                }
                                                                ?>
                                                                </span>
-                                                                       </strong>
+
 
                                                                        <div class="clearfix"></div>
                                                                        <span class="error_{{ $sub->id }} errormsg"></span>
@@ -287,9 +295,16 @@
                                                                        <div class="list clearfix">
                                                                            <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                                            @foreach($mini_menus as $mm)
-                                                                               <div class="col-xs-6 col-md-6 subin padding-left-0">
-                                                                                   <div class="btnxx-inner inneritem">
-                                                                                       <a id="buttons_{{ $mm->id }}"
+
+
+
+
+
+
+                                                                               <div class="col-xs-12 col-md-6">
+                                                                                   
+
+                                                                                       <div id="buttons_{{ $mm->id }}"
                                                                                           class="buttons <?php if($sub->sing_mul != '1'){?>col-md-8 <?php }?>nopadd"
                                                                                           href="javascript:void(0);">
                                                                                            <?php
@@ -305,26 +320,50 @@
                                                                                                   name="extra_{{ $sub->id }}"
                                                                                                   value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
                                                                                            {{ $mm->menu_item }}
-                                                                                           &nbsp;&nbsp;
+
+
                                                                                            <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-                                                                                       </a>
-                                                                                       <b <?php if ($sub->sing_mul == '1') {
+                                                                                       </div>
+
+
+
+
+                                                                                       <div <?php if ($sub->sing_mul == '1') {
                                                                                            echo "style='display:none'";
-                                                                                       } ?> class="col-md-4 norightpadd">
+                                                                                       } ?> class="">
+
+
+
+
                                                                                            <a id="remspan_{{ $mm->id }}"
-                                                                                              class="remspan btn btn-danger btn-xs"
-                                                                                              href="javascript:;">-</a> <span
+                                                                                              class="remspan btn btn-secondary-outline btn-xs"
+                                                                                              href="javascript:;">-</a>
+
+                                                                                           <span
                                                                                                    id="sprice_{{$mm->price}}"
                                                                                                    class="span_{{ $mm->id }} allspan">0</span>
-                                                                                           <a id="addspan_{{ $mm->id }}"
-                                                                                              class="addspan btn btn-xs btn-info"
-                                                                                              href="javascript:;">+</a>
-                                                                                       </b>
 
-                                                                                       <div class="clearfix"></div>
-                                                                                   </div>
+
+                                                                                           <a id="addspan_{{ $mm->id }}"
+                                                                                              class="addspan btn btn-xs btn-primary"
+                                                                                              href="javascript:;">+</a>
+
+
+
+                                                                                       </div>
+
+
+
+
+
+
+
                                                                                    <div class="clearfix"></div>
                                                                                </div>
+
+
+
+
                                                                            @endforeach
                                                                            <input type="hidden" value=""
                                                                                   class="chars_{{ $sub->id }}">
@@ -344,20 +383,20 @@
 
 
                                <div class="modal-footer">
-                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                   <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
-                                   </button>
+                                   </button-->
 
-                                   <a class="btn btn-danger btn-sm minus" href="javascript:void(0);"
+                                   <a class="btn btn-secondary-outline" href="javascript:void(0);"
                                       onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
                                    &nbsp;
                                    <span class="number{{ $value->id }}">1</span> &nbsp;
-                                   <a class="btn btn-info btn-sm add" href="javascript:void(0);"
+                                   <a class="btn  btn-secondary-outline  " href="javascript:void(0);"
                                       onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
 
                                    <a id="profilemenu{{ $value->id }}"
-                                      class="btn btn-primary add_menu_profile add_end"
+                                      class="btn  btn-primary add_menu_profile add_end"
                                       href="javascript:void(0);">Add</a>
                                </div>
                            </div>

@@ -12,6 +12,58 @@ $type = "hidden";
     <?php printfile("views/restaurants.blade.php"); ?>
 
     <div class="row ">
+
+
+        <div class="col-lg-8 ">
+            <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <p>Enter your location above to find restaurants near you</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+            @include('common.search_bar')
+
+
+
+
+
+            <div class="alert alert-success alert-dismissible fade in" role="alert"  id="results_show" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
+                found in your area
+            </div>
+            @include('ajax.search_restaurants')
+        </div>
+
+
+
+
+
         <div class="col-lg-4 ">
             <div class="card ">
                 <div class="card-header">
@@ -63,18 +115,30 @@ $type = "hidden";
                             </select>
                         </div>
 
-                        <div id="radius_panel" class="form-group row">
+
+
+
+                        <div id="radius_panel" class="form-group row" style="display:none;">
                             <div class=" col-md-6">
                                 <label id="radius_panel_label">Distance (<?= MAX_DELIVERY_DISTANCE; ?> km)</label>
                             </div>
                             <div class=" col-md-6">
                                 <input type="range" name="radius" id="radius" min="1"
-                                       max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>"
+                                       max="<?= MAX_DELIVERY_DISTANCE; ?>" value="5"
                                        class="form-control"
                                        onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+
+                                <!--input type="range" name="radius" id="radius" min="1"
+                                       max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>"
+                                       class="form-control"
+                                       onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');"-->
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
+
+
+
                     </div>
                 </div>
                 <div class="card-footer text-xs-right">
@@ -86,23 +150,9 @@ $type = "hidden";
             </div>
         </div>
 
-        <div class="col-lg-8 ">
-            <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <p>Enter your location above to find restaurants near you</p>
-            </div>
 
-            <div class="alert alert-success alert-dismissible fade in" role="alert"  id="results_show" style="display: none;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
-                found in your area
-            </div>
-            @include('ajax.search_restaurants')
-        </div>
+
+
     </div>
 
 

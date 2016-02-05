@@ -521,6 +521,10 @@ ul.scroller li {
     /*  padding:5px;border-bottom: 1px solid #CCC;background:#e5e5e5; */
 }
 
+.c-input > input:checked ~ .c-indicator {
+    color: #FFF;
+    background-color: green;
+}
 .receipt_image img, .receipt_image a, .receipt_image span {
     display: inline-block;
     text-align: center;

@@ -89,19 +89,25 @@
 
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-            <div class="card">
-                 <div class="card-header">
-                    <h4 class="card-title">Restaurant Menu Items
-                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
-                       data-toggle="modal"
-                       data-target="#addMenuModel">
-                        Add Menu Item
-                    </a></h4>
-                </div>
- 
 
-                    <div class="clearfix"></div>
-                </div>
+
+                    <div class="">
+
+
+
+
+
+
+                        <a href="#" id="add_item0" type="button btn-primary btn-block" class="btn btn-primary additem  btn-block"
+                           data-toggle="modal"
+                           data-target="#addMenuModel">
+                            Add Menu Item
+                        </a>
+
+
+                    </div>
+
+
 
             @endif
 
