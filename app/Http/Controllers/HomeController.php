@@ -328,7 +328,7 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         //echo $slug;die();
-        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by it's slug
+        $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
         $category = \App\Http\Models\Category::get();//gets a category, I don't know which one
         $data['category'] = $category;
         $data['title'] = $res_slug->name;

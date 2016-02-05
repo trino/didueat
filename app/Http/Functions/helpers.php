@@ -818,7 +818,17 @@
 
 //SELECT * FROM $table WHERE $column = $value
     function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = "") {
-        return select_field_where($table, array($column => $value), $getcol, $OrderBy, $Dir, $GroupBy);
+     if(is_array($column) && is_array($value)){
+      $cnt=0;
+      foreach ($column as $col) {
+         $secondParam[$col]=$value[$cnt];
+         $cnt++;
+      }
+     }
+     else{
+       $secondParam=array($column => $value);
+     }
+        return select_field_where($table, $secondParam, $getcol, $OrderBy, $Dir, $GroupBy);
     }
 
 //$getcol = false, returns all results after the get(), true returns before the get()

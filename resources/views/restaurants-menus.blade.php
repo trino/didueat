@@ -75,7 +75,7 @@
             </div>
         </div>
 
-
+ 
 
 
 
@@ -88,14 +88,17 @@
 
 
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                <div class="alert alert-success" role="alert">
-                    <strong>Welcome</strong> to your restaurant menu, add your best selling meals or combos.
 
+            <div class="card">
+                 <div class="card-header">
+                    <h4 class="card-title">Restaurant Menu Items
                     <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
                        data-toggle="modal"
                        data-target="#addMenuModel">
                         Add Menu Item
-                    </a>
+                    </a></h4>
+                </div>
+ 
 
                     <div class="clearfix"></div>
                 </div>
