@@ -30,8 +30,8 @@
                                 <div class="clearfix"></div>
                             </form>
 
-                        <input type="checkbox" checked data-toggle="toggle">
 
+                        
 
 
 

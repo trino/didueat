@@ -10,34 +10,34 @@
 <form id="profiles">
     <div class="form-group">
         <div class="col-xs-12 margin-bottom-10">
-            <input type="text" name="ordered_by" id="fullname" placeholder="Name" class="form-control form-control--contact padding-margin-top-0" required="">
+            <input type="text" name="ordered_by" id="fullname" placeholder="Name" class="form-control padding-margin-top-0" required="">
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-6 margin-bottom-10">
-            <input type="email" name="email" id="ordered_email" placeholder="Email" class="form-control form-control--contact" required="">
+            <input type="email" name="email" id="ordered_email" placeholder="Email" class="form-control" required="">
         </div>
         <div class="col-xs-12 col-sm-6">
-            <input type="text" name="contact" id="ordered_contact" placeholder="Phone Number" class="form-control form-control--contact" required="">
+            <input type="text" name="contact" id="ordered_contact" placeholder="Phone Number" class="form-control" required="">
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <input type="password" name="password" id="password" class="form-control form-control--contact" placeholder="Password" onkeyup="check_val(this.value);"/>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password" onkeyup="check_val(this.value);"/>
         </div>
         <div class="clearfix"></div>
     </div>
     <div class="form-group confirm_password" style="display: none;">
         <div class="col-xs-12">
-            <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control--contact" placeholder="Confirm Password"/>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password"/>
         </div>
         <div class="clearfix"></div>
     </div>
 
     <div class="form-group">
         <div class="col-xs-12">
-            <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
+            <select class="form-control " name="order_till" id="ordered_on_time" required="">
                 <option value="ASAP">ASAP</option>
                 <?php
                     for ($i = 30; $i < 570; $i = $i + 30) {
@@ -52,27 +52,27 @@
     <div class="profile_delivery_detail" style="display: none;">
         <div class="form-group margin-bottom-10">
             <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                <input type="text" placeholder="Address 2" class="form-control  form-control--contact" name="address2"/>
+                <input type="text" placeholder="Address 2" class="form-control " name="address2"/>
             </div>
             <div class="col-xs-12 col-sm-6  margin-bottom-10">
-                <input type="text" placeholder="City" class="form-control  form-control--contact" name="city" id="city"/>
+                <input type="text" placeholder="City" class="form-control " name="city" id="city"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-xs-12 col-sm-6">
-                <select class="form-control form-control--contact" name="province">
+                <select class="form-control" name="province">
                     <OPTION>GET LIST OF PROVINCES</OPTION>
                 </select>
             </div>
             <div class="col-xs-12 col-sm-6">
-                <input type="text" placeholder="Postal Code" class="form-control  form-control--contact" name="postal_code" id="postal_code"/>
+                <input type="text" placeholder="Postal Code" class="form-control " name="postal_code" id="postal_code"/>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <textarea placeholder="Additional Notes" class="form-control  form-control--contact" name="remarks"></textarea>
+            <textarea placeholder="Additional Notes" class="form-control " name="remarks"></textarea>
         </div>
         <div class="clearfix"></div>
     </div>

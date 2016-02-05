@@ -133,12 +133,12 @@
 
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
-                                   class="form-control form-control--contact" name="ordered_by"
+                                   class="form-control" name="ordered_by"
                                    id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "readonly";?> >
                         </div>
 
                         <div class="col-sm-12">
-                            <input type="email" placeholder="Email" class="form-control  form-control--contact"
+                            <input type="email" placeholder="Email" class="form-control "
                                    name="email" id="ordered_email" required=""
                                    value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "readonly";?> />
                         </div>
@@ -147,7 +147,7 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <input type="password" name="password" id="password"
-                                           class="form-control  form-control--contact password_reservation" placeholder="Provide a password"
+                                           class="form-control  password_reservation" placeholder="Provide a password"
                                            onkeyup="check_val(this.value);" required="required" />
                                 </div>
                                 <div class="clearfix"></div>
@@ -158,7 +158,7 @@
                             <div class="col-xs-12 col-sm-12 margin-bottom-10">
                                 <input type="text"  maxlength="10" min="10"
                                        placeholder="Cell Phone" id="phone"
-                                       class="form-control form-control--contact phone" name="contact"
+                                       class="form-control phone" name="contact"
                                        id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
                             </div>
                         </div>
@@ -172,7 +172,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <select class="form-control  form-control--contact" name="order_till" id="ordered_on_time" required="">
+                                <select class="form-control " name="order_till" id="ordered_on_time" required="">
                                     <option value="Order ASAP">Order ASAP</option>
                                     {{ get_time_interval() }}
                                 </select>
@@ -182,7 +182,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control form-control--contact resetme" name="remarks"></textarea>
+                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
                             </div>
                             <div class="clearfix"></div>
                         </div>
