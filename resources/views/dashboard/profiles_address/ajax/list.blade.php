@@ -84,7 +84,7 @@
                             <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-info editRow btn-sm" data-toggle="modal"
                                data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}"
-                               class="btn btn-danger-outline btn-sm"
+                               class="btn btn-secondary-outline btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');">X</a>
                         </td>
 

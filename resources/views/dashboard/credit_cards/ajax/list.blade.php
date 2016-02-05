@@ -68,7 +68,7 @@
                                         Edit
                                     </a>
                                     <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
-                                       class="btn btn-danger-outline btn-sm "
+                                       class="btn btn-secondary-outline btn-sm "
                                        onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>
                                 </div>
                             </td>

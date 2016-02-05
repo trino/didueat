@@ -6,6 +6,11 @@
 
 
 
+.banner_red{
+
+   background: #dadada !important;color:white;
+}
+
 
 .primary{background: green !important;: }
 .ui-timepicker-table {
@@ -88,6 +93,10 @@ tr {
 
 
 body {
+
+
+
+
     background: #f4f7f8 !important;
     /*  font-family: 'Roboto', sans-serif;*/
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
@@ -316,7 +325,7 @@ body.modal-open {
 }
 
 .rating > .checked-stars ~ label {
-    color: #81B71A;
+    color: #f0ad4e;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
@@ -325,7 +334,7 @@ body.modal-open {
 .rating:not(:checked) > label:hover,
     /* hover current star */
 .rating:not(:checked) > label:hover ~ label {
-    color: #81B71A;
+    color: #f0ad4e;
 }
 
 /* hover previous stars in list */
@@ -335,7 +344,7 @@ body.modal-open {
 .rating > label:hover ~ input:checked ~ label,
     /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label {
-    color: #81B71A;
+    color: #f0ad4e;
 }
 
 /*------Static Rating--------*/
@@ -369,9 +378,9 @@ body.modal-open {
 }
 
 .static-rating > .checked-stars ~ label {
-    color: #81B71A;
+   color: #f0ad4e !important
 }
-
+/*
 .fancybox-wrap {
     position: absolute;
     top: 0;
@@ -409,7 +418,7 @@ body.modal-open {
 
 
 }
-
+*/
 
 h1.caption {
     background: rgba(0, 0, 0, 0) url("../../images/title.gif") repeat-x scroll center 10px;

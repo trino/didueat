@@ -2,10 +2,15 @@
 
 <!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
 "-->
+<?
+$remove_margin_for_banner = true;
+?>
 
-<div class=" bg-danger container-fluid">
+    <div class="bg-primary p-t-2 container-fluid" style="
+            ">
 
-    <div class=" row" style="">
+
+    <div class=" row" style="" >
     <div class=" container p-t-0  m-t-3" style="">
         <div class="card-block p-a-0">
 
@@ -25,7 +30,7 @@
                 <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
 
                     <div id="restaurant_rating">
-                        <a style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
+                        <a style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
                     </div>
 
@@ -91,7 +96,7 @@
 
 
 
-                    <div class="">
+                    <div class="m-b-1 ">
 
 
 
@@ -157,7 +162,6 @@
 
 
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-    @endif
 
 
 
@@ -186,6 +190,7 @@
         </div>
     </div>
 
+    @endif
 
 
 

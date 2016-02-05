@@ -35,7 +35,7 @@
                     @if($CanApprove)
 
                         <a href="#cancel-popup-dialog"
-                           class="btn btn-danger-outline orderCancelModal " data-toggle="modal"
+                           class="btn btn-secondary-outline orderCancelModal " data-toggle="modal"
                            data-target="#orderCancelModal"
                            id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
 

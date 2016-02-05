@@ -93,7 +93,7 @@
                                        data-id="{{ $value->id }}">Edit</a>
                                 @endif
                                 <a href="{{ url('notification/addresses/delete/'.$value->id) }}"
-                                   class="btn btn-danger-outline btn-sm"
+                                   class="btn btn-secondary-outline btn-sm"
                                    onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }} ?');">x</a>
                             </div>
                         </td>

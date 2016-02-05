@@ -78,7 +78,7 @@
                     <td>{{ $rating->created_at  }}</td>
                     <td>
                         <a class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
-                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">X</a>
+                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');">X</a>
                     </td>
                 </tr>
                 @endforeach

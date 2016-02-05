@@ -57,7 +57,7 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
             $is_open = $open <= $user_time && $close >= $user_time;
 
             ?>
-            <div class="row">
+            <div class="">
                 <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
 
 
