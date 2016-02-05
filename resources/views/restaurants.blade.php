@@ -91,7 +91,7 @@ $type = "hidden";
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <p>Please enter your address above to find meals near you</p>
+                <p>Enter your location above to find restaurants near you</p>
             </div>
 
             <div class="alert alert-success alert-dismissible fade in" role="alert"  id="results_show" style="display: none;">

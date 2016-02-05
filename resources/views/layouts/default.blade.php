@@ -139,6 +139,9 @@ Menu item moved successfully
         <?php \Session::forget('message'); ?>
     @endif
 
+
+
+
     @yield('content')
 
 

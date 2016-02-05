@@ -21,8 +21,8 @@
     @endif
 
     <div class="card " style="">
-        <div class="card-block ">
-            <div class="top-cart-content ">
+        <div class="card-block">
+
                 <div class="receipt_main">
                     <h4 class="card-title">Receipt</h4>
 
@@ -93,7 +93,7 @@
                     </div>
 
                     @if(!isset($order))
-                        <div class="form-group   pull-right ">
+                        <div class="form-group   pull-right  m-b-0">
                             <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                         </div>
@@ -187,7 +187,7 @@
                             <div class="clearfix"></div>
                         </div>
 
-                        <div class="form-group   pull-right ">
+                        <div class="form-group   pull-right m-b-0">
                             <div class="col-xs-12">
                                 <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
                                 <button type="submit" class="btn btn-primary">Checkout</button>
@@ -197,7 +197,7 @@
                         <div class="clearfix"></div>
                     </form>
                 </div>
-            </div>
+
         </div>
     </div>
 
