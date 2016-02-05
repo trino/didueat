@@ -158,6 +158,13 @@
 
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
     @endif
+
+
+
+
+
+
+
     <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
          aria-labelledby="addMenuModelLabel"
          aria-hidden="true">
@@ -167,17 +174,24 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="addMenuModelLabel">Add/Edit Menu</h4>
+                    <h4 class="modal-title" id="addMenuModelLabel">Add Menu Item</h4>
                 </div>
                 <div class="modal-body" id="menumanager2">
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
 
 
 

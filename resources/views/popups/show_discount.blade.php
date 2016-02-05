@@ -1,9 +1,20 @@
+<div class="col-md-12">
 
 
-<div class="">
-    <LABEL class="nomar">
+
+
+    <input <?php if(!isset($model) || (isset($model->is_active) && $model->is_active == 1)){?>checked="checked"<?php }?> type="checkbox" class="is_active" /> &nbsp;&nbsp;<strong>Enable Item</strong>
+
+
+    <span class="enabled" style="display: none;">Enabled</span>
+    <span class="disabled" style="display: none;">Disabled</span>
+
+
+
+
         <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
-    </LABEL>
+
+
 
 </div>
 
@@ -26,7 +37,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-6 ">
-            <strong>Discount Applied for:</strong>
+            <strong>Discount on these days:</strong>
         </div>
         <div class="col-md-6  alldays">
             <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
@@ -56,8 +67,8 @@
                 }
             ?>
         </div>
-        <div class="clearfix"></div>
-        <br />
+
+
     </div>
 </div>
             
