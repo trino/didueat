@@ -60,7 +60,7 @@ $('.add_additional').live('click', function () {
 
 $('.removenormal').live('click', function () {
     $_this = $(this);
-    if (confirm('Are you sure you want to delete this item?'))
+    if (confirm('Are you sure you want to delete this addon?'))
         $_this.closest('.menuwrapper').remove();
 })
 
@@ -69,7 +69,7 @@ $('.removelast').live('click', function () {
     var tot = $_this.closest('.newmenu').find('.newaction').length;
     var newmenu = $_this.closest('.newmenu').attr('id');
     var id = newmenu.replace('newmenu','');
-    if (confirm('Are you sure you want to delete this item?')) {
+    if (confirm('Are you sure you want to delete this addon?')) {
         $_this.closest('.menuwrapper').remove();
         var i = 0;
         $('#' + newmenu + ' .newaction').each(function () {
@@ -89,9 +89,10 @@ $('.removelast').live('click', function () {
 });
 $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
-        '<div class="cmore"><p style="">&nbsp;</p><div class="col-md-10 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1 padleft0">' +
-        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
-        '<div class="col-md-5"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
+        '<div class="cmore">' +
+        '<div class=" ignore ignore2 ignore1">' +
+        '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
+        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
         '</div>' +
         '<div class="col-md-2 ignore top-padd ignore2">' +
         '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline" style="" onclick="$(this).parent().parent().remove();">x</a>' +
