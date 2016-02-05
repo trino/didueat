@@ -1,4 +1,4 @@
-<TABLE>
+<TABLE class="smaller">
 <?php
     printfile("views/common/orderinfo.blade.php");
 
@@ -33,7 +33,7 @@
         $Data["Notes"] = $order->remarks;
     }
     foreach($Data as $Key => $Value){
-        echo '<TR class="infolist noprint nowrap"><TD>' . $Key . ': </TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>\r\n";
+        echo '<TR class="infolist noprint nowrap"><TD class="padright15"><strong>' . $Key . '</strong> </TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>\r\n";
     }
 ?>
 </TABLE>
