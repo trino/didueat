@@ -10,7 +10,8 @@
     <p>&nbsp;</p>
 
     <div class="col-md-12 col-sm-12 col-xs-12 ignore">
-        <div class="col-sm-2 col-xs-12 ignore">
+        <div class="col-sm-12 col-xs-12 nopadd ignore">
+            <div class="col-md-12">
             <div class="menuimg ignore menuimg{{ $menu_id }}_1"
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                  @if(isset($model) && $model->image)
@@ -20,11 +21,12 @@
             </div>
             <br class="ignore"/>
             <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
+            </div>
         </div>
 
-        <div class="col-sm-10 col-xs-12 lowheight ignore par_wrap">
+        <div class="col-sm-12 col-xs-12 lowheight ignore par_wrap">
             @if(count($category))
-            <div class="col-md-6 ">
+            <div class="col-md-6 padding-left-0">
                 <div><strong>Category:</strong></div>
                 <input class="form-control cat_name" value="<?php if(isset($model) && $model->cat_name){echo $model->cat_name;}?>" />
                 <div style="display: none;">
@@ -37,7 +39,7 @@
                 </select>
                 </div>
             </div>
-            <div class="col-md-6  pad-top-18">
+            <div class="col-md-6 padding-left-0 pad-top-18">
                 <LABEL class="nomar">
                     <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
                 </LABEL>
@@ -51,8 +53,8 @@
                 <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model)|| (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
                 <br />
                 <div class="form-group">
-                <label class="col-md-6 "><strong>Discount %</strong></label>
-                <div class="col-md-6 ">
+                <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
+                <div class="col-md-6 padding-left-0">
                 <select class="disc_per form-control">
                     <option>Discount Percentage</option>
                     <?php for($i=5;$i<96;$i=$i+5){ ?>
@@ -65,10 +67,10 @@
                 <div class="clearfix"></div>
                 </div>
                 <div class="form-group">
-                <div class="col-md-6 ">
+                <div class="col-md-6 padding-left-0">
                 <strong>Discount Applied for:</strong>
                 </div>
-                <div class="col-md-6  alldays">
+                <div class="col-md-6 padding-left-0 alldays">
                 <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
                 <?php
                     $days = array();
@@ -81,7 +83,7 @@
                         if($k==0 || $k==4)
                         {
                             ?>
-                            <div class="col-md-6 ">
+                            <div class="col-md-6 padding-left-0">
                             <?php
                         }
                         echo '<LABEL style="font-weight:normal;"><input type="checkbox" class="days_discount" ';
@@ -109,11 +111,15 @@
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
             <div class="form-group nomar">
-            <div class="col-md-6 "><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-            <div class="col-md-6 "><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
+            <div class="col-md-6 padding-left-0"><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
+            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
             <div class="clearfix"></div>
             </div>
-            <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
+                </div>
+            </div>
             <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
         </div>
         <div class="clearfix ignore"></div>
@@ -124,12 +130,12 @@
     
     <div class="col-md-12">
     <div class="col-md-12">
-    <div class="additional additional{{ $menu_id }} ignore card" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+    <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
 
         
 
 
-        <div class="col-md-12 ignore card-header">Addons</div>
+        
         
 
 
@@ -147,7 +153,7 @@
             //die('here');
         $k++;
         if ($k == 1)
-            echo "<div class='ignore card-block' id='subcat" . $menu_id . "'>";
+            echo "<div class='ignore' id='subcat" . $menu_id . "'>";
 
         ?>
         @include('popups.additional')
