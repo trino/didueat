@@ -6,7 +6,7 @@
 $remove_margin_for_banner = true;
 ?>
 
-    <div class=" p-t-3 p-b-1 container-fluid" style="border-bottom:1px solid #dadada;            ">
+    <div class=" p-t-3 p-b-1 container-fluid" style="border-bottom:0px solid #dadada;            ">
 
 
     <div class=" row" style="" >

@@ -1,4 +1,4 @@
-<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;">
+<div class="container-fluid text-muted p-y-2 m-t-2" style="">
 
     <!--div class="container  p-y-2">
         <div class="row ">
