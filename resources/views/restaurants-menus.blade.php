@@ -2,14 +2,11 @@
 
 <!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
 "-->
-
 <?
 $remove_margin_for_banner = true;
 ?>
 
     <div class=" p-t-3 p-b-1 container-fluid" style="border-bottom:1px solid #dadada;            ">
-
-<div class=" bg-danger container-fluid">
 
 
     <div class=" row" style="" >
