@@ -1,7 +1,7 @@
 
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
-    <div class="" style="width: 300px;">
+    <div class="" style="width: 350px;">
         <div class="input-group">
             <div class="input-group-btn">
 

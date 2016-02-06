@@ -3,12 +3,6 @@
 
 @section('content')
 
-        <!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
-"-->
-<?
-//$remove_margin_for_banner = true;
-?>
-
 <div class="container-fluid bg-danger" style=" background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
 
         background-size: cover;

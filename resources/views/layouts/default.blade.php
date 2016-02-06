@@ -96,28 +96,31 @@ if (Request::path() !== null && Request::path() != "/") {
 
 
 
-        @if (debugmode())
+    @if (debugmode())
 
-            <style>
-
-
-                .container-fluid{border:1px solid green;}
-                .container{border:1px solid green;}
-
-                div[class^="col-"], div[class*=" col-"]{border:1px solid red !important;}
+        <style>
 
 
+            .container-fluid {
+                border: 1px solid green;
+            }
 
-            </style>
+            .container {
+                border: 1px solid green;
+            }
+
+            div[class^="col-"], div[class*=" col-"] {
+                border: 1px solid red !important;
+            }
 
 
-        @endif
+        </style>
 
 
+    @endif
 
 
 </head>
-
 
 
 <!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
@@ -125,7 +128,6 @@ if (Request::path() !== null && Request::path() != "/") {
         background-repeat: no-repeat !important;"-->
 
 <body>
-
 
 
 @include('popups.login')
@@ -138,79 +140,23 @@ if (Request::path() !== null && Request::path() != "/") {
 <div class="container-fluid m-t-3 p-x-0 p-t-0">
 
 
-
-                <div class="alert alert-success" role="alert"
-                     style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
-                    Item has been added/updated successfully
-                </div>
-
-                <div class="alert alert-success" role="alert"
-                     style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
-                    Menu item moved successfully
-                </div>
+    @include('common.alert_messages')
 
 
-                <?php Session();?>
-                @if (session('status')|| isset($_GET['flash']))
-                    <div class="alert alert-success">
-                        <?php if(isset($_GET['flash'])){?>
-                        <strong>Thank you!</strong>
-                        <?php if ($_GET['flash'] == '1')
-                            echo "your order has been received.";
-                        elseif ($_GET['flash'] == '2')
-                            echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";
+    <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
+    @if ($Restaurant)
+        @include('common.required_to_open')
+    @endif
 
-                        }else {
-                            session('status');
-                        }?>
-                    </div>
-                @endif
-
-                <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
-                @if ($Restaurant)
-                    @include('common.required_to_open')
-                @endif
-
-                <?php
-
-                if (\Session::has('invalid-data')) {
-                    $fields = Session::get('invalid-data');
-                    $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
-                    echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
-                    \Session::forget('invalid-data');
-                }
-                ?>
-
-                @if(\Session::has('message-type') && Session::get('message'))
-                    <div class="alert {!! Session::get('message-type') !!}">
-                        <strong>{!! Session::get('message-short') !!}</strong>
-                        &nbsp; {!! Session::get('message') !!}
-                    </div>
-                    <?php \Session::forget('message'); ?>
-                @endif
+    @yield('content')
 
 
+</div>
 
-
-
-
-
-                @yield('content')
-
-
-
-
-
-
-            </div>
-
-    @include('layouts.includes.footer')
+@include('layouts.includes.footer')
 
 </body>
 </html>
-
-
-
 
 
 <SCRIPT>
