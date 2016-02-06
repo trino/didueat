@@ -58,7 +58,7 @@
                                 ?>
 
 
-                                <h3 class="card-title">
+                                <h4 class="card-title">
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
@@ -96,7 +96,7 @@
                                     </div>
 
 
-                                </h3>
+                                </h4>
 
                                 <div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}

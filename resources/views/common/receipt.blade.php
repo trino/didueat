@@ -20,11 +20,16 @@
         </div>
     @endif
 
-    <div class="card " style="">
+    <div class="card" style="">
+
+        <div class="card-header">
+            <h4 class="card-title">Receipt</h4>
+        </div>
+
+
         <div class="card-block">
 
                 <div class="receipt_main">
-                    <h4 class="card-title">Receipt</h4>
 
                     @include('common.items')
 
