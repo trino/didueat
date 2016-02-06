@@ -98,19 +98,19 @@ body {
 
 
     background: #f4f7f8 !important;
-    /*  font-family: 'Roboto', sans-serif;*/
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+      font-family: 'Roboto', sans-serif;
+/* font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
 
 }
 
 .navbar {
-    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.18);
+ box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.18);
 
 }
 
 .card {
-    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
-    border: 0 !important;
+ box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.1);
+ border: 0 !important;
 }
 
 /* modal padding */
@@ -521,7 +521,6 @@ ul.scroller li {
 
 .c-input > input:checked ~ .c-indicator {
     color: #FFF;
-    background-color: green;
 }
 .receipt_image img, .receipt_image a, .receipt_image span {
     display: inline-block;

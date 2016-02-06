@@ -13,7 +13,6 @@
 
 <div class="row">
 
-    @include('layouts.includes.leftsidebar')
 
     <div class="col-lg-9">
         <?php printfile("views/dashboard/restaurant/index.blade.php"); ?>
@@ -26,6 +25,10 @@
         </div>
 
     </div>
+
+    @include('layouts.includes.leftsidebar')
+
+
 </div>
 
 @stop

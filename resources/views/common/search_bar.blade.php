@@ -5,7 +5,7 @@
         <div class="input-group">
             <div class="input-group-btn">
 
-                @if(read("id"))
+                @if(read("id") && false)
                     <?php
                     $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                     if($addresses->count()){

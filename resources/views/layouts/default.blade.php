@@ -41,7 +41,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
-    <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!--link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"-->
 
@@ -104,7 +104,7 @@ if (Request::path() !== null && Request::path() != "/") {
         background-size: 100% 100% !important;
         background-repeat: no-repeat !important;"-->
 
-<body>
+<body class="">
 
 @include('popups.login')
 @include('popups.signup')

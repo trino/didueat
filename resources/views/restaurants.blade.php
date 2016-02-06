@@ -15,37 +15,14 @@ $type = "hidden";
 
 
         <div class="col-lg-8 ">
-            <div class="alert alert-danger alert-dismissible fade in" role="alert" id="start_up_message">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <p>Enter your location above to find restaurants near you</p>
+   <h1>                <p>Enter your location above to find restaurants near you</p>
+   </h1>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div>
-
-
-
+            <div class="m-b-1">
             @include('common.search_bar')
-
+            </div>
 
 
 
