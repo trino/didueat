@@ -25,7 +25,7 @@
                 'user/reviews' => "User Reviews",
                 'eventlogs/list' => "Event Log"
 
-        ), "<h4 class='card-title'><i class='fa fa-users' style='color:#d9534f !important;margin-right:.3em;'></i> Admin</h4>");
+        ), "<h4 class='card-title'><i class='fa fa-users' style='color:#0275d8 !important;margin-right:.3em;'></i> Admin</h4>");
     }
 */
     if(\Session::get('session_restaurant_id')){
@@ -34,15 +34,15 @@
                 'notification/addresses' => "Receive Notifications",//do not change this to "Receive notifications", as that does not describe what this does
                 'restaurant/info' => "Restaurant Info",
                 'credit-cards/list/restaurant' => "Credit Card"
-        ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#d9534f !important;margin-right:.3em;'></i> Restaurant</h4>");
+        ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#0275d8 !important;margin-right:.3em;'></i> My Restaurant</h4>");
     }
 
     makelink(array( 'orders/list/user' => 'My Orders',
                         'user/addresses' => "My Addresses",
                         'user/info' => "My Profile",
-                        'auth/logout' => "Log out",
-                        'credit-cards/list/user' => "Credit Card"
-                ), "<h4 class='card-title'><i class='fa fa-user' style='color:#d9534f !important;margin-right:.3em;'></i> User</h4>");
+                        'credit-cards/list/user' => "Credit Card",
+            'auth/logout' => "Log out"
+    ), "<h4 class='card-title'><i class='fa fa-user' style='color:#0275d8 !important;margin-right:.3em;'></i> My Profile</h4>");
 
 
     ?>

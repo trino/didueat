@@ -12,7 +12,7 @@
             </div>
             <div class="modal-body product-popup">
                 <div class="product-page product-pop-up">
-                    <div class="modal-bodys">
+                    <div class="row">
                         <div class=" title">
                             <h3>
                                 @if($dis)
@@ -188,7 +188,7 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-
+Qty
                 <a class="btn btn-secondary-outline" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
                 &nbsp;

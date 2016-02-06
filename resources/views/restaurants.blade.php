@@ -6,21 +6,16 @@ $type = "hidden";
 
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-danger" style=" background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position:center center;
-
-            ">
+    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container" style="padding-top: 0px !important;">
-            <h1 class="display-4">Order Delivery & Take-Out Online</h1>
-            <p class="lead">Enter your location to find restaurants near you.</p>
-
-
+            <h1 class="display-5">Order Online Specials from Local Restaurants</h1>
+            <p class="lead">Enter your location to find deals near you.</p>
 
             <div class="m-b-1">
                 @include('common.search_bar')
             </div>
+
+            <p class="lead">Or see <a href="#">Hamilton</a> restaurants</p>
 
 
         </div>

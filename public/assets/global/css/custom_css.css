@@ -1,6 +1,13 @@
 .modal-header{
-    background: #d9534f !important;
+    background: #0275d8 !important;
     color:white;
+
+}
+.main-bg-image{
+    background-image: url('../../../assets/images/restro-background.jpg' )  !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center center;
 
 }
 

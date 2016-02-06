@@ -90,13 +90,14 @@
                                             </a>
 
                                             <div class="pull-right">
-                                                <p>
+
                                                 @if($dis)
-                                                    <strike class="text-muted">${{number_format($value->price,2)}}</strike>
-                                                    ${{number_format($main_price,2)}}
+                                                        <strike class="text-muted">${{number_format($value->price,2)}}</strike>
                                                 @else
-                                                    ${{number_format($value->price,2)}}
                                                 @endif
+
+                                                  <a class="btn btn-primary">${{number_format($main_price,2)}}</a>
+
                                                 </p>
                                             </div>
 
@@ -212,7 +213,7 @@
                             </div>
                             <div class="modal-body product-popup">
                                 <div class="product-page product-pop-up">
-                                    <div class="modal-bodys">
+                                    <div class="row">
                                         <div class="col-sm-12 col-xs-12 title">
                                             <h3>
                                                 @if($dis)
@@ -388,7 +389,7 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-
+Qty&nbsp;
                                    <a class="btn btn-secondary-outline" href="javascript:void(0);"
                                       onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
                                    &nbsp;
