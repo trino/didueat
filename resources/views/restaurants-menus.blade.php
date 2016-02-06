@@ -14,9 +14,9 @@
 
     <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-    <div class="container">
+    <div class="container p-y-2">
         <div class="row">
-            <div class="p-t-0" style="">
+            <div class="" style="">
                     <div class="col-md-2 ">
                         <img style="width:130px;height:130px;" class="pull-left img-circle"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
