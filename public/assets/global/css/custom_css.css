@@ -4,7 +4,10 @@
 
 }
 
+.container{
 
+    padding-top:2rem !important;
+}
 
 .banner_red{
 
@@ -89,7 +92,6 @@ tr {
 .nowrap {
     white-space: nowrap;
 }
-
 
 
 body {

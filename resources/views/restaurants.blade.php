@@ -9,9 +9,12 @@ $type = "hidden";
 
 
 
-    <?php printfile("views/restaurants.blade.php"); ?>
 
-    <div class="row ">
+    <div class="container ">
+
+        <?php printfile("views/restaurants.blade.php"); ?>
+
+        <div class="row ">
 
 
         <div class="col-lg-8 ">
@@ -130,6 +133,7 @@ $type = "hidden";
 
 
 
+    </div>
     </div>
 
 

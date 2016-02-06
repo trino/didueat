@@ -12,56 +12,56 @@
                     <div class="noprint">
                         <h3 class="">My Orders</h3>
 
-                            <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
-                            <div class="col-md-10 padleft0">
-                                <form id="report-form" method="get">
-                                    <div class="col-md-2">
-                                        <input type="text" class="datepicker form-control" name="from" placeholder="From" value="{{ old('from') }}">
-                                    </div>
-    
-                                    <div class="col-md-2">
-                                        <input type="text" class="datepicker form-control" name="to" placeholder="To" value="{{ old('to') }}">
-                                    </div>
-    
-                                    <div class="col-md-2">
-                                        <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
-                                    </div>
-    
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
+                        <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
+                        <div class="col-md-10 padleft0">
+                            <form id="report-form" method="get">
+                                <div class="col-md-4">
+                                    <input type="text" class="datepicker form-control" name="from" placeholder="From" value="{{ old('from') }}">
+                                </div>
 
+                                <div class="col-md-4">
+                                    <input type="text" class="datepicker form-control" name="to" placeholder="To" value="{{ old('to') }}">
+                                </div>
 
+                                <div class="col-md-2">
+                                    <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+
+                        <input type="checkbox" checked data-toggle="toggle">
                     </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
 
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div id="toprint">
                         @if(isset($orders) && count($orders) > 0)
                             @foreach($orders as $order)
                                 <div class="restaurentDetail card">
-                                   
+
                                     <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
                                     <div class="card-block">
-                                    <h4 class="card-title">
-                                    @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
-                                    </h4>
+                                        <h4 class="card-title">
+                                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
+                                        </h4>
                                     </div>
                                     <div class="card-block">
-                                    @include('common.receipt', array("type" => "report"))
+                                        @include('common.receipt', array("type" => "report"))
                                     </div>
                                     <div class="clearfix"></div>
 
@@ -148,6 +148,6 @@
     </script>
 @stop
 <style>
-.padright15{padding-right:15px;padding-bottom:5px;}
-.smaller{font-size:15px;}
+    .padright15{padding-right:15px;padding-bottom:5px;}
+    .smaller{font-size:15px;}
 </style>

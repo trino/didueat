@@ -1,6 +1,4 @@
 <?php
-
-printfile("views/dashboard/layouts/default.blade.php");
 if (!isset($userAddress)) {
     $userAddress = "";
 }
@@ -96,6 +94,28 @@ if (Request::path() !== null && Request::path() != "/") {
                 type="text/javascript"></script>
     @endif
 
+
+
+        @if (debugmode())
+
+            <style>
+
+
+                .container-fluid{border:1px solid green;}
+                .container{border:1px solid green;}
+
+                div[class^="col-"], div[class*=" col-"]{border:1px solid red !important;}
+
+
+
+            </style>
+
+
+        @endif
+
+
+
+
 </head>
 
 
@@ -104,7 +124,9 @@ if (Request::path() !== null && Request::path() != "/") {
         background-size: 100% 100% !important;
         background-repeat: no-repeat !important;"-->
 
-<body class="">
+<body>
+
+
 
 @include('popups.login')
 @include('popups.signup')
@@ -113,13 +135,8 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 
-@if(isset($remove_margin_for_banner))
+<div class="container-fluid m-t-3 p-x-0 p-t-0">
 
-    <div class="container m-t-1 p-t-0">
-        @else
-            <div class="container m-t-3 p-t-3" style="">
-
-                @endif
 
 
                 <div class="alert alert-success" role="alert"
@@ -175,7 +192,14 @@ if (Request::path() !== null && Request::path() != "/") {
 
 
 
+
+
+
                 @yield('content')
+
+
+
+
 
 
             </div>
@@ -184,6 +208,11 @@ if (Request::path() !== null && Request::path() != "/") {
 
 </body>
 </html>
+
+
+
+
+
 <SCRIPT>
     //attempts to replace the field name with it's label for invalid data
     $(document).ready(function () {
