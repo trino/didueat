@@ -1,18 +1,23 @@
 @extends('layouts.default')
 @section('content')
+
+    <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
+
+
+
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+    <div class="container">
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
             <div class="restaurentsList deleteme">
                 <div class="toprint">
 
                     <div class="noprint">
                         <h3 class="">My Orders</h3>
 
-                        <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
+                        <div class="col-md-2 padleft0"><strong>Filter by date</strong></div>
                         <div class="col-md-10 padleft0">
                             <form id="report-form" method="get">
                                 <div class="col-md-4">
@@ -30,8 +35,7 @@
                                 <div class="clearfix"></div>
                             </form>
                         </div>
-
-                        <input type="checkbox" checked data-toggle="toggle">
+<div class="clearfix"></div>
                     </div>
 
 
@@ -55,12 +59,10 @@
                                 <div class="restaurentDetail card">
 
                                     <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
-                                    <div class="card-block">
-                                        <h4 class="card-title">
+                                    <div class="col-md-6">
                                             @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
-                                        </h4>
                                     </div>
-                                    <div class="card-block">
+                                    <div class="col-md-6">
                                         @include('common.receipt', array("type" => "report"))
                                     </div>
                                     <div class="clearfix"></div>
@@ -109,6 +111,7 @@
             <hr class="shop__divider">
         </div>
 
+    </div>
     </div>
 
 

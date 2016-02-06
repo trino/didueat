@@ -9,6 +9,7 @@ $type = "hidden";
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container" style="padding-top: 0px !important;">
             <h1 class="display-5">Order Online Specials from Local Restaurants</h1>
+
             <p class="lead">Enter your location to find deals near you.</p>
 
             <div class="m-b-1">
@@ -25,118 +26,179 @@ $type = "hidden";
     <div class="container-fluid">
 
 
-    <div class="container" style="padding-top: 0px !important;">
+        <div class="container" style="padding-top: 0px !important;">
 
-        <?php printfile("views/restaurants.blade.php"); ?>
+            <?php printfile("views/restaurants.blade.php"); ?>
 
-        <div class="row ">
-
-
-            <div class="col-lg-8 ">
+            <div class="row ">
 
 
-
-                <div class="alert alert-success alert-dismissible fade in" role="alert" id="results_show"
-                     style="display: none;">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
-                    found in your area
-                </div>
-                @include('ajax.search_restaurants')
-            </div>
+                <div class="" id="results_show" style="display: none;">
 
 
-            <div class="col-lg-4 ">
-                <div class="card ">
-                    <div class="card-header">
-                        <p class="card-title m-b-0">Filter Search</p>
+                    <div class="col-lg-8">
+                        <div class="alert alert-success alert-dismissible fade in" role="alert"
+                                >
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
+                            found in your area
+                        </div>
+                        @include('ajax.search_restaurants')
+
                     </div>
+                    <div class="col-lg-4">
 
-                    <div class="card-block">
 
-                        {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
-                        <div class="sort search-form clearfix">
-
-                            <div class="form-group">
-
-                                <label class="c-input c-radio">
-                                    <input type="radio" name="delivery_type" id="delivery_type" value="is_delivery"
-                                           checked
-                                           onclick="createCookieValue('delivery_type', this.value)"/>
-                                    <span class="c-indicator"></span>
-                                    Delivery
-                                </label>
-
-                                <label class="c-input c-radio">
-                                    <input type="radio" name="delivery_type" id="delivery_type" value="is_pickup"
-                                           onclick="createCookieValue('delivery_type', this.value)"/>
-                                    <span class="c-indicator"></span>
-                                    Pickup
-                                </label>
-
-                                <!--label class="c-input c-checkbox">
-                                    <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
-                                           onclick="createCookieValue('is_complete', this.value)"/>
-                                    <span class="c-indicator"></span>
-                                    Order Online
-                                </label-->
-
+                        <div class="card ">
+                            <div class="card-header">
+                                <h4 class="card-title m-b-0">Filter Search</h4>
                             </div>
 
-                            <div class="form-group">
-                                <input type="text" name="name" id="name" value="" class="form-control"
-                                       placeholder="Restaurant Name" onkeyup="createCookieValue('cname', this.value)"/>
-                            </div>
+                            <div class="card-block">
 
-                            <div class="form-group">
-                                <select name="cuisine" id="cuisine" class="form-control"
-                                        onchange="createCookieValue('cuisine', this.value)">
-                                    <option value="">Cuisine</option>
-                                    @foreach($cuisine as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
+                                <div class="sort search-form clearfix">
+
+                                    <div class="form-group">
+
+                                        <label class="c-input c-radio">
+                                            <input type="radio" name="delivery_type" id="delivery_type"
+                                                   value="is_delivery"
+                                                   checked
+                                                   onclick="createCookieValue('delivery_type', this.value)"/>
+                                            <span class="c-indicator"></span>
+                                            Delivery
+                                        </label>
+
+                                        <label class="c-input c-radio">
+                                            <input type="radio" name="delivery_type" id="delivery_type"
+                                                   value="is_pickup"
+                                                   onclick="createCookieValue('delivery_type', this.value)"/>
+                                            <span class="c-indicator"></span>
+                                            Pickup
+                                        </label>
+
+                                        <!--label class="c-input c-checkbox">
+                                            <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
+                                                   onclick="createCookieValue('is_complete', this.value)"/>
+                                            <span class="c-indicator"></span>
+                                            Order Online
+                                        </label-->
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" name="name" id="name" value="" class="form-control"
+                                               placeholder="Restaurant Name"
+                                               onkeyup="createCookieValue('cname', this.value)"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select name="cuisine" id="cuisine" class="form-control"
+                                                onchange="createCookieValue('cuisine', this.value)">
+                                            <option value="">Cuisine</option>
+                                            @foreach($cuisine as $value)
+                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
 
-                            <div id="radius_panel" class="form-group row" style="display:none;">
-                                <div class=" col-md-6">
-                                    <label id="radius_panel_label">Distance (<?= MAX_DELIVERY_DISTANCE; ?> km)</label>
-                                </div>
-                                <div class=" col-md-6">
-                                    <input type="range" name="radius" id="radius" min="1"
-                                           max="<?= MAX_DELIVERY_DISTANCE; ?>" value="5"
-                                           class="form-control"
-                                           onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
+                                    <div id="radius_panel" class="form-group row" style="display:none;">
+                                        <div class=" col-md-6">
+                                            <label id="radius_panel_label">Distance (<?= MAX_DELIVERY_DISTANCE; ?>
+                                                km)</label>
+                                        </div>
+                                        <div class=" col-md-6">
+                                            <input type="range" name="radius" id="radius" min="1"
+                                                   max="<?= MAX_DELIVERY_DISTANCE; ?>" value="5"
+                                                   class="form-control"
+                                                   onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');">
 
-                                    <!--input type="range" name="radius" id="radius" min="1"
+                                            <!--input type="range" name="radius" id="radius" min="1"
                                        max="<?= MAX_DELIVERY_DISTANCE; ?>" value="<?= MAX_DELIVERY_DISTANCE; ?>"
                                        class="form-control"
                                        onchange="$('#radius_panel_label').html('Distance (' + $(this).val() + ' km)');"-->
 
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
                                 </div>
-                                <div class="clearfix"></div>
                             </div>
+                            <div class="card-footer text-xs-right">
+                                <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary"
+                                       value="Clear"/>
+                                <input type="button" name="search" class="btn btn-primary" value="Filter"
+                                       id="search-form-submit"
+                                       onclick="submitform(event, 0);"/>
+                            </div>
+                            {!! Form::close() !!}
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="p-y-2 " id="icons_show">
+                    <!--div class="col-lg-12 text-md-center">
+
+                    <h2 class=" text-md-center">Why order from DIDU EAT?</h2>
+                        </div-->
+                    <div class="col-lg-4 text-md-center">
+
+                        <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
+
+                            <br>
+
+                            <h1><i class="fa fa-cutlery center-block"></i></h1>
 
 
                         </div>
+                        <h4>Input Your Location</h4>
+
+                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+                            ultricies vehicula ut id elit.</p>
                     </div>
-                    <div class="card-footer text-xs-right">
-                        <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary"
-                               value="Clear"/>
-                        <input type="button" name="search" class="btn btn-primary" value="Filter"
-                               id="search-form-submit"
-                               onclick="submitform(event, 0);"/>
+                    <div class="col-lg-4 text-md-center">
+
+                        <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
+
+                            <br>
+
+                            <h1><i class="fa fa-cutlery center-block"></i></h1>
+
+
+                        </div>
+                        <h4>Select Your Restaurant</h4>
+
+                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+                            ultricies vehicula ut id elit.</p>
                     </div>
-                    {!! Form::close() !!}
+
+                    <div class="col-lg-4 text-md-center">
+
+                        <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
+
+                            <br>
+
+                            <h1><i class="fa fa-cutlery center-block"></i></h1>
+
+
+                        </div>
+                        <h4>Enjoy Food</h4>
+
+                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+                            ultricies vehicula ut id elit.</p>
+                    </div>
+
+<div class="clearfix"></div>
                 </div>
             </div>
-
-
         </div>
-    </div>
     </div>
 
 
@@ -258,6 +320,7 @@ $type = "hidden";
                 $('#restuarant_bar').html('');
                 $('.parentLoadingbar').show();
                 $('#start_up_message').remove();
+                $('#icons_show').remove();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
                     $('.parentLoadingbar').hide();

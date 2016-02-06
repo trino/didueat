@@ -29,7 +29,7 @@ foreach ($Fields as $Field) {
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input maxlength="10" type="number" name="phone" class="form-control" id="phone" placeholder="Numbers only" value="{{ $phone }}" required>
+    <input maxlength="10" type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
 

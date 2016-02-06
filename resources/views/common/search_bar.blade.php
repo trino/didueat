@@ -1,7 +1,7 @@
 
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
-    <div class="" style="width: 350px;">
+    <div class="" style="width: 450px;">
         <div class="input-group">
             <div class="input-group-btn">
 
@@ -37,7 +37,7 @@
             </div>
 
 
-            <input style="width: 300px;" type="text" name="formatted_address" id="formatted_address2"
+            <input style="width: 400px;" type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address" placeholder="Address, City or Postal Code"
                    onchange="change_address_event();" ignore_onkeyup="this.onchange();"
                    onpaste="this.onchange();"

@@ -101,7 +101,7 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 
                     <div class="clearfix"></div>
 
-                </A>
+                </a>
 
             </div>
 
