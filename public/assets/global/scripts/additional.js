@@ -140,7 +140,7 @@ $('.savebtn').live('click', function () {
     //alert(stop_id);
     if(stop_id)
     {
-        alert('One or more of your addons is empty. Please add some options to your addon');
+        alert('One or more of your options are empty');
         return false;
     }
     var cat_id = $_parent.find('.cat_id').val();

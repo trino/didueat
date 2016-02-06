@@ -39,7 +39,7 @@
     <hr/>
 
     <div class="additional additional{{ $menu_id }}" style="@if(isset($cmodel)&& $cmodel) display:block; @endif">
-        <div class="col-md-12 col-sm-12 col-xs-12"><h2>Addons</h2></div>
+        <div class="col-md-12 col-sm-12 col-xs-12"><h2>Options</h2></div>
         <div class="clearfix"></div>
         <?php
         $k = 0;

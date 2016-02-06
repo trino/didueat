@@ -58,7 +58,7 @@ $secondsTitle = "sec";
                     <th>
                         <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
                            title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Date
+                        Ordered On
                         <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
                            title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
                     </th>

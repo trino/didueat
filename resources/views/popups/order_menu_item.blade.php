@@ -11,16 +11,12 @@
                 <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?></h4>
             </div>
             <div class="modal-body product-popup">
-
-
-
-
                 <div class="product-page product-pop-up">
                     <div class="row">
-                        <div class=" title">
+                        <div class="col-sm-12 col-xs-12 title">
                             <h3>
                                 @if($dis)
-                                    <strike>${{number_format($value->price,2)}}</strike>
+                                    <strike class="text-muted">${{number_format($value->price,2)}}</strike>
                                     ${{number_format($main_price,2)}}
                                     <span class='label label-warning'>{{$dis}}</span>
                                 @else
@@ -69,7 +65,8 @@
                                                                title="___" id="{{ $sub->id }}"
                                                                style="display: none;" checked="checked"
                                                                class="chk">
-                                                    </div>  <strong>
+                                                    </div>
+                                                    <strong>
                                                         {{ ucfirst($sub->menu_item) }}     </strong>
 
                                                            <span class="limit-options">
@@ -81,14 +78,14 @@
                                                                }
                                                                if ($sub->req_opt == '0') {
                                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0') {
-                                                                       echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                                                       echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
                                                                    }
                                                                    echo "(Optional)";
                                                                } elseif ($sub->req_opt == '1') {
                                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0') {
                                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
                                                                    }
-                                                                   echo "(Mandatory)";
+                                                                   echo "(Required)";
                                                                }
                                                                ?>
                                                                </span>
@@ -97,7 +94,7 @@
                                                     <div class="clearfix"></div>
                                                     <span class="error_{{ $sub->id }} errormsg"></span>
 
-                                                    <div class="list clearfix">
+                                                    <div class="list clearfix row">
                                                         <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                         @foreach($mini_menus as $mm)
 
@@ -128,36 +125,33 @@
 
 
                                                                     <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-                                                                </div>
 
 
+                                                                        <div <?php if ($sub->sing_mul == '1') {
+                                                                            echo "style='display:none'";
+                                                                        } ?> class="pull-right">
 
 
-                                                                <div <?php if ($sub->sing_mul == '1') {
-                                                                    echo "style='display:none'";
-                                                                } ?> class="">
-
-
-
-
-                                                                    <a id="remspan_{{ $mm->id }}"
-                                                                       class="remspan btn btn-secondary-outline btn-xs"
-                                                                       href="javascript:;">-</a>
+                                                                            <a id="remspan_{{ $mm->id }}"
+                                                                               class="remspan btn btn-secondary-outline btn-xs"
+                                                                               href="javascript:;">-</a>
 
                                                                                            <span
                                                                                                    id="sprice_{{$mm->price}}"
                                                                                                    class="span_{{ $mm->id }} allspan">0</span>
 
 
-                                                                    <a id="addspan_{{ $mm->id }}"
-                                                                       class="addspan btn btn-xs btn-primary"
-                                                                       href="javascript:;">+</a>
+                                                                            <a id="addspan_{{ $mm->id }}"
+                                                                               class="addspan btn btn-xs btn-primary"
+                                                                               href="javascript:;">+</a>
+
+
+                                                                        </div>
+
 
 
 
                                                                 </div>
-
-
 
 
 
@@ -192,7 +186,7 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-Qty
+                Qty&nbsp;
                 <a class="btn btn-secondary-outline" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
                 &nbsp;

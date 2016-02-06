@@ -386,6 +386,7 @@ body.modal-open {
     float: right;
     position: relative;
 }
+.table th, .table td{border-top:0 !important;}
 
 .static-rating > .checked-stars ~ label {
    color: #f0ad4e !important
@@ -548,7 +549,11 @@ ul.scroller li {
 .newaction {
 
 }
-.subber{background: #f4f7f8;padding:20px;}
+.subber{background: #f4f7f8;padding:20px;
+
+    border:1px solid #dadada;
+
+}
 
 .instruct {
     font-size: 16px;

@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-small addmorebtn">Add more</a>
+                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-small addmorebtn">Add More</a>
                 </div>
                 <div class="clearfix"></div>
                 <br class=""/>

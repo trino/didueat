@@ -354,7 +354,7 @@
                                     } else {
                                         td_temp = td_temp;
                                     }
-                                    $('.error_' + catid).html("Options are Mandatory");
+                                    $('.error_' + catid).html("Options are required");
                                 } else if (multiples == 0 && cnn > extra_no) {
                                     err++;
                                     td_index = $('#td_' + catid).index();
@@ -376,7 +376,7 @@
                                     } else {
                                         td_temp = td_temp;
                                     }
-                                    $('.error_' + catid).html("Options are Mandatory");
+                                    $('.error_' + catid).html("Options are required");
                                 } else if (multiples == 0 && cnn != extra_no) {
                                     err++;
                                     td_index = $('#td_' + catid).index();
@@ -499,7 +499,7 @@
             img = img.replace('thumb', 'thumb2');
             $('#list' + ids).remove();
             $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-            $('#list' + ids).html('<td class="receipt_image" width="26%">' +
+            $('#list' + ids).html('<td class="receipt_image" style="width:60px;">' +
                     '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
                     '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
                     '+</a>' +

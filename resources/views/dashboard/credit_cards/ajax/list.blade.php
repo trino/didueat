@@ -19,9 +19,9 @@
                 </h4>
 
                 @if($type == "restaurant")
-                <p class="card-subtitle text-muted">
-                    Your credit card will be billed on the 1st of each month. You must have at least 1 active for your store to be open.
-                </p>
+                <!--p class="card-subtitle text-muted">
+                    Your credit card will be billed on the 1st of each month.
+                </p-->
                 @endif
 
             </div>

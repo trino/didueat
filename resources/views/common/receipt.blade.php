@@ -28,7 +28,7 @@
 
                     @include('common.items')
 
-                    <div class="totals">
+                    <div class="totals row">
                         <table class="table">
                             <tbody>
                             @if(!isset($order))
