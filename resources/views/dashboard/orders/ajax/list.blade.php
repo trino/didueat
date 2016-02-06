@@ -44,7 +44,7 @@ $secondsTitle = "sec";
                     <th>
                         <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
                                     class="fa fa-caret-down"></i></a-->
-                        Order Number
+                        Order #
                         <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
                                     class="fa fa-caret-up"></i></a-->
                     </th>

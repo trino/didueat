@@ -25,9 +25,9 @@
 
                 <thead>
                 <tr>
-                    <th>
+                    <!--th>
                         Priority
-                    </th>
+                    </th-->
                     <th>
                         <!--a class="sortOrder" data-meta="enabled" data-order="ASC" data-title="Enabled"
                            title="Sort [Enabled] ASC"><i class="fa fa-caret-down"></i></a-->
@@ -59,7 +59,7 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
-                        <td style="min-width: 100px;">{{ $key+1 }}
+                        <!--td style="min-width: 100px;">{{ $key+1 }}
                             @if($recCount > 1)
 
                                 &nbsp;
@@ -70,7 +70,7 @@
                                 </div>
 
                             @endif
-                        </td>
+                        </td-->
 
                         <td class="text-xs-center">
                             <label class="c-input c-checkbox pull-left">
