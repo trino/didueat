@@ -179,7 +179,6 @@ $('.savebtn').live('click', function () {
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
         $('.overlay_loader').hide();
-        $('.overlay_loader').hide();
         return false;
     }
     var ptitle = $_parent.find('.newtitle').val();

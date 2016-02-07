@@ -53,14 +53,16 @@ $('body').on('keyup', '#searchResult', function(e){
 });
 
 function loading_show(){
-    $('#loadPageData #ajaxloader').fadeIn('fast');
+    //$('#loadPageData #ajaxloader').fadeIn('fast');
+    $('.overlay_loader').show();
 }
 function loading_hide(){
-    $('#loadPageData #ajaxloader').fadeOut('fast');
+    //$('#loadPageData #ajaxloader').fadeOut('fast');
+    $('.overlay_loader').hide();
 }
 
 function block_show(){
-    $('#loadPageData #ajaxBlock').block({ 
+   /* $('#loadPageData #ajaxBlock').block({ 
         message: '<h1>Processing ...</h1>', 
         css: { 
             width: '40%', 
@@ -73,11 +75,13 @@ function block_show(){
             opacity: 1, 
             color: '#fff'
         }
-    });
+    });*/
+    $('.overlay_loader').show();
 }
 
 function block_hide(){
-    $('#loadPageData #ajaxBlock').unblock(); 
+    //$('#loadPageData #ajaxBlock').unblock();
+    $('.overlay_loader').hide(); 
 }
 
 function reloadData(page, meta, order, showEntries, searchResults, message){ 
