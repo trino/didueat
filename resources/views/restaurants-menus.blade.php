@@ -137,6 +137,14 @@
                                     else {
                                         $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
                                     }
+                                },
+                                error: function(res){
+                                  if (res != 'no') {
+                                        $("#postswrapper_{{ $cat->id }}").html(res);
+                                    }
+                                    else {
+                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
+                                    }  
                                 }
                             });
                         });

@@ -196,18 +196,4 @@
     </div>
 @endif
 
-<div style="display: none;" class="nxtpage_{{ $catid }}">
-    <li class="next_{{ $catid }}"><a href="{{ $menus_list->nextPageUrl() }}">Next &gt;&gt;</a></li>
-</div>
-
-@if( $menus_list->hasMorePages() === true)
-    <div class="row" id="LoadMoreBtnContainer{{ $catid }}">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <button align="center" class="loadmore btn btn-primary btn-block" title="{{ $catid }}">Load
-                More
-            </button>
-        </div>
-    </div>
-@endif
-
 <div class="clearfix"></div>
