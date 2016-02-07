@@ -128,6 +128,7 @@ $('.savebtn').live('click', function () {
     $_parent = $(this).closest('.modal-content').find('.newmenu');
     var subber_html = '';
     var stop_id = 0;
+    var stop_item = 0;
     $_parent.find('.subber').each(function(){
         var subber_id = $(this).attr('id').replace('sub','');
         subber_html = $('#addmore'+subber_id).text().replace(/ /g,'').length;
@@ -137,6 +138,32 @@ $('.savebtn').live('click', function () {
         }        
         
     });
+    
+    $('.additional'+id+ ' .subber').each(function(){
+        var $_th = $(this);
+        if($_th.find('.ctitle').val() == '')
+        {
+           $_th.find('.ctitle').attr('style','border-color:red');
+            $_th.find('.ctitle').focus();
+            stop_item = 1;
+        }
+        $_th.find('.cctitle').each(function(){
+           if($(this).val()=='')
+           {
+            $(this).attr('style','border-color:red');
+            $(this).focus();
+            stop_item = 1;
+           } 
+        });
+
+                
+    })
+    //alert(stop_item);return false;
+    if(stop_item)
+    {
+        alert('Addon name cannot be blank');
+        return false;
+    }
     //alert(stop_id);
     if(stop_id)
     {
