@@ -1,3 +1,8 @@
+*{
+    /*
+    border-radius: 0px !important;
+    */
+}
 .modal-header{
     background: #0275d8 !important;
     color:white;

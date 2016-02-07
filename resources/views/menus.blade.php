@@ -90,7 +90,7 @@
                                                 data-res-id="{{ $value->restaurant_id }}" type="button"
                                                 data-toggle="modal"
                                                 data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                                                class="btn btn-primary">${{number_format($main_price,2)}}</a>
+                                                class="btn btn-sm btn-primary">${{number_format($main_price,2)}}</a>
 
 
                                     </div>

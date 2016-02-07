@@ -3,13 +3,8 @@
 
 @section('content')
 
-    <div class="container-fluid bg-danger"
-         style=" background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
-
-                 background-size: cover;
-                 background-repeat: no-repeat;
-                 background-position:center center;
-
+    <div class="container-fluid bg-primary main-bg-image"
+         style="
                  ">
 
 
