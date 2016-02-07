@@ -1,17 +1,21 @@
 @extends('layouts.default')
 @section('content')
+
+    <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
+
+
+
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
+    <div class="container">
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
         <div class="col-lg-9">
-            <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
             <div class="restaurentsList deleteme">
                 <div class="toprint">
 
                     <div class="noprint">
                         <h3 class="">My Orders</h3>
-
                             <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
                             <div class="col-md-10 padleft0">
                                 <form id="report-form" method="get">
@@ -31,37 +35,35 @@
                                 </form>
                             </div>
 
-                        <input type="checkbox" checked data-toggle="toggle">
+<div class="clearfix"></div>
                     </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
 
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div id="toprint">
                         @if(isset($orders) && count($orders) > 0)
                             @foreach($orders as $order)
                                 <div class="restaurentDetail card">
-                                   
+
                                     <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
-                                    <div class="card-block">
-                                    <h4 class="card-title">
-                                    @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
-                                    </h4>
+                                    <div class="col-md-6">
+                                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
                                     </div>
-                                    <div class="card-block">
-                                    @include('common.receipt', array("type" => "report"))
+                                    <div class="col-md-6">
+                                        @include('common.receipt', array("type" => "report"))
                                     </div>
                                     <div class="clearfix"></div>
 
@@ -110,6 +112,7 @@
         </div>
 
     </div>
+    </div>
 
 
     <script>
@@ -148,6 +151,6 @@
     </script>
 @stop
 <style>
-.padright15{padding-right:15px;padding-bottom:5px;}
-.smaller{font-size:15px;}
+    .padright15{padding-right:15px;padding-bottom:5px;}
+    .smaller{font-size:15px;}
 </style>

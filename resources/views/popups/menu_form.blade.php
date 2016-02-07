@@ -1,17 +1,13 @@
 @if(!$menu_id)
-    <style>
-        .resturant-arrows {
-            display: none;
-        }
-    </style>
 @endif
+
+
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php printfile("views/popups/menu_form.blade.php"); ?>
-    <p>&nbsp;</p>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 ignore">
-        <div class="col-sm-12 col-xs-12 nopadd ignore">
-            <div class="col-md-12">
+    <div class=" ignore row">
+
+        <div class=" ignore col-md-12" style="margin-bottom:3px; ">
             <div class="menuimg ignore menuimg{{ $menu_id }}_1"
                  @if(isset($model) && $model->image) style="min-height:0;" @endif>
                  @if(isset($model) && $model->image)
@@ -20,16 +16,18 @@
                  @endif
             </div>
             <br class="ignore"/>
-            <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Image</a>
-            </div>
+            <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a>
+
         </div>
 
-        <div class="col-sm-12 col-xs-12 lowheight ignore par_wrap">
+        <div class="">
             @if(count($category))
-            <div class="col-md-6 padding-left-0">
+
+
+            <div class="col-md-6 "  style="display: none;">
                 <div><strong>Category:</strong></div>
                 <input class="form-control cat_name" value="<?php if(isset($model) && $model->cat_name){echo $model->cat_name;}?>" />
-                <div style="display: none;">
+                <div>
                 <select class="cat_id form-control" >
                     <option value="">Category</option>
                     @foreach($category as $cat)
@@ -39,97 +37,59 @@
                 </select>
                 </div>
             </div>
-            <div class="col-md-6 padding-left-0 pad-top-18">
-                <LABEL class="nomar">
-                    <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"<?php }?> type="checkbox" class="allow_dis" onclick="if($(this).is(':checked'))$('.allow_discount<?php echo $menu_id;?>').show();else $('.allow_discount<?php echo $menu_id;?>').hide();" /> &nbsp;&nbsp;<strong>Allow Discount</strong>
-                </LABEL>
-                &nbsp;&nbsp;&nbsp;
-                <LABEL class="nomar">
-                    <input <?php if(!isset($model) || (isset($model->is_active) && $model->is_active == 1)){?>checked="checked"<?php }?> type="checkbox" class="is_active" <?php /*onclick="check_enable($(this),<?php echo $menu_id?>);"*/?> /> &nbsp;&nbsp;<strong>Enable Item</strong>
-                    <span class="enabled" style="display: none;">Enabled</span> <span class="disabled" style="display: none;">Disabled</span>
-                </LABEL>
-            </div>
-            <div class="clearfix"></div>
-                <div class="allow_discount<?php echo $menu_id;?>" style="<?php if(!isset($model)|| (isset($model->has_discount) && $model->has_discount == 0)){?>display: none;<?php }?>">
-                <br />
-                <div class="form-group">
-                <label class="col-md-6 padding-left-0"><strong>Discount %</strong></label>
-                <div class="col-md-6 padding-left-0">
-                <select class="disc_per form-control">
-                    <option>Discount Percentage</option>
-                    <?php for($i=5;$i<96;$i=$i+5){ ?>
-                            <option value="{{ $i }}"
-                                    <?php if(isset($model->discount_per) && $i == $model->discount_per){?> selected="selected"<?php }?>>{{ $i }}</option>
-                    <?php }?>
-                </select>
 
-                </div>
-                <div class="clearfix"></div>
-                </div>
-                <div class="form-group">
-                <div class="col-md-6 padding-left-0">
-                <strong>Discount Applied for:</strong>
-                </div>
-                <div class="col-md-6 padding-left-0 alldays">
-                <LABEL><input type="checkbox" class="days_discount_all"/> Select All<br /></LABEL><BR />
-                <?php
-                    $days = array();
-                    if(isset($model->days_discount) && $model->days_discount) {
-                        $days = explode(',',$model->days_discount);
-                    }
-                    $weekdays = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-                    foreach($weekdays as $k=>$weekday){
-                        $shortday = left($weekday, 3);
-                        if($k==0 || $k==4)
-                        {
-                            ?>
-                            <div class="col-md-6 padding-left-0">
-                            <?php
-                        }
-                        echo '<LABEL style="font-weight:normal;"><input type="checkbox" class="days_discount" ';
-                        if(in_array($shortday,$days)){echo 'checked="checked"';}
-                        echo 'value="' . $shortday . '"/> ' . $weekday . '</LABEL><br />';
-                        if($k==3 || $k==6)
-                        {
-                            ?>
-                            </div>
-                            <?php
-                        }
-                    }
-                ?>
-                </div>
-                <div class="clearfix"></div>
-                <br />
-                </div>
-                </div>
-                <div class="catblock" style="display: none;">
+                <!--div class="catblock" style="display: none;">
                     <input type="text" class="form-control cat_title" placeholder="Add new category"/>
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
                     <div class="clearfix"></div>
-                </div>
+                </div-->
+
+
             @else
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
-            <div class="form-group nomar">
-            <div class="col-md-6 padding-left-0"><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-            <div class="col-md-6 padding-left-0"><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
-            <div class="clearfix"></div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
+
+
+
+
+
+
+            <div class="col-md-9 "><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
+            <div class="col-md-3 "><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
+
+
+
+            <div class="col-md-12">
+
                     <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
-                </div>
+
             </div>
+
+
+
             <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
         </div>
         <div class="clearfix ignore"></div>
     </div>
 
-    <div class="clearfix ignore"></div>
-    <?php //echo count($cmodel).'_'.$menu_id;?>
-    
-    <div class="col-md-12">
-    <div class="col-md-12">
+
+
+
+
+
+
+        <div class=" row">
+
+
+
+
+        @include('popups.show_discount')
+
+
+
+
+        <div class="col-md-12">
+
     <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
 
         
@@ -200,6 +160,7 @@
 
 
     </div>
+
     </div>
     </div>
     <div class="clearfix ignore"></div>

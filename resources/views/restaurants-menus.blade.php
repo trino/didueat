@@ -1,146 +1,159 @@
 @extends('layouts.default')
 
-<!--div class=" card row container-fluid" style="    background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' ) !important;
-"-->
-
-<div class=" bg-danger container-fluid">
-
-    <div class=" row" style="">
-    <div class=" container p-t-0  m-t-3" style="">
-        <div class="card-block p-a-0">
-
-            <div class="col-md-2 p-x-0">
-                <?= printfile("views/restaurants-menus.blade.php"); ?>
-                <img style="width:150px;" class="pull-left"
-                     @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                     @else
-                     src="{{ asset('assets/images/default.png') }}"
-                     @endif
-                     alt="Card image cap">
-            </div>
-
-            <div class="col-md-10 p-x-0">
-
-                <h4 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h4>
-
-                    <div id="restaurant_rating">
-                        <a style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
-                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                    <p class="card-text m-b-0">
-                        {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                        {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                        {!! (isset($restaurant->province))? 'ON':'' !!}
-                        {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-                    </p>
-
-                <p class="card-text " style="">
-                 {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    <?php
-                        $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                        echo "Open today: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close");
-                        echo " - Delivery: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del");
-                    ?>
-                    @if (Session::get('session_type_user') == "super" )
-                       Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                    @endif
-                </p>
-
-                <div class="clearfix"></div>
-
-            </div>
-
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="clearfix"></div>
-
-
 
 @section('content')
 
+    <div class="container-fluid bg-danger"
+         style=" background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
+
+                 background-size: cover;
+                 background-repeat: no-repeat;
+                 background-position:center center;
+
+                 ">
 
 
-    <div class="row">
+        <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-        <div class="overlay overlay_reservation">
-            <div class="loadmoreajaxloader">
-                <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+        <div class="container p-y-2">
+            <div class="row">
+                <div class="" style="">
+                    <div class="col-md-2 p-r-0">
+                        <img style="width:115px;height:115px;" class="pull-left img-circle"
+                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                             @else
+                             src="{{ asset('assets/images/default.png') }}"
+                             @endif
+                             alt="">
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="col-md-10 p-l-0">
+
+                        <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+
+                        <div id="restaurant_rating">
+                            <a style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
+                                Details</a>
+                            {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <p class="card-text m-b-0">
+                            {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                            {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                            {!! (isset($restaurant->province))? 'ON':'' !!}
+                            {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+                        </p>
+
+                        <p class="card-text " style="">
+                            {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                            <?php
+                            $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                            echo "Open today: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close");
+                            echo " - Delivery: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del");
+                            ?>
+                            @if (Session::get('session_type_user') == "super" )
+                                Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                            @endif
+                        </p>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+
+                </div>
+
             </div>
         </div>
-
- 
-
+    </div>
 
 
-        <div class=" col-md-4 col-sm-4" id="printableArea">
-            @include('common.receipt')
-        </div>
+    <div class="container">
 
-        <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
-            <?php printfile("views/restaurants-menus.blade.php"); ?>
+        <div class="row">
 
-
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
-            <div class="card">
-                 <div class="card-header">
-                    <h4 class="card-title">Restaurant Menu Items
-                    <a href="#" id="add_item0" type="button" class="btn btn-primary btn-sm additem pull-right"
-                       data-toggle="modal"
-                       data-target="#addMenuModel">
-                        Add Menu Item
-                    </a></h4>
+            <div class="overlay overlay_reservation">
+                <div class="loadmoreajaxloader">
+                    <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                 </div>
- 
-
-                    <div class="clearfix"></div>
-                </div>
-
-            @endif
+            </div>
 
 
+            <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
+                <?php printfile("views/restaurants-menus.blade.php"); ?>
 
 
-            @if(isset($restaurant))
+                @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-            <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
 
-            @endif
 
-            @foreach($category as $cat)
-              <!--  {{ $cat->title }} -->
-                <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-                    <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-                </div>
+                    <div class="m-b-1 ">
 
-                <script>
-                    $(function () {
-                        $.ajax({
-                            url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
-                            success: function (res) {
-                                if (res != 'no') {
-                                    $("#postswrapper_{{ $cat->id }}").html(res);
+
+                        <a href="#" id="add_item0" type="button btn-primary btn-block"
+                           class="btn btn-primary additem  btn-block"
+                           data-toggle="modal"
+                           data-target="#addMenuModel">
+                            Add Menu Item
+                        </a>
+
+
+                    </div>
+
+
+
+                @endif
+
+
+
+
+                @if(isset($restaurant))
+
+                    <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+
+                    @endif
+
+                    @foreach($category as $cat)
+                            <!--  {{ $cat->title }} -->
+                    <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
+                    <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
+                        <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                    </div>
+
+                    <script>
+                        $(function () {
+                            $.ajax({
+                                url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
+                                success: function (res) {
+                                    if (res != 'no') {
+                                        $("#postswrapper_{{ $cat->id }}").html(res);
+                                    }
+                                    else {
+                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
+                                    }
                                 }
-                                else {
-                                    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
-                                }
-                            }
+                            });
                         });
-                    });
-                </script>
-            @endforeach
+                    </script>
+                    @endforeach
 
-            @if(debugmode())
-                <input type="file" accept="image/*;capture=camera">
-            @endif
+                    @if(debugmode())
+                        <input type="file" accept="image/*;capture=camera">
+                    @endif
+
+
+            </div>
+
+
+            <div class=" col-md-4 col-sm-4" id="printableArea">
+                @include('common.receipt')
+            </div>
 
 
         </div>
@@ -151,27 +164,41 @@
 
 
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-    @endif
-    <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
-         aria-labelledby="addMenuModelLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="addMenuModelLabel">Add/Edit Menu</h4>
-                </div>
-                <div class="modal-body" id="menumanager2">
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+
+
+
+
+        <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
+             aria-labelledby="addMenuModelLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="addMenuModelLabel">Add Menu Item</h4>
+                    </div>
+                    <div class="modal-body" id="menumanager2">
+
+                    </div>
+                    <div class="modal-footer">
+                        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+    @endif
+
+
+
+
+
+
 
 
 
@@ -221,10 +248,10 @@
                             alert('Email Already Registred.');
                         } else if (msg == '6') {
 
-                            window.location="{{url('orders/list/user?flash=1')}}";
+                            window.location = "{{url('orders/list/user?flash=1')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
                         } else if (msg == '786') {
-                            window.location="{{url('orders/list/user?flash=2')}}";
+                            window.location = "{{url('orders/list/user?flash=2')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.</span>");
                         } else {
                             alert(msg);
@@ -240,7 +267,7 @@
 
             $('.clearall , .close').click(function () {
                 var menu = $(this).attr('id');
-                if(menu){
+                if (menu) {
                     menu = menu.replace('clear_', '');
                     //alert(menu);
                     $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
@@ -274,7 +301,7 @@
             //add items to receipt
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
-                
+
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -332,7 +359,7 @@
                                         } else {
                                             td_temp = td_temp;
                                         }
-                                        $('.error_' + catid).html("Options are Mandatory");
+                                        $('.error_' + catid).html("Options are required");
                                     } else if (multiples == 0 && cnn > extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
@@ -354,7 +381,7 @@
                                         } else {
                                             td_temp = td_temp;
                                         }
-                                        $('.error_' + catid).html("Options are Mandatory");
+                                        $('.error_' + catid).html("Options are required");
                                     } else if (multiples == 0 && cnn != extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
@@ -477,9 +504,9 @@
                 img = img.replace('thumb', 'thumb2');
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" width="26%">' +
+                $('#list' + ids).html('<td class="receipt_image" style="width:60px;">' +
                         '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
-                        '-</a><span class="count">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
+                        '-</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
                         '+</a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
@@ -487,7 +514,7 @@
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
-                        '<a href="javascript:void(0);" class="del-goods" onclick="">&nbsp;</a>');
+                        '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
                 price = parseFloat(price);
                 var subtotal = "";
                 var ccc = 0;
@@ -572,7 +599,7 @@
             });
 
             $(".sorting_parent").live('click', function () {
-                var path = window.location.pathname+'?sorted';
+                var path = window.location.pathname + '?sorted';
                 alert(path);
                 $('.overlay_loader').show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');

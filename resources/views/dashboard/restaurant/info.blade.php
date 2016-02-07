@@ -3,34 +3,40 @@
 
     <meta name="_token" content="{{ csrf_token() }}"/>
 
-    <!--link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
+    <script>
+        function validateFn(f) {
+            var cuisinesStr = "";
+            var noneChkd = true;
+            var comma = "";
+            for (var i = 0; i < cuisineCnt; i++) {
+                if (f.elements["cuisine" + i].checked) {
+                    noneChkd = false;
+                    if (cuisinesStr != "") {
+                        comma = ",";
+                    }
+                    cuisinesStr += comma + f.elements["cuisine" + i].value
+                }
+            }
+            f.cuisines.value = cuisinesStr;
 
-<script>
-function validateFn(f){
-   var cuisinesStr="";
-   var noneChkd=true;
-   var comma="";
-			for(var i=0;i<cuisineCnt;i++){
-			 if(f.elements["cuisine"+i].checked){
-       noneChkd=false;
-       if(cuisinesStr != ""){
-        comma=",";
-       }
-       cuisinesStr+=comma+f.elements["cuisine"+i].value
-			 }
-			}
-   f.cuisines.value=cuisinesStr;
-          
-   if(noneChkd){
-     alert("You must select at least one Cuisine in order to continue. You may make adjustments later.");
-     f.description.focus(); // bring user to cuisine list
-     return false;
-   }
-   
-}
-</script>
+            if (noneChkd) {
+                alert("You must select at least one Cuisine in order to continue. You may make adjustments later.");
+                f.description.focus(); // bring user to cuisine list
+                return false;
+            }
 
-    <div class="row">
+        }
+    </script>
+
+
+
+
+
+
+    <div class="container">
+
+
+        <div class="row">
 
         @include('layouts.includes.leftsidebar')
 
@@ -45,17 +51,18 @@ function validateFn(f){
                 <div class="card-block">
                     {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
                     <?php
-                        $is_disabled = false;
-                        if (isset($route) && $route == "restaurant/view/{view}") {
-                            $is_disabled = " DISABLED";
-                        }
-                        echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
+                    $is_disabled = false;
+                    if (isset($route) && $route == "restaurant/view/{view}") {
+                        $is_disabled = " DISABLED";
+                    }
+                    echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
                     ?>
                 </div>
             </div>
 
 
             <div class="card"><a name="RestaurantAddress"></a>
+
                 <div class="card-header">
                     <h4 class="card-title">Restaurant Address</h4>
                 </div>
@@ -69,14 +76,14 @@ function validateFn(f){
                     <h4 class="card-title">Hours & Delivery</h4>
                 </div>
                 <div class="card-block">
-                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
+                    @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                 </div>
             </div>
 
             @if(!$is_disabled)
                 <div class="card-footer">
                     <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/><br/>
-                    <hr width="100%" align="center" />
+                    <hr width="100%" align="center"/>
                     <button type="submit" class="btn btn-primary pull-right">Save</button>
                     {!! Form::close() !!}
                     <div class="clearfix"></div>
@@ -87,14 +94,19 @@ function validateFn(f){
                 </div>
             @endif
         </div>
+        </div>
+        </div>
 
-<!--    Already loaded in default.blade
- <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script> 
--->
+
+
+
         <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
         <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
         <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+
+
+
 
 @stop

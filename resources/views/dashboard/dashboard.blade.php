@@ -1,7 +1,13 @@
 @extends('layouts.default')
 @section('content')
+
+
+
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
+
+    <div class="container">
+        <?php printfile("views/dashboard/dashbaord.blade.php"); ?>
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -47,12 +53,27 @@
             <input type="hidden" name="status" value="{{ (isset($user_detail->status))?$user_detail->status:'' }}"/>
             <input type="hidden" name="adid" value="{{ (isset($address_detail->id))?$address_detail->id:'' }}"/>
         </div>
+
+
+
         {!! Form::close() !!}
     </div>
 
     </div>
     </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {

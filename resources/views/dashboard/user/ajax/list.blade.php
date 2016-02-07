@@ -83,7 +83,7 @@
                             <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-warning btn-sm"
                                onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
-                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-danger-outline btn-sm"
+                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
                         @endif
                     </td>

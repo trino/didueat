@@ -1,6 +1,4 @@
 <?php
-
-printfile("views/dashboard/layouts/default.blade.php");
 if (!isset($userAddress)) {
     $userAddress = "";
 }
@@ -26,11 +24,13 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}" name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
+          name="description">
 
     <meta property="og:site_name" content="Didueat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
-    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
+    <meta property="og:description"
+          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
@@ -39,14 +39,15 @@ if (Request::path() !== null && Request::path() != "/") {
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
 
-    <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!--link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
           integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"-->
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
     <!--link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet"-->
     <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
+          crossorigin="anonymous">
 
     <!--script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
             crossorigin="anonymous"></script-->
@@ -55,14 +56,18 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
@@ -72,19 +77,58 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 
 
     @if(false)
-        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
+                type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
+                type="text/javascript"></script>
     @endif
 
+
+
+    @if (debugmode())
+
+        <style>
+
+
+            .container-fluid {
+                border: 1px solid green;
+            }
+
+            .container {
+                border: 1px solid green;
+            }
+
+            div[class^="col-"], div[class*=" col-"] {
+                border: 1px solid red !important;
+            }
+
+
+        </style>
+
+
+    @endif
+
+
 </head>
+
+
+<!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
+        background-size: 100% 100% !important;
+        background-repeat: no-repeat !important;"-->
+
 <body>
+
 
 @include('popups.login')
 @include('popups.signup')
@@ -92,61 +136,19 @@ if (Request::path() !== null && Request::path() != "/") {
 
 @include('layouts.includes.header')
 
-<div class="container m-t-3 p-t-2">
-<div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
-Item has been added/updated successfully
-</div>
 
-<div class="alert alert-success" role="alert" style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
-Menu item moved successfully
-</div>
-<?php Session();?>
-    @if (session('status')|| isset($_GET['flash']))
-        <div class="alert alert-success">
-        <?php if(isset($_GET['flash'])){?>
-            <strong>Thank you!</strong>
-            <?php if($_GET['flash']=='1')
-                echo "your order has been received.";
-            elseif($_GET['flash']=='2')
-                echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";
+<div class="container-fluid m-t-3 p-x-0 p-t-0">
 
-            }else {
-                 session('status');
-            }?>
-        </div>
-    @endif
+
+    @include('common.alert_messages')
+
 
     <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
     @if ($Restaurant)
         @include('common.required_to_open')
     @endif
 
-    <?php
-
-    if (\Session::has('invalid-data')) {
-        $fields = Session::get('invalid-data');
-        $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
-        echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
-        \Session::forget('invalid-data');
-    }
-    ?>
-
-    @if(\Session::has('message-type') && Session::get('message'))
-        <div class="alert {!! Session::get('message-type') !!}">
-            <strong>{!! Session::get('message-short') !!}</strong>
-            &nbsp; {!! Session::get('message') !!}
-        </div>
-        <?php \Session::forget('message'); ?>
-    @endif
-
-
-
-
     @yield('content')
-
-
-
-
 
 
 </div>
@@ -155,6 +157,8 @@ Menu item moved successfully
 
 </body>
 </html>
+
+
 <SCRIPT>
     //attempts to replace the field name with it's label for invalid data
     $(document).ready(function () {

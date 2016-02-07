@@ -1,12 +1,13 @@
+<?php printfile("views/popups/addaddress.blade.php"); ?>
 
-                        <div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
+<div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title" id="editLabel">My Home Address
+                                    <h4 class="modal-title" id="editLabel">Add/Edit Address
                                         @if(debugmode()) (index) @endif
                                     </h4>
                                 </div>

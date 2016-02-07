@@ -1662,6 +1662,10 @@
                 $html .= '<br>';
             }
 
+            if ($add_rate_brn == true && \Session::has('session_id')) {
+                $html .= '<a href="#" style="" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
+            }
+
             $html .= stars($target_id, $value, $countExit, $start5, "5");
             $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
             $html .= stars($target_id, $value, $countExit, $start4, "4");
@@ -1673,13 +1677,12 @@
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
 
+
 //            if ($add_rate_brn == true) {
 //                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a> ';
 //            }
 
-            if ($add_rate_brn == true && \Session::has('session_id')) {
-                $html .= '<a href="#" style="" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
-            }
+
 
             $html .= ' </div>';
         }
@@ -1759,7 +1762,7 @@
             $half = "half";
             $class = $half;
         }
-        return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" value="' . $Number . '" ' . $start . ' /><label class = "' . $class . '" for="star' . $Number . $half . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
+        return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" value="' . $Number . '" ' . $start . ' /><label class = "m-b-0 ' . $class . '" for="star' . $Number . $half . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
     }
 
 //converts a CSV array into one where each value is in a single quote

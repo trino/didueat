@@ -32,7 +32,7 @@ echo newrow($new, "Restaurant Name", "", true); ?>
         <INPUT TYPE="hidden" name="claim" id="claim">
         <BR>
     @endif
-</div></div>
+<? echo newrow(); ?>
 
 <?= newrow($new, "Phone", "", true); ?>
     <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>

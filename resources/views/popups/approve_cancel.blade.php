@@ -7,19 +7,19 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="orderApproveModalLabel">Approve Order</h4>
+                <h4 class="modal-title" id="orderApproveModalLabel">Accept Order</h4>
             </div>
             {!! Form::open(array('url' => '/orders/list/approve/'.$type, 'id'=>'approve-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
                 <?php printfile("views/popups/approve_cancel.blade.php (approve)"); ?>
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer</label>
-                <textarea name="note" rows="6" id="approvetext" class="form-control" maxlength="5000" required></textarea>
+                <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000" required></textarea>
                 <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" value=" Approve " onclick="return confirm2('approve');">Submit</button>
+                <button class="btn btn-primary" value=" Approve " onclick="return confirm2('approve');">Accept</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}            
@@ -35,19 +35,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="orderCancelModalLabel">Cancel Order</h4>
+                <h4 class="modal-title" id="orderCancelModalLabel">Decline Order</h4>
             </div>
             {!! Form::open(array('url' => '/orders/list/cancel/'.$type, 'id'=>'cancel-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
                 <?php printfile("views/popups/approve_cancel.blade.php (cancel)"); ?>
                 <div ID="message" align="center"></div>
                 <label>Note to Customer</label>
-                <textarea name="note" id="canceltext" rows="6" class="form-control" maxlength="5000" required></textarea>
+                <textarea name="note" id="canceltext" rows="4" class="form-control" maxlength="5000" required></textarea>
                 <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" onclick="return confirm2('cancel');"/>Submit</button>
+                <button type="submit" class="btn  btn-danger" onclick="return confirm2('cancel');"/>Decline</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}

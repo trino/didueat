@@ -44,7 +44,7 @@ $secondsTitle = "sec";
                     <th>
                         <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
                                     class="fa fa-caret-down"></i></a-->
-                        Order Number
+                        Order #
                         <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
                                     class="fa fa-caret-up"></i></a-->
                     </th>
@@ -58,7 +58,7 @@ $secondsTitle = "sec";
                     <th>
                         <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
                            title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Date
+                        Ordered On
                         <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
                            title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
                     </th>
@@ -125,7 +125,7 @@ $secondsTitle = "sec";
                         <td>
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
-                                   class="btn btn-danger-outline btn-sm pull-right"
+                                   class="btn btn-secondary-outline btn-sm pull-right"
                                    onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
                                     X
                                 </a>

@@ -57,54 +57,51 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
             $is_open = $open <= $user_time && $close >= $user_time;
 
             ?>
-            <div class="row">
+            <div class="">
                 <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
 
 
+                    <div class="col-xs-2 p-a-0">
+                        <img style="width:100px;height:100px;" class="img-circle" alt=""
+                             src="{{ asset('assets/images/' . $logo) }}">
 
 
-                        <div class="col-xs-2 p-a-0">
-                            <img style="width:120px;" class="" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                    </div>
+                    <div class="col-xs-10 ">
 
-                            <div class="clearfix"></div>
-
-
-                        </div>
-                        <div class="col-xs-10 ">
-
-                            <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
+                        <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
 
 
                         <span class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
                             , {{ select_field("countries", 'id', $value['country'], 'name') }}
                         </span>
-                            <br>
+                        <br>
 
-                            <!--span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
+                        <!--span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
                                        TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span-->
 
-                            <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
+                        <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
 
-                            <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee']) }}</span>
-                            <span class="p-r-2">Minimum: {{ asmoney($value['minimum']) }}</span>
-                            <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
+                        <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee']) }}</span>
+                        <span class="p-r-2">Minimum: {{ asmoney($value['minimum']) }}</span>
+                        <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
 
-                            @if(isset($latitude) && $radius)
-                                    <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
-                            @endif
-                                    <!--div class="clearfix">
+                        @if(isset($latitude) && $radius)
+                                <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
+                        @endif
+                                <!--div class="clearfix">
                             {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-                                    </div-->
+                                </div-->
 
 
-                            <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
 
-                        </div>
+                    </div>
 
                     <div class="clearfix"></div>
 
- </A>
+                </a>
 
             </div>
 

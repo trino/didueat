@@ -1,53 +1,64 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="row">
-        @include('layouts.includes.leftsidebar')
+    <div class="container ">
+        <?php
+        printfile("views/dashboard/orders/orders_detail.blade.php");
+        ?>
+        <div class="row">
 
-        <div class="col-lg-9">
-            <?php
-            printfile("views/dashboard/orders/orders_detail.blade.php");
-            ?>
+            @include('layouts.includes.leftsidebar')
 
-            <div class="card" id="toPrinpetail">
-                <div class="card-header">
-                    <h4>Order Detail
-
-                        <input type="button" style="" value="Print Report" onclick="prinpiv('toPrinpetail')"
-                               class="btn btn-sm pull-right"/>
-                    </h4>
-                </div>
-
-                <div class="card-block">
-                    <p>
-                    @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
-                    @include('common.receipt')
-                </div>
+            <div class="col-lg-9">
 
 
-                <div class="card-footer text-xs-right">
+                <div class="card" id="toPrinpetail">
+                    <div class="card-header">
+                        <h4>Order # {{$order->id}} ({{$order->status}})
 
-                    <?php
-                    $profiletype = Session::get('session_profiletype');
-                    $CanApprove = $profiletype == 1 || (Session::get('session_restaurant_id') == $restaurant->id);//is admin, or owner of the restaurant
-                    ?>
+                            <input type="button" style="" value="Print Receipt" onclick="prinpiv('toPrinpetail')"
+                                   class="btn btn-sm btn-secondary-outline pull-right"/>
+                        </h4>
+                    </div>
 
-                    @if($CanApprove)
+                    <div class="card-block">
+                        <div class="row">
+                        <div class="col-md-6">
 
-                        <a href="#cancel-popup-dialog"
-                           class="btn btn-danger-outline orderCancelModal " data-toggle="modal"
-                           data-target="#orderCancelModal"
-                           id="cancel-popup" data-id="{{ $order->id }}">Cancel</a>
+                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
+                        </div>
+                        <div class="col-md-6">
 
-                        <a href="#approve-popup-dialog"
-                           class="btn btn-success orderApproveModal " data-toggle="modal"
-                           data-target="#orderApproveModal"
-                           id="approve-popup"
-                           data-id="{{ $order->id }}">Approve</a>
+                            @include('common.receipt')
+                        </div>
+                        <div class="clearfix"></div>
+                    </div></div>
 
-                    @endif
 
-                    <div class="clearfix"></div>
+
+                        <?php
+                        $profiletype = Session::get('session_profiletype');
+                        $CanApprove = $profiletype == 1 || (Session::get('session_restaurant_id') == $restaurant->id);//is admin, or owner of the restaurant
+                        ?>
+
+                        @if($CanApprove)
+                        <div class="card-footer text-xs-right">
+
+                            <a href="#cancel-popup-dialog"
+                               class="btn btn-danger orderCancelModal " data-toggle="modal"
+                               data-target="#orderCancelModal"
+                               id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
+
+                            <a href="#approve-popup-dialog"
+                               class="btn btn-primary orderApproveModal " data-toggle="modal"
+                               data-target="#orderApproveModal"
+                               id="approve-popup"
+                               data-id="{{ $order->id }}">Accept</a>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                        @endif
 
                 </div>
             </div>

@@ -60,7 +60,7 @@ $('.add_additional').live('click', function () {
 
 $('.removenormal').live('click', function () {
     $_this = $(this);
-    if (confirm('Are you sure you want to delete this item?'))
+    if (confirm('Are you sure you want to delete this addon?'))
         $_this.closest('.menuwrapper').remove();
 })
 
@@ -69,7 +69,7 @@ $('.removelast').live('click', function () {
     var tot = $_this.closest('.newmenu').find('.newaction').length;
     var newmenu = $_this.closest('.newmenu').attr('id');
     var id = newmenu.replace('newmenu','');
-    if (confirm('Are you sure you want to delete this item?')) {
+    if (confirm('Are you sure you want to delete this addon?')) {
         $_this.closest('.menuwrapper').remove();
         var i = 0;
         $('#' + newmenu + ' .newaction').each(function () {
@@ -89,12 +89,13 @@ $('.removelast').live('click', function () {
 });
 $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
-        '<div class="cmore"><p style="margin-bottom:0;height:7px;">&nbsp;</p><div class="col-md-10 col-sm-8 col-xs-8 nopadd ignore ignore2 ignore1 padleft0">' +
-        '<div class="col-md-6  padleft0"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
-        '<div class="col-md-6  padleft0"><input class="form-control ccprice pricechk" type="text" placeholder="Price" /></div>' +
+        '<div class="cmore">' +
+        '<div class=" ignore ignore2 ignore1">' +
+        '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
+        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
         '</div>' +
-        '<div class="col-md-2 col-sm-2 col-xs-2 ignore top-padd ignore2">' +
-        '<a href="javascript:void(0);" class="btn btn-sm btn-danger btn-small" style="padding: 0.5rem 0.75rem;" onclick="$(this).parent().parent().remove();"><span class="fa fa-close"></span></a>' +
+        '<div class="col-md-2 ignore top-padd ignore2">' +
+        '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline pull-right" style="" onclick="$(this).parent().parent().remove();">x</a>' +
         '</div><div class="clearfix"></div></div>');
 });
 $('.is_multiple').live('change', function () {
@@ -139,7 +140,7 @@ $('.savebtn').live('click', function () {
     //alert(stop_id);
     if(stop_id)
     {
-        alert('One or more of your addons is empty. Please add some options to your addon');
+        alert('One or more of your options are empty');
         return false;
     }
     var cat_id = $_parent.find('.cat_id').val();

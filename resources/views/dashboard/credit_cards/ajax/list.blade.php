@@ -19,9 +19,9 @@
                 </h4>
 
                 @if($type == "restaurant")
-                <p class="card-subtitle text-muted">
-                    Your credit card will be billed on the 1st of each month. You must have at least 1 active for your store to be open.
-                </p>
+                <!--p class="card-subtitle text-muted">
+                    Your credit card will be billed on the 1st of each month.
+                </p-->
                 @endif
 
             </div>
@@ -68,7 +68,7 @@
                                         Edit
                                     </a>
                                     <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
-                                       class="btn btn-danger-outline btn-sm "
+                                       class="btn btn-secondary-outline btn-sm "
                                        onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>
                                 </div>
                             </td>
