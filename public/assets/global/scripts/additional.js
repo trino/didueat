@@ -162,12 +162,14 @@ $('.savebtn').live('click', function () {
     if(stop_item)
     {
         alert('Addon name cannot be blank');
+        $('.overlay_loader').hide();
         return false;
     }
     //alert(stop_id);
     if(stop_id)
     {
         alert('One or more of your options are empty');
+        $('.overlay_loader').hide();
         return false;
     }
     var cat_id = $_parent.find('.cat_id').val();
@@ -176,6 +178,7 @@ $('.savebtn').live('click', function () {
         alert('Please select a category');
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
+        $('.overlay_loader').hide();
         $('.overlay_loader').hide();
         return false;
     }
