@@ -15,11 +15,11 @@
                             <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
                             <div class="col-md-10 padleft0">
                                 <form id="report-form" method="get">
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <input type="text" class="datepicker form-control" name="from" placeholder="From" value="{{ old('from') }}">
                                     </div>
     
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <input type="text" class="datepicker form-control" name="to" placeholder="To" value="{{ old('to') }}">
                                     </div>
     
