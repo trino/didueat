@@ -567,11 +567,12 @@ ul.scroller li {
     width: 100%;
     z-index: 99999;
 }
-.overlay {
+/*.overlay {
     left: 50%;
     position: absolute;
     top: 50%;
-}
+}*/
+
 .subber{background: #f4f7f8;padding:20px;
 
     border:1px solid #dadada;
