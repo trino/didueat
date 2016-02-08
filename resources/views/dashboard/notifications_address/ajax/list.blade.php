@@ -9,9 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    <!-- do not change this to "Receive notifications", as that does not describe what this does -->
                     Notification Addresses
-                    <!-- do not change this to "Receive notifications", as that does not describe what this does -->
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4>
 

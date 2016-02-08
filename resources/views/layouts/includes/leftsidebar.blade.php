@@ -31,9 +31,8 @@
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-                //do not change this to "Receive notifications", as that does not describe what this does
-                'notification/addresses' => "Notification Addresses",//do not change this to "Receive notifications", as that does not describe what this does
-                //do not change this to "Receive notifications", as that does not describe what this does
+
+                'notification/addresses' => "Notification Addresses",
                 'restaurant/info' => "Restaurant Info",
                 'credit-cards/list/restaurant' => "Credit Card"
         ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#0275d8 !important;margin-right:.3em;'></i> My Restaurant</h4>");
