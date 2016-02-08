@@ -61,7 +61,7 @@
                             <td>{{ $value->first_name.' '.$value->last_name }}</td>
                             <td>{{ $value->card_type }}</td>
                             <td>{{ obfuscate($value->card_number) }}</td>
-                            <td>{{ $value->expiry_month }}/{{ $value->expiry_date }}/{{ $value->expiry_year }}</td>
+                            <td>{{ $value->expiry_month }}/{{ right($value->expiry_year,2) }}</td>
                             <td>
                                 <div class="pull-right">
                                     <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel">
