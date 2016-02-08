@@ -313,7 +313,7 @@ class HomeController extends Controller {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
 
-            return app('App\Http\Controllers\RestaurantController')->restaurantInfo();
+            return app('App\Http\Controllers\RestaurantController')->restaurantInfo(0,true);
         } else {
             $data['title'] = "Signup Restaurants Page";
 //            $data['countries_list'] = \App\Http\Models\Countries::get();

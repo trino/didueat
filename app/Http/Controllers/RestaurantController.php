@@ -163,7 +163,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurantInfo($id = 0) {
+    public function restaurantInfo($id = 0, $DoProfile = false) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
@@ -235,9 +235,12 @@ class RestaurantController extends Controller {
                 $ob->populate($update,$addlogo);
                 $ob->save();
 
+                if(!$post['id']){
+                    $post['id'] = $ob->id;
+                }
+
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
-
                 foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
                 }
@@ -247,6 +250,14 @@ class RestaurantController extends Controller {
                 $cuisinesExplCnt=count($cuisinesExpl);
                 for($i=0;$i<$cuisinesExplCnt;$i++){
                     \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                }
+
+                if($DoProfile){
+                    $update=$post;
+                    $update["restaurant_id"] = $post['id'];
+                    unset($update["id"]);
+                    $update = \App\Http\Models\Profiles::makenew($update);
+                    login($update);
                 }
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
