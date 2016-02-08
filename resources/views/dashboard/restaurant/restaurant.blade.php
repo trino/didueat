@@ -39,8 +39,8 @@ echo newrow($new, "Restaurant Name", "", true); ?>
 </div></div>
 
 <?php if(!$new){
-    echo newrow($new, "Description", "", true, 9);
-    echo '<textarea required name="description" class="form-control"' . $is_disabled . '>';
+    echo newrow($new, "Description", "", false, 9);
+    echo '<textarea name="description" class="form-control"' . $is_disabled . '>';
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
 }

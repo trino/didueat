@@ -257,7 +257,10 @@ class RestaurantController extends Controller {
                     $update["restaurant_id"] = $post['id'];
                     unset($update["id"]);
                     $update = \App\Http\Models\Profiles::makenew($update);
-                    login($update);
+                    $update = login($update);
+
+                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["email"], "type" => "Email", "enabled" => 1));
+                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
                 }
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
@@ -295,7 +298,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Price] field is missing!", 'restaurant/menus-manager');
             }
             if (!isset($post['description']) || empty($post['description'])) {
-                return $this->failure("[Description] field is missing!", 'restaurant/menus-manager');
+                //return $this->failure("[Description] field is missing!", 'restaurant/menus-manager');
             }
             if (!\Input::hasFile('menu_image')) {
                 return $this->failure("[Image] field is missing!", 'restaurant/menus-manager');
@@ -316,7 +319,7 @@ class RestaurantController extends Controller {
                 $item['restaurant_id'] = \Session::get('session_restaurant_id');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
-                $item['description'] = $post['description'];
+                if(isset($post['description']){$item['description'] = $post['description'];}
                 $item['image'] = $post['image'];
                 $item['has_addon'] = (count($post['addon_menu_item']) > 0) ? 1 : 0;
                 $item['parent'] = 0;
