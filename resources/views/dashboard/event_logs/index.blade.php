@@ -10,6 +10,7 @@
 <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
 <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->
 <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
+<div class="container">
 
 <div class="row">
     @include('layouts.includes.leftsidebar')
@@ -25,6 +26,7 @@
         </div>
 
     </div>
+</div>
 </div>
 
 

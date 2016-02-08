@@ -11,6 +11,7 @@
 <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->
 <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
 
+<div class="container">
 
 
 
@@ -52,6 +53,7 @@
         </div>
         {!! Form::close() !!}
     </div>
+</div>
 </div>
 
 
