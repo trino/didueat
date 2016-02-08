@@ -161,18 +161,15 @@ class ProfileAddressesController extends Controller {
         }
 
         $post["id"] = $id;
-        
-        if($_POST['addOrEdit'] == "edit"){
+
+        if($id || (isset($_POST['addOrEdit']) && $_POST['addOrEdit'] == "edit")){
              $ob = \App\Http\Models\ProfilesAddresses::findOrNew($id);
              $ob->populate($post);
              $ob->save();
              $thismsg="edited";
-        }
-        else
-        {
+        } else {
             $add = \App\Http\Models\ProfilesAddresses::makenew($post, $id);
-            if(isset($_GET['ajax']))
-            {
+            if(isset($_GET['ajax'])) {
                 $address = \App\Http\Models\ProfilesAddresses::find($add->id);
                 return json_encode($address);
                 die();
