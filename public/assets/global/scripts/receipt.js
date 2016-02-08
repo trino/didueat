@@ -100,6 +100,12 @@ function changeqty(id, opr) {
     }
 
     $(function(){
+
+
+        $('.modal').on('hidden',function(){
+            alert('blured');
+        })
+        
         $('.del-goods').live('click', function () {
         $(this).parent().remove();
         var subtotal = 0;
@@ -154,7 +160,7 @@ function changeqty(id, opr) {
             }
             
                 
-            
+            var nqty = '';
             var id = $(this).attr('id').replace('addspan_','');
             var qty = Number($(this).parent().find('.span_'+id).text());
             var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
@@ -163,15 +169,18 @@ function changeqty(id, opr) {
             var tit = chk.attr('title');
             var title = tit.split("_");
             title[1]= title[1].replace(' x('+qty+")","");
+            title[0] = title[0].replace('-'+qty,'');
             //alert(id+","+qty+","+price+","+tit);
             qty = Number(qty)+ Number(1);
             $(this).parent().find('.span_'+id).html(qty);
             if(qty ==0) {
                 newtitle= title[1];
                 newprice= price;
+               
             } else {
                 newtitle= title[1]+" x("+qty+")";
                 newprice= Number(price)*Number(qty);
+                title[0] = title[0]+"-"+qty;
             }
             
             newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
@@ -184,7 +193,7 @@ function changeqty(id, opr) {
             var td_id =td.attr('id');
             td_id = td_id.replace('td_','');
             var extra_no = $('#extra_no_' + td_id).val();
-            
+            var nqty = '';
             var upto = $('#upto_' + td_id).val();
             var all = 0;
             td.find('.allspan').each(function(){
@@ -201,8 +210,10 @@ function changeqty(id, opr) {
             var tit = chk.attr('title');
             var title = tit.split("_");
             if(qty !=0) {
-                title[1]= title[1].replace('x('+qty+")","")
+                title[1]= title[1].replace('x('+qty+")","");
+                title[0] = title[0].replace('-'+qty,'');
                 qty = Number(qty) -Number(1);
+                
                 $(this).parent().find('.span_'+id).html(qty);
             }
             if(qty ==0) {
@@ -212,6 +223,7 @@ function changeqty(id, opr) {
             } else {
                 newtitle= title[1]+" x("+qty+")";
                 newprice= Number(price)*Number(qty);
+                title[0] = title[0]+"-"+qty;
             }
             
             newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];

@@ -459,7 +459,7 @@
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-                    $('.allspan').html('0');
+                    
                 }
 
                 ids = ids.replace("__", "_");
@@ -555,14 +555,49 @@
                 $('div.grandtotal').text('$' + gtotal);
                 $('input.grandtotal').val(gtotal);
                 $('#cart-total').text(gtotal);
+                
+                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+                    if ($(this).is(':checked') && $(this).attr('title') != "") {
+                        var tit = $(this).attr('title');
+                       
+                        var title = tit.split("_");
+                        if (index != 0) {
+                            extratitle = extratitle + "," + title[1];
+                        }
+                        var su = "";
+    
+                        if ($(this).val() != "") {
+                            var cnn = 0;
+                            var catid = $(this).attr('id');
+                           
+                            $('.extra-' + catid).each(function () {
+                                if ($(this).is(":checked")) {
+                                    var mid = $(this).attr('id').replace('extra_', '');
+                                    var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
+                                    var tit1 = $(this).attr('title');
+                                    
+                                    tit1 = tit1.split('_');
+                                    tit1[0]=tit1[0].replace('-'+qty,'');
+                                    tit1[1]=tit1[1].replace(" x("+qty+")","");
+                                    nwtit = tit1[0]+"_"+tit1[1]+"_"+tit1[2];
+                                    
+                                    $(this).attr('title',nwtit);
+                                    
+                                    
+                                }
+                            });
+                        }
+                    }
+                });
+                $('.number' + menu_id).text('1');
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk')) {
                         $(this).removeAttr("checked");
                     }
                 });
-
-                $('.number' + menu_id).text('1');
+                $('.allspan').html('0');
                 $('.close' + menu_id).click();
+
                 show_header();
             });
 
