@@ -369,19 +369,20 @@ class UsersController extends Controller {
                     //->where('is_default', 1)
                     $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
                     $userArray3["guid"] = $ob2->guid;
+                    $userArray3["orderid"] = $oid;
                     if ($notificationEmail->count() > 0) {
                         foreach ($notificationEmail->get() as $resValue) {
                             if ($resValue->type == "Email") {
                                 $userArray3['name'] = $resValue->name;
                                 $userArray3['email'] = $resValue->address;
-                                $this->sendEMail("emails.order_owner_notification", $userArray3);
+                                $this->sendEMail("emails.receipt", $userArray3);
                             }
                         }
                     } else {//emergency backup contact
                         $restaurant = \App\Http\Models\Restaurants::find($res->restaurant_id);
                         $userArray3['name'] = $restaurant->name;
                         $userArray3['email'] = $restaurant->email;
-                        $this->sendEMail("emails.order_owner_notification", $userArray3);
+                        $this->sendEMail("emails.receipt", $userArray3);
                     }
                 }
                 
