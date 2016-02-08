@@ -115,17 +115,16 @@
                                                                     else
                                                                         $extra_price = '_';
                                                                     ?>
-                                                                    <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                           id="extra_{{ $mm->id }}"
-                                                                           title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
-                                                                           class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
-                                                                           name="extra_{{ $sub->id }}"
-                                                                           value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
-                                                                    {{ $mm->menu_item }}
-
-
-                                                                    <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-
+                                                                    <LABEL>
+                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                               id="extra_{{ $mm->id }}"
+                                                                               title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
+                                                                               class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
+                                                                               name="extra_{{ $sub->id }}"
+                                                                               value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+                                                                        {{ $mm->menu_item }}
+                                                                        <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                                                    </LABEL>
 
                                                                         <div <?php if ($sub->sing_mul == '1') {
                                                                             echo "style='display:none'";

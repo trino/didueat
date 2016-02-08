@@ -121,15 +121,16 @@
                         <div class="list clearfix">
                           <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
                           @foreach($mini_menus as $mm)
-                            <div class="col-xs-6 col-md-6"
-                                 class="btn default btnxx pad-17">
+                            <div class="col-xs-6 col-md-6" class="btn default btnxx pad-17">
                               <div class="pad-17">
                                 <a title="" id="buttons_{{ $mm->id }}" class="buttons btn-plain" href="javascript:void(0);">
                                   <button class="btn btn-primary btn-curved"></button>
-                                  <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}" id="extra_{{ $mm->id }}"
-                                         title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
-                                         class="extra-{{ $sub->id }}" name="extra_{{ $sub->id }}" value="post"/> &nbsp;&nbsp; {{ $mm->menu_item }}
-                                  &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                  <LABEL>
+                                    <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}" id="extra_{{ $mm->id }}"
+                                           title="{{ $mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item }}"
+                                           class="extra-{{ $sub->id }}" name="extra_{{ $sub->id }}" value="post"/> &nbsp;&nbsp; {{ $mm->menu_item }}
+                                    &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                  </LABEL>
                                   <b style="display:none;"></b>
                                 </a>
                                 <b style="display:none;"><a onclick="" id="remspan_{{ $mm->id }}" class="remspan plain" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
