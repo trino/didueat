@@ -72,7 +72,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
             </div>
             <?php }else{?>
-            <select class="col-md-11 form-control reservation_address_dropdown">
+            <select class="col-md-11 form-control reservation_address_dropdown" >
                 <option value="">Select Address</option>
                 <?php
                 $sec = false;

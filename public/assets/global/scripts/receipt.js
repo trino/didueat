@@ -44,7 +44,7 @@ function changeqty(id, opr) {
         var df = $('input.df').val();
         if (t == 'show')
         {
-              $('.profile_delivery_detail input').each(function(){
+              $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
                
                 if($(this).attr('name')!='apartment'){
                      
@@ -70,7 +70,7 @@ function changeqty(id, opr) {
         {
             $('.profile_delevery_type').text('Pickup Detail');
             $('.profile_delivery_detail').hide();
-            $('.profile_delivery_detail input').each(function(){
+            $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
                 
                 $(this).removeAttr('required');
             });

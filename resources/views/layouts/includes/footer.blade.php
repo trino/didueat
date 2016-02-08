@@ -389,6 +389,8 @@
                                     $('#ordered_code').val(arr.postal_code);
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
+                                    $('.phone').val(arr.phone);
+                                    $('.reservation_address_dropdown').attr('required','required');
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
                                     $('.addressdropdown').load(document.URL + ' .addressdropdown>');

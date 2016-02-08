@@ -161,7 +161,7 @@
 
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                <input type="text"  maxlength="10" min="10"
+                                <input type="text"  
                                        placeholder="Cell Phone" id="phone"
                                        class="form-control phone" name="contact"
                                        id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
