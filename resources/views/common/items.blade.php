@@ -2,11 +2,6 @@
 
 <div class="scroller" data-height='120px'>
     <table class="orders @if(!isset($order)) order-style @endif" width="100%">
-        <thead class="itmQty">
-            <TH style='width:60px;'>Qty</TH>
-            <TH width="50%">Item</TH>
-            <TH>Price</TH>
-        </thead>
         @if(isset($order))
             <?php
             $menu_ids = $order->menu_ids;
@@ -14,7 +9,9 @@
             $arr_qty = explode(',', $order->qtys);
             $arr_prs = explode(',', $order->prs);
             $arr_extras = explode(',', $order->extras);
-
+            if(count($arr_menu)){
+                echo '<thead class="itmQty"><TH style="width:60px;">Qty</TH><TH width="50%">Item</TH><TH>Price</TH></thead>';
+            }
             foreach ($arr_menu as $k => $me) {
                 if ($order->extras != "") {
                     $extz = str_replace(array("% ", ':'), array(" ", ': '), $arr_extras[$k]);
