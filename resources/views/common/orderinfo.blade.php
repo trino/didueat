@@ -6,7 +6,6 @@
 
     $Data = array("Customer" => $order->ordered_by);
 
-
     if (isset($user_detail) && is_object($user_detail)) {
         $Data["Customer"] = $user_detail->name;
         $Data["Email"] = $user_detail->email;
@@ -18,6 +17,7 @@
     if ($order->order_type == '1') {
         $Data['Address'] = $order->address2;
         $Data['City'] = $order->city;
+        if(!isset($order->prov) || !$order->prov){$order->prov = "ON";}
         $Data['Prov'] = $order->prov;
         $Data['Postal Code'] = $order->postal_code;
 

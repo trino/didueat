@@ -217,7 +217,7 @@ class OrdersController extends Controller {
 
     public function alertstore(){
         $Orders = \DB::table('reservations')
-            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id 'Canada' as country_name"))
+            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, 'Canada' as country_name"))
             ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
             //->leftJoin('states', 'reservations.province', '=', 'states.id')
             //->leftJoin('countries', 'reservations.country', '=', 'countries.id')
@@ -228,7 +228,7 @@ class OrdersController extends Controller {
         $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
         $Addresses = array();
         foreach($Orders as $Order){
-            if(!$Order->province_name) {$Order->province_name = "ON";} //"." . select_field('states', 'id', $Order->province, 'name');}
+            if(!isset($Order->province_name) || !$Order->province_name) {$Order->province_name = "ON";} //"." . select_field('states', 'id', $Order->province, 'name');}
             if(!$Order->country_name) {$Order->country_name = "Canada";} //"." . select_field('countries', 'id', $Order->country, 'name');}
             echo '<TR>';
                 echo '<TD>' . $Order->order_id . '</TD>';
