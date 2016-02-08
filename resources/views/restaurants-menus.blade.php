@@ -146,11 +146,7 @@
                     </script>
                     @endforeach
 
-                    @if(debugmode())
-                        <input type="file" accept="image/*;capture=camera">
-                    @endif
-
-
+                    <!--input type="file" accept="image/*;capture=camera"-->
             </div>
 
 
