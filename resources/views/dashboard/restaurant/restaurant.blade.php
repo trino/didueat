@@ -124,6 +124,7 @@ if(!$minimum){
     }
 
     function restsearch(event){
+        return false;
         var RestaurantName = $("#restname").val();
         var PhoneNumber = $("#phone").val();
         RestaurantName = encodeURIComponent(RestaurantName.trim());
