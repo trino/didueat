@@ -1,4 +1,4 @@
-<?php printfile("views/common/receipt.blade.php (top-cart-info)"); ?>
+<?php printfile("views/common/receipt.blade.php"); ?>
 
 @if(!isset($order))
     <div class="top-cart-info">
@@ -133,6 +133,7 @@
                         @include('popups.addaddress',['loaded_from'=>'reservation'])
 
                         <form name="checkout_form" id="profiles"  class="m-b-0">
+                            <?php printfile("receipt.blade.php/checkout_form"); ?>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
 
@@ -312,6 +313,42 @@
                 })
             }
         })
-    })
+    });
+
+    $(document).ready(function () {
+        add_all(true, true, true);
+        $("#profiles").validate({
+            rules: {
+                phone: {
+                    required: true,
+                    checkPhone: true,
+                    checkLen: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "{{ url('auth/validate/email/ajax') }}",
+                        type: "post"
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                }
+            },
+            messages: {
+                phone: {
+                    required: "Please enter a phone number",
+                    checkPhone: "Invalid character. Please just use numbers and hyphens",
+                    checkLen: "Phone number must be 10 numbers long"
+                },
+                email: {
+                    required: "Please enter an email address!",
+                    remote: "This email address is already in use!"
+                }
+            }
+        });
+    });
 </script>
 @endif
