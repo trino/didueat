@@ -11,23 +11,29 @@ function changeqty(id, opr) {
     }
 
     function clearCartItems() {
-        $('.receipt_main ul.orders li').remove();
-        $('.subtotal').val(0);
-        $('.subtotal').text('0');
-        $('.tax').val(0);
-        $('.tax').text('0');
-        $('.df').val(0);
-        $('.df').text('0');
-        $('#delivery_flag').val(0);
-        $('.grandtotal').val(0);
-        $('.grandtotal').text('0');
+       var con =  confirm('Confirm clear items?');
+       if(con==true)
+       {
+            $('.receipt_main table.orders tr').remove();
+            $('.subtotal').val(0);
+            $('.subtotal').text('0.00');
+            $('.tax').val(0);
+            $('.tax').text('0.00');
+            $('.df').val(0);
+            $('.df').text('0.00');
+            $('#delivery_flag').val(0);
+            $('.grandtotal').val(0);
+            $('.grandtotal').text('0.00');
+       }
+       else
+       return false;
     }
 
     function checkout() {
         var del = $('#delivery_flag').val();
 
         if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00') {
-            alert('Please select an item.');
+            alert('No items yet.');
         } else {
             $('.receipt_main').hide();
             $('.profiles').show();
