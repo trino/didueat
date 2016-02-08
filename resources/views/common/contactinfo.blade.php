@@ -29,7 +29,7 @@ foreach ($Fields as $Field) {
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input maxlength="10" type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
+    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
 
@@ -42,6 +42,7 @@ echo newrow($new, "Email", $size, true); ?>
 
 
 
+
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
@@ -50,7 +51,18 @@ echo newrow($new, "Email", $size, true); ?>
     <?php echo newrow(); ?>
 @endif
 
-<?= newrow($new, "Password", $size, $PasswordRequired); ?>
+
+
+<?
+$is_new = '';
+if(isset($emaillocked)) {
+    $is_new = 'New ';
+}
+
+        ?>
+
+
+<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
         <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
     </div>

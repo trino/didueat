@@ -4,7 +4,7 @@
 if (isset($GLOBALS["editaddress"])) {
     return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
 }
-printfile("views/common/editaddress.blade.php");
+
 $GLOBALS["editaddress"] = true;
 
 if (!isset($new)) {
