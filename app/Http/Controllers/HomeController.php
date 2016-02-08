@@ -194,6 +194,12 @@ class HomeController extends Controller {
     }
 
     public function test(){
+        $array['mail_subject'] = "TEST EMAIL";
+        $array['message'] = "TEST MESSAGE";
+        $array["email"] = read("email");
+        $array["orderid"] = $_GET["orderid"];
+        $this->sendEMail("emails.receipt", $array);
+        die("Test email sent");
         return view('test');
     }
 

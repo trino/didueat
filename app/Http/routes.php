@@ -19,6 +19,7 @@ Route::post('/search/menus/ajax',                                   'HomeControl
 Route::post('/uploadimg/{type}',                                    'HomeController@uploadimg')->where('type', '[a-z]+');
 Route::post('/newsletter/subscribe',                                'HomeController@newsletterSubscribe');
 Route::post('/rating/save',                                         'HomeController@ratingSave');
+Route::get('/test',                                                 'HomeController@test');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                                      'Auth\AuthController@authenticateAjax');
@@ -28,6 +29,8 @@ Route::get('auth/logout',                                           'Auth\AuthCo
 
 Route::get('home/{type}',                                           'HomeController@home');
 Route::get('orders/alertstore',                                     'OrdersController@alertstore');
+Route::get('orders/list/{action}/email/{email}/{guid}',             'OrdersController@orderstatus');
+Route::post('orders/list/{action}/email/{email}/{guid}',            'OrdersController@orderstatus');
 
 // Registration routes...
 Route::get('auth/register',                                         'Auth\AuthController@getRegister');
