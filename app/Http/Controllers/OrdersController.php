@@ -389,7 +389,11 @@ class OrdersController extends Controller {
                 return $this->failure("Order or email address mismatch", "/");
             }
         } else {
-            return view('popups.mini_approve', array("action" => $action, "email" => $email, "guid" => $guid));
+            $Order = select_field("reservations", "guid", $guid);
+            if($Order->status == "pending") {
+                return view('popups.mini_approve', array("action" => $action, "email" => $email, "guid" => $guid));
+            }
+            return $this->failure("That order has already been approved or denied", "/");
         }
     }
 }
