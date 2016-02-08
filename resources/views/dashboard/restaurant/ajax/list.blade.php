@@ -53,7 +53,7 @@
                             <?php
                                 $reasons = array();
                                 if(!$value->has_creditcard){
-                                    $reasons["fa-credit-card"] = "Missing Credit Card information";
+                                    //$reasons["fa-credit-card"] = "Missing Credit Card information";
                                 }
                                 if(!$value->is_delivery){
                                     $reasons["fa-car"] = "Delivery is disabled";

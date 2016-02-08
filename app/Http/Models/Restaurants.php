@@ -58,8 +58,8 @@ class Restaurants extends BaseModel {
         $query = Restaurants::select('*')
                 ->Where(function($query) use ($searchResults, $incomplete){
                     if($incomplete){
-                        $query->orWhere('is_complete', '0')
-                            ->orWhere('has_creditcard', '0');
+                        $query->Where('is_complete', '0');
+                            //->orWhere('has_creditcard', '0');
                     }
                     if($searchResults != ""){
                           $query->orWhere('name', 'LIKE', "%$searchResults%")
@@ -111,7 +111,7 @@ class Restaurants extends BaseModel {
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE restaurants.open = '1' AND status = '1'";
         if(isset($data['is_complete'])){
-            $where .= " AND is_complete = '1' AND has_creditcard = '1'";
+            $where .= " AND is_complete = '1'";// AND has_creditcard = '1'";
         }
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";

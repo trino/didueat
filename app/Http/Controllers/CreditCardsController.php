@@ -175,7 +175,7 @@ class CreditCardsController extends Controller {
     }
 
     public function updatestore($ID=0){
-        if($ID){
+        if($ID && false){
             $Cards = \App\Http\Models\CreditCard::where(array("user_type" => "restaurant", 'user_id' => $ID))->count();
             if($Cards){$Cards=1;}
             edit_database("restaurants", "id", $ID, array("has_creditcard" => $Cards));
