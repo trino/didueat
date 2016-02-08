@@ -16,7 +16,7 @@
             }
         }
 
-        /*
+
     if (Session::get('session_type_user') == "super"){
         makelink(array( 'orders/list/admin' => 'All Orders',
                 'users/list' => "All Users",
@@ -27,7 +27,7 @@
 
         ), "<h4 class='card-title'><i class='fa fa-users' style='color:#0275d8 !important;margin-right:.3em;'></i> Admin</h4>");
     }
-*/
+
     if(\Session::get('session_restaurant_id')){
         makelink(array( 'orders/list/restaurant' => 'Restaurant Orders',
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
