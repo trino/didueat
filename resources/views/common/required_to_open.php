@@ -23,7 +23,7 @@
         }
 */
         if (!$Restaurant->description) {
-            $MissingData[] = "Your Restaurant Description <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Click to Set Restaurant Description</u>)</a>";
+            //$MissingData[] = "Your Restaurant Description <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Click to Set Restaurant Description</u>)</a>";
         }
 
         if (!$Restaurant->latitude || !$Restaurant->longitude) {
@@ -42,13 +42,15 @@
         $doesopen = false;
         $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
         foreach ($weekdays as $weekday) {
-            foreach (array("_open", "_open_del", "_close", "_close_del") as $field) {
-                $field = $weekday . $field;
-                if ($Restaurant->$field != "00:00:00") {
-                    $doesopen = true;
-                } //else {
-                  //  $someHoursNotOK = true;
-                //}
+            if(getfield($Restaurant, $weekday . "_open") != getfield($Restaurant, $weekday . "_close")) {
+                foreach (array("_open", "_open_del", "_close", "_close_del") as $field) {
+                    $field = $weekday . $field;
+                    if ($Restaurant->$field != "00:00:00") {
+                        $doesopen = true;
+                    } //else {
+                    //  $someHoursNotOK = true;
+                    //}
+                }
             }
         }
 
@@ -58,11 +60,12 @@
             $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Complete Hours Open</u>)</a>";
         }
 
-        //check credit card
+        /*check credit card
         $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
         if (!$creditcards) {
             $MissingData[] = "Your credit card authorization <a href=\"" . url('credit-cards/list/restaurant') . "\">(<u>Click to Set Credit Card</u>)</a>";
         }
+        */
 
         if ($MissingData) {
             printfile("views/common/required_to_open.php");
