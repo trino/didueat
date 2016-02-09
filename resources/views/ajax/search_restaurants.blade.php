@@ -1,35 +1,32 @@
 <?php
-function offsettime($time, $hours = 0)
-{
-    if ($hours) {
-        $time = explode(":", $time);
-        $time[0] = $time[0] + $hours;
-        if ($time[0] < 0) {
-            $time[0] += 24;
+    function offsettime($time, $hours = 0) {
+        if ($hours) {
+            $time = explode(":", $time);
+            $time[0] = $time[0] + $hours;
+            if ($time[0] < 0) {
+                $time[0] += 24;
+            }
+            if ($time[0] > 23) {
+                $time[0] -= 24;
+            }
+            $time = implode(":", $time);
         }
-        if ($time[0] > 23) {
-            $time[0] -= 24;
-        }
-        $time = implode(":", $time);
+        return $time;
     }
-    return $time;
-}
 
-if (isset($data['data'])) {
-    parse_str($data['data']);
-}
+    if (isset($data['data'])) {
+        parse_str($data['data']);
+    }
 
-
-
-$server_gmt = date('Z') / 3600;
-$user_gmt = \Session::get('session_gmt', $server_gmt);
-$difference = $server_gmt - $user_gmt;
-$server_time = date('H:i:s');
-$user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
-if (!isset($sql)) {
-    $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
-}
-printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+    $server_gmt = date('Z') / 3600;
+    $user_gmt = \Session::get('session_gmt', $server_gmt);
+    $difference = $server_gmt - $user_gmt;
+    $server_time = date('H:i:s');
+    $user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
+    if (!isset($sql)) {
+        $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
+    }
+    printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 ?>
 
 <DIV class="list-group" id="restuarant_bar">
@@ -60,31 +57,27 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
             <div class="">
                 <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
 
-
                     <div class="col-xs-2 p-a-0">
-                        <img style="width:100px;height:100px;" class="img-rouned" alt=""
-                             src="{{ asset('assets/images/' . $logo) }}">
-
-
+                        <img style="width:100px;height:100px;" class="img-rouned" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </div>
-                    <div class="col-xs-10 ">
 
+                    <div class="col-xs-9">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
 
-
-                        <span class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                }}
+                        <span class="card-text">
+                            {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
                         </span>
 
                         @if(false)
-                        <span class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                            , {{ select_field("countries", 'id', $value['country'], 'name') }}
-                        </span>
-@endif
+                            <span class="card-text">
+                                {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
+                            </span>
+                        @endif
+
                         <br>
 
                         <!--span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
-                                       TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span-->
+                                      TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span-->
 
                         <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
 
@@ -95,13 +88,10 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
                         @if(isset($latitude) && $radius)
                                 <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
                         @endif
-                                <!--div class="clearfix">
-                            {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-                                </div-->
 
+                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
 
                         <div class="clearfix"></div>
-
 
                     </div>
 
@@ -117,8 +107,7 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
         @if($hasMorePage > 0)
             <div class="row">
                 <div class="col-md-12 col-md-offset-5">
-                    <button id="loadingbutton" data-id="{{ $start }}" align="center"
-                            class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">
+                    <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">
                         Load More ...
                     </button>
                     <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
