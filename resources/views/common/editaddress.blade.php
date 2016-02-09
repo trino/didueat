@@ -198,11 +198,6 @@ echo newrow($new, "Notes", "", false, 9);
 <?php }
 ?>
 
-        <!--?php echo newrow($new, "Cell Phone", "", $required, 5); ?>
-    <input type="text" name="mobile" class="form-control" {{ $is_disabled }} placeholder=""
-           value="{{ (isset($addresse_detail->mobile))?$addresse_detail->mobile: old('mobile') }}" {{$required}}>
-</div></div-->
-
 
 <?php
 if (isset($restEdit)) {

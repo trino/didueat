@@ -97,8 +97,8 @@ class OrdersController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function changeOrderCancel($type="") {
-        return $this->changeOrderStatus('cancelled', 'Your order has been cancelled.', "emails.order_cancel", 'Order has been cancelled successfully!', "orders/list/".$type);
+    public function changeOrderCancel($type="", $OrderID = false, $Note = false) {
+        return $this->changeOrderStatus('cancelled', 'Your order has been cancelled.', "emails.order_cancel", 'Order has been cancelled successfully!', "orders/list/".$type, $OrderID, $Note);
     }
     
     /**
@@ -106,8 +106,8 @@ class OrdersController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function changeOrderApprove($type="") {
-        return $this->changeOrderStatus('approved', 'Your order has been approved.', "emails.order_approve", 'Order has been approved successfully!', "orders/list/".$type);
+    public function changeOrderApprove($type="", $OrderID = false, $Note = false) {
+        return $this->changeOrderStatus('approved', 'Your order has been approved.', "emails.order_approve", 'Order has been approved successfully!', "orders/list/".$type, $OrderID, $Note);
     }
     
     /**
@@ -115,8 +115,8 @@ class OrdersController extends Controller {
      * @param $id
      * @return redirect
      */
-    public function changeOrderDisapprove($type="") {
-        return $this->changeOrderStatus('pending', 'Your order has been disapproved.', "emails.order_disapprove", 'Order has been disapproved successfully!', "orders/list/".$type);
+    public function changeOrderDisapprove($type="", $OrderID = false, $Note = false) {
+        return $this->changeOrderStatus('pending', 'Your order has been disapproved.', "emails.order_disapprove", 'Order has been disapproved successfully!', "orders/list/".$type, $OrderID, $Note);
     }
 
     /**
@@ -125,8 +125,10 @@ class OrdersController extends Controller {
      * statuses can be cancelled, approved or pending
      * @return redirect
      */
-    public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = ""){
+    public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = "", $OrderID = false, $Note = false){
         $post = \Input::all();
+        if($OrderID){$post['id'] = $OrderID;}
+        if($Note){$post['note'] = $Note;}
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure("[Order Id] is missing!", $URL);
@@ -215,7 +217,7 @@ class OrdersController extends Controller {
 
     public function alertstore(){
         $Orders = \DB::table('reservations')
-            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id 'Canada' as country_name"))
+            ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, 'Canada' as country_name"))
             ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
             //->leftJoin('states', 'reservations.province', '=', 'states.id')
             //->leftJoin('countries', 'reservations.country', '=', 'countries.id')
@@ -226,7 +228,7 @@ class OrdersController extends Controller {
         $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
         $Addresses = array();
         foreach($Orders as $Order){
-            if(!$Order->province_name) {$Order->province_name = "ON";} //"." . select_field('states', 'id', $Order->province, 'name');}
+            if(!isset($Order->province_name) || !$Order->province_name) {$Order->province_name = "ON";} //"." . select_field('states', 'id', $Order->province, 'name');}
             if(!$Order->country_name) {$Order->country_name = "Canada";} //"." . select_field('countries', 'id', $Order->country, 'name');}
             echo '<TR>';
                 echo '<TD>' . $Order->order_id . '</TD>';
@@ -250,6 +252,12 @@ class OrdersController extends Controller {
                                 $Actions["Email"][] = $NotificationAddress->address;
                                 $Actions["Email"]=array_unique($Actions["Email"]);
                                 $TotalActions["Email"][] = $NotificationAddress->address;
+
+                                $array['mail_subject'] = "An order has been placed with didueat.com";
+                                $array["email"] = $Actions["Email"];
+                                $array["orderid"] = $Order->order_id;
+                                $this->sendEMail("emails.receipt", $array);
+
                             } else if ($NotificationAddress->is_sms) {
                                 $Actions["SMS"][] = phonenumber($NotificationAddress->address);
                                 $Actions["SMS"]=array_unique($Actions["SMS"]);
@@ -359,4 +367,33 @@ class OrdersController extends Controller {
         return $this->cURL($URL, http_build_query($data), $sid, $token);
     }
 
+    function orderstatus($action, $email, $guid){
+        $post = \Input::all();
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+            $URL = url('/orders/list/' . $action . '/email/' . $email . '/' . $guid);
+            if (!isset($post['note']) || empty($post['note'])) {
+                return $this->failure("[Note Field] is missing!", $URL);
+            } else {
+                $Order = select_field("reservations", "guid", $guid);
+                $NotificationAddress = select_field("notification_addresses", "address", $email);
+                if($NotificationAddress && $Order){
+                    $User = select_field("profiles", "id", $NotificationAddress->user_id);
+                    if($Order->restaurant_id == $User->restaurant_id){
+                        if($action == "approve"){
+                            return $this->changeOrderApprove("restaurant", $Order->id, $post['note']);
+                        } else if ($action == "cancel"){
+                            return $this->changeOrderCancel("restaurant", $Order->id, $post['note']);
+                        }
+                    }
+                }
+                return $this->failure("Order or email address mismatch", "/");
+            }
+        } else {
+            $Order = select_field("reservations", "guid", $guid);
+            if($Order->status == "pending") {
+                return view('popups.mini_approve', array("action" => $action, "email" => $email, "guid" => $guid));
+            }
+            return $this->failure("That order has already been approved or denied", "/");
+        }
+    }
 }

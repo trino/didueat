@@ -40,7 +40,7 @@
         if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
             $MissingDataOptional[] = "Delivery range <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Delivery Range</u>)</a>";
         }
-        if (!$Restaurant->minimum || $Restaurant->minimum == "0.00") {
+        if ((!$Restaurant->minimum || $Restaurant->minimum == "0.00") && $Restaurant->is_delivery) {
             $MissingDataOptional[] = "Minimum delivery sub-total <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Delivery Minimum</u>)</a>";
         }
 

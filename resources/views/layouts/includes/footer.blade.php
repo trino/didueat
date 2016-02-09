@@ -1,4 +1,7 @@
-<div class="container-fluid text-muted p-y-2 m-t-2" style="border-top:1px solid #dadada;background:white;">
+<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+">
 
     <!--div class="container  p-y-2">
         <div class="row ">
@@ -31,7 +34,26 @@
             <div class="col-lg-10 ">
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url("home/email") }}">Email</a></li>
+                    <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20diduEAT&body=
+Message:
+%0A%0A
+%0A%0A
+%0A%0A
+%0A%0A
+%0A%0A
+Name:
+%3A%0A%0A
+Contact Number:
+%3A%0A%0A
+Thank you">Email Us</a></li>
+
+
+
+
+
+
+
+
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                     <?php
                     if (!read("id")) {

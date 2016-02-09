@@ -1,4 +1,4 @@
-<?php printfile("views/common/receipt.blade.php (top-cart-info)"); ?>
+<?php printfile("views/common/receipt.blade.php"); ?>
 
 @if(!isset($order))
     <div class="top-cart-info">
@@ -109,106 +109,112 @@
 
                 <!-- display profile info -->
 
-
-                <div class="profiles row" style="display: none;">
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <h2 class="profile_delevery_type"></h2>
+                @if(!isset($email))
+                    <div class="profiles row" style="display: none;">
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <h2 class="profile_delevery_type"></h2>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            @if(\Session::has('is_logged_in'))
-                                <?php
-                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email','profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                                echo "<p>Welcome " . $profile->name . "</p>";
-                                ?>
-                            @else
-                                <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal" onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                @if(\Session::has('is_logged_in'))
+                                    <?php
+                                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email','profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                                    echo "<p>Welcome " . $profile->name . "</p>";
+                                    ?>
+                                @else
+                                    <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal" onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
+                                @endif
+                            </div>
+                        </div>
+
+                        @include('popups.addaddress',['loaded_from'=>'reservation'])
+
+                        <form name="checkout_form" id="profiles"  class="m-b-0">
+                            <?php printfile("receipt.blade.php/checkout_form"); ?>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                            <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
+
+                            <div class="col-sm-12">
+                                <input type="text" placeholder="Full Name"
+                                       class="form-control" name="ordered_by"
+                                       id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "readonly";?> >
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input type="email" placeholder="Email" class="form-control "
+                                       name="email" id="ordered_email" required=""
+                                       value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "readonly";?> />
+                            </div>
+                            <div class="col-sm-12 email_error" style="display: none;" >
+                                
+                            </div>
+                            @if(!Session::has('is_logged_in'))
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <input type="password" name="password" id="password"
+                                               class="form-control  password_reservation" placeholder="Provide a password"
+                                               onkeyup="check_val(this.value);" required="required" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             @endif
-                        </div>
-                    </div>
 
-                    @include('popups.addaddress',['loaded_from'=>'reservation'])
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                                    <input type="text"  maxlength="10" min="10"
+                                           placeholder="Cell Phone" id="phone"
+                                           class="form-control phone" name="contact"
+                                           id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
+                                </div>
+                            </div>
 
-                    <form name="checkout_form" id="profiles"  class="m-b-0">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
 
-                        <div class="col-sm-12">
-                            <input type="text" placeholder="Full Name"
-                                   class="form-control" name="ordered_by"
-                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}" required="" <?php if((isset($profile)))echo "readonly";?> >
-                        </div>
+                            <div class="profile_delivery_detail" style="display: none;">
+                                @if(!isset($type) || $type != "report")
+                                    @include('common.editaddress',['type'=>'reservation'])
+                                @endif
+                                <div class="clearfix"></div>
 
-                        <div class="col-sm-12">
-                            <input type="email" placeholder="Email" class="form-control "
-                                   name="email" id="ordered_email" required=""
-                                   value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "readonly";?> />
-                        </div>
+                            </div>
 
-                        @if(!Session::has('is_logged_in'))
                             <div class="form-group">
                                 <div class="col-xs-12">
-                                    <input type="password" name="password" id="password"
-                                           class="form-control  password_reservation" placeholder="Provide a password"
-                                           onkeyup="check_val(this.value);" required="required" />
+                                    <select class="form-control " name="order_till" id="ordered_on_time" required="">
+                                        <option value="Order ASAP">Order ASAP</option>
+                                        {{ get_time_interval() }}
+                                    </select>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                        @endif
 
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                <input type="text"  
-                                       placeholder="Cell Phone" id="phone"
-                                       class="form-control phone" name="contact"
-                                       id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                        </div>
 
-                        <div class="profile_delivery_detail" style="display: none;">
-                            @if(!isset($type) || $type != "report")
-                                @include('common.editaddress',['type'=>'reservation'])
-                            @endif
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <select class="form-control " name="order_till" id="ordered_on_time" required="">
-                                    <option value="Order ASAP">Order ASAP</option>
-                                    {{ get_time_interval() }}
-                                </select>
+                            <div class="form-group   pull-right m-b-0">
+                                <div class="col-xs-12">
+                                    <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
+                                    <button type="submit" class="btn btn-primary">Checkout</button>
+                                    <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
+                                </div>
                             </div>
                             <div class="clearfix"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="form-group   pull-right m-b-0">
-                            <div class="col-xs-12">
-                                <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
-                                <button type="submit" class="btn btn-primary">Checkout</button>
-                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </form>
-                </div>
-
+                        </form>
+                    </div>
+                @endif
         </div>
     </div>
 
     <div class="clearfix"></div>
 </div>
 
+@if(!isset($email))
 <!-- add addresss modal -->
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -311,5 +317,48 @@
                 })
             }
         })
-    })
+    });
+
+    $(document).ready(function () {
+        add_all(true, true, true);
+        $("#profiles1").validate({
+            rules: {
+                phone: {
+                    required: true,
+                    checkPhone: true,
+                    checkLen: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "{{ url('auth/validate/email/ajax') }}",
+                        type: "post"
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+                reservation_address: {
+                    required: true,
+                }
+            },
+            messages: {
+                phone: {
+                    required: "Please enter a phone number",
+                    checkPhone: "Invalid character. Please just use numbers and hyphens",
+                    checkLen: "Phone number must be 10 numbers long"
+                },
+                email: {
+                    required: "Please enter an email address!",
+                    remote: "This email address is already in use!"
+                },
+                reservation_address: {
+                    required: "Please select an address.",
+                }
+            }
+        });
+    });
 </script>
+@endif

@@ -163,7 +163,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurantInfo($id = 0) {
+    public function restaurantInfo($id = 0, $DoProfile = false) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
@@ -235,9 +235,12 @@ class RestaurantController extends Controller {
                 $ob->populate($update,$addlogo);
                 $ob->save();
 
+                if(!$post['id']){
+                    $post['id'] = $ob->id;
+                }
+
                 // first delete all existing cuisines for this restaurant in cuisines table, then add new ones
                 $restCuisine_ids = \App\Http\Models\Cuisines::where('restID', $post['id'])->get();
-
                 foreach ($restCuisine_ids as $c) {
                     \App\Http\Models\Cuisines::where('id', $c->id)->delete();
                 }
@@ -247,6 +250,17 @@ class RestaurantController extends Controller {
                 $cuisinesExplCnt=count($cuisinesExpl);
                 for($i=0;$i<$cuisinesExplCnt;$i++){
                     \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
+                }
+
+                if($DoProfile){
+                    $update=$post;
+                    $update["restaurant_id"] = $post['id'];
+                    unset($update["id"]);
+                    $update = \App\Http\Models\Profiles::makenew($update);
+                    $update = login($update);
+
+                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["email"], "type" => "Email", "enabled" => 1));
+                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
                 }
                 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
@@ -284,7 +298,7 @@ class RestaurantController extends Controller {
                 return $this->failure("[Price] field is missing!", 'restaurant/menus-manager');
             }
             if (!isset($post['description']) || empty($post['description'])) {
-                return $this->failure("[Description] field is missing!", 'restaurant/menus-manager');
+                //return $this->failure("[Description] field is missing!", 'restaurant/menus-manager');
             }
             if (!\Input::hasFile('menu_image')) {
                 return $this->failure("[Image] field is missing!", 'restaurant/menus-manager');
@@ -305,7 +319,7 @@ class RestaurantController extends Controller {
                 $item['restaurant_id'] = \Session::get('session_restaurant_id');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
-                $item['description'] = $post['description'];
+                if(isset($post['description'])){$item['description'] = $post['description'];}
                 $item['image'] = $post['image'];
                 $item['has_addon'] = (count($post['addon_menu_item']) > 0) ? 1 : 0;
                 $item['parent'] = 0;

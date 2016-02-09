@@ -244,7 +244,10 @@
                     success: function (msg) {
                         $('.overlay_reservation').hide();
                         if (msg == '1') {
-                            alert('Email Already Registred.');
+                            $('#ordered_email').focus();
+                            $('.email_error').show();
+                            $('.email_error').html('Email Already Registred.');
+                            //$('.email_error').fadeOut(2000);
                         } else if (msg == '6') {
 
                             window.location = "{{url('orders/list/user?flash=1')}}";

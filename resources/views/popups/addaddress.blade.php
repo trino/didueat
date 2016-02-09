@@ -1,35 +1,34 @@
-<?php printfile("views/popups/addaddress.blade.php"); ?>
-
 <div class="modal fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h4 class="modal-title" id="editLabel">Add/Edit Address
-                                        @if(debugmode()) (index) @endif
-                                    </h4>
-                                </div>
-                                <div id="ajaxloader"></div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editLabel">Add/Edit Address
+                    @if(debugmode()) (index) @endif
+                </h4>
+            </div>
+            <?php
+                printfile("views/popups/addaddress.blade.php");
+                $class = '';
+                if(isset($loaded_from)){
+                    $class= $loaded_from;
+                }
+            ?>
+            <div id="ajaxloader"></div>
+            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class)) !!}
 
-                                <?php
-                                        $class = '';
-                                     if(isset($loaded_from))
-                                        $class= $loaded_from;
-                                ?>
-                                {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class)) !!}
+                <div class="modal-body" id="contents"></div>
 
-                                    <div class="modal-body" id="contents">
-                    
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 <script>
     var oldID = 0;
     $('body').on('click', '.editRow, #addNew', function () {

@@ -194,6 +194,12 @@ class HomeController extends Controller {
     }
 
     public function test(){
+        $array['mail_subject'] = "TEST EMAIL";
+        $array['message'] = "TEST MESSAGE";
+        $array["email"] = read("email");
+        $array["orderid"] = $_GET["orderid"];
+        $this->sendEMail("emails.receipt", $array);
+        die("Test email sent");
         return view('test');
     }
 
@@ -307,7 +313,7 @@ class HomeController extends Controller {
                 return $this->failure(trans('messages.user_passwords_mismatched.message'),$Redirect, true);
             }*/
 
-            return app('App\Http\Controllers\RestaurantController')->restaurantInfo();
+            return app('App\Http\Controllers\RestaurantController')->restaurantInfo(0,true);
         } else {
             $data['title'] = "Signup Restaurants Page";
 //            $data['countries_list'] = \App\Http\Models\Countries::get();

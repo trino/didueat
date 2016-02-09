@@ -62,7 +62,7 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 
 
                     <div class="col-xs-2 p-a-0">
-                        <img style="width:100px;height:100px;" class="img-circle" alt=""
+                        <img style="width:100px;height:100px;" class="img-rouned" alt=""
                              src="{{ asset('assets/images/' . $logo) }}">
 
 
@@ -73,8 +73,14 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 
 
                         <span class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                }}
+                        </span>
+
+                        @if(false)
+                        <span class="card-text">{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
                             , {{ select_field("countries", 'id', $value['country'], 'name') }}
                         </span>
+@endif
                         <br>
 
                         <!--span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
