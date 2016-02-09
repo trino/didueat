@@ -1,4 +1,7 @@
-<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;">
+<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+">
 
     <!--div class="container  p-y-2">
         <div class="row ">

@@ -319,7 +319,7 @@ class RestaurantController extends Controller {
                 $item['restaurant_id'] = \Session::get('session_restaurant_id');
                 $item['menu_item'] = $post['menu_item'];
                 $item['price'] = $post['price'];
-                if(isset($post['description']){$item['description'] = $post['description'];}
+                if(isset($post['description'])){$item['description'] = $post['description'];}
                 $item['image'] = $post['image'];
                 $item['has_addon'] = (count($post['addon_menu_item']) > 0) ? 1 : 0;
                 $item['parent'] = 0;

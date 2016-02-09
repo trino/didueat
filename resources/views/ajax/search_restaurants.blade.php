@@ -62,7 +62,7 @@ printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 
 
                     <div class="col-xs-2 p-a-0">
-                        <img style="width:100px;height:100px;" class="img-circle" alt=""
+                        <img style="width:100px;height:100px;" class="img-rouned" alt=""
                              src="{{ asset('assets/images/' . $logo) }}">
 
 

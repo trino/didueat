@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-primary" role="navigation">
 
-<div class="container" style="padding-top: 0px !important;">
+<div class="container" style="padding: 0px !important;">
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
