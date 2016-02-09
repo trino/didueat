@@ -70,8 +70,9 @@ foreach ($cuisineListA as $name) {
 
 echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
-if(!$minimum){
+if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
+        $logoname = 'assets/images/restaurants/'. $restaurant->id .'/thumb_' . $restaurant->logo;
         ?>
         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload</a>
 
@@ -79,14 +80,16 @@ if(!$minimum){
             <input type="hidden" name="logo" id="hiddenLogo"/>
 
             <img id="picture" class="logopic" align=""
-                 @if(isset($restaurant->logo) && $restaurant->logo != "")
-                 src="{{ asset('assets/images/restaurants/'. ((isset($restaurant->id))?$restaurant->id:'') .'/thumb_'. ((isset($restaurant->logo))?$restaurant->logo:'')). '?'.mt_rand() }}"/>
-            @else
-                src="{{ asset('assets/images/didueatdefault.png') }}" />
-                <script>
-                    document.getElementById('uploadbtn').innerHTML = "Update";
-                </script>
-            @endif
+                @if(isset($restaurant->logo) && $restaurant->logo != "")
+                    title="{{ $logoname }}"
+                    src="{{ asset($logoname) }}"
+                @else
+                    src="{{ asset('assets/images/didueatdefault.png') }}"
+                    <script>
+                        document.getElementById('uploadbtn').innerHTML = "Update";
+                    </script>
+                @endif
+            />
         </div>
     </div></div>
 

@@ -417,19 +417,26 @@ class RestaurantController extends Controller {
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
             $MakeCornerTransparent = false;
+            $sizes=true;
             if ($type == 'restaurant') {
-                $path = 'assets/images/restaurants';
+                $RestaurantID = read("restaurant_id");
+                $path = 'assets/images/restaurants/' . $RestaurantID;
+                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
                 \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
             } else {
                 $path = 'assets/images/products';
+                $sizes=false;//where do these go? Shouldn't there be a product ID?
             }
             if(!is_dir(public_path($path))){
                 mkdir(public_path($path));
             }
-
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
+            if($sizes){
+                $sizes = [$path . '/thumb_' => MED_THUMB, $path . '/thumb1_' => SMALL_THUMB];
+                copyimages($sizes, public_path($path) . '/' . $file, $file, false, true);
+            }
             $file_path = url() . "/" . $path . "/" . $file;
             echo $file_path . '___' . $file;
         }

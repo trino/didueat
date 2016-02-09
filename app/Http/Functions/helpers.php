@@ -1096,17 +1096,17 @@
     }
 
 //resize an image
-    function resize($file, $sizes, $CropToFit = false, $delimeter = "x") {
+    function resize($file, $sizes, $CropToFit = false, $AllowSmaller = false, $delimeter = "x") {
         if (is_array($sizes)) {
             $images = array();
             foreach ($sizes as $size) {
-                $images[] = resize($file, $size, $CropToFit, $delimeter);
+                $images[] = resize($file, $size, $CropToFit, $AllowSmaller, $delimeter);
             }
             return $images;
         } else {
             $newsize = explode($delimeter, $sizes);
             $newfile = getfilename($file) . '-' . $sizes . "." . getextension($file);
-            return getdirectory($file) . "/" . make_thumb($file, $newfile, $newsize[0], $newsize[1], false);
+            return getdirectory($file) . "/" . make_thumb($file, $newfile, $newsize[0], $newsize[1], $CropToFit, $AllowSmaller);
         }
     }
 
@@ -1204,10 +1204,10 @@
 
 //copies an image ($file) to a new location
 //$sizes contains an array of key=path, value=size
-    function copyimages($sizes, $file, $name, $CropToFit = false) {
+    function copyimages($sizes, $file, $name, $CropToFit = false, $AllowSmaller = false) {
         if (file_exists($file) && !is_dir($file)) {
             foreach ($sizes as $path => $size) {
-                $rsize = resize($file, $size, $CropToFit);
+                $rsize = resize($file, $size, $CropToFit, $AllowSmaller);
                 copy($rsize, public_path($path . $name));
                 @unlink($rsize);
             }

@@ -40,14 +40,6 @@ class AdministratorController extends Controller {
                     if (empty($post['password'])) {
                         return $this->failure( "[New Password] is missing!",'dashboard');
                     }
-                    /*
-                    if (empty($post['confirm_password'])) {
-                        return $this->failure("[Confirm Password] is missing!",'dashboard');
-                    }
-                    if ($post['password'] != $post['confirm_password']) {
-                        return $this->failure("[Passwords] are mis-matched!",'dashboard');
-                    }
-                    */
                     $data['password'] = $post['password'];
                 } else if ($post['password']){// || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
@@ -58,7 +50,7 @@ class AdministratorController extends Controller {
                     $im = explode('.', $post['photo']);
                     $ext = end($im);
                     $res = \App\Http\Models\Restaurants::find($post['restaurant_id']);
-                    $newName = $res->photo; // (OK for now, but not properly written, as it will always be named profile with a customized ext)
+                    $newName = $res->photo; // (OK for now, but not properly written, as it will always be named profile with a customized ext) (which is what it should be!!!)
                     if ($newName != $post['photo']){
                         $newName = $res->slug . '.' . $ext;
                         if(file_exists(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName))){
@@ -71,7 +63,7 @@ class AdministratorController extends Controller {
                     $destinationPath = public_path('assets/images/restaurants/' . $post['restaurant_id']);
 
                     $filename = $destinationPath . "/" . $newName;
-                    copy($post['userPhotoTemp'], public_path('assets/images/users/' . $post['user_idDir'] . '/'."profile.".$ext));
+                    copy($post['userPhotoTemp'], public_path('assets/images/users/' . $post['user_idDir'] . '/profile.' .$ext));
                     @unlink($post['userPhotoTemp']);
                     $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => SMALL_THUMB];
                     copyimages($sizes, $filename, $newName);
