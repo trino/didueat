@@ -461,7 +461,7 @@
                 $session_type_user = 'user';
             }
         }
-        
+
         \Session::put('session_type_user', $session_type_user);
         \Session::put('session_id', $Profile->id);
         \Session::put('session_profiletype', $Profile->profile_type);
@@ -1681,16 +1681,6 @@
             $html .= stars($target_id, $value, $countExit, $start1Half, "1.5");
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
-
-            if ($add_rate_brn === true && \Session::has('session_id')) {
-                $html .= '<a href="#" style="" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
-            }
-
-//            if ($add_rate_brn == true) {
-//                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a> ';
-//            }
-
-
 
             $html .= ' </div>';
         }

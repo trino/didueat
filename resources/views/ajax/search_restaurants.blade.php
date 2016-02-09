@@ -66,7 +66,7 @@
                         <img style="width:100px;height:100px;" class="img-rouned" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </div>
 
-                    <div class="col-xs-9">
+                    <div class="col-xs-10">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
 
                         <span class="card-text">
