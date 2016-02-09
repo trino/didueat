@@ -1603,6 +1603,11 @@
         return number_format($value, 1, '.', '');
     }
 
+
+
+
+
+
 //gets a rating
     function rating_get($target_id = 0, $rating_id = 0, $type = "") {
         $fetch = App\Http\Models\RatingUsers::select(DB::raw('SUM(rating) as rating'))->where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->first();
@@ -1615,11 +1620,7 @@
     function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true) {
         $html = "";
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
-            if($add_rate_brn==2){
-                $update_class = ($type == "rating") ? $class_name : '';
-            } else {
-                $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';
-            }
+            $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';
             $checked_class = ' checked-stars ';
 
             $startHalf = 'class="' . $update_class . '"';
@@ -1666,7 +1667,7 @@
                 $item_name = select_field("restaurants", "id", $target_id, "name");
             }
 
-            $html .= '<div class="' . $type . '">&nbsp;';
+            $html .= '<div class="' . $type . '">';
             if ($TwoLines) {
                 $html .= '<br>';
             }
@@ -1682,6 +1683,14 @@
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
 
+//            if ($add_rate_brn == true) {
+//                $html .= ' <a href="#" class="reviews_detail" data-rating-id="' . $value->id . '" data-item-type="' . $load_type . '" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a> ';
+//            }
+
+            if ($add_rate_brn == true && \Session::has('session_id')) {
+                $html .= '<a href="#" style="" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '">Reviews (' . $count_rating . ')</a>';
+            }
+
             $html .= ' </div>';
         }
 
@@ -1689,7 +1698,67 @@
     }
 
     function select_rating_starts($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating') {
-        return rating_initialize($type, $load_type, $target_id, $TwoLines, $class_name, 2);//duplicate code, combined into 1 function
+        $html = "";
+        foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
+            $update_class = ($type == "rating") ? $class_name : '';
+            $checked_class = ' checked-stars ';
+
+            $startHalf = 'class="' . $update_class . '"';
+            $start1 = 'class="' . $update_class . '"';
+            $start1Half = 'class="' . $update_class . '"';
+            $start2 = 'class="' . $update_class . '"';
+            $start2Half = 'class="' . $update_class . '"';
+            $start3 = 'class="' . $update_class . '"';
+            $start3Half = 'class="' . $update_class . '"';
+            $start4 = 'class="' . $update_class . '"';
+            $start4Half = 'class="' . $update_class . '"';
+            $start5 = 'class="' . $update_class . '"';
+
+            $average = rating_get($target_id, $value->id, $load_type);
+            if ($average == 0.5) {
+                $startHalf = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 1.0) {
+                $start1 = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 1.5) {
+                $start1Half = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 2.0) {
+                $start2 = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 2.5) {
+                $start2Half = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 3.0) {
+                $start3 = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 3.5) {
+                $start3Half = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 4.0) {
+                $start4 = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 4.5) {
+                $start4Half = 'checked class="' . $checked_class . $update_class . '"';
+            } else if ($average == 5.0) {
+                $start5 = 'checked class="' . $checked_class . $update_class . '"';
+            }
+
+            $user_id = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
+            $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
+
+            $html .= '<div class="' . $type . '">&nbsp;';
+            //$value->title;
+            if ($TwoLines) {
+                $html .= '<br>';
+            }
+            $html .= stars($target_id, $value, $countExit, $start5, "5");
+            $html .= stars($target_id, $value, $countExit, $start4Half, "4.5");
+            $html .= stars($target_id, $value, $countExit, $start4, "4");
+            $html .= stars($target_id, $value, $countExit, $start3Half, "3.5");
+            $html .= stars($target_id, $value, $countExit, $start3, "3");
+            $html .= stars($target_id, $value, $countExit, $start2Half, "2.5");
+            $html .= stars($target_id, $value, $countExit, $start2, "2");
+            $html .= stars($target_id, $value, $countExit, $start1Half, "1.5");
+            $html .= stars($target_id, $value, $countExit, $start1, "1");
+            $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
+            $html .= ' </div>';
+        }
+
+        return $html;
     }
 
 //prints 1 star
@@ -1700,8 +1769,21 @@
             $half = "half";
             $class = $half;
         }
-        return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" value="' . $Number . '" ' . $start . ' /><label class = "m-b-0 ' . $class . '" for="star' . $Number . $half . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
+        return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" value="' . $Number . '" ' . $start . ' /><label class = "' . $class . '" for="star' . $Number . $half . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //converts a CSV array into one where each value is in a single quote
     function strToTagsConversion($string = "") {

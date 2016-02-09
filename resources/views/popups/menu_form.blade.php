@@ -55,7 +55,7 @@
 
 
             <div class="col-md-9 "><input class="form-control newtitle ignore" type="text" placeholder="Title" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-            <div class="col-md-3 "><input class="form-control newprice pricechk ignore" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
+            <div class="col-md-3 "><input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price $" value="{{ (isset($model->price))? $model->price : "" }}"/></div>
 
 
 

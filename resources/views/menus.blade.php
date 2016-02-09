@@ -20,7 +20,6 @@
                 $has_image = false;
             }
 
-
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
         ?>
 

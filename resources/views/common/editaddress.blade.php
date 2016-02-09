@@ -4,7 +4,7 @@
 if (isset($GLOBALS["editaddress"])) {
     return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
 }
-printfile("views/common/editaddress.blade.php");
+
 $GLOBALS["editaddress"] = true;
 
 if (!isset($new)) {
@@ -24,7 +24,7 @@ if (!isset($is_disabled)) {
 }
 
 $readonly = " readonly";
-$isUser = isset($apartment); // set by addressesFind 
+$isUser = isset($apartment); // set by addressesFind
 $needsmobile = isset($mobile);
 $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 ?>
@@ -36,7 +36,11 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
 <div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown">
-    <?php if(read('id')){echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true); ?>
+
+
+    <?php if(read('id')){
+
+    echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true); ?>
             <!--div class="input-group-btn addressdropdown"-->
 
     @if(isset($type) && (Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
@@ -72,8 +76,9 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
             </div>
             <?php }
-            }else{?>
-            <select class="col-md-11 form-control reservation_address_dropdown" >
+            }else{
+            ?>
+            <select class="col-md-11 form-control reservation_address_dropdown">
                 <option value="">Select Address</option>
                 <?php
                 $sec = false;
@@ -84,7 +89,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                     if (!trim($address->location)) {
                         $address->location = "Address: " . $address->id;
                     }
-                    echo '  <option class="dropdown-item" ';
+                    echo '<option class="dropdown-item" ';
                     echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
                     echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
                     echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
@@ -98,7 +103,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             </select>
             <?php
             }
-             ?>
+            ?>
 
         @endif
     @endif
@@ -112,7 +117,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
         <div class="nowrap" <?php if (isset($type)) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>"
                    id="formatted_address<?php if (isset($type)) echo '3';?>" class="form-control formatted_address"
-                   placeholder="Address, City or Postal Code" value="<?php
+                   placeholder="Enter your full address" value="<?php
             if (old('formatted_address')) {
                 echo old('formatted_address');
                 //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
@@ -129,6 +134,8 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 </div></div>
 <?php }?>
 </div>
+
+
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation') echo "style='display:none;'";?> >
 
     <?php
@@ -138,7 +145,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
         $aptUnit = "Unit";
     }
     echo newrow($new, $aptUnit . " #", "", false, 5); ?>
-    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder="{{ $aptUnit }} #"
+    <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
 </div></div>
 
@@ -156,7 +163,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
 <?= newrow($new, "Postal Code", "", $required, 5); ?>
 <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();"
-       class="form-control postal_code" placeholder="Postal Code"
+       class="form-control postal_code" placeholder=""
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
@@ -169,24 +176,17 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <?php
 if(isset($restSignUp)){
 
-        ?>
-<div id="verifyAddress" style="display:none">
-
-<?
-echo newrow($new, "Important", "", true, 10, true);
 ?>
-
-
-
+<div id="verifyAddress" style="display:none">
+    <?
+    echo newrow($new, "Important", "", true, 10, true);
+    ?>
     <div class="instruct">Please Ensure Address was Correctly Filled-out</div>
 </div>
-
-
 
 <?php
 echo newrow();
 }
-
 
 if($isUser){
 echo newrow($new, "Notes", "", false, 9);
@@ -195,7 +195,6 @@ echo newrow($new, "Notes", "", false, 9);
 <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
        value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
 </div></div>
-
 <?php }
 ?>
 

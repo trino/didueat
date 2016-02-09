@@ -98,16 +98,21 @@
                         <div class="">
                             <div class=""><strong class="">These items are:</strong></div>
                             <div class="infolist">
+
+                                <label><input type="radio" value="1" onclick="$(this).closest('.radios').find('.is_req').val(1);"
+                                              class="is_required" name="{{ $r1 }}"
+                                              @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif>
+                                    Required
+                                </label>
+
+                                &nbsp; OR &nbsp;
+
                                 <label><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);"
                                               class="is_required" value="0" name="{{ $r1 }}"
                                               @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif>
                                     Optional</label>
-                                &nbsp; OR &nbsp;
-                                <label><input type="radio" value="1"
-                                              onclick="$(this).closest('.radios').find('.is_req').val(1);"
-                                              class="is_required" name="{{ $r1 }}"
-                                              @if(isset($child->req_opt) && $child->req_opt == 1) checked="checked" @endif>
-                                    Required</label>
+
+
                                 <input type="hidden" class="is_req"
                                        @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) value="0"
                                        @else value="1" @endif />

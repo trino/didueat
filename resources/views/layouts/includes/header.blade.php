@@ -42,7 +42,7 @@
                                     href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
                                     class="nav-link">De-possess</a></li>
                     @endif
-                    <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log Out</a></li-->
+                    <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li>
                 @else
                     <li class="nav-item">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</a>
