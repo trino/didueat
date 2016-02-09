@@ -320,13 +320,12 @@
     });
 
     $(document).ready(function () {
-        add_all(true, true, true);
+        add_all(true, true);
         $("#profiles1").validate({
             rules: {
                 phone: {
                     required: true,
-                    checkPhone: true,
-                    checkLen: true
+                    checkPhone: true
                 },
                 email: {
                     required: true,
@@ -347,8 +346,7 @@
             messages: {
                 phone: {
                     required: "Please enter a phone number",
-                    checkPhone: "Invalid character. Please just use numbers and hyphens",
-                    checkLen: "Phone number must be 10 numbers long"
+                    checkPhone: "Invalid Phone number",
                 },
                 email: {
                     required: "Please enter an email address!",

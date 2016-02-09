@@ -1,5 +1,5 @@
 <?php printfile("views/common/edituser.blade.php"); ?>
-<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP) }}" type="text/javascript"></script>
 <meta name="_token" content="{{ csrf_token() }}" />
 
 <div class="form-group">

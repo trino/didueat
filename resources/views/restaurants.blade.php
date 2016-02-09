@@ -219,6 +219,7 @@ $type = "hidden";
             if (getCookie('address')) {
                 $('#formatted_address2').val(getCookie('address'));
                 $("#header-search-button").show();
+                $('#search-form-submit').trigger('click');
             }
             if (getCookie('latitude2')) {
                 $('#latitude2').val(getCookie('latitude2'));
@@ -255,35 +256,6 @@ $type = "hidden";
             }
         }
 
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + "; " + expires;
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1);
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
-
-        function removeCookie(cname) {
-            $.removeCookie(cname);
-            $('#search-form #name').val('');
-            $('#search-form #' + cname).val('');
-            //createCookie(cname, "", -1);
-        }
-
-        function createCookieValue(cname, cvalue) {
-            setCookie(cname, cvalue, 1);
-        }
-
         $('body').on('click', '#clearSearch', function () {
             removeCookie('cname');
             removeCookie('radius');
@@ -309,9 +281,12 @@ $type = "hidden";
             var latitude2 = $('#latitude2').val().trim();
             var longitude2 = $('#longitude2').val().trim();
             var address_alias = $('#formatted_address2').val();
+
+            createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude2', longitude2);
             createCookieValue('latitude2', latitude2);
             createCookieValue('address', address_alias);
+
             var token = $('#search-form input[name=_token]').val();
             var data = $('#search-form').serialize() + "&latitude=" + latitude2 + "&longitude=" + longitude2 + "&formatted_address=" + address_alias;
 

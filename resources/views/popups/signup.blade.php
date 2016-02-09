@@ -70,7 +70,7 @@
 
 <script>
     $(document).ready(function () {
-        add_all(true, true, true);
+        add_all(true, true);
         $('#register-form').validate({
             rules: {
                 name: {
@@ -90,8 +90,7 @@
                 },
                 phone: {
                     required: true,
-                    checkPhone: true,
-                    checkLen: true
+                    checkPhone: true
                 }
             },
             messages: {
@@ -101,8 +100,7 @@
                 },
                 phone: {
                     required: "Please enter a phone number",
-                    checkPhone: "Invalid character. Please just use numbers and hyphens",
-                    checkLen: "Phone number must be 10 numbers long"
+                    checkPhone: "Invalid Phone number"
                 }
             }
         });

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
-    <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
+    <script src="<?= url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP); ?>" type="text/javascript"></script>
     <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
 

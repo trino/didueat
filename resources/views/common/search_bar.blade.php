@@ -1,31 +1,34 @@
-
+<?php
+    printfile("views/common/search_bar.blade.php");
+    includeJS(url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP));
+    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+    }
+?>
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
     <div class="" style="width: 450px;">
         <div class="input-group">
             <div class="input-group-btn">
-
                 @if(read("id") && false)
                     <?php
-                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                    if($addresses->count()){
+                        $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                        if($addresses->count()){
                     ?>
-                    <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"><span
-                                class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
+                    <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
                     </button>
                     <div class="dropdown-menu dropdown-menu-left">
                         <?php
-                        foreach ($addresses as $address) {
-                            if (!$first) {
-                                $first = $address->id;
+                            foreach ($addresses as $address) {
+                                if (!$first) {
+                                    $first = $address->id;
+                                }
+                                if (!trim($address->location)) {
+                                    $address->location = "Address: " . $address->id;
+                                }
+                                echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
                             }
-                            if (!trim($address->location)) {
-                                $address->location = "Address: " . $address->id;
-                            }
-                            echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
-                        }
-
                         ?>
                     </div>
                     <?php } ?>
@@ -47,7 +50,7 @@
 
             <div class="input-group-btn">
                 <button class="btn  btn-primary dueBtn" oldstyle="display: none;" id="header-search-button"
-                        onclick="$('#search-form-submit').trigger('click')">&nbsp;<i class="fa fa-search"></i>&nbsp;
+                        onclick="$('#search-form-submit').trigger('click');">&nbsp;<i class="fa fa-search"></i>&nbsp;
                 </button>
             </div>
         </div>
@@ -85,17 +88,6 @@
             echo '$("#addy' . $first . '").trigger("click");';
         } ?>
     </script>
-
-
-    <?php
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
-    ?>
-
-
-
 @endif
                 
 

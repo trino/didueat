@@ -220,13 +220,13 @@ if (isset($restEdit)) {
 @else
     <?php
     if (!isset($_GET['route'])) {
-        includeJS(url("assets/global/scripts/provinces.js"));
+        includeJS(url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP));
         if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
             //echo "<script>initAutocomplete();</script>";
         }
 
     } else {
-        includeJS(url("assets/global/scripts/provinces.js"));
+        includeJS(url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP));
         if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
             echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
         }

@@ -337,12 +337,9 @@ var FormValidation = function () {
 
 
 //Custom validators
-var phoneRep = /[\-\ \,\(\)\.]/g;
-
-function add_all(pattern, phone, length){
+function add_all(pattern, phone){
     if(pattern){add_matchpattern();}
     if(phone){add_checkphone();}
-    if(length){add_checklength();}
 }
 
 function add_matchpattern() {
@@ -357,23 +354,8 @@ function add_matchpattern() {
 
 function add_checkphone() {
     jQuery.validator.addMethod("checkPhone", function (value, element) {
-        var numStr = "0123456789";
-        var cleanedPhone = value.replace(phoneRep, '');
-        var numOK = true;
-        for (var i = 0; i < cleanedPhone.length; i++) {
-            if (numStr.indexOf(cleanedPhone.charAt(i)) == -1) {
-                numOK = false;
-                break;
-            }
-        }
-        return numOK;
-    });
-}
-
-function add_checklength() {
-    jQuery.validator.addMethod("checkLen", function (value, element) {
-        var cleanedPhone = value.replace(phoneRep, '');
-        if (cleanedPhone.length != 10) {
+        value = value.replace(/\D/g,'');
+        if (value.length != 10) {
             return false;
         }
         return true;

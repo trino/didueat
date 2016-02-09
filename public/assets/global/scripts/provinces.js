@@ -55,30 +55,6 @@ $(document).ready(function() {
     }
 });
 
-function getplace(ID){
-    alert("TESTING FOR: " + initAutocomplete());
-    alert(simpleStringify(fillInAddress()));
-}
-
-function simpleStringify (object){
-    var simpleObject = {};
-    for (var prop in object ){
-        if (!object.hasOwnProperty(prop)){
-            continue;
-        }
-        if (typeof(object[prop]) == 'object'){
-            continue;
-        }
-        if (typeof(object[prop]) == 'function'){
-            continue;
-        }
-        simpleObject[prop] = object[prop];
-    }
-    return JSON.stringify(simpleObject); // returns cleaned up JSON
-};
-
-
-
 //Google Api Codes.
 $('#formatted_address, #formatted_address1, #formatted_address2, #formatted_address3, #formatted_address4').keydown(function (e) {
   if (e.which == 13 && $('.pac-container:visible').length) return false;
@@ -129,8 +105,9 @@ function getplace(){
     if(isvalid(formatted_address5, "formatted_address5")){ return formatted_address5; }
     return formatted_address;
 }
-function fillInAddress1() {
 
+function fillInAddress1() {
+    //this should be merged with fillInAddress, there should be no duplicate code
     // Get the place details from the formatted_address object.
     var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();
@@ -220,7 +197,7 @@ function fillInAddress() {
         if(isundefined(place)) {
             var place = formatted_address3.getPlace();
         }else {
-            var place = formatted - address.getPlace();
+            var place = formatted_address.getPlace();
         }
     } else {
         var place = formatted_address.getPlace();
@@ -328,73 +305,6 @@ function simpleStringify (object){
     return JSON.stringify(simpleObject); // returns cleaned up JSON
 };
 
-function geolocate(formatted_address) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            $('#latitude').val( position.coords.latitude );
-            $('#longitude').val( position.coords.longitude );
-            
-            $.ajax({
-                url: 'http://maps.googleapis.com/maps/api/geocode/json',
-                type: "get",
-                dataType: "HTML",
-                data: 'sensor=false&latlng=' + position.coords.latitude + ',' + position.coords.longitude,
-                success: function(msg) {
-                    var data = JSON.parse(msg).results[0];
-                    var street_number = 0;
-                    //$(".formatted_address").val(data.formatted_address);
-
-                    for(i = 0; i < data.address_components.length; i++){
-                        var withdata = data.address_components[i];
-                        var value = withdata.long_name;//also accepts short_name
-                        switch (withdata.types[0]){
-                            case "street_number":
-                                street_number = value;
-                                break;
-                            case "route":
-                                $(".formatted_address").val(street_number + " " + value);
-                                //$("#rout_street_number").val(street_number + " " + value);
-                                break;
-                            case "postal_code":
-                                $("#postal_code").val(value);
-                                break;
-                            case "country":
-                                //$("#country option").filter(function() {return this.text == value;}).attr('selected', true);
-                                break;
-                            case "locality":
-                                $("#city").val(value);
-                                break;
-                            case "administrative_area_level_1":
-                                $("#province option").filter(function() {return this.text == value;}).attr('selected', true);
-                                break;
-                        }
-                    }
-
-                    $(".formatted_address").attr("title", position.coords.latitude + ',' + position.coords.longitude)
-                    $(".formatted_address").trigger("change");
-                    alert('Please make sure the address is correct');
-                },
-                error: function(msg){
-                    alert("ERROR: " + msg);
-                }
-            });
-
-            var circle = new google.maps.Circle({
-                center: geolocation,
-                radius: position.coords.accuracy
-            });
-            formatted_address.setBounds(circle.getBounds());
-        });
-    } else {
-        alert("Sorry. Your browser does not support geo-location");
-    }
-}
-
 function chkCBs(cb){
     if(cb){
         if(cbchkd > 2){
@@ -408,4 +318,33 @@ function chkCBs(cb){
         cbchkd--;
         return false;
     }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 86400000));//24 * 60 * 60 * 1000
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+function removeCookie(cname) {
+    $.removeCookie(cname);
+    $('#search-form #name').val('');
+    $('#search-form #' + cname).val('');
+    //createCookie(cname, "", -1);
+}
+
+function createCookieValue(cname, cvalue) {
+    setCookie(cname, cvalue, 1);
 }

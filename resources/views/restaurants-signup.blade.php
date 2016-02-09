@@ -125,18 +125,16 @@
 
         $(document).ready(function () {
 //          Demo.init();
-            add_all(true, true, true);
+            add_all(true, true);
 
             $("#signupForm").validate({
                 rules: {
                     phone: {
                         required: true,
-                        checkPhone: true,
-                        checkLen: true
+                        checkPhone: true
                     },
                     mobile: {
-                        checkPhone: true,
-                        checkLen: true
+                        checkPhone: true
                     },
                     email: {
                         required: true,
@@ -165,8 +163,7 @@
                         remote: "This email address is already in use!"
                     },
                     mobile: {
-                        checkPhone: "Invalid character. Please just use numbers and hyphens",
-                        checkLen: "Phone number must be 10 numbers long"
+                        checkPhone: "Invalid phone number",
                     }
                 }
             });

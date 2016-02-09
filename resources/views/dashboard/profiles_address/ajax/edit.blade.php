@@ -126,4 +126,4 @@ function geolocate() {
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 
-<!--<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>-->
+<!--<script src="{{ url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP) }}" type="text/javascript"></script>-->

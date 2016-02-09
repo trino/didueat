@@ -703,9 +703,13 @@ if (! function_exists('url')) {
      * @param  bool    $secure
      * @return string
      */
-    function url($path = null, $parameters = [], $secure = null)
-    {
-        return app('Illuminate\Contracts\Routing\UrlGenerator')->to($path, $parameters, $secure);
+    function url($path = null, $parameters = [], $secure = null) {
+        $FileDate=false;
+        if(!is_array($parameters) && $parameters == SUNFUNCS_RET_TIMESTAMP){
+            $parameters= [];
+            $FileDate = "?" . filemtime(getcwd() . "/" . $path);
+        }
+        return app('Illuminate\Contracts\Routing\UrlGenerator')->to($path, $parameters, $secure) . $FileDate;
     }
 }
 
