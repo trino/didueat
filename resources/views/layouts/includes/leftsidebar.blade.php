@@ -33,11 +33,10 @@
                 'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
 
                 'notification/addresses' => "Notification Addresses",
-                'restaurant/info' => "Restaurant Info",
-                'credit-cards/list/restaurant' => "Credit Card"
+                'restaurant/info' => "Restaurant Info"
         ), "<h4 class='card-title'><i class='fa fa-cutlery' style='color:#0275d8 !important;margin-right:.3em;'></i> My Restaurant</h4>");
     }
-
+//,'credit-cards/list/restaurant' => "Credit Card"
     makelink(array( 'orders/list/user' => 'My Orders',
                         'user/addresses' => "My Addresses",
                         'user/info' => "My Profile",

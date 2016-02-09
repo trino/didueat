@@ -62,8 +62,12 @@
             @include("common.contactinfo", array("new"=>false, "mobile" => true))
         </div>
 
-        <div class="card-footer clearfix">
-            <input type="submit" class="btn btn-primary pull-right" value="Signup">
+        <div class="card-block ">
+            <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+<center>
+            <p class="text-muted m-b-0 p-t-1 " style="font-size:90%">By signing up, you agree to the <a href="">Terms and Conditions</a>.</p>
+</center>
+
         </div>
     </div>
 
