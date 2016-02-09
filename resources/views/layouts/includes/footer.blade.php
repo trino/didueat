@@ -415,7 +415,8 @@ Thank you">Email Us</a></li>
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
                                     $('.addressdropdown').load(document.URL + ' .addressdropdown>', function(){
-                                        $('.reservation_address_dropdown').attr('required','required');
+                                        if($('.profile_delivery_detail').is(':visible'))
+                                            $('.reservation_address_dropdown').attr('required','required');
                                     });
                                     //only loads header
                                     $('.header-nav').load(document.URL + ' .header-nav>ul');

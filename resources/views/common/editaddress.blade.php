@@ -43,9 +43,9 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
         @if(read("id"))
             <?php
             $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+            if(!isset($type)){
             if($addresses->count()){
             ?>
-            <?php if(!isset($type)){?>
             <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
@@ -71,7 +71,8 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                    class="dropdown-item">Add New Address</a>
 
             </div>
-            <?php }else{?>
+            <?php }
+            }else{?>
             <select class="col-md-11 form-control reservation_address_dropdown" >
                 <option value="">Select Address</option>
                 <?php
@@ -97,7 +98,7 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
             </select>
             <?php
             }
-            } ?>
+             ?>
 
         @endif
     @endif
