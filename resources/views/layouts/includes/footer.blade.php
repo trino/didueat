@@ -390,10 +390,11 @@
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
                                     $('.phone').val(arr.phone);
-                                    $('.reservation_address_dropdown').attr('required','required');
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
-                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>');
+                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function(){
+                                        $('.reservation_address_dropdown').attr('required','required');
+                                    });
                                     //only loads header
                                     $('.header-nav').load(document.URL + ' .header-nav>ul');
                                     $('.password_reservation').hide();
