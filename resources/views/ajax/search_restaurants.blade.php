@@ -27,6 +27,11 @@
         $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
     }
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+
+    if(is_object($count)){
+        echo "Count should not be an object!!!";
+        return;
+    }
 ?>
 
 <DIV class="list-group" id="restuarant_bar">

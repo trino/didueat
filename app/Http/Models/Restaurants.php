@@ -138,7 +138,7 @@ class Restaurants extends BaseModel {
         $DayOfWeek = current_day_of_week();
         $now = date('H:i:s');
         $Yesterday = current_day_of_week(-1);
-        $DeliveryHours = $data['delivery_type'] == "is_delivery";
+        $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
         $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
