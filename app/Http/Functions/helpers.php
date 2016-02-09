@@ -1,5 +1,9 @@
 <?php
     define("MAX_DELIVERY_DISTANCE", 30);
+    define("TINY_THUMB", '40x40');
+    define("SMALL_THUMB", '120x120');
+    define("MED_THUMB", '145x145');
+    define("BIG_THUMB", '362x362');
 
     function asmoney($value) {
         return "$" . number_format($value, 2);

@@ -202,7 +202,7 @@ class RestaurantController extends Controller {
                     $filename = $destinationPath . "/" . $newName;
                     copy(public_path('assets/images/restaurants/' . $post['logo']), $filename);
                     @unlink(public_path('assets/images/restaurants/' . $post['logo']));
-                    $sizes = ['assets/images/restaurants/' . $post['id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['id'] . '/thumb1_' => '120x85'];
+                    $sizes = ['assets/images/restaurants/' . $post['id'] . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $post['id'] . '/thumb1_' => SMALL_THUMB];
                     copyimages($sizes, $filename, $newName);
                     $update['logo'] = $newName;
                     $addlogo=true;
@@ -489,7 +489,7 @@ class RestaurantController extends Controller {
                     }
                     copy($filename, public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/' . $newName));
                     unlink($filename);
-                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb_' => '150x145', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb1_' => '362x181', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb2_' => '40x35'];
+                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb1_' => BIG_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb2_' => TINY_THUMB];
                     $filename = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/' . $newName);
                     copyimages($sizes, $filename, $newName);
                     $men = new \App\Http\Models\Menus();
@@ -529,7 +529,7 @@ class RestaurantController extends Controller {
 
                     copy($filename, public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/' . $newName));
                     unlink($filename);
-                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb_' => '150x145', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb1_' => '362x181', 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb2_' => '40x35'];
+                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb1_' => BIG_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb2_' => TINY_THUMB];
                     $filename = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/' . $newName);
                     copyimages($sizes, $filename, $newName);
                     $men = new \App\Http\Models\Menus();

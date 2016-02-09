@@ -73,7 +73,7 @@ class AdministratorController extends Controller {
                     $filename = $destinationPath . "/" . $newName;
                     copy($post['userPhotoTemp'], public_path('assets/images/users/' . $post['user_idDir'] . '/'."profile.".$ext));
                     @unlink($post['userPhotoTemp']);
-                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => '145x100', 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => '120x85'];
+                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => SMALL_THUMB];
                     copyimages($sizes, $filename, $newName);
 
                     $post['photo'] = "profile.".$ext;
