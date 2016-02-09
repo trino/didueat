@@ -627,7 +627,12 @@ class RestaurantController extends Controller {
 
     //quick redirect to a restaurant's page using it's slug, and it's subpage ($path2)
     public function redfront($path, $slug, $path2) {
-        return \Redirect::to($path . '/' . $slug . '/' . $path2)->with('message', 'Restaurant menu successfully updated');
+        if(isset($_GET['menuadd']))
+        $query = '?menuadd';
+        else
+        if(isset($_GET['sorted']))
+        $query = '?sorted';
+        return \Redirect::to($path . '/' . $slug . '/' . $path2.$query);
     }
 
     //load orders

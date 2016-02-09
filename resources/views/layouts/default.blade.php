@@ -117,7 +117,7 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 
-<div class="container-fluid m-t-3 p-x-0 p-t-0">
+<div class="container-fluid m-t-3 p-x-0 p-t-0" style="margin-top: 5rem!important;">
 
 
     @include('common.alert_messages')

@@ -1,16 +1,25 @@
 <div class="alert alert-success" role="alert"
      style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
     Item has been added/updated successfully
 </div>
 
 <div class="alert alert-success" role="alert"
      style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
     Menu item moved successfully
 </div>
 
 <?php Session();?>
 @if (session('status')|| isset($_GET['flash']))
     <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
         <?php if(isset($_GET['flash'])){?>
         <strong>Thank you!</strong>
         <?php if ($_GET['flash'] == '1')
@@ -30,7 +39,11 @@
             die();
         $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN
                     ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
-        echo '<div class="alert alert-danger" ID="invalid-data"><STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
+        echo '<div class="alert alert-danger" ID="invalid-data">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+        <STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
         \Session::forget('invalid-data');
     ?>
     <SCRIPT>
