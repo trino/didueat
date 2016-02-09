@@ -63,7 +63,7 @@ class CreditCardsController extends Controller {
                     $creditcard->save();
                     \DB::commit();
                     if($post['user_type'] == "restaurant"){
-                        $this->updatestore($post['user_id']);
+                        //$this->updatestore($post['user_id']);
                     }
                     return $this->success('Credit card has been saved successfully.', 'credit-cards/list/' . $type);
                 } else {

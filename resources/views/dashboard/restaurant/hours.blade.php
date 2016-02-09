@@ -1,30 +1,30 @@
 <?php
-printfile("dashboard/restaurant/hours.blade.php");
-$layout = false;
-$day_of_week = getweekdays();
+    printfile("dashboard/restaurant/hours.blade.php");
+    $layout = false;
+    $day_of_week = getweekdays();
 
-$restaurantID = \Session::get('session_restaurant_id');
-if (!$restaurantID) {
-    $restaurantID = 0;
-}
-if (isset($resturant->id)) {
-    $restaurantID = $resturant->id;
-}
-
-$IsPickup = old('is_pickup', -999);
-if ($IsPickup == -999) {
-    if (isset($restaurant->is_pickup)) {
-        $IsPickup = $restaurant->is_pickup;
-    } else {
-        $IsPickup = 1;
+    $restaurantID = \Session::get('session_restaurant_id');
+    if (!$restaurantID) {
+        $restaurantID = 0;
     }
-}
+    if (isset($resturant->id)) {
+        $restaurantID = $resturant->id;
+    }
 
-if (!isset($is_disabled)) {
-    $is_disabled = false;
-}
+    $IsPickup = old('is_pickup', -999);
+    if ($IsPickup == -999) {
+        if (isset($restaurant->is_pickup)) {
+            $IsPickup = $restaurant->is_pickup;
+        } else {
+            $IsPickup = 1;
+        }
+    }
 
-$value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
+    if (!isset($is_disabled)) {
+        $is_disabled = false;
+    }
+
+    $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
 ?>
 <?php echo newrow($new, "Allow pickup"); ?>
     <LABEL class="c-input c-checkbox">
@@ -184,7 +184,10 @@ echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
             element.setAttribute("old", element.value);
             element.value = "";
         } else {
-            element.value = element.getAttribute("old");
+            var tempstr = element.getAttribute("old");
+            if(tempstr || !element.value){
+                element.value = tempstr;
+            }
         }
         change(name, ID);
     }

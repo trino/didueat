@@ -1,11 +1,4 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: Van
-     * Date: 2/1/2016
-     * Time: 8:30 PM
-     */
-
     $RestaurantID=$Restaurant; // copy ID before it variable changes
     $Restaurant = select_field("restaurants", "id", $Restaurant);
 
@@ -46,21 +39,20 @@
 
         //check hours of operation
         $weekdays = getweekdays();
+        $doesopen = false;
         $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
-        $DayOfWeek = current_day_of_week();
-        $now = date('H:i:s');
         foreach ($weekdays as $weekday) {
-            foreach (array("_close", "_close_del") as $field) { // only the close needs to be checked, as 12:00 is often an opening time
+            foreach (array("_open", "_open_del", "_close", "_close_del") as $field) {
                 $field = $weekday . $field;
-                if ($Restaurant->$field != "12:00:00" && $Restaurant->$field != "00:00:00") {
-                    $weekdays = false;
-                } else {
-                    $someHoursNotOK = true;
-                }
+                if ($Restaurant->$field != "00:00:00") {
+                    $doesopen = true;
+                } //else {
+                  //  $someHoursNotOK = true;
+                //}
             }
         }
 
-        if ($weekdays) {
+        if (!$doesopen) {
             $MissingData[] = "Hours of operation <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Hours of Operation</u>)</a>";
         } elseif ($someHoursNotOK) {
             $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Complete Hours Open</u>)</a>";
@@ -73,6 +65,8 @@
         }
 
         if ($MissingData) {
+            printfile("views/common/required_to_open.php");
+
             $missingHeadInitialReg="";
             if (isset($post['initialRestSignup'])) {
                 $missingHeadInitialReg = '<span style="font-size:20px">PARTIAL REGISTRATION COMPLETED!</span> &nbsp;';
