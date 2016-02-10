@@ -91,10 +91,12 @@ abstract class Controller extends BaseController {
 
         event(new \App\Events\AppEvents($user, "User Created"));
 
-        if(isset($post['formatted_addressForDB']) && isset($post['formatted_address'])) {
+        if(isset($post['formatted_addressForDB']) && (isset($post['formatted_address'])||isset($post['address']))) {
             $post["user_id"] = $user->id;
             $post["formatted_address"] = $post['formatted_addressForDB'];
+            if(isset($post['formatted_address']))
             $post['address'] = $post['formatted_address'];
+            
             \App\Http\Models\ProfilesAddresses::makenew($post);
         }
         if($user->id && $login){

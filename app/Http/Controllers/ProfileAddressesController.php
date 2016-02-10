@@ -153,7 +153,9 @@ class ProfileAddressesController extends Controller {
     } 
 
     public function addressEdit($id=0){
+        
         $post = \Input::all();
+        //var_dump($post); 
         if(!$id || !is_numeric($id)){
             $post["user_id"] = read("id");
             $post["id"] = 0;
@@ -168,6 +170,7 @@ class ProfileAddressesController extends Controller {
              $ob->save();
              $thismsg="edited";
         } else {
+            
             $add = \App\Http\Models\ProfilesAddresses::makenew($post, $id);
             if(isset($_GET['ajax'])) {
                 $address = \App\Http\Models\ProfilesAddresses::find($add->id);

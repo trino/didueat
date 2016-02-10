@@ -46,10 +46,14 @@ function changeqty(id, opr) {
         {
               $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
                
-                if($(this).attr('name')!='apartment'){
-                     
-                    $(this).attr('required','required');
+                if($(this).attr('name')=='apartment' || $(this).attr('name')=='address'){
+                    //do nothing
+                    //alert($(this).attr('name'));
                     }
+                else
+                {
+                    $(this).attr('required','required');
+                }
             });
             $('#df').show();
             $('.profile_delevery_type').text('Delivery To');

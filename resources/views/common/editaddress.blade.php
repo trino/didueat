@@ -38,16 +38,21 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 <div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown">
 
 
-    <?php if(read('id')){
-
-    echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true); ?>
+    <?php 
+    
+    echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
+    if(read('id')){
+            
+        ?>
             <!--div class="input-group-btn addressdropdown"-->
 
-    @if(isset($type) && (Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
-        @if(read("id"))
+    @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menus' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
+        
             <?php
             $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+            
             if(!isset($type)){
+                
             if($addresses->count()){
             ?>
             <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
@@ -76,7 +81,9 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
 
             </div>
             <?php }
-            }else{
+            }
+            else
+            {
             ?>
             <select class="col-md-11 form-control reservation_address_dropdown">
                 <option value="">Select Address</option>
@@ -97,26 +104,29 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                     echo '</option>';
                 }
                 ?>
-                <option data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew"
-                        class="dropdown-item">Add New Address
-                </option>
+                <!--option data-target="#editModel" data-toggle="modal" data-route="reservation" 
+                        class="dropdown-item addNew" data-id='0' value="add_address">Add New Address
+                </option-->
             </select>
+            OR 
+            <a data-target="#editModel" data-toggle="modal" data-route="reservation" 
+                        class=" addNew btn btn-primary" data-id='0' value="add_address">Add New Address
+                </a>
             <?php
             }
             ?>
 
-        @endif
+    
     @endif
-
-
-    @if($is_disabled)
-        <input type="text" id="formatted_address<?php if (isset($type)) echo '3';?>" disabled name="formatted_address"
+<?php }?>
+@if($is_disabled)
+        <input type="text" id="formatted_address<?php if (isset($type)) echo '';?>" disabled name="formatted_address"
                class="form-control"
-               value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}">
+               value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
-        <div class="nowrap" <?php if (isset($type)) echo "style='display:none'";?>>
+        <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>"
-                   id="formatted_address<?php if (isset($type)) echo '3';?>" class="form-control formatted_address"
+                   id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address" value="<?php
             if (old('formatted_address')) {
                 echo old('formatted_address');
@@ -126,17 +136,16 @@ $restSignUp = !isset($addresse_detail);//no idea what this needs to be
                 //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
                 echo $addresse_detail->address;
             }
-            ?>" autocomplete="off"
-                   style="">
+            ?>" autocomplete="off" />
         </div>
     @endif
-
-</div></div>
-<?php }?>
 </div>
+</div></div>
+
+    
 
 
-<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation') echo "style='display:none;'";?> >
+<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
 
     <?php
     if ($isUser) {
@@ -206,10 +215,14 @@ if (isset($restEdit)) {
     echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
     */
 }
+
 ?>
 
-<?php if(!isset($type))
-{?>
+<?php 
+
+similar_text(\Request::path(),'user/addresses/edit', $per);
+
+if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $per >80){?>
 @if(isset($dontinclude))
     <SCRIPT>
         $(document).ready(function () {
