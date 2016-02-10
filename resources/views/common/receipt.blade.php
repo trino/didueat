@@ -144,7 +144,7 @@
                             <?php printfile("receipt.blade.php/checkout_form"); ?>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-
+                            <input type="hidden" name="added_address" value="" class="added_address"/>
                             <div class="col-sm-12">
                                 <input type="text" placeholder="Full Name"
                                        class="form-control" name="ordered_by"
@@ -156,7 +156,7 @@
                                        name="email" id="ordered_email" required=""
                                        value="{{ (isset($profile))? $profile->email : '' }}" <?php if((isset($profile)))echo "readonly";?> />
                             </div>
-                            <div class="col-sm-12 email_error" style="display: none;" >
+                            <div class="col-sm-12 email_error" style="display: none; color: red;" >
                                 
                             </div>
                             @if(!Session::has('is_logged_in'))
@@ -315,7 +315,8 @@
                             $('.reservation_address_dropdown option[value="' + msg['id'] + '"]').attr('selected','selected');
                         });
                         
-                        $('#formatted_address3').val(msg['formatted_address']);
+                        $('.formatted_address').val(msg['formatted_address']);
+                        $('.added_address').val(msg['address']);
                         $('.apratment').val(msg['apartment']);
                         $('.city').val(msg['city']);
                         $('.province').val(msg['province']);

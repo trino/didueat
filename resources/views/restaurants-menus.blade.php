@@ -205,7 +205,7 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
             $('#profiles').submit(function (e) {
 
                 e.preventDefault();
-                $('.overlay_reservation').show();
+                $('.overlay_loader').show();
                 var token = $('#profiles input[name=_token]').val();
                 var datas = $('#profiles input, select, textarea').serialize();
                 var order_data = $('.receipt_main input').serialize();
@@ -214,7 +214,7 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     url: '<?php echo url(); ?>/user/ajax_register',
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
-                        $('.overlay_reservation').hide();
+                        $('.overlay_loader').hide();
                         if (msg == '1') {
                             $('#ordered_email').focus();
                             $('.email_error').show();

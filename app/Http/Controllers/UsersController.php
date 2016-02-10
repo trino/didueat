@@ -307,6 +307,8 @@ class UsersController extends Controller {
                 if (\Input::has('address')) {
                     $res['address2'] = $post['address'];
                 }
+                if($post['added_address']!='')
+                    $res['address2'] = $post['added_address'];
                 if (\Input::has('city')) {
                     $res['city'] = $post['city'];
                 }
