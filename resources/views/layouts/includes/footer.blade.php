@@ -155,13 +155,14 @@ Thank you">Email Us</a></li>
             var type = $(this).attr('data-type');
             var dataname = $(this).attr('data-item-name');
             var detail = $(this).attr('data-reviews-detail');
+            var target_id = $(this).attr('data-target-id');
 
             $("#ratingModal #ratingModalLabel").text(dataname);
             $("#ratingModal #reviews").text(detail);
             $("#ratingModal #modal_contents").show();
 
-            $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type}, function (result) {
-                if (result) {
+            $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type, target_id: target_id}, function (result) {
+                if(result){
                     $("#ratingModal #modal_contents").html(result);
                 } else {
                     $("#ratingModal #modal_contents").hide();
