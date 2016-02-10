@@ -176,6 +176,12 @@ class HomeController extends Controller {
         return view('restaurants', $data);
     }
 
+    public function simplemodal($page = false){
+        $post = \Input::all();
+        if(!$page && isset($post["page"])){$page = $post["page"];}
+        return view($page, $post);
+    }
+
     /**
      * Search Menus
      * @param $term

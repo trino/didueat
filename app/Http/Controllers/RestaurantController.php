@@ -210,7 +210,7 @@ class RestaurantController extends Controller {
 
                 $update['name'] = $post['restname'];
                 if (!$post['id']){
-                    $update['slug'] = $this->createslug($post['name']);
+                    $update['slug'] = $this->createslug($post['restname']);
                 }
 
                 $Fields = array("email", "apartment", "phone", "description", "city", "country", "tags", "postal_code", "cuisine" => "cuisines", "province", "address" => "formatted_address", "formatted_address" => "formatted_addressForDB");

@@ -35,7 +35,7 @@
                 <ul class="list-inline">
 
 
-                    @include('popups.allergy')
+                    @include('popups.simplemodal')
 
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
                     <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20diduEAT&body=
@@ -66,28 +66,24 @@ Thank you">Email Us</a></li>
                     }
                     ?>
 
-
-                    <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#allergyModal">Allergy</a>
+                    <li class="list-inline-item">
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
+                    <li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a>
+                    </li>
 
-
-                    <li class="list-inline-item"><a
-                                href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a></li>
-
-                    <li class="list-inline-item"><a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
-
-
+                    <li class="list-inline-item"><a href="{{ url("home/terms") }}">
+                            <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-2" style="">
                 <h4>
-                    <A href="https://www.instagram.com/didueat/" target="_blank"><i
-                                class="fa fa-instagram pull-right"></i></A>
-                    <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
-                                class="fa fa-twitter pull-right"></i></A>
-                    <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
-                                class="fa fa-facebook pull-right"></i></A>
+                    <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram pull-right"></i></A>
+                    <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter pull-right"></i></A>
+                    <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook pull-right"></i></A>
                 </h4>
             </div>
             <div class="col-lg-12 " style="font-size: 90%;">
@@ -150,6 +146,21 @@ Thank you">Email Us</a></li>
     });
 
     $(document).ready(function () {
+
+        $('body').on('click', '.simplemodal', function () {
+            var id = $(this).attr('data-id');
+            $("#allergyModal #modal_loader").show();
+            $.post("{{ url('home/simplemodal') }}/" + id, {}, function (result) {
+                $("#allergyModal #modal_loader").hide();
+                if(result){
+                    $("#allergyModal #modal_contents").html(result);
+                    $("#allergyModal #simpleModalLabel").html( $("#allergyModal #modaltitle").val() );
+                } else {
+                    $("#allergyModal #modal_contents").hide();
+                }
+            });
+        });
+
         $('body').on('click', '.reviews_detail', function () {
             var rating_id = $(this).attr('data-rating-id');
             var type = $(this).attr('data-type');

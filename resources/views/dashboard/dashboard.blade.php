@@ -119,7 +119,7 @@
             }
 
             add_all(true, true);
-            $("#profileForm").validate(makerules({phone: "phone required", email: "email required"}));
+            $("#profileForm").validate(makerules({phone: "phone required"}));
         });
     </script>
 @stop

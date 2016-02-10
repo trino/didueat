@@ -68,7 +68,7 @@
             $(".restaurant_id").hide();
         }
     }
-    
+
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){

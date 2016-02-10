@@ -20,6 +20,8 @@ Route::post('/uploadimg/{type}',                                    'HomeControl
 Route::post('/newsletter/subscribe',                                'HomeController@newsletterSubscribe');
 Route::post('/rating/save',                                         'HomeController@ratingSave');
 Route::get('/test',                                                 'HomeController@test');
+Route::get('home/simplemodal/{page}',                               'HomeController@simplemodal');
+Route::post('home/simplemodal/{page}',                              'HomeController@simplemodal');
 
 //Authentication routes...
 Route::post('auth/login/ajax',                                      'Auth\AuthController@authenticateAjax');
