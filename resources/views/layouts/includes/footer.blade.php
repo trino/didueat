@@ -33,6 +33,10 @@
         <div class="row">
             <div class="col-lg-10 ">
                 <ul class="list-inline">
+
+
+                    @include('popups.allergy')
+
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
                     <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20diduEAT&body=
 Message:
@@ -48,12 +52,6 @@ Contact Number:
 Thank you">Email Us</a></li>
 
 
-
-
-
-
-
-
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                     <?php
                     if (!read("id")) {
@@ -67,14 +65,17 @@ Thank you">Email Us</a></li>
                         $ownerSignup = "Signup";
                     }
                     ?>
+
+
+                    <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#allergyModal">Allergy</a>
+                    </li>
+
+
+
                     <li class="list-inline-item"><a
                                 href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a></li>
 
-                    <li class="list-inline-item"> <a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
-
-
-
-
+                    <li class="list-inline-item"><a href="{{ url("home/terms") }}">Terms & Conditions</a></li>
 
 
                 </ul>
@@ -120,7 +121,7 @@ Thank you">Email Us</a></li>
                         ?>
                     @endif
 
-</p>
+                </p>
 
             </div>
         </div>
@@ -158,9 +159,9 @@ Thank you">Email Us</a></li>
             $("#ratingModal #ratingModalLabel").text(dataname);
             $("#ratingModal #reviews").text(detail);
             $("#ratingModal #modal_contents").show();
-            
+
             $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type}, function (result) {
-                if(result){
+                if (result) {
                     $("#ratingModal #modal_contents").html(result);
                 } else {
                     $("#ratingModal #modal_contents").hide();
@@ -173,7 +174,7 @@ Thank you">Email Us</a></li>
             var rating_id = $(this).attr('data-rating-id');
             var target_id = $(this).attr('data-target-id');
             var type = $(this).attr('data-type');
-            
+
             $('#ratingModal').modal('show');
             $("#ratingModal #message-error").hide();
             $("#ratingModal #message-success").hide();
@@ -354,7 +355,7 @@ Thank you">Email Us</a></li>
             $.post("{{ url('auth/forgot-password/ajax') }}", {_token: token, email: email}, function (result) {
                 $("#forgot-pass-form #lostPWregButton").show();
                 $("#forgot-pass-form #regLoader").hide();
-                
+
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
                     alert(json.message);
@@ -367,7 +368,7 @@ Thank you">Email Us</a></li>
                     $('#lostPWregButton').hide();
                     $('#forgot-pass-success p').html(json.message);
                 }
-                    
+
             });
             e.preventDefault();
         });
@@ -414,9 +415,9 @@ Thank you">Email Us</a></li>
                                     $('.phone').val(arr.phone);
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
-                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function(){
-                                        if($('.profile_delivery_detail').is(':visible'))
-                                            $('.reservation_address_dropdown').attr('required','required');
+                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                                        if ($('.profile_delivery_detail').is(':visible'))
+                                            $('.reservation_address_dropdown').attr('required', 'required');
                                     });
                                     //only loads header
                                     $('.header-nav').load(document.URL + ' .header-nav>ul');
@@ -449,13 +450,13 @@ Thank you">Email Us</a></li>
 
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
-            <?php
-                $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
-                foreach( $fields as $field){
-                echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
-                }
-            ?>
-            var subscribed = 0;
+                    <?php
+                        $fields = array("name", "email", "password", "formatted_address", "address", "postal_code", "phone", "country", "province", "city", "apartment", "gmt");//, "confirm_password"
+                        foreach( $fields as $field){
+                        echo 'var ' . $field . ' = $("#register-form input[name=' . $field . ']").val();' . "\r\n";
+                        }
+                    ?>
+                    var subscribed = 0;
             if ($("#register-form input[name=subscribed]").is(':checked')) {
                 subscribed = $("#register-form input[name=subscribed]").val();
             }
@@ -491,7 +492,7 @@ Thank you">Email Us</a></li>
         });
 
         function redirectToDashboard(is_first_login) {
-            if(is_first_login){
+            if (is_first_login) {
                 return window.location.replace("{{ url('/dashboard/1') }}");
             } else {
                 return window.location.replace("{{ url('/dashboard') }}");
