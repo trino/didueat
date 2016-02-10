@@ -25,19 +25,18 @@
     }
 
     $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
+    $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
 ?>
 <?php echo newrow($new, "Allow pickup"); ?>
     <LABEL class="c-input c-checkbox">
-        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
-               value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
+        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
         <span class="c-indicator"></span>
     </LABEL>
 </DIV></DIV>
 
 <?php echo newrow($new, "Allow delivery"); ?>
     <LABEL class="c-input c-checkbox">
-        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
-               value="1" {{ (old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0))?'checked':'' }} />&nbsp;
+        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ ($is_delivery)?'checked':'' }} />&nbsp;
         We Offer Delivery
         <span class="c-indicator"></span>
     </LABEL>
@@ -159,19 +158,17 @@ echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
 <hr width="100%" align="center">
 <button type="submit" class="btn btn-primary pull-right">Save</button>
 
-
-
 <script>
-    //is_delivery_change();
+    is_delivery_change();
     function is_delivery_change() {
         if ($('#is_delivery').is(':checked')) {
             $('#is_delivery_options').show();
-//            $('.is_delivery_options').show();
+            $('.is_delivery_options').show();
         } else {
-//            $('#is_delivery_options').hide();
-//            $('.is_delivery_options').hide();
+            $('#is_delivery_options').hide();
+            $('.is_delivery_options').hide();
         }
-        same(false);
+        //same(false);
     }
 
     function closed(event, ID) {
