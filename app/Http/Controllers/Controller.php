@@ -54,13 +54,14 @@ abstract class Controller extends BaseController {
 
     public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
         $email_verification = false;
+        //var_dump($post);
         if(!$post){
             $post = \Input::all();
         }
         if(!$browser_info) {
             $browser_info = getBrowser();
         }
-
+        
         if($createdby){
             $post['created_by'] = \Session::get('session_id');
         }

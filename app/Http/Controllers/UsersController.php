@@ -287,6 +287,7 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
+                $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
                 $res['order_type'] = $post['order_type'];
