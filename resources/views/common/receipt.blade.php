@@ -31,7 +31,7 @@
     <div class="card" style="">
 
         <div class="card-header">
-            <h4 class="card-title">Your {{ $ordertype }} Order</h4>
+            <h4 class="card-title">Your Order</h4>
         </div>
 
 
@@ -48,7 +48,11 @@
                                 <tr>
                                     <td colspan="2">
                                         <label class="radio-inline c-input c-radio">
-                                            <input type="radio" id="delivery1" name="delevery_type" onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');">
+                                            <input type="radio"
+                                                   id="delivery1"
+                                                   name="delevery_type"
+                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
+                                            >
                                             <span class="c-indicator"></span>
                                             <strong>Delivery</strong>
                                         </label>
@@ -56,7 +60,6 @@
                                         <label class="radio-inline c-input c-radio">
                                             <input type="radio" id="pickup1" name="delevery_type"
                                                    class="deliverychecked"
-                                                   checked='checked'
                                                    onclick="delivery('hide'); $(this).addClass('deliverychecked');">
                                             <span class="c-indicator"></span>
                                             <strong>Pickup</strong>
@@ -296,7 +299,11 @@
 
     $(function(){
         show_header();
-        $('#delivery1').click();
+        @if($ordertype == "Delivery")
+            $('#delivery1').click();
+        @else
+           $('#pickup1').click();
+        @endif
         //save address
         $('#edit-form').submit(function(e){
             if($(this).hasClass('reservation')) {
