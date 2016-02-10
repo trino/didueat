@@ -115,7 +115,7 @@
         @include('layouts.includes.header')
 
 
-        <div class="container-fluid m-t-3 p-x-0 p-t-0" style="">
+        <div class="container-fluid p-x-0" style="">
 
             @include('common.alert_messages')
 

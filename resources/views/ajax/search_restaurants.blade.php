@@ -74,16 +74,11 @@ if (is_object($count)) {
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
                     </a>
-                    {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
 
-                    @if(false)
-                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                        , {{ select_field("countries", 'id', $value['country'], 'name') }}
+                    <div class="">{!! rating_initialize("static-rating", "restaurant", $value['id']) !!}</div>
+                    <div>{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}</div>
 
-                        <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
-                              TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
-                    @endif
-                    <br>
+
                     <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
                         <span class="p-r-2">Delivery:
 
@@ -98,10 +93,14 @@ if (is_object($count)) {
                     @if(isset($latitude) && $radius)
                             <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
                     @endif
+                    @if(false)
+                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                        , {{ select_field("countries", 'id', $value['country'], 'name') }}
 
-                    <div class="clearfix">
-                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-                    </div>
+                        <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
+                              TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
+                    @endif
+
                 </div>
                 <div class="clearfix"></div>
 
