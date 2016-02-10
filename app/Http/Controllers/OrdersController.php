@@ -311,6 +311,7 @@ class OrdersController extends Controller {
             }
         }
         echo '</TABLE>';
+        echo '<input type="button" value="Go Back" onclick="history.back(-1);" />';
         die();
     }
 

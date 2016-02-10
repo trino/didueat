@@ -19,12 +19,11 @@
                         Restaurant
                     @endif
                     Orders
-                    @if(true)
 
-                        <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print
-                            Report</a>
+                    <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
+                    @if($type == "admin")
+                        <a class="btn btn-primary btn-sm" href="{{ url('orders/alertstore') }}" class="">Notify All</a>
                     @endif
-
                 </h4>
 
             </div>
