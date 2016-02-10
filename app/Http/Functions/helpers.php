@@ -5,9 +5,15 @@
     define("MED_THUMB", '145x145');
     define("BIG_THUMB", '362x362');
 
-    function asmoney($value)
+    function asmoney($value, $free)
     {
+        if ($free) {
+            if ($value == '0') {
+                return "Free";
+            }
+        }
         return "$" . number_format($value, 2);
+
     }
 
     function getfield($object, $Field)

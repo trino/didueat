@@ -63,41 +63,47 @@ if (is_object($count)) {
             <div class="list-group-item">
 
 
-                    <div class="col-xs-2 p-a-0">
-                        <a  href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                <div class="col-xs-2 p-a-0">
+                    <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <img style="width:100px;height:100px;" class="img-rouned" alt=""
                              src="{{ asset('assets/images/' . $logo) }}">
-                            </a>
-                    </div>
+                    </a>
+                </div>
 
-                    <div class="col-xs-10">
-                        <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                <div class="col-xs-10">
+                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
-</a>
-                            {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                    </a>
+                    {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
 
-                        @if(false)
-                                {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                                , {{ select_field("countries", 'id', $value['country'], 'name') }}
+                    @if(false)
+                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                        , {{ select_field("countries", 'id', $value['country'], 'name') }}
 
-                            <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
-                                  TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
-                        @endif
-<br>
-                        <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
-                        <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee']) }}</span>
-                        <span class="p-r-2">Minimum: {{ asmoney($value['minimum']) }}</span>
-                        <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
+                        <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
+                              TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
+                    @endif
+                    <br>
+                    <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
+                        <span class="p-r-2">Delivery:
 
-                        @if(isset($latitude) && $radius)
-                                <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
-                        @endif
+                            {{ asmoney($value['delivery_fee'],$free=true) }}
 
-                        <div class="clearfix">
-                             {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-                        </div>
+                        </span>
+                    <span class="p-r-2">Minimum: {{ asmoney($value['minimum'],$free=false) }}
+
+                    </span>
+                    <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
+
+                    @if(isset($latitude) && $radius)
+                            <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
+                    @endif
+
+                    <div class="clearfix">
+                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </div>
-                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
 
             </div>
 

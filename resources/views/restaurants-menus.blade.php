@@ -1,64 +1,72 @@
 @extends('layouts.default')
-
-
 @section('content')
-
-    <div class="container-fluid bg-primary main-bg-image"
-         style="
-                 ">
-
-
+    <div class="container-fluid bg-primary main-bg-image">
         <?= printfile("views/restaurants-menus.blade.php"); ?>
 
         <div class="container p-y-2">
             <div class="row">
-                    <div class="col-md-2 p-r-0">
-                        <img style="width:115px;height:115px;" class="pull-left img-circle"
-                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                             @else
-                             src="{{ asset('assets/images/default.png') }}"
-                             @endif
-                             alt="">
+                <div class="col-md-2 p-r-0">
+                    <img style="width:115px;height:115px;" class="pull-left img-circle"
+                         @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                         src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                         @else
+                         src="{{ asset('assets/images/default.png') }}"
+                         @endif
+                         alt="">
 
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="col-md-10 p-l-0">
+
+                    <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+
+                    <div id="restaurant_rating">
+                        <a style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
+                            Details</a>
+                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
                         <div class="clearfix"></div>
-
                     </div>
 
-                    <div class="col-md-10 p-l-0">
+<span class="card-text m-b-0 p-r-2">
+Address: {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+    {!! (isset($restaurant->province))? 'ON':'' !!}
+    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+</span>
 
-                        <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
 
-                        <div id="restaurant_rating">
-                            <a style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
-                                Details</a>
-                            {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
-                        </div>
+<span class="card-text m-b-0">
 
-                        <div class="clearfix"></div>
 
-                        <p class="card-text m-b-0">
-                            {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                            {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                            {!! (isset($restaurant->province))? 'ON':'' !!}
-                            {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-                        </p>
+Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
 
-                        <p class="card-text " style="">
-                            {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                            <?php
-                            $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                            echo "Open today: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close");
-                            echo " - Delivery: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del");
-                            ?>
-                            @if (Session::get('session_type_user') == "super" )
-                                Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                            @endif
-                        </p>
 
-                        <div class="clearfix"></div>
 
-                    </div>
+</span>
+                    <br>
+<span class="card-text">
+<?php
+    $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+    echo "<span class='p-r-2'>Hours: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close") . "</span>";
+    echo "<span class='p-r-2'>Delivery hours: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del") . "</span>";
+    ?>
+
+
+    <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
+
+
+<span class="p-r-2">Minimum: {{ asmoney($restaurant->minimum,$free=false) }}</span>
+
+
+    @if (Session::get('session_type_user') == "super" )
+        Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+    @endif
+</span>
+
+                    <div class="clearfix"></div>
+
+                </div>
 
 
             </div>
@@ -78,32 +86,17 @@
 
 
             <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
-                <?php printfile("views/restaurants-menus.blade.php"); ?>
-
 
                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
-
-
                     <div class="m-b-1 ">
-
-
                         <a href="#" id="add_item0" type="button btn-primary btn-block"
                            class="btn btn-primary additem  btn-block"
                            data-toggle="modal"
                            data-target="#addMenuModel">
                             Add Menu Item
                         </a>
-
-
                     </div>
-
-
-
                 @endif
-
-
-
 
                 @if(isset($restaurant))
 
@@ -130,42 +123,31 @@
                                         $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
                                     }
                                 },
-                                error: function(res){
-                                  if (res != 'no') {
+                                error: function (res) {
+                                    if (res != 'no') {
                                         $("#postswrapper_{{ $cat->id }}").html(res);
                                     }
                                     else {
                                         $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
-                                    }  
+                                    }
                                 }
                             });
                         });
                     </script>
                     @endforeach
 
-                    <!--input type="file" accept="image/*;capture=camera"-->
+                            <!--input type="file" accept="image/*;capture=camera"-->
             </div>
-
 
             <div class=" col-md-4 col-sm-4" id="printableArea">
                 @include('common.receipt')
             </div>
 
-
         </div>
     </div>
 
 
-
-
-
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
-
-
-
-
-
 
         <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
              aria-labelledby="addMenuModelLabel"
@@ -192,20 +174,13 @@
 
 
 
-
-
-
-
-
-
-
     <script type="text/javascript">
         function check_val(v) {
             if (v != '') {
-                //$('.confirm_password').show();
-                //$('#confirm_password').attr('required', 'required');
+//$('.confirm_password').show();
+//$('#confirm_password').attr('required', 'required');
             } else {
-                //$('#confirm_password').removeAttr('required');
+//$('#confirm_password').removeAttr('required');
             }
         }
         $(document).ready(function () {
@@ -219,8 +194,8 @@
                     $('#confirm_password').removeAttr('required');
                 }
 
-                //password.onchange = validatePassword;
-                //confirm_password.onkeyup = validatePassword;
+//password.onchange = validatePassword;
+//confirm_password.onkeyup = validatePassword;
             }
 
             $('.back').live('click', function () {
@@ -244,7 +219,7 @@
                             $('#ordered_email').focus();
                             $('.email_error').show();
                             $('.email_error').html('Email Already Registred.');
-                            //$('.email_error').fadeOut(2000);
+//$('.email_error').fadeOut(2000);
                         } else if (msg == '6') {
 
                             window.location = "{{url('orders/list/user?flash=1')}}";
@@ -268,7 +243,7 @@
                 var menu = $(this).attr('id');
                 if (menu) {
                     menu = menu.replace('clear_', '');
-                    //alert(menu);
+//alert(menu);
                     $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                         if (!$(this).hasClass('chk'))
                             $(this).removeAttr("checked");
@@ -284,7 +259,7 @@
                 menu = menu.replace('clear_', '');
 
                 $('.number' + menu).html('1');
-                //alert(menu);
+//alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
                         $(this).removeAttr("checked");
@@ -297,7 +272,7 @@
                 var banner = $(this).parent().parent().parent().find('.bannerz');
                 banner.animate({scrollLeft: 0}, 1000);
             });
-            //add items to receipt
+//add items to receipt
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
 
@@ -455,7 +430,7 @@
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-                    
+
                 }
 
                 ids = ids.replace("__", "_");
@@ -551,35 +526,35 @@
                 $('div.grandtotal').text('$' + gtotal);
                 $('input.grandtotal').val(gtotal);
                 $('#cart-total').text(gtotal);
-                
-                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+
+                $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
-                       
+
                         var title = tit.split("_");
                         if (index != 0) {
                             extratitle = extratitle + "," + title[1];
                         }
                         var su = "";
-    
+
                         if ($(this).val() != "") {
                             var cnn = 0;
                             var catid = $(this).attr('id');
-                           
+
                             $('.extra-' + catid).each(function () {
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
                                     var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
                                     var tit1 = $(this).attr('title');
-                                    
+
                                     tit1 = tit1.split('_');
-                                    tit1[0]=tit1[0].replace('-'+qty,'');
-                                    tit1[1]=tit1[1].replace(" x("+qty+")","");
-                                    nwtit = tit1[0]+"_"+tit1[1]+"_"+tit1[2];
-                                    
-                                    $(this).attr('title',nwtit);
-                                    
-                                    
+                                    tit1[0] = tit1[0].replace('-' + qty, '');
+                                    tit1[1] = tit1[1].replace(" x(" + qty + ")", "");
+                                    nwtit = tit1[0] + "_" + tit1[1] + "_" + tit1[2];
+
+                                    $(this).attr('title', nwtit);
+
+
                                 }
                             });
                         }

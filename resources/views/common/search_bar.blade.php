@@ -8,10 +8,11 @@
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
     <div class="" style="width: 450px;">
-        <div class="input-group">
-            <div class="input-group-btn">
+        <div class="input-group input-group-lg">
                 @if(read("id") && false)
-                    <?php
+                <div class="input-group-btn">
+
+                <?php
                         $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                         if($addresses->count()){
                     ?>
@@ -32,15 +33,12 @@
                         ?>
                     </div>
                     <?php } ?>
-                    @else
-                            <!--button style="border-right:0;" class="btn  btn-secondary"
-                                        onclick="geolocate(formatted_address2)" title="Get location from your browser">
-                                    &nbsp;<i class="fa fa-map-marker"></i>&nbsp;</button-->
-                @endif
             </div>
+                @endif
 
 
-            <input style="width: 400px;" type="text" name="formatted_address" id="formatted_address2"
+
+            <input style="" type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address" placeholder="Address, City or Postal Code"
                    onchange="change_address_event();" ignore_onkeyup="this.onchange();"
                    onpaste="this.onchange();"
@@ -53,6 +51,7 @@
                         onclick="$('#search-form-submit').trigger('click');">&nbsp;<i class="fa fa-search"></i>&nbsp;
                 </button>
             </div>
+
         </div>
     </div>
 
