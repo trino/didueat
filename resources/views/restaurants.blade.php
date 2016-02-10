@@ -283,6 +283,7 @@ $type = "hidden";
             var latitude2 = $('#latitude2').val().trim();
             var longitude2 = $('#longitude2').val().trim();
             var address_alias = $('#formatted_address2').val();
+            if(!address_alias){return false;}
 
             createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude2', longitude2);

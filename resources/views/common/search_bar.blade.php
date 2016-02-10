@@ -9,40 +9,37 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
     <div class="" style="width: 450px;">
         <div class="input-group input-group-lg">
-                @if(read("id") && false)
-                <div class="input-group-btn">
 
-                <?php
+            @if(read("id") && false)
+                <div class="input-group-btn">
+                    <?php
                         $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                         if($addresses->count()){
-                    ?>
-                    <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-left">
-                        <?php
-                            foreach ($addresses as $address) {
-                                if (!$first) {
-                                    $first = $address->id;
-                                }
-                                if (!trim($address->location)) {
-                                    $address->location = "Address: " . $address->id;
-                                }
-                                echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
-                            }
-                        ?>
-                    </div>
+                            ?>
+                            <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-left">
+                                <?php
+                                    foreach ($addresses as $address) {
+                                        if (!$first) {
+                                            $first = $address->id;
+                                        }
+                                        if (!trim($address->location)) {
+                                            $address->location = "Address: " . $address->id;
+                                        }
+                                        echo '  <a class="dropdown-item" href="#" id="addy' . $address->id . '" onclick="setaddress(' . "'" . addslashes($address->address) . "'" . ');">' . $address->location . ' [' . $address->address . ']</a>';
+                                    }
+                                ?>
+                            </div>
                     <?php } ?>
-            </div>
-                @endif
-
-
+                </div>
+            @endif
 
             <input style="" type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address" placeholder="Address, City or Postal Code"
-                   onchange="change_address_event();" ignore_onkeyup="this.onchange();"
-                   onpaste="this.onchange();"
-                   ignore_oninput="this.onchange();">
+                   onchange="change_address_event();"
+                   onpaste="this.onchange();">
             <input type="{{ $type }}" name="latitude2" id="latitude2">
             <input type="{{ $type }}" name="latitude2" id="longitude2">
 
@@ -79,6 +76,10 @@
             setTimeout(function () {
                 if ($("#search-form").length) {
                     $("#header-search-button").show();
+                }
+
+                if ($("#formatted_address2").val()) {
+                    $('#search-form-submit').trigger('click');
                 }
             }, 100);
         }
