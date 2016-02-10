@@ -133,14 +133,8 @@
 
         $(document).ready(function () {
 //          Demo.init();
-            add_all(true, true);
 
-            $("#signupForm").validate(makerules({
-                phone: "phone required",
-                mobile: "phone",
-                email: "email required",
-                password: "required minlength 3"
-            }));
+            validateform("signupForm", {phone: "phone required", mobile: "phone", email: "email required", password: "required minlength 3"});
 
             /* duplicates tag field
              $('#demo4').tagEditor({

@@ -143,7 +143,7 @@
 
                         @include('popups.addaddress',['loaded_from'=>'reservation'])
 
-                        <form name="checkout_form" id="profiles"  class="m-b-0">
+                        <form name="checkout_form" id="profiles" class="m-b-0">
                             <?php printfile("receipt.blade.php/checkout_form"); ?>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
@@ -175,9 +175,10 @@
 
                             <div class="form-group">
                                 <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                    <input type="text"  maxlength="10" min="10"
-                                           placeholder="Cell Phone" id="phone"
-                                           class="form-control phone" name="contact"
+                                    <input type="text"
+                                           name="phone"
+                                           placeholder="Cell Phone"
+                                           class="form-control" name="contact"
                                            id="ordered_contact" required="" value="{{ (isset($profile))? $profile->phone : '' }}" <?php if((isset($profile)&& $profile->phone!=''))echo "readonly";?> />
                                 </div>
                             </div>
@@ -336,8 +337,7 @@
     });
 
     $(document).ready(function () {
-        add_all(true, true);
-        $("#profiles1").validate(makerules({phone: "phone required", mobile: "phone", email: "email required", password: "required minlength 3", reservation_address: "required=Please select an address."}));
+        validateform("profiles", {phone: "phone required", mobile: "phone", email: "email required", password: "required minlength 3", reservation_address: "required=Please select an address."});
     });
 </script>
 @endif
