@@ -365,6 +365,11 @@ body.modal-open {
     clear: both;
 }
 
+hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .static-rating > input {
     display: none;
 }

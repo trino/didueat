@@ -1,7 +1,7 @@
 <?php
-echo printfile("views/dashboard/orders/ajax/list.blade.php");
-$secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
-$secondsTitle = "sec";
+    echo printfile("views/dashboard/orders/ajax/list.blade.php");
+    $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
+    $secondsTitle = "sec";
 ?>
 
 @if(\Session::has('message'))
@@ -84,13 +84,11 @@ $secondsTitle = "sec";
                 @foreach($Query as $value)
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td>{{ $value->status }}</td>
-
+                        <td><?= ucfirst($value->status) . '<HR>' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
 
                         <TD>
                             <?php

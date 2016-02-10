@@ -1,4 +1,12 @@
-<?php printfile("views/common/receipt.blade.php"); ?>
+<?php
+    printfile("views/common/receipt.blade.php");
+    $ordertype = "Pickup";
+    if(isset($order)){
+        if($order->order_type){
+            $ordertype = "Delivery";
+        }
+    }
+?>
 
 @if(!isset($order))
     <div class="top-cart-info">
@@ -23,7 +31,7 @@
     <div class="card" style="">
 
         <div class="card-header">
-            <h4 class="card-title">Your Order</h4>
+            <h4 class="card-title">Your {{ $ordertype }} Order</h4>
         </div>
 
 
