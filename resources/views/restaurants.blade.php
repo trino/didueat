@@ -265,6 +265,8 @@ $type = "hidden";
             removeCookie('cuisine');
             removeCookie('rating');
             removeCookie('SortOrder');
+            removeCookie('formatted_address2');
+            removeCookie('formatted_address');
             $(elementname).val('');
             //  $('#search-form #clearSearch').hide();
         });
