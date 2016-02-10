@@ -27,7 +27,7 @@ class Profiles extends BaseModel {
         $data['browser_name'] = $browser_info['name'];
         $data['browser_version'] = $browser_info['version'];
         $data['browser_platform'] = $browser_info['platform'];
-
+        if(!$this->profile_type){$this->profile_type = 2;}
         $this->copycells($cells, $data);
     }
 

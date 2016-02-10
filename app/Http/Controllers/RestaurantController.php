@@ -254,15 +254,12 @@ class RestaurantController extends Controller {
 
                 if($DoProfile){
                     $update=$post;
-                    $update["restaurant_id"] = $post['id'];
+                    $restaurant_id = $post['id'];
                     unset($update["id"]);
-                    $update = \App\Http\Models\Profiles::makenew($update);
-                    $update = login($update);
-
-                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["email"], "type" => "Email", "enabled" => 1));
-                    \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $update, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
+                    //$update = \App\Http\Models\Profiles::makenew($update); $update = login($update);
+                    $this->registeruser("RestaurantController@restaurantInfo", $update, 2, $restaurant_id, false, read("id"), true);
                 }
-                
+
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
