@@ -64,18 +64,7 @@
 </div>
 
 
-<label class="col-sm-7"><SPAN class=""><b><u>Hours Open</u>:</b></SPAN><br/></label>
-
-<LABEL class="col-sm-5">
-    <SPAN class=""><b><u>Delivery Times</u>:</b></SPAN>
-    <div>
-        <LABEL class="is_delivery_options c-input c-checkbox">
-            <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>
-            Same as Regular Hours
-            <span class="c-indicator"></span>
-        </LABEL>
-    </div>
-</LABEL>
+<label class="col-sm-12"><SPAN class=""><b><u>Hours Open</u>:</b></SPAN><br/></label>
 
 <?php
     function getkey($object, $key) {
@@ -104,9 +93,7 @@
             $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
             $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
 
-            $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-            $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-            printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled, $opentime_del, $closetime_del, "is_delivery_options is_delivery_2");
+            printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled);
         }
     }
 
@@ -118,7 +105,7 @@ foreach ($day_of_week as $key => $value) {
     printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
 }*/
 
-function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false,$opentime_del = "", $closetime_del = "", $del_class = ""){
+function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
     $layout=2;
     $width=4;
     $inputclass= "form-control time col-sm-1";
@@ -134,26 +121,37 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
             <?= $closed; ?>
         </DIV>
 
-        <div class="col-sm-{{ 9 }} nowrap">
+        <div class="col-sm-9 nowrap {{ $del_class }}">
             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
             <SPAN class="col-xs-1 to-span">to</SPAN>
             <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style="width:86px;"/>
-
-        <?php if($del_class){
-            $suffix = "_del"
-            ?>
-            <SPAN class="col-xs-1 to-span"></SPAN>
-            <div class="{{ $del_class }}">
-                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime_del }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
-                <SPAN class="col-xs-1 to-span">to</SPAN>
-                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime_del }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();"/>
-            </div>
-        <?php }
-        echo '</DIV>';
+        </DIV>
+    <?php
 }
 
 echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
 </DIV></DIV>
+
+<DIV CLASS="is_delivery_options is_delivery_2">
+    <LABEL class="col-sm-12">
+        <SPAN class=""><b><u>Delivery Times</u>:</b></SPAN>
+        <LABEL class="c-input c-checkbox">
+            <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>
+            Same as Regular Hours
+            <span class="c-indicator"></span>
+        </LABEL>
+    </LABEL>
+
+    <?php
+        foreach ($day_of_week as $key => $value) {
+            if(strpos($value, ">") === false){
+                $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+                $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+                printrow($layout, $key, $value, $opentime_del, $closetime_del, "", "", $is_disabled);
+            }
+        }
+    ?>
+</div>
 
 <hr width="100%" align="center">
 <button type="submit" class="btn btn-primary pull-right">Save</button>
