@@ -181,7 +181,7 @@ if(isset($restSignUp)){
     <?
     echo newrow($new, "Important", "", true, 10, true);
     ?>
-    <div class="instruct">Please Ensure Address was Correctly Filled-out</div>
+    <div class="instruct">Please Ensure Address was Correctly Filled Out</div>
 </div>
 
 <?php
@@ -201,8 +201,10 @@ echo newrow($new, "Notes", "", false, 9);
 
 <?php
 if (isset($restEdit)) {
+    /*
     echo newrow($new, "Save", "", "", 12, "Save");
     echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
+    */
 }
 ?>
 

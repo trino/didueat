@@ -65,10 +65,10 @@
 </div>
 
 
-<label class="col-sm-7"><SPAN class="is_delivery_2b"><b><u>Hours Open</u>:</b></SPAN><br/></label>
+<label class="col-sm-7"><SPAN class=""><b><u>Hours Open</u>:</b></SPAN><br/></label>
 
 <LABEL class="col-sm-5">
-    <SPAN class="is_delivery_2b"><b><u>Delivery Times</u>:</b></SPAN>
+    <SPAN class=""><b><u>Delivery Times</u>:</b></SPAN>
     <div>
         <LABEL class="is_delivery_options c-input c-checkbox">
             <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>
@@ -132,9 +132,7 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
         <label class="col-sm-{{ $layout }}">{{ $value }}</label>
 
         <div class="col-sm-1" align="center">
-            <SMALL>
-                <SMALL><?= $closed; ?></SMALL>
-            </SMALL>
+            <?= $closed; ?>
         </DIV>
 
         <div class="col-sm-{{ 9 }} nowrap">
@@ -157,6 +155,11 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
 
 echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
 </DIV></DIV>
+
+
+<button type="submit" class="btn btn-primary pull-right">Save</button>
+
+
 
 <script>
     //is_delivery_change();

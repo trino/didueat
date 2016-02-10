@@ -85,7 +85,7 @@ $secondsTitle = "sec";
                     <tr>
                         <td>
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">{{ $value->id }}</a>
+                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>

@@ -117,7 +117,7 @@ if (Request::path() !== null && Request::path() != "/") {
 @include('layouts.includes.header')
 
 
-<div class="container-fluid m-t-3 p-x-0 p-t-0" style="margin-top: 5rem!important;">
+<div class="container-fluid m-t-3 p-x-0 p-t-0" style="">
 
 
     @include('common.alert_messages')
@@ -125,7 +125,9 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
     @if ($Restaurant)
+        <div class="container m-t-0">
         @include('common.required_to_open')
+        </div>
     @endif
 
     @yield('content')

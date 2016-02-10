@@ -86,7 +86,7 @@
                 },
                 password: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
                 phone: {
                     required: true,
@@ -96,7 +96,7 @@
             messages: {
                 email: {
                     required: "Please enter an email address!",
-                    remote: "This email address is in use already!"
+                    remote: "This email address is in use already"
                 },
                 phone: {
                     required: "Please enter a phone number",

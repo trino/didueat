@@ -141,7 +141,7 @@
                     }
                 },
                 email: {
-                    required: "Please enter an email address!",
+                    required: "Please enter an email address",
                     remote: "This email address is already in use!"
                 }
             });

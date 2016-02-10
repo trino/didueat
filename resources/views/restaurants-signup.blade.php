@@ -146,7 +146,7 @@
                     },
                     password: {
                         required: true,
-                        minlength: 5
+                        minlength: 3
                     },
                     confirm_password: {
                         //equalTo: "#password"
@@ -159,8 +159,8 @@
                         checkLen: "Phone number must be 10 numbers long"
                     },
                     email: {
-                        required: "Please enter an email address!",
-                        remote: "This email address is already in use!"
+                        required: "Please enter an email address",
+                        remote: "This email address is already in use"
                     },
                     mobile: {
                         checkPhone: "Invalid phone number",

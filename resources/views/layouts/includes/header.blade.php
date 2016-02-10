@@ -9,7 +9,7 @@
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i>
-            <img src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
 
 

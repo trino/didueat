@@ -337,7 +337,7 @@
                 },
                 password: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
                 reservation_address: {
                     required: true,
@@ -350,7 +350,7 @@
                 },
                 email: {
                     required: "Please enter an email address!",
-                    remote: "This email address is already in use!"
+                    remote: "This email address is already in use"
                 },
                 reservation_address: {
                     required: "Please select an address.",
