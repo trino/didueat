@@ -22,7 +22,7 @@
 
                     <a class="btn btn-primary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
                     @if($type == "admin")
-                        <a class="btn btn-primary btn-sm" href="{{ url('orders/alertstore') }}" class="">Notify All</a>
+                        <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
                 </h4>
 
@@ -127,6 +127,10 @@
                                     X
                                 </a>
                             @endif
+                            @if($type == "admin" && $value->status == "pending")
+                                <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
+
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -149,3 +153,26 @@
     @endif
 
 </div>
+<SCRIPT>
+    function notifystore(event, OrderID){
+        var element = event.target;
+        element.setAttribute("disabled", "true");
+        var OriginalText = element.innerHTML;
+        element.innerHTML='Standby';
+        $.ajax({
+            url: "{{  url('orders/alertstore') }}",
+            type: "get",
+            dataType: "HTML",
+            data: "orderid=" + OrderID,
+            success: function (msg) {
+                element.innerHTML='Notified';
+                element.removeAttribute("disabled");
+            },
+            error: function(msg){
+                toast("An error occurred.", true);
+                element.innerHTML = OriginalText;
+                element.removeAttribute("disabled");
+            }
+        })
+    }
+</SCRIPT>

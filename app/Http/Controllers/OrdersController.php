@@ -216,12 +216,18 @@ class OrdersController extends Controller {
 
 
     public function alertstore(){
+        $Field = 'reservations.status';
+        $value = "pending";
+        if(isset($_GET["orderid"]) && $_GET["orderid"]){
+            $Field = 'reservations.id';
+            $value = $_GET["orderid"];
+        }
         $Orders = \DB::table('reservations')
             ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, 'Canada' as country_name"))
             ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
             //->leftJoin('states', 'reservations.province', '=', 'states.id')
             //->leftJoin('countries', 'reservations.country', '=', 'countries.id')
-            ->where('reservations.status', '=', 'pending')
+            ->where($Field, '=', $value)
             ->get();
 
         echo '<H1>Pending orders: ' . count($Orders) . '</H1><TABLE BORDER="1"><TR><TH>Order</TH><TH>Restaurant</TH><TH>Address</TH><TH>Delivery Time</TH><TH>GUID</TH><TH>Actions</TH></TR>';

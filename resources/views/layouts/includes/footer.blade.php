@@ -390,14 +390,13 @@ Thank you">Email Us</a></li>
                 data: data, _token: token,
                 type: "post",
                 success: function (msg) {
-
                     if (isNaN(Number(msg))) {
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
-                            alert(msg);
-//                            $('#invalid').text(msg);
-//                            $('#invalid').fadeIn(500);
+                            msg = JSON.parse(msg);
+                            $('#invalid').text(msg.message);
+                            $('#invalid').fadeIn(500);
                         }
                     } else {
                         if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
