@@ -109,7 +109,7 @@ class Restaurants extends BaseModel {
         $limit = "";
         $order = " ORDER BY distance";
         $limit = " LIMIT $start, $per_page";
-        $where = "WHERE restaurants.open = '1' AND status = '1'";
+        $where = "WHERE restaurants.open = '1'";// AND status = '1'";
         if(isset($data['is_complete'])){
             $where .= " AND is_complete = '1'";// AND has_creditcard = '1'";
         }

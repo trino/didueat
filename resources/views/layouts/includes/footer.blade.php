@@ -239,6 +239,10 @@ Thank you">Email Us</a></li>
                             $(this).addClass("checked-stars");
                             $(this).attr("checked", true);
                         });
+
+                        var reviews = $("#reviewcount" + target_id).html();
+                        reviews = Number(reviews.replace(/\D/g,''));
+                        $("#reviewcount" + target_id).html("Reviews (" + (reviews+1) + ")");
                     }, 500);
                 }
             });

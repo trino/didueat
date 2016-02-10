@@ -93,8 +93,7 @@
          * @param $id
          * @return redirect
          */
-        public function reviewAction($id = 0)
-        {
+        public function reviewAction($id = 0){
             $ob = \App\Http\Models\RatingUsers::find($id);
             $ob->delete();
 
@@ -106,8 +105,7 @@
          * @param $id
          * @return view
          */
-        public function ajaxEditUserReviewForm($id = 0)
-        {
+        public function ajaxEditUserReviewForm($id = 0) {
             $data['user_review_detail'] = \App\Http\Models\RatingUsers::find($id);
             return view('dashboard.user_reviews.ajax.edit', $data);
         }
