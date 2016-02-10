@@ -304,7 +304,7 @@ class UsersController extends Controller {
                 $res['menu_ids'] = implode(',', $post['menu_ids']);
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
-                $res['contact'] = $post['contact'];
+                if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
                 if (\Input::has('address')) {
                     $res['address2'] = $post['address'];
                 }

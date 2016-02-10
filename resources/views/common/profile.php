@@ -113,6 +113,7 @@
             $('.receipt_main').show();
             $('.profiles').hide();
         });
+
         $('#profiles').submit(function (e) {
             e.preventDefault();
             var datas = $('#profiles input, select, textarea').serialize();
