@@ -29,7 +29,7 @@
                             <div class="col-md-3"></div>
 
                             <div class="col-md-9 m-a-0">
-                                <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="">Terms and Conditions</a>.</p>
+                                <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.</p>
                             </div>
                         </div>
 
