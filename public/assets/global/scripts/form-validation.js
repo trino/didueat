@@ -337,6 +337,11 @@ var FormValidation = function () {
 function add_all(pattern, phone){
     if(pattern){add_matchpattern();}
     if(phone){add_checkphone();}
+
+    jQuery.validator.addMethod("requiresperiod", function (value, element) {
+        var atsymbol = value.indexOf("@");
+        return atsymbol >-1 && value.indexOf(".", atsymbol) > -1;
+    });
 }
 
 function add_matchpattern() {
@@ -399,6 +404,9 @@ function makerules(validation){
                             type: "post"
                         };
                         messages[property]["remote"] = "This email address is already in use";
+
+                        rules[property]["requiresperiod"] = true;
+                        messages[property]["requiresperiod"] = "Please enter a valid email address.";
                         break
                     case "minlength":
                         rules[property]["minlength"] = Number(temprules[i+1]);
