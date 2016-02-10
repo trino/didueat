@@ -126,7 +126,7 @@ body {
 
 /* modal padding */
 body.modal-open {
-    overflow-y: auto !important;
+    /*overflow-y: auto !important;*/
     padding-right: 0 !important;
 }
 
