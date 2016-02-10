@@ -267,6 +267,7 @@ $type = "hidden";
             removeCookie('SortOrder');
             removeCookie('formatted_address2');
             removeCookie('formatted_address');
+            removeCookie('address');
             $(elementname).val('');
             //  $('#search-form #clearSearch').hide();
         });
