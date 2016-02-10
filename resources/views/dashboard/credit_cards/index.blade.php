@@ -181,6 +181,6 @@
         return validateCardNumber(value);
     });
 
-    $("#editForm").validate(makerules({card_number: "creditcard required"}));
+    validateform("editForm", {card_number: "creditcard required"});
 </script>
 @stop

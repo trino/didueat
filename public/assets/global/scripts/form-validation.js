@@ -359,6 +359,11 @@ function add_checkphone() {
     });
 }
 
+function validateform(formID, rules){
+    add_all(true, true);
+    $("#" + formID).validate(makerules(rules));
+}
+
 function makerules(validation){
     var rules = new Object();
     var messages = new Object();

@@ -49,7 +49,6 @@
 
 <script>
     $(document).ready(function () {
-        add_all(true, true);
-        $('#register-form').validate(makerules({name: "required", email: "email required", password: "required minlength 3", phone: "phone required"}));
+        validateform("register-form", {name: "required", email: "email required", password: "required minlength 3", phone: "phone required"});
     });
 </script>

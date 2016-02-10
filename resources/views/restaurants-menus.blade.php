@@ -218,7 +218,7 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                         if (msg == '1') {
                             $('#ordered_email').focus();
                             $('.email_error').show();
-                            $('.email_error').html('Email Already Registred.');
+                            $('.email_error').html('Email Already Registered.');
 //$('.email_error').fadeOut(2000);
                         } else if (msg == '6') {
 
