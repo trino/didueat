@@ -127,46 +127,7 @@
 //          Demo.init();
             add_all(true, true);
 
-            $("#signupForm").validate({
-                rules: {
-                    phone: {
-                        required: true,
-                        checkPhone: true
-                    },
-                    mobile: {
-                        checkPhone: true
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        remote: {
-                            url: "{{ url('auth/validate/email/ajax') }}",
-                            type: "post"
-                        }
-                    },
-                    password: {
-                        required: true,
-                        minlength: 3
-                    },
-                    confirm_password: {
-                        //equalTo: "#password"
-                    }
-                },
-                messages: {
-                    phone: {
-                        required: "Please enter a phone number",
-                        checkPhone: "Invalid character. Please just use numbers and hyphens",
-                        checkLen: "Phone number must be 10 numbers long"
-                    },
-                    email: {
-                        required: "Please enter an email address",
-                        remote: "This email address is already in use"
-                    },
-                    mobile: {
-                        checkPhone: "Invalid phone number",
-                    }
-                }
-            });
+            $("#signupForm").validate(makerules({phone: "phone required", mobile: "phone", email: "email required", password: "required minlength 3"}));
 
             /* duplicates tag field
              $('#demo4').tagEditor({
@@ -186,17 +147,17 @@
 
             @if(old('city'))
                 $(document).ready(function () {
-                        cities("{{ url('ajax') }}", "{{ old('city') }}");
-                    });
+                    cities("{{ url('ajax') }}", "{{ old('city') }}");
+                });
             @endif
 
             $('body').on('change', '#is_delivery', function () {
-                        if ($(this).is(':checked')) {
-                            $('#is_delivery_options').show();
-                        } else {
-                            $('#is_delivery_options').hide();
-                        }
-                    });
+                if ($(this).is(':checked')) {
+                    $('#is_delivery_options').show();
+                } else {
+                    $('#is_delivery_options').hide();
+                }
+            });
 
             function ajaxuploadbtn(button_id) {
                 var button = $('#' + button_id), interval;

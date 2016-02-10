@@ -119,32 +119,7 @@
             }
 
             add_all(true, true);
-            $("#profileForm").validate({
-                rules: {
-                    phone: {
-                        required: true,
-                        checkPhone: true
-                    }/*,
-                    email: {
-                        required: true,
-                        email: true,
-                        remote: {
-                            url: "{{ url('auth/validate/email/ajax') }}",
-                            type: "post"
-                        }
-                    }*/
-                },
-                messages: {
-                    phone: {
-                        required: "Please enter a phone number",
-                        checkPhone: "Invalid Phone number"
-                    }
-                },
-                email: {
-                    required: "Please enter an email address",
-                    remote: "This email address is already in use!"
-                }
-            });
+            $("#profileForm").validate(makerules({phone: "phone required", email: "email required"}));
         });
     </script>
 @stop

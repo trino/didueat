@@ -50,38 +50,6 @@
 <script>
     $(document).ready(function () {
         add_all(true, true);
-        $('#register-form').validate({
-            rules: {
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true,
-                    email: true,
-                    remote: {
-                        url: "{{ url('auth/validate/email/ajax') }}",
-                        type: "post"
-                    }
-                },
-                password: {
-                    required: true,
-                    minlength: 3
-                },
-                phone: {
-                    required: true,
-                    checkPhone: true
-                }
-            },
-            messages: {
-                email: {
-                    required: "Please enter an email address!",
-                    remote: "This email address is in use already"
-                },
-                phone: {
-                    required: "Please enter a phone number",
-                    checkPhone: "Invalid Phone number"
-                }
-            }
-        });
+        $('#register-form').validate(makerules({name: "required", email: "email required", password: "required minlength 3", phone: "phone required"}));
     });
 </script>

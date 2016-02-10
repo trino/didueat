@@ -323,14 +323,11 @@ var FormValidation = function () {
     return {
         //main function to initiate the module
         init: function () {
-
             handleWysihtml5();
             handleValidation1();
             handleValidation2();
             handleValidation3();
-
         }
-
     };
 
 }();
@@ -360,4 +357,61 @@ function add_checkphone() {
         }
         return true;
     });
+}
+
+function makerules(validation){
+    var rules = new Object();
+    var messages = new Object();
+    var startmessage = "Please enter ";
+    var currentrule, currentmessage, temprules, ruletype;
+    var temp = 0;
+    var defaulttext = "Please fill out this field";
+    for (var property in validation) {
+        if (validation.hasOwnProperty(property)) {
+            rules[property] = new Object();
+            messages[property] = new Object();
+            var index = validation[property].indexOf("=");
+            if (index > -1) {
+                defaulttext = validation[property].substr(index+1);
+                validation[property] = validation[property].substr(0, index);
+            }
+            temprules = validation[property].split(" ");
+            ruletype = temprules[0];
+            for(var i=0; i<temprules.length; i++) {
+                switch (temprules[i]) {
+                    case "creditcard":
+                        rules[property]["creditcard"] = true;
+                        messages[property]["creditcard"] = "The card number is not valid";
+                        break;
+                    case "phone":
+                        rules[property]["checkPhone"] = true;
+                        messages[property]["checkPhone"] = "That is not a valid phone number";
+                        break;
+                    case "email":
+                        rules[property]["email"] = true;
+                        rules[property]["remote"] = {
+                            url: baseurl + "/auth/validate/email/ajax",
+                            type: "post"
+                        };
+                        messages[property]["remote"] = "This email address is already in use";
+                        break
+                    case "minlength":
+                        rules[property]["minlength"] = Number(temprules[i+1]);
+                        i=i+1;
+                    case "required":
+                        rules[property]["required"] = true;
+                        switch(ruletype){
+                            case "email": messages[property]["required"] = startmessage + "an email address"; break;
+                            case "phone": messages[property]["required"] = startmessage + "a phone number"; break;
+                            case "creditcard": messages[property]["required"] = startmessage + "a credit card"; break;
+                            default: messages[property]["required"] = defaulttext;
+                        }
+                        break;
+                    default:
+                        alert(temprules[i] + " is not handled");
+                }
+            }
+        }
+    }
+    return {rules: rules, messages: messages};
 }

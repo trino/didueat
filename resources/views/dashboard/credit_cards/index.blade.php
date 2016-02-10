@@ -181,18 +181,6 @@
         return validateCardNumber(value);
     });
 
-    $("#editForm").validate({
-        rules: {
-            card_number: {
-                required: true,
-                creditcard: true
-            }
-        },
-        messages: {
-            card_number: {
-                creditcard: "The card number is not valid",
-            },
-        }
-    });
+    $("#editForm").validate(makerules({card_number: "creditcard required"}));
 </script>
 @stop
