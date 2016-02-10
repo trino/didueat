@@ -1,31 +1,29 @@
 <?php
-printfile("views/common/contactinfo.blade.php");
-$size = "2";
+    printfile("views/common/contactinfo.blade.php");
+    $size = "2";
 
-if (!isset($new)) {
-    $new = false;
-}
-$new = false;
-
-$PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-$Fields = array("name", "email", "phone", "subscribed", "password");//, "confirm_password");
-foreach ($Fields as $Field) {
-    if (isset($user_detail->$Field)) {
-        $$Field = $user_detail->$Field;
-    } else {
-        $$Field = old($Field);
+    if (!isset($new)) {
+        $new = false;
     }
-}
+    $new = false;
+
+    $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
+    $Fields = array("name", "email", "phone", "subscribed", "password");//, "confirm_password");
+    foreach ($Fields as $Field) {
+        if (isset($user_detail->$Field)) {
+            $$Field = $user_detail->$Field;
+        } else {
+            $$Field = old($Field);
+        }
+    }
 ?>
 
-<?= newrow($new, "Your Name", $size, true);
-?>
+<?= newrow($new, "Your Name", $size, true); ?>
 <div class="input-icon">
     <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" required>
     <input type="hidden" name="gmt" id="gmt" class="gmt">
 </div>
 <?php echo newrow();
-
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
@@ -39,10 +37,6 @@ echo newrow($new, "Email", $size, true); ?>
 </div>
 <?php echo newrow(); ?>
 
-
-
-
-
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
@@ -51,34 +45,28 @@ echo newrow($new, "Email", $size, true); ?>
     <?php echo newrow(); ?>
 @endif
 
+<?php
+    $is_new = '';
+    if(isset($emaillocked)) {
+        $is_new = 'New ';
+    }
 
-
-<?
-$is_new = '';
-if(isset($emaillocked)) {
-    $is_new = 'New ';
-}
-
-        ?>
-
-
-<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
+    echo newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
     <div class="input-icon">
         <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off" value="{{ $password }}" {{ $PasswordRequired }}>
     </div>
 <?php echo newrow();
 
 if(isset($user_detail)){
-echo newrow(false, " ", "", false, 7, false); ?>
-<label class="c-input c-checkbox">
-    <input type="checkbox" name="subscribed" id="subscribed" value="true"
-           @if($subscribed || (!isset($subscribed))) checked @endif />
-    <span class="c-indicator"></span>
-    Signup for our newsletter
-</label>
-<?= newrow();
+    echo newrow(false, " ", "", false, 7, false); ?>
+        <label class="c-input c-checkbox">
+            <input type="checkbox" name="subscribed" id="subscribed" value="true"
+                   @if($subscribed || (!isset($subscribed))) checked @endif />
+            <span class="c-indicator"></span>
+            Signup for our newsletter
+        </label>
+    <?= newrow();
 }
-
 
 //echo newrow($new, "Re-type Password", $size, $PasswordRequired); ?>
 <!--div class="input-icon">

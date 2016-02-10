@@ -9,8 +9,8 @@
                 </button>
                 <h4 class="modal-title" id="signupModalLabel">Sign up</h4>
             </div>
-            <div id="registration-error" style="display: none;"></div>
 
+            <div id="registration-error" style="display: none;"></div>
 
             <div id="registration-success" class="note note-success" style="display: none;">
                 <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
@@ -19,50 +19,29 @@
                 </div>
             </div>
 
-
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-            <div class="modal-body" id="signupModalBody">
-                <?php printfile("views/popups/signup.blade.php"); ?>
-                <div class="editaddress">
-                    @include('common.contactinfo', array("new" => true))
+                <div class="modal-body" id="signupModalBody">
+                    <?php printfile("views/popups/signup.blade.php"); ?>
+                    <div class="editaddress">
+                        @include('common.contactinfo', array("new" => true))
 
+                        <div class="row form-group">
+                            <div class="col-md-3"></div>
 
-
-<div class="row form-group">
-<div class="col-md-3">
-
-</div>
-<div class="col-md-9 m-a-0">
-                    <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="">Terms and Conditions</a>.</p>
-</div>
-
-                </div>
-
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <button id="regButton" class="btn btn-primary btn-block" type="submit">Sign Up</button>
+                            <div class="col-md-9 m-a-0">
+                                <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="">Terms and Conditions</a>.</p>
+                            </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="regButton" class="btn btn-primary btn-block" type="submit">Sign Up</button>
+                            </div>
+                        </div>
                     </div>
-
-
-
-
-
                 </div>
 
-
-            </div>
-
-
-            <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;margin-left:auto;margin-right:auto;"/>
-
-
-
-
+                <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;margin-left:auto;margin-right:auto;"/>
             {!! Form::close() !!}
         </div>
     </div>

@@ -53,7 +53,6 @@ abstract class Controller extends BaseController {
     }
 
     public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
-
         $email_verification = false;
         if(!$post){
             $post = \Input::all();
@@ -69,7 +68,7 @@ abstract class Controller extends BaseController {
         $profile['restaurant_id'] = $restaurantid;
         $profile['profile_type'] = $profile_type;  // restaurant
         if(!isset($post['ordered_by'])){$post['ordered_by']=0;}
-        $profile['name'] = $post['ordered_by'];
+        $profile['name'] = $post['name'];
         $profile['email'] = $post['email'];
         if(isset($post['phone'])) {$profile['phone'] = $post['phone'];}
         if(isset($post['mobile'])) {$profile['mobile'] = $post['mobile'];}
@@ -91,13 +90,16 @@ abstract class Controller extends BaseController {
 
         event(new \App\Events\AppEvents($user, "User Created"));
 
-        if(isset($post['formatted_addressForDB']) && (isset($post['formatted_address'])||isset($post['address']))) {
+        if(isset($post['formatted_addressForDB']) && (isset($post['formatted_address']) || isset($post['address']))) {
             $post["user_id"] = $user->id;
             $post["formatted_address"] = $post['formatted_addressForDB'];
-            if(isset($post['formatted_address']))
-            $post['address'] = $post['formatted_address'];
-            
-            \App\Http\Models\ProfilesAddresses::makenew($post);
+            $post['address'] = "";
+            if(isset($post['formatted_address'])) {
+                $post['address'] = $post['formatted_address'];
+            }
+            if($post["formatted_address"] || $post['address']) {
+                \App\Http\Models\ProfilesAddresses::makenew($post);
+            }
         }
         if($user->id && $login){
             login($user->id);
