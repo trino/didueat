@@ -13,7 +13,7 @@
             <input class="form-control ctitle " type="text" placeholder="Addon Name"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
 
-            <textarea class="form-control cdescription "
+            <textarea class="form-control cdescription" style="display: none;"
                       placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
         </div>
 
