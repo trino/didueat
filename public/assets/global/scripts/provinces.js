@@ -2,7 +2,7 @@ function getelement(name) {
     var element = document.getElementById(name);
     return element;
 }
-
+ 
 function provinces(webroot, value) {
     var country = 40; //Canada
     var element = document.getElementById("country");
