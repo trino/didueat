@@ -26,10 +26,12 @@
 
                 <thead>
                 <tr>
+                    @if($recCount > 1)
+
                     <th>
                         ID
                     </th>
-
+@endif
                     <th>
                         <!--a class="sortOrder" data-meta="location" data-order="ASC" data-title="Location" title="Sort [Location] ASC"><i class="fa fa-caret-down"></i></a-->
                         Location
@@ -51,17 +53,17 @@
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
                     <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+                        @if($recCount > 1)
 
                         <td style="min-width: 100px;">{{ $key+1 }}
-                            @if($recCount > 1)
                                 <div class="btn-group-vertical">
                                     <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
                                     <a class="btn btn-secondary-outline down btn-sm"><i
                                                 class="fa fa-arrow-down"></i></a>
                                 </div>
-                            @endif
 
                         </td>
+                        @endif
 
 
                         <?php

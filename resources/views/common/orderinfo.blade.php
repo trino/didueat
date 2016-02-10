@@ -4,7 +4,8 @@
 
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
 
-    $Data = array("Customer" => $order->ordered_by);
+    $Data = array("Status" => $order->status);
+    $Data["Customer"] = $order->ordered_by;
 
     if (isset($user_detail) && is_object($user_detail)) {
         $Data["Customer"] = $user_detail->name;

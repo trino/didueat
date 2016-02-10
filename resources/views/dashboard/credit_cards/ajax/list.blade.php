@@ -64,9 +64,9 @@
                             <td>{{ $value->expiry_month }}/{{ right($value->expiry_year,2) }}</td>
                             <td>
                                 <div class="pull-right">
-                                    <a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel">
+                                    <!--a data-id="{{ $value->id }}" class="btn btn-info btn-sm editRow" data-toggle="modal" data-target="#editModel">
                                         Edit
-                                    </a>
+                                    </a-->
                                     <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
                                        class="btn btn-secondary-outline btn-sm "
                                        onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');">X</a>

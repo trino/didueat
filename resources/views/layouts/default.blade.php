@@ -125,7 +125,7 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
     @if ($Restaurant)
-        <div class="container m-t-0">
+        <div class="container" style="padding-top:0rem !important;">
         @include('common.required_to_open')
         </div>
     @endif
