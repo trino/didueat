@@ -12,7 +12,6 @@
 
         <div class="container p-y-2">
             <div class="row">
-                <div class="" style="">
                     <div class="col-md-2 p-r-0">
                         <img style="width:115px;height:115px;" class="pull-left img-circle"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
@@ -61,8 +60,6 @@
 
                     </div>
 
-
-                </div>
 
             </div>
         </div>

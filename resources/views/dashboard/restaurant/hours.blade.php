@@ -156,7 +156,7 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
 echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
 </DIV></DIV>
 
-
+<hr width="100%" align="center">
 <button type="submit" class="btn btn-primary pull-right">Save</button>
 
 

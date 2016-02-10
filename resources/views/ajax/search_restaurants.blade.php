@@ -1,40 +1,41 @@
 <?php
-    function offsettime($time, $hours = 0) {
-        if ($hours) {
-            $time = explode(":", $time);
-            $time[0] = $time[0] + $hours;
-            if ($time[0] < 0) {
-                $time[0] += 24;
-            }
-            if ($time[0] > 23) {
-                $time[0] -= 24;
-            }
-            $time = implode(":", $time);
+function offsettime($time, $hours = 0)
+{
+    if ($hours) {
+        $time = explode(":", $time);
+        $time[0] = $time[0] + $hours;
+        if ($time[0] < 0) {
+            $time[0] += 24;
         }
-        return $time;
+        if ($time[0] > 23) {
+            $time[0] -= 24;
+        }
+        $time = implode(":", $time);
     }
+    return $time;
+}
 
-    if (isset($data['data'])) {
-        parse_str($data['data']);
-    }
+if (isset($data['data'])) {
+    parse_str($data['data']);
+}
 
-    $server_gmt = date('Z') / 3600;
-    $user_gmt = \Session::get('session_gmt', $server_gmt);
-    $difference = $server_gmt - $user_gmt;
-    $server_time = date('H:i:s');
-    $user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
-    if (!isset($sql)) {
-        $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
-    }
-    printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
+$server_gmt = date('Z') / 3600;
+$user_gmt = \Session::get('session_gmt', $server_gmt);
+$difference = $server_gmt - $user_gmt;
+$server_time = date('H:i:s');
+$user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
+if (!isset($sql)) {
+    $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
+}
+printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
 
-    if(is_object($count)){
-        echo "Count should not be an object!!!";
-        return;
-    }
+if (is_object($count)) {
+    echo "Count should not be an object!!!";
+    return;
+}
 ?>
 
-<DIV class="list-group" id="restuarant_bar">
+<div class="list-group" id="restuarant_bar">
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
 
@@ -59,33 +60,31 @@
             $is_open = $open <= $user_time && $close >= $user_time;
 
             ?>
-            <div class="">
-                <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}" class="list-group-item">
+            <div class="list-group-item">
+
 
                     <div class="col-xs-2 p-a-0">
-                        <img style="width:100px;height:100px;" class="img-rouned" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <a  href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                        <img style="width:100px;height:100px;" class="img-rouned" alt=""
+                             src="{{ asset('assets/images/' . $logo) }}">
+                            </a>
                     </div>
 
                     <div class="col-xs-10">
+                        <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
-
-                        <span class="card-text">
+</a>
                             {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                        </span>
 
                         @if(false)
-                            <span class="card-text">
-                                {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
-                            </span>
+                                {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                                , {{ select_field("countries", 'id', $value['country'], 'name') }}
+
+                            <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
+                                  TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
                         @endif
-
-                        <br>
-
-                        <!--span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
-                                      TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span-->
-
+<br>
                         <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
-
                         <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee']) }}</span>
                         <span class="p-r-2">Minimum: {{ asmoney($value['minimum']) }}</span>
                         <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
@@ -94,33 +93,34 @@
                                 <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
                         @endif
 
-                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-
-                        <div class="clearfix"></div>
-
+                        <div class="clearfix">
+                             {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                        </div>
                     </div>
-
                     <div class="clearfix"></div>
-
-                </a>
 
             </div>
 
         @endforeach
     @endif
-    <div id="loadMoreBtnContainer">
-        @if($hasMorePage > 0)
-            <div class="row">
-                <div class="col-md-12 col-md-offset-5">
-                    <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">
-                        Load More ...
-                    </button>
-                    <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
-                </div>
+
+</div>
+
+
+<div id="loadMoreBtnContainer">
+    @if($hasMorePage > 0)
+        <div class="row">
+            <div class="col-md-12 col-md-offset-5">
+                <button id="loadingbutton" data-id="{{ $start }}" align="center"
+                        class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">
+                    Load More ...
+                </button>
+                <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
             </div>
-        @endif
-        <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
-    </div>
-</DIV>
+        </div>
+    @endif
+    <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
+</div>
+
 
 <img class='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>

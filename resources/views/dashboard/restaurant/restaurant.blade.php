@@ -82,14 +82,14 @@ if(!$minimum && isset($restaurant->id)){
             <img id="picture" class="logopic" align=""
                 @if(isset($restaurant->logo) && $restaurant->logo != "")
                     title="{{ $logoname }}"
-                    src="{{ asset($logoname) }}"
+                    src="{{ asset($logoname) }}"/>
                 @else
-                    src="{{ asset('assets/images/didueatdefault.png') }}"
+                    src="{{ asset('assets/images/didueatdefault.png') }}"/>
                     <script>
                         document.getElementById('uploadbtn').innerHTML = "Update";
                     </script>
                 @endif
-            />
+
         </div>
     </div></div>
 

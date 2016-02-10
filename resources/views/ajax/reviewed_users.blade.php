@@ -1,3 +1,5 @@
+<?= printfile("views/ajax/reviewed_users.blade.php"); ?>
+
 @if(isset($detail) && !is_null($detail) && count($detail) > 0)
 <table class="table table-striped" id="modal_table_max_height">
     <tbody>
