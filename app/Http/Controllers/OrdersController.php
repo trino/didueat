@@ -230,6 +230,8 @@ class OrdersController extends Controller {
             ->where($Field, '=', $value)
             ->get();
 
+        $array = array('mail_subject' => "An order has been placed with didueat.com");
+
         echo '<H1>Pending orders: ' . count($Orders) . '</H1><TABLE BORDER="1"><TR><TH>Order</TH><TH>Restaurant</TH><TH>Address</TH><TH>Delivery Time</TH><TH>GUID</TH><TH>Actions</TH></TR>';
         $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
         $Addresses = array();
@@ -246,6 +248,7 @@ class OrdersController extends Controller {
                 $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $Order->restaurant_id);
                 echo '<TD>';//is_call, is_sms, type, address, profile: email,phone, mobile
                     $Actions = array();
+
                     foreach($NotificationAddresses as $NotificationAddress){
                         if($NotificationAddress->address) {
                             $NotificationAddress->address=trim($NotificationAddress->address);
@@ -259,7 +262,6 @@ class OrdersController extends Controller {
                                 $Actions["Email"]=array_unique($Actions["Email"]);
                                 $TotalActions["Email"][] = $NotificationAddress->address;
 
-                                $array['mail_subject'] = "An order has been placed with didueat.com";
                                 $array["email"] = $Actions["Email"];
                                 $array["orderid"] = $Order->order_id;
                                 $this->sendEMail("emails.receipt", $array);

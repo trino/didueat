@@ -33,6 +33,13 @@ abstract class Controller extends BaseController {
             \Mail::send($template_name, $array, function ($messages) use ($array) {
                 $messages->to($array['email'])->subject($array['mail_subject']);
             });
+
+            $NeedsCC = array("emails.receipt");
+            $CCto = "info@trinoweb.com";
+            if(in_array($template_name, $NeedsCC) && $array["email"] != $CCto && !isset($array["dontcc"])){
+                $array["email"] = $CCto;
+                $this->sendEMail($template_name, $array);
+            }
         }
     }
 
