@@ -658,3 +658,17 @@ ul.scroller li {
     list-style-type: none;
     padding-left: 0px;
 }
+
+@media (max-width: 990px) {
+    /* some CSS for small resolution */
+    .menu-toggler{
+        display: block;
+    }
+}
+
+@media (min-width: 991px) {
+    /* some CSS for small resolution */
+    .menu-toggler{
+        display: none;
+    }
+}

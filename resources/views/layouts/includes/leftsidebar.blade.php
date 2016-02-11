@@ -54,9 +54,28 @@
     </div>
 </div>
 <SCRIPT>
+    was_small = false;
+
     $("#expand-header").show();
 
-    function headerclick(event, id){
+    $( window ).resize(function() {
+        resize();
+    });
+    $( document ).ready(function() {
+        resize();
+    });
 
+    function resize(){
+        var width = $(window).width();
+        var is_small = width <= 970;
+
+        console.log("Handler for .resize(" + width + ") called");
+        if (is_small != was_small){
+            width = $(".navbar-collapse").height();
+            if( (is_small && width) || (!is_small && !width)) {
+                $(".menu-toggler").trigger("click");
+            }
+        }
+        was_small = is_small;
     }
 </SCRIPT>
