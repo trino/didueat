@@ -20,11 +20,11 @@
                             <div class="col-md-10 padleft0">
                                 <form id="report-form" method="get">
                                     <div class="col-md-4">
-                                        <input type="text" class="datepicker form-control" name="from" placeholder="From" value="{{ old('from') }}">
+                                        <input type="text" class="datepicker form-control" name="from" placeholder="From" value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
                                     </div>
     
                                     <div class="col-md-4">
-                                        <input type="text" class="datepicker form-control" name="to" placeholder="To" value="{{ old('to') }}">
+                                        <input type="text" class="datepicker form-control" name="to" placeholder="To" value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
                                     </div>
     
                                     <div class="col-md-2">

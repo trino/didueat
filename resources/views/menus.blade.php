@@ -29,6 +29,7 @@
 
                     <div class="col-md-12">
                         <?php
+                            
                             $main_price = $value->price;
                             $dis = '';
                             $everyday = '';
