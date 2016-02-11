@@ -48,10 +48,11 @@
                         <a class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</a>
                         <a class="btn btn-primary" data-toggle="modal" data-target="#signupModal">Sign up</a>
                     </li>
-
-
-
                 @endif
+
+                <LI class="nav-item" id="expand-header" style="display: none;">
+                    <a href="javascript:;" class="btn btn-primary menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+                </LI>
             </ul>
         </div>
 </div>

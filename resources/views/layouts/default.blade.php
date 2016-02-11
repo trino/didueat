@@ -10,7 +10,7 @@
         $nextPath = "/" . Request::path();
     }
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <?php $start_loading_time = microtime(true); ?>
@@ -108,17 +108,16 @@
             background-repeat: no-repeat !important;"-->
 
     <body>
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
+        @if(!read("id"))
+            @include('popups.login')
+            @include('popups.signup')
+            @include('popups.forgot-password')
+        @endif
 
         @include('layouts.includes.header')
 
-
         <div class="container-fluid p-x-0" style="">
-
             @include('common.alert_messages')
-
             <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
             @if ($Restaurant)
                 <div class="container" style="padding-top:0rem !important;">
@@ -127,7 +126,6 @@
             @endif
 
             @yield('content')
-
         </div>
 
         @include('layouts.includes.footer')

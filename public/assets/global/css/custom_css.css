@@ -653,3 +653,8 @@ ul.scroller li {
     height: 400px;
     overflow: auto;
 }
+
+.page-sidebar-menu, .sub-menu {
+    list-style-type: none;
+    padding-left: 0px;
+}
