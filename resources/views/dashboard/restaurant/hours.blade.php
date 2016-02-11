@@ -97,7 +97,6 @@
         }
     }
 
-
     /*
 foreach ($day_of_week as $key => $value) {
     $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
@@ -109,11 +108,14 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
     $layout=2;
     $width=4;
     $inputclass= "form-control time col-sm-1";
-    $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
-    if($opentime != "00:00:00" || $closetime != "00:00:00"){
-        $closed .= " CHECKED";
+    $closed="";
+    if(!$suffix){
+        $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
+        if($opentime != "00:00:00" || $closetime != "00:00:00"){
+            $closed .= " CHECKED";
+        }
+        $closed .= '> Open<span class="c-indicator"></span></LABEL>';
     }
-    $closed .= '> Open<span class="c-indicator"></span></LABEL>';
     ?>
         <label class="col-sm-{{ $layout }}">{{ $value }}</label>
 
@@ -136,7 +138,7 @@ echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
     <LABEL class="col-sm-12">
         <SPAN class=""><b><u>Delivery Times</u>:</b></SPAN>
         <LABEL class="c-input c-checkbox">
-            <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ (isset($isthesame))? " checked":"" }}>
+            <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ ($isthesame)? " checked":"" }}>
             Same as Regular Hours
             <span class="c-indicator"></span>
         </LABEL>
