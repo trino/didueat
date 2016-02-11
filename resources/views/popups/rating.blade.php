@@ -15,18 +15,25 @@
                     <?php printfile("views/common/popups/rating.blade.php"); ?>
 
                     <div class="row">
+
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div id="message-error" class="alert alert-danger" style="display: none;"></div>
                             <div id="message-success" class="alert alert-success" style="display: none;"></div>
-                            <div class="form-group">
-                                <h4>Comments: </h4>
-                                <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
-                            </div>
+
+                            @if(read("id"))
+                                <div class="form-group">
+                                    <h4>Comments: </h4>
+                                    <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
+                                </div>
+                            @endif
+
                             <div class="form-group" id="display-rating-starts">
                                 {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
                             </div>
-                            <button class="btn btn-primary pull-right">Save Rating</button>
 
+                            @if(read("id"))
+                                <button class="btn btn-primary pull-right">Save Rating</button>
+                            @endif
                         </div>
 
 
