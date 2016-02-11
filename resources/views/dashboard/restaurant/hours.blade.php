@@ -132,7 +132,7 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
 echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
 </DIV></DIV>
 
-<DIV CLASS="is_delivery_options is_delivery_2">
+<DIV CLASS="is_delivery_options">
     <LABEL class="col-sm-12">
         <SPAN class=""><b><u>Delivery Times</u>:</b></SPAN>
         <LABEL class="c-input c-checkbox">
@@ -141,16 +141,17 @@ echo newrow($new, " ", ""); //required to stop the datetime picker issue ?>
             <span class="c-indicator"></span>
         </LABEL>
     </LABEL>
-
-    <?php
-        foreach ($day_of_week as $key => $value) {
-            if(strpos($value, ">") === false){
-                $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-                $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-                printrow($layout, $key, $value, $opentime_del, $closetime_del, "", "", $is_disabled);
+    <DIV CLASS="is_delivery_2">
+        <?php
+            foreach ($day_of_week as $key => $value) {
+                if(strpos($value, ">") === false){
+                    $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+                    $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+                    printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
+                }
             }
-        }
-    ?>
+        ?>
+    </DIV>
 </div>
 
 <hr width="100%" align="center">
