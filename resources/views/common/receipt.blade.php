@@ -99,7 +99,7 @@
                             <tr>
                                 <td><strong>Total</strong></td>
                                 <td>
-                                    <div class="grandtotal inlineblock">&nbsp;${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
+                                    <div class="grandtotal inlineblock">${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
                                     <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
                                     <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                                 </td>

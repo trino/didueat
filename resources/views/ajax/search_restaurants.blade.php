@@ -65,7 +65,7 @@ if (is_object($count)) {
 
                 <div class="col-xs-2 p-a-0">
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
-                        <img style="width:100px;height:100px;" class="img-rouned" alt=""
+                        <img style="width:100px;height:100px;" class="img-circle" alt=""
                              src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                 </div>
@@ -74,12 +74,16 @@ if (is_object($count)) {
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
                     </a>
+                    <div>
+                   {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
 
-                    <div class="">{!! rating_initialize("static-rating", "restaurant", $value['id']) !!}</div>
-                    <div>{{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}</div>
 
+                    </div>
+                    <div class="clearfix">
+                    {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
 
-                    <span class="p-r-2">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
+</div>
+                    <span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
                         <span class="p-r-2">Delivery:
 
                             {{ asmoney($value['delivery_fee'],$free=true) }}
