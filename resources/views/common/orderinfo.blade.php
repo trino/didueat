@@ -5,7 +5,7 @@
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
     
     //$Data = array("Status" => $order->status);
-    $Data['Order #'] = "<span style='font-size:13px'>".$order->guid."</span>";
+    $Data['Order #'] = "<span style='font-size:13px'>".$order->guid."</span> ";
     $Data['Status'] = $order->status;
     $Data["Customer"] = $order->ordered_by;
 
