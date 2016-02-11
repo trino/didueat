@@ -159,15 +159,15 @@ $('.savebtn').live('click', function () {
 
                 
     })
-    //alert(stop_item);return false;
-    if(stop_item)
+    
+    if(stop_item)//This is to check if Addon name is blank
     {
         alert('Addon name cannot be blank');
         $('.overlay_loader').hide();
         return false;
     }
-    //alert(stop_id);
-    if(stop_id)
+    
+    if(stop_id)// If addon is added but inserted nothing is sub addon
     {
         alert('One or more of your options are empty');
         $('.overlay_loader').hide();
