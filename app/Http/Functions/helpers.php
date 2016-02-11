@@ -1618,7 +1618,7 @@
     }
 
 //prints a rating
-    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $select_rating_starts = false) {
+    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $select_rating_starts = false, $Color = "") {
         $html = "<DIV>";
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
             if($select_rating_starts){
@@ -1692,7 +1692,11 @@
 
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
                 $html .= '<SPAN>';
-                $html .= '<a href="#" style="font-size:90%;padding-left:5px;" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount' . $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
+                $html .= '<a href="#" style="font-size:90%;padding-left:5px;';
+                if($Color){$html .= 'color: ' . $Color . ';"';}
+                $html .= ' class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
+                $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
+                $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
             }
             $html .= '</div>';
         }

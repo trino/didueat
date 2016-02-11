@@ -1,32 +1,31 @@
 @extends('layouts.default')
 @section('content')
     <div class="container-fluid bg-primary main-bg-image">
-        <?= printfile("views/restaurants-menus.blade.php"); ?>
-
         <div class="container p-y-2">
             <div class="row p-t-1">
                 <div class="col-md-2 p-r-0">
                     <img style="width:115px;height:115px;" class="pull-left img-circle"
                          @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                         src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                            src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                          @else
-                         src="{{ asset('assets/images/default.png') }}"
+                            src="{{ asset('assets/images/default.png') }}"
                          @endif
                      alt="">
 
                     <div class="clearfix"></div>
                 </div>
 
+                <?= printfile("views/restaurants-menus.blade.php"); ?>
+
                 <div class="col-md-10 p-l-0">
 
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-
                         <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
                     </h3>
 
                     <div id="restaurant_rating">
-                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
+                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, 'white') !!}
                         <div class="clearfix"></div>
                     </div>
 
