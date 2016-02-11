@@ -115,7 +115,7 @@
                                                                     else
                                                                         $extra_price = '_';
                                                                     ?>
-                                                                    <LABEL>
+                                                                    <LABEL>88
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
                                                                                title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"

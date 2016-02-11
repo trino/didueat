@@ -14,9 +14,12 @@
 
             <div id="registration-success" class="note note-success" style="display: none;">
                 <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
-                <div style="padding: 20px;">
-                    <h1 class="block">success</h1>
-                </div>
+                    <div class="alert alert-success" role="alert">Success!</div>
+
+
+
+
+
             </div>
 
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}

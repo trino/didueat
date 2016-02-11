@@ -99,18 +99,22 @@
                             <div class=""><strong class="">These items are:</strong></div>
                             <div class="infolist">
 
-                                <label><input type="radio" value="1" onclick="$(this).closest('.radios').find('.is_req').val(1);"
+                                <label class="c-input c-radio"><input type="radio" value="1"
+                                              onclick="$(this).closest('.radios').find('.is_req').val(1);"
                                               class="is_required" name="{{ $r1 }}"
                                               @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 1)) checked="checked" @endif>
                                     Required
+                                    <span class="c-indicator"></span>
+
                                 </label>
-
-                                &nbsp; OR &nbsp;
-
-                                <label><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);"
+OR
+                                <label class="c-input c-radio"><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);"
                                               class="is_required" value="0" name="{{ $r1 }}"
                                               @if((isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif>
-                                    Optional</label>
+                                    Optional
+                                    <span class="c-indicator"></span>
+
+                                </label>
 
 
                                 <input type="hidden" class="is_req"
@@ -123,16 +127,22 @@
                             <div class=""><strong class="">Customer can select:</strong></div>
 
                             <div class="infolist">
-                                <LABEL><input type="radio" onclick="$(this).closest('.radios').find('.is_mul').val(1);"
+                                <LABEL class="c-input c-radio"><input type="radio" onclick="$(this).closest('.radios').find('.is_mul').val(1);"
                                               class="is_multiple" value="1" name="{{ $r2 }}"
                                               @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif>
-                                    Single Item</LABEL>
-                                &nbsp; OR &nbsp;
-                                <LABEL><input type="radio" value="0" class="is_multiple"
+                                    Single Item
+                                    <span class="c-indicator"></span>
+
+                                </LABEL>
+                                 OR
+                                <LABEL class="c-input c-radio"><input type="radio" value="0" class="is_multiple"
                                               onclick="$(this).closest('.radios').find('.is_mul').val(0);"
                                               name="{{ $r2 }}"
                                               @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif>
-                                    Multiple Items</LABEL>
+                                    Multiple Items
+                                    <span class="c-indicator"></span>
+
+                                </LABEL>
                                 <input type="hidden" class="is_mul"
                                        @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) value="1"
                                        @else value="0" @endif />
@@ -154,24 +164,25 @@
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) value="0"
                                        @else value="1" @endif />
 
-                                    <input type="radio"
-                                                                       onclick="$(this).parent().find('.up_t').val(0);"
-                                                                       @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
-                                                                       @endif class="up_to up_to_selected" value="0"
-                                                                       name="{{ $r3 }}">
+                                <input type="radio"
+                                       onclick="$(this).parent().find('.up_t').val(0);"
+                                       @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
+                                       @endif class="up_to up_to_selected" value="0"
+                                       name="{{ $r3 }}">
 
-                                    Up to
+                                Up to
 
 
-                                    <input
+                                <input
                                         type="radio" onclick="$(this).parent().find('.up_t').val(1);" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
 
-                            <input placeholder="How many?" type="number" id="itemno{{ $r3 }}" class="itemno form-control col-md-4"
-                                   value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
-                        </div>
+                                <input placeholder="How many?" type="number" id="itemno{{ $r3 }}"
+                                       class="itemno form-control col-md-4"
+                                       value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -57,12 +57,8 @@
         <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-        <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-        <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script-->
-        <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script-->
-        <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script-->
+        <!--script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script-->
+
         <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
@@ -70,10 +66,18 @@
 
         <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+        <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript" ></script>
+        <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript" ></script>
 
         @if(false)
+
+                <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script-->
+            <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script-->
+            <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script-->
+
+
             <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script>
             <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script>
             <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
