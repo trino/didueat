@@ -1,5 +1,7 @@
 @extends('layouts.default')
 @section('content')
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+
     <div class="container-fluid bg-primary main-bg-image">
         <div class="container p-y-2">
             <div class="row p-t-1">
