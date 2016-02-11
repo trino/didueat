@@ -116,7 +116,7 @@
 
         @include('layouts.includes.header')
 
-        <div class="container-fluid p-x-0" style="">
+        <div class="container-fluid p-x-0" style="margin-top: 35px;">
             @include('common.alert_messages')
             <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
             @if ($Restaurant)

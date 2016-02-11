@@ -42,8 +42,10 @@ class Restaurants extends BaseModel {
         if(!$doesopen){$this->is_complete=false;}
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
         if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
-        if(!$this->open){$this->is_complete=false;}
+        //if(!$this->open){$this->is_complete=false;}
         if(!$this->status){$this->is_complete=false;}
+
+        if($this->is_complete){$this->open=true;}
     }
     
     public static function listing($array = "", $type = "") {
