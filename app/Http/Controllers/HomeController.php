@@ -42,7 +42,7 @@ class HomeController extends Controller {
             }
         }
         $used_tag = str_replace(' ','',$used_tag);
-        var_dump($used_tag);
+       // var_dump($used_tag);
         $all_tags = explode(',',$tag);
         $all_used_tags = explode(',',$used_tag);
         $arr_final = array();
@@ -59,8 +59,8 @@ class HomeController extends Controller {
             }
         }
 
-        var_dump($arr_final);
-        var_dump($arr_count);
+    //    var_dump($arr_final);
+     //   var_dump($arr_count);
 
         $keys = '';
         $key_final = array();
@@ -85,7 +85,7 @@ class HomeController extends Controller {
                 $key_final[] = $keys;
             }
         }
-        var_dump($key_final);
+    //    var_dump($key_final);
         die();
     }
 

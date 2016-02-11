@@ -58,11 +58,11 @@
         <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
         <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
+        <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script-->
+        <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script-->
+        <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script-->
         <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>

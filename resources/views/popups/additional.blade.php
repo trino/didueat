@@ -119,8 +119,8 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <div class=" padleft0">
-                            <div class=" padleft0"><strong class="">Customer can select:</strong></div>
+                        <div class="">
+                            <div class=""><strong class="">Customer can select:</strong></div>
 
                             <div class="infolist">
                                 <LABEL><input type="radio" onclick="$(this).closest('.radios').find('.is_mul').val(1);"

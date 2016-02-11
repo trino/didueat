@@ -558,9 +558,8 @@ ul.scroller li {
 
 }
 
-.padleft0{padding-left:0!important}
-.padleft5{padding-left:5px!important}
 .restaurentDetail{padding-top:10px;}
+
 .overlay_loader {
     background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
     display: none;

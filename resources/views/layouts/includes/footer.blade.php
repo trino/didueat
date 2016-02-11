@@ -137,12 +137,13 @@ Thank you">Email Us</a></li>
         <!-- END PRE-FOOTER -->
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        /*
         Layout.init();
         Layout.initOWL();
-        LayersliderInit.initLayerSlider();
         Layout.initImageZoom();
         Layout.initTouchspin();
         Layout.initTwitter();
+        */
     });
 
     $(document).ready(function () {
