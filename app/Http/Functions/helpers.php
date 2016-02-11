@@ -1662,6 +1662,9 @@
                 $start5 = 'checked class="' . $checked_class . $update_class . '"';
             }
 
+
+
+
             $user_id = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
             $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
             $count_rating = table_count("rating_users", array('target_id' => $target_id, 'type' => $load_type));
@@ -1669,6 +1672,7 @@
             if ($load_type == "menu") {
                 $item_name = select_field("menus", "id", $target_id, "menu_item");
             } else {
+
                 $item_name = select_field("restaurants", "id", $target_id, "name");
             }
 
