@@ -197,6 +197,7 @@
                     url: '<?php echo url(); ?>/user/ajax_register',
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
+                        msg = msg.trim();
                         $('.overlay_loader').hide();
                         if (msg == '1') {
                             $('#ordered_email').focus();

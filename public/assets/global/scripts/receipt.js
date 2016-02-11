@@ -31,12 +31,18 @@ function changeqty(id, opr) {
 
     function checkout() {
         var del = $('#delivery_flag').val();
+        var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
 
-        if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00') {
+        if (noitems && !debugmode) {
             alert('No items yet.');
         } else {
-            $('.receipt_main').hide();
+            if(noitems){
+                alert('No items yet, but bypassing for debug mode');
+            }
+            //$('.receipt_main').hide();
             $('.profiles').show();
+
+            $('#checkoutModal').modal('show'); //show the modal
         }
     }
 
