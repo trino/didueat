@@ -23,7 +23,7 @@
 
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
+                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
                     </h3>
 
                     <div id="restaurant_rating">

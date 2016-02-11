@@ -50,7 +50,7 @@
 
                 @include('common.items')
 
-                <div class="totals row">
+                <div class="totals row" style="border-top: 1px solid #e5e5e5;">
                     <table class="table">
                         <tbody>
                         @if(!isset($order))

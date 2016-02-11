@@ -1,6 +1,7 @@
 <?php printfile("views/common/items.blade.php"); ?>
 
-<div class="scroller" data-height='120px'>
+<!--div class="scroller" data-height='120px'-->
+<div>
     <table class="orders @if(!isset($order)) order-style @endif" width="100%">
         <thead class="itmQty" <?php if(isset($order)&& isset($arr_menu) && count($arr_menu))echo '';else echo 'style="display:none;"';?>><TH style="width:60px;">Qty</TH><TH width="50%">Item</TH><TH>Price</TH></thead>
         @if(isset($order))
@@ -44,6 +45,9 @@
                     <input type="hidden" class="prs" name="prs[]" value="{{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}"/>
                 </tr>
             <?php } ?>
+
+            @else
+            <div class="alert alert-warning" role="alert">No items yet</div>
         @endif
     </table>
 </div>

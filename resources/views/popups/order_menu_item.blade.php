@@ -115,15 +115,24 @@
                                                                     else
                                                                         $extra_price = '_';
                                                                     ?>
-                                                                    <LABEL>88
-                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+
+
+                                                                        <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
+
+
+
+                                                                            <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
                                                                                title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
                                                                                class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
                                                                                name="extra_{{ $sub->id }}"
                                                                                value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+
                                                                         {{ $mm->menu_item }}
+                                                                            @if($sub->sing_mul =='1')  <span class="c-indicator"></span> @endif
+
                                                                         <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+
                                                                     </LABEL>
 
                                                                         <div <?php if ($sub->sing_mul == '1') {
