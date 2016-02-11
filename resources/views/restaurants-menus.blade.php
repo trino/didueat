@@ -19,11 +19,16 @@
 
                 <div class="col-md-10 p-l-0">
 
-                    <h3 class="card-title">{!! (isset($restaurant->name))?$restaurant->name:'' !!}</h3>
+                    <h3 class="card-title">
+                        {!! (isset($restaurant->name))?$restaurant->name:'' !!}
+
+                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
+                            Detail</a>
+                    </h3>
+                    @include('popups.more_detail')
 
                     <div id="restaurant_rating">
-                        <a style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
-                            Details</a>
+
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
                         <div class="clearfix"></div>
                     </div>
@@ -74,7 +79,7 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
     </div>
 
 
-    <div class="container">
+    <div class="container" style="padding-top: 2rem !important;">
 
         <div class="row">
 

@@ -28,7 +28,7 @@
         </div>
     </div-->
 
-    <footer class=" p-t-2  container text-muted">
+    <footer class="container text-muted" style="padding-top: 1rem !important;">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row">
             <div class="col-lg-10 ">

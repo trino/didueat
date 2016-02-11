@@ -56,7 +56,7 @@ function changeqty(id, opr) {
                 }
             });
             $('#df').show();
-            $('.profile_delevery_type').text('Delivery To');
+            $('.profile_delevery_type').text('Deliver To');
             $('.profile_delivery_detail').show();
           
             var tax = $('.maintax').val();
