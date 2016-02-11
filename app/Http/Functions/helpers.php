@@ -1662,9 +1662,6 @@
                 $start5 = 'checked class="' . $checked_class . $update_class . '"';
             }
 
-
-
-
             $user_id = (\Session::has('session_id')) ? \Session::get('session_id') : 0;
             $countExit = table_count("rating_users", array('user_id' => $user_id, 'target_id' => $target_id, 'rating_id' => $value->id));
             $count_rating = table_count("rating_users", array('target_id' => $target_id, 'type' => $load_type));
@@ -1672,7 +1669,6 @@
             if ($load_type == "menu") {
                 $item_name = select_field("menus", "id", $target_id, "menu_item");
             } else {
-
                 $item_name = select_field("restaurants", "id", $target_id, "name");
             }
 
@@ -1694,11 +1690,10 @@
 
             $html .= '</div>';
 
-            if ($add_rate_brn == true && \Session::has('session_id')) {
+            if ($add_rate_brn){// == true && \Session::has('session_id')) {
                 $html .= '<SPAN>';
                 $html .= '<a href="#" style="font-size:90%;padding-left:5px;" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ' . $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount' . $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
             }
-
             $html .= '</div>';
         }
 
@@ -1718,6 +1713,14 @@
             $class = $half;
         }
         return '<input type="radio" id="star' . $Number . $half . $target_id . $value->id . '" name="rating[' . $target_id . $value->id . ']" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" value="' . $Number . '" ' . $start . ' /><label class = "' . $class . '" for="star' . $Number . $half . $target_id . $value->id . '" title="' . $Number . ' stars"></label>';
+    }
+
+    function converttime($Time){
+        if (strpos(strtolower($Time), "m")) {//if it contains the letter m
+            return date("H:i:s", strtotime($Time));//12 to 24
+        } else {
+            return date("g:i a", strtotime($Time));//24 to 12
+        }
     }
 
 //converts a CSV array into one where each value is in a single quote

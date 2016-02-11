@@ -12,7 +12,7 @@
                          @else
                          src="{{ asset('assets/images/default.png') }}"
                          @endif
-                         alt="">
+                     alt="">
 
                     <div class="clearfix"></div>
                 </div>
@@ -22,58 +22,45 @@
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
 
-                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#"
-                           data-toggle="modal" data-target="#viewMapModel">More
-                            Detail</a>
+                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
                     </h3>
 
                     <div id="restaurant_rating">
-
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id) !!}
                         <div class="clearfix"></div>
                     </div>
 
-<span class="card-text m-b-0 p-r-2">
-Address: {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-    {!! (isset($restaurant->province))? 'ON':'' !!}
-    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-</span>
+                    <span class="card-text m-b-0 p-r-2">
+                    Address: {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                        {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                        {!! (isset($restaurant->province))? 'ON':'' !!}
+                        {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+                    </span>
 
+                    <span class="card-text m-b-0">
+                        Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                    </span>
 
-<span class="card-text m-b-0">
-
-
-Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-
-
-
-</span>
                     <br>
-<span class="card-text">
-<?php
-    $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-    echo "<span class='p-r-2'>Hours: " . getfield($restaurant, $Today . "_open") . " - " . getfield($restaurant, $Today . "_close") . "</span>";
-    echo "<span class='p-r-2'>Delivery hours: " . getfield($restaurant, $Today . "_open_del") . " - " . getfield($restaurant, $Today . "_close_del") . "</span>";
-    ?>
 
+                    <span class="card-text">
+                        <?php
+                            $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                            echo "<span class='p-r-2'>Hours: " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
+                            echo "<span class='p-r-2'>Delivery hours: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                        ?>
 
-    <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
+                        <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
+                        <span class="p-r-2">Minimum: {{ asmoney($restaurant->minimum,$free=false) }}</span>
 
-
-<span class="p-r-2">Minimum: {{ asmoney($restaurant->minimum,$free=false) }}</span>
-
-
-    @if (Session::get('session_type_user') == "super" )
-        Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-    @endif
-</span>
+                        @if (Session::get('session_type_user') == "super" )
+                            Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                        @endif
+                    </span>
 
                     <div class="clearfix"></div>
 
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -89,7 +76,6 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                 </div>
             </div>
 
-
             <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
 
                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
@@ -104,13 +90,11 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                 @endif
 
                 @if(isset($restaurant))
-
                     <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+                @endif
 
-                    @endif
-
-                    @foreach($category as $cat)
-                            <!--  {{ $cat->title }} -->
+                @foreach($category as $cat)
+                    <!--  {{ $cat->title }} -->
                     <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                     <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                         <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
@@ -139,24 +123,20 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                             });
                         });
                     </script>
-                    @endforeach
-
-                            <!--input type="file" accept="image/*;capture=camera"-->
+                @endforeach
+                <!--input type="file" accept="image/*;capture=camera"-->
             </div>
 
             <div class=" col-md-4 col-sm-4" id="printableArea">
                 @include('common.receipt')
             </div>
-
         </div>
     </div>
 
 
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-        <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
-             aria-labelledby="addMenuModelLabel"
-             aria-hidden="true">
+        <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -165,20 +145,16 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                         </button>
                         <h4 class="modal-title" id="addMenuModelLabel">Add Menu Item</h4>
                     </div>
-                    <div class="modal-body" id="menumanager2">
-
-                    </div>
+                    <div class="modal-body" id="menumanager2"></div>
                     <div class="modal-footer">
                         <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
                     </div>
                 </div>
             </div>
         </div>
-
     @endif
 
     @include('popups.more_detail')
-
 
     <script type="text/javascript">
         function check_val(v) {
@@ -404,28 +380,24 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                                     }
                                 }
                             }
+
                             if (cnn > 0) {
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
                                 app_title = app_title + " " + su + ":";
-
                             }
-
-
                         }
+
                         var x = index;
                         if (title[0] != "") {
                             ids = ids + "_" + title[0];
                         }
-
-
                         app_title = app_title + "," + title[1];
                         price = Number(price) + Number(title[2]);
 
                     }
                 });
                 if (err > 0) {
-
                     return false;
                 } else {
                     var banner = $(this).parent().parent().parent().find('.bannerz');
@@ -436,7 +408,6 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     catarray.forEach(function (catid) {
                         $('#error_' + catid).html("");
                     });
-
                 }
 
                 ids = ids.replace("__", "_");
