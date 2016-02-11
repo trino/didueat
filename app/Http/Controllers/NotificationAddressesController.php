@@ -86,6 +86,7 @@ class NotificationAddressesController extends Controller {
         $data['recCount'] = $recCount;
         $data['Pagination'] = getPagination($recCount, $no_of_paginations, $cur_page, TRUE, TRUE, TRUE, TRUE);
         $data["_GET"] = $_GET;
+        $data["restaurant"] = select_field("restaurants", "id", read("restaurant_id"));
 
         \Session::flash('message', \Input::get('message'));
         return view('dashboard.notifications_address.ajax.list', $data);
