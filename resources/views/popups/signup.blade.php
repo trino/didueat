@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;margin-left:auto;margin-right:auto;"/>
+                <!--<img id="regLoader" src="{{ asset('assets/images/loader.gif') }}" style="display: none;margin-left:auto;margin-right:auto;"/>-->
             {!! Form::close() !!}
         </div>
     </div>

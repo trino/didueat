@@ -40,8 +40,8 @@
 
 
 
-            <img src="{{ asset('assets/images/loader.gif') }}" id="regLoader"
-                 style="display: none;margin-left:auto;margin-right:auto;"/>
+            <!--<img src="{{ asset('assets/images/loader.gif') }}" id="regLoader"
+                 style="display: none;margin-left:auto;margin-right:auto;"/>-->
 
 
 

@@ -367,10 +367,10 @@ Thank you">Email Us</a></li>
             var token = $("#forgot-pass-form input[name=_token]").val();
             var email = $("#forgot-pass-form input[name=email]").val();
             $("#forgot-pass-form #lostPWregButton").hide();
-            $("#forgot-pass-form #regLoader").show();
+            $('.overlay_loader').show();
             $.post("{{ url('auth/forgot-password/ajax') }}", {_token: token, email: email}, function (result) {
                 $("#forgot-pass-form #lostPWregButton").show();
-                $("#forgot-pass-form #regLoader").hide();
+                $('.overlay_loader').hide();
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
@@ -477,7 +477,7 @@ Thank you">Email Us</a></li>
             }
 
             $("#register-form #actionBtn").hide();
-            $("#register-form #regLoader").show();
+            $('.overlay_loader').show();
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
                 <?php
@@ -488,7 +488,7 @@ Thank you">Email Us</a></li>
                 subscribed: subscribed
             }, function (result) {
                 $("#register-form #actionBtn").show();
-                $("#register-form #regLoader").hide();
+                $('.overlay_loader').hide();
 
                 var json = jQuery.parseJSON(result);
                 if (json.type == "error") {
