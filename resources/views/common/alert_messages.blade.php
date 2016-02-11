@@ -1,24 +1,15 @@
 <?php
     Session();
 
-    function popup($Success, $Message, $Title = "", $ID = ""){
-        echo '<div class="alert alert-' . iif($Success && $Success != "danger", "success", "danger") . '" role="alert"';
-        if($ID){ echo ' ID="' . $ID  . '"';}
-        echo '><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>';
-        if($Title) {echo '</button><STRONG>' . $Title . '</STRONG>&nbsp;';}
-        echo $Message . '</div>';
-    }
-
-    $data= array("menuadd" => "Item has been added/updated successfully",
-                 "sorted" => "Menu item moved successfully");
-    foreach($data as $get => $message){
+    $data= array("menuadd", "sorted");
+    foreach($data as $get){
         if(isset($_GET[$get])){
-            popup(true, $message);
+            popup(true, "message:" . $get);
         }
     }
 
     if(\Session::has('message-type') && Session::get('message')){
-        popup(\Session::get('message-type'), \Session::get('message'), \Session::get('message-short'));
+        popup(\Session::get('message-type'), Session::get('message'), \Session::get('message-short'));
         \Session::forget('message');
     }
 ?>

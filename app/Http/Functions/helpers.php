@@ -1867,4 +1867,23 @@
         }
     }
 
+    function popup($Success, $Message, $Title = "", $ID = ""){
+        if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
+        echo '<div class="alert alert-' . $Success . ' alert-dismissible fade in" role="alert"';
+        if($ID){ echo ' ID="' . $ID  . '"';}
+        echo '><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+
+        if(left($Message, 8) == "message:"){
+            $Message = right($Message, strlen($Message)-8);
+            switch($Message){
+                case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
+                case "menuadd": $Message = "Item has been added/updated successfully"; break;
+                case "sorted": $Message = "Menu item moved successfully"; break;
+            }
+        }
+
+        if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
+        echo $Message . '</div>';
+    }
 ?>
+

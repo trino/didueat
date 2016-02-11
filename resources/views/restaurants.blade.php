@@ -1,9 +1,8 @@
 <?php
-$first = false;
-$type = "hidden";
+    $first = false;
+    $type = "hidden";
 ?>
 @extends('layouts.default')
-
 @section('content')
 
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
@@ -17,8 +16,6 @@ $type = "hidden";
             </div>
 
             <p class="lead">Or see <a href="#">Hamilton</a> restaurants</p>
-
-
         </div>
     </div>
 
@@ -32,19 +29,10 @@ $type = "hidden";
 
             <div class="row ">
 
-
                 <div class="" id="results_show" style="display: none;">
-
-
                     <div class="col-lg-8">
-                        <div class="alert alert-success alert-dismissible fade in" role="alert"
-                                >
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
-                            found in your area
-                        </div>
+                        <?php popup(true, "message:nostores"); ?>
+
                         @include('ajax.search_restaurants')
 
                     </div>
