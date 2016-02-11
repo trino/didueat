@@ -204,16 +204,12 @@
             if (getCookie('cname')) {
                 $('#search-form #name').val(getCookie('cname'));
             }
-            if (getCookie('address')) {
-                $('#formatted_address2').val(getCookie('address'));
-                $("#header-search-button").show();
-                $('#search-form-submit').trigger('click');
+
+            if (getCookie('latitude')) {
+                $('#latitude').val(getCookie('latitude'));
             }
-            if (getCookie('latitude2')) {
-                $('#latitude2').val(getCookie('latitude2'));
-            }
-            if (getCookie('longitude2')) {
-                $('#longitude2').val(getCookie('longitude2'));
+            if (getCookie('longitude')) {
+                $('#longitude').val(getCookie('longitude'));
             }
             if (getCookie('delivery_type')) {
                 $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
@@ -242,13 +238,19 @@
                 $('#search-form #radius_panel').show();
                 $('#search-form #radius').val(getCookie('radius'));
             }
+
+            if (getCookie('address')) {
+                $('#formatted_address2').val(getCookie('address'));
+                $("#header-search-button").show();
+                $('#search-form-submit').trigger('click');
+            }
         }
 
         $('body').on('click', '#clearSearch', function () {
             removeCookie('cname');
             removeCookie('radius');
-            removeCookie('latitude2');
-            removeCookie('longitude2');
+            removeCookie('latitude');
+            removeCookie('longitude');
             removeCookie('minimum');
             removeCookie('cuisine');
             removeCookie('rating');
@@ -269,18 +271,18 @@
 
         function submitform(e, start) {
             var formatted_address = $(elementname).val();
-            var latitude2 = $('#latitude2').val().trim();
-            var longitude2 = $('#longitude2').val().trim();
+            var latitude = $('#latitude').val().trim();
+            var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
             if(!address_alias){return false;}
 
             createCookieValue("formatted_address", formatted_address);
-            createCookieValue('longitude2', longitude2);
-            createCookieValue('latitude2', latitude2);
+            createCookieValue('longitude', longitude);
+            createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $('#search-form').serialize() + "&latitude=" + latitude2 + "&longitude=" + longitude2 + "&formatted_address=" + address_alias;
+            var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();

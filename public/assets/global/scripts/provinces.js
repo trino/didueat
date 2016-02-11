@@ -187,8 +187,8 @@ function fillInAddress1() {
 function fillInAddress() {
 
     if($('#formatted_address').is(':visible')){
-     // meaning edit page is showing, as the top search field uses formatted_address2
-     document.getElementById('verifyAddress').style.display="block";
+        // meaning edit page is showing, as the top search field uses formatted_address2
+        document.getElementById('verifyAddress').style.display="block";
     }
 
     // Get the place details from the formatted_address object.
@@ -197,7 +197,7 @@ function fillInAddress() {
         if(isundefined(place)) {
             var place = formatted_address3.getPlace();
         }else {
-            var place = formatted_address.getPlace();
+            var place = formatted_address2.getPlace();
         }
     } else {
         var place = formatted_address.getPlace();
@@ -207,13 +207,14 @@ function fillInAddress() {
     var lng = place.geometry.location.lng();
     
     if(!isundefined(formatted_address)){
-     $('#formatted_addressForDB').val(place.formatted_address); // this formatted_address is a google maps object
+        $('#formatted_addressForDB').val(place.formatted_address); // this formatted_address is a google maps object
     }
-    
+
+    //createCookieValue('longitude', lng);
+    //createCookieValue('latitude', lat);
+
     $('#latitude').val(lat);
     $('#longitude').val(lng);
-    $('#latitude2').val(lat);
-    $('#longitude2').val(lng);
     $('#latitude3').val(lat);
     $('#longitude3').val(lng);
     
