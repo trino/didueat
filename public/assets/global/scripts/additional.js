@@ -316,7 +316,7 @@ $('.savebtn').live('click', function () {
                                         type: 'post',
                                         success: function (res2) {
                                             if ($_this2.find('.cmore').length == co) {
-                                                alert('test');
+                                                
                                                 window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus?menuadd';
                                             }
                                         }
@@ -327,7 +327,6 @@ $('.savebtn').live('click', function () {
                     });
                 });
             } else {
-                alert('test');
                 window.location = base_url + 'restaurant/redfront/restaurants/' + $('#res_slug').val() + '/menus?menuadd';
             }
         }
