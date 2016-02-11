@@ -3,8 +3,10 @@
     printfile("views/common/orderinfo.blade.php");
 
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
-
-    $Data = array("Status" => $order->status);
+    
+    //$Data = array("Status" => $order->status);
+    $Data['Order #'] = "<span style='font-size:13px'>".$order->guid."</span>";
+    $Data['Status'] = $order->status;
     $Data["Customer"] = $order->ordered_by;
 
     if (isset($user_detail) && is_object($user_detail)) {
@@ -31,6 +33,7 @@
     if ($order->remarks) {
         $Data["Additional Notes"] = $order->remarks;
     }
+    //var_dump($Data);
     foreach ($Data as $Key => $Value) {
         echo '<TR class="infolist noprint nowrap"><TD class="padright15"><strong>' . $Key . '</strong> </TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>\r\n";
     }
