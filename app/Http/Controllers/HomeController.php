@@ -14,11 +14,6 @@ class HomeController extends Controller {
         });
     }
 
-    /**
-     * Home Page
-     * @param null
-     * @return view
-     */
     public function index() {
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
