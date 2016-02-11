@@ -118,13 +118,6 @@
 
         <div class="container-fluid p-x-0" style="margin-top: 35px;">
             @include('common.alert_messages')
-            <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
-            @if ($Restaurant)
-                <div class="container" style="padding-top:0rem !important;">
-                @include('common.required_to_open')
-                </div>
-            @endif
-
             @yield('content')
         </div>
 
