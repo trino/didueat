@@ -1693,8 +1693,8 @@
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
                 $html .= '<SPAN>';
                 $html .= '<a href="#" style="font-size:90%;padding-left:5px;';
-                if($Color){$html .= 'color: ' . $Color . ';"';}
-                $html .= ' class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
+                if($Color){$html .= 'color: ' . $Color . ';';}
+                $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
                 $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
                 $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
             }

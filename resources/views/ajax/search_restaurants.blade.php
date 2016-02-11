@@ -17,9 +17,6 @@
     if (isset($data['data'])) {
         parse_str($data['data']);
         parse_str($data['data'], $_POST);
-        if(debugmode()){
-            var_dump($_POST);
-        }
     }
 
     $server_gmt = date('Z') / 3600;
