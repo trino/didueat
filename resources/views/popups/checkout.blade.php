@@ -86,6 +86,9 @@
 
                         <div class="form-group pull-right m-b-0">
                             <div class="col-xs-12">
+                                @if(!read("id"))
+                                    <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
+                                @endif
                                 <button type="submit" class="btn btn-primary">Checkout</button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
@@ -98,3 +101,9 @@
         </div>
     </div>
 </div>
+<SCRIPT>
+    function checkout_login(){
+        $('#checkoutModal').modal('hide');
+        $('#login-ajax-form').attr('data-route','reservation');
+    }
+</SCRIPT>
