@@ -138,8 +138,9 @@ $('.savebtn').live('click', function () {
         }        
         
     });
-    
+    var chi = 0;
     $('.additional'+id+ ' .subber').each(function(){
+        chi++;
         var $_th = $(this);
         if($_th.find('.ctitle').val() == '')
         {
@@ -191,11 +192,13 @@ $('.savebtn').live('click', function () {
     }
     var pprice = $_parent.find('.newprice').val();
     if (pprice == '') {
+        if(chi==0){
         alert('Price cannot be blank');
         $_parent.find('.newprice').focus();
         $_parent.find('.newprice').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();
         return false;
+        }
     }
     var discount_per = $_parent.find('.disc_per').val();
     if(discount_per == 'Choose Discount Percentage:')
