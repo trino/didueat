@@ -1618,10 +1618,13 @@
     }
 
 //prints a rating
-    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $select_rating_starts = false, $Color = "") {
-        $html = '<DIV rating-type="' . $type . '" rating-load-type="' . $load_type . '">';
+    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true) {
+        $html = '<DIV>';
+        if($NeedsVARs) {
+            $html = '<DIV id="ratingtarget' . $target_id . '" rating-targetid="' . $target_id . '" rating-type="' . $type . '" rating-loadtype="' . $load_type . '" rating-twolines="' . $TwoLines . '" rating-class="' . $class_name . '" rating-button="' . $add_rate_brn . '" rating-starts="' . $starts . '" rating-color="' . $Color . '">';
+        }
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
-            if($select_rating_starts){
+            if($starts){
                 $update_class = ($type == "rating") ? $class_name : '';
             } else {
                 $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';

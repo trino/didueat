@@ -444,6 +444,11 @@ class HomeController extends Controller {
                     \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
                     break;
 
+                case "updatereview":
+                    //$type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true
+                    echo rating_initialize($_POST["rating_type"], $_POST["rating_loadtype"], $_POST["targetid"], $_POST["rating_twolines"], $_POST["rating_class"], $_POST["rating_button"], $_POST["rating_starts"], $_POST["rating_color"], false);
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
             }
