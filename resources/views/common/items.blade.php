@@ -10,8 +10,7 @@
             $arr_qty = explode(',', $order->qtys);
             $arr_prs = explode(',', $order->prs);
             $arr_extras = explode(',', $order->extras);
-           
-          
+
             foreach ($arr_menu as $k => $me) {
                 if ($order->extras != "") {
                     $extz = str_replace(array("% ", ':'), array(" ", ': '), $arr_extras[$k]);

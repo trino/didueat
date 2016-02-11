@@ -16,10 +16,17 @@
         <div class="pull-right header-nav">
             <ul class="nav navbar-nav">
 
+                <LI class="nav-item" ID="cart-header" style="display: none;">
+                    <A CLASS="nav-link" style="padding-bottom: 0px; padding-top: 4px;">
+                        <span class="fa-stack">
+                            <SPAN class="card-header-items fa-stack-1x"></SPAN>
+                            <i class="fa fa-shopping-cart"></i>
+                        </span>
+                        <SPAN class="card-header-total"></SPAN>
+                    </A>
+                </LI>
+
                 @if(Session::has('is_logged_in'))
-
-
-
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">
                             <img src="<?php

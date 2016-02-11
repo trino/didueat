@@ -106,6 +106,11 @@
     <SCRIPT>
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";
+        function debugalert(message){
+            if(debugmode){
+                alert(message);
+            }
+        }
     </SCRIPT>
     <!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
             background-size: 100% 100% !important;

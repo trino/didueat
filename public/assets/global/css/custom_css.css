@@ -671,3 +671,13 @@ ul.scroller li {
         display: none;
     }
 }
+
+.card-header-items {
+    margin-left: -7px;
+    margin-top: -7px;
+    text-align: center;
+    color: #0275d8;
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}

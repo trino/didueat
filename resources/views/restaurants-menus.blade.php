@@ -257,9 +257,9 @@
                 banner.animate({scrollLeft: 0}, 1000);
             });
 //add items to receipt
+
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
-
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -396,9 +396,9 @@
                         }
                         app_title = app_title + "," + title[1];
                         price = Number(price) + Number(title[2]);
-
                     }
                 });
+
                 if (err > 0) {
                     return false;
                 } else {
@@ -453,6 +453,7 @@
                 } else {
                     pre_cnt = Number(n);
                 }
+
                 var img = $('.popimage_' + menu_id).attr('src');
                 img = img.replace('thumb', 'thumb2');
                 $('#list' + ids).remove();
@@ -469,6 +470,7 @@
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
                         '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
                 price = parseFloat(price);
+
                 var subtotal = "";
                 var ccc = 0;
                 $('.total').each(function () {
@@ -549,6 +551,9 @@
                 $('.close' + menu_id).click();
 
                 show_header();
+
+                total_items = Number(total_items) + Number(n);
+                updatecart();
             });
 
             function inArray(needle, haystack) {
