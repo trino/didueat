@@ -1,7 +1,4 @@
 
-@if(!isset($email))
-
-
         <!-- add addresss modal -->
 <div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
      aria-hidden="true">
@@ -13,7 +10,7 @@
                 </button>
                 <h4 class="modal-title" id="viewMapModelLabel">Add Addresss</h4>
             </div>
-            <div class="modal-body bg-primary">
+            <div class="modal-body">
                 <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
                         @if(!empty($restaurant->formatted_address))
@@ -55,5 +52,3 @@
         </div>
     </div>
 </div>
-
-@endif

@@ -4,7 +4,7 @@
         <?= printfile("views/restaurants-menus.blade.php"); ?>
 
         <div class="container p-y-2">
-            <div class="row">
+            <div class="row p-t-1">
                 <div class="col-md-2 p-r-0">
                     <img style="width:115px;height:115px;" class="pull-left img-circle"
                          @if(isset($restaurant->logo) && !empty($restaurant->logo))
@@ -22,10 +22,10 @@
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
 
-                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
+                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#"
+                           data-toggle="modal" data-target="#viewMapModel">More
                             Detail</a>
                     </h3>
-                    @include('popups.more_detail')
 
                     <div id="restaurant_rating">
 
@@ -177,6 +177,7 @@ Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
 
     @endif
 
+    @include('popups.more_detail')
 
 
     <script type="text/javascript">

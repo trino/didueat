@@ -396,7 +396,8 @@ hr{
     padding: .5rem 1.25rem !important;
 }
 
-
+.table{
+    min-width: 100% !important;}
 .static-rating > .checked-stars ~ label {
    color: #f0ad4e !important
 }

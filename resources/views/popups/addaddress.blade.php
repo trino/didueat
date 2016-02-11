@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="editLabel">Add/Edit Address
-                    @if(debugmode()) (index) @endif
+
                 </h4>
             </div>
             <?php
