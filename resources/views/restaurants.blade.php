@@ -233,11 +233,12 @@
              } else {
              $('#search-form #clearSearch').hide();
              }
-             */
+
             if (getCookie('radius').trim() != "") {
                 $('#search-form #radius_panel').show();
                 $('#search-form #radius').val(getCookie('radius'));
             }
+             */
 
             if (getCookie('address')) {
                 $('#formatted_address2').val(getCookie('address'));
@@ -262,12 +263,14 @@
             //  $('#search-form #clearSearch').hide();
         });
 
+        /*
         $('body').on('keyup', elementname, function () {
             $('#radius_panel').hide();
             if ($(this).val()) {
                 $('#radius_panel').show();
             }
         });
+        */
 
         function submitform(e, start) {
             var formatted_address = $(elementname).val();

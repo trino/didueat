@@ -146,7 +146,7 @@ class Restaurants extends BaseModel {
         $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
-        $data['radius']="max_delivery_distance";
+        $data['radius']="max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( 6371 * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
