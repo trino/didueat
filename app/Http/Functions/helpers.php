@@ -1866,5 +1866,12 @@
             echo '<th>' . $name . '</th>';
         }
     }
+    function get_price($id)
+    {
+        return $submenus = \App\Http\Models\Menus::get_price($id);
+        
+       
+        
+    }
 
 ?>

@@ -56,4 +56,21 @@ class Menus extends BaseModel {
         }
         return $query;
     }
+    
+    public static function get_price($id)
+    {
+        $submenus = \App\Http\Models\Menus::where('parent', $id)->get();
+        //$minprice = \App\Http\Models\Menus::where('parent', $id)->min('price');
+        $minprice = 1;
+        foreach($submenus as $sub)
+        {
+             $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->min('price');
+             if($minprice < $minmenu_price)
+                $minprice= $minprice;
+             else
+                $minprice = $minmenu_price;
+        }
+       return $minprice;
+        
+    }
 }

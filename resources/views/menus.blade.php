@@ -21,6 +21,8 @@
             }
 
             $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
+              $min_p = get_price($value->id);
+             
         ?>
 
         <div class="list-group-item parents" id="parent{{ $value->id }}">
@@ -79,7 +81,7 @@
                                         data-res-id="{{ $value->restaurant_id }}" type="button"
                                         data-toggle="modal"
                                         data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                                        class="btn btn-sm btn-primary">${{number_format($main_price,2)}}</a>
+                                        class="btn btn-sm btn-primary">${{number_format(($main_price>0)?$main_price:$min_p,2)}}{{($main_price>0)?'':'+'}}</a>
 
                             </div>
 

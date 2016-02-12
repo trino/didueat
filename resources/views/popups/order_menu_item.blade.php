@@ -15,6 +15,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-xs-12 title">
                             <h3>
+                            @if($value->price>0)
                                 @if($dis)
                                     <strike class="text-muted">${{number_format($value->price,2)}}</strike>
                                     ${{number_format($main_price,2)}}
@@ -22,6 +23,9 @@
                                 @else
                                     ${{number_format($value->price,2)}}
                                 @endif
+                            @else
+                                ${{number_format($min_p,2)}}+
+                            @endif
                             </h3>
                         </div>
                         @if (Session::get('session_type_user') == "super" )

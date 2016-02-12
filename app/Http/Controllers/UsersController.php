@@ -416,4 +416,5 @@ class UsersController extends Controller {
         
         return json_encode($user);
     }
+     
 }
