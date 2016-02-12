@@ -493,9 +493,9 @@ class HomeController extends Controller {
                         $ob->update();
                     }
                     
-                    return \Response::json(array('type' => 'success', 'response' => "Thank you! for your rating."), 200);
+                    return \Response::json(array('type' => 'success', 'response' => "Thank you for your review"), 200);
                 } else {
-                    return \Response::json(array('type' => 'error', 'response' => "You already rated on this!"), 200);
+                    return \Response::json(array('type' => 'error', 'response' => "You already reviewed"), 200);
                 }
             } catch (Exception $e) {
                 return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);

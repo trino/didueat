@@ -17,7 +17,7 @@
 
 @if (session('status')|| isset($_GET['flash']))
     <div class="alert alert-success" style="margin-bottom:0px !important;">
-        <div class="container">
+        <div class="container" style="padding-top:0px !important;">
             <div class="row">
             <div class="col-md-12">
 
@@ -26,11 +26,11 @@
         </button>
         <?php
             if(isset($_GET['flash'])){
-                echo '<strong>Thank you!</strong>';
+                echo '';
                 if ($_GET['flash'] == '1') {
-                    echo "your order has been received.";
+                    echo "Your order has been received";
                 } elseif ($_GET['flash'] == '2') {
-                    echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";
+                    echo "Your order has been received and your account has been created";
                 }else {
                     session('status');
                 }

@@ -229,10 +229,10 @@
                         } else if (msg == '6') {
 
                             window.location = "{{url('orders/list/user?flash=1')}}";
-                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received.</span>");
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                         } else if (msg == '786') {
                             window.location = "{{url('orders/list/user?flash=2')}}";
-                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.</span>");
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                         } else {
                             alert(msg);
                         }
