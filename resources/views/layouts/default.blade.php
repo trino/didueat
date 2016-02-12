@@ -97,6 +97,25 @@
                 div[class^="col-"], div[class*=" col-"] {
                     border: 1px solid red !important;
                 }
+
+                tr{
+
+                    border: 3px solid pink;
+                }
+                td{
+
+                    border: 3px solid yellow;
+
+                }
+
+                th{
+                    border: 3px solid purple;
+
+
+                }
+
+
+
             </style>
         @endif
 

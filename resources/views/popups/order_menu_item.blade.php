@@ -116,6 +116,22 @@
                                                                         $extra_price = '_';
                                                                     ?>
 
+                                                                        <div <?php if ($sub->sing_mul == '1') {
+                                                                            echo "style='display:none'";
+                                                                        } ?> class="pull-left p-r-1">
+                                                                            <a id="remspan_{{ $mm->id }}"
+                                                                               class="remspan btn btn-secondary-outline btn-xs"
+                                                                               href="javascript:;"><i class="fa fa-minus" style="width:8px;height:8px;"></i></a>
+                                                                            <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} allspan">0</span>
+                                                                            <a id="addspan_{{ $mm->id }}"
+                                                                               class="addspan btn btn-xs btn-primary"
+                                                                               href="javascript:;"><i class="fa fa-plus" style="width:8px;height:8px;"></i></a>
+
+
+                                                                        </div>
+
+
+
 
                                                                         <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
 
@@ -135,26 +151,6 @@
 
                                                                     </LABEL>
 
-                                                                        <div <?php if ($sub->sing_mul == '1') {
-                                                                            echo "style='display:none'";
-                                                                        } ?> class="pull-right">
-
-
-                                                                            <a id="remspan_{{ $mm->id }}"
-                                                                               class="remspan btn btn-secondary-outline btn-xs"
-                                                                               href="javascript:;">-</a>
-
-                                                                                           <span
-                                                                                                   id="sprice_{{$mm->price}}"
-                                                                                                   class="span_{{ $mm->id }} allspan">0</span>
-
-
-                                                                            <a id="addspan_{{ $mm->id }}"
-                                                                               class="addspan btn btn-xs btn-primary"
-                                                                               href="javascript:;">+</a>
-
-
-                                                                        </div>
 
 
 

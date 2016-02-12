@@ -170,7 +170,7 @@ Thank you">Email Us</a></li>
             var target_id = $(this).attr('data-target-id');
 
             $("#ratingModal #ratingModalLabel").text(dataname);
-            $("#ratingModal #reviews").text(detail);
+           /* $("#ratingModal #reviews").text(detail); */
             $("#ratingModal #modal_contents").show();
 
             $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type, target_id: target_id}, function (result) {

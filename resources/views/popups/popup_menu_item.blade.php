@@ -13,8 +13,6 @@
             <div class="modal-body product-popup">
 
 
-
-
                 <div class="product-page product-pop-up">
                     <div class="row">
                         <div class=" title">
@@ -69,7 +67,8 @@
                                                                title="___" id="{{ $sub->id }}"
                                                                style="display: none;" checked="checked"
                                                                class="chk">
-                                                    </div>  <strong>
+                                                    </div>
+                                                    <strong>
                                                         {{ ucfirst($sub->menu_item) }}     </strong>
 
                                                            <span class="limit-options">
@@ -110,7 +109,7 @@
 
 
                                                                 <div id="buttons_{{ $mm->id }}"
-                                                                     class="buttons <?php if($sub->sing_mul != '1'){?> <?php }?>"
+                                                                     class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
                                                                      href="javascript:void(0);">
                                                                     <?php
                                                                     if ($mm->price != 0)
@@ -131,13 +130,9 @@
                                                                 </div>
 
 
-
-
                                                                 <div <?php if ($sub->sing_mul == '1') {
                                                                     echo "style='display:none'";
                                                                 } ?> class="">
-
-
 
 
                                                                     <a id="remspan_{{ $mm->id }}"
@@ -154,13 +149,7 @@
                                                                        href="javascript:;">+</a>
 
 
-
                                                                 </div>
-
-
-
-
-
 
 
                                                                 <div class="clearfix"></div>
@@ -192,7 +181,7 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-Qty
+                Qty
                 <a class="btn btn-secondary-outline" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
                 &nbsp;

@@ -89,6 +89,9 @@
                                 @if(!read("id"))
                                     <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
                                 @endif
+
+                                    <div class="alert alert-success alert-dismissible fade in" role="alert">No items yet</div>
+
                                 <button type="submit" class="btn btn-primary">Checkout</button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
