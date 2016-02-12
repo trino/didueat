@@ -11,30 +11,30 @@
         $MissingDataOptional = [];
         
         if (!isset($MenuTst)) {
-            $MissingData[] = "At least one menu item must be added, and <u>Enabled</u> <a href=\"" . url('restaurants/'.$Restaurant->slug.'/menus') . "\">(<u>Click to Add Menu Items</u>)</a>";
+            $MissingData[] = "At least one menu item must be added, and <u>Enabled</u> <a href=\"" . url('restaurants/'.$Restaurant->slug.'/menus') . "\">(<u>Add Menu Items</u>)</a>";
         }        
         
         if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
-            $MissingData[] = "Pickup and/or Delivery options <a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">(<u>Click to Set Delivery Options</u>)</a>";
+            $MissingData[] = "Pickup and/or Delivery options <a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">(<u>Set Pickup/Delivery Options</u>)</a>";
         }
         /* dont need logo
         if (!$Restaurant->logo) {
-            $MissingData[] = "Your Restaurant Logo <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Click to Set Restaurant Logo</u>)</a>";
+            $MissingData[] = "Your Restaurant Logo <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Set Restaurant Logo</u>)</a>";
         }
 */
         if (!$Restaurant->description) {
-            //$MissingData[] = "Your Restaurant Description <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Click to Set Restaurant Description</u>)</a>";
+            //$MissingData[] = "Your Restaurant Description <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Set Restaurant Description</u>)</a>";
         }
 
         if (!$Restaurant->latitude || !$Restaurant->longitude) {
-            $MissingData[] = "Restaurant address <a href=\"" . url('restaurant/info') . "#RestaurantAddress\">(<u>Click to Set Restaurant Address</u>)</a>";
+            $MissingData[] = "Restaurant address <a href=\"" . url('restaurant/info') . "#RestaurantAddress\">(<u>Set Restaurant Address</u>)</a>";
         }
 
         if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "Delivery range <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Delivery Range</u>)</a>";
+            $MissingDataOptional[] = "Delivery range <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Delivery Range</u>)</a>";
         }
         if ((!$Restaurant->minimum || $Restaurant->minimum == "0.00") && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "Minimum delivery sub-total <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Delivery Minimum</u>)</a>";
+            $MissingDataOptional[] = "Minimum delivery sub-total <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Delivery Minimum</u>)</a>";
         }
 
         //check hours of operation
@@ -55,19 +55,28 @@
         }
 
         if (!$doesopen) {
-            $MissingData[] = "Hours of operation <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Set Hours of Operation</u>)</a>";
+            $MissingData[] = "Hours of operation <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Hours of Operation</u>)</a>";
         } elseif ($someHoursNotOK) {
-            $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Click to Complete Hours Open</u>)</a>";
+            $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Complete Hours Open</u>)</a>";
         }
 
         /*check credit card
         $creditcards = select_field_where("credit_cards", array("user_type" => "restaurant", "user_id" => $Restaurant->id), "COUNT()");
         if (!$creditcards) {
-            $MissingData[] = "Your credit card authorization <a href=\"" . url('credit-cards/list/restaurant') . "\">(<u>Click to Set Credit Card</u>)</a>";
+            $MissingData[] = "Your credit card authorization <a href=\"" . url('credit-cards/list/restaurant') . "\">(<u>Set Credit Card</u>)</a>";
         }
         */
 
         if ($MissingData) {
+            
+
+            ?>
+
+            <div class="alert alert-danger " style="margin-bottom: 0px !important;">
+                <div class="container" style="padding-top:0rem !important;">
+                    <div class="row" style="">
+
+<?
             printfile("views/common/required_to_open.php");
 
             $missingHeadInitialReg="";
@@ -75,12 +84,20 @@
                 $missingHeadInitialReg = '<span style="font-size:20px">PARTIAL REGISTRATION COMPLETED!</span> &nbsp;';
             } 
               
-            $missingHead = $missingHeadInitialReg."PLEASE COMPLETE THE FOLLOWING IN ORDER TO START ACCEPTING ORDERS";
+            $missingHead = $missingHeadInitialReg."<h5>COMPLETE THE FOLLOWING TO START ACCEPTING ORDERS</h5>";
 
             $MissingData = array_merge($MissingData, $MissingDataOptional);
 
-            $MissingData = "<br/>Please click the links below, and/or use the Restaurant Navigation links on the left side below, to finish setting up your restaurant with the following: <div>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
-            echo '<div class="alert alert-danger" ID="invalid-data"><STRONG><u>' . $missingHead . '</u></STRONG>' . $MissingData . '</DIV>';
+            $MissingData = "<div>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
+            echo '<div class="col-md-12"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div>';
+
+
+            ?>
+
+                        </div>
+                        </div>
+                        </div>
+                        <?
         }
     }
 

@@ -32,22 +32,10 @@
         <div class="card-block">
 
             <div class="row">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <b><u>RESTAURANT & CUISINE</u></b>
-                    </div>
-                </div>
-                
-                <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
+                       <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
             </div>
         
-            <div class="row">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <u><b>NAME, EMAIL & PASSWORD</b></u>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <div class="card-block" ID="common_editaddress">

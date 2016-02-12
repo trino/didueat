@@ -13,10 +13,15 @@
         <div class="col-lg-9">
             <div class="restaurentsList deleteme">
                 <div class="toprint">
+                    <h3 class="p-b-1">My Orders
 
-                    <div class="noprint">
-                        <h3 class="">My Orders</h3>
-                            <div class="col-md-2"><strong>Filter by Date</strong></div>
+                                                    <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
+
+
+                    </h3>
+<hr class="p-t-1" />
+                    <div class="noprint row">
+                            <div class="col-md-2">Filter by Date</div>
                             <div class="col-md-7">
                                 <form id="report-form" method="get">
                                     <div class="col-md-4">
@@ -36,8 +41,6 @@
 
                             </div>
 
-                                <div class="col-md-3">                                <a href="javascript:void(0);" class="btn btn-secondary noprint" onclick="return printDiv('toprint')">Print Receipt</a>
-                                </div>
 
 
 
@@ -111,6 +114,11 @@
                             }
                         </style>
                     </div>
+                    <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
+
+
+
+
                 </div>
             </div>
 

@@ -1,3 +1,4 @@
+<div class="">
 <?php
     Session();
 
@@ -16,7 +17,11 @@
 
 @if (session('status')|| isset($_GET['flash']))
     <div class="alert alert-success" style="margin-bottom:0px !important;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12">
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
         <?php
@@ -31,16 +36,34 @@
                 }
             }
 
-            $Restaurant = \Session::get('session_restaurant_id', 0);
         ?>
-
+<div class="clearfix"></div>
     </div>
-    @if ($Restaurant)
-        <div class="container" style="padding-top:0rem !important;">
-            @include('common.required_to_open')
-        </div>
-    @endif
+    </div>
+    </div>
+    </div>
+
 @endif
+
+
+    <?
+    $Restaurant = \Session::get('session_restaurant_id', 0);
+
+    ?>
+
+<?
+  //  echo Session::get('session_restaurant_id');
+    ?>
+    @if ($Restaurant)
+
+
+
+                    @include('common.required_to_open')
+
+    @endif
+
+
+
 
 @if(\Session::has('invalid-data'))
     <?php

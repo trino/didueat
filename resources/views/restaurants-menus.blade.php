@@ -5,8 +5,8 @@
     <div class="container-fluid">
         <div class="container p-y-2"  style="padding-top: 2rem !important;">
             <div class="row" >
-                <div class="col-md-2 p-r-0">
-                    <img style="width:115px;height:115px;" class="pull-left img-rounded"
+                <div class="col-md-2 col-xs-3">
+                    <img style="max-width:100%;" class="pull-left img-rounded"
                          @if(isset($restaurant->logo) && !empty($restaurant->logo))
                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                          @else
@@ -19,12 +19,12 @@
 
                 <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-                <div class="col-md-10 p-l-0" style="font-size:90%;">
+                <div class="col-md-10  col-xs-9 p-l-0" style="font-size:90%;">
 
-                    <h3 class="card-title">
+                    <h2 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                         <a class="pull-right btn btn-sm btn-primary-outline" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
-                    </h3>
+                    </h2>
 
                     <div id="restaurant_rating">
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
@@ -38,16 +38,25 @@
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     </span>
 
-                    <span class="card-text m-b-0">
-                        Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    </span>
-
                     <br>
 
+
                     <span class="card-text">
+
+
+
                         <?php
                             $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
                             echo "<span class='p-r-2'>Hours: " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
+                            ?>
+                            <span class="m-b-0">
+                        Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                    </span>
+
+                            <br>
+                        <?
+
+
                             echo "<span class='p-r-2'>Delivery: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
                         ?>
 
@@ -81,7 +90,7 @@
             <div class="col-md-8 col-sm-8 col-xs-12 menu_div">
 
                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                    <div class="m-b-1 ">
+                    <div class="m-b-2 ">
                         <a href="#" id="add_item0" type="button btn-primary btn-block"
                            class="btn btn-primary additem  btn-block"
                            data-toggle="modal"
@@ -96,12 +105,18 @@
                 @endif
 
                 @foreach($category as $cat)
+
+
+
                     <!--  {{ $cat->title }} -->
                     <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                     <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                         <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
                     </div>
 
+
+
+                    <!-- add menu item -->
                     <script>
                         $(function () {
                             $.ajax({
@@ -111,20 +126,26 @@
                                         $("#postswrapper_{{ $cat->id }}").html(res);
                                     }
                                     else {
-                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
+                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N3o menu items yet<div class="clearfix"></div></div>');
                                     }
                                 },
                                 error: function (res) {
+
                                     if (res != 'no') {
                                         $("#postswrapper_{{ $cat->id }}").html(res);
                                     }
                                     else {
-                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>');
+                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N4o menu items yet<div class="clearfix"></div></div>');
                                     }
                                 }
                             });
                         });
                     </script>
+
+
+
+
+
                 @endforeach
                 <!--input type="file" accept="image/*;capture=camera"-->
             </div>

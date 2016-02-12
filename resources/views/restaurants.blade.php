@@ -6,16 +6,33 @@
 @section('content')
 
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
-        <div class="container" style="padding-top: 0px !important;">
-            <h1 class="display-5">Order Food from Hamilton Restaurants</h1>
+        <div class="container " style="padding-top: 0px !important;">
+            <div class="row m-l-0 text-md-center">
+                <div  class="col-md-12 p-b-1">
 
-            <p class="lead">Enter your location to find deals near you.</p>
+                <h1 class="display-4">Order Food from Hamilton Restaurants</h1>
+                    </div>
 
-            <div class="m-b-1">
+
+                <!--div  class="col-md-5">
+
+            <p class="lead m-b-0">Enter your location to find deals near you</p>
+                    </div-->            <div  class="clearfix"></div>
+
+                <div  class="col-md-12 text-md-center">
+                <div  class="col-md-offset-3 col-md-6  text-md-center">
                 @include('common.search_bar')
+           </div>
+           </div>
+                <div  class="clearfix"></div>
+
+                <div  class="col-md-12 clearfix">
+                <p class="lead p-t-1">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
+
             </div>
 
-            <p class="lead">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
+
+            </div>
         </div>
     </div>
 
@@ -132,6 +149,13 @@
                 </div>
 
                 <div class="p-y-2 " id="icons_show">
+
+
+                    <div class="col-lg-12 p-b-1 text-md-center">
+                        <h2>Why Order From Didu EAT?</h2>
+                    </div>
+
+
                     <!--div class="col-lg-12 text-md-center">
 
                     <h2 class=" text-md-center">Why order from DIDU EAT?</h2>
@@ -146,10 +170,9 @@
 
 
                         </div>
-                        <h4>Input Your Location</h4>
+                        <h4>Local</h4>
 
-                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-                            ultricies vehicula ut id elit.</p>
+                        <p class="text-muted">All local menus at your fingertips</p>
                     </div>
                     <div class="col-lg-4 text-md-center">
 
@@ -161,10 +184,9 @@
 
 
                         </div>
-                        <h4>Select Your Restaurant</h4>
+                        <h4>Efficient</h4>
 
-                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-                            ultricies vehicula ut id elit.</p>
+                        <p class="text-muted">The quickest way to order food</p>
                     </div>
 
                     <div class="col-lg-4 text-md-center">
@@ -177,10 +199,9 @@
 
 
                         </div>
-                        <h4>Enjoy Food</h4>
+                        <h4>Discounts</h4>
 
-                        <p class="text-muted">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-                            ultricies vehicula ut id elit.</p>
+                        <p class="text-muted">There's a deal everyday</p>
                     </div>
 
 <div class="clearfix"></div>

@@ -3,7 +3,7 @@
     $type = "hidden";
 ?>
 
-<nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-primary" role="navigation">
+<nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-success" role="navigation">
 
 <div class="container" style="padding-top:0 !important;">
 
@@ -52,8 +52,9 @@
                     <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li>
                 @else
                     <li class="nav-item">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</a>
                         <a class="btn btn-primary" data-toggle="modal" data-target="#signupModal">Sign up</a>
+
+                        <a class="btn btn-primary-outline" data-toggle="modal" data-target="#loginModal">Log in</a>
                     </li>
                 @endif
 

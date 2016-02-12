@@ -261,7 +261,7 @@ class RestaurantController extends Controller {
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
-                return $this->success("Resturant Info updated successfully", 'restaurant/info/' . $post['id']);
+                return $this->success("Resturant info updated", 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
@@ -582,7 +582,7 @@ class RestaurantController extends Controller {
         $this->deleteDir($dir);
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', 'Congratulations!');
+        \Session::flash('message-short', '');
         
         if (!$slug) {
             return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');

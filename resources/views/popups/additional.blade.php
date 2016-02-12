@@ -97,7 +97,7 @@
                 <div class="radios col-md-12">
                     <div class="">
                         <div class="">
-                            <div class=""><strong class="">These items are:</strong></div>
+                            <div class=""><strong class="">These items are</strong></div>
                             <div class="infolist">
 
                                 <label class="c-input c-radio"><input type="radio" value="1"
@@ -108,7 +108,7 @@
                                     <span class="c-indicator"></span>
 
                                 </label>
-OR
+
                                 <label class="c-input c-radio"><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);"
                                               class="is_required" value="0" name="{{ $r1 }}"
                                               @if((isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif>
@@ -125,7 +125,7 @@ OR
                         </div>
                         <div class="clearfix"></div>
                         <div class="">
-                            <div class=""><strong class="">Customer can select:</strong></div>
+                            <div class=""><strong class="">Customer can select</strong></div>
 
                             <div class="infolist">
                                 <LABEL class="c-input c-radio"><input type="radio" onclick="$(this).closest('.radios').find('.is_mul').val(1);"
@@ -135,7 +135,7 @@ OR
                                     <span class="c-indicator"></span>
 
                                 </LABEL>
-                                 OR
+
                                 <LABEL class="c-input c-radio"><input type="radio" value="0" class="is_multiple"
                                               onclick="$(this).closest('.radios').find('.is_mul').val(0);"
                                               name="{{ $r2 }}"
@@ -164,7 +164,7 @@ OR
                                 <input type="hidden" class="up_t"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) value="0"
                                        @else value="1" @endif />
-
+                                    <LABEL class="c-input c-radio">
                                 <input type="radio"
                                        onclick="$(this).parent().find('.up_t').val(0);"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
@@ -172,13 +172,18 @@ OR
                                        name="{{ $r3 }}">
 
                                 Up to
+                                        <span class="c-indicator"></span>
 
-
+</LABEL>
+                                    <LABEL class="c-input c-radio">
                                 <input
                                         type="radio" onclick="$(this).parent().find('.up_t').val(1);" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
+                                        <span class="c-indicator"></span>
+
+                                    </LABEL>
 <div class="row">
 <div class=" col-md-4">
                                 <input placeholder="How many?" type="number" id="itemno{{ $r3 }}"

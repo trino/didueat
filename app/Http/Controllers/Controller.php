@@ -45,7 +45,7 @@ abstract class Controller extends BaseController {
 
     //automates the flash/flash with input and redirect for the success condition
     public function success($message, $redirect, $withInput = false){
-        return $this->failure($message, $redirect, $withInput, 'alert-success', 'Congratulations!');
+        return $this->failure($message, $redirect, $withInput, 'alert-success', '');
     }
 
     //automates the flash/flash with input and redirect for the failure condition

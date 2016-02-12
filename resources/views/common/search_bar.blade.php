@@ -1,5 +1,4 @@
 <?php
-    printfile("views/common/search_bar.blade.php");
     includeJS(url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP));
     if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
         echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
@@ -7,7 +6,7 @@
 ?>
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
-    <div class="" style="width: 450px;">
+    <div class="" style="">
         <div class="input-group input-group-lg">
 
             @if(read("id") && false)
@@ -37,7 +36,7 @@
             @endif
 
             <input style="" type="text" name="formatted_address" id="formatted_address2"
-                   class="form-control formatted_address" placeholder="Address, City or Postal Code"
+                   class="form-control formatted_address" placeholder="Enter Your Address"
                    onchange="change_address_event();"
                    onpaste="this.onchange();">
             <input type="HIDDEN" name="latitude" id="latitude">
@@ -45,14 +44,17 @@
 
             <div class="input-group-btn">
                 <button class="btn  btn-primary dueBtn" oldstyle="display: none;" id="header-search-button"
-                        onclick="$('#search-form-submit').trigger('click');">&nbsp;<i class="fa fa-search"></i>&nbsp;
+                        onclick="$('#search-form-submit').trigger('click');"><i class="fa fa-search"></i>
                 </button>
             </div>
 
         </div>
     </div>
 
+    <?
+    printfile("views/common/search_bar.blade.php");
 
+    ?>
 
     <script>
         var formatted_address2, formatted_address3;
@@ -89,7 +91,3 @@
         } ?>
     </script>
 @endif
-                
-
-
-

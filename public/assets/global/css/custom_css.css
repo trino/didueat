@@ -19,7 +19,7 @@ label{margin-bottom: 0px !important;}
 
 .container{
 
-    padding-top:3rem !important;
+    padding-top:2rem !important;
 }
 
 .banner_red{
@@ -53,10 +53,13 @@ label{margin-bottom: 0px !important;}
 }
 
 .card-header {
-    padding: 1.25rem 1.25rem !important;
+   /* padding: 1.25rem 1.25rem !important; */
     background-color: #fff !important;
 }
+.alert{
+    border-radius:0px !important;
 
+}
 tr {
     padding: 1.0rem 1.25rem;
 
@@ -107,6 +110,8 @@ tr {
 
 
 body {
+    padding-right: 0 !important;
+
    /* background: #f4f7f8 !important; */
     font-family: 'Roboto', sans-serif;
     /* font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
@@ -126,7 +131,7 @@ body {
 /* modal padding */
 body.modal-open {
     /*overflow-y: auto !important;*/
-    padding-right: 0 !important;
+
 }
 
 .image_placeholder {
@@ -684,3 +689,70 @@ ul.scroller li {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: white;
 }
+
+.cleafix{
+    clear:both;
+
+}
+
+
+/*
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #ed9f2f;
+    border-color: #eb9418;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+    color: #ffffff;
+    background-color: #d88612;
+    border-color: #7a4c0a;
+}
+.btn-primary:hover {
+    color: #ffffff;
+    background-color: #d88612;
+    border-color: #b7720f;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    color: #ffffff;
+    background-color: #d88612;
+    border-color: #b7720f;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+    color: #ffffff;
+    background-color: #b7720f;
+    border-color: #7a4c0a;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+    background-color: #ed9f2f;
+    border-color: #eb9418;
+}
+.btn-primary .badge {
+    color: #ed9f2f;
+    background-color: #ffffff;
+}
+*/

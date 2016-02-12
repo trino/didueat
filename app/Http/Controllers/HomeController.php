@@ -367,7 +367,7 @@ class HomeController extends Controller {
         if(count($menus_list)) {
             return view('menus', $data);
         }else {
-            die('no');
+            return '<div class="alert alert-danger" role="alert">No menu items yet<div class="clearfix"></div></div>';
         }
     }
 
