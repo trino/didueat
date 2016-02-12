@@ -161,7 +161,7 @@
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
                                            class="btn btn-sm btn-secondary-outline"
-                                           onclick="return confirm('This will delete the menu item. Do you wish to proceed?')">X</a>
+                                           onclick="return confirm('This will delete the menu item. Do you wish to proceed?')"><i class="fa fa-times"></i></a>
                                     </div>
 
                                 @endif

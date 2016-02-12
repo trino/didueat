@@ -72,8 +72,6 @@
                                                 <hr class="clearfix" style="margin: 10px 0;"/>
 
 
-
-
                                                 <input type="hidden" value="{{ $sub->exact_upto_qty }}"
                                                        id="extra_no_{{ $sub->id }}">
                                                 <input type="hidden" value="{{ $sub->req_opt }}"

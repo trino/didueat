@@ -10,7 +10,7 @@
 
 
         <div class="col-md-12 ">
-            <input class="form-control ctitle " type="text" placeholder="Addon Name"
+            <input class="form-control ctitle " type="text" placeholder="Additional Addon"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
 
             <textarea class="form-control cdescription" style="display: none;"
@@ -70,12 +70,13 @@
                             <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item"/>
                             </div>
                             <div class="col-md-4   "><input class="form-control ccprice" type="text"
-                                                            placeholder="Additional Price"/></div>
+                                                            placeholder="Optional Price"/></div>
 
 
                             <div class="col-md-2">
                                 <a href="javascript:void(0);" class="pull-right btn btn-sm  btn-secondary-outline"
-                                   onclick="$(this).parent().parent().remove();" style="">x</a>
+                                   onclick="$(this).parent().parent().remove();" style=""><i class="fa fa-times"></i>
+                                </a>
                                 <!--div class="resturant-arrows">
                                 <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
                                 <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
@@ -155,7 +156,7 @@ OR
 
                         <div class="">
 
-                            <div class=" ">
+                            <div class="">
                                 <strong class="">Enter # of items</strong>
                             </div>
                             <div class="">
@@ -178,10 +179,12 @@ OR
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
-
+<div class="row">
+<div class=" col-md-4">
                                 <input placeholder="How many?" type="number" id="itemno{{ $r3 }}"
-                                       class="itemno form-control col-md-4"
-                                       value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}">
+                                       class="itemno form-control"
+                                       value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -198,8 +201,7 @@ OR
 
                         @endif
 
-                        <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast" onclick="">Remove
-                            Addon</a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Remove Addon</a>
                     </div>
                     <?php
                     if(isset($cmodel) && count($cmodel) > 1)
