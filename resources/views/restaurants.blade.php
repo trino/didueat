@@ -1,14 +1,13 @@
 <?php
-$first = false;
-$type = "hidden";
+    $first = false;
+    $type = "hidden";
 ?>
 @extends('layouts.default')
-
 @section('content')
 
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container" style="padding-top: 0px !important;">
-            <h1 class="display-5">Order Online Specials from Local Restaurants</h1>
+            <h1 class="display-5">Order Food from Hamilton Restaurants</h1>
 
             <p class="lead">Enter your location to find deals near you.</p>
 
@@ -16,9 +15,7 @@ $type = "hidden";
                 @include('common.search_bar')
             </div>
 
-            <p class="lead">Or see <a href="#">Hamilton</a> restaurants</p>
-
-
+            <p class="lead">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
         </div>
     </div>
 
@@ -32,19 +29,10 @@ $type = "hidden";
 
             <div class="row ">
 
-
                 <div class="" id="results_show" style="display: none;">
-
-
                     <div class="col-lg-8">
-                        <div class="alert alert-success alert-dismissible fade in" role="alert"
-                                >
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <span id="countRows" style="">No</span> restaurant<span id="countRowsS" style="">s</span>
-                            found in your area
-                        </div>
+                        <?php popup(true, "message:nostores"); ?>
+
                         @include('ajax.search_restaurants')
 
                     </div>
@@ -216,16 +204,12 @@ $type = "hidden";
             if (getCookie('cname')) {
                 $('#search-form #name').val(getCookie('cname'));
             }
-            if (getCookie('address')) {
-                $('#formatted_address2').val(getCookie('address'));
-                $("#header-search-button").show();
-                $('#search-form-submit').trigger('click');
+
+            if (getCookie('latitude')) {
+                $('#latitude').val(getCookie('latitude'));
             }
-            if (getCookie('latitude2')) {
-                $('#latitude2').val(getCookie('latitude2'));
-            }
-            if (getCookie('longitude2')) {
-                $('#longitude2').val(getCookie('longitude2'));
+            if (getCookie('longitude')) {
+                $('#longitude').val(getCookie('longitude'));
             }
             if (getCookie('delivery_type')) {
                 $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
@@ -249,18 +233,25 @@ $type = "hidden";
              } else {
              $('#search-form #clearSearch').hide();
              }
-             */
+
             if (getCookie('radius').trim() != "") {
                 $('#search-form #radius_panel').show();
                 $('#search-form #radius').val(getCookie('radius'));
+            }
+             */
+
+            if (getCookie('address')) {
+                $('#formatted_address2').val(getCookie('address'));
+                $("#header-search-button").show();
+                $('#search-form-submit').trigger('click');
             }
         }
 
         $('body').on('click', '#clearSearch', function () {
             removeCookie('cname');
             removeCookie('radius');
-            removeCookie('latitude2');
-            removeCookie('longitude2');
+            removeCookie('latitude');
+            removeCookie('longitude');
             removeCookie('minimum');
             removeCookie('cuisine');
             removeCookie('rating');
@@ -272,27 +263,29 @@ $type = "hidden";
             //  $('#search-form #clearSearch').hide();
         });
 
+        /*
         $('body').on('keyup', elementname, function () {
             $('#radius_panel').hide();
             if ($(this).val()) {
                 $('#radius_panel').show();
             }
         });
+        */
 
         function submitform(e, start) {
             var formatted_address = $(elementname).val();
-            var latitude2 = $('#latitude2').val().trim();
-            var longitude2 = $('#longitude2').val().trim();
+            var latitude = $('#latitude').val().trim();
+            var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
             if(!address_alias){return false;}
 
             createCookieValue("formatted_address", formatted_address);
-            createCookieValue('longitude2', longitude2);
-            createCookieValue('latitude2', latitude2);
+            createCookieValue('longitude', longitude);
+            createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $('#search-form').serialize() + "&latitude=" + latitude2 + "&longitude=" + longitude2 + "&formatted_address=" + address_alias;
+            var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();

@@ -1,11 +1,17 @@
 <?php
-printfile("views/common/receipt.blade.php");
-$ordertype = "Pickup";
-if (isset($order)) {
-    if ($order->order_type) {
-        $ordertype = "Delivery";
+    printfile("views/common/receipt.blade.php");
+    $ordertype = "Pickup";
+    if (isset($order)) {
+        if ($order->order_type) {
+            $ordertype = "Delivery";
+        }
     }
-}
+    if(!isset($profile)){
+        $profile=false;
+    }
+    if(!isset($type)){
+        $type=false;
+    }
 ?>
 
 @if(!isset($order))
@@ -34,7 +40,7 @@ if (isset($order)) {
     <div class="card" style="">
 
         <div class="card-header">
-            <h4 class="card-title">Your Order</h4>
+            <h4 class="card-title">Receipt</h4>
         </div>
 
 
@@ -44,7 +50,7 @@ if (isset($order)) {
 
                 @include('common.items')
 
-                <div class="totals row">
+                <div class="totals row" style="">
                     <table class="table">
                         <tbody>
                         @if(!isset($order))
@@ -143,12 +149,9 @@ if (isset($order)) {
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                                 <?php
-                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                                echo "<p>Welcome " . $profile->name . "</p>";
+                                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                                    echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
-                            @else
-                                <a class="btn btn-danger reserve_login" data-target="#loginModal" data-toggle="modal"
-                                   onclick="$('#login-ajax-form').attr('data-route','reservation')">Log in</a>
                             @endif
                         </div>
                     </div>
@@ -156,85 +159,7 @@ if (isset($order)) {
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 
                     <form name="checkout_form" id="profiles" class="m-b-0">
-                        <?php printfile("receipt.blade.php/checkout_form"); ?>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        <input type="hidden" name="user_id" id="ordered_user_id"
-                               value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
-                        <input type="hidden" name="added_address" value="" class="added_address"/>
-
-                        <div class="col-sm-12">
-                            <input type="text" placeholder="Full Name"
-                                   class="form-control" name="ordered_by"
-                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}"
-                                   required="" <?php if ((isset($profile))) echo "readonly";?> >
-                        </div>
-
-                        <div class="col-sm-12">
-                            <input type="email" placeholder="Email" class="form-control "
-                                   name="email" id="ordered_email" required=""
-                                   value="{{ (isset($profile))? $profile->email : '' }}" <?php if ((isset($profile))) echo "readonly";?> />
-                        </div>
-                        <div class="col-sm-12 email_error" style="display: none; color: red;">
-
-                        </div>
-                        @if(!Session::has('is_logged_in'))
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <input type="password" name="password" id="password"
-                                           class="form-control  password_reservation" placeholder="Provide a password"
-                                           onkeyup="check_val(this.value);" required="required"/>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        @endif
-
-                        <div class="form-group">
-                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
-                                <input type="text"
-                                       name="phone"
-                                       placeholder="Cell Phone"
-                                       class="form-control" name="contact"
-                                       id="ordered_contact" required=""
-                                       value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile) && $profile->phone != '')) echo "readonly";?> />
-                            </div>
-                        </div>
-
-
-                        <div class="profile_delivery_detail" style="display: none;">
-                            @if(!isset($type) || $type != "report")
-                                @include('common.editaddress',['type'=>'reservation'])
-                            @endif
-                            <div class="clearfix"></div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <select class="form-control " name="order_till" id="ordered_on_time" required="">
-                                    <option value="Order ASAP">Order ASAP</option>
-                                    {{ get_time_interval() }}
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme"
-                                          name="remarks"></textarea>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="form-group   pull-right m-b-0">
-                            <div class="col-xs-12">
-                                <a href="javascript:void(0)" class="btn btn-secondary  back back-btn">Back</a>
-                                <button type="submit" class="btn btn-primary">Checkout</button>
-                                <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
-                                       value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
+                        @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant])
                     </form>
                 </div>
             @endif
@@ -308,8 +233,10 @@ if (isset($order)) {
         validateform("profiles", {
             phone: "phone required",
             mobile: "phone",
-            email: "email required",
-            password: "required minlength 3",
+            @if(!read("id"))
+                email: "email required",
+                password: "required minlength 3",
+            @endif
             reservation_address: "required=Please select an address."
         });
     });

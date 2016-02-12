@@ -1618,10 +1618,13 @@
     }
 
 //prints a rating
-    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $select_rating_starts = false, $Color = "") {
-        $html = "<DIV>";
+    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true) {
+        $html = '<DIV>';
+        if($NeedsVARs) {
+            $html = '<DIV id="ratingtarget' . $target_id . '" rating-targetid="' . $target_id . '" rating-type="' . $type . '" rating-loadtype="' . $load_type . '" rating-twolines="' . $TwoLines . '" rating-class="' . $class_name . '" rating-button="' . $add_rate_brn . '" rating-starts="' . $starts . '" rating-color="' . $Color . '">';
+        }
         foreach (select_field_where("rating_define", array('type' => $load_type, 'is_active' => 1), false) as $key => $value) {
-            if($select_rating_starts){
+            if($starts){
                 $update_class = ($type == "rating") ? $class_name : '';
             } else {
                 $update_class = ($type == "rating") ? $class_name . $target_id . $value->id . $value->type : '';
@@ -1691,16 +1694,14 @@
             $html .= '</div>';
 
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
-                $html .= '<SPAN>';
-                $html .= '<a href="#" style="font-size:90%;padding-left:5px;';
-                if($Color){$html .= 'color: ' . $Color . ';"';}
-                $html .= ' class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
+                $html .= '<SPAN><a href="#" style="font-size:90%;padding-left:5px;';
+                if($Color){$html .= 'color: ' . $Color . ';';}
+                $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
                 $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
                 $html .= $target_id . '">Reviews (' . $count_rating . ')</a></SPAN>';
             }
-            $html .= '</div>';
         }
-
+        $html .= '</div>';
         return $html;
     }
 
@@ -1874,4 +1875,23 @@
         
     }
 
+    function popup($Success, $Message, $Title = "", $ID = ""){
+        if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
+        echo '<div  style="margin-bottom:0px !important;"  class="alert alert-' . $Success . ' alert-dismissible fade in" role="alert"';
+        if($ID){ echo ' ID="' . $ID  . '"';}
+        echo '><div class="container" style="padding-top:0px !important;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+
+        if(left($Message, 8) == "message:"){
+            $Message = right($Message, strlen($Message)-8);
+            switch($Message){
+                case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
+                case "menuadd": $Message = "Item has been added/updated successfully"; break;
+                case "sorted": $Message = "Menu item moved successfully"; break;
+            }
+        }
+
+        if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
+        echo $Message . '</div></div>';
+    }
 ?>
+

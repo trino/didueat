@@ -13,8 +13,6 @@
             <div class="modal-body product-popup">
 
 
-
-
                 <div class="product-page product-pop-up">
                     <div class="row">
                         <div class=" title">
@@ -33,7 +31,9 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
-                        <div class="col-sm-12 col-xs-12">
+
+
+
                             <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
                         </div>
 
@@ -48,7 +48,7 @@
                                        value="" class="chk">
                             </div>
                             <div class="banner bannerz">
-                                <table>
+                                <table style="min-width:100%;">
                                     <tbody>
                                     @foreach ($submenus as $sub)
                                         <tr class="zxcx">
@@ -69,7 +69,8 @@
                                                                title="___" id="{{ $sub->id }}"
                                                                style="display: none;" checked="checked"
                                                                class="chk">
-                                                    </div>  <strong>
+                                                    </div>
+                                                    <strong>
                                                         {{ ucfirst($sub->menu_item) }}     </strong>
 
                                                            <span class="limit-options">
@@ -110,7 +111,7 @@
 
 
                                                                 <div id="buttons_{{ $mm->id }}"
-                                                                     class="buttons <?php if($sub->sing_mul != '1'){?> <?php }?>"
+                                                                     class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
                                                                      href="javascript:void(0);">
                                                                     <?php
                                                                     if ($mm->price != 0)
@@ -131,13 +132,9 @@
                                                                 </div>
 
 
-
-
                                                                 <div <?php if ($sub->sing_mul == '1') {
                                                                     echo "style='display:none'";
                                                                 } ?> class="">
-
-
 
 
                                                                     <a id="remspan_{{ $mm->id }}"
@@ -154,13 +151,7 @@
                                                                        href="javascript:;">+</a>
 
 
-
                                                                 </div>
-
-
-
-
-
 
 
                                                                 <div class="clearfix"></div>
@@ -192,13 +183,13 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-Qty
+                Qty
                 <a class="btn btn-secondary-outline" href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
+                   onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
                 &nbsp;
                 <span class="number{{ $value->id }}">1</span> &nbsp;
                 <a class="btn  btn-secondary-outline  " href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
+                   onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style="width:9px;height:9px;"></i></a>
 
                 <a id="profilemenu{{ $value->id }}"
                    class="btn  btn-primary add_menu_profile add_end"

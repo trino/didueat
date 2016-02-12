@@ -338,15 +338,8 @@ class UsersController extends Controller {
                         echo '1';
                         die();
                     } else {
-                        //$data = array("name" => trim($name), "profile_type" => 2, "email" => $email_address, "created_by" => 0, "subscribed" => 0, 'password' => encryptpassword($password), 'restaurant_id' => '0');
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
-
                         $res['user_id'] = $uid->id;
-
-                        //users should not have notification addresses, these are for stores only!!!
-                        //$nd1 = new \App\Http\Models\NotificationAddresses();
-                        //$nd1->populate(array("is_default" => 1, 'type' => "Email", 'user_id' => $uid->id, 'address' => $uid->email));
-                        //$nd1->save();
                         $msg = "78";
                     }
                 }
@@ -389,7 +382,7 @@ class UsersController extends Controller {
                     }
                 }
                 
-                echo $msg . '6';
+                echo '6';
                 
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {

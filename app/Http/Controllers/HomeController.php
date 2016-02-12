@@ -42,7 +42,7 @@ class HomeController extends Controller {
             }
         }
         $used_tag = str_replace(' ','',$used_tag);
-        var_dump($used_tag);
+       // var_dump($used_tag);
         $all_tags = explode(',',$tag);
         $all_used_tags = explode(',',$used_tag);
         $arr_final = array();
@@ -59,8 +59,8 @@ class HomeController extends Controller {
             }
         }
 
-        var_dump($arr_final);
-        var_dump($arr_count);
+    //    var_dump($arr_final);
+     //   var_dump($arr_count);
 
         $keys = '';
         $key_final = array();
@@ -85,7 +85,7 @@ class HomeController extends Controller {
                 $key_final[] = $keys;
             }
         }
-        var_dump($key_final);
+    //    var_dump($key_final);
         die();
     }
 
@@ -442,6 +442,11 @@ class HomeController extends Controller {
                     break;
                 case "change_note":
                     \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
+                    break;
+
+                case "updatereview":
+                    //$type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true
+                    echo rating_initialize($_POST["rating_type"], $_POST["rating_loadtype"], $_POST["targetid"], $_POST["rating_twolines"], $_POST["rating_class"], $_POST["rating_button"], $_POST["rating_starts"], $_POST["rating_color"], false);
                     break;
 
                 default:

@@ -10,7 +10,7 @@
         $nextPath = "/" . Request::path();
     }
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <?php $start_loading_time = microtime(true); ?>
@@ -57,12 +57,8 @@
         <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
         <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-        <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script>
+        <!--script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script-->
+
         <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
@@ -70,10 +66,18 @@
 
         <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
+        <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript" ></script>
+        <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript" ></script>
 
         @if(false)
+
+                <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script-->
+            <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script-->
+            <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script-->
+
+
             <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}" type="text/javascript"></script>
             <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}" type="text/javascript"></script>
             <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}" type="text/javascript"></script>
@@ -93,6 +97,25 @@
                 div[class^="col-"], div[class*=" col-"] {
                     border: 1px solid red !important;
                 }
+
+                tr{
+
+                    border: 3px solid pink;
+                }
+                td{
+
+                    border: 3px solid yellow;
+
+                }
+
+                th{
+                    border: 3px solid purple;
+
+
+                }
+
+
+
             </style>
         @endif
 
@@ -101,33 +124,29 @@
 
     <SCRIPT>
         var baseurl = "{{ url('/') }}";
-        document.write(baseurl);
+        var debugmode = "{{ debugmode() }}";
+        function debugalert(message){
+            if(debugmode){
+                alert(message);
+            }
+        }
     </SCRIPT>
     <!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
             background-size: 100% 100% !important;
             background-repeat: no-repeat !important;"-->
 
     <body>
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
+        @if(!read("id"))
+            @include('popups.login')
+            @include('popups.signup')
+            @include('popups.forgot-password')
+        @endif
 
         @include('layouts.includes.header')
 
-
-        <div class="container-fluid p-x-0" style="">
-
+        <div class="container-fluid p-x-0" style="margin-top: 53px;">
             @include('common.alert_messages')
-
-            <?php $Restaurant = \Session::get('session_restaurant_id', 0); ?>
-            @if ($Restaurant)
-                <div class="container" style="padding-top:0rem !important;">
-                @include('common.required_to_open')
-                </div>
-            @endif
-
             @yield('content')
-
         </div>
 
         @include('layouts.includes.footer')

@@ -16,10 +16,17 @@
         <div class="pull-right header-nav">
             <ul class="nav navbar-nav">
 
+                <LI class="nav-item" ID="cart-header" style="display: none;">
+                    <A CLASS="nav-link" style="padding-bottom: 0px; padding-top: 4px;">
+                        <span class="fa-stack">
+                            <SPAN class="card-header-items fa-stack-1x"></SPAN>
+                            <i class="fa fa-shopping-cart"></i>
+                        </span>
+                        <SPAN class="card-header-total"></SPAN>
+                    </A>
+                </LI>
+
                 @if(Session::has('is_logged_in'))
-
-
-
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">
                             <img src="<?php
@@ -48,10 +55,11 @@
                         <a class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</a>
                         <a class="btn btn-primary" data-toggle="modal" data-target="#signupModal">Sign up</a>
                     </li>
-
-
-
                 @endif
+
+                <LI class="nav-item" id="expand-header" style="display: none;">
+                    <a href="javascript:;" class="btn btn-primary menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+                </LI>
             </ul>
         </div>
 </div>

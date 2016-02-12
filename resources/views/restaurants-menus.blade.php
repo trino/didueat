@@ -1,10 +1,12 @@
 @extends('layouts.default')
 @section('content')
-    <div class="container-fluid bg-primary main-bg-image">
-        <div class="container p-y-2">
-            <div class="row p-t-1">
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+
+    <div class="container-fluid">
+        <div class="container p-y-2"  style="padding-top: 2rem !important;">
+            <div class="row" >
                 <div class="col-md-2 p-r-0">
-                    <img style="width:115px;height:115px;" class="pull-left img-circle"
+                    <img style="width:115px;height:115px;" class="pull-left img-rounded"
                          @if(isset($restaurant->logo) && !empty($restaurant->logo))
                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                          @else
@@ -17,15 +19,15 @@
 
                 <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-                <div class="col-md-10 p-l-0">
+                <div class="col-md-10 p-l-0" style="font-size:90%;">
 
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                        <a class="pull-right btn btn-secondary-outline" style="color:white;" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
+                        <a class="pull-right btn btn-sm btn-primary-outline" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
                     </h3>
 
                     <div id="restaurant_rating">
-                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, 'white') !!}
+                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                         <div class="clearfix"></div>
                     </div>
 
@@ -46,7 +48,7 @@
                         <?php
                             $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
                             echo "<span class='p-r-2'>Hours: " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
-                            echo "<span class='p-r-2'>Delivery hours: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                            echo "<span class='p-r-2'>Delivery: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
                         ?>
 
                         <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
@@ -60,12 +62,13 @@
                     <div class="clearfix"></div>
 
                 </div>
+
             </div>
         </div>
     </div>
 
 
-    <div class="container" style="padding-top: 2rem !important;">
+    <div class="container" style="padding-top: 0rem !important;">
 
         <div class="row">
 
@@ -195,6 +198,7 @@
                     url: '<?php echo url(); ?>/user/ajax_register',
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
+                        msg = msg.trim();
                         $('.overlay_loader').hide();
                         if (msg == '1') {
                             $('#ordered_email').focus();
@@ -254,9 +258,9 @@
                 banner.animate({scrollLeft: 0}, 1000);
             });
 //add items to receipt
+
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
-
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
                 var ids = "";
                 var app_title = "";
@@ -393,9 +397,9 @@
                         }
                         app_title = app_title + "," + title[1];
                         price = Number(price) + Number(title[2]);
-
                     }
                 });
+
                 if (err > 0) {
                     return false;
                 } else {
@@ -450,14 +454,16 @@
                 } else {
                     pre_cnt = Number(n);
                 }
+/*
                 var img = $('.popimage_' + menu_id).attr('src');
                 img = img.replace('thumb', 'thumb2');
+                */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:60px;">' +
                         '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
-                        '-</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
-                        '+</a>' +
+                        '<i class="fa fa-plus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
+                        '<i class="fa fa-plus"></i></a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
                         '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +
@@ -466,6 +472,7 @@
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
                         '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
                 price = parseFloat(price);
+
                 var subtotal = "";
                 var ccc = 0;
                 $('.total').each(function () {
@@ -546,6 +553,9 @@
                 $('.close' + menu_id).click();
 
                 show_header();
+
+                total_items = Number(total_items) + Number(n);
+                updatecart();
             });
 
             function inArray(needle, haystack) {

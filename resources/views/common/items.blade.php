@@ -1,8 +1,9 @@
 <?php printfile("views/common/items.blade.php"); ?>
 
-<div class="scroller" data-height='120px'>
+<!--div class="scroller" data-height='120px'-->
+<div>
     <table class="orders @if(!isset($order)) order-style @endif" width="100%">
-        <thead class="itmQty" <?php if(isset($order)&& isset($arr_menu) && count($arr_menu))echo '';else echo 'style="display:none;"';?>><TH style="width:60px;">Qty</TH><TH width="50%">Item</TH><TH>Price</TH></thead>
+        <thead class="itmQty" <?php if(isset($order)&& isset($arr_menu) && count($arr_menu))echo '';else echo 'style="display:none;"';?>><TH style="width:60px;">Qty</TH><TH width="50%">Item</TH><TH >Price</TH></thead>
         @if(isset($order))
             <?php
             $menu_ids = $order->menu_ids;
@@ -10,8 +11,7 @@
             $arr_qty = explode(',', $order->qtys);
             $arr_prs = explode(',', $order->prs);
             $arr_extras = explode(',', $order->extras);
-           
-          
+
             foreach ($arr_menu as $k => $me) {
                 if ($order->extras != "") {
                     $extz = str_replace(array("% ", ':'), array(" ", ': '), $arr_extras[$k]);
@@ -38,13 +38,14 @@
 
                     <td class="total text-md-right">${{number_format($arr_prs[$k],2)}}</td>
 
-                    <span class="amount" style="display:none;"> {{number_format($arr_prs[$k], 2)}}</span>
+                    <span class="amount" style="display:none;"> {{number_format($arr_prs[$k], 2)}} </span>
                     <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>
                     <input type="hidden" name="extras[]" value=""/>
                     <input type="hidden" name="listid[]" value="2"/>
                     <input type="hidden" class="prs" name="prs[]" value="{{ number_format(($arr_qty[$k] * $arr_prs[$k]), 2) }}"/>
                 </tr>
             <?php } ?>
+
         @endif
     </table>
 </div>

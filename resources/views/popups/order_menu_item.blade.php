@@ -33,26 +33,83 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
-                        <div class="col-sm-12 col-xs-12">
-                            <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
-                        </div>
+
+
 
                         <div class="col-sm-12 col-xs-12">
-                            <p class="">{{ $value->description }}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            @if (strpos($item_image, 'missing-icon.png') === false)
+
+
+                            <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
+
+
+
+
+
+@endif
+
+
+
+
+
+
+
+
                         </div>
+
+
+
+
+
                         <div class="subitems_{{ $value->id }} optionals">
-                            <div class="clearfix space10"></div>
+
+
+
                             <div style="display:none;">
                                 <input type="checkbox" style="display: none;" checked="checked"
                                        title="{{ $value->id.'_<b>'.$value->menu_item.'</b>_'.$main_price.'_' }}"
                                        value="" class="chk">
                             </div>
+
+
+
                             <div class="banner bannerz">
-                                <table>
+                                <table style="min-width:100%;">
                                     <tbody>
+
+                                    <tr><td colspan="2">
+
+                                            <div style="" class="col-xs-12">
+
+                                            <p class=" p-t-1 p-b-0">{{ $value->description }}</p>
+</div>
+
+                                        </td></tr>
+
+
                                     @foreach ($submenus as $sub)
+
+
                                         <tr class="zxcx">
                                             <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
+
+                                                <hr class="clearfix" style="margin: 10px 0;"/>
+
+
                                                 <input type="hidden" value="{{ $sub->exact_upto_qty }}"
                                                        id="extra_no_{{ $sub->id }}">
                                                 <input type="hidden" value="{{ $sub->req_opt }}"
@@ -111,7 +168,7 @@
 
 
                                                                 <div id="buttons_{{ $mm->id }}"
-                                                                     class="buttons <?php if($sub->sing_mul != '1'){?> <?php }?>"
+                                                                     class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
                                                                      href="javascript:void(0);">
                                                                     <?php
                                                                     if ($mm->price != 0)
@@ -119,45 +176,45 @@
                                                                     else
                                                                         $extra_price = '_';
                                                                     ?>
-                                                                    <LABEL>
+
+                                                                    <div <?php if ($sub->sing_mul == '1') {
+                                                                        echo "style='display:none'";
+                                                                    } ?> class="pull-left p-r-1">
+                                                                        <a id="remspan_{{ $mm->id }}"
+                                                                           class="remspan btn btn-secondary-outline btn-xs"
+                                                                           href="javascript:;"><i class="fa fa-minus"
+                                                                                                  style="width:9px;height:9px;"></i></a>
+                                                                        <span id="sprice_{{$mm->price}}"
+                                                                              class="span_{{ $mm->id }} allspan">0</span>
+                                                                        <a id="addspan_{{ $mm->id }}"
+                                                                           class="addspan btn btn-xs btn-primary"
+                                                                           href="javascript:;"><i class="fa fa-plus"
+                                                                                                  style="width:9px;height:9px;"></i></a>
+
+
+                                                                    </div>
+
+
+                                                                    <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
+
+
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
                                                                                title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
                                                                                class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
                                                                                name="extra_{{ $sub->id }}"
                                                                                value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+
                                                                         {{ $mm->menu_item }}
-                                                                        <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                                                        @if($sub->sing_mul =='1')  <span
+                                                                                class="c-indicator"></span> @endif
+
+                                                                        <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+
                                                                     </LABEL>
-
-                                                                        <div <?php if ($sub->sing_mul == '1') {
-                                                                            echo "style='display:none'";
-                                                                        } ?> class="pull-right">
-
-
-                                                                            <a id="remspan_{{ $mm->id }}"
-                                                                               class="remspan btn btn-secondary-outline btn-xs"
-                                                                               href="javascript:;">-</a>
-
-                                                                                           <span
-                                                                                                   id="sprice_{{$mm->price}}"
-                                                                                                   class="span_{{ $mm->id }} allspan">0</span>
-
-
-                                                                            <a id="addspan_{{ $mm->id }}"
-                                                                               class="addspan btn btn-xs btn-primary"
-                                                                               href="javascript:;">+</a>
-
-
-                                                                        </div>
-
-
 
 
                                                                 </div>
-
-
-
 
 
                                                                 <div class="clearfix"></div>
@@ -190,12 +247,12 @@
                                        Reset
                                    </button-->
                 Qty&nbsp;
-                <a class="btn btn-secondary-outline" href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
+                <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
+                   onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
                 &nbsp;
                 <span class="number{{ $value->id }}">1</span> &nbsp;
-                <a class="btn  btn-secondary-outline  " href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
+                <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
+                   onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style=""></i></a>
 
                 <a id="profilemenu{{ $value->id }}"
                    class="btn  btn-primary add_menu_profile add_end"

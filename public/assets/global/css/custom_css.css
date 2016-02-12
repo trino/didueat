@@ -1,3 +1,4 @@
+
 *{
     /*
     border-radius: 0px !important;
@@ -60,7 +61,7 @@ tr {
     padding: 1.0rem 1.25rem;
 
 }
-
+.jumbotron{padding:2rem 0 1rem !important;}
 .card-footer {
     padding: 1.25rem 1.25rem;
     background-color: #fff !important;
@@ -106,7 +107,7 @@ tr {
 
 
 body {
-    background: #f4f7f8 !important;
+   /* background: #f4f7f8 !important; */
     font-family: 'Roboto', sans-serif;
     /* font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
 }
@@ -558,9 +559,8 @@ ul.scroller li {
 
 }
 
-.padleft0{padding-left:0!important}
-.padleft5{padding-left:5px!important}
 .restaurentDetail{padding-top:10px;}
+
 .overlay_loader {
     background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
     display: none;
@@ -579,7 +579,7 @@ ul.scroller li {
 }
 
 .subber{
-    background: #f4f7f8;padding:20px;
+   padding:20px;
     border:1px solid #dadada;
 }
 
@@ -650,6 +650,37 @@ ul.scroller li {
 
 #modal_table_max_height tbody {
     display: block;
+    /*
     height: 400px;
+    */
     overflow: auto;
+}
+
+.page-sidebar-menu, .sub-menu {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+@media (max-width: 990px) {
+    /* some CSS for small resolution */
+    .menu-toggler{
+        display: block;
+    }
+}
+
+@media (min-width: 991px) {
+    /* some CSS for small resolution */
+    .menu-toggler{
+        display: none;
+    }
+}
+
+.card-header-items {
+    margin-left: -7px;
+    margin-top: -7px;
+    text-align: center;
+    color: #0275d8;
+
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
 }

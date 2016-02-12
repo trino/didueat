@@ -40,8 +40,8 @@
                    class="form-control formatted_address" placeholder="Address, City or Postal Code"
                    onchange="change_address_event();"
                    onpaste="this.onchange();">
-            <input type="{{ $type }}" name="latitude2" id="latitude2">
-            <input type="{{ $type }}" name="latitude2" id="longitude2">
+            <input type="HIDDEN" name="latitude" id="latitude">
+            <input type="HIDDEN" name="latitude" id="longitude">
 
             <div class="input-group-btn">
                 <button class="btn  btn-primary dueBtn" oldstyle="display: none;" id="header-search-button"

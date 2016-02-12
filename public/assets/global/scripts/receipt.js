@@ -1,116 +1,120 @@
+total_items = 0;
+
 function changeqty(id, opr) {
-        var num = Number($('.number' + id).text());
-        if (num == '1') {
-            if (opr == 'plus') {
-                num++;
-            }
-        } else {
-            (opr == 'plus') ? num++ : --num;
+    var num = Number($('.number' + id).text());
+    if (num == '1') {
+        if (opr == 'plus') {
+            num++;
         }
-        $('.number' + id).text(num);
+    } else {
+        (opr == 'plus') ? num++ : --num;
     }
+    $('.number' + id).text(num);
+}
 
-    function clearCartItems() {
-       var con =  confirm('Confirm clear items?');
-       if(con==true)
-       {
-            $('.receipt_main table.orders tr').remove();
-            $('.subtotal').val(0);
-            $('.subtotal').text('0.00');
-            $('.tax').val(0);
-            $('.tax').text('0.00');
-            $('.df').val(0);
-            $('.df').text('0.00');
-            $('#delivery_flag').val(0);
-            $('.grandtotal').val(0);
-            $('.grandtotal').text('0.00');
-       }
-       else
+function clearCartItems() {
+   var con = confirm('Confirm clear items?');
+   if(con==true) {
+        $('.receipt_main table.orders tr').remove();
+        $('.subtotal').val(0);
+        $('.subtotal').text('0.00');
+        $('.tax').val(0);
+        $('.tax').text('0.00');
+        $('.df').val(0);
+        $('.df').text('0.00');
+        $('#delivery_flag').val(0);
+        $('.grandtotal').val(0);
+        $('.grandtotal').text('0.00');
+
+        total_items = 0;
+        updatecart();
+   } else {
        return false;
-    }
+   }
+}
 
-    function checkout() {
-        var del = $('#delivery_flag').val();
-
-        if ($('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00') {
-            alert('No items yet.');
-        } else {
-            $('.receipt_main').hide();
-            $('.profiles').show();
+function checkout() {
+    var del = $('#delivery_flag').val();
+    var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
+    if (noitems && !debugmode) {
+        alert('No items yet.');
+    } else {
+        if(noitems){
+            alert('No items yet, but bypassing for debug mode');
         }
-    }
+        //$('.receipt_main').hide();
+        $('.profiles').show();
 
-    function delivery(t) {
-        var df = $('input.df').val();
-        if (t == 'show')
-        {
-              $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
-               
-                if($(this).attr('name')=='apartment' || $(this).attr('name')=='address'){
-                    //do nothing
-                    //alert($(this).attr('name'));
-                    }
-                else
-                {
-                    $(this).attr('required','required');
-                }
-            });
-            $('#df').show();
-            $('.profile_delevery_type').text('Deliver To');
-            $('.profile_delivery_detail').show();
-          
-            var tax = $('.maintax').val();
-            
-            var grandtotal = 0;
-            var subtotal = $('input.subtotal').val();
-            grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
-            $('.df').val(df);
+        $('#checkoutModal').modal('show'); //show the modal
+    }
+}
+
+function delivery(t) {
+    var df = $('input.df').val();
+    if (t == 'show') {
+        $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
+            if($(this).attr('name')=='apartment' || $(this).attr('name')=='address'){
+                //do nothing
+                //alert($(this).attr('name'));
+            } else {
+                $(this).attr('required','required');
+            }
+        });
+
+        $('#df').show();
+        $('.profile_delevery_type').text('Deliver To');
+        $('.profile_delivery_detail').show();
+
+        var tax = $('.maintax').val();
+
+        var grandtotal = 0;
+        var subtotal = $('input.subtotal').val();
+        grandtotal = Number(grandtotal) + Number(df) + Number(subtotal) + Number(tax);
+        $('.df').val(df);
+        $('div .grandtotal').text('$'+grandtotal.toFixed(2));
+        $('input .grandtotal').val(grandtotal.toFixed(2));
+        $('#delivery_flag').val('1');
+        $('#cart-total').text('$' + grandtotal.toFixed(2));
+
+    } else {
+
+        $('.profile_delevery_type').text('Pickup Detail');
+        $('.profile_delivery_detail').hide();
+        $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
+            $(this).removeAttr('required');
+        });
+
+        if ($('#pickup1').hasClass("deliverychecked")) {
+            //alert('sss');
+        } else {
+            var grandtotal = Number($('input.grandtotal').val());
+            if($('#subtotal1').val()!= 0) {
+                grandtotal = Number(grandtotal) - Number(df);
+            }
             $('div .grandtotal').text('$'+grandtotal.toFixed(2));
             $('input .grandtotal').val(grandtotal.toFixed(2));
-            $('#delivery_flag').val('1');
+            $('#df').hide();
+            $('#delivery_flag').val('0');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
-        } 
-        else 
-        {
-            $('.profile_delevery_type').text('Pickup Detail');
-            $('.profile_delivery_detail').hide();
-            $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
-                
-                $(this).removeAttr('required');
-            });
-            if ($('#pickup1').hasClass("deliverychecked")) {
-                //alert('sss');
-            } else {
-                var grandtotal = Number($('input.grandtotal').val());
-                if($('#subtotal1').val()!= 0)
-                    grandtotal = Number(grandtotal) - Number(df);
-                
-                $('div .grandtotal').text('$'+grandtotal.toFixed(2));
-                $('input .grandtotal').val(grandtotal.toFixed(2));
-                $('#df').hide();
-                $('#delivery_flag').val('0');
-                $('#cart-total').text('$' + grandtotal.toFixed(2));
-            }
         }
     }
+}
 
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
+function printDiv(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
 
-        document.body.innerHTML = printContents;
-        window.print();
-        document.body.innerHTML = originalContents;
-    }
+$(function(){
 
-    $(function(){
-
-
-        $('.modal').on('hidden',function(){
-            alert('blured');
-        })
+    $('.modal').on('hidden',function(){
+        alert('blured');
+    })
         
-        $('.del-goods').live('click', function () {
+    $('.del-goods').live('click', function () {
         $(this).parent().remove();
         var subtotal = 0;
         $('.total').each(function () {
@@ -140,104 +144,101 @@ function changeqty(id, opr) {
         $('input.grandtotal').val(gtotal);
     });
     
-          $('.addspan').live('click',function(){
-            var td = $(this).parent().parent().closest('td');
-            var td_id =td.attr('id');
-            td_id = td_id.replace('td_','');
-            var extra_no = $('#extra_no_' + td_id).val();
-            
-            var upto = $('#upto_' + td_id).val();
-            var ut = 'exactly';
-            if(upto=='0')
-                ut = 'up to';
-            
-            var all = 1;
-            td.find('.allspan').each(function(){
-               all += Number($(this).text());
-            });
-            
-            if(all >extra_no) {
-                $('.error_'+td_id).show();
-                $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
-                $('.error_'+td_id).fadeOut(2000);
-                return false;
-            }
-            
-                
-            var nqty = '';
-            var id = $(this).attr('id').replace('addspan_','');
-            var qty = Number($(this).parent().find('.span_'+id).text());
-            var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-            var chk = $(this).parent().parent().find('#extra_'+id);
-            chk.attr('checked','checked');
-            var tit = chk.attr('title');
-            var title = tit.split("_");
-            title[1]= title[1].replace(' x('+qty+")","");
+    $('.addspan').live('click',function(){
+        var td = $(this).parent().parent().closest('td');
+        var td_id =td.attr('id');
+        td_id = td_id.replace('td_','');
+        var extra_no = $('#extra_no_' + td_id).val();
+
+        var upto = $('#upto_' + td_id).val();
+        var ut = 'exactly';
+        if(upto=='0') {
+            ut = 'up to';
+        }
+        var all = 1;
+        td.find('.allspan').each(function(){
+           all += Number($(this).text());
+        });
+
+        if(all >extra_no) {
+            $('.error_'+td_id).show();
+            $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
+            $('.error_'+td_id).fadeOut(2000);
+            return false;
+        }
+
+        var nqty = '';
+        var id = $(this).attr('id').replace('addspan_','');
+        var qty = Number($(this).parent().find('.span_'+id).text());
+        var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
+        var chk = $(this).parent().parent().find('#extra_'+id);
+        chk.attr('checked','checked');
+        var tit = chk.attr('title');
+        var title = tit.split("_");
+        title[1]= title[1].replace(' x('+qty+")","");
+        title[0] = title[0].replace('-'+qty,'');
+        //alert(id+","+qty+","+price+","+tit);
+        qty = Number(qty)+ Number(1);
+        $(this).parent().find('.span_'+id).html(qty);
+        if(qty ==0) {
+            newtitle= title[1];
+            newprice= price;
+        } else {
+            newtitle= title[1]+" x("+qty+")";
+            newprice= Number(price)*Number(qty);
+            title[0] = title[0]+"-"+qty;
+        }
+
+        newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
+        newtitle = newtitle.replace(" x(1)","");
+        //alert(newtitle);
+        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
+    });
+
+    $('.remspan').live('click',function(){
+        var td = $(this).parent().parent().closest('td');
+        var td_id =td.attr('id');
+        td_id = td_id.replace('td_','');
+        var extra_no = $('#extra_no_' + td_id).val();
+        var nqty = '';
+        var upto = $('#upto_' + td_id).val();
+        var all = 0;
+        td.find('.allspan').each(function(){
+           all += Number($(this).text());
+        });
+
+        if(all <=extra_no) {
+            $('.error_' + td_id).html("");
+        }
+        var id = $(this).attr('id').replace('remspan_','');
+        var qty = Number($(this).parent().find('.span_'+id).text());
+        var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
+        var chk = $(this).parent().parent().find('#extra_'+id)
+        var tit = chk.attr('title');
+        var title = tit.split("_");
+        if(qty !=0) {
+            title[1]= title[1].replace('x('+qty+")","");
             title[0] = title[0].replace('-'+qty,'');
-            //alert(id+","+qty+","+price+","+tit);
-            qty = Number(qty)+ Number(1);
+            qty = Number(qty) -Number(1);
             $(this).parent().find('.span_'+id).html(qty);
-            if(qty ==0) {
-                newtitle= title[1];
-                newprice= price;
-               
-            } else {
-                newtitle= title[1]+" x("+qty+")";
-                newprice= Number(price)*Number(qty);
-                title[0] = title[0]+"-"+qty;
-            }
-            
-            newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
-            newtitle = newtitle.replace(" x(1)","");
-            //alert(newtitle);
-            $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
-        });
-        $('.remspan').live('click',function(){
-            var td = $(this).parent().parent().closest('td');
-            var td_id =td.attr('id');
-            td_id = td_id.replace('td_','');
-            var extra_no = $('#extra_no_' + td_id).val();
-            var nqty = '';
-            var upto = $('#upto_' + td_id).val();
-            var all = 0;
-            td.find('.allspan').each(function(){
-               all += Number($(this).text());
-            });
-            
-            if(all <=extra_no) {
-                $('.error_' + td_id).html("");
-            }                        
-            var id = $(this).attr('id').replace('remspan_','');
-            var qty = Number($(this).parent().find('.span_'+id).text());
-            var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-            var chk = $(this).parent().parent().find('#extra_'+id)
-            var tit = chk.attr('title');
-            var title = tit.split("_");
-            if(qty !=0) {
-                title[1]= title[1].replace('x('+qty+")","");
-                title[0] = title[0].replace('-'+qty,'');
-                qty = Number(qty) -Number(1);
-                
-                $(this).parent().find('.span_'+id).html(qty);
-            }
-            if(qty ==0) {
-                chk.removeAttr('checked');
-                newtitle = title[1];
-                newprice = price;
-            } else {
-                newtitle= title[1]+" x("+qty+")";
-                newprice= Number(price)*Number(qty);
-                title[0] = title[0]+"-"+qty;
-            }
-            
-            newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
-            newtitle = newtitle.replace(" x(1)","");
-            //alert(newtitle);
-            $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle) 
-        });
+        }
+        if(qty ==0) {
+            chk.removeAttr('checked');
+            newtitle = title[1];
+            newprice = price;
+        } else {
+            newtitle= title[1]+" x("+qty+")";
+            newprice= Number(price)*Number(qty);
+            title[0] = title[0]+"-"+qty;
+        }
+
+        newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
+        newtitle = newtitle.replace(" x(1)","");
+        //alert(newtitle);
+        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
+    });
         
-        $('.decrease').live('click', function () {
-        //alert('test');
+    $('.decrease').live('click', function () {
         var menuid = $(this).attr('id');
         var numid = menuid.replace('dec', '');
 
@@ -308,6 +309,8 @@ function changeqty(id, opr) {
             $('#list' + numid + ' input.count').val(quant);
             //$('#list'+numid+' .count').val(quant-1);
         }
+        total_items--;
+        updatecart();
     });
 
     $('.increase').live('click', function () {
@@ -353,7 +356,16 @@ function changeqty(id, opr) {
         quant++;
         $('#list' + numid + ' span.count').text(quant);
         $('#list' + numid + ' input.count').val(quant);
+
+        total_items++;
+        updatecart();
     });
         
 })
-    
+
+function updatecart(){
+    var total = $(".grandtotal").html();
+    $("#cart-header").show();
+    $(".card-header-total").html(total);
+    $(".card-header-items").html(total_items);
+}

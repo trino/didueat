@@ -1,6 +1,6 @@
 <INPUT TYPE="HIDDEN" ID="modaltitle" VALUE="Allergy & Dietary Information">
 <p>
-    diduEAT tries to accurately copy the item descriptions, allergy information, ingredient information and other information relating to the contents of dishes ("Dietary Information") from the menus that are provided to us by our partner restaurants.
+    Didu EAT tries to accurately copy the item descriptions, allergy information, ingredient information and other information relating to the contents of dishes ("Dietary Information") from the menus that are provided to us by our partner restaurants.
 </p>
 <p>
     However, it is the restaurants themselves that prepare the dishes, and are responsible for providing this Dietary Information and ensuring that it is factually accurate. Please use the comments box to specify  particular allergies or dietary requirements.

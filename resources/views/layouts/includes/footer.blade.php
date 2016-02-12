@@ -1,4 +1,4 @@
-<div class="container-fluid text-muted p-y-2 m-t-2" style="background:white;
+<div class="container-fluid text-muted p-y-2 m-t-2" style="background: #fafafa;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
 ">
@@ -137,12 +137,13 @@ Thank you">Email Us</a></li>
         <!-- END PRE-FOOTER -->
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        /*
         Layout.init();
         Layout.initOWL();
-        LayersliderInit.initLayerSlider();
         Layout.initImageZoom();
         Layout.initTouchspin();
         Layout.initTwitter();
+        */
     });
 
     $(document).ready(function () {
@@ -169,7 +170,7 @@ Thank you">Email Us</a></li>
             var target_id = $(this).attr('data-target-id');
 
             $("#ratingModal #ratingModalLabel").text(dataname);
-            $("#ratingModal #reviews").text(detail);
+           /* $("#ratingModal #reviews").text(detail); */
             $("#ratingModal #modal_contents").show();
 
             $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type, target_id: target_id}, function (result) {
@@ -252,9 +253,7 @@ Thank you">Email Us</a></li>
                             $(this).attr("checked", true);
                         });
 
-                        var reviews = $("#reviewcount" + target_id).html();
-                        reviews = Number(reviews.replace(/\D/g,''));
-                        $("#reviewcount" + target_id).html("Reviews (" + (reviews+1) + ")");
+                        updatereview(target_id);
                     }, 500);
                 }
             });
@@ -600,4 +599,29 @@ Thank you">Email Us</a></li>
             });
         }
     });
+
+    function updatereview(target_id){
+        var reviews = $("#reviewcount" + target_id).html();
+        reviews = Number(reviews.replace(/\D/g,'')) + 1;
+        $("#reviewcount" + target_id).html("Reviews (" + reviews + ")");
+
+        var element = document.getElementById("ratingtarget" + target_id);
+        var rating_type = element.getAttribute("rating-type");
+        var rating_loadtype = element.getAttribute("rating-loadtype");
+        var rating_twolines = element.getAttribute("rating-twolines");
+        var rating_class = element.getAttribute("rating-class");
+        var rating_button = element.getAttribute("rating-button");
+        var rating_starts = element.getAttribute("rating-starts");
+        var rating_color = element.getAttribute("rating-color");
+
+        $.ajax({
+            url: "{{ url("/ajax") }}",
+            type: "post",
+            dataType: "HTML",
+            data: "type=updatereview&targetid=" + target_id + "&rating_type=" + rating_type + "&rating_loadtype=" + rating_loadtype + "&rating_twolines=" + rating_twolines + "&rating_class=" + rating_class +  "&rating_button=" + rating_button + "&rating_starts=" + rating_starts + "&rating_color=" + rating_color,
+            success: function (msg) {
+                $("#ratingtarget" + target_id).html(msg);
+            }
+        })
+    }
 </script>

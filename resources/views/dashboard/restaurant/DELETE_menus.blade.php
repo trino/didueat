@@ -57,7 +57,7 @@ DELETE THIS PAGE
                                                         <div class="row">
                                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                                 <a href="javascript:void(0)" id="add_item{{ $value->id }}" class="btn ignore btn-success green add_item">Edit Item</a>
-                                                                <a href="{{ url('/restaurant/deleteMenu/'.$value->id) }}" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->menu_item . "'") }} ?');" id="deleteitem{{ $value->id }}" class="deletecat btn ignore">Delete</a>
+                                                                <a href="{{ url('/restaurant/deleteMenu/'.$value->id) }}" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->menu_item . "'") }} ?');" id="deleteitem{{ $value->id }}" class="deletecat btn ignore"><i class="fa fa-times"></a>
                                                                 <div style="clear: both;" class="ignore"></div>
                                                             </div>
                                                             <div class="resturant-arrows col-md-3 col-sm-3 col-xs-12">

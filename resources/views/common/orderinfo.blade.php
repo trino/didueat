@@ -5,7 +5,7 @@
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
     
     //$Data = array("Status" => $order->status);
-    $Data['Order #'] = "<span style='font-size:13px'>".$order->guid."</span> ";
+    $Data['Order #'] = $order->guid;
     $Data['Status'] = $order->status;
     $Data["Customer"] = $order->ordered_by;
 
@@ -13,7 +13,7 @@
         $Data["Customer"] = $user_detail->name;
         $Data["Email"] = $user_detail->email;
     }
-    $Data["Phone"] = $order->contact;
+    $Data["Cell Phone"] = $order->contact;
 
     $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
 

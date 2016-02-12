@@ -95,7 +95,7 @@ $('.addmorebtn').live('click', function () {
         '<div class="col-md-4"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
         '</div>' +
         '<div class="col-md-2 ignore top-padd ignore2">' +
-        '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline pull-right" style="" onclick="$(this).parent().parent().remove();">x</a>' +
+        '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline pull-right" style="" onclick="$(this).parent().parent().remove();"><i class="fa fa-times"></i></a>' +
         '</div><div class="clearfix"></div></div>');
 });
 $('.is_multiple').live('change', function () {

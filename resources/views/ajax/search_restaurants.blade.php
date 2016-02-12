@@ -16,6 +16,7 @@
 
     if (isset($data['data'])) {
         parse_str($data['data']);
+        parse_str($data['data'], $_POST);
     }
 
     $server_gmt = date('Z') / 3600;
@@ -60,7 +61,7 @@
             <div class="list-group-item">
                 <div class="col-xs-2 p-a-0">
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
-                        <img style="width:100px;height:100px;" class="img-circle" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="width:100px;height:100px;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                 </div>
 

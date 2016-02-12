@@ -16,8 +16,8 @@
 
                     <div class="noprint">
                         <h3 class="">My Orders</h3>
-                            <div class="col-md-2 padleft0"><strong>Filter by Date</strong></div>
-                            <div class="col-md-10 padleft0">
+                            <div class="col-md-2"><strong>Filter by Date</strong></div>
+                            <div class="col-md-7">
                                 <form id="report-form" method="get">
                                     <div class="col-md-4">
                                         <input type="text" class="datepicker form-control" name="from" placeholder="From" value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
@@ -33,7 +33,13 @@
     
                                     <div class="clearfix"></div>
                                 </form>
+
                             </div>
+
+                                <div class="col-md-3">                                <a href="javascript:void(0);" class="btn btn-secondary noprint" onclick="return printDiv('toprint')">Print Receipt</a>
+                                </div>
+
+
 
 <div class="clearfix"></div>
                     </div>
@@ -107,8 +113,7 @@
                     </div>
                 </div>
             </div>
-            <a href="javascript:void(0);" class="btn noprint" onclick="return printDiv('toprint')">Print Receipt</a>
-            <hr class="shop__divider">
+
         </div>
 
     </div>

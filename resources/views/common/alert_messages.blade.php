@@ -1,54 +1,52 @@
-<div class="alert alert-success" role="alert"
-     style="<?php if(!isset($_GET['menuadd'])){?>display: none;<?php }?>">
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    Item has been added/updated successfully
-</div>
+<?php
+    Session();
 
-<div class="alert alert-success" role="alert"
-     style="<?php if(!isset($_GET['sorted'])){?>display: none;<?php }?>">
-     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    Menu item moved successfully
-</div>
+    $data= array("menuadd", "sorted");
+    foreach($data as $get){
+        if(isset($_GET[$get])){
+            popup(true, "message:" . $get);
+        }
+    }
 
-<?php Session();?>
+    if(\Session::has('message-type') && Session::get('message')){
+        popup(\Session::get('message-type'), Session::get('message'), \Session::get('message-short'));
+        \Session::forget('message');
+    }
+?>
+
 @if (session('status')|| isset($_GET['flash']))
-    <div class="alert alert-success">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-        <?php if(isset($_GET['flash'])){?>
-        <strong>Thank you!</strong>
-        <?php if ($_GET['flash'] == '1')
-            echo "your order has been received.";
-        elseif ($_GET['flash'] == '2')
-            echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";
-        }else {
-            session('status');
-        }?>
+    <div class="alert alert-success" style="margin-bottom:0px !important;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <?php
+            if(isset($_GET['flash'])){
+                echo '<strong>Thank you!</strong>';
+                if ($_GET['flash'] == '1') {
+                    echo "your order has been received.";
+                } elseif ($_GET['flash'] == '2') {
+                    echo "your order has been received and your account has been created successfully and you'll receive an activation email in shortly. Check your email to validate your account and login.";
+                }else {
+                    session('status');
+                }
+            }
 
+            $Restaurant = \Session::get('session_restaurant_id', 0);
+        ?>
 
-
-
-        alert message 1234
     </div>
+    @if ($Restaurant)
+        <div class="container" style="padding-top:0rem !important;">
+            @include('common.required_to_open')
+        </div>
+    @endif
 @endif
 
 @if(\Session::has('invalid-data'))
-    <?
+    <?php
         $fields = Session::get('invalid-data');
-            var_dump($fields );
-            die();
-        $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN
-                    ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
-        echo '<div class="alert alert-danger" ID="invalid-data">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-        <STRONG>Invalid Data</STRONG>&nbsp;' . $message . '</DIV>';
+        $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
+        popup(false, $message, "Invalid Data", "invalid-data");
         \Session::forget('invalid-data');
     ?>
     <SCRIPT>
@@ -81,12 +79,4 @@
             return field.replace(":", "");
         }
     </SCRIPT>
-@endif
-
-@if(\Session::has('message-type') && Session::get('message'))
-    <div class="alert {!! Session::get('message-type') !!}">
-        <strong>{!! Session::get('message-short') !!}</strong>
-        &nbsp; {!! Session::get('message') !!}
-    </div>
-    <?php \Session::forget('message'); ?>
 @endif

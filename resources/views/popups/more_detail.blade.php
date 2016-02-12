@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="viewMapModelLabel">Add Addresss</h4>
+                <h4 class="modal-title" id="viewMapModelLabel">More Detail</h4>
             </div>
             <div class="modal-body">
                 <?php printfile("view/popups/more_detail.blade.php"); ?>
@@ -27,11 +27,39 @@
                 <h3>Hours: </h3>
                 <TABLE WIDTH="100%">
                     <?php
-                    $days = getweekdays();
-                    foreach ($days as $day) {
-                        echo '<TR><TD>' . $day . '</TD><TD align="right">' . converttime(getfield($restaurant, $day . "_open")) . '</TD><TD align="right">';
-                        echo converttime(getfield($restaurant, $day . "_close")) . '</TD></TR>';
-                    }
+                        $days = getweekdays();
+                        $needsdeliveryhours = false;
+                        if ($restaurant->is_delivery){
+                            foreach ($days as $day) {
+                                $open = getfield($restaurant, $day . "_open");
+                                $close = getfield($restaurant, $day . "_close");
+                                if ($open != $close){
+                                    if($open <> getfield($restaurant, $day . "_open_del") || $close <> getfield($restaurant, $day . "_close_del")){
+                                        $needsdeliveryhours=true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if($needsdeliveryhours){
+                            echo '<TR><TD></TD><TD COLSPAN="2" ALIGN="center">Pickup hours</TD><TD COLSPAN="2" ALIGN="center">Delivery hours</TD></TR>';
+                        }
+                        foreach ($days as $day) {
+                            echo '<TR><TD>' . $day . '</TD>';
+                            $open = getfield($restaurant, $day . "_open");
+                            $close = getfield($restaurant, $day . "_close");
+                            if($open == $close){
+                                echo '<TD COLSPAN="4" ALIGN="center"><B>Closed</B></TD>';
+                            } else {
+                                echo '<TD align="right">' . converttime($open) . '</TD>';
+                                echo '<TD align="right">' . converttime($close) . '</TD>';
+                                if($needsdeliveryhours){
+                                    echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_open_del")) . '</TD>';
+                                    echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_close_del")) . '</TD>';
+                                }
+                            }
+                            echo '</TR>';
+                        }
                     ?>
                 </TABLE>
 

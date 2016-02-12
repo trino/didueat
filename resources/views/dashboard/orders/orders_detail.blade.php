@@ -22,13 +22,16 @@
 
                     <div class="card-block">
                         <div class="row">
+
+
+                            <div class="col-md-6">
+                                @include('common.receipt')
+                            </div>
+
                         <div class="col-md-6">
                             @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
                         </div>
 
-                        <div class="col-md-6">
-                            @include('common.receipt')
-                        </div>
                         <div class="clearfix"></div>
                     </div></div>
 
