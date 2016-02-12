@@ -511,6 +511,46 @@ class HomeController extends Controller {
     }
 
     public function home($Type){
+
+    if($Type == "faq"){
+        $post = \Input::all();
+        
+        if (isset($post) && count($post) > 0 && !is_null($post)) {
+		        $stripeConf['orderID'] = $post['orderID'];
+		        $stripeConf['stripeToken'] = $post['stripeToken'];
+					     $data['title'] = 'Thank you for your payment';
+					     $dataSupp['paymsg'] = 'Thank you for your payment';
+		        $dataSupp['paid'] = true;
+        }
+        else{
+			       $data['title'] = 'Please Confirm Your Payment';
+			       $dataSupp['paymsg'] = 'Please confirm your payment';
+          $dataSupp['paid'] = false;
+        }
+        
+        $data['user_detail'] = \App\Http\Models\Profiles::find(\Session::get('session_id'));
+        $data['user_detail']['paymsg']=$dataSupp['paymsg'];
+        $data['user_detail']['paid']=$dataSupp['paid'];
+          
+        
+        if(isset($stripeConf['orderID'])){
+							// if credit card payment test, save data to users table
+			       $stripeConf['status']='approved';
+			       $stripeConf['user_id']=\Session::get('session_id');
+			       $stripeOb = \App\Http\Models\StripeConfirm::findOrNew($stripeConf['orderID']);
+				      $stripeOb->populate($stripeConf);
+				      $stripeOb->save();
+          print("<script>alert('payment made');</script>");
+          return $this->success("Payment made successfully", 'home/faq');
+							 }
+        
+        else{
+          return view('home.faq', $data);
+        }
+    }
+    else{
         return view("home." . $Type);
     }
+  }
+  
 }

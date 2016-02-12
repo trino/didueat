@@ -30,6 +30,8 @@ Route::post('auth/login',                                           'Auth\AuthCo
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
 
 Route::get('home/{type}',                                           'HomeController@home');
+Route::post('home/{type}',                                          'HomeController@home');
+Route::resource('home/{type}',                                      'HomeController@home');
 Route::get('orders/alertstore',                                     'OrdersController@alertstore');
 Route::get('orders/list/{action}/email/{email}/{guid}',             'OrdersController@orderstatus');
 Route::post('orders/list/{action}/email/{email}/{guid}',            'OrdersController@orderstatus');
