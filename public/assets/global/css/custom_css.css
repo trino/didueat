@@ -107,7 +107,7 @@ tr {
 
 
 body {
-    background: #f4f7f8 !important;
+   /* background: #f4f7f8 !important; */
     font-family: 'Roboto', sans-serif;
     /* font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
 }
@@ -650,7 +650,9 @@ ul.scroller li {
 
 #modal_table_max_height tbody {
     display: block;
+    /*
     height: 400px;
+    */
     overflow: auto;
 }
 

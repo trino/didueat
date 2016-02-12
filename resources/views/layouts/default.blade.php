@@ -144,7 +144,7 @@
 
         @include('layouts.includes.header')
 
-        <div class="container-fluid p-x-0" style="margin-top: 35px;">
+        <div class="container-fluid p-x-0" style="margin-top: 53px;">
             @include('common.alert_messages')
             @yield('content')
         </div>

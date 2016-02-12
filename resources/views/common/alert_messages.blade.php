@@ -15,7 +15,7 @@
 ?>
 
 @if (session('status')|| isset($_GET['flash']))
-    <div class="alert alert-success">
+    <div class="alert alert-success" style="margin-bottom:0px !important;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -33,12 +33,13 @@
 
             $Restaurant = \Session::get('session_restaurant_id', 0);
         ?>
-        @if ($Restaurant)
-            <div class="container" style="padding-top:0rem !important;">
-                @include('common.required_to_open')
-            </div>
-        @endif
+
     </div>
+    @if ($Restaurant)
+        <div class="container" style="padding-top:0rem !important;">
+            @include('common.required_to_open')
+        </div>
+    @endif
 @endif
 
 @if(\Session::has('invalid-data'))
