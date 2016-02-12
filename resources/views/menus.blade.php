@@ -147,12 +147,12 @@
                                         <a id="up_parent_{{ $value->id.'_'.$catid }}"
                                            class="btn btn-sm btn-secondary-outline sorting_parent"
                                            href="javascript:void(0);">
-                                            &nbsp;<i class="fa fa-angle-left"></i>&nbsp;</a>
+                                            &nbsp;<i class="fa fa-angle-up"></i>&nbsp;</a>
 
                                         <a id="down_parent_{{ $value->id.'_'.$catid }}"
                                            class="btn btn-sm btn-secondary-outline sorting_parent"
                                            href="javascript:void(0);">
-                                            &nbsp;<i class="fa fa-angle-right"></i>&nbsp;</a>
+                                            &nbsp;<i class="fa fa-angle-down"></i>&nbsp;</a>
 
                                         <button id="add_item{{ $value->id }}" type="button"
                                                 class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"

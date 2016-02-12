@@ -183,11 +183,11 @@
                                    </button-->
                 Qty
                 <a class="btn btn-secondary-outline" href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'minus')">-</a>
+                   onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
                 &nbsp;
                 <span class="number{{ $value->id }}">1</span> &nbsp;
                 <a class="btn  btn-secondary-outline  " href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'plus')">+</a>
+                   onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style="width:9px;height:9px;"></i></a>
 
                 <a id="profilemenu{{ $value->id }}"
                    class="btn  btn-primary add_menu_profile add_end"
