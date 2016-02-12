@@ -40,7 +40,7 @@
     <div class="card" style="">
 
         <div class="card-header">
-            <h4 class="card-title">Your Order</h4>
+            <h4 class="card-title">Receipt</h4>
         </div>
 
 
