@@ -294,12 +294,12 @@ Thank you">Email Us</a></li>
             $('.top-cart-info').show();
             $('.header-navigation-wrap').hide();
             $('.new_headernav').show();
-            $('#cartsz').hide();
+            $('#cartsz').closest('#printableArea').hide();
         } else {
             $('.header-navigation-wrap').show();
             $('.top-cart-info').hide();
             $('.new_headernav').hide();
-            $('#cartsz').show();
+            $('#cartsz').closest('#printableArea').show();
         }
 
         $(window).resize(function () {
@@ -308,12 +308,12 @@ Thank you">Email Us</a></li>
                 $('.top-cart-info').show();
                 $('.header-navigation-wrap').hide();
                 $('.new_headernav').show();
-                $('#cartsz').hide();
+                $('#cartsz').closest('#printableArea').hide();
             } else {
                 $('.header-navigation-wrap').show();
                 $('.top-cart-info').hide();
                 $('.new_headernav').hide();
-                $('#cartsz').show();
+                $('#cartsz').closest('#printableArea').show();
             }
         });
 
