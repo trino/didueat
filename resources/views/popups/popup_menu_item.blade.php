@@ -31,7 +31,9 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
-                        <div class="col-sm-12 col-xs-12">
+
+
+
                             <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
                         </div>
 
@@ -46,7 +48,7 @@
                                        value="" class="chk">
                             </div>
                             <div class="banner bannerz">
-                                <table>
+                                <table style="min-width:100%;">
                                     <tbody>
                                     @foreach ($submenus as $sub)
                                         <tr class="zxcx">

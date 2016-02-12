@@ -26,14 +26,14 @@
                                     <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
                             @endif
-
-                            <div class="form-group" id="display-rating-starts">
-                                {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
-                            </div>
-
                             @if(read("id"))
                                 <button class="btn btn-primary pull-right">Save Rating</button>
                             @endif
+                            <div class="form-group pull-right" id="display-rating-starts">
+                                {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
+                            </div>
+
+
                         </div>
 
 

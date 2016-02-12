@@ -460,8 +460,8 @@
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:60px;">' +
                         '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
-                        '-</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
-                        '+</a>' +
+                        '<i class="fa fa-plus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
+                        '<i class="fa fa-plus"></i></a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
                         '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +

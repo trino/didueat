@@ -29,8 +29,42 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
+
+
+
                         <div class="col-sm-12 col-xs-12">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            @if (strpos($item_image, 'missing-icon.png') === false)
+
+
                             <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
+
+
+
+
+
+@endif
+
+
+
+
+
+
+
+
                         </div>
 
 
@@ -50,14 +84,14 @@
 
 
                             <div class="banner bannerz">
-                                <table>
+                                <table style="min-width:100%;">
                                     <tbody>
 
                                     <tr><td colspan="2">
 
                                             <div style="" class="col-xs-12">
 
-                                            <p class="">{{ $value->description }}</p>
+                                            <p class=" p-t-1 p-b-0">{{ $value->description }}</p>
 </div>
 
                                         </td></tr>
