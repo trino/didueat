@@ -3,7 +3,7 @@
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
     <div class="container-fluid">
-        <div class="container p-y-1">
+        <div class="container p-y-2"  style="padding-top: 2rem !important;">
             <div class="row" >
                 <div class="col-md-2 p-r-0">
                     <img style="width:115px;height:115px;" class="pull-left img-rounded"
@@ -19,7 +19,7 @@
 
                 <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-                <div class="col-md-10 p-l-0" style="font-size:90%">
+                <div class="col-md-10 p-l-0" style="font-size:90%;">
 
                     <h3 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
@@ -27,7 +27,7 @@
                     </h3>
 
                     <div id="restaurant_rating">
-                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, 'white') !!}
+                        {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                         <div class="clearfix"></div>
                     </div>
 
@@ -48,7 +48,7 @@
                         <?php
                             $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
                             echo "<span class='p-r-2'>Hours: " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
-                            echo "<span class='p-r-2'>Delivery hours: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                            echo "<span class='p-r-2'>Delivery: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
                         ?>
 
                         <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>

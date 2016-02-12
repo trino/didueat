@@ -7,7 +7,7 @@
 
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container" style="padding-top: 0px !important;">
-            <h1 class="display-5">Order Online Specials from Local Restaurants</h1>
+            <h1 class="display-5">Order Food from Hamilton Restaurants</h1>
 
             <p class="lead">Enter your location to find deals near you.</p>
 
@@ -15,7 +15,7 @@
                 @include('common.search_bar')
             </div>
 
-            <p class="lead">Or see <a href="#">Hamilton</a> restaurants</p>
+            <p class="lead">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
         </div>
     </div>
 

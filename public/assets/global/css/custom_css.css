@@ -61,7 +61,7 @@ tr {
     padding: 1.0rem 1.25rem;
 
 }
-
+.jumbotron{padding:2rem 0 1rem !important;}
 .card-footer {
     padding: 1.25rem 1.25rem;
     background-color: #fff !important;
