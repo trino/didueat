@@ -94,7 +94,7 @@ if(!$minimum && isset($restaurant->id)){
     </div></div>
 
     <?= newrow($new, "", "", "", 12, true);?>
-        <hr width="100%" align="center"/>
+        <hr class="m-y-1" align="center"/>
         <input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
         <button type="submit" class="btn btn-primary pull-right">Save</button>
     <?= newrow();

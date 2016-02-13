@@ -10,7 +10,7 @@
             <div class="row m-l-0 text-md-center">
                 <div  class="col-md-12 p-b-1">
 
-                <h1 class="display-4">Order Food from Hamilton Restaurants</h1>
+                <h1 class="display-4 p-t-3">Order Food from Hamilton Restaurants</h1>
                     </div>
 
 
@@ -26,7 +26,7 @@
            </div>
                 <div  class="clearfix"></div>
 
-                <div  class="col-md-12 clearfix">
+                <div  class="col-md-12 p-b-3 clearfix">
                 <p class="lead p-t-1">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
 
             </div>
@@ -58,7 +58,7 @@
 
                         <div class="card ">
                             <div class="card-header">
-                                <h4 class="card-title m-b-0">Filter Search</h4>
+                                <h4 class="card-title">Filter Search</h4>
                             </div>
 
                             <div class="card-block">

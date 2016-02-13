@@ -90,3 +90,5 @@ resources/views/stripe.blade.php
 resources/views/orders/users.bladeNU.php
 app/Http/Controllers/HomeController_backupFeb12,2016.php
 app/Http/routes_backupFeb12b,2016.php
+*.tar
+didueat.tar.gz

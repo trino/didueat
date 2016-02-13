@@ -12,7 +12,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-lg-9">
-                <h4>
+                <h4 class="card-title">
                     @if($type=='user')
                         My
                     @else

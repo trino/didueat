@@ -12,8 +12,8 @@ delete me
                         <div class="card">
                             <div class="card-header">
 
-
-                                Logs
+<h4  class="card-title">
+                                Logs</h4>
 
 
                             </div>

@@ -38,7 +38,7 @@
     <div class="card-header ">
         <div class="row">
             <div class="col-lg-9">
-                <h4>Subscribers
+                <h4 class="card-title">Subscribers
                     <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
                         Send Message
                     </button>

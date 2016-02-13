@@ -18,7 +18,7 @@ $orderID=110;
 
             <div class="card">
                 <div class="card-header">
-                    <h4 id='paymentmsg'>My Payment Confirm</h4>
+                    <h4 class="card-title" id='paymentmsg'>My Payment Confirm</h4>
 									
 									{!! Form::open(array('url' => '/home/faq', 'id'=>'paymentForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 

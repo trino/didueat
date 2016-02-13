@@ -27,7 +27,7 @@
 <div class="col-md-8  col-md-offset-2">
     <div class="card">
         <div class="card-header">
-            <h4>Your Restaurant</h4>
+            <h4 class="card-title">Your Restaurant</h4>
         </div>
         <div class="card-block">
 
@@ -43,7 +43,7 @@
         </div>
 
         <div class="card-header ">
-            <h4>Your Profile</h4>
+            <h4 class="card-title">Your Profile</h4>
         </div>
 
         <div class="card-block ">

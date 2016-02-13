@@ -7,7 +7,7 @@
 <div class="card">
     <div class="card-header ">
         <div class="row">
-            <div class="col-lg-9"><h4>
+            <div class="col-lg-9"><h4 class="card-title">
                     My Addresses 
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
                 </h4></div>
