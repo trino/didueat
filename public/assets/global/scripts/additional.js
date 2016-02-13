@@ -92,7 +92,7 @@ $('.addmorebtn').live('click', function () {
         '<div class="cmore">' +
         '<div class=" ignore ignore2 ignore1">' +
         '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
-        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="text" placeholder="Additional Price" /></div>' +
+        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="text" placeholder="Optional Price" /></div>' +
         '</div>' +
         '<div class="col-md-2 ignore top-padd ignore2">' +
         '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline pull-right" style="" onclick="$(this).parent().parent().remove();"><i class="fa fa-times"></i></a>' +
@@ -193,7 +193,7 @@ $('.savebtn').live('click', function () {
     var pprice = $_parent.find('.newprice').val();
     if (pprice == '') {
         if(chi==0){
-        alert('Price cannot be blank');
+        alert('Price must be a number');
         $_parent.find('.newprice').focus();
         $_parent.find('.newprice').attr('style', 'border:1px solid red;');
         $('.overlay_loader').hide();

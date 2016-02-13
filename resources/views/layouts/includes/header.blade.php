@@ -39,7 +39,7 @@
                             ?>" class="img-circle" style="height: 23px;width:23px;">
                         </a>
                     </li>
-                    <li class="nav-item" style="    margin-left: 6px;">
+                    <li class="nav-item hidden-xs-down" style="    margin-left: 6px;">
                         <a href="{{ url('dashboard') }}"
                            class="nav-link">Hi, {{ explode(' ', Session::get('session_name'))[0] }} </a>
                     </li>
@@ -49,7 +49,7 @@
                                     href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
                                     class="nav-link">De-possess</a></li>
                     @endif
-                    <li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li>
+                    <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <li class="nav-item">
                         <a class="btn btn-primary" data-toggle="modal" data-target="#signupModal">Sign up</a>

@@ -9,12 +9,12 @@
 ">
         <div class="container " style="padding-top: 0px !important;">
             <div class="row m-l-0 m-r-0 text-md-center" style="  ">
-                <div  class="col-md-12 p-b-1">
+                <div  class="col-md-12  p-a-0">
 
-                <h1 class="display-4 p-t-3"
-                        style="text-shadow: 1px 1px 9px rgba(0, 0, 0, 1);"
+                <h1 class="display-4 p-t-1 banner-text-shadow"
+                        style=""
 
-                        >Order Food from Hamilton Restaurants</h1>
+                        >Order Food from Local Restaurants</h1>
                     </div>
 
 
@@ -23,15 +23,15 @@
             <p class="lead m-b-0">Enter your location to find deals near you</p>
                     </div-->            <div  class="clearfix"></div>
 
-                <div  class="col-md-12 text-md-center">
-                <div  class="col-md-offset-3 col-md-6  text-md-center">
+                <div  class="col-md-12 p-a-0 text-md-center">
+                <div  class="col-md-offset-3 p-a-0 col-md-6  text-md-center">
                 @include('common.search_bar')
            </div>
            </div>
                 <div  class="clearfix"></div>
 
-                <div  class="col-md-12 p-b-3 clearfix">
-                <p class="lead p-t-1"   style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
+                <div  class="col-md-12  p-a-0 clearfix">
+                <p class="lead p-t-1 p-b-0 banner-text-shadow">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a></p>
 
             </div>
 
@@ -70,25 +70,30 @@
                                 {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                                 <div class="sort search-form clearfix">
 
-                                    <div class="form-group">
+                                        <div class="p-l-0 p-r-1 pull-left">
+                                            <div class="form-group">
 
-                                        <label class="c-input c-radio">
+                                        <label class="c-input c-radio ">
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_delivery"
                                                    checked
                                                    onclick="createCookieValue('delivery_type', this.value)"/>
                                             <span class="c-indicator"></span>
                                             Delivery
-                                        </label>
+                                        </label>  </div>
+                                    </div>
+                                        <div class="p-l-0 pull-left">
 
-                                        <label class="c-input c-radio">
+                                            <div class="form-group">
+
+                                        <label class="c-input c-radio ">
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_pickup"
                                                    onclick="createCookieValue('delivery_type', this.value)"/>
                                             <span class="c-indicator"></span>
                                             Pickup
-                                        </label>
-
+                                        </label>  </div>
+                                        </div>
                                         <!--label class="c-input c-checkbox">
                                             <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
                                                    onclick="createCookieValue('is_complete', this.value)"/>
@@ -96,7 +101,7 @@
                                             Order Online
                                         </label-->
 
-                                    </div>
+
 
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" value="" class="form-control"

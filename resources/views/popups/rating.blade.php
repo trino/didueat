@@ -22,16 +22,23 @@
 
                             @if(read("id"))
                                 <div class="form-group">
-                                    <h4>Comments: </h4>
+                                    <h4>My Review </h4>
                                     <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
                             @endif
                             @if(read("id"))
-                                <button class="btn btn-primary pull-right">Save Rating</button>
+<div class="pull-left">
+                                <div class="form-group pull-right" id="display-rating-starts">
+                                    <div class="pull-left p-r-1">
+                                    My Rating</div>
+                                        <div class="pull-left">
+                                    {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
+                                </div>    </div></div>
+                                <div class="pull-right">
+
+                                <button class="btn btn-primary pull-right">Save</button>  </div>
                             @endif
-                            <div class="form-group pull-right" id="display-rating-starts">
-                                {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
-                            </div>
+
 
 
                         </div>
@@ -43,12 +50,12 @@
                         <input type="hidden" id="data-type" value=""/>
                         <input type="hidden" id="ratingInputHidden" value=""/>
 
-
+                        {!! Form::close() !!}
                     </div>
                 </div>
 
-            {!! Form::close() !!}
-            <div class="row">
+
+            <div class="row p-t-0 m-t-0">
                 <!-- we need this to populate user reviews -->
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="form-group" id="reviews"></div>
