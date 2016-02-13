@@ -30,8 +30,6 @@ Route::post('auth/login',                                           'Auth\AuthCo
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
 
 Route::get('home/{type}',                                           'HomeController@home');
-Route::post('home/{type}',                                          'HomeController@home');
-Route::resource('home/{type}',                                      'HomeController@home');
 Route::get('orders/alertstore',                                     'OrdersController@alertstore');
 Route::get('orders/list/{action}/email/{email}/{guid}',             'OrdersController@orderstatus');
 Route::post('orders/list/{action}/email/{email}/{guid}',            'OrdersController@orderstatus');
@@ -52,6 +50,9 @@ Route::resource('restaurant/view',                                  'RestaurantC
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
     Route::resource('dashboard',                                    'AdministratorController@dashboard');
+    
+Route::post('home/{type}',                                          'HomeController@home');
+Route::resource('home/{type}',                                      'HomeController@home');
     
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
