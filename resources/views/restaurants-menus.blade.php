@@ -2,7 +2,7 @@
 @section('content')
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
-    <div class="container-fluid">
+    <div class="container-fluid  ">
         <div class="container p-y-2"  style="padding-top: 2rem !important;">
             <div class="row" >
                 <div class="col-md-2 col-xs-3">
@@ -21,10 +21,10 @@
 
                 <div class="col-md-10  col-xs-9 p-l-0" style="font-size:90%;">
 
-                    <h2 class="card-title">
+                    <h1 class="card-title">
                         {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                         <a class="pull-right btn btn-sm btn-primary-outline" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
-                    </h2>
+                    </h1>
 
                     <div id="restaurant_rating">
                         {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
@@ -32,7 +32,7 @@
                     </div>
 
                     <span class="card-text m-b-0 p-r-2">
-                    Address: {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                    <strong>Address</strong> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                         {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                         {!! (isset($restaurant->province))? 'ON':'' !!}
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
@@ -47,24 +47,24 @@
 
                         <?php
                             $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                            echo "<span class='p-r-2'>Hours: " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
+                            echo "<span class='p-r-2'><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
                             ?>
                             <span class="m-b-0">
-                        Phone: {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
+                        <strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     </span>
 
                             <br>
                         <?
 
 
-                            echo "<span class='p-r-2'>Delivery: " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                            echo "<span class='p-r-2'><strong>Delivery</strong> " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
                         ?>
 
-                        <span class="p-r-2">Delivery Fee: {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
-                        <span class="p-r-2">Minimum: {{ asmoney($restaurant->minimum,$free=false) }}</span>
+                        <span class="p-r-2"><strong>Delivery Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
+                        <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
 
                         @if (Session::get('session_type_user') == "super" )
-                            Views: {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                                <strong>Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                         @endif
                     </span>
 
@@ -80,7 +80,7 @@
     <div class="container" style="padding-top: 0rem !important;">
 
         <div class="row">
-
+            <div class="col-md-12"><hr class="p-y-1"></div>
             <div class="overlay overlay_reservation">
                 <div class="loadmoreajaxloader">
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
@@ -487,7 +487,7 @@
                         '<i class="fa fa-plus"></i></a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
-                        '<td class="total">$' + (pre_cnt * price).toFixed(2) + '</td>' +
+                        '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
                         '<input type="hidden" name="extras[]" value="' + dbtitle + '"/><input type="hidden" name="listid[]" value="' + ids + '" />' +
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +

@@ -27,12 +27,12 @@
 
 <div class="clearfix" id="cartsz">
 
-    @if(!isset($order) && false)
+    @if(!isset($order) )
         <div class="card card-inverse card-danger " style="">
             <div class="card-block ">
-                <h4 class="card-title text-xs-center m-b-0">Restaurant doesn't offer online ordering</h4>
+                <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
 
-                <p class="card-title text-xs-center m-b-0">Please call to place your order</p>
+                <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
             </div>
         </div>
     @endif
@@ -50,7 +50,7 @@
 
                 @include('common.items')
 
-                <div class="totals row" style="">
+                <div class="totals" style="">
                     <table class="table">
                         <tbody>
                         @if(!isset($order))

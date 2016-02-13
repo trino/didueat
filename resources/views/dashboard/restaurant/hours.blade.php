@@ -27,17 +27,16 @@
     $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
     $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
 ?>
-<?php echo newrow($new, " "); ?>
+<?php echo newrow($new, "We Offer Pickup"); ?>
     <LABEL class="c-input c-checkbox">
-        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />&nbsp; We Offer Pickup
+        <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup" value="1" {{ ($IsPickup)?'checked':'' }} />
         <span class="c-indicator"></span>
     </LABEL>
 </DIV></DIV>
 
-<?php echo newrow($new, " "); ?>
+<?php echo newrow($new, "We Offer Delivery"); ?>
     <LABEL class="c-input c-checkbox">
-        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ ($is_delivery)?'checked':'' }} />&nbsp;
-        We Offer Delivery
+        <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery" value="1" {{ ($is_delivery)?'checked':'' }} />
         <span class="c-indicator"></span>
     </LABEL>
 </DIV></DIV>
@@ -105,9 +104,7 @@ foreach ($day_of_week as $key => $value) {
 }*/
 
 function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
-    $layout=2;
-    $width=4;
-    $inputclass= "form-control time col-sm-1";
+    $inputclass= "form-control time col-xs-5";
     $closed="";
     if(!$suffix){
         $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
@@ -117,17 +114,16 @@ function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $c
         $closed .= '> Open<span class="c-indicator"></span></LABEL>';
     }
     ?>
-        <label class="col-xs-{{ $layout }}">{{ $value }}</label>
+        <div class="col-xs-3">  <?= $closed; ?> {{ $value }}</div>
 
-        <div class="col-xs-1" align="center">
-            <?= $closed; ?>
-        </DIV>
+
 
         <div class="col-xs-9 nowrap {{ $del_class }}">
             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]" value="{{ $opentime }}" title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
-            <SPAN class="col-xs-1 to-span">to</SPAN>
-            <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style="width:86px;"/>
+            <SPAN class="col-xs-2 to-span">to</SPAN>
+            <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]" value="{{ $closetime }}" title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style=""/>
         </DIV>
+<div class="clearfix" style="border-top:1px solid #dadada;"></div>
     <?php
 }
 

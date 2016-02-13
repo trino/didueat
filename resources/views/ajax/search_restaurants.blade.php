@@ -35,7 +35,7 @@
     }
 ?>
 
-<div class="list-group" id="restuarant_bar">
+<div class="list-group m-t-2" id="restuarant_bar">
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
             <?php
@@ -61,7 +61,7 @@
             <div class="list-group-item">
                 <div class="col-xs-2 p-a-0">
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
-                        <img style="width:100px;height:100px;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                 </div>
 

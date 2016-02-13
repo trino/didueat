@@ -21,10 +21,10 @@
                 </div>
                 <br>
 
-                <h3>Description: </h3>
+                <h4>Description: </h4>
                 <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
-                <h3>Hours: </h3>
+                <h4>Hours: </h4>
                 <TABLE WIDTH="100%">
                     <?php
                         $days = getweekdays();
@@ -42,19 +42,20 @@
                             }
                         }
                         if($needsdeliveryhours){
-                            echo '<TR><TD></TD><TD COLSPAN="2" ALIGN="center">Pickup hours</TD><TD COLSPAN="2" ALIGN="center">Delivery hours</TD></TR>';
+                            echo '<TR><TD></TD><TD COLSPAN="3" ALIGN="center"><strong>Pickup Hours</strong></TD><TD COLSPAN="2" ALIGN="center"><strong>Delivery Hours</strong></TD></TR>';
                         }
                         foreach ($days as $day) {
                             echo '<TR><TD>' . $day . '</TD>';
                             $open = getfield($restaurant, $day . "_open");
                             $close = getfield($restaurant, $day . "_close");
                             if($open == $close){
-                                echo '<TD COLSPAN="4" ALIGN="center"><B>Closed</B></TD>';
+                                echo '<TD COLSPAN="5" ALIGN="center"><B>Closed</B></TD>';
                             } else {
                                 echo '<TD align="right">' . converttime($open) . '</TD>';
                                 echo '<TD align="right">' . converttime($close) . '</TD>';
                                 if($needsdeliveryhours){
                                     echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_open_del")) . '</TD>';
+                                    echo '<TD align="center">to</TD>';
                                     echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_close_del")) . '</TD>';
                                 }
                             }

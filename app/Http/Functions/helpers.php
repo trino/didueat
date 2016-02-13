@@ -190,9 +190,9 @@
             return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
         } else if ($name && ($labelStr == "" || !$labelStr)) {
 
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
         } else if ($name && $labelStr != "" && $labelStr != false && $labelStr != "Save") {
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-xs-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
 </label><div class="col-sm-' . $columns . '">';
         } elseif ($labelStr) {
             // don't display label on left column
@@ -1694,7 +1694,7 @@
             $html .= '</div>';
 
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
-                $html .= '<SPAN><a href="#" style="font-size:90%;padding-left:5px;';
+                $html .= '<SPAN><a href="#" style="padding-left:5px;';
                 if($Color){$html .= 'color: ' . $Color . ';';}
                 $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
                 $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';

@@ -1,36 +1,11 @@
-<div class="container-fluid text-muted p-y-2 m-t-2" style="background: #fafafa;
-    border-top: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
+<div class=" container-fluid text-muted  m-t-0" style="
 ">
 
-    <!--div class="container  p-y-2">
-        <div class="row ">
-            <div class="col-lg-12 title-v2 p-b-1">
-                <h2 class="text-xs-center side-lines"> HOW IT WORKS </h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 ">
-                <h3 class="text-xs-center "><i class="fa fa-search bg-secondary"></i> Enter Your Location</h3>
 
-                <p class="text-xs-center">We'll list all the deals in your area</p>
-            </div>
-            <div class="col-lg-4 ">
-                <h3 class="footer-h3 text-xs-center"><i class="fa fa-shopping-cart "></i> Pick A Deal</h3>
-
-                <p class="text-xs-center">What do you feel like eating?</p>
-            </div>
-            <div class="col-lg-4 ">
-                <h3 class="footer-h3 text-xs-center "><i class="fa fa-cutlery  "></i> Order Online</h3>
-
-                <p class="text-xs-center">Receive your meal in under 45 mins</p>
-            </div>
-        </div>
-    </div-->
-
-    <footer class="container text-muted" style="padding-top: 1rem !important;">
+    <footer class=" container text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row">
+            <div class="col-md-12"><hr class="p-y-1" /></div>
             <div class="col-lg-10 ">
                 <ul class="list-inline">
 

@@ -5,12 +5,16 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
+    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="
+">
         <div class="container " style="padding-top: 0px !important;">
-            <div class="row m-l-0 text-md-center">
+            <div class="row m-l-0 m-r-0 text-md-center" style="  ">
                 <div  class="col-md-12 p-b-1">
 
-                <h1 class="display-4 p-t-3">Order Food from Hamilton Restaurants</h1>
+                <h1 class="display-4 p-t-3"
+                        style="text-shadow: 1px 1px 9px rgba(0, 0, 0, 1);"
+
+                        >Order Food from Hamilton Restaurants</h1>
                     </div>
 
 
@@ -27,7 +31,7 @@
                 <div  class="clearfix"></div>
 
                 <div  class="col-md-12 p-b-3 clearfix">
-                <p class="lead p-t-1">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
+                <p class="lead p-t-1"   style="text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a> restaurants</p>
 
             </div>
 
