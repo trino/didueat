@@ -1,26 +1,41 @@
 @extends('layouts.default')
 @section('content')
 
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
+        <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
           type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script-->
 
-    <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
-
-    <div class="container ">
-        <div class="row ">
+<?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
 
-            <div class="col-sm-12">
-                We'll bring the customers to you
-                <h3>Put your menu online. Average revenue increase between 15 and 25% a year!</h3>
+<div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
+    <div class="container " style="padding-top: 0px !important;">
+        <div class="row m-l-0 m-r-0 text-md-center" style="  ">
+            <div class="col-md-12  p-a-0">
+
+                <h1 class="display-4 p-t-1 banner-text-shadow"
+                    style=""
+
+                        > We'll bring the customers to you
+                </h1>
             </div>
 
-            <span class="col-sm-12">
-                <b>How</b> It Works
 
+            <div class="clearfix"></div>
+
+            <div class="col-md-12  p-a-0 clearfix">
+                <p class="lead p-t-1 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase between 15
+                    and 25% a year!</p>
+
+            </div>
+
+
+
+
+                <span class="col-sm-12">
+                How It Works
                 Did U Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
                 exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a
                 meal of
@@ -30,7 +45,7 @@
                 That's it!
                 <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f">...
 
-                    <span id="readmore" style="text-decoration:underline">Read More</span>
+                    <span id="readmore" style="text-decoration:underline; color: white;">Read More</span>
 
                 </a>
 
@@ -87,9 +102,16 @@
 
 
         </div>
+    </div>
+</div>
+
+
+<div class="container" style="padding-top:0 !important;">
+    <div class="row ">
+
 
         <div class="col-sm-12">
-            <h1 align="center" style="">Free Restaurant Signup</h1>
+            <h1 align="center" style="">Receive orders in 10 minutes</h1>
         </div>
 
 
@@ -134,7 +156,12 @@
         $(document).ready(function () {
 //          Demo.init();
 
-            validateform("signupForm", {phone: "phone required", mobile: "phone", email: "email required", password: "required minlength 3"});
+            validateform("signupForm", {
+                phone: "phone required",
+                mobile: "phone",
+                email: "email required",
+                password: "required minlength 3"
+            });
 
             /* duplicates tag field
              $('#demo4').tagEditor({

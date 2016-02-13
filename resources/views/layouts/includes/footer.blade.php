@@ -80,7 +80,7 @@ Thank you">Email Us</a></li>
                         Today = new Date();
                         document.write(Today.getFullYear());
                     </script>
-                    diduEAT / ALL Rights Reserved
+                    DiduEat
                     @if(Session::get('session_type_user') == "super")
                         <?php
                         $end_loading_time = microtime(true);
@@ -111,6 +111,10 @@ Thank you">Email Us</a></li>
 
         <!-- END PRE-FOOTER -->
 <script type="text/javascript">
+
+
+
+
     jQuery(document).ready(function () {
         /*
         Layout.init();

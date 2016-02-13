@@ -5,8 +5,7 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="
-">
+    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container " style="padding-top: 0px !important;">
             <div class="row m-l-0 m-r-0 text-md-center" style="  ">
                 <div  class="col-md-12  p-a-0">

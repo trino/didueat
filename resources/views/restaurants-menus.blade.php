@@ -3,6 +3,20 @@
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
     <div class="container-fluid  ">
+
+
+        @if(!isset($order) )
+            <div class="card card-inverse card-danger " style="">
+                <div class="card-block ">
+                    <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
+
+                    <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
+                </div>
+            </div>
+        @endif
+
+
+
         <div class="container p-y-2"  style="padding-top: 2rem !important;">
             <div class="row" >
                 <div class="col-md-2 col-xs-3">

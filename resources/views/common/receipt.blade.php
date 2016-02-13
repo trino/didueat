@@ -27,16 +27,6 @@
 
 <div class="clearfix" id="cartsz">
 
-    @if(!isset($order) )
-        <div class="card card-inverse card-danger " style="">
-            <div class="card-block ">
-                <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
-
-                <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
-            </div>
-        </div>
-    @endif
-
     <div class="card" style="">
 
         <div class="card-header">

@@ -1,4 +1,5 @@
 
+
 *{
     /*
     border-radius: 0px !important;
@@ -16,7 +17,7 @@ label{margin-bottom: 0px !important;}
     background-image: url('../../../assets/images/restro-background.jpg' )  !important;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position:center center;
+    background-position:bottom center;
   }
 .th, .td{padding:0 !important;}
 .container{
@@ -842,7 +843,7 @@ label{margin-bottom: 0px !important;}
 .alert{
     border-radius:0px !important;
 
-    padding: 5px 0 !important;
+    padding: 8px 0 !important;
 }
 tr {
     padding: 1.0rem 1.25rem;
