@@ -5,7 +5,7 @@ printfile("views/home/stripe.blade.php");
  $invoiceCents=2600;
  $orderDesc="2 Sandwiches ($26.00)";
 
-?>
+?> 
 
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"

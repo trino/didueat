@@ -1,5 +1,5 @@
 <?php
-
+ 
 //initialize("routes");
 // Frontsite Routes...
 Route::get('/',                                                     'HomeController@index');

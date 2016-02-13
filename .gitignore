@@ -82,3 +82,11 @@ app/Http/Controllers/RestaurantController_backupB4Sync_Feb4.php
 app/Http/Controllers/ProfileAddressesController_backupB4Sync_Feb4.php
 app/Http/Controllers/HomeController_backupB4Sync_Feb4.php
 app/Http/Controllers/Controller_backupB4Sync_Feb4.php
+app/Http/routes_backupFeb12,2016.php
+resources/views/users.blade.php
+resources/views/orders/users.blade.php
+resources/views/orders/stripe.blade.php
+resources/views/stripe.blade.php
+resources/views/orders/users.bladeNU.php
+app/Http/Controllers/HomeController_backupFeb12,2016.php
+app/Http/routes_backupFeb12b,2016.php

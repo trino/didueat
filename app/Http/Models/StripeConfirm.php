@@ -2,7 +2,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class StripeConfirm extends BaseModel {
 
     protected $table = 'reservations';
