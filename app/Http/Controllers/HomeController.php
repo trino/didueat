@@ -509,10 +509,17 @@ class HomeController extends Controller {
         echo csrf_token();
         die();
     }
+    
+    
 
     public function home($Type){
+      if($Type != "faq"){
+        return view("home." . $Type);      
+      }
+    }
 
-    if($Type == "faq"){
+    public function home2(){
+
         $post = \Input::all();
         
         if (isset($post) && count($post) > 0 && !is_null($post)) {
@@ -543,14 +550,10 @@ class HomeController extends Controller {
           print("<script>alert('payment made');</script>");
           return $this->success("Payment made successfully", 'home/faq');
 							 }
-        
         else{
           return view('home.faq', $data);
         }
-    }
-    else{
-        return view("home." . $Type);
-    }
+
   }
   
 }
