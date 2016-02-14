@@ -1,17 +1,17 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        }
+printfile("views/common/receipt.blade.php");
+$ordertype = "Pickup";
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
     }
-    if(!isset($profile)){
-        $profile=false;
-    }
-    if(!isset($type)){
-        $type=false;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
 ?>
 
 @if(!isset($order))
@@ -40,8 +40,8 @@
 
                 @include('common.items')
 
-                <div class="totals" style="width:100%;">
-                    <table class=""  style="width:100%;">
+                <div class="totals form-group  " style="width:100%;">
+                    <table class="" style="width:100%;">
                         <tbody>
                         @if(!isset($order))
                             <tr>
@@ -83,21 +83,22 @@
                             <td><strong>Tax (<span id="tax inlineblock">13</span>%)</strong></td>
                             <td>
                                 <div class="pull-right ">
-                                <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
-                                <input type="hidden"
-                                       value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}" name="tax"
-                                       class="maintax tax"/></div>
+                                    <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
+                                    <input type="hidden"
+                                           value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}"
+                                           name="tax"
+                                           class="maintax tax"/></div>
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
                             <td><strong>Delivery Fee</strong></td>
                             <td>
                                 <div class="pull-right ">
-                                <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
-                                <input type="hidden"
-                                       value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
-                                       class="df" name="delivery_fee"/>
-                                <input type="hidden" value="0" id="delivery_flag" name="order_type"/></div>
+                                    <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
+                                    <input type="hidden"
+                                           value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
+                                           class="df" name="delivery_fee"/>
+                                    <input type="hidden" value="0" id="delivery_flag" name="order_type"/></div>
                             </td>
                         </tr>
                         <tr>
@@ -139,8 +140,8 @@
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                                 <?php
-                                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                                    echo "<p>Welcome " . $profile->name . "</p>";
+                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                                echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @endif
                         </div>
@@ -158,8 +159,6 @@
 
     <div class="clearfix"></div>
 </div>
-
-
 
 
 <script>
@@ -225,7 +224,7 @@
             mobile: "phone",
             @if(!read("id"))
                 email: "email required",
-                password: "required minlength 3",
+            password: "required minlength 3",
             @endif
             reservation_address: "required=Please select an address."
         });

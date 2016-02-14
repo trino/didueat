@@ -2,17 +2,18 @@
 @section('content')
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
-    <div class="container-fluid  ">
 
 
         @if(!isset($order) )
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-            <div class="card card-inverse card-danger " style="border-radius:0 !important;">
-                <div class="card-block ">
-                    <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
+                <div class="card card-inverse card-danger " style="border-radius:0 !important;">
+                    <div class="card-block ">
+                        <div class="container" style="margin-top: 0 !important;">
 
-                    <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
+                        <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
+
+                        <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
 
                         <div class="col-md-4 col-md-offset-4 ">
                             <a href="#" id="add_item0" type="button btn-primary btn-block"
@@ -23,21 +24,22 @@
                             </a>
                         </div>
 
-<div class="clearfix"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    </div>
                 </div>
-            </div>
-        @endif
+
+            @endif
         @endif
 
-
-        <div class="container p-y-2" style="padding-top: 2rem !important;">
+        <div class="container" style="">
             <div class="row">
 
                 <?= printfile("views/restaurants-menus.blade.php"); ?>
 
-                <div class="col-md-8 col-xs-12 p-l-0" style="">
+                <div class="col-md-8 col-xs-12 " style="">
 
-                    <div class="col-md-4 col-xs-3">
+                    <div class="col-md-3 col-xs-3 p-l-0">
                         <img style="max-width:100%;" class="pull-left img-rounded"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
                              src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
@@ -49,17 +51,18 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    <div class="col-md-8 col-xs-8" style="">
 
-                        <div class="row clearfix">
-                            <h1 class="card-title">
-                                {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                            </h1>
+                        <div class="col-md-9 p-a-0" style="">
 
-                            <div id="restaurant_rating">
-                                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
-                                <div class="clearfix"></div>
-                            </div>
+                            <div class="">
+                                <h1 class="card-title">
+                                    {!! (isset($restaurant->name))?$restaurant->name:'' !!}
+                                </h1>
+
+                                <div id="restaurant_rating">
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
+                                    <div class="clearfix"></div>
+                                </div>
 
                     <span class="card-text m-b-0 p-r-2">
                     <strong>Address</strong> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
@@ -81,7 +84,7 @@
                         <strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     </span>
 
-                            <br>
+
                         <?
 
 
@@ -93,37 +96,37 @@
                         <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
 
                         @if (Session::get('session_type_user') == "super" )
-                                <span class="p-r-2">
+                            <span class="p-r-2">
                             <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
                                     </span>
                         @endif
-                            <span class="p-r-2">
-                        <a  class="" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
+                        <span class="p-r-2">
+                        <a class="" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
                             Detail</a>
 </span>
 
                     </span>
 
-                            <div class="clearfix"></div>
+                                <div class="clearfix"></div>
 
 
-                        </div>
-                    </div>
-
-
-                    <div class="container clearfix " style="padding-top: 0rem !important;">
-
-                        <div class="row">
-                            <div class="col-md-12 ">
                             </div>
+                        </div>
+
+
+
+                        <div class="col-md-12 p-a-0 m-t-1">
+
                             <div class="overlay overlay_reservation">
                                 <div class="loadmoreajaxloader">
                                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                                 </div>
                             </div>
 
-                            <div class="col-md-12 col-sm-12 col-xs-12 menu_div">
 
+                            <div class="clearfix"></div>
+
+                            <div class=" menu_div">
 
 
                                 @if(isset($restaurant))
@@ -177,7 +180,7 @@
 
 
                         </div>
-                    </div>
+
 
 
                 </div>

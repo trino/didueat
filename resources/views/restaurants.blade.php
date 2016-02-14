@@ -6,8 +6,8 @@
 @section('content')
 
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
-        <div class="container " style="padding-top: 0px !important;">
-            <div class="row m-l-0 m-r-0 text-md-center" style="  ">
+        <div class="container " style="">
+            <div class="row text-md-center" style="  ">
                 <div  class="col-md-12  p-a-0">
 
                 <h1 class="display-4 p-t-1 banner-text-shadow"
@@ -40,10 +40,10 @@
     </div>
 
 
-    <div class="container-fluid">
+    <div class="">
 
 
-        <div class="container" style="padding-top: 0px !important;">
+        <div class="container" style="">
 
             <?php printfile("views/restaurants.blade.php"); ?>
 
