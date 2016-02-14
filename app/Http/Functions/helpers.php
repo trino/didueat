@@ -1365,7 +1365,7 @@
 
         $end = $start;
         $end_format = $start_format;
-        for ($i = 0; $i < 700; $i++) {
+        for ($i = 0; $i < 193; $i++) {
             if ($i == 0) {
                 $start = $start;
                 $start_format = $start_format;
@@ -1377,7 +1377,7 @@
             $futureDate = $currentDate + (60 * 15);
             $end = date("Y-m-d H:i:s", $futureDate);
             $end_format = date('M d, H:i', $futureDate);
-            echo "<option value='" . $start_format . " - " . $end_format . "'>" . $start_format . " - " . $end_format . "</option>";
+            echo "<option value='" . $start_format .  "'>" . $start_format . "</option>";
         }
     }
 
