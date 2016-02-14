@@ -36,32 +36,53 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <meta name="_token" content="{{ csrf_token() }}"/>
 
+        <!-- CSS -->
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
           crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" type="text/javascript"></script>
+
+
+    <!-- JS these two must go first -->
+
+    <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" ></script>
+    <!-- JS these two must go first -->
+
+    <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/menu_manager.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/global/scripts/receipt.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/receipt.js') }}" ></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"
-            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" ></script>
 
-        <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" type="text/javascript"></script>
     @if(false)
-            <!--link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
-    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/-->
+            <!--script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" ></script-->
+    <!--script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" ></script-->
 
 
+    <!--link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
+              integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"-->
 
-<script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" type="text/javascript"></script-->
+    <!--script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
+            crossorigin="anonymous"></script-->
+    <!--script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" ></script-->
+    <!--link href="{{ asset('assets/global/css/toastr.min.css') }}" rel="stylesheet"-->
+    <!--link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
+
+
+    <!--link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/>
+        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/vnd.microsoft.icon"/-->
+
+
+    <!--  script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" ></script-->
     <!--link href="{{ asset('assets/global/css/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
               integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"-->
 
@@ -73,30 +94,30 @@ if (Request::path() !== null && Request::path() != "/") {
     <!--script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity=""
             crossorigin="anonymous"></script-->
 
-    <!--script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" type="text/javascript"></script-->
+    <!--script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}" ></script-->
 
-    <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" type="text/javascript"></script-->
-    <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('assets/global/scripts/layout.js') }}" type="text/javascript"></script-->
-    <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" type="text/javascript"></script-->
+    <!--script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js') }}" ></script>
+        <script src="{{ asset('assets/global/plugins/zoom/jquery.zoom.min.js') }}" ></script-->
+    <!--script src="{{ asset('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" ></script>
+        <script src="{{ asset('assets/global/scripts/layout.js') }}" ></script-->
+    <!--script src="{{ asset('assets/global/scripts/layerslider-init.js') }}" ></script-->
 
 
     <!--script src="{{ asset('assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"
-            type="text/javascript"></script>
+            ></script>
 
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"
-            type="text/javascript"></script>
+            ></script>
 
 
     <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/greensock.js') }}"
-            type="text/javascript"></script>
+            ></script>
     <script src="{{ asset('assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js') }}"
-            type="text/javascript"></script>
+            ></script>
     <script src="{{ asset('assets/global/plugins/fancybox/source/jquery.fancybox.pack.js') }}"
-            type="text/javascript"></script>
+            ></script>
     <script src="{{ asset('assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js') }}"
-            type="text/javascript"></script-->
+            ></script-->
     @endif
 
 
