@@ -1879,7 +1879,7 @@
         if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
         echo '<div  style="margin-bottom:0px !important;"  class="alert alert-' . $Success . ' fade in" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
-        echo '><div class="container" style="padding-top:0px !important;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        echo '><div class="container" style="margin-top:0px !important;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);

@@ -4,8 +4,8 @@
 
     <footer class=" container text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-        <div class="row">
-            <div class="col-md-12"><hr class="p-y-1" /></div>
+        <div class="row ">
+            <div class="col-md-12 m-y-2"><hr class="" /></div>
             <div class="col-lg-10 ">
                 <ul class="list-inline">
 
@@ -74,13 +74,13 @@ Thank you">Email Us</a></li>
                 </p>
 
                 <p>
-                    Currently v1.0 / &copy;
+                    Currently v1.0 &copy; Didu Eat
                     <script language=javascript>
                         var yr;
                         Today = new Date();
                         document.write(Today.getFullYear());
                     </script>
-                    DiduEat
+
                     @if(Session::get('session_type_user') == "super")
                         <?php
                         $end_loading_time = microtime(true);

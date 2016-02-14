@@ -2,20 +2,16 @@
     $RestaurantID=$Restaurant; // copy ID before it variable changes
     $Restaurant = select_field("restaurants", "id", $Restaurant);
 
-    $MenuTst = select_field("menus", array("restaurant_id","is_active"), array($RestaurantID,1),"menu_item");
 
     $post = \Input::all(); // testing for intial setup
     
     if ($Restaurant) {
         $MissingData = [];
         $MissingDataOptional = [];
-        
-        if (!isset($MenuTst)) {
-            $MissingData[] = "At least one menu item must be added, and <u>Enabled</u> <a href=\"" . url('restaurants/'.$Restaurant->slug.'/menus') . "\">(<u>Add Menu Items</u>)</a>";
-        }        
+
         
         if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
-            $MissingData[] = "Pickup and/or Delivery options <a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">(<u>Set Pickup/Delivery Options</u>)</a>";
+            $MissingData[] = "<a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">Pickup and/or delivery options</a>";
         }
         /* dont need logo
         if (!$Restaurant->logo) {
@@ -27,14 +23,14 @@
         }
 
         if (!$Restaurant->latitude || !$Restaurant->longitude) {
-            $MissingData[] = "Restaurant address <a href=\"" . url('restaurant/info') . "#RestaurantAddress\">(<u>Set Restaurant Address</u>)</a>";
+            $MissingData[] = "<a href=\"" . url('restaurant/info') . "#RestaurantAddress\">Restaurant address</a>";
         }
 
         if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "Delivery range <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Delivery Range</u>)</a>";
+            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Delivery area</a>";
         }
         if ((!$Restaurant->minimum || $Restaurant->minimum == "0.00") && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "Minimum delivery sub-total <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Delivery Minimum</u>)</a>";
+            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Minimum delivery sub-total</a>";
         }
 
         //check hours of operation
@@ -55,9 +51,9 @@
         }
 
         if (!$doesopen) {
-            $MissingData[] = "Hours of operation <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Set Hours of Operation</u>)</a>";
+            $MissingData[] = " <a href=\"" . url('restaurant/info') . "#HoursOpen\">Hours of operation</a>";
         } elseif ($someHoursNotOK) {
-            $MissingData[] = "Hours Open Needs Completing <a href=\"" . url('restaurant/info') . "#HoursOpen\">(<u>Complete Hours Open</u>)</a>";
+            $MissingData[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Hours open needs completing</a>";
         }
 
         /*check credit card
@@ -67,24 +63,38 @@
         }
         */
 
+        $MenuTst = select_field("menus", array("restaurant_id","is_active"), array($RestaurantID,1),"menu_item");
+
+        if (!isset($MenuTst)) {
+            $MissingData[] = "<a href=\"" . url('restaurants/'.$Restaurant->slug.'/menus') . "\">At least one menu item must be added and enabled</a>";
+        }
+
         if ($MissingData) {
 
 
             ?>
 
-            <div class="alert alert-danger " style="margin-bottom: 0px !important;">
-                <div class="container" style="padding-top:0rem !important;">
+            <div class="alert alert-success " style="margin-bottom: 0px !important;">
+                <div class="container" style="margin-top:0rem !important;">
                     <div class="row" style="">
 
 <?
             printfile("views/common/required_to_open.php");
 
-            $missingHeadInitialReg="";
-            if (isset($post['initialRestSignup'])) {
-                $missingHeadInitialReg = '<span style="font-size:20px">PARTIAL REGISTRATION COMPLETED!</span> &nbsp;';
-            } 
-              
-            $missingHead = $missingHeadInitialReg."<h5>COMPLETE THE FOLLOWING TO START ACCEPTING ORDERS</h5>";
+    $missingHeadInitialReg="";
+    if (isset($post['initialRestSignup'])) {
+        $missingHeadInitialReg = '<h4>PARTIAL REGISTRATION COMPLETED!</h4>';
+    }
+
+            if (Session::get('session_type_user') == "restaurant") {
+
+
+                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following the start accepting orders</h5>";
+
+
+
+            }
+
 
             $MissingData = array_merge($MissingData, $MissingDataOptional);
 

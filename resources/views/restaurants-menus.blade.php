@@ -6,7 +6,7 @@
 
 
         @if(!isset($order) )
-            <div class="card card-inverse card-danger " style="">
+            <div class="card card-inverse card-danger " style="border-radius:0 !important;">
                 <div class="card-block ">
                     <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
 
@@ -91,10 +91,10 @@
     </div>
 
 
-    <div class="container" style="padding-top: 0rem !important;">
+    <div class="container " style="padding-top: 0rem !important;">
 
         <div class="row">
-            <div class="col-md-12"><hr class="p-y-1"></div>
+            <div class="col-md-12 "><hr class=""></div>
             <div class="overlay overlay_reservation">
                 <div class="loadmoreajaxloader">
                     <img src="{{ asset('assets/images/ajax-loading.gif') }}">

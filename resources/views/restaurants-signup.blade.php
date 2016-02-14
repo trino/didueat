@@ -34,7 +34,7 @@
 
 
 
-                <span class="col-sm-12">
+                <span class="col-sm-12   p-a-0 ">
                 How It Works
                 Did U Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
                 exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a
@@ -57,7 +57,7 @@
             Diners on our sites browse your menu and place an order from their computer or web app. Once that's
             done, our system sends you the order to be made and delivered just like you do now.
             You'll only pay on orders we send you!<br/>
-        <div class="col-sm-3">
+        <div class="col-sm-3  p-a-0 ">
             <img src="{{ asset('assets/images/click.png') }}">
 
             <h3>Sign Up</h3>
@@ -65,7 +65,7 @@
             <p>Sign up or contact us today to book an appointment with one of our team members.</p>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3  p-a-0 ">
             <img src="{{ asset('assets/images/clip.png') }}">
 
             <h3>Create Menu</h3>
@@ -73,7 +73,7 @@
             <p>Do it yourself menu creation, update anytime.</p>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3  p-a-0 ">
             <img src="{{ asset('assets/images/box.png') }}">
 
             <h3>Receive Orders</h3>
@@ -81,7 +81,7 @@
             <p>Start receiving orders in as little as 10 minutes.</p>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3  p-a-0 ">
             <div class="pricing-head pricing-head-active">
                 <h3>Expert <span>Officia</span></h3>
                 <h4>

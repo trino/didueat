@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <?php printfile("view/popups/more_detail.blade.php"); ?>
-                <div style="height:500px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                <div style="height:300px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
                         @if(!empty($restaurant->formatted_address))
                             <iframe style="height:100%;width:100%;border:0;" frameborder="0"
@@ -21,7 +21,7 @@
                 </div>
                 <br>
 
-                <h4>Description: </h4>
+                <h4>Description</h4>
                 <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
                 <h4>Hours: </h4>
@@ -65,10 +65,10 @@
                 </TABLE>
 
                 @if(false)
-                    <h3>Tags: </h3>
+                    <h3>Tags</h3>
                     <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
 
-                    <h3>Reviews: </h3>
+                    <h3>Reviews</h3>
                     <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                 @endif
             </div>
