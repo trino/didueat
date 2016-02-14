@@ -113,7 +113,7 @@
             //die('here');
         $k++;
         if ($k == 1)
-            echo "<div class='ignore' id='subcat" . $menu_id . "'>";
+            echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
 
         ?>
         @include('popups.additional')
@@ -124,31 +124,7 @@
         ?>
         <script class="ignore ignore2 ignore1">
             $(function () {
-                $(".sorting_child").live('click', function () {
-                    var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
-                    var sort = 'down';
-                    if ($(this).attr('id') == 'child_up_' + pid) {
-                        sort = 'up';
-                    }
-
-                    var order = '';
-                    $('#subcat{{ $menu_id }} .cmore').each(function (index) {
-                        var val = $(this).attr('id').replace('cmore', '');
-                        if (order == '') {
-                            order = val;
-                        } else {
-                            order = order + ',' + val;
-                        }
-                    });
-                    $.ajax({
-                        url: "{{ url('restaurant/orderCat') }}/" + pid + '/' + sort,
-                        data: 'ids=' + order + '&_token={{ csrf_token() }}',
-                        type: 'post',
-                        success: function (res) {
-                            $('#addmore' + res).load("{{ url('restaurant/loadChild') }}/" + res + '/0');
-                        }
-                    });
-                });
+                
             });
         </script>
 

@@ -10,6 +10,32 @@ $.ajax({
         token = res;
     }
 });
+$(".sorting_child").live('click', function () {
+                    var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
+                    var sort = 'down';
+                    if ($(this).attr('id') == 'child_up_' + pid) {
+                        sort = 'up';
+                    }
+
+                    var order = '';
+                    $(this).closest('.subcat').find('.cmore').each(function (index) {
+                        var val = $(this).attr('id').replace('cmore', '');
+                        if (order == '') {
+                            order = val;
+                        } else {
+                            order = order + ',' + val;
+                        }
+                    });
+                    $th = $(this)
+                    $.ajax({
+                        url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
+                        data: 'ids=' + order + '&_token='+token,
+                        type: 'post',
+                        success: function (res) {
+                            $th.closest('.addmore').load(base_url+"restaurant/loadChild/" + res + '/0');
+                        }
+                    });
+                });
 $(".addon_sorting").live('click', function () {
             var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
             var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
