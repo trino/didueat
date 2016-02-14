@@ -610,8 +610,10 @@ ul.scroller li {
     border:1px solid #dadada;
 }
 
-.card-title {padding: .25rem !important;
-margin-bottom: 0rem !important;}
+.card-title {
+
+    margin-bottom: 0rem !important;
+}
 .card-title h1, h2, h3, h4, h5, h6 {}
 
 .instruct {

@@ -2,7 +2,7 @@
 
 <!--div class="scroller" data-height='120px'-->
 <div>
-    <table class="table orders @if(!isset($order)) order-style @endif" width="100%">
+    <table class="orders @if(!isset($order)) order-style @endif" width="100%">
         <thead class="itmQty" <?php if(isset($order)&& isset($arr_menu) && count($arr_menu))echo '';else echo 'style="display:none;"';?>><TH style="width:60px;">Qty</TH><TH width="50%">Item</TH><TH><div class="pull-right">Price</div></TH></thead>
         @if(isset($order))
             <?php

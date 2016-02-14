@@ -40,8 +40,8 @@
 
                 @include('common.items')
 
-                <div class="totals" style="">
-                    <table class="table">
+                <div class="totals" style="width:100%;">
+                    <table class=""  style="width:100%;">
                         <tbody>
                         @if(!isset($order))
                             <tr>
@@ -116,7 +116,7 @@
                 </div>
 
                 @if(!isset($order))
-                    <div class="form-group   pull-right  m-b-0">
+                    <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
                         <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                     </div>
