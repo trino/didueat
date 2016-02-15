@@ -25,7 +25,6 @@
     margin-bottom: .5rem !important;
 }
 
-
 label {
     margin-bottom: 0px !important;
 }
@@ -77,28 +76,86 @@ tr {
     text-shadow: 1px 1px 9px rgba(0, 0, 0, 3);
 
 }
+
 .alert {
     border-radius: 0px !important;
 
+}
+
+.overlay_reservation {
+    background-color: rgba(255, 255, 220, 0.8);
+    z-index: 99999;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+    text-align: center;
+    display: none;
+}
+
+.loadmoreajaxloader {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.c-input > input:checked ~ .c-indicator {
+    /*  color: #FFF; */
+}
+
+.errormsg {
+    color: red;
+}
+
+.overlay_loader {
+    background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+.overlay {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+}
+
+.subber {
+    padding: 20px;
+    border: 1px solid #dadada;
+}
+
+@media (max-width: 990px) {
+    /* some CSS for small resolution */
+    .menu-toggler {
+        display: block;
+    }
+}
+
+@media (min-width: 991px) {
+    /* some CSS for small resolution */
+    .menu-toggler {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
     h1 {
         font-size: 1.75rem !important;
     }
+
     h4 {
         font-size: 1.25rem !important;
     }
 }
 
-.jumbotron {
-    padding: 1rem 0 !important;
-}
-
-.card-footer {
-
-    background-color: #fff !important;
-    border-bottom: 0px solid #e5e5e5;
+.cleafix {
+    clear: both;
 }
 
 .required:after {
@@ -112,10 +169,6 @@ tr {
 
 .error {
     color: rgb(255, 0, 0);
-}
-
-.dropdown-menu {
-    padding-left: 5px;
 }
 
 .headerbutton {
@@ -312,15 +365,9 @@ body {
     color: #f0ad4e;
 }
 
-/*------Static Rating--------*/
 .static-rating {
     border: none;
     float: left;
-}
-
-hr {
-    margin-top: 0px;
-    margin-bottom: 0px;
 }
 
 .static-rating > input {
@@ -388,54 +435,6 @@ hr {
 
 }
 */
-
-.overlay_reservation {
-    background-color: rgba(255, 255, 220, 0.8);
-    z-index: 99999;
-    left: 0px;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    position: fixed;
-    text-align: center;
-    display: none;
-}
-
-.loadmoreajaxloader {
-    top: 50%;
-    left: 50%;
-    position: absolute;
-}
-
-.c-input > input:checked ~ .c-indicator {
-    /*  color: #FFF; */
-}
-
-.errormsg {
-    color: red;
-}
-
-.overlay_loader {
-    background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
-    display: none;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 99999;
-}
-
-.overlay {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-}
-
-.subber {
-    padding: 20px;
-    border: 1px solid #dadada;
-}
 
 /*
 .instruct {
@@ -510,36 +509,6 @@ hr {
     padding-left: 0px;
 }
 */
-
-@media (max-width: 990px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: block;
-    }
-}
-
-@media (min-width: 991px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: none;
-    }
-}
-
-.card-header-items {
-    /*
-    margin-left: -7px;
-    margin-top: -7px;
-    text-align: center;
-    color: #0275d8;
-
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: white;
-    */
-}
-
-.cleafix {
-    clear: both;
-}
 
 /*
 

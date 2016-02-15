@@ -124,7 +124,7 @@
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-secondary-outline btn-sm pull-right"
                                    onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
-                                    X
+                                    <i class="fa fa-times"></i>
                                 </a>
                             @endif
                             @if($type == "admin" && $value->status == "pending")
