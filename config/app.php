@@ -2,7 +2,7 @@
 
 return [
 
-    'debug' => false,
+    'debug' => true,
     // 'debug' => env('APP_DEBUG', false),
 
     'url' => 'http://localhost/didueat/public/',

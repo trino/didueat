@@ -11,43 +11,32 @@
             <div class="modal-body">
                 <?php printfile("views/popups/forgot-password.blade.php"); ?>
                 <div id="forgot-pass-success" class="note note-success" style="display: none;">
-                    <h1 class="block">New Password Emailed</h1>
-                    <p></p>
+                    <div class="alert alert-success">Please check your email for the recovery password</div>
                 </div>
                 {!! Form::open(array('url' => '/auth/forgot-password', 'id'=>'forgot-pass-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div id="error" class="alert alert-danger" style="display: none;"></div>
-                    <div class="col-sm-3"></div><div class="col-sm-9">                <div class="form-group row m-b-0">
-                            <p style="">A new password will be emailed to you.</p></div>
+                <div class="form-group row ">
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-9">
+                        A new password will be emailed to you
+                    </div>
                 </div>
-
                 <?php echo newrow(false, "Email", '', true); ?>
                 <input type="email" name="email" class="form-control" id="email" placeholder="" required/>
-
-                    <div class="col-sm-12 m-b-0">
-
-                    <div class="form-group row">
-                    <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit" style="">Submit</button>
-
-
-                </div>
-                </div>
-                    {!! Form::close() !!}
             </div>
-
-
-
-
-
-
-
-            <!--<img src="{{ asset('assets/images/loader.gif') }}" id="regLoader"
-                 style="display: none;margin-left:auto;margin-right:auto;"/>-->
-
-
-
         </div>
+        <div class="form-group row ">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+                <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit"
+                        style="">Submit
+                </button>
+            </div>
+        </div>
+        {!! Form::close() !!}
     </div>
-
 </div>
 </div>
 </div>

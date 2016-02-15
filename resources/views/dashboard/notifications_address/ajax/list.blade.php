@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    Notification Addresses
+                    Order Notification
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4>
 
@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>Enable</th>
-                        <th>Phone/Email</th>
+                        <th>Notify</th>
                         <th>Note</th>
                         <th></th>
                     </tr>

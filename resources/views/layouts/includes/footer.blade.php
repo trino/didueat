@@ -363,8 +363,10 @@ Thank you">Email Us</a></li>
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
             $.ajax({
+
+
                 url: "{{ url('auth/login/ajax') }}",
-                data: data, _token: token,
+                data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
                 success: function (msg) {
                     if (isNaN(Number(msg))) {
