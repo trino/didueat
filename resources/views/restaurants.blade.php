@@ -1,6 +1,6 @@
 <?php
-    $first = false;
-    $type = "hidden";
+$first = false;
+$type = "hidden";
 ?>
 @extends('layouts.default')
 @section('content')
@@ -8,31 +8,25 @@
     <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
         <div class="container " style="">
             <div class="row text-md-center" style="  ">
-                <div  class="col-md-12  p-a-0">
+                <div class="col-md-12">
 
-                <h1 class="display-4 p-t-1 banner-text-shadow"
+                    <h1 class="display-4 p-t-1 banner-text-shadow"
                         style=""
 
-                        >Order Food from Local Restaurants</h1>
+                            >Order Food from Local Restaurants</h1>
+                </div>
+
+                <div class="col-md-12 text-md-center">
+                    <div class="col-md-offset-3 p-a-0 col-md-6  text-md-center">
+                        @include('common.search_bar')
                     </div>
+                </div>
 
-
-                <!--div  class="col-md-5">
-
-            <p class="lead m-b-0">Enter your location to find deals near you</p>
-                    </div-->            <div  class="clearfix"></div>
-
-                <div  class="col-md-12 p-a-0 text-md-center">
-                <div  class="col-md-offset-3 p-a-0 col-md-6  text-md-center">
-                @include('common.search_bar')
-           </div>
-           </div>
-                <div  class="clearfix"></div>
-
-                <div  class="col-md-12  p-a-0 clearfix">
-                <p class="lead p-t-1 p-b-0 banner-text-shadow">Or show me <a href="#" style="color:white;text-decoration: underline;">Hamilton</a></p>
-
-            </div>
+                <div class="col-md-12  text-md-center">
+                    <p class="lead p-t-1 p-b-0 banner-text-shadow">Or show me <a href="#"
+                                                                                 style="color:white;text-decoration: underline;">Hamilton</a>
+                    </p>
+                </div>
 
 
             </div>
@@ -69,37 +63,36 @@
                                 {!! Form::open(array('url' => '/search/restaurants/ajax', 'id'=>'search-form', 'class'=>'search-form m-b-0','method'=>'post','role'=>'form', 'onkeypress' => 'return keypress(event);')) !!}
                                 <div class="sort search-form clearfix">
 
-                                        <div class="p-l-0 p-r-1 pull-left">
-                                            <div class="form-group">
+                                    <div class="p-l-0 p-r-1 pull-left">
+                                        <div class="form-group">
 
-                                        <label class="c-input c-radio ">
-                                            <input type="radio" name="delivery_type" id="delivery_type"
-                                                   value="is_delivery"
-                                                   checked
-                                                   onclick="createCookieValue('delivery_type', this.value)"/>
-                                            <span class="c-indicator"></span>
-                                            Delivery
-                                        </label>  </div>
+                                            <label class="c-input c-radio ">
+                                                <input type="radio" name="delivery_type" id="delivery_type"
+                                                       value="is_delivery"
+                                                       checked
+                                                       onclick="createCookieValue('delivery_type', this.value)"/>
+                                                <span class="c-indicator"></span>
+                                                Delivery
+                                            </label></div>
                                     </div>
-                                        <div class="p-l-0 pull-left">
+                                    <div class="p-l-0 pull-left">
 
-                                            <div class="form-group">
+                                        <div class="form-group">
 
-                                        <label class="c-input c-radio ">
-                                            <input type="radio" name="delivery_type" id="delivery_type"
-                                                   value="is_pickup"
-                                                   onclick="createCookieValue('delivery_type', this.value)"/>
-                                            <span class="c-indicator"></span>
-                                            Pickup
-                                        </label>  </div>
-                                        </div>
-                                        <!--label class="c-input c-checkbox">
-                                            <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
-                                                   onclick="createCookieValue('is_complete', this.value)"/>
-                                            <span class="c-indicator"></span>
-                                            Order Online
-                                        </label-->
-
+                                            <label class="c-input c-radio ">
+                                                <input type="radio" name="delivery_type" id="delivery_type"
+                                                       value="is_pickup"
+                                                       onclick="createCookieValue('delivery_type', this.value)"/>
+                                                <span class="c-indicator"></span>
+                                                Pickup
+                                            </label></div>
+                                    </div>
+                                    <!--label class="c-input c-checkbox">
+                                        <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
+                                               onclick="createCookieValue('is_complete', this.value)"/>
+                                        <span class="c-indicator"></span>
+                                        Order Online
+                                    </label-->
 
 
                                     <div class="form-group">
@@ -212,7 +205,7 @@
                         <p class="text-muted">There's a deal everyday</p>
                     </div>
 
-<div class="clearfix"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -263,10 +256,10 @@
              $('#search-form #clearSearch').hide();
              }
 
-            if (getCookie('radius').trim() != "") {
-                $('#search-form #radius_panel').show();
-                $('#search-form #radius').val(getCookie('radius'));
-            }
+             if (getCookie('radius').trim() != "") {
+             $('#search-form #radius_panel').show();
+             $('#search-form #radius').val(getCookie('radius'));
+             }
              */
 
             if (getCookie('address')) {
@@ -293,20 +286,22 @@
         });
 
         /*
-        $('body').on('keyup', elementname, function () {
-            $('#radius_panel').hide();
-            if ($(this).val()) {
-                $('#radius_panel').show();
-            }
-        });
-        */
+         $('body').on('keyup', elementname, function () {
+         $('#radius_panel').hide();
+         if ($(this).val()) {
+         $('#radius_panel').show();
+         }
+         });
+         */
 
         function submitform(e, start) {
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
-            if(!address_alias){return false;}
+            if (!address_alias) {
+                return false;
+            }
 
             createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);

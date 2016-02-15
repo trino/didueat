@@ -133,30 +133,30 @@ if (Request::path() !== null && Request::path() != "/") {
     @if (debugmode())
         <style>
             .container-fluid {
-                border: 5px solid black;
+                border: 2px solid black;
             }
 
             .container {
-                border: 5px solid red;
+                border: 2px solid red;
             }
 
             div[class^="col-"], div[class*=" col-"] {
-                border: 1px solid red !important;
+                border: 2px solid green !important;
             }
 
             tr {
 
-                border: 3px solid pink;
+                border: 2px solid pink;
             }
 
             td {
 
-                border: 3px solid yellow;
+                border: 2px solid yellow;
 
             }
 
             th {
-                border: 3px solid purple;
+                border: 2px solid purple;
 
             }
 

@@ -112,15 +112,6 @@ Thank you">Email Us</a></li>
 
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-        /*
-        Layout.init();
-        Layout.initOWL();
-        Layout.initImageZoom();
-        Layout.initTouchspin();
-        Layout.initTwitter();
-        */
-    });
 
     $(document).ready(function () {
 
