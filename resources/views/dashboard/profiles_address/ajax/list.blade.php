@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9"><h4 class="card-title">
                     My Addresses 
-                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
+                    <a class="btn btn-primary btn-sm addNew" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
                 </h4></div>
             @if (Session::get('session_type_user') == "super" && $recCount > 10)
 
