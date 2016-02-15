@@ -1,5 +1,16 @@
+.list-group-item {
+    padding: .6rem 1.25rem !important;
+}
+
 .alert {
     margin-bottom: 0 !important;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 1px 5px;
 }
 
 .container-fluid {
@@ -8,23 +19,16 @@
 
 .container {
     margin-top: 2rem !important;
-    /*  padding: 0rem !important; */
 }
 
 .form-group {
     margin-bottom: .5rem !important;
 }
 
-* {
-    /*
-    border-radius: 0px !important;
-    */
-}
 
 label {
     margin-bottom: 0px !important;
 }
-
 
 .main-bg-image {
     background-image: url('../../../assets/images/restro-background.jpg') !important;
@@ -33,35 +37,18 @@ label {
     background-position: center center;
 }
 
-.th, .td {
-    padding: 0 !important;
-}
-
-
-
-/*
-.ui-timepicker-table {
-    background: #fff;
-}
-
-.list-inline-item:not(:last-child) {
-    margin-right: 15px;
-}
-*/
 .page-sidebar-menu, .sub-menu {
     list-style-type: none;
     padding-left: 0px;
 }
 
-.table thead th {
-    border-bottom: 0;
-}
-
-
 .card-title {
-
     margin-top: .25rem !important;
     margin-bottom: .25rem !important;
+}
+
+.table thead th {
+    border-bottom: 0;
 }
 
 .table th, .table td {
@@ -77,10 +64,12 @@ label {
     min-width: 100% !important;
 }
 
+tr {
+    padding: 1.0rem 1.25rem;
 
+}
 
 .card-header {
-    /* padding: 1.25rem 1.25rem !important; */
     background-color: #fff !important;
 }
 
@@ -88,14 +77,8 @@ label {
     text-shadow: 1px 1px 9px rgba(0, 0, 0, 3);
 
 }
-
 .alert {
     border-radius: 0px !important;
-
-}
-
-tr {
-    padding: 1.0rem 1.25rem;
 
 }
 
@@ -151,9 +134,7 @@ tr {
 }
 
 body {
-    /* background: #f4f7f8 !important; */
     font-family: 'Roboto', sans-serif;
-    /* font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif !important; */
 }
 
 .navbar {
@@ -426,16 +407,13 @@ hr {
     position: absolute;
 }
 
-
 .c-input > input:checked ~ .c-indicator {
-  /*  color: #FFF; */
+    /*  color: #FFF; */
 }
-
 
 .errormsg {
     color: red;
 }
-
 
 .overlay_loader {
     background: rgba(255, 255, 255, 0.7) none repeat scroll 0 0;
@@ -458,7 +436,6 @@ hr {
     padding: 20px;
     border: 1px solid #dadada;
 }
-
 
 /*
 .instruct {
