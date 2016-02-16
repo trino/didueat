@@ -14,10 +14,8 @@
         <div class="row m-l-0 m-r-0 text-md-center" style="  ">
             <div class="col-md-12  ">
 
-                <h1 class="display-4 p-t-1 banner-text-shadow"
-                    style=""
-
-                        > We'll bring the customers to you
+                <h1 class="display-4 p-t-1 banner-text-shadow" style="">
+                    We'll bring the customers to you
                 </h1>
             </div>
 
