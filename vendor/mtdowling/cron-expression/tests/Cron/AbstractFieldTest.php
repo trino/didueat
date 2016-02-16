@@ -2,7 +2,7 @@
 
 namespace Cron\Tests;
 
-use Cron\day_of_weekField;
+use Cron\DayOfWeekField;
 
 /**
  * @author Michael Dowling <mtdowling@gmail.com>
@@ -14,7 +14,7 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestsIfRange()
     {
-        $f = new day_of_weekField();
+        $f = new DayOfWeekField();
         $this->assertTrue($f->isRange('1-2'));
         $this->assertFalse($f->isRange('2'));
     }
@@ -24,7 +24,7 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestsIfIncrementsOfRanges()
     {
-        $f = new day_of_weekField();
+        $f = new DayOfWeekField();
         $this->assertFalse($f->isIncrementsOfRanges('1-2'));
         $this->assertFalse($f->isIncrementsOfRanges('1-2'));
         $this->assertTrue($f->isIncrementsOfRanges('1/2'));
@@ -37,7 +37,7 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestsIfInRange()
     {
-        $f = new day_of_weekField();
+        $f = new DayOfWeekField();
         $this->assertTrue($f->isInRange(1, '1-2'));
         $this->assertTrue($f->isInRange(2, '1-2'));
         $this->assertTrue($f->isInRange(5, '4-12'));
@@ -50,7 +50,7 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestsIfInIncrementsOfRanges()
     {
-        $f = new day_of_weekField();
+        $f = new DayOfWeekField();
         $this->assertTrue($f->isInIncrementsOfRanges(3, '3-59/2'));
         $this->assertTrue($f->isInIncrementsOfRanges(13, '3-59/2'));
         $this->assertTrue($f->isInIncrementsOfRanges(15, '3-59/2'));
@@ -72,7 +72,7 @@ class AbstractFieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testTestsIfSatisfied()
     {
-        $f = new day_of_weekField();
+        $f = new DayOfWeekField();
         $this->assertTrue($f->isSatisfied('12', '3-13'));
         $this->assertTrue($f->isSatisfied('15', '3-59/12'));
         $this->assertTrue($f->isSatisfied('12', '*'));

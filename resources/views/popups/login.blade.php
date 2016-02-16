@@ -15,7 +15,7 @@
                     <h4 class="modal-title" id="loginModalLabel">Log in</h4>
                 </div>
                 <form role="form" action="{{ url('auth/login') }}" id="login-ajax-form" method="post" class="m-b-0">
-                    <div class="modal-body m-t-1">
+                    <div class="modal-body">
 
                         <?php printfile("views/popups/login.blade.php"); ?>
 

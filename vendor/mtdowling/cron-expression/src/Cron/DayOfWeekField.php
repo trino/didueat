@@ -15,7 +15,7 @@ namespace Cron;
  * number between one and five. It allows you to specify constructs such as
  * "the second Friday" of a given month.
  */
-class day_of_weekField extends AbstractField
+class DayOfWeekField extends AbstractField
 {
     public function isSatisfiedBy(\DateTime $date, $value)
     {
@@ -36,7 +36,10 @@ class day_of_weekField extends AbstractField
             $tdate = clone $date;
             $tdate->setDate($currentYear, $currentMonth, $lastDayOfMonth);
             while ($tdate->format('w') != $weekday) {
-                $tdate->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
+                $tdateClone = new \DateTime();
+                $tdate = $tdateClone
+                    ->setTimezone($tdate->getTimezone())
+                    ->setDate($currentYear, $currentMonth, --$lastDayOfMonth);
             }
 
             return $date->format('j') == $lastDayOfMonth;

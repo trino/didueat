@@ -54,7 +54,7 @@ abstract class GeneratorCommand extends Command
         $path = $this->getPath($name);
 
         if ($this->alreadyExists($this->getNameInput())) {
-            $this->error($this->type.' already bloody exists!');
+            $this->error($this->type.' already exists!');
 
             return false;
         }

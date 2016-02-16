@@ -44,7 +44,7 @@ class AdministratorController extends Controller {
                 } else if ($post['password']){// || $post['confirm_password']) {
                     return $this->failure("[Old Password] is missing!",'dashboard');
                 }
-                
+
                 $update=$post;
                 if ($post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
@@ -84,7 +84,7 @@ class AdministratorController extends Controller {
                 //save the array to the database
                 $ob->populate($data);
                 $ob->save();
-                
+
                 event(new \App\Events\AppEvents($ob, "Profile Updated"));//log event
 
                 if(isset($post['phone']) && !empty($post['phone'])){
@@ -146,7 +146,7 @@ class AdministratorController extends Controller {
             return view('dashboard.administrator.newsletter', $data);
         }
     }
-    
+
 
 
 }

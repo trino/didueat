@@ -36,7 +36,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <meta name="_token" content="{{ csrf_token() }}"/>
 
-        <!-- CSS -->
+    <!-- CSS -->
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
@@ -47,21 +47,21 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <!-- JS these two must go first -->
 
-    <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" ></script>
-    <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/plugins/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}"></script>
     <!-- JS these two must go first -->
 
-    <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/menu_manager.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/upload.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jqueryui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}" ></script>
-    <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}" ></script>
-    <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}" ></script>
-    <script src="{{ asset('assets/global/scripts/receipt.js') }}" ></script>
+    <script src="{{ asset('assets/global/scripts/jquery.tag-editor.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/jquery.cookie.min.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/custom-datatable/bootbox.js') }}"></script>
+    <script src="{{ asset('assets/global/scripts/receipt.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
-    <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" ></script>
-    <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" ></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"></script>
 
     @if(false)
             <!--script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" ></script-->
@@ -133,30 +133,30 @@ if (Request::path() !== null && Request::path() != "/") {
     @if (debugmode())
         <style>
             .container-fluid {
-                border: 1px solid green;
+                border: 2px solid black;
             }
 
             .container {
-                border: 1px solid green;
+                border: 2px solid red;
             }
 
             div[class^="col-"], div[class*=" col-"] {
-                border: 1px solid red !important;
+                border: 2px solid green !important;
             }
 
             tr {
 
-                border: 3px solid pink;
+                border: 2px solid pink;
             }
 
             td {
 
-                border: 3px solid yellow;
+                border: 2px solid yellow;
 
             }
 
             th {
-                border: 3px solid purple;
+                border: 2px solid purple;
 
             }
 
@@ -182,20 +182,39 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <body>
 
-<div class="container-fluid p-a-0" style="margin-top: 53px;">
 
+@if(!read("id"))
+    @include('popups.login')
+    @include('popups.signup')
+    @include('popups.forgot-password')
+@endif
 
-    @if(!read("id"))
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
-    @endif
+<div class="container-fluid" style="margin-bottom: 53px;">
     @include('layouts.includes.header')
-    @include('common.alert_messages')
+</div>
 
+<div class="container-fluid">
+    @include('common.alert_messages')
+</div>
+
+<div class="container-fluid">
     @yield('content')
+</div>
+
+<div class="container-fluid">
     @include('layouts.includes.footer')
 </div>
+
+
+<div class="overlay_loader">
+    <div class="clearfix"></div>
+    <div id="loadmoreajaxloader">
+        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+    </div>
+</div>
+
+@include('popups.rating')
+
 
 
 <div class="overlay_loader">

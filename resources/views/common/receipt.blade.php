@@ -1,23 +1,23 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        }
+printfile("views/common/receipt.blade.php");
+$ordertype = "Pickup";
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
     }
-    if(!isset($profile)){
-        $profile=false;
-    }
-    if(!isset($type)){
-        $type=false;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
 ?>
 
 @if(!isset($order))
     <div class="top-cart-info">
-        <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">3 items</a>
-        <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$1260</a>
+        <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">0 item</a>
+        <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$0.00</a>
         <a href="javascript:void(0);"
            onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); "><i
                     class="fa fa-shopping-cart"></i>Cart</a>
@@ -40,8 +40,8 @@
 
                 @include('common.items')
 
-                <div class="totals" style="">
-                    <table class="table">
+                <div class="totals form-group  " style="width:100%;">
+                    <table class="" style="width:100%;">
                         <tbody>
                         @if(!isset($order))
                             <tr>
@@ -83,21 +83,22 @@
                             <td><strong>Tax (<span id="tax inlineblock">13</span>%)</strong></td>
                             <td>
                                 <div class="pull-right ">
-                                <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
-                                <input type="hidden"
-                                       value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}" name="tax"
-                                       class="maintax tax"/></div>
+                                    <span class="tax inlineblock">${{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}</span>
+                                    <input type="hidden"
+                                           value="{{ (isset($order)) ? number_format($order->tax,2) : '0.00' }}"
+                                           name="tax"
+                                           class="maintax tax"/></div>
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
                             <td><strong>Delivery Fee</strong></td>
                             <td>
                                 <div class="pull-right ">
-                                <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
-                                <input type="hidden"
-                                       value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
-                                       class="df" name="delivery_fee"/>
-                                <input type="hidden" value="0" id="delivery_flag" name="order_type"/></div>
+                                    <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
+                                    <input type="hidden"
+                                           value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
+                                           class="df" name="delivery_fee"/>
+                                    <input type="hidden" value="0" id="delivery_flag" name="order_type"/></div>
                             </td>
                         </tr>
                         <tr>
@@ -116,7 +117,7 @@
                 </div>
 
                 @if(!isset($order))
-                    <div class="form-group   pull-right  m-b-0">
+                    <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
                         <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                         <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                     </div>
@@ -139,8 +140,8 @@
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                                 <?php
-                                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                                    echo "<p>Welcome " . $profile->name . "</p>";
+                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                                echo "<p>Welcome " . $profile->name . "</p>";
                                 ?>
                             @endif
                         </div>
@@ -158,8 +159,6 @@
 
     <div class="clearfix"></div>
 </div>
-
-
 
 
 <script>
@@ -225,7 +224,7 @@
             mobile: "phone",
             @if(!read("id"))
                 email: "email required",
-                password: "required minlength 3",
+            password: "required minlength 3",
             @endif
             reservation_address: "required=Please select an address."
         });

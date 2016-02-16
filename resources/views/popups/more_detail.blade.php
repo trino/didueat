@@ -7,11 +7,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="viewMapModelLabel">More Detail</h4>
+                <h4 class="modal-title" id="viewMapModelLabel">{{$restaurant->name}}</h4>
             </div>
             <div class="modal-body">
                 <?php printfile("view/popups/more_detail.blade.php"); ?>
-                <div style="height:300px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                <div style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
                         @if(!empty($restaurant->formatted_address))
                             <iframe style="height:100%;width:100%;border:0;" frameborder="0"

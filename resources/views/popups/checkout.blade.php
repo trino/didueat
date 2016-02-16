@@ -25,8 +25,8 @@
                         <div class="col-sm-12">
                             <input type="text" placeholder="Full Name"
                                    class="form-control" name="ordered_by"
-                                   id="fullname" fdfdvalue="{{ (isset($profile))? $profile->name : '' }}"
-                                   required="" <?php if ((isset($profile))) echo "readonly";?> >
+                                   id="fullname" value="{{ (isset($profile))? $profile->name : '' }}"
+                                   required="" <?php if ((isset($profile))) echo "readonly";?> />
                         </div>
 
                         <div class="col-sm-12">

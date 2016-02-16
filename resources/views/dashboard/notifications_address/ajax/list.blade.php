@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    Notification Addresses
+                    Order Notification
                     <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
                 </h4>
 
@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>Enable</th>
-                        <th>Phone/Email</th>
+                        <th>Notify</th>
                         <th>Note</th>
                         <th></th>
                     </tr>
@@ -76,11 +76,11 @@
                             <td>
                                 <div class=" pull-right ">
                                     @if (Session::get('session_type_user') == "super")
-                                        <a class="btn btn-info-outline btn-sm editRow " data-toggle="modal" data-target="#editModel"
+                                        <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel"
                                            data-id="{{ $value->id }}">Edit</a>
                                     @endif
                                     <a href="{{ url('notification/addresses/delete/'.$value->id) }}"
-                                       class="btn btn-danger-outline btn-sm"
+                                       class="btn btn-secondary-outline btn-sm"
                                        onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }}?');"><i class="fa fa-times"></i></a>
                                 </div>
                             </td>
