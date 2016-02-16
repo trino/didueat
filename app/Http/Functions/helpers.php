@@ -1868,19 +1868,16 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
             echo '<th>' . $name . '</th>';
         }
     }
-    function get_price($id)
-    {
+
+    function get_price($id) {
         return $submenus = \App\Http\Models\Menus::get_price($id);
-        
-       
-        
     }
 
     function popup($Success, $Message, $Title = "", $ID = ""){
         if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
-        echo '<div  style="margin-bottom:0px !important;"  class="alert alert-' . $Success . ' fade in" role="alert"';
+        echo '<div  style=""  class="alert alert-' . $Success . ' fade in" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
-        echo '><div class="container" style="margin-top:0px !important;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        echo '><div class="container" style="margin-top:0 !important;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
@@ -1888,6 +1885,8 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
                 case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
                 case "menuadd": $Message = "Item has been added/updated successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
+
+                case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
 

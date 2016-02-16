@@ -129,6 +129,7 @@ class OrdersController extends Controller {
         $post = \Input::all();
         if($OrderID){$post['id'] = $OrderID;}
         if($Note){$post['note'] = $Note;}
+
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure("[Order Id] is missing!", $URL);
