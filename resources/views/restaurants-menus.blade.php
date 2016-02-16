@@ -2,6 +2,8 @@
 @section('content')
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
+    @include("popups.rating")
+
         @if(!isset($order) )
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 

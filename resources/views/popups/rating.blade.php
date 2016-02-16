@@ -12,7 +12,7 @@
             {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div class="modal-body">
 
-                    <?php printfile("views/common/popups/rating.blade.php"); ?>
+                    <?php printfile("views/popups/rating.blade.php"); ?>
 
                     <div class="row">
 
