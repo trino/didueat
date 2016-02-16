@@ -1,6 +1,6 @@
 <?php printfile(__FILE__); ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
-<script src="{{ url("assets/global/scripts/provinces.js", SUNFUNCS_RET_TIMESTAMP) }}" type="text/javascript"></script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="form-group">
     <div class="col-xs-12">

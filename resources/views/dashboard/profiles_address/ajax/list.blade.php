@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9"><h4 class="card-title">
                     My Addresses 
-                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
+                    <a class="btn btn-primary btn-sm addNew" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
                 </h4></div>
             @if (Session::get('session_type_user') == "super" && $recCount > 10)
 
@@ -83,10 +83,10 @@
                             {{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code }}</td>
 
                         <td>
-                            <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-info-outline editRow btn-sm" data-toggle="modal"
+                            <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-secondary-outline editRow btn-sm" data-toggle="modal"
                                data-target="#editModel">Edit</a>
                             <a href="{{ url('user/addresses/delete/'.$value->id) }}"
-                               class="btn btn-danger-outline btn-sm"
+                               class="btn btn-secondary-outline btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');"><i class="fa fa-times"></i></a>
                         </td>
 

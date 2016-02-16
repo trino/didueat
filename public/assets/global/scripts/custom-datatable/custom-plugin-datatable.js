@@ -90,7 +90,7 @@ function reloadData(page, meta, order, showEntries, searchResults, message){
     ({
         type: "POST",
         url: pageUrlLoad,
-        data: "page="+page+"&meta="+meta+"&order="+order+"&showEntries="+showEntries+"&searchResults="+searchResults+"&message="+message,
+        data: "page="+page+"&meta="+meta+"&order="+order+"&showEntries="+showEntries+"&searchResults="+searchResults+"&message="+message+"&_token="+$('meta[name=_token]').attr('content'),
         success: function(response){
             $("#loadPageData").html(response);
             loading_hide();
@@ -105,7 +105,7 @@ function loadData(page, meta, order, showEntries, searchResults, message){
     ({
         type: "POST",
         url: pageUrlLoad,
-        data: "page="+page+"&meta="+meta+"&order="+order+"&showEntries="+showEntries+"&searchResults="+searchResults+"&message="+message,
+        data: "page="+page+"&meta="+meta+"&order="+order+"&showEntries="+showEntries+"&searchResults="+searchResults+"&message="+message+"&_token="+$('meta[name=_token]').attr('content'),
         success: function(response){
             $("#loadPageData").html(response);
             block_hide();

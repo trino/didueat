@@ -1,69 +1,50 @@
-<div class="">
 <?php
     Session();
-
-    $data= array("menuadd", "sorted");
-    foreach($data as $get){
-        if(isset($_GET[$get])){
+    $data = array("menuadd", "sorted");
+    foreach ($data as $get) {
+        if (isset($_GET[$get])) {
             popup(true, "message:" . $get);
         }
     }
 
-    if(\Session::has('message-type') && Session::get('message')){
+    if (\Session::has('message-type') && Session::get('message')) {
         popup(\Session::get('message-type'), Session::get('message'), \Session::get('message-short'));
         \Session::forget('message');
     }
+
+    $Restaurant = \Session::get('session_restaurant_id', 0);
 ?>
 
 @if (session('status')|| isset($_GET['flash']))
-    <div class="alert alert-success" style="margin-bottom:0px !important;">
-        <div class="container" style="margin-top:0px !important;">
+        <div class="alert alert-success" style="">
+            <div class="container" style="margin-top:0 !important;">
             <div class="row">
-            <div class="col-md-12">
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <?php
-            if(isset($_GET['flash'])){
-                echo '';
-                if ($_GET['flash'] == '1') {
-                    echo "Your order has been received";
-                } elseif ($_GET['flash'] == '2') {
-                    echo "Your order has been received and your account has been created";
-                }else {
-                    session('status');
-                }
-            }
-
-        ?>
-<div class="clearfix"></div>
+                <div class="col-md-12">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <?php
+                        if (isset($_GET['flash'])) {
+                            echo '';
+                            if ($_GET['flash'] == '1') {
+                                echo "Your order has been received";
+                            } elseif ($_GET['flash'] == '2') {
+                                echo "Your order has been received and your account has been created";
+                            } else {
+                                session('status');
+                            }
+                        }
+                    ?>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-    </div>
-
 @endif
 
-
-    <?
-    $Restaurant = \Session::get('session_restaurant_id', 0);
-
-    ?>
-
-<?
-  //  echo Session::get('session_restaurant_id');
-    ?>
-    @if ($Restaurant)
-
-
-
-                    @include('common.required_to_open')
-
-    @endif
-
-
-
+@if ($Restaurant)
+    @include('common.required_to_open')
+@endif
 
 @if(\Session::has('invalid-data'))
     <?php

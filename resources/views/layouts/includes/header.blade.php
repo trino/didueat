@@ -3,9 +3,9 @@
     $type = "hidden";
 ?>
 
-<nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-success" role="navigation">
+<nav class="navbar navbar-default navbar-dark navbar-fixed-top bg-success" role="navigation" style="padding-left:0 !important;padding-right:0 !important;">
 
-<div class="container" style="margin-top:0 !important;padding-top:0 !important;">
+<div class="container" style=" margin-top:0 !important;">
 
         <a class="navbar-brand" href="{{ url('/') }}">
             <!--i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i-->

@@ -1,11 +1,14 @@
-<div class=" container-fluid text-muted  m-t-0" style="
-">
+<div class="container">
 
+    <hr class=" m-y-2" />
 
-    <footer class=" container text-muted">
+    <footer class="text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-        <div class="row ">
-            <div class="col-md-12 m-y-2"><hr class="" /></div>
+        <div class="row">
+
+
+
+
             <div class="col-lg-10 ">
                 <ul class="list-inline">
 
@@ -97,33 +100,18 @@ Thank you">Email Us</a></li>
             </div>
         </div>
     </footer>
-</div>
 
-<div class="overlay_loader">
-    <div class="clearfix"></div>
-    <div id="loadmoreajaxloader">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
-    </div>
 </div>
 
 
-@include('popups.rating')
 
-        <!-- END PRE-FOOTER -->
+
+
+
+
+
+
 <script type="text/javascript">
-
-
-
-
-    jQuery(document).ready(function () {
-        /*
-        Layout.init();
-        Layout.initOWL();
-        Layout.initImageZoom();
-        Layout.initTouchspin();
-        Layout.initTwitter();
-        */
-    });
 
     $(document).ready(function () {
 
@@ -375,8 +363,10 @@ Thank you">Email Us</a></li>
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
             $.ajax({
+
+
                 url: "{{ url('auth/login/ajax') }}",
-                data: data, _token: token,
+                data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
                 success: function (msg) {
                     if (isNaN(Number(msg))) {

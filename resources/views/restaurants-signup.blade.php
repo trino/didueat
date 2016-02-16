@@ -1,11 +1,10 @@
 @extends('layouts.default')
 @section('content')
 
-        <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script-->
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
@@ -13,19 +12,17 @@
 <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
     <div class="container " style="padding-top: 0px !important;">
         <div class="row m-l-0 m-r-0 text-md-center" style="  ">
-            <div class="col-md-12  p-a-0">
+            <div class="col-md-12  ">
 
-                <h1 class="display-4 p-t-1 banner-text-shadow"
-                    style=""
-
-                        > We'll bring the customers to you
+                <h1 class="display-4 p-t-1 banner-text-shadow" style="">
+                    We'll bring the customers to you
                 </h1>
             </div>
 
 
             <div class="clearfix"></div>
 
-            <div class="col-md-12  p-a-0 clearfix">
+            <div class="col-md-12   clearfix">
                 <p class="lead p-t-1 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase between 15
                     and 25% a year!</p>
 
@@ -34,7 +31,7 @@
 
 
 
-                <span class="col-sm-12   p-a-0 ">
+                <span class="col-sm-12    ">
                 How It Works
                 Did U Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
                 exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a
@@ -56,8 +53,11 @@
             in your local area
             Diners on our sites browse your menu and place an order from their computer or web app. Once that's
             done, our system sends you the order to be made and delivered just like you do now.
-            You'll only pay on orders we send you!<br/>
-        <div class="col-sm-3  p-a-0 ">
+            You'll only pay on orders we send you!
+
+
+
+        <div class="col-sm-3   ">
             <img src="{{ asset('assets/images/click.png') }}">
 
             <h3>Sign Up</h3>
@@ -65,7 +65,7 @@
             <p>Sign up or contact us today to book an appointment with one of our team members.</p>
         </div>
 
-        <div class="col-sm-3  p-a-0 ">
+        <div class="col-sm-3   ">
             <img src="{{ asset('assets/images/clip.png') }}">
 
             <h3>Create Menu</h3>
@@ -73,7 +73,7 @@
             <p>Do it yourself menu creation, update anytime.</p>
         </div>
 
-        <div class="col-sm-3  p-a-0 ">
+        <div class="col-sm-3   ">
             <img src="{{ asset('assets/images/box.png') }}">
 
             <h3>Receive Orders</h3>
@@ -81,7 +81,7 @@
             <p>Start receiving orders in as little as 10 minutes.</p>
         </div>
 
-        <div class="col-sm-3  p-a-0 ">
+        <div class="col-sm-3   ">
             <div class="pricing-head pricing-head-active">
                 <h3>Expert <span>Officia</span></h3>
                 <h4>

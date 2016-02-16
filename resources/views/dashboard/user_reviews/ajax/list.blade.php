@@ -77,8 +77,8 @@
                     <td>{{ substr($rating->comments, 0, 100) }}</td>
                     <td>{{ $rating->created_at  }}</td>
                     <td>
-                        <a class="btn btn-info-outline btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
-                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-danger-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');"><i class="fa fa-times"></i></a>
+                        <a class="btn btn-secondary-outline btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
+                        <a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');"><i class="fa fa-times"></i></a>
                     </td>
                 </tr>
                 @endforeach

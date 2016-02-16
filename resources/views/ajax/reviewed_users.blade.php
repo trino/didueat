@@ -24,4 +24,6 @@
         @endforeach
         </tbody>
     </table>
+@else
+    <BR>No reviews have been placed yet
 @endif

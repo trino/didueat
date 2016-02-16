@@ -6,6 +6,7 @@
             printfile("views/dashboard/orders/orders_detail.blade.php");
             $profiletype = Session::get('session_profiletype');
             $CanApprove = $profiletype == 1 || ($order->status == "pending" && Session::get('session_restaurant_id') == $restaurant->id);//is admin, or (is pending and is owner of the restaurant)
+            echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
         ?>
         <div class="row">
 
@@ -22,18 +23,17 @@
 
                     <div class="card-block">
                         <div class="row">
-
-
                             <div class="col-md-6">
                                 @include('common.receipt')
                             </div>
 
-                        <div class="col-md-6">
-                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
-                        </div>
+                            <div class="col-md-6">
+                                @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
+                            </div>
 
-                        <div class="clearfix"></div>
-                    </div></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
 
                         @if($CanApprove)
                             <div class="card-footer text-xs-right">

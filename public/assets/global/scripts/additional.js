@@ -2,7 +2,7 @@ var path = window.location.pathname;
 if (path.replace('didueat', '') != path)
     var base_url = 'http://localhost/didueat/public/';
 else
-    var base_url = 'http://didueat.ca/';
+    var base_url = 'http://dev.didueat.ca/';
 var token = '';
 $.ajax({
     url: base_url + 'restaurant/getToken',
@@ -155,6 +155,12 @@ $('.savebtn').live('click', function () {
     var subber_html = '';
     var stop_id = 0;
     var stop_item = 0;
+    
+    /*if($_parent.find('.mul_ch').is(':checked') && $_parent.find('.itemno').val() == '')
+    {
+        $_parent.find('.itemno').attr('style','border:1px solid red');
+        return false;
+    }*/
     $_parent.find('.subber').each(function(){
         var subber_id = $(this).attr('id').replace('sub','');
         subber_html = $('#addmore'+subber_id).text().replace(/ /g,'').length;

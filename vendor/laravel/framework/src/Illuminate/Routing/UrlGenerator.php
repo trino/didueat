@@ -6,11 +6,14 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 
 class UrlGenerator implements UrlGeneratorContract
 {
+    use Macroable;
+
     /**
      * The route collection.
      *
@@ -167,7 +170,14 @@ class UrlGenerator implements UrlGeneratorContract
         // for passing the array of parameters to this URL as a list of segments.
         $root = $this->getRootUrl($scheme);
 
-        return $this->trimUrl($root, $path, $tail);
+        if (($queryPosition = strpos($path, '?')) !== false) {
+            $query = mb_substr($path, $queryPosition);
+            $path = mb_substr($path, 0, $queryPosition);
+        } else {
+            $query = '';
+        }
+
+        return $this->trimUrl($root, $path, $tail).$query;
     }
 
     /**
@@ -182,6 +192,22 @@ class UrlGenerator implements UrlGeneratorContract
         return $this->to($path, $parameters, true);
     }
 
+    function getextension($path){
+        return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
+    }
+
+
+    public function isafile($filename, $extensions){
+        $extension = $this->getextension($filename);
+        if(!is_array($extensions)){$extensions = array($extensions);}
+        return in_array($extension, $extensions);
+    }
+    public function isanimage($filename){
+        return $this->isafile($filename, array("gif", "jpg", "jpeg", "png", "bmp"));
+    }
+    public function isascript($filename){
+        return $this->isafile($filename, array("css", "js"));
+    }
     /**
      * Generate a URL to an application asset.
      *
@@ -189,14 +215,24 @@ class UrlGenerator implements UrlGeneratorContract
      * @param  bool|null  $secure
      * @return string
      */
-    public function asset($path, $secure = null) {
-
-        if(!file_exists($path)){
-            return $this->asset("assets/images/missing-icon.png");
+    public function asset($path, $secure = null)
+    {
+        $append = "";
+        $fullpath = getcwd() . "/" . $path;
+        $fileexists = file_exists($fullpath);
+        if ($this->isascript($fullpath)){
+            if($fileexists) {
+                $append = "?" . filemtime($fullpath);
+            } else {
+                $append = "?missingfile";
+            }
+        } if ($this->isanimage($fullpath) && !$fileexists){
+            $append = "?missingfile=" . $path;
+            $path = "assets/images/status-image-missing-icon.png";
         }
 
         if ($this->isValidUrl($path)) {
-            return $path;
+            return $path . $append;
         }
 
         // Once we get the root URL, we will check to see if it contains an index.php
@@ -204,7 +240,7 @@ class UrlGenerator implements UrlGeneratorContract
         // for asset paths, but only for routes to endpoints in the application.
         $root = $this->getRootUrl($this->getScheme($secure));
 
-        return $this->removeIndex($root).'/'.trim($path, '/');
+        return $this->removeIndex($root).'/'.trim($path, '/') . $append;
     }
 
     /**
@@ -458,7 +494,9 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function getStringParameters(array $parameters)
     {
-        return Arr::where($parameters, function ($k, $v) { return is_string($k); });
+        return Arr::where($parameters, function ($k) {
+            return is_string($k);
+        });
     }
 
     /**
@@ -469,7 +507,9 @@ class UrlGenerator implements UrlGeneratorContract
      */
     protected function getNumericParameters(array $parameters)
     {
-        return Arr::where($parameters, function ($k, $v) { return is_numeric($k); });
+        return Arr::where($parameters, function ($k) {
+            return is_numeric($k);
+        });
     }
 
     /**
@@ -694,11 +734,13 @@ class UrlGenerator implements UrlGeneratorContract
     /**
      * Get the session implementation from the resolver.
      *
-     * @return \Illuminate\Session\Store
+     * @return \Illuminate\Session\Store|null
      */
     protected function getSession()
     {
-        return call_user_func($this->sessionResolver ?: function () {});
+        if ($this->sessionResolver) {
+            return call_user_func($this->sessionResolver);
+        }
     }
 
     /**

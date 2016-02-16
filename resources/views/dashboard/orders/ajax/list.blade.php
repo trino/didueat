@@ -20,7 +20,7 @@
                     @endif
                     Orders
 
-                    <a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
+                    <!--a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a-->
                     @if($type == "admin")
                         <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
@@ -40,41 +40,12 @@
 
                 <thead>
                 <tr>
-                    <th>
-                        <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
-                                    class="fa fa-caret-down"></i></a-->
-                        Order #
-                        <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
-                                    class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
-                           title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Customer
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
-                           title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
-                           title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Ordered On
-                        <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
-                           title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
-                           title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Status
-                        <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
-                           title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-
-                    <TH>
-                        Response Time
-                    </TH>
-                    <th>
-
-                    </th>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Ordered On</th>
+                    <th>Status</th>
+                    <TH>Response Time</TH>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,7 +58,7 @@
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td><?= ucfirst($value->status) . '<HR>' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
+                        <td><?= ucfirst($value->status) . '<HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
 
                         <TD>
                             <?php
@@ -114,6 +85,8 @@
                                     $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
                                 }
                                 echo implode(" ", $total) . '</FONT>';
+                            } else {
+                                echo "Pending...";
                             }
                             ?>
                         </TD>
@@ -124,7 +97,7 @@
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-secondary-outline btn-sm pull-right"
                                    onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
-                                    X
+                                    <i class="fa fa-times"></i>
                                 </a>
                             @endif
                             @if($type == "admin" && $value->status == "pending")
