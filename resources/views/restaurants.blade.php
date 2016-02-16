@@ -284,7 +284,7 @@ $type = "hidden";
         });
 
         function hideresults(){
-            $('#restuarant_bar').hide();
+            $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
             $('#icons_show').show();
