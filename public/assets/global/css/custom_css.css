@@ -65,9 +65,10 @@ label {
 
 tr {
     padding: 1.0rem 1.25rem;
-
 }
-
+td{
+    padding-bottom: .25rem;
+}
 .card-header {
     background-color: #fff !important;
 }

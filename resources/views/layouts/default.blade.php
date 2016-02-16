@@ -187,20 +187,28 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <body>
 
-<div class="container-fluid p-a-0" style="margin-top: 53px;">
+@if(!read("id"))
+    @include('popups.login')
+    @include('popups.signup')
+    @include('popups.forgot-password')
+@endif
 
-
-    @if(!read("id"))
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
-    @endif
+<div class="container-fluid" style="margin-bottom: 53px;">
     @include('layouts.includes.header')
-    @include('common.alert_messages')
+</div>
 
+<div class="container-fluid">
+    @include('common.alert_messages')
+</div>
+
+<div class="container-fluid">
     @yield('content')
+</div>
+
+<div class="container-fluid">
     @include('layouts.includes.footer')
 </div>
+
 
 
 <div class="overlay_loader">

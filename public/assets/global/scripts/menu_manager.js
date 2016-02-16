@@ -2,7 +2,7 @@ var path = window.location.pathname;
 if (path.replace('didueat', '') != path)
     var base_url = 'http://localhost/didueat/public/';
 else
-    var base_url = 'http://dev.didueat.ca/';
+    var base_url = 'http://didueat.ca/';
 
 $('.add_item').live('click', function () {
     var id = $(this).attr('id').replace('add_item', '');

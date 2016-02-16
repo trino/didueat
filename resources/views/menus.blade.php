@@ -97,7 +97,16 @@
                                         data-res-id="{{ $value->restaurant_id }}" type="button"
                                         data-toggle="modal"
                                         data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                                        class="btn btn-sm btn-primary">${{number_format(($main_price>0)?$main_price:$min_p,2)}}{{($main_price>0)?'':'+'}}</a>
+                                        class="btn btn-sm btn-primary">
+
+                                            @if($main_price>0)
+                                            ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                            @else
+Order
+                                                @endif
+
+
+                                        </a>
 
                                     </div>
 

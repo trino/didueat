@@ -67,7 +67,7 @@
             return true;
         }
         $(".orderid").val(getid());
-        return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
+     //   return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
     }
 
     $(document).ready(function (){

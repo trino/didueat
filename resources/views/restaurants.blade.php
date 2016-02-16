@@ -99,7 +99,7 @@ $type = "hidden";
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine</option>
@@ -107,7 +107,7 @@ $type = "hidden";
                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div-->
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">
