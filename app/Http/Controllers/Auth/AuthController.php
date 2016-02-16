@@ -42,7 +42,7 @@ class AuthController extends Controller {
                     }
 
                     $password = encryptpassword(\Input::get('password'));
-                    debugprint($password . " = " . $user->password);
+//                    debugprint($password . " = " . $user->password);
 
                     if ($password == $user->password) {
                         $gmt = \Input::get('gmt');

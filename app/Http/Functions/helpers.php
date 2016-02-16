@@ -705,12 +705,13 @@
 
 //write text to royslog.txt
     function debugprint($text){
+$todaytime = date("Y-m-d")." ".date("h:i:s a");
         $path = "royslog.txt";
         $dashes = "----------------------------------------------------------------------------------------------\r\n";
         if (is_array($text)) {
             $text = print_r($text, true);
         }
-        file_put_contents($path, $dashes . str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
+        file_put_contents($path, $dashes . $todaytime."  --  ". str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
     }
 
 //get the current function and line number

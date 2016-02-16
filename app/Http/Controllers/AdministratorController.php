@@ -22,7 +22,7 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function dashboard($is_first_login=false) {
-
+debugprint("Inside dashboard");
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email

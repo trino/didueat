@@ -62,6 +62,11 @@ if (Request::path() !== null && Request::path() != "/") {
     <script src="{{ asset('assets/global/scripts/additional.js') }}" class="ignore"></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}" ></script>
     <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}" ></script>
+    
+    @if(isset($paymentpg))
+       <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+       <script src="{{ asset('assets/global/scripts/stripe.js') }}" ></script>
+    @endif
 
     @if(false)
             <!--script src="{{ asset('assets/global/scripts/jquery.caret.min.js') }}" ></script-->
