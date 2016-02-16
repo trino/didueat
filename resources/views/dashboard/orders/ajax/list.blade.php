@@ -40,41 +40,12 @@
 
                 <thead>
                 <tr>
-                    <th>
-                        <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
-                                    class="fa fa-caret-down"></i></a-->
-                        Order #
-                        <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
-                                    class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
-                           title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Customer
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
-                           title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
-                           title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Ordered On
-                        <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
-                           title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
-                           title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Status
-                        <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
-                           title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-
-                    <TH>
-                        Response Time
-                    </TH>
-                    <th>
-
-                    </th>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Ordered On</th>
+                    <th>Status</th>
+                    <TH>Response Time</TH>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -114,6 +85,8 @@
                                     $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
                                 }
                                 echo implode(" ", $total) . '</FONT>';
+                            } else {
+                                echo "Pending...";
                             }
                             ?>
                         </TD>
