@@ -77,16 +77,22 @@
                     </div>
 
                     <span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
-                    <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
-                    <span class="p-r-2">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+                    @if($value["is_delivery"])
+                        <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
+                        <span class="p-r-2">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+                        @if(!$value["is_pickup"])
+                            <span class="p-r-2">Delivery only</span>
+                        @endif
+                    @elseif($value["is_pickup"])
+                        <span class="p-r-2">Pickup only</span>
+                    @endif
                     <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
 
                     @if(isset($latitude) && $radius)
                         <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
                     @endif
                     @if(false)
-                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
-                        , {{ select_field("countries", 'id', $value['country'], 'name') }}
+                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
 
                         <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
                               TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
