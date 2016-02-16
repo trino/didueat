@@ -38,6 +38,7 @@
             <input style="" type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address" placeholder="Enter Your Address"
                    onchange="change_address_event();"
+                   onfocus="hideresults();"
                    onpaste="this.onchange();">
             <input type="HIDDEN" name="latitude" id="latitude">
             <input type="HIDDEN" name="latitude" id="longitude">

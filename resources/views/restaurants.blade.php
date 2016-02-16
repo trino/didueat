@@ -280,8 +280,15 @@ $type = "hidden";
             removeCookie('formatted_address');
             removeCookie('address');
             $(elementname).val('');
-            //  $('#search-form #clearSearch').hide();
+            hideresults();
         });
+
+        function hideresults(){
+            $('#restuarant_bar').hide();
+            $('#results_show').hide();
+            $('#start_up_message').show();
+            $('#icons_show').show();
+        }
 
         /*
          $('body').on('keyup', elementname, function () {
@@ -313,8 +320,8 @@ $type = "hidden";
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
                 $('.parentLoadingbar').show();
-                $('#start_up_message').remove();
-                $('#icons_show').remove();
+                $('#start_up_message').hide();
+                $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
                     $('.parentLoadingbar').hide();
