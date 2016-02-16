@@ -147,11 +147,12 @@ $type = "hidden";
                 </div>
             </div>
 
-            <div class="p-y-2 " id="icons_show">
+            <div class=" " id="icons_show">
 
 
                 <div class="col-lg-12 p-b-1 text-md-center">
                     <h2>Why Order From Didu EAT?</h2>
+                    <hr>
                 </div>
 
 
