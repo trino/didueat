@@ -10,7 +10,7 @@ $type = "hidden";
             <div class="row text-md-center" style="  ">
                 <div class="col-md-12 m-b-1">
 
-                    <h1 class="display-4 p-t-1 banner-text-shadow"
+                    <h1 class="display-3 banner-text-shadow"
                         style=""
 
                             >Order Food from Local Restaurants</h1>

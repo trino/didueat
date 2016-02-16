@@ -87,7 +87,7 @@
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td><?= ucfirst($value->status) . '<HR>' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
+                        <td><?= ucfirst($value->status) . '<HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
 
                         <TD>
                             <?php
