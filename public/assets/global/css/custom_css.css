@@ -436,7 +436,6 @@ body {
 }
 */
 
-/*
 .instruct {
     font-size: 16px;
     color: #f00;
@@ -450,6 +449,8 @@ body {
 .rightmarg {
     margin-right: 10px
 }
+
+/*
 
 .facet-checkbox-box {
     display: inline
