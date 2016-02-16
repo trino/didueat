@@ -10,7 +10,7 @@
                 </h4>
             </div>
             <?php
-                printfile("views/popups/addaddress.blade.php");
+                printfile("views/popups/addaddress.blade.php");                
                 $class = '';
                 if(isset($loaded_from)){
                     $class= $loaded_from;

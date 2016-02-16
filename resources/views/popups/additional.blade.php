@@ -136,7 +136,7 @@
 
                                 </LABEL>
 
-                                <LABEL class="c-input c-radio"><input type="radio" value="0" class="is_multiple"
+                                <LABEL class="c-input c-radio"><input type="radio" value="0" class="is_multiple mul_ch"
                                               onclick="$(this).closest('.radios').find('.is_mul').val(0);"
                                               name="{{ $r2 }}"
                                               @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif>
