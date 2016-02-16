@@ -46,11 +46,14 @@ class VerifyCsrfToken
      */
     public function handle($request, Closure $next)
     {
+        return $this->addCookieToResponse($request, $next($request));
+/*
         if ($this->isReading($request) || $this->shouldPassThrough($request) || $this->tokensMatch($request) || $request->ajax()) {
             return $this->addCookieToResponse($request, $next($request));
         }
 
         throw new TokenMismatchException;
+*/
     }
 
 	
