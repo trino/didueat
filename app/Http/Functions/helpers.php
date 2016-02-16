@@ -1867,12 +1867,9 @@
             echo '<th>' . $name . '</th>';
         }
     }
-    function get_price($id)
-    {
+
+    function get_price($id) {
         return $submenus = \App\Http\Models\Menus::get_price($id);
-        
-       
-        
     }
 
     function popup($Success, $Message, $Title = "", $ID = ""){
@@ -1887,6 +1884,8 @@
                 case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
                 case "menuadd": $Message = "Item has been added/updated successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
+
+                case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
 

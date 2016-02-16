@@ -123,7 +123,7 @@ class RestaurantController extends Controller {
             $ob->save();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            return $this->success('Restaurant status has been changed successfully!', 'restaurant/list');
+            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "open", "closed"), 'restaurant/list');
         } catch (\Exception $e) {
             return $this->failure(handleexception($e), 'restaurant/list');
         }
