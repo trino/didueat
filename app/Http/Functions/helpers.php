@@ -697,7 +697,7 @@
             return left($PostalCode, 3) . $delimeter . right($PostalCode, 3);
         }
     }
-
+ 
 //check if data is a valid postal code
     function validateCanadaZip($PostalCode){//function by Roshan Bhattara(http://roshanbh.com.np)
         return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
