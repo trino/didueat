@@ -8,7 +8,7 @@
 <div class="container" style=" margin-top:0 !important;">
 
         <a class="navbar-brand" href="{{ url('/') }}">
-            <!--i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i-->
+
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
 
@@ -25,6 +25,8 @@
                         <SPAN class="card-header-total"></SPAN>
                     </A>
                 </LI>
+
+
 
                 @if(Session::has('is_logged_in'))
                     <li class="nav-item">
