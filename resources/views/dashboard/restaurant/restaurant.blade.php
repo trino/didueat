@@ -68,7 +68,7 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '</div><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
+echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one Cuisine in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
@@ -103,6 +103,37 @@ if(!$minimum && isset($restaurant->id)){
 
 
 <script>
+    function validateFn(f) {
+        var cuisinesStr = "";
+        var noneChkd = true;
+        var comma = "";
+
+        if ($("#restid").is(":visible")) {
+            var id = $('#restid option:selected').val();
+            if (id) {
+                noneChkd = false;
+            }
+        }
+
+        for (var i = 0; i < cuisineCnt; i++) {
+            if (f.elements["cuisine" + i].checked) {
+                noneChkd = false;
+                if (cuisinesStr != "") {
+                    comma = ",";
+                }
+                cuisinesStr += comma + f.elements["cuisine" + i].value
+            }
+        }
+        f.cuisines.value = cuisinesStr;
+
+        $("#cousine-error").hide();
+        if (noneChkd) {
+            $("#cousine-error").show();
+            f.description.focus(); // bring user to cuisine list
+            return false;
+        }
+    }
+
     function claimrestaurant(){
         var id = $('#restid option:selected').val();
         if(id){

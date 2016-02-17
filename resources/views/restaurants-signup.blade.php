@@ -123,39 +123,7 @@
     </div>
 
     <script type="text/javascript">
-        function validateFn(f) {
-            var cuisinesStr = "";
-            var noneChkd = true;
-            var comma = "";
-
-            if ($("#restid").is(":visible")) {
-                var id = $('#restid option:selected').val();
-                if (id) {
-                    noneChkd = false;
-                }
-            }
-
-            for (var i = 0; i < cuisineCnt; i++) {
-                if (f.elements["cuisine" + i].checked) {
-                    noneChkd = false;
-                    if (cuisinesStr != "") {
-                        comma = ",";
-                    }
-                    cuisinesStr += comma + f.elements["cuisine" + i].value
-                }
-            }
-            f.cuisines.value = cuisinesStr;
-
-            if (noneChkd) {
-                alert("You must select at least one Cuisine in order to signup. You may make adjustments later.");
-                f.description.focus(); // bring user to cuisine list
-                return false;
-            }
-        }
-
         $(document).ready(function () {
-//          Demo.init();
-
             validateform("signupForm", {
                 phone: "phone required",
                 mobile: "phone",

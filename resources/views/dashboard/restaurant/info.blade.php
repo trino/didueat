@@ -3,34 +3,6 @@
 
     <meta name="_token" content="{{ csrf_token() }}"/>
 
-    <script>
-        function validateFn(f) {
-            var cuisinesStr = "";
-            var noneChkd = true;
-            var comma = "";
-            for (var i = 0; i < cuisineCnt; i++) {
-                if (f.elements["cuisine" + i].checked) {
-                    noneChkd = false;
-                    if (cuisinesStr != "") {
-                        comma = ",";
-                    }
-                    cuisinesStr += comma + f.elements["cuisine" + i].value
-                }
-            }
-            f.cuisines.value = cuisinesStr;
-
-            if (noneChkd) {
-                alert("You must select at least one Cuisine in order to continue. You may make adjustments later.");
-                f.description.focus(); // bring user to cuisine list
-                return false;
-            }
-
-        }
-    </script>
-
-
-
-
 
 
     <div class="container">
