@@ -97,7 +97,7 @@
                 new AjaxUpload(button, {
                     action: act,
                     name: 'myfile',
-                    data: {'_token': $('#profileForm input[name=_token]').val()},
+                    data: {'_token': $('#profileForm input[name=_token]').val(), 'setSize': 'No'},
                     onSubmit: function (file, ext) {
                         button.text('Uploading...');
                         this.disable();
@@ -119,12 +119,16 @@
                         imgV.src = path;
                         var imgW=0;
                         imgV.onload = function() {
-                         imgW=this.width;
+                         var imgW=this.width;
+                         var imgH=this.height;
 	                        if(imgW > 500){
 	                         document.getElementById('picture').style.width="100%";
+                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
 	                        }
 	                        else{
+                          document.getElementById('fullSize').innerHTML="";
 	                         document.getElementById('picture').style.width=imgW+"px";
+	                         document.getElementById('picture').style.height=imgH+"px";
 	                        }
                         }
                         document.getElementById('userPhotoTemp').value = path;
