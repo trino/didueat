@@ -100,7 +100,7 @@
                                     <i class="fa fa-times"></i>
                                 </a>
                             @endif
-                            @if($type == "admin" && $value->status == "pending")
+                            @if($type == "admin" )
                                 <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
 
                             @endif

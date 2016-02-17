@@ -82,6 +82,7 @@
             printfile("views/common/required_to_open.php");
 
     $missingHeadInitialReg="";
+    $missingHead="";
     if (isset($post['initialRestSignup'])) {
         $missingHeadInitialReg = '<h4>PARTIAL REGISTRATION COMPLETED!</h4>';
     }
