@@ -287,6 +287,7 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
+
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -305,22 +306,33 @@ class UsersController extends Controller {
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
                 if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
-                if (\Input::has('address')) {
-                    $res['address2'] = $post['address'];
-                }
-                if($post['added_address']!='')
-                    $res['address2'] = $post['added_address'];
-                if (\Input::has('city')) {
-                    $res['city'] = $post['city'];
-                }
-                if (\Input::has('province')) {
-                    $res['province'] = $post['province'];
-                }
-                if (\Input::has('country')) {
-                    $res['country'] = $post['country'];
-                }
-                if (\Input::has('postal_code')) {
-                    $res['postal_code'] = $post['postal_code'];
+
+                if(isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]){
+                    $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
+                    $res['address2'] = $Address->address;
+                    $res['city'] = $Address->city;
+                    $res['province'] = $Address->province;
+                    $res['country'] = $Address->country;
+                    $res['postal_code'] = $Address->postal_code;
+                } else {
+                    if (\Input::has('address')) {
+                        $res['address2'] = $post['address'];
+                    }
+                    if ($post['added_address'] != '') {
+                        $res['address2'] = $post['added_address'];
+                    }
+                    if (\Input::has('city')) {
+                        $res['city'] = $post['city'];
+                    }
+                    if (\Input::has('province')) {
+                        $res['province'] = $post['province'];
+                    }
+                    if (\Input::has('country')) {
+                        $res['country'] = $post['country'];
+                    }
+                    if (\Input::has('postal_code')) {
+                        $res['postal_code'] = $post['postal_code'];
+                    }
                 }
                 //echo '<pre>';print_r($res); die;
                 $ob2 = new \App\Http\Models\Reservations();

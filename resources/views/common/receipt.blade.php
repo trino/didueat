@@ -207,7 +207,7 @@ if (!isset($type)) {
 
                         $('.formatted_address').val(msg['formatted_address']);
                         $('.added_address').val(msg['address']);
-                        $('.apratment').val(msg['apartment']);
+                        $('.apartment').val(msg['apartment']);
                         $('.city').val(msg['city']);
                         $('.province').val(msg['province']);
                         $('.postal_code').val(msg['postal_code']);
