@@ -26,8 +26,6 @@
                     </A>
                 </LI>
 
-
-
                 @if(Session::has('is_logged_in'))
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">

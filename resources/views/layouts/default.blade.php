@@ -24,13 +24,11 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}"
-          name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">
 
     <meta property="og:site_name" content="Didueat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}DidUEat">
-    <meta property="og:description"
-          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.com is very good from all over the world.' }}">
+    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
@@ -40,13 +38,10 @@ if (Request::path() !== null && Request::path() != "/") {
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
-
     <!-- JS these two must go first -->
-
     <script src="{{ asset('assets/global/plugins/jquery.min.js') }}" ></script>
     <script src="{{ asset('assets/global/plugins/jquery-migrate.min.js') }}" ></script>
     <!-- JS these two must go first -->
@@ -150,22 +145,16 @@ if (Request::path() !== null && Request::path() != "/") {
             }
 
             tr {
-
                 border: 3px solid pink;
             }
 
             td {
-
                 border: 3px solid yellow;
-
             }
 
             th {
                 border: 3px solid purple;
-
             }
-
-
         </style>
     @endif
 
@@ -184,38 +173,35 @@ if (Request::path() !== null && Request::path() != "/") {
 <!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
             background-size: 100% 100% !important;
             background-repeat: no-repeat !important;"-->
-
 <body>
 
-@if(!read("id"))
-    @include('popups.login')
-    @include('popups.signup')
-    @include('popups.forgot-password')
-@endif
+    @if(!read("id"))
+        @include('popups.login')
+        @include('popups.signup')
+        @include('popups.forgot-password')
+    @endif
 
-<div class="container-fluid" style="margin-bottom: 53px;">
-    @include('layouts.includes.header')
-</div>
-
-<div class="container-fluid">
-    @include('common.alert_messages')
-</div>
-
-<div class="container-fluid">
-    @yield('content')
-</div>
-
-<div class="container-fluid">
-    @include('layouts.includes.footer')
-</div>
-
-
-
-<div class="overlay_loader">
-    <div class="overlay">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+    <div class="container-fluid" style="margin-bottom: 53px;">
+        @include('layouts.includes.header')
     </div>
-</div>
 
-</body>
+    <div class="container-fluid">
+        @include('common.alert_messages')
+    </div>
+
+    <div class="container-fluid">
+        @yield('content')
+    </div>
+
+    <div class="container-fluid">
+        @include('layouts.includes.footer')
+    </div>
+
+    <div class="overlay_loader">
+        <div class="overlay">
+            <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+        </div>
+    </div>
+
+    </body>
 </html>

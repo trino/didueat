@@ -6,8 +6,8 @@ return [
     // 'debug' => env('APP_DEBUG', false),
 
     'url' => 'http://localhost/didueat/public/',
-    'admin_mail' => 'info@didueat.com',
-    'company_name' => 'didueat.com',
+    'admin_mail' => 'info@didueat.ca',
+    'company_name' => 'didueat.ca',
 
     /*
     |--------------------------------------------------------------------------

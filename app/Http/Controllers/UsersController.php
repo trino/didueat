@@ -287,6 +287,9 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
+                if(!isset($res['listid'])){
+                    //die("There are no items in your cart");
+                }
 
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
@@ -365,34 +368,20 @@ class UsersController extends Controller {
                 
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
-                
+
+                $name ="Guest user";
                 if ($res1->user_id) {
                     $u2 = \App\Http\Models\Profiles::find($res1->user_id);
                     $userArray2 = $u2->toArray();
                     $userArray2['mail_subject'] = 'Your order has been received!';
                     $this->sendEMail("emails.order_user_notification", $userArray2);
-                    
-                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res1->restaurant_id);
-                    
-                    //->where('is_default', 1)
-                    $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
-                    $userArray3["guid"] = $ob2->guid;
-                    $userArray3["orderid"] = $oid;
-                    if ($notificationEmail->count() > 0) {
-                        foreach ($notificationEmail->get() as $resValue) {
-                            if ($resValue->type == "Email") {
-                                $userArray3['name'] = $resValue->name;
-                                $userArray3['email'] = $resValue->address;
-                                $this->sendEMail("emails.receipt", $userArray3);
-                            }
-                        }
-                    } else {//emergency backup contact
-                        $restaurant = \App\Http\Models\Restaurants::find($res->restaurant_id);
-                        $userArray3['name'] = $restaurant->name;
-                        $userArray3['email'] = $restaurant->email;
-                        $this->sendEMail("emails.receipt", $userArray3);
-                    }
+                    $name = $u2->name;
                 }
+
+                $userArray3['mail_subject'] = '[' . $name . '] placed a new order!';
+                $userArray3["guid"] = $ob2->guid;
+                $userArray3["orderid"] = $oid;
+                app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
                 echo '6';
                 

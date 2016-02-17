@@ -195,6 +195,8 @@ class HomeController extends Controller {
     }
 
     public function test(){
+        app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
+        /*
         $array['mail_subject'] = "TEST EMAIL";
         $array['message'] = "TEST MESSAGE";
         $array["email"] = read("email");
@@ -202,6 +204,7 @@ class HomeController extends Controller {
         $this->sendEMail("emails.receipt", $array);
         die("Test email sent");
         return view('test');
+        */
     }
 
     /**

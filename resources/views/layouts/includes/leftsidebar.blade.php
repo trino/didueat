@@ -3,59 +3,55 @@
         <ul id="mainbar" class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-keep-expanded="false"
             data-auto-scroll="true" data-slide-speed="200">
             <?php
-            printfile("views/dashboard/layouts/leftsidebar.blade.php");
-            function makelink($URL, $Name)
-            {
-                if (is_array($URL)) {
-                    echo '<li><div class="card"><div class="card-header title"><h4 class="card-title"><i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
-                    echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
-                    $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
-                    echo '<ul class="sub-menu" id="' . $Name . '">';
-                    foreach ($URL as $URL2 => $Name) {
-                        makelink($URL2, $Name);
+                printfile("views/dashboard/layouts/leftsidebar.blade.php");
+                function makelink($URL, $Name) {
+                    if (is_array($URL)) {
+                        echo '<li><div class="card"><div class="card-header title"><h4 class="card-title"><i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
+                        echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
+                        $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
+                        echo '<ul class="sub-menu" id="' . $Name . '">';
+                        foreach ($URL as $URL2 => $Name) {
+                            makelink($URL2, $Name);
+                        }
+                        echo '</UL>';
+                        echo '</div></div></div>';
+                        echo '</li>';
+                    } else {
+                        echo '<LI><a href="' . url($URL) . '" class="list-group-item';
+                        if (Request::path() == $URL) {
+                            echo ' active';
+                        }
+                        echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
                     }
-                    echo '</UL>';
-                    echo '</div></div></div>';
-                    echo '</li>';
-                } else {
-                    echo '<LI><a href="' . url($URL) . '" class="list-group-item';
-                    if (Request::path() == $URL) {
-                        echo ' active';
-                    }
-                    echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
                 }
-            }
 
-            if (Session::get('session_type_user') == "super") {
-                makelink(array('orders/list/admin' => 'All Orders',
-                        'users/list' => "All Users",
-                        'restaurant/list' => "All Restaurants",
-                        'subscribers/list' => "All Subscribers",
-                        'user/reviews' => "User Reviews",
-                        'eventlogs/list' => "Event Log"
-                ), "Admin");
-            }
+                if (Session::get('session_type_user') == "super") {
+                    makelink(array('orders/list/admin' => 'All Orders',
+                            'users/list' => "All Users",
+                            'restaurant/list' => "All Restaurants",
+                            'subscribers/list' => "All Subscribers",
+                            'user/reviews' => "User Reviews",
+                            'eventlogs/list' => "Event Log"
+                    ), "Admin");
+                }
 
-            if (\Session::get('session_restaurant_id')) {
-                makelink(array('orders/list/restaurant' => 'Restaurant Orders',
+                if (\Session::get('session_restaurant_id')) {
+                    makelink(array('orders/list/restaurant' => 'Restaurant Orders',
+                            'notification/addresses' => "Order Notification",
+                            'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
+                            'restaurant/info' => "Restaurant Info"
+                        //,'credit-cards/list/restaurant' => "Credit Card"
+                    ), "My Restaurant");
+                }
 
-                        'notification/addresses' => "Order Notification",
-
-                        'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menus' => "Restaurant Menu",
-
-                        'restaurant/info' => "Restaurant Info"
-                    //,'credit-cards/list/restaurant' => "Credit Card"
-                ), "My Restaurant");
-            }
-
-            makelink(array('orders/list/user' => 'My Orders',
-                    'user/addresses' => "My Addresses",
-                    'credit-cards/list/user' => "Credit Card",
-                    'user/info' => "My Profile",
-
-                    'auth/logout' => "Log out"
-            ), "My Profile");
-
+                if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
+                    makelink(array('orders/list/user' => 'My Orders',
+                            'user/addresses' => "My Addresses",
+                            'credit-cards/list/user' => "Credit Card",
+                            'user/info' => "My Profile",
+                            'auth/logout' => "Log out"
+                    ), "My Profile");
+                }
             ?>
         </UL>
     </div>

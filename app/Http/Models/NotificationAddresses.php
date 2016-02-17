@@ -42,4 +42,5 @@ class NotificationAddresses extends BaseModel {
         }
         return $query;
     }
+
 }

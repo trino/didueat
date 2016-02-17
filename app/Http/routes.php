@@ -52,8 +52,7 @@ Route::resource('restaurant/view',                                  'RestaurantC
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
     Route::resource('dashboard',                                    'AdministratorController@dashboard');
-
-  Route::resource('home/faq',                                      'HomeController@home2');
+    Route::resource('home/faq',                                     'HomeController@home2');
 
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');
