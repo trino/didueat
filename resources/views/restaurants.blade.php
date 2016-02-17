@@ -33,7 +33,7 @@ $type = "hidden";
         </div>
     </div>
 
-
+    @include("popups.rating")
 
     <div class="container" style="">
 
