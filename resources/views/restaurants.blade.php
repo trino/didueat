@@ -9,11 +9,7 @@ $type = "hidden";
         <div class="container " style="">
             <div class="row text-md-center" style="  ">
                 <div class="col-md-12 m-b-1">
-
-                    <h1 class="display-3 banner-text-shadow"
-                        style=""
-
-                            >Order Food from Local Restaurants</h1>
+                    <h1 class="display-3 banner-text-shadow" style="">Order Food from Local Restaurants</h1>
                 </div>
 
                 <div class="col-md-12 ">
@@ -23,9 +19,7 @@ $type = "hidden";
                 </div>
 
                 <div class="col-md-12 m-t-1 text-md-center">
-                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#"
-                                                                                 style="color:white;text-decoration: underline;">Hamilton</a>
-                    </p>
+                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" onclick="submitform(event, 0);">Hamilton</a></p>
                 </div>
 
 
@@ -316,8 +310,12 @@ $type = "hidden";
             createCookieValue('address', address_alias);
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
+            if($(e.target).html() && $(e.target).hasClass("search-city")){
+               var data = "city=" + $(e.target).html();
+            } else {
+                var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
+            }
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');

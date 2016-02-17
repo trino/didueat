@@ -51,6 +51,9 @@
 
                 $Modes = implode(", ", $Modes);
 
+                if(!isset($delivery_type)){
+                    $delivery_type = "is_pickup";
+                }
                 $key = iif($delivery_type == "is_delivery", "_del");
                 $Day = current_day_of_week();
                 $open = offsettime($value[$Day . "_open" . $key], $difference);

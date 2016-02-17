@@ -56,25 +56,30 @@ class Restaurants extends BaseModel {
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
+        $city = "";
+        if(isset($array["city"])){$city = $array["city"];}
 
         $query = Restaurants::select('*')
-                ->Where(function($query) use ($searchResults, $incomplete){
-                    if($incomplete){
-                        $query->Where('is_complete', '0');
-                            //->orWhere('has_creditcard', '0');
-                    }
-                    if($searchResults != ""){
-                          $query->orWhere('name', 'LIKE', "%$searchResults%")
-                                ->orWhere('cuisine', 'LIKE', "%$searchResults%")
-                                ->orWhere('email', 'LIKE', "%$searchResults%")
-                                ->orWhere('website', 'LIKE', "%$searchResults%")
-                                ->orWhere('phone', 'LIKE', "%$searchResults%")
-                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
-                                ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
-                                ->orWhere('created_at', 'LIKE', "%$searchResults%");
-                    }
-                })
-                ->orderBy($meta, $order);
+            ->Where(function ($query) use ($searchResults, $incomplete, $city) {
+                if ($incomplete) {
+                    $query->Where('is_complete', '0');
+                    //->orWhere('has_creditcard', '0');
+                }
+                if($city){
+                    $query->Where('city', 'LIKE', "%$city%");
+                }
+                if ($searchResults) {
+                    $query->orWhere('name', 'LIKE', "%$searchResults%")
+                        ->orWhere('cuisine', 'LIKE', "%$searchResults%")
+                        ->orWhere('email', 'LIKE', "%$searchResults%")
+                        ->orWhere('website', 'LIKE', "%$searchResults%")
+                        ->orWhere('phone', 'LIKE', "%$searchResults%")
+                        ->orWhere('mobile', 'LIKE', "%$searchResults%")
+                        ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
+                        ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                }
+            })
+            ->orderBy($meta, $order);
 
         if ($type == "list") {
             $query->take($per_page);
