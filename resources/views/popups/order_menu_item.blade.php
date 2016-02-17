@@ -246,11 +246,11 @@
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-                Qty&nbsp;
+                Qty
                 <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
-                &nbsp;
-                <span class="number{{ $value->id }}">1</span> &nbsp;
+
+                <span class="number{{ $value->id }}">1</span>
                 <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style=""></i></a>
 

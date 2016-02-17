@@ -8,15 +8,17 @@
 
 .btn-group-xs > .btn, .btn-xs {
     border-radius: 3px;
-    font-size: 12px;
-    line-height: 1.5;
-    padding: 1px 5px;
+    font-size: 10px;
+    line-height: 1;
+    padding: 3px 3px;
 }
 
 .container-fluid {
     padding: 0 !important;
 }
-
+.close{
+    font-size: 2rem !important;
+}
 .container {
     margin-top: 2rem !important;
 }

@@ -54,6 +54,7 @@ if (!isset($type)) {
                                                 >
                                         <span class="c-indicator"></span>
                                         <strong>Delivery</strong>
+
                                     </label>
 
                                     <label class="radio-inline c-input c-radio">

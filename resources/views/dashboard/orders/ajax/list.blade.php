@@ -1,7 +1,7 @@
 <?php
-    echo printfile("views/dashboard/orders/ajax/list.blade.php");
-    $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
-    $secondsTitle = "sec";
+echo printfile("views/dashboard/orders/ajax/list.blade.php");
+$secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
+$secondsTitle = "sec";
 ?>
 
 @if(\Session::has('message'))
@@ -54,7 +54,8 @@
                 @foreach($Query as $value)
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
+                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
@@ -101,7 +102,8 @@
                                 </a>
                             @endif
                             @if($type == "admin" )
-                                <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
+                                <a class="btn btn-primary btn-sm"
+                                   ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
 
                             @endif
                         </td>
@@ -126,22 +128,23 @@
     @endif
 
 </div>
+
 <SCRIPT>
-    function notifystore(event, OrderID){
+    function notifystore(event, OrderID) {
         var element = event.target;
         element.setAttribute("disabled", "true");
         var OriginalText = element.innerHTML;
-        element.innerHTML='Standby';
+        element.innerHTML = 'Standby';
         $.ajax({
             url: "{{  url('orders/alertstore') }}",
             type: "get",
             dataType: "HTML",
             data: "orderid=" + OrderID,
             success: function (msg) {
-                element.innerHTML='Notified';
+                element.innerHTML = 'Notified';
                 element.removeAttribute("disabled");
             },
-            error: function(msg){
+            error: function (msg) {
                 toast("An error occurred.", true);
                 element.innerHTML = OriginalText;
                 element.removeAttribute("disabled");
