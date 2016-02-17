@@ -79,6 +79,12 @@ class BaseModel extends Model {
         return $data;
     }
 
+    public function flash($success, $message, $title){
+        \Session::flash('message', $message);
+        \Session::flash('message-type', iif($success, 'alert-success', 'alert-danger'));
+        \Session::flash('message-short', $title);
+    }
+
     /**
      * Function generatePassword
      * This function will ENCRYPT AN EXISTING password

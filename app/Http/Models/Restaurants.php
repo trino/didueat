@@ -159,6 +159,15 @@ class Restaurants extends BaseModel {
     }
 
     public function saverestaurant(){
-        die("TEST");
+        $ret=false;
+        if($this->is_complete) {
+            $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
+            if(!$Was_Complete){
+                $this->flash(true, "Your restaurant is now open", "Success!");
+                $ret=true;
+            }
+        }
+        $this->save();
+        return $ret;
     }
 }
