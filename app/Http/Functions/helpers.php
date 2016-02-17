@@ -492,14 +492,6 @@
     function get_current_restaurant(){
         $Profile = read('id');
         if ($Profile) {
-            if (isset($_GET["restaurant_id"])) {
-                $ProfileType = get_profile_type($Profile);
-                /*
-                if ($ProfileType->can_edit_global_settings) {
-                    return $_GET["restaurant_id"];
-                }
-                */
-            }
             return get_profile($Profile)->restaurant_id;
         }
     }
@@ -1353,34 +1345,40 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $Default;
     }
 
+function roundToQuarterHour($timestring, $minutes = 15) {
+    $minutes=$minutes*60;
+    return ceil($timestring / $minutes) * $minutes;
+}
+
 //this code is broken
-    function get_time_interval(){
-        $min = date('i');
-        $mod = $min % 15;
-        $diff = 15 - $mod;
-
-        $date = date('Y-m-d H:i:s');
-
-        $currentDate = strtotime($date);
-        $futureDate = $currentDate + (60 * $diff);
-        $start = date("Y-m-d H:i:s", $futureDate);
-        $start_format = date('M d, H:i', $futureDate);
-
-        $end = $start;
-        $end_format = $start_format;
-        for ($i = 0; $i < 193; $i++) {
-            if ($i == 0) {
-                $start = $start;
-                $start_format = $start_format;
-            } else {
-                $start = $end;//NOT SPECIFIED!!!
-                $start_format = $end_format;//NOT SPECIFIED!!!
+    function get_time_interval($Restaurant, $isDelivery = false){
+        $period = 15;
+        $mintime = 20;
+        $date = roundToQuarterHour(time() + (60*$mintime));
+        $length = 1440/$period;//192 = 2 days of 15 minute increments
+        $PreviousBusinessDay = "";
+        for ($i = 0; $i <= $length; $i++) {
+            $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
+            if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
+                echo '<OPTION DISABLED>New business day</OPTION>';
             }
-            $currentDate = strtotime($start);
-            $futureDate = $currentDate + (60 * 15);
-            $end = date("Y-m-d H:i:s", $futureDate);
-            $end_format = date('M d, H:i', $futureDate);
-            echo "<option value='" . $start_format .  "'>" . $start_format . "</option>";
+            $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
+            $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
+            $hour = date("G:H:s", $date);
+
+            if($hour >= $open && $hour <= $close) {
+                $start_format = date('M d, H:i', $date);
+                echo "<option value='" . $start_format . "'>" . date('F d, Y - g:i A', $date);
+                $hour = date('g:i A', $date);
+                if ($hour == "12:00 AM") {
+                    echo ' (midnight)';
+                } else if ($hour == "12:00 PM") {
+                    echo ' (noon)';
+                }
+                echo "</option>";
+            }
+            $date = $date + ($period*60);
+            $PreviousBusinessDay=$business_day;
         }
     }
 

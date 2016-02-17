@@ -83,10 +83,12 @@ class Restaurants extends BaseModel {
         return $query;
     }
 
-    public static function getbusinessday($restaurant){
-        $now = date('H:i:s');
-        $Today = current_day_of_week();
-        $Yesterday = current_day_of_week(-1);
+    //example use \App\Http\Models\Restaurants::getbusinessday($rest);
+    public static function getbusinessday($restaurant, $date = false){
+        if(!$date){$date = time();}
+        $now = date('H:i:s', $date);
+        $Today = current_day_of_week($date);
+        $Yesterday = current_day_of_week($date - (24*60*60));
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
