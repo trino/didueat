@@ -29,7 +29,7 @@ class Restaurants extends BaseModel {
         $Fields = array("_open","_close", "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
-                $cells[] = $day . $field;
+                $cells[$day . $field] = "24hr";
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
                 } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){

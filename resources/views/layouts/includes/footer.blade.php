@@ -519,7 +519,7 @@ Thank you">Email Us</a></li>
             }
         });
 
-        var TimeFormat = 24;//valid options are 12 and 24
+        var TimeFormat = 12;//valid options are 12 and 24
         if ($('.time').length) {
             $('.time').timepicker();
             $('.time').click(function () {
