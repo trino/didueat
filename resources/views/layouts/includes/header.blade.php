@@ -36,7 +36,7 @@
                             } else {
                                 echo asset('assets/images/default.png');
                             }
-                            ?>" class="img-circle" style="height: 23px;width:23px;">
+                            ?>" class="img-rounded" style="height: 23px;width:23px;">
                         </a>
                     </li>
                     <li class="nav-item hidden-xs-down" style="    margin-left: 6px;">
