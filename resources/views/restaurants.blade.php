@@ -288,6 +288,8 @@ $type = "hidden";
             $('#results_show').hide();
             $('#start_up_message').show();
             $('#icons_show').show();
+            $("#formatted_address2").val("");
+            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
 
         /*

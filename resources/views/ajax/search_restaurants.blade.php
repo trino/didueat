@@ -89,7 +89,7 @@
                     <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
 
                     @if(isset($latitude) && $radius)
-                        <!--span class="label label-info">Distance: {{ round($value['distance'],2) }} km</span-->
+                        <span class="p-r-2">Distance: {{ round($value['distance'],2) }} km</span>
                     @endif
                     @if(false)
                         {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
