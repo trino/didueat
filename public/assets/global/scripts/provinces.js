@@ -66,6 +66,7 @@ $('#formatted_address, #formatted_address1, #formatted_address2, #formatted_addr
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
+    console.log("initAutocompleteWithID: " + ID);
     var element = document.getElementById(ID);
     if(element)
     if (!element.hasAttribute("hasgeocode")) {
@@ -79,13 +80,14 @@ function initAutocompleteWithID(ID){
 }
 
 function initAutocomplete(){
-     formatted_address = new google.maps.places.Autocomplete(
+    console.log("initAutocomplete");
+    formatted_address = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(document.getElementById('formatted_address')),
       {types: ['geocode']});
 
-  // When the user selects an address from the dropdown, populate the address
-  // fields in the form.
-  formatted_address.addListener('place_changed', fillInAddress1);
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    formatted_address.addListener('place_changed', fillInAddress1);
 }
 
 function isvalid(variable, element){
@@ -113,10 +115,9 @@ function fillInAddress1() {
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();    
     
-  if(!isundefined(formatted_address)){
-   $('#formatted_addressForDB').val(place.formatted_address); // formatted_address is google maps variable, and not part of address_components
-  }
-    
+    if(!isundefined(formatted_address)){
+        $('#formatted_addressForDB').val(place.formatted_address); // formatted_address is google maps variable, and not part of address_components
+    }
     
     $('#latitude').val(lat);
     $('#longitude').val(lng);
@@ -143,15 +144,11 @@ function fillInAddress1() {
             if(addressType == "country"){
                 $('#country').val(val);
             }
-            
 
-                 $("#ordered_province option").filter(function() {
+            $("#ordered_province option").filter(function() {
                     return this.text == val;
-                }).attr('selected', true);
-                
-                
-                
-                
+            }).attr('selected', true);
+
             if(addressType == "administrative_area_level_1"){
                 $('#province').val(val);
             }
