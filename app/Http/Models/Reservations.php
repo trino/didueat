@@ -25,10 +25,10 @@ class Reservations extends BaseModel {
 
     public function guid($restaurantID){
         $restaurant = get_entry("restaurants", $restaurantID);
-        $today = date("ymd");
-        $OrderID = iif($restaurant->lastorder_date == $today, $restaurant->lastorder_id, 0) + 1;
+        //$today = date("ymd");
+        $OrderID = $restaurant->lastorder_id + 1; //iif($restaurant->lastorder_date == $today, $restaurant->lastorder_id, 0) + 1;
         edit_database("restaurants", "id", $restaurantID, array("lastorder_id" => $OrderID));//, "lastorder_date" => $today));
-        return str_pad($restaurantID, 3, '0', STR_PAD_LEFT) . "-" . $today . "-" . str_pad($OrderID, 3, '0', STR_PAD_LEFT);
+        return $restaurantID . "-" . $OrderID;
     }
     
     public static function listing($array = "", $type = "") {

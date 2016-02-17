@@ -120,7 +120,7 @@ class RestaurantController extends Controller {
             } else {
                 $ob->populate(array('open' => 1));
             }
-            $ob->save();
+            $ob->saverestaurant();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
             return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "open", "closed"), 'restaurant/list');
@@ -141,7 +141,7 @@ class RestaurantController extends Controller {
             try {//populate data array from the post
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
-                $ob->save();
+                $ob->saverestaurant();
 
                 $this->restaurantInfo($ob->id);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
@@ -233,7 +233,7 @@ class RestaurantController extends Controller {
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
-                $ob->save();
+                $ob->saverestaurant();
 
                 if(!$post['id']){
                     $post['id'] = $ob->id;
