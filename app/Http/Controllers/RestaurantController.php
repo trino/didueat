@@ -407,7 +407,7 @@ class RestaurantController extends Controller {
     }
 
     //handle image uploading and thumbnail generation
-    public function uploadimg($type = '') {
+    public function uploadimg($type = '', $setSize = false) {
         //echo "test";die();
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
@@ -415,7 +415,7 @@ class RestaurantController extends Controller {
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
             $MakeCornerTransparent = false;
-            $sizes=true;
+            ($setSize)? $sizes=true : $sizes=false; // because thumbs will be created when page is saved anyways
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;

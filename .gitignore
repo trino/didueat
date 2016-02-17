@@ -105,3 +105,4 @@ vendor/composer/autoload_namespaces.php
 vendor/composer/autoload_files.php
 vendor/composer/autoload_classmap.php
 composer.lock
+app/Http/Controllers/AdministratorController_backupFeb17.php

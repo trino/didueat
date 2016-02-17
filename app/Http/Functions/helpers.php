@@ -1216,7 +1216,9 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
             foreach ($sizes as $path => $size) {
                 $rsize = resize($file, $size, $CropToFit, $AllowSmaller);
                 copy($rsize, public_path($path . $name));
-                @unlink($rsize);
+                if(file_exists($rsize)){
+                  @unlink($rsize);
+                }
             }
         }
     }

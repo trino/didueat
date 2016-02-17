@@ -22,7 +22,7 @@ class AdministratorController extends Controller {
      * @return view
      */
     public function dashboard($is_first_login=false) {
-debugprint("Inside dashboard");
+
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email
@@ -49,26 +49,35 @@ debugprint("Inside dashboard");
                 if ($post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
                     $ext = end($im);
-                    $res = \App\Http\Models\Restaurants::find($post['restaurant_id']);
-                    $newName = $res->photo; // (OK for now, but not properly written, as it will always be named profile with a customized ext) (which is what it should be!!!)
-                    if ($newName != $post['photo']){
-                        $newName = $res->slug . '.' . $ext;
-                        if(file_exists(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName))){
-                            @unlink(public_path('assets/images/restaurants/'.$post['restaurant_id'].'/'.$newName));
+                    $newName="profile.".$ext;
+    
+                    $destinationPath = public_path('assets/images/users/'.$post['user_idDir']);
+    
+                    if (!file_exists($destinationPath)) {
+                        mkdir('assets/images/users/' . $post['user_idDir'], 0777, true);
+                    }
+                    else{
+                     // delete existing images if they exists
+                        if(file_exists($destinationPath.'/'.$ob->photo)){
+                            @unlink($destinationPath.'/'.$ob->photo);
                         }
+                        if(file_exists($destinationPath.'/thumb1_'.$ob->photo)){
+                            @unlink($destinationPath.'/thumb1_'.$ob->photo);
+                        }
+
+                        if(file_exists($destinationPath.'/thumb_'.$ob->photo)){
+                            @unlink($destinationPath.'/thumb_'.$ob->photo);
+                        }                    
                     }
-                    if (!file_exists(public_path('assets/images/restaurants/' . $post['restaurant_id']))) {
-                        mkdir('assets/images/restaurants/' . $post['restaurant_id'], 0777, true);
-                    }
-                    $destinationPath = public_path('assets/images/restaurants/' . $post['restaurant_id']);
+
 
                     $filename = $destinationPath . "/" . $newName;
-                    copy($post['userPhotoTemp'], public_path('assets/images/users/' . $post['user_idDir'] . '/profile.' .$ext));
-                    @unlink($post['userPhotoTemp']);
-                    $sizes = ['assets/images/restaurants/' . $post['restaurant_id'] . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $post['restaurant_id'] . '/thumb1_' => SMALL_THUMB];
+                    copy($post['userPhotoTemp'], $destinationPath.'/' .$newName);
+                    @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
+                    $sizes = ['assets/images/users/' . $post['user_idDir'] . '/thumb_' => MED_THUMB, 'assets/images/users/' . $post['user_idDir'] . '/thumb1_' => SMALL_THUMB];
                     copyimages($sizes, $filename, $newName);
 
-                    $post['photo'] = "profile.".$ext;
+                    $post['photo'] = $newName;
                 }
 
 
