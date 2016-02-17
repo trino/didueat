@@ -49,7 +49,7 @@
         oldID=id;
         $('#editModel #ajaxloader').show();
         $('#editModel #contents').html('');
-        $.get("{{ url('user/addresses/edit') }}/" + id+route + "&dontinclude=true", {}, function (result) {
+        $.get("{{ url('user/addresses/edit') }}/" + id+route, {}, function (result) {
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
@@ -64,11 +64,8 @@
             }
             //document.getElementById('addOrEdit').value=addOrEdit;
             //initAutocompleteWithID("formatted_address");
-            initAutocomplete();
+            //initAutocomplete();
         });
     });
 </script>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-<?php
-    includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer");
-?>
