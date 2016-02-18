@@ -5,7 +5,7 @@ return [
     'debug' => false,
     // 'debug' => env('APP_DEBUG', false),
 
-    'url' => 'http://localhost/didueat/public/',
+    'url' => 'http://localhost/didueat/',
     'admin_mail' => 'info@didueat.com',
     'company_name' => 'didueat.com',
 

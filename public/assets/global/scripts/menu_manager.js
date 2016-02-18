@@ -1,6 +1,6 @@
 var path = window.location.pathname;
 if (path.replace('didueat', '') != path)
-    var base_url = 'http://localhost/didueat/public/';
+    var base_url = 'http://localhost/didueat/';
 else
     var base_url = 'http://didueat.ca/';
 
