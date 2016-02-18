@@ -1,6 +1,6 @@
 var path = window.location.pathname;
 if (path.replace('didueat', '') != path)
-    var base_url = 'http://localhost/didueat/';
+    var base_url = 'http://localhost/didueat/public/';
 else
     var base_url = 'http://didueat.ca/';
 var token = '';
@@ -9,7 +9,32 @@ $.ajax({
     success: function (res) {
         token = res;
     }
-});
+}); 
+$('.is_active').live('change',function(){
+    var stat = 0;
+    if($(this).is(':checked'))
+    {
+        stat = 1;
+    }
+     var id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
+   var $_parent = $(this).closest('.modal-content').find('.newmenu');
+    var cat_id = $_parent.find('.cat_id').val();
+    var $thi = $(this);
+   $.ajax({
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/7/'+stat,
+            success:function(res)
+            {
+                res = res.trim();
+                //alert('0_'+res+'_'+'0');
+                if(res=='0')
+                {
+                    alert('You can only enable 7 items');
+                    $thi.prop('checked', false);
+                }
+            }
+        }) 
+})
+
 $(".sorting_child").live('click', function () {
                     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
                     var sort = 'down';
@@ -155,6 +180,9 @@ $('.savebtn').live('click', function () {
     var subber_html = '';
     var stop_id = 0;
     var stop_item = 0;
+    var lim = 0;
+    
+
     
     /*if($_parent.find('.mul_ch').is(':checked') && $_parent.find('.itemno').val() == '')
     {
@@ -239,6 +267,7 @@ $('.savebtn').live('click', function () {
     if($_parent.find('.is_active').is(':checked'))
     {
         var is_active = 1;
+        
     }
     else
     var is_active = 0;
