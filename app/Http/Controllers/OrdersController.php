@@ -234,8 +234,12 @@ class OrdersController extends Controller {
                 $NotificationAddress->address=trim($NotificationAddress->address);
                 if ($NotificationAddress->type == "Email") {
                     if($debugmode){$NotificationAddress->address = "roy@trinoweb.com";}
+                    //old code
                     $Parameters['name'] = $NotificationAddress->name;
                     $Parameters["email"] = $NotificationAddress->address;
+                    
+                    $EmailParameters['name'] = $NotificationAddress->name;
+                    $EmailParameters["email"] = $NotificationAddress->address;
                     $this->sendEMail($EmailTemplate, $EmailParameters);
                     $ret["email"][] = $NotificationAddress->address;
                 } else if ($NotificationAddress->is_sms) {

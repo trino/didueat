@@ -94,7 +94,7 @@
                         <span class="p-r-2"><strong>Delivery
                                 Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
                         <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
-
+                            <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
                         @if (Session::get('session_type_user') == "super" )
                             <span class="p-r-2">
                             <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}

@@ -17,14 +17,24 @@ function clearCartItems() {
    if(con==true) {
         $('.receipt_main table.orders tr').remove();
         $('.subtotal').val(0);
-        $('.subtotal').text('0.00');
+        $('.subtotal').text('$0.00');
         $('.tax').val(0);
-        $('.tax').text('0.00');
-        $('.df').val(0);
-        $('.df').text('0.00');
-        $('#delivery_flag').val(0);
-        $('.grandtotal').val(0);
-        $('.grandtotal').text('0.00');
+        $('.tax').text('$0.00');
+        //$('.df').val(0);
+        //$('.df').text('$0.00');
+        //$('#delivery_flag').val(0);
+        if($('#pickup1').hasClass('deliverychecked'))
+        {
+            $('.grandtotal').val(0);
+            $('.grandtotal').text('$0.00');
+        }
+        else
+        {
+            var d_fee = $('.df input').val();
+            $('.grandtotal').val(d_fee);
+            $('.grandtotal').text('$'+d_fee.toFixed(2));
+        }
+        
 
         total_items = 0;
         updatecart();
@@ -35,7 +45,21 @@ function clearCartItems() {
 
 function checkout() {
     var del = $('#delivery_flag').val();
+    var minimum_delivery = $('#minimum_delivery').val();
+    
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
+    if($('#pickup1').hasClass('deliverychecked'))
+    {
+        //donothing
+    }
+    else
+    {
+        if(Number($('#subtotal1').val())< Number(minimum_delivery))
+        {
+            alert('Minimum delivery fee not meet!');
+            return false;
+        }
+    }
     if (noitems && !debugmode) {
         alert('No items yet');
     } else {
