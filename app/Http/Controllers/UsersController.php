@@ -287,8 +287,8 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
-                if(!isset($res['listid'])){
-                    //die("There are no items in your cart");
+                if(!isset($post['listid'])){
+                    die("There are no items in your cart");
                 }
 
                 $post['name'] = $post['ordered_by'];
@@ -370,10 +370,12 @@ class UsersController extends Controller {
                 event(new \App\Events\AppEvents($res, "Order Created"));
 
                 $name ="Guest user";
-                if ($res1->user_id) {
+                if ($res1->user_id) 
+                {
                     $u2 = \App\Http\Models\Profiles::find($res1->user_id);
                     $userArray2 = $u2->toArray();
                     $userArray2['mail_subject'] = 'Your order has been received!';
+                    //var_dump($userArray2);
                     $this->sendEMail("emails.order_user_notification", $userArray2);
                     $name = $u2->name;
                 }

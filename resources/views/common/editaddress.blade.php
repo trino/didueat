@@ -81,7 +81,7 @@
             <?php }
             }else{
             ?>
-            <select name="reservation_address_dropdown" class="col-md-11 form-control reservation_address_dropdown">
+            <select name="reservation_address_dropdown" class="col-md-11 form-control reservation_address_dropdown" name="reservation_address" id="reservation_address">
                 <option value="">Select Address</option>
                 <?php
                     $sec = false;

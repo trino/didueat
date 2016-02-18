@@ -32,6 +32,13 @@
             @endif
         @endif
 
+        <?php
+            $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+            if(!$business_day){
+                popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
+            }
+        ?>
+
         <div class="container" style="">
             <div class="row">
 
@@ -94,7 +101,7 @@
                         <span class="p-r-2"><strong>Delivery
                                 Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
                         <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
-
+                            <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
                         @if (Session::get('session_type_user') == "super" )
                             <span class="p-r-2">
                             <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
@@ -186,7 +193,7 @@
                 </div>
 
                 <div class=" col-md-4 col-sm-4" id="printableArea">
-                    @include('common.receipt')
+                    @include('common.receipt', array("is_open" => $business_day))
                 </div>
 
             </div>

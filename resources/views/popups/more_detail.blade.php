@@ -52,7 +52,7 @@
                             $open_del = getfield($restaurant, $day . "_open_del");
                             $close_del = getfield($restaurant, $day . "_close_del");
                             if($open == $close){
-                                echo '<div class="col-md-5" ALIGN="center"><strong>Closed</strong></DIV>';
+                                echo '<div class="col-md-10" ALIGN="center"><strong>Closed</strong></DIV>';
                             } else {
                                 echo '<div class="col-md-2 nowrap" align="right">' . converttime($open) . '</div>';
                                 echo '<div class="col-md-1" align="center">to</div>';
@@ -61,6 +61,8 @@
                                     echo '<div class="col-md-2 nowrap" align="right">' . converttime($open_del) . '</div>';
                                     echo '<div class="col-md-1" align="center">to</div>';
                                     echo '<div class="col-md-2 nowrap" align="right">' . converttime($close_del) . '</div>';
+                                } else {
+                                    echo '<div class="col-md-5"></div>';
                                 }
                             }
                             echo '</TR>';
