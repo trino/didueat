@@ -5,11 +5,11 @@ $type = "hidden";
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
-        <div class="container " style="">
-            <div class="row text-md-center" style="  ">
-                <div class="col-md-12 m-b-1">
-                    <h1 class="display-3 banner-text-shadow" style="">Order Food from Local Restaurants</h1>
+    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image p-a-0 m-a-0" style="">
+        <div class="container " style="margin-top: 0 !important;">
+            <div class="row text-md-center p-t-3" style="  ">
+                <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-1">
+                    <h1 class="display-4 banner-text-shadow" style="">Order Food from Local Restaurants</h1>
                 </div>
 
                 <div class="col-md-12 ">
@@ -19,7 +19,7 @@ $type = "hidden";
                 </div>
 
                 <div class="col-md-12 m-t-1 text-md-center">
-                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" onclick="submitform(event, 0);">Hamilton</a></p>
+                    <p class="lead text-xs-center   p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" onclick="submitform(event, 0);">Hamilton</a></p>
                 </div>
 
 
