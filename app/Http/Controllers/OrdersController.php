@@ -421,25 +421,38 @@ class OrdersController extends Controller {
                 return $this->failure("[Note Field] is missing!", $URL);
             } else {
                 $Order = select_field("reservations", "guid", $guid);
-                $NotificationAddress = select_field("notification_addresses", "address", $email);
-                if($NotificationAddress && $Order){
-                    $User = select_field("profiles", "id", $NotificationAddress->user_id);
-                    if($Order->restaurant_id == $User->restaurant_id){
-                        if($action == "approve"){
+                if($Order) {
+                    $Restaurant = select_field("restaurants", "id", $Order->restaurant_id);
+                    if ($Restaurant->email != $email) {
+                        $NotificationAddress = select_field("notification_addresses", "address", $email);
+                        if ($NotificationAddress && $Order) {
+                            $User = select_field("profiles", "id", $NotificationAddress->user_id);
+                            if ($Order->restaurant_id != $User->restaurant_id) {
+                                $action = "Email address does not belong to the restaurant";
+                            }
+                        } else {
+                            $action = "Email address not found";
+                        }
+                    }
+
+                    if ($action) {
+                        if ($action == "approve") {
                             return $this->changeOrderApprove("restaurant", $Order->id, $post['note']);
-                        } else if ($action == "cancel"){
+                        } else if ($action == "cancel") {
                             return $this->changeOrderCancel("restaurant", $Order->id, $post['note']);
                         }
                     }
+                } else {
+                    $action = "Order not found";
                 }
-                return $this->failure("Order or email address mismatch", "/");
+                return $this->failure($action, "/");
             }
         } else {
             $Order = select_field("reservations", "guid", $guid);
-            if($Order->status == "pending") {
+            if($Order && $Order->status == "pending") {
                 return view('popups.mini_approve', array("action" => $action, "email" => $email, "guid" => $guid));
             }
-            return $this->failure("That order has already been approved or denied", "/");
+            return $this->failure("That order either doesn't exist or has already been approved or denied", "/");
         }
     }
 }
