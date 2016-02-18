@@ -88,8 +88,9 @@ class Restaurants extends BaseModel {
         return $query;
     }
 
+    //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
-    public static function getbusinessday($restaurant, $date = false){
+    public static function getbusinessday($restaurant, $date = false, $delivery = false){
         if(!$date){$date = time();}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);
@@ -97,13 +98,18 @@ class Restaurants extends BaseModel {
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
-        $Today_Open = getfield($restaurant, $Today . "_open");
-        $Yesterday_Open = getfield($restaurant, $Yesterday . "_open");
-        $Yesterday_Close = getfield($restaurant, $Yesterday . "_close");
-        if ($Yesterday_Close > $now && $Yesterday_Open > $Yesterday_Close && $now < $Today_Open){
+        if($delivery){$delivery = "_del";}
+        $Today_Open = getfield($restaurant, $Today . "_open" . $delivery);
+        $Today_Close = getfield($restaurant, $Today . "_close" . $delivery);
+        $Yesterday_Open = getfield($restaurant, $Yesterday . "_open" . $delivery);
+        $Yesterday_Close = getfield($restaurant, $Yesterday . "_close" . $delivery);
+        if ($Yesterday_Close >= $now && $Yesterday_Open > $Yesterday_Close && $now < $Today_Open){
             return $Yesterday;
         }
-        return $Today;
+        if($now >= $Today_Open && $now <= $Today_Close) {
+            return $Today;
+        }
+        return false;
     }
 
 

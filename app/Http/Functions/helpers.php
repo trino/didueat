@@ -1359,26 +1359,28 @@ function roundToQuarterHour($timestring, $minutes = 15) {
         $PreviousBusinessDay = "";
         for ($i = 0; $i <= $length; $i++) {
             $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
-            if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
-                echo '<OPTION DISABLED>New business day</OPTION>';
-            }
-            $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
-            $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
-            $hour = date("G:H:s", $date);
-
-            if($hour >= $open && $hour <= $close) {
-                $start_format = date('M d, H:i', $date);
-                echo "<option value='" . $start_format . "'>" . date('F d, Y - g:i A', $date);
-                $hour = date('g:i A', $date);
-                if ($hour == "12:00 AM") {
-                    echo ' (midnight)';
-                } else if ($hour == "12:00 PM") {
-                    echo ' (noon)';
+            if($business_day) {
+                if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
+                    echo '<OPTION DISABLED>New business day</OPTION>';
                 }
-                echo "</option>";
+                $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
+                $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
+                $hour = date("G:H:s", $date);
+
+                if ($hour >= $open && $hour <= $close) {
+                    $start_format = date('M d, H:i', $date);
+                    echo "<option value='" . $start_format . "'>" . date('F d, Y - g:i A', $date);
+                    $hour = date('g:i A', $date);
+                    if ($hour == "12:00 AM") {
+                        echo ' (midnight)';
+                    } else if ($hour == "12:00 PM") {
+                        echo ' (noon)';
+                    }
+                    echo "</option>";
+                }
+                $PreviousBusinessDay=$business_day;
             }
             $date = $date + ($period*60);
-            $PreviousBusinessDay=$business_day;
         }
     }
 

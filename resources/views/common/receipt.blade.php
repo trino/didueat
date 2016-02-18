@@ -18,9 +18,9 @@ if (!isset($type)) {
     <div class="top-cart-info">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">0 item</a>
         <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$0.00</a>
-        <a href="javascript:void(0);"
-           onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); "><i
-                    class="fa fa-shopping-cart"></i>Cart</a>
+        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
+            <i class="fa fa-shopping-cart"></i>Cart
+        </a>
     </div>
 @endif
 
@@ -120,7 +120,9 @@ if (!isset($type)) {
                 @if(!isset($order))
                     <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
                         <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        @if(!isset($is_open) || $is_open)
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        @endif
                     </div>
                 @endif
 
