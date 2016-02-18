@@ -100,18 +100,7 @@ Thank you">Email Us</a></li>
             </div>
         </div>
     </footer>
-<?
 
-    $number = array(0.57,'21.5',40.52);
-        if(in_array('21.5', $number,true)){
-
-            echo 'found';
-        }else
-        {
-            echo 'not found';
-
-        }
-    ?>
 </div>
 
 
