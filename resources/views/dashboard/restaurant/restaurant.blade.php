@@ -74,7 +74,7 @@ if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
         $logoname = 'assets/images/restaurants/'. $restaurant->id .'/thumb_' . $restaurant->logo;
         ?>
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Upload</a>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Browse</a>
 
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>
@@ -85,9 +85,7 @@ if(!$minimum && isset($restaurant->id)){
                     src="{{ asset($logoname) }}"/>
                 @else
                     src="{{ asset('assets/images/didueatdefault.png') }}"/>
-                    <script>
-                        document.getElementById('uploadbtn').innerHTML = "Update";
-                    </script>
+
                 @endif
 
         </div>
