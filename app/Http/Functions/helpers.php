@@ -496,6 +496,19 @@
         }
     }
 
+    function istoday($date = false, $relative = 0){
+        if(!$date){
+            $date = date("dmY");//no date specified, assume you're checking today
+        } else if(is_numeric($date)) {
+            $date = date("dmY", $date);//number given, assume it's a datestamp
+        } else {
+            $date = date("dmY", strtotime($date));//text given, assume it's a date
+        }
+        if($relative>-1){$relative = "+" . $relative;}
+        $compareto = date("dmY", strtotime($relative . ' days'));//get date relative to today
+        return $date == $compareto;
+    }
+
     //date: leave blank for today, a negative number will be in relation to today (ie: -1 with units=day, will be yesterday)
     function current_day_of_week($date = 0, $units = "day"){
         if ($date < 0) {
@@ -1350,7 +1363,15 @@ function roundToQuarterHour($timestring, $minutes = 15) {
     return ceil($timestring / $minutes) * $minutes;
 }
 
-//this code is broken
+function datename($date){
+    if(istoday($date)){return "Today";}
+    if(istoday($date, 1)){return "Tomorrow";}
+    if(istoday($date, 2)){return "The day after tomorrow";}
+    if(istoday($date, -1)){return "Yesterday";}
+    if(istoday($date, -2)){return "The day before yesterday";}
+    return date('F d, Y', $date);
+}
+
     function get_time_interval($Restaurant, $isDelivery = false){
         $period = 15;
         $mintime = 20;
@@ -1369,7 +1390,8 @@ function roundToQuarterHour($timestring, $minutes = 15) {
 
                 if ($hour >= $open && $hour <= $close) {
                     $start_format = date('M d, H:i', $date);
-                    echo "<option value='" . $start_format . "'>" . date('F d, Y - g:i A', $date);
+                    //istoday
+                    echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
                     $hour = date('g:i A', $date);
                     if ($hour == "12:00 AM") {
                         echo ' (midnight)';
@@ -1395,9 +1417,7 @@ function roundToQuarterHour($timestring, $minutes = 15) {
 
 //if the server is localhost, print whatever file is specified in red text
     function printfile($File, $Ret = false){//cannot use __FILE__ due to caching
-
         $showdebug = false;
-
         if (debugmode() || $showdebug) {
             $Return = '<FONT COLOR="RED" STYLE="background-color: white;" TITLE="' . $File . '">' . $File . '</FONT>';
             //if(isset($GLOBALS["currentfile"])){$Return .= " From: " . $GLOBALS["currentfile"];}//doesn't work as it expects a flat layout, not hierarchical
