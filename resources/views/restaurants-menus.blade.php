@@ -2,7 +2,7 @@
 @section('content')
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
-
+    @include("popups.rating")
 
         @if(!isset($order) )
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
@@ -42,9 +42,9 @@
                     <div class="col-md-3 col-xs-3 p-l-0">
                         <img style="max-width:100%;" class="pull-left img-rounded"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                              @else
-                             src="{{ asset('assets/images/default.png') }}"
+                                src="{{ asset('assets/images/default.png') }}"
                              @endif
                              alt="">
 
@@ -522,7 +522,7 @@
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:60px;">' +
                         '<a id="dec' + ids + '" class="decrease  btn btn-xs btn-secondary-outline" href="javascript:void(0);">' +
-                        '<i class="fa fa-plus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
+                        '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' + '<a id="inc' + ids + '" class="increase btn btn-xs btn-secondary-outline  " href="javascript:void(0);">' +
                         '<i class="fa fa-plus"></i></a>' +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="50%">' + app_title + '</td>' +
@@ -686,6 +686,8 @@
 
             });
         });
+
+        updatecart();
     </script>
     <script type="text/javascript">
         //Google Api Codes.

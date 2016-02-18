@@ -27,20 +27,19 @@
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
-                    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Upload</a>
+                    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a>
 
 
                     <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
-                    <img id="picture" class="logopic"
+                    <img id="picture" class="logopic" 
                          @if($user_detail->photo)
                          test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
                          src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) }}"/>
                     @else
                         src="{{ asset('assets/images/didueatdefault.png') }}" />
-                        <script>
-                            document.getElementById('uploadbtn').innerHTML = "Update";
-                        </script>
                     @endif
+                    <span id="fullSize" class="smallT"></span>
+
                 </div>
             </div>
         </div>
@@ -77,6 +76,14 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+           var pictureW=parseInt(document.getElementById('picture').clientWidth);
+           if(pictureW > 450){
+              var pictureH=parseInt(document.getElementById('picture').clientHeight);
+              var new_pictureH=450/pictureW*pictureH;
+              document.getElementById('picture').style.width=450+"px"
+              document.getElementById('picture').style.height=new_pictureH+"px";
+              document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
+           }
 
             setTimeout(function () {
                 $(":password").val("");
@@ -90,7 +97,7 @@
                 new AjaxUpload(button, {
                     action: act,
                     name: 'myfile',
-                    data: {'_token': $('#profileForm input[name=_token]').val()},
+                    data: {'_token': $('#profileForm input[name=_token]').val(), 'setSize': 'No'},
                     onSubmit: function (file, ext) {
                         button.text('Uploading...');
                         this.disable();
@@ -108,8 +115,24 @@
                         var resp = response.split('___');
                         var path = resp[0];
                         var img = resp[1];
+                        var imgV = new Image();
+                        imgV.src = path;
+                        var imgW=0;
+                        imgV.onload = function() {
+                         var imgW=this.width;
+                         var imgH=this.height;
+	                        if(imgW > 500){
+	                         document.getElementById('picture').style.width="100%";
+                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
+	                        }
+	                        else{
+                          document.getElementById('fullSize').innerHTML="";
+	                         document.getElementById('picture').style.width=imgW+"px";
+	                         document.getElementById('picture').style.height=imgH+"px";
+	                        }
+                        }
                         document.getElementById('userPhotoTemp').value = path;
-                        button.html('Click Submit to Save Photo');
+                        button.html('Click Save to Update Photo');
                         window.clearInterval(interval);
                         this.enable();
                         $('#picture').attr('src', path);

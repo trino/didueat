@@ -74,8 +74,7 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 
 
         <?php
-        function getkey($object, $key)
-        {
+        function getkey($object, $key) {
             return $object->$key;
         }
 
@@ -129,11 +128,11 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
             <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
             <div class="col-xs-8 nowrap {{ $del_class }}">
                 <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
-                       value="{{ $opentime }}"
+                       value="{{ converttime($opentime) }}"
                        title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
                 <SPAN class="col-xs-1 to-span">to</SPAN>
                 <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]"
-                       value="{{ $closetime }}"
+                       value="{{ converttime($closetime) }}"
                        title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style=""/>
             </DIV>
             <div class="clearfix" style="">

@@ -2,12 +2,13 @@
 
 return [
 
-    'debug' => false,
+    'debug' => true,
     // 'debug' => env('APP_DEBUG', false),
 
-    'url' => 'http://localhost/didueat/',
-    'admin_mail' => 'info@didueat.com',
-    'company_name' => 'didueat.com',
+    'url' => 'http://localhost/didueat/public/',
+    'admin_mail' => 'info@didueat.ca',
+    'company_name' => 'didueat.ca',
+
 
     /*
     |--------------------------------------------------------------------------

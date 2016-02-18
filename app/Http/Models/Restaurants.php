@@ -29,7 +29,7 @@ class Restaurants extends BaseModel {
         $Fields = array("_open","_close", "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
-                $cells[] = $day . $field;
+                $cells[$day . $field] = "24hr";
                 if(!isset($data[$day . $field])){
                     $this->is_complete = false;
                 } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){
@@ -56,25 +56,30 @@ class Restaurants extends BaseModel {
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
+        $city = "";
+        if(isset($array["city"])){$city = $array["city"];}
 
         $query = Restaurants::select('*')
-                ->Where(function($query) use ($searchResults, $incomplete){
-                    if($incomplete){
-                        $query->Where('is_complete', '0');
-                            //->orWhere('has_creditcard', '0');
-                    }
-                    if($searchResults != ""){
-                          $query->orWhere('name', 'LIKE', "%$searchResults%")
-                                ->orWhere('cuisine', 'LIKE', "%$searchResults%")
-                                ->orWhere('email', 'LIKE', "%$searchResults%")
-                                ->orWhere('website', 'LIKE', "%$searchResults%")
-                                ->orWhere('phone', 'LIKE', "%$searchResults%")
-                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
-                                ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
-                                ->orWhere('created_at', 'LIKE', "%$searchResults%");
-                    }
-                })
-                ->orderBy($meta, $order);
+            ->Where(function ($query) use ($searchResults, $incomplete, $city) {
+                if ($incomplete) {
+                    $query->Where('is_complete', '0');
+                    //->orWhere('has_creditcard', '0');
+                }
+                if($city){
+                    $query->Where('city', 'LIKE', "%$city%");
+                }
+                if ($searchResults) {
+                    $query->orWhere('name', 'LIKE', "%$searchResults%")
+                        ->orWhere('cuisine', 'LIKE', "%$searchResults%")
+                        ->orWhere('email', 'LIKE', "%$searchResults%")
+                        ->orWhere('website', 'LIKE', "%$searchResults%")
+                        ->orWhere('phone', 'LIKE', "%$searchResults%")
+                        ->orWhere('mobile', 'LIKE', "%$searchResults%")
+                        ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
+                        ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                }
+            })
+            ->orderBy($meta, $order);
 
         if ($type == "list") {
             $query->take($per_page);
@@ -83,10 +88,12 @@ class Restaurants extends BaseModel {
         return $query;
     }
 
-    public static function getbusinessday($restaurant){
-        $now = date('H:i:s');
-        $Today = current_day_of_week();
-        $Yesterday = current_day_of_week(-1);
+    //example use \App\Http\Models\Restaurants::getbusinessday($rest);
+    public static function getbusinessday($restaurant, $date = false){
+        if(!$date){$date = time();}
+        $now = date('H:i:s', $date);
+        $Today = current_day_of_week($date);
+        $Yesterday = current_day_of_week($date - (24*60*60));
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
@@ -158,131 +165,16 @@ class Restaurants extends BaseModel {
         return json_decode(json_encode($query),true);
     }
 
-           
-    //////////////////////////////////////Restaurant API/////////////////////////////////
-
-    function blank_restaurant() {
-        $Restaurant = getColumnNames("restaurants");
-        $Restaurant = array_flip($Restaurant);
-        foreach ($Restaurant as $Key => $Value) {
-            $Restaurant[$Key] = "";
-        }
-        $Data = array("id" => 0, "city" => "HAMILTON", "province" => "ON", 'delivery_fee' => 0, 'minimum' => 0, 'country' => 'Canada', 'genre' => 0, 'hours' => array());
-        $Restaurant = array_merge($Restaurant, $Data);
-        return $Restaurant;
-    }
-
-    function get_hours($restaurant_id) {
-        $ob = new \App\Http\Models\Hours();
-        return $ob->get_hours($restaurant_id);
-    }
-
-    function get_restaurant($ID = false, $IncludeHours = False, $IncludeAddresses = False) {
-        if (!$ID) {
-            $ID = get_current_restaurant();
-        }
-        if (is_numeric($ID)) {
-            $restaurant = get_entry("restaurants", $ID);
-        } else {
-            $restaurant = get_entry('restaurants', $ID, 'Slug');
-        }
-        if ($restaurant) {
-            if ($IncludeHours) {
-                $restaurant->Hours = $this->get_hours($ID);
-            }
-            if ($IncludeAddresses) {
-                $restaurant->Addresses = my_iterator_to_array(enum_notification_addresses($ID), "", "Address");
+    public function saverestaurant(){
+        $ret=false;
+        if($this->is_complete) {
+            $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
+            if(!$Was_Complete){
+                $this->flash(true, "Your restaurant is now open", "Success!");
+                $ret=true;
             }
         }
-        return $restaurant;
+        $this->save();
+        return $ret;
     }
-
-    function edit_restaurant($ID, $Name, $GenreID, $Email, $Phone, $Address, $City, $Province, $Country, $PostalCode, $Description, $DeliveryFee, $Minimum) {
-        if (!$ID) {
-            $ID = new_anything("restaurants", $Name);
-        }
-        $C = ', ';
-        $PostalCode = clean_postalcode($PostalCode);
-        logevent("Edited restaurant: " . $Name . $C . $GenreID . $C . $Email . $C . clean_phone($Phone) . $C . $Address . $C . $City . $C . $Province . $C . $Country . $C . $PostalCode . $C . $Description . $C . $DeliveryFee . $C . $Minimum);
-        $data = array("name" => $Name, "genre" => $GenreID, "email" => $Email, "phone" => clean_phone($Phone), "address" => $Address, "city" => $City, "province" => $Province, "country" => $Country, "postal_code" => $PostalCode, "description" => $Description, "delivery_fee" => $DeliveryFee, "minimum" => $Minimum);
-
-        update_database("restaurants", "id", $ID, $data);
-        return $ID;
-    }
-
-    function enum_employees($restaurant_id = "", $Hierarchy = "") {
-        if (!$restaurant_id) {
-            $restaurant_id = get_current_restaurant();
-        }
-        if ($Hierarchy) {
-            return enum_all("profiles", array("restaurant_id" => $restaurant_id, "hierarchy >" => $Hierarchy));
-        }
-        return enum_profiles("restaurant_id", $restaurant_id);//->order("Hierarchy" , "ASC");
-    }
-
-
-    function hire_employee($UserID, $restaurant_id = 0, $ProfileType = "") {
-        if (!check_permission("CanHireOrFire")) {
-            return false;
-        }
-
-        $Profile = get_profile($UserID);
-        if (!$ProfileType) {
-            $ProfileType = $Profile->ProfileType;
-        }
-        $Name = "";
-        if ($restaurant_id) {//hire
-            if (!$Profile->restaurant_id) {
-                $Name = "Hired";
-            }
-        } else {//fire
-            if ($Profile->restaurant_id) {
-                $Name = "Fired";
-            }
-        }
-        if ($Name) {
-            update_database("profiles", "id", $UserID, array("restaurant_id" => $restaurant_id, "profiletype" => $ProfileType));
-            logevent($Name . ": " . $Profile->id . " (" . $Profile->Name . ")");
-            return true;
-        }
-    }
-
-    public static function openclose_restaurant($restaurant_id, $Status = false) {
-        if ($Status) {
-            $Status = 1;
-        } else {
-            $Status = 0;
-        }
-        logevent("Set status to: " . $Status, true, $restaurant_id);
-        update_database("restaurants", "id", $restaurant_id, array("open" => $Status));
-    }
-
-    public static function delete_restaurant($restaurant_id, $NewProfileType = 2) {
-        logevent("Deleted restaurant", true, $restaurant_id);
-        delete_all("restaurants", array("id" => $restaurant_id));
-        update_database("profiles", "restaurant_id", $restaurant_id, array("restaurant_id" => 0, "profiletype" => $NewProfileType));
-    }
-
-/////////////////////////////////////days off API////////////////////////////////////
-    function add_day_off($restaurant_id, $Day, $Month, $Year) {
-        $this->delete_day_off($restaurant_id, $Day, $Month, $Year, false);
-        logevent("Added a day off on: " . $Day . "-" . $Month . "-" . $Year);
-        new_entry("daysoff", "ID", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
-    }
-
-    public static function delete_day_off($restaurant_id, $Day, $Month, $Year, $IsNew = true) {
-        if ($IsNew) {
-            logevent("Deleted a day off on: " . $Day . "-" . $Month . "-" . $Year);
-        }
-        delete_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year));
-    }
-
-    public static function enum_days_off($restaurant_id) {
-        return enum_all("daysoff", array("restaurant_id" => $restaurant_id));
-    }
-
-    public static function is_day_off($restaurant_id, $Day, $Month, $Year) {
-        return first(enum_all("daysoff", array("restaurant_id" => $restaurant_id, "day" => $Day, "month" => $Month, "year" => $Year))) == true;
-    }
-
 }

@@ -192,6 +192,22 @@ class UrlGenerator implements UrlGeneratorContract
         return $this->to($path, $parameters, true);
     }
 
+    function getextension($path){
+        return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
+    }
+
+
+    public function isafile($filename, $extensions){
+        $extension = $this->getextension($filename);
+        if(!is_array($extensions)){$extensions = array($extensions);}
+        return in_array($extension, $extensions);
+    }
+    public function isanimage($filename){
+        return $this->isafile($filename, array("gif", "jpg", "jpeg", "png", "bmp"));
+    }
+    public function isascript($filename){
+        return $this->isafile($filename, array("css", "js"));
+    }
     /**
      * Generate a URL to an application asset.
      *
@@ -201,8 +217,22 @@ class UrlGenerator implements UrlGeneratorContract
      */
     public function asset($path, $secure = null)
     {
+        $append = "";
+        $fullpath = getcwd() . "/" . $path;
+        $fileexists = file_exists($fullpath);
+        if ($this->isascript($fullpath)){
+            if($fileexists) {
+                $append = "?" . filemtime($fullpath);
+            } else {
+                $append = "?missingfile";
+            }
+        } if ($this->isanimage($fullpath) && !$fileexists){
+            $append = "?missingfile=" . $path;
+            $path = "assets/images/status-image-missing-icon.png";
+        }
+
         if ($this->isValidUrl($path)) {
-            return $path;
+            return $path . $append;
         }
 
         // Once we get the root URL, we will check to see if it contains an index.php
@@ -210,7 +240,7 @@ class UrlGenerator implements UrlGeneratorContract
         // for asset paths, but only for routes to endpoints in the application.
         $root = $this->getRootUrl($this->getScheme($secure));
 
-        return $this->removeIndex($root).'/'.trim($path, '/');
+        return $this->removeIndex($root).'/'.trim($path, '/') . $append;
     }
 
     /**

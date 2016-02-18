@@ -53,17 +53,19 @@
             $('#editModel #ajaxloader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
-                var json = jQuery.parseJSON(result);
-                        $('#editModel #message').show();
-                        $('#editModel #message p').html(json.message);
-                        $('#editModel #contents').html('');
+                    var json = jQuery.parseJSON(result);
+                    $('#editModel #message').show();
+                    $('#editModel #message p').html(json.message);
+                    $('#editModel #contents').html('');
                 }
             } catch (e) {
                 $('#editModel #message').hide();
                 $('#editModel #contents.modal-body').html(result);
             }
-        //document.getElementById('addOrEdit').value=addOrEdit;
+            //document.getElementById('addOrEdit').value=addOrEdit;
+            //initAutocompleteWithID("formatted_address");
+            //initAutocomplete();
         });
     });
-
 </script>
+<script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>

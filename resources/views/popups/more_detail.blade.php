@@ -25,7 +25,7 @@
                 <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
                 <h4>Hours: </h4>
-                <TABLE WIDTH="100%">
+                <div class="row">
                     <?php
                         $days = getweekdays();
                         $needsdeliveryhours = false;
@@ -42,27 +42,31 @@
                             }
                         }
                         if($needsdeliveryhours){
-                            echo '<TR><TD></TD><TD COLSPAN="3" ALIGN="center"><strong>Pickup Hours</strong></TD><TD COLSPAN="2" ALIGN="center"><strong>Delivery Hours</strong></TD></TR>';
+                            echo '<div class="col-md-5 col-md-offset-2" align="center"><strong>Pickup Hours</strong></div>';
+                            echo '<div class="col-md-5" align="center"><strong>Delivery Hours</strong></div>';
                         }
                         foreach ($days as $day) {
-                            echo '<TR><TD>' . $day . '</TD>';
+                            echo '<div class="col-md-2">' . $day . '</DIV>';
                             $open = getfield($restaurant, $day . "_open");
                             $close = getfield($restaurant, $day . "_close");
+                            $open_del = getfield($restaurant, $day . "_open_del");
+                            $close_del = getfield($restaurant, $day . "_close_del");
                             if($open == $close){
-                                echo '<TD COLSPAN="5" ALIGN="center"><B>Closed</B></TD>';
+                                echo '<div class="col-md-5" ALIGN="center"><strong>Closed</strong></DIV>';
                             } else {
-                                echo '<TD align="right">' . converttime($open) . '</TD>';
-                                echo '<TD align="right">' . converttime($close) . '</TD>';
+                                echo '<div class="col-md-2 nowrap" align="right">' . converttime($open) . '</div>';
+                                echo '<div class="col-md-1" align="center">to</div>';
+                                echo '<div class="col-md-2 nowrap" align="right">' . converttime($close) . '</div>';
                                 if($needsdeliveryhours){
-                                    echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_open_del")) . '</TD>';
-                                    echo '<TD align="center">to</TD>';
-                                    echo '<TD align="right">' . converttime(getfield($restaurant, $day . "_close_del")) . '</TD>';
+                                    echo '<div class="col-md-2 nowrap" align="right">' . converttime($open_del) . '</div>';
+                                    echo '<div class="col-md-1" align="center">to</div>';
+                                    echo '<div class="col-md-2 nowrap" align="right">' . converttime($close_del) . '</div>';
                                 }
                             }
                             echo '</TR>';
                         }
                     ?>
-                </TABLE>
+                </DIV>
 
                 @if(false)
                     <h3>Tags</h3>

@@ -15,7 +15,7 @@
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer</label>
                 <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000" required></textarea>
-                <input type="hidden" name="id" value="" />
+                <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -43,7 +43,7 @@
                 <div ID="message" align="center"></div>
                 <label>Note to Customer</label>
                 <textarea name="note" id="canceltext" rows="4" class="form-control" maxlength="5000" required></textarea>
-                <input type="hidden" name="id" value="" />
+                <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn  btn-danger" onclick="return confirm2('cancel');"/>Decline</button>
@@ -66,7 +66,8 @@
         if(element==0){
             return true;
         }
-        return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
+        $(".orderid").val(getid());
+     //   return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
     }
 
     $(document).ready(function (){

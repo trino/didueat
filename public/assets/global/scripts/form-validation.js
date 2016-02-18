@@ -373,8 +373,7 @@ function makerules(validation){
     var rules = new Object();
     var messages = new Object();
     var startmessage = "Please enter ";
-    var currentrule, currentmessage, temprules, ruletype;
-    var temp = 0;
+    var temprules, ruletype;
     var defaulttext = "Please fill out this field";
     for (var property in validation) {
         if (validation.hasOwnProperty(property)) {
@@ -395,7 +394,7 @@ function makerules(validation){
                         break;
                     case "phone":
                         rules[property]["checkPhone"] = true;
-                        messages[property]["checkPhone"] = "That is not a valid phone number";
+                        messages[property]["checkPhone"] = startmessage + "a valid phone number";
                         break;
                     case "email":
                         rules[property]["email"] = true;
@@ -404,9 +403,8 @@ function makerules(validation){
                             type: "post"
                         };
                         messages[property]["remote"] = "This email address is already in use";
-
-                        rules[property]["requiresperiod"] = true;
-                        messages[property]["requiresperiod"] = "Please enter a valid email address.";
+                        rules[property]["requiresperiod"] = true;0
+                        messages[property]["requiresperiod"] = startmessage + "a valid email address.";
                         break
                     case "minlength":
                         rules[property]["minlength"] = Number(temprules[i+1]);

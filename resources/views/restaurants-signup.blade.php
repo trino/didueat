@@ -1,11 +1,10 @@
 @extends('layouts.default')
 @section('content')
 
-        <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script-->
+    <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
@@ -15,10 +14,8 @@
         <div class="row m-l-0 m-r-0 text-md-center" style="  ">
             <div class="col-md-12  ">
 
-                <h1 class="display-4 p-t-1 banner-text-shadow"
-                    style=""
-
-                        > We'll bring the customers to you
+                <h1 class="display-4 p-t-1 banner-text-shadow" style="">
+                    We'll bring the customers to you
                 </h1>
             </div>
 
@@ -126,39 +123,7 @@
     </div>
 
     <script type="text/javascript">
-        function validateFn(f) {
-            var cuisinesStr = "";
-            var noneChkd = true;
-            var comma = "";
-
-            if ($("#restid").is(":visible")) {
-                var id = $('#restid option:selected').val();
-                if (id) {
-                    noneChkd = false;
-                }
-            }
-
-            for (var i = 0; i < cuisineCnt; i++) {
-                if (f.elements["cuisine" + i].checked) {
-                    noneChkd = false;
-                    if (cuisinesStr != "") {
-                        comma = ",";
-                    }
-                    cuisinesStr += comma + f.elements["cuisine" + i].value
-                }
-            }
-            f.cuisines.value = cuisinesStr;
-
-            if (noneChkd) {
-                alert("You must select at least one Cuisine in order to signup. You may make adjustments later.");
-                f.description.focus(); // bring user to cuisine list
-                return false;
-            }
-        }
-
         $(document).ready(function () {
-//          Demo.init();
-
             validateform("signupForm", {
                 phone: "phone required",
                 mobile: "phone",

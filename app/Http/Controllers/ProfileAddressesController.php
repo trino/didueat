@@ -122,10 +122,10 @@ class ProfileAddressesController extends Controller {
     public function addressesFind($id = 0) {
         try {
             //load a specific address id
-            $data['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
-            $data["apartment"] = true;
+            $_GET['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
+            $_GET["apartment"] = true;
             ob_start();
-            return view('common.editaddress', $data);
+            return view('common.editaddress', $_GET);
             ob_get_contents();//code will never run
             ob_get_flush();
         } catch(\Exception $e) {

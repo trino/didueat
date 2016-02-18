@@ -219,7 +219,7 @@ class UsersController extends Controller {
                     return $this->failure("'" . $type . "' is not handled", 'users/list');
             }
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            return $this->success('Status has been changed successfully!', 'users/list');
+            return $this->success("message:" . $type, 'users/list');
         } catch (\Exception $e) {
             return $this->failure( handleexception($e), 'users/list');
         }
@@ -287,6 +287,10 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
+                if(!isset($res['listid'])){
+                    //die("There are no items in your cart");
+                }
+
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -305,22 +309,33 @@ class UsersController extends Controller {
                 $res['restaurant_id'] = $post['res_id'];
                 $res['order_till'] = $post['order_till'];
                 if(isset($post['contact'])) {$res['contact'] = $post['contact'];}
-                if (\Input::has('address')) {
-                    $res['address2'] = $post['address'];
-                }
-                if($post['added_address']!='')
-                    $res['address2'] = $post['added_address'];
-                if (\Input::has('city')) {
-                    $res['city'] = $post['city'];
-                }
-                if (\Input::has('province')) {
-                    $res['province'] = $post['province'];
-                }
-                if (\Input::has('country')) {
-                    $res['country'] = $post['country'];
-                }
-                if (\Input::has('postal_code')) {
-                    $res['postal_code'] = $post['postal_code'];
+
+                if(isset($post["reservation_address_dropdown"]) && $post["reservation_address_dropdown"]){
+                    $Address = select_field("profiles_addresses", "id", $post["reservation_address_dropdown"]);
+                    $res['address2'] = $Address->address;
+                    $res['city'] = $Address->city;
+                    $res['province'] = $Address->province;
+                    $res['country'] = $Address->country;
+                    $res['postal_code'] = $Address->postal_code;
+                } else {
+                    if (\Input::has('address')) {
+                        $res['address2'] = $post['address'];
+                    }
+                    if ($post['added_address'] != '') {
+                        $res['address2'] = $post['added_address'];
+                    }
+                    if (\Input::has('city')) {
+                        $res['city'] = $post['city'];
+                    }
+                    if (\Input::has('province')) {
+                        $res['province'] = $post['province'];
+                    }
+                    if (\Input::has('country')) {
+                        $res['country'] = $post['country'];
+                    }
+                    if (\Input::has('postal_code')) {
+                        $res['postal_code'] = $post['postal_code'];
+                    }
                 }
                 //echo '<pre>';print_r($res); die;
                 $ob2 = new \App\Http\Models\Reservations();
@@ -353,34 +368,20 @@ class UsersController extends Controller {
                 
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
-                
+
+                $name ="Guest user";
                 if ($res1->user_id) {
                     $u2 = \App\Http\Models\Profiles::find($res1->user_id);
                     $userArray2 = $u2->toArray();
                     $userArray2['mail_subject'] = 'Your order has been received!';
                     $this->sendEMail("emails.order_user_notification", $userArray2);
-                    
-                    $notificationEmail = \App\Http\Models\Profiles::select('notification_addresses.*', 'profiles.name')->RightJoin('notification_addresses', 'profiles.id', '=', 'notification_addresses.user_id')->where('profiles.restaurant_id', $res1->restaurant_id);
-                    
-                    //->where('is_default', 1)
-                    $userArray3['mail_subject'] = '[' . $u2->name . '] placed a new order!';
-                    $userArray3["guid"] = $ob2->guid;
-                    $userArray3["orderid"] = $oid;
-                    if ($notificationEmail->count() > 0) {
-                        foreach ($notificationEmail->get() as $resValue) {
-                            if ($resValue->type == "Email") {
-                                $userArray3['name'] = $resValue->name;
-                                $userArray3['email'] = $resValue->address;
-                                $this->sendEMail("emails.receipt", $userArray3);
-                            }
-                        }
-                    } else {//emergency backup contact
-                        $restaurant = \App\Http\Models\Restaurants::find($res->restaurant_id);
-                        $userArray3['name'] = $restaurant->name;
-                        $userArray3['email'] = $restaurant->email;
-                        $this->sendEMail("emails.receipt", $userArray3);
-                    }
+                    $name = $u2->name;
                 }
+
+                $userArray3['mail_subject'] = '[' . $name . '] placed a new order!';
+                $userArray3["guid"] = $ob2->guid;
+                $userArray3["orderid"] = $oid;
+                app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
                 echo '6';
                 

@@ -1,58 +1,58 @@
+<?php
+ $paymentpg=true;
+?>
+
 @extends('layouts.default')
 @section('content')
 
 <?php 
 
-printfile("views/home/faq.blade.php"); 
+printfile("views/home/faq.blade.php");
 
-// test values
-$salesTax=2.99;
-$orderID=110;
-
+$showform=false;
+$paymentMsg="My Order Confirmation";
+$paymentInstruction="<br/>Please verify that your order is correct, and then click Pay For Order.";
+if(Session::has('paymentMade')){
+ $showform=true;
+ $paymentInstruction="";
+ $paymentMsg="Thank you for your Payment!";
+}
 ?>
 
 
-<div class="container">
+<div class="container" style="width:550px">
 
     <div class="row">
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id='paymentmsg'>My Payment Confirm</h4>
-									
-									{!! Form::open(array('url' => '/home/faq', 'id'=>'paymentForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+                    <h4 class="card-title" id='paymentmsg'>{{ $paymentMsg }}<span class='instruct'><?php echo $paymentInstruction;?></span></h4>
+         
+     @if(!$showform)
+
+									{!! Form::open(array('url' => '/home/faq', 'id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 
 
 									@include("home.stripe", array("user_detail" => $user_detail, "mobile" => true))
          
-									<br/>(Set to hidden when finished testing)<input name="user_id" type="text" value='{{ Session::get('session_id') }}' /> 
-         <input name="taxpd" type="text" value='{{ $salesTax }}' /><input name="orderID" type="text" value='{{ $orderID }}' />
+									<input name="user_id" type="hidden" value='{{ Session::get('session_id') }}' /> 
+         
 
 									{!! Form::close() !!}
-
-<script>
-
-<?php
-
-if(isset($user_detail->paymsg)){
- echo 'document.getElementById("paymentmsg").innerHTML="'.$user_detail->paymsg.'";';
-}
+         
+     @endif
 
 
-?>
-
-</script>
                 </div>
 
     </div>
 
     </div>
+<br/>
 
 
 
-
-
-    <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div id="accordion" role="tablist" aria-multiselectable="true" style="display:none">
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
@@ -97,5 +97,6 @@ if(isset($user_detail->paymsg)){
 </div>
 
 
+<br/><br/><br/>
 
 @stop

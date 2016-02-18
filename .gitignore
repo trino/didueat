@@ -92,3 +92,17 @@ app/Http/Controllers/HomeController_backupFeb12,2016.php
 app/Http/routes_backupFeb12b,2016.php
 *.tar
 didueat.tar.gz
+resources/views/popups/terms.blade_v2.php
+app/Http/Controllers/HomeController_backupFeb14,2016.php
+vendor/composer/autoload_classmap.php
+vendor/composer/autoload_classmap.php
+vendor/composer/autoload_classmap.php
+vendor/laravel/framework/src/Illuminate/Routing/Redirector.php
+vendor/composer/ClassLoader.php
+vendor/composer/autoload_real.php
+vendor/composer/autoload_psr4.php
+vendor/composer/autoload_namespaces.php
+vendor/composer/autoload_files.php
+vendor/composer/autoload_classmap.php
+composer.lock
+app/Http/Controllers/AdministratorController_backupFeb17.php

@@ -48,12 +48,11 @@ Route::post('auth/forgot-password',                                 'Auth\AuthCo
 Route::post('auth/forgot-password/ajax',                            'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',                             'Auth\AuthController@postAjaxValidateEmail');
 Route::resource('restaurant/view',                                  'RestaurantController@restaurantInfo');
+Route::resource('home/faq',                                         'HomeController@home2');
 
 // Routes After Logged in Check
 Route::group(['middleware' => ['logged']], function() {
     Route::resource('dashboard',                                    'AdministratorController@dashboard');
-
-  Route::resource('home/faq',                                      'HomeController@home2');
 
     //Orders Routes
     Route::get('orders/list/{type}',                                'OrdersController@index')->where('slug', '[a-z]+');

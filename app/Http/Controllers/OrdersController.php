@@ -129,6 +129,7 @@ class OrdersController extends Controller {
         $post = \Input::all();
         if($OrderID){$post['id'] = $OrderID;}
         if($Note){$post['note'] = $Note;}
+
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             if (!isset($post['id']) || empty($post['id'])) {
                 return $this->failure("[Order Id] is missing!", $URL);
@@ -212,8 +213,53 @@ class OrdersController extends Controller {
 
 
 
-
-
+    //will notify every user belonging to the restaurant via their notification addresses
+    //if no notification addresses are found, it will fall back to the restaurant's email address
+    //$RestaurantID = the restaurant to notify
+    //$Message = the message to be sent, will be passed as $body into the email template
+    //$EmailParameters = any extra parameters to be passed to the email template
+    //$EmailTemplate = the email template to use, defaults to the newsletter as it just sends the message
+    //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
+    //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
+    public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter"){
+        $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
+        $EmailParameters["body"] = $Message;
+        if(!isset($EmailParameters["mail_subject"])) {$EmailParameters["mail_subject"] = $Message;}
+        //list of words to replace for easier pronunciation by the computer
+        $CallMessage = str_replace(array("didueat.ca"), array("did you eat dot see ay"), $Message);
+        $debugmode = true;
+        $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
+        foreach($NotificationAddresses as $NotificationAddress){
+            if($NotificationAddress->address) {
+                $NotificationAddress->address=trim($NotificationAddress->address);
+                if ($NotificationAddress->type == "Email") {
+                    if($debugmode){$NotificationAddress->address = "roy@trinoweb.com";}
+                    $Parameters['name'] = $NotificationAddress->name;
+                    $Parameters["email"] = $NotificationAddress->address;
+                    $this->sendEMail($EmailTemplate, $EmailParameters);
+                    $ret["email"][] = $NotificationAddress->address;
+                } else if ($NotificationAddress->is_sms) {
+                    if($debugmode){$NotificationAddress->address = "9055123067";}
+                    $this->sendSMS($NotificationAddress->address, $Message);
+                    $ret["sms"][] = $NotificationAddress->address;
+                } else {
+                    if($debugmode){$NotificationAddress->address = "9055123067";}
+                    $this->sendSMS($NotificationAddress->address, $CallMessage, true);
+                    $ret["call"][] = $NotificationAddress->address;
+                }
+                $ret["total"] = $ret["total"] + 1;
+            }
+        }
+        if(!$ret["total"]) {//emergency fallback email
+            $restaurant = \App\Http\Models\Restaurants::find($RestaurantID);
+            $EmailParameters['name'] = $restaurant->name;
+            $EmailParameters['email'] = $restaurant->email;
+            $this->sendEMail($EmailTemplate, $EmailParameters);
+            $ret["email"][] = $restaurant->email;
+            $ret["total"] = 1;
+        }
+        return $ret;
+    }
 
     public function alertstore(){
         $Field = 'reservations.status';
@@ -230,7 +276,7 @@ class OrdersController extends Controller {
             ->where($Field, '=', $value)
             ->get();
 
-        $array = array('mail_subject' => "An order has been placed with didueat.com");
+        $array = array('mail_subject' => "An order has been placed with didueat.ca");
 
         echo '<H1>Pending orders: ' . count($Orders) . '</H1><TABLE BORDER="1"><TR><TH>Order</TH><TH>Restaurant</TH><TH>Address</TH><TH>Delivery Time</TH><TH>GUID</TH><TH>Actions</TH></TR>';
         $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
@@ -305,13 +351,13 @@ class OrdersController extends Controller {
                 if(true) {//set to false to disable contacting
                     switch ($Key) {
                         case "Call":
-                            $this->sendSMS($Address, $Message . "did you eat dot com", true);
+                            $this->sendSMS($Address, $Message . "did you eat dot see ay", true);
                             break;
                         case "SMS":
-                            $this->sendSMS($Address, $Message . "didueat.com");
+                            $this->sendSMS($Address, $Message . "didueat.ca");
                             break;
                         case "Email":
-                            $Email = array("mail_subject" => $Message . "didueat.com", "email" => $Address, "body" => $Message . "didueat.com", "name" => "DidUeat.com user");
+                            $Email = array("mail_subject" => $Message . "didueat.ca", "email" => $Address, "body" => $Message . "didueat.ca", "name" => "DidUeat.ca user");
                             $this->sendEMail("emails.newsletter", $Email);
                             break;
                     }

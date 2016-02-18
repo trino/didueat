@@ -12,7 +12,7 @@
             {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
                 <div class="modal-body">
 
-                    <?php printfile("views/common/popups/rating.blade.php"); ?>
+                    <?php printfile("views/popups/rating.blade.php"); ?>
 
                     <div class="row">
 
@@ -25,25 +25,22 @@
                                     <h4>My Review </h4>
                                     <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
-                            @endif
-                            @if(read("id"))
-<div class="pull-left">
-                                <div class="form-group pull-right" id="display-rating-starts">
-                                    <div class="pull-left p-r-1">
-                                    My Rating</div>
+                                <div class="pull-left">
+                                    <div class="form-group pull-right" id="display-rating-starts">
+                                        <div class="pull-left p-r-1">My Rating</div>
                                         <div class="pull-left">
-                                    {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
-                                </div>    </div></div>
+                                            {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="pull-right">
-
-                                <button class="btn btn-primary pull-right">Save</button>  </div>
+                                    <button class="btn btn-primary pull-right">Save</button>
+                                </div>
+                            @else
+                                <a data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to make a review</a>
                             @endif
-
-
-
                         </div>
-
-
+                        
                         <input type="hidden" id="rating_id" value=""/>
                         <input type="hidden" id="data-rating-id" value=""/>
                         <input type="hidden" id="data-target-id" value=""/>

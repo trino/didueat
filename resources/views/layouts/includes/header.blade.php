@@ -8,7 +8,7 @@
 <div class="container" style=" margin-top:0 !important;">
 
         <a class="navbar-brand" href="{{ url('/') }}">
-            <!--i class="fa fa-arrow-left pull-left" style="padding-top:5px;"></i-->
+
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
 
@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
 
                 <LI class="nav-item" ID="cart-header" style="display: none;">
-                    <A CLASS="nav-link" style="padding-bottom: 0px; padding-top: 4px;">
+                    <A CLASS="nav-link" style="padding-bottom: 0px; padding-top: 4px;" onclick="checkout();">
                         <span class="fa-stack">
                             <SPAN class="card-header-items fa-stack-1x"></SPAN>
                             <i class="fa fa-shopping-cart"></i>
@@ -36,7 +36,7 @@
                             } else {
                                 echo asset('assets/images/default.png');
                             }
-                            ?>" class="img-circle" style="height: 23px;width:23px;">
+                            ?>" class="img-rounded" style="height: 23px;width:23px;">
                         </a>
                     </li>
                     <li class="nav-item hidden-xs-down" style="    margin-left: 6px;">

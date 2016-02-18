@@ -1,7 +1,7 @@
 <?php
-    echo printfile("views/dashboard/orders/ajax/list.blade.php");
-    $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
-    $secondsTitle = "sec";
+echo printfile("views/dashboard/orders/ajax/list.blade.php");
+$secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
+$secondsTitle = "sec";
 ?>
 
 @if(\Session::has('message'))
@@ -21,7 +21,7 @@
                     Orders
 
                     <!--a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a-->
-                    @if($type == "admin")
+                    @if($type == "admin" && false)
                         <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
                 </h4>
@@ -40,41 +40,12 @@
 
                 <thead>
                 <tr>
-                    <th>
-                        <!--a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort ID ASC"><i
-                                    class="fa fa-caret-down"></i></a-->
-                        Order #
-                        <!--a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort ID DESC"><i
-                                    class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="ASC" data-title="Ordered By"
-                           title="Sort [Ordered By] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Customer
-                        <!--a class="sortOrder" data-meta="ordered_by" data-order="DESC" data-title="Ordered By"
-                           title="Sort [Ordered By] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="order_time" data-order="ASC" data-title="Date/Time"
-                           title="Sort [Date/Time] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Ordered On
-                        <!--a class="sortOrder" data-meta="order_time" data-order="DESC" data-title="Date/Time"
-                           title="Sort [Date/Time] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-                    <th>
-                        <!--a class="sortOrder" data-meta="status" data-order="ASC" data-title="Status"
-                           title="Sort [Status] ASC"><i class="fa fa-caret-down"></i></a-->
-                        Status
-                        <!--a class="sortOrder" data-meta="status" data-order="DESC" data-title="Status"
-                           title="Sort [Status] DESC"><i class="fa fa-caret-up"></i></a-->
-                    </th>
-
-                    <TH>
-                        Response Time
-                    </TH>
-                    <th>
-
-                    </th>
+                    <th>Order #</th>
+                    <th>Customer</th>
+                    <th>Ordered On</th>
+                    <th>Status</th>
+                    <TH>Response Time</TH>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -83,11 +54,12 @@
                 @foreach($Query as $value)
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
+                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
                         <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td><?= ucfirst($value->status) . '<HR>' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
+                        <td><?= ucfirst($value->status) . '<HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
 
                         <TD>
                             <?php
@@ -114,6 +86,8 @@
                                     $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
                                 }
                                 echo implode(" ", $total) . '</FONT>';
+                            } else {
+                                echo "Pending...";
                             }
                             ?>
                         </TD>
@@ -123,12 +97,13 @@
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-secondary-outline btn-sm pull-right"
-                                   onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
+                                   onclick="return confirm('Are you sure you want to delete order #{{ $value->id }}?');">
                                     <i class="fa fa-times"></i>
                                 </a>
                             @endif
-                            @if($type == "admin" && $value->status == "pending")
-                                <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
+                            @if($type == "admin" )
+                                <a class="btn btn-primary btn-sm"
+                                   ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
 
                             @endif
                         </td>
@@ -139,7 +114,7 @@
 
 
                     <tr>
-                        <td><span class="text-muted">No Orders Yet</span></td>
+                        <td><span class="text-muted">No Orders</span></td>
                     </tr>
                 @endif
                 </tbody>
@@ -153,22 +128,23 @@
     @endif
 
 </div>
+
 <SCRIPT>
-    function notifystore(event, OrderID){
+    function notifystore(event, OrderID) {
         var element = event.target;
         element.setAttribute("disabled", "true");
         var OriginalText = element.innerHTML;
-        element.innerHTML='Standby';
+        element.innerHTML = 'Standby';
         $.ajax({
             url: "{{  url('orders/alertstore') }}",
             type: "get",
             dataType: "HTML",
             data: "orderid=" + OrderID,
             success: function (msg) {
-                element.innerHTML='Notified';
+                element.innerHTML = 'Notified';
                 element.removeAttribute("disabled");
             },
-            error: function(msg){
+            error: function (msg) {
                 toast("An error occurred.", true);
                 element.innerHTML = OriginalText;
                 element.removeAttribute("disabled");

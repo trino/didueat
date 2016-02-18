@@ -1,4 +1,4 @@
-<TABLE class="">
+<TABLE style="width:100%;">
     <?php
     printfile("views/common/orderinfo.blade.php");
 

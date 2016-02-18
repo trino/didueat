@@ -120,10 +120,10 @@ class RestaurantController extends Controller {
             } else {
                 $ob->populate(array('open' => 1));
             }
-            $ob->save();
+            $ob->saverestaurant();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            return $this->success('Restaurant status has been changed successfully!', 'restaurant/list');
+            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "open", "closed"), 'restaurant/list');
         } catch (\Exception $e) {
             return $this->failure(handleexception($e), 'restaurant/list');
         }
@@ -141,7 +141,7 @@ class RestaurantController extends Controller {
             try {//populate data array from the post
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
-                $ob->save();
+                $ob->saverestaurant();
 
                 $this->restaurantInfo($ob->id);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
@@ -233,7 +233,7 @@ class RestaurantController extends Controller {
 
                 $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
-                $ob->save();
+                $isnowopen = $ob->saverestaurant();
 
                 if(!$post['id']){
                     $post['id'] = $ob->id;
@@ -261,7 +261,7 @@ class RestaurantController extends Controller {
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
-                return $this->success("Resturant info updated", 'restaurant/info/' . $post['id']);
+                return $this->success(iif($isnowopen, "Your restaurant is now open", "Resturant info updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
@@ -407,15 +407,23 @@ class RestaurantController extends Controller {
     }
 
     //handle image uploading and thumbnail generation
-    public function uploadimg($type = '') {
+    public function uploadimg($type = '', $setSize = true) {
         //echo "test";die();
+        
+        if(isset($_REQUEST['setSize']) && $_REQUEST['setSize'] == "No"){
+           $setSize=false;
+        }
+
+        
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
             $ext = end($arr);
             $file = date('YmdHis') . '.' . $ext;
             $MakeCornerTransparent = false;
-            $sizes=true;
+            
+            ($setSize)? $sizes=true : $sizes=false; // use false if thumbs will be created when page is saved
+            
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;

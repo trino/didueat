@@ -75,7 +75,7 @@
 
                                         @if(!$has_image)
                                             <img src="{{ $item_image1 }}"
-                                                 class="img-circle" style="height: 25px;width:25px;"
+                                                 class="img-rounded" style="height: 25px;width:25px;"
                                                  alt="{{ $value->menu_item }}"/>
                                             @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
@@ -97,7 +97,16 @@
                                         data-res-id="{{ $value->restaurant_id }}" type="button"
                                         data-toggle="modal"
                                         data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                                        class="btn btn-sm btn-primary">${{number_format(($main_price>0)?$main_price:$min_p,2)}}{{($main_price>0)?'':'+'}}</a>
+                                        class="btn btn-sm btn-primary">
+
+                                            @if($main_price>0)
+                                            ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                            @else
+Order
+                                                @endif
+
+
+                                        </a>
 
                                     </div>
 
@@ -164,16 +173,16 @@
                                         <a id="up_parent_{{ $value->id.'_'.$catid }}"
                                            class="btn btn-sm btn-secondary-outline sorting_parent"
                                            href="javascript:void(0);">
-                                            &nbsp;<i class="fa fa-angle-up"></i>&nbsp;</a>
+                                           <i class="fa fa-arrow-up"></i></a>
 
                                         <a id="down_parent_{{ $value->id.'_'.$catid }}"
                                            class="btn btn-sm btn-secondary-outline sorting_parent"
                                            href="javascript:void(0);">
-                                            &nbsp;<i class="fa fa-angle-down"></i>&nbsp;</a>
+                                            <i class="fa fa-arrow-down"></i></a>
 
                                         <button id="add_item{{ $value->id }}" type="button"
                                                 class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
-                                                data-target="#addMenuModel">Edit Item
+                                                data-target="#addMenuModel">Edit
                                         </button>
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"

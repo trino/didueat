@@ -18,7 +18,7 @@
 .ui-timepicker-inline{ display: inline; }
 
 #ui-timepicker-div, #ui-datepicker-div { padding: 0.4em; }
-.ui-timepicker-table, .ui-datepicker{ display: inline-table; width: 0; border:solid #000 1px; }
+.ui-timepicker-table, .ui-datepicker{ display: inline-table; width: 0; border:solid #000 1px;    background-color: white; }
 .ui-timepicker-table table { margin:0.3em 0 0 0; border-collapse: collapse; }
 
 .ui-timepicker-hours, .ui-timepicker-minutes { padding: 0.2em;  }

@@ -29,13 +29,11 @@
         <div class="card-header">
             <h4 class="card-title">Your Restaurant</h4>
         </div>
+
         <div class="card-block">
-
             <div class="row">
-                       <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
+                <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
             </div>
-        
-
         </div>
 
         <div class="card-block" ID="common_editaddress">
@@ -52,40 +50,36 @@
 
         <div class="card-block ">
             <input type="submit" class="btn btn-primary btn-block" value="Sign up">
-<center>
-            <p class="text-muted m-b-0 p-t-1 " style="font-size:90%">By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.</p>
-</center>
-
+            <center>
+                <p class="text-muted m-b-0 p-t-1 " style="font-size:90%">
+                    By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
+                </p>
+            </center>
         </div>
     </div>
 
 
-
-
-
-
-@if(false)
-    @if(!isset($hours))
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="box-shadow">
-                <div class="portlet-title">
-                    <div class="caption">
-                        HOURS
+    @if(false)
+        @if(!isset($hours))
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="box-shadow">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            HOURS
+                        </div>
                     </div>
-                </div>
-                <div class="portlet-body form">
-                    <div class="form-body">
-                        <?php echo view("dashboard.restaurant.hours", array("layout" => true, "new" => true, "restaurant" => $restaurant)); ?>
+                    <div class="portlet-body form">
+                        <div class="form-body">
+                            <?php echo view("dashboard.restaurant.hours", array("layout" => true, "new" => true, "restaurant" => $restaurant)); ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     @endif
-@endif
 
+</div>
 
 <?php
 }
 ?>
-
-</div>

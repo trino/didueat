@@ -9,11 +9,7 @@ $type = "hidden";
         <div class="container " style="">
             <div class="row text-md-center" style="  ">
                 <div class="col-md-12 m-b-1">
-
-                    <h1 class="display-4 p-t-1 banner-text-shadow"
-                        style=""
-
-                            >Order Food from Local Restaurants</h1>
+                    <h1 class="display-3 banner-text-shadow" style="">Order Food from Local Restaurants</h1>
                 </div>
 
                 <div class="col-md-12 ">
@@ -23,9 +19,7 @@ $type = "hidden";
                 </div>
 
                 <div class="col-md-12 m-t-1 text-md-center">
-                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#"
-                                                                                 style="color:white;text-decoration: underline;">Hamilton</a>
-                    </p>
+                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" onclick="submitform(event, 0);">Hamilton</a></p>
                 </div>
 
 
@@ -33,7 +27,7 @@ $type = "hidden";
         </div>
     </div>
 
-
+    @include("popups.rating")
 
     <div class="container" style="">
 
@@ -99,7 +93,7 @@ $type = "hidden";
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine</option>
@@ -107,7 +101,7 @@ $type = "hidden";
                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div-->
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">
@@ -147,11 +141,12 @@ $type = "hidden";
                 </div>
             </div>
 
-            <div class="p-y-2 " id="icons_show">
+            <div class=" " id="icons_show">
 
 
                 <div class="col-lg-12 p-b-1 text-md-center">
                     <h2>Why Order From Didu EAT?</h2>
+                    <hr>
                 </div>
 
 
@@ -279,8 +274,17 @@ $type = "hidden";
             removeCookie('formatted_address');
             removeCookie('address');
             $(elementname).val('');
-            //  $('#search-form #clearSearch').hide();
+            hideresults();
         });
+
+        function hideresults(){
+            $('#restuarant_bar').html("");
+            $('#results_show').hide();
+            $('#start_up_message').show();
+            $('#icons_show').show();
+            $("#formatted_address2").val("");
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
 
         /*
          $('body').on('keyup', elementname, function () {
@@ -306,14 +310,18 @@ $type = "hidden";
             createCookieValue('address', address_alias);
 
             var token = $('#search-form input[name=_token]').val();
-            var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
 
+            if($(e.target).html() && $(e.target).hasClass("search-city")){
+               var data = "city=" + $(e.target).html();
+            } else {
+                var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
+            }
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
                 $('.parentLoadingbar').show();
-                $('#start_up_message').remove();
-                $('#icons_show').remove();
+                $('#start_up_message').hide();
+                $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
                     $('.parentLoadingbar').hide();

@@ -1,21 +1,26 @@
 <?php
-printfile("views/common/contactinfo.blade.php");
-$size = "2";
+    printfile("views/common/contactinfo.blade.php");
+    $size = "2";
 
-if (!isset($new)) {
-    $new = false;
-}
-$new = false;
-
-$PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
-$Fields = array("name", "email", "phone", "subscribed", "password");//, "confirm_password");
-foreach ($Fields as $Field) {
-    if (isset($user_detail->$Field)) {
-        $$Field = $user_detail->$Field;
-    } else {
-        $$Field = old($Field);
+    if (!isset($new)) {
+        $new = false;
     }
-}
+    $new = false;
+
+    $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
+    $Fields = array("name", "email", "phone", "subscribed", "password");//, "confirm_password");
+    foreach ($Fields as $Field) {
+        if (isset($user_detail->$Field)) {
+            $$Field = $user_detail->$Field;
+        } else {
+            $$Field = old($Field);
+        }
+    }
+
+    $phonetype = "phone";
+    if(isset($mobile) && $mobile){
+        $phonetype = "mobile";
+    }
 ?>
 
 <?= newrow($new, "Your Name", $size, true); ?>
@@ -27,7 +32,7 @@ foreach ($Fields as $Field) {
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="phone" class="form-control" id="phone" placeholder="" value="{{ $phone }}" required>
+    <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $phone }}" required>
 </div>
 <?php echo newrow();
 

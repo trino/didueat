@@ -24,4 +24,6 @@
         @endforeach
         </tbody>
     </table>
+@else
+   <!-- No reviews yet -->
 @endif

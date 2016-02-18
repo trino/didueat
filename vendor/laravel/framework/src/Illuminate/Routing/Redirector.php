@@ -98,6 +98,9 @@ class Redirector
     {
         $path = $this->session->pull('url.intended', $default);
 
+        $headersV=print_r($headers,true);
+        debugprint($path."~~~".$status."~~~".$headersV."~~~".$secure);
+
         return $this->to($path, $status, $headers, $secure);
     }
 

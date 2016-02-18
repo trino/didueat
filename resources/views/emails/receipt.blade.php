@@ -6,7 +6,7 @@
             $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             $user_detail = select_field("profiles", "id", $order->user_id);
         ?>
-        <h4>Order # {{$order->id}} ({{$order->status}})</h4>
+        <h4>Order #{{$order->id}} ({{$order->status}})</h4>
 
         <div class="row">
             <div class="col-md-6">

@@ -36,6 +36,11 @@ class BaseModel extends Model {
                     $this->$key = $this->cleantext($data[$key]);
                     if($this->$key) {
                         switch ($cell) {
+                            case "24hr":
+                                if( strpos(strtolower($this->$key), "m") !== false ){
+                                    $this->$key = converttime($this->$key);//convert 12hr time to 24hr time
+                                }
+                                break;
                             case "creditcard":
                                 if (isvalid_creditcard($this->$key)){
                                     $this->$key = \Crypt::encrypt(filter_var($this->$key, FILTER_SANITIZE_NUMBER_INT));
@@ -77,6 +82,12 @@ class BaseModel extends Model {
         }
 
         return $data;
+    }
+
+    public function flash($success, $message, $title){
+        \Session::flash('message', $message);
+        \Session::flash('message-type', iif($success, 'alert-success', 'alert-danger'));
+        \Session::flash('message-short', $title);
     }
 
     /**
