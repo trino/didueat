@@ -152,7 +152,6 @@
             return;
         }
         var Value = 0;
-        var token = $('#addNewForm input[name=_token]').val();
         var element = document.getElementById('add_enable_' + ID);
         if (element.checked) {
             Value = 1;
@@ -161,7 +160,7 @@
             url: '{{addslashes(url('ajax'))}}',
             type: "post",
             dataType: "HTML",
-            data: "type=add_enable&token=" + token + "&id=" + ID + "&value=" + Value,
+            data: "type=add_enable&token={{ csrf_token() }}&id=" + ID + "&value=" + Value,
             success: function (msg) {
                 if (msg.trim()) {
                     ignore1 = true;
