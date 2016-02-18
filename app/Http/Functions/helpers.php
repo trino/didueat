@@ -1896,4 +1896,3 @@ function roundToQuarterHour($timestring, $minutes = 15) {
         echo $Message . '</div></div>';
     }
 ?>
-

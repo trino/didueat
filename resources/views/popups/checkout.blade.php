@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <input type="password" name="password" id="password"
-                                           class="form-control  password_reservation" placeholder="Provide a password"
+                                           class="form-control  password_reservation" placeholder="Create Password"
                                            onkeyup="check_val(this.value);" required="required"/>
                                 </div>
                                 <div class="clearfix"></div>
