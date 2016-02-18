@@ -46,8 +46,7 @@ echo newrow($new, "Email", $size, true); ?>
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder=""
-               autocomplete="off">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
     </div>
     <?php echo newrow(); ?>
 @endif
@@ -60,8 +59,7 @@ if (isset($emaillocked)) {
 
 echo newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="off"
-           value="{{ $password }}" {{ $PasswordRequired }}>
+    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 

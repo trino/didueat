@@ -6,7 +6,7 @@
     <h1 class="block">Error</h1>
 </div>
 
-{!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+{!! Form::open(array('url' => 'user/addresses/', 'id'=>'addressesEditForm', 'class'=>'form-horizontal','method'=>'post','role'=>'form', 'autocomplete' => 'false')) !!}
 
 <div class="form-group row">
     <label class=" col-sm-3">Location Name</label>

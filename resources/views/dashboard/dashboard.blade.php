@@ -1,8 +1,6 @@
 @extends('layouts.default')
 @section('content')
 
-
-
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 
@@ -84,10 +82,6 @@
               document.getElementById('picture').style.height=new_pictureH+"px";
               document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
            }
-
-            setTimeout(function () {
-                $(":password").val("");
-            }, 500);
 
             ajaxuploadbtn('uploadbtn');
 

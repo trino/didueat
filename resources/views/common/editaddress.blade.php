@@ -117,7 +117,10 @@
         <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
-                   placeholder="Enter your full address" value="<?php
+                   placeholder="Enter your full address"
+                   autocomplete="false"
+                   onclick="$(this).attr('autocomplete', 'false');"
+                   value="<?php
             if (old('formatted_address')) {
                 echo old('formatted_address');
                 //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
@@ -126,7 +129,7 @@
                 //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
                 echo $addresse_detail->address;
             }
-            ?>" autocomplete="off" />
+            ?>"/>
         </div>
     @endif
 </div>

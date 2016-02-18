@@ -17,7 +17,7 @@
                 }
             ?>
             <div id="ajaxloader"></div>
-            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class)) !!}
+            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class, 'autocomplete' => 'false')) !!}
 
                 <div class="modal-body" id="contents"></div>
 
