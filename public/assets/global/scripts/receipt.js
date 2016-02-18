@@ -13,29 +13,22 @@ function changeqty(id, opr) {
 }
 
 function clearCartItems() {
-   var con = confirm('Confirm clear items?');
+   var con = confirm('Are you sure you want to clear your cart?');
    if(con==true) {
         $('.receipt_main table.orders tr').remove();
         $('.subtotal').val(0);
         $('.subtotal').text('$0.00');
         $('.tax').val(0);
         $('.tax').text('$0.00');
-        //$('.df').val(0);
-        //$('.df').text('$0.00');
-        //$('#delivery_flag').val(0);
-        if($('#pickup1').hasClass('deliverychecked'))
-        {
+        if($('#pickup1').hasClass('deliverychecked')) {
             $('.grandtotal').val(0);
             $('.grandtotal').text('$0.00');
-        }
-        else
-        {
+        } else {
             var d_fee = $('.df input').val();
+            if(!d_fee){d_fee=Number(0);} else {d_fee = Number(d_fee);}
             $('.grandtotal').val(d_fee);
             $('.grandtotal').text('$'+d_fee.toFixed(2));
         }
-        
-
         total_items = 0;
         updatecart();
    } else {
