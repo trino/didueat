@@ -22,7 +22,7 @@
         
         <!-- Panels Start -->
         <div id="loadPageData">
-            <div id="ajaxloader"></div>
+            
         </div>
         
     </div>

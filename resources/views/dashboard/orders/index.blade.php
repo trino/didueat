@@ -18,7 +18,7 @@
         <div class="col-lg-9">
             <div id="ajax_message_jgrowl"></div>
             <div id="loadPageData">
-                <div id="ajaxloader"></div>
+                
             </div>
         </div>
     </div>

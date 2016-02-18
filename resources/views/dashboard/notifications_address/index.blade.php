@@ -20,7 +20,7 @@
             <div id="ajax_message_jgrowl"></div>
             <!-- Panels Start -->
             <div id="loadPageData">
-                <div id="ajaxloader"></div>
+                
             </div>
         </div>
     </div>
