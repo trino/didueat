@@ -30,11 +30,11 @@
                     <li class="nav-item">
                         <a href="{{ url('dashboard') }}" class="nav-link">
                             <img src="<?php
-                            $filename = 'assets/images/users/' . read("id") . "/" . Session::get('session_photo', "");
+                            $filename = 'assets/images/users/' . read("id") . "/thumb_" . Session::get('session_photo', "");
                             if (Session::has('session_photo') && file_exists(public_path($filename))) {
                                 echo asset($filename);
                             } else {
-                                echo asset('assets/images/default.png');
+                                echo asset('assets/images/thumb1_restaurant-icon.png');
                             }
                             ?>" class="img-rounded" style="height: 23px;width:23px;">
                         </a>
