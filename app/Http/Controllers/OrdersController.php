@@ -146,6 +146,7 @@ class OrdersController extends Controller {
                     $flash = "Order " . $status . " via email";
                     $post['note'] = $flash;
                 }
+
                 $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                 $ob->save();
 
@@ -155,6 +156,7 @@ class OrdersController extends Controller {
                     $userArray['note'] = $post['note'];
                     $this->sendEMail($email, $userArray);
                 }
+
                 return $this->success($flash, $URL);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), $URL);
@@ -227,27 +229,19 @@ class OrdersController extends Controller {
         if(!isset($EmailParameters["mail_subject"])) {$EmailParameters["mail_subject"] = $Message;}
         //list of words to replace for easier pronunciation by the computer
         $CallMessage = str_replace(array("didueat.ca"), array("did you eat dot see ay"), $Message);
-        $debugmode = true;
         $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
         foreach($NotificationAddresses as $NotificationAddress){
             if($NotificationAddress->address) {
                 $NotificationAddress->address=trim($NotificationAddress->address);
                 if ($NotificationAddress->type == "Email") {
-                    if($debugmode){$NotificationAddress->address = "roy@trinoweb.com";}
-                    //old code
-                    $Parameters['name'] = $NotificationAddress->name;
-                    $Parameters["email"] = $NotificationAddress->address;
-                    
                     $EmailParameters['name'] = $NotificationAddress->name;
                     $EmailParameters["email"] = $NotificationAddress->address;
                     $this->sendEMail($EmailTemplate, $EmailParameters);
                     $ret["email"][] = $NotificationAddress->address;
                 } else if ($NotificationAddress->is_sms) {
-                    if($debugmode){$NotificationAddress->address = "9055123067";}
                     $this->sendSMS($NotificationAddress->address, $Message);
                     $ret["sms"][] = $NotificationAddress->address;
                 } else {
-                    if($debugmode){$NotificationAddress->address = "9055123067";}
                     $this->sendSMS($NotificationAddress->address, $CallMessage, true);
                     $ret["call"][] = $NotificationAddress->address;
                 }
@@ -344,13 +338,6 @@ class OrdersController extends Controller {
                 } else {
                     $Message = "There are " . $Orders . " orders pending for your approval at ";
                 }
-                if(debugmode() && false){
-                    if($Key == "Email"){
-                        $Address = "roy@trinoweb.com";
-                    } else {
-                        $Address = "9055123067";
-                    }
-                }
                 echo '<TR><TD>' . $Key. '</TD><TD>' . $Address .'</TD><TD>' . $Orders . '</TD></TR>';
                 if(true) {//set to false to disable contacting
                     switch ($Key) {
@@ -434,25 +421,38 @@ class OrdersController extends Controller {
                 return $this->failure("[Note Field] is missing!", $URL);
             } else {
                 $Order = select_field("reservations", "guid", $guid);
-                $NotificationAddress = select_field("notification_addresses", "address", $email);
-                if($NotificationAddress && $Order){
-                    $User = select_field("profiles", "id", $NotificationAddress->user_id);
-                    if($Order->restaurant_id == $User->restaurant_id){
-                        if($action == "approve"){
+                if($Order) {
+                    $Restaurant = select_field("restaurants", "id", $Order->restaurant_id);
+                    if ($Restaurant->email != $email) {
+                        $NotificationAddress = select_field("notification_addresses", "address", $email);
+                        if ($NotificationAddress && $Order) {
+                            $User = select_field("profiles", "id", $NotificationAddress->user_id);
+                            if ($Order->restaurant_id != $User->restaurant_id) {
+                                $action = "Email address does not belong to the restaurant";
+                            }
+                        } else {
+                            $action = "Email address not found";
+                        }
+                    }
+
+                    if ($action) {
+                        if ($action == "approve") {
                             return $this->changeOrderApprove("restaurant", $Order->id, $post['note']);
-                        } else if ($action == "cancel"){
+                        } else if ($action == "cancel") {
                             return $this->changeOrderCancel("restaurant", $Order->id, $post['note']);
                         }
                     }
+                } else {
+                    $action = "Order not found";
                 }
-                return $this->failure("Order or email address mismatch", "/");
+                return $this->failure($action, "/");
             }
         } else {
             $Order = select_field("reservations", "guid", $guid);
-            if($Order->status == "pending") {
+            if($Order && $Order->status == "pending") {
                 return view('popups.mini_approve', array("action" => $action, "email" => $email, "guid" => $guid));
             }
-            return $this->failure("That order has already been approved or denied", "/");
+            return $this->failure("That order either doesn't exist or has already been approved or denied", "/");
         }
     }
 }

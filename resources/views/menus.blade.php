@@ -7,7 +7,7 @@
         <DIV class="list-group" id="">
 
 
-            <div class="list-group-item parents" id="">
+            <div class="list-group-item parents " id="">
                 <div class="">
                     <div class="row">
 

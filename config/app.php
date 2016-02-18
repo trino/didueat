@@ -9,7 +9,6 @@ return [
     'admin_mail' => 'info@didueat.ca',
     'company_name' => 'didueat.ca',
 
-
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

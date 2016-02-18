@@ -14,7 +14,7 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data,$addlogo = false) {
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'status', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}
 
@@ -43,8 +43,6 @@ class Restaurants extends BaseModel {
         if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
         if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
         //if(!$this->open){$this->is_complete=false;}
-        if(!$this->status){$this->is_complete=false;}
-
         if($this->is_complete){$this->open=true;}
     }
     
@@ -88,8 +86,9 @@ class Restaurants extends BaseModel {
         return $query;
     }
 
+    //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
-    public static function getbusinessday($restaurant, $date = false){
+    public static function getbusinessday($restaurant, $date = false, $delivery = false){
         if(!$date){$date = time();}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);
@@ -97,13 +96,21 @@ class Restaurants extends BaseModel {
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
-        $Today_Open = getfield($restaurant, $Today . "_open");
-        $Yesterday_Open = getfield($restaurant, $Yesterday . "_open");
-        $Yesterday_Close = getfield($restaurant, $Yesterday . "_close");
-        if ($Yesterday_Close > $now && $Yesterday_Open > $Yesterday_Close && $now < $Today_Open){
+        if($delivery){$delivery = "_del";}
+        $Today_Open = getfield($restaurant, $Today . "_open" . $delivery);
+        $Today_Close = getfield($restaurant, $Today . "_close" . $delivery);
+        $Yesterday_Open = getfield($restaurant, $Yesterday . "_open" . $delivery);
+        $Yesterday_Close = getfield($restaurant, $Yesterday . "_close" . $delivery);
+        if ($Yesterday_Close >= $now && $Yesterday_Open > $Yesterday_Close && $now < $Today_Open){
             return $Yesterday;
         }
-        return $Today;
+        if($now >= $Today_Open && $now <= $Today_Close) {
+            return $Today;
+        }
+        if($Today_Close < $Today_Open && $now >= $Today_Open){
+            return $Today;
+        }
+        return false;
     }
 
 
@@ -150,7 +157,7 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
+        $hours = " AND ((today_close > today_open AND today_open <= now AND today_close > now) OR (today_close < today_open AND today_open <= now) OR (today_open > now AND yesterday_close > now))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         $data['radius']="max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE

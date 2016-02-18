@@ -32,6 +32,18 @@
             @endif
         @endif
 
+        <?php
+            if(read("restaurant_id") && read("restaurant_id") != $restaurant->id){
+                $business_day = false;
+                popup(false, "You cannot place orders as a restaurant owner", "Oops");
+            } else {
+                $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                if(!$business_day){
+                    popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
+                }
+            }
+        ?>
+
         <div class="container" style="">
             <div class="row">
 
@@ -186,7 +198,7 @@
                 </div>
 
                 <div class=" col-md-4 col-sm-4" id="printableArea">
-                    @include('common.receipt')
+                    @include('common.receipt', array("is_open" => $business_day))
                 </div>
 
             </div>

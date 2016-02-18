@@ -287,8 +287,8 @@ class UsersController extends Controller {
             \DB::beginTransaction();
             try {//populate data array
                 $msg = "";
-                if(!isset($res['listid'])){
-                    //die("There are no items in your cart");
+                if(!isset($post['listid'])){
+                    die("There are no items in your cart");
                 }
 
                 $post['name'] = $post['ordered_by'];
