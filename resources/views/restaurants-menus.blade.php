@@ -232,14 +232,17 @@
 
     <script type="text/javascript">
         function check_val(v) {
-            if (v != '') {
-//$('.confirm_password').show();
-//$('#confirm_password').attr('required', 'required');
-            } else {
-//$('#confirm_password').removeAttr('required');
-            }
         }
+
         $(document).ready(function () {
+            var delivery_type = getCookie("delivery_type");
+            if(!delivery_type){delivery_type == "is_delivery";}
+            if(delivery_type == "is_pickup"){
+                $("#pickup1").trigger("click");
+            } else {
+                $("#delivery1").trigger("click");
+            }
+
 
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
@@ -249,9 +252,6 @@
                     confirm_password.setCustomValidity('');
                     $('#confirm_password').removeAttr('required');
                 }
-
-//password.onchange = validatePassword;
-//confirm_password.onkeyup = validatePassword;
             }
 
             $('.back').live('click', function () {

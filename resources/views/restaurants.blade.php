@@ -302,9 +302,6 @@ $type = "hidden";
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
-            if (!address_alias) {
-                return false;
-            }
 
             createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);
@@ -319,15 +316,18 @@ $type = "hidden";
                 $("#formatted_address2").val(data + ", " + prov);
                 data = "city=" + data + "&province=" + prov;
             } else {
-                var data = $("#formatted_address2").val();
-                switch (data){
+                if (!address_alias) {
+                    return false;
+                }
+                switch (address_alias){
                     case "Hamilton, ON, Canada":
-                        data = "city=Hamilton&province=Ontario";
+                        var data = "city=Hamilton&province=Ontario";
                         break;
                     default:
-                        data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
+                        var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
                 }
             }
+
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
