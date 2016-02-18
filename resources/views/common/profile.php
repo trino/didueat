@@ -1,4 +1,4 @@
-<?php printfile(__FILE__); ?>
+<?php printfile("common/profile.php"); ?>
 <meta name="_token" content="{{ csrf_token() }}"/>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 

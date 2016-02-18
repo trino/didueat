@@ -259,6 +259,9 @@
                 $('.profiles').hide();
             });
             $('#profiles').submit(function (e) {
+                if(!$("#reservation_address").val()) {
+                    return;
+                }
 
                 e.preventDefault();
                 $('.overlay_loader').show();
