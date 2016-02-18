@@ -33,9 +33,14 @@
         @endif
 
         <?php
-            $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-            if(!$business_day){
-                popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
+            if(read("restaurant_id") && read("restaurant_id") != $restaurant->id){
+                $business_day = false;
+                popup(false, "You cannot place orders as a restaurant owner", "Oops");
+            } else {
+                $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                if(!$business_day){
+                    popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
+                }
             }
         ?>
 
