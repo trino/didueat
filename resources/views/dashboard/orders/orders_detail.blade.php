@@ -16,7 +16,7 @@
 
                 <div class="card" id="toPrinpetail">
                     <div class="card-header">
-                        <h4 class="card-title">Order # {{$order->guid}}
+                        <h4 class="card-title">Order #{{$order->guid}}
                             <input type="button" style="" value="Print Receipt" onclick="prinpiv('toPrinpetail')" class="btn btn-sm btn-secondary-outline pull-right"/>
                         </h4>
                     </div>

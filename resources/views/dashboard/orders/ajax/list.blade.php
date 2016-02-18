@@ -97,7 +97,7 @@ $secondsTitle = "sec";
                             @if(Session::get('session_profiletype') == 1)
                                 <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-secondary-outline btn-sm pull-right"
-                                   onclick="return confirm('Are you sure you want to delete order # {{ $value->id }}?');">
+                                   onclick="return confirm('Are you sure you want to delete order #{{ $value->id }}?');">
                                     <i class="fa fa-times"></i>
                                 </a>
                             @endif
@@ -114,7 +114,7 @@ $secondsTitle = "sec";
 
 
                     <tr>
-                        <td><span class="text-muted">No Orders Yet</span></td>
+                        <td><span class="text-muted">No Orders</span></td>
                     </tr>
                 @endif
                 </tbody>
