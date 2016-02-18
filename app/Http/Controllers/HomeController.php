@@ -435,7 +435,7 @@ class HomeController extends Controller {
                     if(!$_POST["value"]) {
                         $restaurantID = $this->get_notification_restaurant($_POST["id"]);
                         $notification_address_count = $this->enum_notification_addresses($restaurantID);
-                        $doit = $notification_address_count > 1;
+                        $doit = $notification_address_count > 1 && read("restaurant_id") == $restaurantID;
                     }
                     if($doit) {
                         \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('enabled' => $_POST["value"]));
