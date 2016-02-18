@@ -1,17 +1,20 @@
 <?php
-printfile("views/common/receipt.blade.php");
-$ordertype = "Pickup";
-if (isset($order)) {
-    if ($order->order_type) {
-        $ordertype = "Delivery";
+    printfile("views/common/receipt.blade.php");
+    $ordertype = "Pickup";
+    if (isset($order)) {
+        if ($order->order_type) {
+            $ordertype = "Delivery";
+        }
     }
-}
-if (!isset($profile)) {
-    $profile = false;
-}
-if (!isset($type)) {
-    $type = false;
-}
+    if (!isset($profile)) {
+        $profile = false;
+    }
+    if (!isset($type)) {
+        $type = false;
+    }
+    if(!isset($checkout_modal)){
+        $checkout_modal = true;
+    }
 ?>
 
 @if(false && !isset($order))
@@ -153,7 +156,7 @@ if (!isset($type)) {
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 
                     <form name="checkout_form" id="profiles" class="m-b-0">
-                        @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant])
+                        @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
                     </form>
                 </div>
             @endif

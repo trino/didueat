@@ -382,8 +382,6 @@ class UsersController extends Controller {
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";
 
-                debugprint(var_export($userArray3));
-
                 $this->sendEMail("emails.receipt", $userArray3);
 
                 $userArray3["profile_type"] = "restaurant";

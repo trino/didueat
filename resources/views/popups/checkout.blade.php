@@ -1,3 +1,4 @@
+@if(!isset($checkout_modal) || $checkout_modal)
 <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -9,6 +10,8 @@
             </div>
 
             <div class="modal-body">
+@endif
+
                 <?php
                     printfile("views/popups/checkout.blade.php");
                     if(!$profile){unset($profile);}
@@ -59,7 +62,6 @@
                             </div>
                         </div>
 
-
                         <div class="profile_delivery_detail" style="display: none;">
                             @if(!isset($type) || $type != "report")
                                 @include('common.editaddress',['type'=>'reservation'])
@@ -92,7 +94,7 @@
 
                                     <!--div class="alert alert-success alert-dismissible fade in" role="alert">No items yet</div-->
 
-                                <button type="submit" class="btn btn-primary">Checkout</button>
+                                <button type="submit" class="btn btn-primary">Complete</button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                             </div>
                         </div>
@@ -100,13 +102,17 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+
+@if(!isset($checkout_modal) || $checkout_modal)
             </div>
         </div>
     </div>
 </div>
+@endif
+
 <SCRIPT>
     function checkout_login(){
-        $('#checkoutModal').modal('hide');
         $('#login-ajax-form').attr('data-route','reservation');
+        $('#checkoutModal').modal('hide');
     }
 </SCRIPT>

@@ -41,14 +41,10 @@ function checkout() {
     var minimum_delivery = $('#minimum_delivery').val();
     
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
-    if($('#pickup1').hasClass('deliverychecked'))
-    {
+    if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
-    }
-    else
-    {
-        if(Number($('#subtotal1').val())< Number(minimum_delivery))
-        {
+    } else {
+        if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
             alert('Minimum delivery fee not meet!');
             return false;
         }

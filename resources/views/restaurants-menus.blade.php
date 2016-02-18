@@ -33,6 +33,8 @@
         @endif
 
         <?php
+            $checkout_modal = false;
+
             if(read("restaurant_id") && read("restaurant_id") != $restaurant->id){
                 $business_day = false;
                 popup(false, "You cannot place orders as a restaurant owner", "Oops");
@@ -85,130 +87,103 @@
 
 
                     <span class="card-text">
-
-
-
                         <?php
-                        $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                        echo "<span class='p-r-2'><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
+                            $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                            echo "<span class='p-r-2'><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
                         ?>
                         <span class="m-b-0">
                         <strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
                     </span>
 
+                    <?php
+                        echo "<span class='p-r-2'><strong>Delivery</strong> ";
+                        echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                    ?>
 
-                        <?
-
-
-                        echo "<span class='p-r-2'><strong>Delivery</strong> " . converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
-                        ?>
-
-                        <span class="p-r-2"><strong>Delivery
-                                Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</span>
-                        <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
-                            <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
-                        @if (Session::get('session_type_user') == "super" )
-                            <span class="p-r-2">
-                            <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                                    </span>
-                        @endif
-                        <span class="p-r-2">
-                        <a class="" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">More
-                            Detail</a>
-</span>
-
+                    <span class="p-r-2">
+                        <strong>DeliveryFee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}
                     </span>
 
-                                <div class="clearfix"></div>
+                    <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
+                        <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
+                        @if (Session::get('session_type_user') == "super" )
+                            <span class="p-r-2">
+                                <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                            </span>
+                        @endif
+                        <span class="p-r-2">
+                            <a class="" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
+                        </span>
+                    </span>
 
-
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-md-12 p-a-0 m-t-1">
-
-                            <div class="overlay overlay_reservation">
-                                <div class="loadmoreajaxloader">
-                                    <img src="{{ asset('assets/images/ajax-loading.gif') }}">
-                                </div>
-                            </div>
-
-
-                            <div class="clearfix"></div>
-
-                            <div class=" menu_div">
-
-
-                                @if(isset($restaurant))
-                                    <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-                                    @endif
-
-                                    @foreach($category as $cat)
-
-
-                                            <!--  {{ $cat->title }} -->
-                                    <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                                    <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-                                        <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
-                                    </div>
-
-
-
-                                    <!-- add menu item -->
-                                    <script>
-                                        $(function () {
-                                            $.ajax({
-                                                url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
-                                                success: function (res) {
-                                                    if (res != 'no') {
-                                                        $("#postswrapper_{{ $cat->id }}").html(res);
-                                                    }
-                                                    else {
-                                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N3o menu items yet<div class="clearfix"></div></div>');
-                                                    }
-                                                },
-                                                error: function (res) {
-
-                                                    if (res != 'no') {
-                                                        $("#postswrapper_{{ $cat->id }}").html(res);
-                                                    }
-                                                    else {
-                                                        $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N4o menu items yet<div class="clearfix"></div></div>');
-                                                    }
-                                                }
-                                            });
-                                        });
-                                    </script>
-
-
-
-
-
-                                    @endforeach
-                                            <!--input type="file" accept="image/*;capture=camera"-->
-                            </div>
-
-
-                        </div>
-
+                    <div class="clearfix"></div>
 
 
                 </div>
+            </div>
 
-                <div class=" col-md-4 col-sm-4" id="printableArea">
-                    @include('common.receipt', array("is_open" => $business_day))
+            <div class="col-md-12 p-a-0 m-t-1">
+
+                    <div class="overlay overlay_reservation">
+                        <div class="loadmoreajaxloader">
+                            <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class=" menu_div">
+                        @if(isset($restaurant))
+                            <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
+                        @endif
+
+                        @foreach($category as $cat)
+                                    <!--  {{ $cat->title }} -->
+                            <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
+                            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
+                                <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                            </div>
+
+                            <!-- add menu item -->
+                            <script>
+                                $(function () {
+                                    $.ajax({
+                                        url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
+                                        success: function (res) {
+                                            if (res != 'no') {
+                                                $("#postswrapper_{{ $cat->id }}").html(res);
+                                            }
+                                            else {
+                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N3o menu items yet<div class="clearfix"></div></div>');
+                                            }
+                                        },
+                                        error: function (res) {
+                                            if (res != 'no') {
+                                                $("#postswrapper_{{ $cat->id }}").html(res);
+                                            }
+                                            else {
+                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N4o menu items yet<div class="clearfix"></div></div>');
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
+                        @endforeach
+                        <!--input type="file" accept="image/*;capture=camera"-->
+                    </div>
                 </div>
+            </div>
+
+            <div class=" col-md-4 col-sm-4" id="printableArea">
+                @include('common.receipt', array("is_open" => $business_day, "checkout_modal" => $checkout_modal))
+            </div>
 
             </div>
         </div>
     </div>
 
 
-
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
         <div class="modal  fade clearfix" id="addMenuModel" tabindex="-1" role="dialog"
              aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -231,6 +206,8 @@
     @include('popups.more_detail')
 
     <script type="text/javascript">
+        var checkout_modal = "{{ $checkout_modal }}";
+
         function check_val(v) {
         }
 
