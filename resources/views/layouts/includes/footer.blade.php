@@ -259,14 +259,14 @@ Thank you">Email Us</a></li>
         function handleresizing(wd){
             console.log(wd);
             if (wd < '753') {
-                $('.top-cart-info').show();
+                //$('.top-cart-info').show();
                 $('.header-navigation-wrap').hide();
                 $('.new_headernav').show();
 
                 $('#cartsz').closest('#printableArea').attr("class", "col-md-8 col-xs-12");
             } else {
                 $('.header-navigation-wrap').show();
-                $('.top-cart-info').hide();
+                //$('.top-cart-info').hide();
                 $('.new_headernav').hide();
 
                 $('#cartsz').closest('#printableArea').attr("class", "col-md-4 col-sm-4");
