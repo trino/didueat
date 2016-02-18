@@ -448,7 +448,12 @@ body {
 }
 
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
+
 .smallT{font-size:12px;line-height:14px;margin-top:3px}
+
+.cuisineCB{display:inline-block;padding:0px;margin:0px}
+
+.smBR{font-size:5px;line-height:5px}
 
 .rightmarg {
     margin-right: 10px

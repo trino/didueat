@@ -301,21 +301,6 @@ function simpleStringify (object){
         simpleObject[prop] = object[prop];
     }
     return JSON.stringify(simpleObject); // returns cleaned up JSON
-};
-
-function chkCBs(cb){
-    if(cb){
-        if(cbchkd > 2){
-            alert("You may check a maximum of only 3 cuisine types. Please adjust your selection accordingly.");
-            return false;
-        } else{
-            cbchkd++;
-            return true;
-        }
-    } else{
-        cbchkd--;
-        return false;
-    }
 }
 
 function setCookie(cname, cvalue, exdays) {

@@ -1837,8 +1837,8 @@ function roundToQuarterHour($timestring, $minutes = 15) {
         return \App\Http\Models\PageViews::getView($id, $type);
     }
 
-    function cuisinelist(){//why is this hard-coded?
-        return array('Canadian', 'American', 'Italian', 'Italian/Pizza', 'Chinese', 'Vietnamese', 'Japanese', 'Thai', 'French', 'Greek', 'Pizza', 'Desserts', 'Pub', 'Sports', 'Burgers', 'Vegan', 'German', 'Fish and Chips');
+    function cuisinelist(){//why is this hard-coded? Because it's much faster than a database call
+        return array('American', 'Burgers', 'Canadian', 'Chicken', 'Chinese', 'Desserts', 'European', 'Fish and Chips', 'French', 'German', 'Greek', 'Halal', 'Health Food', 'Indian', 'Italian', 'Japanese', 'Korean', 'Mediterranean', 'Mexican', 'Persian', 'Pizza', 'Pub Fare', 'Seafood', 'Steakhouse', 'Thai', 'Vegan', 'Vietnamese', 'Wings');
     }
 
     function TH($data, $name = "", $sort = true){

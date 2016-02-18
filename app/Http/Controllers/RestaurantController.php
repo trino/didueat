@@ -153,7 +153,8 @@ class RestaurantController extends Controller {
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
             
-            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+//            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+            $data['cuisine_list'] = cuisinelist();
             return view('dashboard.restaurant.addrestaurant', $data);
         }
     }
@@ -271,8 +272,8 @@ class RestaurantController extends Controller {
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
 
-            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
-
+//            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
+            $data['cuisine_list'] = cuisinelist();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             $data["route"] = \Route::getCurrentRoute()->getPath();
             return view('dashboard.restaurant.info', $data);

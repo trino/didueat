@@ -34,9 +34,9 @@
                     <img id="picture" class="logopic" 
                          @if($user_detail->photo)
                          test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
-                         src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) }}"/>
+                         src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) ."?" . date('U') }}"/>
                     @else
-                        src="{{ asset('assets/images/didueatdefault.png') }}" />
+                        src="{{ asset('assets/images/didueatdefault.png') ."?" . date('U') }}" />
                     @endif
                     <span id="fullSize" class="smallT"></span>
 
