@@ -89,15 +89,11 @@
                         if (!$sec) {
                             $sec = $address->id;
                         }
-                        if (!trim($address->location)) {
-                            $address->location = "Address: " . $address->id;
-                        }
                         echo '<option class="dropdown-item" ';
                         echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
                         echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
                         echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                        echo $address->location . ' [' . $address->address . ']';
-                        echo '</option>';
+                        echo $address->address . '</option>';
                     }
                 ?>
                 <!--option data-target="#editModel" data-toggle="modal" data-route="reservation" 

@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="width:100%">
         <?php
+            printfile($profile_type . " views/emails/receipt.blade.php");
             $order = select_field("reservations", "id", $orderid);
             $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             $user_detail = select_field("profiles", "id", $order->user_id);

@@ -269,7 +269,7 @@ $(function(){
         var quant = $('#list' + numid + ' span.count').text();
         quant = quant.replace('x', '');
 
-        var amount = $('#list' + numid + ' .amount').text();
+        var amount = $('#list' + numid + ' .amount').val();
         amount = parseFloat(amount);
 
         var subtotal = 0;
@@ -344,7 +344,7 @@ $(function(){
         quant = $('#list' + numid + ' span.count').text();
         quant = quant.replace('x', '');
         quant = parseFloat(quant);
-        var amount = $('#list' + numid + ' .amount').text();
+        var amount = $('#list' + numid + ' .amount').val();
         amount = parseFloat(amount);
         var subtotal = $('#subtotal1').val();
        

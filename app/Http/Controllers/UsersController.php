@@ -369,20 +369,25 @@ class UsersController extends Controller {
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
 
-                $name ="Guest user";
-                if ($res1->user_id) 
-                {
+                if ($res1->user_id) {
                     $u2 = \App\Http\Models\Profiles::find($res1->user_id);
-                    $userArray2 = $u2->toArray();
-                    $userArray2['mail_subject'] = 'Your order has been received!';
-                    //var_dump($userArray2);
-                    $this->sendEMail("emails.order_user_notification", $userArray2);
-                    $name = $u2->name;
+                    $userArray3 = $u2->toArray();
+                } else {
+                    $userArray3["name"] = $post["ordered_by"];
+                    $userArray3["email"] = $post["email"];
                 }
 
-                $userArray3['mail_subject'] = '[' . $name . '] placed a new order!';
+                $userArray3['mail_subject'] = 'Your order has been received!';
                 $userArray3["guid"] = $ob2->guid;
                 $userArray3["orderid"] = $oid;
+                $userArray3["profile_type"] = "user";
+
+                debugprint(var_export($userArray3));
+
+                $this->sendEMail("emails.receipt", $userArray3);
+
+                $userArray3["profile_type"] = "restaurant";
+                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order!';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
                 echo '6';
