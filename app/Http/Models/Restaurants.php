@@ -107,6 +107,9 @@ class Restaurants extends BaseModel {
         if($now >= $Today_Open && $now <= $Today_Close) {
             return $Today;
         }
+        if($Today_Close < $Today_Open && $now >= $Today_Open){
+            return $Today;
+        }
         return false;
     }
 
@@ -154,7 +157,7 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_open <= now AND today_close > now) OR (today_open > now AND yesterday_close > now))";
+        $hours = " AND ((today_close > today_open AND today_open <= now AND today_close > now) OR (today_close < today_open AND today_open <= now) OR (today_open > now AND yesterday_close > now))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         $data['radius']="max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE
