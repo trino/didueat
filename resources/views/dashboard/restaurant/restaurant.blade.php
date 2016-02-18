@@ -45,7 +45,7 @@ echo newrow($new, "Restaurant Name", "", true); ?>
     echo '</textarea>' . newrow();
 }
 echo '<DIV id="cuisinelist">';
-echo newrow($new, "Cuisine", "", true, 9, '<BR>(Select up to 3)');
+echo newrow($new, "Genres", "", true, 9, '<BR>(Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
@@ -68,7 +68,7 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one Cuisine in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
+echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one genre in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);

@@ -101,6 +101,10 @@
                               TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
                     @endif
 
+                    <span class="p-r-2">
+                        Genres: {{ str_replace(",", ", ", $value["cuisine"]) }}
+                    </span>
+
                 </div>
                 <div class="clearfix"></div>
 

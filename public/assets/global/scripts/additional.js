@@ -434,7 +434,7 @@ $('.savebtn').live('click', function () {
 function chkCBs(cb){
     if(cb){
         if(cbchkd > 2){
-            alert("You may check a maximum of only 3 cuisine types. Please adjust your selection accordingly.");
+            alert("You may check a maximum of only 3 genres. Please adjust your selection accordingly.");
             return false;
         } else{
             cbchkd++;
