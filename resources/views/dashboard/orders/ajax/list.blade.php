@@ -54,41 +54,59 @@ $secondsTitle = "sec";
                 @foreach($Query as $value)
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>{{ $value->ordered_by }}</td>
-                        <td>{{ date(get_date_format(), strtotime($value->order_time)) }}</td>
-                        <td><?= ucfirst($value->status) . '<HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup"); ?></td>
-
-                        <TD>
+                        <td>
                             <?php
-                            if ($value->time) {
+                               $dateformat = get_date_format();
+                               $date = strtotime($value->order_time);
+                               if (date("dmY", $date) == date("dmY")){
+                                   echo '<FONT COLOR="GREEN">Today, </FONT>';
+                                   $dateformat = str_replace("M d, Y", "", $dateformat);
+                               }
+                               echo date($dateformat, $date);
+
+                            echo '</td><TD>';
+
                                 echo '<FONT COLOR="';
-                                $delay = (strtotime($value->time) - strtotime($value->order_time));
-                                if ($delay < 60) {
-                                    echo 'GREEN">';
-                                } else if ($delay < 300) {
-                                    echo 'ORANGE">';
-                                } else {
-                                    echo 'RED">';
+                                switch ($value->status){
+                                    case "approved": echo 'GREEN'; break;
+                                    case "cancelled": echo 'RED'; break;
+                                    case "pending": echo 'ORANGE'; break;
                                 }
-                                $delay = array($secondsTitle => $delay, "total" => "");
-                                $total = array();
-                                foreach ($secondsper as $timeperiod => $seconds) {
-                                    $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
-                                    $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
-                                    if ($delay[$timeperiod]) {
-                                        $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                echo '">' . ucfirst($value->status);
+
+                                echo '</FONT><HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup");
+
+                            echo '</td><TD>';
+
+                                if ($value->time) {
+                                    echo '<FONT COLOR="';
+                                    $delay = (strtotime($value->time) - strtotime($value->order_time));
+                                    if ($delay < 60) {
+                                        echo 'GREEN">';
+                                    } else if ($delay < 300) {
+                                        echo 'ORANGE">';
+                                    } else {
+                                        echo 'RED">';
                                     }
+                                    $delay = array($secondsTitle => $delay, "total" => "");
+                                    $total = array();
+                                    foreach ($secondsper as $timeperiod => $seconds) {
+                                        $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
+                                        $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
+                                        if ($delay[$timeperiod]) {
+                                            $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                        }
+                                    }
+                                    if ($delay[$secondsTitle]) {
+                                        $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
+                                    }
+                                    echo implode(" ", $total) . '</FONT>';
+                                } else {
+                                    echo "Pending...";
                                 }
-                                if ($delay[$secondsTitle]) {
-                                    $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
-                                }
-                                echo implode(" ", $total) . '</FONT>';
-                            } else {
-                                echo "Pending...";
-                            }
                             ?>
                         </TD>
 
