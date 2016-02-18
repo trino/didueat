@@ -582,15 +582,9 @@ fieldset[disabled] .btn-primary.focus {
 }
 .pac-container {
     background-color: #FFF;
-    z-index: 20;
+    z-index: 20000;
     position: fixed;
     display: inline-block;
     float: left;
 }
-.modal{
-    z-index: 20!important;   
-}
-.modal-backdrop{
-    z-index: 10;        
-}?
 
