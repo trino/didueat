@@ -225,9 +225,9 @@ if (!isset($type)) {
             mobile: "phone",
             @if(!read("id"))
                 email: "email required",
-            password: "required minlength 3",
+                password: "required minlength 3",
             @endif
-            reservation_address: "required=Please select an address."
+            reservation_address: "required"
         });
     });
 </script>

@@ -51,13 +51,18 @@
                                 $everyday = '';
                                 $days = explode(',', $value->days_discount);
                                 $today = date('D');
-                                if ($value->has_discount == '1' && in_array($today, $days)) {
-                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                if ($value->has_discount == '1' && in_array($today, $days)) 
+                                {
+                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat')
+                                    {
                                         $everyday = 'everyday';
-                                    } else {
+                                    }
+                                    else 
+                                    {
                                         $everyday = str_replace($today, ',', $value->days_discount);
                                         $everyday = 'Today and ' . str_replace(',', '/', $everyday);
                                         $everyday = str_replace('//', '', $everyday);
+                                        $everyday = str_replace(' and /','',$everyday);
                                     }
                                     $discount = $value->discount_per;
                                     $d = $main_price * $discount / 100;

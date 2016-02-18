@@ -18,12 +18,13 @@ abstract class Controller extends BaseController {
     
     //sends an email using a template
     public function sendEMail($template_name = "", $array = array()) {
+        
         if(isset($array["message"])){
             $array["body"] = $array["message"];
             unset($array["message"]);
             //die("array[message] is reserved and cannot be used!!!");
         }
-        if(is_array($array['email'])){
+        if(isset($array['email']) && is_array($array['email'])){
             $emails = $array['email'];
             foreach($emails as $email){
                 $array["email"] = $email;
