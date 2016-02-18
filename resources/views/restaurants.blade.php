@@ -19,11 +19,9 @@ $type = "hidden";
                 </div>
 
                 <div class="col-md-12 m-t-1 text-md-center">
-<<<<<<< HEAD
-                    <p class="lead text-xs-center   p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" onclick="submitform(event, 0);">Hamilton</a></p>
-=======
+
                     <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" province="Ontario" onclick="submitform(event, 0);">Hamilton</a></p>
->>>>>>> origin/master
+
                 </div>
 
 
