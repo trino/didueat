@@ -115,7 +115,7 @@
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
         <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
-            <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>"
+            <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address" value="<?php
             if (old('formatted_address')) {

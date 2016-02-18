@@ -203,7 +203,7 @@ if (!isset($type)) {
                     data: datas,
                     dataType: "json",
                     success: function (msg) {
-                        $('.close').click();
+                        $('#editModel').modal('hide');
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
                             $('.reservation_address_dropdown option[value="' + msg['id'] + '"]').attr('selected', 'selected');
                         });
@@ -216,7 +216,7 @@ if (!isset($type)) {
                         $('.postal_code').val(msg['postal_code']);
                         $('#ordered_notes').text(msg['notes'])
                     }
-                })
+                });
             }
         })
     });
