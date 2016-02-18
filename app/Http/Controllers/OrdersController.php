@@ -146,6 +146,7 @@ class OrdersController extends Controller {
                     $flash = "Order " . $status . " via email";
                     $post['note'] = $flash;
                 }
+
                 $ob->populate(array('status' => $status, 'note' => $post['note'], 'time' => now()));
                 $ob->save();
 
@@ -155,6 +156,7 @@ class OrdersController extends Controller {
                     $userArray['note'] = $post['note'];
                     $this->sendEMail($email, $userArray);
                 }
+
                 return $this->success($flash, $URL);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), $URL);

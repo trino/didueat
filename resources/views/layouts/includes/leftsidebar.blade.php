@@ -45,10 +45,14 @@
                 }
 
                 if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
-                    makelink(array('orders/list/user' => 'My Orders',
+                    makelink(array('user/info' => "My Profile",
+                            'orders/list/user' => 'My Orders',
                             'user/addresses' => "My Addresses",
                             'credit-cards/list/user' => "Credit Card",
-                            'user/info' => "My Profile",
+                            'auth/logout' => "Log out"
+                    ), "My Profile");
+                } else {
+                    makelink(array('user/info' => "My Profile",
                             'auth/logout' => "Log out"
                     ), "My Profile");
                 }
