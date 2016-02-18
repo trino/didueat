@@ -207,6 +207,6 @@ if (Request::path() !== null && Request::path() != "/") {
 </html>
 <script>
 $(function(){
-   $('.overlay_loader').show(); 
+   //$('.overlay_loader').show(); 
 });
 </script>
