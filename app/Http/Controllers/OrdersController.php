@@ -227,27 +227,19 @@ class OrdersController extends Controller {
         if(!isset($EmailParameters["mail_subject"])) {$EmailParameters["mail_subject"] = $Message;}
         //list of words to replace for easier pronunciation by the computer
         $CallMessage = str_replace(array("didueat.ca"), array("did you eat dot see ay"), $Message);
-        $debugmode = true;
         $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
         foreach($NotificationAddresses as $NotificationAddress){
             if($NotificationAddress->address) {
                 $NotificationAddress->address=trim($NotificationAddress->address);
                 if ($NotificationAddress->type == "Email") {
-                    if($debugmode){$NotificationAddress->address = "roy@trinoweb.com";}
-                    //old code
-                    $Parameters['name'] = $NotificationAddress->name;
-                    $Parameters["email"] = $NotificationAddress->address;
-                    
                     $EmailParameters['name'] = $NotificationAddress->name;
                     $EmailParameters["email"] = $NotificationAddress->address;
                     $this->sendEMail($EmailTemplate, $EmailParameters);
                     $ret["email"][] = $NotificationAddress->address;
                 } else if ($NotificationAddress->is_sms) {
-                    if($debugmode){$NotificationAddress->address = "9055123067";}
                     $this->sendSMS($NotificationAddress->address, $Message);
                     $ret["sms"][] = $NotificationAddress->address;
                 } else {
-                    if($debugmode){$NotificationAddress->address = "9055123067";}
                     $this->sendSMS($NotificationAddress->address, $CallMessage, true);
                     $ret["call"][] = $NotificationAddress->address;
                 }
@@ -343,13 +335,6 @@ class OrdersController extends Controller {
                     $Message = "There is 1 order pending for your approval at ";
                 } else {
                     $Message = "There are " . $Orders . " orders pending for your approval at ";
-                }
-                if(debugmode() && false){
-                    if($Key == "Email"){
-                        $Address = "roy@trinoweb.com";
-                    } else {
-                        $Address = "9055123067";
-                    }
                 }
                 echo '<TR><TD>' . $Key. '</TD><TD>' . $Address .'</TD><TD>' . $Orders . '</TD></TR>';
                 if(true) {//set to false to disable contacting
