@@ -197,7 +197,7 @@ if (Request::path() !== null && Request::path() != "/") {
         @include('layouts.includes.footer')
     </div>
 
-    <div class="overlay_loader" style="display: block;">
+    <div class="overlay_loader">
         <div class="overlay">
             <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
         </div>
