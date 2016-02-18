@@ -181,8 +181,26 @@ $('.savebtn').live('click', function () {
     var stop_id = 0;
     var stop_item = 0;
     var lim = 0;
-    
-
+    var mul = 0;
+    $_parent.find('.mul_ch').each(function(){
+        var $rad = $(this).closest('.radios');
+        if($(this).is(':checked'))
+        {
+            if($rad.find('.itemno').val()=='')
+            {
+                $rad.find('.itemno').attr('style','border:1px solid red');
+                 alert('Please select number of selection');
+                $('.overlay_loader').hide();
+                $('html,body').animate({scrollTop: $rad.find('.itemno').offset().top}, 'slow');
+                $rad.find('.itemno').focus();
+               
+                
+                mul = 1;
+            }
+        }
+    });
+    if(mul)
+    return false;
     
     /*if($_parent.find('.mul_ch').is(':checked') && $_parent.find('.itemno').val() == '')
     {
