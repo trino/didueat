@@ -397,13 +397,15 @@ class OrdersController extends Controller {
     }
 
     //$0.0075 per SMS, + $1 per month
-    function sendSMS($Phone, $Message, $Call = false){//works if you can get the from number....
+    function sendSMS($Phone, $Message, $Call = false)
+    {//works if you can get the from number....
         //https://www.twilio.com/
-        $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
+        if (false){
+            $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
         $token = "3fd30e06e99b5c9882610a033ec59cbd";
         $fromnumber = "2897685936";
-        if($Call){
-            $Message = "http://charlieschopsticks.com/pages/call?message=" .  urlencode($Message);
+        if ($Call) {
+            $Message = "http://charlieschopsticks.com/pages/call?message=" . urlencode($Message);
             $URL = "https://api.twilio.com/2010-04-01/Accounts/" . $sid . "/Calls";
             $data = array("From" => $fromnumber, "To" => $Phone, "Url" => $Message);
         } else {
@@ -411,6 +413,7 @@ class OrdersController extends Controller {
             $data = array("From" => $fromnumber, "To" => $Phone, "Body" => $Message);
         }
         return $this->cURL($URL, http_build_query($data), $sid, $token);
+    }
     }
 
     function orderstatus($action, $email, $guid){

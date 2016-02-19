@@ -257,7 +257,7 @@ Thank you">Email Us</a></li>
         handleresizing(wd);
 
         function handleresizing(wd){
-            console.log(wd);
+            //console.log(wd);
             if (wd < '753') {
                 //$('.top-cart-info').show();
                 $('.header-navigation-wrap').hide();

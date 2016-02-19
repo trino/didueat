@@ -235,16 +235,19 @@
                 $('.receipt_main').show();
                 $('.profiles').hide();
             });
-            $('#profiles').submit(function (e) {
-                if(!$("#reservation_address").val()) {
-                    return;
-                }
 
+
+            $('#profiles').submit(function (e) {
+                /*
+                if(!$("#reservation_address").val()) {
+                }
+*/
                 e.preventDefault();
                 $('.overlay_loader').show();
                 var token = $('#profiles input[name=_token]').val();
                 var datas = $('#profiles input, select, textarea').serialize();
                 var order_data = $('.receipt_main input').serialize();
+                //alert(order_data);
                 $.ajax({
                     type: 'post',
                     url: '<?php echo url(); ?>/user/ajax_register',
