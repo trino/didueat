@@ -94,7 +94,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td><span class="text-muted">No Addresses Yet</span></td>
+                    <td><span class="text-muted">You Have No Addresses Set</span></td>
                 </tr>
             @endif
             </tbody>
