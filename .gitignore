@@ -107,3 +107,5 @@ vendor/composer/autoload_classmap.php
 composer.lock
 app/Http/Controllers/AdministratorController_backupFeb17.php
 *.CDR
+public/assets/images/work/logo-black-text.CMX
+public/assets/images/work/logo.png
