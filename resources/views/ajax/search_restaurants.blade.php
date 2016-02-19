@@ -62,13 +62,24 @@
             ?>
 
             <div class="list-group-item">
-                <div class="col-xs-2 p-a-0">
+
+
+
+
+
+
+
+                <div class="col-md-3 col-xs-3 p-l-0">
+
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
+                    <div class="clearfix"></div>
                 </div>
 
-                <div class="col-xs-10">
+
+                <div class="col-md-9 p-a-0" style="">
+
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
                     </a>
@@ -90,22 +101,25 @@
                         @endif
                     @elseif($value["is_pickup"])
                         <span class="p-r-2">Pickup only</span>
-                    @endif
-                    <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
+                        @endif
+                                <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
 
-                    @if(isset($latitude) && $radius)
-                        <span class="p-r-2">Distance: {{ round($value['distance'],2) }} km</span>
-                    @endif
-                    @if(false)
-                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
+                        @if(isset($latitude) && $radius)
+                            <span class="p-r-2">Distance: {{ round($value['distance'],2) }} km</span>
+                        @endif
+                        @if(false)
+                            {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
 
-                        <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
-                              TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
-                    @endif
+                            <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}"
+                                  TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
+                        @endif
 
 
 
                 </div>
+
+
+
                 <div class="clearfix"></div>
 
             </div>

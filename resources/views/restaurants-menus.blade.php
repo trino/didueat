@@ -4,12 +4,12 @@
 
     @include("popups.rating")
 
-        @if(!isset($order) )
-            @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+    @if(!isset($order) )
+        @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-                <div class="card card-inverse card-danger m-b-0" style="border-radius:0 !important;">
-                    <div class="card-block ">
-                        <div class="container" style="margin-top: 0 !important;">
+            <div class="card card-inverse card-danger m-b-0" style="border-radius:0 !important;">
+                <div class="card-block ">
+                    <div class="container" style="margin-top: 0 !important;">
 
                         <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
 
@@ -26,57 +26,57 @@
 
                         <div class="clearfix"></div>
                     </div>
-                    </div>
+                </div>
+            </div>
+
+        @endif
+    @endif
+
+    <?php
+    $checkout_modal = false;
+
+    if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
+        $business_day = false;
+        popup(false, "You cannot place orders as a restaurant owner", "Oops");
+    } else {
+        $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+        if (!$business_day) {
+            popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
+        }
+    }
+    ?>
+
+    <div class="container" style="">
+        <div class="row">
+
+            <?= printfile("views/restaurants-menus.blade.php"); ?>
+
+            <div class="col-md-8 col-xs-12 " style="">
+
+                <div class="col-md-3 col-xs-3 p-l-0">
+                    <img style="max-width:100%;" class="pull-left img-rounded"
+                         @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                         src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                         @else
+                         src="{{ asset('assets/images/default.png') }}"
+                         @endif
+                         alt="">
+
+                    <div class="clearfix"></div>
                 </div>
 
-            @endif
-        @endif
 
-        <?php
-            $checkout_modal = false;
+                <div class="col-md-9 p-a-0" style="">
 
-            if(read("restaurant_id") && read("restaurant_id") != $restaurant->id){
-                $business_day = false;
-                popup(false, "You cannot place orders as a restaurant owner", "Oops");
-            } else {
-                $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                if(!$business_day){
-                    popup(false, "This restaurant is currently closed. You may browse, but not place orders", "Oops");
-                }
-            }
-        ?>
+                    <div class="">
+                        <h1 class="card-title">
+                            {!! (isset($restaurant->name))?$restaurant->name:'' !!}
+                        </h1>
 
-        <div class="container" style="">
-            <div class="row">
-
-                <?= printfile("views/restaurants-menus.blade.php"); ?>
-
-                <div class="col-md-8 col-xs-12 " style="">
-
-                    <div class="col-md-3 col-xs-3 p-l-0">
-                        <img style="max-width:100%;" class="pull-left img-rounded"
-                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                             @else
-                                src="{{ asset('assets/images/default.png') }}"
-                             @endif
-                             alt="">
-
-                        <div class="clearfix"></div>
-                    </div>
-
-
-                        <div class="col-md-9 p-a-0" style="">
-
-                            <div class="">
-                                <h1 class="card-title">
-                                    {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                                </h1>
-
-                                <div id="restaurant_rating">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
-                                    <div class="clearfix"></div>
-                                </div>
+                        <div id="restaurant_rating">
+                            {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
+                            <div class="clearfix"></div>
+                        </div>
 
                     <span class="card-text m-b-0 p-r-2">
                     <strong>Address</strong> {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
@@ -86,17 +86,18 @@
                     </span>
 
 
-                                <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
 <span class="p-r-2">
-                            <a class="" style="" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
+                            <a class="" style="" class="clearfix" href="#" data-toggle="modal"
+                               data-target="#viewMapModel">More Details</a>
                         </span>
 
 
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-12 p-a-0 m-t-1">
+                <div class="col-md-12 p-a-0 m-t-1">
 
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
@@ -109,9 +110,9 @@
                     <div class=" menu_div">
                         @if(isset($restaurant))
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-                        @endif
+                            @endif
 
-                        @foreach($category as $cat)
+                            @foreach($category as $cat)
                                     <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
@@ -142,8 +143,8 @@
                                     });
                                 });
                             </script>
-                        @endforeach
-                        <!--input type="file" accept="image/*;capture=camera"-->
+                            @endforeach
+                                    <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
             </div>
@@ -152,8 +153,8 @@
                 @include('common.receipt', array("is_open" => $business_day, "checkout_modal" => $checkout_modal))
             </div>
 
-            </div>
         </div>
+    </div>
     </div>
 
 
@@ -187,8 +188,10 @@
 
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
-            if(!delivery_type){delivery_type == "is_delivery";}
-            if(delivery_type == "is_pickup"){
+            if (!delivery_type) {
+                delivery_type == "is_delivery";
+            }
+            if (delivery_type == "is_pickup") {
                 $("#pickup1").trigger("click");
             } else {
                 $("#delivery1").trigger("click");
@@ -213,9 +216,9 @@
 
             $('#profiles').submit(function (e) {
                 /*
-                if(!$("#reservation_address").val()) {
-                }
-*/
+                 if(!$("#reservation_address").val()) {
+                 }
+                 */
                 e.preventDefault();
                 $('.overlay_loader').show();
                 var token = $('#profiles input[name=_token]').val();

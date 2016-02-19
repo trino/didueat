@@ -188,7 +188,7 @@ class RestaurantController extends Controller {
 
                 // logo update will not work until after a restaurant is signed up
                 
-                if ($post['restLogoTemp'] != '') {
+                if (isset($post['restLogoTemp']) && $post['restLogoTemp'] != '') {
                     $im = explode('.', urldecode($post['logo']));
                     $ext = end($im);
                     $newName=$ob->slug.".".$ext;

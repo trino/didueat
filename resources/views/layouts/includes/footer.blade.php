@@ -37,19 +37,20 @@ Thank you">Email Us</a></li>
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
-                    if (Session::get('session_type_user') == "restaurant") {
-                        $ownerSignup = "Owner Admin";
-                    } else {
-                        $ownerSignup = "Signup";
+                    if (!Session::get('session_type_user') == "restaurant") {
+?>
+
+                    <li class="list-inline-item">
+                        <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
+                    </li>
+                    <?
                     }
                     ?>
 
-                    <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
-                    </li>
+
 
                     <li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}">Restaurant {{ $ownerSignup }}</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
                     <li class="list-inline-item"><a href="{{ url("home/terms") }}">

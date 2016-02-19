@@ -25,6 +25,20 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12" id="modal_contents">
 
+
+                            @if(!read("id"))
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+
+                                    <a class="btn btn-primary-outline reserve_login" data-target="#loginModal"
+                                   data-toggle="modal" onclick="checkout_login();">Log in</a>
+                             Or enter your info:
+                                        </div>
+                                        </div>
+                            @endif
+
+
+
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="user_id" id="ordered_user_id"
                                    value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
@@ -80,10 +94,16 @@
 
 
                             <div class="profile_delivery_detail" style="display: none;">
+                                <div class="form-group col-md-12">
+                                <div class=" col-md-12">
+                                    <div class="">
                                 @if(!isset($type) || $type != "report")
                                     @include('common.editaddress',['type'=>'reservation'])
                                 @endif
                                 <div class="clearfix"></div>
+                            </div>
+                            </div>
+                            </div>
                             </div>
 
                             <div class="form-group">
@@ -103,20 +123,18 @@
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
+                                <div class="col-xs-12">
 
                             <div class="form-group pull-right">
-                                <div class="col-xs-12">
-                                    @if(!read("id"))
-                                        <a class="btn btn-danger reserve_login" data-target="#loginModal"
-                                           data-toggle="modal" onclick="checkout_login();">Log in</a>
-                                        @endif
+
 
                                                 <!--div class="alert alert-success alert-dismissible fade in" role="alert">No items yet</div-->
 
+                                    <a href="javascript:history.go(0)"  class="btn  btn-secondary clearitems"
+                                            >Restart</a>
 
 
-
-                                        <button type="submit" class="btn btn-primary pull-right">Order Now</button>
+                                        <button type="submit" class="btn btn-primary ">Order Now</button>
 
 
 

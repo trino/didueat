@@ -28,6 +28,7 @@ if (!isset($checkout_modal)) {
     </div>
 @endif
 
+<div  id="checkout_anchor"></div>
 
 <div class="clearfix" id="cartsz">
 
@@ -126,8 +127,11 @@ if (!isset($checkout_modal)) {
 
                         @if(!isset($is_open) || $is_open || Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-                            <a href="javascript:void(0)" class="btn  btn-secondary clearitems"
-                               onclick="clearCartItems();">Clear</a>
+                            <!--a href="javascript:void(0)" class="btn  btn-secondary clearitems"
+                               onclick="clearCartItems();">Cancel</a-->
+
+                        <a href="javascript:history.go(0)"  class="btn  btn-secondary clearitems"
+                          >Cancel</a>
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
 
 
@@ -142,16 +146,15 @@ if (!isset($checkout_modal)) {
             </div>
 
             <!-- display profile info -->
-
             @if(!isset($email))
                 <div class="profiles row" style="display: none;">
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <h2 class="profile_delevery_type"></h2>
+                            <h4 class="profile_delevery_type"></h4>
                         </div>
                     </div>
 
-                    <div class="form-group ">
+                    <!--div class="form-group ">
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                                 <?php
@@ -160,7 +163,7 @@ if (!isset($checkout_modal)) {
                                 ?>
                             @endif
                         </div>
-                    </div>
+                    </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 

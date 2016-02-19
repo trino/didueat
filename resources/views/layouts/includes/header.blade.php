@@ -16,8 +16,8 @@
         <div class="pull-right header-nav">
             <ul class="nav navbar-nav">
 
-                <LI class="nav-item" ID="cart-header" style="">
-                    <A CLASS="btn btn-warning" style="" onclick="checkout();">
+                <LI class="nav-item" ID="cart-header" style="display:none;">
+                    <A href="#checkout_anchor" CLASS="btn btn-warning" style="" onclick="checkout();">
                             <SPAN class="card-header-items"></SPAN>
                             <i class="fa fa-shopping-cart"></i>
                         <SPAN class="card-header-total"></SPAN>

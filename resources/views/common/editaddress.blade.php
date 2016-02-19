@@ -1,168 +1,144 @@
 <?php
-printfile("resources/views/common/editaddress.blade.php");
+    printfile("resources/views/common/editaddress.blade.php");
 
-if (isset($GLOBALS["editaddress"])) {
-    return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
-}
+    if (isset($GLOBALS["editaddress"])) {
+        return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
+    }
 
-$GLOBALS["editaddress"] = true;
+    $GLOBALS["editaddress"] = true;
 
-if (!isset($new)) {
-    $new = false;
-}
-if (!isset($addresse_detail) && isset($address_detail)) {
-    $addresse_detail = $address_detail;
-}
-if (!isset($required)) {
-    $required = true;
-}
-$required = iif($required, " required");
-if (!isset($is_disabled)) {
-    $is_disabled = false;
-} else {
-    $is_disabled = " readonly";
-}
+    if (!isset($new)) {
+        $new = false;
+    }
+    if (!isset($addresse_detail) && isset($address_detail)) {
+        $addresse_detail = $address_detail;
+    }
+    if (!isset($required)) {
+        $required = true;
+    }
+    $required = iif($required, " required");
+    if (!isset($is_disabled)) {
+        $is_disabled = false;
+    } else {
+        $is_disabled = " readonly";
+    }
 
-$readonly = " readonly";
-$isUser = isset($apartment); // set by addressesFind
-$needsmobile = isset($mobile);
-$restSignUp = !isset($addresse_detail);//no idea what this needs to be
-if ($isUser) {
-    $aptUnit = "Apartment";
-} else {
-    $aptUnit = "Unit";
-}
+    $readonly = " readonly";
+    $isUser = isset($apartment); // set by addressesFind
+    $needsmobile = isset($mobile);
+    $restSignUp = !isset($addresse_detail);//no idea what this needs to be
+    if ($isUser) {
+        $aptUnit = "Apartment";
+    } else {
+        $aptUnit = "Unit";
+    }
 ?>
 
-<input type="hidden" name="latitude" id="latitude"
-       value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
-<input type="hidden" name="longitude" id="longitude"
-       value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
+<input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
+<input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<div class="col-md-12">
-    <div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown">
-        <div class="form-group">
+<div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown row">
 
+
+<?php
+    echo newrow($new, (!isset($type)) ? "Address" : "Address", "", true);
+    if(read('id')){
+        ?>
+            <!--div class="input-group-btn addressdropdown"-->
+
+    @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menus' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
 
         <?php
-        if(read('id')){
-        ?>
-
-        @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menus' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
-
-            <?php
             $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
 
             if(!isset($type)){
 
             if($addresses->count()){
             ?>
-            <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+            <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
             </button>
             <div class="dropdown-menu dropdown-menu-left">
                 <?php
-                foreach ($addresses as $address) {
-                    if (!$sec) {
-                        $sec = $address->id;
+                    foreach ($addresses as $address) {
+                        if (!$sec) {
+                            $sec = $address->id;
+                        }
+                        if (!trim($address->location)) {
+                            $address->location = "Address: " . $address->id;
+                        }
+                        echo '  <a class="dropdown-item" ';
+                        echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
+                        echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
+                        echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                        echo $address->location . ' [' . $address->address . ']';
+                        echo '</a>';
                     }
-                    if (!trim($address->location)) {
-                        $address->location = "Address: " . $address->id;
-                    }
-                    echo '  <a class="dropdown-item" ';
-                    echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                    echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
-                    echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                    echo $address->location . ' [' . $address->address . ']';
-                    echo '</a>';
-                }
                 ?>
-                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew"
-                   class="dropdown-item">Add New Address</a>
+                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" class="dropdown-item">Add New Address</a>
             </div>
             <?php }
             }else{
             ?>
-            <select name="reservation_address_dropdown" class="col-md-11 form-control reservation_address_dropdown"
-                    name="reservation_address" id="reservation_address" required>
+            <select name="reservation_address_dropdown" class="col-md-11 form-control reservation_address_dropdown" name="reservation_address" id="reservation_address" required>
                 <option value="">Select Address</option>
                 <?php
-                $sec = false;
-                foreach ($addresses as $address) {
-                    if (!$sec) {
-                        $sec = $address->id;
+                    $sec = false;
+                    foreach ($addresses as $address) {
+                        if (!$sec) {
+                            $sec = $address->id;
+                        }
+                        echo '<option class="dropdown-item" ';
+                        echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
+                        echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
+                        echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                        echo $address->address . '</option>';
                     }
-                    echo '<option class="dropdown-item" ';
-                    echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                    echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
-                    echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                    echo $address->address . '</option>';
-                }
                 ?>
-                        <!--option data-target="#editModel" data-toggle="modal" data-route="reservation"
+                <!--option data-target="#editModel" data-toggle="modal" data-route="reservation"
                         class="dropdown-item addNew" data-id='0' value="add_address">Add New Address
                 </option-->
             </select>
-
-            <button type="button" data-target="#editModel" data-toggle="modal" data-route="reservation"
-               class=" addNew btn btn-block btn-success-outline"
-               data-id='0' value="add_address">Add New Address</button>
-
-
-
-
+            OR
+            <a data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew btn btn-success-outline" data-id='0' value="add_address">Add New Address</a>
             <?php
             }
             ?>
 
 
-        @endif
-
-
-
-
-
-        <?php }?>
-
-
-
-
-
-
-
-
-        @if($is_disabled)
-            <input type="text" id="formatted_address<?php if (isset($type)) echo '';?>" disabled
-                   name="formatted_address"
-                   class="form-control"
-                   value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}"/>
-        @else
-            <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type) && read('id')) echo "style='display:none'";?>>
-                <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
-                       id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
-                       placeholder="Enter your full address"
-                       autocomplete="false"
-                       onclick="$(this).attr('autocomplete', 'false');"
-                       value="<?php
-                       if (old('formatted_address')) {
-                           echo old('formatted_address');
-                           //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
-                       } else if (isset($addresse_detail->address)) {
-                           $country = "Canada";// select_field("countries", "id", $addresse_detail->country, "name");
-                           //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
-                           echo $addresse_detail->address;
-                       }
-                       ?>"/>
-            </div>
-        @endif
-    </div>
+    @endif
+<?php }?>
+@if($is_disabled)
+        <input type="text" id="formatted_address<?php if (isset($type)) echo '';?>" disabled name="formatted_address"
+               class="form-control"
+               value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
+    @else
+        <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
+            <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
+                   id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
+                   placeholder="Enter your full address"
+                   autocomplete="false"
+                   onclick="$(this).attr('autocomplete', 'false');"
+                   value="<?php
+            if (old('formatted_address')) {
+                echo old('formatted_address');
+                //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
+            } else if (isset($addresse_detail->address)) {
+                $country = "Canada";// select_field("countries", "id", $addresse_detail->country, "name");
+                //echo $addresse_detail->address . ", " . $addresse_detail->city . ', ' . $addresse_detail->province . ', ' . $country;
+                echo $addresse_detail->address;
+            }
+            ?>"/>
+        </div>
+    @endif
 </div>
-</div>
+</div></div>
 
 
-<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation' && read('id')) echo "style='display:none;'";?> >
+
+
+<div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
 
     <?= newrow($new, $aptUnit . " #", "", false, 5); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
@@ -231,9 +207,9 @@ if (isset($restEdit)) {
 
 <?php
 
-similar_text(\Request::path(), 'user/addresses/edit', $per);
+similar_text(\Request::path(),'user/addresses/edit', $per);
 
-if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $per > 80){?>
+if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $per >80){?>
 @if(isset($dontinclude))
     <SCRIPT>
         $(document).ready(function () {
