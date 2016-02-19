@@ -7,7 +7,7 @@
         @if(!isset($order) )
             @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
 
-                <div class="card card-inverse card-danger " style="border-radius:0 !important;">
+                <div class="card card-inverse card-danger m-b-0" style="border-radius:0 !important;">
                     <div class="card-block ">
                         <div class="container" style="margin-top: 0 !important;">
 

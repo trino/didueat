@@ -53,7 +53,7 @@ Thank you">Email Us</a></li>
                     </li>
 
                     <li class="list-inline-item"><a href="{{ url("home/terms") }}">
-                            <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>
+                            <a href="{{ url("home/terms") }}">Terms & Conditions</a>
                     </li>
                 </ul>
             </div>

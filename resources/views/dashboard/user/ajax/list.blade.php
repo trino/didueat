@@ -37,10 +37,15 @@
                         <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
                     </th>
                     <th >
+                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
+                        Restaurant
+                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
+                    </th>
+                    <!--th >
                         <a class="sortOrder" data-meta="email" data-order="ASC" data-title="Email" title="Sort [Email] ASC"><i class="fa fa-caret-down"></i></a>
                         Email
                         <a class="sortOrder" data-meta="email" data-order="DESC" data-title="Email" title="Sort [Email] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
+                    </th-->
                     <!--th>
                         <a class="sortOrder" data-meta="profile_type" data-order="ASC" data-title="Type" title="Sort [Type] ASC"><i class="fa fa-caret-down"></i></a>
                         Type
@@ -71,7 +76,8 @@
                 <tr>
                     <td>{{ $value->id }}</td>
                     <td>{{ $value->name }}</td>
-                    <td>{{ $value->email }}</td>
+                    <!--td>{{ $value->email }}</td-->
+                    <td><? if($value->restaurant_id>0){echo 'yes';} ?></td>
                     <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
                     <td>{{ $value->phone }}</td>
                     <td>

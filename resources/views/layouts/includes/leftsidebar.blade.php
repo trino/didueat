@@ -26,7 +26,7 @@
                 }
 
                 if (Session::get('session_type_user') == "super") {
-                    if(false){
+                    if(true){
                     makelink(array('orders/list/admin' => 'All Orders',
                             'users/list' => "All Users",
                             'restaurant/list' => "All Restaurants",

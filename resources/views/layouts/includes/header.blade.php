@@ -16,12 +16,10 @@
         <div class="pull-right header-nav">
             <ul class="nav navbar-nav">
 
-                <LI class="nav-item" ID="cart-header" style="display: none;">
-                    <A CLASS="nav-link" style="padding-bottom: 0px; padding-top: 4px;" onclick="checkout();">
-                        <span class="fa-stack">
-                            <SPAN class="card-header-items fa-stack-1x"></SPAN>
+                <LI class="nav-item" ID="cart-header" style="">
+                    <A CLASS="btn btn-warning" style="" onclick="checkout();">
+                            <SPAN class="card-header-items"></SPAN>
                             <i class="fa fa-shopping-cart"></i>
-                        </span>
                         <SPAN class="card-header-total"></SPAN>
                     </A>
                 </LI>
