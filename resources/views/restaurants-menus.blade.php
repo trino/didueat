@@ -86,37 +86,11 @@
                     </span>
 
 
-                    <span class="card-text">
-                        <?php
-                            $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                            echo "<span class='p-r-2'><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
-                        ?>
-                        <span class="m-b-0">
-                        <strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    </span>
+                                <div class="clearfix"></div>
 
-                    <?php
-                        echo "<span class='p-r-2'><strong>Delivery</strong> ";
-                        echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
-                    ?>
-
-                    <span class="p-r-2">
-                        <strong>DeliveryFee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}
-                    </span>
-
-                    <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
-                        <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
-                        @if (Session::get('session_type_user') == "super" )
-                            <span class="p-r-2">
-                                <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                            </span>
-                        @endif
-                        <span class="p-r-2">
-                            <a class="" style="" class="" href="#" data-toggle="modal" data-target="#viewMapModel">MoreDetail</a>
+<span class="p-r-2">
+                            <a class="" style="" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
                         </span>
-                    </span>
-
-                    <div class="clearfix"></div>
 
 
                 </div>

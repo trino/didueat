@@ -38,7 +38,7 @@ $type = "hidden";
         <div class="row">
 
             <div class="" id="results_show" style="display: none;">
-                <div class="col-lg-8">
+                <div class="col-lg-8 m-b-2">
                     <?php popup(true, "message:nostores"); ?>
 
                     @include('ajax.search_restaurants')

@@ -65,12 +65,12 @@ label {
 }
 
 .table th, .table td {
-    border-top: 0 !important;
+
     padding: .5rem 1.25rem !important;
 }
 
 .table th {
-    border-top: 0 !important;
+
 }
 
 .table {

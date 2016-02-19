@@ -122,9 +122,16 @@
 
                 @if(!isset($order))
                     <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
-                        <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                         @if(!isset($is_open) || $is_open)
+
+                        <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+                            @else
+
+                            {{popup(false, "", "You can not checkout as a restaurant owner")}}
+
+
                         @endif
                     </div>
                 @endif

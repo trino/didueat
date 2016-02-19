@@ -76,10 +76,12 @@
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </div>
                     <div class="clearfix">
-                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}
+                        {{ $value['address'] }}, {{ $value['city'] }}
                     </div>
-
-                    <span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span>
+   <span class="p-r-2">
+                        Genres: {{ str_replace(",", ", ", $value["cuisine"]) }}
+                    </span>
+                    <!--span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
                     @if($value["is_delivery"])
                         <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
                         <span class="p-r-2">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
@@ -101,9 +103,7 @@
                               TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
                     @endif
 
-                    <span class="p-r-2">
-                        Genres: {{ str_replace(",", ", ", $value["cuisine"]) }}
-                    </span>
+
 
                 </div>
                 <div class="clearfix"></div>

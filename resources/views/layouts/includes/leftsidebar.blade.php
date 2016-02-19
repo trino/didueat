@@ -26,6 +26,7 @@
                 }
 
                 if (Session::get('session_type_user') == "super") {
+                    if(false){
                     makelink(array('orders/list/admin' => 'All Orders',
                             'users/list' => "All Users",
                             'restaurant/list' => "All Restaurants",
@@ -33,6 +34,7 @@
                             'user/reviews' => "User Reviews",
                             'eventlogs/list' => "Event Log"
                     ), "Admin");
+                }
                 }
 
                 if (\Session::get('session_restaurant_id')) {
@@ -44,7 +46,7 @@
                     ), "My Restaurant");
                 }
 
-                if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
+                if (!\Session::get('session_restaurant_id')) {
                     makelink(array('user/info' => "My Profile",
                             'orders/list/user' => 'My Orders',
                             'user/addresses' => "My Addresses",

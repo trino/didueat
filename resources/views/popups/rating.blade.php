@@ -37,7 +37,7 @@
                                     <button class="btn btn-primary pull-right">Save</button>
                                 </div>
                             @else
-                                <a data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to make a review</a>
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
                             @endif
                         </div>
                         
