@@ -20,7 +20,11 @@ $type = "hidden";
 
                 <div class="col-md-12 m-t-1 text-md-center">
 
-                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city" style="color:white;text-decoration: underline;" province="Ontario" onclick="submitform(event, 0);">Hamilton</a></p>
+                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city"
+                                                                            style="color:white;text-decoration: underline;"
+                                                                            province="Ontario"
+                                                                            onclick="submitform(event, 0);">Hamilton</a>
+                    </p>
 
                 </div>
 
@@ -100,10 +104,10 @@ $type = "hidden";
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine</option>
                                         @foreach($cuisine as $value)
-                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
                                         @endforeach
-                                    </select>
-                                </div-->
+                                        </select>
+                                    </div-->
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">
@@ -147,59 +151,39 @@ $type = "hidden";
 
 
                 <div class="col-lg-12 p-b-1 text-md-center">
-                    <h2>Why Order From Didu EAT?</h2>
+                    <h2>Why Order From Didu Eat?</h2>
                     <hr>
                 </div>
 
 
-                <!--div class="col-lg-12 text-md-center">
-
-                <h2 class=" text-md-center">Why order from DIDU EAT?</h2>
-                    </div-->
-                <div class="col-lg-4 text-md-center">
-
+                <div class="col-lg-4 text-xs-center">
                     <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
-
                         <br>
-
                         <h1><i class="fa fa-cutlery center-block"></i></h1>
-
-
                     </div>
                     <h4>Local</h4>
 
-                    <p class="text-muted">All local menus at your fingertips</p>
+                    <p class="text-muted">Steel Town's best restaurants</p>
                 </div>
-                <div class="col-lg-4 text-md-center">
-
-                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
-
-                        <br>
+                <div class="col-lg-4 text-xs-center">
+                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">                        <br>
 
                         <h1><i class="fa fa-cutlery center-block"></i></h1>
-
-
                     </div>
                     <h4>Efficient</h4>
 
-                    <p class="text-muted">The quickest way to order food</p>
+                    <p class="text-muted">The fastest way to order food</p>
                 </div>
 
-                <div class="col-lg-4 text-md-center">
-
-                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
-
-                        <br>
+                <div class="col-lg-4 text-xs-center">
+                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">                        <br>
 
                         <h1><i class="fa fa-cutlery center-block"></i></h1>
-
-
                     </div>
                     <h4>Discounts</h4>
 
                     <p class="text-muted">There's a deal everyday</p>
                 </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -279,13 +263,13 @@ $type = "hidden";
             hideresults();
         });
 
-        function hideresults(){
+        function hideresults() {
             $('#restuarant_bar').html("");
             $('#results_show').hide();
             $('#start_up_message').show();
             $('#icons_show').show();
             $("#formatted_address2").val("");
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $("html, body").animate({scrollTop: 0}, "slow");
         }
 
         /*
@@ -310,7 +294,7 @@ $type = "hidden";
 
             var token = $('#search-form input[name=_token]').val();
 
-            if($(e.target).html() && $(e.target).hasClass("search-city")){
+            if ($(e.target).html() && $(e.target).hasClass("search-city")) {
                 var data = $(e.target).html();
                 var prov = $(e.target).attr("province");
                 $("#formatted_address2").val(data + ", " + prov);
@@ -319,7 +303,7 @@ $type = "hidden";
                 if (!address_alias) {
                     return false;
                 }
-                switch (address_alias){
+                switch (address_alias) {
                     case "Hamilton, ON, Canada":
                         var data = "city=Hamilton&province=Ontario";
                         break;

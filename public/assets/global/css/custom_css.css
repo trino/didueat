@@ -163,9 +163,20 @@ background: white !important;
     h1 {
         font-size: 1.75rem !important;
     }
-
-    h4 {
+    h2 {
+        font-size: 1.50rem !important;
+    }
+    h3 {
         font-size: 1.25rem !important;
+    }
+    h4 {
+        font-size: 1.0rem !important;
+    }
+    h5 {
+        font-size: .75rem !important;
+    }
+    h6 {
+        font-size: .5rem !important;
     }
 }
 

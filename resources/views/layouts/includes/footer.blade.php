@@ -53,9 +53,7 @@ Thank you">Email Us</a></li>
                         <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
-                    <li class="list-inline-item"><a href="{{ url("home/terms") }}">
-                            <a href="{{ url("home/terms") }}">Terms & Conditions</a>
-                    </li>
+
                 </ul>
             </div>
             <div class="col-lg-2" style="">
@@ -95,6 +93,8 @@ Thank you">Email Us</a></li>
                         echo getUserBrowser();
                         ?>
                     @endif
+
+                    <a href="{{ url("home/terms") }}">Terms & Conditions</a>
 
                 </p>
 
