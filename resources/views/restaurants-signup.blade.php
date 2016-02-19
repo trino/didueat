@@ -1,9 +1,9 @@
 @extends('layouts.default')
 @section('content')
 
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+    <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
 <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>

@@ -1,9 +1,10 @@
+@if(false){
 @extends('layouts.default')
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
     <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
-    <link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
+    <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->
 
 
     <div class="row">
@@ -40,9 +41,12 @@
 
     <script type="text/javascript" src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/global/plugins/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script>
+    <!--script src="{{ asset('assets/global/scripts/demo.js') }}" type="text/javascript"></script-->
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/jquery.timepicker.js') }}"></script>
+
+
+
     <script>
         $('body').on('change', '#is_delivery', function () {
             if ($(this).is(':checked')) {
@@ -109,3 +113,4 @@
     </script>
 
 @stop
+@endif

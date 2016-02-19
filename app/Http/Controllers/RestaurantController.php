@@ -428,7 +428,7 @@ class RestaurantController extends Controller {
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
-        $data['category'] = \App\Http\Models\category::orderBy('display_order', 'ASC')->get();
+        $data['category'] = \App\Http\Models\Category::orderBy('display_order', 'ASC')->get();
 
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];

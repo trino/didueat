@@ -27,7 +27,7 @@ $secondsTitle = "sec";
                 </h4>
 
             </div>
-            @if(true)
+            @if(false)
                 @include('common.table_controls')
             @endif
         </div>
