@@ -47,8 +47,9 @@
                 }
 
                 if (!\Session::get('session_restaurant_id')) {
-                    makelink(array('user/info' => "My Profile",
+                    makelink(array(
                             'orders/list/user' => 'My Orders',
+                            'user/info' => "My Profile",
                             'user/addresses' => "My Addresses",
                             'credit-cards/list/user' => "Credit Card",
                             'auth/logout' => "Log out"

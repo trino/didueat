@@ -1,27 +1,28 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        }
+printfile("views/common/receipt.blade.php");
+$ordertype = "Pickup";
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
     }
-    if (!isset($profile)) {
-        $profile = false;
-    }
-    if (!isset($type)) {
-        $type = false;
-    }
-    if(!isset($checkout_modal)){
-        $checkout_modal = true;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
+if (!isset($checkout_modal)) {
+    $checkout_modal = true;
+}
 ?>
 
 @if(false && !isset($order))
     <div class="top-cart-info">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">0 items</a>
         <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$0.00</a>
-        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
+        <a href="javascript:void(0);"
+           onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
             <i class="fa fa-shopping-cart"></i>Cart
         </a>
     </div>
@@ -95,7 +96,7 @@
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
-                            <td><strong>Delivery Fee</strong></td>
+                            <td><strong>Delivery (${{ (isset($restaurant->minimum))? $restaurant->minimum : '' }} min)</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
@@ -122,17 +123,18 @@
 
                 @if(!isset($order))
                     <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
-                        @if(!isset($is_open) || $is_open)
 
-                        <a href="javascript:void(0)" class="btn  btn-secondary clearitems" onclick="clearCartItems();">Clear</a>
+                        @if(!isset($is_open) || $is_open || Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+
+                            <a href="javascript:void(0)" class="btn  btn-secondary clearitems"
+                               onclick="clearCartItems();">Clear</a>
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
 
-                            @else
-
-                            {{popup(false, "", "You can not checkout as a restaurant owner")}}
 
 
                         @endif
+
+
                     </div>
                 @endif
 
@@ -237,7 +239,7 @@
             mobile: "phone",
             @if(!read("id"))
                 email: "email required",
-                password: "required minlength 3",
+            password: "required minlength 3",
             @endif
             reservation_address: "required"
         });

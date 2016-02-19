@@ -89,7 +89,7 @@
                                 <div class="clearfix"></div>
 
 <span class="p-r-2">
-                            <a class="" style="" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Detail</a>
+                            <a class="" style="" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
                         </span>
 
 
