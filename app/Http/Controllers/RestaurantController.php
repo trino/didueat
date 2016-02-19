@@ -184,8 +184,48 @@ class RestaurantController extends Controller {
             try {
                 $update=$post;
                 $addlogo='';
-                //will not work until after a restaurant is signed up
-                if (isset($post['logo']) && $post['logo'] && $id) {
+                $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
+
+                // logo update will not work until after a restaurant is signed up
+                
+                if ($post['restLogoTemp'] != '') {
+                    $im = explode('.', urldecode($post['logo']));
+                    $ext = end($im);
+                    $newName=$ob->slug.".".$ext;
+    
+                    $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
+    
+                    if (!file_exists($destinationPath)) {
+                        mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
+                    }
+                    else{
+                     // delete existing images if they exists
+                        if(file_exists($destinationPath.'/'.$ob->logo)){
+                            @unlink($destinationPath.'/'.$ob->logo);
+                        }
+                        if(file_exists($destinationPath.'/thumb1_'.$ob->logo)){
+                            @unlink($destinationPath.'/thumb1_'.$ob->logo);
+                        }
+
+                        if(file_exists($destinationPath.'/thumb_'.$ob->logo)){
+                            @unlink($destinationPath.'/thumb_'.$ob->logo);
+                        }                    
+                    }
+
+                    $filename = $destinationPath . "/" . $newName;
+                    $thisresult = copy($post['restLogoTemp'], $destinationPath.'/' .$newName);
+                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb1_' => SMALL_THUMB];
+
+                    copyimages($sizes, $filename, $newName);
+
+                    @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image. (unlink needs server path, not http path)
+                    $update['logo'] = $newName;
+                    $addlogo=true;
+                }                
+
+/*
+<!--                 
+                    if (isset($post['logo']) && $post['logo'] && $id) {
                     $im = explode('.', $post['logo']);
                     $ext = end($im);
                     $res = \App\Http\Models\Restaurants::findOrNew($post['id']);
@@ -208,6 +248,8 @@ class RestaurantController extends Controller {
                     $update['logo'] = $newName;
                     $addlogo=true;
                 }
+ -->
+*/
 
                 $update['name'] = $post['restname'];
                 if (!$post['id']){
@@ -232,7 +274,6 @@ class RestaurantController extends Controller {
                     $update = array_filter($update);
                 }
 
-                $ob = \App\Http\Models\Restaurants::findOrNew($post['id']);
                 $ob->populate($update,$addlogo);
                 $isnowopen = $ob->saverestaurant();
 
@@ -428,10 +469,10 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;
-                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));
+//                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
+//                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
             } else {
                 $path = 'assets/images/products';
                 $sizes=false;//where do these go? Shouldn't there be a product ID?

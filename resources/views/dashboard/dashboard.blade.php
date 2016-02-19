@@ -113,9 +113,9 @@
                         imgV.src = path;
                         var imgW=0;
                         imgV.onload = function() {
-                         var imgW=this.width;
-                         var imgH=this.height;
-	                        if(imgW > 500){
+                        var imgW=this.width;
+                        var imgH=this.height;
+	                       if(imgW > 500){
 	                         document.getElementById('picture').style.width="100%";
                           document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
 	                        }

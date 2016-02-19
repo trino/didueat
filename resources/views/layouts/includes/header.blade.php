@@ -34,7 +34,7 @@
                             if (Session::has('session_photo') && file_exists(public_path($filename))) {
                                 echo asset($filename);
                             } else {
-                                echo asset('assets/images/thumb1_restaurant-icon.png');
+                                echo asset('assets/images/thumb1_didueatdefault.png');
                             }
                             ?>" class="img-rounded" style="height: 23px;width:23px;">
                         </a>

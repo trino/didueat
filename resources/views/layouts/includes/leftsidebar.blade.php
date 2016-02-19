@@ -78,7 +78,7 @@
         var width = $(window).width();
         var is_small = width <= 970;
 
-        console.log("Handler for .resize(" + width + ") called");
+//        console.log("Handler for .resize(" + width + ") called");
         if (is_small != was_small) {
             width = $(".navbar-collapse").height();
             if ((is_small && width) || (!is_small && !width)) {

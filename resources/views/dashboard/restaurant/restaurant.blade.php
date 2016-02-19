@@ -82,12 +82,12 @@ if(!$minimum && isset($restaurant->id)){
             <img id="picture" class="logopic" align=""
                 @if(isset($restaurant->logo) && $restaurant->logo != "")
                     title="{{ $logoname }}"
-                    src="{{ asset($logoname) }}"/>
+                    src="{{ asset($logoname) ."?" . date('U') }}"/>
                 @else
-                    src="{{ asset('assets/images/didueatdefault.png') }}"/>
+                    src="{{ asset('assets/images/thumb_didueatdefault.png') }}"/>
 
                 @endif
-
+                    <span id="fullSize" class="smallT"></span>
         </div>
     </div></div>
 
@@ -175,6 +175,17 @@ if(!$minimum && isset($restaurant->id)){
     }
 
     $(document).ready(function () {
+    
+           var pictureW=parseInt(document.getElementById('picture').clientWidth);
+           if(pictureW > 450){
+              var pictureH=parseInt(document.getElementById('picture').clientHeight);
+              var new_pictureH=450/pictureW*pictureH;
+              document.getElementById('picture').style.width=450+"px"
+              document.getElementById('picture').style.height=new_pictureH+"px";
+              document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
+           }
+    
+    
         @if(!$minimum){
             is_delivery_change();
         }
@@ -206,7 +217,7 @@ if(!$minimum && isset($restaurant->id)){
         new AjaxUpload(button, {
             action: act,
             name: 'myfile',
-            data: {'_token': token},
+            data: {'_token': token, 'setSize': 'No'},
             onSubmit: function (file, ext) {
                 button.text('Uploading...');
                 this.disable();
@@ -223,6 +234,23 @@ if(!$minimum && isset($restaurant->id)){
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
+                        var imgV = new Image();
+                        imgV.src = path;
+                        var imgW=0;
+                        imgV.onload = function() {
+                        var imgW=this.width;
+                        var imgH=this.height;
+	                       if(imgW > 500){
+	                         document.getElementById('picture').style.width="100%";
+                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
+	                        }
+	                        else{
+                          document.getElementById('fullSize').innerHTML="";
+	                         document.getElementById('picture').style.width=imgW+"px";
+	                         document.getElementById('picture').style.height=imgH+"px";
+	                        }
+                        }
+                
                 document.getElementById('restLogoTemp').value = path;
                 button.html('Upload');
                 window.clearInterval(interval);
