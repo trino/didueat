@@ -9,7 +9,7 @@ $type = "hidden";
         <div class="container " style="margin-top: 0 !important;">
             <div class="row text-md-center p-t-3" style="  ">
                 <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-1">
-                    <h1 class="display-4 banner-text-shadow" style="">Order Food from Local Restaurants</h1>
+                    <h1 class="display-4 banner-text-shadow" style="">Order Food from Hamilton Restaurants</h1>
                 </div>
 
                 <div class="col-md-12 ">
@@ -18,9 +18,9 @@ $type = "hidden";
                     </div>
                 </div>
 
-                <div class="col-md-12 m-t-1 text-md-center">
+                <div class="col-md-12 m-t-1 text-xs-center ">
 
-                    <p class="lead  p-b-0 banner-text-shadow">Or show me <a href="#" class="search-city"
+                    <p class="lead  p-b-0 banner-text-shadow ">Or show me <a href="#" class="search-city"
                                                                             style="color:white;text-decoration: underline;"
                                                                             province="Ontario"
                                                                             onclick="submitform(event, 0);">Hamilton</a>
@@ -150,7 +150,7 @@ $type = "hidden";
             <div class=" " id="icons_show">
 
 
-                <div class="col-lg-12 p-b-1 text-md-center">
+                <div class="col-lg-12 p-b-1 text-xs-center">
                     <h2>Why Order From Didu Eat?</h2>
                     <hr>
                 </div>

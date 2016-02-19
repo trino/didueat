@@ -28,8 +28,8 @@
                     <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a>
 
 
-                    <input type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
-                    <img id="picture" class="logopic" 
+                    <input style="max-width:100%;" type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
+                    <img style="max-width:100%;"  id="picture" class="logopic"
                          @if($user_detail->photo)
                          test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
                          src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) ."?" . date('U') }}"/>

@@ -19,7 +19,7 @@ $type = "hidden";
                 <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
             </a>
 
-            <a style="color: white;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
+            <a style="color: white;font-weight:bold;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
 
                 Didu Eat
             </a>

@@ -45,7 +45,7 @@ function checkout() {
         //donothing
     } else {
         if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
-            alert('Minimum delivery fee not meet!');
+            alert('Minimum delivery fee not met!');
             return false;
         }
     }
