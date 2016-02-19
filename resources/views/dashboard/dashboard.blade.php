@@ -3,7 +3,7 @@
 
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
-
+ 
     <div class="container">
         <?php printfile("views/dashboard/dashbaord.blade.php"); ?>
     <div class="row">
