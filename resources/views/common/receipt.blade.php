@@ -28,9 +28,9 @@ if (!isset($checkout_modal)) {
     </div>
 @endif
 
-<div  id="checkout_anchor"></div>
+<div id="checkout_anchor"></div>
 
-<div class="clearfix" id="cartsz">
+<div class="" id="cartsz">
 
     <div class="card" style="">
 
@@ -147,12 +147,14 @@ if (!isset($checkout_modal)) {
 
             <!-- display profile info -->
             @if(!isset($email))
-                <div class="profiles row" style="display: none;">
-                    <div class="form-group">
-                        <div class="col-xs-12">
+                <div class="profiles" style="display: none;">
+
+
+                                      <div class="form-group">
+
                             <h4 class="profile_delevery_type"></h4>
                         </div>
-                    </div>
+
 
                     <!--div class="form-group ">
                         <div class="col-xs-12">
@@ -170,7 +172,13 @@ if (!isset($checkout_modal)) {
                     <form name="checkout_form" id="profiles" class="m-b-0">
                         @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
                     </form>
+
+
+
+
+
                 </div>
+
             @endif
         </div>
     </div>

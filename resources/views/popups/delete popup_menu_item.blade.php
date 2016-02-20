@@ -18,7 +18,7 @@ try to delete me <br>
 try to delete me <br>
 try to delete me <br>
 
-<div class="modal fade clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
+<div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
      tabindex="-1"
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -204,11 +204,11 @@ try to delete me <br>
                                        Reset
                                    </button-->
                 Qty
-                <a class="btn btn-secondary-outline" href="javascript:void(0);"
+                <a class="btn btn-sm btn-secondary-outline" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
                 &nbsp;
                 <span class="number{{ $value->id }}">1</span> &nbsp;
-                <a class="btn  btn-secondary-outline  " href="javascript:void(0);"
+                <a class="btn  btn-secondary-outline btn-sm " href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style="width:9px;height:9px;"></i></a>
 
                 <a id="profilemenu{{ $value->id }}"

@@ -38,7 +38,7 @@
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown row">
+<div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown">
 
 
 <?php
@@ -100,8 +100,7 @@
                         class="dropdown-item addNew" data-id='0' value="add_address">Add New Address
                 </option-->
             </select>
-            OR
-            <a data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew btn btn-success-outline" data-id='0' value="add_address">Add New Address</a>
+            or <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
             <?php
             }
             ?>

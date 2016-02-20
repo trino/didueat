@@ -1,8 +1,8 @@
 <?php printfile("views/common/items.blade.php"); ?>
 <table class="orders @if(!isset($order)) order-style @endif" width="100%">
     <thead class="itmQty" <?php if (isset($order) && isset($arr_menu) && count($arr_menu)) echo ''; else echo 'style="display:none;"';?>>
-        <TH style="width:60px;">Qty</TH>
-        <TH width="50%">Item</TH>
+        <TH style="width:40px;">Qty</TH>
+        <TH width="60%">Item</TH>
         <TH>
             <div class="pull-right">Price</div>
         </TH>
@@ -31,7 +31,7 @@
                     $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
-                            <td class="receipt_image" style='width:60px;'>
+                            <td class="receipt_image" style='width:40px;'>
                                 <span class="count">{{ $arr_qty[$k] }} </span>
                                 <input type="hidden" class="count" name="qtys[]" value="1"/>
                             </td>

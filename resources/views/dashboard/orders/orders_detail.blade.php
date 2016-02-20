@@ -25,10 +25,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 @include('common.receipt')
+                                <div class="clearfix"></div>
                             </div>
 
                             <div class="col-md-6">
                                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
+                                <div class="clearfix"></div>
+
                             </div>
 
                             <div class="clearfix"></div>

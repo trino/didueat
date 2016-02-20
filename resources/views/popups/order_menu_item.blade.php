@@ -1,4 +1,4 @@
-<div class="modal fade clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
+<div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
      tabindex="-1"
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -164,7 +164,7 @@
 
 
 
-                                                            <div class="col-xs-12 col-md-6">
+                                                            <div class="col-xs-12 col-md-6" style="margin-bottom:1px !important;">
 
 
                                                                 <div id="buttons_{{ $mm->id }}"
@@ -181,13 +181,13 @@
                                                                         echo "style='display:none'";
                                                                     } ?> class="pull-left p-r-1">
                                                                         <a id="remspan_{{ $mm->id }}"
-                                                                           class="remspan btn btn-secondary-outline btn-xs"
+                                                                           class="remspan btn btn-secondary-outline btn-sm"
                                                                            href="javascript:;"><i class="fa fa-minus"
                                                                                                   style="width:9px;height:9px;"></i></a>
                                                                         <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} allspan">0</span>
                                                                         <a id="addspan_{{ $mm->id }}"
-                                                                           class="addspan btn btn-xs btn-primary"
+                                                                           class="addspan btn btn-sm btn-primary"
                                                                            href="javascript:;"><i class="fa fa-plus"
                                                                                                   style="width:9px;height:9px;"></i></a>
 

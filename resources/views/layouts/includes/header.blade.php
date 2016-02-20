@@ -28,7 +28,7 @@ $type = "hidden";
             <ul class="nav navbar-nav pull-right">
 
 
-                <li class="nav-item" style="padding-top:4px;">
+                <li class="nav-item" style="padding-top:0px;">
 
                     <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="btn btn-sm btn-warning"
                        style=""
@@ -67,7 +67,7 @@ $type = "hidden";
                     @if (read("oldid"))
                         <a
                                 href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
-                                class="nav-link">De-possess</a>
+                                class="nav-link pull-right">De-possess</a>
                     @endif
 
                 </li>

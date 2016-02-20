@@ -189,7 +189,7 @@ Order
 
                                         <button id="add_item{{ $value->id }}" type="button"
                                                 class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
-                                                data-target="#addMenuModel">Edit
+                                                data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"

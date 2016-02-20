@@ -4,7 +4,7 @@
 
 
 
-    <div class="modal fade  " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    <div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -25,7 +25,7 @@
                         <input type="hidden" name="type" id="login_type" value=""/>
                         <input type="hidden" name="gmt" id="gmt" class="gmt">
 
-                        <DIV id="invalid" class="alert alert-danger fade in" style="display: none;"></DIV>
+                        <DIV id="invalid" class="alert alert-danger" style="display: none;"></DIV>
 
                         <?= newrow(false, "Email", "", true); ?>
                         <input type="email" name="email" class="form-control" placeholder="" required/>

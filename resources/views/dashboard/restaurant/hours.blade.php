@@ -27,7 +27,7 @@ if (!isset($is_disabled)) {
 $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
 $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
 ?>
-<?php echo newrow($new, "We offer Pickup"); ?>
+<?php echo newrow($new, "We Offer Pickup"); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
            value="1" {{ ($IsPickup)?'checked':'' }} />
@@ -35,7 +35,7 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 </LABEL>
 </DIV></DIV>
 
-<?php echo newrow($new, "We offer Delivery"); ?>
+<?php echo newrow($new, "We Offer Delivery"); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
            value="1" {{ ($is_delivery)?'checked':'' }} />
@@ -46,15 +46,15 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 <a name="HoursOpen"></a>
 <div id="is_delivery_options"
      style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($showDeliveryOptions))?'block':'none' }};">
-    <?= newrow($new, "Delivery Fee", "", true, 3); ?>
+    <?= newrow($new, "Delivery Fee $", "", true, 2); ?>
     <input type="number" step="any" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style=""
            placeholder="Delivery Fee"
            value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
 </DIV></DIV>
 
-<?= newrow($new, "Minimum Subtotal<br/>(Before Delivery)", "", true, 3); ?>
+<?= newrow($new, "Minimum Subtotal<br/>(Before Delivery) $", "", true, 2); ?>
 <input type="number" step="any" min="0" name="minimum" {{ $is_disabled }} class="form-control" style=""
-       placeholder="Minimum Subtotal For Delivery"
+       placeholder="Minimum Subtotal For Delivery $"
        value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
 </DIV></DIV>
 
@@ -66,15 +66,17 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 </div>
 
 <div class="row">
-    <div class="col-md-12">
 
-        <h4>Store Hours</h4>
-    </div>
-    <div class="col-md-12 p-a-0">
+    <div class="col-md-6 col-xs-12 p-a-0" style="">
+        <h4>Pickup Hours</h4>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
 
 
         <?php
-        function getkey($object, $key) {
+        function getkey($object, $key)
+        {
             return $object->$key;
         }
 
@@ -114,7 +116,7 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
         }*/
 
         function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
-        $inputclass = "form-control time col-xs-5";
+        $inputclass = "form-control time ";
         $closed = "";
         if (!$suffix) {
             $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
@@ -124,9 +126,12 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
             $closed .= '> Open<span class="c-indicator"></span></LABEL>';
         }
         ?>
+
+
+
         <div class="form-group" style="">
             <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
-            <div class="col-xs-8 nowrap {{ $del_class }}">
+            <div class="col-xs-8 col-sm-5 nowrap {{ $del_class }}">
                 <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
                        value="{{ converttime($opentime) }}"
                        title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
@@ -141,24 +146,31 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
         <?php
         }
 
+
+
+
         echo newrow($new, " ", ""); //required to stop the datetime picker issue
         echo newrow();
         ?>
 
 
+    </div>
+
+    <div class="col-md-6 col-xs-12 p-a-0" style="">
+
+
         <DIV CLASS="is_delivery_options">
-            <div class="col-xs-12">
                 <h4 class="pull-left p-r-1">Delivery Hours
                 </h4>
-            </DIV>
-            <LABEL class="col-sm-12">
+            <LABEL class="">
                 <LABEL class="c-input c-checkbox pull-left" valign="bottom">
                     <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);"
                            ID="samehours" {{ ($isthesame)? " checked":"" }}>
-                    Same as Regular Hours
+                    Same as Pickup
                     <span class="c-indicator"></span>
                 </LABEL>
             </LABEL>
+            <div class="clearfix"></div>
 
             <DIV CLASS="is_delivery_2">
                 <?php
@@ -175,7 +187,6 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
     </div>
 
 
-
     <div class="col-md-12">
         <div class="clearfix"></div>
         <hr class="m-y-1" align="center"/>
@@ -183,70 +194,69 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
     </div>
 
 
-    </div>
+</div>
 
 
-
-    <script>
-        is_delivery_change();
-        function is_delivery_change() {
-            if ($('#is_delivery').is(':checked')) {
-                $('#is_delivery_options').show();
-                $('.is_delivery_options').show();
-            } else {
-                $('#is_delivery_options').hide();
-                $('.is_delivery_options').hide();
-            }
-            //same(false);
+<script>
+    is_delivery_change();
+    function is_delivery_change() {
+        if ($('#is_delivery').is(':checked')) {
+            $('#is_delivery_options').show();
+            $('.is_delivery_options').show();
+        } else {
+            $('#is_delivery_options').hide();
+            $('.is_delivery_options').hide();
         }
+        //same(false);
+    }
 
-        function closed(event, ID) {
-            closed_element(event, ID, "open");
-            closed_element(event, ID, "close");
-            closed_element(event, ID, "open_del");
-            closed_element(event, ID, "close_del");
-        }
+    function closed(event, ID) {
+        closed_element(event, ID, "open");
+        closed_element(event, ID, "close");
+        closed_element(event, ID, "open_del");
+        closed_element(event, ID, "close_del");
+    }
 
-        function closed_element(event, ID, name) {
-            var element = document.getElementById(name + "[" + ID + "]");
-            if (!event.target.checked) {
-                element.setAttribute("old", element.value);
-                element.value = "";
-            } else {
-                var tempstr = element.getAttribute("old");
-                if (tempstr || !element.value) {
-                    element.value = tempstr;
-                }
-            }
-            change(name, ID);
-        }
-
-        function change(type, id) {
-            if (document.getElementById("samehours").checked) {
-                var value = document.getElementById(type + "[" + id + "]").value;
-                document.getElementById(type + "_del[" + id + "]").value = value;
+    function closed_element(event, ID, name) {
+        var element = document.getElementById(name + "[" + ID + "]");
+        if (!event.target.checked) {
+            element.setAttribute("old", element.value);
+            element.value = "";
+        } else {
+            var tempstr = element.getAttribute("old");
+            if (tempstr || !element.value) {
+                element.value = tempstr;
             }
         }
+        change(name, ID);
+    }
 
-        function same(event) {
-            if (document.getElementById("samehours").checked) {
-                for (var i = 0; i < 7; i++) {
-                    change("open", i);
-                    change("close", i);
-                }
-                $(".is_delivery_2").hide();
-            } else {
-                $(".is_delivery_2").show();
-            }
+    function change(type, id) {
+        if (document.getElementById("samehours").checked) {
+            var value = document.getElementById(type + "[" + id + "]").value;
+            document.getElementById(type + "_del[" + id + "]").value = value;
         }
+    }
 
-        var p = document.getElementById("max_delivery_distance");
-        p.addEventListener("input", function () {
-            $("#max_delivery_distance").trigger("change");
-        }, false);
+    function same(event) {
+        if (document.getElementById("samehours").checked) {
+            for (var i = 0; i < 7; i++) {
+                change("open", i);
+                change("close", i);
+            }
+            $(".is_delivery_2").hide();
+        } else {
+            $(".is_delivery_2").show();
+        }
+    }
+
+    var p = document.getElementById("max_delivery_distance");
+    p.addEventListener("input", function () {
         $("#max_delivery_distance").trigger("change");
+    }, false);
+    $("#max_delivery_distance").trigger("change");
 
-        $(document).ready(function () {
-            same(false);
-        });
-    </script>
+    $(document).ready(function () {
+        same(false);
+    });
+</script>

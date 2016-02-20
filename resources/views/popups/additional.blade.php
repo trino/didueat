@@ -186,7 +186,7 @@
                                     </LABEL>
 <div class="row">
 <div class=" col-md-4">
-                                <input placeholder="How many?" type="number" id="itemno{{ $r3 }}"
+                                <input placeholder="How many?" min="0"  type="number" id="itemno{{ $r3 }}"
                                        class="itemno form-control"
                                        value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
                             </div>

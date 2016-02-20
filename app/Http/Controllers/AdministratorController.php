@@ -114,6 +114,8 @@ class AdministratorController extends Controller {
             }
             $data['title'] = 'Dashboard';
             $data['user_detail'] = \App\Http\Models\Profiles::find(\Session::get('session_id'));
+
+
             $data['address_detail'] = \App\Http\Models\ProfilesAddresses::where('user_id', $data['user_detail']->id)->orderBy('id', 'DESC')->first();
             return view('dashboard.dashboard', $data);
         }
