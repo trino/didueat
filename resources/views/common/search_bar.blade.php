@@ -1,9 +1,3 @@
-<?php
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
-?>
 
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
     <div class="" style="">
@@ -56,6 +50,14 @@
     printfile("views/common/search_bar.blade.php");
 
     ?>
+
+    <?php
+    includeJS(url("assets/global/scripts/provinces.js"));
+    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+    }
+    ?>
+
 
     <script>
         var formatted_address2, formatted_address3;
