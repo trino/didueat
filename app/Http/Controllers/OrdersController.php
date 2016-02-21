@@ -116,7 +116,7 @@
          */
         public function changeOrderApprove($type = "", $OrderID = false, $Note = false)
         {
-            return $this->changeOrderStatus('approved', 'Your order has been approved.', "emails.order_approve", 'Order has been approved successfully!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('approved', 'Didu Eat', "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**
@@ -126,7 +126,7 @@
          */
         public function changeOrderDisapprove($type = "", $OrderID = false, $Note = false)
         {
-            return $this->changeOrderStatus('pending', 'Your order has been disapproved.', "emails.order_disapprove", 'Order has been disapproved successfully!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('pending', 'Didu Eat', "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**

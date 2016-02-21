@@ -207,7 +207,7 @@ body {
     */
 
 }
-.list-inline-item{padding-right:1rem;}
+.list-inline-item{padding-right:.75rem;}
 
 .image_placeholder {
     background: #d9534f;

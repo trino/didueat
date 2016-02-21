@@ -377,7 +377,7 @@ class UsersController extends Controller {
                     $userArray3["email"] = $post["email"];
                 }
 
-                $userArray3['mail_subject'] = 'Your Did u EAT order has been received!';
+                $userArray3['mail_subject'] = 'Your Didu Eat order has been received!';
                 $userArray3["guid"] = $ob2->guid;
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";

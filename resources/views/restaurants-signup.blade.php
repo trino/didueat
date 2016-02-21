@@ -10,11 +10,11 @@
 
 
 <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image" style="">
-    <div class="container " style="padding-top: 0px !important;">
+    <div class="container " style="padding-top: 0px !important;margin-top: 0px !important;">
         <div class="row m-l-0 m-r-0 text-md-center" style="  ">
             <div class="col-md-12  ">
 
-                <h1 class="display-4 p-t-1 banner-text-shadow" style="">
+                <h1 class="display-4 banner-text-shadow" style="">
                     We'll bring the customers to you
                 </h1>
             </div>
@@ -55,7 +55,7 @@
             done, our system sends you the order to be made and delivered just like you do now.
             You'll only pay on orders we send you!
 
-
+<br/><br/>
 
         <div class="col-sm-3   ">
             <img src="{{ asset('assets/images/click.png') }}">
@@ -81,22 +81,17 @@
             <p>Start receiving orders in as little as 10 minutes.</p>
         </div>
 
-        <div class="col-sm-3   ">
+        <div class="col-sm-3">
             <div class="pricing-head pricing-head-active">
-                <h3>Expert <span>Officia</span></h3>
-                <h4>
-                    <i>$</i>13<i>.99</i>
-                    <span>Per Month</span>
-                </h4>
+                <h3>Pricing <span>Plan</span></h3>
+
             </div>
             <ul class="pricing-content list-unstyled">
                 <li><i class="fa fa-tags"></i> 10% Sales Commission</li>
-                <li><i class="fa fa-shopping-cart"></i> Consecte adiping elit</li>
+                <li><i class="fa fa-tags"></i> Paid out monthly</li>
+                <li><i class="fa fa-tags"></i> No contract</li>
             </ul>
-            <div class="pricing-footer">
-                <p>Lorem ipsum dolor sit </p>
 
-            </div>
         </div>
             </span>
 

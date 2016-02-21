@@ -16,6 +16,9 @@
                     @include('popups.simplemodal')
 
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
+                    <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
+
+
                     <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20diduEAT&body=
 Message:
 %0A%0A
@@ -30,7 +33,6 @@ Contact Number:
 Thank you">Email Us</a></li>
 
 
-                    <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
                     <?php
                     if (!read("id")) {
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>';
