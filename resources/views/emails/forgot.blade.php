@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="width:100%">
     <?php printfile("views/emails/forgot.blade.php"); ?>
-        <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="margin-left:10px">
             <tr>
                 <td align="left" valign="top" id="bodyCell"><!-- BEGIN TEMPLATE // -->
 
@@ -20,7 +20,7 @@
                                 Your new password is:
                                 <span style="color:#b02128; font-weight: bold;"> {{ $new_pass }} </span>
                                 <br /><br />
-                                If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
+                                If you have any questions or concerns, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
                                 <br /><br />
                                 Regards,
                                 <br />

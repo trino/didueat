@@ -16,6 +16,10 @@
     } else {
         $searchcode = ' ONKEYUP="restsearch(event);"';
     }
+    
+    if(isset($restaurant->name)){
+         $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
+    }
 
 echo newrow($new, "Restaurant Name", "", true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
@@ -170,6 +174,8 @@ if(!$minimum && isset($restaurant->id)){
 
     $(document).ready(function () {
 
+@if(!$minimum && isset($restaurant->id))
+
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
               var pictureH=parseInt(document.getElementById('picture').clientHeight);
@@ -178,7 +184,7 @@ if(!$minimum && isset($restaurant->id)){
               document.getElementById('picture').style.height=new_pictureH+"px";
               document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
            }
-
+@endif
 
         @if(!$minimum){
             is_delivery_change();
