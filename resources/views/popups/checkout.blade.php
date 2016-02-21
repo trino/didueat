@@ -59,7 +59,7 @@
                             </div>
 
 
-                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                            <div class="col-sm-12">
                                 <div class="form-group">
 
                                     <input type="text"
@@ -67,7 +67,7 @@
                                            placeholder="Cell Phone"
                                            class="form-control" name="contact"
                                            id="ordered_contact" required=""
-                                           value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile) && $profile->phone != '')) echo "readonly";?> />
+                                           value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "readonly";?> />
                                 </div>
                             </div>
 

@@ -39,6 +39,8 @@
                     </a>
 
 
+                        <a type="button" data-toggle="collapse" href="#" class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
+                           data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
                     <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
@@ -51,8 +53,6 @@
 
             </li>
 
-                <a type="button" data-toggle="collapse" href="javascript:;" class="navbar-toggler pull-xs-right hidden-sm-up btn btn-sm btn-primary menu-toggler responsive-toggler"
-                   data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
         </ul>
     </div>
 </nav>

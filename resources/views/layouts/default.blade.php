@@ -122,9 +122,10 @@ $type = "hidden";
 ?>
 
 <div class="bg-success">
-<div class="container-fluid" style="margin-bottom: 48px;">
+<div class="container-fluid" style="margin-bottom: 50px;">
     @include('layouts.includes.header')
 </div>
+    <div class="clearfix"></div>
 </div>
 
 <div class="container-fluid">

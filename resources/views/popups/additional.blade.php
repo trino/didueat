@@ -69,7 +69,7 @@
                         <div class="cmore">
                             <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item"/>
                             </div>
-                            <div class="col-md-4   "><input class="form-control ccprice" type="text"
+                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
                                                             placeholder="Optional Price"/></div>
 
 
