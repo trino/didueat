@@ -1,5 +1,5 @@
 <?php printfile("views/common/items.blade.php"); ?>
-<table class="orders @if(!isset($order)) order-style @endif" style=" @if(!isset($order)) width:100% @else width:800px; @endif ">
+<table class="orders @if(!isset($order)) order-style @endif" style=" width:100%; ">
     <thead class="itmQty" <?php if (isset($order) && isset($arr_menu) && count($arr_menu)) echo ''; else echo 'style="display:none;"';?>>
         <TH style="width:40px;">Qty</TH>
         <TH width="60%">Item</TH>
@@ -32,7 +32,7 @@
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
                             <td class="receipt_image" style='@if(isset($order)) width:20%; @else width:40px; @endif'>
-                            @if(isset($order))<h4 style="margin-bottom:6px">Ordered Items:</h4>@endif
+                            @if(isset($order))<p>Ordered Items</p>@endif
                             </td>
 
                             <td @if(isset($order)) style='width:55%;' @endif>

@@ -1,50 +1,8 @@
 @extends('layouts.default')
 @section('content')
-    <?php printfile("views/home/about.blade.php"); ?>
 
-    123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>  123
-    <br>
+    <div class="container">
+    <?php printfile("views/home/terms.blade.php"); ?>
+    @include('popups.terms'))
+    </div>
 @stop

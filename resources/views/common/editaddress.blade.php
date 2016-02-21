@@ -38,12 +38,12 @@
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
-            
+
 @if(isset($GLOBALS['thisIdentity']))
 
             <div class="form-group row">
 			            <div class="col-sm-12 bd">
-                  <p class="pull-right" style="margin-bottom:4px">If the Restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20diduEAT&amp;body=Please Update the Address as Follows:%0A%0A%0A%0A
+                  <p class="" style="">If the Restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20diduEAT&amp;body=Please Update the Address as Follows:%0A%0A%0A%0A
 {{ $GLOBALS['thisIdentity'] }}
 %0A%0A
 %0A%0A
@@ -58,7 +58,7 @@ Your Name:
 Contact Number:
 %3A%0A%0A
 Thank you" style="text-decoration:underline">Email Us With The Full Details</a></p>
-                  
+
 			            </div>
             </div>
 @endif

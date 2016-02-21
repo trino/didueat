@@ -47,7 +47,7 @@ if (!isset($checkout_modal)) {
 
                 @include('common.items')
 
-                <div class="totals form-group" style="@if(isset($order)) width:800px; @else width:100%; @endif">
+                <div class="totals form-group" style=" width:100%;">
                     <table style="width:100%">
                         <tbody>
                         @if(!isset($order))

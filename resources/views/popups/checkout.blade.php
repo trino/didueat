@@ -130,6 +130,7 @@
                             </div>
 
                             <div class="col-md-12">
+                                <div class="instruct smallT bd">Be sure to review your order before proceeding!</div>
 
                                 <div class="form-group pull-right">
 
@@ -138,7 +139,6 @@
 
 
                                     <button type="submit" class="btn btn-primary ">Order Now</button>
-                                    <div class="instruct smallT bd">Be sure to review your order before clicking!&nbsp;&nbsp;</div>
 
                                     <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
                                            value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
