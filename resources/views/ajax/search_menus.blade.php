@@ -154,7 +154,7 @@
             <div class="clearfix"></div>
             <div class="col-xs-12 add-btn">
               <div class="add-minus-btn left-float">
-                <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
+                <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">Dude-</a>
 
                 <div class="number{{ $value->id }}">1</div>
                 <a class="btn btn-primary add" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>

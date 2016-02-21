@@ -45,8 +45,8 @@ if (!isset($checkout_modal)) {
 
                 @include('common.items')
 
-                <div class="totals form-group  " style="width:100%;">
-                    <table class="" style="width:100%;">
+                <div class="totals form-group" style="@if(isset($order)) width:800px; @else width:100%; @endif">
+                    <table style="width:100%">
                         <tbody>
                         @if(!isset($order))
                             <tr>
@@ -76,12 +76,13 @@ if (!isset($checkout_modal)) {
 
 
                         <tr>
-                            <td width="50%"><strong>Subtotal</strong></td>
-                            <td width="50%">
+                            <td width=" @if(isset($order)) 75% @else 50% @endif "><strong>Subtotal</strong></td>
+                            <td width=" @if(isset($order)) 25% @else 50% @endif ">
                                 <div class="pull-right subtotal inlineblock">
                                     ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}
                                 </div>
-                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
+ 
+                                                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
                                        value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
                             </td>
                         </tr>

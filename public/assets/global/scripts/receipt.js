@@ -44,7 +44,11 @@ function checkout() {
     if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
     } else {
-        if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
+        if(Number($('#subtotal1').val()) == 0){
+            alert('Please make a menu selection before checking out!');
+            return false;
+        }
+        else if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
             alert('Minimum delivery fee not met!');
             return false;
         }
@@ -374,11 +378,13 @@ $(function(){
         updatecart();
     });
         
-})
+}) 
 
 function updatecart(){
     var total = $(".grandtotal").html();
     $("#cart-header").show();
     $(".card-header-total").html(total);
-    $(".card-header-items").html(total_items);
+    if(total_items != "" && !isNaN(total_items)){
+      $(".card-header-items").html(total_items);
+    }
 }

@@ -350,7 +350,7 @@ class UsersController extends Controller {
                 //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
                     if (\App\Http\Models\Profiles::where('email', $post['email'])->first()) {
-                        echo '1';
+                        echo '1yyb';
                         die();
                     } else {
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
@@ -377,7 +377,7 @@ class UsersController extends Controller {
                     $userArray3["email"] = $post["email"];
                 }
 
-                $userArray3['mail_subject'] = 'Your order has been received!';
+                $userArray3['mail_subject'] = 'Your Did u EAT order has been received!';
                 $userArray3["guid"] = $ob2->guid;
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";
@@ -388,7 +388,7 @@ class UsersController extends Controller {
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order!';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
-                echo '6';
+                echo '6';  // what is this for?
                 
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {

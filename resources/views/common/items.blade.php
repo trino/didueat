@@ -1,5 +1,5 @@
 <?php printfile("views/common/items.blade.php"); ?>
-<table class="orders @if(!isset($order)) order-style @endif" width="100%">
+<table class="orders @if(!isset($order)) order-style @endif" style=" @if(!isset($order)) width:100% @else width:800px; @endif ">
     <thead class="itmQty" <?php if (isset($order) && isset($arr_menu) && count($arr_menu)) echo ''; else echo 'style="display:none;"';?>>
         <TH style="width:40px;">Qty</TH>
         <TH width="60%">Item</TH>
@@ -31,16 +31,17 @@
                     $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
-                            <td class="receipt_image" style='width:40px;'>
-                                <span class="count">{{ $arr_qty[$k] }} </span>
-                                <input type="hidden" class="count" name="qtys[]" value="1"/>
+                            <td class="receipt_image" style='@if(isset($order)) width:20%; @else width:40px; @endif'>
+                            @if(isset($order))<h4 style="margin-bottom:6px">Ordered Items:</h4>@endif
                             </td>
 
-                            <td>
+                            <td @if(isset($order)) style='width:55%;' @endif>
+                                <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
+                                <span class="count">({{ $arr_qty[$k] }}) &nbsp;</span>
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
                             </td>
 
-                            <td class="total text-xs-right">${{number_format($arr_prs[$k],2)}}</td>
+                            <td class="total text-xs-right" @if(isset($order)) style='width:25%;' @endif>${{number_format($arr_prs[$k],2)}}</td>
 
                             <input type="hidden" class="amount" value="{{number_format($arr_prs[$k], 2)}}">
                             <input type="hidden" class="menu_ids" name="menu_ids[]" value="1"/>

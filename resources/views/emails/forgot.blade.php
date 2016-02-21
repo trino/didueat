@@ -15,10 +15,9 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
+                                We received a request to change your account password. Please use the text below as your new password. 
                                 <br /><br />
-                                We received a request to change your account password. Please use below code as your new password. 
-                                <br /><br />
-                                Your code is:
+                                Your new password is:
                                 <span style="color:#b02128; font-weight: bold;"> {{ $new_pass }} </span>
                                 <br /><br />
                                 If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.

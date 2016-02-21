@@ -521,8 +521,9 @@
 
 
                 var pre_cnt = $('#list' + ids).find('.count').text();
-                pre_cnt = Number(pre_cnt.replace('x', ''));
-                var n = $('.number' + menu_id).text();
+                pre_cnt = parseInt(Number(pre_cnt.replace('x', '')));
+                var n = parseInt($('.number' + menu_id).text());
+
                 if (pre_cnt != "") {
                     pre_cnt = Number(pre_cnt) + Number(n);
                 } else {
@@ -642,7 +643,7 @@
 
                 show_header();
 
-                total_items = Number(total_items) + Number(n);
+                total_items = "("+(parseInt(Number(total_items)) + parseInt(Number(n)))+")";
                 updatecart();
             });
 

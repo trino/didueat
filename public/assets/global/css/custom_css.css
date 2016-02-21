@@ -468,11 +468,14 @@ body {
 
 .cuisineCB{display:inline-block;padding:0px;margin:0px}
 
-.smBR{font-size:5px;line-height:5px}
+.smBR{font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
+
+.bd{font-weight:bold}
 
 .rightmarg {
     margin-right: 10px
 }
+
 
 /*
 

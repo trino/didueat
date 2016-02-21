@@ -12,9 +12,16 @@
     $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
     $Data["Time Ordered"] = $date->format(get_date_format());
+    
     if ($order->order_till != "0000-00-00 00:00:00") {
-        $date = new DateTime($order->order_till);//$date->format('l jS \of F Y h:i:s A');
+    
+				    if($order->order_till == "Order ASAP"){
+          $t=time();
+          $order->order_till = strftime('%F %T',$t); // ie, right now
+				    }
 
+        $date = new DateTime($order->order_till);//$date->format('l jS \of F Y h:i:s A');
+        
         $Data["Ordered For"] = $date->format(get_date_format());
     }
 

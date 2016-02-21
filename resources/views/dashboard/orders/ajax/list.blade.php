@@ -66,7 +66,7 @@ $secondsTitle = "sec";
                                    $dateformat = str_replace("M d, Y", "", $dateformat);
                                }
                                echo date($dateformat, $date);
-
+                               echo '<HR class="m-a-0">(For ' . iif($value->order_type, "Delivery", "Pickup").')';
                             echo '</td><TD>';
 
                                 echo '<FONT COLOR="';
@@ -77,7 +77,7 @@ $secondsTitle = "sec";
                                 }
                                 echo '">' . ucfirst($value->status);
 
-                                echo '</FONT><HR class="m-a-0">' . iif($value->order_type, "Delivery", "Pickup");
+                                echo '</FONT>';
 
                             echo '</td><TD>';
 
