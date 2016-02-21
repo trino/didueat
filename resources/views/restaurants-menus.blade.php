@@ -1,9 +1,7 @@
 @extends('layouts.default')
 @section('content')
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
-
     @include("popups.rating")
-
 
     <?php
     $checkout_modal = false;
@@ -13,39 +11,28 @@
         $business_day = false;
         popup(false, "You can not place orders as a restaurant owner", "Oops");
     } else {
-
-
-
-
     }
     $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
     $is_my_restro = false;
-
-    if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id){
-
+    if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
         $is_my_restro = true;
-
-
     }
- //   if(!isset($order) ){
-    if($is_my_restro){
-
+    //   if(!isset($order) ){
 
 
     if (!$business_day) {
         popup(false, "Restaurant is currently closed. You can browse, but not place orders", "Oops");
     }
 
+    if($is_my_restro){
+
 
     ?>
     <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
-
                 <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
-
                 <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
-
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
                        class="btn btn-primary additem  btn-block"
@@ -54,56 +41,40 @@
                         Add Menu Item
                     </a>
                 </div>
-
                 <div class="clearfix"></div>
             </div>
         </div>
     </div>
-
     <?
-
     }
-
- //   }
     ?>
-
     <div class="container" style="">
         <?= printfile("views/restaurants-menus.blade.php"); ?>
-
         <div class="row">
-
-
 
             <div class="col-md-8 col-xs-12 " style="">
                 @if(!$is_my_restro)
 
+                    <div class="col-md-3 col-xs-3 p-l-0">
+                        <img style="max-width:100%;" class="pull-left img-rounded"
+                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                             @else
+                             src="{{ asset('assets/images/default.png') }}"
+                             @endif
+                             alt="">
+                        <div class="clearfix"></div>
+                    </div>
 
-
-                <div class="col-md-3 col-xs-3 p-l-0">
-                    <img style="max-width:100%;" class="pull-left img-rounded"
-                         @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                         src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                         @else
-                         src="{{ asset('assets/images/default.png') }}"
-                         @endif
-                         alt="">
-
-                    <div class="clearfix"></div>
-                </div>
-
-
-                <div class="col-md-9 p-a-0" style="">
-
-                    <div class="">
-                        <h1 class="card-title">
-                            {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                        </h1>
-
-                        <div id="restaurant_rating">
-                            {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
-                            <div class="clearfix"></div>
-                        </div>
-
+                    <div class="col-md-9 p-a-0" style="">
+                        <div class="">
+                            <h1 class="card-title">
+                                {!! (isset($restaurant->name))?$restaurant->name:'' !!}
+                            </h1>
+                            <div id="restaurant_rating">
+                                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
+                                <div class="clearfix"></div>
+                            </div>
                     <span class="card-text m-b-0 p-r-2">
                     {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                         {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
@@ -111,55 +82,34 @@
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     </span>
 
-
-                        <div class="clearfix"></div>
-
+                            <div class="clearfix"></div>
 <span class="p-r-2">
                             <a class="" style="" class="clearfix" href="#" data-toggle="modal"
                                data-target="#viewMapModel">More Details</a>
                         </span>
 
-
+                        </div>
                     </div>
-                </div>
 
-
-
-
-
-
-               @endif
-
-
-
-
-
-
-
-
+                @endif
 
                 <div class="col-md-12 p-a-0 m-t-1">
-
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
                             <img src="{{ asset('assets/images/ajax-loading.gif') }}">
                         </div>
                     </div>
-
                     <div class="clearfix"></div>
-
                     <div class=" menu_div">
                         @if(isset($restaurant))
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
                             @endif
-
                             @foreach($category as $cat)
                                     <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
                                 <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
                             </div>
-
                             <!-- add menu item -->
                             <script>
                                 $(function () {
@@ -185,20 +135,16 @@
                                 });
                             </script>
                             @endforeach
-                                    <!--input type="file" accept="image/*;capture=camera"-->
+                                    <input type="file" accept="image/*;capture=camera">
                     </div>
                 </div>
             </div>
-
             <div class=" col-md-4 col-sm-4" id="printableArea">
-
                 @include('common.receipt', array("is_open" => $business_day, "checkout_modal" => $checkout_modal))
             </div>
-
         </div>
     </div>
     </div>
-
 
     @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
         <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog"
@@ -220,14 +166,16 @@
         </div>
     @endif
 
+
+
     @include('popups.more_detail')
+
+
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
-
         function check_val(v) {
         }
-
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -239,7 +187,6 @@
                 $("#delivery1").trigger("click");
             }
 
-
             function validatePassword() {
                 var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
                 if (password.value != confirm_password.value) {
@@ -249,12 +196,10 @@
                     $('#confirm_password').removeAttr('required');
                 }
             }
-
             $('.back').live('click', function () {
                 $('.receipt_main').show();
                 $('.profiles').hide();
             });
-
 
             $('#profiles').submit(function (e) {
                 /*
@@ -280,7 +225,6 @@
                             $('.email_error').html('Email Already Registered.');
 //$('.email_error').fadeOut(2000);
                         } else if (msg == '6') {
-
                             window.location = "{{url('orders/list/user?flash=1')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                         } else if (msg == '786') {
@@ -293,11 +237,9 @@
                 })
             });
 
-
             $('.modal').on('shown.bs.modal', function () {
                 $('input:text:visible:first', this).focus();
             });
-
             $('.clearall , .close').click(function () {
                 var menu = $(this).attr('id');
                 if (menu) {
@@ -312,11 +254,9 @@
                 }
                 $('.fancybox-close').click();
             });
-
             $('.resetslider').live('click', function () {
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
-
                 $('.number' + menu).html('1');
 //alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
@@ -332,7 +272,6 @@
                 banner.animate({scrollLeft: 0}, 1000);
             });
 //add items to receipt
-
             var counter_item = 0;
             $('.add_menu_profile').live('click', function () {
                 var menu_id = $(this).attr('id').replace('profilemenu', '');
@@ -354,12 +293,10 @@
                             extratitle = extratitle + "," + title[1];
                         }
                         var su = "";
-
                         if ($(this).val() != "") {
                             var cnn = 0;
                             var catid = $(this).attr('id');
                             catarray.push(catid);
-
                             var is_required = $('#required_' + catid).val();
                             var extra_no = $('#extra_no_' + catid).val();
                             if (extra_no == 0)
@@ -372,7 +309,6 @@
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
                                     var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
-
                                     if (qty != "") {
                                         cnn += Number(qty);
                                     } else {
@@ -380,7 +316,6 @@
                                     }
                                 }
                             });
-
 
                             if (is_required == '1') {
                                 if (upto == 0) {
@@ -457,14 +392,12 @@
                                     }
                                 }
                             }
-
                             if (cnn > 0) {
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";
                                 app_title = app_title + " " + su + ":";
                             }
                         }
-
                         var x = index;
                         if (title[0] != "") {
                             ids = ids + "_" + title[0];
@@ -473,7 +406,6 @@
                         price = Number(price) + Number(title[2]);
                     }
                 });
-
                 if (err > 0) {
                     return false;
                 } else {
@@ -486,7 +418,6 @@
                         $('#error_' + catid).html("");
                     });
                 }
-
                 ids = ids.replace("__", "_");
                 app_title = app_title.split(",,").join("");
                 app_title = app_title.substring(1, app_title.length);
@@ -503,9 +434,7 @@
                 app_title = app_title.split("-,").join("-");
                 app_title = app_title.split(",").join(", ");
                 app_title = app_title.split(":").join(": ");
-
                 app_title = app_title.split("x,").join("x");
-
                 extratitle = extratitle.split(":,").join(":");
                 extratitle = extratitle.substring(1, extratitle.length);
                 var last1 = extratitle.substring(extratitle.length, extratitle.length - 1);
@@ -519,11 +448,9 @@
                 dbtitle = extratitle.split(",").join("%");
                 dbtitle = dbtitle.split("%%").join("");
 
-
                 var pre_cnt = $('#list' + ids).find('.count').text();
                 pre_cnt = parseInt(Number(pre_cnt.replace('x', '')));
                 var n = parseInt($('.number' + menu_id).text());
-
                 if (pre_cnt != "") {
                     pre_cnt = Number(pre_cnt) + Number(n);
                 } else {
@@ -535,22 +462,16 @@
                  */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-
                 $('#list' + ids).html('<td class="receipt_image" style="width:40px;">' +
                         '</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />'
-                                /*
+                            /*
+                             '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
+                             '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
+                             '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
+                             '<i class="fa fa-plus"></i></a>' +
 
-                        '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
-                        '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
-
-                        '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
-                        '<i class="fa fa-plus"></i></a>' +
-
-
-                                */
-
-+
-
+                             */
+                        +
                         '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
                         '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
@@ -559,9 +480,7 @@
                         '<input type="hidden" class="prs" name="prs[]" value="' + (pre_cnt * price).toFixed(2) + '" />' +
                         '<a href="javascript:void(0);" class="del-goods" onclick=""></a>');
 
-
                 price = parseFloat(price);
-
                 var subtotal = "";
                 var ccc = 0;
                 $('.total').each(function () {
@@ -577,55 +496,43 @@
                 $('input.subtotal').val(subtotal);
                 subtotal = parseFloat(subtotal);
                 var tax = 13;
-
                 tax = parseFloat(tax);
                 tax = (tax / 100) * subtotal;
-
                 tax = tax.toFixed(2);
                 $('span.tax').text('$' + tax);
                 $('input.tax').val(tax);
-
                 if ($('#delivery_flag').val() == '1') {
                     var del_fee = $('.df').val();
                 } else {
                     var del_fee = 0;
                 }
                 del_fee = parseFloat(del_fee);
-
                 var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
                 gtotal = gtotal.toFixed(2);
-
                 $('div.grandtotal').text('$' + gtotal);
                 $('input.grandtotal').val(gtotal);
                 $('#cart-total').text(gtotal);
-
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                     if ($(this).is(':checked') && $(this).attr('title') != "") {
                         var tit = $(this).attr('title');
-
                         var title = tit.split("_");
                         if (index != 0) {
                             extratitle = extratitle + "," + title[1];
                         }
                         var su = "";
-
                         if ($(this).val() != "") {
                             var cnn = 0;
                             var catid = $(this).attr('id');
-
                             $('.extra-' + catid).each(function () {
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
                                     var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
                                     var tit1 = $(this).attr('title');
-
                                     tit1 = tit1.split('_');
                                     tit1[0] = tit1[0].replace('-' + qty, '');
                                     tit1[1] = tit1[1].replace(" x(" + qty + ")", "");
                                     nwtit = tit1[0] + "_" + tit1[1] + "_" + tit1[2];
-
                                     $(this).attr('title', nwtit);
-
 
                                 }
                             });
@@ -640,13 +547,10 @@
                 });
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
-
                 show_header();
-
-                total_items = "("+(parseInt(Number(total_items)) + parseInt(Number(n)))+")";
+                total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
                 updatecart();
             });
-
             function inArray(needle, haystack) {
                 var length = haystack.length;
                 for (var i = 0; i < length; i++) {
@@ -656,7 +560,6 @@
                 }
                 return false;
             }
-
             $(document).on('click', '.loadmore', function () {
                 var catid = $(this).attr('title');
                 $('div#loadmoreajaxloader_' + catid).show();
@@ -681,7 +584,6 @@
                     $(this).parent().remove();
                 }
             });
-
             $(".sorting_parent").live('click', function () {
                 var path = window.location.pathname + '?sorted';
                 alert(path);
@@ -712,10 +614,8 @@
                         window.location = path;
                     }
                 });
-
             });
         });
-
         updatecart();
     </script>
     <script type="text/javascript">
