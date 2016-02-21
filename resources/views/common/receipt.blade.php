@@ -98,7 +98,8 @@ if (!isset($checkout_modal)) {
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
-                            <td><strong>Delivery (${{ (isset($restaurant->minimum))? $restaurant->minimum : '' }} min)</strong></td>
+                            <td><strong>Delivery (${{ (isset($restaurant->minimum))? $restaurant->minimum : '' }}
+                                    min)</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
@@ -125,21 +126,13 @@ if (!isset($checkout_modal)) {
 
                 @if(!isset($order))
                     <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
-
                         @if(!isset($is_open) || $is_open || Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-
-                            <!--a href="javascript:void(0)" class="btn  btn-secondary clearitems"
+                                <!--a href="javascript:void(0)" class="btn  btn-secondary clearitems"
                                onclick="clearCartItems();">Cancel</a-->
-
-                        <a href="javascript:history.go(0)"  class="btn  btn-secondary clearitems"
-                          >Cancel</a>
-                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
-
-
-
+                        <a href="javascript:history.go(0)" class="btn  btn-secondary clearitems"
+                                >Cancel</a>
+                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                         @endif
-
-
                     </div>
                 @endif
 
@@ -150,32 +143,26 @@ if (!isset($checkout_modal)) {
             @if(!isset($email))
                 <div class="profiles" style="display: none;">
 
-
-                                      <div class="form-group">
-
-                            <h4 class="profile_delevery_type"></h4>
-                        </div>
-
+                    <div class="form-group">
+                        <h4 class="profile_delevery_type"></h4>
+                    </div>
 
                     <!--div class="form-group ">
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
-                                <?php
-                                $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                                echo "<p>Welcome " . $profile->name . "</p>";
-                                ?>
-                            @endif
-                        </div>
-                    </div-->
+                    <?php
+                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                    echo "<p>Welcome " . $profile->name . "</p>";
+                    ?>
+                    @endif
+                            </div>
+                        </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 
                     <form name="checkout_form" id="profiles" class="m-b-0">
                         @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
                     </form>
-
-
-
 
 
                 </div>
