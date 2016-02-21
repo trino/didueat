@@ -93,10 +93,9 @@
 
                                     <tr><td colspan="2">
 
-                                            <div style="" class="col-xs-12">
+<div class="col-md-12"> {{ $value->description }}</div>
 
-                                            <p class=" p-t-1 p-b-0">{{ $value->description }}</p>
-</div>
+
 
                                         </td></tr>
 

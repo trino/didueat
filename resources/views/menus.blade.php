@@ -75,6 +75,9 @@
                                 ?>
 
                                 <h4 class="card-title">
+
+
+
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
@@ -92,6 +95,9 @@
                                         {{ $value->menu_item }}
 
                                     </a>
+
+
+
                                  <div class="pull-right">
 
 

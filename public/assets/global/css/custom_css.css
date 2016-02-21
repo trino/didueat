@@ -1,23 +1,20 @@
-
-.list-group-item {
-    padding: .6rem 1.25rem !important;
-}
-
 .alert {
     margin-bottom: 0 !important;
 }
 
 .btn-group-xs > .btn, .btn-xs {
+    /*
     border-radius: 3px;
     font-size: 10px;
     line-height: 1;
     padding: 3px 3px;
+    */
 }
-
 
 .close{
     font-size: 1.7rem !important;
 }
+
 .container-fluid {
     padding: 0 !important;
 
@@ -25,6 +22,7 @@
 .container {
     margin-top: 2rem !important;
 }
+
 
 .form-group {
     margin-bottom: .5rem !important;
@@ -50,17 +48,8 @@ label {
     margin-top: .25rem !important;
     margin-bottom: .25rem !important;
 }
-.list-group, .card{
-    /*
-    text-transform: uppercase;
-    border: none;
-    -webkit-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
-    */
-}
+
+
 .table thead th {
     border-bottom: 0;
 }
@@ -77,25 +66,23 @@ label {
 .table {
     min-width: 100% !important;
 }
-
 tr {
     padding: 1.0rem 1.25rem;
 }
 td{
     padding-bottom: .25rem;
 }
+
 .card-header {
 background: white !important;
 }
 
 .banner-text-shadow {
-    text-shadow: 1px 1px 9px rgba(0, 0, 0, 3);
-
+    text-shadow: 1px 1px 9px rgba(0, 0, 0, 4);
 }
 
 .alert {
     border-radius: 0px !important;
-
 }
 
 .overlay_reservation {
@@ -114,10 +101,6 @@ background: white !important;
     top: 50%;
     left: 50%;
     position: absolute;
-}
-
-.c-input > input:checked ~ .c-indicator {
-    /*  color: #FFF; */
 }
 
 .errormsg {
@@ -223,6 +206,7 @@ body {
     */
 
 }
+.list-inline-item{padding-right:1rem;}
 
 .image_placeholder {
     background: #d9534f;
@@ -426,6 +410,9 @@ body {
     color: #f0ad4e !important
 }
 
+.half,.full{
+    cursor: pointer;
+}
 /*
 .fancybox-wrap {
     position: absolute;

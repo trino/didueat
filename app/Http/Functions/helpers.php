@@ -1714,10 +1714,10 @@ function datename($date){
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
 
-            $html .= '</div>';
+            $html .= '</div> &nbsp;';
 
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
-                $html .= '<SPAN><a href="#" style="padding-left:5px;';
+                $html .= '<SPAN><a href="#" style="';
                 if($Color){$html .= 'color: ' . $Color . ';';}
                 $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
                 $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';

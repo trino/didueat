@@ -111,7 +111,7 @@
 
 
         <div class="col-sm-12">
-            <h1 align="center" style="">Receive orders in 10 minutes</h1>
+            <h1 align="center" style="">Sign Up Now</h1>
         </div>
 
 

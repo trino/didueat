@@ -38,7 +38,7 @@
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<div class="<?php if (!isset($type)) echo "nput-group-btn";?> addressdropdown">
+<div class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
 
 <?php
@@ -81,7 +81,7 @@
             <?php }
             }else{
             ?>
-            <select name="reservation_address_dropdown" class="col-md-11 form-control reservation_address_dropdown" name="reservation_address" id="reservation_address" required>
+            <select name="reservation_address_dropdown" class=" form-control reservation_address_dropdown" name="reservation_address" id="reservation_address" required>
                 <option value="">Select Address</option>
                 <?php
                     $sec = false;
@@ -113,7 +113,7 @@
                class="form-control"
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
-        <div class="nowrap <?php if (isset($type)) echo 'col-md-12';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
+        <div class="nowrap <?php if (isset($type)) echo '';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address"

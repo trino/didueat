@@ -97,8 +97,6 @@ if (Request::path() !== null && Request::path() != "/") {
             }
             form{
                 border: 3px solid black;
-
-
             }
         </style>
     @endif
@@ -115,22 +113,20 @@ if (Request::path() !== null && Request::path() != "/") {
         }
     }
 </SCRIPT>
-<!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
-            background-size: 100% 100% !important;
-            background-repeat: no-repeat !important;"-->
+
 <body>
 
-@if(!read("id"))
-    @include('popups.login')
-    @include('popups.signup')
-    @include('popups.forgot-password')
-@endif
+<?php
+$first = false;
+$type = "hidden";
+?>
+
 <div class="bg-success">
-<div class="container-fluid" style="margin-bottom: 50px;">
+<div class="container-fluid" style="margin-bottom: 48px;">
     @include('layouts.includes.header')
 </div>
-    <div class="clearfix"></div>
 </div>
+
 <div class="container-fluid">
     @include('common.alert_messages')
 </div>
@@ -141,6 +137,14 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <div class="container-fluid">
     @include('layouts.includes.footer')
+    <div class="container">
+
+    @if(!read("id"))
+        @include('popups.login')
+        @include('popups.signup')
+        @include('popups.forgot-password')
+    @endif
+</div>
 </div>
 
 <div class="overlay_loader">

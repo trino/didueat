@@ -40,24 +40,29 @@
             @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
         </div>
 
-        <div class="card-header ">
-            <h4 class="card-title">Your Profile</h4>
-        </div>
 
-        <div class="card-block ">
+
+        </div>
+        <div class="card">
+            <div class="card-header ">
+                <h4 class="card-title">Your Profile</h4>
+            </div>
+            <div class="card-block ">
+
             @include("common.contactinfo", array("new"=>false, "mobile" => true))
+</div>
+            <div class="card-block ">
+
+
+
+                <p class="text-muted  " style="font-size:90%"  align="center" >
+                    By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
+                </p>
+
+                <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+
+
         </div>
-
-        <div class="card-block ">
-            <p class="text-muted m-b-0  " style="font-size:90%">
-                By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
-            </p>
-
-            <input type="submit" class="btn btn-primary btn-block" value="Sign up">
-
-
-        </div>
-    </div>
 
 
     @if(false)

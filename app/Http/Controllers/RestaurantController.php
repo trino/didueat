@@ -303,7 +303,7 @@ class RestaurantController extends Controller {
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
-                return $this->success(iif($isnowopen, "Your restaurant is now open", "Resturant info updated"), 'restaurant/info/' . $post['id']);
+                return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }

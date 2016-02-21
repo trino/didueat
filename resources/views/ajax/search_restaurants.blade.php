@@ -91,7 +91,7 @@
                     </div>
    <span class="p-r-2">
                         Genres: {{ str_replace(",", ", ", $value["cuisine"]) }}
-                    </span>
+                    </span><br>
                     <!--span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
                     @if($value["is_delivery"])
                         <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="forgotpasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotpasswordModalLabel"
+<div class="modal" id="forgotpasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotpasswordModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
