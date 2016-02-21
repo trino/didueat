@@ -469,10 +469,10 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;
-//                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));
+//                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));  // added in restaurantInfo()
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-//                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));
+//                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));  // added in dashboard()
             } else {
                 $path = 'assets/images/products';
                 $sizes=false;//where do these go? Shouldn't there be a product ID?

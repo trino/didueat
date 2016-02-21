@@ -1,6 +1,46 @@
 <?php
 $first = false;
 $type = "hidden";
+$localIPTst= $_SERVER['REMOTE_ADDR'];
+$localIPTst="24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr="";
+$locationStr="";
+$useCookie=false;
+
+if((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie){
+
+  if(function_exists('geoip_record_by_name')){
+  		$info = geoip_record_by_name($localIPTst);
+    if($info['country_name'] == "United States" || $info['country_name'] == "Canada"){
+    // require province/state, but not country
+       $locationStr=$info['city'].", ".$info['region'];
+    }
+    else{
+    // use just city and country
+       $locationStr=$info['city'].", ".$info['country'];
+    }
+  }
+  else{
+  
+			  $ip = $localIPTst;
+		  	$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+     if($details->country == "US" || $details->country == "CA"){
+       $locationStr=$details->city.", ".$details->region;
+     }
+     else{
+       $locationStr=$details->city.", ".$details->country;
+     }
+     $latlng=explode(",",$details->loc);
+     $latlngStr="&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+          
+  }
+
+}
+else{
+
+ // get city [, province/state], and country from cookie or session, once implemented
+}
+
 ?>
 @extends('layouts.default')
 @section('content')
@@ -18,14 +58,15 @@ $type = "hidden";
                     </div>
                 </div>
 
-                <div class="col-md-12 m-t-1 text-xs-center ">
 
-                    <p class="lead  p-b-0 banner-text-shadow ">Or show me <a href="#" class="search-city"
-                                                                            style="color:white;text-decoration: underline;"
-                                                                            province="Ontario"
-                                                                            onclick="submitform(event, 0);">Hamilton</a>
+                <div class="col-md-12 m-t-1">
+                <div class="text-xs-center" onclick="submitform(event, 0)" style="width:450px;height:48px;margin-left:auto;margin-bottom:6px;margin-right:auto;background:#000;border:solid #fff 2px;border-radius: 10px;opacity:0.7;cursor:pointer">
+
+                    <p class="lead  p-b-0 banner-text-shadow " style="position:relative;top:8px;margin-left:auto;margin-right:auto;"><a href="#" class="search-city" style="color:white;text-decoration: none;" loc="{{ $details->loc }}" onclick="submitform(event, 0);return false;">Or show me <span style="text-decoration: underline">{{ $locationStr }}</span>
+</a>
                     </p>
 
+                </div>
                 </div>
 
 
@@ -286,30 +327,36 @@ $type = "hidden";
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
+            
+<?php 
+  (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
+  echo "var earthRad = ".$earthRad.";";
+?>
 
             createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
+            createCookieValue('userC', earthRad); // other delimited items can be added in stage 2
 
             var token = $('#search-form input[name=_token]').val();
 
             if ($(e.target).html() && $(e.target).hasClass("search-city")) {
-                var data = $(e.target).html();
-                var prov = $(e.target).attr("province");
-                $("#formatted_address2").val(data + ", " + prov);
-                data = "city=" + data + "&province=" + prov;
+                var dataStr = $(e.target).html();
+                var loc = $(e.target).attr("loc");
+                var dataStr2 = dataStr.split(", ");
+                var secondVar="";
+                
+                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada")?  secondVar="country" : secondVar="province";
+                
+                $("#formatted_address2").val(dataStr);
+                data = "city=" + dataStr2[0] + "&"+secondVar+"=" + dataStr2[1] + "&earthRad=" + earthRad;
             } else {
                 if (!address_alias) {
                     return false;
                 }
-                switch (address_alias) {
-                    case "Hamilton, ON, Canada":
-                        var data = "city=Hamilton&province=Ontario";
-                        break;
-                    default:
-                        var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
-                }
+              var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
+
             }
 
             if (start == 0) {
