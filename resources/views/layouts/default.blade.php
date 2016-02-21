@@ -150,8 +150,9 @@ $type = "hidden";
     @include('popups.forgot-password')
 @endif
 
+@if(\Session::has('session_id'))
 @include('popups.navigation_bar')
-
+@endif
 
 
 
