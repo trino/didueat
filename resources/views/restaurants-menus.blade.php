@@ -5,34 +5,32 @@
 
     <?php
     $checkout_modal = false;
-    ?>
-    <?php
+
     if (read("restaurant_id") && read("restaurant_id") != $restaurant->id) {
-        $business_day = false;
         popup(false, "You can not place orders as a restaurant owner", "Oops");
-    } else {
     }
-    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+
+
     $is_my_restro = false;
     if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
         $is_my_restro = true;
     }
-    //   if(!isset($order) ){
 
+    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
 
     if (!$business_day) {
-        popup(false, "Restaurant is currently closed. You can browse, but not place orders", "Oops");
+        popup(false, "Restaurant is currently closed", "Oops");
     }
 
     if($is_my_restro){
-
-
     ?>
     <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
                 <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
-                <p class="card-title text-xs-center m-b-0">You may place test orders for your restaurant</p>
+
+                <p class="card-title text-xs-center m-b-0">You can place test orders for your restaurant</p>
+
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
                        class="btn btn-primary additem  btn-block"
@@ -48,6 +46,7 @@
     <?
     }
     ?>
+
     <div class="container" style="">
         <?= printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
@@ -63,6 +62,7 @@
                              src="{{ asset('assets/images/default.png') }}"
                              @endif
                              alt="">
+
                         <div class="clearfix"></div>
                     </div>
 
@@ -71,6 +71,7 @@
                             <h1 class="card-title">
                                 {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                             </h1>
+
                             <div id="restaurant_rating">
                                 {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                 <div class="clearfix"></div>
@@ -135,12 +136,13 @@
                                 });
                             </script>
                             @endforeach
-                                    <input type="file" accept="image/*;capture=camera">
+                            <input type="file" accept="image/*;capture=camera">
                     </div>
                 </div>
             </div>
             <div class=" col-md-4 col-sm-4" id="printableArea">
-                @include('common.receipt', array("is_open" => $business_day, "checkout_modal" => $checkout_modal))
+
+                @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
         </div>
     </div>
@@ -196,6 +198,7 @@
                     $('#confirm_password').removeAttr('required');
                 }
             }
+
             $('.back').live('click', function () {
                 $('.receipt_main').show();
                 $('.profiles').hide();
@@ -560,6 +563,7 @@
                 }
                 return false;
             }
+
             $(document).on('click', '.loadmore', function () {
                 var catid = $(this).attr('title');
                 $('div#loadmoreajaxloader_' + catid).show();

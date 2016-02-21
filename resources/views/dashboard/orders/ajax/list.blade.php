@@ -20,7 +20,7 @@ $secondsTitle = "sec";
                     @endif
                     Orders
 
-                    <!--a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a-->
+                    <a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
                     @if($type == "admin" && false)
                         <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif

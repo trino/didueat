@@ -15,6 +15,8 @@ if (!isset($type)) {
 if (!isset($checkout_modal)) {
     $checkout_modal = true;
 }
+
+
 ?>
 
 @if(false && !isset($order))
@@ -81,8 +83,8 @@ if (!isset($checkout_modal)) {
                                 <div class="pull-right subtotal inlineblock">
                                     ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}
                                 </div>
- 
-                                                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
+
+                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
                                        value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
                             </td>
                         </tr>
@@ -125,14 +127,20 @@ if (!isset($checkout_modal)) {
                 </div>
 
                 @if(!isset($order))
-                    <div class="form-group   pull-right " style="margin-bottom: 0 !important;">
-                        @if(!isset($is_open) || $is_open || Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-                                <!--a href="javascript:void(0)" class="btn  btn-secondary clearitems"
-                               onclick="clearCartItems();">Cancel</a-->
-                        <a href="javascript:history.go(0)" class="btn  btn-secondary clearitems"
-                                >Cancel</a>
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                    <div class="form-group pull-right " style="margin-bottom: 0 !important;">
+
+                        @if($is_my_restro =='1')
+
+
+                        @elseif($business_day && read("restaurant_id") && read("restaurant_id") != $restaurant->id)
+
+
                         @endif
+
+                            <a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a>
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+
                     </div>
                 @endif
 
@@ -141,6 +149,8 @@ if (!isset($checkout_modal)) {
 
             <!-- display profile info -->
             @if(!isset($email))
+
+
                 <div class="profiles" style="display: none;">
 
                     <div class="form-group">
@@ -155,6 +165,7 @@ if (!isset($checkout_modal)) {
                     echo "<p>Welcome " . $profile->name . "</p>";
                     ?>
                     @endif
+
                             </div>
                         </div-->
 

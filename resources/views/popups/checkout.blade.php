@@ -99,28 +99,29 @@
                             <div class="profile_delivery_detail" style="display: none;">
                                 <div class="col-md-12">
                                     <div class=" ">
-                                            @if(!isset($type) || $type != "report")
+                                        @if(!isset($type) || $type != "report")
                                             @include('common.editaddress',['type'=>'reservation'])
-                                            @endif
-                                            <div class="clearfix"></div>
+                                        @endif
+                                        <div class="clearfix"></div>
                                     </div>
                                 </div>
                             </div>
 
-                                <div class="col-xs-12">
-                                    <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-group">
 
                                     <select class="form-control " name="order_till" id="ordered_on_time" required="">
                                         <option value="Order ASAP">Order ASAP</option>
                                         {{ get_time_interval($restaurant) }}
                                     </select>
 
-                                <div class="clearfix"></div>
-                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
 
 
-                                <div class="col-xs-12">                            <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="form-group">
 
                                     <textarea placeholder="Additional Notes" id="ordered_notes"
                                               class="form-control resetme" name="remarks"></textarea>
