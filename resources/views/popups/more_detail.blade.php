@@ -1,5 +1,5 @@
 <!-- add addresss modal -->
-<div class=" modal  fade clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
+<div class=" modal clearfix" id="viewMapModel" tabindex="-1" role="dialog" aria-labelledby="viewMapModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -19,96 +19,93 @@
                         @endif
                     </div>
                 </div>
-                <br>
 
 
-
-                    <span class="card-text">
                         <?php
                         $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                        echo "<span class='p-r-2'><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</span>";
+                        echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
                         ?>
-                        <span class="m-b-0">
-                        <strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}
-                    </span>
+                    <p><strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}</p>
 
                         <?php
-                        echo "<span class='p-r-2'><strong>Delivery</strong> ";
-                        echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</span>";
+                        echo "<p><strong>Delivery</strong> ";
+                        echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</p>";
                         ?>
+                    <p><strong>Delivery Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</p>
 
-                        <span class="p-r-2">
-                        <strong>Delivery Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}
-                    </span>
 
-                    <span class="p-r-2"><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</span>
+                    <p><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</p>
+
+
                         <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
+
+
                         @if (Session::get('session_type_user') == "super" )
-                            <span class="p-r-2">
+                            <p>
                                 <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                            </span>
+                            </p>
                         @endif
 
-                    </span>
+
+                    <p>{!! (isset($restaurant->description)&&$restaurant->description!='')? '<h4>Description</h4>'.$restaurant->description:'' !!}</p>
 
 
-
-                <h4>Description</h4>
-                <p>{!! (isset($restaurant->description))?$restaurant->description:'' !!}</p>
 
                 <h4>Hours: </h4>
-                <div class="row">
+
+
                     <?php
-                        $days = getweekdays();
-                        $needsdeliveryhours = false;
-                        if ($restaurant->is_delivery){
-                            foreach ($days as $day) {
-                                $open = getfield($restaurant, $day . "_open");
-                                $close = getfield($restaurant, $day . "_close");
-                                if ($open != $close){
-                                    if($open <> getfield($restaurant, $day . "_open_del") || $close <> getfield($restaurant, $day . "_close_del")){
-                                        $needsdeliveryhours=true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        if($needsdeliveryhours){
-                            echo '<div class="col-md-5 col-md-offset-2" align="center"><strong>Pickup Hours</strong></div>';
-                            echo '<div class="col-md-5" align="center"><strong>Delivery Hours</strong></div>';
-                        }
+                    $days = getweekdays();
+                    $needsdeliveryhours = false;
+                    if ($restaurant->is_delivery) {
                         foreach ($days as $day) {
-                            echo '<div class="col-md-2">' . $day . '</DIV>';
                             $open = getfield($restaurant, $day . "_open");
                             $close = getfield($restaurant, $day . "_close");
-                            $open_del = getfield($restaurant, $day . "_open_del");
-                            $close_del = getfield($restaurant, $day . "_close_del");
-                            if($open == $close){
-                                echo '<div class="col-md-10" ALIGN="center"><strong>Closed</strong></DIV>';
-                            } else {
-                                echo '<div class="col-md-2 nowrap" align="right">' . converttime($open) . '</div>';
-                                echo '<div class="col-md-1" align="center">to</div>';
-                                echo '<div class="col-md-2 nowrap" align="right">' . converttime($close) . '</div>';
-                                if($needsdeliveryhours){
-                                    echo '<div class="col-md-2 nowrap" align="right">' . converttime($open_del) . '</div>';
-                                    echo '<div class="col-md-1" align="center">to</div>';
-                                    echo '<div class="col-md-2 nowrap" align="right">' . converttime($close_del) . '</div>';
-                                } else {
-                                    echo '<div class="col-md-5"></div>';
+                            if ($open != $close) {
+                                if ($open <> getfield($restaurant, $day . "_open_del") || $close <> getfield($restaurant, $day . "_close_del")) {
+                                    $needsdeliveryhours = true;
+                                    break;
                                 }
                             }
-                            echo '</TR>';
                         }
+                    }
+
+                    if ($needsdeliveryhours) {
+                        echo '<div class="col-md-5 col-md-offset-2" align="center"><strong>Pickup Hours</strong></div>';
+                        echo '<div class="col-md-5" align="left"><strong>Delivery Hours</strong></div>';
+                    }
+                    foreach ($days as $day) {
+                        echo '<div class="col-md-2">' . $day . '</DIV>';
+                        $open = getfield($restaurant, $day . "_open");
+                        $close = getfield($restaurant, $day . "_close");
+                        $open_del = getfield($restaurant, $day . "_open_del");
+                        $close_del = getfield($restaurant, $day . "_close_del");
+                        if ($open == $close) {
+                            echo '<div class="col-md-10" ALIGN="left"><strong>Closed</strong></DIV>';
+                        } else {
+                            echo '<div class="col-md-2 nowrap" align="left">' . converttime($open) . '</div>';
+                            echo '<div class="col-md-1" align="center">to</div>';
+                            echo '<div class="col-md-2 nowrap" align="left">' . converttime($close) . '</div>';
+                            if ($needsdeliveryhours) {
+                                echo '<div class="col-md-2 nowrap" align="left">' . converttime($open_del) . '</div>';
+                                echo '<div class="col-md-1" align="center">to</div>';
+                                echo '<div class="col-md-2 nowrap" align="left">' . converttime($close_del) . '</div>';
+                            } else {
+                                echo '<div class="col-md-5"></div>';
+                            }
+                        }
+                        echo '</TR>';
+                    }
                     ?>
-                </DIV>
+
 
                 @if(false)
                     <h3>Tags</h3>
                     <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
-
                     <h3>Reviews</h3>
                     <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                 @endif
+<div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

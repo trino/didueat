@@ -23,7 +23,7 @@
                 <div class="card-block">
                     {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
-                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/><br/>
+                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
 
                 <?php
                     $is_disabled = false;
@@ -61,10 +61,12 @@
                     <div class="card-header">
                         <h4 class="card-title">Restaurant Address</h4>
                     </div>
-                    <div class="card-block">
+                    <div class="card-block row">
                         <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false, "restEdit" => true)); ?>
                     </div>
                 </div>
+
+
 
 
 

@@ -17,7 +17,10 @@ if (Request::path() !== null && Request::path() != "/") {
     <title>{{ (isset($title))?$title.' | ':'' }}diduEAT</title>
 
     <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!--meta content="width=device-width, initial-scale=1.0" name="viewport"-->
+
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <meta content="{{ (isset($title))?$title.' | ':'' }}Did u eat" name="keywords">
@@ -35,7 +38,6 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
     <meta name="_token" content="{{ csrf_token() }}"/>
-
     <!-- CSS -->
 
     <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
@@ -93,6 +95,9 @@ if (Request::path() !== null && Request::path() != "/") {
             th {
                 border: 3px solid purple;
             }
+            form{
+                border: 3px solid black;
+            }
         </style>
     @endif
 
@@ -108,19 +113,19 @@ if (Request::path() !== null && Request::path() != "/") {
         }
     }
 </SCRIPT>
-<!--body style="background-image: url( '{{ asset('assets/images/restro-background.jpg') }}' )  !important;
-            background-size: 100% 100% !important;
-            background-repeat: no-repeat !important;"-->
+
 <body>
 
-@if(!read("id"))
-    @include('popups.login')
-    @include('popups.signup')
-    @include('popups.forgot-password')
-@endif
+<?php
+$first = false;
+$type = "hidden";
+?>
 
-<div class="container-fluid" style="margin-bottom: 53px;">
+<div class="bg-success">
+<div class="container-fluid" style="margin-bottom: 50px;">
     @include('layouts.includes.header')
+</div>
+    <div class="clearfix"></div>
 </div>
 
 <div class="container-fluid">
@@ -133,6 +138,14 @@ if (Request::path() !== null && Request::path() != "/") {
 
 <div class="container-fluid">
     @include('layouts.includes.footer')
+    <div class="container">
+
+    @if(!read("id"))
+        @include('popups.login')
+        @include('popups.signup')
+        @include('popups.forgot-password')
+    @endif
+</div>
 </div>
 
 <div class="overlay_loader">

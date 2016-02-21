@@ -63,7 +63,7 @@
                                                }
                                            } else {
                                                echo " CHECKED DISABLED";
-                                               $value->note = "Default addresses can not be disabled";
+                                               $value->note = "This is required";
                                            }
                                        ?>
                                     >

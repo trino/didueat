@@ -1,5 +1,5 @@
 @if(!isset($checkout_modal) || $checkout_modal)
-    <div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal" id="checkoutModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,34 +9,38 @@
                     <h4 class="modal-title" id="simpleModalLabel">Checkout</h4>
                 </div>
 
-                <div class="modal-body">
+                <div class="modal-body ">
                     @endif
 
-                    <?php
-                    printfile("views/popups/checkout.blade.php");
-                    if (!$profile) {
-                        unset($profile);
-                    }
-                    if (!$type) {
-                        unset($type);
-                    }
-                    ?>
 
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12" id="modal_contents">
+                    <div class="" id="modal_contents">
+
+                        <div class="row">
+
+                            <?php
+                            printfile("views/popups/checkout.blade.php");
+                            if (!$profile) {
+                                unset($profile);
+                            }
+                            if (!$type) {
+                                unset($type);
+                            }
+                            ?>
+
+
+
+
 
 
                             @if(!read("id"))
                                 <div class="col-sm-12">
                                     <div class="form-group">
-
-                                    <a class="btn btn-primary-outline reserve_login" data-target="#loginModal"
-                                   data-toggle="modal" onclick="checkout_login();">Log in</a>
-                             Or enter your info:
-                                        </div>
-                                        </div>
+                                        <a class="btn btn-primary-outline reserve_login" data-target="#loginModal"
+                                           data-toggle="modal" onclick="checkout_login();">Log in</a>
+                                        <span class="reserve_login">or Sign Up:</span>
+                                    </div>
+                                </div>
                             @endif
-
 
 
                             <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
@@ -47,7 +51,6 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
-
                                     <input type="text" placeholder="Full Name"
                                            class="form-control" name="ordered_by"
                                            id="fullname" value="{{ (isset($profile))? $profile->name : '' }}"
@@ -56,7 +59,7 @@
                             </div>
 
 
-                            <div class="col-xs-12 col-sm-12 margin-bottom-10">
+                            <div class="col-sm-12">
                                 <div class="form-group">
 
                                     <input type="text"
@@ -64,7 +67,7 @@
                                            placeholder="Cell Phone"
                                            class="form-control" name="contact"
                                            id="ordered_contact" required=""
-                                           value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile) && $profile->phone != '')) echo "readonly";?> />
+                                           value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "readonly";?> />
                                 </div>
                             </div>
 
@@ -94,60 +97,59 @@
 
 
                             <div class="profile_delivery_detail" style="display: none;">
-                                <div class="form-group col-md-12">
-                                <div class=" col-md-12">
-                                    <div class="">
-                                @if(!isset($type) || $type != "report")
-                                    @include('common.editaddress',['type'=>'reservation'])
-                                @endif
-                                <div class="clearfix"></div>
-                            </div>
-                            </div>
-                            </div>
+                                <div class="col-md-12">
+                                    <div class=" ">
+                                            @if(!isset($type) || $type != "report")
+                                            @include('common.editaddress',['type'=>'reservation'])
+                                            @endif
+                                            <div class="clearfix"></div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
                                 <div class="col-xs-12">
+                                    <div class="form-group">
+
                                     <select class="form-control " name="order_till" id="ordered_on_time" required="">
                                         <option value="Order ASAP">Order ASAP</option>
                                         {{ get_time_interval($restaurant) }}
                                     </select>
-                                </div>
+
                                 <div class="clearfix"></div>
+                                    </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-xs-12">
+
+                                <div class="col-xs-12">                            <div class="form-group">
+
                                     <textarea placeholder="Additional Notes" id="ordered_notes"
                                               class="form-control resetme" name="remarks"></textarea>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                                <div class="col-xs-12">
 
-                            <div class="form-group pull-right">
+                            <div class="col-md-12">
 
+                                <div class="form-group pull-right">
 
-                                                <!--div class="alert alert-success alert-dismissible fade in" role="alert">No items yet</div-->
-
-                                    <a href="javascript:history.go(0)"  class="btn  btn-secondary clearitems"
-                                            >Restart</a>
+                                    <a href="javascript:history.go(0)" class="btn  btn-secondary clearitems"
+                                            >Cancel</a>
 
 
-                                        <button type="submit" class="btn btn-primary ">Order Now</button>
+                                    <button type="submit" class="btn btn-primary ">Order Now</button>
 
 
-
-
-
-                                        <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
-                                               value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
+                                    <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
+                                           value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                                 </div>
+
+
                             </div>
 
                             <div class="clearfix"></div>
                         </div>
                     </div>
+
 
                     @if(!isset($checkout_modal) || $checkout_modal)
                 </div>

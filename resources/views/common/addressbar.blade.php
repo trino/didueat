@@ -1,6 +1,6 @@
         <?php $sec =false; $type1 = "hidden";?>
         <ul class="nav navbar-nav">
-            
+
                 <li class="nav-item" style="width: 100%;">
                     <div class="input-group">
                         <div class="input-group-btn addressdropdown">
@@ -37,7 +37,7 @@
                                 </div>
 
                                 <?php } ?>
-                            
+
                             @endif
                         @endif
                         </div>
@@ -47,7 +47,7 @@
                                ignore_oninput="this.onchange();" data-route="reservation" />
                        <input id="latitude3" type="hidden" name="latitude3" value="">
                        <input id="longitude3" type="hidden" name="latitude3" value="">
-                   
+
                     </div>
                 </li>
           </ul>

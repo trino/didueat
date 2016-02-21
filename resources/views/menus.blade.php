@@ -75,6 +75,9 @@
                                 ?>
 
                                 <h4 class="card-title">
+
+
+
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
@@ -92,6 +95,9 @@
                                         {{ $value->menu_item }}
 
                                     </a>
+
+
+
                                  <div class="pull-right">
 
 
@@ -189,7 +195,7 @@ Order
 
                                         <button id="add_item{{ $value->id }}" type="button"
                                                 class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
-                                                data-target="#addMenuModel">Edit
+                                                data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"

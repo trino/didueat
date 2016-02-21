@@ -33,7 +33,7 @@
 </div>
 
 
-<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
+<div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         {!! Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
         <div class="modal-content">

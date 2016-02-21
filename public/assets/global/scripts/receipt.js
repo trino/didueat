@@ -75,7 +75,7 @@ function delivery(t) {
         });
 
         $('#df').show();
-        $('.profile_delevery_type').text('Deliver To');
+        $('.profile_delevery_type').text('Delivery');
         $('.profile_delivery_detail').show();
 
         var tax = $('.maintax').val();
@@ -91,7 +91,7 @@ function delivery(t) {
 
     } else {
 
-        $('.profile_delevery_type').text('Pickup Detail');
+        $('.profile_delevery_type').text('Pickup');
         $('.profile_delivery_detail').hide();
         $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){
             $(this).removeAttr('required');

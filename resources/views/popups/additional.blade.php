@@ -69,7 +69,7 @@
                         <div class="cmore">
                             <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item"/>
                             </div>
-                            <div class="col-md-4   "><input class="form-control ccprice" type="text"
+                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
                                                             placeholder="Optional Price"/></div>
 
 
@@ -186,7 +186,7 @@
                                     </LABEL>
 <div class="row">
 <div class=" col-md-4">
-                                <input placeholder="How many?" type="number" id="itemno{{ $r3 }}"
+                                <input placeholder="How many?" min="0"  type="number" id="itemno{{ $r3 }}"
                                        class="itemno form-control"
                                        value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
                             </div>

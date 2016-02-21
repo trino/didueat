@@ -1714,10 +1714,10 @@ function datename($date){
             $html .= stars($target_id, $value, $countExit, $start1, "1");
             $html .= stars($target_id, $value, $countExit, $startHalf, "0.5");
 
-            $html .= '</div>';
+            $html .= '</div> &nbsp;';
 
             if ($add_rate_brn){// == true && \Session::has('session_id')) {
-                $html .= '<SPAN><a href="#" style="padding-left:5px;';
+                $html .= '<SPAN><a href="#" style="';
                 if($Color){$html .= 'color: ' . $Color . ';';}
                 $html .= '" class="reviews_detail rating-it-btn" data-item-name="Reviews for ' . $item_name . '" data-reviews-detail="Total Reviews: ';
                 $html .= $count_rating . '" data-target-id="' . $target_id . '" data-rating-id="' . $value->id . '" data-type="' . $value->type . '" data-count-exist="' . $countExit . '" id="reviewcount';
@@ -1897,7 +1897,7 @@ function datename($date){
 
     function popup($Success, $Message, $Title = "", $ID = ""){
         if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
-        echo '<div  style=""  class="alert alert-' . $Success . ' fade in" role="alert"';
+        echo '<div  style=""  class="alert alert-' . $Success . '" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
         echo '><div class="container" style="margin-top:0 !important; "><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 

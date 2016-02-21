@@ -10,12 +10,6 @@
         $minimum = false;
     }
 
-    $brTag="<br/>";
-    $brTag2="";
-    if(isset($restSignUpPg)){
-        $brTag="";
-        $brTag2="<br/>";
-    }
     if(!isset($new) || !$new){
         $new = false;
         $searchcode= "";
@@ -30,7 +24,7 @@ echo newrow($new, "Restaurant Name", "", true); ?>
     @if($new)
         <DIV ID="restsearch" CLASS="col-sm-12"></DIV>
         <INPUT TYPE="hidden" name="claim" id="claim">
-        <BR>
+
     @endif
 <? echo newrow(); ?>
 
@@ -175,7 +169,7 @@ if(!$minimum && isset($restaurant->id)){
     }
 
     $(document).ready(function () {
-    
+
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
               var pictureH=parseInt(document.getElementById('picture').clientHeight);
@@ -184,8 +178,8 @@ if(!$minimum && isset($restaurant->id)){
               document.getElementById('picture').style.height=new_pictureH+"px";
               document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
            }
-    
-    
+
+
         @if(!$minimum){
             is_delivery_change();
         }
@@ -250,7 +244,7 @@ if(!$minimum && isset($restaurant->id)){
 	                         document.getElementById('picture').style.height=imgH+"px";
 	                        }
                         }
-                
+
                 document.getElementById('restLogoTemp').value = path;
                 button.html('Upload');
                 window.clearInterval(interval);

@@ -1,6 +1,6 @@
 <INPUT TYPE="hidden" id="orderid">
 
-<div class="modal fade" id="orderApproveModal" tabindex="-1" role="dialog" aria-labelledby="orderApproveModalLabel" aria-hidden="true">
+<div class="modal" id="orderApproveModal" tabindex="-1" role="dialog" aria-labelledby="orderApproveModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +28,7 @@
 </div>
 
 
-<div class="modal fade" id="orderCancelModal" tabindex="-1" role="dialog" aria-labelledby="orderCancelModalLabel" aria-hidden="true">
+<div class="modal" id="orderCancelModal" tabindex="-1" role="dialog" aria-labelledby="orderCancelModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

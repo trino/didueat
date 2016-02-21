@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="modal  fade clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
        {!! Form::open(array('url' => '/notification/addresses', 'name'=>'editForm', 'onsubmit'=>'return validateNotif(this)', 'onchange'=>'return validateNotif(this)', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
        <input name="type" type="hidden" />
