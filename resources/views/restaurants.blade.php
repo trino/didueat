@@ -286,11 +286,17 @@ $type = "hidden";
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
+            
+<?php 
+  (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
+  echo "var earthRad = ".$earthRad.";";
+?>
 
             createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
+            createCookieValue('userC', earthRad); // other delimited items can be added in stage 2
 
             var token = $('#search-form input[name=_token]').val();
 
@@ -298,17 +304,17 @@ $type = "hidden";
                 var data = $(e.target).html();
                 var prov = $(e.target).attr("province");
                 $("#formatted_address2").val(data + ", " + prov);
-                data = "city=" + data + "&province=" + prov;
+                data = "city=" + data + "&province=" + prov + "&earthRad=" + earthRad;
             } else {
                 if (!address_alias) {
                     return false;
                 }
                 switch (address_alias) {
                     case "Hamilton, ON, Canada":
-                        var data = "city=Hamilton&province=Ontario";
+                        var data = "city=Hamilton&province=Ontario&earthRad="+earthRad;
                         break;
                     default:
-                        var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&formatted_address=" + address_alias;
+                        var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
                 }
             }
 

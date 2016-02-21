@@ -50,7 +50,7 @@ $type = "hidden";
                             if (Session::has('session_photo') && file_exists(public_path($filename))) {
                                 echo asset($filename);
                             } else {
-                                echo asset('assets/images/thumb1_didueatdefault.png');
+                                echo asset('assets/images/thumb1_smiley-logo.png');
                             }
                             ?>" class="img-rounded" style="height: 25px;width:25px;">
                         </a>

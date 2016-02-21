@@ -21,8 +21,7 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
-                                <br /><br />
-                                Thank you for registering with Didueat. As a reminder below are you credentials:
+                                Thank you for registering with Didueat. As a reminder, your login credentials have been included below:
                                 <br /><br />
                                 <b>Login Email:</b> {{ $email }}
                                 <br />
@@ -36,8 +35,8 @@
                                     Please note that your account will not be activated until you verify your email address.
                                     <br /><br />
                                     Thank You
+                                    <br /><br />
                                 @endif
-                                <br /><br /><br />
                                 Regards,
                                 <br />
                                 Team <?php echo \Config::get('app.company_name'); ?>

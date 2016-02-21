@@ -109,3 +109,8 @@ app/Http/Controllers/AdministratorController_backupFeb17.php
 *.CDR
 public/assets/images/work/logo-black-text.CMX
 public/assets/images/work/logo.png
+config/app.php
+public/assets/images/work/thumb_smiley-logo_old.png
+public/assets/images/work/thumb1_smiley-logo_old.png
+public/assets/images/work/smiley-logo_old.png
+public/paul.log
