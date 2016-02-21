@@ -1915,4 +1915,30 @@ function datename($date){
         if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
         echo $Message . '</div></div>';
     }
+
+
+function makelink($URL, $Name)
+{
+    if (is_array($URL)) {
+        echo '<li><div class="card"><div class="card-header title"><h4 class="card-title">
+            <i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
+        echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
+        $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
+        echo '<ul class="sub-menu" id="' . $Name . '">';
+        foreach ($URL as $URL2 => $Name) {
+            makelink($URL2, $Name);
+        }
+        echo '</UL>';
+        echo '</div></div></div>';
+        echo '</li>';
+    } else {
+        echo '<LI><a href="' . url($URL) . '" class="list-group-item';
+        if (Request::path() == $URL) {
+            echo ' active';
+        }
+        echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
+    }
+}
+
+
 ?>

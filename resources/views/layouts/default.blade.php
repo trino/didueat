@@ -138,15 +138,22 @@ $type = "hidden";
 
 <div class="container-fluid">
     @include('layouts.includes.footer')
-    <div class="container">
 
-    @if(!read("id"))
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
-    @endif
+
+
+
 </div>
-</div>
+
+@if(!read("id"))
+    @include('popups.login')
+    @include('popups.signup')
+    @include('popups.forgot-password')
+@endif
+
+@include('popups.navigation_bar')
+
+
+
 
 <div class="overlay_loader">
     <div class="overlay">

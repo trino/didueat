@@ -1,9 +1,5 @@
 @if(!\Session::has('session_id'))
 
-
-
-
-
     <div class="modal" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
@@ -47,26 +43,13 @@
 
                         <div class="clearfix"></div>
                     </div>
-                    <!--div class="modal-footer">
 
-
-
-
-                        <div class="pull-left">
-                            Don't have an account?
-                            <a class="" href="javascript:void(0);" data-toggle="modal"
-                               data-target="#signupModal" data-dismiss="modal">
-                                Sign up
-                            </a>
-                        </div>
-
-
-                        <div class="clearfix"></div>
-                    </div-->
                 </form>
             </div>
         </div>
     </div>
+
+
     <SCRIPT>
         var visitortime = new Date();
         var visitortimezone = -visitortime.getTimezoneOffset() / 60;

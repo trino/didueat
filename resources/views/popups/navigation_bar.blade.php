@@ -1,0 +1,32 @@
+<div class="modal" id="navigationModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <!--div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="loginModalLabel">123</h4>
+            </div-->
+            <div class="modal-body">
+
+
+                <div class="col-xs-12">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                
+
+                <?php printfile("views/popups/navigation_bar.blade.php"); ?>
+                <div class="col-xs-12">
+                    @include('common.navbar_content')
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@if(!\Session::has('session_id'))
+@endif

@@ -20,14 +20,16 @@
                 @if(Session::has('is_logged_in'))
 
                     @if (read("oldid"))
-                        <a style="padding-left:6px !important;"  href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} " class="nav-link pull-right">De-Possess</a>
+                        <a style="padding-left:6px !important;"
+                           href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
+                           class="nav-link pull-right">De-Possess</a>
                     @endif
 
+                    <a href="#" data-toggle="modal" data-target="#navigationModal"
+                       style="padding-left:6px !important;"
+                       class="hidden-sm-down pull-right nav-link">{{explode(' ', Session::get('session_name'))[0] }}</a>
 
-                    <a href="{{ url('dashboard') }}"
-                       style="padding-left:6px !important;"  class="hidden-sm-down pull-right nav-link">{{explode(' ', Session::get('session_name'))[0] }}</a>
-
-                    <a href="{{ url('dashboard') }}" class="pull-right">
+                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right">
                         <img src="<?php
                         $filename = 'assets/images/users/' . read("id") . "/thumb_" . Session::get('session_photo', "");
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {
@@ -38,19 +40,18 @@
                         ?>" class="img-rounded pull-right" style="margin-left:6px !important;height: 32px;width:32px;">
                     </a>
 
-
-                    <a type="button" data-toggle="collapse" href="#" class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
+                    <a type="button" data-toggle="collapse" href="#"
+                       class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
                        data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
                     <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
                         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#signupModal">Signup</a>
-                        <a class="btn btn-sm btn-primary-outline" data-toggle="modal" data-target="#loginModal">Login</a>
+                        <a class="btn btn-sm btn-primary-outline" data-toggle="modal"
+                           data-target="#loginModal">Login</a>
                     </div>
 
                 @endif
-
-
             </li>
 
         </ul>
