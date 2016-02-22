@@ -51,7 +51,7 @@
                     <div class="text-xs-center" onclick="submitform(event, 0)" style="width:450px;height:48px;margin-left:auto;margin-bottom:6px;margin-right:auto;background:#000;border:solid #fff 2px;border-radius: 10px;opacity:0.7;cursor:pointer">
                         <p class="lead  p-b-0 banner-text-shadow " style="position:relative;top:8px;margin-left:auto;margin-right:auto; color:white;text-decoration: none;" loc="{{ $details->loc }}">
                             Or show me <a style="text-decoration: underline" class="search-city" onclick="submitform(event, 0);return false;">{{ $locationStr }}</a>
-                        </p> 
+                        </p>
                     </div>
                 </div>
 

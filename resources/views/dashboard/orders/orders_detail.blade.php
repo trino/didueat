@@ -34,6 +34,10 @@
                                 <div class="clearfix"></div>
                             </div>
 
+                            <div  class="col-md-6" style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                                @include("common.gmaps", array("address" => $restaurant->formatted_address))
+                            </div>
+
                             <div class="clearfix"></div>
                         </div>
                     </div>

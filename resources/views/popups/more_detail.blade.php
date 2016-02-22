@@ -12,12 +12,7 @@
             <div class="modal-body">
                 <?php printfile("view/popups/more_detail.blade.php"); ?>
                 <div style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
-                    <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
-                        @if(!empty($restaurant->formatted_address))
-                            <iframe style="height:100%;width:100%;border:0;" frameborder="0"
-                                    src="https://www.google.com/maps/embed/v1/place?q={{ $restaurant->formatted_address }}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
-                        @endif
-                    </div>
+                    @include("common.gmaps", array("address" => $restaurant->formatted_address))
                 </div>
 
                 <?php
