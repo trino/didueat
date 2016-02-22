@@ -62,9 +62,12 @@
                         }
                     }
 
+                    $needsdeliveryhours=false;
                     if ($needsdeliveryhours) {
                         echo '<div class="col-md-5 col-md-offset-2" align="center"><strong>Pickup Hours</strong></div>';
                         echo '<div class="col-md-5" align="left"><strong>Delivery Hours</strong></div>';
+                    } else {
+                        echo '<div class="col-md-10 col-md-offset-2" align="center"><strong>Pickup/Delivery Hours</strong></div>';
                     }
                     foreach ($days as $day) {
                         echo '<div class="col-md-2">' . $day . '</DIV>';
@@ -73,7 +76,7 @@
                         $open_del = getfield($restaurant, $day . "_open_del");
                         $close_del = getfield($restaurant, $day . "_close_del");
                         if ($open == $close) {
-                            echo '<div class="col-md-10" ALIGN="left"><strong>Closed</strong></DIV>';
+                            echo '<div class="col-md-10" ALIGN="center"><strong>Closed</strong></DIV>';
                         } else {
                             echo '<div class="col-md-2 nowrap" align="left">' . converttime($open) . '</div>';
                             echo '<div class="col-md-1" align="center">to</div>';
@@ -83,7 +86,7 @@
                                 echo '<div class="col-md-1" align="center">to</div>';
                                 echo '<div class="col-md-2 nowrap" align="left">' . converttime($close_del) . '</div>';
                             } else {
-                                echo '<div class="col-md-5"></div>';
+                                echo '<div class="col-md-5">&nbsp;</div>';
                             }
                         }
                         echo '</TR>';
