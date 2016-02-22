@@ -73,8 +73,7 @@ class Restaurants extends BaseModel {
                         ->orWhere('website', 'LIKE', "%$searchResults%")
                         ->orWhere('phone', 'LIKE', "%$searchResults%")
                         ->orWhere('mobile', 'LIKE', "%$searchResults%")
-                        ->orWhere('formatted_address', 'LIKE', "%$searchResults%")
-                        ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                        ->orWhere('formatted_address', 'LIKE', "%$searchResults%");
                 }
             })
             ->orderBy($meta, $order);
