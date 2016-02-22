@@ -5,7 +5,8 @@
         <?php
             printfile("views/dashboard/orders/orders_detail.blade.php");
             $profiletype = Session::get('session_profiletype');
-            $CanApprove = $profiletype == 1 || ($order->status == "pending" && Session::get('session_restaurant_id') == $restaurant->id);//is admin, or (is pending and is owner of the restaurant)
+            $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
+            //$order->status == "pending", "cancelled", or "approved"
             echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
         ?>
         <div class="row">
@@ -31,7 +32,6 @@
                             <div class="col-md-6">
                                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
                                 <div class="clearfix"></div>
-
                             </div>
 
                             <div class="clearfix"></div>
@@ -40,20 +40,21 @@
 
                         @if($CanApprove)
                             <div class="card-footer text-xs-right">
-
-                                <a href="#cancel-popup-dialog"
-                                   class="btn btn-danger orderCancelModal " data-toggle="modal"
-                                   data-target="#orderCancelModal"
-                                   id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
-
-                                <a href="#approve-popup-dialog"
-                                   class="btn btn-primary orderApproveModal " data-toggle="modal"
-                                   data-target="#orderApproveModal"
-                                   id="approve-popup"
-                                   data-id="{{ $order->id }}">Accept</a>
+                                @if($order->status != "cancelled")
+                                    <a href="#cancel-popup-dialog"
+                                       class="btn btn-danger orderCancelModal " data-toggle="modal"
+                                       data-target="#orderCancelModal"
+                                       id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
+                                @endif
+                                @if($order->status == "pending")
+                                    <a href="#approve-popup-dialog"
+                                       class="btn btn-primary orderApproveModal " data-toggle="modal"
+                                       data-target="#orderApproveModal"
+                                       id="approve-popup"
+                                       data-id="{{ $order->id }}">Accept</a>
+                                @endif
 
                                 <div class="clearfix"></div>
-
                             </div>
                         @endif
 

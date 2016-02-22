@@ -1,33 +1,33 @@
 <?php
-printfile("dashboard/restaurant/hours.blade.php");
-$layout = false;
-$day_of_week = getweekdays();
+    printfile("dashboard/restaurant/hours.blade.php");
+    $layout = false;
+    $day_of_week = getweekdays();
 
-$restaurantID = \Session::get('session_restaurant_id');
-if (!$restaurantID) {
-    $restaurantID = 0;
-}
-if (isset($resturant->id)) {
-    $restaurantID = $resturant->id;
-}
-
-$IsPickup = old('is_pickup', -999);
-if ($IsPickup == -999) {
-    if (isset($restaurant->is_pickup)) {
-        $IsPickup = $restaurant->is_pickup;
-    } else {
-        $IsPickup = 1;
+    $restaurantID = \Session::get('session_restaurant_id');
+    if (!$restaurantID) {
+        $restaurantID = 0;
     }
-}
+    if (isset($resturant->id)) {
+        $restaurantID = $resturant->id;
+    }
 
-if (!isset($is_disabled)) {
-    $is_disabled = false;
-}
+    $IsPickup = old('is_pickup', -999);
+    if ($IsPickup == -999) {
+        if (isset($restaurant->is_pickup)) {
+            $IsPickup = $restaurant->is_pickup;
+        } else {
+            $IsPickup = 1;
+        }
+    }
 
-$value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
-$is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
-?>
-<?php echo newrow($new, "We Offer Pickup"); ?>
+    if (!isset($is_disabled)) {
+        $is_disabled = false;
+    }
+
+    $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
+    $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
+
+    echo newrow($new, "We Offer Pickup"); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
            value="1" {{ ($IsPickup)?'checked':'' }} />
@@ -35,7 +35,7 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 </LABEL>
 </DIV></DIV>
 
-<?php echo newrow($new, "We Offer Delivery"); ?>
+<?= newrow($new, "We Offer Delivery"); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
            value="1" {{ ($is_delivery)?'checked':'' }} />
@@ -70,99 +70,86 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
     <div class="col-md-6 col-xs-12 p-a-0" style="">
         <h4>Pickup Hours</h4>
 
-
         <?php
-        function getkey($object, $key)
-        {
-            return $object->$key;
-        }
+            function getkey($object, $key) {
+                return $object->$key;
+            }
 
-        $isthesame = true;
-        foreach ($day_of_week as $key => $value) {
-            if (strpos($value, ">") !== false) {
-                echo $value;
-            } else {
-                //$day = select_field_where('hours', array('restaurant_id' => $restaurantID, 'day_of_week' => $value));
-                if (isset($restaurant)) {
-                    $open[$key] = getkey($restaurant, $value . "_open");
-                    $close[$key] = getkey($restaurant, $value . "_close");
-                    $open_del[$key] = getkey($restaurant, $value . "_open_del");
-                    $close_del[$key] = getkey($restaurant, $value . "_close_del");
-                    if ($open_del[$key] != $open[$key] || $close_del[$key] != $close[$key]) {
-                        $isthesame = false;
-                    }
+            $isthesame = true;
+            foreach ($day_of_week as $key => $value) {
+                if (strpos($value, ">") !== false) {
+                    echo $value;
                 } else {
-                    $open[$key] = "12:00:00";
-                    $close[$key] = $open[$key];
-                    $open_del[$key] = $open[$key];
-                    $close_del[$key] = $open[$key];
+                    //$day = select_field_where('hours', array('restaurant_id' => $restaurantID, 'day_of_week' => $value));
+                    if (isset($restaurant)) {
+                        $open[$key] = getkey($restaurant, $value . "_open");
+                        $close[$key] = getkey($restaurant, $value . "_close");
+                        $open_del[$key] = getkey($restaurant, $value . "_open_del");
+                        $close_del[$key] = getkey($restaurant, $value . "_close_del");
+                        if ($open_del[$key] != $open[$key] || $close_del[$key] != $close[$key]) {
+                            $isthesame = false;
+                        }
+                    } else {
+                        $open[$key] = "12:00:00";
+                        $close[$key] = $open[$key];
+                        $open_del[$key] = $open[$key];
+                        $close_del[$key] = $open[$key];
+                    }
+
+                    $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
+                    $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
+
+                    printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled);
                 }
-
-                $opentime = (isset($open[$key])) ? $open[$key] : getTime($open[$key]);
-                $closetime = (isset($close[$key])) ? $close[$key] : getTime($close[$key]);
-
-                printrow($layout, $key, $value, $opentime, $closetime, "", "", $is_disabled);
             }
-        }
 
-        /*
-        foreach ($day_of_week as $key => $value) {
-        $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-        $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-        printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
-        }*/
+            /*
+            foreach ($day_of_week as $key => $value) {
+            $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+            $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+            printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
+            }*/
 
-        function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
-        $inputclass = "form-control time ";
-        $closed = "";
-        if (!$suffix) {
-            $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
-            if ($opentime != "00:00:00" || $closetime != "00:00:00") {
-                $closed .= " CHECKED";
+            function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
+                $inputclass = "form-control time ";
+                $closed = "";
+                if (!$suffix) {
+                    $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
+                    if (($opentime != "00:00:00" || $closetime != "00:00:00") && $opentime != $closetime) {
+                        $closed .= " CHECKED";
+                    }
+                    $closed .= '> Open<span class="c-indicator"></span></LABEL>';
+                }
+                ?>
+                    <div class="form-group" style="">
+                        <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
+                        <div class="col-xs-8 col-sm-5 nowrap {{ $del_class }}">
+                            <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
+                                   value="{{ converttime($opentime) }}"
+                                   title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
+                            <SPAN class="col-xs-1 to-span">to</SPAN>
+                            <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]"
+                                   value="{{ converttime($closetime) }}"
+                                   title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style=""/>
+                        </DIV>
+                        <div class="clearfix" style="">
+                        </div>
+                    </div>
+                <?php
             }
-            $closed .= '> Open<span class="c-indicator"></span></LABEL>';
-        }
+
+            echo newrow($new, " ", ""); //required to stop the datetime picker issue
+            echo newrow();
         ?>
-
-
-
-        <div class="form-group" style="">
-            <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
-            <div class="col-xs-8 col-sm-5 nowrap {{ $del_class }}">
-                <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
-                       value="{{ converttime($opentime) }}"
-                       title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
-                <SPAN class="col-xs-1 to-span">to</SPAN>
-                <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]"
-                       value="{{ converttime($closetime) }}"
-                       title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style=""/>
-            </DIV>
-            <div class="clearfix" style="">
-            </div>
-        </div>
-        <?php
-        }
-
-
-
-
-        echo newrow($new, " ", ""); //required to stop the datetime picker issue
-        echo newrow();
-        ?>
-
-
     </div>
 
     <div class="col-md-6 col-xs-12 p-a-0" style="">
 
-
         <DIV CLASS="is_delivery_options">
-                <h4 class="pull-left p-r-1">Delivery Hours
-                </h4>
+            <h4 class="pull-left p-r-1">Delivery Hours</h4>
             <LABEL class="">
                 <LABEL class="c-input c-checkbox pull-left" valign="bottom">
-                    <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);"
-                           ID="samehours" {{ ($isthesame)? " checked":"" }}>
+                    <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ ($isthesame)? " checked":"" }}>
                     Same as Pickup
                     <span class="c-indicator"></span>
                 </LABEL>
@@ -171,13 +158,13 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 
             <DIV CLASS="is_delivery_2">
                 <?php
-                foreach ($day_of_week as $key => $value) {
-                    if (strpos($value, ">") === false) {
-                        $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-                        $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-                        printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
+                    foreach ($day_of_week as $key => $value) {
+                        if (strpos($value, ">") === false) {
+                            $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+                            $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+                            printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
+                        }
                     }
-                }
                 ?>
             </DIV>
         </div>
@@ -189,7 +176,6 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
         <button type="submit" class="btn btn-primary pull-right">Save</button>
     </div>
 </div>
-
 
 <script>
     is_delivery_change();

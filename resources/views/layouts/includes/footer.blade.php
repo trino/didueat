@@ -39,7 +39,7 @@ Thank you">Email Us</a></li>
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
-                    if (!Session::get('session_type_user') == "restaurant") {
+                    if (!Session::get('session_type_user') == "restaurant" || debugmode()) {
 ?>
 
                     <li class="list-inline-item">
