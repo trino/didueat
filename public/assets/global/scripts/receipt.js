@@ -63,7 +63,6 @@ function checkout() {
         }
         //$('.receipt_main').hide();
         $('.profiles').show();
-
         $('#checkoutModal').modal('show'); //show the modal
     }
 }
