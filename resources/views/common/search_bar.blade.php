@@ -32,7 +32,7 @@
             <input style="" type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address" placeholder="Enter Your Address"
                    onchange="change_address_event();"
-                   onfocus="hideresults();"
+                   onfocus="$(this).val('');"
                    onpaste="this.onchange();">
             <input type="HIDDEN" name="latitude" id="latitude">
             <input type="HIDDEN" name="latitude" id="longitude">
@@ -46,16 +46,12 @@
         </div>
     </div>
 
-    <?
-    printfile("views/common/search_bar.blade.php");
-
-    ?>
-
     <?php
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
+        printfile("views/common/search_bar.blade.php");
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+        }
     ?>
 
 
