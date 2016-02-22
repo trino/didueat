@@ -106,7 +106,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
             <?php }
             }else{
             ?>
-            <select name="reservation_address_dropdown" class=" form-control reservation_address_dropdown" name="reservation_address" id="reservation_address" required>
+            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required>
                 <option value="">Select Address</option>
                 <?php
                     $sec = false;

@@ -247,11 +247,12 @@ if (!isset($checkout_modal)) {
         validateform("profiles", {
             phone: "phone required",
             mobile: "phone",
+            reservation_address: "required",
             @if(!read("id"))
                 email: "email required",
             password: "required minlength 3",
             @endif
-            reservation_address: "required"
+           
         });
     });
 </script>
