@@ -229,7 +229,6 @@ class UsersController extends Controller {
         if(!$UserID){
             $UserID= \Session::get('session_id');
         }
-        $post['user_id'] = $UserID;
 
         if (\Input::hasFile($Keyname)) {
             $image = \Input::file($Keyname);
@@ -238,12 +237,9 @@ class UsersController extends Controller {
             $destinationPath = public_path('assets/images/users/' . $UserID);
             mkdir($destinationPath);
             $image->move($destinationPath, $newName);
-            $post['filename'] = $newName;
-        }
 
-        $ob = new \App\Http\Models\ProfilesImages();
-        $ob->populate($post);
-        $ob->save();
+            edit_database("profiles", "id", $UserID, array("photo" => $newName));
+        }
     }
 
     /**
@@ -274,7 +270,7 @@ class UsersController extends Controller {
         else {
             $data['title'] = 'Images Manage';
             $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
-            $data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
+            //$data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
             return view('dashboard.user.manage_image', $data);
         }
     }
@@ -377,7 +373,7 @@ class UsersController extends Controller {
                     $userArray3["email"] = $post["email"];
                 }
 
-                $userArray3['mail_subject'] = 'Your Did u EAT order has been received!';
+                $userArray3['mail_subject'] = 'Your Didu Eat order has been received!';
                 $userArray3["guid"] = $ob2->guid;
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";
@@ -385,7 +381,7 @@ class UsersController extends Controller {
                 $this->sendEMail("emails.receipt", $userArray3);
 
                 $userArray3["profile_type"] = "restaurant";
-                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order!';
+                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to did you eat dor c ay for more details. Thank you.';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
                 echo '6';  // what is this for?

@@ -18,9 +18,9 @@ if(Session::has('paymentMade')){
  $paymentMsg="Thank you for your Payment!";
 }
 ?>
-
-
-<div class="container" style="width:550px">
+<div class="container">
+     Coming Soon</div>
+<div class="container" style="display:none;">
 
     <div class="row">
 
@@ -48,8 +48,6 @@ if(Session::has('paymentMade')){
     </div>
 
     </div>
-<br/>
-
 
 
     <div id="accordion" role="tablist" aria-multiselectable="true" style="display:none">

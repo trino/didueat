@@ -69,9 +69,6 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 
     <div class="col-md-6 col-xs-12 p-a-0" style="">
         <h4>Pickup Hours</h4>
-        <div class="clearfix"></div>
-
-        <div class="clearfix"></div>
 
 
         <?php
@@ -188,12 +185,9 @@ $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restau
 
 
     <div class="col-md-12">
-        <div class="clearfix"></div>
         <hr class="m-y-1" align="center"/>
         <button type="submit" class="btn btn-primary pull-right">Save</button>
     </div>
-
-
 </div>
 
 

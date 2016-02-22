@@ -3,14 +3,12 @@
         <a class="hidden-sm-down" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
         </a>
-        <a style="color: white;font-weight:bold;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
+        <a style="color: white;font-weight:bold;padding-top:5px;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
             Didu Eat
         </a>
         <ul class="nav navbar-nav pull-right">
             <li class="nav-item">
-                <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="btn btn-sm btn-warning"
-                   style=""
-                   onclick="checkout();">
+                <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="btn btn-sm btn-warning" onclick="return checkout();">
                     <SPAN class="card-header-items"></SPAN>
                     <!--i class="fa fa-shopping-cart"></i-->
                     <SPAN class="card-header-total"></SPAN>
@@ -40,9 +38,9 @@
                         ?>" class="img-rounded pull-right" style="margin-left:6px !important;height: 32px;width:32px;">
                     </a>
 
-                    <a type="button" data-toggle="collapse" href="#"
+                    <!--a type="button" data-toggle="collapse" href="#"
                        class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
-                       data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+                       data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a-->
                     <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">

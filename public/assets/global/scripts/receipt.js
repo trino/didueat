@@ -45,8 +45,10 @@ function checkout() {
         //donothing
     } else {
         if(Number($('#subtotal1').val()) == 0){
-            alert('Please make a menu selection before checking out!');
-            return false;
+            if(!debugmode){
+                alert('Please make a menu selection before checking out!');
+                return false;
+            }
         }
         else if(Number($('#subtotal1').val())< Number(minimum_delivery)) {
             alert('Minimum delivery fee not met!');
@@ -61,7 +63,6 @@ function checkout() {
         }
         //$('.receipt_main').hide();
         $('.profiles').show();
-
         $('#checkoutModal').modal('show'); //show the modal
     }
 }

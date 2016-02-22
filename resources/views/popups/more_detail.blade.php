@@ -20,41 +20,38 @@
                     </div>
                 </div>
 
+                <?php
+                    $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
+                    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
+                    echo '<p><strong>Phone</strong> ' . $restaurant->phone . '</p>';
 
-                        <?php
-                        $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                        echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
-                        ?>
-                    <p><strong>Phone</strong> {!! (isset($restaurant->phone))?$restaurant->phone:'' !!}</p>
+                    if($restaurant->is_delivery){
+                        $open = getfield($restaurant, $Today . "_open");
+                        $close = getfield($restaurant, $Today . "_close");
 
-                        <?php
                         echo "<p><strong>Delivery</strong> ";
-                        echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</p>";
-                        ?>
-                    <p><strong>Delivery Fee</strong> {{ asmoney($restaurant->delivery_fee,$free=true) }}</p>
+                        if ($open != $close) {
+                            echo converttime(getfield($restaurant, $Today . "_open_del")) . " - " . converttime(getfield($restaurant, $Today . "_close_del")) . "</p>";
+                        } else {
+                            echo "Closed";
+                        }
+                        echo '<p><strong>Delivery Fee</strong> ' . asmoney($restaurant->delivery_fee,$free=true) . '</p>';
+                        echo '<p><strong>Minimum</strong> ' . asmoney($restaurant->minimum,$free=false) . '</p>';
+                        echo '<input type="hidden" id="minimum_delivery" value="' . $restaurant->minimum . '"/>';
+                    }
+                ?>
 
+                @if (Session::get('session_type_user') == "super" )
+                    <p>
+                        <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
+                    </p>
+                @endif
 
-                    <p><strong>Minimum</strong> {{ asmoney($restaurant->minimum,$free=false) }}</p>
-
-
-                        <input type="hidden" id="minimum_delivery" value="{{$restaurant->minimum}}"/>
-
-
-                        @if (Session::get('session_type_user') == "super" )
-                            <p>
-                                <strong class="">Views</strong> {!! (isset($total_restaurant_views))?$total_restaurant_views:0 !!}
-                            </p>
-                        @endif
-
-
-                    <p>{!! (isset($restaurant->description)&&$restaurant->description!='')? '<h4>Description</h4>'.$restaurant->description:'' !!}</p>
-
-
+                <p>{!! (isset($restaurant->description)&&$restaurant->description!='')? '<h4>Description</h4>'.$restaurant->description:'' !!}</p>
 
                 <h4>Hours: </h4>
 
-
-                    <?php
+                <?php
                     $days = getweekdays();
                     $needsdeliveryhours = false;
                     if ($restaurant->is_delivery) {
@@ -96,8 +93,7 @@
                         }
                         echo '</TR>';
                     }
-                    ?>
-
+                ?>
 
                 @if(false)
                     <h3>Tags</h3>
@@ -105,7 +101,8 @@
                     <h3>Reviews</h3>
                     <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                 @endif
-<div class="clearfix"></div>
+
+                <div class="clearfix"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -2,29 +2,23 @@
     <?php
     printfile("views/common/orderinfo.blade.php");
 
-
     //$Data = array("Status" => $order->status);
     $Data['Order #'] = $order->guid;
     $Data['Status'] = $order->status;
     $Data["Customer"] = $order->ordered_by;
-
 
     $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
     $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
     $Data["Time Ordered"] = $date->format(get_date_format());
     
     if ($order->order_till != "0000-00-00 00:00:00") {
-    
-				    if($order->order_till == "Order ASAP"){
-          $t=time();
-          $order->order_till = strftime('%F %T',$t); // ie, right now
-				    }
-
+        if(!$order->order_till){
+            $t=time();
+            $order->order_till = strftime('%F %T',$t); // ie, right now
+        }
         $date = new DateTime($order->order_till);//$date->format('l jS \of F Y h:i:s A');
-        
         $Data["Ordered For"] = $date->format(get_date_format());
     }
-
 
     if (isset($user_detail) && is_object($user_detail)) {
         $Data["Customer"] = $user_detail->name;
