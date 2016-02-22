@@ -135,6 +135,6 @@
 
 
     <div class="card-footer clearfix">
-        {!! $Pagination; !!}    </div>
+        {!! $Pagination !!}    </div>
         @endif
 </div>
