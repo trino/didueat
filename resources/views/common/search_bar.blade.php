@@ -77,16 +77,13 @@
         }
     </script>
 
-    <?
-    printfile("views/common/search_bar.blade.php");
-
-    ?>
-
     <?php
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
+        printfile("views/common/search_bar.blade.php");
+
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+        }
     ?>
 
 
