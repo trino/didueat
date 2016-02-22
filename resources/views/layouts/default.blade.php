@@ -41,7 +41,8 @@ if (Request::path() !== null && Request::path() != "/") {
     <!-- CSS -->
 
     <!--link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- Safari doesn't trust the certificate from here:    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
     <!--link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous"-->
     <link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
@@ -102,8 +103,6 @@ if (Request::path() !== null && Request::path() != "/") {
     @endif
 
 
-</head>
-
 <SCRIPT>
     var baseurl = "{{ url('/') }}";
     var debugmode = "{{ debugmode() }}";
@@ -114,6 +113,7 @@ if (Request::path() !== null && Request::path() != "/") {
     }
 </SCRIPT>
 
+</head>
 <body>
 
 <?php

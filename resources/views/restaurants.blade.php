@@ -21,7 +21,7 @@ if((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie){
     }
   }
   else{
-  
+   
 			  $ip = $localIPTst;
 		  	$details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
      if($details->country == "US" || $details->country == "CA"){
@@ -362,12 +362,13 @@ else{
             if (start == 0) {
                 //   $('#search-form #clearSearch').show();
                 $('#restuarant_bar').html('');
-                $('.parentLoadingbar').show();
+                $('#parentLoadingbar').show();
                 $('#start_up_message').hide();
                 $('#icons_show').hide();
                 $('#results_show').show();
-                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data}, function (result) {
-                    $('.parentLoadingbar').hide();
+                $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data}, function (result) {
+                
+                    $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
                     $('#countRowsS').text('s');
                     if (result.trim() != "") {
@@ -383,7 +384,7 @@ else{
             } else {
                 $('.loadingbar').show();
                 $('#loadingbutton').hide();
-                $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data}, function (result) {
+                $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data: data}, function (result) {
                     $('#restuarant_bar').append(result);
                     $('#loadMoreBtnContainer').remove();
                 });

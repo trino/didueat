@@ -38,7 +38,12 @@
                                     <br /><br />                        
                                     Thank You
                                     <br /><br />
-                                @endif      
+                                @endif
+                                
+                                @if(isset($restaurant_id))
+                                
+                                
+                                @endif
                                       
                                 Regards,
                                 <br />

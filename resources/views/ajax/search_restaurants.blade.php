@@ -142,4 +142,4 @@
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
 
-<img class='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
