@@ -45,30 +45,29 @@
                             </td-->
 
                             <td class="text-xs-center">
-                                <label class="c-input c-checkbox pull-left">
-                                    <INPUT TYPE="CHECKBOX" ID="add_enable_{{ $value->id }}" CLASS="fullcheck"
-                                       <?php
-                                           $candisable = true;
-                                           foreach(array("email", "phone", "mobile") as $field){
-                                               if($value->address == $restaurant->$field){
-                                                   $candisable = false;
-                                                   break;
-                                               }
-                                           }
 
-                                           if($candisable){
-                                               echo ' ONCLICK="add_enable(' . $value->id . ');"';
-                                               if ($value->enabled) {
-                                                   echo ' CHECKED';
-                                               }
-                                           } else {
-                                               echo " CHECKED DISABLED";
-                                               $value->note = "This is required";
+                                   <?php
+                                       $candisable = true;
+                                       foreach(array("email", "phone", "mobile") as $field){
+                                           if($value->address == $restaurant->$field){
+                                               $candisable = false;
+                                               break;
                                            }
-                                       ?>
-                                    >
-                                    <span class="c-indicator"></span>
-                                </label>
+                                       }
+
+                                       if($candisable){
+                                           echo '<label class="c-input c-checkbox pull-left">';
+                                           echo '<INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck" ONCLICK="add_enable(' . $value->id . ');"';
+                                           if ($value->enabled) {
+                                               echo ' CHECKED';
+                                           }
+                                           echo '><span class="c-indicator"></span></label>';
+                                       } else {
+                                           //echo " CHECKED DISABLED";
+                                           $value->note = "This is required";
+                                       }
+                                   ?>
+
                             </td>
 
                             <td>{{ $value->type }}: {{ $value->address }}</td>
