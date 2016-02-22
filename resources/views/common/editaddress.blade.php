@@ -183,7 +183,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
 
 <?= newrow($new, "Postal Code", "", $required, 5); ?>
 <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();"
-       class="form-control postal_code" placeholder=""
+       class="form-control postal_code" placeholder="" {{$required}}
        value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
 </div></div>
 
@@ -193,43 +193,23 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
 </div></div>
 </div>
 
-<?php
-if(isset($restSignUp)){
-
-?>
+<?php if(isset($restSignUp)){ ?>
 <div id="verifyAddress" style="display:none">
-    <?
-    echo newrow($new, "Important", "", true, 10, true);
-    ?>
+    <?= newrow($new, "Important", "", true, 10, true); ?>
     <div class="instruct">Please Ensure Address was Correctly Filled Out</div>
 </div>
 
 <?php
-echo newrow();
+    echo newrow();
 }
 
 if($isUser){
-echo newrow($new, "Notes", "", false, 9);
-?>
-
-<input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-       value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
-</div></div>
+    echo newrow($new, "Notes", "", false, 9);
+    ?>
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
+            value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    </div></div>
 <?php }
-?>
-
-
-<?php
-if (isset($restEdit)) {
-    /*
-    echo newrow($new, "Save", "", "", 12, "Save");
-    echo '<hr width="100%" align="center" /><span class="pull-right"><button type="submit" class="btn btn-primary pull-right">Save</button></span></div></div>';
-    */
-}
-
-?>
-
-<?php
 
 similar_text(\Request::path(),'user/addresses/edit', $per);
 
@@ -244,18 +224,17 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     </SCRIPT>
 @else
     <?php
-    if (!isset($_GET['route'])) {
-        includeJS(url("assets/global/scripts/provinces.js"));
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-            //echo "<script>initAutocomplete();</script>";
+        if (!isset($_GET['route'])) {
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                //echo "<script>initAutocomplete();</script>";
+            }
+        } else {
+            includeJS(url("assets/global/scripts/provinces.js"));
+            if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
+                echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+            }
         }
-
-    } else {
-        includeJS(url("assets/global/scripts/provinces.js"));
-        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
-            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-        }
-    }
     ?>
 @endif
 <?php }?>
