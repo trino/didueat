@@ -16,7 +16,7 @@
                 <td width="10%"><img src="{{ asset('assets/images/users/' . $logo_name) }}" width="55" /></td>
                 <td width="90%">
                     {{ $profile->name }} &nbsp;-&nbsp; (<i>{{ date("d M, Y", strtotime($value->created_at)) }}</i>)<br />
-                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", $type, $value->target_id, false, 'update-rating', false) !!}
+                    {!! rating_initialize("static-rating", $type, $value->target_id, false, 'update-rating', false, false, "", true, $value->rating) !!}
                     <div class="clearfix"></div>
                     {{ trim($value->comments) }}
                 </td>

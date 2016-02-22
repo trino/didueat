@@ -1641,7 +1641,7 @@ function datename($date){
     }
 
 //prints a rating
-    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true) {
+    function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true, $average = false) {
         $html = '<DIV>';
         if($NeedsVARs) {
             $html = '<DIV id="ratingtarget' . $target_id . '" rating-targetid="' . $target_id . '" rating-type="' . $type . '" rating-loadtype="' . $load_type . '" rating-twolines="' . $TwoLines . '" rating-class="' . $class_name . '" rating-button="' . $add_rate_brn . '" rating-starts="' . $starts . '" rating-color="' . $Color . '">';
@@ -1665,7 +1665,9 @@ function datename($date){
             $start4Half = 'class="' . $update_class . '"';
             $start5 = 'class="' . $update_class . '"';
 
-            $average = rating_get($target_id, $value->id, $load_type);
+            if(!$average) {
+                $average = rating_get($target_id, $value->id, $load_type);
+            }
             if ($average == 0.5) {
                 $startHalf = 'checked class="' . $checked_class . $update_class . '"';
             } else if ($average == 1.0) {
