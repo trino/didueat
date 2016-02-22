@@ -229,7 +229,6 @@ class UsersController extends Controller {
         if(!$UserID){
             $UserID= \Session::get('session_id');
         }
-        $post['user_id'] = $UserID;
 
         if (\Input::hasFile($Keyname)) {
             $image = \Input::file($Keyname);
@@ -238,12 +237,9 @@ class UsersController extends Controller {
             $destinationPath = public_path('assets/images/users/' . $UserID);
             mkdir($destinationPath);
             $image->move($destinationPath, $newName);
-            $post['filename'] = $newName;
-        }
 
-        $ob = new \App\Http\Models\ProfilesImages();
-        $ob->populate($post);
-        $ob->save();
+            edit_database("profiles", "id", $UserID, array("photo" => $newName));
+        }
     }
 
     /**
@@ -274,7 +270,7 @@ class UsersController extends Controller {
         else {
             $data['title'] = 'Images Manage';
             $data['restaurants_list'] = \App\Http\Models\Restaurants::get();//get all restaurants
-            $data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
+            //$data['images_list'] = \App\Http\Models\ProfilesImages::get();//get all profile images
             return view('dashboard.user.manage_image', $data);
         }
     }

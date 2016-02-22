@@ -24,7 +24,7 @@
             ), "My Restaurant");
         }
 
-        if (!\Session::get('session_restaurant_id')) {
+        if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             makelink(array(
                     'orders/list/user' => 'My Orders',
                     'user/info' => "My Profile",
