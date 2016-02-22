@@ -1,3 +1,4 @@
+
 .alert {
     margin-bottom: 0 !important;
 }
@@ -162,7 +163,7 @@ background: white !important;
     h6 {
         font-size: 1.25rem !important;
     }
-    .container{padding-left:0px !important;padding-right:0px !important;}
+    .container{}
 }
 
 .cleafix {

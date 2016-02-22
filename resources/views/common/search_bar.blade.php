@@ -9,7 +9,7 @@
                         $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                         if($addresses->count()){
                             ?>
-                            <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button style="" type="button" class="btn  btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
                             </button>
                             <div class="dropdown-menu dropdown-menu-left">

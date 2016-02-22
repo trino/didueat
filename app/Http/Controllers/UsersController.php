@@ -385,7 +385,7 @@ class UsersController extends Controller {
                 $this->sendEMail("emails.receipt", $userArray3);
 
                 $userArray3["profile_type"] = "restaurant";
-                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order!';
+                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to did you eat dor c ay for more details. Thank you.';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
                 
                 echo '6';  // what is this for?

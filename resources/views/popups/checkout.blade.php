@@ -129,9 +129,17 @@
                                 <div class="clearfix"></div>
                             </div>
 
-                            <div class="col-md-12">
-                                <div class="instruct smallT bd">Be sure to review your order before proceeding!</div>
 
+
+                            </div>
+                                <div class="col-md-12">
+
+                                    <div class="form-group" style="color: red;">
+
+                                        Please review your order before proceeding!
+
+
+                                        </div>
                                 <div class="form-group pull-right">
 
                                     <a href="javascript:history.go(0)" class="btn  btn-secondary clearitems"

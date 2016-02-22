@@ -41,23 +41,24 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image p-a-0 m-a-0" style="">
-        <div class="container " style="margin-top: 0 !important;">
-            <div class="row text-md-center p-t-3" style="  ">
-                <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-1">
-                    <h1 class="display-4 banner-text-shadow" style="">Order Combos from Hamilton Restaurants</h1>
+    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image p-y-2" style="">
+        <div class="container " style="margin-top: 1rem !important;">
+            <div class="row text-md-center" style="  ">
+                <div class="col-md-offset-2 text-xs-center col-md-8">
 
-                    <br>
+                    <div  style="padding:.5rem !important;">
+                        <h1 class="display-4 banner-text-shadow" style='font-family: "Georgia", Times, serif'>Order Combos from Hamilton Restaurants</h1>
+
+                        <br>
                     @include('common.search_bar')
-
                     <br>
-                    <p class="lead  banner-text-shadow " style="">
+                    <p class="lead banner-text-shadow">
                         Or show me
                         <a href="#" class="search-city" style="color:white;text-decoration: underline;" loc="{{ $details->loc }}"
                            onclick="submitform(event, 0);">{{ $locationStr }}
                         </a>
                     </p>
-
+</div>
                 </div>
             </div>
         </div>
@@ -194,7 +195,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                     </div><br>
                     <h4>Local</h4>
 
-                    <p class="text-muted m-b-0">Steel Town's Best Restaurants</p>
+                    <p class="text-muted">Steel Town's Best Restaurants</p>
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="img-circle bg-success center-block" style="width:87px;height:87px;"><br>
@@ -203,7 +204,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                     </div><br>
                     <h4>Efficient</h4>
 
-                    <p class="text-muted m-b-0">The Fastest way to Order Food</p>
+                    <p class="text-muted">The Fastest way to Order Food</p>
                 </div>
 
                 <div class="col-lg-4 text-xs-center">
@@ -213,7 +214,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                     </div><br>
                     <h4>Discounts</h4>
 
-                    <p class="text-muted m-b-0">There's a Deal Everyday</p>
+                    <p class="text-muted">There's a Deal Everyday</p>
                 </div>
                 <div class="clearfix"></div>
             </div>

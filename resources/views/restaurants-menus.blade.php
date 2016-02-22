@@ -136,7 +136,7 @@
                                 });
                             </script>
                             @endforeach
-                            <input type="file" accept="image/*;capture=camera">
+                            <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
             </div>

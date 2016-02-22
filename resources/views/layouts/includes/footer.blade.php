@@ -1,6 +1,6 @@
 <div class="container">
 
-    <hr class=" m-y-2" />
+    <hr class="m-y-2" />
 
     <footer class="text-muted">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
