@@ -58,7 +58,7 @@ class Restaurants extends BaseModel {
         if(isset($array["city"])){$city = $array["city"];}
 
         $query = Restaurants::select('*')
-            ->Where(function ($query) use ($searchResults, $incomplete, $city) {
+            ->Where(function ($query) use ($searchResults, $incomplete, $city, $array) {
                 if ($incomplete) {
                     $query->Where('is_complete', '0');
                     //->orWhere('has_creditcard', '0');
@@ -131,9 +131,6 @@ class Restaurants extends BaseModel {
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
-        if (isset($data['cuisine']) && $data['cuisine'] != "") {
-            $where .= " AND cuisine = '".$data['cuisine']."'";
-        }
         if (isset($data['rating']) && $data['rating'] != "") {
             $where .= " AND rating = '".$data['rating']."'";
         }
@@ -145,6 +142,9 @@ class Restaurants extends BaseModel {
         }
         if (isset($data['tags']) && $data['tags'] != "") {
             $where .= " AND tags LIKE '%" . $data['tags'] . "%'";
+        }
+        if (isset($data['cuisine']) && $data['cuisine'] != "") {
+            $where .= " AND cuisine LIKE '%" . $data['cuisine']. "%'";
         }
         if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
             $order = " ORDER BY " . $data['SortOrder'];
@@ -161,7 +161,7 @@ class Restaurants extends BaseModel {
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;
 
-        $data['radius']="max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE
+        $data['radius']=300;//"max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( ".$earthRad." * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
