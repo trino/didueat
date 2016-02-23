@@ -11,6 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  * @date       13 July, 2015
  */
 class BaseModel extends Model {
+    protected $orderBy = '';
+    protected $orderDirection = 'ASC';
+
+    /**
+     * Get a new query builder for the model's table.
+     *
+     * @param bool $ordered
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function newQuery($ordered = true) {
+        $query = parent::newQuery();
+        if (empty($ordered) || !$this->orderBy) {
+            return $query;
+        }
+        return $query->orderBy($this->orderBy, $this->orderDirection);
+    }
+
     //populate, and save a new entry
     public static function makenew($columns=false, $ID=0){
         $ob = self::findOrNew($ID);

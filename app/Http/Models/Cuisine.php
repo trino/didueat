@@ -8,6 +8,8 @@ class Cuisine extends BaseModel {
     protected $table = 'cuisine';
     protected $primaryKey = 'id';
     public $timestamps = true;
+    protected $orderBy = 'name';
+    protected $orderDirection = 'ASC';
 
     /**
      * @param array

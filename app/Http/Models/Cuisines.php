@@ -14,7 +14,7 @@ class Cuisines extends BaseModel {
      */
 
     public function populate($data) {
-      $cells=array('restID','cuisine');
+        $cells=array('restID','cuisine');
         $this->copycells($cells, $data);
     }
 

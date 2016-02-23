@@ -1,34 +1,34 @@
 <?php
-$first = false;
-$type = "hidden";
-$localIPTst = $_SERVER['REMOTE_ADDR'];
-$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-$latlngStr = "";
-$locationStr = "";
-$useCookie = false;
+    $first = false;
+    $type = "hidden";
+    $localIPTst = $_SERVER['REMOTE_ADDR'];
+    $localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+    $latlngStr = "";
+    $locationStr = "";
+    $useCookie = false;
 
-if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-    if (function_exists('geoip_record_by_name')) {
-        $info = geoip_record_by_name($localIPTst);
-        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-            $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
+    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+        if (function_exists('geoip_record_by_name')) {
+            $info = geoip_record_by_name($localIPTst);
+            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+                $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
+            } else {
+                $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
+            }
         } else {
-            $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
+            $ip = $localIPTst;
+            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+            if ($details->country == "US" || $details->country == "CA") {
+                $locationStr = $details->city . ", " . $details->region;
+            } else {
+                $locationStr = $details->city . ", " . $details->country;
+            }
+            $latlng = explode(",", $details->loc);
+            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
         }
     } else {
-        $ip = $localIPTst;
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        if ($details->country == "US" || $details->country == "CA") {
-            $locationStr = $details->city . ", " . $details->region;
-        } else {
-            $locationStr = $details->city . ", " . $details->country;
-        }
-        $latlng = explode(",", $details->loc);
-        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+        // get city [, province/state], and country from cookie or session, once implemented
     }
-} else {
-    // get city [, province/state], and country from cookie or session, once implemented
-}
 ?>
 @extends('layouts.default')
 @section('content')
