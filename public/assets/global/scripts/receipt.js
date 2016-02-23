@@ -210,7 +210,8 @@ $(function(){
         newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
         newtitle = newtitle.replace(" x(1)","");
         //alert(newtitle);
-        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
+        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
+        changeModalprice($(this));
     });
 
     $('.remspan').live('click',function(){
@@ -253,7 +254,8 @@ $(function(){
         newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
         newtitle = newtitle.replace(" x(1)","");
         //alert(newtitle);
-        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle)
+        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
+        changeModalprice($(this));
     });
         
     $('.decrease').live('click', function () {
@@ -302,7 +304,7 @@ $(function(){
         total = parseFloat(total);
         total = Number(total) - Number(amount);
         total = total.toFixed(2);
-        $('#list' + numid + ' .total').text('$' + total);
+        $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
          $('#list' + numid + ' .prs').val(total);
 
         quant = parseFloat(quant);
@@ -368,7 +370,7 @@ $(function(){
         total = parseFloat(total);
         total = Number(total) + Number(amount);
         total = total.toFixed(2);
-        $('#list' + numid + ' .total').text('$' + total);
+        $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
         $('#list' + numid + ' .prs').val(total);
         
         quant++;
@@ -378,8 +380,146 @@ $(function(){
         total_items++;
         updatecart();
     });
+    
+        /*    
+        $('body').on('click','.changemodalP',function(){
+                var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
+                var ids = "";
+                var app_title = "";
+                var price = "";
+                var extratitle = "";
+                var dbtitle = "";
+                var err = 0;
+                var catarray = [];
+                var td_index = 0;
+                var td_temp = 9999;
+                var n_counter = 0;
+                $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+                    if ($(this).is(':checked') && $(this).attr('title') != "") {
+                        var tit = $(this).attr('title');
+                        var title = tit.split("_");
+                        if (index != 0) {
+                            extratitle = extratitle + "," + title[1];
+                        }
+                        var su = "";
+                        if ($(this).val() != "") {
+                            var cnn = 0;
+                            var catid = $(this).attr('id');
+                            catarray.push(catid);
+                            var is_required = $('#required_' + catid).val();
+                            var extra_no = $('#extra_no_' + catid).val();
+                            if (extra_no == 0)
+                                extra_no = 1;
+                            var multiples = $('#multiple_' + catid).val();
+                            var upto = $('#upto_' + catid).val();
+                            var ary_qty = "";
+                            var ary_price = "";
+                            $('.extra-' + catid).each(function () {
+                                if ($(this).is(":checked")) {
+                                    var mid = $(this).attr('id').replace('extra_', '');
+                                    var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
+                                    if (qty != "") {
+                                        cnn += Number(qty);
+                                    } else {
+                                        cnn++;
+                                    }
+                                }
+                            });
+
+                            if (is_required == '1') {
+                                if (upto == 0) {
+                                    if (cnn == 0) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                        //$('.error_' + catid).html("Options are required");
+                                    } else if (multiples == 0 && cnn > extra_no) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                        //$('.error_' + catid).html("Select up to " + extra_no + " Options");
+                                    } else {
+                                        ///$('.error_' + catid).html("");
+                                    }
+                                } else {
+                                    if (cnn == 0) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                       // $('.error_' + catid).html("Options are required");
+                                    } else if (multiples == 0 && cnn != extra_no) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                      //  $('.error_' + catid).html("Select " + extra_no + " Options");
+                                    } else {
+                                       // $('.error_' + catid).html("");
+                                    }
+                                }
+                            } else {
+                                if (upto == 0) {
+                                    if (multiples == 0 && cnn > 0 && cnn > extra_no) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                       // $('.error_' + catid).html("Select up to " + extra_no + " Options");
+                                    } else {
+                                        //$('.error_' + catid).html("");
+                                    }
+                                } else {
+                                    if (multiples == 0 && cnn > 0 && cnn != extra_no) {
+                                        err++;
+                                        td_index = $('#td_' + catid).index();
+                                        if (td_temp >= td_index) {
+                                            td_temp = td_index;
+                                        } else {
+                                            td_temp = td_temp;
+                                        }
+                                        //$('.error_' + catid).html("Select " + extra_no + " Options");
+                                    } else {
+                                        //$('.error_' + catid).html("");
+                                    }
+                                }
+                            }
+                            if (cnn > 0) {
+                                su = $(this).val();
+                                extratitle = extratitle + " " + su + ":";
+                                app_title = app_title + " " + su + ":";
+                            }
+                        }
+                        var x = index;
+                        if (title[0] != "") {
+                            ids = ids + "_" + title[0];
+                        }
+                        app_title = app_title + "," + title[1];
+                        price = Number(price) + Number(title[2]);
+                    }
+                });
+            $('.modalprice'+menu_id).html('$'+price.toFixed(2));
+        })*/
         
 }) 
+
 
 function updatecart(){
     var total = $(".grandtotal").html();

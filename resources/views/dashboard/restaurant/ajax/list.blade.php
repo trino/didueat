@@ -114,7 +114,7 @@
                     <td>
                         @if(!$incomplete)
                             <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm">Orders</a>
-                            <a href="{{ url('restaurants/' . $value->slug . '/menus/') }}" class="btn btn-info btn-sm">Menu</a>
+                            <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm">Menu</a>
                         @endif
                         <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a>

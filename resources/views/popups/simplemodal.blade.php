@@ -1,4 +1,4 @@
-<div class="modal" id="allergyModal" tabindex="-1" role="dialog" aria-labelledby="allergyModalLabel" aria-hidden="true">
+<div class="modal" id="allergyModal" tabindex="-1" role="dialog" aria-labelledby="allergyModalLabel" aria-hidden="true" style="z-index: 1100;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

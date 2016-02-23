@@ -23,7 +23,7 @@
             <div class="new-layout-box-content">
               <div class="restaurant-name">
                 <a
-                  href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+                  href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                   class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2></a>
               </div>
               <a
@@ -39,7 +39,7 @@
           </div>
           <div class="col-md-3">
             <div class="menu-img">
-              <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+              <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                 class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                 <div class="card-image">
                     <img class="img-responsive" src="{{ $item_image1 }}" alt="{{ $item_image1 }}">

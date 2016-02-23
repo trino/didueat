@@ -72,7 +72,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
         ?>
             <!--div class="input-group-btn addressdropdown"-->
 
-    @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menus' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus")))
+    @if( (Request::path() == '/' || Request::path()=='restaurants/chuck-burger-bar/menu' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu")))
 
         <?php
             $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
@@ -114,7 +114,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
                         if (!$sec) {
                             $sec = $address->id;
                         }
-                        echo '<option class="dropdown-item" ';
+                        echo '<option class="dropdown-item" REQUIRED';
                         echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
                         echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
                         echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
@@ -143,7 +143,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address"
                    autocomplete="false"
-                   onclick="$(this).attr('autocomplete', 'false');"
+                   onclick="$(this).attr('autocomplete', 'false');"  
                    value="<?php
             if (old('formatted_address')) {
                 echo old('formatted_address');

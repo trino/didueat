@@ -13,9 +13,9 @@ Route::get('/restaurants/{searchTerm}',                             'HomeControl
 Route::post('/search/restaurants/ajax',                             'HomeController@searchRestaurantsAjax');
 Route::resource('/restaurants/loadmenus/{catid}/{resid}/',          'HomeController@loadmenus');
 Route::get('/restaurants/menu/stats/{id}',                          'HomeController@countStatus');
-Route::get('/restaurants/{slug}/menus',                             'HomeController@menusRestaurants');
-Route::get('/search/menus/{term}',                                  'HomeController@searchMenus');
-Route::post('/search/menus/ajax',                                   'HomeController@searchMenusAjax');
+Route::get('/restaurants/{slug}/menu',                              'HomeController@menusRestaurants');
+Route::get('/search/menu/{term}',                                   'HomeController@searchMenus');
+Route::post('/search/menu/ajax',                                    'HomeController@searchMenusAjax');
 Route::post('/uploadimg/{type}',                                    'HomeController@uploadimg')->where('type', '[a-z]+');
 Route::post('/newsletter/subscribe',                                'HomeController@newsletterSubscribe');
 Route::post('/rating/save',                                         'HomeController@ratingSave');
@@ -24,7 +24,7 @@ Route::get('home/simplemodal/{page}',                               'HomeControl
 Route::post('home/simplemodal/{page}',                              'HomeController@simplemodal');
 
 //Authentication routes...
-Route::post('auth/login/ajax',                                      'Auth\AuthController@authenticateAjax');
+Route::post('auth/login/ajax',                                      'Auth\AuthController@views/menu.blade.php');
 //Route::get('auth/login',                                          'Auth\AuthController@getLogin');
 Route::post('auth/login',                                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
@@ -101,7 +101,7 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
     Route::get('notification/addresses/delete/{id}',                'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
     Route::get('notification/addresses/default/{id}',               'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
     
-    Route::resource('restaurant/menus-manager',                     'RestaurantController@menuManager');
+    Route::resource('restaurant/menu-manager',                      'RestaurantController@menuManager');
 });
 
 // Routes After Logged in and Role Admin Check

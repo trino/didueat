@@ -57,11 +57,11 @@
                     <div class="col-md-3 col-xs-3 p-l-0">
                         <img style="max-width:100%;" class="pull-left img-rounded"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                             src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
                              @else
-                             src="{{ asset('assets/images/default.png') }}"
+                                src="{{ asset('assets/images/default.png') }}"
                              @endif
-                             alt="">
+                         alt="">
 
                         <div class="clearfix"></div>
                     </div>
@@ -474,16 +474,13 @@
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:40px;">' +
-                        '</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />'
-                            /*
-                             '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
-                             '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
-                             '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
-                             '<i class="fa fa-plus"></i></a>' +
+                        '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
+                        '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
+                        '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
+                        '<i class="fa fa-plus"></i></a>' +
 
-                             */
-                        +
-                        '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
+                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>'+
+                        '</td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
                         '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
@@ -556,10 +553,14 @@
                         $(this).removeAttr("checked");
                     }
                 });
+                var dispr=Number($('.displayprice'+menu_id).val());
+                $('.modalprice'+menu_id).html('$'+dispr.toFixed(2));
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
+                
                 show_header();
                 total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
+                
                 updatecart();
             });
             function inArray(needle, haystack) {
@@ -598,7 +599,7 @@
             });
             $(".sorting_parent").live('click', function () {
                 var path = window.location.pathname + '?sorted';
-                alert(path);
+                //alert(path);
                 $('.overlay_loader').show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
@@ -637,5 +638,6 @@
                 window.location = "{{ url('restaurants') }}/" + $(this).val();
             }
         });
-    </script>
+
+</script>
 @stop

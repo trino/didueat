@@ -9,19 +9,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?>
-                    <span style="color:#0275d8" class="">
+                    <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
+                    
                         @if($value->price>0)
                             @if($dis)
-                                <strike class="text-muted">${{number_format($value->price,2)}}</strike>
-                                ${{number_format($main_price,2)}}
+                                <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                                ${{number_format($dis_price=$main_price,2)}}
                                 <span class='label label-warning'>{{$dis}}</span>
                             @else
-                                ${{number_format($value->price,2)}}
+                                ${{$dis_price=number_format($value->price,2)}}
                             @endif
                         @else
-                            ${{number_format($min_p,2)}}+
+                            ${{$dis_price=number_format($min_p,2)}}+
                         @endif
-</span>
+                        
+                </span>
+                <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}" />
                 </h4>
             </div>
             <div class="modal-body product-popup">
@@ -157,11 +160,11 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0" style="width:40%;">
+                                                                    } ?> class="pull-left p-a-0 changemodalP" style="width:40%;">
 
 
                                                                         <a id="remspan_{{ $mm->id }}"
-                                                                           class="remspan btn btn-secondary-outline btn-sm"
+                                                                           class="remspan btn btn-secondary-outline btn-sm "
                                                                            href="javascript:;"><i class="fa fa-minus"
                                                                                                   style=""></i></a>
 
@@ -171,7 +174,7 @@
 
 
                                                                         <a id="addspan_{{ $mm->id }}"
-                                                                           class="addspan btn btn-sm btn-primary-outline"
+                                                                           class="addspan btn btn-sm btn-primary-outline "
                                                                            href="javascript:;"><i class="fa fa-plus"
                                                                                                   style=""></i></a>
 
@@ -179,7 +182,7 @@
                                                                     </div>
 
                                                                     <div class="col-md-8 p-a-0"  style="width:60%;font-size: 95%;">
-                                                                        <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
+                                                                        <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio changemodalP" @endif >
 
 
                                                                             <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"

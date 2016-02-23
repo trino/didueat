@@ -2,10 +2,9 @@
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-        @endif
+@endif
 
         <DIV class="list-group m-b-2" id="">
-
 
             <div class="list-group-item parents " id="">
                 <div class="">
@@ -13,32 +12,30 @@
 
                         <div class="col-md-12">
                             <h4 class="card-title">Online Menu</h4>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             @foreach($menus_list as $value)
-
-
                 <?php
-                $has_image = true;
-
-                $item_image = asset('assets/images/restaurant-default.jpg');
-                $item_image1 = asset('assets/images/restaurant-default.jpg');
-
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                    $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
                     $has_image = true;
-                }
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                    $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
-                    $has_image = false;
-                }
 
-                $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
-                $min_p = get_price($value->id);
+                    $item_image = asset('assets/images/restaurant-default.jpg');
+                    $item_image1 = asset('assets/images/restaurant-default.jpg');
+
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
+                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                        $has_image = true;
+                    }
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
+                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                        $has_image = false;
+                    }
+
+                    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
+                    $min_p = get_price($value->id);
                 ?>
 
                 <div class="list-group-item parents" id="parent{{ $value->id }}">
@@ -47,31 +44,26 @@
 
                             <div class="col-md-12">
                                 <?php
+                                    $main_price = $value->price;
+                                    $dis = '';
+                                    $everyday = '';
+                                    $days = explode(',', $value->days_discount);
+                                    $today = date('D');
+                                    if ($value->has_discount == '1' && in_array($today, $days)) {
+                                        if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat') {
+                                            $everyday = 'everyday';
+                                        } else {
+                                            $everyday = str_replace($today, ',', $value->days_discount);
+                                            $everyday = 'Today and ' . str_replace(',', '/', $everyday);
+                                            $everyday = str_replace('//', '', $everyday);
+                                            $everyday = str_replace(' and /','',$everyday);
+                                        }
+                                        $discount = $value->discount_per;
+                                        $d = $main_price * $discount / 100;
+                                        $main_price = $main_price - $d;
+                                        $dis = "" . $discount . "% off " . $everyday . "";
 
-                                $main_price = $value->price;
-                                $dis = '';
-                                $everyday = '';
-                                $days = explode(',', $value->days_discount);
-                                $today = date('D');
-                                if ($value->has_discount == '1' && in_array($today, $days)) 
-                                {
-                                    if ($value->days_discount == 'Sun,Mon,Tue,Wed,Thu,Fri,Sat')
-                                    {
-                                        $everyday = 'everyday';
                                     }
-                                    else 
-                                    {
-                                        $everyday = str_replace($today, ',', $value->days_discount);
-                                        $everyday = 'Today and ' . str_replace(',', '/', $everyday);
-                                        $everyday = str_replace('//', '', $everyday);
-                                        $everyday = str_replace(' and /','',$everyday);
-                                    }
-                                    $discount = $value->discount_per;
-                                    $d = $main_price * $discount / 100;
-                                    $main_price = $main_price - $d;
-                                    $dis = "" . $discount . "% off " . $everyday . "";
-
-                                }
                                 ?>
 
                                 <h4 class="card-title">
@@ -81,16 +73,15 @@
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
-                                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}">
+                                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
                                         @if(!$has_image)
-                                            <img src="{{ $item_image1 }}"
+                                            <img src="{{ asset($item_image1) }}"
                                                  class="img-rounded" style="height: 25px;width:25px;"
                                                  alt="{{ $value->menu_item }}"/>
-                                            @else
+                                        @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
                                         @endif
-
 
                                         {{ $value->menu_item }}
 
@@ -109,7 +100,7 @@
                                         <a href="#" id="{{ $value->id }}"
                                         data-res-id="{{ $value->restaurant_id }}" type="button"
                                         data-toggle="modal"
-                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                                         class="btn btn-sm btn-primary">
 
                                             @if($main_price>0)
@@ -138,11 +129,11 @@ Order
 
                                 <p class="card-text m-a-0">
                                     <?php
-                                    if (strlen($value->description) > 65) {
-                                        echo substr($value->description, 0, 65) . '...';
-                                    } else {
-                                        echo substr($value->description, 0, 65);
-                                    }
+                                        if (strlen($value->description) > 65) {
+                                            echo substr($value->description, 0, 65) . '...';
+                                        } else {
+                                            echo substr($value->description, 0, 65);
+                                        }
                                     ?>
 
                                 </p>
@@ -152,12 +143,12 @@ Order
                                         Submitted: {{$value->uploaded_on}}
                                 @endif
 
-                                @if($value->uploaded_by)
                                 <?php
-                                $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
-                                echo "by: " . $uploaded_by->name . "";
+                                    if($value->uploaded_by){
+                                        $uploaded_by = \App\Http\Models\Profiles::where('id', $value->uploaded_by)->get()[0];
+                                        echo "by: " . $uploaded_by->name . "";
+                                    }
                                 ?>
-                                @endif
                                         </p-->
 
 
