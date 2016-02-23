@@ -80,7 +80,7 @@
 
                 <div class="col-md-9 p-a-0" style="">
 
-                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
                     </a>
                     <div>
