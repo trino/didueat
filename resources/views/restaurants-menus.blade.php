@@ -102,7 +102,7 @@
 
                 @endif
 
-                <div class="col-md-12 p-a-0 m-t-1">
+                <div class="col-md-12 p-a-0">
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
                             <img src="{{ asset('assets/images/ajax-loading.gif') }}">

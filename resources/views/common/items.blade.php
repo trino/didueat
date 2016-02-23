@@ -32,12 +32,12 @@
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
                             <td class="receipt_image" style='@if(isset($order)) width:20%; @else width:40px; @endif'>
-                            @if(isset($order))<p>Ordered Items</p>@endif
+                            @if(isset($order))         <span class="count">{{ $arr_qty[$k] }}</span>@endif
                             </td>
 
                             <td @if(isset($order)) style='width:55%;' @endif>
                                 <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>
-                                <span class="count">({{ $arr_qty[$k] }}) &nbsp;</span>
+
                                 <span class='menu_bold'>{{ $tt }}</span><?php if ($extz != '') echo ":";?> {{ str_replace('<br/>', '', $extz) }}
                             </td>
 

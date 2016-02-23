@@ -116,13 +116,21 @@ if (Request::path() !== null && Request::path() != "/") {
 </head>
 <body>
 
+
+<div class="overlay_loader">
+    <div class="overlay">
+        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+    </div>
+</div>
+
+
 <?php
 $first = false;
 $type = "hidden";
 ?>
 
 <div class="bg-success">
-<div class="container-fluid" style="margin-bottom: 50px;">
+<div class="container-fluid" style="margin-bottom: 53px;">
     @include('layouts.includes.header')
 </div>
     <div class="clearfix"></div>
@@ -156,11 +164,6 @@ $type = "hidden";
 
 
 
-<div class="overlay_loader">
-    <div class="overlay">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
-    </div>
-</div>
 
 </body>
 </html>
