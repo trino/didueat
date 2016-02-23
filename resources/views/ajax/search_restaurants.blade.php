@@ -71,7 +71,7 @@
 
                 <div class="col-md-3 col-xs-3 p-l-0">
 
-                    <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
                         <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                     <div class="clearfix"></div>
@@ -80,7 +80,7 @@
 
                 <div class="col-md-9 p-a-0" style="">
 
-                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
+                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
                         <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
                     </a>
                     <div>

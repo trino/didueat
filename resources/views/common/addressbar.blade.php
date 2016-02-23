@@ -4,7 +4,7 @@
                 <li class="nav-item" style="width: 100%;">
                     <div class="input-group">
                         <div class="input-group-btn addressdropdown">
-                        @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menus"))
+                        @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
                             @if(read("id"))
                                 <?php
                                     $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();

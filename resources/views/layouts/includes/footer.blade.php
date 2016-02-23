@@ -283,7 +283,7 @@ Thank you">Email Support</a></li>
         $('body').on('submit', '#searchMenuForm', function (e) {
             var term = $('#searchMenuForm input[name=search_term]').val();
             if (term.trim() != "") {
-                window.location.href = "{{ url('/search/menus') }}/" + term;
+                window.location.href = "{{ url('/search/menu') }}/" + term;
             }
             e.preventDefault();
         });
@@ -299,7 +299,7 @@ Thank you">Email Support</a></li>
         $('body').on('submit', '#searchMenuForm2', function (e) {
             var term = $('#searchMenuForm2 input[name=search_term]').val();
             if (term.trim() != "") {
-                window.location.href = "{{ url('/search/menus') }}/" + term;
+                window.location.href = "{{ url('/search/menu') }}/" + term;
             }
             e.preventDefault();
         });

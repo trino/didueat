@@ -5,7 +5,7 @@
         @foreach ($restaurants_list as $value)
             <tr>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">
+                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}">
                         @if(!empty($value->logo))
                             <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
                         @else
@@ -15,7 +15,7 @@
                 </td>
                 <td width="80%">
                     <h2>
-                        <a href="{{ url('restaurants/'.$value->slug.'/menus') }}">{!! $value->name !!} </a>
+                        <a href="{{ url('restaurants/'.$value->slug.'/menu') }}">{!! $value->name !!} </a>
                     </h2>
                     <ul class="blog-info">
                         <li>
@@ -24,7 +24,7 @@
                         </li>
                     </ul>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menus') }}" class=" btn btn-success">Order Online</a></td>
+                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" class=" btn btn-success">Order Online</a></td>
                 </td>
             </tr>
         @endforeach
