@@ -355,7 +355,7 @@ function toRad(Value) {
     return Value * Math.PI / 180;
 }
 
-function unescape (str) {
+function unescapetext (str) {
     // this prevents any overhead from creating the object each time
     var element = document.createElement('div');
 
