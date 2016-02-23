@@ -14,12 +14,20 @@
                 <div style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     @include("common.gmaps", array("address" => $restaurant->formatted_address))
                 </div>
+                    <br>
+                    <p> <strong>Address </strong>
+                        {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                        {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                        {!! (isset($restaurant->province))? 'ON':'' !!}
+                        {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+                    </p>
 
                 <?php
                     $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-                    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
+                //    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
                     echo '<p><strong>Phone</strong> ' . $restaurant->phone . '</p>';
 
+                        /*
                     if($restaurant->is_delivery){
                         $open = getfield($restaurant, $Today . "_open");
                         $close = getfield($restaurant, $Today . "_close");
@@ -33,6 +41,7 @@
 
                         echo '<input type="hidden" id="minimum_delivery" value="' . $restaurant->minimum . '"/>';
                     }
+                        */
                 ?>
 
                 @if (Session::get('session_type_user') == "super" )
@@ -41,11 +50,17 @@
                     </p>
                 @endif
 
+                    @if(false)
+                        <h3>Tags</h3>
+                        <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
+                        <h3>Reviews</h3>
+                        <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
+                    @endif
                 <p>{!! (isset($restaurant->description)&&$restaurant->description!='')? '<h4>Description</h4>'.$restaurant->description:'' !!}</p>
 
-                <h4>Hours: </h4>
-
                 <?php
+                    $needsdeliveryhours=false;
+
                     $days = getweekdays();
                     $needsdeliveryhours = false;
                     if ($restaurant->is_delivery) {
@@ -61,43 +76,50 @@
                         }
                     }
 
-                    $needsdeliveryhours=false;
+
+echo "<table>";
+
+
+
                     if ($needsdeliveryhours) {
-                        echo '<div class="col-md-5 col-md-offset-2" align="center"><strong>Pickup Hours</strong></div>';
-                        echo '<div class="col-md-5" align="left"><strong>Delivery Hours</strong></div>';
+                        echo '<tr><td></td><td>Pickup Hours</td>';
+                        echo '<td>Delivery Hours</td></tr>';
                     } else {
-                        echo '<div class="col-md-10 col-md-offset-2" align="center"><strong>Pickup/Delivery Hours</strong></div>';
+                        echo '<tr><td></td><td>Pickup/Delivery Hours</td><td></td></tr>';
                     }
+
+
+
                     foreach ($days as $day) {
-                        echo '<div class="col-md-2">' . $day . '</DIV>';
+                        echo '<tr><td>' . $day . '&nbsp;</td>';
                         $open = getfield($restaurant, $day . "_open");
                         $close = getfield($restaurant, $day . "_close");
                         $open_del = getfield($restaurant, $day . "_open_del");
                         $close_del = getfield($restaurant, $day . "_close_del");
+
                         if ($open == $close) {
-                            echo '<div class="col-md-10" ALIGN="center"><strong>Closed</strong></DIV>';
+                            echo '<td>Closed</td>';
                         } else {
-                            echo '<div class="col-md-2 nowrap" align="left">' . converttime($open) . '</div>';
-                            echo '<div class="col-md-1" align="center">to</div>';
-                            echo '<div class="col-md-2 nowrap" align="left">' . converttime($close) . '</div>';
+                            echo '<td>' . converttime($open) . '';
+                            echo ' to ';
+                            echo ' ' . converttime($close) . '</td>';
+
                             if ($needsdeliveryhours) {
-                                echo '<div class="col-md-2 nowrap" align="left">' . converttime($open_del) . '</div>';
-                                echo '<div class="col-md-1" align="center">to</div>';
-                                echo '<div class="col-md-2 nowrap" align="left">' . converttime($close_del) . '</div>';
+                                echo '<td>' . converttime($open_del) . '';
+                                echo ' to ';
+                                echo '' . converttime($close_del) . '</td>';
                             } else {
-                                echo '<div class="col-md-5">&nbsp;</div>';
+                                echo '';
                             }
+
                         }
-                        echo '</TR>';
+
+                        echo '</tr>';
                     }
+
+                    echo "</table>";
                 ?>
 
-                @if(false)
-                    <h3>Tags</h3>
-                    <p>{!! (isset($restaurant->tags))?$restaurant->tags:'' !!}</p>
-                    <h3>Reviews</h3>
-                    <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
-                @endif
 
                 <div class="clearfix"></div>
             </div>
