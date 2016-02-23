@@ -84,4 +84,8 @@ echo newrow(false, " ", "", false, 7, false); ?>
     var visitortime = new Date();
     var visitortimezone = -visitortime.getTimezoneOffset() / 60;
     $(".gmt").val(visitortimezone);
+
+    $(document).ready(function () {
+        setTimeout(function () {$("#password").val("");}, 500);
+    });
 </SCRIPT>

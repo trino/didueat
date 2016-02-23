@@ -74,6 +74,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
               var pictureH=parseInt(document.getElementById('picture').clientHeight);
