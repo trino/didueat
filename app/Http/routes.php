@@ -24,7 +24,7 @@ Route::get('home/simplemodal/{page}',                               'HomeControl
 Route::post('home/simplemodal/{page}',                              'HomeController@simplemodal');
 
 //Authentication routes...
-Route::post('auth/login/ajax',                                      'Auth\AuthController@views/menu.blade.php');
+Route::post('auth/login/ajax',                                      'Auth\AuthController@authenticateAjax');
 //Route::get('auth/login',                                          'Auth\AuthController@getLogin');
 Route::post('auth/login',                                           'Auth\AuthController@authenticate');
 Route::get('auth/logout',                                           'Auth\AuthController@getLogout');
