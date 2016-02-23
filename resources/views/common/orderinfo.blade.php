@@ -13,11 +13,14 @@
 
         if ($order->order_till != "0000-00-00 00:00:00") {
             if(!$order->order_till){
-                $t=time();
-                $order->order_till = strftime('%F %T',$t); // ie, right now
+                $Data["Ordered For"] = "As soon as possible";
+
+            }else{
+                $date = new DateTime($order->order_till);//$date->format('l jS \of F Y h:i:s A');
+                $Data["Ordered For"] = $date->format(get_date_format());
+
+
             }
-            $date = new DateTime($order->order_till);//$date->format('l jS \of F Y h:i:s A');
-            $Data["Ordered For"] = $date->format(get_date_format());
         }
 
         if (isset($user_detail) && is_object($user_detail)) {
