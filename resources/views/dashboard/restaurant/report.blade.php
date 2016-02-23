@@ -5,126 +5,115 @@
 
 
 
+
+
+
+
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <div class="container">
-    <div class="row">
-        @include('layouts.includes.leftsidebar')
+        <div class="row">
+            @include('layouts.includes.leftsidebar')
 
-        <div class="col-lg-9">
-            <div class="restaurentsList deleteme">
-                <div class="toprint">
-                    <h3 class="p-b-1">My Orders
-
-                                                    <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
-
-
-                    </h3>
-<hr class="p-t-1" />
-                    <div class="noprint row">
+            <div class="col-lg-9">
+                <div class="restaurentsList deleteme">
+                    <div class="toprint">
+                        <h3 class="p-b-1">My Orders
+                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
+                               onclick="return printDiv('toprint')">Print</a>
+                        </h3>
+                        <hr class="p-t-1"/>
+                        <div class="noprint row">
                             <div class="col-md-2">Filter by Date</div>
                             <div class="col-md-7">
                                 <form id="report-form" method="get">
                                     <div class="col-md-4">
-                                        <input type="text" class="datepicker form-control" name="from" placeholder="From" value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
+                                        <input type="text" class="datepicker form-control" name="from"
+                                               placeholder="From"
+                                               value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
                                     </div>
-    
+
                                     <div class="col-md-4">
-                                        <input type="text" class="datepicker form-control" name="to" placeholder="To" value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
+                                        <input type="text" class="datepicker form-control" name="to" placeholder="To"
+                                               value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
                                     </div>
-    
+
                                     <div class="col-md-2">
-                                        <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
+                                        <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
+                                               onclick="return checkFilter();">
                                     </div>
-    
+
                                     <div class="clearfix"></div>
                                 </form>
 
                             </div>
 
 
+                            <div class="clearfix"></div>
+                        </div>
 
 
-<div class="clearfix"></div>
-                    </div>
+                        <div id="toprint">
+                            @if(isset($orders) && count($orders) > 0)
+                                @foreach($orders as $order)
+                                    <div class="restaurentDetail card">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <div id="toprint">
-                        @if(isset($orders) && count($orders) > 0)
-                            @foreach($orders as $order)
-                                <div class="restaurentDetail card">
-
-                                    <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
-                                    <div class="col-md-6">
+                                        <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
+                                        <div class="col-md-6">
                                             @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true))
+                                        </div>
+                                        <div class="col-md-6">
+                                            @include('common.receipt', array("type" => "report"))
+                                        </div>
+                                        <div class="clearfix"></div>
+
                                     </div>
-                                    <div class="col-md-6">
-                                        @include('common.receipt', array("type" => "report"))
-                                    </div>
-                                    <div class="clearfix"></div>
+                                @endforeach
+                            @else
+                                No orders found
+                            @endif
 
-                                </div>
-                            @endforeach
-                        @else
-                            No orders found
-                        @endif
+                            <div class="clearfix"></div>
 
-                        <div class="clearfix"></div>
+                            <div class="clearfix hidden-xs"></div>
 
-                        <div class="clearfix  hidden-xs"></div>
-
-                        <script>
-                            function checkFilter() {
-                                var date1 = $('.date1').val();
-                                var date2 = $('.date2').val();
-                                if (date1 == '' || date2 == '') {
-                                    alert('Date can\'t be blank');
-                                    return false;
-                                } else {
-                                    date1 = date1.replace('-', '').replace('-', '');
-                                    date2 = date2.replace('-', '').replace('-', '');
-
-                                    date1 = parseFloat(date1);
-                                    date2 = parseFloat(date2);
-
-                                    if (date1 > date2) {
-                                        alert('Starting date cannot be greater than end date');
+                            <script>
+                                function checkFilter() {
+                                    var date1 = $('.date1').val();
+                                    var date2 = $('.date2').val();
+                                    if (date1 == '' || date2 == '') {
+                                        alert('Date can\'t be blank');
                                         return false;
+                                    } else {
+                                        date1 = date1.replace('-', '').replace('-', '');
+                                        date2 = date2.replace('-', '').replace('-', '');
+
+                                        date1 = parseFloat(date1);
+                                        date2 = parseFloat(date2);
+
+                                        if (date1 > date2) {
+                                            alert('Starting date cannot be greater than end date');
+                                            return false;
+                                        }
+                                        return true;
                                     }
-                                    return true;
                                 }
-                            }
-                        </script>
-                        <style>
-                            .date1, .date2 {
-                                padding-left: 5px;
-                            }
-                        </style>
+                            </script>
+                            <style>
+                                .date1, .date2 {
+                                    padding-left: 5px;
+                                }
+                            </style>
+                        </div>
+                        <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
+                           onclick="return printDiv('toprint')">Print</a>
+
+
                     </div>
-                    <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
-
-
-
-
                 </div>
+
             </div>
 
         </div>
-
-    </div>
     </div>
 
 
@@ -163,7 +152,3 @@
         });
     </script>
 @stop
-<style>
-    .padright15{padding-right:15px;padding-bottom:5px;}
-    .smaller{font-size:15px;}
-</style>

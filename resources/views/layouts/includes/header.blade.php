@@ -3,7 +3,7 @@
         <a class="hidden-sm-down" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 38px;"/>
         </a>
-        <a style="color: white;font-weight:bold;padding-top:5px;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
+        <a style="color: white;font-weight:bold;padding-top:5px;" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
             DiduEat
         </a>
         <ul class="nav navbar-nav pull-right">

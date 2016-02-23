@@ -23,20 +23,20 @@
                     </div>
 
                     <div class="card-block">
-                        <div class="row">
-                            <div class="col-md-6">
+                        <div class="">
+                            <div class="col-md-6 p-a-0">
                                 @include('common.receipt')
-                                <div class="clearfix"></div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-md-6 p-a-0">
                                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
-                                <div class="clearfix"></div>
+
+                             @if($order->order_type >0)
+                                @include("common.gmaps", array("address" => $restaurant->formatted_address))
+
+                                 @endif
                             </div>
 
-                            <div  class="col-md-6" style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
-                                @include("common.gmaps", array("address" => $restaurant->formatted_address))
-                            </div>
 
                             <div class="clearfix"></div>
                         </div>
