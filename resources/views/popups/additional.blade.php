@@ -54,9 +54,9 @@
 
                                 <div class="resturant-arrows">
                                     <a href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-xs btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
+                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
                                     <a href="javascript:void(0)" id="child_down_{{ $cc->id }}"
-                                       class="btn btn-xs btn-secondary sorting_child"><i
+                                       class="btn btn-sm btn-secondary sorting_child"><i
                                                 class="fa fa-angle-down"></i></a>
                                 </div>
                             </div>

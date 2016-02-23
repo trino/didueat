@@ -24,7 +24,7 @@
                         @endif
                         
                 </span>
-                <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}" />
+                    <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
             </div>
             <div class="modal-body product-popup">
@@ -137,14 +137,17 @@
 
                                                     <div class="list clearfix row">
                                                         <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
+
+                                                        <? $a = 0; ?>
+
                                                         @foreach($mini_menus as $mm)
 
 
+                                                            <? $a++; ?>
 
 
 
-
-                                                            <div class="clearfix col-xs-12 col-md-6"
+                                                            <div class="col-xs-12 col-sm-6"
                                                                  style="margin-bottom:1px !important;">
 
 
@@ -158,9 +161,11 @@
                                                                         $extra_price = '_';
                                                                     ?>
 
+
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 changemodalP" style="width:40%;">
+                                                                    } ?> class="pull-left p-a-0 changemodalP col-sm-5 "
+                                                                         style="">
 
 
                                                                         <a id="remspan_{{ $mm->id }}"
@@ -181,7 +186,7 @@
 
                                                                     </div>
 
-                                                                    <div class="col-md-8 p-a-0"  style="width:60%;font-size: 95%;">
+                                                                    <div class="col-sm-7 p-a-0" style="font-size: 95%;">
                                                                         <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio changemodalP" @endif >
 
 
@@ -207,9 +212,13 @@
                                                                 <div class="clearfix"></div>
                                                             </div>
 
-
-
-
+                                                            <?
+                                                            if ($a & 1) {
+                                                                echo '';
+                                                            } else {
+                                                                echo '<div class="clearfix" ></div>';
+                                                            }
+                                                            ?>
                                                         @endforeach
                                                         <input type="hidden" value=""
                                                                class="chars_{{ $sub->id }}">

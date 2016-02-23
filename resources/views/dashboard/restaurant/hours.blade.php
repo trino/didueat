@@ -67,7 +67,7 @@
 
 <div class="row">
 
-    <div class="col-md-6 col-xs-12 p-a-0" style="">
+    <div class="col-md-6 col-xs-12" style="">
         <h4>Pickup Hours</h4>
 
         <?php
