@@ -556,10 +556,14 @@
                         $(this).removeAttr("checked");
                     }
                 });
+                var dispr=Number($('.displayprice'+menu_id).val());
+                $('.modalprice'+menu_id).html('$'+dispr.toFixed(2));
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
+                
                 show_header();
                 total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
+                
                 updatecart();
             });
             function inArray(needle, haystack) {
@@ -598,7 +602,7 @@
             });
             $(".sorting_parent").live('click', function () {
                 var path = window.location.pathname + '?sorted';
-                alert(path);
+                //alert(path);
                 $('.overlay_loader').show();
                 var pid = $(this).attr('id').replace('up_parent_', '').replace('down_parent_', '');
                 var arr_pid = pid.split('_');
@@ -637,5 +641,6 @@
                 window.location = "{{ url('restaurants') }}/" + $(this).val();
             }
         });
-    </script>
+
+</script>
 @stop

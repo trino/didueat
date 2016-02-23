@@ -229,7 +229,7 @@ if (!isset($checkout_modal)) {
                         $('.city').val(msg['city']);
                         $('.province').val(msg['province']);
                         $('.postal_code').val(msg['postal_code']);
-                        $('#ordered_notes').text(msg['notes'])
+                        //$('#ordered_notes').text(msg['notes'])
                     }
                 });
             }

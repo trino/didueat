@@ -110,7 +110,7 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
 
-                                    <select class="form-control" name="order_till" id="ordered_on_time" required="">
+                                    <select class="form-control" name="order_till" id="ordered_on_time" >
                                         <option value="">Order ASAP</option>
                                         {{ get_time_interval($restaurant) }}
                                     </select>

@@ -143,7 +143,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address"
                    autocomplete="false"
-                   onclick="$(this).attr('autocomplete', 'false');"
+                   onclick="$(this).attr('autocomplete', 'false');"  
                    value="<?php
             if (old('formatted_address')) {
                 echo old('formatted_address');
