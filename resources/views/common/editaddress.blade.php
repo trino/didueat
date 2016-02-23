@@ -106,7 +106,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
             <?php }
             }else{
             ?>
-            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required>
+            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange();">
                 <option value="">Select Address</option>
                 <?php
                     $sec = false;
@@ -116,8 +116,8 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
                         }
                         echo '<option class="dropdown-item" REQUIRED';
                         echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                        echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
-                        echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                        echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
+                        echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
                         echo $address->address . '</option>';
                     }
                 ?>

@@ -337,3 +337,40 @@ function removeCookie(cname) {
 function createCookieValue(cname, cvalue) {
     setCookie(cname, cvalue, 1);
 }
+
+function calcdistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = toRad(lat2-lat1);
+    var dLon = toRad(lon2-lon1);
+    lat1 = toRad(lat1);
+    lat2 = toRad(lat2);
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// Converts numeric degrees to radians
+function toRad(Value) {
+    return Value * Math.PI / 180;
+}
+
+var unescape = (function() {
+    // this prevents any overhead from creating the object each time
+    var element = document.createElement('div');
+
+    function decodeHTMLEntities (str) {
+        if(str && typeof str === 'string') {
+            // strip script/html tags
+            str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+            element.innerHTML = str;
+            str = element.textContent;
+            element.textContent = '';
+        }
+
+        return str;
+    }
+
+    return decodeHTMLEntities;
+})();

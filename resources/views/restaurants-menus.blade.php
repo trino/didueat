@@ -184,8 +184,19 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
+
+        function addresschange(){
+            var selected = $("#reservation_address option").filter(":selected");//$("#delivery1").is(':checked')
+            var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, selected.attr("latitude"), selected.attr("longitude"));
+            if(distance > {{ $restaurant->max_delivery_distance }}) {
+                alert(unescape("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away");
+                $("#reservation_address").val('');
+            }
+        }
+
         function check_val(v) {
         }
+
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
