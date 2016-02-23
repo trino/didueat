@@ -67,5 +67,12 @@
             //initAutocomplete();
         });
     });
+
+    //validateform("edit-form", {formatted_address: "required", city: "required", province: "required", postal_code: "required", country: "required"})
+    $('#edit-form').submit(function (e) {
+        if(isaddress_incomplete()) {
+            return false;
+        }
+    });
 </script>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>

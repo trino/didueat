@@ -201,10 +201,8 @@
 }
 
 if($isUser){
-    echo newrow($new, "Notes", "", false, 9);
-    ?>
-        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc"
-            value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
+    echo newrow($new, "Notes", "", false, 9); ?>
+        <input type="text" name="notes" class="form-control" {{ $is_disabled }} placeholder="Buzz Code, Side door, etc" value="{{ (isset($addresse_detail->notes))?$addresse_detail->notes:old('notes') }}">
     </div></div>
 <?php }
 
@@ -235,3 +233,14 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     ?>
 @endif
 <?php }?>
+
+<DIV id="error-message" style="color: red" class="col-md-12">&nbsp;</div>
+<DIV CLASS="clearfix"></DIV>
+<SCRIPT>
+    function isaddress_incomplete(){
+        var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
+        $("#error-message").text("&nbsp;");
+        if(incomplete){$("#error-message").text("The address is not complete");}
+        return incomplete;
+    }
+</SCRIPT>
