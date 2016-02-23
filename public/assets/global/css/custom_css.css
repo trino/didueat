@@ -483,7 +483,11 @@ body {
 
 .smallT{font-size:12px;line-height:14px;margin-top:3px}
 
-.cuisineCB{display:inline-block;padding:0px;margin:0px}
+.cuisineCB{
+    font-size: 90%;
+    display:inline-block;
+
+}
 
 .smBR{font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
 
