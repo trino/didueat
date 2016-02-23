@@ -74,7 +74,7 @@ class AdministratorController extends Controller {
                     $filename = $destinationPath . "/" . $newName;
                     copy($post['userPhotoTemp'], $destinationPath.'/' .$newName);
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
-                    $sizes = ['assets/images/users/' . $post['user_idDir'] . '/thumb_' => MED_THUMB, 'assets/images/users/' . $post['user_idDir'] . '/thumb1_' => SMALL_THUMB];
+                    $sizes = ['assets/images/users/' . $post['user_idDir'] . '/display_' => BIG_THUMB, 'assets/images/users/' . $post['user_idDir'] . '/thumb_' => MED_THUMB, 'assets/images/users/' . $post['user_idDir'] . '/thumb1_' => SMALL_THUMB];
                     copyimages($sizes, $filename, $newName);
 
                     $post['photo'] = $newName;

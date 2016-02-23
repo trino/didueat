@@ -72,7 +72,7 @@ if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
         $logoname = 'assets/images/restaurants/'. $restaurant->id .'/thumb_' . $restaurant->logo;
         ?>
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Browse</a>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Browse</a><div id="browseMsg" class="label smRd"></div>
 
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>
@@ -253,6 +253,7 @@ if(!$minimum && isset($restaurant->id)){
 
                 document.getElementById('restLogoTemp').value = path;
                 button.html('Upload');
+                document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
                 window.clearInterval(interval);
                 this.enable();
                 $('#picture').attr('src', path);

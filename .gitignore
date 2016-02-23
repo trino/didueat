@@ -112,3 +112,4 @@ public/assets/images/work/logo.png
 *.xml
 *.xml
 public/paul.log
+app/Http/Controllers/RestaurantController_beforeDeletingOldThumbnails.php

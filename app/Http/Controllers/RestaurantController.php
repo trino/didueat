@@ -199,26 +199,40 @@ class RestaurantController extends Controller {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
                     }
                     else{
-                     // delete existing images if they exists
+                     // rename existing images with timestamp, if they exist,
+                     
+                        $oldImgExpl=explode(".",$ob->logo);
+                     
+                     $todaytime = date("Ymdhis");
                         if(file_exists($destinationPath.'/'.$ob->logo)){
-                            @unlink($destinationPath.'/'.$ob->logo);
+//                            @unlink($destinationPath.'/'.$ob->logo);
+                            rename($destinationPath.'/'.$ob->logo, $destinationPath.'/'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
                         if(file_exists($destinationPath.'/thumb1_'.$ob->logo)){
-                            @unlink($destinationPath.'/thumb1_'.$ob->logo);
+                            rename ($destinationPath.'/display_'.$ob->logo, $destinationPath.'/display_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        }
+                        if(file_exists($destinationPath.'/thumb1_'.$ob->logo)){
+//                            @unlink($destinationPath.'/thumb1_'.$ob->logo);
+                            rename ($destinationPath.'/thumb1_'.$ob->logo, $destinationPath.'/thumb1_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
 
                         if(file_exists($destinationPath.'/thumb_'.$ob->logo)){
-                            @unlink($destinationPath.'/thumb_'.$ob->logo);
-                        }                    
+//                            @unlink($destinationPath.'/thumb_'.$ob->logo);
+                            rename ($destinationPath.'/thumb_'.$ob->logo, $destinationPath.'/thumb_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        }
+                        if(file_exists($destinationPath.'/icon_'.$ob->logo)){
+//                            @unlink($destinationPath.'/icon_'.$ob->logo);
+                            rename ($destinationPath.'/icon_'.$ob->logo, $destinationPath.'/icon_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        }
                     }
 
                     $filename = $destinationPath . "/" . $newName;
                     $thisresult = copy($post['restLogoTemp'], $destinationPath.'/' .$newName);
-                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb1_' => SMALL_THUMB];
+                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/display_' => BIG_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb1_' => SMALL_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/icon_' => TINY_THUMB];
 
-                    copyimages($sizes, $filename, $newName);
+                    copyimages($sizes, $filename, $newName, true);
 
-                    @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image. (unlink needs server path, not http path)
+                    @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image
                     $update['logo'] = $newName;
                     $addlogo=true;
                 }                
