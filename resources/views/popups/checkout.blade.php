@@ -119,7 +119,7 @@
 
                                     <div class="form-group pull-right">
                                         <a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a>
-                                        <button type="submit" class="btn btn-primary" onclick="addresscheck();">Order Now</button>
+                                        <button type="submit" class="btn btn-primary" onclick="return addresscheck();">Order Now</button>
                                         <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                                     </div>
 
@@ -145,5 +145,6 @@
 
     function addresscheck(){
         $("#profiles").removeAttr("novalidate");
+        return addresschange('addresscheck');
     }
 </SCRIPT>

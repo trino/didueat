@@ -1,22 +1,20 @@
 <?php
-printfile("views/common/receipt.blade.php");
-$ordertype = "Pickup";
-if (isset($order)) {
-    if ($order->order_type) {
-        $ordertype = "Delivery";
+    printfile("views/common/receipt.blade.php");
+    $ordertype = "Pickup";
+    if (isset($order)) {
+        if ($order->order_type) {
+            $ordertype = "Delivery";
+        }
     }
-}
-if (!isset($profile)) {
-    $profile = false;
-}
-if (!isset($type)) {
-    $type = false;
-}
-if (!isset($checkout_modal)) {
-    $checkout_modal = true;
-}
-
-
+    if (!isset($profile)) {
+        $profile = false;
+    }
+    if (!isset($type)) {
+        $type = false;
+    }
+    if (!isset($checkout_modal)) {
+        $checkout_modal = true;
+    }
 ?>
 
 @if(false && !isset($order))
@@ -198,6 +196,7 @@ if (!isset($checkout_modal)) {
         $("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
 
+    var ignoreone = false;
     $(function () {
         show_header();
         @if($ordertype == "Delivery")
@@ -206,6 +205,7 @@ if (!isset($checkout_modal)) {
            $('#pickup1').click();
         @endif
         //save address
+
         $('#edit-form').submit(function (e) {
             if ($(this).hasClass('reservation')) {
                 e.preventDefault();
@@ -220,7 +220,13 @@ if (!isset($checkout_modal)) {
                     success: function (msg) {
                         $('#editModel').modal('hide');
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                            $('.reservation_address_dropdown option[value="' + msg['id'] + '"]').attr('selected', 'selected');
+                            $('.reservation_address_dropdown').val(msg['id']);
+                            if(!ignoreone){
+                                ignoreone = true;
+                                addresschange("receipt");
+                            } else {
+                                ignoreone = false;
+                            }
                         });
 
                         $('.formatted_address').val(msg['formatted_address']);

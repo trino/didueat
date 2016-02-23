@@ -32,7 +32,7 @@
     } else {
         $aptUnit = "Unit";
     }
-    
+    $GUID = "";//guidv4();
 ?>
 
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -106,7 +106,7 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
             <?php }
             }else{
             ?>
-            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange();">
+            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
                 <option value="">Select Address</option>
                 <?php
                     $sec = false;
@@ -133,13 +133,14 @@ Thank you" style="text-decoration:underline">Email Us With The Full Details</a><
 
     @endif
 <?php }?>
-@if($is_disabled)
-        <input type="text" id="formatted_address<?php if (isset($type)) echo '';?>" disabled name="formatted_address"
+    <INPUT TYPE="HIDDEN" NAME="GUID" VALUE="{{ $GUID }}">
+    @if($is_disabled)
+        <input type="text" id="formatted_address" disabled name="formatted_address{{ $GUID }}"
                class="form-control"
                value="{{ (isset($addresse_detail->address))?$addresse_detail->address: old('address') }}" />
     @else
         <div class="nowrap <?php if (isset($type)) echo '';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
-            <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address';?>" required
+            <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address"
                    autocomplete="false"

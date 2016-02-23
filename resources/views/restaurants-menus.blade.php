@@ -184,13 +184,22 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
-
-        function addresschange(){
-            var selected = $("#reservation_address option").filter(":selected");//$("#delivery1").is(':checked')
-            var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, selected.attr("latitude"), selected.attr("longitude"));
-            if(distance > {{ $restaurant->max_delivery_distance }}) {
-                alert(unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away");
-                $("#reservation_address").val('');
+        function addresschange(where){
+            var element = $("#reservation_address .dropdown-item").filter(":selected");
+            if(element) {
+                var address_latitude = element.attr("latitude");
+                var address_longitude = element.attr("longitude");
+                if(!isundefined(element.attr("latitude"))) {
+                    var selected = $("#reservation_address option").filter(":selected");//$("#delivery1").is(':checked')
+                    var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);// selected.attr("latitude"), selected.attr("longitude"));
+                    if (distance > {{ $restaurant->max_delivery_distance }}) {
+                        alert(unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away");
+                        return false;
+                    } else if (debugmode) {
+                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                    }
+                }
+                return true;
             }
         }
 
