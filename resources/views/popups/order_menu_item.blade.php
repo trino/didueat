@@ -8,26 +8,27 @@
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?></h4>
+                <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?>
+                    <span style="color:#0275d8" class="">
+                        @if($value->price>0)
+                            @if($dis)
+                                <strike class="text-muted">${{number_format($value->price,2)}}</strike>
+                                ${{number_format($main_price,2)}}
+                                <span class='label label-warning'>{{$dis}}</span>
+                            @else
+                                ${{number_format($value->price,2)}}
+                            @endif
+                        @else
+                            ${{number_format($min_p,2)}}+
+                        @endif
+</span>
+                </h4>
             </div>
             <div class="modal-body product-popup">
                 <div class="product-page product-pop-up">
                     <div class="row">
-                        <div class="col-sm-12 col-xs-12 title">
-                            <h3>
-                            @if($value->price>0)
-                                @if($dis)
-                                    <strike class="text-muted">${{number_format($value->price,2)}}</strike>
-                                    ${{number_format($main_price,2)}}
-                                    <span class='label label-warning'>{{$dis}}</span>
-                                @else
-                                    ${{number_format($value->price,2)}}
-                                @endif
-                            @else
-                                ${{number_format($min_p,2)}}+
-                            @endif
-                            </h3>
-                        </div>
+
+
                         @if (Session::get('session_type_user') == "super" )
                                 <!--div class="col-sm-12 col-xs-12">
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
@@ -35,48 +36,25 @@
                         @endif
 
 
-
                         <div class="col-sm-12 col-xs-12">
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                             @if (strpos($item_image, 'missing-icon.png') === false)
 
 
-                            <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
+                                <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
 
 
 
 
 
-@endif
-
-
-
-
-
-
+                            @endif
 
 
                         </div>
 
 
-
-
-
                         <div class="subitems_{{ $value->id }} optionals">
-
 
 
                             <div style="display:none;">
@@ -86,18 +64,18 @@
                             </div>
 
 
-
                             <div class="banner bannerz">
                                 <table style="min-width:100%;">
                                     <tbody>
 
-                                    <tr><td colspan="2">
+                                    <tr>
+                                        <td colspan="2">
 
-<div class="col-md-12"> {{ $value->description }}</div>
+                                            <div class="col-md-12"> {{ $value->description }}</div>
 
 
-
-                                        </td></tr>
+                                        </td>
+                                    </tr>
 
 
                                     @foreach ($submenus as $sub)
@@ -163,7 +141,8 @@
 
 
 
-                                                            <div class="col-xs-12 col-md-6" style="margin-bottom:1px !important;">
+                                                            <div class="clearfix col-xs-12 col-md-6"
+                                                                 style="margin-bottom:1px !important;">
 
 
                                                                 <div id="buttons_{{ $mm->id }}"
@@ -178,40 +157,46 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-r-1">
+                                                                    } ?> class="pull-left p-a-0" style="width:40%;">
+
+
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm"
                                                                            href="javascript:;"><i class="fa fa-minus"
-                                                                                                  style="width:9px;height:9px;"></i></a>
+                                                                                                  style=""></i></a>
+
+
                                                                         <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} allspan">0</span>
+
+
                                                                         <a id="addspan_{{ $mm->id }}"
-                                                                           class="addspan btn btn-sm btn-primary"
+                                                                           class="addspan btn btn-sm btn-primary-outline"
                                                                            href="javascript:;"><i class="fa fa-plus"
-                                                                                                  style="width:9px;height:9px;"></i></a>
+                                                                                                  style=""></i></a>
 
 
                                                                     </div>
 
+                                                                    <div class="col-md-8 p-a-0"  style="width:60%;font-size: 95%;">
+                                                                        <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
 
-                                                                    <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio" @endif >
 
+                                                                            <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                                   id="extra_{{ $mm->id }}"
+                                                                                   title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
+                                                                                   class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
+                                                                                   name="extra_{{ $sub->id }}"
+                                                                                   value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
 
-                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                               id="extra_{{ $mm->id }}"
-                                                                               title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
-                                                                               class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
-                                                                               name="extra_{{ $sub->id }}"
-                                                                               value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+                                                                            {{ $mm->menu_item }}
+                                                                            @if($sub->sing_mul =='1')  <span
+                                                                                    class="c-indicator"></span> @endif
 
-                                                                        {{ $mm->menu_item }}
-                                                                        @if($sub->sing_mul =='1')  <span
-                                                                                class="c-indicator"></span> @endif
+                                                                            <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
 
-                                                                        <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-
-                                                                    </LABEL>
-
+                                                                        </LABEL>
+                                                                    </div>
 
                                                                 </div>
 
@@ -250,7 +235,7 @@
                    onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
 
                 <span class="number{{ $value->id }}">1</span>
-                <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
+                <a class="btn  btn-primary-outline  btn-sm" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style=""></i></a>
 
                 <a id="profilemenu{{ $value->id }}"

@@ -27,9 +27,9 @@
     <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
-                <h4 class="card-title text-xs-center m-b-0">Edit Mode</h4>
+                <h4 class="card-title text-xs-center m-b-0">Your Restaurant Homepage</h4>
 
-                <p class="card-title text-xs-center m-b-0">You can place test orders for your restaurant</p>
+                <p class="card-title text-xs-center m-b-0">Only update combos and speicals, do not upload your entire menu. You can place test orders for your restaurant</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
@@ -85,6 +85,14 @@
 
                             <div class="clearfix"></div>
 <span class="p-r-2">
+
+    <?  echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee,$free=true); ?>
+        </span>
+                            <span class="p-r-2">
+
+                      <?  echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum,$free=false) ; ?>
+
+    </span>
                             <a class="" style="" class="clearfix" href="#" data-toggle="modal"
                                data-target="#viewMapModel">More Details</a>
                         </span>
@@ -121,7 +129,7 @@
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
                                             }
                                             else {
-                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N3o menu items yet<div class="clearfix"></div></div>');
+                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
                                             }
                                         },
                                         error: function (res) {
@@ -129,7 +137,7 @@
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
                                             }
                                             else {
-                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">N4o menu items yet<div class="clearfix"></div></div>');
+                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
                                             }
                                         }
                                     });

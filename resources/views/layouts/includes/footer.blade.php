@@ -30,7 +30,7 @@ Name:
 %3A%0A%0A
 Contact Number:
 %3A%0A%0A
-Thank you">Email Us</a></li>
+Thank you">Email Support</a></li>
 
 
                     <?php

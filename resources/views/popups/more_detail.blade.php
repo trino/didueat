@@ -30,8 +30,7 @@
                         } else {
                             echo "Closed";
                         }
-                        echo '<p><strong>Delivery Fee</strong> ' . asmoney($restaurant->delivery_fee,$free=true) . '</p>';
-                        echo '<p><strong>Minimum</strong> ' . asmoney($restaurant->minimum,$free=false) . '</p>';
+
                         echo '<input type="hidden" id="minimum_delivery" value="' . $restaurant->minimum . '"/>';
                     }
                 ?>

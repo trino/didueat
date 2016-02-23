@@ -1,16 +1,18 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
-            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 30px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 38px;"/>
         </a>
         <a style="color: white;font-weight:bold;padding-top:5px;" class="hidden-sm-up pull-left  nav-link" href="{{ url('/') }}">
-            Didu Eat
+            DiduEat
         </a>
         <ul class="nav navbar-nav pull-right">
-            <li class="nav-item">
+            <li class="nav-item ">
+
+
                 <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="btn btn-sm btn-warning" onclick="return checkout();">
                     <SPAN class="card-header-items"></SPAN>
-                    <!--i class="fa fa-shopping-cart"></i-->
+                    <i class="fa fa-shopping-cart"></i>
                     <SPAN class="card-header-total"></SPAN>
                 </A>
 

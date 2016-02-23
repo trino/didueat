@@ -1,34 +1,34 @@
 <?php
-    $first = false;
-    $type = "hidden";
-    $localIPTst= $_SERVER['REMOTE_ADDR'];
-    $localIPTst="24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr="";
-    $locationStr="";
-    $useCookie=false;
+$first = false;
+$type = "hidden";
+$localIPTst = $_SERVER['REMOTE_ADDR'];
+$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
 
-    if((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie){
-      if(function_exists('geoip_record_by_name')){
+if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    if (function_exists('geoip_record_by_name')) {
         $info = geoip_record_by_name($localIPTst);
-        if($info['country_name'] == "United States" || $info['country_name'] == "Canada"){
-           $locationStr=$info['city'] . ", " . $info['region'];// require province/state, but not country
-        } else{
-           $locationStr=$info['city'] . ", " . $info['country'];// use just city and country
+        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+            $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
+        } else {
+            $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
         }
-      } else{
-         $ip = $localIPTst;
-         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-         if($details->country == "US" || $details->country == "CA"){
-           $locationStr=$details->city . ", " . $details->region;
-         } else{
-           $locationStr=$details->city . ", " . $details->country;
-         }
-         $latlng=explode(",",$details->loc);
-         $latlngStr="&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
-      }
-    } else{
-     // get city [, province/state], and country from cookie or session, once implemented
+    } else {
+        $ip = $localIPTst;
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        if ($details->country == "US" || $details->country == "CA") {
+            $locationStr = $details->city . ", " . $details->region;
+        } else {
+            $locationStr = $details->city . ", " . $details->country;
+        }
+        $latlng = explode(",", $details->loc);
+        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
     }
+} else {
+    // get city [, province/state], and country from cookie or session, once implemented
+}
 ?>
 @extends('layouts.default')
 @section('content')
@@ -40,18 +40,24 @@
                     <h1 class="display-4 banner-text-shadow" style="">Order Food from Hamilton Restaurants</h1>
                 </div>
 
-                <div class="col-md-12 ">
+                <div class="col-md-12  m-b-1 ">
                     <div class="col-md-offset-3 p-a-0 text-md-center col-md-6  text-md-center">
                         @include('common.search_bar')
                     </div>
                 </div>
 
 
-                <div class="col-md-12 m-t-1">
-                    <div class="text-xs-center" onclick="submitform(event, 0)" style="width:450px;height:48px;margin-left:auto;margin-bottom:6px;margin-right:auto;background:#000;border:solid #fff 2px;border-radius: 10px;opacity:0.7;cursor:pointer">
-                        <p class="lead  p-b-0 banner-text-shadow " style="position:relative;top:8px;margin-left:auto;margin-right:auto; color:white;text-decoration: none;" loc="{{ $details->loc }}">
-                            Or show me <a style="text-decoration: underline" class="search-city" onclick="submitform(event, 0);return false;">{{ $locationStr }}</a>
-                        </p>
+                <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-2">
+                    <div class="text-xs-center" onclick="submitform(event, 0)"
+                         style="cursor:pointer">
+
+                        <h4 class="display-5 banner-text-shadow" style=""  loc="{{ $details->loc }}">
+                            or show me <a style="text-decoration: underline; color:white" class="search-city"
+                                          onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h4>
+
+
+
+                        <div class="clearfix"></div>
                     </div>
                 </div>
 
@@ -183,34 +189,55 @@
                 </div>
 
 
-                <div class="col-lg-4 text-xs-center">
-                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">
-                        <br>
-                        <h1><i class="fa fa-cutlery center-block"></i></h1>
-                    </div>
-                    <h4>Local</h4>
 
-                    <p class="text-muted">Steel Town's best restaurants</p>
-                </div>
-                <div class="col-lg-4 text-xs-center">
-                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">                        <br>
 
-                        <h1><i class="fa fa-cutlery center-block"></i></h1>
-                    </div>
-                    <h4>Efficient</h4>
 
-                    <p class="text-muted">The fastest way to order food</p>
-                </div>
 
                 <div class="col-lg-4 text-xs-center">
-                    <div class="img-circle bg-success center-block m-b-1" style="width:87px;height:87px;">                        <br>
+                    <div class="card card-block text-xs-center">
+                        <blockquote class="card-blockquote">
 
-                        <h1><i class="fa fa-cutlery center-block"></i></h1>
+                            <div class="img-circle center-block m-b-1">
+                                <h1><i class="fa fa-map-marker bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                            </div>
+                            <h4>Local</h4>
+                            <footer>
+                                    Steel Town's best restaurants
+                            </footer>
+                        </blockquote>
                     </div>
-                    <h4>Discounts</h4>
-
-                    <p class="text-muted">There's a deal everyday</p>
                 </div>
+
+
+                <div class="col-lg-4 text-xs-center">
+                    <div class="card card-block text-xs-center">
+                        <blockquote class="card-blockquote">
+
+                            <div class="img-circle center-block m-b-1">
+                                <h1><i class="fa fa-cutlery bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                            </div>
+                            <h4>Efficient</h4>
+                            <footer>
+                                The fastest way to order food                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4 text-xs-center">
+                    <div class="card card-block text-xs-center">
+                        <blockquote class="card-blockquote">
+
+                            <div class="img-circle center-block m-b-1">
+                                <h1><i class="fa fa-usd bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                            </div>
+                            <h4>Discounts</h4>
+                            <footer>
+                                There's a deal everyday                         </footer>
+                        </blockquote>
+                    </div>
+                </div>
+
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -313,13 +340,13 @@
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
-            
-<?php 
-  (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
-  echo "var earthRad = ".$earthRad.";";
-?>
 
-            createCookieValue("formatted_address", formatted_address);
+            <?php
+              (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
+              echo "var earthRad = ".$earthRad.";";
+            ?>
+
+                        createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
@@ -331,17 +358,17 @@
                 var dataStr = $(e.target).html();
                 var loc = $(e.target).attr("loc");
                 var dataStr2 = dataStr.split(", ");
-                var secondVar="";
-                
-                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada")?  secondVar="country" : secondVar="province";
-                
+                var secondVar = "";
+
+                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada") ? secondVar = "country" : secondVar = "province";
+
                 $("#formatted_address2").val(dataStr);
-                data = "city=" + dataStr2[0] + "&"+secondVar+"=" + dataStr2[1] + "&earthRad=" + earthRad;
+                data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
             } else {
                 if (!address_alias) {
                     return false;
                 }
-              var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
+                var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
 
             }
 
@@ -353,7 +380,7 @@
                 $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data}, function (result) {
-                
+
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
                     $('#countRowsS').text('s');
@@ -370,7 +397,11 @@
             } else {
                 $('.loadingbar').show();
                 $('#loadingbutton').hide();
-                $.post("{{ url('/search/restaurants/ajax') }}", {start: start, _token: token, data: data}, function (result) {
+                $.post("{{ url('/search/restaurants/ajax') }}", {
+                    start: start,
+                    _token: token,
+                    data: data
+                }, function (result) {
                     $('#restuarant_bar').append(result);
                     $('#loadMoreBtnContainer').remove();
                 });
