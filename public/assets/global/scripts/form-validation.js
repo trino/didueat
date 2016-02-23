@@ -426,15 +426,23 @@ function makerules(validation){
     }
     return {rules: rules, messages: messages, focusInvalid: false,
         invalidHandler: function(form, validator) {
+            var first = -1;
+            for (i = 0; i < validator.errorList.length; i++){
+                if ($(validator.errorList[i].element).is(":visible")) {
+                    first = i;
+                    break;
+                }
+            }
 
             if (!validator.numberOfInvalids()) {
                 return;
             }
 
-            $('html, body').animate({
-                scrollTop: $(validator.errorList[0].element).offset().top - 80
-            }, 2000);
-
+            if(first>-1) {
+                $('html, body').animate({
+                    scrollTop: $(validator.errorList[first].element).offset().top - 80
+                }, 2000);
+            }
         }
     };
 }

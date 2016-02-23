@@ -358,7 +358,6 @@ function toRad(Value) {
 function unescapetext (str) {
     // this prevents any overhead from creating the object each time
     var element = document.createElement('div');
-
     if (str && typeof str === 'string') {
         // strip script/html tags
         str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
@@ -367,6 +366,5 @@ function unescapetext (str) {
         str = element.textContent;
         element.textContent = '';
     }
-
     return str;
 }
