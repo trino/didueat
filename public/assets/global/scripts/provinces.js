@@ -72,7 +72,10 @@ function initAutocompleteWithID(ID){
     if (!element.hasAttribute("hasgeocode")) {
         var formatted_address = new google.maps.places.Autocomplete(
             (element),
-            {types: ['geocode']});
+      {
+		      types: ['geocode'],
+		      componentRestrictions: {country: "ca"}
+      });
         formatted_address.addListener('place_changed', fillInAddress);
         element.setAttribute("hasgeocode", true);
         return formatted_address;

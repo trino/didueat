@@ -39,7 +39,7 @@
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
             <?php
-                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'icon-smiley-logo.png';
+                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/icon-' . $value['logo'] : 'icon-smiley-logo.png';
                 $value['tags'] = str_replace(",", ", ", $value['tags']);
                 $Modes = array();
                 if ($value['is_delivery']) {
@@ -72,7 +72,7 @@
                 <div class="col-md-3 col-xs-3 p-l-0">
 
                     <a href="{{ url('restaurants/'.$value['slug'].'/menus') }}">
-                        <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/icon-' . $logo) }}">
                     </a>
                     <div class="clearfix"></div>
                 </div>
