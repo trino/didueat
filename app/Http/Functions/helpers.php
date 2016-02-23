@@ -1391,7 +1391,7 @@ function datename($date){
                 $hour = date("G:H:s", $date);
 
                 if ($hour >= $open && $hour <= $close) {
-                    $start_format = date('M d, H:i', $date);
+                    $start_format = date(get_date_format(), $date);
                     //istoday
                     echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
                     $hour = date('g:i A', $date);
