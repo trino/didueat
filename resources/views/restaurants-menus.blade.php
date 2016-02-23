@@ -196,13 +196,17 @@
             } else {
                 var address_latitude = $("#latitude").val();
                 var address_longitude = $("#longitude").val();
-                found=address_latitude && address_longitude;
+                found=address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
             }
 
             if(found){
                 var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
                 if (distance > {{ $restaurant->max_delivery_distance }}) {
-                    alert(unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away");
+                    var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
+                    @if(debugmode())
+                        return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                    @endif
+                    alert(message);
                     return false;
                 } else if (debugmode) {
                     alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
