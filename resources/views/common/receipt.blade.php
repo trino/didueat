@@ -152,8 +152,8 @@
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                     <?php
-                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                    echo "<p>Welcome " . $profile->name . "</p>";
+                        $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                        echo "<p>Welcome " . $profile->name . "</p>";
                     ?>
                     @endif
 
@@ -188,7 +188,7 @@
 
     function addresschanged(thiss) {
         $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
-        $("#formatted_address3").val(thiss.getAttribute("ADDRESS"));
+        $("#formatted_address").val(thiss.getAttribute("ADDRESS"));
         $(".city").val(thiss.getAttribute("CITY"));
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
