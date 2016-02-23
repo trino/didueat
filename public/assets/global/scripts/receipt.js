@@ -304,7 +304,7 @@ $(function(){
         total = parseFloat(total);
         total = Number(total) - Number(amount);
         total = total.toFixed(2);
-        $('#list' + numid + ' .total').text('$' + total);
+        $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
          $('#list' + numid + ' .prs').val(total);
 
         quant = parseFloat(quant);
@@ -370,7 +370,7 @@ $(function(){
         total = parseFloat(total);
         total = Number(total) + Number(amount);
         total = total.toFixed(2);
-        $('#list' + numid + ' .total').text('$' + total);
+        $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
         $('#list' + numid + ' .prs').val(total);
         
         quant++;

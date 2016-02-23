@@ -474,16 +474,13 @@
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:40px;">' +
-                        '</a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />'
-                            /*
-                             '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
-                             '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
-                             '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
-                             '<i class="fa fa-plus"></i></a>' +
+                        '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
+                        '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
+                        '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
+                        '<i class="fa fa-plus"></i></a>' +
 
-                             */
-                        +
-                        '<span class="amount" style="display:none;">' + price.toFixed(2) + '</span></td>' +
+                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>'+
+                        '</td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
                         '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
                         '<input type="hidden" class="menu_ids" name="menu_ids[]" value="' + menu_id + '" />' +
