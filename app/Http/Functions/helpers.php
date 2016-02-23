@@ -404,7 +404,7 @@
     }
 
     function get_date_format(){
-        return "M d, Y h:i A";
+        return "D M d, g:j A";
     }
 
 //generates a random password of $Length digits

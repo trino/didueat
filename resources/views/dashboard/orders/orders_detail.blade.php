@@ -18,20 +18,20 @@
                 <div class="card" id="toPrinpetail">
                     <div class="card-header">
                         <h4 class="card-title">Order #{{$order->guid}}
-                            <input type="button" style="" value="Print Receipt" onclick="prinpiv('toPrinpetail')" class="btn btn-sm btn-secondary-outline pull-right"/>
+                            <input type="button" style="" value="Print" onclick="prinpiv('toPrinpetail')" class="btn btn-sm btn-secondary-outline pull-right"/>
                         </h4>
                     </div>
 
                     <div class="card-block">
                         <div class="">
-                            <div class="col-md-6 p-a-0">
+                            <div class="col-md-6 p-l-0">
                                 @include('common.receipt')
                             </div>
 
-                            <div class="col-md-6 col-md-6 p-a-0">
+                            <div class="col-md-6 col-md-6 p-l-0">
                                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
 
-                             @if($order->order_type >0)
+                             @if($order->order_type >0 && $CanApprove)
                                 @include("common.gmaps", array("address" => $restaurant->formatted_address))
 
                                  @endif

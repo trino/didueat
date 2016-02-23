@@ -8,7 +8,6 @@
 
 
 
-
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <div class="container">
         <div class="row">
@@ -23,24 +22,37 @@
                         </h3>
                         <hr class="p-t-1"/>
                         <div class="noprint row">
-                            <div class="col-md-2">Filter by Date</div>
-                            <div class="col-md-7">
+                            <div class="col-md-12">Filter by Date</div>
+                            <div class="col-md-12">
                                 <form id="report-form" method="get">
-                                    <div class="col-md-4">
+
+
+
+
+
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+
                                         <input type="text" class="datepicker form-control" name="from"
                                                placeholder="From"
                                                value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
-                                    </div>
+</div>
+                                        <div class="input-group-btn">
 
-                                    <div class="col-md-4">
                                         <input type="text" class="datepicker form-control" name="to" placeholder="To"
                                                value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
+</div>
+                                        <div class="input-group-btn">
+                                            <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
+                                                   onclick="return checkFilter();">
+                                        </div>
+
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
-                                               onclick="return checkFilter();">
-                                    </div>
+
+
 
                                     <div class="clearfix"></div>
                                 </form>
@@ -69,6 +81,7 @@
                                     </div>
                                 @endforeach
                             @else
+                                <br>
                                 No orders found
                             @endif
 
@@ -104,6 +117,11 @@
                                 }
                             </style>
                         </div>
+
+                        <hr class="p-t-1"/>
+
+
+
                         <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
                            onclick="return printDiv('toprint')">Print</a>
 

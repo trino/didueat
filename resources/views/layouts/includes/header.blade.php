@@ -26,10 +26,10 @@
                     @endif
 
                     <a href="#" data-toggle="modal" data-target="#navigationModal"
-                       style="padding-left:6px !important;"
-                       class="hidden-sm-down pull-right nav-link">{{explode(' ', Session::get('session_name'))[0] }}</a>
+                       style="padding-left:6px !important; color:white; text-decoration: none;"
+                       class="pull-right">
 
-                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right">
+
                         <img src="<?php
                         $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {
@@ -37,7 +37,17 @@
                         } else {
                             echo asset('assets/images/icon-didueatdefault.png');
                         }
-                        ?>" class="img-rounded pull-right" style="margin-left:6px !important;height: 32px;width:32px;">
+                        ?>" class="img-rounded" style="margin-left:6px !important;height: 31px;width:31px;">
+<span class="hidden-sm-down ">
+
+                        {{explode(' ', Session::get('session_name'))[0] }}
+</span>
+
+
+                    </a>
+
+                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right">
+
                     </a>
 
                     <!--a type="button" data-toggle="collapse" href="#"
