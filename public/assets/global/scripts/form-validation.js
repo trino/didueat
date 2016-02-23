@@ -424,5 +424,17 @@ function makerules(validation){
             }
         }
     }
-    return {rules: rules, messages: messages};
+    return {rules: rules, messages: messages, focusInvalid: false,
+        invalidHandler: function(form, validator) {
+
+            if (!validator.numberOfInvalids()) {
+                return;
+            }
+
+            $('html, body').animate({
+                scrollTop: $(validator.errorList[0].element).offset().top - 80
+            }, 2000);
+
+        }
+    };
 }
