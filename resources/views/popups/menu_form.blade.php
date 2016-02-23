@@ -6,26 +6,22 @@
     <?php printfile("views/popups/menu_form.blade.php"); ?>
 
     <div class=" ignore row">
-
-
-
         <div class="display:none;">
-
-
 
             <div class="col-md-6 "  style="display:none;">
                 <div><strong>Category:</strong></div>
                 <input class="form-control cat_name" value="<?php if(isset($model) && $model->cat_name){echo $model->cat_name;}?>" />
                 <div>
-                <select class="cat_id form-control" >
-                    <option value="">Category</option>
-                    @foreach($category as $cat)
-                        <option value="{{ $cat->id }}"
-                                @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
-                    @endforeach
-                </select>
+                    <select class="cat_id form-control" >
+                        <option value="">Category</option>
+                        @foreach($category as $cat)
+                            <option value="{{ $cat->id }}"
+                                    @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
+
             @if(false)
             @if(count($category))
                 <!--div class="catblock" style="display: none;">
@@ -40,55 +36,45 @@
             @endif
             @endif
 
-
-
-
-
-                <div class=" ignore col-md-12" style="margin-bottom:3px; ">
-                    <div class="form-group">
-
+            <div class=" ignore col-md-12" style="margin-bottom:3px; ">
+                <div class="form-group">
                     <div class="menuimg ignore menuimg{{ $menu_id }}_1"
-                         @if(isset($model) && $model->image) style="min-height:0;" @endif>
-                        @if(isset($model) && $model->image)
+                        @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
+                            style="min-height:0;">
                             <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}" class="ignore" style="max-width:100%;"/>
                             <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
+                        @else
+                            >
                         @endif
                     </div>
                     <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a>
-
                 </div>
-                </div>
-
-
-
+            </div>
 
             <div class="col-md-9 ">
                 <div class="form-group">
-                <input class="form-control newtitle ignore" type="text" placeholder="Name" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
-               </div>
+                    <input class="form-control newtitle ignore" type="text" placeholder="Name" value="{{ (isset($model->menu_item))? $model->menu_item : "" }}"/></div>
+                </div>
 
                 <div class="col-md-3 ">
                     <div class="form-group">
-
-                    <input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price" value="{{ (isset($model->price))? $model->price : "" }}"/>
+                        <input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price" value="{{ (isset($model->price))? $model->price : "" }}"/>
                     </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
                     </div>
+                </div>
 
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
+                    </div>
+                </div>
+        </div>
 
-
-            <div class="col-md-12">
-                <div class="form-group">
-
-                    <textarea class="form-control newdesc ignore" placeholder="Description">{{ (isset($model->description))? $model->description : "" }}</textarea>
-            </div>
-            </div>
-
-        <div class="col-md-12">
-
-        <div class="form-group">
-
-            <input type="hidden" id="res_slug" value="{{ $res_slug }}"/>
-        </div></div></div>
         <div class="clearfix ignore"></div>
     </div>
 

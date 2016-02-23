@@ -2,10 +2,9 @@
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-        @endif
+@endif
 
         <DIV class="list-group m-b-2" id="">
-
 
             <div class="list-group-item parents " id="">
                 <div class="">
@@ -13,32 +12,30 @@
 
                         <div class="col-md-12">
                             <h4 class="card-title">Online Menu</h4>
-                            </div>
-                            </div>
-                            </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             @foreach($menus_list as $value)
-
-
                 <?php
-                $has_image = true;
-
-                $item_image = asset('assets/images/restaurant-default.jpg');
-                $item_image1 = asset('assets/images/restaurant-default.jpg');
-
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                    $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
                     $has_image = true;
-                }
-                if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                    $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
-                    $has_image = false;
-                }
 
-                $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
-                $min_p = get_price($value->id);
+                    $item_image = asset('assets/images/restaurant-default.jpg');
+                    $item_image1 = asset('assets/images/restaurant-default.jpg');
+
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
+                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                        $has_image = true;
+                    }
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
+                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                        $has_image = false;
+                    }
+
+                    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
+                    $min_p = get_price($value->id);
                 ?>
 
                 <div class="list-group-item parents" id="parent{{ $value->id }}">
@@ -79,10 +76,10 @@
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
                                         @if(!$has_image)
-                                            <img src="{{ $item_image1 }}"
+                                            <img src="{{ asset($item_image1) }}"
                                                  class="img-rounded" style="height: 25px;width:25px;"
                                                  alt="{{ $value->menu_item }}"/>
-                                            @else
+                                        @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
                                         @endif
 

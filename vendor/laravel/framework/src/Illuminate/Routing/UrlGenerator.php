@@ -215,18 +215,18 @@ class UrlGenerator implements UrlGeneratorContract
      * @param  bool|null  $secure
      * @return string
      */
-    public function asset($path, $secure = null)
-    {
+    public function asset($path, $secure = null) {
         $append = "";
         $fullpath = getcwd() . "/" . $path;
         $fileexists = file_exists($fullpath);
+
         if ($this->isascript($fullpath)){
             if($fileexists) {
                 $append = "?" . filemtime($fullpath);
             } else {
                 $append = "?missingfile";
             }
-        } if ($this->isanimage($fullpath) && !$fileexists){
+        } else if ($this->isanimage($fullpath) && !$fileexists){
             $append = "?missingfile=" . $path;
             $path = "assets/images/status-image-missing-icon.png";
         }
