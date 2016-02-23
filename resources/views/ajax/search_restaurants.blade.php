@@ -39,7 +39,7 @@
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
             <?php
-                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'thumb_smiley-logo.png';
+                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/' . $value['logo'] : 'icon-smiley-logo.png';
                 $value['tags'] = str_replace(",", ", ", $value['tags']);
                 $Modes = array();
                 if ($value['is_delivery']) {

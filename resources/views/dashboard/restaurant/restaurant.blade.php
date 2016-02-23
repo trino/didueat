@@ -70,7 +70,7 @@ echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must 
 
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
-        $logoname = 'assets/images/restaurants/'. $restaurant->id .'/thumb_' . $restaurant->logo;
+        $logoname = 'assets/images/restaurants/'. $restaurant->id .'/small-' . $restaurant->logo;
         ?>
         <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Browse</a><div id="browseMsg" class="label smRd"></div>
 
@@ -82,7 +82,7 @@ if(!$minimum && isset($restaurant->id)){
                     title="{{ $logoname }}"
                     src="{{ asset($logoname) ."?" . date('U') }}"/>
                 @else
-                    src="{{ asset('assets/images/smiley-logo.png') }}"/>
+                    src="{{ asset('assets/images/med-smiley-logo.png') }}"/>
 
                 @endif
                     <span id="fullSize" class="smallT"></span>
@@ -252,7 +252,7 @@ if(!$minimum && isset($restaurant->id)){
                         }
 
                 document.getElementById('restLogoTemp').value = path;
-                button.html('Upload');
+                button.html('Browse');
                 document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
                 window.clearInterval(interval);
                 this.enable();

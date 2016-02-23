@@ -31,11 +31,11 @@
 
                     <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right">
                         <img src="<?php
-                        $filename = 'assets/images/users/' . read("id") . "/thumb_" . Session::get('session_photo', "");
+                        $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {
                             echo asset($filename);
                         } else {
-                            echo asset('assets/images/thumb1_didueatdefault.png');
+                            echo asset('assets/images/icon-didueatdefault.png');
                         }
                         ?>" class="img-rounded pull-right" style="margin-left:6px !important;height: 32px;width:32px;">
                     </a>

@@ -25,16 +25,16 @@
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
-                    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a>
+                    <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a><div id="browseMsg" class="label smRd"></div>
 
 
-                    <input style="max-width:100%;" type="hidden" name="photo" id="hiddenLogo" value="{{ $user_detail->photo }}"/>
+                    <input style="max-width:100%;" type="hidden" name="photo" id="hiddenLogo" value="small-{{ $user_detail->photo }}"/>
                     <img style="max-width:100%;"  id="picture" class="logopic"
                          @if($user_detail->photo)
-                         test="assets/images/users/{{ $user_detail->id . "/" . $user_detail->photo }}"
-                         src="{{ asset('assets/images/users/' . $user_detail->id . "/" . $user_detail->photo) ."?" . date('U') }}"/>
+                         test="assets/images/users/{{ $user_detail->id . "/small-" . $user_detail->photo }}"
+                         src="{{ asset('assets/images/users/' . $user_detail->id . "/small-" . $user_detail->photo) ."?" . date('U') }}"/>
                     @else
-                        src="{{ asset('assets/images/didueatdefault.png') ."?" . date('U') }}" />
+                        src="{{ asset('assets/images/thumb-didueatdefault.png') ."?" . date('U') }}" />
                     @endif
                     <span id="fullSize" class="smallT"></span>
 
@@ -126,7 +126,8 @@
 	                        }
                         }
                         document.getElementById('userPhotoTemp').value = path;
-                        button.html('Click Save to Update Photo');
+                        button.html('Browse');
+                        document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
                         window.clearInterval(interval);
                         this.enable();
                         $('#picture').attr('src', path);

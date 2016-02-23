@@ -194,6 +194,8 @@ class RestaurantController extends Controller {
                     $newName=$ob->slug.".".$ext;
     
                     $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
+                    
+                    $imgVs=getimagesize($destinationPath."/".$post['logo']);
     
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
@@ -203,37 +205,49 @@ class RestaurantController extends Controller {
                      
                         $oldImgExpl=explode(".",$ob->logo);
                      
-                     $todaytime = date("Ymdhis");
-                        if(file_exists($destinationPath.'/'.$ob->logo)){
+                        $todaytime = date("Ymdhis");
+                        if(file_exists($destinationPath.'/big-'.$ob->logo)){
 //                            @unlink($destinationPath.'/'.$ob->logo);
-                            rename($destinationPath.'/'.$ob->logo, $destinationPath.'/'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                            rename($destinationPath.'/big-'.$ob->logo, $destinationPath.'/big-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
-                        if(file_exists($destinationPath.'/thumb1_'.$ob->logo)){
-                            rename ($destinationPath.'/display_'.$ob->logo, $destinationPath.'/display_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        if(file_exists($destinationPath.'/med-'.$ob->logo)){
+                            rename ($destinationPath.'/med-'.$ob->logo, $destinationPath.'/med-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
-                        if(file_exists($destinationPath.'/thumb1_'.$ob->logo)){
-//                            @unlink($destinationPath.'/thumb1_'.$ob->logo);
-                            rename ($destinationPath.'/thumb1_'.$ob->logo, $destinationPath.'/thumb1_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        if(file_exists($destinationPath.'/small-'.$ob->logo)){
+//                            @unlink($destinationPath.'/small-'.$ob->logo);
+                            rename ($destinationPath.'/small-'.$ob->logo, $destinationPath.'/small-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
 
-                        if(file_exists($destinationPath.'/thumb_'.$ob->logo)){
-//                            @unlink($destinationPath.'/thumb_'.$ob->logo);
-                            rename ($destinationPath.'/thumb_'.$ob->logo, $destinationPath.'/thumb_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        if(file_exists($destinationPath.'/thumb-'.$ob->logo)){
+//                            @unlink($destinationPath.'/thumb-'.$ob->logo);
+                            rename ($destinationPath.'/thumb-'.$ob->logo, $destinationPath.'/thumb-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
-                        if(file_exists($destinationPath.'/icon_'.$ob->logo)){
-//                            @unlink($destinationPath.'/icon_'.$ob->logo);
-                            rename ($destinationPath.'/icon_'.$ob->logo, $destinationPath.'/icon_'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        if(file_exists($destinationPath.'/icon-'.$ob->logo)){
+//                            @unlink($destinationPath.'/icon-'.$ob->logo);
+                            rename ($destinationPath.'/icon-'.$ob->logo, $destinationPath.'/icon-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                         }
                     }
-
+                    
+                    
                     $filename = $destinationPath . "/" . $newName;
-                    $thisresult = copy($post['restLogoTemp'], $destinationPath.'/' .$newName);
-                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/display_' => BIG_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb1_' => SMALL_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/icon_' => TINY_THUMB];
+                    $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);// use for copying and naming, then rename with big- prefix
+                    
+                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb-' => SMALL_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB];
+                    
+                    // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
+                    ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
+                    
+                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=BIG_THUMB : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
+                    ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$largImg;
+
+
+
 
                     copyimages($sizes, $filename, $newName, true);
 
+                    @unlink($destinationPath.'/'.$newName); // delete img used to copy and name other images -> alter in future so this step is not needed
                     @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image
-                    $update['logo'] = $newName;
+                    $update['logo'] = $newName; // db needs updating, in case img type changed - eg. png to jpg
                     $addlogo=true;
                 }                
 
@@ -496,7 +510,7 @@ class RestaurantController extends Controller {
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             if($sizes){
-                $sizes = [$path . '/thumb_' => MED_THUMB, $path . '/thumb1_' => SMALL_THUMB];
+                $sizes = [$path . '/thumb-' => MED_THUMB, $path . '/thumb1-' => SMALL_THUMB];
                 copyimages($sizes, public_path($path) . '/' . $file, $file, false, true);
             }
             $file_path = url() . "/" . $path . "/" . $file;
