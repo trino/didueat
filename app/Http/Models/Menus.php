@@ -21,9 +21,11 @@ class Menus extends BaseModel {
 
     public function save(array $options = array()) {
         parent::save($options);
-        $before = select_field("restaurants", "id", $this->restaurant_id);
-        $after = \App\Http\Models\Restaurants::restaurant_opens($this->restaurant_id, true);
-        if(!$before->is_complete && $after){return true;}
+        if(isset($this->restaurant_id)) {
+            $before = select_field("restaurants", "id", $this->restaurant_id);
+            $after = \App\Http\Models\Restaurants::restaurant_opens($this->restaurant_id, true);
+            if (!$before->is_complete && $after) {return true;}
+        }
     }
 
     /**
