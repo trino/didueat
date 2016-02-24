@@ -1416,6 +1416,9 @@ function datename($date){
     function debugmode(){
         return config('app.debug') || isset($_GET["debugmode"]);
     }
+    function islive(){
+        return strpos(strtolower($_SERVER['HTTP_HOST']), "didueat.ca") !== false;
+    }
 
 //if the server is localhost, print whatever file is specified in red text
     function printfile($File, $Ret = false){//cannot use __FILE__ due to caching

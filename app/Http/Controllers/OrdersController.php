@@ -228,7 +228,7 @@
         //$Message = the message to be sent, will be passed as $body into the email template
         //$EmailParameters = any extra parameters to be passed to the email template
         //$EmailTemplate = the email template to use, defaults to the newsletter as it just sends the message
-        //$IncludeVan = If "call", calls Van. If any other value (except false) it sends an SMS to Van
+        //$IncludeVan = If "call", calls Van. If any other value (except false) it sends an SMS to Van (only works on live site)
         //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
         //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
         public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false) {
@@ -239,7 +239,7 @@
             }
             //list of words to replace for easier pronunciation by the computer
             $CallMessage = str_replace(array("didu eat"), array("did you eat"), strtolower($Message));
-            if($IncludeVan){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
+            if($IncludeVan && islive()){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
             foreach ($NotificationAddresses as $NotificationAddress) {
                 if ($NotificationAddress->address) {
