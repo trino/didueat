@@ -109,6 +109,7 @@ class Restaurants extends BaseModel {
         if($Today_Close < $Today_Open && $now >= $Today_Open){
             return $Today;
         }
+        //echo "Now: " . $now . ' Today open: ' . $Today_Open . " Today close: " . $Today_Close . " Yest. Open: " . $Yesterday_Open . " Yest. Close: " . $Yesterday_Close;
         return false;
     }
 
@@ -156,7 +157,8 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_close > today_open AND today_open <= now AND today_close > now) OR (today_close < today_open AND today_open <= now) OR (today_open > now AND yesterday_close > now))";
+        $hours = " AND ((today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
+        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;

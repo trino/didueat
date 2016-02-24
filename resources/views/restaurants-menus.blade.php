@@ -17,9 +17,8 @@
     }
 
     $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-
     if (!$business_day) {
-        popup(false, "Restaurant is currently closed", "Oops");
+        popup(false, $restaurant->name . " is currently closed", "Oops");
     }
 
     if($is_my_restro){
