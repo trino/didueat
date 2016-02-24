@@ -1,52 +1,34 @@
-<?php
- $paymentpg=true;
-?>
-
 @extends('layouts.default')
 @section('content')
 
-<?php 
-
-printfile("views/home/faq.blade.php");
-
-$showform=false;
-$paymentMsg="My Order Confirmation";
-$paymentInstruction="<br/>Please verify that your order is correct, and then click Pay For Order.";
-if(Session::has('paymentMade')){
- $showform=true;
- $paymentInstruction="";
- $paymentMsg="Thank you for your Payment!";
-}
+<?php
+    printfile("views/home/faq.blade.php");
+    $paymentpg=true;
+    $showform=!islive();
+    $paymentMsg="My Order Confirmation";
+    $paymentInstruction="<br/>Please verify that your order is correct, and then click Pay For Order.";
+    if(Session::has('paymentMade')){
+        $showform=true;
+        $paymentInstruction="";
+        $paymentMsg="Thank you for your Payment!";
+    }
 ?>
+<div class="container">Coming Soon</div>
+
 <div class="container">
-     Coming Soon</div>
-<div class="container" style="display:none;">
 
     <div class="row">
-
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title" id='paymentmsg'>{{ $paymentMsg }}<span class='instruct'><?php echo $paymentInstruction;?></span></h4>
-         
-     @if(!$showform)
-
-									{!! Form::open(array('url' => '/home/faq', 'id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-
-
-									@include("home.stripe", array("user_detail" => $user_detail, "mobile" => true))
-         
-									<input name="user_id" type="hidden" value='{{ Session::get('session_id') }}' /> 
-         
-
-									{!! Form::close() !!}
-         
-     @endif
-
-
+                    @if($showform)
+                        {!! Form::open(array('url' => '/home/faq', 'id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
+                            @include("home.stripe", array("user_detail" => $user_detail, "mobile" => true))
+                            <input name="user_id" type="hidden" value='{{ Session::get('session_id') }}' />
+                        {!! Form::close() !!}
+                    @endif
                 </div>
-
-    </div>
-
+            </div>
     </div>
 
 
@@ -88,12 +70,7 @@ if(Session::has('paymentMade')){
             </div>
         </div>
     </div>
-
-
-
-
 </div>
-
 
 <br/><br/><br/>
 
