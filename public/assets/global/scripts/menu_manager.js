@@ -69,7 +69,7 @@ function ajaxuploadbtn(button_id, doc) {
     new AjaxUpload(button, {
         action: act,
         name: 'myfile',
-        data: {'_token': token},
+        data: {'_token': token, 'setSize': 'No'},
         onSubmit: function (file, ext) {
             button.text('Uploading...');
             this.disable();
@@ -86,11 +86,29 @@ function ajaxuploadbtn(button_id, doc) {
             var resp = response.split('___');
             var path = resp[0];
             var img = resp[1];
+                        var imgV = new Image();
+                        imgV.src = path;
+                        var imgW=0;
+                        imgV.onload = function() {
+                        var imgW=this.width;
+                        var imgH=this.height;
+	                       if(imgW > 500){
+	                         document.getElementById('picture').style.width="100%";
+                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
+	                        }
+	                        else{
+                          document.getElementById('fullSize').innerHTML="";
+	                         document.getElementById('picture').style.width=imgW+"px";
+	                         document.getElementById('picture').style.height=imgH+"px";
+	                        }
+                        }
+
+                document.getElementById('menuImgTemp').value = path;
             button.html('Browse');
 
             window.clearInterval(interval);
             this.enable();
-
+ 
             $("." + button_id.replace('newbrowse', 'menuimg')).html('<img style="max-width:100%;" src="' + path + '" /><input type="hidden" class="hiddenimg" value="' + img + '" />');
             $("." + button_id.replace('newbrowse', 'menuimg')).attr('style', 'min-height:0px!important;')
             
