@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <?php printfile("view/popups/more_detail.blade.php"); ?>
-                <div style="height:200px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
+                <div style="height:300px;max-width:100%;list-style:none; transition: none;overflow:hidden;">
                     @include("common.gmaps", array("address" => $restaurant->formatted_address))
                 </div>
                     <br>
@@ -76,17 +76,17 @@
                         }
                     }
 
+                    if ($needsdeliveryhours) {
+                        echo '<strong>Pickup Hours</strong>';
+                    } else {
+                        echo '<strong>Pickup/Delivery Hours</strong>';
+                    }
+
 
 echo "<table>";
 
 
 
-                    if ($needsdeliveryhours) {
-                        echo '<tr><td></td><td>Pickup Hours</td>';
-                        echo '<td>Delivery Hours</td></tr>';
-                    } else {
-                        echo '<tr><td></td><td>Pickup/Delivery Hours</td><td></td></tr>';
-                    }
 
 
 
