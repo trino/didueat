@@ -1,4 +1,4 @@
-<div class="menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
+<div class="m-t-1 menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
     printfile("views/popups/additional.blade.php");
     $r1 = rand('1000000', '999999999');
@@ -10,7 +10,7 @@
 
         <div class="col-md-9 form-group">
 
-            <input class="form-control ctitle " type="text" placeholder="Addon e.g. Pizza Toppings, Sides"
+            <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
 
         </div>
@@ -19,10 +19,7 @@
             <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
 </div>
 
-        <div class="col-md-12 clearfix p-y-0 m-y-0">
 
-        <hr class="" />
-</div>
         <div class="col-md-12 form-group">
 
             <textarea class="form-control cdescription" style="display: none;"
@@ -74,7 +71,7 @@
                         } ?>
                     @else
                         <div class="cmore">
-                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item"/>
+                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
                             </div>
                             <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
                                                             placeholder="Optional Price"/></div>
