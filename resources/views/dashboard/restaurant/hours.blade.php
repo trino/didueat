@@ -117,6 +117,9 @@
                     $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
                     if (($opentime != "00:00:00" || $closetime != "00:00:00") && $opentime != $closetime) {
                         $closed .= " CHECKED";
+                    } else {
+                        $opentime = "";
+                        $closetime = "";
                     }
                     $closed .= '> Open<span class="c-indicator"></span></LABEL>';
                 }

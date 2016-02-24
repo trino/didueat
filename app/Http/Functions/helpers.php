@@ -1751,10 +1751,12 @@ function datename($date){
     }
 
     function converttime($Time){
-        if (strpos(strtolower($Time), "m")) {//if it contains the letter m
-            return date("H:i:s", strtotime($Time));//12 to 24
-        } else {
-            return date("g:i A", strtotime($Time));//24 to 12
+        if($Time) {
+            if (strpos(strtolower($Time), "m")) {//if it contains the letter m
+                return date("H:i:s", strtotime($Time));//12 to 24
+            } else {
+                return date("g:i A", strtotime($Time));//24 to 12
+            }
         }
     }
 
