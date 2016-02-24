@@ -14,7 +14,7 @@
                 <h4 class="modal-title" id="editModelLabel">Newsletter</h4>
             </div>
             {!! Form::open(array('url' => 'subscribers/send', 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
             <div class="modal-body" id="contents">
                 <?= newrow(false, "Subject:"); ?>
                     <INPUT TYPE="TEXT" NAME="subject" CLASS="form-control" REQUIRED>

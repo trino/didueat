@@ -16,7 +16,7 @@
                     $class= $loaded_from;
                 }
             ?>
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
             {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class, 'autocomplete' => 'false')) !!}
 
                 <div class="modal-body" id="contents"></div>
@@ -47,10 +47,10 @@
             $('#editLabel').text('Add/Edit Address');
         }
         oldID=id;
-        $('#editModel #ajaxloader').show();
+        $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('user/addresses/edit') }}/" + id+route, {}, function (result) {
-            $('#editModel #ajaxloader').hide();
+           $('.overlay_loader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                     var json = jQuery.parseJSON(result);

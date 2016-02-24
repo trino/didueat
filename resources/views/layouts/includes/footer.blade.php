@@ -493,7 +493,7 @@ Thank you">Email Support</a></li>
         }
 
         $('.loadmore').click(function () {
-            $('div#loadmoreajaxloader').show();
+            $('.overlay_loader').show();
             ur = $('.next a').attr('href');
             if (ur != '') {
                 url1 = ur.replace('/?', '?');
@@ -503,7 +503,7 @@ Thank you">Email Support</a></li>
                         if (html) {
                             $('.nxtpage').remove();
                             $("#postswrapper").append(html);
-                            $('div#loadmoreajaxloader').hide();
+                            $('.overlay_loader').hide();
                         } else {
                             $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
                         }
