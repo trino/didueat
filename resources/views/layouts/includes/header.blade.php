@@ -57,8 +57,7 @@
                 @else
                     <div class="btn-group">
                         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#signupModal">Signup</a>
-                        <a class="btn btn-sm btn-primary-outline" data-toggle="modal"
-                           data-target="#loginModal">Login</a>
+                        <a class="btn btn-sm btn-primary-outline reserve_login" data-toggle="modal" data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
                     </div>
 
                 @endif
