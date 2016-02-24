@@ -331,35 +331,39 @@ Thank you">Email Support</a></li>
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
-                                    $('.reserve_login').hide();
-                                    $('.reservation_address').show();
-                                    $('#fullname').val(arr.name);
-                                    $('#ordered_user_id').val(arr.user_id);
-                                    $('#ordered_email').val(arr.email);
-                                    $('#ordered_contact').val(arr.phone);
-                                    $('#ordered_province').val(arr.province);
-                                    $('#ordered_code').val(arr.postal_code);
-                                    $('#ordered_street').val(arr.street);
-                                    $('#ordered_city').val(arr.city);
-                                    $('.phone').val(arr.phone);
-                                    $('.hidden_elements').hide();
-                                    $('#fullname, #ordered_email, #ordered_contact').attr('readonly','readonly')
-                                    //$('.reservation_signin').hide();
-                                    $('.close').click();
-                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                                        if ($('.profile_delivery_detail').is(':visible'))
-                                            $('.reservation_address_dropdown').attr('required', 'required');
-                                    });
-                                    //only loads header
-                                    $('.header-nav').load(document.URL + ' .header-nav>');
-                                    $('.password_reservation').hide();
-                                    $('.password_reservation').removeAttr('required');
+                                    if(arr.restaurant_id){
+                                        window.location = "{{ url("orders/list/restaurant") }}";
+                                    } else {
+                                        $('.reserve_login').hide();
+                                        $('.reservation_address').show();
+                                        $('#fullname').val(arr.name);
+                                        $('#ordered_user_id').val(arr.user_id);
+                                        $('#ordered_email').val(arr.email);
+                                        $('#ordered_contact').val(arr.phone);
+                                        $('#ordered_province').val(arr.province);
+                                        $('#ordered_code').val(arr.postal_code);
+                                        $('#ordered_street').val(arr.street);
+                                        $('#ordered_city').val(arr.city);
+                                        $('.phone').val(arr.phone);
+                                        $('.hidden_elements').hide();
+                                        $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
+                                        //$('.reservation_signin').hide();
+                                        $('.close').click();
+                                        $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                                            if ($('.profile_delivery_detail').is(':visible'))
+                                                $('.reservation_address_dropdown').attr('required', 'required');
+                                        });
+                                        //only loads header
+                                        $('.header-nav').load(document.URL + ' .header-nav>');
+                                        $('.password_reservation').hide();
+                                        $('.password_reservation').removeAttr('required');
 
-                                    validateform("profiles", {
-                                        phone: "phone required",
-                                        mobile: "phone",
-                                        reservation_address: "required"
-                                    });
+                                        validateform("profiles", {
+                                            phone: "phone required",
+                                            mobile: "phone",
+                                            reservation_address: "required"
+                                        });
+                                    }
                                 }
                             });
                         } else {
