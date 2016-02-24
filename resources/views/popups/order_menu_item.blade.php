@@ -14,22 +14,28 @@
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?>
+                <h4 class="modal-title" id="viewDetailModel">
+
+                    <?php echo $value->menu_item; ?>
+
+
                     <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
 
                         @if($value->price>0)
-                            @if($dis)
-                                <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
-                                ${{number_format($dis_price=$main_price,2)}}
-                                <span class='label label-warning'>{{$dis}}</span>
-                            @else
-                                ${{$dis_price=number_format($value->price,2)}}
-                            @endif
+                            ${{$dis_price=number_format($value->price,2)}}
                         @else
                             ${{$dis_price=number_format($min_p,2)}}+
                         @endif
 
                 </span>
+
+                    @if($dis)
+                        <br>
+                        <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                        <span class='label label-warning'>{{$dis}}</span>
+                    @endif
+
+
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
 
@@ -41,7 +47,6 @@
                     <div class="row">
 
 
-
                         @if (Session::get('session_type_user') == "super" )
                                 <!--div class="col-sm-12 col-xs-12">
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
@@ -50,19 +55,13 @@
 
                         @if (strpos($item_image, 'missing-icon.png') === false)
 
-                        <div class="col-sm-12 col-xs-12 p-a-0">
-
-
+                            <div class="col-sm-12 col-xs-12 p-a-0">
 
 
                                 <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
 
 
-
-
-
-
-                        </div>
+                            </div>
 
 
                         @endif
@@ -84,7 +83,7 @@
                                     <tr>
                                         <td colspan="2">
 
-                                            <div class="col-md-12  p-t-1"> <p>{{ $value->description }}</p></div>
+                                            <div class="col-md-12  p-t-1"><p>{{ $value->description }}</p></div>
 
 
                                         </td>
@@ -177,7 +176,7 @@
                                                                     } ?> class="pull-left p-a-0  col-sm-5 "
                                                                          style="">
 
-                                                                        
+
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
                                                                            href="javascript:;"><i class="fa fa-minus"
@@ -194,11 +193,10 @@
                                                                                                   style=""></i></a>
 
 
-                                                                        
                                                                     </div>
 
                                                                     <div class="col-sm-7 p-a-0" style="font-size: 95%;">
-                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif"  >
+                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif">
 
 
                                                                             <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
