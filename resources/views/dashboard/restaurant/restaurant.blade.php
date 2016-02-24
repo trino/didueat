@@ -21,20 +21,29 @@
          $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
 
-echo newrow($new, "Restaurant Name", "", true); ?>
+        ?>
+
+
+<?
+
+echo newrow($new, "Restaurant Name", "",true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
     <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required
     <?= $searchcode; ?>>
     @if($new)
-        <DIV ID="restsearch" CLASS="col-sm-12"></DIV>
+        <DIV ID="restsearch" CLASS=""></DIV>
         <INPUT TYPE="hidden" name="claim" id="claim">
 
     @endif
 <? echo newrow(); ?>
 
-<?= newrow($new, "Phone", "", true); ?>
+
+
+<?= newrow($new, "Restaurant Phone Number", "", true,4); ?>
     <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
 </div></div>
+
+
 
 <?php if(!$new){
     echo newrow($new, "Description", "", false, 9);
@@ -43,7 +52,7 @@ echo newrow($new, "Restaurant Name", "", true); ?>
     echo '</textarea>' . newrow();
 }
 echo '<DIV id="cuisinelist">';
-echo newrow($new, "Genres", "", true, 9, '<BR>(Select up to 3)');
+echo newrow($new, "Genres", "", true, 9, ' (Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
@@ -55,7 +64,7 @@ $cuisinesChkd = 0;
 $cuisineListA = $cuisine_list;
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-    echo "<div class='cuisineCB col-sm-3'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "<div class='cuisineCB col-sm-4'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";

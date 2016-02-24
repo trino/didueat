@@ -1,3 +1,23 @@
+
+
+
+
+
+
+.modal {
+    overflow-y: auto;
+}
+.modal-open {
+    overflow: auto;
+}
+.modal-open[style] {
+    padding-right: 0px !important;
+}
+
+
+
+
+
 .list-group-item{
     padding:.5rem 1.25rem !important;
 }
@@ -42,7 +62,9 @@ label {
 }
 
 .main-bg-image {
+    /*
     background-image: url('../../../assets/images/restro-background.jpg') !important;
+    */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -80,6 +102,7 @@ tr {
 }
 td{
     padding-bottom: .25rem;
+    border-top:0 !important;
 }
 
 .card-header {
@@ -484,10 +507,11 @@ body {
 .smallT{font-size:12px;line-height:14px;margin-top:3px}
 
 .cuisineCB{
-    font-size: 90%;
+
     display:inline-block;
 
 }
+
 
 .smBR{font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
 
