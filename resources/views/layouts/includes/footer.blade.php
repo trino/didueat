@@ -182,51 +182,6 @@ Thank you">Email Support</a></li>
             $('#rating-form #rating_id').val(value);
         });
 
-        $('body').on('submit', '#rating-form', function (e) {
-            var ratingbox = $('#rating-form #ratingInputHidden').val();
-            var rating = $('#rating-form #rating_id').val();
-            var rating_id = $('#rating-form #data-rating-id').val();
-            var target_id = $('#rating-form #data-target-id').val();
-            var type = $('#rating-form #data-type').val();
-
-            $.post("{{ url('rating/save') }}", {
-                rating: rating,
-                rating_id: rating_id,
-                target_id: target_id,
-                comments: ratingbox,
-                type: type,
-                _token: "{{ csrf_token() }}"
-            }, function (json) {
-                if (json.type == "error") {
-                    $('#rating-form #message-success').hide();
-                    $('#rating-form #message-error').show();
-                    $('#rating-form #message-error').text(json.response);
-                } else {
-                    $('#rating-form #message-error').hide();
-                    $('#rating-form #message-success').show();
-                    $('#rating-form #message-success').text(json.response);
-                    $('#rating-form #ratingInput').val('');
-
-                    setTimeout(function () {
-                        $('#ratingModal').modal('hide');
-                        $('#parent' + target_id + ' .static-rating .rating-it-btn').attr('data-count-exist', 1);
-                        $.each($('#parent' + target_id + ' .static-rating input[value="' + rating + '"]'), function (index, value) {
-                            $(this).addClass("checked-stars");
-                            $(this).attr("checked", true);
-                        });
-                        $('#restaurant_rating .static-rating .rating-it-btn').attr('data-count-exist', 1);
-                        $.each($('#restaurant_rating .static-rating input[value="' + rating + '"]'), function (index, value) {
-                            $(this).addClass("checked-stars");
-                            $(this).attr("checked", true);
-                        });
-
-                        updatereview(target_id);
-                    }, 500);
-                }
-            });
-            e.preventDefault();
-        });
-
         $('body').on('submit', '#subscribe-email', function (e) {
             var email = $('#subscribe-email input[name=email]').val();
             var token = $('#subscribe-email input[name=_token]').val();
