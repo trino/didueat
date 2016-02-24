@@ -193,8 +193,8 @@ $(function(){
         var qty = Number($(this).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
         var chk = $(this).parent().parent().find('#extra_'+id);
-        chk.attr('checked','checked');
-        chk.addClass('checked');
+         
+        
         var tit = chk.attr('title');
         var title = tit.split("_");
         title[1]= title[1].replace(' x('+qty+")","");
@@ -203,9 +203,12 @@ $(function(){
         qty = Number(qty)+ Number(1);
         $(this).parent().find('.span_'+id).html(qty);
         if(qty ==0) {
+            chk.removeAttr('checked');
             newtitle= title[1];
             newprice= price;
         } else {
+            chk.prop('checked',true);
+            chk.attr('checked','checked');
             if(!chk.hasClass('checked'))
                 chk.addClass('checked');
             newtitle= title[1]+" x("+qty+")";
@@ -217,6 +220,7 @@ $(function(){
         newtitle = newtitle.replace(" x(1)","");
         //alert(newtitle);
         $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
+        $(this).parents('.buttons').find('label.changemodalP').click();
         $(this).parents('.buttons').find('label.changemodalP').click();
         
     });
@@ -253,9 +257,12 @@ $(function(){
         if(qty ==0) {
             chk.removeClass('checked');
             chk.removeAttr('checked');
+            chk.prop('checked',false);
             newtitle = title[1];
             newprice = price;
         } else {
+            chk.prop('checked',true);
+            chk.attr('checked','checked');
             if(!chk.hasClass('checked'))
                 chk.addClass('checked');
             newtitle= title[1]+" x("+qty+")";
@@ -268,6 +275,8 @@ $(function(){
         //alert(newtitle);
         $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(this).parents('.buttons').find('label.changemodalP').click();
+        $(this).parents('.buttons').find('label.changemodalP input').click();
+        
         //$(this).parents('.buttons').find('label.changemodalP').click();
         
     });
@@ -413,7 +422,7 @@ $(function(){
                     if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
                         
                          var tit = $(this).attr('title');
-                        alert(tit);
+                        //alert(tit);
                         var title = tit.split("_");
                         var x = index;
                         if (title[0] != "") {

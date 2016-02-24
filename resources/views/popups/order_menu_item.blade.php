@@ -188,7 +188,7 @@
                                                                     </div>
 
                                                                     <div class="col-sm-7 p-a-0" style="font-size: 95%;">
-                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')c-input c-radio @endif"  >
+                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif"  >
 
 
                                                                             <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"

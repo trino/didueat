@@ -333,7 +333,7 @@
                 var td_temp = 9999;
                 var n_counter = 0;
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
-                    if ($(this).is(':checked') && $(this).attr('title') != "") {
+                    if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "")) {
                         var tit = $(this).attr('title');
                         var title = tit.split("_");
                         if (index != 0) {
@@ -588,9 +588,13 @@
                     if (!$(this).hasClass('chk')) {
                         $(this).removeAttr("checked");
                     }
+                     if ($(this).hasClass('checked')) {
+                        $(this).removeClass("checked");
+                    }
                 });
                 var dispr=Number($('.displayprice'+menu_id).val());
                 $('.modalprice'+menu_id).html('$'+dispr.toFixed(2));
+                
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
                 
