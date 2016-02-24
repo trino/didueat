@@ -11,7 +11,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <h4 class="card-title">Online Menu</h4>
+                            <h4 class="card-title">Online Specials</h4>
                         </div>
                     </div>
                 </div>

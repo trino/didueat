@@ -391,6 +391,9 @@ body {
 }
 
 .rating > label {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+
     color: #ddd;
     float: right;
 }

@@ -26,7 +26,7 @@
     <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
-                <h4 class="card-title text-xs-center m-b-0">Limit of 15 items</h4>
+                <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
                 <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our technology.</p>
 

@@ -8,10 +8,22 @@
 
     <div class=" row">
 
+        <div class="col-md-9 form-group">
 
-        <div class="col-md-12 m-b-1">
-            <input class="form-control ctitle " type="text" placeholder="Additional Addon"
+            <input class="form-control ctitle " type="text" placeholder="Addon e.g. Pizza Toppings, Sides"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
+
+        </div>
+            <div class="col-md-3 form-group">
+
+            <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
+</div>
+
+        <div class="col-md-12 clearfix p-y-0 m-y-0">
+
+        <hr class="" />
+</div>
+        <div class="col-md-12 form-group">
 
             <textarea class="form-control cdescription" style="display: none;"
                       placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
@@ -84,7 +96,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-small addmorebtn">Add More</a>
+                    <a href="javascript:void(0);" class="m-t-1 btn btn-sm btn-success btn-small addmorebtn">Add More</a>
                 </div>
                 <div class="clearfix"></div>
                 <br class=""/>
@@ -202,7 +214,6 @@
 
                         @endif
 
-                        <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Remove Addon</a>
                     </div>
                     <?php
                     if(isset($cmodel) && count($cmodel) > 1)
