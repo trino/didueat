@@ -27,28 +27,22 @@ class Restaurants extends BaseModel {
         foreach($weekdays as $day){
             foreach($Fields as $field){
                 $cells[$day . $field] = "24hr";
-                /* $this->is_complete = true;$doesopen = false;
-                   if(!isset($data[$day . $field])){
-                    $this->is_complete = false;
-                } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){
-                    $doesopen = true;
-                }*/
             }
         }
 
         $this->copycells($cells, $data);
+
+        //This sets delivery times to pickup times
+        //update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
+        foreach($weekdays as $day){
+            $field = $day . "_open_del";
+            $this->$field = getfield($this, $day . "_open");
+            $field = $day . "_close_del";
+            $this->$field = getfield($this, $day . "_close");
+        }
+
         $this->is_complete = $this->restaurant_opens($this);
         $this->open=$this->is_complete;
-        /*
-        if(!$doesopen){$this->is_complete=false;}
-        if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
-        if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
-        if(isset($data["id"])) {
-            $MenuTst = select_field("menus", array("restaurant_id", "is_active"), array($data["id"], 1), "menu_item");
-            if (!isset($MenuTst)) {
-                $this->is_complete = false;
-            }
-        }*/
     }
 
     public static function restaurant_opens($restaurant, $update_database = false){
