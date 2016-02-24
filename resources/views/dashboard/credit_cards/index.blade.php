@@ -25,7 +25,7 @@
         
         <!-- Panels Start -->
         <div id="loadPageData">
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
         </div>
 
     </div>
@@ -42,7 +42,7 @@
                 <h4 class="modal-title" id="editModelLabel">Credit Card</h4>
             </div>
             {!! Form::open(array('url' => 'credit-cards/list/'. $type, 'name'=>'editForm', 'id'=>'editForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
             <div class="modal-body" id="contents">
                 
             </div>
@@ -75,10 +75,10 @@
             id = 0;
             $('#editLabel').text('Add Address');
         }
-        $('#editModel #ajaxloader').show();
+        $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('credit-cards/edit') }}/" + id + '/{{  $type }}', {}, function (result) {
-            $('#editModel #ajaxloader').hide();
+            $('.overlay_loader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                 var json = jQuery.parseJSON(result);

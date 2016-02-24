@@ -64,10 +64,10 @@
             id = 0;
             $('#editLabel').text('Add Address');
         }
-        $('#editModel #ajaxloader').show();
+        $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('users/edit') }}/" + id, {}, function (result) {
-            $('#editModel #ajaxloader').hide();
+            $('.overlay_loader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                     var json = jQuery.parseJSON(result);

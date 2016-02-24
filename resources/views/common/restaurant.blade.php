@@ -35,8 +35,8 @@
                 <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
             </div>
         </div>
-
-        <div class="card-block" ID="common_editaddress">
+<hr />
+        <div class="card-block p-b-0" ID="common_editaddress">
             @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
         </div>
 
@@ -51,11 +51,11 @@
 
             @include("common.contactinfo", array("new"=>false, "mobile" => true))
 </div>
-            <div class="card-block ">
+            <div class="card-block p-t-0 ">
 
 
 
-                <p class="text-muted  " style="font-size:90%"  align="center" >
+                <p class="text-muted  " style=""  align="center" >
                     By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
                 </p>
 

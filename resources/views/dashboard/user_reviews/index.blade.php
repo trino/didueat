@@ -39,7 +39,7 @@
                 </button>
                 <h4 class="modal-title" id="editModalLabel">Edit Review</h4>
             </div>
-            <div id="ajaxloader"></div>
+            <!--<div id="ajaxloader"></div>-->
             <div class="modal-body" id="contents">
                 
             </div>
@@ -59,10 +59,10 @@
             id = 0;
             $('#editLabel').text('Add Address');
         }
-        $('#editModel #ajaxloader').show();
+        $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('user/reviews/edit') }}/" + id, {}, function (result) {
-            $('#editModel #ajaxloader').hide();
+            $('.overlay_loader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                 var json = jQuery.parseJSON(result);

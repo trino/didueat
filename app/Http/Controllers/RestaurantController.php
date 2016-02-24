@@ -752,7 +752,7 @@ class RestaurantController extends Controller {
     
     public function check_enable($menu_id,$cat_id,$limit,$enable) {
         $is_active = 0;
-        $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
+        $count =  \App\Http\Models\Menus::where(['restaurant_id'=>\Session::get('session_restaurant_id'),'is_active'=>1])->count();
         if($count<$limit || $enable==0) {
                 echo '1';
                 if($enable==1)

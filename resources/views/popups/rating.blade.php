@@ -22,8 +22,7 @@
 
                             @if(read("id"))
                                 <div class="form-group">
-                                    <h4>My Review </h4>
-                                    <textarea rows="4" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
+                                    <textarea rows="4" placeholder="My Review" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
                                 <div class="pull-left">
                                     <div class="form-group pull-right" id="display-rating-starts">

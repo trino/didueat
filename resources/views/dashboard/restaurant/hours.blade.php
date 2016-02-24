@@ -52,7 +52,7 @@
            value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
 </DIV></DIV>
 
-<?= newrow($new, "Minimum Subtotal<br/>(Before Delivery) $", "", true, 2); ?>
+<?= newrow($new, "Minimum Subtotal Before Delivery $", "", true, 2); ?>
 <input type="number" step="any" min="0" name="minimum" {{ $is_disabled }} class="form-control" style=""
        placeholder="Minimum Subtotal For Delivery $"
        value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>

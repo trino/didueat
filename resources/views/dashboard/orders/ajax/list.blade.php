@@ -124,9 +124,8 @@ $secondsTitle = "sec";
                                 </a>
                             @endif
                             @if($type == "admin" )
-                                <a class="btn btn-primary btn-sm"
-                                   ONCLICK="notifystore(event, {{ $value->id}} );">Notify</a>
-
+                                <a class="btn btn-secondary-outline btn-sm  pull-right"
+                                   ONCLICK="notifystore(event,{{ $value->id}} );">Notify</a>
                             @endif
                         </td>
                     </tr>
@@ -136,7 +135,7 @@ $secondsTitle = "sec";
 
 
                     <tr>
-                        <td><span class="text-muted">No Orders</span></td>
+                        <td><span class="text-muted">No orders yet</span></td>
                     </tr>
                 @endif
                 </tbody>

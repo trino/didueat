@@ -146,10 +146,6 @@ $type = "hidden";
 
 <div class="container-fluid">
     @include('layouts.includes.footer')
-
-
-
-
 </div>
 
 @if(!read("id"))

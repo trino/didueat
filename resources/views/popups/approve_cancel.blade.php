@@ -19,7 +19,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary" value=" Approve " onclick="return confirm2('approve');">Accept</button>
+                <button class="btn btn-primary" value=" Approve " onclick="$('.overlay_loader').show();return confirm2('approve');">Accept</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}            
@@ -46,7 +46,7 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn  btn-danger" onclick="return confirm2('cancel');"/>Decline</button>
+                <button type="submit" class="btn  btn-danger" onclick="$('.overlay_loader').show();return confirm2('cancel');"/>Decline</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}
@@ -64,6 +64,7 @@
     function confirm2(Action){
         var element = document.getElementById(Action + "text").value.length;
         if(element==0){
+            $('.overlay_loader').show();
             return true;
         }
         $(".orderid").val(getid());

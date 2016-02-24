@@ -119,8 +119,8 @@
 
 
                                 <input type="hidden" class="is_req"
-                                       @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 0)) value="0"
-                                       @else value="1" @endif />
+                                       @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 1)) value="1"
+                                       @else value="0" @endif />
                             </div>
                         </div>
                         <div class="clearfix"></div>

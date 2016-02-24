@@ -107,7 +107,7 @@
                 <div class="col-md-12 p-l-0 p-r-0">
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
-                            <img src="{{ asset('assets/images/ajax-loading.gif') }}">
+                            
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -119,7 +119,7 @@
                                     <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-                                <img src="{{ asset('assets/images/ajax-loader.gif') }}"/>
+                                
                             </div>
                             <!-- add menu item -->
                             <script>
@@ -612,7 +612,7 @@
 
             $(document).on('click', '.loadmore', function () {
                 var catid = $(this).attr('title');
-                $('div#loadmoreajaxloader_' + catid).show();
+                $('.overlay_loader').show();
                 ur = $('.next_' + catid + ' a').attr('href');
                 if (ur != '') {
                     url1 = ur.replace('/?', '?');
@@ -623,7 +623,7 @@
                             if (html) {
                                 $('.nxtpage_' + catid).remove();
                                 $("#loadmenus_" + catid).append(html);
-                                $('div#loadmoreajaxloader_' + catid).hide();
+                                $('.overlay_loader').hide();
                             } else {
                                 $('div#loadmoreajaxloader_' + catid).html('<center>No more menus to show.</center>');
                             }

@@ -37,7 +37,7 @@
                </button>
                <h4 class="modal-title" id="editModalLabel">Edit Addresss</h4>
            </div>
-           <div id="ajaxloader"></div>
+           <!--<div id="ajaxloader"></div>-->
            <div class="modal-body" id="contents">
 
            </div>
@@ -178,10 +178,10 @@
             $('#editLabel').text('Add Address');
         }
         toast("");
-        $('#editModel #ajaxloader').show();
+        $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('notification/addresses/edit') }}/" + id, {}, function (result) {
-            $('#editModel #ajaxloader').hide();
+            $('.overlay_loader').show();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                 var json = jQuery.parseJSON(result);
