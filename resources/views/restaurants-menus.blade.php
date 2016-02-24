@@ -186,37 +186,41 @@
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
         function addresschange(where){
-            if($("#reservation_address").is(":visible")) {
-                var element = $("#reservation_address .dropdown-item").filter(":selected");
+            //code for adding addresses to the drop down is in views/common/receipt.blade.php
+            if($("#delivery1").is(":checked")) {
                 var found = false;
-                if (element) {
-                    var address_latitude = element.attr("latitude");
-                    var address_longitude = element.attr("longitude");
-                    found = !isundefined(element.attr("latitude"));
+                if ($("#reservation_address").is(":visible")) {
+                    var element = $("#reservation_address .dropdown-item").filter(":selected");
+                    if (element) {
+                        var address_latitude = element.attr("latitude");
+                        var address_longitude = element.attr("longitude");
+                        found = !isundefined(element.attr("latitude"));
+                    }
+                } else {
+                    var address_latitude = $("#latitude").val();
+                    var address_longitude = $("#longitude").val();
+                    found = address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
                 }
-            } else {
-                var address_latitude = $("#latitude").val();
-                var address_longitude = $("#longitude").val();
-                found=address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
-            }
 
-            if(found){
-                var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
-                if (distance > {{ $restaurant->max_delivery_distance }}) {
-                    var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
-                    @if(debugmode())
-                        return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
-                    @endif
-                    alert(message);
-                    return false;
-                } else if (debugmode) {
-                    alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                if (found) {
+                    var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
+                    if (distance > {{ $restaurant->max_delivery_distance }}) {
+                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
+                        @if(debugmode())
+                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                        @endif
+                        alert(message);
+                        return false;
+                    } else if (debugmode) {
+                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                    }
+                    element.trigger("click");
+                    return true;
+                } else {
+                    alert("No address specified");
                 }
-                element.trigger("click");
-                return true;
-            } else {
-                alert("No address specified");
             }
+            return true;
         }
 
         function check_val(v) {
@@ -249,10 +253,6 @@
             });
 
             $('#profiles').submit(function (e) {
-                /*
-                 if(!$("#reservation_address").val()) {
-                 }
-                 */
                 e.preventDefault();
                 $('.overlay_loader').show();
                 var token = $('#profiles input[name=_token]').val();

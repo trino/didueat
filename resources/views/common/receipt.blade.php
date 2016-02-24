@@ -220,6 +220,7 @@
                     success: function (msg) {
                         $('#editModel').modal('hide');
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                            $(".reservation_address_dropdown .dropdown-item").filter(":selected").removeAttr("selected");
                             $('.reservation_address_dropdown').val(msg['id']);
                             if(!ignoreone){
                                 ignoreone = true;
@@ -249,9 +250,8 @@
             reservation_address: "required",
             @if(!read("id"))
                 email: "email required",
-            password: "required minlength 3",
+                password: "required minlength 3",
             @endif
-           
         });
     });
 </script>

@@ -144,7 +144,7 @@
     }
 
     function addresscheck(){
-        $("#profiles").removeAttr("novalidate");
+        //$("#profiles").removeAttr("novalidate");
         if(!addresschange('addresscheck')){return false;}
     }
 </SCRIPT>
