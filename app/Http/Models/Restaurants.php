@@ -53,9 +53,9 @@ class Restaurants extends BaseModel {
             $restaurant = select_field("restaurants", "id", $restaurant);
         }
 
-
         if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
 
+        if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
 
         $weekdays = getweekdays();
         $doesopen = false;

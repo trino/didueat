@@ -309,8 +309,7 @@ Thank you">Email Support</a></li>
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
             $.ajax({
-
-
+                //data retrieved from userscontroller@json_data
                 url: "{{ url('auth/login/ajax') }}",
                 data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
