@@ -37,7 +37,7 @@ $('.is_active').live('change',function(){
 function check_enabled(id,cat_id,stat,$thi,base_url)
 {
   var $ajax = $.ajax({
-            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/15/'+stat,
             success:function(res)
             {
                 res = res.trim();
@@ -45,7 +45,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url)
                 if(res=='0')
                 {
                     
-                    alert('You can only enable 10 items');
+                    alert('You can only enable 15 items');
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                     
