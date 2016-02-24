@@ -18,37 +18,25 @@
 
 
                 @if(Session::has('is_logged_in'))
-
                     @if (read("oldid"))
                         <a style="padding-left:6px !important;"
                            href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
                            class="nav-link pull-right">De-Possess</a>
                     @endif
 
-                    <a href="#" data-toggle="modal" data-target="#navigationModal"
-                       style="padding-left:6px !important; color:white; text-decoration: none;"
-                       class="pull-right">
-
-
+                    <a href="#" data-toggle="modal" data-target="#navigationModal" style="padding-left:6px !important; color:white; text-decoration: none;" class="pull-right" onclick="modalcheck();">
                         <img src="<?php
-                        $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
-                        if (Session::has('session_photo') && file_exists(public_path($filename))) {
-                            echo asset($filename);
-                        } else {
-                            echo asset('assets/images/icon-didueatdefault.png');
-                        }
+                            $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
+                            if (Session::has('session_photo') && file_exists(public_path($filename))) {
+                                echo asset($filename);
+                            } else {
+                                echo asset('assets/images/icon-didueatdefault.png');
+                            }
                         ?>" class="img-rounded" style="margin-left:6px !important;height: 31px;width:31px;">
-<span class="hidden-sm-down ">
-
-                        {{explode(' ', Session::get('session_name'))[0] }}
-</span>
-
-
+                        <span class="hidden-sm-down ">{{explode(' ', Session::get('session_name'))[0] }}</span>
                     </a>
 
-                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right">
-
-                    </a>
+                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right"></a>
 
                     <!--a type="button" data-toggle="collapse" href="#"
                        class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
@@ -66,3 +54,10 @@
         </ul>
     </div>
 </nav>
+<SCRIPT>
+    function modalcheck(){
+        if ($("#navigationModal").length == 0){
+            window.location.assign("{{  url("user/info") }}");
+        }
+    }
+</SCRIPT>

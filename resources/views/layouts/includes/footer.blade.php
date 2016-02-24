@@ -78,21 +78,16 @@ Thank you">Email Support</a></li>
                 </p>
 
                 <p>
-                    Currently v1.0 &copy; Didu Eat
-                    <script language=javascript>
-                        var yr;
-                        Today = new Date();
-                        document.write(Today.getFullYear());
-                    </script>
+                    Currently v1.0 &copy; Didu Eat <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super")
                         <?php
-                        $end_loading_time = microtime(true);
-                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                        echo "";
-                        echo getOS();
-                        echo " => ";
-                        echo getUserBrowser();
+                            $end_loading_time = microtime(true);
+                            printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                            echo "";
+                            echo getOS();
+                            echo " => ";
+                            echo getUserBrowser();
                         ?>
                     @endif
 
