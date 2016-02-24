@@ -53,9 +53,9 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                     <div class="text-xs-center" onclick="submitform(event, 0)"
                          style="cursor:pointer">
 
-                        <h4 class="m-b-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
+                        <h5 class="m-b-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
                             or show me <a style="text-decoration: underline; color:white" class="search-city"
-                                          onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h4>
+                                          onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h5>
 
 
                         <div class="clearfix"></div>

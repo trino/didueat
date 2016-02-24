@@ -1,5 +1,5 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
-    <div class="container" style="margin-top:0px !important;">
+    <div class="container" style="margin-top:0px !important;padding-left: 1rem !important;padding-right: 1rem !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 38px;"/>
         </a>
