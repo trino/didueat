@@ -37,7 +37,7 @@ $('.is_active').live('change',function(){
 function check_enabled(id,cat_id,stat,$thi,base_url)
 {
   var $ajax = $.ajax({
-            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/15/'+stat,
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
             success:function(res)
             {
                 res = res.trim();
@@ -45,7 +45,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url)
                 if(res=='0')
                 {
                     
-                    alert('You can only enable 15 items');
+                    alert('You can enable up to 10 items only.');
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                     
@@ -86,6 +86,7 @@ $(".sorting_child").live('click', function () {
                     });
                 });
 $(".addon_sorting").live('click', function () {
+alert("Hello")
             var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
             var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
             if ($(this).attr('id') == 'addon_up_' + pid) {
@@ -108,6 +109,7 @@ $(".addon_sorting").live('click', function () {
                 data: 'ids=' + order + "&_token="+token,
                 type: 'post',
                 success: function (res) {
+                alert("Hello")
                     $('#menumanager2').load(base_url + 'restaurant/menu_form/' + res, function () {
                         ajaxuploadbtn('newbrowse' + res + '_1');
                     });

@@ -36,18 +36,20 @@
             @endif
             @endif
 
+        <input name="menuImgTemp" type="hidden" id="menuImgTemp"/>
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
                     <div class="menuimg ignore menuimg{{ $menu_id }}_1"
                         @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
                             style="min-height:0;">
-                            <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/thumb_' . $model->image) }}" class="ignore" style="max-width:100%;"/>
+                            <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) }}" class="ignore" style="max-width:100%;"/>
                             <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
                         @else
                             >
                         @endif
+                        <span id="fullSize" class="smallT"></span>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a><div id="browseMsg" class="label smRd"></div>
                 </div>
             </div>
 

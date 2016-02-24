@@ -114,3 +114,7 @@ public/assets/images/work/logo.png
 public/paul.log
 app/Http/Controllers/RestaurantController_beforeDeletingOldThumbnails.php
 app/Http/Controllers/AdministratorController_backupFeb23,2016.php
+public/assets/global/scripts/menu_manager_backupFeb23,2016.js
+resources/views/popups/menu_form.blade.php
+public/assets/global/scripts/additional.js
+public/assets/global/scripts/menu_manager.js

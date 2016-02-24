@@ -392,6 +392,8 @@ Thank you">Email Support</a></li>
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
                                     $('.phone').val(arr.phone);
+                                    $('.hidden_elements').hide();
+                                    $('#fullname, #ordered_email, #ordered_contact').attr('readonly','readonly')
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
                                     $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
@@ -399,7 +401,7 @@ Thank you">Email Support</a></li>
                                             $('.reservation_address_dropdown').attr('required', 'required');
                                     });
                                     //only loads header
-                                    $('.header-nav').load(document.URL + ' .header-nav>ul');
+                                    $('.header-nav').load(document.URL + ' .header-nav>');
                                     $('.password_reservation').hide();
                                     $('.password_reservation').removeAttr('required');
                                 }

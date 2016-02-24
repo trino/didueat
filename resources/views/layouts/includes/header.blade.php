@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top navbar-dark bg-success">
+<nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="diduEAT" style="height: 38px;"/>
@@ -6,7 +6,7 @@
         <a style="color: white;font-weight:bold;padding-top:5px;" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
             DiduEat
         </a>
-        <ul class="nav navbar-nav pull-right">
+        <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
 

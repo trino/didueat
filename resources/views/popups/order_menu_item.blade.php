@@ -164,16 +164,16 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 changemodalP col-sm-5 "
+                                                                    } ?> class="pull-left p-a-0  col-sm-5 "
                                                                          style="">
 
-
+                                                                        
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
                                                                            href="javascript:;"><i class="fa fa-minus"
                                                                                                   style=""></i></a>
 
-
+                                                                           
                                                                         <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} allspan">0</span>
 
@@ -184,10 +184,11 @@
                                                                                                   style=""></i></a>
 
 
+                                                                        
                                                                     </div>
 
                                                                     <div class="col-sm-7 p-a-0" style="font-size: 95%;">
-                                                                        <LABEL @if($sub->sing_mul =='1')  class="c-input c-radio changemodalP" @endif >
+                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')c-input c-radio @endif"  >
 
 
                                                                             <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"

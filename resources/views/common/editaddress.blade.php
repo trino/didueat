@@ -46,7 +46,7 @@
 
         <div class="form-group">
             <div class="col-sm-12">
-                <p class="" style="">If the Restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20diduEAT&amp;body=Please Update the Address as Follows:%0A%0A%0A%0A
+                <p class="" style="">If the restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20diduEAT&amp;body=Please Update the Address as Follows:%0A%0A%0A%0A
 {{ $GLOBALS['thisIdentity'] }}
                             %0A%0A
                             %0A%0A

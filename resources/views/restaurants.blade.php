@@ -1,39 +1,41 @@
 <?php
-    $first = false;
-    $type = "hidden";
-    $localIPTst = $_SERVER['REMOTE_ADDR'];
-    $localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr = "";
-    $locationStr = "";
-    $useCookie = false;
+$first = false;
+$type = "hidden";
+$localIPTst = $_SERVER['REMOTE_ADDR'];
+$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
 
-    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-        if (function_exists('geoip_record_by_name')) {
-            $info = geoip_record_by_name($localIPTst);
-            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-                $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
-            } else {
-                $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
-            }
+if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    if (function_exists('geoip_record_by_name')) {
+        $info = geoip_record_by_name($localIPTst);
+        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+            $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
         } else {
-            $ip = $localIPTst;
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            if ($details->country == "US" || $details->country == "CA") {
-                $locationStr = $details->city . ", " . $details->region;
-            } else {
-                $locationStr = $details->city . ", " . $details->country;
-            }
-            $latlng = explode(",", $details->loc);
-            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+            $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
         }
     } else {
-        // get city [, province/state], and country from cookie or session, once implemented
+        $ip = $localIPTst;
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        if ($details->country == "US" || $details->country == "CA") {
+            $locationStr = $details->city . ", " . $details->region;
+        } else {
+            $locationStr = $details->city . ", " . $details->country;
+        }
+        $latlng = explode(",", $details->loc);
+        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
     }
+} else {
+    // get city [, province/state], and country from cookie or session, once implemented
+}
 ?>
+
+
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-primary main-bg-image p-a-0 m-a-0" style="">
+    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image p-a-0 m-a-0" style="">
         <div class="container " style="margin-top: 0 !important;">
             <div class="row text-md-center p-t-3" style="  ">
                 <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-1">
@@ -51,10 +53,9 @@
                     <div class="text-xs-center" onclick="submitform(event, 0)"
                          style="cursor:pointer">
 
-                        <h4 class="display-5 banner-text-shadow" style=""  loc="{{ $details->loc }}">
+                        <h4 class="m-b-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
                             or show me <a style="text-decoration: underline; color:white" class="search-city"
                                           onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h4>
-
 
 
                         <div class="clearfix"></div>
@@ -133,12 +134,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <select name="cuisine" id="cuisine" class="form-control" onchange="createCookieValue('cuisine', this.value)">
+                                    <select name="cuisine" id="cuisine" class="form-control"
+                                            onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Genre</option>
                                         @foreach($cuisine as $value)
                                             <option>{{ $value->name }}</option>
                                         @endforeach
-                                        </select>
+                                    </select>
                                 </div>
 
 
@@ -188,20 +190,17 @@
                 </div>
 
 
-
-
-
-
                 <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center">
+                    <div class="card card-block text-xs-center m-b-0">
                         <blockquote class="card-blockquote">
 
                             <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-map-marker bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                                <h1><i class="fa fa-map-marker bg-success img-circle "
+                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
                             </div>
                             <h4>Local</h4>
                             <footer>
-                                    Steel Town's best restaurants
+                                Steel Town's best restaurants
                             </footer>
                         </blockquote>
                     </div>
@@ -209,30 +208,34 @@
 
 
                 <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center">
+                    <div class="card card-block text-xs-center m-b-0">
                         <blockquote class="card-blockquote">
 
                             <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-cutlery bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                                <h1><i class="fa fa-cutlery bg-success img-circle "
+                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
                             </div>
                             <h4>Efficient</h4>
                             <footer>
-                                The fastest way to order food                            </footer>
+                                The fastest way to order food
+                            </footer>
                         </blockquote>
                     </div>
                 </div>
 
 
                 <div class="col-lg-4 text-xs-center">
-                    <div class="card card-block text-xs-center">
+                    <div class="card card-block text-xs-center m-b-0">
                         <blockquote class="card-blockquote">
 
                             <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-usd bg-success img-circle " style="padding-top:20px;width:90px;height:90px;"></i></h1>
+                                <h1><i class="fa fa-usd bg-success img-circle "
+                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
                             </div>
                             <h4>Discounts</h4>
                             <footer>
-                                There's a deal everyday                         </footer>
+                                There's a deal everyday
+                            </footer>
                         </blockquote>
                     </div>
                 </div>
