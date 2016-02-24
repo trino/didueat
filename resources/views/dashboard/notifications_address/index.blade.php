@@ -181,7 +181,7 @@
         $('.overlay_loader').show();
         $('#editModel #contents').html('');
         $.get("{{ url('notification/addresses/edit') }}/" + id, {}, function (result) {
-            $('.overlay_loader').show();
+            $('.overlay_loader').hide();
             try {
                 if (jQuery.parseJSON(result).type == "error") {
                 var json = jQuery.parseJSON(result);
