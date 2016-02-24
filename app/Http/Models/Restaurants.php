@@ -35,10 +35,13 @@ class Restaurants extends BaseModel {
         //This sets delivery times to pickup times
         //update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
         foreach($weekdays as $day){
-            $field = $day . "_open_del";
-            $this->$field = getfield($this, $day . "_open");
-            $field = $day . "_close_del";
-            $this->$field = getfield($this, $day . "_close");
+            foreach(array("_open", "_close") as $fieldname) {
+                $srcfield = $day . $fieldname;
+                if (isset($this->$srcfield)) {
+                    $field = $day . $fieldname . "_del";
+                    $this->$field = $this->$srcfield;
+                }
+            }
         }
 
         $this->is_complete = $this->restaurant_opens($this);
@@ -49,6 +52,7 @@ class Restaurants extends BaseModel {
         if(!is_object($restaurant)) {
             $restaurant = select_field("restaurants", "id", $restaurant);
         }
+        if(!$restaurant->id){return false;}//new stores can't open anyway
         $weekdays = getweekdays();
         $doesopen = false;
         foreach($weekdays as $day){
@@ -201,7 +205,7 @@ class Restaurants extends BaseModel {
         return json_decode(json_encode($query),true);
     }
 
-    public function saverestaurant(){
+    public function save(array $options = array()) {
         $ret=false;
         if($this->is_complete) {
             $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
@@ -210,7 +214,7 @@ class Restaurants extends BaseModel {
                 $ret=true;
             }
         }
-        $this->save();
+        parent::save($options);
         return $ret;
     }
 }
