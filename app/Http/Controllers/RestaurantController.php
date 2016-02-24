@@ -760,7 +760,7 @@ class RestaurantController extends Controller {
         }
         else
         echo '0';
-        
+        if($menu_id)
         \App\Http\Models\Menus::where('id', $menu_id)->update(array('is_active' => $is_active));
         die();
     }

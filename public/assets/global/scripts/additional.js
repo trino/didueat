@@ -34,7 +34,31 @@ $('.is_active').live('change',function(){
             }
         }) 
 })
-
+function check_enabled(id,cat_id,stat,$thi,base_url)
+{
+  var $ajax = $.ajax({
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
+            success:function(res)
+            {
+                res = res.trim();
+                //alert('0_'+res+'_'+'0');
+                if(res=='0')
+                {
+                    
+                    alert('You can only enable 7 items');
+                    $thi.prop('checked', false);
+                    $('.overlay_loader').hide();
+                    
+                    
+                }
+                
+            },
+            async: false
+        });
+        ;
+    return $ajax.responseText;
+        
+}
 $(".sorting_child").live('click', function () {
                     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
                     var sort = 'down';
@@ -289,6 +313,11 @@ $('.savebtn').live('click', function () {
     }
     else
     var is_active = 0;
+    var ch_en = check_enabled(id,cat_id,is_active,$_parent.find('.is_active'),base_url);
+    
+    if(ch_en=='0')
+    return false;
+    
     if(!discount_per && $_parent.find('.allow_dis').is(':checked'))
     {
         alert('Discount Percentage cannot be empty');
