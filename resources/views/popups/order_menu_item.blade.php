@@ -67,7 +67,7 @@
 
                         @endif
 
-                        <div class="subitems_{{ $value->id }} optionals m-t-1">
+                        <div class="subitems_{{ $value->id }} optionals">
 
 
                             <div style="display:none;">
@@ -84,7 +84,7 @@
                                     <tr>
                                         <td colspan="2">
 
-                                            <div class="col-md-12"> <p>{{ $value->description }}</p></div>
+                                            <div class="col-md-12  p-t-1"> <p>{{ $value->description }}</p></div>
 
 
                                         </td>
