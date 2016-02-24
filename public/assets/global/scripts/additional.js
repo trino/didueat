@@ -45,7 +45,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url)
                 if(res=='0')
                 {
                     
-                    alert('You can only enable 7 items');
+                    alert('You can only enable 10 items');
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                     
