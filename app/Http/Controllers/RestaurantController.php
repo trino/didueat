@@ -751,12 +751,17 @@ class RestaurantController extends Controller {
     }
     
     public function check_enable($menu_id,$cat_id,$limit,$enable) {
+        $is_active = 0;
         $count =  \App\Http\Models\Menus::where(['cat_id'=>$cat_id,'is_active'=>1])->count();
         if($count<$limit || $enable==0) {
                 echo '1';
+                if($enable==1)
+                $is_active = 1;
         }
         else
         echo '0';
+        
+        \App\Http\Models\Menus::where('id', $menu_id)->update(array('is_active' => $is_active));
         die();
     }
 }

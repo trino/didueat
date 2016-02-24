@@ -21,7 +21,7 @@ $('.is_active').live('change',function(){
     var cat_id = $_parent.find('.cat_id').val();
     var $thi = $(this);
    $.ajax({
-            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/7/'+stat,
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
             success:function(res)
             {
                 res = res.trim();
