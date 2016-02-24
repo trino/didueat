@@ -3,34 +3,39 @@
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
-                        aria-label="Close" id="clear_<?php echo $value->id; ?>">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?>
-                    <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
-                    
-                        @if($value->price>0)
-                            @if($dis)
-                                <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
-                                ${{number_format($dis_price=$main_price,2)}}
-                                <span class='label label-warning'>{{$dis}}</span>
-                            @else
-                                ${{$dis_price=number_format($value->price,2)}}
-                            @endif
-                        @else
-                            ${{$dis_price=number_format($min_p,2)}}+
-                        @endif
-                        
-                </span>
-                    <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-                </h4>
-            </div>
+
             <div class="modal-body product-popup">
                 <div class="product-page product-pop-up">
                     <div class="row">
 
+                        <div class="col-sm-12 col-xs-12">
+
+
+                        <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
+                                aria-label="Close" id="clear_<?php echo $value->id; ?>">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="viewDetailModel"><?php echo $value->menu_item; ?>
+                            <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
+
+                        @if($value->price>0)
+                                    @if($dis)
+                                        <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                                        ${{number_format($dis_price=$main_price,2)}}
+                                        <span class='label label-warning'>{{$dis}}</span>
+                                    @else
+                                        ${{$dis_price=number_format($value->price,2)}}
+                                    @endif
+                                @else
+                                    ${{$dis_price=number_format($min_p,2)}}+
+                                @endif
+
+                </span>
+                            <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+                        </h4>
+
+
+                        </div>
 
                         @if (Session::get('session_type_user') == "super" )
                                 <!--div class="col-sm-12 col-xs-12">
@@ -39,7 +44,7 @@
                         @endif
 
 
-                        <div class="col-sm-12 col-xs-12">
+                        <div class="col-sm-12 col-xs-12 p-a-0">
 
 
                             @if (strpos($item_image, 'missing-icon.png') === false)

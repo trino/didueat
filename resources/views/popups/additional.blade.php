@@ -9,7 +9,7 @@
     <div class=" row">
 
 
-        <div class="col-md-12 ">
+        <div class="col-md-12 m-b-1">
             <input class="form-control ctitle " type="text" placeholder="Additional Addon"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
 
@@ -33,35 +33,30 @@
                         foreach($more as $cc){
                         $i++;
                         ?>
-                        <div class="cmore " id="cmore{{ $cc->id }}">
+                        <div class="cmore m-b-1" id="cmore{{ $cc->id }}">
 
                             <div class=" ">
                                 <div class="col-md-6 "><input class="form-control cctitle" type="text"
                                                               placeholder="Item" value="{{ $cc->menu_item }}"/></div>
-                                <div class="col-md-2  "><input class="form-control ccprice pricechk margin-left-10"
-                                                               type="text" placeholder="Price"
+                                <div class="col-md-3  "><input class="form-control ccprice pricechk margin-left-10"
+                                                               type="text" placeholder="Optional $"
                                                                value="{{ $cc->price }}"/></div>
                             </div>
-                            <div class="col-md-2">
 
-
-                                <a href="javascript:void(0);" class="btn btn-secondary-outline btn-sm"
-                                   onclick="$(this).parent().parent().remove();" style="">
-                                    x</a>
-
-                            </div>
-                            <div class="col-md-2">
-
-                                <div class="resturant-arrows">
-                                    <a href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
-                                    <a href="javascript:void(0)" id="child_down_{{ $cc->id }}"
+                            <div class="col-md-3">
+                                <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                    <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
+                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></button>
+                                    <button href="javascript:void(0)" id="child_down_{{ $cc->id }}"
                                        class="btn btn-sm btn-secondary sorting_child"><i
-                                                class="fa fa-angle-down"></i></a>
+                                                class="fa fa-angle-down"></i></button>
+                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
+                                   onclick="$(this).parent().parent().remove();" style="">
+                                    <i class="fa fa-times"></i> </button>
                                 </div>
                             </div>
 
-                            <div class="clearfix"></div>
+                           <div class="clearfix"></div>
                         </div>
                         <?php }
                         } ?>
@@ -124,6 +119,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <br>
                         <div class="">
                             <div class=""><strong class="">Customer can select</strong></div>
 
@@ -150,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
                     <div @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) style="display: none;"
                          @endif class="infolist exact">
 
