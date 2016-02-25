@@ -14,7 +14,7 @@ class StripeConfirm extends BaseModel {
      */
 
     public function populate($data) {
-      $cells=array('stripeToken','status','user_id');
+        $cells=array('stripeToken','status','user_id');
         $this->copycells($cells, $data);
     }
 

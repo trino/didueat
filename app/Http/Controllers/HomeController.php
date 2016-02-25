@@ -523,60 +523,27 @@ class HomeController extends Controller {
     }
 
     public function home2(){
-
         $post = \Input::all();
-        
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-		        $stripeConf['orderID'] = $post['orderID'];
-		        $stripeConf['stripeToken'] = $post['stripeToken'];
-					     $data['title'] = 'Thank you for your payment';
-					     $dataSupp['paymsg'] = 'Thank you for your payment';
-		        $dataSupp['paid'] = true;
+            $data['title'] = 'Thank you for your payment';
+            $dataSupp['paymsg'] = 'Thank you for your payment';
+            $dataSupp['paid'] = true;
+        } else {
+            $data['title'] = 'Please Confirm Your Payment';
+            $dataSupp['paymsg'] = 'Please confirm your payment';
+            $dataSupp['paid'] = false;
         }
-        else{
-			       $data['title'] = 'Please Confirm Your Payment';
-			       $dataSupp['paymsg'] = 'Please confirm your payment';
-          $dataSupp['paid'] = false;
-        }
-        
+
         $data['user_detail'] = \App\Http\Models\Profiles::find(\Session::get('session_id'));
         $data['user_detail']['paymsg']=$dataSupp['paymsg'];
         $data['user_detail']['paid']=$dataSupp['paid'];
-          
-          
-        if(isset($stripeConf['orderID'])){
-				      // Set secret key: remember to change this to live secret key in production
-          
-										\Stripe\Stripe::setApiKey("sk_test_dKNzYR8GIs6VN9UVzupvOgUX");
 
-										// Get the credit card details submitted by the form
-										$token = $post['stripeToken'];
+        $charged = app('App\Http\Controllers\CreditCardsController')->stripepayment();
 
-										// Create the charge on Stripe's servers - this will charge the user's card
-										try {
-										  $charge = \Stripe\Charge::create(array(
-										    "amount" => $post['chargeamt'], // amount in cents, again
-										    "currency" => $post['currencyType'],
-										    "source" => $token,
-										    "description" => $post['description']
-										    ));
-										} catch(\Stripe\Error\Card $e) {
-										  // The card has been declined
-										}
-          }
-          
-        
-        if(isset($charge)){
-							// if credit card payment test, save data to users table
-			       $stripeConf['status']='approved';
-			       $stripeConf['user_id']=\Session::get('session_id');
-			       $stripeOb = \App\Http\Models\StripeConfirm::findOrNew($stripeConf['orderID']);
-				      $stripeOb->populate($stripeConf);
-				      $stripeOb->save();
-          \Session::flash('paymentMade', true); // store for just next pg
-          return $this->success("Payment made successfully", 'home/faq');
-							 }
-        else{
+        if($charged){
+            \Session::flash('paymentMade', true); // store for just next pg
+            return $this->success("Payment made successfully", 'home/faq');
+        } else {
           return view('home.faq', $data);
         }
 
