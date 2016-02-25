@@ -178,6 +178,8 @@
         if (left($phone, 1) == 0 || left($phone, 1) == 1) {
             $phone = right($phone, strlen($phone) - 1);
         }
+        if(strlen($phone) > 10){$phone = left($phone, 10);}//MUST BE 10 DIGITS!!!!
+        if(strlen($phone) < 10){$phone = 0;}//MUST BE 10 DIGITS!!!!
         return $phone;
     }
 
