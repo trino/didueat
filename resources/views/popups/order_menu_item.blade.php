@@ -15,7 +15,7 @@
                             @if($dis)
                                 <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
                                 ${{number_format($dis_price=$main_price,2)}}
-                                <span class='label label-warning'>{{$dis}}</span>
+                                
                             @else
                                 ${{$dis_price=number_format($value->price,2)}}
                             @endif
@@ -24,7 +24,11 @@
                         @endif
                         
                 </span>
+                @if($dis)
+                     <span class='label label-warning'>{{$dis}}</span>
+                @endif
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+                    <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
             </div>
             <div class="modal-body product-popup">

@@ -10,6 +10,10 @@ function changeqty(id, opr) {
         (opr == 'plus') ? num++ : --num;
     }
     $('.number' + id).text(num);
+     var price = $('.Mprice'+id).val();
+        var new_price = num*Number(price);
+        $('.modalprice'+id).text('$'+new_price.toFixed(2));
+    
 }
 
 function clearCartItems() {
@@ -352,6 +356,7 @@ $(function(){
             $('#list' + numid + ' input.count').val(quant);
             //$('#list'+numid+' .count').val(quant-1);
         }
+       
         total_items--;
         updatecart();
     });
@@ -399,7 +404,7 @@ $(function(){
         quant++;
         $('#list' + numid + ' span.count').text(quant);
         $('#list' + numid + ' input.count').val(quant);
-
+       
         total_items++;
         updatecart();
     });
@@ -433,6 +438,7 @@ $(function(){
                     }
                 });
             $('.modalprice'+menu_id).html('$'+price.toFixed(2));
+            $('.Mprice'+menu_id).val(price);
         })
         
 }) 
