@@ -166,21 +166,28 @@ class Restaurants extends BaseModel {
         if (isset($data['minimum']) && $data['minimum'] != "") {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
-        if (isset($data['rating']) && $data['rating'] != "") {
-            $where .= " AND rating = '".$data['rating']."'";
-        }
         if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
             $where .= " AND ".$data['delivery_type']." = '1'";
         }
+
         if (isset($data['name']) && $data['name'] != "") {
             $where .= " AND name LIKE '%" . Encode($data['name']) . "%'";
         }
-        if (isset($data['tags']) && $data['tags'] != "") {
-            $where .= " AND tags LIKE '%" . $data['tags'] . "%'";
+
+        foreach(array("tags", "cuisine") as $field) {//LIKE
+            if (isset($data[$field]) && $data[$field]) {
+                $where .= " AND " . $field . " LIKE '%" . $data[$field] . "%'";
+            }
         }
-        if (isset($data['cuisine']) && $data['cuisine'] != "") {
-            $where .= " AND cuisine LIKE '%" . $data['cuisine']. "%'";
+        if(isset($data["formatted_address"]) && $data["formatted_address"] == "Hamilton, Ontario"){
+            $data["city"] = "Hamilton"; $data["province"] = "Ontario";
         }
+        foreach(array("city", "province", "country", "rating") as $field) {//EQUAL
+            if (isset($data[$field]) && $data[$field]) {
+                $where .= " AND " . $field . " = '" . $data[$field] . "'";
+            }
+        }
+
         if (isset($data['SortOrder']) && $data['SortOrder'] != "") {
             $order = " ORDER BY " . $data['SortOrder'];
         }
@@ -195,11 +202,11 @@ class Restaurants extends BaseModel {
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
-        (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;
+        (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why?
 
-        $data['radius']=300;//"max_delivery_distance";//other options are "5", or MAX_DELIVERY_DISTANCE
+        $data['radius']=iif(debugmode(), 300, "max_delivery_distance");
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( ".$earthRad." * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= " . $data['radius'];
+            $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
             $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where;
         }

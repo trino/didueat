@@ -53,15 +53,17 @@
 
             <div class="col-md-8 col-xs-12 " style="">
                 @if(!$is_my_restro)
-                    <div class=" m-b-1">
-                        <div class="col-md-3 col-xs-3 p-l-0">
-                            <img style="max-width:100%;" class="pull-left img-rounded"
-                                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
-                                 @else
-                                 src="{{ asset('assets/images/default.png') }}"
-                                 @endif
-                                 alt="">
+
+<div class=" m-b-1">
+                    <div class="col-md-3 col-xs-3 p-l-0">
+                        <img style="max-width:100%;" class="pull-left img-rounded"
+                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
+                             @else
+                                src="{{ asset('assets/images/small-smiley-logo.png') }}"
+                             @endif
+                         alt="">
+
 
                             <div class="clearfix"></div>
                         </div>
@@ -208,7 +210,7 @@
                     if (distance > {{ $restaurant->max_delivery_distance }}) {
                         var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
-                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                            if(where == "addresscheck") { return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");}
                         @endif
                         alert(message);
                         return false;
@@ -217,8 +219,9 @@
                     }
                     element.trigger("click");
                     return true;
-                } else {
+                } else if(where == "addresscheck") {
                     alert("No address specified");
+                    return false;
                 }
             }
             return true;

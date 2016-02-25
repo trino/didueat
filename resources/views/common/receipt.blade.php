@@ -244,6 +244,9 @@
     });
 
     $(document).ready(function () {
+        if (typeof validateform != "undefined") { 
+    // safe to use the function
+
         validateform("profiles", {
             phone: "phone required",
             mobile: "phone",
@@ -253,5 +256,6 @@
                 password: "required minlength 3",
             @endif
         });
+        }
     });
 </script>

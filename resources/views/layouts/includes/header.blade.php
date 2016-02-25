@@ -9,11 +9,10 @@
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
-
-                <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="hidden-md-up btn btn-sm btn-warning" onclick="return checkout();">
-                    <SPAN class="card-header-items"></SPAN>
+                <A ID="cart-header" style="display:none;" href="#checkout_anchor" CLASS="btn btn-sm btn-warning" onclick="return checkout();">
+                    <SPAN class="cart-header-items"></SPAN>
                     <i class="fa fa-shopping-cart"></i>
-                    <SPAN class="card-header-total"></SPAN>
+                    <SPAN class="cart-header-total"></SPAN>
                 </A>
 
 

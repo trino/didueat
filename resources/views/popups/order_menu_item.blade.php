@@ -16,18 +16,26 @@
 
                     <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
                         @if($value->price>0)
-                            ${{$dis_price=number_format($value->price,2)}}
+
+                            @if($dis)
+                                <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                                ${{number_format($dis_price=$main_price,2)}}
+                                
+                            @else
+                                ${{$dis_price=number_format($value->price,2)}}
+                            @endif
+
                         @else
                             ${{$dis_price=number_format($min_p,2)}}+
                         @endif
                 </span>
-                    @if($dis)
-                        <br>
-                        <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
-                        <span class='label label-warning'>{{$dis}}</span>
-                    @endif
+
+                @if($dis)
+                     <span class='label label-warning'>{{$dis}}</span>
+                @endif
 
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+                    <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
 
             </div>
@@ -120,8 +128,8 @@
 
                                                             <? $a++; ?>
 
-                                                            <div class="col-xs-12 col-sm-6"
-                                                                 style="margin-bottom:1px !important;">
+                                                            <div class="col-xs-12 col-sm-6 form-group"
+                                                                 style="">
 
                                                                 <div id="buttons_{{ $mm->id }}"
                                                                      class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"

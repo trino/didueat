@@ -35,21 +35,22 @@
                 <input type="text" placeholder="Add new category" class="form-control cat_id"/>
             @endif
             @endif
-
-        <input name="menuImgTemp" type="hidden" id="menuImgTemp"/>
+ 
+        
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
-                    <div class="menuimg ignore menuimg{{ $menu_id }}_1"
-                        @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
-                            style="min-height:0;">
-                            <img src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) }}" class="ignore" style="max-width:100%;"/>
-                            <input type="hidden" class="hiddenimg ignore" value="{{ $model->image }}"/>
+                    <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
+                        <img id="menuImage" class="ignore" 
+                            @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
+                            src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) ."?" . date('U') }}"/>
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" value="{{ $model->image }}" /> image
                         @else
-                            >
+                       src="{{ asset('assets/images/spacer.gif') }}" style="display:none" />
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" /> image
                         @endif
                         <span id="fullSize" class="smallT"></span>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a><div id="browseMsg" class="label smRd"></div>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload My Image</a><div id="browseMsg" class="label smRd"></div>
                 </div>
             </div>
 
@@ -167,6 +168,24 @@
 
 
 <script>
+
+$(document).ready(function () {
+    
+    @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
+
+   var menuImageW=parseInt(document.getElementById('menuImage').clientWidth);
+           if(menuImageW > 450){
+              var menuImageH=parseInt(document.getElementById('menuImage').clientHeight);
+              var new_menuImageH=450/menuImageW*menuImageH;
+              document.getElementById('menuImage').style.width=450+"px"
+              document.getElementById('menuImage').style.height=new_menuImageH+"px";
+              document.getElementById('fullSize').innerHTML="Full size image is "+menuImageW+" x "+menuImageH+" pixels";
+           }
+@endif
+    
+    });
+
+
     $(function () {
         $('#save_cat').live('click', function () {
             $('.overlay_loader').show();

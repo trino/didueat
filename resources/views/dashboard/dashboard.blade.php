@@ -5,7 +5,7 @@
 
  
     <div class="container">
-        <?php printfile("views/dashboard/dashbaord.blade.php"); ?>
+        <?php printfile("views/dashboard/dashboard.blade.php"); ?>
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -20,8 +20,7 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true))
-
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true, "disabled" => array("mobile", "phone", "name")))
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
@@ -74,6 +73,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+           validateform("profileForm", {mobile: "phone required"});
 
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
@@ -136,8 +136,6 @@
                     }
                 });
             }
-
-            validateform("profileForm", {phone: "phone required"});
         });
     </script>
 @stop

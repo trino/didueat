@@ -5,8 +5,8 @@
             @if(read("id") && false)
                 <div class="input-group-btn">
                     <?php
-                    $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-                    if($addresses->count()){
+                        $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
+                        if($addresses->count()){
                     ?>
                     <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
@@ -77,11 +77,11 @@
     </script>
 
     <?php
-    printfile("views/common/search_bar.blade.php");
-    includeJS(url("assets/global/scripts/provinces.js"));
-    if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
-        echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
-    }
+        printfile("views/common/search_bar.blade.php");
+        includeJS(url("assets/global/scripts/provinces.js"));
+        if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete2&source=header", "async defer")) {
+            echo '<SCRIPT>initAutocomplete2();</SCRIPT>';
+        }
     ?>
     <script>
         <?php if ($first) {

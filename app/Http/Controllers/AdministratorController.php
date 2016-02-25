@@ -59,28 +59,14 @@ class AdministratorController extends Controller {
                         mkdir('assets/images/users/' . $post['user_idDir'], 0777, true);
                     }
                     else{
-                     // rename existing images with timestamp, if they exist,
-                     
+                        // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->photo);
-                     
                         $todaytime = date("Ymdhis");
-                        
-                        if(file_exists($destinationPath.'/big-'.$ob->photo)){
-                            rename($destinationPath.'/big-'.$ob->photo, $destinationPath.'/big-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        foreach(array("icon", "thumb", "small", "med", "big") as $file){
+                            if(file_exists($destinationPath . '/' . $file . '-' . $ob->photo)){
+                                rename($destinationPath.'/' . $file . '-'.$ob->photo, $destinationPath.'/' . $file . '-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                            }
                         }
-                        if(file_exists($destinationPath.'/med-'.$ob->photo)){
-                            rename ($destinationPath.'/med-'.$ob->photo, $destinationPath.'/med-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPath.'/small-'.$ob->photo)){
-                            rename ($destinationPath.'/small-'.$ob->photo, $destinationPath.'/small-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-
-                        if(file_exists($destinationPath.'/thumb-'.$ob->photo)){
-                            rename ($destinationPath.'/thumb-'.$ob->photo, $destinationPath.'/thumb-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPath.'/icon-'.$ob->photo)){
-                            rename ($destinationPath.'/icon-'.$ob->photo, $destinationPath.'/icon-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }                  
                     }
 
 
@@ -91,20 +77,14 @@ class AdministratorController extends Controller {
                     
                     // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
                     ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
-                    
                     ($imgVs[0] > 362)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=BIG_THUMB : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
                     ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$largImg;
 
-
                     copyimages($sizes, $filename, $newName, true);
-
                     @unlink($destinationPath.'/'.$newName); // delete img used to copy and name other images -> alter in future so this step is not needed
-                    
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
-
                     $post['photo'] = $newName;
                 }
-
 
                 //copy post data to an array
                 $data['subscribed'] = 0;

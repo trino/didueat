@@ -277,6 +277,10 @@ $('.savebtn').live('click', function () {
         $('.overlay_loader').hide();
         return false;
     }
+    
+    
+    var cat_id = $_parent.find('.cat_id').val();
+    
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
     if (!cat_id || cat_id == '') {
@@ -369,8 +373,8 @@ $('.savebtn').live('click', function () {
         $('.overlay_loader').hide();
         return false;
     }
-
     var phas_addon = 0;
+    
     var img = $_parent.find('.hiddenimg').val();
 
     var pdesc = $_parent.find('.newdesc').val();
@@ -383,7 +387,7 @@ $('.savebtn').live('click', function () {
     
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: 'menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
+        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
         type: 'post',
         success: function (res) {
             if ($_parent.find('.menuwrapper').length > 0) {

@@ -20,19 +20,19 @@
 
             @foreach($menus_list as $value)
                 <?php
-                    $has_image = false;
+
+                
+                    $has_image = true;
 
                     $item_image = asset('assets/images/restaurant-default.jpg');
                     $item_image1 = asset('assets/images/restaurant-default.jpg');
 
-                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                        
-                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_image = true;
                     }
-                    //echo $item_image1;
-                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_image = true;
                     }
 
@@ -72,16 +72,18 @@
 
 
 
-                                    <a href="#" onclick="return loader();" id="{{ $value->id }}"
+                                    <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                                            
+                                        @if($has_image)
                                             <img src="{{ $item_image1 }}"
                                                  class="img-rounded" style="height: 25px;width:25px;"
                                                  alt="{{ $value->menu_item }}"/>
-                                        
+                                        @else
+                                                    <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
+                                        @endif
 
                                         {{ $value->menu_item }}
 
@@ -97,7 +99,7 @@
                                                     style="font-size:60%;">${{number_format($value->price,2)}}</strike>
                                         @endif
 
-                                        <a href="#" onclick="return loader();" id="{{ $value->id }}"
+                                        <a href="#" id="{{ $value->id }}"
                                         data-res-id="{{ $value->restaurant_id }}" type="button"
                                         data-toggle="modal"
                                         data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
@@ -184,7 +186,7 @@ Order
                                            href="javascript:void(0);">
                                             <i class="fa fa-arrow-down"></i></a>
 
-                                        <button onclick="return loader();" id="add_item{{ $value->id }}" type="button"
+                                        <button id="add_item{{ $value->id }}" type="button"
                                                 class="btn btn-sm btn-secondary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
@@ -214,11 +216,3 @@ Order
 @endif
 
 <div class="clearfix"></div>
-
-<script>
-function loader()
-{
-    $('.overlay_loader').show();
-    setTimeout(function(){ $('.overlay_loader').hide();return true; }, 700);
-}
-</script>
