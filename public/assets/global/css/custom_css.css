@@ -1,7 +1,10 @@
 
+.card{border-radius: 0 !important;}
 
-
-
+.card-footer{
+    
+    background: #fff !important;
+}
 
 
 .modal {
@@ -163,21 +166,15 @@ background: white !important;
     border: 1px solid #dadada;
 }
 
-@media (max-width: 990px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: block;
-    }
-}
 
-@media (min-width: 991px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: none;
-    }
-}
 
 @media screen and (max-width: 768px) {
+
+    .btn-responsive {
+        padding:5px 10px !important;
+
+    }
+
     h1 {
         font-size: 1.75rem !important;
     }
@@ -188,13 +185,13 @@ background: white !important;
         font-size: 1.55rem !important;
     }
     h4 {
-        font-size: 1.45rem !important;
-    }
-    h5 {
         font-size: 1.35rem !important;
     }
-    h6 {
+    h5 {
         font-size: 1.25rem !important;
+    }
+    h6 {
+        font-size: 1.15rem !important;
     }
     .container{}
 

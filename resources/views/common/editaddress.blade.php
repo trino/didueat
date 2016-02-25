@@ -234,12 +234,12 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 @endif
 <?php }?>
 
-<DIV id="error-message" style="color: red" class="col-md-12">&nbsp;</div>
+<DIV id="error-message" style="color: red" class="col-md-12"></div>
 <DIV CLASS="clearfix"></DIV>
 <SCRIPT>
     function isaddress_incomplete(){
         var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
-        $("#error-message").text("&nbsp;");
+        $("#error-message").text("");
         if(incomplete){$("#error-message").text("The address is not complete");}
         return incomplete;
     }

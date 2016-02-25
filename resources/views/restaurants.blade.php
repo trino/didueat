@@ -35,29 +35,31 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image p-a-0 m-a-0" style="">
+    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image" style="">
         <div class="container " style="margin-top: 0 !important;">
-            <div class="row text-md-center p-t-3" style="  ">
-                <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-1">
-                    <h1 class="display-4 banner-text-shadow" style="">Order Food from Hamilton Restaurants</h1>
+            <div class="row text-md-center" style="  ">
+
+                <div class="col-md-offset-2 text-xs-center col-md-8 ">
+                    <h6 class="display-4 banner-text-shadow" style="">Order Delivery or Pickup from Hamilton Restaurants</h6>
+
+                    <div class="clearfix"></div>
+
                 </div>
 
-                <div class="col-md-12  m-b-1 ">
-                    <div class="col-md-offset-3 p-a-0 text-md-center col-md-6  text-md-center">
+                    <div class="col-md-offset-3  col-md-6 text-md-center">
                         @include('common.search_bar')
                     </div>
-                </div>
+                    <div class="clearfix"></div>
 
 
-                <div class="col-md-offset-3 p-a-0 text-xs-center col-md-6   m-b-2">
+
+                <div class="col-md-offset-3 text-xs-center col-md-6 ">
                     <div class="text-xs-center" onclick="submitform(event, 0)"
                          style="cursor:pointer">
 
-                        <h5 class="m-b-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
+                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
                             or show me <a style="text-decoration: underline; color:white" class="search-city"
                                           onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h5>
-
-
                         <div class="clearfix"></div>
                     </div>
                 </div>
