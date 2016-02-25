@@ -18,7 +18,6 @@ abstract class Controller extends BaseController {
     
     //sends an email using a template
     public function sendEMail($template_name = "", $array = array()) {
-        
         if(isset($array["message"])){
             $array["body"] = $array["message"];
             unset($array["message"]);
@@ -30,7 +29,7 @@ abstract class Controller extends BaseController {
                 $array["email"] = $email;
                 $this->sendEMail($template_name, $array);
             }
-        } else {
+        } else if($array['email']) {
             \Mail::send($template_name, $array, function ($messages) use ($array) {
                 $messages->to($array['email'])->subject($array['mail_subject']);
             });

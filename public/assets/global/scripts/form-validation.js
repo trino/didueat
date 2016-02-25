@@ -368,6 +368,12 @@ function validateform(formID, rules){
     add_all(true, true);
     $("#" + formID).validate(makerules(rules));
 }
+function unvalidateform(formID){
+    $("#" + formID).removeData('validate');
+    /*$('input, select, textarea').each(function() {
+        $(this).rules('remove');
+    });*/
+}
 
 function makerules(validation){
     var rules = new Object();
