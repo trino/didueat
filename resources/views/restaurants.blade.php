@@ -343,7 +343,9 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
          });
          */
 
+        var IgnoreOne=false;
         function submitform(e, start) {
+            if(IgnoreOne){IgnoreOne= false; return false;}
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();
@@ -363,6 +365,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
             var token = $('#search-form input[name=_token]').val();
 
             if ($(e.target).text() && $(e.target).hasClass("search-city")) {
+                IgnoreOne = true;
                 $("#formatted_address2").val($(e.target).text());
                 data = "city=" + $(e.target).attr("city") + "&province=" + $(e.target).attr("province") + "&country=" + $(e.target).attr("country") + "&earthRad=" + earthRad;
             } else {
