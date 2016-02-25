@@ -472,6 +472,7 @@ Thank you">Email Support</a></li>
                 $('div#loadmoreajaxloader').html('<center>No more menus to show.</center>');
                 $(this).parent().remove();
             }
+
         });
 
         var TimeFormat = 12;//valid options are 12 and 24

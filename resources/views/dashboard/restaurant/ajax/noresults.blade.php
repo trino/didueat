@@ -8,11 +8,15 @@
     }
     if(!$is_subscribed){ ?>
 
-            <DIV ID="subscribeform" class="input-group col-md-6 row">
+<DIV ID="subscribeform" class="input-group col-md-8 row">
 
-                <p>We don't have any restaurants in your area at the moment.</p>
+    <p>We don't have any restaurants in your area at the moment.</p>
 
-                <p>Give us your email to receive a special gift when we launch in your town.</p>
+    <p>Subscribe with your email to receive a special gift when we launch in your town.</p>
+
+    </DIV>
+            <DIV ID="subscribeform" class="input-group col-md-8 row">
+
 
 
                 <INPUT placeholder="Email" class="form-control" TYPE="TEXT" NAME="email" VALUE="{{ read("email") }}" ID="email">
