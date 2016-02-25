@@ -87,22 +87,22 @@ function ajaxuploadbtn(button_id, doc) {
             var path = resp[0];
             var img = resp[1];
             
-                        var imgV = new Image();
-                        imgV.src = path;
-                        var imgW=0;
-                        imgV.onload = function() {
-                        var imgW=this.width;
-                        var imgH=this.height;
-	                       if(imgW > 500){
-	                         document.getElementById('menuImage').style.width="100%";
-                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
-	                        }
-	                        else{
-                          document.getElementById('fullSize').innerHTML="";
-	                         document.getElementById('menuImage').style.width=imgW+"px";
-	                         document.getElementById('menuImage').style.height=imgH+"px";
-	                        }
-                        }
+            var imgV = new Image();
+            imgV.src = path;
+            var imgW=0;
+            imgV.onload = function() {
+                var imgW=this.width;
+                var imgH=this.height;
+                if(imgW > 500){
+                    document.getElementById('menuImage').style.width="100%";
+                    document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
+                } else{
+                    document.getElementById('fullSize').innerHTML="";
+                    document.getElementById('menuImage').style.width=imgW+"px";
+                    document.getElementById('menuImage').style.height=imgH+"px";
+                }
+            }
+
 
             button.html('Change Image');
             document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
