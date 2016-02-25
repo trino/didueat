@@ -1,8 +1,5 @@
 <?php printfile($SQL . "<BR>views/dashboard/restaurant/ajax/noresults.blade.php"); ?>
 
-<p>We don't have any restaurants in your area at the moment.</p>
-
-<p>Give us your email to receive a special gift when we launch in your town.</p>
 
 <?php
     $is_subscribed = false;
@@ -12,6 +9,12 @@
     if(!$is_subscribed){ ?>
 
             <DIV ID="subscribeform" class="input-group col-md-6 row">
+
+                <p>We don't have any restaurants in your area at the moment.</p>
+
+                <p>Give us your email to receive a special gift when we launch in your town.</p>
+
+
                 <INPUT placeholder="Email" class="form-control" TYPE="TEXT" NAME="email" VALUE="{{ read("email") }}" ID="email">
                       <span class="input-group-btn">
 
