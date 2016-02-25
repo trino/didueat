@@ -23,11 +23,13 @@
     }
 
     if(!isset($disabled)){$disabled = array();}
-    function isdisabled($disabled, $field){
-        if(in_array($field, $disabled)){
-            return " DISABLED";
+    if(!function_exists("isdisabled")){
+        function isdisabled($disabled, $field){
+            if(in_array($field, $disabled)){
+                return " DISABLED";
+            }
+            return "";
         }
-        return "";
     }
 ?>
 
