@@ -128,8 +128,8 @@
 
                                                             <? $a++; ?>
 
-                                                            <div class="col-xs-12 col-sm-6"
-                                                                 style="margin-bottom:1px !important;">
+                                                            <div class="col-xs-12 col-sm-6 form-group"
+                                                                 style="">
 
                                                                 <div id="buttons_{{ $mm->id }}"
                                                                      class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
