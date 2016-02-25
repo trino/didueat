@@ -530,6 +530,9 @@ class RestaurantController extends Controller {
 
         if (isset($_GET['id']) && $_GET['id']) {
             $id = $_GET['id'];
+            
+            $existingImg=\App\Http\Models\Menus::where('id', $id)->pluck('image');
+            
             \App\Http\Models\Menus::where('id', $id)->update($arr);
             
            //var_dump($arr);
@@ -546,7 +549,6 @@ class RestaurantController extends Controller {
                 $image_file = $mns->image;
                 $destinationPath = public_path('assets/images/products');
 		              $filename = $destinationPath . "/" . $image_file;	  
-                $existingImg = "953.jpg"; 
                 $oldImgExpl=explode(".",$existingImg);
 
                     $uploadedImgExpl = explode('.', $image_file);
@@ -624,6 +626,7 @@ class RestaurantController extends Controller {
             $ob2->save();//save changes
 
             echo $id = $ob2->id;
+            
 
             $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
             if ($mns->parent == '0') {//handle image uploading and thumbnail generation                
@@ -631,7 +634,7 @@ class RestaurantController extends Controller {
                 $destinationPath = public_path('assets/images/products');
                 $existingImg = $destinationPath . "/" . $image_file;
                 
-                if (isset($arr['menuImgTemp']) && $arr['menuImgTemp'] != '') {
+                if (isset($arr['image']) && $arr['image'] != '') {
                     // means image is being uploaded, not just changes to the menu text and options
 
 	                   $imgVs=getimagesize($destinationPath."/".$arr['image']);
@@ -673,7 +676,7 @@ class RestaurantController extends Controller {
                     
                     }
                     
-                       $thisresult=copy($arr['menuImgTemp'],$destinationPathMenu.'/'.$newName);// use for copying and naming, then rename with big- prefix
+                       $thisresult=copy($destinationPath.'/'.$arr['image'],$destinationPathMenu.'/'.$newName);// use for copying and naming, then rename with big- prefix
                     
                     $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb-' => SMALL_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB];
                     
@@ -786,13 +789,11 @@ class RestaurantController extends Controller {
 
     //quick redirect to a restaurant's page using it's slug, and it's subpage ($path2)
     public function redfront($path, $slug, $path2) {
-    debugprint("Inside redfront:  ".$_GET['menuadd']);
         if(isset($_GET['menuadd']))
         $query = '?menuadd';
         else
         if(isset($_GET['sorted']))
         $query = '?sorted';
-    debugprint($path . '/' . $slug . '/' . $path2.$query);
         return \Redirect::to($path . '/' . $slug . '/' . $path2.$query);
     }
 

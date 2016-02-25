@@ -46,11 +46,11 @@
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" value="{{ $model->image }}" /> image
                         @else
                        src="{{ asset('assets/images/spacer.gif') }}" style="display:none" />
-                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" /> image
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
                         @endif
                         <span id="fullSize" class="smallT"></span>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload My Image</a><div id="browseMsg" class="label smRd"></div>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a><div id="browseMsg" class="label smRd"></div>
                 </div>
             </div>
 

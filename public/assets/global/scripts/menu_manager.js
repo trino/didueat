@@ -40,7 +40,7 @@ $('.additem').live('click', function () {
             $('.overlay_loader').hide();
             ajaxuploadbtn('newbrowse0_1');
             $('#addMenuModel .modal-footer').prepend('<a id="add_additional0" class="btn  btn-secondary-outline add_additional ignore ignore2 ignore1" href="javascript:void(0)">+ Advanced Options</a>'+
-'<a id="save0" class="btn btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a> Now');
+'<a id="save0" class="btn btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
             
         });
     }
@@ -49,7 +49,7 @@ $('.additem').live('click', function () {
             $('.overlay_loader').hide();
             ajaxuploadbtn('newbrowse' + id + '_1');
             $('#addMenuModel .modal-footer').prepend('<a id="add_additional'+id+'" class="btn  btn-secondary-outline  add_additional ignore ignore2 ignore1" href="javascript:void(0)">+ Advanced Options</a>'+
-'<a id="save'+id+'" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a> It');
+'<a id="save'+id+'" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
         });
     }
 });
@@ -104,7 +104,6 @@ function ajaxuploadbtn(button_id, doc) {
 	                        }
                         }
 
-            document.getElementById('menuImgTemp').value = path;
             button.html('Change Image');
             document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
 
