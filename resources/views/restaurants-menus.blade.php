@@ -57,9 +57,9 @@
                     <div class="col-md-3 col-xs-3 p-l-0">
                         <img style="max-width:100%;" class="pull-left img-rounded"
                              @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/'.$restaurant->logo) }}"
+                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
                              @else
-                                src="{{ asset('assets/images/default.png') }}"
+                                src="{{ asset('assets/images/small-smiley-logo.png') }}"
                              @endif
                          alt="">
 
