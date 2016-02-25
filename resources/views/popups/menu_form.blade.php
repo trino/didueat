@@ -1,7 +1,3 @@
-@if(!$menu_id)
-@endif
-
-
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
     <?php printfile("views/popups/menu_form.blade.php"); ?>
 
@@ -23,17 +19,15 @@
             </div>
 
             @if(false)
-            @if(count($category))
-                <!--div class="catblock" style="display: none;">
-                    <input type="text" class="form-control cat_title" placeholder="Add new category"/>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
-                    <div class="clearfix"></div>
-                </div-->
-
-
-            @else
-                <input type="text" placeholder="Add new category" class="form-control cat_id"/>
-            @endif
+                @if(count($category))
+                    <!--div class="catblock" style="display: none;">
+                        <input type="text" class="form-control cat_title" placeholder="Add new category"/>
+                        <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
+                        <div class="clearfix"></div>
+                    </div-->
+                @else
+                    <input type="text" placeholder="Add new category" class="form-control cat_id"/>
+                @endif
             @endif
  
         
@@ -82,68 +76,37 @@
     </div>
 
 
-
-
-
-
-
-        <div class=" row">
-
-
-
-
+    <div class=" row">
         @include('popups.show_discount')
-
-
-
-
         <div class="col-md-12">
+            <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+            <?php
+            $k = 0;
+            if(isset($cmodel)){
+                if (isset($_GET['menu_id'])) {
+                     $menu_id = $_GET['menu_id'];
+                }
+                    // echo $menu_id;
+                foreach($cmodel as $child){
+                    //die('here');
+                    $k++;
+                    if ($k == 1){
+                        echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
+                    }
+                    ?>
+                        @include('popups.additional')
+                    <?php
+                }
+                if ($k > 0){
+                    echo "</div>";
+                }
+                ?>
+                    <script class="ignore ignore2 ignore1">
+                        $(function () {
 
-    <div class="additional additional{{ $menu_id }} ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
-
-        
-
-
-        
-        
-
-
-
-        <?php
-        $k = 0;
-        if(isset($cmodel)){
-            
-
-        if (isset($_GET['menu_id'])) {
-             $menu_id = $_GET['menu_id'];
-             }
-            // echo $menu_id;
-        foreach($cmodel as $child){
-            //die('here');
-        $k++;
-        if ($k == 1)
-            echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
-
-        ?>
-        @include('popups.additional')
-        <?php
-        }
-        if ($k > 0)
-            echo "</div>";
-        ?>
-        <script class="ignore ignore2 ignore1">
-            $(function () {
-                
-            });
-        </script>
-
-
-
-
-        <?php }
-        //} ?>
-
-
+                        });
+                    </script>
+            <?php } ?>
     </div>
 
     </div>
