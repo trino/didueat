@@ -361,7 +361,7 @@ class UsersController extends Controller {
                 $res1 = \App\Http\Models\Reservations::find($oid);
                 $res1->populate($res);
                 $res1->save();
-                
+
                 //echo '<pre>';print_r($res); die;
                 event(new \App\Events\AppEvents($res, "Order Created"));
 

@@ -48,7 +48,7 @@
 
 @if(\Session::has('invalid-data'))
     <?php
-        $fields = Session::get('invalid-data');
+        $fields = array_unique(Session::get('invalid-data'));
         $message = "The following field" . iif(count($fields) == 1, " is", "s are") . " invalid: <SPAN ID='invalid-fields'>" . implode(", ", $fields) . '</SPAN>';
         popup(false, $message, "Invalid Data", "invalid-data");
         \Session::forget('invalid-data');

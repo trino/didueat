@@ -22,10 +22,7 @@
                 <div class="card-header">
                     <h4 class="card-title" id='paymentmsg'>{{ $paymentMsg }}<span class='instruct'><?php echo $paymentInstruction;?></span></h4>
                     @if($showform)
-                        {!! Form::open(array('url' => '/home/faq', 'id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
-                            @include("home.stripe", array("user_detail" => $user_detail, "mobile" => true))
-                            <input name="user_id" type="hidden" value='{{ Session::get('session_id') }}' />
-                        {!! Form::close() !!}
+                        @include("home.stripe")
                     @endif
                 </div>
             </div>

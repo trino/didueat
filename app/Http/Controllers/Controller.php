@@ -44,19 +44,19 @@ abstract class Controller extends BaseController {
     }
 
     //automates the flash/flash with input and redirect for the success condition
-    public function success($message, $redirect, $withInput = false){
+    public function success($message, $redirect = false, $withInput = false){
         return $this->failure($message, $redirect, $withInput, 'alert-success', '');
     }
 
     //automates the flash/flash with input and redirect for the failure condition
-    public function failure($message, $redirect, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
+    public function failure($message, $redirect = false, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
         \Session::flash('message', $message);
         \Session::flash('message-type', $type);
         \Session::flash('message-short', $title);
         if($withInput) {
             return \Redirect::to($redirect)->withInput();
         }
-        return \Redirect::to($redirect);
+        if($redirect) {return \Redirect::to($redirect);}
     }
 
     public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
