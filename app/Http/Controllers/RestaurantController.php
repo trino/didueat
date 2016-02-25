@@ -530,6 +530,8 @@ class RestaurantController extends Controller {
         if (isset($_GET['id']) && $_GET['id']) {
             $id = $_GET['id'];
             \App\Http\Models\Menus::where('id', $id)->update($arr);
+            
+           //var_dump($arr);
             //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {

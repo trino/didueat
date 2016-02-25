@@ -50,7 +50,7 @@
             <label class="clearfix  c-input c-checkbox p-r-1">
 
 
-                <input type="checkbox" class="days_discount_all"/> Everyday
+                <input type="checkbox" class="days_discount_all"/> Select All
 
                 <span class="c-indicator"></span>
             </label>

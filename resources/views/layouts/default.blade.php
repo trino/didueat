@@ -165,7 +165,6 @@ $type = "hidden";
 </body>
 </html>
 <script>
-    
     $( window ).load(function() {
   $('.overlay_loader').hide();
 });

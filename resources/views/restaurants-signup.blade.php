@@ -120,6 +120,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            
+            
+            
             validateform("signupForm", {
                 phone: "phone required",
                 mobile: "phone",

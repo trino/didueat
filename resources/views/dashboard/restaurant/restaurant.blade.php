@@ -133,6 +133,7 @@ if(!$minimum && isset($restaurant->id)){
         if (noneChkd) {
             $("#cousine-error").show();
             f.description.focus(); // bring user to cuisine list
+            
             return false;
         }
     }
