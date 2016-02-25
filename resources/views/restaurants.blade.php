@@ -84,7 +84,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                     @include('ajax.search_restaurants')
 
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" ID="filter-results">
 
 
                     <div class="card ">
@@ -395,7 +395,13 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                             $('#countRowsS').text('');
                         }
                     } else {
+                        var quantity = 0;
                         $('#countRows').text(0);
+                    }
+                    if(quantity > 0){
+                        $("#filter-results").show();
+                    }else {
+                        $("#filter-results").hide();
                     }
                 });
             } else {
