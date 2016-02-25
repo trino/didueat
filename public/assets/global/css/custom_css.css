@@ -156,9 +156,9 @@ background: white !important;
 }
 
 .overlay {
-    left: 50%;
+    left: calc(50% - 22px);
     position: absolute;
-    top: 50%;
+    top: calc(50% - 22px);
 }
 
 .subber {
