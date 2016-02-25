@@ -17,9 +17,8 @@
     }
 
     $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
-
     if (!$business_day) {
-        popup(false, "Restaurant is currently closed", "Oops");
+        popup(false, $restaurant->name . " is currently closed", "Oops");
     }
 
     if($is_my_restro){
@@ -27,9 +26,10 @@
     <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
-                <h4 class="card-title text-xs-center m-b-0">Your Restaurant Homepage</h4>
+                <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
-                <p class="card-title text-xs-center m-b-0">Only update combos and speicals, do not upload your entire menu. You can place test orders for your restaurant</p>
+                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our
+                    system.</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
@@ -53,6 +53,7 @@
 
             <div class="col-md-8 col-xs-12 " style="">
                 @if(!$is_my_restro)
+
 <div class=" m-b-1">
                     <div class="col-md-3 col-xs-3 p-l-0">
                         <img style="max-width:100%;" class="pull-left img-rounded"
@@ -63,19 +64,20 @@
                              @endif
                          alt="">
 
-                        <div class="clearfix"></div>
-                    </div>
 
-                    <div class="col-md-9 p-a-0" style="">
-                        <div class="">
-                            <h1 class="card-title">
-                                {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                            </h1>
+                            <div class="clearfix"></div>
+                        </div>
 
-                            <div id="restaurant_rating">
-                                {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
-                                <div class="clearfix"></div>
-                            </div>
+                        <div class="col-md-9 p-a-0" style="">
+                            <div class="">
+                                <h1 class="card-title">
+                                    {!! (isset($restaurant->name))?$restaurant->name:'' !!}
+                                </h1>
+
+                                <div id="restaurant_rating">
+                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
+                                    <div class="clearfix"></div>
+                                </div>
                     <span class="card-text m-b-0 p-r-2">
                     {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                         {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
@@ -83,23 +85,23 @@
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     </span>
 
-                            <div class="clearfix"></div>
+                                <div class="clearfix"></div>
 <span class="p-r-2">
 
-    <?  echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee,$free=true); ?>
+    <?  echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
         </span>
                             <span class="p-r-2">
 
-                      <?  echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum,$free=false) ; ?>
+                      <?  echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
 
     </span>
-                            <a class="" style="" class="clearfix" href="#" data-toggle="modal"
-                               data-target="#viewMapModel">More Details</a>
-                        </span>
+                                <a class="" style="" class="clearfix" href="#" data-toggle="modal"
+                                   data-target="#viewMapModel">More Details</a>
+                                </span>
 
+                            </div>
                         </div>
-                    </div>
-    <div class="clearfix"></div>
+                        <div class="clearfix"></div>
                     </div>
 
                 @endif
@@ -107,7 +109,7 @@
                 <div class="col-md-12 p-l-0 p-r-0">
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
-                            
+
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -119,7 +121,7 @@
                                     <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-                                
+
                             </div>
                             <!-- add menu item -->
                             <script>
@@ -146,7 +148,7 @@
                                 });
                             </script>
                             @endforeach
-                            <!--input type="file" accept="image/*;capture=camera"-->
+                                    <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
             </div>
@@ -186,38 +188,42 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
-        function addresschange(where){
-            if($("#reservation_address").is(":visible")) {
-                var element = $("#reservation_address .dropdown-item").filter(":selected");
+        function addresschange(where) {
+            //code for adding addresses to the drop down is in views/common/receipt.blade.php
+            if ($("#delivery1").is(":checked")) {
                 var found = false;
-                if (element) {
-                    var address_latitude = element.attr("latitude");
-                    var address_longitude = element.attr("longitude");
-                    found = !isundefined(element.attr("latitude"));
+                if ($("#reservation_address").is(":visible")) {
+                    var element = $("#reservation_address .dropdown-item").filter(":selected");
+                    if (element) {
+                        var address_latitude = element.attr("latitude");
+                        var address_longitude = element.attr("longitude");
+                        found = !isundefined(element.attr("latitude"));
+                    }
+                } else {
+                    var address_latitude = $("#latitude").val();
+                    var address_longitude = $("#longitude").val();
+                    found = address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
                 }
-            } else {
-                var address_latitude = $("#latitude").val();
-                var address_longitude = $("#longitude").val();
-                found=address_latitude && address_longitude && !$("#ordered_email-error").is(":visible");
-            }
 
-            if(found){
-                var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
-                if (distance > {{ $restaurant->max_delivery_distance }}) {
-                    var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
-                    @if(debugmode())
-                        return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
-                    @endif
-                    alert(message);
-                    return false;
-                } else if (debugmode) {
-                    alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                if (found) {
+                    var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
+                    if (distance > {{ $restaurant->max_delivery_distance }}) {
+                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
+                        @if(debugmode())
+                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                        @endif
+                        alert(message);
+                        return false;
+                    } else if (debugmode) {
+                        alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
+                    }
+                    element.trigger("click");
+                    return true;
+                } else {
+                    alert("No address specified");
                 }
-                element.trigger("click");
-                return true;
-            } else {
-                alert("No address specified");
             }
+            return true;
         }
 
         function check_val(v) {
@@ -250,10 +256,6 @@
             });
 
             $('#profiles').submit(function (e) {
-                /*
-                 if(!$("#reservation_address").val()) {
-                 }
-                 */
                 e.preventDefault();
                 $('.overlay_loader').show();
                 var token = $('#profiles input[name=_token]').val();
@@ -334,7 +336,7 @@
                 var td_temp = 9999;
                 var n_counter = 0;
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
-                    if ($(this).is(':checked') && $(this).attr('title') != "") {
+                    if ($(this).hasClass('checked') || ($(this).is(':checked') && $(this).attr('title') != "")) {
                         var tit = $(this).attr('title');
                         var title = tit.split("_");
                         if (index != 0) {
@@ -511,12 +513,15 @@
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:40px;">' +
-                        '<a id="dec' + ids + '" class="decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);">' +
-                        '<i class="fa fa-minus"></i></a>&nbsp;<span class="count">' + pre_cnt + '</span>&nbsp;<input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" />' +
-                        '<a id="inc' + ids + '" class="increase btn btn-sm btn-secondary-outline  " href="javascript:void(0);">' +
-                        '<i class="fa fa-plus"></i></a>' +
 
-                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>'+
+
+                        '<a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline  " href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
+
+                        '<div class="clearfix "><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" </div>' +
+
+                        '<br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a>' +
+
+                        '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>' +
                         '</td>' +
                         '<td class="innerst" width="60%">' + app_title + '</td>' +
                         '<td class="total"><div class="pull-right">$' + (pre_cnt * price).toFixed(2) + '</div></td>' +
@@ -589,15 +594,19 @@
                     if (!$(this).hasClass('chk')) {
                         $(this).removeAttr("checked");
                     }
+                    if ($(this).hasClass('checked')) {
+                        $(this).removeClass("checked");
+                    }
                 });
-                var dispr=Number($('.displayprice'+menu_id).val());
-                $('.modalprice'+menu_id).html('$'+dispr.toFixed(2));
+                var dispr = Number($('.displayprice' + menu_id).val());
+                $('.modalprice' + menu_id).html('$' + dispr.toFixed(2));
+
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
-                
+
                 show_header();
                 total_items = "(" + (parseInt(Number(total_items)) + parseInt(Number(n))) + ")";
-                
+
                 updatecart();
             });
             function inArray(needle, haystack) {
@@ -676,5 +685,5 @@
             }
         });
 
-</script>
+    </script>
 @stop

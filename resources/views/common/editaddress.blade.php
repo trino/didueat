@@ -139,7 +139,7 @@
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
                    placeholder="Enter your full address"
-                   autocomplete="false"
+                   autocomplete="off"
                    onclick="$(this).attr('autocomplete', 'false');"  
                    value="<?php
             if (old('formatted_address')) {
