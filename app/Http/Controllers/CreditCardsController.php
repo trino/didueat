@@ -231,6 +231,8 @@ class CreditCardsController extends Controller {
                 $stripeOb->populate($stripeConf);
                 $stripeOb->save();
                 edit_database("reservations", "id", $OrderID, array("paid" => 1, "stripeToken" => $StripeToken));
+                $Order = select_field("reservations", "id", $OrderID);
+                app('App\Http\Controllers\OrdersController')->notifystore($Order->restaurant_id, "Payment of $" . $Order->g_total . " recieved for order: " . $Order->id . " (" . $Order->guid . ")");
                 return true;
             }
         }
