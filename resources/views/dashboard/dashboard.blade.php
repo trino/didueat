@@ -5,7 +5,7 @@
 
  
     <div class="container">
-        <?php printfile("views/dashboard/dashbaord.blade.php"); ?>
+        <?php printfile("views/dashboard/dashboard.blade.php"); ?>
     <div class="row">
         @include('layouts.includes.leftsidebar')
 
@@ -74,6 +74,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+           validateform("profileForm", {mobile: "phone required"});
 
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
@@ -136,8 +137,6 @@
                     }
                 });
             }
-
-            validateform("profileForm", {phone: "phone required"});
         });
     </script>
 @stop
