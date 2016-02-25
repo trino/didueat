@@ -365,6 +365,27 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
             var token = $('#search-form input[name=_token]').val();
 
             if ($(e.target).text() && $(e.target).hasClass("search-city")) {
+            
+            
+
+/*
+<!--
+
+// We will need to put this back when we expand beyond Canada
+                var dataStr = $(e.target).html();
+                var loc = $(e.target).attr("loc");
+                var dataStr2 = dataStr.split(", ");
+                var secondVar = "";
+
+                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada") ? secondVar = "country" : secondVar = "province";
+
+                $("#formatted_address2").val(dataStr);
+                data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
+             -->
+*/
+
+            
+            
                 IgnoreOne = true;
                 $("#formatted_address2").val($(e.target).text());
                 data = "city=" + $(e.target).attr("city") + "&province=" + $(e.target).attr("province") + "&country=" + $(e.target).attr("country") + "&earthRad=" + earthRad;
