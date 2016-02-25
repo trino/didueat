@@ -60,6 +60,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('orders/list/ajax/{type}',                          'OrdersController@listingAjax')->where('slug', '[a-z]+');
     Route::post('orders/list/ajax/{type}/{id}',                     'OrdersController@listingAjax')->where('slug', '[a-z]+');
     Route::get('orders/order_detail/{id}/{type}',                   'OrdersController@order_detail')->where('id', '[0-9]+');
+    Route::post('orders/order_detail/{id}/{type}',                  'OrdersController@order_detail')->where('id', '[0-9]+');
     Route::get('orders/view/{id}',                                  'OrdersController@viewOrder')->where('id', '[0-9]+');
     Route::post('orders/list/cancel/{type}',                        'OrdersController@changeOrderCancel');
     Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');

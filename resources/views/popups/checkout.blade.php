@@ -109,8 +109,6 @@
                                 <div class="clearfix"></div>
                             </div>
 
-
-
                             </div>
                                 <div class="col-md-12 p-y-1 p-x-0">
                                     <div class="form-group text-xs-center text-xs-center " style="color: red;">
@@ -144,7 +142,6 @@
     }
 
     function addresscheck(){
-        //$("#profiles").removeAttr("novalidate");
         if(!addresschange('addresscheck')){return false;}
     }
 </SCRIPT>

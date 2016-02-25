@@ -76,6 +76,17 @@
             if (is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
                 return back()->with('status', 'Restaurant Not Found!');
             } else {
+                $post = \Input::all();
+                if (isset($post) && count($post) > 0 && !is_null($post)) {
+                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($ID, $post["stripeToken"], $data['order']->guid, $data['order']->g_total)) {
+                            $this->success("Your order has been paid for");
+                            $data['order']->paid = 1;
+                        }else {
+                            $this->failure("Your order has <B>NOT</B> been paid for");
+                        }
+                    }
+                }
                 $data['title'] = 'Orders Detail';
                 $data['type'] = $type;
                 $data['restaurant'] = \App\Http\Models\Restaurants::find($data['order']->restaurant_id);//load the restaurant the order was placed for
