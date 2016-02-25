@@ -426,9 +426,10 @@ function makerules(validation){
     }
     return {rules: rules, messages: messages, focusInvalid: false,
         invalidHandler: function(form, validator) {
-            var first = -1;
+            var first = -1, element;
             for (i = 0; i < validator.errorList.length; i++){
-                if ($(validator.errorList[i].element).is(":visible")) {
+                element = validator.errorList[i].element;
+                if ($(element).is(":visible") && !$(element).is(":hidden") && !$(element).is(":disabled")) {
                     first = i;
                     break;
                 }

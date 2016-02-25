@@ -23,27 +23,61 @@ class Restaurants extends BaseModel {
         }
         
         $weekdays = getweekdays();
-        $this->is_complete = true;
-        $doesopen = false;
-
         $Fields = array("_open","_close", "_open_del", "_close_del");
         foreach($weekdays as $day){
             foreach($Fields as $field){
                 $cells[$day . $field] = "24hr";
-                if(!isset($data[$day . $field])){
-                    $this->is_complete = false;
-                } else if($data[$day . $field] && $data[$day . $field] != "00:00:00"){
-                    $doesopen = true;
-                }
             }
         }
 
         $this->copycells($cells, $data);
-        if(!$doesopen){$this->is_complete=false;}
-        if(!$this->is_delivery && !$this->is_pickup){$this->is_complete=false;}
-        if(!$this->latitude || !$this->longitude){$this->is_complete=false;}
-        //if(!$this->open){$this->is_complete=false;}
-        if($this->is_complete){$this->open=true;}
+
+        //This sets delivery times to pickup times
+        //update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
+        foreach($weekdays as $day){
+            foreach(array("_open", "_close") as $fieldname) {
+                $srcfield = $day . $fieldname;
+                if (isset($this->$srcfield)) {
+                    $field = $day . $fieldname . "_del";
+                    $this->$field = $this->$srcfield;
+                }
+            }
+        }
+
+        $this->is_complete = $this->restaurant_opens($this);
+        $this->open=$this->is_complete;
+    }
+
+    public static function restaurant_opens($restaurant, $update_database = false){
+        if(!is_object($restaurant)) {
+            $restaurant = select_field("restaurants", "id", $restaurant);
+        }
+
+        if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
+
+        if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
+
+        $weekdays = getweekdays();
+        $doesopen = false;
+        foreach($weekdays as $day){
+            $open = getfield($restaurant, $day . "_open");
+            $close = getfield($restaurant, $day . "_close");
+            if($open && $close && $open != $close){
+                $doesopen = true;
+                break;
+            }
+        }
+        if(!$doesopen){return false;}
+        if(!$restaurant->is_delivery && !$restaurant->is_pickup){return false;}
+        if(!$restaurant->latitude || !$restaurant->longitude){$restaurant->is_complete=false;}
+        if(isset($restaurant->id)) {
+            $MenuTst = select_field("menus", array("restaurant_id", "is_active"), array($restaurant->id, 1), "menu_item");
+            if (!isset($MenuTst)) {return false;}
+        }
+        if($update_database && !$restaurant->is_complete){
+            edit_database("restaurants", "id", $restaurant->id, array("is_complete" => true));
+        }
+        return true;
     }
     
     public static function listing($array = "", $type = "") {
@@ -109,6 +143,7 @@ class Restaurants extends BaseModel {
         if($Today_Close < $Today_Open && $now >= $Today_Open){
             return $Today;
         }
+        //echo "Now: " . $now . ' Today open: ' . $Today_Open . " Today close: " . $Today_Close . " Yest. Open: " . $Yesterday_Open . " Yest. Close: " . $Yesterday_Close;
         return false;
     }
 
@@ -156,7 +191,8 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_close > today_open AND today_open <= now AND today_close > now) OR (today_close < today_open AND today_open <= now) OR (today_open > now AND yesterday_close > now))";
+        $hours = " AND ((today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
+        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;
@@ -173,7 +209,7 @@ class Restaurants extends BaseModel {
         return json_decode(json_encode($query),true);
     }
 
-    public function saverestaurant(){
+    public function save(array $options = array()) {
         $ret=false;
         if($this->is_complete) {
             $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
@@ -182,7 +218,7 @@ class Restaurants extends BaseModel {
                 $ret=true;
             }
         }
-        $this->save();
+        parent::save($options);
         return $ret;
     }
 }

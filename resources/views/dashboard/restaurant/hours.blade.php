@@ -2,6 +2,7 @@
     printfile("dashboard/restaurant/hours.blade.php");
     $layout = false;
     $day_of_week = getweekdays();
+    $use_delivery_hours = false;
 
     $restaurantID = \Session::get('session_restaurant_id');
     if (!$restaurantID) {
@@ -117,6 +118,9 @@
                     $closed = '<LABEL class="c-input c-checkbox"><input type="checkbox" onchange="closed(event, ' . $key . ');"';
                     if (($opentime != "00:00:00" || $closetime != "00:00:00") && $opentime != $closetime) {
                         $closed .= " CHECKED";
+                    } else {
+                        $opentime = "";
+                        $closetime = "";
                     }
                     $closed .= '> Open<span class="c-indicator"></span></LABEL>';
                 }
@@ -144,32 +148,32 @@
     </div>
 
     <div class="col-md-6 col-xs-12 p-a-0" style="">
-
-        <DIV CLASS="is_delivery_options">
-            <h4 class="pull-left p-r-1">Delivery Hours</h4>
-            <LABEL class="">
-                <LABEL class="c-input c-checkbox pull-left" valign="bottom">
-                    <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ ($isthesame)? " checked":"" }}>
-                    Same as Pickup
-                    <span class="c-indicator"></span>
+        @if($use_delivery_hours)
+            <DIV CLASS="is_delivery_options">
+                <h4 class="pull-left p-r-1">Delivery Hours</h4>
+                <LABEL class="">
+                    <LABEL class="c-input c-checkbox pull-left" valign="bottom">
+                        <input type="CHECKBOX" {{ $is_disabled }} onclick="same(event);" ID="samehours" {{ ($isthesame)? " checked":"" }}>
+                        Same as Pickup
+                        <span class="c-indicator"></span>
+                    </LABEL>
                 </LABEL>
-            </LABEL>
-            <div class="clearfix"></div>
+                <div class="clearfix"></div>
 
-            <DIV CLASS="is_delivery_2">
-                <?php
-                    foreach ($day_of_week as $key => $value) {
-                        if (strpos($value, ">") === false) {
-                            $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-                            $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-                            printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
-                        }
-                    }
-                ?>
-            </DIV>
+                <DIV CLASS="is_delivery_2">
+                    <?php
+                        /*foreach ($day_of_week as $key => $value) {
+                            if (strpos($value, ">") === false) {
+                                $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+                                $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+                                printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
+                            }
+                        }*/
+                    ?>
+                </DIV>
+            </div>
         </div>
-    </div>
-
+    @endif
 
     <div class="col-md-12">
         <hr class="m-y-1" align="center"/>
@@ -219,15 +223,17 @@
     }
 
     function same(event) {
-        if (document.getElementById("samehours").checked) {
-            for (var i = 0; i < 7; i++) {
-                change("open", i);
-                change("close", i);
+        @if($use_delivery_hours)
+            if (document.getElementById("samehours").checked) {
+                for (var i = 0; i < 7; i++) {
+                    change("open", i);
+                    change("close", i);
+                }
+                $(".is_delivery_2").hide();
+            } else {
+                $(".is_delivery_2").show();
             }
-            $(".is_delivery_2").hide();
-        } else {
-            $(".is_delivery_2").show();
-        }
+        @endif
     }
 
     var p = document.getElementById("max_delivery_distance");

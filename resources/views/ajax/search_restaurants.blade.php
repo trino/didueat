@@ -77,8 +77,42 @@
                 <div class="col-md-9 p-a-0" style="">
 
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
+                        <h4 style="color: #0275d8;">{{ $value['name'] }}
+
+
+
+
+
+
+
+
+                                <div class="pull-right">
+
+
+                                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm btn-primary hidden-sm-down">
+
+                                        Order Online
+
+
+                                    </a>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        </h4>
                     </a>
+
+<div  class="clearfix"></div>
                     <div>
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </div>

@@ -35,8 +35,8 @@
                 <?php echo view('dashboard.restaurant.restaurant', array('cuisine_list' => $cuisine_list, "new" => true, "email" => false, "minimum" => $minimum, "restSignUpPg" => true)); ?>
             </div>
         </div>
-<hr />
-        <div class="card-block p-b-0" ID="common_editaddress">
+<hr class="m-a-0" />
+        <div class="card-block " ID="common_editaddress">
             @include("common.editaddress", array("new" => false, "required" => true, "restSignUp" => true))
         </div>
 

@@ -1,4 +1,4 @@
-<div class="menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
+<div class="m-t-1 menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
     printfile("views/popups/additional.blade.php");
     $r1 = rand('1000000', '999999999');
@@ -8,10 +8,19 @@
 
     <div class=" row">
 
+        <div class="col-md-9 form-group">
 
-        <div class="col-md-12 ">
-            <input class="form-control ctitle " type="text" placeholder="Additional Addon"
+            <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
+
+        </div>
+            <div class="col-md-3 form-group">
+
+            <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
+</div>
+
+
+        <div class="col-md-12 form-group">
 
             <textarea class="form-control cdescription" style="display: none;"
                       placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
@@ -33,41 +42,36 @@
                         foreach($more as $cc){
                         $i++;
                         ?>
-                        <div class="cmore " id="cmore{{ $cc->id }}">
+                        <div class="cmore m-b-1" id="cmore{{ $cc->id }}">
 
                             <div class=" ">
                                 <div class="col-md-6 "><input class="form-control cctitle" type="text"
                                                               placeholder="Item" value="{{ $cc->menu_item }}"/></div>
-                                <div class="col-md-2  "><input class="form-control ccprice pricechk margin-left-10"
-                                                               type="text" placeholder="Price"
+                                <div class="col-md-3  "><input class="form-control ccprice pricechk margin-left-10"
+                                                               type="text" placeholder="Optional $"
                                                                value="{{ $cc->price }}"/></div>
                             </div>
-                            <div class="col-md-2">
 
-
-                                <a href="javascript:void(0);" class="btn btn-secondary-outline btn-sm"
-                                   onclick="$(this).parent().parent().remove();" style="">
-                                    x</a>
-
-                            </div>
-                            <div class="col-md-2">
-
-                                <div class="resturant-arrows">
-                                    <a href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
-                                    <a href="javascript:void(0)" id="child_down_{{ $cc->id }}"
+                            <div class="col-md-3">
+                                <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                    <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
+                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></button>
+                                    <button href="javascript:void(0)" id="child_down_{{ $cc->id }}"
                                        class="btn btn-sm btn-secondary sorting_child"><i
-                                                class="fa fa-angle-down"></i></a>
+                                                class="fa fa-angle-down"></i></button>
+                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
+                                   onclick="$(this).parent().parent().remove();" style="">
+                                    <i class="fa fa-times"></i> </button>
                                 </div>
                             </div>
 
-                            <div class="clearfix"></div>
+                           <div class="clearfix"></div>
                         </div>
                         <?php }
                         } ?>
                     @else
                         <div class="cmore">
-                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item"/>
+                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
                             </div>
                             <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
                                                             placeholder="Optional Price"/></div>
@@ -89,7 +93,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-success btn-small addmorebtn">Add More</a>
+                    <a href="javascript:void(0);" class="m-t-1 btn btn-sm btn-success btn-small addmorebtn">Add More</a>
                 </div>
                 <div class="clearfix"></div>
                 <br class=""/>
@@ -124,6 +128,7 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <br>
                         <div class="">
                             <div class=""><strong class="">Customer can select</strong></div>
 
@@ -150,7 +155,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
                     <div @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) style="display: none;"
                          @endif class="infolist exact">
 
@@ -206,7 +211,6 @@
 
                         @endif
 
-                        <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Remove Addon</a>
                     </div>
                     <?php
                     if(isset($cmodel) && count($cmodel) > 1)

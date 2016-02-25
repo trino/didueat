@@ -120,7 +120,7 @@ class RestaurantController extends Controller {
             } else {
                 $ob->populate(array('open' => 1));
             }
-            $ob->saverestaurant();
+            $ob->save();
             
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
             return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "open", "closed"), 'restaurant/list');
@@ -141,7 +141,7 @@ class RestaurantController extends Controller {
             try {//populate data array from the post
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
-                $ob->saverestaurant();
+                $ob->save();
 
                 $this->restaurantInfo($ob->id);
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
@@ -204,27 +204,11 @@ class RestaurantController extends Controller {
                      // rename existing images with timestamp, if they exist,
                      
                         $oldImgExpl=explode(".",$ob->logo);
-                     
                         $todaytime = date("Ymdhis");
-                        if(file_exists($destinationPath.'/big-'.$ob->logo)){
-//                            @unlink($destinationPath.'/'.$ob->logo);
-                            rename($destinationPath.'/big-'.$ob->logo, $destinationPath.'/big-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPath.'/med-'.$ob->logo)){
-                            rename ($destinationPath.'/med-'.$ob->logo, $destinationPath.'/med-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPath.'/small-'.$ob->logo)){
-//                            @unlink($destinationPath.'/small-'.$ob->logo);
-                            rename ($destinationPath.'/small-'.$ob->logo, $destinationPath.'/small-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-
-                        if(file_exists($destinationPath.'/thumb-'.$ob->logo)){
-//                            @unlink($destinationPath.'/thumb-'.$ob->logo);
-                            rename ($destinationPath.'/thumb-'.$ob->logo, $destinationPath.'/thumb-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPath.'/icon-'.$ob->logo)){
-//                            @unlink($destinationPath.'/icon-'.$ob->logo);
-                            rename ($destinationPath.'/icon-'.$ob->logo, $destinationPath.'/icon-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        foreach(array("icon", "thumb", "small", "med", "big") as $file){
+                            if(file_exists($destinationPath . '/' . $file . '-' . $ob->logo)){
+                                rename($destinationPath.'/' . $file . '-' . $ob->logo, $destinationPath.'/' . $file .'-' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                            }
                         }
                     }
                     
@@ -303,7 +287,7 @@ class RestaurantController extends Controller {
                 }
 
                 $ob->populate($update,$addlogo);
-                $isnowopen = $ob->saverestaurant();
+                $isnowopen = $ob->save();
 
                 if(!$post['id']){
                     $post['id'] = $ob->id;

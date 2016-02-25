@@ -128,7 +128,7 @@
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
 
                         @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
-                            <a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a>
+                            <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                         @endif
 
@@ -193,7 +193,7 @@
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
         $(".postal_code").val(thiss.getAttribute("POSTAL"));
-        $("#ordered_notes").val(thiss.getAttribute("NOTES"));
+        //$("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
 
     var ignoreone = false;
@@ -220,6 +220,7 @@
                     success: function (msg) {
                         $('#editModel').modal('hide');
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                            $(".reservation_address_dropdown .dropdown-item").filter(":selected").removeAttr("selected");
                             $('.reservation_address_dropdown').val(msg['id']);
                             if(!ignoreone){
                                 ignoreone = true;
@@ -249,9 +250,8 @@
             reservation_address: "required",
             @if(!read("id"))
                 email: "email required",
-            password: "required minlength 3",
+                password: "required minlength 3",
             @endif
-           
         });
     });
 </script>

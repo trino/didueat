@@ -78,21 +78,16 @@ Thank you">Email Support</a></li>
                 </p>
 
                 <p>
-                    Currently v1.0 &copy; Didu Eat
-                    <script language=javascript>
-                        var yr;
-                        Today = new Date();
-                        document.write(Today.getFullYear());
-                    </script>
+                    Currently v1.0 &copy; Didu Eat <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super")
                         <?php
-                        $end_loading_time = microtime(true);
-                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                        echo "";
-                        echo getOS();
-                        echo " => ";
-                        echo getUserBrowser();
+                            $end_loading_time = microtime(true);
+                            printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                            echo "";
+                            echo getOS();
+                            echo " => ";
+                            echo getUserBrowser();
                         ?>
                     @endif
 
@@ -180,51 +175,6 @@ Thank you">Email Support</a></li>
         $('body').on('click', '.update-rating', function () {
             var value = $(this).val();
             $('#rating-form #rating_id').val(value);
-        });
-
-        $('body').on('submit', '#rating-form', function (e) {
-            var ratingbox = $('#rating-form #ratingInputHidden').val();
-            var rating = $('#rating-form #rating_id').val();
-            var rating_id = $('#rating-form #data-rating-id').val();
-            var target_id = $('#rating-form #data-target-id').val();
-            var type = $('#rating-form #data-type').val();
-
-            $.post("{{ url('rating/save') }}", {
-                rating: rating,
-                rating_id: rating_id,
-                target_id: target_id,
-                comments: ratingbox,
-                type: type,
-                _token: "{{ csrf_token() }}"
-            }, function (json) {
-                if (json.type == "error") {
-                    $('#rating-form #message-success').hide();
-                    $('#rating-form #message-error').show();
-                    $('#rating-form #message-error').text(json.response);
-                } else {
-                    $('#rating-form #message-error').hide();
-                    $('#rating-form #message-success').show();
-                    $('#rating-form #message-success').text(json.response);
-                    $('#rating-form #ratingInput').val('');
-
-                    setTimeout(function () {
-                        $('#ratingModal').modal('hide');
-                        $('#parent' + target_id + ' .static-rating .rating-it-btn').attr('data-count-exist', 1);
-                        $.each($('#parent' + target_id + ' .static-rating input[value="' + rating + '"]'), function (index, value) {
-                            $(this).addClass("checked-stars");
-                            $(this).attr("checked", true);
-                        });
-                        $('#restaurant_rating .static-rating .rating-it-btn').attr('data-count-exist', 1);
-                        $.each($('#restaurant_rating .static-rating input[value="' + rating + '"]'), function (index, value) {
-                            $(this).addClass("checked-stars");
-                            $(this).attr("checked", true);
-                        });
-
-                        updatereview(target_id);
-                    }, 500);
-                }
-            });
-            e.preventDefault();
         });
 
         $('body').on('submit', '#subscribe-email', function (e) {
@@ -359,8 +309,7 @@ Thank you">Email Support</a></li>
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
             $.ajax({
-
-
+                //data retrieved from userscontroller@json_data
                 url: "{{ url('auth/login/ajax') }}",
                 data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
@@ -381,27 +330,39 @@ Thank you">Email Support</a></li>
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
-                                    $('.reserve_login').hide();
-                                    $('.reservation_address').show();
-                                    $('#fullname').val(arr.name);
-                                    $('#ordered_user_id').val(arr.user_id);
-                                    $('#ordered_email').val(arr.email);
-                                    $('#ordered_contact').val(arr.phone);
-                                    $('#ordered_province').val(arr.province);
-                                    $('#ordered_code').val(arr.postal_code);
-                                    $('#ordered_street').val(arr.street);
-                                    $('#ordered_city').val(arr.city);
-                                    $('.phone').val(arr.phone);
-                                    //$('.reservation_signin').hide();
-                                    $('.close').click();
-                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                                        if ($('.profile_delivery_detail').is(':visible'))
-                                            $('.reservation_address_dropdown').attr('required', 'required');
-                                    });
-                                    //only loads header
-                                    $('.header-nav').load(document.URL + ' .header-nav>ul');
-                                    $('.password_reservation').hide();
-                                    $('.password_reservation').removeAttr('required');
+                                    if(arr.restaurant_id){
+                                        window.location = "{{ url("orders/list/restaurant") }}";
+                                    } else {
+                                        $('.reserve_login').hide();
+                                        $('.reservation_address').show();
+                                        $('#fullname').val(arr.name);
+                                        $('#ordered_user_id').val(arr.user_id);
+                                        $('#ordered_email').val(arr.email);
+                                        $('#ordered_contact').val(arr.phone);
+                                        $('#ordered_province').val(arr.province);
+                                        $('#ordered_code').val(arr.postal_code);
+                                        $('#ordered_street').val(arr.street);
+                                        $('#ordered_city').val(arr.city);
+                                        $('.phone').val(arr.phone);
+                                        $('.hidden_elements').hide();
+                                        $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
+                                        //$('.reservation_signin').hide();
+                                        $('.close').click();
+                                        $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                                            if ($('.profile_delivery_detail').is(':visible'))
+                                                $('.reservation_address_dropdown').attr('required', 'required');
+                                        });
+                                        //only loads header
+                                        $('.header-nav').load(document.URL + ' .header-nav>');
+                                        $('.password_reservation').hide();
+                                        $('.password_reservation').removeAttr('required');
+
+                                        validateform("profiles", {
+                                            phone: "phone required",
+                                            mobile: "phone",
+                                            reservation_address: "required"
+                                        });
+                                    }
                                 }
                             });
                         } else {

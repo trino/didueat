@@ -1,7 +1,10 @@
 
+.card{border-radius: 0 !important;}
 
-
-
+.card-footer{
+    
+    background: #fff !important;
+}
 
 
 .modal {
@@ -19,7 +22,9 @@
 
 
 .list-group-item{
+    /*
     padding:.5rem 1.25rem !important;
+    */
 }
 .vcenter {
     display: inline-block;
@@ -161,21 +166,15 @@ background: white !important;
     border: 1px solid #dadada;
 }
 
-@media (max-width: 990px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: block;
-    }
-}
 
-@media (min-width: 991px) {
-    /* some CSS for small resolution */
-    .menu-toggler {
-        display: none;
-    }
-}
 
 @media screen and (max-width: 768px) {
+
+    .btn-responsive {
+        padding:8px 16px !important;
+
+    }
+
     h1 {
         font-size: 1.75rem !important;
     }
@@ -186,19 +185,21 @@ background: white !important;
         font-size: 1.55rem !important;
     }
     h4 {
-        font-size: 1.45rem !important;
-    }
-    h5 {
         font-size: 1.35rem !important;
     }
-    h6 {
+    h5 {
         font-size: 1.25rem !important;
     }
-    .container{padding-left:0px padding-right:0px;}
+    h6 {
+        font-size: 1.15rem !important;
+    }
+    .container{padding:0px !important;}
+
     .navbar {
         padding: .5rem 0rem;
     }
-.card{border-radius:0;}
+
+    .list-group,.list-group-item, .card{border-radius:0 !important;}
 
 
 }
@@ -391,6 +392,9 @@ body {
 }
 
 .rating > label {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+
     color: #ddd;
     float: right;
 }
