@@ -20,8 +20,7 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true))
-
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true, "disabled" => array("mobile", "phone", "name")))
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
