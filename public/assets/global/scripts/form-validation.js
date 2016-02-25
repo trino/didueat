@@ -365,8 +365,15 @@ function add_checkphone() {
 }
 
 function validateform(formID, rules){
+    unvalidateform(formID);
     add_all(true, true);
     $("#" + formID).validate(makerules(rules));
+}
+function unvalidateform(formID){
+    $("#" + formID).removeData('validate');
+    /*$('input, select, textarea').each(function() {
+        $(this).rules('remove');
+    });*/
 }
 
 function makerules(validation){

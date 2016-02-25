@@ -358,8 +358,6 @@ Thank you">Email Support</a></li>
                                         $('.password_reservation').removeAttr('required');
 
                                         validateform("profiles", {
-                                            phone: "phone required",
-                                            mobile: "phone",
                                             reservation_address: "required"
                                         });
                                     }
