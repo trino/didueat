@@ -384,24 +384,18 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                 $('#icons_show').hide();
                 $('#results_show').show();
                 $.post("{{ url('/search/restaurants/ajax') }}", {token: token, data: data}, function (result) {
-
+                    var quantity = 0;
                     $('#parentLoadingbar').hide();
                     $('#restuarant_bar').html(result);
                     $('#countRowsS').text('s');
                     if (result.trim() != "") {
-                        var quantity = $('#countTotalResult').val();
+                        quantity = $('#countTotalResult').val();
                         $('#countRows').text(quantity);
                         if (quantity == "1" || quantity == 1) {
                             $('#countRowsS').text('');
                         }
                     } else {
-                        var quantity = 0;
                         $('#countRows').text(0);
-                    }
-                    if(quantity > 0){
-                        $("#filter-results").show();
-                    }else {
-                        $("#filter-results").hide();
                     }
                 });
             } else {
