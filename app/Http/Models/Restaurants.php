@@ -179,7 +179,7 @@ class Restaurants extends BaseModel {
                 $where .= " AND " . $field . " LIKE '%" . $data[$field] . "%'";
             }
         }
-        if($data["formatted_address"] == "Hamilton, Ontario"){
+        if(isset($data["formatted_address"]) && $data["formatted_address"] == "Hamilton, Ontario"){
             $data["city"] = "Hamilton"; $data["province"] = "Ontario";
         }
         foreach(array("city", "province", "country", "rating") as $field) {//EQUAL
