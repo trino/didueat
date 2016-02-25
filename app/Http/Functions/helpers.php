@@ -180,6 +180,9 @@
         }
         if(strlen($phone) > 10){$phone = left($phone, 10);}//MUST BE 10 DIGITS!!!!
         if(strlen($phone) < 10){$phone = 0;}//MUST BE 10 DIGITS!!!!
+        if($qualifyareacode){
+            if(!qualifyareacode($phone)){$phone = "";}
+        }
         return $phone;
     }
 
