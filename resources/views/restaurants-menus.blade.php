@@ -210,7 +210,7 @@
                     if (distance > {{ $restaurant->max_delivery_distance }}) {
                         var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
-                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                            if(where == "addresscheck") { return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");}
                         @endif
                         alert(message);
                         return false;
@@ -219,8 +219,9 @@
                     }
                     element.trigger("click");
                     return true;
-                } else {
+                } else if(where == "addresscheck") {
                     alert("No address specified");
+                    return false;
                 }
             }
             return true;
