@@ -8,20 +8,24 @@ $locationStr = "";
 $useCookie = false;
 
 if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    $Province = "";
     if (function_exists('geoip_record_by_name')) {
         $info = geoip_record_by_name($localIPTst);
+        $City = $info['city'];
+        $Country = $info['country_name'];
         if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-            $locationStr = $info['city'] . ", " . $info['region'];// require province/state, but not country
-        } else {
-            $locationStr = $info['city'] . ", " . $info['country'];// use just city and country
+            $Province = $info['region'];
         }
     } else {
         $ip = $localIPTst;
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        if ($details->country == "US" || $details->country == "CA") {
-            $locationStr = $details->city . ", " . $details->region;
+        $City = $details->city;
+        if ($details->country == "US"){$Country = "United States";}
+        if ($details->country == "CA"){$Country = "Canada";}
+        if(isset($Country)){
+            $Province = $details->region;
         } else {
-            $locationStr = $details->city . ", " . $details->country;
+            $Country = $details->country;
         }
         $latlng = explode(",", $details->loc);
         $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
@@ -58,8 +62,8 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
                          style="cursor:pointer">
 
                         <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
-                            or show me <a style="text-decoration: underline; color:white" class="search-city"
-                                          onclick="submitform(event, 0);return false;">{{ $locationStr }}</a></h5>
+                            or show me <a style="text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
+                        </h5>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -350,7 +354,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
               echo "var earthRad = ".$earthRad.";";
             ?>
 
-                        createCookieValue("formatted_address", formatted_address);
+            createCookieValue("formatted_address", formatted_address);
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
@@ -358,22 +362,14 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
 
             var token = $('#search-form input[name=_token]').val();
 
-            if ($(e.target).html() && $(e.target).hasClass("search-city")) {
-                var dataStr = $(e.target).html();
-                var loc = $(e.target).attr("loc");
-                var dataStr2 = dataStr.split(", ");
-                var secondVar = "";
-
-                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada") ? secondVar = "country" : secondVar = "province";
-
-                $("#formatted_address2").val(dataStr);
-                data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
+            if ($(e.target).text() && $(e.target).hasClass("search-city")) {
+                $("#formatted_address2").val($(e.target).text());
+                data = "city=" + $(e.target).attr("city") + "&province=" + $(e.target).attr("province") + "&country=" + $(e.target).attr("country") + "&earthRad=" + earthRad;
             } else {
                 if (!address_alias) {
                     return false;
                 }
                 var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
-
             }
 
             if (start == 0) {
