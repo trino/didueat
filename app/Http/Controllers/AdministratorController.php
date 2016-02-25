@@ -27,7 +27,7 @@ class AdministratorController extends Controller {
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email
             if (!isset($post['name']) || empty($post['name'])) {
-                return $this->failure("[Name] field is missing!",'dashboard');
+                //return $this->failure("[Name] field is missing!",'dashboard');
             }
             try {
                 $ob = \App\Http\Models\Profiles::find(\Session::get('session_id'));
