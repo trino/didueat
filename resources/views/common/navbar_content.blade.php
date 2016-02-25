@@ -1,5 +1,5 @@
 <div class="page-sidebar" aria-expanded="true">
-    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu">
+    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" style="margin-bottom:0px !important">
         <?php
         printfile("views/dashboard/layouts/leftsidebar.blade.php");
 

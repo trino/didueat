@@ -1929,11 +1929,11 @@ function datename($date){
 function makelink($URL, $Name)
 {
     if (is_array($URL)) {
-        echo '<li><div class="card"><div class="card-header title"><h4 class="card-title">
+        echo '<li><div class="card m-b-0"><div class="card-header title"><h4 class="card-title">
             <i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
         echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
         $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
-        echo '<ul class="sub-menu" id="' . $Name . '">';
+        echo '<ul class="sub-menu " style="" id="' . $Name . '">';
         foreach ($URL as $URL2 => $Name) {
             makelink($URL2, $Name);
         }

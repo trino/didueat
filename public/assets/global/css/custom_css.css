@@ -193,7 +193,7 @@ background: white !important;
     h6 {
         font-size: 1.15rem !important;
     }
-    .container{}
+    .container{padding:0px !important;}
 
     .navbar {
         padding: .5rem 0rem;
