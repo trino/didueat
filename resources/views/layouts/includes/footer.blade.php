@@ -357,7 +357,9 @@ Thank you">Email Support</a></li>
                                         $('.password_reservation').hide();
                                         $('.password_reservation').removeAttr('required');
 
-                                        unvalidateform("profiles");
+                                        validateform("profiles", {
+                                            reservation_address: "required"
+                                        });
                                     }
                                 }
                             });
