@@ -39,7 +39,7 @@
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
             <?php
-                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/icon-' . $value['logo'] : 'icon-smiley-logo.png';
+                $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/small-' . $value['logo'] : 'small-smiley-logo.png';
                 $value['tags'] = str_replace(",", ", ", $value['tags']);
                 $Modes = array();
                 if ($value['is_delivery']) {
@@ -65,10 +65,6 @@
 
 
 
-
-
-
-
                 <div class="col-md-3 col-xs-3 p-l-0">
 
                     <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
@@ -81,8 +77,42 @@
                 <div class="col-md-9 p-a-0" style="">
 
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <h4 style="color: #0275d8;">{{ $value['name'] }}</h4>
+                        <h4 style="color: #0275d8;">{{ $value['name'] }}
+
+
+
+
+
+
+
+
+                                <div class="pull-right">
+
+
+                                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm btn-primary hidden-sm-down">
+
+                                        Order Online
+
+
+                                    </a>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        </h4>
                     </a>
+
+<div  class="clearfix"></div>
                     <div>
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </div>

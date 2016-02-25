@@ -19,6 +19,15 @@ class Menus extends BaseModel {
         $this->copycells($cells, $data);
     }
 
+    public function save(array $options = array()) {
+        parent::save($options);
+        if(isset($this->restaurant_id)) {
+            $before = select_field("restaurants", "id", $this->restaurant_id);
+            $after = \App\Http\Models\Restaurants::restaurant_opens($this->restaurant_id, true);
+            if (!$before->is_complete && $after) {return true;}
+        }
+    }
+
     /**
      * @param $term
      * @param $per_page
@@ -57,8 +66,7 @@ class Menus extends BaseModel {
         return $query;
     }
     
-    public static function get_price($id)
-    {
+    public static function get_price($id) {
         $submenus = \App\Http\Models\Menus::where('parent', $id)->get();
         //$minprice = \App\Http\Models\Menus::where('parent', $id)->min('price');
         $minprice = 1;

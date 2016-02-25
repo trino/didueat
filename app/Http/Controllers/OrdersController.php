@@ -6,15 +6,13 @@
     use App\Http\Models\Profiles;
     use App\Http\Models\Restaurants;
 
-    class OrdersController extends Controller
-    {
+    class OrdersController extends Controller {
         /**
          * Constructor
          * @param null
          * @return redirect
          */
-        public function __construct()
-        {
+        public function __construct(){
             date_default_timezone_set('America/Toronto');
         }
 
@@ -23,8 +21,7 @@
          * @param $type
          * @return view
          */
-        public function index($type = '', $id = '')
-        {
+        public function index($type = '', $id = ''){
             $data['title'] = 'Orders';
             $data['type'] = $type;
             $data['id'] = $id;
@@ -35,8 +32,7 @@
          * Ajax Listing Ajax
          * @return Response
          */
-        public function listingAjax($type = '', $id = '')
-        {
+        public function listingAjax($type = '', $id = ''){
             $per_page = \Input::get('showEntries');
             $page = \Input::get('page');
             $cur_page = $page;
@@ -75,8 +71,7 @@
          * @param $id
          * @return view
          */
-        public function order_detail($ID, $type)
-        {
+        public function order_detail($ID, $type){
             $data['order'] = \App\Http\Models\Reservations::select('reservations.*')->where('reservations.id', $ID)->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')->first();
             if (is_null($data['order']['restaurant_id'])) {//check for a valid restaurant $ID
                 return back()->with('status', 'Restaurant Not Found!');
@@ -91,8 +86,7 @@
         }
 
         //gets all orders for this restaurant
-        public function history($id = 0)
-        {
+        public function history($id = 0){
             $data['title'] = 'Orders History';
             $data['type'] = 'History';
             $data['orders_list'] = \App\Http\Models\Reservations::where('restaurant_id', ($id > 0) ? $id : \Session::get('session_restaurant_id'))->orderBy('order_time', 'DESC')->get();
@@ -104,8 +98,7 @@
          * @param $id
          * @return redirect
          */
-        public function changeOrderCancel($type = "", $OrderID = false, $Note = false)
-        {
+        public function changeOrderCancel($type = "", $OrderID = false, $Note = false){
             return $this->changeOrderStatus('cancelled', 'Your order has been cancelled.', "emails.order_cancel", 'Order has been cancelled successfully!', "orders/list/" . $type, $OrderID, $Note);
         }
 
@@ -114,8 +107,7 @@
          * @param $id
          * @return redirect
          */
-        public function changeOrderApprove($type = "", $OrderID = false, $Note = false)
-        {
+        public function changeOrderApprove($type = "", $OrderID = false, $Note = false){
             return $this->changeOrderStatus('approved', 'Didu Eat', "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
@@ -124,8 +116,7 @@
          * @param $id
          * @return redirect
          */
-        public function changeOrderDisapprove($type = "", $OrderID = false, $Note = false)
-        {
+        public function changeOrderDisapprove($type = "", $OrderID = false, $Note = false){
             return $this->changeOrderStatus('pending', 'Didu Eat', "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
@@ -135,8 +126,7 @@
          * statuses can be cancelled, approved or pending
          * @return redirect
          */
-        public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = "", $OrderID = false, $Note = false)
-        {
+        public function changeOrderStatus($status, $subject = "", $email = "", $flash = "", $URL = "", $OrderID = false, $Note = false){
             $post = \Input::all();
             if ($OrderID) {
                 $post['id'] = $OrderID;
@@ -186,8 +176,7 @@
          * @param $id
          * @return redirect
          */
-        public function deleteOrder($type = "", $id = 0)
-        {
+        public function deleteOrder($type = "", $id = 0){
             if (!isset($id) || empty($id) || $id == 0) {
                 return $this->failure("[Order Id] is missing!", 'orders/list/' . $type);
             }
@@ -205,8 +194,7 @@
          * @param $res_id (restaurant ID)
          * @return view
          */
-        public function report($res_id = 0)
-        {
+        public function report($res_id = 0){
             if (!$res_id) {
                 $res_id = \Session::get('session_restaurant_id');
             }//gets all orders for this restaurant
@@ -240,16 +228,18 @@
         //$Message = the message to be sent, will be passed as $body into the email template
         //$EmailParameters = any extra parameters to be passed to the email template
         //$EmailTemplate = the email template to use, defaults to the newsletter as it just sends the message
+        //$IncludeVan = If "call", calls Van. If any other value (except false) it sends an SMS to Van (only works on live site)
         //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
         //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
-        public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter") {
+        public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false) {
             $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
             $EmailParameters["body"] = $Message;
             if (!isset($EmailParameters["mail_subject"])) {
                 $EmailParameters["mail_subject"] = $Message;
             }
             //list of words to replace for easier pronunciation by the computer
-            $CallMessage = str_replace(array("didueat.ca"), array("did you eat dot see ay"), strtolower($Message));
+            $CallMessage = str_replace(array("didu eat"), array("did you eat"), strtolower($Message));
+            if($IncludeVan && islive()){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
             foreach ($NotificationAddresses as $NotificationAddress) {
                 if ($NotificationAddress->address) {
@@ -280,8 +270,7 @@
             return $ret;
         }
 
-        public function alertstore()
-        {
+        public function alertstore(){
             $Field = 'reservations.status';
             $value = "pending";
             if (isset($_GET["orderid"]) && $_GET["orderid"]) {
@@ -386,16 +375,14 @@
             die();
         }
 
-        function isJson($string)
-        {
+        function isJson($string){
             if ($string && !is_array($string)) {
                 json_decode($string);
                 return (json_last_error() == JSON_ERROR_NONE);
             }
         }
 
-        function cURL($URL, $data = "", $username = "", $password = "")
-        {
+        function cURL($URL, $data = "", $username = "", $password = ""){
             $session = curl_init($URL);
             curl_setopt($session, CURLOPT_HEADER, false);
             curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//not in post production
@@ -429,8 +416,7 @@
         }
 
         //$0.0075 per SMS, + $1 per month
-        function sendSMS($Phone, $Message, $Call = false)
-        {//works if you can get the from number....
+        function sendSMS($Phone, $Message, $Call = false){//works if you can get the from number....
             //https://www.twilio.com/
             if (false) {
                 $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
@@ -448,8 +434,7 @@
             }
         }
 
-        function orderstatus($action, $email, $guid)
-        {
+        function orderstatus($action, $email, $guid){
             $post = \Input::all();
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 $URL = url('/orders/list/' . $action . '/email/' . $email . '/' . $guid);

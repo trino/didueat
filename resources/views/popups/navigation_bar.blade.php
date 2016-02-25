@@ -8,7 +8,7 @@
                 </button>
                 <h4 class="modal-title" id="loginModalLabel">123</h4>
             </div-->
-            <div class="modal-body p-b-0 m-b-0">
+            <div class="modal-body p-a-0 m-a-0">
 
                 <div class="col-xs-12">
 
@@ -18,7 +18,7 @@
                     </div>
 
                 <?php printfile("views/popups/navigation_bar.blade.php"); ?>
-                <div class="col-xs-12 p-a-0">
+                <div class="col-xs-12 p-a-0 m-a-0">
                     @include('common.navbar_content')
                 </div>
                 <div class="clearfix"></div>

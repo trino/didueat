@@ -22,8 +22,6 @@
     }
 
         ?>
-
-
 <?
 
 echo newrow($new, "Restaurant Name", "",true); ?>
@@ -39,7 +37,7 @@ echo newrow($new, "Restaurant Name", "",true); ?>
 
 
 
-<?= newrow($new, "Restaurant Phone Number", "", true,4); ?>
+<?= newrow($new, "Restaurant Phone Number", "", true); ?>
     <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
 </div></div>
 

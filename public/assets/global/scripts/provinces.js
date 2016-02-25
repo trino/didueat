@@ -66,7 +66,6 @@ $('#formatted_address, #formatted_address1, #formatted_address2, #formatted_addr
 var placeSearch, formatted_address;
 
 function initAutocompleteWithID(ID){
-    console.log("initAutocompleteWithID: " + ID);
     var element = document.getElementById(ID);
     if(element)
     if (!element.hasAttribute("hasgeocode")) {
@@ -83,7 +82,6 @@ function initAutocompleteWithID(ID){
 }
 
 function initAutocomplete(){
-    console.log("initAutocomplete");
     formatted_address = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */(document.getElementById('formatted_address')),
       {

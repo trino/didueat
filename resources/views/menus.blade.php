@@ -11,7 +11,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <h4 class="card-title">Online Menu</h4>
+                            <h4 class="card-title">Online Specials</h4>
                         </div>
                     </div>
                 </div>
@@ -20,18 +20,20 @@
 
             @foreach($menus_list as $value)
                 <?php
+
+                
                     $has_image = true;
 
                     $item_image = asset('assets/images/restaurant-default.jpg');
                     $item_image1 = asset('assets/images/restaurant-default.jpg');
 
-                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_image = true;
                     }
-                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image))) {
-                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/' . $value->image);
-                        $has_image = false;
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
+                        $has_image = true;
                     }
 
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
@@ -75,8 +77,8 @@
                                        class="card-link" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                                        @if(!$has_image)
-                                            <img src="{{ asset($item_image1) }}"
+                                        @if($has_image)
+                                            <img src="{{ $item_image1 }}"
                                                  class="img-rounded" style="height: 25px;width:25px;"
                                                  alt="{{ $value->menu_item }}"/>
                                         @else

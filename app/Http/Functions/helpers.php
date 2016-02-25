@@ -1416,6 +1416,9 @@ function datename($date){
     function debugmode(){
         return config('app.debug') || isset($_GET["debugmode"]);
     }
+    function islive(){
+        return strpos(strtolower($_SERVER['HTTP_HOST']), "didueat.ca") !== false;
+    }
 
 //if the server is localhost, print whatever file is specified in red text
     function printfile($File, $Ret = false){//cannot use __FILE__ due to caching
@@ -1748,10 +1751,12 @@ function datename($date){
     }
 
     function converttime($Time){
-        if (strpos(strtolower($Time), "m")) {//if it contains the letter m
-            return date("H:i:s", strtotime($Time));//12 to 24
-        } else {
-            return date("g:i A", strtotime($Time));//24 to 12
+        if($Time) {
+            if (strpos(strtolower($Time), "m")) {//if it contains the letter m
+                return date("H:i:s", strtotime($Time));//12 to 24
+            } else {
+                return date("g:i A", strtotime($Time));//24 to 12
+            }
         }
     }
 
@@ -1924,11 +1929,11 @@ function datename($date){
 function makelink($URL, $Name)
 {
     if (is_array($URL)) {
-        echo '<li><div class="card"><div class="card-header title"><h4 class="card-title">
+        echo '<li><div class="card m-b-0"><div class="card-header title"><h4 class="card-title">
             <i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
         echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
         $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
-        echo '<ul class="sub-menu" id="' . $Name . '">';
+        echo '<ul class="sub-menu " style="" id="' . $Name . '">';
         foreach ($URL as $URL2 => $Name) {
             makelink($URL2, $Name);
         }

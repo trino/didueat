@@ -30,7 +30,7 @@
             @endif
 
             <input style="" type="text" name="formatted_address" id="formatted_address2"
-                   class="form-control formatted_address" placeholder="Enter your address"
+                   class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
                    onfocus="hideresults();"
                    onpaste="this.onchange();">
@@ -38,7 +38,7 @@
             <input type="HIDDEN" name="latitude" id="longitude">
       <span class="input-group-btn">
 
-                <button class="btn  btn-success dueBtn" oldstyle="display: none;" id="header-search-button"
+                <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button"
                         onclick="$('#search-form-submit').trigger('click');"><i class="fa fa-search"></i>
                 </button>
 </span>

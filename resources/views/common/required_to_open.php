@@ -64,7 +64,6 @@
         */
 
         $MenuTst = select_field("menus", array("restaurant_id","is_active"), array($RestaurantID,1),"menu_item");
-
         if (!isset($MenuTst)) {
             $MissingData[] = "<a href=\"" . url('restaurants/'.$Restaurant->slug.'/menu') . "\">At least one menu item must be added and enabled</a>";
         }
@@ -90,7 +89,7 @@
             if (Session::get('session_type_user') == "restaurant") {
 
 
-                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following to start accepting orders</h5>";
+                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", once you complete the following you can start accepting orders</h5>";
 
 
 
