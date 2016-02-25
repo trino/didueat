@@ -3,11 +3,11 @@
 
     <div class="container ">
         <?php
-        printfile("views/dashboard/orders/orders_detail.blade.php");
-        $profiletype = Session::get('session_profiletype');
-        $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
-        //$order->status == "pending", "cancelled", or "approved"
-        echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
+            printfile("views/dashboard/orders/orders_detail.blade.php");
+            $profiletype = Session::get('session_profiletype');
+            $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
+            //$order->status == "pending", "cancelled", or "approved"
+            echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
         ?>
         <div class="row">
 
@@ -36,9 +36,18 @@
                             @if($order->order_type > 0 && $CanApprove)
                                 @include("common.gmaps", array("address" => $restaurant->formatted_address))
                             @endif
-
                         </div>
                         <div class="clearfix"></div>
+
+                        <div class="col-md-6">
+                            @if($order->paid)
+                                This order has been paid for
+                            @else
+                                @include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid))
+                            @endif
+                        </div>
+                        <div class="clearfix"></div>
+
                         @if($CanApprove)
                             <div class="card-footer text-xs-right">
                                 @if($order->status != "cancelled")
@@ -58,8 +67,6 @@
                             </div>
                         @endif
                     </div>
-
-
                 </div>
             </div>
         </div>

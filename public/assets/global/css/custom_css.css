@@ -1,11 +1,10 @@
-
-.card{border-radius: 0 !important;}
-
-.card-footer{
-    
-    background: #fff !important;
+.card{
+    border-radius: 0 !important;
 }
 
+.card-footer{
+    background: #fff !important;
+}
 
 .modal {
     overflow-y: auto;
@@ -17,9 +16,10 @@
     padding-right: 0px !important;
 }
 
-
-
-
+.lesspadding{
+    padding-left: 1px;
+    padding-right: 1px;
+}
 
 .list-group-item{
     /*
