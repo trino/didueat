@@ -93,7 +93,7 @@
                                 <div class="pull-right">
 
 
-                                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm btn-primary hidden-sm-down">
 
                                         Order Online
 

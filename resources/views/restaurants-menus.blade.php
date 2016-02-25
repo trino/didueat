@@ -29,7 +29,7 @@
                 <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
                 <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our
-                    technology.</p>
+                    system.</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"

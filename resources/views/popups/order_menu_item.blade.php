@@ -5,7 +5,7 @@
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header m-b-0 p-b-0" style="border-bottom: 0 !important;">
+            <div class="modal-header m-b-0" style="border-bottom: 0 !important;">
 
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
