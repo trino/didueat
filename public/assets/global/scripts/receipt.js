@@ -447,8 +447,8 @@ $(function(){
 function updatecart(){
     var total = $(".grandtotal").html();
     $("#cart-header").show();
-    $(".card-header-total").html(total);
+    $(".cart-header-total").html(total);
     if(total_items != "" && !isNaN(total_items)){
-      $(".card-header-items").html(total_items);
+      $(".cart-header-items").html(total_items);
     }
 }
