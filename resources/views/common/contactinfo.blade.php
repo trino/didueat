@@ -23,23 +23,24 @@
     }
 
     if(!isset($disabled)){$disabled = array();}
-    function disabled($disabled, $field){
+    function isdisabled($disabled, $field){
         if(in_array($field, $disabled)){
             return " DISABLED";
         }
+        return "";
     }
 ?>
 
 <?= newrow($new, "Your Name", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ disabled($disabled, "name") }} required>
+    <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ isdisabled($disabled, "name") }} required>
     <input type="hidden" name="gmt" id="gmt" class="gmt">
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $$phonetype }}" {{ disabled($disabled, $phonetype) }} required>
+    <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $$phonetype }}" {{ isdisabled($disabled, $phonetype) }} required>
 </div>
 <?php echo newrow();
 
