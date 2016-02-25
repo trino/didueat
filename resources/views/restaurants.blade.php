@@ -44,7 +44,7 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
             <div class="row text-md-center" style="  ">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h6 class="display-4 banner-text-shadow" style="">Order Delivery or Pickup from Hamilton Restaurants</h6>
+                    <h1 class="banner-text-shadow" style="">Order Delivery or Pickup from<br>Hamilton Restaurants</h1>
 
                     <div class="clearfix"></div>
 
