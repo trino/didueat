@@ -84,7 +84,10 @@ label {
     margin-top: .25rem !important;
     margin-bottom: .25rem !important;
 }
-
+.list-group-item:first-child {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
 
 .table thead th {
     border-bottom: 0;
