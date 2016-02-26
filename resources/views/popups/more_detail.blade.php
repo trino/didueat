@@ -79,7 +79,7 @@
                     if ($needsdeliveryhours) {
                         echo '<strong>Pickup Hours</strong>';
                     } else {
-                        echo '<strong>Pickup/Delivery Hours</strong>';
+                        echo '<strong>Hours</strong>';
                     }
 
 

@@ -68,8 +68,8 @@
 
 <div class="row">
 
-    <div class="col-md-6 col-xs-12" style="">
-        <h4>Pickup Hours</h4>
+    <div class="col-md-12 col-xs-12 p-t-1" style="">
+        <h4>Hours of Operation</h4>
 
         <?php
             function getkey($object, $key) {
@@ -125,20 +125,27 @@
                     $closed .= '> Open<span class="c-indicator"></span></LABEL>';
                 }
                 ?>
-                    <div class="form-group" style="">
+        <div class="clearfix" style="">
+            <hr />
+        </div>
+                    <div class="form-group row" style="">
                         <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
-                        <div class="col-xs-8 col-sm-5 nowrap {{ $del_class }}">
+                        <div class="col-xs-8 col-md-4 {{ $del_class }}">
+
                             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
                                    value="{{ converttime($opentime) }}"
-                                   title="Open" class="{{ $inputclass }}" onfocus="this.blur();"/>
-                            <SPAN class="col-xs-1 to-span">to</SPAN>
+                                   title="Open" class="{{ $inputclass }} col-xs-4" onfocus="this.blur();"/>
+
+                            <SPAN class="col-xs-4-3 to-span">to</SPAN>
+
                             <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]"
                                    value="{{ converttime($closetime) }}"
-                                   title="Close" class="{{ $inputclass }}" onfocus="this.blur();" style=""/>
+                                   title="Close" class="{{ $inputclass }} col-xs-4" onfocus="this.blur();" style=""/>
+
                         </DIV>
-                        <div class="clearfix" style="">
-                        </div>
+
                     </div>
+
                 <?php
             }
 
@@ -147,7 +154,7 @@
         ?>
     </div>
 
-    <div class="col-md-6 col-xs-12 p-a-0" style="">
+    <div class="col-md-12 col-xs-12 p-a-0" style="">
         @if($use_delivery_hours)
             <DIV CLASS="is_delivery_options">
                 <h4 class="pull-left p-r-1">Delivery Hours</h4>
@@ -179,6 +186,7 @@
         <hr class="m-y-1" align="center"/>
         <button type="submit" class="btn btn-primary pull-right">Save</button>
     </div>
+</div>
 </div>
 
 <script>

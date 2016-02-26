@@ -7,10 +7,14 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <!--script src="{{ asset('assets/global/scripts/stripe.js') }}"></script-->
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+
 <?php if(!isset($loaded_from)){?>
 {!! Form::open(array('id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 <br/>
 <?php }?>
+
+<div class="col-md-12 p-t-1">
+
 <span class="payment-errors instruct"></span>
 <input name="user_id" type="hidden" class="S_user_id" value='{{ Session::get("session_id") }}' />
 <input name="chargeamt" type="hidden" class="S_chargeamt" value='{{ (isset($invoiceCents))?$invoiceCents:"" }}' />
@@ -30,7 +34,7 @@
     
 <div class="form-group row editaddress 2">
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="cvc">CVC</label>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<div class="input-icon">
 			<input aria-required="true" autocomplete="off"  name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc" required/>
 		</div>
@@ -57,19 +61,21 @@
 			</SELECT>
 		</div>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-3 p-l-0">
 		<div class="input-icon">
 			<SELECT aria-required="true" name="cardyear" class="form-control lesspadding" data-stripe="exp-year">
 				<?php
-					$current_year = date("y");//2 digits
+					$current_year = date("Y");//2 digits
 					for($now = $current_year; $now < $current_year + 10; $now++){
-						echo '<OPTION VALUE="20' . $now. '">' . $now . '</OPTION>';
+						echo '<OPTION VALUE="' . $now. '">' . $now . '</OPTION>';
 					}
 				?>
 			</SELECT>
 		</div>
 	</div>
 </div>
+
+
 <?php if(!isset($loaded_from)){?>
 <div class="form-group row editaddress 2">
 	<div class="col-sm-9">

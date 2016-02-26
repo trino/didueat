@@ -120,7 +120,7 @@ abstract class Controller extends BaseController {
         }
 
         $userArray = $user->toArray();
-        $userArray['mail_subject'] = 'Thank you for your registration at Didu Eat.';
+        $userArray['mail_subject'] = 'Thank you for your registration at Didu Eat';
         $userArray['idd'] = '4';//why?
         $this->sendEMail("emails.registration_welcome", array_merge($profile, $userArray));
         \DB::commit();

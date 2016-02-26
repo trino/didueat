@@ -12,7 +12,7 @@
                 <div class="modal-body ">
 @endif
 
-                    <div class="" id="modal_contents">
+                    <div class="p-b-0" id="modal_contents">
 
                         <div class="row">
                             <?php
@@ -126,14 +126,14 @@
                             @include('home.stripe',['loaded_from'=>'reservation'])
                             </div>
                             </div>
-                                <div class="col-md-12 p-y-1 p-x-0">
-                                    <div class="form-group text-xs-center text-xs-center " style="color: red;">
+                                <div class="col-md-12 p-t-1">
+                                    <div class="form-group text-xs-center text-xs-center " style="color: red;font-size:95%;">
                                         Please review your order before proceeding!
                                     </div>
 
-                                    <div class="form-group pull-right">
+                                    <div class="">
                                         <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
-                                        <button type="submit" class="btn btn-primary" onclick="return addresscheck();">Order Now</button>
+                                        <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();">Order Now</button>
                                         <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
                                     </div>
 

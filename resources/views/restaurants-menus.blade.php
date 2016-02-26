@@ -70,9 +70,9 @@
 
                         <div class="col-md-9 p-a-0" style="">
                             <div class="">
-                                <h1 class="card-title">
+                                <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                                </h1>
+                                </h2>
 
                                 <div id="restaurant_rating">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}

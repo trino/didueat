@@ -3,11 +3,11 @@
 
     <div class="container ">
         <?php
-            printfile("views/dashboard/orders/orders_detail.blade.php");
-            $profiletype = Session::get('session_profiletype');
-            $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
-            //$order->status == "pending", "cancelled", or "approved"
-            echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
+        printfile("views/dashboard/orders/orders_detail.blade.php");
+        $profiletype = Session::get('session_profiletype');
+        $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
+        //$order->status == "pending", "cancelled", or "approved"
+        echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
         ?>
         <div class="row">
 
@@ -23,42 +23,38 @@
                         </h4>
                     </div>
 
-                    <div class="card-block p-x-0">
+                    <div class="card-block row">
 
                         <div class="col-md-6">
                             @include('common.receipt')
 
-
                         </div>
 
-                       <?
-                        $paid_for = 0;
-                        if($order->paid){
-$paid_for = 1;
-                        }
-                        ?>
+
 
                         <div class="col-md-6">
+                            <?
+                            $paid_for = 0;
+                            if ($order->paid) {
+                                $paid_for = 1;
+                            }
+                            ?>
+
                             @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
 
                             @if($order->order_type > 0 && $CanApprove)
                                 @include("common.gmaps", array("address" => $restaurant->formatted_address))
                             @endif
                         </div>
-                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
 
-                        <div class="col-md-6">
-
-
-                                    <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
-
-
-                        </div>
-                        <div class="clearfix"></div>
-
+                        <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
                         @if($CanApprove)
-                            <div class="card-footer text-xs-right">
-                                @if($order->status != "cancelled")
+
+                        <div class="card-footer text-xs-right">
+
+                            @if($order->status != "cancelled")
                                     <a href="#cancel-popup-dialog"
                                        class="btn btn-danger orderCancelModal " data-toggle="modal"
                                        data-target="#orderCancelModal"
@@ -72,8 +68,9 @@ $paid_for = 1;
                                        data-id="{{ $order->id }}">Accept</a>
                                 @endif
 
-                            </div>
+                        </div>
                         @endif
+
                     </div>
                 </div>
             </div>
@@ -85,7 +82,6 @@ $paid_for = 1;
     <script>
         $(function () {
             $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
-
             $('.clearitems').click(function () {
                 $('.orders').html('');
                 $('.tax input').val('0');
@@ -116,5 +112,4 @@ $paid_for = 1;
             document.body.innerHTML = originalContents;
         }
     </script>
-
 @stop

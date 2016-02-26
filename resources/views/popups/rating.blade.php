@@ -32,7 +32,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <DIV CLASS="col-md-12" ID="rating-error"></DIV>
+                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error"></DIV>
                                 <DIV CLASS="clearfix"></DIV>
                                 <div class="pull-right">
                                     <button class="btn btn-primary pull-right">Save</button>
@@ -75,7 +75,7 @@
         var type = $('#rating-form #data-type').val();
         $("#rating-error").text("");
         if(!rating){
-            $("#rating-error").text("A rating is required");
+            $("#rating-error").text("Star rating is required");
             return false;
         }
 

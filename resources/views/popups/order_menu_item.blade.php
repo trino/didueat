@@ -13,26 +13,27 @@
                 </button>
                 <h4 class="modal-title" id="viewDetailModel">
                     <?php echo $value->menu_item; ?>
+                    8
+                    @if($value->price>0)
+                        @if($dis)
 
-                    <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
-                        @if($value->price>0)
+                            <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                            <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
 
-                            @if($dis)
-                                <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
-                                ${{number_format($dis_price=$main_price,2)}}
-                                
-                            @else
-                                ${{$dis_price=number_format($value->price,2)}}
-                            @endif
-
+                               ${{number_format($dis_price=$main_price,2)}}
+</span>
                         @else
-                            ${{$dis_price=number_format($min_p,2)}}+
+                            <span style="color:#0275d8">${{$dis_price=number_format($value->price,2)}}</span>
                         @endif
-                </span>
 
-                @if($dis)
-                     <span class='label label-warning'>{{$dis}}</span>
-                @endif
+                    @else
+                        ${{$dis_price=number_format($min_p,2)}}+
+                    @endif
+
+
+                    @if($dis)
+                        <span class='label label-warning'>{{$dis}}</span>
+                    @endif
 
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
@@ -51,7 +52,8 @@
                         @if (strpos($item_image, 'missing-icon.png') === false)
                             <div class="col-sm-12 col-xs-12 p-a-0">
 
-                                <img class="popimage_{{ $value->id }}" src="{{ $item_image }}" style="width:600px;height:600px" />
+                                <img class="popimage_{{ $value->id }}" src="{{ $item_image }}"
+                                     style="max-width:100%;"/>
 
                             </div>
 
@@ -88,6 +90,7 @@
                                                        id="multiple_{{ $sub->id }}">
                                                 <input type="hidden" value="{{ $sub->exact_upto }}"
                                                        id="upto_{{ $sub->id }}">
+
                                                 <div style="" class="infolist col-xs-12">
                                                     <div style="display: none;">
                                                         <input type="checkbox"
@@ -121,6 +124,7 @@
 
                                                     <div class="clearfix"></div>
                                                     <span class="error_{{ $sub->id }} errormsg"></span>
+
                                                     <div class="list clearfix row">
                                                         <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                         <? $a = 0; ?>
@@ -143,8 +147,7 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0  col-sm-5 "
-                                                                         style="">
+                                                                    } ?> class="pull-left p-a-0 col-sm-5 ">
 
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
@@ -160,29 +163,39 @@
                                                                                                   style=""></i></a>
 
                                                                     </div>
-                                                                    <div class="
 
-                                                                    <?php if ($sub->sing_mul == '1') {
-                                                                        echo "col-md-12";
-                                                                    }else{ echo "col-md-7";}?>
-                                                                     p-a-0" style="font-size: 95%;">
-                                                                        <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif">
 
-                                                                            <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
-                                                                                   id="extra_{{ $mm->id }}"
-                                                                                   title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
-                                                                                   class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
-                                                                                   name="extra_{{ $sub->id }}"
-                                                                                   value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
-                                                                            {{ $mm->menu_item }}
-                                                                            @if($sub->sing_mul =='1')  <span
-                                                                                    class="c-indicator"></span> @endif
-                                                                            <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-                                                                        </LABEL>
-                                                                    </div>
+                                                                    <LABEL class=" changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif
+
+                                                                    @if ($sub->sing_mul == '1')
+                                                                            col-md-12
+                                                                         @else
+                                                                            col-md-7
+                                                                       @endif
+                                                                            ">
+
+                                                                        @if($sub->sing_mul =='1')
+                                                                            <span class="c-indicator"></span>
+                                                                        @endif
+
+
+                                                                        <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
+                                                                               id="extra_{{ $mm->id }}"
+                                                                               title="{{ $mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item }}"
+                                                                               class="extra-{{ $sub->id }} spanextra_<?php echo $mm->id; ?>"
+                                                                               name="extra_{{ $sub->id }}"
+                                                                               value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+
+                                                                        {{ $mm->menu_item }}
+
+
+                                                                        <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+
+                                                                    </LABEL>
+
+
                                                                 </div>
 
-                                                                <div class="clearfix"></div>
                                                             </div>
                                                             <?
                                                             if ($a & 1) {
