@@ -66,7 +66,10 @@ function checkout() {
             alert('No items yet, but bypassing for debug mode');
         }
         //$('.receipt_main').hide();
-        $('.profiles').show().effect("pulsate", { times:2 }, 2000);
+
+       // $('.profiles').show().effect("pulsate", { times:1 }, 1000);
+        $('.profiles').fadeIn("slow");
+
         $('html, body').animate({
             scrollTop: $(".profiles").offset().top
         }, 2000);

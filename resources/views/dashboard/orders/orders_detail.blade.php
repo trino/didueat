@@ -31,8 +31,10 @@
                         </div>
 
 
-
                         <div class="col-md-6">
+
+
+
                             <?
                             $paid_for = 0;
                             if ($order->paid) {
@@ -42,39 +44,73 @@
 
                             @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
 
-                            @if($order->order_type > 0 && $CanApprove)
-                                @include("common.gmaps", array("address" => $restaurant->formatted_address))
-                            @endif
+
+                                @if(!$CanApprove)
+                                    <hr>
+                                    <table style="width:100%;">
+                                        <tbody>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Restaurant</strong></td>
+                                            <td width="5"></td>
+                                            <td>{{$restaurant->name}}</td>
+                                        </tr>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Phone</strong></td>
+                                            <td width="5"></td>
+                                            <td>{{$restaurant->phone}}</td>
+                                        </tr>
+                                        <tr class="infolist noprint">
+                                            <td class=""><strong>Address</strong></td>
+                                            <td width="5"></td>
+                                            <td>{{$restaurant->address}}, {{$restaurant->city}} {{$restaurant->province}} {{$restaurant->postal_code}}</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    @if($order->order_type == 0 && false)
+                                        @include("common.gmaps", array("address" => $restaurant->formatted_address))
+                                    @endif
+
+
+                                @endif
+
+
+                                @if($order->order_type > 0 && $CanApprove && false)
+                                    @include("common.gmaps", array("address" => $restaurant->formatted_address))
+                                @endif
+
+
+
                         </div>
                     </div>
                     <div class="clearfix"></div>
 
-                        <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
-                        @if($CanApprove)
+                    <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
+                    @if($CanApprove)
 
                         <div class="card-footer text-xs-right">
 
                             @if($order->status != "cancelled")
-                                    <a href="#cancel-popup-dialog"
-                                       class="btn btn-danger orderCancelModal " data-toggle="modal"
-                                       data-target="#orderCancelModal"
-                                       id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
-                                @endif
-                                @if($order->status == "pending")
-                                    <a href="#approve-popup-dialog"
-                                       class="btn btn-primary orderApproveModal " data-toggle="modal"
-                                       data-target="#orderApproveModal"
-                                       id="approve-popup"
-                                       data-id="{{ $order->id }}">Accept</a>
-                                @endif
+                                <a href="#cancel-popup-dialog"
+                                   class="btn btn-danger orderCancelModal " data-toggle="modal"
+                                   data-target="#orderCancelModal"
+                                   id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
+                            @endif
+                            @if($order->status == "pending")
+                                <a href="#approve-popup-dialog"
+                                   class="btn btn-primary orderApproveModal " data-toggle="modal"
+                                   data-target="#orderApproveModal"
+                                   id="approve-popup"
+                                   data-id="{{ $order->id }}">Accept</a>
+                            @endif
 
                         </div>
-                        @endif
+                    @endif
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     @include('popups.approve_cancel')

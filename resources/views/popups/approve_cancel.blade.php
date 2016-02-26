@@ -18,7 +18,7 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
                 <button class="btn btn-primary" value=" Approve " onclick="$('.overlay_loader').show();return confirm2('approve');">Accept</button>
                 <div class="clearfix"></div>
             </div>
