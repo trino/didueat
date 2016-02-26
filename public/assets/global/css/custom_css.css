@@ -67,9 +67,9 @@ label {
 }
 
 .main-bg-image {
-    /*
+
     background-image: url('../../../assets/images/restro-background.jpg') !important;
-    */
+
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

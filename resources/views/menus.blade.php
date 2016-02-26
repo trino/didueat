@@ -79,7 +79,7 @@
 
                                         @if($has_image)
                                             <img src="{{ $item_image1 }}"
-                                                 class="img-rounded" style="padding-left:10px;height:32px;width:32px;"
+                                                 class="img-rounded" style="height:32px;width:32px;"
                                                  alt="{{ $value->menu_item }}"/>
                                         @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->

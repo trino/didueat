@@ -60,7 +60,7 @@
             <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
           </div>
           <div class="col-sm-12 col-xs-12">
-            <img class="popimage_{{ $value->id }}" style="width:120px;height:120px;padding-left:10px" src="{{ $item_image }}"/>
+            <img class="popimage_{{ $value->id }}" style="" src="{{ $item_image }}"/>
           </div>
           <div class="clearfix"></div>
 
