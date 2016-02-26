@@ -205,11 +205,14 @@ class RestaurantController extends Controller {
                      
                         $oldImgExpl=explode(".",$ob->logo);
                         $todaytime = date("Ymdhis");
-                        foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
-                            if(file_exists($destinationPath . '/' . $file . $ob->logo)){
-                                rename($destinationPath.'/' . $file . $ob->logo, $destinationPath.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
-                            }
+                        foreach(array("/icon-", "/small-", "/big-") as $file){ 
+                          if(file_exists($destinationPath.$file.$ob->logo)){
+                            rename($destinationPath.$file.$ob->logo, $destinationPath.$file.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                          }
                         }
+                       if(file_exists($destinationPath.$file.$ob->logo)){ // for original file with no prefix
+                         rename($destinationPath."/".$ob->logo, $destinationPath."/".$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                       }
                     }
                     
 
@@ -573,12 +576,15 @@ class RestaurantController extends Controller {
 
 		                     // rename existing images with timestamp, if they exist,
 		                     $todaytime = date("Ymdhis");
-		                     foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+		                     foreach(array("icon-", "small-", "big-") as $file){
                             if(file_exists($destinationPathMenu . '/' . $file . $existingImg)){
                                 rename($destinationPathMenu.'/' . $file . $existingImg, $destinationPathMenu.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
                      
+                       if(file_exists($destinationPathMenu . '/' . $file . $existingImg)){ // for original file with no prefix
+                           rename($destinationPathMenu.'/'.$existingImg, $destinationPathMenu.'/'.$oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                       }
 
                        $thisresult=copy($filename,$destinationPathMenu.'/'.$newName);// use for copying and naming, then rename with big- prefix
                     
@@ -653,11 +659,14 @@ class RestaurantController extends Controller {
                         $oldImgExpl=explode(".",$image_file);
                      
                         $todaytime = date("Ymdhis");                        
-	 	                     foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+	 	                     foreach(array("icon-", "small-", "big-") as $file){
                             if(file_exists($destinationPathMenu . '/' . $file . $image_file)){
                                 rename($destinationPathMenu.'/' . $file . $image_file, $destinationPathMenu.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
+                      if(file_exists($destinationPathMenu . '/' . $file . $image_file)){ // for original file with no prefix
+                          rename($destinationPathMenu.'/'.$image_file, $destinationPathMenu.'/'. $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                      }
                                             
                     }
                     

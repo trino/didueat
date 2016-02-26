@@ -62,11 +62,15 @@ class AdministratorController extends Controller {
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->photo);
                         $todaytime = date("Ymdhis");
-                        foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
-                            if(file_exists($destinationPath . '/' . $file . $ob->photo)){
-                                rename($destinationPath.'/' . $file . $ob->photo, $destinationPath.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                        foreach(array("/icon-", "/small-", "/big-") as $file){ 
+                            if(file_exists($destinationPath.$file.$ob->photo)){
+                                rename($destinationPath.$file.$ob->photo, $destinationPath.$file.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
                             }
                         }
+                        
+                       if(file_exists($destinationPath.$file.$ob->photo)){ // for original file with no prefix
+                           rename($destinationPath."/".$ob->photo, $destinationPath."/".$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                       }
                     }
 
 
