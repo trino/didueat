@@ -5,17 +5,19 @@
 	$currencyType="cad";
 ?>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script src="{{ asset('assets/global/scripts/stripe.js') }}"></script>
+<!--script src="{{ asset('assets/global/scripts/stripe.js') }}"></script-->
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
+<?php if(!isset($loaded_from)){?>
 {!! Form::open(array('id'=>'payment-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
 <br/>
+<?php }?>
 <span class="payment-errors instruct"></span>
-<input name="user_id" type="hidden" value='{{ Session::get('session_id') }}' />
-<input name="chargeamt" type="hidden" value='{{ $invoiceCents }}' />
-<input name="description" type="hidden" value='{{ $orderDesc }}' />
-<input name="currencyType" type="hidden" value='{{ $currencyType }}' />
-<input name="taxpd" type="hidden" value='{{ $salesTax }}' />
-<input name="orderID" type="hidden" value='{{ $orderID }}' />
+<input name="user_id" type="hidden" class="S_user_id" value='{{ Session::get("session_id") }}' />
+<input name="chargeamt" type="hidden" class="S_chargeamt" value='{{ (isset($invoiceCents))?$invoiceCents:"" }}' />
+<input name="description" type="hidden" class="S_description" value='{{ (isset($orderDesc))?$orderDesc:"" }}' />
+<input name="currencyType" type="hidden" class="S_currencyType" value='{{ $currencyType }}' />
+<input name="taxpd" type="hidden" class="S_taxpd" value='{{ (isset($salesTax))?$salesTax:"" }}' />
+<input name="orderID" type="hidden" class="S_orderID" value='{{ (isset($orderID))?$orderID:"" }}' />
 
 <div class="form-group row editaddress 2">
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="card_number">Card Number</label>
@@ -68,7 +70,7 @@
 		</div>
 	</div>
 </div>
-
+<?php if(!isset($loaded_from)){?>
 <div class="form-group row editaddress 2">
 	<div class="col-sm-9">
 		<div class="input-icon">
@@ -77,7 +79,7 @@
 	</div>
 </div>
 {!! Form::close() !!}
-
+<?php }?>
 <SCRIPT>
 	validateform("payment-form", {cardnumber: "creditcard"});
 </SCRIPT>

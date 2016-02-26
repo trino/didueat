@@ -195,6 +195,7 @@ class CreditCardsController extends Controller {
     public function stripepayment($OrderID = false, $StripeToken = false, $description = false, $amount = false, $currency = "cad"){
         if(!$OrderID && !$StripeToken && !$description && !$amount){
             $post = \Input::all();
+            
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 $OrderID = $post['orderID'];
                 $StripeToken = $post['stripeToken'];
@@ -218,9 +219,10 @@ class CreditCardsController extends Controller {
                     "description" => $description
                 ));
             } catch (\Stripe\Error\Card $e) {
+                
                 return false;// The card has been declined
             }
-
+            
             if (isset($charge)) {
                 // if credit card payment test, save data to users table
                 $stripeConf['orderID'] = $OrderID;

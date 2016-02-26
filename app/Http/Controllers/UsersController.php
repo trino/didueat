@@ -352,6 +352,19 @@ class UsersController extends Controller {
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
                         $res['user_id'] = $uid->id;
                         $msg = "78";
+                        if($post['payment_type']=='cc')
+                        {
+                            
+                            if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                                if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total']->g_total)) {
+                                    $this->success("Your order has been paid.");
+                                    $data['order']->paid = 1;
+                                }else {
+                                    $this->failure("Your order has <B>NOT</B> been paid.");
+                                }
+                            }
+                            
+                        }
                     }
                 }
 
@@ -384,7 +397,22 @@ class UsersController extends Controller {
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to Didu Eat for more details. Thank you.';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt", "SMS");
                 
+                //CC
+                if($post['payment_type']=='cc')
+                {
+                    
+                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
+                            $this->success("Your order has been paid.");
+                            //$data['order']->paid = 1;
+                        }else {
+                            $this->failure("Your order has <B>NOT</B> been paid.");
+                        }
+                    }
+                    
+                }
                 echo '6';
+                
                 
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {

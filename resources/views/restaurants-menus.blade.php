@@ -229,7 +229,54 @@
 
         function check_val(v) {
         }
-
+        
+        Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
+                    var stripeResponseHandler = function(status, response) {
+                  //var $form = $('#payment-form');
+                    var $form = $('#profiles');
+                      if (response.error) {
+                        // Show the errors on the form
+                        $form.find('.payment-errors').text(response.error.message);
+                        $form.find('button').prop('disabled', false);
+                        $('.overlay_loader').hide();
+                      } else {
+                        // token contains id, last4, and card type
+                        var token = response.id;
+                        // Insert the token into the form so it gets submitted to the server
+                        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                        
+                        // and re-submit
+                                 
+                    var token = $('#profiles input[name=_token]').val();
+                    var datas = $('#profiles input, select, textarea').serialize();
+                    var order_data = $('.receipt_main input').serialize();
+                    //alert(order_data);
+                    $.ajax({
+                        type: 'post',
+                        url: '<?php echo url(); ?>/user/ajax_register',
+                        data: datas + '&' + order_data + '&_token=' + token,
+                        success: function (msg) {
+                            msg = msg.trim();
+                            $('.overlay_loader').hide();
+                            if (msg == '1') {
+                                $('#ordered_email').focus();
+                                $('.email_error').show();
+                                $('.email_error').html('Email Already Registered.');
+    //$('.email_error').fadeOut(2000);
+                            } else if (msg == '6') {
+                                window.location = "{{url('orders/list/user?flash=1')}}";
+                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
+                            } else if (msg == '786') {
+                                window.location = "{{url('orders/list/user?flash=2')}}";
+                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
+                            } else {
+                                alert(msg);
+                            }
+                        }
+                    })
+                        
+                      }
+                    };
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -255,37 +302,48 @@
                 $('.receipt_main').show();
                 $('.profiles').hide();
             });
-
+            
             $('#profiles').submit(function (e) {
                 e.preventDefault();
                 $('.overlay_loader').show();
-                var token = $('#profiles input[name=_token]').val();
-                var datas = $('#profiles input, select, textarea').serialize();
-                var order_data = $('.receipt_main input').serialize();
-                //alert(order_data);
-                $.ajax({
-                    type: 'post',
-                    url: '<?php echo url(); ?>/user/ajax_register',
-                    data: datas + '&' + order_data + '&_token=' + token,
-                    success: function (msg) {
-                        msg = msg.trim();
-                        $('.overlay_loader').hide();
-                        if (msg == '1') {
-                            $('#ordered_email').focus();
-                            $('.email_error').show();
-                            $('.email_error').html('Email Already Registered.');
-//$('.email_error').fadeOut(2000);
-                        } else if (msg == '6') {
-                            window.location = "{{url('orders/list/user?flash=1')}}";
-                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
-                        } else if (msg == '786') {
-                            window.location = "{{url('orders/list/user?flash=2')}}";
-                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
-                        } else {
-                            alert(msg);
+               if($('.CC').is(':visible'))
+               {
+                    Stripe.card.createToken($('#profiles'), stripeResponseHandler);
+                    
+                
+               }
+               else
+               {
+                    
+                    var token = $('#profiles input[name=_token]').val();
+                    var datas = $('#profiles input, select, textarea').serialize();
+                    var order_data = $('.receipt_main input').serialize();
+                    //alert(order_data);
+                    $.ajax({
+                        type: 'post',
+                        url: '<?php echo url(); ?>/user/ajax_register',
+                        data: datas + '&' + order_data + '&_token=' + token,
+                        success: function (msg) {
+                            msg = msg.trim();
+                            $('.overlay_loader').hide();
+                            if (msg == '1') {
+                                $('#ordered_email').focus();
+                                $('.email_error').show();
+                                $('.email_error').html('Email Already Registered.');
+    //$('.email_error').fadeOut(2000);
+                            } else if (msg == '6') {
+                                window.location = "{{url('orders/list/user?flash=1')}}";
+                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
+                            } else if (msg == '786') {
+                                window.location = "{{url('orders/list/user?flash=2')}}";
+                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
+                            } else {
+                                alert(msg);
+                            }
                         }
-                    }
-                })
+                    })
+                }
+                
             });
 
             $('.modal').on('shown.bs.modal', function () {
