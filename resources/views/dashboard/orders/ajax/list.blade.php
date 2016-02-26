@@ -72,9 +72,10 @@ $secondsTitle = "sec";
                         </td>
                         <td>
                         @if(isset($resto[0]->name))
-                        <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" class="lnk">{{ $resto[0]->name }}</a>
-                        @else
-                         - 
+                        <!--a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a-->
+
+                           {{$value->ordered_by }}
+
                         @endif
                         </td>
                         <td>

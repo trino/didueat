@@ -31,8 +31,16 @@
 
                         </div>
 
+                       <?
+                        $paid_for = 0;
+                        if($order->paid){
+$paid_for = 1;
+                        }
+                        ?>
+
                         <div class="col-md-6">
-                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
+                            @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
+
                             @if($order->order_type > 0 && $CanApprove)
                                 @include("common.gmaps", array("address" => $restaurant->formatted_address))
                             @endif
@@ -40,11 +48,11 @@
                         <div class="clearfix"></div>
 
                         <div class="col-md-6">
-                            @if($order->paid)
-                                This order has been paid for
-                            @else
-                                @include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid))
-                            @endif
+
+
+                                    <!--  include("home.stripe", array("orderID" => $order->id, "invoiceCents" => $order->g_total * 100, "salesTax" => $order->tax * 100, "orderDesc" => $order->guid)) -->
+
+
                         </div>
                         <div class="clearfix"></div>
 

@@ -13,7 +13,7 @@
             <div class="modal-body">
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer</label>
-                <textarea name="note" rows="4" id="text" class="form-control" maxlength="5000" required></textarea>
+                <textarea name="note" rows="4" id="text" class="form-control" maxlength="5000"></textarea>
                 <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">

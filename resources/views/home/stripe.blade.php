@@ -23,7 +23,7 @@
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="card_number">Card Number</label>
 	<div class="col-sm-7">
 		<div class="input-icon">
-			<input aria-required="true" name="cardnumber" class="form-control" type="text" size="20" data-stripe="number"/>
+			<input aria-required="true" autocomplete="off" name="cardnumber" class="form-control" type="text" size="20" data-stripe="number" required/>
 		</div>
 	</div>
 </div>
@@ -32,7 +32,7 @@
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="cvc">CVC</label>
 	<div class="col-sm-3">
 		<div class="input-icon">
-			<input aria-required="true" name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc"/>
+			<input aria-required="true" autocomplete="off"  name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc" required/>
 		</div>
 	</div>
 </div>

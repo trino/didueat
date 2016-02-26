@@ -14,7 +14,7 @@
                 <?php printfile("views/popups/approve_cancel.blade.php (approve)"); ?>
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer</label>
-                <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000" required></textarea>
+                <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000"></textarea>
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
@@ -42,7 +42,7 @@
                 <?php printfile("views/popups/approve_cancel.blade.php (cancel)"); ?>
                 <div ID="message" align="center"></div>
                 <label>Note to Customer</label>
-                <textarea name="note" id="canceltext" rows="4" class="form-control" maxlength="5000" required></textarea>
+                <textarea name="note" id="canceltext" rows="4" class="form-control" maxlength="5000"></textarea>
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">

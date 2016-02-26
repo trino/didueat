@@ -23,7 +23,7 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
-                                Thank you for registering with Didueat. As a reminder, your login credentials have been included below:
+                                Thank you for registering with Didu Eat. As a reminder, your login credentials have been included below:
                                 <br /><br />
                                 <b>Login Email:</b> {{ $email }}
                                 <br />

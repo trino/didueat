@@ -16,14 +16,16 @@
                         </tr>
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
-                                <h2>Dear {{ $name }},</h2>
+                                <h4>Dear {{ $name }},</h4>
                                 Your order has been approved.
                                 <br /><br />
+                                <? if(isset($note) && $note !=""){ ?>
                                 Note:
-                                <span style="color:#b02128; font-weight: bold;"> {{ $note }} </span>
+                                <span> {{ $note }} </span>
                                 <br /><br />
-                                (The above note is written by the store staff, not an employee of diduEat)
+                                (The above note is written by the restaurant staff)
                                 <br /><br />
+                                <? } ?>
                                 If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
                                 <br /><br />
                                 Regards,

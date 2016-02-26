@@ -19,7 +19,7 @@
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
 
 
-                    <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20diduEAT&body=
+                    <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20Didu%20Eat&body=
 Message:
 %0A%0A
 %0A%0A
