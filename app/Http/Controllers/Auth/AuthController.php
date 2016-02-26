@@ -131,7 +131,7 @@ class AuthController extends Controller {
                 try {//add new user to the database
                     $user = $this->registeruser($data);
 
-                    $message['title'] = "Registration Success";
+                    $message['title'] = "Registration Success. Welcome to Did U Eat!";
                     $message['msg_type'] = "success";
                     $message['msg_desc'] = "Thank you for creating an account with DidUEat.ca.";
                     if($email_verification) {

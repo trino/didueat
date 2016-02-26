@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    Credit Card ({{ ucwords($type) }})
+                    My Credit Cards <!-- ({{ ucwords($type) }}) -->
                     <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
                         Add
                     </button>
