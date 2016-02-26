@@ -51,7 +51,7 @@
                         @if (strpos($item_image, 'missing-icon.png') === false)
                             <div class="col-sm-12 col-xs-12 p-a-0">
 
-                                <img class="popimage_{{ $value->id }}" width="100%" src="{{ $item_image }}"/>
+                                <img class="popimage_{{ $value->id }}" src="{{ $item_image }}" style="width:120px;height:120px;padding-left:10px" />
 
                             </div>
 

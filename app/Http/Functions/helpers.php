@@ -1,11 +1,14 @@
 <?php
     define("MAX_DELIVERY_DISTANCE", 30);
     define("TINY_THUMB", '32x32');
-    define("SMALL_THUMB", '120x120');
     define("MED_THUMB", '165x165');
-    define("BIG_THUMB", '362x362');
+    define("BIG_SQ", '600x600');
+
+/*
+    define("SMALL_THUMB", '120x120');
     define("MAX_IMG_SIZE_P", '600x800');
     define("MAX_IMG_SIZE_L", '800x600');
+*/
 
     function asmoney($value, $free){
         if ($free) {

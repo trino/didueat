@@ -33,7 +33,7 @@
                          test="assets/images/users/{{ $user_detail->id . "/small-" . $user_detail->photo }}"
                          src="{{ asset('assets/images/users/' . $user_detail->id . "/small-" . $user_detail->photo) ."?" . date('U') }}"/>
                     @else
-                        src="{{ asset('assets/images/thumb-didueatdefault.png') ."?" . date('U') }}" />
+                        src="{{ asset('assets/images/small-didueatdefault.png') ."?" . date('U') }}" />
                     @endif
                     <span id="fullSize" class="smallT"></span>
 

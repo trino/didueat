@@ -24,15 +24,15 @@
                 
                     $has_image = true;
 
-                    $item_image = asset('assets/images/restaurant-default.jpg');
-                    $item_image1 = asset('assets/images/restaurant-default.jpg');
+                    $item_image = asset('assets/images/big-menu-default.jpg');
+                    $item_image1 = asset('assets/images/icon-menu-default.jpg');
 
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
                         $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_image = true;
                     }
-                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
-                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
+                    if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
+                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
                         $has_image = true;
                     }
 
@@ -79,7 +79,7 @@
 
                                         @if($has_image)
                                             <img src="{{ $item_image1 }}"
-                                                 class="img-rounded" style="height: 25px;width:25px;"
+                                                 class="img-rounded" style="padding-left:10px;height:32px;width:32px;"
                                                  alt="{{ $value->menu_item }}"/>
                                         @else
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->

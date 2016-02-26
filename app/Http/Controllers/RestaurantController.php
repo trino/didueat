@@ -205,31 +205,36 @@ class RestaurantController extends Controller {
                      
                         $oldImgExpl=explode(".",$ob->logo);
                         $todaytime = date("Ymdhis");
-                        foreach(array("icon", "thumb", "small", "med", "big") as $file){
-                            if(file_exists($destinationPath . '/' . $file . '-' . $ob->logo)){
-                                rename($destinationPath.'/' . $file . '-' . $ob->logo, $destinationPath.'/' . $file .'-' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                        foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+                            if(file_exists($destinationPath . '/' . $file . $ob->logo)){
+                                rename($destinationPath.'/' . $file . $ob->logo, $destinationPath.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
                     }
                     
-                    
+
                     $filename = $destinationPath . "/" . $newName;
-                    $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);// use for copying and naming, then rename with big- prefix
+                    // use for copying and saving (can't use move_uploaded_file() because jQuery uploads it before php is called)
+                    $thisresult=copy($post['restLogoTemp'],$destinationPath.'/'.$newName);
                     
-                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/thumb-' => SMALL_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB];
-                    
+                    $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/big-' => BIG_SQ];
+
+
+/*
+
                     // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
                     ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
                     
-                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=BIG_THUMB : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
+                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=BIG_SQ : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
                     ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$largImg;
+
+*/
 
 
 
 
                     copyimages($sizes, $filename, $newName, true);
 
-                    @unlink($destinationPath.'/'.$newName); // delete img used to copy and name other images -> alter in future so this step is not needed
                     @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image
                     $update['logo'] = $newName; // db needs updating, in case img type changed - eg. png to jpg
                     $addlogo=true;
@@ -494,7 +499,7 @@ class RestaurantController extends Controller {
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             if($sizes){
-                $sizes = [$path . '/thumb-' => MED_THUMB, $path . '/thumb1-' => SMALL_THUMB];
+                $sizes = [$path . '/icon-' => TINY_THUMB, $path . '/small-' => MED_THUMB];
                 copyimages($sizes, public_path($path) . '/' . $file, $file, false, true);
             }
             $file_path = url() . "/" . $path . "/" . $file;
@@ -528,7 +533,7 @@ class RestaurantController extends Controller {
             $arr['cat_id'] = $ob2->id;
         }
 
-        if (isset($_GET['id']) && $_GET['id']) {
+        if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with new image
             $id = $_GET['id'];
             
             $existingImg=\App\Http\Models\Menus::where('id', $id)->pluck('image');
@@ -566,41 +571,32 @@ class RestaurantController extends Controller {
 			                        mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
 			                    }
 
-                     // rename existing images with timestamp, if they exist,
+		                     // rename existing images with timestamp, if they exist,
+		                     $todaytime = date("Ymdhis");
+		                     foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+                            if(file_exists($destinationPathMenu . '/' . $file . $existingImg)){
+                                rename($destinationPathMenu.'/' . $file . $existingImg, $destinationPathMenu.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                            }
+                        }
                      
-                     
-                        $todaytime = date("Ymdhis");
-                        if(file_exists($destinationPathMenu.'/big-'.$existingImg)){
-                            rename($destinationPathMenu.'/big-'.$existingImg, $destinationPathMenu.'/big-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPathMenu.'/med-'.$existingImg)){
-                            rename ($destinationPathMenu.'/med-'.$existingImg, $destinationPathMenu.'/med-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPathMenu.'/small-'.$existingImg)){
-                            rename ($destinationPathMenu.'/small-'.$existingImg, $destinationPathMenu.'/small-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-
-                        if(file_exists($destinationPathMenu.'/thumb-'.$existingImg)){
-                            rename ($destinationPathMenu.'/thumb-'.$existingImg, $destinationPathMenu.'/thumb-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPathMenu.'/icon-'.$existingImg)){
-                            rename ($destinationPathMenu.'/icon-'.$existingImg, $destinationPathMenu.'/icon-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
 
                        $thisresult=copy($filename,$destinationPathMenu.'/'.$newName);// use for copying and naming, then rename with big- prefix
                     
-                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb-' => SMALL_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB];
-                    
+                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
+
+
+/*
                     // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
                     ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
                     
-                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=BIG_THUMB : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=$imgVs[0].'x'.$imgVs[1];
+                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=BIG_SQ : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=$imgVs[0].'x'.$imgVs[1];
                     ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-']=$largImg;
+                    
+*/
 
 
                     copyimages($sizes, $filename, $newName, true);
 
-                    @unlink($destinationPathMenu.'/'.$newName); // delete img used to copy & name other imgs -> alter code in future so this step not needed
                     @unlink($destinationPath.'/'.$arr['image']); // delete temp upload image
                     
 			                 $men = new \App\Http\Models\Menus();
@@ -611,7 +607,7 @@ class RestaurantController extends Controller {
                    
             }
             die();
-        } else {
+        } else { // new menu item image upload
             $arr['uploaded_on'] = date('Y-m-d H:i:s');
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
             if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
@@ -630,7 +626,7 @@ class RestaurantController extends Controller {
 
             $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
             if ($mns->parent == '0') {//handle image uploading and thumbnail generation                
-                $image_file = $mns->image;
+                $image_file = $mns->image; // use for naming and renaming
                 $destinationPath = public_path('assets/images/products');
                 $existingImg = $destinationPath . "/" . $image_file;
                 
@@ -656,40 +652,30 @@ class RestaurantController extends Controller {
                      
                         $oldImgExpl=explode(".",$image_file);
                      
-                        $todaytime = date("Ymdhis");
-                        if(file_exists($destinationPathMenu.'/big-'.$image_file)){
-                            rename($destinationPathMenu.'/big-'.$image_file, $destinationPathMenu.'/big-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        $todaytime = date("Ymdhis");                        
+	 	                     foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+                            if(file_exists($destinationPathMenu . '/' . $file . $image_file)){
+                                rename($destinationPathMenu.'/' . $file . $image_file, $destinationPathMenu.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                            }
                         }
-                        if(file_exists($destinationPathMenu.'/med-'.$image_file)){
-                            rename ($destinationPathMenu.'/med-'.$image_file, $destinationPathMenu.'/med-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPathMenu.'/small-'.$image_file)){
-                            rename ($destinationPathMenu.'/small-'.$image_file, $destinationPathMenu.'/small-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-
-                        if(file_exists($destinationPathMenu.'/thumb-'.$image_file)){
-                            rename ($destinationPathMenu.'/thumb-'.$image_file, $destinationPathMenu.'/thumb-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                        if(file_exists($destinationPathMenu.'/icon-'.$image_file)){
-                            rename ($destinationPathMenu.'/icon-'.$image_file, $destinationPathMenu.'/icon-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
-                        }
-                    
+                                            
                     }
                     
-                       $thisresult=copy($destinationPath.'/'.$arr['image'],$destinationPathMenu.'/'.$newName);// use for copying and naming, then rename with big- prefix
+                       $thisresult=copy($destinationPath.'/'.$arr['image'],$destinationPathMenu.'/'.$newName);// use for copying and saving original file
                     
-                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/thumb-' => SMALL_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB];
-                    
+                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
+
+/*
                     // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
                     ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
                     
-                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=BIG_THUMB : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=$imgVs[0].'x'.$imgVs[1];
+                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=BIG_SQ : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/med-']=$imgVs[0].'x'.$imgVs[1];
                     ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-']=$largImg;
 
+*/
 
                     copyimages($sizes, $filename, $newName, true);
 
-                    @unlink($destinationPath.'/'.$newName); // delete img used to copy & name other imgs -> alter code in future so this step not needed
                     @unlink($destinationPath.'/'.$arr['image']); // delete temp upload image
                     
 			                 $men = new \App\Http\Models\Menus();

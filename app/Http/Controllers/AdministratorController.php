@@ -62,26 +62,30 @@ class AdministratorController extends Controller {
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->photo);
                         $todaytime = date("Ymdhis");
-                        foreach(array("icon", "thumb", "small", "med", "big") as $file){
-                            if(file_exists($destinationPath . '/' . $file . '-' . $ob->photo)){
-                                rename($destinationPath.'/' . $file . '-'.$ob->photo, $destinationPath.'/' . $file . '-'.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
+                        foreach(array("icon-", "small-", "big-", "") as $file){ // empty string is original
+                            if(file_exists($destinationPath . '/' . $file . $ob->photo)){
+                                rename($destinationPath.'/' . $file . $ob->photo, $destinationPath.'/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
                     }
 
 
                     $filename = $destinationPath . "/" . $newName;
-                    copy($post['userPhotoTemp'], $destinationPath.'/' .$newName);// use for copying and naming, then rename with big- prefix
+                    copy($post['userPhotoTemp'], $destinationPath.'/' .$newName); // use for copying and saving original image
                     
-                    $sizes = ['assets/images/users/' . urldecode($post['user_idDir']) . '/icon-' => TINY_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/thumb-' => SMALL_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/small-' => MED_THUMB];
-                    
+                    $sizes = ['assets/images/users/' . urldecode($post['user_idDir']) . '/icon-' => TINY_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/small-' => MED_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/big-' => BIG_SQ];
+
+
+/*
                     // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
                     ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
-                    ($imgVs[0] > 362)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=BIG_THUMB : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
+                    ($imgVs[0] > 362)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=BIG_SQ : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
                     ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$largImg;
 
+*/
+
+
                     copyimages($sizes, $filename, $newName, true);
-                    @unlink($destinationPath.'/'.$newName); // delete img used to copy and name other images -> alter in future so this step is not needed
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
                     $post['photo'] = $newName;
                 }

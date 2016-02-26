@@ -89,7 +89,7 @@ if(!$minimum && isset($restaurant->id)){
                     title="{{ $logoname }}"
                     src="{{ asset($logoname) ."?" . date('U') }}"/>
                 @else
-                    src="{{ asset('assets/images/med-smiley-logo.png') }}"/>
+                    src="{{ asset('assets/images/small-smiley-logo.png') }}"/>
 
                 @endif
                     <span id="fullSize" class="smallT"></span>

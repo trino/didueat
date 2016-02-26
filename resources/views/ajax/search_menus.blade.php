@@ -4,13 +4,14 @@
 
   @foreach($query as $value)
     <?php
-      $item_image = asset('assets/images/restaurant-default.jpg');
-      $item_image1 = asset('assets/images/restaurant-default.jpg');
-      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1-' . $value->image))) {
-        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1-' . $value->image);
+    
+      $item_image = asset('assets/images/big-menu-default.jpg');
+      $item_image1 = asset('assets/images/icon-menu-default.jpg');
+      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
       }
-      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb-' . $value->image))) {
-        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb-' . $value->image);
+      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
+        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
       }
     ?>
 
@@ -42,7 +43,7 @@
               <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                 class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
                 <div class="card-image">
-                    <img class="img-responsive" src="{{ $item_image1 }}" alt="{{ $item_image1 }}">
+                    Icon<img class="img-responsive" src="{{ $item_image1 }}" alt="{{ $item_image1 }}" style="width:32px;height:32px;padding-left:10px">
                 </div>
               </a>
             </div>
@@ -59,7 +60,7 @@
             <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
           </div>
           <div class="col-sm-12 col-xs-12">
-            <img class="popimage_{{ $value->id }}" width="150" src="{{ $item_image }}"/>
+            <img class="popimage_{{ $value->id }}" style="width:120px;height:120px;padding-left:10px" src="{{ $item_image }}"/>
           </div>
           <div class="clearfix"></div>
 
