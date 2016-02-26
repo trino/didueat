@@ -46,7 +46,12 @@ $secondsTitle = "sec";
                 <thead>
                 <tr>
                     <th>Order #</th>
-                    <th>Customer</th>
+                    <th>@if($type=='user')
+                        Restaurant
+                    @else
+                        Customer
+                    @endif
+                    </th>
                     <th>Ordered On</th>
                     <th>Status</th>
                     <TH>Response Time</TH>
@@ -57,12 +62,21 @@ $secondsTitle = "sec";
 
 
                 @foreach($Query as $value)
+                <?php
+                  $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
+                ?>
                     <tr>
                         <td>
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
                                class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
-                        <td>{{ $value->ordered_by }}</td>
+                        <td>
+                        @if(isset($resto[0]->name))
+                        <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" class="lnk">{{ $resto[0]->name }}</a>
+                        @else
+                         - 
+                        @endif
+                        </td>
                         <td>
                             <?php
                             $dateformat = get_date_format();

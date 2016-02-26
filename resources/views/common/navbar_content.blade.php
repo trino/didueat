@@ -29,7 +29,7 @@
                     'orders/list/user' => 'My Orders',
                     'user/info' => "My Profile",
                     'user/addresses' => "My Addresses",
-                    'credit-cards/list/user' => "Credit Card",
+                    'credit-cards/list/user' => "My Credit Cards",
                     'auth/logout' => "Log out"
             ), "My Profile");
         } else {

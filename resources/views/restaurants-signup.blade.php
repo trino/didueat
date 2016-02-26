@@ -47,7 +47,7 @@
                 </a>
 
                 <span id="moreInfo" style="display:none">
-                    <div style="margin:0px;font-size:5px;line-height:5px"><br/><br/></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
+                    <div class="smBR"><br/><br/></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
             eating. What are you waiting for? Sign up now and let the Did U Eat team bring the customers to you.
             By putting your restaurant online with Did U Eat, you'll be getting more business from hungry customers
             in your local area
