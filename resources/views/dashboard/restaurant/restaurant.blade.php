@@ -95,7 +95,7 @@ if(!$minimum && isset($restaurant->id)){
                     <span id="fullSize" class="smallT"></span>
         </div>
     </div></div>
-
+ 
     <?= newrow($new, "", "", "", 12, true);?>
         <hr class="m-y-1" align="center"/>
         <input name="restLogoTemp" type="hidden" id="restLogoTemp"/>
