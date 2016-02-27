@@ -156,7 +156,7 @@ $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore">' +
         '<div class=" ignore ignore2 ignore1">' +
-        '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item" /></div>' +
+        '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item Name" /></div>' +
         '<div class="col-md-4"><input class="form-control ccprice pricechk" type="number" step="any" min="0" placeholder="Optional Price" /></div>' +
         '</div>' +
         '<div class="col-md-2 ignore top-padd ignore2">' +

@@ -1,6 +1,6 @@
 <?php
     define("MAX_DELIVERY_DISTANCE", 30);
-    define("TINY_THUMB", '32x32');
+    define("TINY_THUMB", '64x64');
     define("MED_THUMB", '165x165');
     define("BIG_SQ", '600x600');
 
@@ -1922,7 +1922,7 @@ function datename($date){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
                 case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
-                case "menuadd": $Message = "Item has been added/updated successfully"; break;
+                case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
 
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
@@ -1937,7 +1937,7 @@ function datename($date){
 function makelink($URL, $Name)
 {
     if (is_array($URL)) {
-        echo '<li><div class="card m-b-0"><div class="card-header title"><h4 class="card-title">
+        echo '<li><div class="card m-b-0" style=""><div class="card-header title"><h4 class="card-title">
             <i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
         echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
         $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";

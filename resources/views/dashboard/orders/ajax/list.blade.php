@@ -46,10 +46,18 @@ $secondsTitle = "sec";
                 <thead>
                 <tr>
                     <th>Order #</th>
-                    <th>Customer</th>
+                    <th>@if($type=='user')
+                        Restaurant
+                    @else
+                        Customer
+                    @endif
+                    </th>
                     <th>Ordered On</th>
                     <th>Status</th>
+                    @if (Session::get('session_type_user') == "super" || $type=='restaurant')
+
                     <TH>Response Time</TH>
+                    @endif
                     <th></th>
                 </tr>
                 </thead>
@@ -57,18 +65,29 @@ $secondsTitle = "sec";
 
 
                 @foreach($Query as $value)
+                <?php
+                  $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
+                ?>
                     <tr>
                         <td>
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
                                class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
-                        <td>{{ $value->ordered_by }}</td>
                         <td>
+                        @if(isset($resto[0]->name))
+                        <!--a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a-->
+
+                           {{$value->ordered_by }}
+
+                        @endif
+                        </td>
+                        <td>
+
                             <?php
                             $dateformat = get_date_format();
                             $date = strtotime($value->order_time);
                             if (date("dmY", $date) == date("dmY")) {
-                                echo '<FONT COLOR="GREEN">Today, </FONT>';
+                                echo '<FONT COLOR="">Today, </FONT>';
                                 $dateformat = str_replace("M d, Y", "", $dateformat);
                             }
                             echo date($dateformat, $date);
@@ -93,7 +112,10 @@ $secondsTitle = "sec";
 
                             echo '</td><TD>';
 
-                            if ($value->time) {
+
+                                if (Session::get('session_type_user') == "super" || $type=='restaurant'){
+
+                                if ($value->time) {
                                 echo '<FONT COLOR="';
                                 $delay = (strtotime($value->time) - strtotime($value->order_time));
                                 if ($delay < 60) {
@@ -119,6 +141,10 @@ $secondsTitle = "sec";
                             } else {
                                 echo "Pending...";
                             }
+                                }
+
+
+
                             ?>
                         </TD>
 

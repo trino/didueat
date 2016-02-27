@@ -77,6 +77,14 @@ function initAutocompleteWithID(ID){
       });
         formatted_address.addListener('place_changed', fillInAddress);
         element.setAttribute("hasgeocode", true);
+        
+        var input= document.getElementById('formatted_address2');
+        google.maps.event.addDomListener(input, 'keydown', function(e) { 
+        if (e.keyCode == 13 && $('.pac-container:visible').length) { 
+            submitform(e, 0); 
+        }
+}); 
+        
         return formatted_address;
     }
 }

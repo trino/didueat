@@ -8,6 +8,12 @@
         $Data["Customer"] = $order->ordered_by;
 
         $Data["Order Type"] = iif($order->order_type == '1', "Delivery", "Pickup");
+
+        if(isset($paid_for)){
+        $Data["Payment"] = iif($paid_for == '1', "Paid Online", "Cash on " . $Data["Order Type"]);
+}
+
+
         $date = new DateTime($order->order_time);//$date->format('l jS \of F Y h:i:s A');
         $Data["Time Ordered"] = $date->format(get_date_format());
 
@@ -34,7 +40,7 @@
             $Data['City'] = $order->city;
             if(!isset($order->prov) || !$order->prov){$order->prov = "ON";}
             $Data['Prov'] = $order->prov;
-            $Data['Postal Code'] = $order->postal_code;
+            $Data['PC'] = $order->postal_code;
         }
 
         if ($order->remarks) {

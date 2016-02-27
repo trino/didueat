@@ -83,11 +83,13 @@
                             {{ $value->address . ', ' . $aptV . $value->city . ', ' . $value->province . ', ' . $value->postal_code }}</td>
 
                         <td>
-                            <a data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-secondary-outline editRow btn-sm" data-toggle="modal"
-                               data-target="#editModel">Edit</a>
-                            <a href="{{ url('user/addresses/delete/'.$value->id) }}"
+                            <div class="btn-group">
+                            <button data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-secondary-outline editRow btn-sm" data-toggle="modal"
+                               data-target="#editModel"><strong>Edit</strong></button>
+                            <button href="{{ url('user/addresses/delete/'.$value->id) }}"
                                class="btn btn-secondary-outline btn-sm"
-                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');"><i class="fa fa-times"></i></a>
+                               onclick="return confirm('Are you sure you want to delete {{ addslashes($value->location) }}?');"><i class="fa fa-times"></i></button>
+                            </div>
                         </td>
 
                     </tr>

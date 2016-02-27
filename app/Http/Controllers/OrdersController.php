@@ -83,7 +83,7 @@
                             $this->success("Your order has been paid for");
                             $data['order']->paid = 1;
                         }else {
-                            $this->failure("Your order has <B>NOT</B> been paid for");
+                            $this->failure("There was an issue with your credit card payment. Please email us at info@didueat.ca");
                         }
                     }
                 }
@@ -150,10 +150,11 @@
                 if (!isset($post['id']) || empty($post['id'])) {
                     return $this->failure("[Order Id] is missing!", $URL);
                 }
+                /*
                 if (is_numeric($post['id']) && (!isset($post['note']) || empty($post['note']))) {
                     return $this->failure("[Note Field] is missing!", $URL);
                 }
-
+*/
                 try {
                     if (is_numeric($post['id'])) {
                         $ob = \App\Http\Models\Reservations::find($post['id']);
@@ -374,7 +375,7 @@
                                 $this->sendSMS($Address, $Message . "didueat.ca");
                                 break;
                             case "Email":
-                                $Email = array("mail_subject" => $Message . "didueat.ca", "email" => $Address, "body" => $Message . "didueat.ca", "name" => "DidUeat.ca user");
+                                $Email = array("mail_subject" => $Message . "didueat.ca", "email" => $Address, "body" => $Message . "didueat.ca", "name" => "didueat.ca user");
                                 $this->sendEMail("emails.newsletter", $Email);
                                 break;
                         }
@@ -449,9 +450,11 @@
             $post = \Input::all();
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 $URL = url('/orders/list/' . $action . '/email/' . $email . '/' . $guid);
+                /*
                 if (!isset($post['note']) || empty($post['note'])) {
                     return $this->failure("[Note Field] is missing!", $URL);
                 } else {
+                */
                     $Order = select_field("reservations", "guid", $guid);
                     if ($Order) {
                         $Restaurant = select_field("restaurants", "id", $Order->restaurant_id);
@@ -476,7 +479,7 @@
                         }
                     } else {
                         $action = "Order not found";
-                    }
+
                     return $this->failure($action, "/");
                 }
             } else {

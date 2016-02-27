@@ -197,8 +197,10 @@ class Restaurants extends BaseModel {
         $hours = " AND ((today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
         $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open))";
         $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
+        
+$where="";// testing return of all regardless of open/closed status, which is impt with few restaurants (to show restos, even if closed)
 
-        (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why?
+        (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
         $data['radius']=iif(debugmode(), 300, "max_delivery_distance");
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {

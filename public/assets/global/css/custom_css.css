@@ -84,7 +84,10 @@ label {
     margin-top: .25rem !important;
     margin-bottom: .25rem !important;
 }
-
+.list-group-item:first-child {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
 
 .table thead th {
     border-bottom: 0;
@@ -457,6 +460,7 @@ body {
     cursor: pointer;
 }
 
+.ctr{text-align:center}
 
 .instruct {
     font-size: 16px;
@@ -465,6 +469,8 @@ body {
     margin-right: auto;
     text-align: center
 }
+
+.lnk{text-decoration:underline;color:#00f;font-size:16px;line-height:90% !important;}
 
 .smRd{font-size:14px;color:#f00;font-weight:normal}
 
@@ -479,7 +485,7 @@ body {
 }
 
 
-.smBR{font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
+.smBR{margin:0px;font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
 
 .bd{font-weight:bold}
 

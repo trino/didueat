@@ -23,7 +23,7 @@
 
     if($is_my_restro){
     ?>
-    <div class="card card-inverse card-warning m-b-0" style="border-radius:0 !important;">
+    <div class="card  m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
             <div class="container" style="margin-top: 0 !important;">
                 <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
@@ -70,9 +70,9 @@
 
                         <div class="col-md-9 p-a-0" style="">
                             <div class="">
-                                <h1 class="card-title">
+                                <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                                </h1>
+                                </h2>
 
                                 <div id="restaurant_rating">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}

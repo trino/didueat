@@ -227,7 +227,7 @@ class CreditCardsController extends Controller {
                 // if credit card payment test, save data to users table
                 $stripeConf['orderID'] = $OrderID;
                 $stripeConf['stripeToken'] = $StripeToken;
-                $stripeConf['status'] = 'approved';
+               // $stripeConf['status'] = 'approved';
                 $stripeConf['user_id'] = \Session::get('session_id');
                 $stripeOb = \App\Http\Models\StripeConfirm::findOrNew($stripeConf['orderID']);
                 $stripeOb->populate($stripeConf);

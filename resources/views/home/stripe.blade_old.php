@@ -11,7 +11,7 @@ printfile("views/home/stripe.blade.php");
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
     data-key="pk_test_fcMnnEwpoC2fUrTPpOayYUOf"
     data-amount="{{ $invoiceCents }}"
-    data-name="DidUEat Demo"
+    data-name="Didu Eat Demo"
     data-description="{{ $orderDesc }}"
     data-image="/128x128.png"
     data-locale="auto">

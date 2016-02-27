@@ -3,6 +3,7 @@
 
     <div class="container">
     <?php printfile("views/home/terms.blade.php"); ?>
-    @include('popups.terms'))
+        <h4>Didu Eat Terms of Use</h4><br>
+    @include('popups.terms')
     </div>
 @stop

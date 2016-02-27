@@ -14,7 +14,7 @@
 
             <div id="registration-success" class="note note-success" style="display: none;">
                 <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
-                    <div class="alert alert-success" role="alert">Success!</div>
+                    <div class="alert alert-success" role="alert">Success! Welcome to Did U Eat!</div>
 
 
 

@@ -15,7 +15,7 @@
 ?>
 <div class="container">Coming Soon</div>
 
-<div class="container">
+<div class="container" style="display:none;">
 
     <div class="row">
             <div class="card">

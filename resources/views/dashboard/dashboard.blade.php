@@ -74,6 +74,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
            validateform("profileForm", {mobile: "phone required"});
+/*
 
            var pictureW=parseInt(document.getElementById('picture').clientWidth);
            if(pictureW > 450){
@@ -83,6 +84,8 @@
               document.getElementById('picture').style.height=new_pictureH+"px";
               document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
            }
+
+*/
 
             ajaxuploadbtn('uploadbtn');
 
@@ -110,6 +113,8 @@
                         var resp = response.split('___');
                         var path = resp[0];
                         var img = resp[1];
+/*
+
                         var imgV = new Image();
                         imgV.src = path;
                         var imgW=0;
@@ -126,12 +131,16 @@
 	                         document.getElementById('picture').style.height=imgH+"px";
 	                        }
                         }
+
+*/
+
                         document.getElementById('userPhotoTemp').value = path;
-                        button.html('Browse');
-                        document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
+//                        button.html('Browse');
                         window.clearInterval(interval);
-                        this.enable();
-                        $('#picture').attr('src', path);
+                        document.getElementById(button_id).style.display="none";
+                        $('#picture').attr('src', "{{ asset('assets/images/spacer.gif') }}");
+                        document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
+//                        this.enable();
                         $('#hiddenLogo').val(img);
                     }
                 });
