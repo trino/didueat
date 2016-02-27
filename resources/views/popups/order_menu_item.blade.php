@@ -50,10 +50,9 @@
                                            </div-->
                         @endif
                         @if ($has_bigImage)
-                            <div class="col-sm-12 col-xs-12 p-a-0 ctr">
+                            <div class="col-sm-12 col-xs-12 p-a-0 m-b-1 ctr">
 
-                                <img class="popimage_{{ $value->id }}" src="{{ $item_bigImage }}"
-                                     style="width:450px;height:450px;"/>
+                                <img style="max-width:100%;" class="popimage_{{ $value->id }}" src="{{ $item_bigImage }}" />
 
                             </div>
 
@@ -71,7 +70,7 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            <div class="col-md-12  p-t-1"><p>{{ $value->description }}</p></div>
+                                            <div class="col-md-12  p-b-0 p-t-0">{{ $value->description }}</div>
 
                                         </td>
                                     </tr>
@@ -221,7 +220,7 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="modal-footer m-t-1">
                 <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                    <button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset

@@ -28,7 +28,7 @@
     </div>
 @endif
 
-<div id="checkout_anchor"></div>
+
 
 <div class="" id="cartsz">
 
@@ -45,7 +45,7 @@
 
                 @include('common.items')
 
-                <div class="totals form-group" style=" width:100%;">
+                <div class="totals form-group p-t-1" style=" width:100%;">
                     <table style="width:100%">
                         <tbody>
                         @if(!isset($order))
@@ -145,7 +145,7 @@
                 <div class="profiles" style="display: none;">
 
                     <div class="form-group">
-                        <h4 class="profile_delevery_type"></h4>
+                        <h4  style="padding-top: 60px; margin-top: -60px;"  class="profile_delevery_type"></h4>
                     </div>
 
                     <!--div class="form-group ">
