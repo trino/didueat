@@ -110,8 +110,7 @@ if (!isset($checkout_modal)) {
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
-                            <td><strong>Delivery (${{ (isset($restaurant->minimum))? $restaurant->minimum : '' }}
-                                    min)</strong></td>
+                            <td><strong>Delivery</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>

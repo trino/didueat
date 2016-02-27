@@ -91,7 +91,7 @@
                                     @if(!$restaurant->is_pickup)
                                         <span class="list-inline-item"><strong>Delivery only</strong></span>
 
-2
+
 
                                     @endif
                                         <span class="list-inline-item">

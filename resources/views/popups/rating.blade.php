@@ -26,13 +26,13 @@
                                 </div>
                                 <div class="pull-left">
                                     <div class="form-group pull-right" id="display-rating-starts">
-                                        <div class="pull-left p-r-1">My Rating</div>
+                                        <div class="pull-left" style="padding-top:3px; padding-right:7px;">My Rating</div>
                                         <div class="pull-left">
                                             {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
                                         </div>
                                     </div>
                                 </div>
-                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error"></DIV>
+                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error" style="color: red;"></DIV>
                                 <DIV CLASS="clearfix"></DIV>
                                 <div class="pull-right">
                                     <button class="btn btn-primary pull-right">Save</button>

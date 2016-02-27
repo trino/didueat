@@ -36,7 +36,7 @@ if (is_object($count)) {
 }
 ?>
 
-<div class="list-group m-t-2" id="restuarant_bar">
+<div class="list-group" id="restuarant_bar">
     @if(isset($query) && $count > 0 && is_iterable($query))
         @foreach($query as $value)
             <?php

@@ -42,7 +42,7 @@
                 That's it!
 
                 <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f">
-                    <span id="readmore" style="text-decoration:underline; color: white;">...Read More</span>
+                    <span id="readmore" style="text-decoration:underline; color: white;font-weight: bold;">Read More</span>
                 </a>
 </span><br>
                 <span id="moreInfo" class="p-t-1" style="display:none">
