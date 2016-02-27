@@ -125,3 +125,5 @@ resources/views/popups/menu_form.blade_tempRename.php
 app/Http/Controllers/RestaurantController_backupFeb25.php
 app/Http/Controllers/AdministratorController_backupFeb25.php
 config/mail.php
+app/Http/Models/Restaurants_backupFeb27.php
+public/assets/images/checkbox_d2.png

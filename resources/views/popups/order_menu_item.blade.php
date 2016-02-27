@@ -49,11 +49,11 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
-                        @if (strpos($item_image, 'missing-icon.png') === false)
-                            <div class="col-sm-12 col-xs-12 p-a-0">
+                        @if ($has_bigImage)
+                            <div class="col-sm-12 col-xs-12 p-a-0 ctr">
 
-                                <img class="popimage_{{ $value->id }}" src="{{ $item_image }}"
-                                     style="max-width:100%;"/>
+                                <img class="popimage_{{ $value->id }}" src="{{ $item_bigImage }}"
+                                     style="width:450px;height:450px;"/>
 
                             </div>
 

@@ -22,19 +22,18 @@
                 <?php
 
                 
-                    $has_image = true;
-
-                    $item_image = asset('assets/images/big-menu-default.jpg');
-                    $item_image1 = asset('assets/images/icon-menu-default.jpg');
+                    $has_iconImage = false;
+                    $has_bigImage = false;
 
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
-                        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
-                        $has_image = true;
+                        $item_iconImg = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
+                        $has_iconImage = true;
                     }
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
-                        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
-                        $has_image = true;
+                        $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
+                        $has_bigImage = true;
                     }
+                    
 
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                     $min_p = get_price($value->id);
@@ -77,8 +76,8 @@
                                        class="card-link" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
-                                        @if($has_image)
-                                            <img src="{{ $item_image1 }}"
+                                        @if($has_iconImage)
+                                            <img src="{{ $item_iconImg }}"
                                                  class="img-rounded" style="height:32px;width:32px;"
                                                  alt="{{ $value->menu_item }}"/>
                                         @else

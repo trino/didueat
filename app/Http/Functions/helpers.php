@@ -1,6 +1,6 @@
 <?php
     define("MAX_DELIVERY_DISTANCE", 30);
-    define("TINY_THUMB", '32x32');
+    define("TINY_THUMB", '64x64');
     define("MED_THUMB", '165x165');
     define("BIG_SQ", '600x600');
 

@@ -6,6 +6,7 @@ $localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
 $latlngStr = "";
 $locationStr = "";
 $useCookie = false;
+$useHamilton = true;
 
 if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
     $Province = "";
@@ -33,6 +34,13 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
 } else {
     // get city [, province/state], and country from cookie or session, once implemented
 }
+
+if($useHamilton){
+ $City = "Hamilton";
+ $Province = "Ontario";
+ $Country = "Canada";
+}
+
 ?>
 
 
