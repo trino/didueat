@@ -150,7 +150,7 @@ if($useHamilton){
                                 <div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
-                                        <option value="">Genre</option>
+                                        <option value="">Cuisine</option>
                                         @foreach($cuisine as $value)
                                             <option>{{ $value->name }}</option>
                                         @endforeach

@@ -1,20 +1,20 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        }
+printfile("views/common/receipt.blade.php");
+$ordertype = "Pickup";
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
     }
-    if (!isset($profile)) {
-        $profile = false;
-    }
-    if (!isset($type)) {
-        $type = false;
-    }
-    if (!isset($checkout_modal)) {
-        $checkout_modal = true;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
+if (!isset($checkout_modal)) {
+    $checkout_modal = true;
+}
 ?>
 
 @if(false && !isset($order))
@@ -51,24 +51,36 @@
                         @if(!isset($order))
                             <tr>
                                 <td colspan="2">
-                                    <label class="radio-inline c-input c-radio">
-                                        <input type="radio"
-                                               id="delivery1"
-                                               name="delevery_type"
-                                               onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
-                                                >
-                                        <span class="c-indicator"></span>
-                                        <strong>Delivery</strong>
 
-                                    </label>
 
-                                    <label class="radio-inline c-input c-radio">
-                                        <input type="radio" id="pickup1" name="delevery_type"
-                                               class="deliverychecked"
-                                               onclick="delivery('hide'); $(this).addClass('deliverychecked');">
-                                        <span class="c-indicator"></span>
-                                        <strong>Pickup</strong>
-                                    </label>
+                                    @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
+
+                                        <label class="radio-inline c-input c-radio">
+                                            <input type="radio" id="pickup1" name="delevery_type"
+                                                   class="deliverychecked"
+                                                   onclick="delivery('hide'); $(this).addClass('deliverychecked');">
+                                            <span class="c-indicator"></span>
+                                            <strong>Pickup</strong>
+                                        </label>
+
+
+                                    @endif
+
+                                    @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
+
+
+                                        <label class="radio-inline c-input c-radio">
+                                            <input type="radio"
+                                                   id="delivery1"
+                                                   name="delevery_type"
+                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
+                                                    >
+                                            <span class="c-indicator"></span>
+                                            <strong>Delivery</strong>
+                                        </label>
+
+                                    @endif
+
                                 </td>
 
                             </tr>
@@ -128,8 +140,8 @@
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
 
                         @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
-                            <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
-                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                                <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
+                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
                         @endif
 
                     </div>
@@ -145,15 +157,15 @@
                 <div class="profiles" style="display: none;">
 
                     <div class="form-group">
-                        <h4  style="padding-top: 60px; margin-top: -60px;"  class="profile_delevery_type"></h4>
+                        <h4 style="padding-top: 60px; margin-top: -60px;" class="profile_delevery_type"></h4>
                     </div>
 
                     <!--div class="form-group ">
                         <div class="col-xs-12">
                             @if(\Session::has('is_logged_in'))
                     <?php
-                        $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                        echo "<p>Welcome " . $profile->name . "</p>";
+                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                    echo "<p>Welcome " . $profile->name . "</p>";
                     ?>
                     @endif
 
@@ -223,7 +235,7 @@
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
                             $(".reservation_address_dropdown .dropdown-item").filter(":selected").removeAttr("selected");
                             $('.reservation_address_dropdown').val(msg['id']);
-                            if(!ignoreone){
+                            if (!ignoreone) {
                                 ignoreone = true;
                                 addresschange("receipt");
                             } else {
@@ -245,18 +257,21 @@
     });
 
     $(document).ready(function () {
-        if (typeof validateform != "undefined") { 
-    // safe to use the function
+        if (typeof validateform != "undefined") {
+            // safe to use the function
 
-        validateform("profiles", {
-            phone: "phone required",
-            mobile: "phone",
-            reservation_address: "required",
-            @if(!read("id"))
-                email: "email required",
+            validateform("profiles", {
+                phone: "phone required",
+                mobile: "phone",
+                reservation_address: "required",
+                @if(!read("id"))
+                    email: "email required",
                 password: "required minlength 3",
-            @endif
-        });
+                @endif
+
+
+
+            });
         }
     });
 </script>

@@ -13,7 +13,7 @@
                 </button>
                 <h4 class="modal-title" id="viewDetailModel">
                     <?php echo $value->menu_item; ?>
-                    
+
                     @if($value->price>0)
                         @if($dis)
 
@@ -52,7 +52,8 @@
                         @if ($has_bigImage)
                             <div class="col-sm-12 col-xs-12 p-a-0 m-b-1 ctr">
 
-                                <img style="max-width:100%;" class="popimage_{{ $value->id }}" src="{{ $item_bigImage }}" />
+                                <img style="max-width:100%;" class="popimage_{{ $value->id }}"
+                                     src="{{ $item_bigImage }}"/>
 
                             </div>
 
@@ -70,7 +71,7 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2">
-                                            <div class="col-md-12  p-b-0 p-t-0">{{ $value->description }}</div>
+                                            <div class="col-xs-12  p-b-0 p-t-0">{{ $value->description }}</div>
 
                                         </td>
                                     </tr>
@@ -164,19 +165,7 @@
                                                                     </div>
 
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif
-
-                                                                    @if ($sub->sing_mul == '1')
-                                                                            col-md-12
-                                                                         @else
-                                                                            col-md-7
-                                                                       @endif
-                                                                            ">
-
-                                                                        @if($sub->sing_mul =='1')
-                                                                            <span class="c-indicator"></span>
-                                                                        @endif
-
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-12 p-l-0 @endif ">
 
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
@@ -185,11 +174,11 @@
                                                                                name="extra_{{ $sub->id }}"
                                                                                value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
 
-                                                                        {{ $mm->menu_item }}
+                                                                        @if($sub->sing_mul =='1')
+                                                                            <span class="c-indicator"></span>
+                                                                        @endif
 
-
-                                                                        <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
-
+                                                                        <span class="list-inline-item">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
 
 

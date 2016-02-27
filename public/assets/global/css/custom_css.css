@@ -80,6 +80,13 @@ label {
     background-repeat: no-repeat;
     background-position: center center;
 }
+.signup-bg-image {
+
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 
 .page-sidebar-menu, .sub-menu {
     list-style-type: none;
