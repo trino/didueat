@@ -39,9 +39,8 @@ a.anchor {
 }
 
 .alert {
-
     border-radius: 0px !important;
-
+    margin-bottom: 0 !important;
 }
 
 .btn-group-xs > .btn, .btn-xs {

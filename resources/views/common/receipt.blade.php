@@ -138,9 +138,16 @@ if (!isset($checkout_modal)) {
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
 
-                        @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
-                                <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        @if( $is_my_restro ==1)
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+                        @elseif($business_day && read("restaurant_id") == $restaurant->id  )
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+                            @endif
+                            @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
+                                    <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
+                            <!--a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a-->
                         @endif
 
                     </div>
@@ -160,8 +167,8 @@ if (!isset($checkout_modal)) {
                     </div>
 
                     <!--div class="form-group ">
-                        <div class="col-xs-12">
-                            @if(\Session::has('is_logged_in'))
+                <div class="col-xs-12">
+                    @if(\Session::has('is_logged_in'))
                     <?php
                     $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
                     echo "<p>Welcome " . $profile->name . "</p>";
@@ -172,6 +179,7 @@ if (!isset($checkout_modal)) {
                         </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
+
 
                     <form name="checkout_form" id="profiles" class="m-b-0">
                         @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
@@ -205,7 +213,7 @@ if (!isset($checkout_modal)) {
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
         $(".postal_code").val(thiss.getAttribute("POSTAL"));
-        //$("#ordered_notes").val(thiss.getAttribute("NOTES"));
+//$("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
 
     var ignoreone = false;
@@ -267,6 +275,8 @@ if (!isset($checkout_modal)) {
                     email: "email required",
                 password: "required minlength 3",
                 @endif
+
+
 
 
 

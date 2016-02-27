@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <a class="btn btn-primary-outline reserve_login" data-target="#loginModal"
                                            data-toggle="modal" onclick="checkout_login();">Log in</a>
-                                        <span class="reserve_login">or Sign Up:</span>
+                                        <span class="reserve_login">Or Sign Up Below:</span>
                                     </div>
                                 </div>
                             @endif
