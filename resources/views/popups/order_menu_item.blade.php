@@ -147,7 +147,7 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 col-sm-5 ">
+                                                                    } ?> class="pull-left p-a-0 col-xs-5 ">
 
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
@@ -165,7 +165,7 @@
                                                                     </div>
 
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-12 p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-7 p-l-0 @endif ">
 
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
