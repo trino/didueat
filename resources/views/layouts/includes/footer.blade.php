@@ -308,13 +308,16 @@ Thank you">Email Support</a></li>
             var reserv = $(this).attr('data-route');
             var token = $('#login-ajax-form input[name=_token]').val();
             $('#invalid').hide();
+            $('.overlay_loader').show();
             $.ajax({
                 //data retrieved from userscontroller@json_data
                 url: "{{ url('auth/login/ajax') }}",
                 data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
                 success: function (msg) {
+                    
                     if (isNaN(Number(msg))) {
+                        $('.overlay_loader').hide();
                         if (checkUrl(msg)) {
                             window.location = msg;
                         } else {
@@ -330,8 +333,9 @@ Thank you">Email Support</a></li>
                                 data: "id=" + msg + '&_token={{csrf_token()}}',
                                 dataType: "json",
                                 success: function (arr) {
-                                    if(arr.restaurant_id){
-                                        window.location = "{{ url("orders/list/restaurant") }}";
+                                    $('.overlay_loader').hide();
+                                    if(arr.restaurant_id && reserv != 'reservation'){
+                                        window.location = "{{ url('orders/list/restaurant') }}";
                                     } else {
                                         $('.reserve_login').hide();
                                         $('.reservation_address').show();
@@ -367,8 +371,10 @@ Thank you">Email Support</a></li>
                             window.location = "{{ url('dashboard') }}";
                         }
                     }
+                    
                 },
                 failure: function (msg) {
+                    $('.overlay_loader').hide();
                     $('#invalid').text("ERROR: " + msg);
                     $('#invalid').fadeIn(1000);
                 }
@@ -540,7 +546,7 @@ Thank you">Email Support</a></li>
         var rating_color = element.getAttribute("rating-color");
 
         $.ajax({
-            url: "{{ url("/ajax") }}",
+            url: "{{ url('/ajax') }}",
             type: "post",
             dataType: "HTML",
             data: "type=updatereview&targetid=" + target_id + "&rating_type=" + rating_type + "&rating_loadtype=" + rating_loadtype + "&rating_twolines=" + rating_twolines + "&rating_class=" + rating_class +  "&rating_button=" + rating_button + "&rating_starts=" + rating_starts + "&rating_color=" + rating_color,

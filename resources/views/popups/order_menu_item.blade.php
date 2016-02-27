@@ -13,7 +13,7 @@
                 </button>
                 <h4 class="modal-title" id="viewDetailModel">
                     <?php echo $value->menu_item; ?>
-                    8
+                    
                     @if($value->price>0)
                         @if($dis)
 
@@ -21,7 +21,7 @@
                             <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
 
                                ${{number_format($dis_price=$main_price,2)}}
-</span>
+                            </span>
                         @else
                             <span style="color:#0275d8">${{$dis_price=number_format($value->price,2)}}</span>
                         @endif
@@ -165,7 +165,7 @@
                                                                     </div>
 
 
-                                                                    <LABEL class=" changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1')  c-input c-radio @endif
 
                                                                     @if ($sub->sing_mul == '1')
                                                                             col-md-12
