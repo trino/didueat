@@ -23,8 +23,16 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
-                                Thank you for registering with Didu Eat. As a reminder, your login credentials have been included below:
-                                <br /><br />
+                                Thank you for registering with Didu Eat. We invite you to enjoy the convenience of ordering your food online -- with your computer, tablet or cellphone.                                                             
+                                @if(isset($restaurant_id))
+                                   <br/><br/>As a restaurant, there are a few quick tasks you need to complete before you are completely ready to sell your food with Didu Eat:<br/><br/>
+                   &bull; Pickup and/or delivery options (ie, minimum orders and delivery charge)<br/>
+                   &bull; Hours of operation<br/>
+                   &bull; At least one menu item must be added and enabled<br/>
+                   &bull; You may also wish to upload your restaurant's logo, although this is optional
+                                @endif                                
+                                <br/><br/>As a reminder, your login credentials have been included below:
+                                <br /><br />  
                                 <b>Login Email:</b> {{ $email }}
                                 <br />
                                 <b>Login Password:</b> {{ $password }}
@@ -39,11 +47,7 @@
                                     Thank You
                                     <br /><br />
                                 @endif
-                                
-                                @if(isset($restaurant_id))
-                                
-                                
-                                @endif
+
                                       
                                 Regards,
                                 <br />
