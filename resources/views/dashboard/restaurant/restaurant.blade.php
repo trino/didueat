@@ -182,18 +182,6 @@ if(!$minimum && isset($restaurant->id)){
 
     $(document).ready(function () {
 
-@if(!$minimum && isset($restaurant->id))
-
-           var pictureW=parseInt(document.getElementById('picture').clientWidth);
-           if(pictureW > 450){
-              var pictureH=parseInt(document.getElementById('picture').clientHeight);
-              var new_pictureH=450/pictureW*pictureH;
-              document.getElementById('picture').style.width=450+"px"
-              document.getElementById('picture').style.height=new_pictureH+"px";
-              document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
-           }
-@endif
-
         @if(!$minimum){
             is_delivery_change();
         }
@@ -242,29 +230,13 @@ if(!$minimum && isset($restaurant->id)){
                 var resp = response.split('___');
                 var path = resp[0];
                 var img = resp[1];
-                        var imgV = new Image();
-                        imgV.src = path;
-                        var imgW=0;
-                        imgV.onload = function() {
-                        var imgW=this.width;
-                        var imgH=this.height;
-	                       if(imgW > 500){
-	                         document.getElementById('picture').style.width="100%";
-                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
-	                        }
-	                        else{
-                          document.getElementById('fullSize').innerHTML="";
-	                         document.getElementById('picture').style.width=imgW+"px";
-	                         document.getElementById('picture').style.height=imgH+"px";
-	                        }
-                        }
-
+                
                 document.getElementById('restLogoTemp').value = path;
-                button.html('Browse');
-                document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
                 window.clearInterval(interval);
+                        document.getElementById(button_id).style.display="none";
+                        $('#picture').attr('src', "{{ asset('assets/images/spacer.gif') }}");
+                        document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
                 this.enable();
-                $('#picture').attr('src', path);
                 $('#hiddenLogo').val(img);
             }
         });

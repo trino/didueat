@@ -86,34 +86,12 @@ function ajaxuploadbtn(button_id, doc) {
             var resp = response.split('___');
             var path = resp[0];
             var img = resp[1];
-            
-            var imgV = new Image();
-            imgV.src = path;
-            var imgW=0;
-            imgV.onload = function() {
-                var imgW=this.width;
-                var imgH=this.height;
-                if(imgW > 500){
-                    document.getElementById('menuImage').style.width="100%";
-                    document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
-                } else{
-                    document.getElementById('fullSize').innerHTML="";
-                    document.getElementById('menuImage').style.width=imgW+"px";
-                    document.getElementById('menuImage').style.height=imgH+"px";
-                }
-            }
-
-
-            button.html('Change Image');
-            document.getElementById('browseMsg').innerHTML="&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
-
-            window.clearInterval(interval);
-            this.enable();
-            document.getElementById('menuImage').style.display="inline";
-            $('#menuImage').attr('src', path);
-            document.getElementById('hiddenimg').value = img;
-            
-
+                window.clearInterval(interval);
+                document.getElementById(button_id).style.display="none";
+                $('#menuImage').attr('src', base_url+"assets/images/spacer.gif");
+                document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
+                this.enable();
+                $('.hiddenimg').val(img);
 
         }
     });

@@ -514,7 +514,7 @@ class RestaurantController extends Controller {
 
     //add a menu item
     public function menuadd() {
-        
+    // for editing too
         \Session::flash('message', \Input::get('message'));
         $arr['uploaded_by'] = \Session::get('session_ID');
 

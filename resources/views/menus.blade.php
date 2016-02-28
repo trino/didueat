@@ -192,7 +192,7 @@ Order
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
                                            class="btn btn-sm btn-success-outline"
-                                           onclick="return confirm('This will delete the menu item. Do you wish to proceed?')"><i class="fa fa-times"></i></a>
+                                           onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
                                     </div>
 
                                 @endif

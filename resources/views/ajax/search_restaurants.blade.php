@@ -102,7 +102,7 @@ if (is_object($count)) {
                     <span  class="list-inline-item">
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </span>
-<br>
+                    <br>
                        <span class="list-inline-item">
                         Cuisine: {{ str_replace(",", ", ", $value["cuisine"]) }}
                     </span>
@@ -118,8 +118,8 @@ if (is_object($count)) {
                         @if(!$value["is_pickup"])
                             <span class="list-inline-item"><strong>Delivery only</strong></span>
                         @endif
-                            <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
-                            <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+                        <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
+                        <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
 
 
                     @elseif($value["is_pickup"])

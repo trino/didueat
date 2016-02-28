@@ -1921,7 +1921,7 @@ function datename($date){
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-                case "nostores": $Message = '<span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area'; break;
+                case "nostores": $Message = '<span class="bd"><span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area<span id="openClosed" class="smRd"></span></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
 

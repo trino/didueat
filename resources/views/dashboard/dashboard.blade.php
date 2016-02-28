@@ -27,7 +27,7 @@
                     <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a><div id="browseMsg" class="label smRd"></div>
 
 
-                    <input style="max-width:100%;" type="hidden" name="photo" id="hiddenLogo" value="small-{{ $user_detail->photo }}"/>
+                    <input type="hidden" name="photo" id="hiddenLogo"/>
                     <img style="max-width:100%;"  id="picture" class="logopic"
                          @if($user_detail->photo)
                          test="assets/images/users/{{ $user_detail->id . "/small-" . $user_detail->photo }}"
@@ -61,31 +61,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
     <script type="text/javascript">
         $(document).ready(function () {
            validateform("profileForm", {mobile: "phone required"});
-/*
-
-           var pictureW=parseInt(document.getElementById('picture').clientWidth);
-           if(pictureW > 450){
-              var pictureH=parseInt(document.getElementById('picture').clientHeight);
-              var new_pictureH=450/pictureW*pictureH;
-              document.getElementById('picture').style.width=450+"px"
-              document.getElementById('picture').style.height=new_pictureH+"px";
-              document.getElementById('fullSize').innerHTML="Full size image is "+pictureW+" x "+pictureH+" pixels";
-           }
-
-*/
 
             ajaxuploadbtn('uploadbtn');
 
@@ -96,48 +74,27 @@
                     action: act,
                     name: 'myfile',
                     data: {'_token': $('#profileForm input[name=_token]').val(), 'setSize': 'No'},
-                    onSubmit: function (file, ext) {
-                        button.text('Uploading...');
-                        this.disable();
-                        interval = window.setInterval(function () {
-                            var text = button.text();
-                            if (text.length < 13) {
-                                button.text(text + '.');
-                            } else {
-                                button.text('Uploading...');
-                            }
-                        }, 200);
-                    },
-                    onComplete: function (file, response) {
-                        //alert(response);return;
-                        var resp = response.split('___');
-                        var path = resp[0];
-                        var img = resp[1];
-/*
-
-                        var imgV = new Image();
-                        imgV.src = path;
-                        var imgW=0;
-                        imgV.onload = function() {
-                        var imgW=this.width;
-                        var imgH=this.height;
-	                       if(imgW > 500){
-	                         document.getElementById('picture').style.width="100%";
-                          document.getElementById('fullSize').innerHTML="Full size image is "+imgW+" x "+imgH+" pixels";
-	                        }
-	                        else{
-                          document.getElementById('fullSize').innerHTML="";
-	                         document.getElementById('picture').style.width=imgW+"px";
-	                         document.getElementById('picture').style.height=imgH+"px";
-	                        }
+                onSubmit: function (file, ext) {
+                    button.text('Uploading...');
+                    this.disable();
+                    interval = window.setInterval(function () {
+                        var text = button.text();
+                        if (text.length < 13) {
+                            button.text(text + '.');
+                        } else {
+                            button.text('Uploading...');
                         }
+                    }, 200);
+                },
+                onComplete: function (file, response) {
+                    var resp = response.split('___');
+                    var path = resp[0];
+                    var img = resp[1];
 
-*/
-
-                        document.getElementById('userPhotoTemp').value = path;
+                    document.getElementById('userPhotoTemp').value=path;
 //                        button.html('Browse');
-                        window.clearInterval(interval);
-                        document.getElementById(button_id).style.display="none";
+                    window.clearInterval(interval);
+                    document.getElementById(button_id).style.display="none";
                         $('#picture').attr('src', "{{ asset('assets/images/spacer.gif') }}");
                         document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>&#8594; </span>Remember to Click Save to Finish Uploading";
 //                        this.enable();
