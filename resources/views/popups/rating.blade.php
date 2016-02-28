@@ -24,19 +24,21 @@
                                 <div class="form-group">
                                     <textarea rows="4" placeholder="My Review" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
+                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error" style="color: red;"></DIV>
+
                                 <div class="pull-left">
                                     <div class="form-group pull-right" id="display-rating-starts">
-                                        <div class="pull-left p-r-1">My Rating</div>
+                                        <div class="pull-left" style="padding-top:3px; padding-right:7px;">Rating</div>
                                         <div class="pull-left">
                                             {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
                                         </div>
                                     </div>
                                 </div>
-                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error"></DIV>
-                                <DIV CLASS="clearfix"></DIV>
                                 <div class="pull-right">
                                     <button class="btn btn-primary pull-right">Save</button>
                                 </div>
+
+
                             @else
                                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
                             @endif

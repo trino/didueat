@@ -72,7 +72,7 @@ function checkout() {
 
         $('html, body').animate({
             scrollTop: $(".profiles").offset().top
-        }, 2000);
+        }, 1000);
         $('#checkoutModal').modal('show'); //show the modal
     }
 }

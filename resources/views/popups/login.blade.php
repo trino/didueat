@@ -21,7 +21,8 @@
                         <input type="hidden" name="type" id="login_type" value=""/>
                         <input type="hidden" name="gmt" id="gmt" class="gmt">
 
-                        <DIV id="invalid" class="alert alert-danger" style="display: none;"></DIV>
+                        <DIV id="invalid" class="alert alert-danger m-b-1" style="display: none;"></DIV>
+                        <DIV id="" class="cleafix" style=""></DIV>
 
                         <?= newrow(false, "Email", "", true); ?>
                         <input type="email" name="email" class="form-control" placeholder="" required/>

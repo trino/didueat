@@ -52,7 +52,7 @@ if($useHamilton){
             <div class="row text-md-center" style="  ">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow" style="">Order Online Specials<br>From Hamilton Restaurants</h1>
+                    <h1 class="banner-text-shadow" style="">Order Online Specials<br>From Local Restaurants</h1>
 
                     <div class="clearfix"></div>
 
@@ -66,11 +66,11 @@ if($useHamilton){
 
 
                 <div class="col-md-offset-3 text-xs-center col-md-6 ">
-                    <div class="text-xs-center" onclick="submitform(event, 0)"
-                         style="cursor:pointer">
+                    <div class="text-xs-center"
+                         style=""  onclick="submitform(event, 0);" >
 
                         <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
-                            or show me <a style="text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
+                            or show me <a style="cursor:pointer;text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
                         <div class="clearfix"></div>
                     </div>
@@ -150,7 +150,7 @@ if($useHamilton){
                                 <div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
-                                        <option value="">Genre</option>
+                                        <option value="">Cuisine</option>
                                         @foreach($cuisine as $value)
                                             <option>{{ $value->name }}</option>
                                         @endforeach

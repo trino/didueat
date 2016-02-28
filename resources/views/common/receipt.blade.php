@@ -1,20 +1,20 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        }
+printfile("views/common/receipt.blade.php");
+$ordertype = "Pickup";
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
     }
-    if (!isset($profile)) {
-        $profile = false;
-    }
-    if (!isset($type)) {
-        $type = false;
-    }
-    if (!isset($checkout_modal)) {
-        $checkout_modal = true;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
+if (!isset($checkout_modal)) {
+    $checkout_modal = true;
+}
 ?>
 
 @if(false && !isset($order))
@@ -28,7 +28,7 @@
     </div>
 @endif
 
-<div id="checkout_anchor"></div>
+
 
 <div class="" id="cartsz">
 
@@ -45,30 +45,42 @@
 
                 @include('common.items')
 
-                <div class="totals form-group" style=" width:100%;">
+                <div class="totals form-group p-t-1" style=" width:100%;">
                     <table style="width:100%">
                         <tbody>
                         @if(!isset($order))
                             <tr>
                                 <td colspan="2">
-                                    <label class="radio-inline c-input c-radio">
-                                        <input type="radio"
-                                               id="delivery1"
-                                               name="delevery_type"
-                                               onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
-                                                >
-                                        <span class="c-indicator"></span>
-                                        <strong>Delivery</strong>
 
-                                    </label>
 
-                                    <label class="radio-inline c-input c-radio">
-                                        <input type="radio" id="pickup1" name="delevery_type"
-                                               class="deliverychecked"
-                                               onclick="delivery('hide'); $(this).addClass('deliverychecked');">
-                                        <span class="c-indicator"></span>
-                                        <strong>Pickup</strong>
-                                    </label>
+                                    @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
+
+                                        <label class="radio-inline c-input c-radio">
+                                            <input type="radio" id="pickup1" name="delevery_type"
+                                                   class="deliverychecked"
+                                                   onclick="delivery('hide'); $(this).addClass('deliverychecked');">
+                                            <span class="c-indicator"></span>
+                                            <strong>Pickup</strong>
+                                        </label>
+
+
+                                    @endif
+
+                                    @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
+
+
+                                        <label class="radio-inline c-input c-radio">
+                                            <input type="radio"
+                                                   id="delivery1"
+                                                   name="delevery_type"
+                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
+                                                    >
+                                            <span class="c-indicator"></span>
+                                            <strong>Delivery</strong>
+                                        </label>
+
+                                    @endif
+
                                 </td>
 
                             </tr>
@@ -98,8 +110,7 @@
                             </td>
                         </tr>
                         <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df">
-                            <td><strong>Delivery (${{ (isset($restaurant->minimum))? $restaurant->minimum : '' }}
-                                    min)</strong></td>
+                            <td><strong>Delivery</strong></td>
                             <td>
                                 <div class="pull-right ">
                                     <span class="df">${{ (isset($order)) ? number_format($order->delivery_fee,2) :(isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}</span>
@@ -127,9 +138,16 @@
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
 
-                        @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
-                            <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
+                        @if( $is_my_restro ==1)
                             <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+                        @elseif($business_day && read("restaurant_id") == $restaurant->id  )
+                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+
+                            @endif
+                            @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
+                                    <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
+                            <!--a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a-->
                         @endif
 
                     </div>
@@ -145,15 +163,15 @@
                 <div class="profiles" style="display: none;">
 
                     <div class="form-group">
-                        <h4 class="profile_delevery_type"></h4>
+                        <h4 style="padding-top: 60px; margin-top: -60px;" class="profile_delevery_type"></h4>
                     </div>
 
                     <!--div class="form-group ">
-                        <div class="col-xs-12">
-                            @if(\Session::has('is_logged_in'))
+                <div class="col-xs-12">
+                    @if(\Session::has('is_logged_in'))
                     <?php
-                        $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                        echo "<p>Welcome " . $profile->name . "</p>";
+                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                    echo "<p>Welcome " . $profile->name . "</p>";
                     ?>
                     @endif
 
@@ -161,6 +179,7 @@
                         </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
+
 
                     <form name="checkout_form" id="profiles" class="m-b-0">
                         @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
@@ -194,7 +213,7 @@
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
         $(".postal_code").val(thiss.getAttribute("POSTAL"));
-        //$("#ordered_notes").val(thiss.getAttribute("NOTES"));
+//$("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
 
     var ignoreone = false;
@@ -223,7 +242,7 @@
                         $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
                             $(".reservation_address_dropdown .dropdown-item").filter(":selected").removeAttr("selected");
                             $('.reservation_address_dropdown').val(msg['id']);
-                            if(!ignoreone){
+                            if (!ignoreone) {
                                 ignoreone = true;
                                 addresschange("receipt");
                             } else {
@@ -245,18 +264,23 @@
     });
 
     $(document).ready(function () {
-        if (typeof validateform != "undefined") { 
-    // safe to use the function
+        if (typeof validateform != "undefined") {
+            // safe to use the function
 
-        validateform("profiles", {
-            phone: "phone required",
-            mobile: "phone",
-            reservation_address: "required",
-            @if(!read("id"))
-                email: "email required",
+            validateform("profiles", {
+                phone: "phone required",
+                mobile: "phone",
+                reservation_address: "required",
+                @if(!read("id"))
+                    email: "email required",
                 password: "required minlength 3",
-            @endif
-        });
+                @endif
+
+
+
+
+
+            });
         }
     });
 </script>

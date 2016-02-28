@@ -75,11 +75,12 @@ $secondsTitle = "sec";
                         </td>
                         <td>
                         @if(isset($resto[0]->name))
-                        <!--a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a-->
 
                            {{$value->ordered_by }}
+@else
+                                <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a>
 
-                        @endif
+                            @endif
                         </td>
                         <td>
 

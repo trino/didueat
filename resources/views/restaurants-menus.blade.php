@@ -25,7 +25,7 @@
     ?>
     <div class="card  m-b-0" style="border-radius:0 !important;">
         <div class="card-block ">
-            <div class="container" style="margin-top: 0 !important;">
+            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
                 <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
                 <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our
@@ -54,15 +54,15 @@
             <div class="col-md-8 col-xs-12 " style="">
                 @if(!$is_my_restro)
 
-<div class=" m-b-1">
-                    <div class="col-md-3 col-xs-3 p-l-0">
-                        <img style="max-width:100%;" class="pull-left img-rounded"
-                             @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
-                             @else
-                                src="{{ asset('assets/images/small-smiley-logo.png') }}"
-                             @endif
-                         alt="">
+                    <div class=" m-b-1">
+                        <div class="col-md-3 col-xs-3 p-l-0">
+                            <img style="max-width:100%;" class="pull-left img-rounded"
+                                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
+                                 @else
+                                 src="{{ asset('assets/images/small-smiley-logo.png') }}"
+                                 @endif
+                                 alt="">
 
 
                             <div class="clearfix"></div>
@@ -78,24 +78,35 @@
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                     <div class="clearfix"></div>
                                 </div>
-                    <span class="card-text m-b-0 p-r-2">
+                    <span class="card-text m-b-0 list-inline-item">
                     {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                         {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                         {!! (isset($restaurant->province))? 'ON':'' !!}
                         {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
                     </span>
 
+
                                 <div class="clearfix"></div>
-<span class="p-r-2">
+                                @if($restaurant->is_delivery)
+                                    @if(!$restaurant->is_pickup)
+                                        <span class="list-inline-item"><strong>Delivery only</strong></span>
 
-    <?  echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
-        </span>
-                            <span class="p-r-2">
 
-                      <?  echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
 
-    </span>
-                                <a class="" style="" class="clearfix" href="#" data-toggle="modal"
+                                    @endif
+                                        <span class="list-inline-item">
+<? echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
+</span>
+                                        <span class="list-inline-item">
+<? echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
+</span>
+
+                                @elseif($restaurant->is_pickup)
+                                    <span class="list-inline-item"><strong>Pickup only</strong></span>
+                                @endif
+
+
+                                <a class="list-inline-item" style="" class="clearfix" href="#" data-toggle="modal"
                                    data-target="#viewMapModel">More Details</a>
                                 </span>
 
@@ -210,7 +221,9 @@
                     if (distance > {{ $restaurant->max_delivery_distance }}) {
                         var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
-                            if(where == "addresscheck") { return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");}
+                            if (where == "addresscheck") {
+                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                        }
                         @endif
                         alert(message);
                         return false;
@@ -219,7 +232,7 @@
                     }
                     element.trigger("click");
                     return true;
-                } else if(where == "addresscheck") {
+                } else if (where == "addresscheck") {
                     alert("No address specified");
                     return false;
                 }
@@ -229,54 +242,54 @@
 
         function check_val(v) {
         }
-        
+
         Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
-                    var stripeResponseHandler = function(status, response) {
-                  //var $form = $('#payment-form');
-                    var $form = $('#profiles');
-                      if (response.error) {
-                        // Show the errors on the form
-                        $form.find('.payment-errors').text(response.error.message);
-                        $form.find('button').prop('disabled', false);
+        var stripeResponseHandler = function (status, response) {
+            //var $form = $('#payment-form');
+            var $form = $('#profiles');
+            if (response.error) {
+                // Show the errors on the form
+                $form.find('.payment-errors').text(response.error.message);
+                $form.find('button').prop('disabled', false);
+                $('.overlay_loader').hide();
+            } else {
+                // token contains id, last4, and card type
+                var token = response.id;
+                // Insert the token into the form so it gets submitted to the server
+                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+
+                // and re-submit
+
+                var token = $('#profiles input[name=_token]').val();
+                var datas = $('#profiles input, select, textarea').serialize();
+                var order_data = $('.receipt_main input').serialize();
+                //alert(order_data);
+                $.ajax({
+                    type: 'post',
+                    url: '<?php echo url(); ?>/user/ajax_register',
+                    data: datas + '&' + order_data + '&_token=' + token,
+                    success: function (msg) {
+                        msg = msg.trim();
                         $('.overlay_loader').hide();
-                      } else {
-                        // token contains id, last4, and card type
-                        var token = response.id;
-                        // Insert the token into the form so it gets submitted to the server
-                        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-                        
-                        // and re-submit
-                                 
-                    var token = $('#profiles input[name=_token]').val();
-                    var datas = $('#profiles input, select, textarea').serialize();
-                    var order_data = $('.receipt_main input').serialize();
-                    //alert(order_data);
-                    $.ajax({
-                        type: 'post',
-                        url: '<?php echo url(); ?>/user/ajax_register',
-                        data: datas + '&' + order_data + '&_token=' + token,
-                        success: function (msg) {
-                            msg = msg.trim();
-                            $('.overlay_loader').hide();
-                            if (msg == '1') {
-                                $('#ordered_email').focus();
-                                $('.email_error').show();
-                                $('.email_error').html('Email Already Registered.');
-    //$('.email_error').fadeOut(2000);
-                            } else if (msg == '6') {
-                                window.location = "{{url('orders/list/user?flash=1')}}";
-                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
-                            } else if (msg == '786') {
-                                window.location = "{{url('orders/list/user?flash=2')}}";
-                                $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
-                            } else {
-                                alert(msg);
-                            }
+                        if (msg == '1') {
+                            $('#ordered_email').focus();
+                            $('.email_error').show();
+                            $('.email_error').html('Email Already Registered.');
+                            //$('.email_error').fadeOut(2000);
+                        } else if (msg == '6') {
+                            window.location = "{{url('orders/list/user?flash=1')}}";
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
+                        } else if (msg == '786') {
+                            window.location = "{{url('orders/list/user?flash=2')}}";
+                            $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
+                        } else {
+                            alert(msg);
                         }
-                    })
-                        
-                      }
-                    };
+                    }
+                })
+
+            }
+        };
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -302,19 +315,17 @@
                 $('.receipt_main').show();
                 $('.profiles').hide();
             });
-            
+
             $('#profiles').submit(function (e) {
                 e.preventDefault();
                 $('.overlay_loader').show();
-               if($('.CC').is(':visible'))
-               {
+                if ($('.CC').is(':visible')) {
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
-                    
-                
-               }
-               else
-               {
-                    
+
+
+                }
+                else {
+
                     var token = $('#profiles input[name=_token]').val();
                     var datas = $('#profiles input, select, textarea').serialize();
                     var order_data = $('.receipt_main input').serialize();
@@ -330,7 +341,7 @@
                                 $('#ordered_email').focus();
                                 $('.email_error').show();
                                 $('.email_error').html('Email Already Registered.');
-    //$('.email_error').fadeOut(2000);
+                                //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
@@ -343,7 +354,7 @@
                         }
                     })
                 }
-                
+
             });
 
             $('.modal').on('shown.bs.modal', function () {

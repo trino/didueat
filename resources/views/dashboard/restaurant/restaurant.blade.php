@@ -50,7 +50,7 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     echo '</textarea>' . newrow();
 }
 echo '<DIV id="cuisinelist">';
-echo newrow($new, "Genres", "", true, 9, ' (Select up to 3)');
+echo newrow($new, "Cuisine", "", true, 9, ' (Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {
@@ -62,7 +62,7 @@ $cuisinesChkd = 0;
 $cuisineListA = $cuisine_list;
 sort($cuisineListA);
 foreach ($cuisineListA as $name) {
-    echo "<div class='cuisineCB col-sm-4'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
+    echo "<div class='cuisineCB col-sm-4 col-xs-6'><LABEL class='c-input c-checkbox'><input name='cuisine" . $cnt . "' type='checkbox' onclick='this.checked=chkCBs(this.checked)' value='" . $name . "'";
     if (isset($restaurant->cuisine)) {
         if (in_array($name, $cuisineExpl)) {
             echo " checked";
