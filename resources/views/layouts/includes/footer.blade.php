@@ -1,10 +1,9 @@
 <div class="container">
 
-    <hr class="m-y-2" />
 
-    <footer class="text-muted">
+    <footer class="text-muted card" style="border: 0 !important;">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-        <div class="row">
+        <div class="row card-block">
 
 
 

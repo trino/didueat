@@ -52,7 +52,7 @@ if($useHamilton){
             <div class="row text-md-center" style="  ">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow" style="">Order Online Specials<br>From Local Restaurants</h1>
+                    <h1 class="banner-text-shadow display-4" style="">Order Online Specials From Local Restaurants</h1>
 
                     <div class="clearfix"></div>
 

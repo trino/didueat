@@ -138,7 +138,7 @@ if (!isset($checkout_modal)) {
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
 
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
 
                         @if(read("restaurant_id") == $restaurant->id )
 

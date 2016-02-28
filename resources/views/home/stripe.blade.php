@@ -45,7 +45,7 @@
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="expiry">Expiry</label>
 	<div class="col-sm-4">
 		<div class="input-icon">
-			<SELECT aria-required="true" name="cardmonth" class="form-control lesspadding" data-stripe="exp-month">
+			<SELECT aria-required="true" name="cardmonth" class="form-control" data-stripe="exp-month">
 				<OPTION value="01">January</OPTION>
 				<OPTION value="02">February</OPTION>
 				<OPTION value="03">March</OPTION>
@@ -61,9 +61,9 @@
 			</SELECT>
 		</div>
 	</div>
-	<div class="col-sm-3 p-l-0">
+	<div class="col-sm-3">
 		<div class="input-icon">
-			<SELECT aria-required="true" name="cardyear" class="form-control lesspadding" data-stripe="exp-year">
+			<SELECT aria-required="true" name="cardyear" class="form-control" data-stripe="exp-year">
 				<?php
 					$current_year = date("Y");//2 digits
 					for($now = $current_year; $now < $current_year + 10; $now++){
