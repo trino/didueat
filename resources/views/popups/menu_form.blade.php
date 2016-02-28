@@ -1,5 +1,8 @@
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
-    <?php printfile("views/popups/menu_form.blade.php"); ?>
+<?php 
+  printfile("views/popups/menu_form.blade.php"); 
+  $browseBtnTxt="Upload Image";
+?>
 
     <div class=" ignore row">
         <div class="display:none;">
@@ -37,14 +40,15 @@
                         <img id="menuImage" class="ignore" 
                             @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
                             src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) ."?" . date('U') }}"/>
-                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" value="{{ $model->image }}" /> image
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" value="{{ $model->image }}" />
+                            <?php $browseBtnTxt="Browse";?>
                         @else
                        src="{{ asset('assets/images/spacer.gif') }}" style="display:none" />
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
                         @endif
                         <span id="fullSize" class="smallT"></span>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">Upload Image</a><div id="browseMsg" class="label smRd"></div>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">{{ $browseBtnTxt }}</a><div id="browseMsg" class="label smRd"> (Optional)</div>
                 </div>
             </div>
 
@@ -131,6 +135,7 @@
 
 
 <script>
+/*
 
 $(document).ready(function () {
     
@@ -147,6 +152,8 @@ $(document).ready(function () {
 @endif
     
     });
+
+*/
 
 
     $(function () {

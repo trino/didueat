@@ -135,3 +135,4 @@ public/assets/images/checkbox_d2.png
 resources/views/ajax/search_restaurants.blade_CurrentToRenameAfterPush.php
 resources/views/ajax/search_restaurants.blade_CurrentToRenameAfterPush.php
 app/Http/Models/Restaurants_backupFeb27.php
+public/assets/global/scripts/menu_manager_backupFeb28.js

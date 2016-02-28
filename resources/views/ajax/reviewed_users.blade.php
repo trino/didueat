@@ -8,7 +8,7 @@
                 <?php
                     $profile = select_field("profiles", "id", $value->user_id);
                     $logo_name = "default-avatar.jpg";
-                    $logo = $value->user_id . "/" . trim($profile->photo);
+                    $logo = $value->user_id . "/icon-" . trim($profile->photo);
                     if(trim($logo)){
                         $logo_name = $logo;
                     }

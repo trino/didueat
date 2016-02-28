@@ -46,6 +46,7 @@ class AdministratorController extends Controller {
                 }
 
                 $update=$post;
+                $addlogo='';
                 if (isset($post['userPhotoTemp']) && $post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
                     $ext = end($im);
@@ -92,19 +93,23 @@ class AdministratorController extends Controller {
                     copyimages($sizes, $filename, $newName, true);
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
                     $post['photo'] = $newName;
+                    $addlogo=true;
                 }
 
                 //copy post data to an array
                 $data['subscribed'] = 0;
-                foreach(array('name','phone','mobile','status','photo','subscribed') as $field){
+                foreach(array('name','phone','mobile','status','photo','subscribed') as $key => $field){
                     if(isset($post[$field])){
+                       if($key == "photo" && $post[$field] == ""){
+                        continue;
+                       }
                         $data[$field] = $post[$field];
                     }
                 }
 
                 $data['subscribed'] = (isset($post['subscribed'])) ? 1 : 0;
                 //save the array to the database
-                $ob->populate($data);
+                $ob->populate($data,$addlogo);
                 $ob->save();
 
                 event(new \App\Events\AppEvents($ob, "Profile Updated"));//log event
