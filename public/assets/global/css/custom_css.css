@@ -472,11 +472,15 @@ body {
 
 .lnk{text-decoration:underline;color:#00f;font-size:16px;line-height:90% !important;}
 
+.up7{margin:0px;position:relative;top:-7px;margin-bottom:-7px;font-weight:bold}
+
 .smRd{font-size:14px;color:#f00;font-weight:normal}
 
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
 
 .smallT{font-size:12px;line-height:14px;margin-top:3px}
+
+.grayout{filter: alpha(opacity=50);opacity: 0.5;}
 
 .cuisineCB{
 

@@ -156,7 +156,7 @@ class Restaurants extends BaseModel {
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
         $query = "";
         $limit = "";
-        $order = " ORDER BY distance";
+        $order = " ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE is_complete = '1'";// AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {
@@ -194,23 +194,25 @@ class Restaurants extends BaseModel {
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
-        $hours = " AND ((today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
-        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open))";
-        $where .= str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
-        
-$where="";// testing return of all regardless of open/closed status, which is impt with few restaurants (to show restos, even if closed)
+        $hours = " (today_open != today_close AND (today_close > today_open AND today_open < now AND today_close > now) OR (today_close < today_open AND today_open < now)) ";
+        $hours .= " OR (today_open > now AND yesterday_close > now AND yesterday_close != yesterday_open)";
+        $openedRestCondn = str_replace(array("now", "open", "close", "midnight", "today", "yesterday"), array("'" . $now . "'", $open, $close, "00:00:00", $DayOfWeek, $Yesterday),  $hours);
+        $asopenedRest = "IF(".$openedRestCondn.",1,0) as openedRest";
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
         $data['radius']=iif(debugmode(), 300, "max_delivery_distance");
         if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
-            $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants $where HAVING distance <= " . $data['radius'];
+            $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
             $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where;
         }
+        
         $SQL .= $order . $limit;
+        
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
+//        debugprint(json_decode(json_encode($query),true));
         return json_decode(json_encode($query),true);
     }
 

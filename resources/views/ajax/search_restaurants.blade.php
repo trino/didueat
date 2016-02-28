@@ -33,12 +33,21 @@
         echo "Count should not be an object!!!";
         return;
     }
+    
 ?>
 
 <div class="list-group m-t-2" id="restuarant_bar">
-    @if(isset($query) && $count > 0 && is_iterable($query))
-        @foreach($query as $value)
-            <?php
+
+<?php
+    
+    $totalCnt=0;
+    $openCnt=0;
+    $closedCnt=0;
+    $openStr="";
+    $closedStr="";
+
+    if(isset($query) && $count > 0 && is_iterable($query)){
+        foreach($query as $value){
                 $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/small-' . $value['logo'] : 'small-smiley-logo.png';
                 $value['tags'] = str_replace(",", ", ", $value['tags']);
                 $Modes = array();
@@ -49,7 +58,7 @@
                     $Pickup_enable = "Pickup";
                 }
 
-                $Modes = implode(", ", $Modes);
+                $Modes = implode(", ", $Modes); // why do this if it's empty?
 
                 if(!isset($delivery_type)){
                     $delivery_type = "is_pickup";
@@ -59,9 +68,15 @@
                 $open = offsettime($value[$Day . "_open" . $key], $difference);
                 $close = offsettime($value[$Day . "_close" . $key], $difference);
                 $is_open = $open <= $user_time && $close >= $user_time;
+                $openedRest = $value['openedRest'];
+                
+                ($openedRest == 0)? $grayout=" grayout" : $grayout="";
+                
+ob_start();
+                
             ?>
 
-            <div class="list-group-item">
+            <div class="list-group-item{{ $grayout }}">
 
 
 
@@ -80,12 +95,6 @@
                         <h4 style="color: #0275d8;">{{ $value['name'] }}
 
 
-
-
-
-
-
-
                                 <div class="pull-right">
 
 
@@ -93,27 +102,16 @@
 
                                         Order Online
 
-
                                     </a>
 
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                        </h4>
+                            </h4>
                     </a>
 
 <div  class="clearfix"></div>
                     <div>
+                            @if($openedRest != 1)
+                                <div class="smallT up7"> (Currently Closed)</div>
+                            @endif
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                     </div>
                     <div class="clearfix">
@@ -153,10 +151,77 @@
                 <div class="clearfix"></div>
 
             </div>
+            
+<?php
+               
+ if(isset($is_open) && $is_open == 1){
+   $openStr.="\n<br/>".ob_get_contents();
+ }
+ else{
+   $closedStr.="\n<br/>".ob_get_contents();
+ }
+ 
+ ob_end_clean();
+  
+ // move counter outside buffer
+  $totalCnt++;
+  if(isset($openedRest) && $openedRest == 1){
+   $openCnt++;
+  }
+  else{
+   $closedCnt++;
+  }
 
-        @endforeach
-    @endif
+
+  }
+}
+?>
+
+
+<?php
+
+		if($openStr != ""){
+		 echo $openStr;
+		}
+
+	 if($openStr != "" && $closedStr != ""){
+		  echo '<hr width="100%" align="center" color="#000" /><h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
+		 echo $closedStr;
+	 }
+
+
+?>
+
+
 </div>
+
+<script>
+
+<?php 
+
+echo "
+var totalCnt=".$totalCnt.";
+var openCnt=".$openCnt.";
+var closedCnt=".$closedCnt.";"; 
+
+?>
+
+var openCntMsg="";
+var closedCntMsg="";
+var spBR="<br/>";
+if(openCnt != totalCnt){
+			if(openCnt < totalCnt && closedCnt < totalCnt){
+    spBR=" ";
+			 openCntMsg=openCnt+" open";
+			 closedCntMsg=" and "+closedCnt+" closed";
+			}
+			else if(closedCnt == totalCnt){
+			 closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the Did U Eat restaurants in your area, and place your order when they are open";
+			}
+
+			document.getElementById('openClosed').innerHTML=spBR+"("+openCntMsg+closedCntMsg+")";
+}
+</script>
 
 <div id="loadMoreBtnContainer">
     @if($hasMorePage > 0)
