@@ -138,16 +138,13 @@ if (!isset($checkout_modal)) {
 
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
-                        <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
+                        @if($is_my_restro || $business_day)
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
+                        @else
+                            <a href="javascript:void(0)" class="btn btn-danger">Closed</a>
+                        @endif
 
-                        @if( $is_my_restro ==1)
-                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
-
-                        @elseif($business_day && read("restaurant_id") == $restaurant->id  )
-                            <a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a>
-
-                            @endif
-                            @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
+                        @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
                                     <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
                             <!--a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a-->
                         @endif

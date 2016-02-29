@@ -18,7 +18,7 @@
 
     $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant);
     if (!$business_day) {
-        popup(false, $restaurant->name . " is currently closed", "Oops");
+        //popup(false, $restaurant->name . " is currently closed", "Oops");
     }
 
     if($is_my_restro){
@@ -28,8 +28,7 @@
             <div class="container" style="margin-top: 0 !important;padding:0 !important;">
                 <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
-                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our
-                    system.</p>
+                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with oursystem.</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
@@ -90,16 +89,14 @@
                                 @if($restaurant->is_delivery)
                                     @if(!$restaurant->is_pickup)
                                         <span class="list-inline-item"><strong>Delivery only</strong></span>
-
-
-
                                     @endif
-                                        <span class="list-inline-item">
-<? echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
-</span>
-                                        <span class="list-inline-item">
-<? echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
-</span>
+                                    <span class="list-inline-item">
+                                        <? echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
+                                    </span>
+
+                                    <span class="list-inline-item">
+                                        <? echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
+                                    </span>
 
                                 @elseif($restaurant->is_pickup)
                                     <span class="list-inline-item"><strong>Pickup only</strong></span>
