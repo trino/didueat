@@ -268,10 +268,10 @@
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
                         msg = msg.trim();
-                        $('.overlay_loader').hide();
                         $('#chkOut').removeAttr('disabled');
                         if (msg == '1') {
                             $('#ordered_email').focus();
+                            $('.overlay_loader').hide();
                             $('.email_error').show();
                             $('.email_error').html('Email Already Registered.');
                             //$('.email_error').fadeOut(2000);
@@ -323,9 +323,7 @@
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
 
 
-                }
-                else 
-                {
+                } else {
 
                     var token = $('#profiles input[name=_token]').val();
                     var datas = $('#profiles input, select, textarea').serialize();
@@ -337,10 +335,10 @@
                         data: datas + '&' + order_data + '&_token=' + token,
                         success: function (msg) {
                             msg = msg.trim();
-                            $('.overlay_loader').hide();
                             $('#chkOut').removeAttr('disabled');
                             if (msg == '1') {
                                 $('#ordered_email').focus();
+                                $('.overlay_loader').hide();
                                 $('.email_error').show();
                                 $('.email_error').html('Email Already Registered.');
                                 //$('.email_error').fadeOut(2000);

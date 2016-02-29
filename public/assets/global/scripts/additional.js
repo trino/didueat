@@ -201,7 +201,7 @@ $('.savebtn').live('click', function () {
         if($(this).is(':checked')) {
             if($rad.find('.itemno').val()=='') {
                 $rad.find('.itemno').attr('style','border:1px solid red');
-                 alert('Please select number of selection');
+                alert('Please select number of selection');
                 $('.overlay_loader').hide();
                 $('html,body').animate({scrollTop: $rad.find('.itemno').offset().top}, 'slow');
                 $rad.find('.itemno').focus();
