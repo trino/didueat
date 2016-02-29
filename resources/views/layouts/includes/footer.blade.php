@@ -1,7 +1,7 @@
 <div class="container">
 
 
-    <footer class="text-muted card" style="border: 0 !important;">
+    <footer class="text-muted card list-group-item" style="border: 0 !important;">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row card-block">
 

@@ -68,7 +68,7 @@
                 $open = offsettime($value[$Day . "_open" . $key], $difference);
                 $close = offsettime($value[$Day . "_close" . $key], $difference);
                 $is_open = $open <= $user_time && $close >= $user_time;
-                $openedRest = $value['openedRest'];
+              $openedRest = $value['openedRest'];
                 
                 ($openedRest == 0)? $grayout=" grayout" : $grayout="";
                 
