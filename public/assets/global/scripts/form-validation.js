@@ -363,12 +363,9 @@ function add_checkphone() {
 }
 
 function validateform(formID, rules){
-    unvalidateform(formID);
+    $("#" + formID).removeData('validate');
     add_all(true, true);
     $("#" + formID).validate(makerules(rules));
-}
-function unvalidateform(formID){
-    $("#" + formID).removeData('validate');
 }
 
 function makerules(validation){

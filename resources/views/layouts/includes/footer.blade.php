@@ -360,9 +360,8 @@ Thank you">Email Support</a></li>
                                         $('.password_reservation').hide();
                                         $('.password_reservation').removeAttr('required');
 
-                                        validateform("profiles", {
-                                            reservation_address: "required"
-                                        });
+                                        $('#ordered_email').rules('remove');
+                                        validateform("profiles", {reservation_address: "required"});//phone, mobile, password, email
                                     }
                                 }
                             });

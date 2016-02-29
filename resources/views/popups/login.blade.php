@@ -75,7 +75,7 @@
             if(getCookie("login-email")){
                 $("#login-email").val(getCookie("login-email"));
                 $("#login-password").val(getCookie("login-password"));
-                $('form#login-ajax-form').submit();
+                //$('form#login-ajax-form').submit();
             }
         });
     </SCRIPT>
