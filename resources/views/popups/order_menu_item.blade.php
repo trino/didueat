@@ -1,5 +1,5 @@
 <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
-
+ 
 <div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
      tabindex="-1"
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
