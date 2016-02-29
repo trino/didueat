@@ -51,9 +51,6 @@ class Restaurants extends BaseModel {
         if(!is_object($restaurant)) {
             $restaurant = select_field("restaurants", "id", $restaurant);
         }
-
-        if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
-
         if(!isset($restaurant->id) || !$restaurant->id){return false;}//new stores can't open anyway
 
         $weekdays = getweekdays();
@@ -75,6 +72,7 @@ class Restaurants extends BaseModel {
         }
         if($update_database && !$restaurant->is_complete){
             edit_database("restaurants", "id", $restaurant->id, array("is_complete" => true));
+            app('App\Http\Controllers\OrdersController')->emailstore($restaurant->id, "Your restaurant is now open");
         }
         return true;
     }
@@ -225,9 +223,10 @@ class Restaurants extends BaseModel {
         if($this->is_complete) {
             $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
             if(!$Was_Complete){
-                $message = "Your restaurant is now open";
-                app('App\Http\Controllers\OrdersController')->emailstore($this->id, $message);
-                $this->flash(true, $message, "Success!");
+                $this->is_complete=false;
+                $this->restaurant_opens($this, true);
+                $this->is_complete=true;
+                $this->flash(true, "Your restaurant is now open", "Success!");
                 $ret=true;
             }
         }
