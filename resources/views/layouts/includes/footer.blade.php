@@ -325,7 +325,7 @@ Thank you">Email Support</a></li>
                             $('#invalid').fadeIn(500);
                         }
                     } else {
-                        if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
+                        //if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
                             $.ajax({
                                 url: "{{url('/user/json_data')}}",
                                 type: "post",
@@ -333,7 +333,8 @@ Thank you">Email Support</a></li>
                                 dataType: "json",
                                 success: function (arr) {
                                     $('.overlay_loader').hide();
-                                    if(arr.restaurant_id && reserv != 'reservation'){
+                                    reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
+                                    if(arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants'){
                                         window.location = "{{ url('orders/list/restaurant') }}";
                                     } else {
                                         $('.reserve_login').hide();
@@ -365,9 +366,9 @@ Thank you">Email Support</a></li>
                                     }
                                 }
                             });
-                        } else {
-                            window.location = "{{ url('dashboard') }}";
-                        }
+                        //} else {
+                        //   window.location = "{{ url('dashboard') }}";
+                        //}
                     }
                     
                 },
