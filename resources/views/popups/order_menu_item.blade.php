@@ -210,7 +210,7 @@
             </div>
 
             <div class="modal-footer m-t-1">
-                <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary btn-sm pull-left" data-dismiss="modal">Cancel</button>
                                    <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
