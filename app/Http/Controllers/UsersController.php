@@ -346,7 +346,7 @@ class UsersController extends Controller {
                 //if the user is not logged in and specified a password, make a new user
                 if (!\Session::has('session_id') && (isset($post['password']) && $post['password'] != '')) {
                     if (\App\Http\Models\Profiles::where('email', $post['email'])->first()) {
-                        echo '1yyb';
+                       // echo '1yyb';
                         die();
                     } else {
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
@@ -356,9 +356,9 @@ class UsersController extends Controller {
                         {
                             
                             if(isset($post["stripeToken"]) && $post["stripeToken"]){
-                                if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total']->g_total)) {
+                                if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
                                     $this->success("Your order has been paid.");
-                                    $data['order']->paid = 1;
+                                 //   $data['order']->paid = 1;
                                 }else {
                                     $this->failure("Your order has <B>NOT</B> been paid.");
                                 }
