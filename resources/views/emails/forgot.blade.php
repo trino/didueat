@@ -32,6 +32,6 @@
                     <!-- // END TEMPLATE --></td>
             </tr>
         </table>
-        
+        @include("emails.footer")
     </body>
 </html>

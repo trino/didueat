@@ -28,7 +28,7 @@
                             </td>
                         </tr>
                     </table>
-
+                    @include("emails.footer")
                     <!-- // END TEMPLATE --></td>
             </tr>
         </table>

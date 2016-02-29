@@ -29,6 +29,6 @@
             </div>
             <div class="clearfix"></div>
         </div>
-
+        @include("emails.footer")
     </body>
 </html>

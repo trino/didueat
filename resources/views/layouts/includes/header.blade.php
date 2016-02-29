@@ -65,4 +65,14 @@
     }
 
     var AreaCodes = [{{  implode(", ", $AreaCodes) }}];
+
+    $( document ).ready(function() {
+        switch (window.location.hash){
+            @if(!read("id"))
+                case "#login":
+                        $('.reserve_login').trigger("click");
+                    break;
+            @endif
+        }
+    });
 </SCRIPT>
