@@ -122,14 +122,14 @@
                         $opentime = "";
                         $closetime = "";
                     }
-                    $closed .= '> Open<span class="c-indicator"></span></LABEL>';
+                    $closed .= '> Open<span class="c-indicator"></span>';
                 }
                 ?>
         <div class="clearfix" style="">
             <hr />
         </div>
                     <div class="form-group row" style="">
-                        <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div>
+                        <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div></LABEL>
                         <div class="col-xs-8 col-md-4 {{ $del_class }}">
 
                             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
@@ -224,10 +224,10 @@
     }
 
     function change(type, id) {
-        if (document.getElementById("samehours").checked) {
+        /*if (document.getElementById("samehours").checked) {
             var value = document.getElementById(type + "[" + id + "]").value;
             document.getElementById(type + "_del[" + id + "]").value = value;
-        }
+        }*/
     }
 
     function same(event) {
