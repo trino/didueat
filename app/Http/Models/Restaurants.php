@@ -158,8 +158,7 @@ class Restaurants extends BaseModel {
         $limit = "";
         if($ReturnSQL){
           $order = " ORDER BY distance";      
-        }
-        else{
+        } else{
           $order = " ORDER BY openedRest desc, distance";
         }
         $limit = " LIMIT $start, $per_page";
@@ -226,7 +225,9 @@ class Restaurants extends BaseModel {
         if($this->is_complete) {
             $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
             if(!$Was_Complete){
-                $this->flash(true, "Your restaurant is now open", "Success!");
+                $message = "Your restaurant is now open";
+                app('App\Http\Controllers\OrdersController')->emailstore($this->id, $message);
+                $this->flash(true, $message, "Success!");
                 $ret=true;
             }
         }

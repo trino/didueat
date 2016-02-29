@@ -233,7 +233,9 @@
 
 
 
-
+        public function emailstore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter"){
+            $this->notifystore($RestaurantID, $Message, $EmailParameters, $EmailTemplate, false, true, false, false);
+        }
         //will notify every user belonging to the restaurant via their notification addresses
         //if no notification addresses are found, it will fall back to the restaurant's email address
         //$RestaurantID = the restaurant to notify
@@ -241,9 +243,10 @@
         //$EmailParameters = any extra parameters to be passed to the email template
         //$EmailTemplate = the email template to use, defaults to the newsletter as it just sends the message
         //$IncludeVan = If "call", calls Van. If any other value (except false) it sends an SMS to Van (only works on live site)
+        //$Emails/$Calls/$SMS = enable/disable that type of notification method
         //returns a multidimensional array, first dimension = type of address ("email", "sms", "call", "total"), second dimension = addresses contacted, except for total which is the sum of all 3 types
         //example usage outside of this controller: app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
-        public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false) {
+        public function notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
             $NotificationAddresses = \DB::select('SELECT * FROM notification_addresses LEFT JOIN profiles ON notification_addresses.user_id=profiles.id WHERE profiles.restaurant_id = ' . $RestaurantID);
             $EmailParameters["body"] = $Message;
             if (!isset($EmailParameters["mail_subject"])) {
@@ -257,21 +260,25 @@
                 if ($NotificationAddress->address) {
                     $NotificationAddress->address = trim($NotificationAddress->address);
                     if ($NotificationAddress->type == "Email") {
-                        $EmailParameters['name'] = $NotificationAddress->name;
-                        $EmailParameters["email"] = $NotificationAddress->address;
-                        $this->sendEMail($EmailTemplate, $EmailParameters);
-                        $ret["email"][] = $NotificationAddress->address;
+                        if($Emails) {
+                            $EmailParameters['name'] = $NotificationAddress->name;
+                            $EmailParameters["email"] = $NotificationAddress->address;
+                            $this->sendEMail($EmailTemplate, $EmailParameters);
+                            $ret["email"][] = $NotificationAddress->address;
+                        }
                     } else if ($NotificationAddress->is_sms) {
-                        $this->sendSMS($NotificationAddress->address, $Message);
-                        $ret["sms"][] = $NotificationAddress->address;
-                    } else {
+                        if($SMS) {
+                            $this->sendSMS($NotificationAddress->address, $Message);
+                            $ret["sms"][] = $NotificationAddress->address;
+                        }
+                    } else if ($Calls) {
                         $this->sendSMS($NotificationAddress->address, $CallMessage, true);
                         $ret["call"][] = $NotificationAddress->address;
                     }
                     $ret["total"] = $ret["total"] + 1;
                 }
             }
-            if (!$ret["total"]) {//emergency fallback email
+            if (!$ret["total"] && $Emails) {//emergency fallback email
                 $restaurant = \App\Http\Models\Restaurants::find($RestaurantID);
                 $EmailParameters['name'] = $restaurant->name;
                 $EmailParameters['email'] = $restaurant->email;
