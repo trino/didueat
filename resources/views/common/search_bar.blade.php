@@ -34,8 +34,8 @@
                    onchange="change_address_event();"
                    onfocus="hideresults();"
                    onpaste="this.onchange();">
-            <input type="HIDDEN" name="latitude" id="latitude">
-            <input type="HIDDEN" name="latitude" id="longitude">
+            <input type="HIDDEN" name="latitude" id="latitude" value="{{ (isset($latHam))? $latHam : '' }}">
+            <input type="HIDDEN" name="latitude" id="longitude" value="{{ (isset($lonHam))? $lonHam : '' }}">
       <span class="input-group-btn">
 
                 <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button"

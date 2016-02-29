@@ -138,7 +138,7 @@
 
 
                         <div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:95%;">
-                            Please review your order before proceeding!
+                            Review your order before proceeding!
                         </div>
 
                         <div class="col-xs-12 p-t-1">

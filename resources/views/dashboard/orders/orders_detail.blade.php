@@ -31,8 +31,7 @@
                         </div>
 
 
-                        <div class="col-md-6 card">
-                        <div class="">
+                        <div class="col-md-6">
 
 
 
@@ -82,7 +81,6 @@
 
 
 
-                        </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>

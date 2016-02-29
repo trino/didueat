@@ -55,27 +55,21 @@
                 @if(!$is_my_restro)
 
                     <div class=" m-b-1">
+                        <div class="col-md-3 col-xs-3 p-l-0">
+                            <img style="max-width:100%;" class="pull-left img-rounded"
+                                 @if(isset($restaurant->logo) && !empty($restaurant->logo))
+                                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
+                                 @else
+                                 src="{{ asset('assets/images/small-smiley-logo.png') }}"
+                                 @endif
+                                 alt="">
 
 
+                            <div class="clearfix"></div>
+                        </div>
 
-
-                        <div class="list-group-item">
-                            <div class="col-md-3 col-xs-3 p-l-0">
-
-                                <img style="max-width:100%;" class="img-rounded"
-                                     @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                     src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
-                                     @else
-                                     src="{{ asset('assets/images/small-smiley-logo.png') }}"
-                                     @endif
-                                     alt="">
-
-
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="col-md-9 p-a-0" style="">
-
-
+                        <div class="col-md-9 p-a-0" style="">
+                            <div class="">
                                 <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                                 </h2>
@@ -83,9 +77,7 @@
                                 <div id="restaurant_rating">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                     <div class="clearfix"></div>
-                                </div>                                <div class="clearfix"></div>
-
-
+                                </div>
                     <span class="card-text m-b-0 list-inline-item">
                     {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                         {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
@@ -102,10 +94,10 @@
 
 
                                     @endif
-                                    <span class="list-inline-item">
+                                        <span class="list-inline-item">
 <? echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
 </span>
-                                    <span class="list-inline-item">
+                                        <span class="list-inline-item">
 <? echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
 </span>
 
@@ -118,18 +110,9 @@
                                    data-target="#viewMapModel">More Details</a>
                                 </span>
 
-
-                                <div class="clearfix"></div>
-
                             </div>
-                            <div class="clearfix"></div>
-
                         </div>
-
-
-
-
-
+                        <div class="clearfix"></div>
                     </div>
 
                 @endif

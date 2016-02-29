@@ -1,5 +1,5 @@
 <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
-
+ 
 <div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
      tabindex="-1"
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
@@ -147,7 +147,7 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 col-xs-5 ">
+                                                                    } ?> class="pull-left p-a-0 col-sm-5 ">
 
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
@@ -165,7 +165,7 @@
                                                                     </div>
 
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-7 p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-12 p-l-0 @endif ">
 
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
@@ -210,7 +210,7 @@
             </div>
 
             <div class="modal-footer m-t-1">
-                <button type="button" class="btn btn-secondary pull-left  btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary pull-left" data-dismiss="modal">Cancel</button>
                                    <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->

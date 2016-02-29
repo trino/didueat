@@ -1,12 +1,13 @@
 <?php
 $first = false;
 $type = "hidden";
-$localIPTst = $_SERVER['REMOTE_ADDR'];
-$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
 $latlngStr = "";
 $locationStr = "";
 $useCookie = false;
 $useHamilton = true;
+/*
 
 if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
     $Province = "";
@@ -35,10 +36,18 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
     // get city [, province/state], and country from cookie or session, once implemented
 }
 
+*/
+
 if($useHamilton){
- $City = "Hamilton";
- $Province = "Ontario";
- $Country = "Canada";
+    $City = "Hamilton";
+    $Province = "Ontario";
+    $Country = "Canada";
+    $latHam="43.2566983";
+    $lonHam="-79.8690719";
+    $loc="43.2566983,-79.8690719";
+}
+else{
+    $loc=$details->loc;
 }
 
 ?>
@@ -49,19 +58,19 @@ if($useHamilton){
 
     <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image" style="">
         <div class="container " style="margin-top: 0 !important;">
-            <div class="row  text-md-center" style="padding-left: 1.25rem !important;padding-right: 1.25rem !important;">
+            <div class="row text-md-center" style="  ">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow display-4" style="">Order Online Specials From Local Restaurants</h1>
+                    <h1 class="banner-text-shadow" style="">Order Online Specials<br>From Local Restaurants</h1>
 
                     <div class="clearfix"></div>
 
                 </div>
 
-                    <div class="col-md-offset-3  col-md-6 text-md-center">
-                        @include('common.search_bar')
-                    </div>
-                    <div class="clearfix"></div>
+                <div class="col-md-offset-3  col-md-6 text-md-center">
+                    @include('common.search_bar')
+                </div>
+                <div class="clearfix"></div>
 
 
 
@@ -69,7 +78,7 @@ if($useHamilton){
                     <div class="text-xs-center"
                          style=""  onclick="submitform(event, 0);" >
 
-                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
+                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $loc }}">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
                         <div class="clearfix"></div>
@@ -373,34 +382,35 @@ if($useHamilton){
             var token = $('#search-form input[name=_token]').val();
 
             if ($(e.target).text() && $(e.target).hasClass("search-city")) {
-            
-            
 
-/*
-<!--
 
-// We will need to put this back when we expand beyond Canada
-                var dataStr = $(e.target).html();
-                var loc = $(e.target).attr("loc");
-                var dataStr2 = dataStr.split(", ");
-                var secondVar = "";
 
-                (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada") ? secondVar = "country" : secondVar = "province";
+                /*
+                 <!--
 
-                $("#formatted_address2").val(dataStr);
-                data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
-             -->
-*/
+                 // We will need to put this back when we expand beyond Canada
+                 var dataStr = $(e.target).html();
+                 var loc = $(e.target).attr("loc");
+                 var dataStr2 = dataStr.split(", ");
+                 var secondVar = "";
 
-            
-            
+                 (dataStr2[1] != "US" && dataStr2[1] != "CA" && dataStr2[1] != "United States" && dataStr2[1] != "Canada") ? secondVar = "country" : secondVar = "province";
+
+                 $("#formatted_address2").val(dataStr);
+                 data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
+                 -->
+                 */
+
+
+
                 IgnoreOne = true;
                 $("#formatted_address2").val($(e.target).text());
-                data = "city=" + $(e.target).attr("city") + "&province=" + $(e.target).attr("province") + "&country=" + $(e.target).attr("country") + "&earthRad=" + earthRad;
+                data = "delivery_type=is_delivery&name=&cuisine=&radius=5&latitude={{ (isset($latHam))? $latHam:"" }}&longitude={{ (isset($lonHam))? $lonHam : "" }}&earthRad=" + earthRad + "&formatted_address=67 Caroline St S, Hamilton, ON, Canada";
             } else {
                 if (!address_alias) {
                     return false;
                 }
+
                 var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
             }
 
