@@ -14,7 +14,7 @@
                 ), "Admin");
             }
         }
-
+ 
         if (\Session::get('session_restaurant_id')) {
             makelink(array('orders/list/restaurant' => 'Restaurant Orders',
                     'notification/addresses' => "Notification Methods",
