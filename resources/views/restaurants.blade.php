@@ -1,54 +1,52 @@
 <?php
-$first = false;
-$type = "hidden";
-//$localIPTst = $_SERVER['REMOTE_ADDR'];
-//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-$latlngStr = "";
-$locationStr = "";
-$useCookie = false;
-$useHamilton = true;
-/*
+    $first = false;
+    $type = "hidden";
+    //$localIPTst = $_SERVER['REMOTE_ADDR'];
+    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+    $latlngStr = "";
+    $locationStr = "";
+    $useCookie = false;
+    $useHamilton = true;
 
-if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-    $Province = "";
-    if (function_exists('geoip_record_by_name')) {
-        $info = geoip_record_by_name($localIPTst);
-        $City = $info['city'];
-        $Country = $info['country_name'];
-        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-            $Province = $info['region'];
+    /*
+    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+        $Province = "";
+        if (function_exists('geoip_record_by_name')) {
+            $info = geoip_record_by_name($localIPTst);
+            $City = $info['city'];
+            $Country = $info['country_name'];
+            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+                $Province = $info['region'];
+            }
+        } else {
+            $ip = $localIPTst;
+            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+            $City = $details->city;
+            if ($details->country == "US"){$Country = "United States";}
+            if ($details->country == "CA"){$Country = "Canada";}
+            if(isset($Country)){
+                $Province = $details->region;
+            } else {
+                $Country = $details->country;
+            }
+            $latlng = explode(",", $details->loc);
+            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
         }
     } else {
-        $ip = $localIPTst;
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        $City = $details->city;
-        if ($details->country == "US"){$Country = "United States";}
-        if ($details->country == "CA"){$Country = "Canada";}
-        if(isset($Country)){
-            $Province = $details->region;
-        } else {
-            $Country = $details->country;
-        }
-        $latlng = explode(",", $details->loc);
-        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+        // get city [, province/state], and country from cookie or session, once implemented
     }
-} else {
-    // get city [, province/state], and country from cookie or session, once implemented
-}
+    */
 
-*/
-
-if($useHamilton){
-    $City = "Hamilton";
-    $Province = "Ontario";
-    $Country = "Canada";
-    $latHam="43.2566983";
-    $lonHam="-79.8690719";
-    $loc="43.2566983,-79.8690719";
-}
-else{
-    $loc=$details->loc;
-}
+    if($useHamilton){
+        $City = "Hamilton";
+        $Province = "Ontario";
+        $Country = "Canada";
+        $latHam="43.2566983";
+        $lonHam="-79.8690719";
+        $loc="43.2566983,-79.8690719";
+    } else if(is_object($details)) {
+        $loc=$details->loc;
+    }
 
 ?>
 

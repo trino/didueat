@@ -9,7 +9,7 @@
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
-                <A ID="cart-header" style="display:none;"  CLASS="anchor btn btn-sm btn-warning" onclick="return checkout();">
+                <A ID="cart-header" style="display:none;"  CLASS="anchor btn btn-sm btn-warning" onclick="return scrolltocheckout();">
                     <SPAN class="cart-header-items"></SPAN>
                     <i class="fa fa-shopping-cart"></i>
                     <SPAN class="cart-header-total"></SPAN>
@@ -51,10 +51,18 @@
         </ul>
     </div>
 </nav>
+<?php
+    $AreaCodes = array();
+    foreach(areacodes() as $Region){
+        $AreaCodes = array_merge($AreaCodes, array_keys($Region));
+    }
+?>
 <SCRIPT>
     function modalcheck(){
         if ($("#navigationModal").length == 0){
             window.location.assign("{{  url("user/info") }}");
         }
     }
+
+    var AreaCodes = [{{  implode(", ", $AreaCodes) }}];
 </SCRIPT>

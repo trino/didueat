@@ -347,20 +347,18 @@ function add_all(pattern, phone){
 function add_matchpattern() {
     jQuery.validator.addMethod("matchPattern", function (value, element) {
         var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
-        if (value.replace(' ', '').length == 6) {
-            return true;
-        }
-        return false;
+        return value.replace(' ', '').length == 6;
     });
 }
 
 function add_checkphone() {
     jQuery.validator.addMethod("checkPhone", function (value, element) {
         value = value.replace(/\D/g,'');
-        if (value.length != 10) {
-            return false;
-        }
-        return true;
+        if (value.length != 10) {return false;}
+        var firstdigit = value.substring(0, 1);
+        if(firstdigit == 0 || firstdigit == 1){return false;}
+        firstdigit = value.substring(0, 3);
+        return AreaCodes.indexOf(Number(firstdigit)) > -1;
     });
 }
 
@@ -371,9 +369,6 @@ function validateform(formID, rules){
 }
 function unvalidateform(formID){
     $("#" + formID).removeData('validate');
-    /*$('input, select, textarea').each(function() {
-        $(this).rules('remove');
-    });*/
 }
 
 function makerules(validation){

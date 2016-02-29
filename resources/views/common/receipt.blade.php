@@ -52,29 +52,30 @@ if (!isset($checkout_modal)) {
                             <tr>
                                 <td colspan="2">
 
-
                                     @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
-
                                         <label class="radio-inline c-input c-radio">
                                             <input type="radio" id="pickup1" name="delevery_type"
                                                    class="deliverychecked"
-                                                   onclick="delivery('hide'); $(this).addClass('deliverychecked');">
+                                                   onclick="delivery('hide'); $(this).addClass('deliverychecked');"
+                                                    @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
+                                                        CHECKED
+                                                    @endif
+                                            >
                                             <span class="c-indicator"></span>
                                             <strong>Pickup</strong>
                                         </label>
-
-
                                     @endif
 
                                     @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
-
-
                                         <label class="radio-inline c-input c-radio">
                                             <input type="radio"
                                                    id="delivery1"
                                                    name="delevery_type"
                                                    onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
-                                                    >
+                                                   @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
+                                                        CHECKED
+                                                   @endif
+                                            >
                                             <span class="c-indicator"></span>
                                             <strong>Delivery</strong>
                                         </label>

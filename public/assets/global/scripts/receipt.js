@@ -40,6 +40,11 @@ function clearCartItems() {
    }
 }
 
+function scrolltocheckout(){
+    $('html, body').animate({
+        scrollTop: $(".profiles").offset().top
+    }, 1000);
+}
 function checkout() {
     var del = $('#delivery_flag').val();
     var minimum_delivery = $('#minimum_delivery').val();
@@ -70,9 +75,7 @@ function checkout() {
        // $('.profiles').show().effect("pulsate", { times:1 }, 1000);
         $('.profiles').fadeIn("slow");
 
-        $('html, body').animate({
-            scrollTop: $(".profiles").offset().top
-        }, 1000);
+        scrolltocheckout();
         $('#checkoutModal').modal('show'); //show the modal
     }
 }
