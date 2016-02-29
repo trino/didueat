@@ -26,7 +26,7 @@ class Profiles extends BaseModel {
             array_push($cells,'logo');
         }
         
-
+ 
         $browser_info = getBrowser();
         $data['ip_address'] = get_client_ip_server();
         $data['browser_name'] = $browser_info['name'];
