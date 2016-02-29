@@ -102,6 +102,7 @@
             </div>
             <?php }
             }else{
+                 if($addresses->count()){
             ?>
             <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
                 <option value="">Select Address</option>
@@ -120,7 +121,9 @@
                 ?>
 
             </select>
-            or <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
+            
+            or
+            <?php }?> <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
             <?php
             }
             ?>
