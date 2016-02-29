@@ -157,7 +157,7 @@
                                 <div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
-                                        <option value="">Cuisine</option>
+                                        <option value="">Cuisine Type</option>
                                         @foreach($cuisine as $value)
                                             <option>{{ $value->name }}</option>
                                         @endforeach
