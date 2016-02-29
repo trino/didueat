@@ -249,11 +249,12 @@
                 $form.find('.payment-errors').text(response.error.message);
                 $form.find('button').prop('disabled', false);
                 $('.overlay_loader').hide();
+                $('#chkOut').removeAttr('disabled');
             } else {
                 // token contains id, last4, and card type
                 var token = response.id;
                 // Insert the token into the form so it gets submitted to the server
-                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                $('.stripeToken').val(token);
 
                 // and re-submit
 
@@ -268,6 +269,7 @@
                     success: function (msg) {
                         msg = msg.trim();
                         $('.overlay_loader').hide();
+                        $('#chkOut').removeAttr('disabled');
                         if (msg == '1') {
                             $('#ordered_email').focus();
                             $('.email_error').show();
@@ -315,13 +317,15 @@
 
             $('#profiles').submit(function (e) {
                 e.preventDefault();
+                $('#chkOut').attr('disabled','disabled');
                 $('.overlay_loader').show();
                 if ($('.CC').is(':visible')) {
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
 
 
                 }
-                else {
+                else 
+                {
 
                     var token = $('#profiles input[name=_token]').val();
                     var datas = $('#profiles input, select, textarea').serialize();
@@ -334,6 +338,7 @@
                         success: function (msg) {
                             msg = msg.trim();
                             $('.overlay_loader').hide();
+                            $('#chkOut').removeAttr('disabled');
                             if (msg == '1') {
                                 $('#ordered_email').focus();
                                 $('.email_error').show();

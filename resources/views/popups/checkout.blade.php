@@ -146,7 +146,7 @@
 
                                 <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
                                 <button type="submit" class="btn btn-primary btn-block "
-                                        onclick="return addresscheck();">Order Now
+                                        onclick="return addresscheck();" id="chkOut">Order Now
                                 </button>
                                 <input type="hidden" name="hidden_rest_id" id="hidden_rest_id"
                                        value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>

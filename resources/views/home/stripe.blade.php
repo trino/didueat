@@ -22,6 +22,7 @@
 <input name="currencyType" type="hidden" class="S_currencyType" value='{{ $currencyType }}' />
 <input name="taxpd" type="hidden" class="S_taxpd" value='{{ (isset($salesTax))?$salesTax:"" }}' />
 <input name="orderID" type="hidden" class="S_orderID" value='{{ (isset($orderID))?$orderID:"" }}' />
+<input type="hidden" name="stripeToken" value=""/>
 
 <div class="form-group row editaddress 2">
 	<label aria-required="true" class="col-sm-5 text-sm-right required" id="card_number">Card Number</label>
