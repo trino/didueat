@@ -23,7 +23,7 @@ class Profiles extends BaseModel {
         }
         
         if($addlogo){
-            array_push($cells,'logo');
+            array_push($cells,'photo');
         }
         
  
