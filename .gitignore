@@ -137,3 +137,4 @@ resources/views/ajax/search_restaurants.blade_CurrentToRenameAfterPush.php
 app/Http/Models/Restaurants_backupFeb27.php
 public/assets/global/scripts/menu_manager_backupFeb28.js
 config/app.php
+config/mail.php
