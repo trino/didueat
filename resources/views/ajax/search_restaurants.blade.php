@@ -169,7 +169,7 @@
         } else if(closedCnt == totalCnt){
             closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the Did U Eat restaurants in your area, and place your order when they are open";
         }
-        document.getElementById('openClosed').innerHTML=spBR+"("+openCntMsg+closedCntMsg+")";
+        document.getElementById('openClosed').innerHTML=spBR+"<BR>("+openCntMsg+closedCntMsg+")";
     }
 </script>
 
