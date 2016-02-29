@@ -32,6 +32,8 @@
 
 
                         <div class="col-md-6">
+                        <div class="card">
+                        <div class="card-block">
 
 
 
@@ -81,6 +83,8 @@
 
 
 
+                        </div>
+                        </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>

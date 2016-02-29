@@ -58,10 +58,10 @@ else{
 
     <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image" style="">
         <div class="container " style="margin-top: 0 !important;">
-            <div class="row text-md-center" style="  ">
+            <div class="row text-md-center" style="padding:1.25rem !important;">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow" style="">Order Online Specials<br>From Local Restaurants</h1>
+                    <h1 class="banner-text-shadow display-4" style="">Order Online Specials<br>From Local Restaurants</h1>
 
                     <div class="clearfix"></div>
 

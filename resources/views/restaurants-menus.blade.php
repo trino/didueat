@@ -54,7 +54,7 @@
             <div class="col-md-8 col-xs-12 " style="">
                 @if(!$is_my_restro)
 
-                    <div class=" m-b-1">
+                    <div class="list-group-item m-b-1">
                         <div class="col-md-3 col-xs-3 p-l-0">
                             <img style="max-width:100%;" class="pull-left img-rounded"
                                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
@@ -117,7 +117,7 @@
 
                 @endif
 
-                <div class="col-md-12 p-l-0 p-r-0">
+                <div class="">
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader">
 

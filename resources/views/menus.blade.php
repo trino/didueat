@@ -4,7 +4,7 @@
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
 @endif
 
-        <DIV class="list-group m-b-2" id="">
+        <DIV class="list-group m-b-1" id="">
 
             <div class="list-group-item parents " id="">
                 <div class="">

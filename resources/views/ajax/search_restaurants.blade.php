@@ -33,13 +33,13 @@
         echo "Count should not be an object!!!";
         return;
     }
-    
+
 ?>
 
 <div class="list-group m-t-2" id="restuarant_bar">
 
 <?php
-    
+
     $totalCnt=0;
     $openCnt=0;
     $closedCnt=0;
@@ -72,16 +72,24 @@
                   $openedRest = $value['openedRest'];
                 }
                 else{
-                  $openedRest=$is_open;                
+                  $openedRest=$is_open;
                 }
-                
+
                 ($openedRest == 0)? $grayout=" grayout" : $grayout="";
-                
+
 ob_start();
-                
+
             ?>
 
             <div class="list-group-item{{ $grayout }}">
+
+
+
+
+
+
+
+
 
 
 
@@ -156,18 +164,18 @@ ob_start();
                 <div class="clearfix"></div>
 
             </div>
-            
+
 <?php
-               
+
  if(isset($openedRest) && $openedRest == 1){
-   $openStr.="\n<br/>".ob_get_contents();
+   $openStr.="".ob_get_contents();
  }
  else{
-   $closedStr.="\n<br/>".ob_get_contents();
+   $closedStr.="".ob_get_contents();
  }
- 
+
  ob_end_clean();
-  
+
  // move counter outside buffer
   $totalCnt++;
   if(isset($openedRest) && $openedRest == 1){
@@ -196,7 +204,7 @@ ob_start();
   elseif($closedStr != ""){
 		  echo '<h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
 		 echo $closedStr;
-   
+
   }
 
 
@@ -207,18 +215,18 @@ ob_start();
 
 <script>
 
-<?php 
+<?php
 
 echo "
 var totalCnt=".$totalCnt.";
 var openCnt=".$openCnt.";
-var closedCnt=".$closedCnt.";"; 
+var closedCnt=".$closedCnt.";";
 
 ?>
 
 var openCntMsg="";
 var closedCntMsg="";
-var spBR="<br/>";
+var spBR="";
 if(openCnt != totalCnt){
 			if(openCnt < totalCnt && closedCnt < totalCnt){
     spBR=" ";

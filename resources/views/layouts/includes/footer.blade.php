@@ -1,8 +1,7 @@
-<div class="container">
+<div class="container" style="margin-top:0 !important;">
 
-    <hr class="m-y-2" />
 
-    <footer class="text-muted card list-group-item p-t-1" style="            border: 1px solid #e5e5e5;
+    <footer class="text-muted card list-group-item" style="          border: 1px solid #e5e5e5;
 ">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row ">
