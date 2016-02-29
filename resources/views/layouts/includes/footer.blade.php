@@ -1,7 +1,7 @@
 <div class="container" style="margin-top:0 !important;">
 
 
-    <footer class="text-muted card list-group-item" style="          border: 1px solid #e5e5e5;
+    <footer class="text-muted card list-group-item p-y-2" style="          border: 1px solid #e5e5e5;
 ">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row ">
@@ -76,7 +76,7 @@ Thank you">Email Support</a></li>
                     <!-- and maintained by the <a href="{{ url("home/team") }}">core team</a> -->
                 </p>
 
-                <p>
+                <p class="m-b-0">
                     Currently v1.0 &copy; Didu Eat <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super")
