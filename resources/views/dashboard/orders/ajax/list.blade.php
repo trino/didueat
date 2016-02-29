@@ -74,16 +74,14 @@ $secondsTitle = "sec";
                                class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>
-                        @if(isset($resto[0]->name))
-
-                           {{$value->ordered_by }}
-@else
+                            @if(!isset($resto[0]->name))
+                                {{$value->ordered_by }}
+                            @else
                                 <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a>
-
                             @endif
                         </td>
-                        <td>
 
+                        <td>
                             <?php
                             $dateformat = get_date_format();
                             $date = strtotime($value->order_time);
