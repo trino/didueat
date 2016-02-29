@@ -1,12 +1,13 @@
 <?php
 $first = false;
 $type = "hidden";
-$localIPTst = $_SERVER['REMOTE_ADDR'];
-$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
 $latlngStr = "";
 $locationStr = "";
 $useCookie = false;
 $useHamilton = true;
+/*
 
 if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
     $Province = "";
@@ -35,10 +36,18 @@ if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
     // get city [, province/state], and country from cookie or session, once implemented
 }
 
+*/
+
 if($useHamilton){
  $City = "Hamilton";
  $Province = "Ontario";
  $Country = "Canada";
+ $latHam="43.2566983";
+ $lonHam="-79.8690719";
+ $loc="43.2566983,-79.8690719";
+}
+else{
+ $loc=$details->loc;
 }
 
 ?>
@@ -69,7 +78,7 @@ if($useHamilton){
                     <div class="text-xs-center"
                          style=""  onclick="submitform(event, 0);" >
 
-                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $details->loc }}">
+                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $loc }}">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
                         <div class="clearfix"></div>
@@ -392,15 +401,16 @@ if($useHamilton){
              -->
 */
 
-            
-            
+    
+
                 IgnoreOne = true;
                 $("#formatted_address2").val($(e.target).text());
-                data = "city=" + $(e.target).attr("city") + "&province=" + $(e.target).attr("province") + "&country=" + $(e.target).attr("country") + "&earthRad=" + earthRad;
+                data = "delivery_type=is_delivery&name=&cuisine=&radius=5&latitude={{ (isset($latHam))? $latHam:"" }}&longitude={{ (isset($lonHam))? $lonHam : "" }}&earthRad=" + earthRad + "&formatted_address=67 Caroline St S, Hamilton, ON, Canada";
             } else {
                 if (!address_alias) {
                     return false;
                 }
+
                 var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
             }
 

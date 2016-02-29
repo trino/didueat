@@ -68,7 +68,12 @@
                 $open = offsettime($value[$Day . "_open" . $key], $difference);
                 $close = offsettime($value[$Day . "_close" . $key], $difference);
                 $is_open = $open <= $user_time && $close >= $user_time;
-                $openedRest = $value['openedRest'];
+                if(isset($value['openedRest'])){
+                  $openedRest = $value['openedRest'];
+                }
+                else{
+                  $openedRest=$is_open;                
+                }
                 
                 ($openedRest == 0)? $grayout=" grayout" : $grayout="";
                 
@@ -154,7 +159,7 @@ ob_start();
             
 <?php
                
- if(isset($is_open) && $is_open == 1){
+ if(isset($openedRest) && $openedRest == 1){
    $openStr.="\n<br/>".ob_get_contents();
  }
  else{
@@ -188,6 +193,11 @@ ob_start();
 		  echo '<hr width="100%" align="center" color="#000" /><h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
 		 echo $closedStr;
 	 }
+  elseif($closedStr != ""){
+		  echo '<h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
+		 echo $closedStr;
+   
+  }
 
 
 ?>
