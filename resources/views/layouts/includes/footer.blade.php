@@ -1,9 +1,10 @@
 <div class="container">
 
 
-    <footer class="text-muted card list-group-item" style="border: 0 !important;">
+    <footer class="text-muted card list-group-item p-t-1" style="            border: 1px solid #e5e5e5;
+">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-        <div class="row card-block">
+        <div class="row ">
 
 
 
