@@ -2,12 +2,12 @@
 
 return [
 
-    'debug' => true,
+    'debug' => false,
     // 'debug' => env('APP_DEBUG', false),
 
     'url' => 'http://localhost/didueat/public/',
     'admin_mail' => 'info@didueat.ca',
-    'company_name' => 'didueat.ca',
+    'company_name' => 'Didu Eat',
 
     /*
     |--------------------------------------------------------------------------

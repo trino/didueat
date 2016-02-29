@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'mohsin@skpsoft.com', 'name' => 'Didueat'],
+    'from' => ['address' => 'mohsin@skpsoft.com', 'name' => 'Didu Eat'],
 
     /*
     |--------------------------------------------------------------------------
