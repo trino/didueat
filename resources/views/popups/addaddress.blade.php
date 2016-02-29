@@ -17,12 +17,11 @@
                 }
             ?>
             <!--<div id="ajaxloader"></div>-->
-            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post','role'=>'form','class'=>$class, 'autocomplete' => 'false')) !!}
-
+            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post', 'role'=>'form','class'=>$class, 'autocomplete' => 'false', 'onsubmit' => 'return isaddress_incomplete();')) !!}
                 <div class="modal-body" id="contents"></div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary" onclick="if (isaddress_incomplete()) {return false;}">Save</button>
                 </div>
             {!! Form::close() !!}
         </div>
