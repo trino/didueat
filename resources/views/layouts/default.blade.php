@@ -103,6 +103,18 @@ if (Request::path() !== null && Request::path() != "/") {
         </style>
     @endif
 
+<!--[if IE]>
+    <style>
+        .form-control{
+            padding-bottom: 10px !important;
+        }
+    </style>
+<![endif]-->
+<STYLE>
+    _:-ms-fullscreen, :root input.form-control{
+        padding-bottom: 10px !important;
+    }
+</STYLE>
 
 <SCRIPT>
     var baseurl = "{{ url('/') }}";
