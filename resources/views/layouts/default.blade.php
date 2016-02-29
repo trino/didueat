@@ -137,6 +137,7 @@ $type = "hidden";
     <div class="clearfix"></div>
 </div>
 
+<! --test -->
 <div class="container-fluid">
     @include('common.alert_messages')
 </div>
