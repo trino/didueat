@@ -1912,10 +1912,11 @@ function datename($date){
         return $submenus = \App\Http\Models\Menus::get_price($id);
     }
 
-    function popup($Success, $Message, $Title = "", $ID = ""){
+    function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0){
         if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
-        echo '<div  style=""  class="alert alert-' . $Success . '" role="alert"';
+        echo '<div class="alert alert-' . $Success . '" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
+        if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
         echo '><div class="container" style="margin-top:0 !important; "><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
@@ -1924,7 +1925,7 @@ function datename($date){
                 case "nostores": $Message = '<span class="bd"><span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area<span id="openClosed" class="smRd"></span></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
-
+                
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
