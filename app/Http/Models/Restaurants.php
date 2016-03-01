@@ -47,6 +47,7 @@ class Restaurants extends BaseModel {
         $this->is_complete = $this->restaurant_opens($this);
     }
 
+    //exmaple: \App\Http\Models\Restaurants::restaurant_opens($rest);
     public static function restaurant_opens($restaurant, $update_database = false){
         if(!is_object($restaurant)) {
             $restaurant = select_field("restaurants", "id", $restaurant);

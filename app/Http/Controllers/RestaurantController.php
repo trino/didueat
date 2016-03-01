@@ -740,11 +740,16 @@ class RestaurantController extends Controller {
         \Session::flash('message', 'Item deleted successfully');
         \Session::flash('message-type', 'alert-success');
         \Session::flash('message-short', '');
-        
+
+        $wasopen = select_field("restaurants", "id", $res_id, "is_complete");
+        if($wasopen && !\App\Http\Models\Restaurants::restaurant_opens($res_id)){
+            edit_database("restaurants", "id", $res_id, array("is_complete" => false));
+        }
+
         if (!$slug) {
             return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
         }else {
-            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menus');
+            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
         }
     }
 

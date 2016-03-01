@@ -1,5 +1,5 @@
 <?php
-    printfile("resources/views/common/editaddress.blade.php");
+    printfile("views/common/editaddress.blade.php");
 
     if (isset($GLOBALS["editaddress"])) {
         return "editaddress.blade was included twice! This time is from: " . $GLOBALS["currentfile"];
@@ -27,11 +27,7 @@
     $isUser = isset($apartment); // set by addressesFind
     $needsmobile = isset($mobile);
     $restSignUp = !isset($addresse_detail);//no idea what this needs to be
-    if ($isUser) {
-        $aptUnit = "Apartment";
-    } else {
-        $aptUnit = "Unit";
-    }
+    $aptUnit="Unit/Apt";
     $GUID = "";//guidv4();
 ?>
 

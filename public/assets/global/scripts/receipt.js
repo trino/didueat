@@ -42,7 +42,7 @@ function clearCartItems() {
 
 function scrolltocheckout(){
     $('html, body').animate({
-        scrollTop: $(".profiles").offset().top
+        scrollTop: $("#cartsz").offset().top
     }, 1000);
 }
 function checkout() {
