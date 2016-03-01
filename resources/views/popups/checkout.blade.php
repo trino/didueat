@@ -35,7 +35,7 @@
                                 </div>
                             @endif
 
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                            <input type="hidden" name="_token" class="csrftoken" value="{{ csrf_token() }}"/>
                             <input type="hidden" name="user_id" id="ordered_user_id"
                                    value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
                             <input type="hidden" name="added_address" value="" class="added_address"/>

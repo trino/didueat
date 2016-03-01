@@ -38,7 +38,7 @@ if (Request::path() !== null && Request::path() != "/") {
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
-    <meta name="_token" content="{{ csrf_token() }}"/>
+    <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
     <!-- CSS -->
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>

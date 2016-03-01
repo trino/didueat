@@ -20,7 +20,7 @@
                             <div id="message-error" class="alert alert-danger" style="display: none;"></div>
                             <div id="message-success" class="alert alert-success" style="display: none;"></div>
 
-                            @if(read("id"))
+                            <DIV class="show-on-login" @if(!read("id")) style="display: none;" @endif >
                                 <div class="form-group">
                                     <textarea rows="4" placeholder="My Review" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
                                 </div>
@@ -37,11 +37,11 @@
                                 <div class="pull-right">
                                     <button class="btn btn-primary pull-right">Save</button>
                                 </div>
-
-
-                            @else
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
+                            </DIV>
+                            @if(!read("id"))
+                                <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
                             @endif
+
                         </div>
                         
                         <input type="hidden" id="rating_id" value=""/>

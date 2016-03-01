@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<meta name="_token" content="{{ csrf_token() }}"/>
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script type="text/javascript">
     window.showEntries = 10;
     window.page = 1;

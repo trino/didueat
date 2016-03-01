@@ -1,7 +1,7 @@
 @if(false){
 @extends('layouts.default')
 @section('content')
-    <meta name="_token" content="{{ csrf_token() }}"/>
+    <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
     <script src="<?= url("assets/global/scripts/provinces.js"); ?>" type="text/javascript"></script>
     <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/-->

@@ -23,7 +23,7 @@
         $restaurants_list = \App\Http\Models\Restaurants::orderBy('id', 'DESC')->get();
     }
 ?>
-<meta name="_token" content="{{ csrf_token() }}"/>
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 
 @if(\Session::has('session_profiletype') && \Session::get('session_profiletype') == 1 && (! isset($credit_cards_list->id)))
     <INPUT TYPE="HIDDEN" name="user_type" value="{{  $type }}">

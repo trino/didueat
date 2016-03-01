@@ -1,6 +1,6 @@
 <?php printfile("views/common/edituser.blade.php"); ?>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
-<meta name="_token" content="{{ csrf_token() }}" />
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}" />
 
 <div class="form-group">
     <div class="col-md-12 col-sm-12 col-xs-12 row">

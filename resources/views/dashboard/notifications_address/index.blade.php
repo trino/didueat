@@ -6,7 +6,7 @@
     window.page = 1;
     window.pageUrlLoad = "{{ url('notification/addresses/ajax/list') . "?" . http_build_query($_GET) }}";
 </SCRIPT>
-<meta name="_token" content="{{ csrf_token() }}"/>
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
 <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->
 <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>

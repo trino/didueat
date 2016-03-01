@@ -335,7 +335,11 @@ Thank you">Email Support</a></li>
                             success: function (arr) {
                                 $('.overlay_loader').hide();
                                 reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
-                                if (arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants') {
+                                var directtorest = arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants';
+                                if(debugmode && directtorest){
+                                    directtorest = confirm("Would you like to be directed to the restaurant page? (DEBUG MODE)");
+                                }
+                                if (directtorest) {
                                     window.location = "{{ url('orders/list/restaurant') }}";
                                 } else {
                                     $('.reserve_login').hide();
@@ -349,6 +353,10 @@ Thank you">Email Support</a></li>
                                     $('#ordered_street').val(arr.street);
                                     $('#ordered_city').val(arr.city);
                                     $('.phone').val(arr.phone);
+                                    $('.csrftoken').attr("content", arr.token);
+                                    $(".show-on-login").show();
+                                    $(".hide-on-login").hide();
+
                                     $('.hidden_elements').hide();
                                     $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
                                     //$('.reservation_signin').hide();

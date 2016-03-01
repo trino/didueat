@@ -21,7 +21,7 @@
 ?>
 
 
-<meta name="_token" content="{{ csrf_token() }}"/>
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <?php printfile("views/common/restaurant.blade.php"); ?>
 
 <div class="col-md-8  col-md-offset-2">

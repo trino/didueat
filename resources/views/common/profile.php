@@ -1,5 +1,5 @@
 <?php printfile("common/profile.php"); ?>
-<meta name="_token" content="{{ csrf_token() }}"/>
+<meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
 <div class="form-group">
