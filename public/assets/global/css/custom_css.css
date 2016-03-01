@@ -1,4 +1,3 @@
-
 .half,.full{
     cursor: pointer;
 }
@@ -17,24 +16,25 @@
 
 .up7{margin:0px;position:relative;top:-7px;margin-bottom:-7px;font-weight:bold}
 
-.smRd{font-size:14px;color:#f00;font-weight:normal}
+.smRd{}
 
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
 
-.smallT{font-size:12px;line-height:14px;margin-top:3px}
+.smallT{ color: red;}
 
 .grayout{filter: alpha(opacity=50);opacity: 0.5;}
 
 .cuisineCB{
-
     display:inline-block;
+}
+
+.formatted_address{
 
 }
 
-
 .smBR{margin:0px;font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
 
-.bd{font-weight:bold}
+.bd{font-weight:bold; font-size: 95% !important;}
 
 .rightmarg {
     margin-right: 10px
@@ -108,10 +108,12 @@ a.anchor {
     */
 }
 .jumbotron{
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
     margin-bottom: 0 !important;
 }
 .close {
-    font-size: 1.7rem !important;
+    font-size: 2rem !important;
 }
 
 .container-fluid {

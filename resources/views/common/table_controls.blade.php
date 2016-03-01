@@ -1,6 +1,6 @@
 <div class="col-lg-3">
     <input type="text" class="form-control" id='searchResult' value='<?php echo $searchResults; ?>'
-           placeholder='Search...' autofocus='true' style=""/>
+           placeholder='Search...' autofocus='true' />
 </div>
 
 

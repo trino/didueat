@@ -1,6 +1,6 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
-    <div class="" style="">
-        <div class="input-group input-group-lg">
+    <div>
+        <div class="input-group">
 
             @if(read("id") && false)
                 <div class="input-group-btn">
@@ -8,7 +8,7 @@
                         $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
                         if($addresses->count()){
                     ?>
-                    <button style="" type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true"
+                    <button type="button" class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
                     </button>
@@ -29,7 +29,7 @@
                 </div>
             @endif
 
-            <input style="" type="text" name="formatted_address" id="formatted_address2"
+            <input type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
                    onfocus="hideresults();"

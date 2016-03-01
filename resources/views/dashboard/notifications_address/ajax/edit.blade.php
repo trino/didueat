@@ -7,7 +7,7 @@
                 <label class="form-control-nobord c-input c-radio">
                     <input type="radio" value="1" id="is_email"
                            @if(isset($address_detail->is_call) && !$address_detail->is_call && !$address_detail->is_sms) checked @endif
-                           onchange="uncheck('is_sms');uncheck('is_call');" style=""> Email
+                           onchange="uncheck('is_sms');uncheck('is_call');"> Email
                     <span class="c-indicator"></span>
                 </label>
                 <label class="form-control-nobord c-input c-radio">

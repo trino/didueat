@@ -152,13 +152,7 @@ class Restaurants extends BaseModel {
      * @return response
      */
     public static function searchRestaurants($data = '', $per_page = 10, $start = 0, $ReturnSQL = false) {
-        $query = "";
-        $limit = "";
-        if($ReturnSQL){
-          $order = " ORDER BY distance";      
-        } else{
-          $order = " ORDER BY openedRest desc, distance";
-        }
+        $order = " ORDER BY openedRest desc, distance";
         $limit = " LIMIT $start, $per_page";
         $where = "WHERE is_complete = '1'";// AND status = '1'";
         if (isset($data['minimum']) && $data['minimum'] != "") {

@@ -32,7 +32,7 @@ if (!isset($checkout_modal)) {
 
 <div class="" id="cartsz">
 
-    <div class="card" style="">
+    <div class="card">
 
         <div class="card-header">
             <h4 class="card-title">Receipt</h4>
@@ -51,6 +51,20 @@ if (!isset($checkout_modal)) {
                         @if(!isset($order))
                             <tr>
                                 <td colspan="2">
+                                    @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
+                                        <label class="radio-inline c-input c-radio">
+                                            <input type="radio"
+                                                   id="delivery1"
+                                                   name="delevery_type"
+                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
+                                                   @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
+                                                   CHECKED
+                                                    @endif
+                                                    >
+                                            <span class="c-indicator"></span>
+                                            <strong>Delivery</strong>
+                                        </label>
+                                    @endif
 
                                     @if(isset($restaurant->is_pickup) && $restaurant->is_pickup == 1)
                                         <label class="radio-inline c-input c-radio">
@@ -65,23 +79,6 @@ if (!isset($checkout_modal)) {
                                             <strong>Pickup</strong>
                                         </label>
                                     @endif
-
-                                    @if(isset($restaurant->is_delivery) && $restaurant->is_delivery == 1)
-                                        <label class="radio-inline c-input c-radio">
-                                            <input type="radio"
-                                                   id="delivery1"
-                                                   name="delevery_type"
-                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
-                                                   @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
-                                                        CHECKED
-                                                   @endif
-                                            >
-                                            <span class="c-indicator"></span>
-                                            <strong>Delivery</strong>
-                                        </label>
-
-                                    @endif
-
                                 </td>
 
                             </tr>
@@ -138,7 +135,7 @@ if (!isset($checkout_modal)) {
 
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
-                        @if($is_my_restro || $business_day)
+                        @if($is_my_restro || $business_day || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
                         @else
                             <a href="javascript:void(0)" class="btn btn-danger">Closed</a>
@@ -264,8 +261,6 @@ if (!isset($checkout_modal)) {
 
     $(document).ready(function () {
         if (typeof validateform != "undefined") {
-            // safe to use the function
-
             validateform("profiles", {
                 phone: "phone required",
                 mobile: "phone",
@@ -274,11 +269,6 @@ if (!isset($checkout_modal)) {
                     email: "email required",
                 password: "required minlength 3",
                 @endif
-
-
-
-
-
             });
         }
     });

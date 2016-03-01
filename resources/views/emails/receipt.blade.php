@@ -19,12 +19,12 @@
 </div></h3-->
 
 
-        <div class="row" style="">
+        <div class="row" >
             <div class="col-md-6">
                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
             </div>
 
-            <div class="col-md-6" style="">
+            <div class="col-md-6" >
                 @include('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true))
             </div>
             <div class="clearfix"></div>

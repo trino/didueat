@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-9">
                 <button id="lostPWregButton" class="btn btn-primary btn-block form-control" type="submit"
-                        style="">Submit
+                        >Submit
                 </button>
             </div>
         </div>

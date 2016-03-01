@@ -91,7 +91,7 @@
                                                 <input type="hidden" value="{{ $sub->exact_upto }}"
                                                        id="upto_{{ $sub->id }}">
 
-                                                <div style="" class="infolist col-xs-12">
+                                                <div class="infolist col-xs-12">
                                                     <div style="display: none;">
                                                         <input type="checkbox"
                                                                value="{{ '<br/>'.$sub->menu_item }}"
@@ -133,7 +133,7 @@
                                                             <? $a++; ?>
 
                                                             <div class="col-xs-12 col-sm-6 form-group"
-                                                                 style="">
+                                                                 >
 
                                                                 <div id="buttons_{{ $mm->id }}"
                                                                      class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
@@ -152,7 +152,7 @@
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
                                                                            href="javascript:;"><i class="fa fa-minus"
-                                                                                                  style=""></i></a>
+                                                                                                  ></i></a>
                                                                            
                                                                         <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} allspan">0</span>
@@ -160,12 +160,13 @@
                                                                         <a id="addspan_{{ $mm->id }}"
                                                                            class="addspan btn btn-sm btn-primary-outline "
                                                                            href="javascript:;"><i class="fa fa-plus"
-                                                                                                  style=""></i></a>
+                                                                                                  ></i></a>
 
                                                                     </div>
 
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-12 p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
+                                                                    @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
@@ -178,7 +179,7 @@
                                                                             <span class="c-indicator"></span>
                                                                         @endif
 
-                                                                        <span class="list-inline-item">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
+                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
 
 
@@ -210,16 +211,16 @@
             </div>
 
             <div class="modal-footer m-t-1">
-                <button type="button" class="btn btn-secondary btn-sm pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary btn-sm pull-left" data-dismiss="modal">Close</button>
                                    <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
                 Qty
                 <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" style=""></i></a>
+                   onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" ></i></a>
                 <span class="number{{ $value->id }}">1</span>
                 <a class="btn  btn-primary-outline  btn-sm" href="javascript:void(0);"
-                   onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" style=""></i></a>
+                   onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" ></i></a>
                 <a id="profilemenu{{ $value->id }}"
                    class="btn  btn-primary add_menu_profile add_end"
                    href="javascript:void(0);">Add</a>

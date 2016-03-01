@@ -27,8 +27,9 @@
 
     $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
     $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
+?>
+<?= newrow($new, "We Offer Pickup",null, false,6,null); ?>
 
-    echo newrow($new, "We Offer Pickup"); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
            value="1" {{ ($IsPickup)?'checked':'' }} />
@@ -36,7 +37,8 @@
 </LABEL>
 </DIV></DIV>
 
-<?= newrow($new, "We Offer Delivery"); ?>
+
+<?= newrow($new, "We Offer Delivery",null, false,6,null); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
            value="1" {{ ($is_delivery)?'checked':'' }} />
@@ -48,13 +50,13 @@
 <div id="is_delivery_options"
      style="display: {{ ((isset($restaurant->is_delivery) && $restaurant->is_delivery > 0) || isset($showDeliveryOptions))?'block':'none' }};">
     <?= newrow($new, "Delivery Fee $", "", true, 2); ?>
-    <input type="number" step="any" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" style=""
+    <input type="number" step="any" min="0" name="delivery_fee" {{ $is_disabled }} class="form-control" 
            placeholder="Delivery Fee"
            value="{{ (isset($restaurant->delivery_fee))?$restaurant->delivery_fee: old('delivery_fee')  }}"/>
 </DIV></DIV>
 
 <?= newrow($new, "Minimum Subtotal Before Delivery $", "", true, 2); ?>
-<input type="number" step="any" min="0" name="minimum" {{ $is_disabled }} class="form-control" style=""
+<input type="number" step="any" min="0" name="minimum" {{ $is_disabled }} class="form-control" 
        placeholder="Minimum Subtotal For Delivery $"
        value="{{ (isset($restaurant->minimum))?$restaurant->minimum:old('minimum') }}"/>
 </DIV></DIV>
@@ -68,7 +70,7 @@
 
 <div class="row">
 
-    <div class="col-md-12 col-xs-12 p-t-1" style="">
+    <div class="col-md-12 col-xs-12 p-t-1" >
         <h4>Hours of Operation</h4>
 
         <?php
@@ -125,12 +127,12 @@
                     $closed .= '> Open<span class="c-indicator"></span>';
                 }
                 ?>
-        <div class="clearfix" style="">
+        <div class="clearfix" >
             <hr />
         </div>
-                    <div class="form-group row" style="">
-                        <div class="col-xs-4">  <?= $closed; ?> {{ $value }}</div></LABEL>
-                        <div class="col-xs-8 col-md-4 {{ $del_class }}">
+                    <div class="form-group row" >
+                        <div class="col-xs-5">  <?= $closed; ?> {{ $value }}</div></LABEL>
+                        <div class="col-sm-7 col-xs-12 {{ $del_class }}">
 
                             <input type="text" name="{{$value}}_open{{$suffix}}" id="open{{$suffix}}[{{ $key }}]"
                                    value="{{ converttime($opentime) }}"
@@ -140,7 +142,7 @@
 
                             <input type="text" name="{{$value}}_close{{$suffix}}" id="close{{$suffix}}[{{ $key }}]"
                                    value="{{ converttime($closetime) }}"
-                                   title="Close" class="{{ $inputclass }} col-xs-4" onfocus="this.blur();" style=""/>
+                                   title="Close" class="{{ $inputclass }} col-xs-4" onfocus="this.blur();" />
 
                         </DIV>
 
@@ -154,7 +156,7 @@
         ?>
     </div>
 
-    <div class="col-md-12 col-xs-12 p-a-0" style="">
+    <div class="col-md-12 col-xs-12 p-a-0" >
         @if($use_delivery_hours)
             <DIV CLASS="is_delivery_options">
                 <h4 class="pull-left p-r-1">Delivery Hours</h4>

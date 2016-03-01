@@ -28,7 +28,7 @@
             <div class="container" style="margin-top: 0 !important;padding:0 !important;">
                 <h4 class="card-title text-xs-center m-b-0">Limit of 25 items</h4>
 
-                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with oursystem.</p>
+                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our system</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button btn-primary btn-block"
@@ -46,16 +46,16 @@
     }
     ?>
 
-    <div class="container" style="">
+    <div class="container" >
         <?= printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
 
-            <div class="col-md-8 col-xs-12 " style="">
+            <div class="col-md-8 col-xs-12 ">
                 @if(!$is_my_restro)
 
                     <div class="list-group-item m-b-1">
-                        <div class="col-md-3 col-xs-3 p-l-0">
-                            <img style="max-width:100%;" class="pull-left img-rounded"
+                        <div class="col-md-3 col-xs-3 p-a-0">
+                            <img style="max-width:100%;" class="pull-left img-rounded p-r-1"
                                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
                                  src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
                                  @else
@@ -67,7 +67,7 @@
                             <div class="clearfix"></div>
                         </div>
 
-                        <div class="col-md-9 p-a-0" style="">
+                        <div class="col-md-9 p-a-0">
                             <div class="">
                                 <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
@@ -103,7 +103,7 @@
                                 @endif
 
 
-                                <a class="list-inline-item" style="" class="clearfix" href="#" data-toggle="modal"
+                                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
                                    data-target="#viewMapModel">More Details</a>
                                 </span>
 
@@ -268,10 +268,10 @@
                     data: datas + '&' + order_data + '&_token=' + token,
                     success: function (msg) {
                         msg = msg.trim();
-                        $('.overlay_loader').hide();
                         $('#chkOut').removeAttr('disabled');
                         if (msg == '1') {
                             $('#ordered_email').focus();
+                            $('.overlay_loader').hide();
                             $('.email_error').show();
                             $('.email_error').html('Email Already Registered.');
                             //$('.email_error').fadeOut(2000);
@@ -323,9 +323,7 @@
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
 
 
-                }
-                else 
-                {
+                } else {
 
                     var token = $('#profiles input[name=_token]').val();
                     var datas = $('#profiles input, select, textarea').serialize();
@@ -337,10 +335,10 @@
                         data: datas + '&' + order_data + '&_token=' + token,
                         success: function (msg) {
                             msg = msg.trim();
-                            $('.overlay_loader').hide();
                             $('#chkOut').removeAttr('disabled');
                             if (msg == '1') {
                                 $('#ordered_email').focus();
+                                $('.overlay_loader').hide();
                                 $('.email_error').show();
                                 $('.email_error').html('Email Already Registered.');
                                 //$('.email_error').fadeOut(2000);

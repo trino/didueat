@@ -1,4 +1,4 @@
-<div class="modal" style="" id="navigationModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel"
+<div class="modal" id="navigationModal" tabindex="-1" role="dialog" aria-labelledby="navigationModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content ">

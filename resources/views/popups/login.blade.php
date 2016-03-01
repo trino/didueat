@@ -22,26 +22,31 @@
                         <input type="hidden" name="gmt" id="gmt" class="gmt">
 
                         <DIV id="invalid" class="alert alert-danger m-b-1" style="display: none; margin-bottom: 15px !important;"></DIV>
-                        <DIV id="" class="cleafix" style=""></DIV>
+                        <DIV id="" class="cleafix" ></DIV>
 
                         <?= newrow(false, "Email", "", true); ?>
-                        <input type="email" name="email" class="form-control" placeholder="" required/>
+                        <input type="email" name="email" id="login-email" class="form-control" required/>
                         <?=newrow()?>
 
                         <?= newrow(false, "Password", "", true); ?>
-                        <input type="password" name="password" class="form-control" placeholder="" required>
+                        <input type="password" name="password" id="login-password" class="form-control" required>
 
-                        <p class="m-t-1 m-b-0"><a href="javascript:void(0);" class="" data-toggle="modal" data-target="#forgotpasswordModal"
-                              data-dismiss="modal">
+                        <p class="m-t-1 m-b-0">
+                            <label class="radio-inline c-input c-checkbox">
+                                <input type="checkbox" ID="login-remember">
+                                <span class="c-indicator"></span>
+                                Remember me?
+                            </label>
+                        </p>
+
+                        <p class="m-t-1 m-b-0"><a href="javascript:void(0);" data-toggle="modal" data-target="#forgotpasswordModal" data-dismiss="modal">
                                 Forgot Password?
-                            </a></p>
+                        </a></p>
+
                         <?=newrow()?>
 
                         <input type="hidden" name="url" value="{{ Request::path() }}">
-
                             <button class="btn btn-primary btn-block" type="submit">Log in</button>
-
-
                         <div class="clearfix"></div>
                     </div>
 
@@ -55,5 +60,23 @@
         var visitortime = new Date();
         var visitortimezone = -visitortime.getTimezoneOffset() / 60;
         $(".gmt").val(visitortimezone);
+
+        $('#login-ajax-form').submit(function (e) {
+            if ($("#login-remember").is(":checked")){
+                createCookieValue("login-email", $("#login-email").val() );
+                createCookieValue("login-password", $("#login-password").val() );
+            } else {
+                removeCookie("login-email");
+                removeCookie("login-password");
+            }
+        });
+
+        $(document).ready(function() {
+            if(getCookie("login-email")){
+                $("#login-email").val(getCookie("login-email"));
+                $("#login-password").val(getCookie("login-password"));
+                //$('form#login-ajax-form').submit();
+            }
+        });
     </SCRIPT>
 @endif

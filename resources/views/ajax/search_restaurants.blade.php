@@ -33,7 +33,7 @@
         return;
     }
 
-    echo '<div class="list-group m-t-2" id="restuarant_bar">';
+    echo '<div class="list-group" id="restuarant_bar">';
 
     $totalCnt=0;
     $openCnt=0;
@@ -72,10 +72,16 @@
             }
             ob_start();
             ?>
-            <div class="list-group-item{{ $grayout }}">
-                <div class="col-md-3 col-xs-3 p-l-0">
+
+
+
+
+
+
+            <div class="list-group-item">
+                <div class="col-md-3 col-xs-3 p-a-0">
                     <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="max-width:100%;" class="img-rounded p-r-1" alt="" src="{{ asset('assets/images/' . $logo) }}">
                     </a>
                     <div class="clearfix"></div>
                 </div>
@@ -84,34 +90,35 @@
                         <h4 style="color: #0275d8;">
                             {{ $value['name'] }}
                             <div class="pull-right">
-                            <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm btn-primary hidden-sm-down">{{ $Message }}</a>
+                            <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm  @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
                         </h4>
                     </a>
-                    <div  class="clearfix"></div>
+
                     <div>
                         @if(!$openedRest)
-                            <div class="smallT up7"> (Currently Closed)</div>
+                            <div class="smallT "> Currently Closed</div>
                         @endif
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                        <div  class="clearfix"></div>
                     </div>
-                    <div class="clearfix">{{ $value['address'] }}, {{ $value['city'] }}</div>
+                    <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
 
-                    <span class="p-r-2">Genres: {{ str_replace(",", ", ", $value["cuisine"]) }}</span><br>
-                    <!--span class="p-r-2 ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
+                    <span class="list-inline-item">Cuisine: {{ str_replace(",", ", ", $value["cuisine"]) }}</span><br>
+                    <!--span class="list-inline-item ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
 
                     @if($value["is_delivery"])
-                        <span class="p-r-2">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
-                        <span class="p-r-2">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+                        <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
+                        <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
                         @if(!$value["is_pickup"])
-                            <span class="p-r-2">Delivery only</span>
+                            <span class="list-inline-item">Delivery only</span>
                         @endif
                     @elseif($value["is_pickup"])
-                        <span class="p-r-2">Pickup only</span>
+                        <span class="list-inline-item">Pickup only</span>
                     @endif
 
                     <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
                     @if(isset($latitude) && $radius)
-                        <span class="p-r-2">Distance: {{ round($value['distance'],2) }} km</span>
+                        <span class="list-inline-item">Distance: {{ round($value['distance'],2) }} km</span>
                     @endif
 
                     @if(false)
@@ -122,6 +129,10 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
+
+
+
+
             <?php
                 if(isset($openedRest) && $openedRest == 1){
                     $openStr.="".ob_get_contents();
@@ -138,6 +149,10 @@
                 }
             }
         }
+
+                    ?>
+
+<?
         if($openStr != ""){
             echo $openStr;
         }
@@ -164,8 +179,8 @@
     if(openCnt != totalCnt){
         if(openCnt < totalCnt && closedCnt < totalCnt){
             spBR=" ";
-            openCntMsg=openCnt+" open";
-            closedCntMsg=" and "+closedCnt+" closed";
+            openCntMsg=openCnt+" Open";
+            closedCntMsg=" and "+closedCnt+" Closed";
         } else if(closedCnt == totalCnt){
             closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the Did U Eat restaurants in your area, and place your order when they are open";
         }
