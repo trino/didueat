@@ -94,3 +94,7 @@ public/assets/global/scripts/menu_manager.js
 .env
 config/mail.php
 config/app.php
+resources/views/popups/menu_form.blade_tempRename.php
+*.php
+*.js
+public/assets/images/checkbox_d2.png

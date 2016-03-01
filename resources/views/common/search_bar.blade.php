@@ -32,7 +32,6 @@
             <input type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
-                   onfocus="hideresults();"
                    onpaste="this.onchange();">
             <input type="HIDDEN" name="latitude" id="latitude" value="{{ (isset($latHam))? $latHam : '' }}">
             <input type="HIDDEN" name="latitude" id="longitude" value="{{ (isset($lonHam))? $lonHam : '' }}">
