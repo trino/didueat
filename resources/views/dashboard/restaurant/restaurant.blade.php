@@ -235,7 +235,7 @@ if(!$minimum && isset($restaurant->id)){
                 window.clearInterval(interval);
                         document.getElementById(button_id).style.display="none";
                         $('#picture').attr('src', "{{ asset('assets/images/spacer.gif') }}");
-                        document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>&#8594; </span>Click Save to Finish Uploading";
+                        document.getElementById('browseMsg').innerHTML="<img src='{{ asset('assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('#hiddenLogo').val(img);
             }

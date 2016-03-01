@@ -176,22 +176,22 @@ Order
                                     <div class="btn-group pull-right" role="group">
 
                                         <a id="up_parent_{{ $value->id.'_'.$catid }}"
-                                           class="btn btn-sm btn-success-outline sorting_parent"
+                                           class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                            <i class="fa fa-arrow-up"></i></a>
 
                                         <a id="down_parent_{{ $value->id.'_'.$catid }}"
-                                           class="btn btn-sm btn-success-outline sorting_parent"
+                                           class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                             <i class="fa fa-arrow-down"></i></a>
 
                                         <button id="add_item{{ $value->id }}" type="button"
-                                                class="btn btn-sm btn-success-outline additem" data-toggle="modal"
+                                                class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
-                                           class="btn btn-sm btn-success-outline"
+                                           class="btn btn-sm btn-primary-outline"
                                            onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
                                     </div>
 

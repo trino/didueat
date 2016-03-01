@@ -34,7 +34,7 @@
 
 .smBR{margin:0px;font-family:arial,helvetica,sans-serif;font-size:5px;line-height:5px}
 
-.bd{font-weight:bold}
+.bd{font-weight:bold; font-size: 95% !important;}
 
 .rightmarg {
     margin-right: 10px
@@ -108,6 +108,8 @@ a.anchor {
     */
 }
 .jumbotron{
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
     margin-bottom: 0 !important;
 }
 .close {

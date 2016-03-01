@@ -165,7 +165,8 @@
                                                                     </div>
 
 
-                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif @if ($sub->sing_mul == '1') col-xs-12 @else col-sm-7 col-xs-12 p-l-0 @endif ">
+                                                                    <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
+                                                                    @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
                                                                         <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}"
                                                                                id="extra_{{ $mm->id }}"
@@ -178,7 +179,7 @@
                                                                             <span class="c-indicator"></span>
                                                                         @endif
 
-                                                                        <span class="list-inline-item">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
+                                                                        <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
 
 
