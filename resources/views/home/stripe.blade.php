@@ -13,7 +13,7 @@
 <br/>
 <?php }?>
 
-<div class="col-md-12 p-t-1">
+<div class="col-xs-12 p-t-1">
 
 <span class="payment-errors instruct"></span>
 <input name="user_id" type="hidden" class="S_user_id" value='{{ Session::get("session_id") }}' />

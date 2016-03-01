@@ -101,7 +101,7 @@
 
             <div class="" id="results_show" style="display: none;">
                 <div class="col-lg-8 m-b-2">
-                    <?php popup(true, "message:nostores"); ?>
+                    <?php popup(true, "message:nostores",false,false,'15'); ?>
 
                     @include('ajax.search_restaurants')
 

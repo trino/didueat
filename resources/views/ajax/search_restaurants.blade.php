@@ -99,8 +99,9 @@
                             <div class="smallT "> Currently Closed</div>
                         @endif
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+                        <div  class="clearfix"></div>
                     </div>
-                    <div class="">{{ $value['address'] }}, {{ $value['city'] }}</div>
+                    <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
 
                     <span class="list-inline-item">Cuisine: {{ str_replace(",", ", ", $value["cuisine"]) }}</span><br>
                     <!--span class="list-inline-item ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
