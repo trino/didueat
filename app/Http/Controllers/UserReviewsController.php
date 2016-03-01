@@ -120,7 +120,7 @@
             $rating_id = $post['rating_id'];
             $target_id = $post['target_id'];
             $type = $post['type'];
-            $data['detail'] = \App\Http\Models\RatingUsers::select('user_id', 'target_id', 'comments', 'created_at', 'rating')->where('rating_id', $rating_id)->where('type', $type)->where('target_id', $target_id)->orderBy('rating', 'DESC')->get();
+            $data['detail'] = \App\Http\Models\RatingUsers::select('user_id', 'target_id', 'comments', 'created_at', 'rating')->where('rating_id', $rating_id)->where('type', $type)->where('target_id', $target_id)->orderBy('updated_at', 'DESC')->get();
             $data['type'] = $type;
             return view('ajax.reviewed_users', $data);
         }
