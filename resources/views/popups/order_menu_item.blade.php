@@ -23,7 +23,7 @@
                                ${{number_format($dis_price=$main_price,2)}}
                             </span>
                         @else
-                            <span style="color:#0275d8">${{$dis_price=number_format($value->price,2)}}</span>
+                            <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">${{$dis_price=number_format($value->price,2)}}</span>
                         @endif
 
                     @else
