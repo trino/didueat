@@ -341,7 +341,7 @@ function removeCookie(cname) {
 }
 
 function createCookieValue(cname, cvalue) {
-    setCookie(cname, cvalue, 1);
+    setCookie(cname, cvalue, 365);
 }
 
 function calcdistance(lat1, lon1, lat2, lon2) {
