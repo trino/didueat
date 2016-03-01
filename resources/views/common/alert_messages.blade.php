@@ -16,7 +16,7 @@
 ?>
 
 @if (session('status')|| isset($_GET['flash']))
-        <div class="alert alert-success" style="">
+        <div class="alert alert-success">
             <div class="container" style="margin-top:0 !important;">
             <div class="row">
                 <div class="col-md-12">

@@ -11,8 +11,9 @@
 
                 <A ID="cart-header" style="display:none;"  CLASS="anchor btn btn-sm btn-warning" onclick="return scrolltocheckout();">
                     <SPAN class="cart-header-items"></SPAN>
-                    <i class="fa fa-shopping-cart"></i>
                     <SPAN class="cart-header-total"></SPAN>
+                    <i class="fa fa-shopping-cart"></i>
+
                 </A>
 
 

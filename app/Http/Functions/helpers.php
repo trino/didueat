@@ -200,9 +200,9 @@
             return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
         } else if ($name && ($labelStr == "" || !$labelStr)) {
 
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-xs-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
         } else if ($name && $labelStr != "" && $labelStr != false && $labelStr != "Save") {
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-sm-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-xs-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
 </label><div class="col-sm-' . $columns . '">';
         } elseif ($labelStr) {
             // don't display label on left column
@@ -1922,7 +1922,7 @@ function datename($date){
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-                case "nostores": $Message = '<span class="bd"><span id="countRows">No</span> restaurant<span id="countRowsS">s</span> found in your area<span id="openClosed" class="smRd"></span></span>'; break;
+                case "nostores": $Message = '<span class="bd"><span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
                 
@@ -1936,11 +1936,11 @@ function datename($date){
 
     function makelink($URL, $Name) {
         if (is_array($URL)) {
-            echo '<li><div class="card " style=""><div class="card-header title"><h4 class="card-title">
+            echo '<li><div class="card "><div class="card-header title"><h4 class="card-title">
                 <i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ' . $Name . '</h4>';
             echo '</div><div class="card-block p-a-0"><div class="list-group-flush">';
             $Name = str_replace(" ", "_", strtolower($Name)) . "_menu";
-            echo '<ul class="sub-menu " style="" id="' . $Name . '">';
+            echo '<ul class="sub-menu " id="' . $Name . '">';
             foreach ($URL as $URL2 => $Name) {
                 makelink($URL2, $Name);
             }

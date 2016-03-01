@@ -139,7 +139,7 @@ Order
 
                                 </p>
 
-                                <!--p class="card-text m-a-0 text-muted" style=""> Category: {{ $value->cat_name }}
+                                <!--p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                 @if($value->uploaded_on)
                                         Submitted: {{$value->uploaded_on}}
                                 @endif
@@ -171,7 +171,7 @@ Order
                             </div>
 
 
-                            <div class="col-md-12" style="">
+                            <div class="col-md-12">
                                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
                                     <div class="btn-group pull-right" role="group">
 

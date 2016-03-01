@@ -40,7 +40,7 @@
                     </div>
                     <div class="portlet-body">
 
-                        <div class="row mix-grid" style="">
+                        <div class="row mix-grid" >
                             <?php $count = 0; ?>
                             @foreach($images_list as $value)
                                 <?php $count++; ?>

@@ -9,12 +9,12 @@
 <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
 
-<div class="jumbotron jumbotron-fluid  bg-warning signup-bg-image" style="">
+<div class="jumbotron jumbotron-fluid  bg-warning signup-bg-image">
 
     <div class="container " style="padding-top: 0px !important;margin-top: 0px !important;">
         <div class="row m-l-0 m-r-0 text-md-center" style="  ">
             <div class="col-md-12  ">
-                <h1 class="display-4 banner-text-shadow" style="">
+                <h1 class="display-4 banner-text-shadow">
                     We'll bring the customers to you
                 </h1>
             </div>
@@ -108,7 +108,7 @@
 
 
         <div class="col-sm-12">
-            <h1 align="center" style="">SIGN UP NOW</h1>
+            <h1 align="center">SIGN UP NOW</h1>
         </div>
 
 

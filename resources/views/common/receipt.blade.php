@@ -32,7 +32,7 @@ if (!isset($checkout_modal)) {
 
 <div class="" id="cartsz">
 
-    <div class="card" style="">
+    <div class="card">
 
         <div class="card-header">
             <h4 class="card-title">Receipt</h4>

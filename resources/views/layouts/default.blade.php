@@ -160,7 +160,7 @@ $type = "hidden";
     @yield('content')
 </div>
 
-<div class="container-fluid" style="">
+<div class="container-fluid" >
     @include('layouts.includes.footer')
 </div>
 

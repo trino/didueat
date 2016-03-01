@@ -1,19 +1,14 @@
-<div class="container" style="margin-top:0 !important;">
-
-
-    <footer class="text-muted card list-group-item p-y-2" style="          border: 1px solid #e5e5e5;
-">
+<div class="container" >
+<hr>
+    <footer class="text-muted p-a-1" >
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
-        <div class="row ">
+        <div class="row text-xs-center">
+            <div class="col-lg-12 ">
 
 
 
-            <div class="col-lg-10 ">
                 <ul class="list-inline">
-
-
-                    @include('popups.simplemodal')
-
+                   @include('popups.simplemodal')
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
 
@@ -39,7 +34,7 @@ Thank you">Email Support</a></li>
                     }
 
                     if (!Session::get('session_type_user') == "restaurant" || debugmode()) {
-?>
+                    ?>
 
                     <li class="list-inline-item">
                         <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
@@ -49,21 +44,29 @@ Thank you">Email Support</a></li>
                     ?>
 
 
+                    <li class="list-inline-item">
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
+                           class="simplemodal">Allergy</a>
+                    </li>
+
+
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
+                        <h4>
+                        <A href="https://www.instagram.com/didueat/" target="_blank"><i
+                                    class="fa fa-instagram"></i></A>
+                        <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
+                                    class="fa fa-twitter"></i></A>
+                        <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
+                                    class="fa fa-facebook"></i></A>
+                        </h4>
                     </li>
+
 
 
                 </ul>
             </div>
-            <div class="col-lg-2" style="">
-                <h4>
-                    <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram pull-right"></i></A>
-                    <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter pull-right"></i></A>
-                    <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook pull-right"></i></A>
-                </h4>
-            </div>
+
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
                     Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in the
@@ -74,23 +77,21 @@ Thank you">Email Support</a></li>
                         </B>
                     </a>
                     <!-- and maintained by the <a href="{{ url("home/team") }}">core team</a> -->
-                </p>
 
-                <p class="m-b-0">
-                    Currently v1.0 &copy; Didu Eat <?= date("Y"); ?>
+                    &copy; Didu Eat <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super")
                         <?php
-                            $end_loading_time = microtime(true);
-                            printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                            echo "";
-                            echo getOS();
-                            echo " => ";
-                            echo getUserBrowser();
+                        $end_loading_time = microtime(true);
+                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                        echo "";
+                        echo getOS();
+                        echo " => ";
+                        echo getUserBrowser();
                         ?>
                     @endif
 
-                    <a href="{{ url("home/terms") }}">Terms & Conditions</a>
+                    <a href="{{ url("home/terms") }}">Terms of Use</a>
 
                 </p>
 
@@ -99,10 +100,6 @@ Thank you">Email Support</a></li>
     </footer>
 
 </div>
-
-
-
-
 
 
 <script type="text/javascript">
@@ -114,9 +111,9 @@ Thank you">Email Support</a></li>
             $("#allergyModal #modal_loader").show();
             $.post("{{ url('home/simplemodal') }}/" + id, {}, function (result) {
                 $("#allergyModal #modal_loader").hide();
-                if(result){
+                if (result) {
                     $("#allergyModal #modal_contents").html(result);
-                    $("#allergyModal #simpleModalLabel").html( $("#allergyModal #modaltitle").val() );
+                    $("#allergyModal #simpleModalLabel").html($("#allergyModal #modaltitle").val());
                 } else {
                     $("#allergyModal #modal_contents").hide();
                 }
@@ -131,11 +128,15 @@ Thank you">Email Support</a></li>
             var target_id = $(this).attr('data-target-id');
 
             $("#ratingModal #ratingModalLabel").text(dataname);
-           /* $("#ratingModal #reviews").text(detail); */
+            /* $("#ratingModal #reviews").text(detail); */
             $("#ratingModal #modal_contents").show();
 
-            $.post("{{ url('reviews/users/get') }}", {rating_id: rating_id, type: type, target_id: target_id}, function (result) {
-                if(result){
+            $.post("{{ url('reviews/users/get') }}", {
+                rating_id: rating_id,
+                type: type,
+                target_id: target_id
+            }, function (result) {
+                if (result) {
                     $("#ratingModal #modal_contents").html(result);
                 } else {
                     $("#ratingModal #modal_contents").hide();
@@ -208,7 +209,7 @@ Thank you">Email Support</a></li>
 
         handleresizing(wd);
 
-        function handleresizing(wd){
+        function handleresizing(wd) {
             //console.log(wd);
             if (wd < '753') {
                 //$('.top-cart-info').show();
@@ -314,7 +315,7 @@ Thank you">Email Support</a></li>
                 data: data, _token: $('meta[name=_token]').attr('content'),
                 type: "post",
                 success: function (msg) {
-                    
+
                     if (isNaN(Number(msg))) {
                         $('.overlay_loader').hide();
                         if (checkUrl(msg)) {
@@ -326,51 +327,51 @@ Thank you">Email Support</a></li>
                         }
                     } else {
                         //if ($('#login_type').val() == 'reservation' || reserv == 'reservation') {
-                            $.ajax({
-                                url: "{{url('/user/json_data')}}",
-                                type: "post",
-                                data: "id=" + msg + '&_token={{csrf_token()}}',
-                                dataType: "json",
-                                success: function (arr) {
-                                    $('.overlay_loader').hide();
-                                    reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
-                                    if(arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants'){
-                                        window.location = "{{ url('orders/list/restaurant') }}";
-                                    } else {
-                                        $('.reserve_login').hide();
-                                        $('.reservation_address').show();
-                                        $('#fullname').val(arr.name);
-                                        $('#ordered_user_id').val(arr.user_id);
-                                        $('#ordered_email').val(arr.email);
-                                        $('#ordered_contact').val(arr.phone);
-                                        $('#ordered_province').val(arr.province);
-                                        $('#ordered_code').val(arr.postal_code);
-                                        $('#ordered_street').val(arr.street);
-                                        $('#ordered_city').val(arr.city);
-                                        $('.phone').val(arr.phone);
-                                        $('.hidden_elements').hide();
-                                        $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
-                                        //$('.reservation_signin').hide();
-                                        $('.close').click();
-                                        $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                                            if ($('.profile_delivery_detail').is(':visible'))
-                                                $('.reservation_address_dropdown').attr('required', 'required');
-                                        });
-                                        //only loads header
-                                        $('.header-nav').load(document.URL + ' .header-nav>');
-                                        $('.password_reservation').hide();
-                                        $('.password_reservation').removeAttr('required');
+                        $.ajax({
+                            url: "{{url('/user/json_data')}}",
+                            type: "post",
+                            data: "id=" + msg + '&_token={{csrf_token()}}',
+                            dataType: "json",
+                            success: function (arr) {
+                                $('.overlay_loader').hide();
+                                reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
+                                if (arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants') {
+                                    window.location = "{{ url('orders/list/restaurant') }}";
+                                } else {
+                                    $('.reserve_login').hide();
+                                    $('.reservation_address').show();
+                                    $('#fullname').val(arr.name);
+                                    $('#ordered_user_id').val(arr.user_id);
+                                    $('#ordered_email').val(arr.email);
+                                    $('#ordered_contact').val(arr.phone);
+                                    $('#ordered_province').val(arr.province);
+                                    $('#ordered_code').val(arr.postal_code);
+                                    $('#ordered_street').val(arr.street);
+                                    $('#ordered_city').val(arr.city);
+                                    $('.phone').val(arr.phone);
+                                    $('.hidden_elements').hide();
+                                    $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
+                                    //$('.reservation_signin').hide();
+                                    $('.close').click();
+                                    $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
+                                        if ($('.profile_delivery_detail').is(':visible'))
+                                            $('.reservation_address_dropdown').attr('required', 'required');
+                                    });
+                                    //only loads header
+                                    $('.header-nav').load(document.URL + ' .header-nav>');
+                                    $('.password_reservation').hide();
+                                    $('.password_reservation').removeAttr('required');
 
-                                        $('#ordered_email').rules('remove');
-                                        validateform("profiles", {reservation_address: "required"});//phone, mobile, password, email
-                                    }
+                                    $('#ordered_email').rules('remove');
+                                    validateform("profiles", {reservation_address: "required"});//phone, mobile, password, email
                                 }
-                            });
+                            }
+                        });
                         //} else {
                         //   window.location = "{{ url('dashboard') }}";
                         //}
                     }
-                    
+
                 },
                 failure: function (msg) {
                     $('.overlay_loader').hide();
@@ -530,9 +531,9 @@ Thank you">Email Support</a></li>
         }
     });
 
-    function updatereview(target_id){
+    function updatereview(target_id) {
         var reviews = $("#reviewcount" + target_id).html();
-        reviews = Number(reviews.replace(/\D/g,'')) + 1;
+        reviews = Number(reviews.replace(/\D/g, '')) + 1;
         $("#reviewcount" + target_id).html("Reviews (" + reviews + ")");
 
         var element = document.getElementById("ratingtarget" + target_id);
@@ -548,7 +549,7 @@ Thank you">Email Support</a></li>
             url: "{{ url('/ajax') }}",
             type: "post",
             dataType: "HTML",
-            data: "type=updatereview&targetid=" + target_id + "&rating_type=" + rating_type + "&rating_loadtype=" + rating_loadtype + "&rating_twolines=" + rating_twolines + "&rating_class=" + rating_class +  "&rating_button=" + rating_button + "&rating_starts=" + rating_starts + "&rating_color=" + rating_color,
+            data: "type=updatereview&targetid=" + target_id + "&rating_type=" + rating_type + "&rating_loadtype=" + rating_loadtype + "&rating_twolines=" + rating_twolines + "&rating_class=" + rating_class + "&rating_button=" + rating_button + "&rating_starts=" + rating_starts + "&rating_color=" + rating_color,
             success: function (msg) {
                 $("#ratingtarget" + target_id).html(msg);
             }

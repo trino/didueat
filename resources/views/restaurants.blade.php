@@ -54,14 +54,17 @@
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image" style="">
+    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image">
         <div class="container " style="margin-top: 0 !important;">
             <div class="row text-md-center" style="padding:1.25rem !important;">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow display-4" style="">Order Online Specials<br>From Local Restaurants</h1>
+                    <h1 class="banner-text-shadow display-4">Pickup & Delivery From Hamilton Restaurants</h1>
 
                     <div class="clearfix"></div>
+
+
+
 
                 </div>
 
@@ -73,10 +76,10 @@
 
 
                 <div class="col-md-offset-3 text-xs-center col-md-6 ">
-                    <div class="text-xs-center"
-                         style=""  onclick="submitform(event, 0);" >
+                    <div class="text-xs-center" onclick="submitform(event, 0);" >
 
-                        <h5 class="m-t-1 display-5 banner-text-shadow" style="" loc="{{ $loc }}">
+                        <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
+                        <h5 class="m-t-1 display-5 banner-text-shadow">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
                         <div class="clearfix"></div>

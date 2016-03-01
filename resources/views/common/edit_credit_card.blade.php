@@ -115,7 +115,7 @@
 </div></div>
 
 <?= newrow($new, "Expiry Year", "", true, 5); ?>
-    <select name="expiry_year" class="form-control" id="expiry_year" style="" required>
+    <select name="expiry_year" class="form-control" id="expiry_year" required>
     <option value="">Select Expiry Year</option>
         <?php
             $already_selected_year = (isset($credit_cards_list->expiry_year)) ? $credit_cards_list->expiry_year : '';

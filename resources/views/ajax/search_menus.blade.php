@@ -88,7 +88,7 @@
                       <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
                       <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
-                      <div style="" class="infolist col-xs-12">
+                      <div class="infolist col-xs-12">
                         <div style="display: none;">
                           <input type="checkbox" value="{{ $sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;"
                                  checked="checked" class="chk">

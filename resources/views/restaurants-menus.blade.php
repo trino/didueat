@@ -46,16 +46,16 @@
     }
     ?>
 
-    <div class="container" style="">
+    <div class="container" >
         <?= printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
 
-            <div class="col-md-8 col-xs-12 " style="">
+            <div class="col-md-8 col-xs-12 ">
                 @if(!$is_my_restro)
 
                     <div class="list-group-item m-b-1">
-                        <div class="col-md-3 col-xs-3 p-l-0">
-                            <img style="max-width:100%;" class="pull-left img-rounded"
+                        <div class="col-md-3 col-xs-3 p-a-0">
+                            <img style="max-width:100%;" class="pull-left img-rounded p-r-1"
                                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
                                  src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
                                  @else
@@ -67,7 +67,7 @@
                             <div class="clearfix"></div>
                         </div>
 
-                        <div class="col-md-9 p-a-0" style="">
+                        <div class="col-md-9 p-a-0">
                             <div class="">
                                 <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
@@ -103,7 +103,7 @@
                                 @endif
 
 
-                                <a class="list-inline-item" style="" class="clearfix" href="#" data-toggle="modal"
+                                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
                                    data-target="#viewMapModel">More Details</a>
                                 </span>
 

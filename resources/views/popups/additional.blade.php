@@ -60,7 +60,7 @@
                                        class="btn btn-sm btn-secondary sorting_child"><i
                                                 class="fa fa-angle-down"></i></button>
                                 <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
-                                   onclick="$(this).parent().parent().remove();" style="">
+                                   onclick="$(this).parent().parent().remove();" >
                                     <i class="fa fa-times"></i> </button>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
 
                             <div class="col-md-2">
                                 <a href="javascript:void(0);" class="pull-right btn btn-sm  btn-secondary-outline"
-                                   onclick="$(this).parent().parent().remove();" style=""><i class="fa fa-times"></i>
+                                   onclick="$(this).parent().parent().remove();" ><i class="fa fa-times"></i>
                                 </a>
                                 <!--div class="resturant-arrows">
                                 <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>

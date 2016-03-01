@@ -55,7 +55,7 @@
 
 
 
-                <p class="text-muted  " style=""  align="center" >
+                <p class="text-muted  "  align="center" >
                     By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
                 </p>
 

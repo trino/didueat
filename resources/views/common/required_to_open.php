@@ -75,7 +75,7 @@
 
             <div class="alert alert-success " style="margin-bottom: 0px !important;">
                 <div class="container" style="margin-top:0rem !important;">
-                    <div class="row" style="">
+                    <div class="row">
 
 <?
             printfile("views/common/required_to_open.php");
