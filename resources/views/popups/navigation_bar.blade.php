@@ -10,7 +10,7 @@
             </div-->
             <div class="modal-body p-a-0 m-a-0" style="border-radius: 0 !important;">
 
-                <div class="col-xs-12">
+                <div class="p-r-1">
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

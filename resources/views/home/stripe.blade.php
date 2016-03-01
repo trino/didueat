@@ -25,8 +25,8 @@
 <input type="hidden" name="stripeToken" value=""/>
 
 <div class="form-group row editaddress 2">
-	<label aria-required="true" class="col-sm-5 text-sm-right required" id="card_number">Card Number</label>
-	<div class="col-sm-7">
+	<label aria-required="true" class="col-xs-5 text-xs-right required" id="card_number">Card Number</label>
+	<div class="col-xs-7">
 		<div class="input-icon">
 			<input aria-required="true" autocomplete="off" name="cardnumber" class="form-control" type="text" size="20" data-stripe="number" required/>
 		</div>
@@ -34,8 +34,8 @@
 </div>
     
 <div class="form-group row editaddress 2">
-	<label aria-required="true" class="col-sm-5 text-sm-right required" id="cvc">CVC</label>
-	<div class="col-sm-4">
+	<label aria-required="true" class="col-xs-5 text-xs-right required" id="cvc">CVC</label>
+	<div class="col-xs-4">
 		<div class="input-icon">
 			<input aria-required="true" autocomplete="off"  name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc" required/>
 		</div>
@@ -43,8 +43,8 @@
 </div>
     
 <div class="form-group row editaddress 2">
-	<label aria-required="true" class="col-sm-5 text-sm-right required" id="expiry">Expiry</label>
-	<div class="col-sm-4">
+	<label aria-required="true" class="col-xs-5 text-xs-right required" id="expiry">Expiry</label>
+	<div class="col-xs-4">
 		<div class="input-icon">
 			<SELECT aria-required="true" name="cardmonth" class="form-control lesspadding" data-stripe="exp-month">
 				<OPTION value="01">January</OPTION>
@@ -62,7 +62,7 @@
 			</SELECT>
 		</div>
 	</div>
-	<div class="col-sm-3 p-l-0">
+	<div class="col-xs-3 p-l-0">
 		<div class="input-icon">
 			<SELECT aria-required="true" name="cardyear" class="form-control lesspadding" data-stripe="exp-year">
 				<?php
@@ -79,7 +79,7 @@
 
 <?php if(!isset($loaded_from)){?>
 <div class="form-group row editaddress 2">
-	<div class="col-sm-9">
+	<div class="col-xs-9">
 		<div class="input-icon">
 			<button type="submit" class="btn btn-primary pull-right">Pay For Order</button>
 		</div>

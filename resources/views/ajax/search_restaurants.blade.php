@@ -87,10 +87,11 @@
                 </div>
                 <div class="col-md-9 p-a-0">
                     <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <h4 style="color: #0275d8;">
+                        <h4 style="margin-bottom: 0 !important;">
                             {{ $value['name'] }}
                             <div class="pull-right">
                             <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm  @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
+                                </div>
                         </h4>
                     </a>
 

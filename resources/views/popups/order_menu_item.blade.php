@@ -147,7 +147,7 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 col-sm-5 ">
+                                                                    } ?> class="pull-left p-a-0 col-sm-5" style="margin-right:.25rem !important;">
 
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "

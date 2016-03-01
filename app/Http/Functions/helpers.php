@@ -197,16 +197,16 @@
         }
 
         if ($new) {
-            return '<div class="col-md-12 col-sm-12 col-xs-12"><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
+            return '<div class="col-md-12"><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
         } else if ($name && ($labelStr == "" || !$labelStr)) {
 
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-xs-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-sm-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-md-' . $columns . '">';
         } else if ($name && $labelStr != "" && $labelStr != false && $labelStr != "Save") {
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-xs-3 text-sm-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
+            return '<div class="form-group row editaddress ' . $class . '"><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
 </label><div class="col-sm-' . $columns . '">';
         } elseif ($labelStr) {
             // don't display label on left column
-            return '<div class="form-group row editaddress ' . $class . '"><div class="col-sm-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"><div class="col-md-' . $columns . '">';
         } else {
             return '</div></div>';
         }
