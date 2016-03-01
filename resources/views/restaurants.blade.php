@@ -383,12 +383,7 @@
             var token = $('#search-form input[name=_token]').val();
 
             if ($(e.target).text() && $(e.target).hasClass("search-city")) {
-
-
-
-                /*
-                 <!--
-
+                 /*
                  // We will need to put this back when we expand beyond Canada
                  var dataStr = $(e.target).html();
                  var loc = $(e.target).attr("loc");
@@ -399,19 +394,16 @@
 
                  $("#formatted_address2").val(dataStr);
                  data = "city=" + dataStr2[0] + "&" + secondVar + "=" + dataStr2[1] + "&earthRad=" + earthRad;
-                 -->
                  */
-
-
-
                 IgnoreOne = true;
-                $("#formatted_address2").val($(e.target).text());
+                address_alias = $(e.target).text();
+                $("#formatted_address2").val(address_alias);
+                createCookieValue('address', address_alias);
                 data = "delivery_type=is_delivery&name=&cuisine=&radius=5&latitude={{ (isset($latHam))? $latHam:"" }}&longitude={{ (isset($lonHam))? $lonHam : "" }}&earthRad=" + earthRad + "&formatted_address=67 Caroline St S, Hamilton, ON, Canada";
             } else {
                 if (!address_alias) {
                     return false;
                 }
-
                 var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
             }
 
