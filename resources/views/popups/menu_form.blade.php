@@ -40,7 +40,7 @@
                         <img id="menuImage" class="ignore" 
                             @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
                             src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) ."?" . date('U') }}"/>
-                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" value="{{ $model->image }}" />
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
                             <?php $browseBtnTxt="Browse";?>
                         @else
                        src="{{ asset('assets/images/spacer.gif') }}" style="display:none" />
@@ -107,7 +107,7 @@
                 ?>
                     <script class="ignore ignore2 ignore1">
                         $(function () {
-
+// can we delete this?
                         });
                     </script>
             <?php } ?>

@@ -564,10 +564,10 @@ class RestaurantController extends Controller {
                     $ext = end($uploadedImgExpl);
                     $newName = $id . '.' . $ext;
                     
-                    if (isset($arr['image']) && $arr['image'] != '') {
+                    if (isset($arr['image']) && $arr['image'] != '' &&  file_exists($destinationPath."/".$arr['image'])) {
                     // means image is being uploaded, not just changes to the menu text and options
-
-	                     $imgVs=getimagesize($destinationPath."/".$arr['image']);
+                    
+                      $imgVs=getimagesize($destinationPath."/".$arr['image']); 
                       
                       $destinationPathMenu = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id);
 
