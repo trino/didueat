@@ -81,14 +81,14 @@
 
                         <td>
                             <?php
-                            $dateformat = get_date_format();
+                            $dateformat = get_date_format();//D M d, g:j A
                             $date = strtotime($value->order_time);
                             if (date("dmY", $date) == date("dmY")) {
                                 echo '<FONT COLOR="">Today, </FONT>';
-                                $dateformat = str_replace("M d, Y", "", $dateformat);
+                                $dateformat = str_replace("D M d,", "", $dateformat);
                             }
                             echo date($dateformat, $date);
-                            echo '<HR class="m-a-0">(For ' . iif($value->order_type, "Delivery", "Pickup") . ')';
+                            echo '<HR class="m-a-0">(For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . ')';
                             echo '</td><TD>';
 
                             echo '<FONT COLOR="';
@@ -112,35 +112,33 @@
 
                                 if (Session::get('session_type_user') == "super" || $type=='restaurant'){
 
-                                if ($value->time) {
-                                echo '<FONT COLOR="';
-                                $delay = (strtotime($value->time) - strtotime($value->order_time));
-                                if ($delay < 60) {
-                                    echo 'GREEN">';
-                                } else if ($delay < 300) {
-                                    echo 'ORANGE">';
-                                } else {
-                                    echo 'RED">';
-                                }
-                                $delay = array($secondsTitle => $delay, "total" => "");
-                                $total = array();
-                                foreach ($secondsper as $timeperiod => $seconds) {
-                                    $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
-                                    $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
-                                    if ($delay[$timeperiod]) {
-                                        $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                    if ($value->time) {
+                                    echo '<FONT COLOR="';
+                                    $delay = (strtotime($value->time) - strtotime($value->order_time));
+                                    if ($delay < 60) {
+                                        echo 'GREEN">';
+                                    } else if ($delay < 300) {
+                                        echo 'ORANGE">';
+                                    } else {
+                                        echo 'RED">';
                                     }
+                                    $delay = array($secondsTitle => $delay, "total" => "");
+                                    $total = array();
+                                    foreach ($secondsper as $timeperiod => $seconds) {
+                                        $delay[$timeperiod] = floor($delay[$secondsTitle] / $seconds);
+                                        $delay[$secondsTitle] = $delay[$secondsTitle] - ($seconds * $delay[$timeperiod]);
+                                        if ($delay[$timeperiod]) {
+                                            $total[] = $delay[$timeperiod] . " " . $timeperiod;// . iif($delay[$timeperiod] != 1, "s");
+                                        }
+                                    }
+                                    if ($delay[$secondsTitle]) {
+                                        $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
+                                    }
+                                    echo implode(" ", $total) . '</FONT>';
+                                } else {
+                                    echo "Pending...";
                                 }
-                                if ($delay[$secondsTitle]) {
-                                    $total[] = $delay[$secondsTitle] . " " . $secondsTitle;// . iif($delay[$secondsTitle] != 1, "s");
-                                }
-                                echo implode(" ", $total) . '</FONT>';
-                            } else {
-                                echo "Pending...";
                             }
-                                }
-
-
 
                             ?>
                         </TD>

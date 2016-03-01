@@ -412,7 +412,7 @@
     }
 
     function get_date_format(){
-        return "D M d, g:j A";
+        return "D M d, g:i A";
     }
 
 //generates a random password of $Length digits
@@ -1399,7 +1399,7 @@ function datename($date){
                 $hour = date("G:H:s", $date);
 
                 if ($hour >= $open && $hour <= $close) {
-                    $start_format = date(get_date_format(), $date);
+                    $start_format = date("F d Y G:i", $date);
                     //istoday
                     echo "<option value='" . $start_format . "'>" . datename($date) . date(' - g:i A', $date);
                     $hour = date('g:i A', $date);

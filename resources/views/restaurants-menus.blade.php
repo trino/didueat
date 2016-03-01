@@ -270,21 +270,23 @@
                     success: function (msg) {
                         msg = msg.trim();
                         $('#chkOut').removeAttr('disabled');
+                        var hide=true;
                         if (msg == '1') {
                             $('#ordered_email').focus();
-                            $('.overlay_loader').hide();
                             $('.email_error').show();
                             $('.email_error').html('Email Already Registered.');
-                            //$('.email_error').fadeOut(2000);
                         } else if (msg == '6') {
                             window.location = "{{url('orders/list/user?flash=1')}}";
+                            hide=false;
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                         } else if (msg == '786') {
+                            hide=false;
                             window.location = "{{url('orders/list/user?flash=2')}}";
                             $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                         } else {
                             alert(msg);
                         }
+                        if(hide){$('.overlay_loader').hide();}
                     }
                 })
 
@@ -322,14 +324,11 @@
                 $('.overlay_loader').show();
                 if ($('.CC').is(':visible')) {
                     Stripe.card.createToken($('#profiles'), stripeResponseHandler);
-
-
                 } else {
-
+                    //why are there 2 huge identical blocks of code?
                     var token = $('#profiles input[name=_token]').val();
                     var datas = $('#profiles input, select, textarea').serialize();
                     var order_data = $('.receipt_main input').serialize();
-                    //alert(order_data);
                     $.ajax({
                         type: 'post',
                         url: '<?php echo url(); ?>/user/ajax_register',
@@ -337,21 +336,24 @@
                         success: function (msg) {
                             msg = msg.trim();
                             $('#chkOut').removeAttr('disabled');
+                            var hide = true;
                             if (msg == '1') {
                                 $('#ordered_email').focus();
-                                $('.overlay_loader').hide();
                                 $('.email_error').show();
                                 $('.email_error').html('Email Already Registered.');
                                 //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
+                                hide=false;
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                             } else if (msg == '786') {
+                                hide=false;
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
                                 alert(msg);
                             }
+                            if(hide){$('.overlay_loader').hide();}
                         }
                     })
                 }
