@@ -10,10 +10,11 @@
             <li class="nav-item ">
 
                 <A ID="cart-header" style="display:none;"  CLASS="anchor btn btn-sm btn-warning" onclick="return scrolltocheckout();">
-                    <SPAN class="cart-header-items"></SPAN>
-                    <SPAN class="cart-header-total"></SPAN>
-                    <i class="fa fa-shopping-cart"></i>
+                    <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
 
+                    <SPAN class="cart-header-items cart-header-show"></SPAN>
+                    <SPAN class="cart-header-total cart-header-show"></SPAN>
+                    <i class="fa fa-shopping-cart cart-header-show"></i>
                 </A>
 
 

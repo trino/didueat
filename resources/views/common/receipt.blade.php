@@ -1,20 +1,33 @@
 <?php
-printfile("views/common/receipt.blade.php");
-$ordertype = "Pickup";
-if (isset($order)) {
-    if ($order->order_type) {
-        $ordertype = "Delivery";
+    printfile("views/common/receipt.blade.php");
+    $ordertype = "Pickup";
+    if (isset($order)) {
+        if ($order->order_type) {
+            $ordertype = "Delivery";
+        }
     }
-}
-if (!isset($profile)) {
-    $profile = false;
-}
-if (!isset($type)) {
-    $type = false;
-}
-if (!isset($checkout_modal)) {
-    $checkout_modal = true;
-}
+    if (!isset($profile)) {
+        $profile = false;
+    }
+    if (!isset($type)) {
+        $type = false;
+    }
+    if (!isset($checkout_modal)) {
+        $checkout_modal = true;
+    }
+
+    $checkount = "Checkout";
+    $is_my_restro = true;
+    if(read("restaurant_id")){
+        $is_my_restro = $restaurant->id == read("restaurant_id");
+    }
+    if(!$business_day){
+        if(debugmode()){
+            $checkount .= " (DEBUG)";
+        } else if ($is_my_restro) {
+            $checkount .= " (OWNER)";
+        }
+    }
 ?>
 
 @if(false && !isset($order))
@@ -28,9 +41,7 @@ if (!isset($checkout_modal)) {
     </div>
 @endif
 
-
-
-<div class="" id="cartsz">
+<div id="cartsz">
 
     <div class="card">
 
@@ -92,8 +103,7 @@ if (!isset($checkout_modal)) {
                                     ${{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}
                                 </div>
 
-                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1"
-                                       value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
+                                <input type="hidden" name="subtotal" class="subtotal" id="subtotal1" value="{{ (isset($order)) ? number_format($order->subtotal,2) : '0.00' }}"/>
                             </td>
                         </tr>
                         <tr>
@@ -121,12 +131,9 @@ if (!isset($checkout_modal)) {
                         <tr>
                             <td><strong>Total</strong></td>
                             <td>
-                                <div class="grandtotal inlineblock pull-right">
-                                    ${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
-                                <input type="hidden" name="g_total" class="grandtotal"
-                                       value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
-                                <input type="hidden" name="res_id"
-                                       value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
+                                <div class="grandtotal inlineblock pull-right">${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
+                                <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
+                                <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
                             </td>
                         </tr>
                         </tbody>
@@ -140,12 +147,6 @@ if (!isset($checkout_modal)) {
                         @else
                             <a href="javascript:void(0)" class="btn btn-danger">Closed</a>
                         @endif
-
-                        @if($business_day && read("restaurant_id") != $restaurant->id || debugmode())
-                                    <!--a href="javascript:history.go(0)" class="btn btn-secondary clearitems">Cancel</a-->
-                            <!--a href="javascript:void(0)" class="btn btn-primary " onclick="checkout();">Checkout</a-->
-                        @endif
-
                     </div>
                 @endif
 
@@ -154,8 +155,6 @@ if (!isset($checkout_modal)) {
 
             <!-- display profile info -->
             @if(!isset($email))
-
-
                 <div class="profiles" style="display: none;">
 
                     <div class="form-group">
@@ -163,16 +162,16 @@ if (!isset($checkout_modal)) {
                     </div>
 
                     <!--div class="form-group ">
-                <div class="col-xs-12">
+                        <div class="col-xs-12">
                     @if(\Session::has('is_logged_in'))
-                    <?php
-                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                    echo "<p>Welcome " . $profile->name . "</p>";
-                    ?>
+                        <?php
+                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                            echo "<p>Welcome " . $profile->name . "</p>";
+                        ?>
                     @endif
 
-                            </div>
-                        </div-->
+                        </div>
+                    </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 
@@ -180,7 +179,6 @@ if (!isset($checkout_modal)) {
                     <form name="checkout_form" id="profiles" class="m-b-0">
                         @include('popups.checkout',['profile' => $profile, "type" => $type, "restaurant" => $restaurant, "checkout_modal" => $checkout_modal])
                     </form>
-
 
                 </div>
 
@@ -209,7 +207,7 @@ if (!isset($checkout_modal)) {
         $(".province").val(thiss.getAttribute("PROVINCE"));
         $(".apartment").val(thiss.getAttribute("APARTMENT"));
         $(".postal_code").val(thiss.getAttribute("POSTAL"));
-//$("#ordered_notes").val(thiss.getAttribute("NOTES"));
+        //$("#ordered_notes").val(thiss.getAttribute("NOTES"));
     }
 
     var ignoreone = false;
@@ -267,7 +265,7 @@ if (!isset($checkout_modal)) {
                 reservation_address: "required",
                 @if(!read("id"))
                     email: "email required",
-                password: "required minlength 3",
+                    password: "required minlength 3",
                 @endif
             });
         }

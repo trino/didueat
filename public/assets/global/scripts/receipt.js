@@ -455,6 +455,13 @@ function updatecart(){
     $("#cart-header").show();
     $(".cart-header-total").html(total);
     if(total_items != "" && !isNaN(total_items)){
-      $(".cart-header-items").html(total_items);
+        $(".cart-header-items").html(total_items);
     }
+
+    $(".cart-header-show").hide();
+    $(".cart-header-gif").show();
+    setTimeout(function(){
+        $(".cart-header-show").show();
+        $(".cart-header-gif").hide();
+    }, 500);
 }
