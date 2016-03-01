@@ -18,7 +18,7 @@ class Reservations extends BaseModel {
         //var_dump($data);
         $cells = array('restaurant_id', 'menu_ids', 'prs', 'qtys', 'extras', 'listid', 'subtotal', 'g_total', 'cash_type', 'ordered_by', 'contact', 'payment_mode', 'address1', 'address2', 'city', 'province', 'country', 'postal_code', 'remarks', 'order_time', 'order_till', 'order_now', 'delivery_fee', 'tax', 'order_type', 'status', 'note', 'user_id', 'time', );
         $this->copycells($cells, $data);
-        if(isset($data["restaurant_id"])) {
+        if(isset($data["restaurant_id"]) && ( !isset($this->guid) || !$this->guid ) ) {
             $this->guid = $this->guid($data["restaurant_id"]) . iif($data['order_type'] == '1', "-D", "-P");
         }
     }
