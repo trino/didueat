@@ -21,6 +21,8 @@
     if(read("restaurant_id")){
         $is_my_restro = $restaurant->id == read("restaurant_id");
     }
+
+    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
     if(!$business_day){
         if(debugmode()){
             $checkount .= " (DEBUG)";

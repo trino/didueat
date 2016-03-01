@@ -1,7 +1,7 @@
 <?php
-echo printfile("views/dashboard/orders/ajax/list.blade.php");
-$secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
-$secondsTitle = "sec";
+    echo printfile("views/dashboard/orders/ajax/list.blade.php");
+    $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
+    $secondsTitle = "sec";
 ?>
 
 @if(\Session::has('message'))
@@ -21,9 +21,7 @@ $secondsTitle = "sec";
                     Orders
 
                     @if (Session::get('session_type_user') == "super" || $type=='restaurant')
-
                         <a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
-
                     @endif
 
                     @if($type == "admin" && false)
@@ -46,11 +44,12 @@ $secondsTitle = "sec";
                 <thead>
                 <tr>
                     <th>Order #</th>
-                    <th>@if($type=='user')
-                        Restaurant
-                    @else
-                        Customer
-                    @endif
+                    <th>
+                        @if($type=='user')
+                            Restaurant
+                        @else
+                            Customer
+                        @endif
                     </th>
                     <th>Ordered On</th>
                     <th>Status</th>
@@ -70,14 +69,13 @@ $secondsTitle = "sec";
                 ?>
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}"
-                               class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>
-                            @if(!isset($resto[0]->name))
-                                {{$value->ordered_by }}
-                            @else
+                            @if($type=='user')
                                 <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a>
+                            @else
+                                {{$value->ordered_by }}
                             @endif
                         </td>
 
