@@ -1,9 +1,3 @@
-var path = window.location.pathname;
-if (path.replace('didueat', '') != path)
-    var base_url = 'http://localhost/didueat/public/';
-else
-    var base_url = 'http://didueat.ca/';
-
 $('.add_item').live('click', function () {
     var id = $(this).attr('id').replace('add_item', '');
 
@@ -29,11 +23,10 @@ $('.additem').live('click', function () {
     
     
     if ($("#res_id").length == 0) {
-
         var res_id = 0;
-    }
-    else
+    } else {
         var res_id = $("#res_id").val();
+    }
     if (id == 0) {
         $('.overlay_loader').show();
         $('#menumanager2').load(base_url + 'restaurant/menu_form/0/' + res_id, function () {
@@ -54,7 +47,13 @@ $('.additem').live('click', function () {
     }
 });
 
-var token = '';
+var token;
+var path = window.location.pathname;
+if (path.replace('didueat', '') != path) {
+    var base_url = 'http://localhost/didueat/public/';
+}else {
+    var base_url = window.location.protocol + '//didueat.ca/';
+}
 $.ajax({
     url: base_url + 'restaurant/getToken',
     success: function (res) {

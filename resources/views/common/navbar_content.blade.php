@@ -15,7 +15,7 @@
             }
         }
   
-        if (\Session::get('session_restaurant_id')) {
+        if (trim(\Session::get('session_restaurant_id'))) {
             makelink(array('orders/list/restaurant' => 'Restaurant Orders',
                     'notification/addresses' => "Notification Methods",
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Restaurant Menu",

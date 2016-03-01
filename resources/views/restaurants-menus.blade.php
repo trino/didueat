@@ -1,5 +1,6 @@
 @extends('layouts.default')
 @section('content')
+    <script src="{{ asset('assets/global/scripts/provinces.js') }}"></script>
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
     @include("popups.rating")
 

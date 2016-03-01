@@ -1,10 +1,10 @@
+var token;
 var path = window.location.pathname;
 if (path.replace('didueat', '') != path) {
     var base_url = 'http://localhost/didueat/public/';
 }else {
-    var base_url = 'http://didueat.ca/';
+    var base_url = window.location.protocol + '//didueat.ca/';
 }
-var token = '';
 $.ajax({
     url: base_url + 'restaurant/getToken',
     success: function (res) {
