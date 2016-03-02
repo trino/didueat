@@ -15,8 +15,9 @@
                     <?php echo $value->menu_item; ?>
 <br>
                     @if($value->price>0)
-                        <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
                         @if($dis)
+                                    <span class='label label-warning'>{{$dis}}</span>
+<br>
                             <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
                             <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
                             <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">
@@ -30,10 +31,9 @@
                         ${{$dis_price=number_format($min_p,2)}}+
                     @endif
 
+                        <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
 
-                    @if($dis)
-                        <span class='label label-warning'>{{$dis}}</span>
-                    @endif
+
 
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>

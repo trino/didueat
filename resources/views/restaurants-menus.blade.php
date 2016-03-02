@@ -73,7 +73,12 @@
                                 <h2 class="card-title">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                                 </h2>
-
+                                <?
+                                $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+                                if(!$business_day){
+                                    echo '<div class="smallT ">Currently Closed</div>';
+                                }
+                                ?>
                                 <div id="restaurant_rating">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                     <div class="clearfix"></div>
