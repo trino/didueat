@@ -20,13 +20,18 @@
 
     $checkount = "Checkout";
     $is_my_restro = false;
+    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+
     if(read("restaurant_id")){
         $is_my_restro = $restaurant->id == read("restaurant_id");
+        if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
+            $business_day = false;
+        }
     }
-
-    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
     if(!$business_day){
-        if(debugmode()){
+        if(Session::get('session_type_user') == "super"){
+            $checkount .= " (SUPER)";
+        } else if(debugmode()){
             $checkount .= " (DEBUG)";
         } else if ($is_my_restro) {
             $checkount .= " (OWNER)";
