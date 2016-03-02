@@ -14,27 +14,25 @@ if (Request::path() !== null && Request::path() != "/") {
 <html lang="en">
 <head>
     <?php $start_loading_time = microtime(true); ?>
-    <title>{{ (isset($title))?$title.' | ':'' }}Didu Eat</title>
+    <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
 
     <meta charset="utf-8">
     <!--meta content="width=device-width, initial-scale=1.0" name="viewport"-->
 
     <meta name="viewport" content="width=device-width, user-scalable=no">
-        <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta content="{{ (isset($title))?$title.' | ':'' }}Did u eat" name="keywords">
+    <meta content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}" name="keywords">
     <meta content="DiduEat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}"
-          name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">
 
     <meta property="og:site_name" content="DiduEat">
-    <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}Didu Eat">
-    <meta property="og:description"
-          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
+    <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}">
+    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">

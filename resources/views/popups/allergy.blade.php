@@ -1,6 +1,6 @@
 <INPUT TYPE="HIDDEN" ID="modaltitle" VALUE="Allergy & Dietary Information">
 <p>
-    Didu Eat tries to accurately copy the description of dishes.
+    {{ DIDUEAT  }} tries to accurately copy the description of dishes.
 </p>
 <p>
     However, it is the restaurants that prepares the dishes, please use the notes section on the receipt to specify particular allergies.

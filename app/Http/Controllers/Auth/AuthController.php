@@ -131,9 +131,9 @@ class AuthController extends Controller {
                 try {//add new user to the database
                     $user = $this->registeruser($data);
 
-                    $message['title'] = "Registration Success. Welcome to Didu Eat!";
+                    $message['title'] = "Registration Success. Welcome to " . DIDUEAT . "!";
                     $message['msg_type'] = "success";
-                    $message['msg_desc'] = "Thank you for creating an account with DiduEat.ca.";
+                    $message['msg_desc'] = "Thank you for creating an account with " . DIDUEAT . ".";
                     if($email_verification) {
                         $message['msg_desc'] .= "A confirmation email has been sent to your email address [$user->email]. Please verify the link. If you didn't find the email from us, <a href='" . url('auth/resend_email/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
                     }
@@ -199,7 +199,7 @@ class AuthController extends Controller {
             $this->sendEMail("emails.registration_welcome", $userArray);
             $message['title'] = "Registration Success";
             $message['msg_type'] = "success";
-            $message['msg_desc'] = "Thank you for creating an account with DiduEat.ca. A confirmation email has been sent to your email address (" . $user->email . "). Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
+            $message['msg_desc'] = "Thank you for creating an account with " . DIDUEAT . ". A confirmation email has been sent to your email address (" . $user->email . "). Please verify the link. If you didn't find the email from us, <a id='resendMeEmail' href='" . url('auth/resend_email/ajax/' . base64_encode($user->email)) . "'><b>click here</b></a> to resend the confirmation email. Thank you.";
         } else {
             $message['title'] = "Email verification";
             $message['msg_type'] = "error";
@@ -247,7 +247,7 @@ class AuthController extends Controller {
             $message['title'] = "Email verification";
             $message['msg_type'] = "success";
             //$message['msg_desc'] = "Thank you for activate your account with didueat.com. Your email has been confirmed successfully. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to login.";
-            $message['msg_desc'] = "Thank you for activating your account with DiduEat.ca. Your email has been confirmed successfully. You have been logged in into our system. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to change your info. ";
+            $message['msg_desc'] = "Thank you for activating your account with " . DIDUEAT . ". Your email has been confirmed successfully. You have been logged in into our system. Please <a href='#login-pop-up' class='fancybox-fast-view'><b>click here</b></a> to change your info. ";
             return view('messages.message', $message);
         } else {
             $message['title'] = "Email verification";
@@ -285,7 +285,7 @@ class AuthController extends Controller {
                     $user->save();
 
                     $userArray = $user->toArray();
-                    $userArray['mail_subject'] = 'New password request for your DiduEat account.';
+                    $userArray['mail_subject'] = 'New password request for your ' . DIDUEAT . ' account.';
                     $userArray['new_pass'] = $newpass;
                     $this->sendEMail("emails.forgot", $userArray);
 

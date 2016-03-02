@@ -393,7 +393,7 @@ class UsersController extends Controller {
                     $userArray3["email"] = $post["email"];
                 }
 
-                $userArray3['mail_subject'] = 'Your Didu Eat order has been received!';
+                $userArray3['mail_subject'] = 'Your ' . DIDUEAT . ' order has been received!';
                 $userArray3["guid"] = $ob2->guid;
                 $userArray3["orderid"] = $oid;
                 $userArray3["profile_type"] = "user";
@@ -401,7 +401,7 @@ class UsersController extends Controller {
                 $this->sendEMail("emails.receipt", $userArray3);
 
                 $userArray3["profile_type"] = "restaurant";
-                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to Didu Eat for more details. Thank you.';
+                $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT. ' for more details. Thank you.';
                 app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt", "SMS");
                 
                 //CC

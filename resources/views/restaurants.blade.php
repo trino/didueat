@@ -209,7 +209,7 @@
 
 
                 <div class="col-lg-12 p-b-1 text-xs-center">
-                    <h2>Why Order From Didu Eat?</h2>
+                    <h2>Why Order From {{ DIDUEAT  }}?</h2>
                     <hr>
                 </div>
 

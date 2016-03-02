@@ -78,16 +78,16 @@ Thank you">Email Support</a></li>
                     </a>
                     <!-- and maintained by the <a href="{{ url("home/team") }}">core team</a> -->
 
-                    &copy; Didu Eat <?= date("Y"); ?>
+                    &copy; {{ DIDUEAT  }} <?= date("Y"); ?>
 
                     @if(Session::get('session_type_user') == "super")
                         <?php
-                        $end_loading_time = microtime(true);
-                        printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
-                        echo "";
-                        echo getOS();
-                        echo " => ";
-                        echo getUserBrowser();
+                            $end_loading_time = microtime(true);
+                            printf("/ Page generated in %f seconds. ", $end_loading_time - $start_loading_time);
+                            echo "";
+                            echo getOS();
+                            echo " => ";
+                            echo getUserBrowser();
                         ?>
                     @endif
 

@@ -1,6 +1,6 @@
 <?php
 	printfile("views/home/stripe.blade.php");
-	$orderDesc="DidUeat order";
+	$orderDesc= DIDUEAT . " order";
 	$currencyType="cad";
 
 	$CanSaveCard = false;//set to true to allow saving cards

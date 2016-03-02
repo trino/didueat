@@ -183,7 +183,7 @@
             openCntMsg=openCnt+" Open";
             closedCntMsg=" and "+closedCnt+" Closed";
         } else if(closedCnt == totalCnt){
-            closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the Did U Eat restaurants in your area, and place your order when they are open";
+            closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the {{ DIDUEAT }} restaurants in your area, and place your order when they are open";
         }
         document.getElementById('openClosed').innerHTML=spBR+"<BR>("+openCntMsg+closedCntMsg+")";
     }

@@ -34,7 +34,7 @@
 
                 <span class="  ">
                 How It Works
-                Didu Eat is dedicated to connecting local restaurants to hungry customers. Instead of having an
+                {{ DIDUEAT  }} is dedicated to connecting local restaurants to hungry customers. Instead of having an
                 exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a
                 meal of
                 the day for each day of the week. The customer simply selects the food category they feel like having,
@@ -48,8 +48,8 @@
 </span><br>
                 <span id="moreInfo" class="p-t-1" style="display:none">
                     <div class="smBR"></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
-            eating. What are you waiting for? Sign up now and let the Didu Eat team bring the customers to you.
-            By putting your restaurant online with Didu Eat, you'll be getting more business from hungry customers
+            eating. What are you waiting for? Sign up now and let the {{ DIDUEAT  }} team bring the customers to you.
+            By putting your restaurant online with {{ DIDUEAT  }}, you'll be getting more business from hungry customers
             in your local area
             Diners on our sites browse your menu and place an order from their computer or web app. Once that's
             done, our system sends you the order to be made and delivered just like you do now.

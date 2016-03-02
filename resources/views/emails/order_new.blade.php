@@ -23,7 +23,7 @@
                                 Note:
                                 <span style="color:#b02128; font-weight: bold;"> {{ $note }} </span>
                                 <br /><br />
-                                (Notes are written by the store staff, not an employee of Didu Eat)
+                                (Notes are written by the store staff, not an employee of {{ DIDUEAT  }})
                                 <br /><br />
                                 If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
                                 <br /><br />

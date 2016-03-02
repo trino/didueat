@@ -119,7 +119,7 @@
          * @return redirect
          */
         public function changeOrderApprove($type = "", $OrderID = false, $Note = false){
-            return $this->changeOrderStatus('approved', 'Didu Eat', "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('approved', DIDUEAT, "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**
@@ -128,7 +128,7 @@
          * @return redirect
          */
         public function changeOrderDisapprove($type = "", $OrderID = false, $Note = false){
-            return $this->changeOrderStatus('pending', 'Didu Eat', "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('pending', DIDUEAT, "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**
@@ -253,7 +253,7 @@
                 $EmailParameters["mail_subject"] = $Message;
             }
             //list of words to replace for easier pronunciation by the computer
-            $CallMessage = str_replace(array("didu eat"), array("did you eat"), strtolower($Message));
+            $CallMessage = str_replace(array(DIDUEAT), array("did you eat"), strtolower($Message));
             if($IncludeVan && islive()){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
             $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
             foreach ($NotificationAddresses as $NotificationAddress) {
