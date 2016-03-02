@@ -28,10 +28,10 @@
                     </div>
                     <div class="resturant-arrows col-md-2 col-sm-2 col-xs-12">
                         <a id="child_up_{{ $cc->id }}"  class="btn btn-sm btn-secondary sorting_child" href="javascript:void(0)">
-                            <i class="fa fa-angle-up"></i>
+                            <i class="fa fa-arrow-up"></i>
                         </a>
                         <a id="child_down_{{ $cc->id }}" class="btn btn-sm btn-secondary sorting_child" href="javascript:void(0)">
-                            <i class="fa fa-angle-down"></i>
+                            <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>
                     <div class="clearfix ignore ignore2 ignore1"></div>

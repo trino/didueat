@@ -155,13 +155,13 @@
 </div></div>
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
-    <?= newrow($new, $aptUnit . " #", "", false, 5); ?>
+    <?= newrow($new, $aptUnit, "", false, 5); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
 </div></div>
 
 @if($mini)
-    <?php echo newrow($new, "City/Province/PC", "", $required, 5);
+    <?php echo newrow($new, "City", "", $required, 9);
     $WasVisible = false;
     foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
         $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);

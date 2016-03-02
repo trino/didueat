@@ -1,15 +1,18 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
-            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}"
+                 style="height: 38px;"/>
         </a>
         <a style="" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
-            <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
+                 style="height: 38px;"/>
         </a>
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
-                <A ID="cart-header" style="display:none;"  CLASS="anchor btn btn-sm btn-warning" onclick="return scrolltocheckout();">
+                <A ID="cart-header" style="display:none;" CLASS="anchor btn btn-sm btn-warning"
+                   onclick="return scrolltocheckout();">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
 
                     <SPAN class="cart-header-items cart-header-show"></SPAN>
@@ -20,18 +23,22 @@
 
                 @if(Session::has('is_logged_in'))
                     @if (read("oldid"))
-                        <a style="padding-left:6px !important;" href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} " class="nav-link pull-right">De-Possess</a>
+                        <a style="padding-left:6px !important;"
+                           href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
+                           class="nav-link pull-right">De-Possess</a>
                     @endif
 
-                    <a href="#" data-toggle="modal" data-target="#navigationModal" style="padding-left:6px !important; color:white; text-decoration: none;" class="pull-right" onclick="modalcheck();">
+                    <a href="#" data-toggle="modal" data-target="#navigationModal"
+                       style="padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
+                       onclick="modalcheck();">
                         <img src="<?php
-                            $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
-                            if (Session::has('session_photo') && file_exists(public_path($filename))) {
-                                echo asset($filename);
-                            } else {
-                                echo asset('assets/images/icon-didueatdefault.png');
-                            }
-                        ?>" class="img-rounded" style="margin-left:6px !important;height: 30x;width:30px;">
+                        $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
+                        if (Session::has('session_photo') && file_exists(public_path($filename))) {
+                            echo asset($filename);
+                        } else {
+                            echo asset('assets/images/icon-didueatdefault.png');
+                        }
+                        ?>" class="img-rounded" style="margin-left:6px !important;height: 30px;width:30px;">
                         <span class="hidden-sm-down ">{{explode(' ', Session::get('session_name'))[0] }}</span>
                     </a>
 
@@ -44,7 +51,8 @@
                 @else
                     <div class="btn-group">
                         <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#signupModal">Signup</a>
-                        <a class="btn btn-sm btn-primary-outline reserve_login" data-toggle="modal" data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
+                        <a class="btn btn-sm btn-primary-outline reserve_login" data-toggle="modal"
+                           data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
                     </div>
 
                 @endif
@@ -54,27 +62,28 @@
     </div>
 </nav>
 <?php
-    $AreaCodes = array();
-    foreach(areacodes() as $Region){
-        $AreaCodes = array_merge($AreaCodes, array_keys($Region));
-    }
+$AreaCodes = array();
+foreach (areacodes() as $Region) {
+    $AreaCodes = array_merge($AreaCodes, array_keys($Region));
+}
 ?>
 <SCRIPT>
-    function modalcheck(){
-        if ($("#navigationModal").length == 0){
+    function modalcheck() {
+        if ($("#navigationModal").length == 0) {
             window.location.assign("{{  url("user/info") }}");
         }
     }
 
     var AreaCodes = [{{  implode(", ", $AreaCodes) }}];
 
-    $( document ).ready(function() {
-        switch (window.location.hash){
+    $(document).ready(function () {
+        switch (window.location.hash) {
             @if(!read("id"))
                 case "#login":
-                        $('.reserve_login').trigger("click");
-                    break;
-            @endif
+                $('.reserve_login').trigger("click");
+                break;
+                @endif
+
         }
     });
 </SCRIPT>

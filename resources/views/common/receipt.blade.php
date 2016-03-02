@@ -153,7 +153,8 @@
                         @if($is_my_restro || $business_day || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkount }}</a>
                         @else
-                            <a href="javascript:void(0)" class="btn btn-danger-outline">Restaurant Closed</a>
+                            <h4><span class="label label-danger">Currently Closed</span></h4>
+
                         @endif
                     </div>
                 @endif

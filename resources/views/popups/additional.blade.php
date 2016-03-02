@@ -55,10 +55,10 @@
                             <div class="col-md-3">
                                 <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                     <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></button>
+                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>
                                     <button href="javascript:void(0)" id="child_down_{{ $cc->id }}"
                                        class="btn btn-sm btn-secondary sorting_child"><i
-                                                class="fa fa-angle-down"></i></button>
+                                                class="fa fa-arrow-down"></i></button>
                                 <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
                                    onclick="$(this).parent().parent().remove();" >
                                     <i class="fa fa-times"></i> </button>

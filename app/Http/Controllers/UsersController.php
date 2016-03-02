@@ -424,7 +424,7 @@ class UsersController extends Controller {
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();
-                echo "Some Error occured. Please Try Again.";
+                echo "An error occurred. Please try again.";
                 die();
             } catch(\Exception $e) {
                 \DB::rollback();

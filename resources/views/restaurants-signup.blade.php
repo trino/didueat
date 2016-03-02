@@ -9,7 +9,7 @@
 <?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
 
 
-<div class="jumbotron jumbotron-fluid  bg-warning signup-bg-image">
+<div class="jumbotron jumbotron-fluid  bg-success signup-bg-image">
 
     <div class="container " style="padding: 0px !important;margin-top: 0px !important;">
     <div class="p-a-1">
