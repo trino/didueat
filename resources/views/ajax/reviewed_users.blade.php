@@ -7,13 +7,13 @@
             <tr>
                 <?php
                     $profile = select_field("profiles", "id", $value->user_id);
-                    $logo_name = "default-avatar.jpg";
-                    $logo = $value->user_id . "/icon-" . trim($profile->photo);
-                    if(trim($logo)){
-                        $logo_name = $logo;
+                    $logo_name = "small-didueatdefault.png";
+                    $logo = trim($value->user_id . "/icon-" . trim($profile->photo));
+                    if($profile->photo){
+                        $logo_name = 'users/' . $logo;
                     }
                 ?>
-                <td width="10%"><img src="{{ asset('assets/images/users/' . $logo_name) }}" width="55" /></td>
+                <td width="10%"><img src="{{ asset('assets/images/' . $logo_name) }}" width="55" /></td>
                 <td width="90%">
                     {{ $profile->name }} &nbsp;-&nbsp; (<i>{{ date("d M, Y", strtotime($value->created_at)) }}</i>)<br />
                     {!! rating_initialize("static-rating", $type, $value->target_id, false, 'update-rating', false, false, "", true, $value->rating) !!}
