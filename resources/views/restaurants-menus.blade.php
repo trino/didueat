@@ -51,7 +51,7 @@
         <?= printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
 
-            <div class="col-md-8 col-xs-12 ">
+            <div class="col-lg-8 col-md-7 col-sm-12 ">
                 @if(!$is_my_restro)
 
                     <div class="list-group-item m-b-1">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
             </div>
-            <div class=" col-md-4 col-sm-4" id="printableArea">
+            <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
 
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
@@ -585,7 +585,7 @@
                  */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" style="width:40px;">' +
+                $('#list' + ids).html('<td class="receipt_image" style="width:45px;">' +
 
 
                         '<a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline  " href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +

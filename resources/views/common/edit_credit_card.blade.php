@@ -82,25 +82,25 @@
 <?= newrow($new, "First Name", "", true, 5); ?>
 <input type="text" name="first_name" class="form-control"
        value="{{ (isset($credit_cards_list->first_name))?$credit_cards_list->first_name:'' }}" id="first_name"
-       placeholder="First Name" required>
+       placeholder="" required>
 </div></div>
 
 <?= newrow($new, "Last Name", "", true, 5); ?>
 <input type="text" name="last_name" class="form-control"
        value="{{ (isset($credit_cards_list->last_name))?$credit_cards_list->last_name:'' }}" id="last_name"
-       placeholder="Last Name" required>
+       placeholder="" required>
 </div></div>
 
 <?= newrow($new, "Card Number", "", true, 5); ?>
 <input type="text" name="card_number" class="form-control"
        value="{{ (isset($credit_cards_list->card_number))?$credit_cards_list->card_number:'' }}" id="card_number"
-       placeholder="Card Number" required>
+       placeholder="" required>
 </div></div>
 
 
 <?= newrow($new, "Expiry Month", "", true,5); ?>
     <select name="expiry_month" class="form-control" id="expiry_month" required>
-        <option value="">Select Expiry Month</option>
+        <option value="">Select Month</option>
             <?php
             $months = array("01" => "January", "02" => "February", "03" => "March", "04" => "April", "05" => "May", "06" => "June", "07" => "July", "08" => "August", "09" => "September", "10" => "October", "11" => "November", "12" => "December");
             foreach ($months as $index => $month) {
@@ -116,7 +116,7 @@
 
 <?= newrow($new, "Expiry Year", "", true, 5); ?>
     <select name="expiry_year" class="form-control" id="expiry_year" required>
-    <option value="">Select Expiry Year</option>
+    <option value="">Select Year</option>
         <?php
             $already_selected_year = (isset($credit_cards_list->expiry_year)) ? $credit_cards_list->expiry_year : '';
             for ($starting_year; $starting_year <= $ending_year; $starting_year++) {
@@ -129,7 +129,7 @@
 
 <?= newrow($new, "CCV", "", true, 5); ?>
 <input type="text" name="ccv" class="form-control"
-       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="CCV" required size="3" ><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px" /><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is this located?</u></a>
+       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="" required size="3" ><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px" /><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is this located?</u></a>
 </div></div>
 
 @if ( isset($credit_cards_list->id))

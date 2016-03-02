@@ -1917,7 +1917,7 @@ function datename($date){
         echo '<div class="alert alert-' . $Success . '" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
         if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
-        echo '><div class="container" style="margin-top:0 !important; "><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        echo '><div class="container" style="margin-top:0 !important;line-height: 2rem !important; "><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);

@@ -50,7 +50,7 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     echo '</textarea>' . newrow();
 }
 echo '<DIV id="cuisinelist">';
-echo newrow($new, "Cuisine", "", true, 9, ' (Select up to 3)');
+echo newrow($new, "Cuisine", "", true, 9, '<br>(Select up to 3)');
 echo '<input name="cuisines" type="hidden" /><div class="row">';
 $cuisineExpl = "";
 if (isset($restaurant->cuisine)) {

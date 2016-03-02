@@ -31,7 +31,7 @@
                             } else {
                                 echo asset('assets/images/icon-didueatdefault.png');
                             }
-                        ?>" class="img-rounded" style="margin-left:6px !important;height: 31px;width:31px;">
+                        ?>" class="img-rounded" style="margin-left:6px !important;height: 30x;width:30px;">
                         <span class="hidden-sm-down ">{{explode(' ', Session::get('session_name'))[0] }}</span>
                     </a>
 

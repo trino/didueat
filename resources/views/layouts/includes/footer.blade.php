@@ -222,7 +222,7 @@ Thank you">Email Support</a></li>
                 //$('.top-cart-info').hide();
                 $('.new_headernav').hide();
 
-                $('#cartsz').closest('#printableArea').attr("class", "col-md-4 col-sm-4");
+                $('#cartsz').closest('#printableArea').attr("class", "col-lg-4 col-md-5 col-sm-12");
             }
         }
 

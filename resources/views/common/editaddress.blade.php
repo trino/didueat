@@ -238,7 +238,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     function isaddress_incomplete(){
         var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
         $("#error-message").text("");
-        if(incomplete){$("#error-message").text("The address is not complete");}
+        if(incomplete){$("#error-message").text("Please input your exact address");}
         return incomplete;
     }
 </SCRIPT>

@@ -1,6 +1,6 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
     <div>
-        <div class="input-group">
+        <div class="input-group input-group-lg">
 
             @if(read("id") && false)
                 <div class="input-group-btn">

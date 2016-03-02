@@ -58,8 +58,8 @@
         <div class="container " style="margin-top: 0 !important;">
             <div class="row text-md-center" style="padding:1.25rem !important;">
 
-                <div class="col-md-offset-2 text-xs-center col-md-8 ">
-                    <h1 class="banner-text-shadow display-4">Pickup & Delivery From Hamilton Restaurants</h1>
+                <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
+                    <h1 class="banner-text-shadow" > <span style="font-size: 131%">Pickup & Delivery from </span><span style="font-size: 136%"> Hamilton Restaurants</span> </h1>
 
                     <div class="clearfix"></div>
 
