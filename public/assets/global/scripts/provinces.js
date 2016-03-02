@@ -1,48 +1,5 @@
 function getelement(name) {
-    var element = document.getElementById(name);
-    return element;
-}
- 
-function provinces(webroot, value) {
-    var country = 40; //Canada
-    var element = document.getElementById("country");
-    if (element) {
-        country = element.value;
-        if (isNaN(country)) {
-            return false;
-        }
-    }
-    $.ajax({
-        url: webroot,
-        type: "post",
-        dataType: "HTML",
-        data: "type=provinces&country=" + country + "&value=" + value,
-        success: function(msg) {
-            element = getelement("province");
-            element.innerHTML = msg;
-        }
-    });
-}
-
-function cities(webroot, value) {
-    var province = 7; //Canada
-    var element = getelement("province");
-    if (element) {
-        province = element.value;
-        if (isNaN(province)) {
-            return false;
-        }
-    }
-    $.ajax({
-        url: webroot,
-        type: "post",
-        dataType: "HTML",
-        data: "type=cities&province=" + province + "&value=" + value,
-        success: function(msg) {
-            element = getelement("city");
-            element.innerHTML = msg;
-        }
-    });
+    return document.getElementById(name);
 }
 
 $(document).ready(function() {
@@ -153,8 +110,10 @@ function fillInAddress1() {
 
         if (componentForm[addressType]) {
             var val = place.address_components[i][componentForm[addressType]];
+            if(debugmode) {console.log(addressType + " = " + val);}
             if(addressType == "country"){
                 $('#country').val(val);
+                $('span.country').text(val);
             }
 
             $("#ordered_province option").filter(function() {
@@ -163,20 +122,22 @@ function fillInAddress1() {
 
             if(addressType == "administrative_area_level_1"){
                 $('#province').val(val);
+                $('span.province').text(val);
             }
             if(addressType == "locality"){
                 $('#city').val(val);
+                $('span.city').text(val);
             }
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
+                $('span.postal_code').text(val);
             }
             
-/*  formatted_address is not part of the google maps address_components array
-
+            /*  formatted_address is not part of the google maps address_components array
             if(addressType == "formatted_address"){
                 $('#formatted_addressForDB').val(val);
             }
-*/
+            */
 
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);                
@@ -190,6 +151,7 @@ function fillInAddress1() {
             }
         }
     }
+    isaddress_incomplete();
     return place;
 }
 
@@ -287,8 +249,6 @@ function fillInAddress() {
                     $('#ordered_street').val(val);
                 }
             }
-
-
         }
     }
     return place;

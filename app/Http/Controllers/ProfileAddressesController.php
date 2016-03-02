@@ -124,6 +124,7 @@ class ProfileAddressesController extends Controller {
             //load a specific address id
             $_GET['addresse_detail'] = \App\Http\Models\ProfilesAddresses::find($id);
             $_GET["apartment"] = true;
+            $_GET["mini"] = true;
             ob_start();
             return view('common.editaddress', $_GET);
             ob_get_contents();//code will never run

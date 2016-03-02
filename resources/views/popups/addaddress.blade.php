@@ -70,7 +70,6 @@
     //validateform("edit-form", {formatted_address: "required", city: "required", province: "required", postal_code: "required", country: "required"})
     $('#edit-form').submit(function (e) {
         if(isaddress_incomplete()) {
-            alert("FAIL");
             return false;
         }
     });

@@ -189,24 +189,19 @@
         return $phone;
     }
 
-    function newrow($new = false, $name = false, $class = "", $required = false, $columns = 9, $labelStr = ""){
+    function newrow($new = false, $name = false, $class = "", $required = false, $columns = 9, $labelStr = "", $style = ""){
         $id = str_replace(" ", "_", strtolower($name)) . "_label";
-
-        if ($required) {
-            $required = " required";
-        }
-
+        if ($required) {$required = " required";}
+        if($style){$style = ' STYLE="' . $style . '"';}
+        if($columns === false){$columns= 9;}
         if ($new) {
-            return '<div class="col-md-12"><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
+            return '<div class="col-md-12"' . $style . '><div class="form-group ' . $class . '"><label class="control-label' . $required . '" id="' . $id . '">' . $name . '</label>' . $labelStr;
         } else if ($name && ($labelStr == "" || !$labelStr)) {
-
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-md-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"' . $style . '><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '</label><div class="col-md-' . $columns . '">';
         } else if ($name && $labelStr != "" && $labelStr != false && $labelStr != "Save") {
-            return '<div class="form-group row editaddress ' . $class . '"><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span>
-</label><div class="col-sm-' . $columns . '">';
-        } elseif ($labelStr) {
-            // don't display label on left column
-            return '<div class="form-group row editaddress ' . $class . '"><div class="col-md-' . $columns . '">';
+            return '<div class="form-group row editaddress ' . $class . '"' . $style . '><label class="col-md-3 text-md-right' . $required . '" id="' . $id . '">' . $name . '<span class="alldays">' . $labelStr . '</span></label><div class="col-sm-' . $columns . '">';
+        } elseif ($labelStr) {// don't display label on left column
+            return '<div class="form-group row editaddress ' . $class . '"' . $style . '><div class="col-md-' . $columns . '">';
         } else {
             return '</div></div>';
         }

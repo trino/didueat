@@ -31,9 +31,13 @@
             return "";
         }
     }
-?>
 
-<?= newrow($new, "Your Name", $size, true); ?>
+    $is_new = '';
+    if (isset($emaillocked)) {
+        $is_new = 'New ';
+    }
+
+echo newrow($new, "Your Name", $size, true); ?>
 <div class="input-icon">
     <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ isdisabled($disabled, "name") }} required>
     <input type="hidden" name="gmt" id="gmt" class="gmt">
@@ -56,20 +60,14 @@ echo newrow($new, "Email", $size, true); ?>
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" autocomplete="off">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" value="" autocomplete="off">
     </div>
     <?php echo newrow(); ?>
 @endif
 
-<?php
-$is_new = '';
-if (isset($emaillocked)) {
-    $is_new = 'New ';
-}
-
-echo newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
+<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" {{ $PasswordRequired }}>
+    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" value="" {{ $PasswordRequired }}>
 </div>
 <?php echo newrow();
 

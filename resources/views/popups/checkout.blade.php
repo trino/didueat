@@ -16,13 +16,13 @@
 
                         <div class="row">
                             <?php
-                            printfile("views/popups/checkout.blade.php");
-                            if (!$profile) {
-                                unset($profile);
-                            }
-                            if (!$type) {
-                                unset($type);
-                            }
+                                printfile("views/popups/checkout.blade.php");
+                                if (!$profile) {
+                                    unset($profile);
+                                }
+                                if (!$type) {
+                                    unset($type);
+                                }
                             ?>
 
                             @if(!read("id"))
@@ -36,8 +36,7 @@
                             @endif
 
                             <input type="hidden" name="_token" class="csrftoken" value="{{ csrf_token() }}"/>
-                            <input type="hidden" name="user_id" id="ordered_user_id"
-                                   value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
+                            <input type="hidden" name="user_id" id="ordered_user_id" value="{{ (isset($profile)) ? $profile->id : 0 }}"/>
                             <input type="hidden" name="added_address" value="" class="added_address"/>
 
                             <div class="col-sm-12">
@@ -86,7 +85,7 @@
                                 <div class="col-xs-12">
                                     <div class=" ">
                                         @if(!isset($type) || $type != "report")
-                                            @include('common.editaddress',['type'=>'reservation'])
+                                            @include('common.editaddress', array('type'=>'reservation', "mini" => true))
                                         @endif
                                         <div class="clearfix"></div>
                                     </div>

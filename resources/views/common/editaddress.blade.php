@@ -29,6 +29,7 @@
     $restSignUp = !isset($addresse_detail);//no idea what this needs to be
     $aptUnit="Unit/Apt";
     $GUID = "";//guidv4();
+    if(!isset($mini)){$mini = false;}
 ?>
 
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -37,9 +38,7 @@
 
 <div class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
-
     @if(isset($GLOBALS['thisIdentity']))
-
         <div class="form-group">
             <div class="col-sm-12">
                 <p class="">If the restaurant's address needs changing, please <a href="mailto:info@didueat.ca?subject=Address%20Change%20On%20Didu%20Eat&amp;body=Please Update the Address as Follows:%0A%0A
@@ -154,39 +153,49 @@
 </div>
 </div></div>
 
-
-
-
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
-
     <?= newrow($new, $aptUnit . " #", "", false, 5); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
 </div></div>
 
+@if($mini)
+    <?php echo newrow($new, "City", "", $required, 5);
+    $WasVisible = false;
+    foreach(array("city" => true, "province" => true, "country" => true, "postal_code" => false) as $field => $visible){
+        $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
+        if($visible){
+            if ($visible && $WasVisible){echo ", ";}
+            echo '<span class="' . $field . '" value="' . $Value . '">' . $Value . '</SPAN>';
+        }
+        echo '<INPUT TYPE="HIDDEN" VALUE="' . $Value . '" ID="' . $field . '" CLASS="' . $field . '" NAME="' . $field . '">';
+        $WasVisible=$visible;
+    } ?>
+    </DIV></DIV>
+@else
+    <?= newrow($new, "City", "", $required, 5); ?>
+    <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city" onfocus="this.blur();"
+           value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
+    </div></div>
 
-<?= newrow($new, "City", "", $required, 5); ?>
-<input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city" onfocus="this.blur();"
-       value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
-</div></div>
+    <?= newrow($new, "Province", "", $required, 5); ?>
+    <input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control province"
+           onfocus="this.blur();"
+           value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
+    </div></div>
 
-<?= newrow($new, "Province", "", $required, 5); ?>
-<input required <?= $readonly; ?> type="text" id="province" name="province" class="form-control province"
-       onfocus="this.blur();"
-       value="{{ (isset($addresse_detail->province))?$addresse_detail->province:old('province') }}" {{$required}}>
-</div></div>
+    <?= newrow($new, "Postal Code", "", $required, 5); ?>
+    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();"
+           class="form-control postal_code" placeholder="" {{$required}}
+           value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
+    </div></div>
 
-<?= newrow($new, "Postal Code", "", $required, 5); ?>
-<input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();"
-       class="form-control postal_code" placeholder="" {{$required}}
-       value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
-</div></div>
-
-<?= newrow($new, "Country", "", $required, 5); ?>
-<input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
-       value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
-</div></div>
-</div>
+    <?= newrow($new, "Country", "", $required, 5); ?>
+    <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
+           value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
+    </div></div>
+    </div>
+@endif
 
 <?php if(isset($restSignUp)){ ?>
 <div id="verifyAddress" style="display:none">
@@ -238,7 +247,13 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     function isaddress_incomplete(){
         var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
         $("#error-message").text("");
-        if(incomplete){$("#error-message").text("Please input your exact address");}
+        if(incomplete){
+            var error = "Please input your exact address";
+            if(!$("#postal_code").val()){
+                error = "This address lacks a postal code";
+            }
+            $("#error-message").text(error);
+        }
         return incomplete;
     }
 </SCRIPT>

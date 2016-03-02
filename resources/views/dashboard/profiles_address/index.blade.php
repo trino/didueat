@@ -9,27 +9,21 @@
     </script>
     <script src="{{ asset('assets/global/scripts/custom-datatable/blockUI.js') }}" type="text/javascript"></script>
     <!--script src="{{ asset('assets/global/scripts/custom-datatable/toastr.min.js') }}"></script-->
-    <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}"
-            type="text/javascript"></script>
-
+    <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
 
     <div class="container">
         <?php printfile("views/dashboard/profiles_address/index.blade.php"); ?>
-
         <div class="row">
-        @include('layouts.includes.leftsidebar')
+            @include('layouts.includes.leftsidebar')
+            <div class="col-lg-9">
+                <div id="ajax_message_jgrowl"></div>
 
-        <div class="col-lg-9">
-            <div id="ajax_message_jgrowl"></div>
+                <!-- Panels Start -->
+                <div id="loadPageData">
 
-            <!-- Panels Start -->
-            <div id="loadPageData">
-                
+                </div>
             </div>
         </div>
-
-
-    </div>
     </div>
 
 
