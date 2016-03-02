@@ -1,9 +1,11 @@
 <?php
     printfile("views/common/receipt.blade.php");
-    $ordertype = "Pickup";
+    $ordertype = false;
     if (isset($order)) {
         if ($order->order_type) {
             $ordertype = "Delivery";
+        } else {
+            $ordertype = "Pickup";
         }
     }
     if (!isset($profile)) {
@@ -68,9 +70,9 @@
                                             <input type="radio"
                                                    id="delivery1"
                                                    name="delevery_type"
-                                                   onclick="delivery('show');$('#pickup1').removeClass('deliverychecked');"
+                                                   onclick="delivery('show');"
                                                    @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
-                                                   CHECKED
+                                                   CHECKED TITLE="Only does delivery"
                                                     @endif
                                                     >
                                             <span class="c-indicator"></span>
@@ -82,9 +84,9 @@
                                         <label class="radio-inline c-input c-radio">
                                             <input type="radio" id="pickup1" name="delevery_type"
                                                    class="deliverychecked"
-                                                   onclick="delivery('hide'); $(this).addClass('deliverychecked');"
+                                                   onclick="delivery('hide');"
                                                     @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
-                                                        CHECKED
+                                                        CHECKED TITLE="Only does pickup"
                                                     @endif
                                             >
                                             <span class="c-indicator"></span>
@@ -214,11 +216,21 @@
     var ignoreone = false;
     $(function () {
         show_header();
-        @if($ordertype == "Delivery")
-            $('#delivery1').click();
+
+        @if($ordertype)
+            @if($ordertype == "Delivery")
+                var ordertype = "is_delivery";
+            @else
+                var ordertype = "is_pickup";
+            @endif
         @else
-           $('#pickup1').click();
+            var ordertype = getCookie("delivery_type");
         @endif
+        if (ordertype == "is_delivery"){
+            $('#delivery1').click();
+        } else {
+            $('#pickup1').click();
+        }
         //save address
 
         $('#edit-form').submit(function (e) {

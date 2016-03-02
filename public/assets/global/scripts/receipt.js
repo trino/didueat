@@ -104,11 +104,11 @@ function delivery(t) {
                 $(this).attr('required','required');
             }
         });
-
+        $('#pickup1').removeClass('deliverychecked');
         $('#df').show();
         $('.profile_delevery_type').text('Delivery');
         $('.profile_delivery_detail').show();
-
+        createCookieValue('delivery_type', 'is_delivery');
         var tax = $('.maintax').val();
 
         var grandtotal = 0;
@@ -120,6 +120,8 @@ function delivery(t) {
         $('#delivery_flag').val('1');
         $('#cart-total').text('$' + grandtotal.toFixed(2));
     } else {
+        createCookieValue('delivery_type', 'is_pickup');
+        $(this).addClass('deliverychecked');
         $('.profile_delevery_type').text('Pickup');
         $('.profile_delivery_detail').hide();
         $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){

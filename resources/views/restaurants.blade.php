@@ -121,7 +121,6 @@
 
                                 <div class="p-l-0 p-r-1 pull-left">
                                     <div class="form-group">
-
                                         <label class="c-input c-radio ">
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_delivery"
@@ -129,19 +128,19 @@
                                                    onclick="createCookieValue('delivery_type', this.value)"/>
                                             <span class="c-indicator"></span>
                                             Delivery
-                                        </label></div>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="p-l-0 pull-left">
-
                                     <div class="form-group">
-
                                         <label class="c-input c-radio ">
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_pickup"
                                                    onclick="createCookieValue('delivery_type', this.value)"/>
                                             <span class="c-indicator"></span>
                                             Pickup
-                                        </label></div>
+                                        </label>
+                                    </div>
                                 </div>
                                 <!--label class="c-input c-checkbox">
                                     <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
