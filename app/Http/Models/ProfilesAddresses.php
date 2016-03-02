@@ -14,14 +14,15 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('user_id', 'location', 'formatted_address', 'address', 'phone' => "phone", 'mobile' => "phone", 'postal_code', 'apartment', 'city', 'province', 'order', 'latitude', 'longitude', 'notes');
+        $cells = array('user_id', 'location', 'formatted_address', 'country', 'address', 'phone' => "phone", 'mobile' => "phone", 'postal_code', 'apartment', 'city', 'province', 'order', 'latitude', 'longitude', 'notes');
         if(!isset($data["address"]) && isset($data["formatted_address"])){
             $data["address"] = $data["formatted_address"];
         }
-        
+        $data["country"]= "Canada";
+        if(strpos($data["address"], ",")){
+            $data["address"] = trim(strstr($data["address"], ',', true));
+        }
         $this->copycells($cells, $data);
-
-        $this->country = "Canada";
     }
 
     public static function listing($array = "", $type = "") {
