@@ -108,11 +108,15 @@
             </div>
             <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <DIV>
         <div class="col-xs-12">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
                 <span class="c-indicator"></span>
-                <strong>Cash on Pickup/Delivery </strong>
+                <strong>Cash on arrival</strong>
             </label>
         </div>
         <div class="col-xs-12">
@@ -125,7 +129,6 @@
         <div class="CC" style="display: none;">
             @include('home.stripe',['loaded_from'=>'reservation'])
         </div>
-
         <div class="clearfix"></div>
     </div>
 

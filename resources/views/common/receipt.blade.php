@@ -17,7 +17,7 @@
     }
 
     $checkount = "Checkout";
-    $is_my_restro = true;
+    $is_my_restro = false;
     if(read("restaurant_id")){
         $is_my_restro = $restaurant->id == read("restaurant_id");
     }
@@ -36,8 +36,7 @@
     <div class="top-cart-info">
         <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">0 items</a>
         <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$0.00</a>
-        <a href="javascript:void(0);"
-           onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
+        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
             <i class="fa fa-shopping-cart"></i>Cart
         </a>
     </div>
@@ -145,7 +144,7 @@
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
                         @if($is_my_restro || $business_day || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkount }}</a>
                         @else
                             <a href="javascript:void(0)" class="btn btn-danger">Closed</a>
                         @endif

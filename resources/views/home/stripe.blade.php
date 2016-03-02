@@ -1,8 +1,13 @@
 <?php
 	printfile("views/home/stripe.blade.php");
-	// sample values to be added to Stripe form
-	$orderDesc="2 Sandwiches ($26.00)";
+	$orderDesc="DidUeat order";
 	$currencyType="cad";
+
+	$CanSaveCard = false;//set to true to allow saving cards
+	$CreditCards = false;
+	if($CanSaveCard){
+		$CreditCards = select_field_where("credit_cards", array("user_id" => read("id"), "user_type" => "user"), false);
+	}
 ?>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <!--script src="{{ asset('assets/global/scripts/stripe.js') }}"></script-->
@@ -23,7 +28,32 @@
 	<input name="orderID" type="hidden" class="S_orderID" value='{{ (isset($orderID))?$orderID:"" }}' />
 	<input type="hidden" name="stripeToken" value=""/>
 
-	<div class="form-group row editaddress 2">
+	@if($CreditCards)
+		<div class="form-group row editcard">
+			<label class="col-xs-5 text-xs-right">
+				Saved Card
+			</label>
+			<div class="col-xs-7">
+				<div class="input-icon">
+					<SELECT name="cardid" ID="cardid" class="form-control" onchange="changecard();">
+						<OPTION VALUE="">New Card</OPTION>
+						<?php
+							foreach($CreditCards as $CreditCard){
+								$CardNumber = obfuscate(\Crypt::decrypt($CreditCard->card_number));
+								$Month = \Crypt::decrypt($CreditCard->expiry_month);
+								$Year = \Crypt::decrypt($CreditCard->expiry_year);
+								if($Year > date("y") || ($Year == date("y") && $Month >= date("n")) ){//check if it's expired
+									echo '<OPTION VALUE="' . $CreditCard->id . '">' . $CardNumber . '</OPTION>';//card number never reaches the user
+								}
+							}
+						?>
+					</SELECT>
+				</div>
+			</div>
+		</div>
+	@endif
+
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="card_number">
 			Card #
 			@if(debugmode())
@@ -37,7 +67,7 @@
 		</div>
 	</div>
 
-	<div class="form-group row editaddress 2">
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="cvc">CVC</label>
 		<div class="col-xs-4">
 			<div class="input-icon">
@@ -46,7 +76,7 @@
 		</div>
 	</div>
 
-	<div class="form-group row editaddress 2">
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="expiry">Expiry</label>
 		<div class="col-xs-4">
 			<div class="input-icon">
@@ -80,21 +110,23 @@
 		</div>
 	</div>
 
-	<div class="form-group row editaddress 2">
-		<label class="col-xs-5 text-xs-right"></label>
-		<div class="col-xs-4">
-			<div class="input-icon">
-				<label class="radio-inline c-input c-checkbox">
-					<input type="checkbox" name="savecard">
-					<span class="c-indicator"></span>
-					<strong>Save</strong>
-				</label>
+	@if($CanSaveCard)
+		<div class="form-group row editcard">
+			<label class="col-xs-5 text-xs-right"></label>
+			<div class="col-xs-4">
+				<div class="input-icon">
+					<label class="radio-inline c-input c-checkbox">
+						<input type="checkbox" name="savecard">
+						<span class="c-indicator"></span>
+						<strong>Save</strong>
+					</label>
+				</div>
 			</div>
 		</div>
-	</div>
+	@endif
 
 	<?php if(!isset($loaded_from)){?>
-		<div class="form-group row editaddress 2">
+		<div class="form-group row editaddress">
 			<div class="col-xs-9">
 				<div class="input-icon">
 					<button type="submit" class="btn btn-primary pull-right">Pay For Order</button>
@@ -107,3 +139,12 @@
 		</SCRIPT>
 	<?php }?>
 </div>
+<SCRIPT>
+	function changecard(){
+		if ($("#cardid").val()){
+			$(".editcard").hide();
+		} else {
+			$(".editcard").show();
+		}
+	}
+</SCRIPT>

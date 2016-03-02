@@ -119,9 +119,7 @@ function delivery(t) {
         $('input .grandtotal').val(grandtotal.toFixed(2));
         $('#delivery_flag').val('1');
         $('#cart-total').text('$' + grandtotal.toFixed(2));
-
     } else {
-
         $('.profile_delevery_type').text('Pickup');
         $('.profile_delivery_detail').hide();
         $('.profile_delivery_detail input, .profile_delivery_detail select').each(function(){

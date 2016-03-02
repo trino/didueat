@@ -219,7 +219,6 @@ class CreditCardsController extends Controller {
                     "description" => $description
                 ));
             } catch (\Stripe\Error\Card $e) {
-                
                 return false;// The card has been declined
             }
             

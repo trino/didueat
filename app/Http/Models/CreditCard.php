@@ -62,6 +62,4 @@ class CreditCard extends BaseModel {
 
         return $query;
     }
-    
-    
 }
