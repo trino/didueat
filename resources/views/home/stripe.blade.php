@@ -29,7 +29,7 @@
 	<input type="hidden" name="stripeToken" value=""/>
 
 	@if($CreditCards)
-		<div class="form-group row editaddress 2">
+		<div class="form-group row editcard">
 			<label class="col-xs-5 text-xs-right">
 				Saved Card
 			</label>
@@ -53,7 +53,7 @@
 		</div>
 	@endif
 
-	<div class="form-group row 2 editcard">
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="card_number">
 			Card #
 			@if(debugmode())
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 
-	<div class="form-group row editcard 2">
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="cvc">CVC</label>
 		<div class="col-xs-4">
 			<div class="input-icon">
@@ -76,7 +76,7 @@
 		</div>
 	</div>
 
-	<div class="form-group row editcard 2">
+	<div class="form-group row editcard">
 		<label aria-required="true" class="col-xs-5 text-xs-right required" id="expiry">Expiry</label>
 		<div class="col-xs-4">
 			<div class="input-icon">
@@ -111,7 +111,7 @@
 	</div>
 
 	@if($CanSaveCard)
-		<div class="form-group row editcard 2">
+		<div class="form-group row editcard">
 			<label class="col-xs-5 text-xs-right"></label>
 			<div class="col-xs-4">
 				<div class="input-icon">
@@ -126,7 +126,7 @@
 	@endif
 
 	<?php if(!isset($loaded_from)){?>
-		<div class="form-group row editaddress 2">
+		<div class="form-group row editaddress">
 			<div class="col-xs-9">
 				<div class="input-icon">
 					<button type="submit" class="btn btn-primary pull-right">Pay For Order</button>
