@@ -15,16 +15,15 @@
                     <?php echo $value->menu_item; ?>
 
                     @if($value->price>0)
+                        <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
                         @if($dis)
-
                             <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
                             <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
-                            <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
-
+                            <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">
                                ${{number_format($dis_price=$main_price,2)}}
                             </span>
                         @else
-                            <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">${{$dis_price=number_format($value->price,2)}}</span>
+                            <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">${{$dis_price=number_format($value->price,2)}}</span>
                         @endif
 
                     @else

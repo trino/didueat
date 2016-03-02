@@ -673,7 +673,7 @@
                 });
                 var dispr = Number($('.displayprice' + menu_id).val());
                 $('.modalprice' + menu_id).html('$' + dispr.toFixed(2));
-
+                showloader();
                 $('.allspan').html('0');
                 $('.close' + menu_id).click();
 

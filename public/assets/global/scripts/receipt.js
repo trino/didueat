@@ -1,3 +1,5 @@
+//$('.decrease') is a duplicate of $('.increase'), same for addspan and remspan. they should be merged
+
 total_items = 0;
 
 function changeqty(id, opr) {
@@ -10,10 +12,19 @@ function changeqty(id, opr) {
         (opr == 'plus') ? num++ : --num;
     }
     $('.number' + id).text(num);
-     var price = $('.Mprice'+id).val();
-        var new_price = num*Number(price);
-        $('.modalprice'+id).text('$'+new_price.toFixed(2));
-    
+    var price = $('.Mprice'+id).val();
+    var new_price = num*Number(price);
+    $('.modalprice'+id).text('$'+new_price.toFixed(2));
+    showloader();
+}
+
+function showloader(){
+    $(".cart-addon-gif").show();
+    $('.pricetitle').hide();
+    setTimeout(function(){
+        $('.pricetitle').show();
+        $(".cart-addon-gif").hide();
+    }, 200);
 }
 
 function clearCartItems() {
@@ -46,6 +57,7 @@ function scrolltocheckout(){
         scrollTop: $("#cartsz").offset().top
     }, 1000);
 }
+
 function checkout() {
     var del = $('#delivery_flag').val();
     var minimum_delivery = $('#minimum_delivery').val();
@@ -204,7 +216,6 @@ $(function(){
         var qty = Number($(this).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
         var chk = $(this).parent().parent().find('#extra_'+id);
-         
         
         var tit = chk.attr('title');
         var title = tit.split("_");
@@ -220,8 +231,9 @@ $(function(){
         } else {
             chk.prop('checked',true);
             chk.attr('checked','checked');
-            if(!chk.hasClass('checked'))
+            if(!chk.hasClass('checked')) {
                 chk.addClass('checked');
+            }
             newtitle= title[1]+" x("+qty+")";
             newprice= Number(price)*Number(qty);
             title[0] = title[0]+"-"+qty;
@@ -233,11 +245,11 @@ $(function(){
         $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(this).parents('.buttons').find('label.changemodalP').click();
         $(this).parents('.buttons').find('label.changemodalP').click();
-        
+
+        showloader();
     });
 
     $('.remspan').live('click',function(){
-        
         var td = $(this).parent().parent().closest('td');
         var td_id =td.attr('id');
         td_id = td_id.replace('td_','');
@@ -274,8 +286,9 @@ $(function(){
         } else {
             chk.prop('checked',true);
             chk.attr('checked','checked');
-            if(!chk.hasClass('checked'))
+            if(!chk.hasClass('checked')) {
                 chk.addClass('checked');
+            }
             newtitle= title[1]+" x("+qty+")";
             newprice= Number(price)*Number(qty);
             title[0] = title[0]+"-"+qty;
@@ -287,9 +300,7 @@ $(function(){
         $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(this).parents('.buttons').find('label.changemodalP').click();
         $(this).parents('.buttons').find('label.changemodalP input').click();
-        
-        //$(this).parents('.buttons').find('label.changemodalP').click();
-        
+        showloader();
     });
         
     $('.decrease').live('click', function () {
@@ -364,8 +375,7 @@ $(function(){
             //$('#list'+numid+' .count').val(quant-1);
         }
        
-       if(subtotal==0)
-        {
+       if(subtotal==0) {
              $('div.grandtotal').text('$0.00');
             $('input.grandtotal').val('0.00');
         }
@@ -431,9 +441,7 @@ $(function(){
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                    
                     if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
-                        
-                         var tit = $(this).attr('title');
-                        //alert(tit);
+                        var tit = $(this).attr('title');
                         var title = tit.split("_");
                         var x = index;
                         if (title[0] != "") {
@@ -445,8 +453,7 @@ $(function(){
                 });
             $('.modalprice'+menu_id).html('$'+price.toFixed(2));
             $('.Mprice'+menu_id).val(price);
-            if($('.strikedprice'+menu_id).text()!="")
-            {
+            if($('.strikedprice'+menu_id).text()!="") {
                 var sP = $('.mainPrice'+menu_id).val();
                 sP = Number(sP);
                 $('.strikedprice'+menu_id).text('$'+Number(price+sP-Number($('.displayprice'+menu_id).val())).toFixed(2));
@@ -454,7 +461,6 @@ $(function(){
         })
         
 }) 
-
 
 function updatecart(){
     var total = $(".grandtotal").html();
