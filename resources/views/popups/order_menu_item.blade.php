@@ -17,7 +17,8 @@
                     @if($value->price>0)
                         @if($dis)
 
-                            <strike class="text-muted">${{$dis_price=number_format($value->price,2)}}</strike>
+                            <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
+                            <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
                             <span style="color:#0275d8" class="modalprice<?php echo $value->id; ?>">
 
                                ${{number_format($dis_price=$main_price,2)}}

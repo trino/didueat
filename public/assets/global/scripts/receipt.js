@@ -33,6 +33,7 @@ function clearCartItems() {
             $('.grandtotal').val(d_fee);
             $('.grandtotal').text('$'+d_fee.toFixed(2));
         }
+        $('.grandtotal').text('$0.00');
         total_items = 0;
         updatecart();
    } else {
@@ -363,6 +364,11 @@ $(function(){
             //$('#list'+numid+' .count').val(quant-1);
         }
        
+       if(subtotal==0)
+        {
+             $('div.grandtotal').text('$0.00');
+            $('input.grandtotal').val('0.00');
+        }
         total_items--;
         updatecart();
     });
@@ -421,13 +427,7 @@ $(function(){
                 var ids = "";
                 var app_title = "";
                 var price = 0;
-                var extratitle = "";
-                var dbtitle = "";
-                var err = 0;
-                var catarray = [];
-                var td_index = 0;
-                var td_temp = 9999;
-                var n_counter = 0;
+           
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
                    
                     if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
@@ -445,6 +445,12 @@ $(function(){
                 });
             $('.modalprice'+menu_id).html('$'+price.toFixed(2));
             $('.Mprice'+menu_id).val(price);
+            if($('.strikedprice'+menu_id).text()!="")
+            {
+                var sP = $('.mainPrice'+menu_id).val();
+                sP = Number(sP);
+                $('.strikedprice'+menu_id).text('$'+Number(price+sP-Number($('.displayprice'+menu_id).val())).toFixed(2));
+            }
         })
         
 }) 
