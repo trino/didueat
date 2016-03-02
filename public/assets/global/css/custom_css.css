@@ -97,6 +97,8 @@ a.anchor {
 .alert {
     border-radius: 0px !important;
     margin-bottom: 0 !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
 }
 
 .btn-group-xs > .btn, .btn-xs {
@@ -279,27 +281,27 @@ td {
     }
 
     h1 {
-        font-size: 1.75rem !important;
-    }
-
-    h2 {
-        font-size: 1.65rem !important;
-    }
-
-    h3 {
-        font-size: 1.55rem !important;
-    }
-
-    h4 {
         font-size: 1.35rem !important;
     }
 
+    h2 {
+        font-size: 1.3rem !important;
+    }
+
+    h3 {
+        font-size: 1.3rem !important;
+    }
+
+    h4 {
+        font-size: 1.3rem !important;
+    }
+
     h5 {
-        font-size: 1.25rem !important;
+        font-size: 1.2rem !important;
     }
 
     h6 {
-        font-size: 1.15rem !important;
+        font-size: 1.1rem !important;
     }
 
     .container {
