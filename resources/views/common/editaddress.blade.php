@@ -160,7 +160,7 @@
 </div></div>
 
 @if($mini)
-    <?php echo newrow($new, "City", "", $required, 5);
+    <?php echo newrow($new, "City/Province/PC", "", $required, 5);
     $WasVisible = false;
     $Commas = false;
     foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
