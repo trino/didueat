@@ -287,6 +287,14 @@ class UsersController extends Controller {
                     die("There are no items in your cart");
                 }
 
+                if(isset($post["savecard"]) && $post["savecard"]){
+                    $creditinfo = array();
+                    foreach(array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination){
+                        $creditinfo[$destination] = $post[$source];
+                    }
+                    \App\Http\Models\CreditCard::makenew($creditinfo);
+                }
+
                 $post['name'] = $post['ordered_by'];
                 $res['restaurant_id'] = $post['hidden_rest_id'];
                 $res['user_id'] = $post['user_id'];
@@ -336,7 +344,6 @@ class UsersController extends Controller {
                 //echo '<pre>';print_r($res); die;
                 $ob2 = new \App\Http\Models\Reservations();
                 $ob2->populate($res, "guid");
-                
                 $ob2->save();
                 $oid = $ob2->id;
                 

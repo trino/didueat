@@ -213,16 +213,18 @@
 
     function closed_element(event, ID, name) {
         var element = document.getElementById(name + "[" + ID + "]");
-        if (!event.target.checked) {
-            element.setAttribute("old", element.value);
-            element.value = "";
-        } else {
-            var tempstr = element.getAttribute("old");
-            if (tempstr || !element.value) {
-                element.value = tempstr;
+        if(element) {
+            if (!event.target.checked) {
+                element.setAttribute("old", element.value);
+                element.value = "";
+            } else {
+                var tempstr = element.getAttribute("old");
+                if (tempstr || !element.value) {
+                    element.value = tempstr;
+                }
             }
+            change(name, ID);
         }
-        change(name, ID);
     }
 
     function change(type, id) {

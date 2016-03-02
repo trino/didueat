@@ -10,11 +10,14 @@ class CreditCard extends BaseModel {
 
     public function populate($data) {
         $cells = array('first_name', 'user_type', 'user_id', 'last_name', 'card_number' => "creditcard", 'expiry_date' => "encrypted", 'expiry_month' => "encrypted", 'expiry_year' => "encrypted", 'ccv' => "encrypted", 'order');
-        $card_type = isvalid_creditcard($data['card_number']);
-        $this->card_type = $card_type;
+        $this->card_type = isvalid_creditcard($data['card_number']);
         $this->copycells($cells, $data);
-        if($this->user_type == "restaurant"){
+        if(isset($this->user_type) && $this->user_type == "restaurant"){
             $this->user_id = \Session::get('session_restaurant_id');
+        } else {
+            $this->user_type = "user";
+            if(!isset($this->user_id) || !$this->user_id) {$this->user_id = read("id");}
+            if(!isset($this->first_name) || !$this->first_name) {$this->first_name = read("name");}
         }
     }
     
