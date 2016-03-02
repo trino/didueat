@@ -99,3 +99,4 @@ resources/views/popups/menu_form.blade_tempRename.php
 *.js
 public/assets/images/checkbox_d2.png
 .env
+*.env
