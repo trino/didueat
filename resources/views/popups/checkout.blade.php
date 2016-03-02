@@ -92,6 +92,16 @@
 
         <div class="col-xs-12">
             <div class="form-group">
+                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <DIV>
+        <div class="col-xs-12">
+            <div class="form-group">
                 <select class="form-control" name="order_till" id="ordered_on_time">
                     <option value="">Order ASAP</option>
                     {{ get_time_interval($restaurant) }}
@@ -101,17 +111,6 @@
             </div>
         </div>
 
-
-        <div class="col-xs-12">
-            <div class="form-group">
-                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
-    <DIV>
         <div class="col-xs-12">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
