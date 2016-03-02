@@ -17,7 +17,7 @@
                 }
             ?>
             <!--<div id="ajaxloader"></div>-->
-            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post', 'role'=>'form','class'=>$class, 'autocomplete' => 'false', 'onsubmit' => 'return isaddress_incomplete();')) !!}
+            {!! Form::open(array('url' => 'user/addresses', 'id'=>'edit-form', 'method'=>'post', 'role'=>'form','class'=>$class, 'autocomplete' => 'false', 'onsubmit' => 'if (isaddress_incomplete()) { return false;}')) !!}
                 <div class="modal-body" id="contents"></div>
 
                 <div class="modal-footer">
@@ -70,6 +70,7 @@
     //validateform("edit-form", {formatted_address: "required", city: "required", province: "required", postal_code: "required", country: "required"})
     $('#edit-form').submit(function (e) {
         if(isaddress_incomplete()) {
+            alert("FAIL");
             return false;
         }
     });

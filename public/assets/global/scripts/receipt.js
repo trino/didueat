@@ -469,5 +469,5 @@ function updatecart(){
     setTimeout(function(){
         $(".cart-header-show").show();
         $(".cart-header-gif").hide();
-    }, 500);
+    }, 1000);
 }
