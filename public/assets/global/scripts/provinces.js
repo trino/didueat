@@ -102,7 +102,7 @@ function fillInAddress1() {
     //$('#rout_street_number').val('');
     $('#postal_code').val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
-
+    $(".commas").show();
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
 

@@ -162,13 +162,15 @@
 @if($mini)
     <?php echo newrow($new, "City", "", $required, 5);
     $WasVisible = false;
-    foreach(array("city" => true, "province" => true, "country" => true, "postal_code" => false) as $field => $visible){
+    $Commas = false;
+    foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
         $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
         if($visible){
-            if ($visible && $WasVisible){echo ", ";}
+            if ($visible && $WasVisible){echo '<SPAN CLASS="commas">, </SPAN>';}
             echo '<span class="' . $field . '" value="' . $Value . '">' . $Value . '</SPAN>';
         }
         echo '<INPUT TYPE="HIDDEN" VALUE="' . $Value . '" ID="' . $field . '" CLASS="' . $field . '" NAME="' . $field . '">';
+        if($Value){$Commas  = true;}
         $WasVisible=$visible;
     } ?>
     </DIV></DIV>
@@ -256,4 +258,8 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         }
         return incomplete;
     }
+
+    @if(!$Commas)
+        $(".commas").hide();
+    @endif
 </SCRIPT>
