@@ -287,7 +287,7 @@ class UsersController extends Controller {
                     die("There are no items in your cart");
                 }
 
-                if(isset($post["savecard"]) && $post["savecard"]){
+                if( (!isset($post["cardid"]) || !$post["cardid"]) && isset($post["savecard"]) && $post["savecard"]){
                     $creditinfo = array();
                     foreach(array("cardnumber" => "card_number", "cardcvc" => "ccv", "cardmonth" => "expiry_month", "cardyear" => "expiry_year") as $source => $destination){
                         $creditinfo[$destination] = $post[$source];
