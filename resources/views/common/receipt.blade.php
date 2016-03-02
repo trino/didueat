@@ -17,7 +17,7 @@
     }
 
     $checkount = "Checkout";
-    $is_my_restro = true;
+    $is_my_restro = false;
     if(read("restaurant_id")){
         $is_my_restro = $restaurant->id == read("restaurant_id");
     }
@@ -145,7 +145,7 @@
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
                         @if($is_my_restro || $business_day || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">Checkout</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkount }}</a>
                         @else
                             <a href="javascript:void(0)" class="btn btn-danger">Closed</a>
                         @endif
