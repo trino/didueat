@@ -13,7 +13,7 @@
                 </button>
                 <h4 class="modal-title" id="viewDetailModel">
                     <?php echo $value->menu_item; ?>
-
+<br>
                     @if($value->price>0)
                         <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
                         @if($dis)
@@ -49,6 +49,7 @@
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
                                            </div-->
                         @endif
+
                         @if ($has_bigImage)
                             <div class="col-sm-12 col-xs-12 p-a-0 m-b-1 ctr">
 
@@ -58,6 +59,8 @@
                             </div>
 
                         @endif
+
+
                         <div class="subitems_{{ $value->id }} optionals">
 
                             <div style="display:none;">
@@ -147,7 +150,7 @@
 
                                                                     <div <?php if ($sub->sing_mul == '1') {
                                                                         echo "style='display:none'";
-                                                                    } ?> class="pull-left p-a-0 col-sm-5" style="margin-right:.25rem !important;">
+                                                           } ?> class="pull-left p-a-0 col-md-5 col-xs-5" style="">
 
                                                                         <a id="remspan_{{ $mm->id }}"
                                                                            class="remspan btn btn-secondary-outline btn-sm "
@@ -164,7 +167,7 @@
 
                                                                     </div>
 
-
+<div class=" col-md-7  @if ($sub->sing_mul == '1')  @else  col-xs-7 @endif p-l-0">
                                                                     <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
                                                                     @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
@@ -181,7 +184,7 @@
 
                                                                         <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
-
+</div>
 
                                                                 </div>
 

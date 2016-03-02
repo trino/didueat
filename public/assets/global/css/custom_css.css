@@ -251,7 +251,7 @@ td {
 
     }
 
-    .row, .container {
+    .row, .container, .modal-image {
         padding-left: 0 !important;
         padding-right: 0 !important;
         margin-left: 0 !important;
