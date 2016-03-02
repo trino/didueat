@@ -15,7 +15,7 @@ class HomeController extends Controller {
 
     public function debugmode(){
         $message = "You do not have authorization to use that feature";
-        if(Session::get('session_type_user') == "super") {
+        if(\Session::get('session_type_user') == "super") {
             $filename = getcwd() . "/debugmode.ip";
             if (debugmode()) {
                 @unlink($filename);
