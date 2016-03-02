@@ -2,8 +2,7 @@
 
 return [
 
-    'debug' => true,
-    // 'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', false),
 
     'url' => 'http://localhost/didueat/public/',
     'admin_mail' => 'info@didueat.ca',

@@ -172,9 +172,20 @@ class Restaurants extends BaseModel {
                 $where .= " AND " . $field . " LIKE '%" . $data[$field] . "%'";
             }
         }
-        if(isset($data["formatted_address"]) && $data["formatted_address"] == "Hamilton, Ontario"){
-            $data["city"] = "Hamilton"; $data["province"] = "Ontario";
+
+        $IsHardcoded=false;
+        if(isset($data["formatted_address"]) && $data["formatted_address"]){
+            $IsHardcoded = true;
+            switch($data["formatted_address"]){
+                case "Hamilton, Ontario":
+                    $data["city"] = "Hamilton";
+                    $data["province"] = "Ontario";
+                    break;
+                default:
+                    $IsHardcoded = false;
+            }
         }
+
         foreach(array("city", "province", "country", "rating") as $field) {//EQUAL
             if (isset($data[$field]) && $data[$field]) {
                 $where .= " AND " . $field . " = '" . $data[$field] . "'";
@@ -199,10 +210,10 @@ class Restaurants extends BaseModel {
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
         $data['radius']=iif(debugmode(), 300, "max_delivery_distance");
-        if (isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
+        if (!$IsHardcoded && isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
-            $SQL = "SELECT *, 0 AS distance FROM restaurants " . $where;
+            $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
         }
         
         $SQL .= $order . $limit;
