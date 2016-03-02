@@ -13,6 +13,21 @@ class HomeController extends Controller {
         });
     }
 
+    public function debugmode(){
+        $message = "You do not have authorization to use that feature";
+        if(Session::get('session_type_user') == "super") {
+            $filename = getcwd() . "/debugmode.ip";
+            if (debugmode()) {
+                @unlink($filename);
+                $message = "Debug mode disabled";
+            } else {
+                file_put_contents($filename, $_SERVER['REMOTE_ADDR']);
+                $message = "Debug mode enabled";
+            }
+        }
+        return $this->success($message, $_GET["url"]);
+    }
+
     public function index() {
         $data['title'] = 'All Restaurants Page';
         $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();

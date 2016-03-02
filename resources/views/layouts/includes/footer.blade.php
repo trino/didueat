@@ -33,32 +33,26 @@ Thank you">Email Support</a></li>
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
-                    if (!Session::get('session_type_user') == "restaurant" || debugmode()) {
-                    ?>
-
-                    <li class="list-inline-item">
-                        <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
-                    </li>
-                    <?
-                    }
-                    ?>
+                    if (!Session::get('session_type_user') == "restaurant" || debugmode()) {?>
+                        <li class="list-inline-item">
+                            <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
+                        </li>
+                    <?php } ?>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
-                           class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
-
+                    @if(Session::get('session_type_user') == "super")
+                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
+                    @endif
 
                     <li class="list-inline-item">
                         <h4>
-                        <A href="https://www.instagram.com/didueat/" target="_blank"><i
-                                    class="fa fa-instagram"></i></A>
-                        <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
-                                    class="fa fa-twitter"></i></A>
-                        <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
-                                    class="fa fa-facebook"></i></A>
+                            <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>
                         </h4>
                     </li>
 

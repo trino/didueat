@@ -7,6 +7,7 @@ Route::get('/ajax',                                                 'HomeControl
 Route::post('/ajax',                                                'HomeController@ajax');
 Route::get('/contactus',                                            'HomeController@contactus');
 Route::get('/restaurants',                                          'HomeController@allRestaurants');
+Route::get('/home/debugmode',                                       'HomeController@debugmode');
 
 Route::resource('/restaurants/signup',                              'HomeController@signupRestaurants');
 Route::get('/restaurants/{searchTerm}',                             'HomeController@searchRestaurants');

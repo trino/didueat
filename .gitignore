@@ -100,3 +100,4 @@ resources/views/popups/menu_form.blade_tempRename.php
 public/assets/images/checkbox_d2.png
 .env
 *.env
+public/debugmode.ip

@@ -1,8 +1,15 @@
 <?php
 
+$filename = getcwd() . "/debugmode.ip";
+$debugmode = false;
+if(file_exists($filename)) {
+    $filename = file_get_contents($filename);
+    $debugmode = $filename == $_SERVER['REMOTE_ADDR'];
+}
+
 return [
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => $debugmode, //env('APP_DEBUG', false),
 
     'url' => 'http://localhost/didueat/public/',
     'admin_mail' => 'info@didueat.ca',

@@ -10,6 +10,12 @@
     define("MAX_IMG_SIZE_L", '800x600');
 */
 
+    function protocol(){
+        $isHTTP = strpos($_SERVER['SERVER_PROTOCOL'], "HTTP/") !== false;
+        if($_SERVER["HTTP_HOST"] != "localhost"){$isHTTP = true;}
+        if($isHTTP){return "http";} else {return "https";}
+    }
+
     function asmoney($value, $free = false){
         if ($free) {
             if ($value == '0') {
