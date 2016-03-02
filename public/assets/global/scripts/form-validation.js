@@ -363,6 +363,8 @@ function add_checkphone() {
 }
 
 function validateform(formID, rules){
+    //$("#" + formID + ' > input, select, textarea').rules('remove');
+    $("#" + formID).removeData('validator');
     $("#" + formID).removeData('validate');
     add_all(true, true);
     $("#" + formID).validate(makerules(rules));

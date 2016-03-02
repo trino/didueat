@@ -10,14 +10,13 @@
     define("MAX_IMG_SIZE_L", '800x600');
 */
 
-    function asmoney($value, $free){
+    function asmoney($value, $free = false){
         if ($free) {
             if ($value == '0') {
                 return "Free";
             }
         }
         return "$" . number_format($value, 2);
-
     }
 
     function getfield($object, $Field){

@@ -30,6 +30,7 @@
     $aptUnit="Unit/Apt";
     $GUID = "";//guidv4();
     if(!isset($mini)){$mini = false;}
+    $Commas = false;
 ?>
 
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -162,7 +163,6 @@
 @if($mini)
     <?php echo newrow($new, "City/Province/PC", "", $required, 5);
     $WasVisible = false;
-    $Commas = false;
     foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
         $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
         if($visible){
@@ -259,7 +259,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         return incomplete;
     }
 
-    @if(!$Commas)
+    @if($mini && !$Commas)
         $(".commas").hide();
     @endif
 </SCRIPT>

@@ -37,7 +37,7 @@
 
     <div class="form-group">
         <div class="col-xs-12">
-            <select class="form-control " name="order_till" id="ordered_on_time" required="">
+            <select class="form-control " name="order_till" id="ordered_on_time">
                 <option value="ASAP">ASAP</option>
                 <?php
                     for ($i = 30; $i < 570; $i = $i + 30) {
