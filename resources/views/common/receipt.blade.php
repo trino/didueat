@@ -157,7 +157,7 @@
                         @if($is_my_restro || $business_day || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkount }}</a>
                         @else
-                            <h4><span class="label label-danger">Currently Closed</span></h4>
+                            <span class="label label-danger">Currently Closed</span>
 
                         @endif
                     </div>
