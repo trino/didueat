@@ -22,12 +22,12 @@ $('.is_active').live('change',function(){
     var cat_id = $_parent.find('.cat_id').val();
     var $thi = $(this);
    $.ajax({
-            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
             success:function(res) {
                 res = res.trim();
                 //alert('0_'+res+'_'+'0');
                 if(res=='0') {
-                    alert('You can only enable 10 items');
+                    alert('You can only enable 25 items');
                     $thi.prop('checked', false);
                 }
             }
@@ -36,12 +36,12 @@ $('.is_active').live('change',function(){
 
 function check_enabled(id,cat_id,stat,$thi,base_url) {
     var $ajax = $.ajax({
-            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/10/'+stat,
+            url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
             success:function(res) {
                 res = res.trim();
                 //alert('0_'+res+'_'+'0');
                 if(res=='0') {
-                    alert('You can enable up to 10 items only.');
+                    alert('You can enable up to 25 items only.');
                     $thi.prop('checked', false);
                     $('.overlay_loader').hide();
                 }
