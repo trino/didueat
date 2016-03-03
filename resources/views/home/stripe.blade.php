@@ -26,7 +26,7 @@
 	<input name="currencyType" type="hidden" class="S_currencyType" value='{{ $currencyType }}' />
 	<input name="taxpd" type="hidden" class="S_taxpd" value='{{ (isset($salesTax))?$salesTax:"" }}' />
 	<input name="orderID" type="hidden" class="S_orderID" value='{{ (isset($orderID))?$orderID:"" }}' />
-	<input type="hidden" name="stripeToken" value=""/>
+	<input type="hidden" name="stripeToken" value="" class="stripeToken"/>
 
 	@if($CreditCards)
 		<div class="form-group row editcard">
