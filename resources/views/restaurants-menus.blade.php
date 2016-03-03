@@ -233,7 +233,9 @@
                     } else if (debugmode) {
                         alert("DEBUG MODE: The address " + address_latitude + " - " + address_longitude + " is " + distance + " km away from {{ $restaurant->latitude }} - {{ $restaurant->longitude }}");
                     }
-                    element.trigger("click");
+                    if(element) {
+                        element.trigger("click");
+                    }
                     return true;
                 } else if (where == "addresscheck") {
                     alert("No address specified");
