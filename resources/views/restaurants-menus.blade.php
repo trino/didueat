@@ -206,6 +206,7 @@
             //code for adding addresses to the drop down is in views/common/receipt.blade.php
             if ($("#delivery1").is(":checked")) {
                 var found = false;
+                var element = false;
                 if ($("#reservation_address").is(":visible")) {
                     var element = $("#reservation_address .dropdown-item").filter(":selected");
                     if (element) {
