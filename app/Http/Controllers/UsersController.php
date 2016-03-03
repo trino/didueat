@@ -342,10 +342,6 @@ class UsersController extends Controller {
                     }
                 }
                 //echo '<pre>';print_r($res); die;
-                $ob2 = new \App\Http\Models\Reservations();
-                $ob2->populate($res, "guid");
-                $ob2->save();
-                $oid = $ob2->id;
                 
                 
                 $res['name'] = trim($post['ordered_by']);
@@ -359,21 +355,27 @@ class UsersController extends Controller {
                         $uid = $this->registeruser("Users@ajax_register", $post, 2, 0);
                         $res['user_id'] = $uid->id;
                         $msg = "78";
-                        if($post['payment_type']=='cc')
-                        {
-                            
-                            if(isset($post["stripeToken"]) && $post["stripeToken"]){
-                                if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
-                                    $this->success("Your order has been paid.");
-                                 //   $data['order']->paid = 1;
-                                }else {
-                                    $this->failure("Your order has <B>NOT</B> been paid.");
-                                }
-                            }
-                            
-                        }
+                        
                     }
                 }
+                $ob2 = new \App\Http\Models\Reservations();
+                $ob2->populate($res, "guid");
+                $ob2->save();
+                $oid = $ob2->id;
+                /*
+                if($post['payment_type']=='cc')
+                {
+                    
+                    if(isset($post["stripeToken"]) && $post["stripeToken"]){
+                        if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
+                            $this->success("Your order has been paid.");
+                         //   $data['order']->paid = 1;
+                        }else {
+                            $this->failure("Your order has <B>NOT</B> been paid.");
+                        }
+                    }
+                    
+                }*/
 
                 $res['ordered_by'] = $post['ordered_by'];
                 

@@ -229,7 +229,7 @@ class CreditCardsController extends Controller {
                 $stripeConf['stripeToken'] = $StripeToken;
                // $stripeConf['status'] = 'approved';
                 $stripeConf['user_id'] = \Session::get('session_id');
-                edit_database("reservations", "id", $OrderID, array("status" => 1, "stripeToken" => $StripeToken));
+                edit_database("reservations", "id", $OrderID, array("paid" => 1, "stripeToken" => $StripeToken));
                 
                 $stripeOb = \App\Http\Models\StripeConfirm::findOrNew($stripeConf['orderID']);
                 $stripeOb->populate($stripeConf);
