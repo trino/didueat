@@ -37,7 +37,7 @@
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<div class="<?php if (!isset($type)) echo "";?> addressdropdown">
+<SPAN class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
     @if(isset($GLOBALS['thisIdentity']))
         <div class="form-group">
@@ -98,8 +98,8 @@
             </div>
             <?php }
             }else{
-                 if($addresses->count()){
             ?>
+            <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
             <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
                 <option value="">Select Address</option>
                 <?php
@@ -118,8 +118,8 @@
 
             </select>
             
-            or
-            <?php }?> <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
+            or</SPAN>
+            <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
             <?php
             }
             ?>
