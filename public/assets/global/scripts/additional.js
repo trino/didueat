@@ -267,7 +267,7 @@ $('.savebtn').live('click', function () {
         return false;
     }
 
-    var ptitle = $_parent.find('.newtitle').val();
+    var ptitle = encodeURIComponent($_parent.find('.newtitle').val());
     if (ptitle == '') {
         alert('Title cannot be blank');
         $_parent.find('.newtitle').focus();
@@ -348,7 +348,7 @@ $('.savebtn').live('click', function () {
 
     var phas_addon = 0;
     var img = $_parent.find('.hiddenimg').val();
-    var pdesc = $_parent.find('.newdesc').val();
+    var pdesc = encodeURIComponent($_parent.find('.newdesc').val());
     var pprice = $_parent.find('.newprice').val();
 
     if ($_parent.find('.menuwrapper').length > 0) {
@@ -366,7 +366,7 @@ $('.savebtn').live('click', function () {
                 $_parent.find('.menuwrapper').each(function () {
                     d_o++;
                     var $_this2 = $(this);
-                    var ctitle = $_this2.find('.ctitle').val();
+                    var ctitle = encodeURIComponent($_this2.find('.ctitle').val());
                     var cdescription = $_this2.find('.cdescription').val();
                     var req_opt = $_this2.find('.is_req').val();
                     var sing_mul = $_this2.find('.is_mul').val();
@@ -391,7 +391,7 @@ $('.savebtn').live('click', function () {
                                 $('.cmore', $_this2).each(function () {
                                     co++;
                                     di_o++;
-                                    var cctitle = $(this).find('.cctitle').val();
+                                    var cctitle = encodeURIComponent($(this).find('.cctitle').val());
                                     var ccprice = $(this).find('.ccprice').val();
 
                                     $.ajax({
