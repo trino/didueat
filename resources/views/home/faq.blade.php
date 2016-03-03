@@ -39,7 +39,7 @@ function chngIcon(idn,b){
 
 
 <div class="col-lg-9">
-Didu Eat wants to make every step of your dining experience as easy and pleasurable as possible. To assist you in the process, we encourage you to read through our FAQs and learn from the most frequently asked questions. If you have a question that cannot be answered by our FAQs page, then please send an email with your question to <a href="mailto:contact@didueat.ca">contact@didueat.ca</a>. We will answer your question as soon as possible, so that you can enjoy your dining experience without any uncertainties.
+Didu Eat wants to make every step of your dining experience as easy and pleasurable as possible. To assist you in the process, we encourage you to read through our FAQs and learn from the most frequently asked questions. If you have a question that cannot be answered by our FAQs page, then please send an email with your question to <a href="mailto:info@didueat.ca">info@didueat.ca</a>. We will answer your question as soon as possible, so that you can enjoy your dining experience without any uncertainties.
 
 <div class="row">
 
