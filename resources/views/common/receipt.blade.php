@@ -69,7 +69,7 @@
                 @include('common.items')
 
                 <div class="totals form-group p-t-1" style=" width:100%;">
-                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:30%;padding:22px 0<?php }?>">
+                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:100%;padding:22px 0<?php }?>">
                         <tbody>
                         @if(!isset($order))
                             <tr>
