@@ -44,7 +44,7 @@ Thank you">Email Support</a></li>
                         <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
-                    @if(Session::get('session_type_user') == "super")
+                    @if(Session::get('session_type_user') == "super" || true)
                         <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
                     @endif
 
