@@ -1,7 +1,13 @@
-<TABLE style="width:100%;">
+<?php
+if(isset($email_msg))
+    $em = 1;
+    else
+    $em=0;
+?>
+<TABLE style="width:100%;<?php if($em){?>padding: 15px 0;<?php }?>">
     <?php
         printfile("views/common/orderinfo.blade.php");
-
+        
         //$Data = array("Status" => $order->status);
         $Data['Order #'] = $order->guid;
         $Data['Status'] = $order->status;

@@ -1,6 +1,10 @@
 <?php
     printfile("views/common/receipt.blade.php");
     $ordertype = false;
+    if(isset($email_msg))
+    $em = 1;
+    else
+    $em=0;
     if (isset($order)) {
         if ($order->order_type) {
             $ordertype = "Delivery";
@@ -65,7 +69,7 @@
                 @include('common.items')
 
                 <div class="totals form-group p-t-1" style=" width:100%;">
-                    <table style="width:100%">
+                    <table style="<?php if(!isset($em)){?>width:100%;<?php }else{?>width:30%;padding:22px 0<?php }?>">
                         <tbody>
                         @if(!isset($order))
                             <tr>

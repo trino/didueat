@@ -21,6 +21,9 @@
 
         <div class="row" >
             <div class="col-md-6">
+            <?php
+            $email_msg=1;
+            ?>
 Thank you for ordering with Didu Eat. Please see your order below:
                 </div>
             <div class="col-md-6">
