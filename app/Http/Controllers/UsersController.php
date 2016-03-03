@@ -412,10 +412,10 @@ class UsersController extends Controller {
                     
                     if(isset($post["stripeToken"]) && $post["stripeToken"]){
                         if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
-                            $this->success("Your order has been paid.");
+                        //    $this->success("Your order has been paid.");
                             //$data['order']->paid = 1;
                         }else {
-                            $this->failure("Your order has <B>NOT</B> been paid.");
+                     //       $this->failure("Your order has <B>NOT</B> been paid.");
                         }
                     }
                     
