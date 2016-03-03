@@ -101,3 +101,4 @@ public/assets/images/checkbox_d2.png
 .env
 *.env
 public/debugmode.ip
+resources/views/home/faq.blade.php

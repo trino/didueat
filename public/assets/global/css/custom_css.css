@@ -18,6 +18,10 @@
 
 .smRd{}
 
+@-moz-document url-prefix() {
+    .glyphUp{position:relative;top:-17px;margin-bottom:-17px}
+}
+
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
 
 .smallT{ color: red;}
@@ -27,6 +31,8 @@
 .cuisineCB{
     display:inline-block;
 }
+
+.questions{display:inline;text-align:left;padding-left:7px;margin:2px}
 
 .formatted_address{
 
