@@ -27,8 +27,7 @@ function initAutocompleteWithID(ID){
     if(element)
     if (!element.hasAttribute("hasgeocode")) {
         var formatted_address = new google.maps.places.Autocomplete(
-            (element),
-      {
+            (element), {
 		      types: ['geocode'],
 		      componentRestrictions: {country: "ca"}
       });
@@ -37,8 +36,10 @@ function initAutocompleteWithID(ID){
         
         var input= document.getElementById('formatted_address2');
         google.maps.event.addDomListener(input, 'keydown', function(e) { 
-        if (e.keyCode == 13 && $('.pac-container:visible').length) { 
-            submitform(e, 0); 
+        if (e.keyCode == 13 && $('.pac-container:visible').length) {
+            setTimeout(function(){
+                submitform(e, 0);
+            }, 200);
         }
 }); 
         
