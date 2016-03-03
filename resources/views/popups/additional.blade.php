@@ -60,7 +60,7 @@
                                        class="btn btn-sm btn-secondary sorting_child"><i
                                                 class="fa fa-arrow-down"></i></button>
                                 <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
-                                   onclick="$(this).parent().parent().remove();" >
+                                   onclick="$(this).closest('.cmore').remove();" >
                                     <i class="fa fa-times"></i> </button>
                                 </div>
                             </div>
