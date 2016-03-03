@@ -22,6 +22,8 @@
     .glyphUp{position:relative;top:-17px;margin-bottom:-17px}
 }
 
+.padL{margin:0px;margin-left:44px;padding-left:55px; white-space: pre-line;}
+
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
 
 .smallT{ color: red;}
@@ -32,7 +34,7 @@
     display:inline-block;
 }
 
-.questions{display:inline;text-align:left;padding-left:7px;margin:2px}
+.questions{display:inline;text-align:left;padding-left:7px;margin:2px;font-weight:bold}
 
 .formatted_address{
 
@@ -44,6 +46,42 @@
 
 .rightmarg {
     margin-right: 10px
+}
+  
+@media (max-width: 360px) {
+  .btn-responsive2 {
+    padding:2px 4px;
+    font-size:80%;
+    line-height: 1.1;
+    border-radius:3px;
+    white-space: pre-line;
+    width:91%;
+    height:90%;    
+  }
+  .faqTxt{font-size:80%;width:91%}
+}
+
+@media (min-width: 361px) and (max-width: 768px) {
+  .btn-responsive2 {
+    padding:4px 9px;
+    font-size:90%;
+    line-height: 1.25;
+    white-space: pre-line;
+    width:91%;
+    height:90%;
+  }
+  .faqTxt{font-size:90%;width:91%}
+}
+
+@media (min-width: 768px) {
+  .btn-responsive2 {
+    padding:6px 11px;
+    font-size:100%;
+    line-height: 1.4;
+    width:91%;
+    height:90%;
+  }
+  .faqTxt{font-size:100%;width:90%}
 }
 
 .pac-container {
