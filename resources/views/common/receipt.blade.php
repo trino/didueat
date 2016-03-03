@@ -1,10 +1,10 @@
 <?php
     printfile("views/common/receipt.blade.php");
     $ordertype = false;
-    if(isset($email_msg))
-    $em = 1;
-    else
     $em=0;
+    if(isset($email_msg)){
+        $em = 1;
+    }
     if (isset($order)) {
         if ($order->order_type) {
             $ordertype = "Delivery";
@@ -22,7 +22,7 @@
         $checkout_modal = true;
     }
 
-    $checkount = "Checkout";
+    $checkout = "Checkout";
     $is_my_restro = false;
     $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
@@ -34,11 +34,11 @@
     }
     if(!$business_day){
         if(Session::get('session_type_user') == "super"){
-            $checkount .= " (SUPER)";
+            $checkout .= " (SUPER)";
         } else if(debugmode()){
-            $checkount .= " (DEBUG)";
+            $checkout .= " (DEBUG)";
         } else if ($is_my_restro) {
-            $checkount .= " (OWNER)";
+            $checkout .= " (OWNER)";
         }
     }
 ?>
@@ -155,8 +155,9 @@
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
                         @if($is_my_restro || $business_day || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkount }}</a>
+                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
                         @else
+
                             <span class="label label-danger">Currently Closed</span>
 
                         @endif
