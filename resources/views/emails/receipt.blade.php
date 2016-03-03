@@ -24,7 +24,7 @@
             <?php
             $email_msg=1;
             ?>
-Thank you for ordering with Didu Eat. Please see your order below:
+            Thank you for ordering with {{ DIDUEAT }}. Please see your order below:
                 </div>
             <div class="col-md-6">
                 @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))

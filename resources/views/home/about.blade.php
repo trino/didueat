@@ -10,14 +10,14 @@
 
                 <h4>About Us</h4>
                 <br>
-                Didu Eat is an online service that helps hungry Canadians order delivery and pick-up from local
+                {{ DIDUEAT }} is an online service that helps hungry Canadians order delivery and pick-up from local
                 restaurants.
                 <br><br>
                 Having great local food delivered helps us all keep up with our busy
                 lives. By connecting you to local restaurants, we make your city's great food more accessible, opening up more
                 possibilities for food lovers and more business for local small business owners.
                 <br><br>
-                Didu Eat's quickly expanding network is reaching our goal of making everyone's life a
+                {{ DIDUEAT }}'s quickly expanding network is reaching our goal of making everyone's life a
                 little bit better. It's secure and easy to use, you'll wonder why you ever ordered over the phone.
             </div>
 
