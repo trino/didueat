@@ -27,7 +27,8 @@
         @if(!read("id"))
             <div class="col-sm-12">
                 <div class="form-group">
-                    <a class="btn btn-primary-outline reserve_login" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
+                   <span class="reserve_login">Please </span>
+                    <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
                     <span class="reserve_login">Or Sign Up Below:</span>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                        placeholder="Cell Phone"
                        class="form-control" name="contact"
                        id="ordered_contact" required=""
-                       value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "readonly";?> />
+                       value="{{ (isset($profile))? $profile->phone : '' }}" <?php if ((isset($profile))) echo "hidden";?> />
             </div>
         </div>
 
@@ -62,7 +63,7 @@
             <div class="form-group">
                 <input type="email" placeholder="Email" class="form-control "
                        name="email" id="ordered_email" required=""
-                       value="{{ (isset($profile))? $profile->email : '' }}" <?php if ((isset($profile))) echo "readonly";?> />
+                       value="{{ (isset($profile))? $profile->email : '' }}" <?php if ((isset($profile))) echo "hidden";?> />
             </div>
         </div>
 
@@ -137,7 +138,7 @@
 
     <div class="col-xs-12 p-t-1">
             <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
-            <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();" id="chkOut">Order Now</button>
+            <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();" id="chkOut">Place Order</button>
             <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="{{ (isset($restaurant->id))?$restaurant->id:0 }}"/>
     </div>
 
