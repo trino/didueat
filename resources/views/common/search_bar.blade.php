@@ -29,18 +29,18 @@
                 </div>
             @endif
 
+            <?php $Type = iif(debugmode(), 'TEXT" TITLE="THESE ARE ONLY VISIBLE IN DEBUG MODE', 'HIDDEN'); ?>
             <input type="text" name="formatted_address" id="formatted_address2"
                    class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
                    onpaste="this.onchange();">
-            <input type="HIDDEN" name="latitude" id="latitude" value="{{ (isset($latHam))? $latHam : '' }}">
-            <input type="HIDDEN" name="latitude" id="longitude" value="{{ (isset($lonHam))? $lonHam : '' }}">
-      <span class="input-group-btn">
-
-                <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button"
-                        onclick="$('#search-form-submit').trigger('click');"><i class="fa fa-search"></i>
+            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;">
+            <input type="{{ $Type }}" name="latitude" id="longitude" style="color: black;">
+            <span class="input-group-btn" style="vertical-align: top;">
+                <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
+                    <i class="fa fa-search"></i>
                 </button>
-</span>
+            </span>
         </div>
     </div>
 

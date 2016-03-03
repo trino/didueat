@@ -177,7 +177,7 @@ class Restaurants extends BaseModel {
         if(isset($data["formatted_address"]) && $data["formatted_address"]){
             $IsHardcoded = true;
             switch($data["formatted_address"]){
-                case "Hamilton, Ontario":
+                case "Hamilton, Ontario"; case "Hamilton, ON, Canada";
                     $data["city"] = "Hamilton";
                     $data["province"] = "Ontario";
                     break;

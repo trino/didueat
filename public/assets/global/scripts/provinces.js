@@ -181,8 +181,8 @@ function fillInAddress() {
         $('#formatted_addressForDB').val(place.formatted_address); // this formatted_address is a google maps object
     }
 
-    //createCookieValue('longitude', lng);
-    //createCookieValue('latitude', lat);
+    createCookieValue('longitude', lng);
+    createCookieValue('latitude', lat);
 
     $('#latitude').val(lat);
     $('#longitude').val(lng);
@@ -219,22 +219,23 @@ function fillInAddress() {
                 }
             }
 
-
             if(addressType == "locality"){
                 $('#city').val(val);
-                if($('#ordered_city').is(':visible'))
+                if($('#ordered_city').is(':visible')) {
                     $('#ordered_city').val(val);
+                }
             }
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
-                if($('#ordered_code').is(':visible'))
+                if($('#ordered_code').is(':visible')) {
                     $('#ordered_code').val(val);
+                }
             }
             if(addressType == "street_number"){
                 $('#formatted_address').val(val);
-                if($('#ordered_street').is(':visible'))
+                if($('#ordered_street').is(':visible')) {
                     $('#ordered_street').val(val);
-                
+                }
             }
             if(addressType == "route"){
                 if($('#formatted_address').val() != ""){
