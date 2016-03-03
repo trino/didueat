@@ -36,6 +36,9 @@
                    onpaste="this.onchange();">
             <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;">
             <input type="{{ $Type }}" name="latitude" id="longitude" style="color: black;">
+                @if(debugmode())
+                    <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
+                @endif
             <span class="input-group-btn" style="vertical-align: top;">
                 <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');">
                     <i class="fa fa-search"></i>
@@ -46,6 +49,10 @@
 
     <script>
         var formatted_address2, formatted_address3;
+
+        function googlemap(element){
+            $(element).attr("href", 'http://maps.google.com/?q=' + $("#latitude").val() + ',' + $("#longitude").val() );
+        }
 
         function initAutocomplete2() {
             formatted_address2 = initAutocompleteWithID('formatted_address2');
