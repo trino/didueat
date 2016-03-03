@@ -37,7 +37,7 @@
 <input type="hidden" name="longitude" id="longitude" value="{{ (isset($addresse_detail->longitude))?$addresse_detail->longitude: old('longitude') }}"/>
 <input type="hidden" name="formatted_addressForDB" id="formatted_addressForDB"/>
 
-<SPAN class="<?php if (!isset($type)) echo "";?> addressdropdown">
+<div class="<?php if (!isset($type)) echo "";?> addressdropdown">
 
     @if(isset($GLOBALS['thisIdentity']))
         <div class="form-group">
@@ -98,27 +98,30 @@
             </div>
             <?php }
             }else{
-            ?>
-            <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
-            <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
-                <option value="">Select Address</option>
-                <?php
-                    $sec = false;
-                    foreach ($addresses as $address) {
-                        if (!$sec) {
-                            $sec = $address->id;
-                        }
-                        echo '<option class="dropdown-item" REQUIRED';
-                        echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
-                        echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
-                        echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
-                        echo $address->address . '</option>';
-                    }
-                ?>
 
-            </select>
-            
-            or</SPAN>
+            ?>
+
+            <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
+                <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
+                    <option value="">Select Address</option>
+                    <?php
+                        $sec = false;
+                        foreach ($addresses as $address) {
+                            if (!$sec) {
+                                $sec = $address->id;
+                            }
+                            echo '<option class="dropdown-item" REQUIRED';
+                            echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
+                            echo ' COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" LATITUDE="' . $address->latitude . '" LONGITUDE="' . $address->longitude . '"';
+                            echo ' ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
+                            echo $address->address . '</option>';
+                        }
+                    ?>
+
+                </select>
+                or
+            </SPAN>
+        
             <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
             <?php
             }
