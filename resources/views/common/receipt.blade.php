@@ -252,16 +252,16 @@
                     dataType: "json",
                     success: function (msg) {
                         $('#editModel').modal('hide');
-                        $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                            $(".reservation_address_dropdown .dropdown-item").filter(":selected").removeAttr("selected");
-                            $('.reservation_address_dropdown').val(msg['id']);
-                            if (!ignoreone) {
-                                ignoreone = true;
-                                addresschange("receipt");
-                            } else {
-                                ignoreone = false;
-                            }
-                        });
+                        $("#reservation_address").val([]);
+
+                        var HTML = '<option class="dropdown-item" value="' + msg['id'] + '" city="' + msg['city'] + '" province="' + msg['province'] + '" apartment="' + msg['apartment'] + '" country="' + msg['country'] + '" phone="' + msg['phone'] + '" mobile="' + msg['mobile'] + '" latitude="' + msg['latitude'] + '" longitude="' + msg['longitude'] + '" id="add' + msg['id'] + '" address="' + msg['address'] + '" postal="' + msg['id'] + '" notes="" onclick="addresschanged(this)" SELECTED>' + msg['address'] + '</option>';
+                        $("#reservation_address").append(HTML);
+                        if (!ignoreone) {
+                            ignoreone = true;
+                            addresschange("receipt");
+                        } else {
+                            ignoreone = false;
+                        }
 
                         $('.formatted_address').val(msg['formatted_address']);
                         $('.added_address').val(msg['address']);

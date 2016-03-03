@@ -202,17 +202,22 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
+
         function addresschange(where) {
             //code for adding addresses to the drop down is in views/common/receipt.blade.php
             if ($("#delivery1").is(":checked")) {
                 var found = false;
                 var element = false;
-                if ($("#reservation_address").is(":visible")) {
-                    var element = $("#reservation_address .dropdown-item").filter(":selected");
+                var address = "your address";
+                if ($("#delivery1").is(":checked")) {
+                    var value = document.getElementById("reservation_address").value;
+                    address = "Address ID: " + value;
+                    var element = $("#reservation_address option").filter(":selected");
                     if (element) {
                         var address_latitude = element.attr("latitude");
                         var address_longitude = element.attr("longitude");
                         found = !isundefined(element.attr("latitude"));
+                        address = element.text();
                     }
                 } else {
                     var address_latitude = $("#latitude").val();
@@ -223,7 +228,7 @@
                 if (found) {
                     var distance = calcdistance({{ $restaurant->latitude }}, {{ $restaurant->longitude }}, address_latitude, address_longitude);
                     if (distance > {{ $restaurant->max_delivery_distance }}) {
-                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, your address is " + distance.toFixed(2) + " km away.";
+                        var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, " + address + " is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
                             if (where == "addresscheck") {
                             return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
