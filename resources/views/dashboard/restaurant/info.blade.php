@@ -67,8 +67,10 @@
                     <div class="card-header">
                         <h4 class="card-title">Restaurant Address</h4>
                     </div>
-                    <div class="card-block row">
+                    <div class="card-block ">
+                    <div class="row">
                         <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false, "restEdit" => true, "mini" => true)); ?>
+                    </div>
                     </div>
                 </div>
 

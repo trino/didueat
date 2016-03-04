@@ -191,7 +191,7 @@ if ($useHamilton) {
                         <div class="card-footer text-xs-right">
                             <input type="button" name="clearSearch" id="clearSearch" class="btn btn-secondary"
                                    value="Clear"/>
-                            <input type="button" name="search" class="btn btn-primary" value="Filter"
+                            <input type="button" name="search" class="btn btn-primary" value="Search"
                                    id="search-form-submit"
                                    onclick="submitform(event, 0);"/>
                         </div>
