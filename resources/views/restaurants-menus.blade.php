@@ -56,14 +56,15 @@
 
                     <div class="list-group-item m-b-1">
                         <div class="col-md-3 col-xs-3 p-a-0">
-                            <img style="max-width:100%;" class="pull-left img-rounded p-r-1"
+                            <div class="p-r-1">
+                            <img style="max-width:100%;" class="img-rounded pull-left"
                                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
                                  src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
                                  @else
                                  src="{{ asset('assets/images/small-smiley-logo.png') }}"
                                  @endif
                                  alt="">
-
+</div>
 
                             <div class="clearfix"></div>
                         </div>

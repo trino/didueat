@@ -215,7 +215,7 @@
 
             <div class="modal-footer m-t-1">
                 <div class=" pull-left">
-                <button type="button" class="btn btn-secondary-outline btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary-outline btn-sm hidden-md-up" data-dismiss="modal">Close</button>
                                    <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->

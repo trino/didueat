@@ -65,7 +65,7 @@ echo newrow($new, "Email", $size, true); ?>
     <?php echo newrow(); ?>
 @endif
 
-<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
+<?= newrow($new, $is_new . "Create Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
     <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" value="" {{ $PasswordRequired }} />
 </div>

@@ -91,7 +91,7 @@ echo "<table>";
 
 
                     foreach ($days as $day) {
-                        echo '<tr><td>' . $day . '&nbsp;</td>';
+                        echo '<tr><td>' . $day . '&nbsp;</td><td>&nbsp;</td>';
                         $open = getfield($restaurant, $day . "_open");
                         $close = getfield($restaurant, $day . "_close");
                         $open_del = getfield($restaurant, $day . "_open_del");

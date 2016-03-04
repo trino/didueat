@@ -1,7 +1,7 @@
 <div class="container" >
+    <hr>
 
     <footer class="text-muted p-b-1 p-l-1 p-r-1" >
-        <hr>
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row text-xs-center">
             <div class="col-lg-12 ">
