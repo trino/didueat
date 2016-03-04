@@ -73,7 +73,7 @@ foreach ($cuisineListA as $name) {
     $cnt++;
 }
 
-echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one genre in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
+echo '</div><DIV STYLE="color: red; display: none;" ID="cousine-error">You must select at least one cuisine in order to continue. You may make adjustments later.</DIV><script>var cuisineCnt = ' . $cnt . '; var cbchkd = ' . $cuisinesChkd . ';</script></div></div></div>';
 
 if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);

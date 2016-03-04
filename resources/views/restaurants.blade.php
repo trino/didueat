@@ -1,52 +1,52 @@
 <?php
-    $first = false;
-    $type = "hidden";
-    //$localIPTst = $_SERVER['REMOTE_ADDR'];
-    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr = "";
-    $locationStr = "";
-    $useCookie = false;
-    $useHamilton = true;
+$first = false;
+$type = "hidden";
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
+$useHamilton = true;
 
-    /*
-    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-        $Province = "";
-        if (function_exists('geoip_record_by_name')) {
-            $info = geoip_record_by_name($localIPTst);
-            $City = $info['city'];
-            $Country = $info['country_name'];
-            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-                $Province = $info['region'];
-            }
-        } else {
-            $ip = $localIPTst;
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            $City = $details->city;
-            if ($details->country == "US"){$Country = "United States";}
-            if ($details->country == "CA"){$Country = "Canada";}
-            if(isset($Country)){
-                $Province = $details->region;
-            } else {
-                $Country = $details->country;
-            }
-            $latlng = explode(",", $details->loc);
-            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+/*
+if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    $Province = "";
+    if (function_exists('geoip_record_by_name')) {
+        $info = geoip_record_by_name($localIPTst);
+        $City = $info['city'];
+        $Country = $info['country_name'];
+        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+            $Province = $info['region'];
         }
     } else {
-        // get city [, province/state], and country from cookie or session, once implemented
+        $ip = $localIPTst;
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        $City = $details->city;
+        if ($details->country == "US"){$Country = "United States";}
+        if ($details->country == "CA"){$Country = "Canada";}
+        if(isset($Country)){
+            $Province = $details->region;
+        } else {
+            $Country = $details->country;
+        }
+        $latlng = explode(",", $details->loc);
+        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
     }
-    */
+} else {
+    // get city [, province/state], and country from cookie or session, once implemented
+}
+*/
 
-    if($useHamilton){
-        $City = "Hamilton";
-        $Province = "Ontario";
-        $Country = "Canada";
-        $latHam="43.2566983";
-        $lonHam="-79.8690719";
-        $loc="43.2566983,-79.8690719";
-    } else if(is_object($details)) {
-        $loc=$details->loc;
-    }
+if ($useHamilton) {
+    $City = "Hamilton";
+    $Province = "Ontario";
+    $Country = "Canada";
+    $latHam = "43.2566983";
+    $lonHam = "-79.8690719";
+    $loc = "43.2566983,-79.8690719";
+} else if (is_object($details)) {
+    $loc = $details->loc;
+}
 
 ?>
 
@@ -59,11 +59,10 @@
             <div class="row text-md-center" style="padding:1.25rem !important;">
 
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow" > <span style="font-size: 131%">Pickup & Delivery from </span><span style="font-size: 136%"> Hamilton Restaurants</span> </h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span
+                                style="font-size: 136%"> Hamilton Restaurants</span></h1>
 
                     <div class="clearfix"></div>
-
-
 
 
                 </div>
@@ -74,14 +73,17 @@
                 <div class="clearfix"></div>
 
 
-
                 <div class="col-md-offset-3 text-xs-center col-md-6 ">
-                    <div class="text-xs-center" onclick="submitform(event, 0);" >
+                    <div class="text-xs-center" onclick="submitform(event, 0);">
 
                         <!--h5 class="m-t-1 display-5 banner-text-shadow" loc="{{ $loc }}"-->
                         <h5 class="m-t-1 display-5 banner-text-shadow">
-                            or show me <a style="cursor:pointer;text-decoration: underline; color:white" class="search-city" onclick="submitform(event, 0);return false;" city="{{ $City }}" province="{{ $Province }}" country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
+                            or show me <a style="cursor:pointer;text-decoration: underline; color:white"
+                                          class="search-city" onclick="submitform(event, 0);return false;"
+                                          city="{{ $City }}" province="{{ $Province }}"
+                                          country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
+
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -101,14 +103,10 @@
 
             <div class="" id="results_show" style="display: none;">
                 <div class="col-lg-8 m-b-2">
-                    <?php popup(true, "message:nostores",false,false,'15'); ?>
-
+                    <?php popup(true, "message:nostores", false, false, '15'); ?>
                     @include('ajax.search_restaurants')
-
                 </div>
                 <div class="col-lg-4" ID="filter-results">
-
-
                     <div class="card ">
                         <div class="card-header">
                             <h4 class="card-title">Filter Search</h4>
@@ -156,15 +154,15 @@
                                            onkeyup="createCookieValue('cname', this.value)"/>
                                 </div>
 
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <select name="cuisine" id="cuisine" class="form-control"
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine Type</option>
                                         @foreach($cuisine as $value)
-                                            <option>{{ $value->name }}</option>
+                                        <option>{{ $value->name }}</option>
                                         @endforeach
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div-->
 
 
                                 <div id="radius_panel" class="form-group row" style="display:none;">
@@ -204,66 +202,63 @@
                 </div>
             </div>
 
-            <div class=" " id="icons_show">
+            <div id="icons_show">
+                <div class="col-lg-12 p-b-1 p-t-1 text-xs-center">
+                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
 
-
-                <div class="col-lg-12 p-b-1 text-xs-center">
-                    <h2>Why Order From {{ DIDUEAT  }}?</h2>
-                    <hr>
                 </div>
-
-
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <blockquote class="card-blockquote">
-
-                            <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-map-marker bg-success img-circle "
-                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
-                            </div>
-                            <h4>Local</h4>
-                            <footer>
-                                Steel Town's best restaurants
-                            </footer>
-                        </blockquote>
+                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x "
+                                                           style="line-height: inherit;"></i></div>
+                        <br>
+                        <br>
+                        <h4>Local</h4>
+                        <footer>
+                            Steel Town's best restaurants
+                        </footer>
                     </div>
                 </div>
-
-
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <blockquote class="card-blockquote">
-
-                            <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-cutlery bg-success img-circle "
-                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
-                            </div>
-                            <h4>Efficient</h4>
-                            <footer>
-                                The fastest way to order food
-                            </footer>
-                        </blockquote>
+                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x "
+                                                           style="line-height: inherit;"></i></div>
+                        <br>
+                        <br>
+                        <h4>Efficient</h4>
+                        <footer>
+                            The fastest way to order food
+                        </footer>
                     </div>
                 </div>
-
-
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <blockquote class="card-blockquote">
-
-                            <div class="img-circle center-block m-b-1">
-                                <h1><i class="fa fa-usd bg-success img-circle "
-                                       style="padding-top:25px;width:90px;height:90px;"></i></h1>
-                            </div>
-                            <h4>Discounts</h4>
-                            <footer>
-                                There's a deal everyday
-                            </footer>
-                        </blockquote>
+                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i>
+                        </div>
+                        <br>
+                        <br>
+                        <h4>Discounts</h4>
+                        <footer>
+                            There's a deal everyday
+                        </footer>
                     </div>
                 </div>
-
                 <div class="clearfix"></div>
+                @if(!Session::has('is_logged_in'))
+
+
+                <div class="col-lg-12 text-xs-center p-t-0">
+                    <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
+               <h2>READY TO ORDER SOME FOOD?</h2>
+                        <a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a>
+
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+@endif
+
             </div>
         </div>
     </div>
@@ -360,9 +355,12 @@
          });
          */
 
-        var IgnoreOne=false;
+        var IgnoreOne = false;
         function submitform(e, start) {
-            if(IgnoreOne){IgnoreOne= false; return false;}
+            if (IgnoreOne) {
+                IgnoreOne = false;
+                return false;
+            }
             var formatted_address = $(elementname).val();
             var latitude = $('#latitude').val().trim();
             var longitude = $('#longitude').val().trim();

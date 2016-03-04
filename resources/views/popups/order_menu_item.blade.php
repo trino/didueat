@@ -214,19 +214,25 @@
             </div>
 
             <div class="modal-footer m-t-1">
-                <button type="button" class="btn btn-secondary btn-sm pull-left" data-dismiss="modal">Close</button>
+                <div class=" pull-left">
+                <button type="button" class="btn btn-secondary-outline btn-sm" data-dismiss="modal">Close</button>
                                    <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
                                        Reset
                                    </button-->
-                Qty
-                <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
+                </div>
+                <div class="pull-right" style="margin-left:.5rem;">
+
+                    <a id="profilemenu{{ $value->id }}"
+                       class="btn  btn-primary add_menu_profile add_end"
+                       href="javascript:void(0);">Add</a>
+                </div>
+                <div class="pull-right">Qty <a class="btn  btn-secondary-outline  btn-sm" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'minus')"><i class="fa fa-minus" ></i></a>
                 <span class="number{{ $value->id }}">1</span>
                 <a class="btn  btn-primary-outline  btn-sm" href="javascript:void(0);"
                    onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus" ></i></a>
-                <a id="profilemenu{{ $value->id }}"
-                   class="btn  btn-primary add_menu_profile add_end"
-                   href="javascript:void(0);">Add</a>
+
+            </div>
             </div>
         </div>
     </div>

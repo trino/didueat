@@ -158,7 +158,7 @@
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
                         @else
 
-                            <span class="label label-danger">Currently Closed</span>
+                            <h4><span class="label label-danger">Currently Closed</span></h4>
 
                         @endif
                     </div>

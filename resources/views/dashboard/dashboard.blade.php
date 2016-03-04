@@ -14,7 +14,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">My Profile</h4>
+                    <h4 class="card-title">My Settings</h4>
                 </div>
                 <div class="card-block">
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}

@@ -45,15 +45,18 @@ Thank you">Email Support</a></li>
                     </li>
 
                     @if(Session::get('session_type_user') == "super" || true)
+                        <li class="list-inline-item">
+
                         <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
+                 </li>
                     @endif
 
                     <li class="list-inline-item">
-                        <h4>
-                            <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>
-                        </h4>
+                        <h3>
+
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>&nbsp;<A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>&nbsp;<A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
+
+                        </h3>
                     </li>
 
 

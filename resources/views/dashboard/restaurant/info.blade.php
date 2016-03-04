@@ -15,43 +15,49 @@
         <div class="col-lg-9 ">
             <?php printfile("views/dashboard/restaurant/info.blade.php"); ?>
 
-            <div class="card">
+                {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
+
+
+                <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
+<?
+                $is_disabled = false;
+                if (isset($route) && $route == "restaurant/view/{view}") {
+                    $is_disabled = " DISABLED";
+                }
+                ?>
+                <div class="card">
+                    <div class="card-header"><a name="PickupAndDelivery"></a>
+                        <h4 class="card-title">Hours & Delivery</h4>
+                    </div>
+                    <div class="card-block">
+                        @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
+                        <div class="clearfix"></div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Restaurant Info</h4>
+                    <h4 class="card-title">Restaurant Settings</h4>
                 </div>
 
                 <div class="card-block">
-                    {!! Form::open(array('url' => 'restaurant/info', 'onsubmit' => 'return validateFn(this)', 'id'=>'resturantForm', 'class'=>'horizontal-form','method'=>'post','role'=>'form', 'enctype'=>'multipart/form-data')) !!}
 
-                    <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
 
                 <?php
-                    $is_disabled = false;
-                    if (isset($route) && $route == "restaurant/view/{view}") {
-                        $is_disabled = " DISABLED";
-                    }
+
                     echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
                     ?>
                 </div>
             </div>
 
-
-
-            <div class="card">
-                <div class="card-header"><a name="PickupAndDelivery"></a>
-                    <h4 class="card-title">Hours & Delivery</h4>
-                </div>
-                <div class="card-block">
-                    @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
-                    <div class="clearfix"></div>
-                </div>
-
-
                 {!! Form::close() !!}
 
-
-
-            </div>
 
 
 

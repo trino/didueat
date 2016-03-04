@@ -93,7 +93,7 @@
                         <h4 style="margin-bottom: 0 !important;">
                             {{ $value['name'] }}
                             <div class="pull-right">
-                            <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn btn-sm  @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
+                            <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn  @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
                                 </div>
                         </h4>
                     </a>
@@ -111,13 +111,16 @@
                     <!--span class="list-inline-item ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
 
                     @if($value["is_delivery"])
-                        <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
-                        <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+
                         @if(!$value["is_pickup"])
-                            <span class="list-inline-item">Delivery only</span>
+                            <span class="list-inline-item"><strong>Delivery only</strong></span>
                         @endif
+
+                            <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
+                            <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
+
                     @elseif($value["is_pickup"])
-                        <span class="list-inline-item">Pickup only</span>
+                        <span class="list-inline-item"><strong>Pickup only</strong></span>
                     @endif
 
                     <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
@@ -169,6 +172,7 @@
         }
     ?>
 </div>
+<div class="m-b-1"></div>
 
 <script>
     <?php
@@ -186,7 +190,7 @@
             openCntMsg=openCnt+" Open";
             closedCntMsg=" and "+closedCnt+" Closed";
         } else if(closedCnt == totalCnt){
-            closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can review the {{ DIDUEAT }} restaurants in your area, and place your order when they are open";
+            closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
         document.getElementById('openClosed').innerHTML=spBR+"<BR>("+openCntMsg+closedCntMsg+")";
     }
