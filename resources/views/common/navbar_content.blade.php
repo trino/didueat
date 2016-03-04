@@ -28,7 +28,7 @@
             makelink(array(
                     'orders/list/user' => 'My Orders',
                     'user/info' => "My Settings",
-                    'user/addresses' => "My Addresses",
+                    'user/addresses' => "Delivery Address",
                 /*
                     'credit-cards/list/user' => "My Credit Cards",
                 */
