@@ -205,7 +205,7 @@ if ($useHamilton) {
             <div id="icons_show">
                 <div class="col-lg-12 p-b-1 p-t-1 text-xs-center">
                     <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
-
+<hr>
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
@@ -247,7 +247,7 @@ if ($useHamilton) {
                 @if(!Session::has('is_logged_in'))
 
 
-                <div class="col-lg-12 text-xs-center p-t-0">
+                <div class="col-lg-12 text-xs-center p-t-0"><hr>
                     <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
                <h2>READY TO ORDER SOME FOOD?</h2>
                         <a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a>
