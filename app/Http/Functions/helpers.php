@@ -1875,7 +1875,7 @@ function datename($date){
     }
 
     function cuisinelist(){//why is this hard-coded? Because it's much faster than a database call
-        return array('American', 'Burgers', 'Canadian', 'Chicken', 'Chinese', 'Desserts', 'European', 'Fish and Chips', 'French', 'German', 'Greek', 'Halal', 'Health Food', 'Indian', 'Italian', 'Japanese', 'Korean', 'Mediterranean', 'Mexican', 'Persian', 'Pizza', 'Pub Fare', 'Seafood', 'Steakhouse', 'Thai', 'Vegan', 'Vietnamese', 'Wings');
+        return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Café','Canadian','Caribbean','Chicken','Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French','Game and Exotic','German','Greek','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese','Korean','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pizza','Polish','Portuguese','Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Sushi','Thai','Vegan','Vietnamese','Wings');
     }
 
     function TH($data, $name = "", $sort = true){
