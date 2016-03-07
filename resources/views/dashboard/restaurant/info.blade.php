@@ -47,10 +47,22 @@
                 </div>
 
                 <div class="card-block">
+<!--div class="row">
+<div class="col-md-12">
 
-
+                    <label class="c-input c-radio">
+                        <input id="radio1" name="radio" type="radio">
+                        <span class="c-indicator"></span>
+                        Restaurant Live (Accept Orders)
+                    </label>
+                    <label class="c-input c-radio">
+                        <input id="radio2" name="radio" type="radio">
+                        <span class="c-indicator"></span>
+                        Restaurant Offline (Closed)
+                    </label>
+</div>
+</div-->
                 <?php
-
                     echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
                     ?>
                 </div>

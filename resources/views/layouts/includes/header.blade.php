@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
@@ -8,6 +10,9 @@
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
                  style="height: 38px;"/>
         </a>
+
+
+
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
@@ -65,6 +70,22 @@
             </li>
 
         </ul>
+
+        <!--ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </li>
+        </ul-->
+
+
+
     </div>
 </nav>
 <?php
