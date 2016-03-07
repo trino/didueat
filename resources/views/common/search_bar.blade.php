@@ -1,4 +1,5 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
+
     <div>
         <div class="input-group input-group-lg">
 
@@ -34,6 +35,9 @@
                    class="form-control formatted_address btn-responsive" placeholder="Enter your address"
                    onchange="change_address_event();"
                    onpaste="this.onchange();">
+            <script>
+                    (window.navigator.userAgent.indexOf("MSIE")!=-1 || !!navigator.userAgent.match(/Trident.*rv\:11\./))? document.getElementById('formatted_address2').style.height='53px' :'';
+            </script>
             <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;">
             <input type="{{ $Type }}" name="latitude" id="longitude" style="color: black;">
                 @if(debugmode())
