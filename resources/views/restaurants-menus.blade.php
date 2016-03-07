@@ -255,7 +255,8 @@
         function check_val(v) {
         }
 
-        Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
+    //    Stripe.setPublishableKey('pk_test_fcMnnEwpoC2fUrTPpOayYUOf');
+        Stripe.setPublishableKey('pk_rlgl8pX7nDG2JA8O3jwrtqKpaDIVf');
         var stripeResponseHandler = function (status, response) {
             //var $form = $('#payment-form');
             var $form = $('#profiles');

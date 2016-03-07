@@ -208,7 +208,8 @@ class CreditCardsController extends Controller {
             if(strpos($amount, ".")){$amount = $amount * 100;}//remove the period, make it in cents
 
             // Set secret key: remember to change this to live secret key in production
-            \Stripe\Stripe::setApiKey("sk_test_dKNzYR8GIs6VN9UVzupvOgUX");
+            \Stripe\Stripe::setApiKey("BJi8zV1i3D90vmaaBoLKywL84HlstXEg");
+         //   \Stripe\Stripe::setApiKey("sk_test_dKNzYR8GIs6VN9UVzupvOgUX");
 
             // Create the charge on Stripe's servers - this will charge the user's card
             try {
