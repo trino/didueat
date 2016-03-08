@@ -59,9 +59,9 @@
                             <div class="p-r-1">
                             <img style="max-width:100%;" class="img-rounded pull-left"
                                  @if(isset($restaurant->logo) && !empty($restaurant->logo))
-                                 src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
+                                    src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
                                  @else
-                                 src="{{ asset('assets/images/small-smiley-logo.png') }}"
+                                    src="{{ asset('assets/images/small-smiley-logo.png') }}"
                                  @endif
                                  alt="">
 </div>
@@ -75,21 +75,21 @@
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                                 </h2>
                                 <?
-                                $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
-                                if(!$business_day){
-                                    echo '<div class="smallT ">Currently Closed</div>';
-                                }
+                                    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+                                    if(!$business_day){
+                                        echo '<div class="smallT ">Currently Closed</div>';
+                                    }
                                 ?>
                                 <div id="restaurant_rating">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                     <div class="clearfix"></div>
                                 </div>
-                    <span class="card-text m-b-0 list-inline-item">
-                    {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                        {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                        {!! (isset($restaurant->province))? 'ON':'' !!}
-                        {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
-                    </span>
+                                <span class="card-text m-b-0 list-inline-item">
+                                {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
+                                    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
+                                    {!! (isset($restaurant->province))? 'ON':'' !!}
+                                    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+                                </span>
 
 
                                 <div class="clearfix"></div>
@@ -98,20 +98,20 @@
                                         <span class="list-inline-item"><strong>Delivery only</strong></span>
                                     @endif
                                     <span class="list-inline-item">
-                                        <? echo '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
+                                        <?= '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
                                     </span>
 
                                     <span class="list-inline-item">
-                                        <? echo '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
+                                        <?= '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
                                     </span>
 
                                 @elseif($restaurant->is_pickup)
                                     <span class="list-inline-item"><strong>Pickup only</strong></span>
                                 @endif
 
+                                <span class="list-inline-item"><strong>{{ str_replace(",", ", ", $restaurant->cuisine) }}</strong></span>
 
-                                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal"
-                                   data-target="#viewMapModel">More Details</a>
+                                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
                                 </span>
 
                             </div>

@@ -356,7 +356,7 @@ class HomeController extends Controller {
         //echo $slug;die();
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
         $category = \App\Http\Models\Category::get();//gets a category, I don't know which one
-        if(!$res_slug){return view('errors.generic', array("message" => "Restaurant '" . $slug . "' not found"));}
+        if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['meta_description'] = $res_slug->description;
