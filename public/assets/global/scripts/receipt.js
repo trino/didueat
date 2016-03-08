@@ -304,164 +304,135 @@ $(function(){
     });
         
     $('.decrease').live('click', function () {
-        var menuid = $(this).attr('id');
-        var numid = menuid.replace('dec', '');
+        direction(this, false);
+    });
+
+    $('.increase').live('click', function () {
+        direction(this, true);
+    });
+
+    function direction(tthis, dir){
+        var menuid = $(tthis).attr('id');
+        var numid = menuid.replace('dec', '').replace('inc', '');
 
         var quant = $('#list' + numid + ' span.count').text();
-        quant = quant.replace('x', '');
+        quant = parseFloat(quant.replace('x', ''));
 
-        var amount = $('#list' + numid + ' .amount').val();
-        amount = parseFloat(amount);
+        var amount = parseFloat( $('#list' + numid + ' .amount').val());
+
+        var del_fee = 0;
+        if ($('#delivery_flag').val() == '1') {
+            del_fee = $('.df').val();
+        }
+        del_fee = parseFloat(del_fee);
 
         var subtotal = 0;
         $('.total').each(function () {
             var sub = $(this).text().replace('$', '');
             subtotal = Number(subtotal) + Number(sub);
-        })
+        });
+
         subtotal = parseFloat(subtotal);
-        subtotal = Number(subtotal) - Number(amount);
-        subtotal = subtotal.toFixed(2);
-        $('div.subtotal').text('$'+subtotal);
-        $('input.subtotal').val(subtotal);
-
-        //var tax = $('#tax').text();
-        var tax = 13;
-        tax = parseFloat(tax);
-        tax = (tax / 100) * subtotal;
-        tax = tax.toFixed(2);
-        $('span.tax').text('$'+tax);
-        $('input.tax').val(tax);
-
-        var del_fee = 0;
-        if ($('#delivery_flag').val() == '1') {
-            del_fee = $('.df').val();
-        }
-
-        del_fee = parseFloat(del_fee);
-
-        var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
-        gtotal = gtotal.toFixed(2);
-        $('div.grandtotal').text('$'+gtotal);
-        $('input.grandtotal').val(gtotal);
-
-        var total = $('#list' + numid + ' .total').text();
-        total = total.replace("$", "");
-        total = parseFloat(total);
-        total = Number(total) - Number(amount);
-        total = total.toFixed(2);
-        $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
-         $('#list' + numid + ' .prs').val(total);
-
-        quant = parseFloat(quant);
-        //alert(quant);
-        if (quant == 1) {
-            $('#list' + numid).remove();
-            $('#profilemenu' + numid).text('Add');
-            $('#profilemenu' + numid).attr('style', '');
-            $('#profilemenu' + numid).addClass('add_menu_profile');
-            $('#profilemenu' + numid).removeAttr('disabled');
-            var ccc = 0;
-            $('.total').each(function () {
-                ccc++;
-            });
-            if (ccc < 4) {
-                $('.orders').removeAttr('style');
-            }
-            $('.orders').show();
+        if(dir){
+            subtotal = Number(subtotal) + Number(amount);
         } else {
-            quant--;
-            $('#list' + numid + ' span.count').text(quant);
-            $('#list' + numid + ' input.count').val(quant);
-            //$('#list'+numid+' .count').val(quant-1);
+            subtotal = Number(subtotal) - Number(amount);
         }
-       
-       if(subtotal==0) {
-             $('div.grandtotal').text('$0.00');
-            $('input.grandtotal').val('0.00');
-        }
-        total_items--;
-        updatecart();
-    });
-
-    $('.increase').live('click', function () {
-        var menuid = $(this).attr('id');
-        var numid = menuid.replace('inc', '');
-        var quant = '';
-        quant = $('#list' + numid + ' span.count').text();
-        quant = quant.replace('x', '');
-        quant = parseFloat(quant);
-        var amount = $('#list' + numid + ' .amount').val();
-        amount = parseFloat(amount);
-        var subtotal = $('#subtotal1').val();
-       
-        subtotal = parseFloat(subtotal);
-        subtotal = Number(subtotal) + Number(amount);
         subtotal = subtotal.toFixed(2);
         $('div.subtotal').text('$'+subtotal);
         $('input.subtotal').val(subtotal);
+
         //var tax = $('#tax').text();
         var tax = 13;
         tax = parseFloat(tax);
-        tax = (tax / 100) * subtotal;
+        tax = (tax / 100) * (subtotal + del_fee);
         tax = tax.toFixed(2);
         $('span.tax').text('$'+tax);
         $('input.tax').val(tax);
-        var del_fee = 0;
-        if ($('#delivery_flag').val() == '1') {
-            del_fee = $('.df').val();
-        }
-        del_fee = parseFloat(del_fee);
+
         var gtotal = Number(subtotal) + Number(tax) + Number(del_fee);
         gtotal = gtotal.toFixed(2);
         $('div.grandtotal').text('$'+gtotal);
         $('input.grandtotal').val(gtotal);
+
         var total = $('#list' + numid + ' .total').text();
         total = total.replace("$", "");
         total = parseFloat(total);
-        total = Number(total) + Number(amount);
+        if(dir) {
+            total = Number(total) + Number(amount);
+        } else {
+            total = Number(total) - Number(amount);
+        }
         total = total.toFixed(2);
         $('#list' + numid + ' .total').html('<div class="pull-right">$' + total+"</div>");
         $('#list' + numid + ' .prs').val(total);
-        
-        quant++;
-        $('#list' + numid + ' span.count').text(quant);
-        $('#list' + numid + ' input.count').val(quant);
-       
-        total_items++;
-        updatecart();
-    });
-    
-          
-        $('body').on('click','.changemodalP',function(){
-                var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
-                var ids = "";
-                var app_title = "";
-                var price = 0;
-           
-                $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
-                   
-                    if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
-                        var tit = $(this).attr('title');
-                        var title = tit.split("_");
-                        var x = index;
-                        if (title[0] != "") {
-                            ids = ids + "_" + title[0];
-                        }
-                        app_title = app_title + "," + title[1];
-                        price = Number(price) + Number(title[2]);
-                    }
+
+        if(dir){//increase
+            quant++;
+            $('#list' + numid + ' span.count').text(quant);
+            $('#list' + numid + ' input.count').val(quant);
+            total_items++;
+        } else {//decrease
+            quant = parseFloat(quant);
+            if (quant == 1) {
+                $('#list' + numid).remove();
+                $('#profilemenu' + numid).text('Add');
+                $('#profilemenu' + numid).attr('style', '');
+                $('#profilemenu' + numid).addClass('add_menu_profile');
+                $('#profilemenu' + numid).removeAttr('disabled');
+                var ccc = 0;
+                $('.total').each(function () {
+                    ccc++;
                 });
-            $('.modalprice'+menu_id).html('$'+price.toFixed(2));
-            $('.Mprice'+menu_id).val(price);
-            if($('.strikedprice'+menu_id).text()!="") {
-                var sP = $('.mainPrice'+menu_id).val();
-                sP = Number(sP);
-                $('.strikedprice'+menu_id).text('$'+Number(price+sP-Number($('.displayprice'+menu_id).val())).toFixed(2));
+                if (ccc < 4) {
+                    $('.orders').removeAttr('style');
+                }
+                $('.orders').show();
+            } else {
+                quant--;
+                $('#list' + numid + ' span.count').text(quant);
+                $('#list' + numid + ' input.count').val(quant);
             }
-        })
+            if(subtotal==0) {
+                $('div.grandtotal').text('$0.00');
+                $('input.grandtotal').val('0.00');
+            }
+            total_items--;
+        }
+        updatecart();
+    }
+          
+    $('body').on('click','.changemodalP',function(){
+            var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
+            var ids = "";
+            var app_title = "";
+            var price = 0;
+
+            $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+
+                if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
+                    var tit = $(this).attr('title');
+                    var title = tit.split("_");
+                    var x = index;
+                    if (title[0] != "") {
+                        ids = ids + "_" + title[0];
+                    }
+                    app_title = app_title + "," + title[1];
+                    price = Number(price) + Number(title[2]);
+                }
+            });
+        $('.modalprice'+menu_id).html('$'+price.toFixed(2));
+        $('.Mprice'+menu_id).val(price);
+        if($('.strikedprice'+menu_id).text()!="") {
+            var sP = $('.mainPrice'+menu_id).val();
+            sP = Number(sP);
+            $('.strikedprice'+menu_id).text('$'+Number(price+sP-Number($('.displayprice'+menu_id).val())).toFixed(2));
+        }
+    })
         
 }) 
 
+//updates the cart in the header
 function updatecart(){
     var total = $(".grandtotal").html();
     $("#cart-header").show();
@@ -472,7 +443,7 @@ function updatecart(){
 
     $(".cart-header-show").hide();
     $(".cart-header-gif").show();
-    setTimeout(function(){
+    setTimeout(function(){//add a delay so it's easier to notice
         $(".cart-header-show").show();
         $(".cart-header-gif").hide();
     }, 1000);
