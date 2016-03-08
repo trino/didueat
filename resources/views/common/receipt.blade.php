@@ -156,6 +156,8 @@
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
+                        @elseif($business_day && !$restaurant->open)
+                            <a class="btn btn-secondary" href="tel:{{ $restaurant->phone }}">Call {{ $restaurant->phone }}</a>
                         @else
                             <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
                         @endif
