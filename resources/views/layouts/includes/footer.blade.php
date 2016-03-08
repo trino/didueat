@@ -27,13 +27,15 @@ Contact Number:
 Thank you">Email Support</a></li>
 
 
-                    <?php
+                <?php
+                    $IsOnSignup = \Request::route()->getName() == "restaurants.signup.index";
+
                     if (!read("id")) {
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#loginModal">Log In</a></li>';
                         echo '<li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>';
                     }
 
-                    if (!Session::get('session_type_user') == "restaurant" || debugmode()) {?>
+                    if (!$IsOnSignup &&  (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
                         <li class="list-inline-item">
                             <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
                         </li>
@@ -63,8 +65,7 @@ Thank you">Email Support</a></li>
 
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
-                    Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in the
-                    world by
+                    Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in theworld by
                     <a href="http://trinoweb.com/" target="_blank">
                         <B>
                             <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
