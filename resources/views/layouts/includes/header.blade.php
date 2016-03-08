@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
@@ -8,10 +10,13 @@
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}"
                  style="height: 38px;"/>
         </a>
+
+
+
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
-                <A ID="cart-header" style="display:none;" CLASS="anchor btn btn-sm btn-warning"
+                <A ID="cart-header" style="display:none;" CLASS="btn-responsive anchor btn  btn-warning"
                    onclick="return scrolltocheckout();">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
 
@@ -29,8 +34,9 @@
                     @endif
 
                     <a href="#" data-toggle="modal" data-target="#navigationModal"
-                       style="padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
+                       style="padding-top:2px;padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
                        onclick="modalcheck();">
+
                         <img src="<?php
                         $filename = 'assets/images/users/' . read("id") . "/icon-" . Session::get('session_photo', "");
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {
@@ -38,11 +44,15 @@
                         } else {
                             echo asset('assets/images/icon-didueatdefault.png');
                         }
-                        ?>" class="img-rounded" style="margin-left:6px !important;height: 30px;width:30px;">
-                        <span class="hidden-sm-down ">{{explode(' ', Session::get('session_name'))[0] }}</span>
+                        ?>" class="img-circle" style="margin-left:6px !important;height: 32px;width:32px;">
+
+
+                        <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
+
+
                     </a>
 
-                    <a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right"></a>
+                    <!--a href="#" data-toggle="modal" data-target="#navigationModal" class="pull-right"></a-->
 
                     <!--a type="button" data-toggle="collapse" href="#"
                        class="pull-xs-right hidden-sm-up btn btn-sm btn-primary "
@@ -50,15 +60,32 @@
                     <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
-                        <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#signupModal">Signup</a>
-                        <a class="btn btn-sm btn-primary-outline reserve_login" data-toggle="modal"
+                        <a class="btn  btn-primary-outline reserve_login btn-responsive" data-toggle="modal"
                            data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
+                        <a class="btn btn-primary btn-responsive" data-toggle="modal" data-target="#signupModal">Signup</a>
+
                     </div>
 
                 @endif
             </li>
 
         </ul>
+
+        <!--ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+            </li>
+        </ul-->
+
+
+
     </div>
 </nav>
 <?php

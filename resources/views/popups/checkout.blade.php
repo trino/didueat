@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" <?php if ((isset($profile))) echo "hidden";?>>
             <div class="form-group">
                 <input type="text"
                        name="phone"
@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="col-sm-12">
+        <div class="col-sm-12" <?php if ((isset($profile))) echo "hidden";?>>
             <div class="form-group">
                 <input type="email" placeholder="Email" class="form-control "
                        name="email" id="ordered_email" required=""
@@ -91,13 +91,6 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="form-group">
-                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="clearfix"></div>
     </div>
 
     <DIV>
@@ -113,18 +106,25 @@
         </div>
 
         <div class="col-xs-12">
+            <div class="form-group">
+                <textarea placeholder="Additional Notes" id="ordered_notes" class="form-control resetme" name="remarks"></textarea>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="col-xs-12">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" checked="checked" onclick="$('.CC').hide();" value="cash"/>
                 <span class="c-indicator"></span>
-                <strong>Cash on arrival</strong>
+                Cash on Arrival
             </label>
         </div>
         <div class="col-xs-12">
             <label class="radio-inline c-input c-radio">
                 <input type="radio" name="payment_type" onclick="$('.CC').show();" value="cc"/>
                 <span class="c-indicator"></span>
-                <strong>Pay by Credit Card</strong>
-            </label>
+                Pay by Debit/Credit Card            </label>
         </div>
         <div class="CC" style="display: none;">
             @include('home.stripe',['loaded_from'=>'reservation'])
@@ -132,8 +132,8 @@
         <div class="clearfix"></div>
     </div>
 
-    <div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:95%;">
-        Review your order before proceeding!
+    <div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
+        Please review your order before proceeding!
     </div>
 
     <div class="col-xs-12 p-t-1">

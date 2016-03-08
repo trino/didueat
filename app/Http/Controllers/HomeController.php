@@ -356,6 +356,7 @@ class HomeController extends Controller {
         //echo $slug;die();
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
         $category = \App\Http\Models\Category::get();//gets a category, I don't know which one
+        if(!$res_slug){return view('errors.generic', array("message" => "Restaurant '" . $slug . "' not found"));}
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['meta_description'] = $res_slug->description;
@@ -512,12 +513,12 @@ class HomeController extends Controller {
                         $ob->update();
                     }
                     
-                    return \Response::json(array('type' => 'success', 'response' => "Thank you for your review"), 200);
+                    return \Response::json(array('type' => 'success', 'response' => "Thank you for your review"), 400);
                 } else {
-                    return \Response::json(array('type' => 'error', 'response' => "You already reviewed"), 200);
+                    return \Response::json(array('type' => 'error', 'response' => "You already reviewed"), 400);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 500);
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 400);
             }
         } else {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);

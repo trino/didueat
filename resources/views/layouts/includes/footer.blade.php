@@ -1,14 +1,14 @@
-<div class="container" >
-<hr>
-    <footer class="text-muted p-a-1" >
+<div class="container">
+    <hr>
+
+    <footer class="text-muted p-b-1 p-l-1 p-r-1">
         <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
         <div class="row text-xs-center">
             <div class="col-lg-12 ">
 
 
-
                 <ul class="list-inline">
-                   @include('popups.simplemodal')
+                    @include('popups.simplemodal')
                     <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
                     <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
 
@@ -43,21 +43,30 @@ Thank you">Email Support</a></li>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
+                           class="simplemodal">Allergy</a>
                     </li>
 
-                    @if(Session::get('session_type_user') == "super" || true)
-                        <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
+                    @if(Session::get('session_type_user') == "super" || true && false)
+                        <li class="list-inline-item">
+
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
+                                Debug Mode</a>
+                        </li>
                     @endif
 
                     <li class="list-inline-item">
-                        <h4>
-                            <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>
-                        </h4>
-                    </li>
+                        <h3>
 
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
+                                        class="fa fa-facebook"></i></A>&nbsp;<A
+                                    href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
+                                        class="fa fa-twitter"></i></A>&nbsp;<A href="https://www.instagram.com/didueat/"
+                                                                               target="_blank"><i
+                                        class="fa fa-instagram"></i></A>
+
+                        </h3>
+                    </li>
 
 
                 </ul>
@@ -331,7 +340,7 @@ Thank you">Email Support</a></li>
                                 $('.overlay_loader').hide();
                                 reserv = "{{ Route::getCurrentRoute()->getActionName() }}";
                                 var directtorest = arr.restaurant_id && reserv != 'App\Http\Controllers\HomeController@menusRestaurants';
-                                if(debugmode && directtorest){
+                                if (debugmode && directtorest) {
                                     directtorest = confirm("Would you like to be directed to the restaurant page? (DEBUG MODE)");
                                 }
                                 if (directtorest) {
@@ -559,3 +568,6 @@ Thank you">Email Support</a></li>
         })
     }
 </script>
+
+
+

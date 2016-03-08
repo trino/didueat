@@ -13,7 +13,7 @@
                         $logo_name = 'users/' . $logo;
                     }
                 ?>
-                <td width="10%"><img src="{{ asset('assets/images/' . $logo_name) }}" width="55" /></td>
+                <td width="10%"><img src="{{ asset('assets/images/' . $logo_name) }}" width="55" class="img-circle"/></td>
                 <td width="90%">
                     {{ $profile->name }} &nbsp;-&nbsp; (<i>{{ date("d M, Y", strtotime($value->created_at)) }}</i>)<br />
                     {!! rating_initialize("static-rating", $type, $value->target_id, false, 'update-rating', false, false, "", true, $value->rating) !!}

@@ -119,7 +119,7 @@
          * @return redirect
          */
         public function changeOrderApprove($type = "", $OrderID = false, $Note = false){
-            return $this->changeOrderStatus('approved', DIDUEAT, "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('approved', DIDUEAT . ' - Order Approved', "emails.order_approve", 'Your order has been approved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**
@@ -128,7 +128,7 @@
          * @return redirect
          */
         public function changeOrderDisapprove($type = "", $OrderID = false, $Note = false){
-            return $this->changeOrderStatus('pending', DIDUEAT, "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
+            return $this->changeOrderStatus('pending', DIDUEAT . ' - Order Declined', "emails.order_disapprove", 'Order has been disapproved!', "orders/list/" . $type, $OrderID, $Note);
         }
 
         /**

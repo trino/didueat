@@ -21,7 +21,7 @@
                         <input type="hidden" name="type" id="login_type" value=""/>
                         <input type="hidden" name="gmt" id="gmt" class="gmt">
 
-                        <DIV id="invalid" class="alert alert-danger m-b-1" style="display: none; margin-bottom: 15px !important;"></DIV>
+                        <DIV id="invalid" class="alert alert-danger m-b-1" style="display: none; margin-bottom: 1rem !important;"></DIV>
                         <DIV id="" class="cleafix" ></DIV>
 
                         <?= newrow(false, "Email", "", true); ?>
@@ -31,15 +31,15 @@
                         <?= newrow(false, "Password", "", true); ?>
                         <input type="password" name="password" id="login-password" class="form-control" required>
 
-                        <p class="m-t-1 m-b-0">
+                        <!--p class="m-t-1 m-b-0">
                             <label class="radio-inline c-input c-checkbox">
                                 <input type="checkbox" ID="login-remember">
                                 <span class="c-indicator"></span>
                                 Remember me?
                             </label>
-                        </p>
+                        </p-->
 
-                        <p class="m-t-1 m-b-0"><a href="javascript:void(0);" data-toggle="modal" data-target="#forgotpasswordModal" data-dismiss="modal">
+                        <p class="m-t-0 m-b-1"><a style="font-size: 90%;" href="javascript:void(0);" data-toggle="modal" data-target="#forgotpasswordModal" data-dismiss="modal">
                                 Forgot Password?
                         </a></p>
 

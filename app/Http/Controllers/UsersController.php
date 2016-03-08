@@ -162,7 +162,7 @@ class UsersController extends Controller {
                 $user->populate(array_filter($post));
                 $user->save();
                 
-                event(new \App\Events\AppEvents($user, "User updated"));
+                event(new \App\Events\AppEvents($user, "User Updated"));
 
                 if(isset($post['adid']) && !empty($post['adid'])){
                     $add = \App\Http\Models\ProfilesAddresses::find($post['adid']);

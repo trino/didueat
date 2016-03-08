@@ -8,7 +8,7 @@
                 </button>
                 <h4 class="modal-title" id="loginModalLabel">123</h4>
             </div-->
-            <div class="modal-body p-a-0 m-a-0" style="border-radius: 0 !important;">
+            <div class="modal-body p-a-0 m-a-0" style="border-radius: 0 !important;background: #e5e5e5;">
 
                 <div class="p-r-1">
 

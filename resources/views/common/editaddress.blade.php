@@ -139,7 +139,7 @@
         <div class="nowrap <?php if (isset($type)) echo '';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
                    id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
-                   placeholder="Enter your full address"
+                   placeholder="Enter your address"
                    autocomplete="off"
                    onclick="$(this).attr('autocomplete', 'false');"  
                    value="<?php
@@ -155,16 +155,17 @@
         </div>
     @endif
 </div>
-</div></div>
+<?= newrow(); ?>
+
 
 <div class="hidden_elements" <?php if (isset($type) && $type == 'reservation'&& read('id')) echo "style='display:none;'";?> >
     <?= newrow($new, $aptUnit, "", false, 5); ?>
     <input type="text" name="apartment" class="form-control" {{ $is_disabled }} placeholder=""
            value="{{ (isset($addresse_detail->apartment))?$addresse_detail->apartment:old('apartment') }}">
-</div></div>
+        <?= newrow(); ?>
 
 @if($mini)
-    <?php echo newrow($new, "City", "", $required, 9);
+    <?php echo newrow($new, " ", "", false, 9);
     $WasVisible = false;
     foreach(array("city" => true, "province" => true, "postal_code" => true, "country" => false) as $field => $visible){
         $Value = (isset($addresse_detail->$field))?$addresse_detail->$field:old($field);
@@ -255,7 +256,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         if(incomplete){
             var error = "Please input your exact address";
             if(!$("#postal_code").val()){
-                error = "This address lacks a postal code";
+                error = "Part of your address is missing!";
             }
             $("#error-message").text(error);
         }

@@ -13,7 +13,7 @@
 
     <div class="container " style="padding: 0px !important;margin-top: 0px !important;">
     <div class="p-a-1">
-        <div class="row m-l-0 m-r-0 text-md-center" style="  ">
+        <div class="row m-l-0 m-r-0 text-xs-center" style="  ">
             <div class="col-md-12  ">
                 <h1 class="display-4 banner-text-shadow">
                     We'll bring the customers to you
@@ -23,8 +23,8 @@
             <div class="clearfix"></div>
 
             <div class="col-md-12 clearfix">
-                <p class="lead p-t-1 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase between 15
-                    and 25% a year!</p>
+                <h4 class="p-t-0 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase between 15
+                    - 25% a year!</h4>
 
             </div>
 
@@ -42,11 +42,11 @@
                 enjoy.
                 That's it!
 
-                <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f">
+                <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f"><br>
                     <span id="readmore" style="text-decoration:underline; color: white;font-weight: bold;">Read More</span>
                 </a>
 </span><br>
-                <span id="moreInfo" class="p-t-1" style="display:none">
+                <span id="moreInfo" class="p-t-0" style="display:none">
                     <div class="smBR"></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
             eating. What are you waiting for? Sign up now and let the {{ DIDUEAT  }} team bring the customers to you.
             By putting your restaurant online with {{ DIDUEAT  }}, you'll be getting more business from hungry customers

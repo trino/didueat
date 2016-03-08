@@ -9,7 +9,7 @@ if(file_exists($filename)) {
 
 return [
 
-    'debug' => true, //env('APP_DEBUG', false),
+    'debug' => $debugmode,
 
     'url' => 'http://localhost/didueat/public/',
     'admin_mail' => 'info@didueat.ca',

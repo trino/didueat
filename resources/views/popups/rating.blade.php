@@ -10,49 +10,49 @@
             </div>
 
             {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <?php printfile("views/popups/rating.blade.php"); ?>
+                <?php printfile("views/popups/rating.blade.php"); ?>
 
-                    <div class="row">
+                <div class="row">
 
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <div id="message-error" class="alert alert-danger" style="display: none;"></div>
-                            <div id="message-success" class="alert alert-success" style="display: none;"></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div id="message-error" class="alert alert-danger" style="display: none;"></div>
+                        <div id="message-success" class="alert alert-success" style="display: none;"></div>
 
-                            <DIV class="show-on-login" @if(!read("id")) style="display: none;" @endif >
-                                <div class="form-group">
-                                    <textarea rows="4" placeholder="My Review" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
-                                </div>
-                                <DIV CLASS="col-md-12 p-a-0" ID="rating-error" style="color: red;"></DIV>
+                        @if(read("id"))
+                            <div class="form-group">
+                                <textarea rows="4" placeholder="My Review" id="ratingInput" class="form-control" maxlength="5000" required></textarea>
+                            </div>
+                            <DIV CLASS="col-md-12 p-a-0" ID="rating-error" style="color: red;"></DIV>
 
-                                <div class="pull-left">
-                                    <div class="form-group pull-right" id="display-rating-starts">
-                                        <div class="pull-left" style="padding-top:3px; padding-right:7px;">Rating</div>
-                                        <div class="pull-left">
-                                            {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
-                                        </div>
+                            <div class="pull-left">
+                                <div class="form-group pull-right" id="display-rating-starts">
+                                    <div class="pull-left" style="padding-top:3px; padding-right:7px;">Rating</div>
+                                    <div class="pull-left">
+                                        {!! select_rating_starts((session('session_id'))?"rating":"static-rating", "menu") !!}
                                     </div>
                                 </div>
-                                <div class="pull-right">
-                                    <button class="btn btn-primary pull-right">Save</button>
-                                </div>
-                            </DIV>
-                            @if(!read("id"))
-                                <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
-                            @endif
+                            </div>
+                            <div class="pull-right">
+                                <button class="btn btn-primary pull-right">Save</button>
+                            </div>
 
-                        </div>
-                        
-                        <input type="hidden" id="rating_id" value=""/>
-                        <input type="hidden" id="data-rating-id" value=""/>
-                        <input type="hidden" id="data-target-id" value=""/>
-                        <input type="hidden" id="data-type" value=""/>
-                        <input type="hidden" id="ratingInputHidden" value=""/>
 
-                        {!! Form::close() !!}
+                        @else
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
+                        @endif
                     </div>
+
+                    <input type="hidden" id="rating_id" value=""/>
+                    <input type="hidden" id="data-rating-id" value=""/>
+                    <input type="hidden" id="data-target-id" value=""/>
+                    <input type="hidden" id="data-type" value=""/>
+                    <input type="hidden" id="ratingInputHidden" value=""/>
+
+                    {!! Form::close() !!}
                 </div>
+            </div>
 
 
             <div class="row p-t-0 m-t-0">

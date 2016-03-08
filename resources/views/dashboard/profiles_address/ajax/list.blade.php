@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    My Addresses 
+                    Delivery Address
                     <a class="btn btn-primary btn-sm addNew" id="addNew" data-toggle="modal" data-addOrEdit="add" data-target="#editModel">Add</a>
                 </h4>
             </div>
@@ -74,7 +74,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td><span class="text-muted">You Have No Addresses Set</span></td>
+                    <td><span class="text-muted">No delivery addresses</span></td>
                 </tr>
             @endif
             </tbody>

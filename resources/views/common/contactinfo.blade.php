@@ -39,35 +39,35 @@
 
 echo newrow($new, "Your Name", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ isdisabled($disabled, "name") }} required>
+    <input type="text" name="name" class="form-control" id="full_name" placeholder="" value="{{ $name  }}" {{ isdisabled($disabled, "name") }} required />
     <input type="hidden" name="gmt" id="gmt" class="gmt">
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Cell Phone", $size, true); ?>
 <div class="input-icon">
-    <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $$phonetype }}" {{ isdisabled($disabled, $phonetype) }} required>
+    <input type="text" name="{{ $phonetype }}" class="form-control" id="{{ $phonetype }}" placeholder="" value="{{ $$phonetype }}" {{ isdisabled($disabled, $phonetype) }} required />
 </div>
 <?php echo newrow();
 
 echo newrow($new, "Email", $size, true); ?>
 <div class="input-icon">
     <input type="email" name="email" class="form-control" id="email" placeholder="" value="{{ $email }}" required
-           @if(isset($emaillocked)) readonly @endif >
+           @if(isset($emaillocked)) readonly @endif />
 </div>
 <?php echo newrow(); ?>
 
 @if(isset($user_detail))
     <?= newrow(false, "Old Password", $size); ?>
     <div class="input-icon">
-        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" value="" autocomplete="off">
+        <input type="password" name="old_password" class="form-control" id="old_password" placeholder="" value="" autocomplete="off" />
     </div>
     <?php echo newrow(); ?>
 @endif
 
-<?= newrow($new, $is_new . "Password", $size, $PasswordRequired); ?>
+<?= newrow($new, $is_new . "Create Password", $size, $PasswordRequired); ?>
 <div class="input-icon">
-    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" value="" {{ $PasswordRequired }}>
+    <input type="password" name="password" class="form-control" id="password" placeholder="" autocomplete="new-password" value="" {{ $PasswordRequired }} />
 </div>
 <?php echo newrow();
 

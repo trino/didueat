@@ -17,9 +17,9 @@
   
         if (trim(\Session::get('session_restaurant_id'))) {
             makelink(array('orders/list/restaurant' => 'Restaurant Orders',
-                    'notification/addresses' => "Notification Methods",
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Restaurant Menu",
-                    'restaurant/info' => "Restaurant Info"
+                    'notification/addresses' => "Order Notifications",
+                    'restaurant/info' => "Restaurant Details"
                 //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");
         }
@@ -27,13 +27,15 @@
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             makelink(array(
                     'orders/list/user' => 'My Orders',
-                    'user/info' => "My Profile",
-                    'user/addresses' => "My Addresses",
+                    'user/info' => "My Settings",
+                    'user/addresses' => "Delivery Address",
+                /*
                     'credit-cards/list/user' => "My Credit Cards",
+                */
                     'auth/logout' => "Log out"
             ), "My Profile");
         } else {
-            makelink(array('user/info' => "My Profile",
+            makelink(array('user/info' => "My Settings",
                     'auth/logout' => "Log out"
             ), "My Profile");
         }
