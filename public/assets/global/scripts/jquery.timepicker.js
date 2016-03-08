@@ -1018,7 +1018,7 @@
 
             if (timeToParse instanceof Date) {
                 inst.hours = timeToParse.getHours();
-                inst.minutes = timeToParse.getMinutes();
+                inst.minutes = 0;// timeToParse.getMinutes();//original code defaults to previous increment of minute.
             } else {
                 var timeVal = inst.lastVal = timeToParse;
                 if (timeToParse == '') {

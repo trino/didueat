@@ -537,7 +537,7 @@ Thank you">Email Support</a></li>
                     }
                 }
 
-                var tm = ho + ':' + arr[1] + format;
+                var tm = Number(ho) + ':' + arr[1] + format;
                 $(this).val(tm);
             });
         }
