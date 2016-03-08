@@ -211,14 +211,21 @@
                 var element = false;
                 var address = "your address";
                 if ($("#delivery1").is(":checked")) {
-                    var value = document.getElementById("reservation_address").value;
-                    address = "Address ID: " + value;
-                    var element = $("#reservation_address option").filter(":selected");
-                    if (element) {
-                        var address_latitude = element.attr("latitude");
-                        var address_longitude = element.attr("longitude");
-                        found = !isundefined(element.attr("latitude"));
-                        address = element.text();
+                    if ($("#reservation_address").length) {
+                        var value = $("#reservation_address").val();
+                        address = "Address ID: " + value;
+                        var element = $("#reservation_address option").filter(":selected");
+                        if (element) {
+                            var address_latitude = element.attr("latitude");
+                            var address_longitude = element.attr("longitude");
+                            found = !isundefined(element.attr("latitude"));
+                            address = element.text();
+                        }
+                    } else {
+                        address = $("#formatted_address").val();
+                        var address_latitude = Number( $("#latitude").val());
+                        var address_longitude = Number($("#longitude").val());
+                        found = address && address_latitude && address_longitude;
                     }
                 } else {
                     var address_latitude = $("#latitude").val();
