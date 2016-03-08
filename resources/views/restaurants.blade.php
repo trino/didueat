@@ -159,7 +159,7 @@ if ($useHamilton) {
                                             onchange="createCookieValue('cuisine', this.value)">
                                         <option value="">Cuisine Type</option>
                                         @foreach($cuisine as $value)
-                                        <option>{{ $value->name }}</option>
+                                        <option>{{ $value }}</option>
                                         @endforeach
                                         </select>
                                     </div-->

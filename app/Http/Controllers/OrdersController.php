@@ -232,10 +232,11 @@
 
 
 
-
+        //alias of notifystore, but only uses email
         public function emailstore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter"){
             $this->notifystore($RestaurantID, $Message, $EmailParameters, $EmailTemplate, false, true, false, false);
         }
+
         //will notify every user belonging to the restaurant via their notification addresses
         //if no notification addresses are found, it will fall back to the restaurant's email address
         //$RestaurantID = the restaurant to notify
@@ -289,6 +290,7 @@
             return $ret;
         }
 
+        //alert stores for all pending orders
         public function alertstore(){
             $Field = 'reservations.status';
             $value = "pending";
@@ -297,10 +299,8 @@
                 $value = $_GET["orderid"];
             }
             $Orders = \DB::table('reservations')
-                ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id, 'Canada' as country_name"))
+                ->select(\DB::raw("reservations.*, restaurants.*, reservations.id as order_id"))
                 ->leftJoin('restaurants', 'reservations.restaurant_id', '=', 'restaurants.id')
-                //->leftJoin('states', 'reservations.province', '=', 'states.id')
-                //->leftJoin('countries', 'reservations.country', '=', 'countries.id')
                 ->where($Field, '=', $value)
                 ->get();
 
@@ -310,16 +310,10 @@
             $TotalActions = array("Email" => array(), "SMS" => array(), "Call" => array());
             $Addresses = array();
             foreach ($Orders as $Order) {
-                if (!isset($Order->province_name) || !$Order->province_name) {
-                    $Order->province_name = "ON";
-                } //"." . select_field('states', 'id', $Order->province, 'name');}
-                if (!$Order->country_name) {
-                    $Order->country_name = "Canada";
-                } //"." . select_field('countries', 'id', $Order->country, 'name');}
                 echo '<TR>';
                 echo '<TD>' . $Order->order_id . '</TD>';
                 echo '<TD>' . $Order->restaurant_id . '</TD>';
-                echo '<TD>' . $Order->address1 . ' ' . $Order->address2 . '<BR>' . $Order->city . ' ' . $Order->province_name . '<BR>' . $Order->country_name . ' ' . $Order->postal_code . '</TD>';
+                echo '<TD>' . $Order->address1 . ' ' . $Order->address2 . '<BR>' . $Order->city . ' ' . $Order->province . '<BR>' . $Order->country . ' ' . $Order->postal_code . '</TD>';
                 echo '<TD>' . $Order->order_till . '</TD>';
                 echo '<TD>' . $Order->guid . '</TD>';
 
@@ -327,6 +321,7 @@
                 echo '<TD>';//is_call, is_sms, type, address, profile: email,phone, mobile
                 $Actions = array();
 
+                //enumerate all notification methods, separated by type
                 foreach ($NotificationAddresses as $NotificationAddress) {
                     if ($NotificationAddress->address) {
                         $NotificationAddress->address = trim($NotificationAddress->address);
@@ -362,6 +357,7 @@
             }
             echo '</TABLE>';
 
+            //contact each notification method
             echo '<TABLE BORDER="1"><TR><TH>Action</TH><TH>Address</TH><TH>Orders</TH></TR>';
             foreach ($TotalActions as $Key => $Value) {
                 $Value = array_unique($Value);
@@ -394,6 +390,7 @@
             die();
         }
 
+        //is data JSON-parseable?
         function isJson($string){
             if ($string && !is_array($string)) {
                 json_decode($string);
@@ -401,6 +398,7 @@
             }
         }
 
+        //used for making raw HTTP requests
         function cURL($URL, $data = "", $username = "", $password = ""){
             $session = curl_init($URL);
             curl_setopt($session, CURLOPT_HEADER, false);
@@ -453,6 +451,7 @@
             }
         }
 
+        //change an order status without being logged in
         function orderstatus($action, $email, $guid){
             $post = \Input::all();
             if (isset($post) && count($post) > 0 && !is_null($post)) {
@@ -465,7 +464,7 @@
                     $Order = select_field("reservations", "guid", $guid);
                     if ($Order) {
                         $Restaurant = select_field("restaurants", "id", $Order->restaurant_id);
-                        if ($Restaurant->email != $email) {
+                        if ($Restaurant->email != $email) {//check if the email address specified is registed to this restaurant
                             $NotificationAddress = select_field("notification_addresses", "address", $email);
                             if ($NotificationAddress && $Order) {
                                 $User = select_field("profiles", "id", $NotificationAddress->user_id);

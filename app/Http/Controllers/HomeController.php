@@ -13,6 +13,7 @@ class HomeController extends Controller {
         });
     }
 
+    //toggle debug mode
     public function debugmode(){
         $message = "You do not have authorization to use that feature";
         //if(\Session::get('session_type_user') == "super") {
@@ -30,7 +31,7 @@ class HomeController extends Controller {
 
     public function index() {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();
+        $data['cuisine'] = cuisinelist();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
@@ -40,6 +41,7 @@ class HomeController extends Controller {
         return view('restaurants', $data);
     }
 
+    //does something with restaurant tags, can't tell what
     public function getTopTen() {
         $tags = \App\Http\Models\Tag::where('is_active', 1)->get();
         $restaurants = \App\Http\Models\Restaurants::get();
@@ -55,8 +57,8 @@ class HomeController extends Controller {
                 $used_tag = $t->tags;
             }
         }
+
         $used_tag = str_replace(' ','',$used_tag);
-       // var_dump($used_tag);
         $all_tags = explode(',',$tag);
         $all_used_tags = explode(',',$used_tag);
         $arr_final = array();
@@ -73,9 +75,6 @@ class HomeController extends Controller {
             }
         }
 
-    //    var_dump($arr_final);
-     //   var_dump($arr_count);
-
         $keys = '';
         $key_final = array();
         for($i=0;$i<count($arr_count);$i++) {
@@ -90,8 +89,9 @@ class HomeController extends Controller {
                     $keys=$k;
                     $temp = $ac;
                 } else{
-                    if($ac>$temp)
-                    $keys = $k;
+                    if($ac>$temp) {
+                        $keys = $k;
+                    }
                 }
 
             }
@@ -99,7 +99,6 @@ class HomeController extends Controller {
                 $key_final[] = $keys;
             }
         }
-    //    var_dump($key_final);
         die();
     }
 
@@ -152,7 +151,7 @@ class HomeController extends Controller {
      */
     public function searchRestaurants($searchTerm = '') {
         $data['title'] = 'All Restaurants Page';
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//search active cousines
+        $data['cuisine'] = cuisinelist();//search active cousines
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//search active tags
         $data['query'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0);//search 10 restaurants
         $data['sql'] = \App\Http\Models\Restaurants::searchRestaurants('', 10, 0, true);//SQL
@@ -178,7 +177,7 @@ class HomeController extends Controller {
         $data['cities'] = \App\Http\Models\Restaurants::distinct()->select('city')->where('open', 1)->get();//load all cities with an open restaurant
         $data['provinces'] = \App\Http\Models\Restaurants::distinct()->select('province')->where('open', 1)->get();//enum all provinces with an open restaurant
         //$data['countries'] = \App\Http\Models\Countries::get();//load all countries
-        $data['cuisine'] = \App\Http\Models\Cuisine::where('is_active', 1)->get();//load all active cousines
+        $data['cuisine'] = cuisinelist();
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();//load all active tags
         $data['start'] = $data['query']->count();//start at the end of the list of restaurants?
         $data['term'] = '';
@@ -186,6 +185,7 @@ class HomeController extends Controller {
         return view('restaurants', $data);
     }
 
+    //GET request, returns any template so you can put it in a modal popup
     public function simplemodal($page = false){
         $post = \Input::all();
         if(!$page && isset($post["page"])){$page = $post["page"];}
@@ -209,6 +209,7 @@ class HomeController extends Controller {
         return view('home', $data);
     }
 
+    //fast testing url
     public function test(){
         //app('App\Http\Controllers\OrdersController')->notifystore(1, "TEST");
         /*
@@ -377,10 +378,11 @@ class HomeController extends Controller {
     function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
-        if(\Session::has('session_restaurant_id'))
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
-        else
-        $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active',1)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
+        if(\Session::has('session_restaurant_id')) {//is yours, doesn't need to be active
+            $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
+        }else {//is not yours, needs to be active
+            $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active', 1)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
+        }
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
         //var_dump(count($menus_list));
@@ -447,7 +449,7 @@ class HomeController extends Controller {
                     return view('dashboard.restaurant.ajax.search', array("restaurants" => $restaurants));
                     break;
 
-                case "add_enable":
+                case "add_enable"://enable/disable a restaurant notification address
                     $doit = true;
                     if(!$_POST["value"]) {
                         $restaurantID = $this->get_notification_restaurant($_POST["id"]);
@@ -460,11 +462,11 @@ class HomeController extends Controller {
                         echo "You must have a minimum of 1 notification set";
                     }
                     break;
-                case "change_note":
+                case "change_note"://change note for a notification address
                     \App\Http\Models\NotificationAddresses::where('id', $_POST["id"])->update(array('note' => $_POST["value"]));
                     break;
 
-                case "updatereview":
+                case "updatereview"://update a review star, returns the new HTML
                     //$type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true
                     echo rating_initialize($_POST["rating_type"], $_POST["rating_loadtype"], $_POST["targetid"], $_POST["rating_twolines"], $_POST["rating_class"], $_POST["rating_button"], $_POST["rating_starts"], $_POST["rating_color"], false);
                     break;
@@ -478,12 +480,15 @@ class HomeController extends Controller {
         die();
     }
 
+    //check which restaurant a notification address belongs to
     public function get_notification_restaurant($notificationID){
         $ob = \App\Http\Models\NotificationAddresses::find($notificationID);
         $userID = $ob->user_id;
         $ob = \App\Http\Models\Profiles::find($userID);
         return $ob->restaurant_id;
     }
+
+    //get all restaurant notification addresses
     public function enum_notification_addresses($restaurantID, $Get = false){
         $order = \App\Http\Models\NotificationAddresses::where('enabled', 1)->leftJoin('profiles', 'notification_addresses.user_id', '=', 'profiles.id')->where( 'profiles.restaurant_id', $restaurantID);
         if($Get){return $order->get();}
@@ -525,13 +530,12 @@ class HomeController extends Controller {
             return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), $response);
         }
     }
-    
+
+    //return the session ID token
     public function getToken() {
         echo csrf_token();
         die();
     }
-    
-    
 
     public function home($Type){
       if($Type != "faq"){
@@ -539,7 +543,7 @@ class HomeController extends Controller {
       }
     }
 
-    public function home2(){
+    public function home2(){//deals with payment
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             $data['title'] = 'Thank you for your payment';

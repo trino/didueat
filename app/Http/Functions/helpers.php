@@ -10,12 +10,15 @@
     define("MAX_IMG_SIZE_L", '800x600');
 */
 
+    //detects which protocol is being used. returns http or https
     function protocol(){
         $isHTTP = strpos($_SERVER['SERVER_PROTOCOL'], "HTTP/") !== false;
         if($_SERVER["HTTP_HOST"] != "localhost"){$isHTTP = true;}
         if($isHTTP){return "http";} else {return "https";}
     }
 
+    //returns a value in money format ($0.00)
+    //if $free && $value == 0: returns the word "Free"
     function asmoney($value, $free = false){
         if ($free) {
             if ($value == '0') {
@@ -25,10 +28,13 @@
         return "$" . number_format($value, 2);
     }
 
+    //returns a $Field of an object
+    //used if the field you want is a multi-part string
     function getfield($object, $Field){
         return $object->$Field;
     }
 
+    //used in 9 places, but goes nowhere/does nothing
     function message_show($msgtype, $description){
         /*
         if ($msgtype != "" && $description != "") {
@@ -55,6 +61,7 @@
         */
     }
 
+    //returns a list of weekdays
     function getweekdays(){
         return array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     }
@@ -140,6 +147,7 @@
         return $html;
     }
 
+    //used to include a javascript file if it hasn't been included already
     function includeJS($URL, $options = ""){
         $Short = $URL;
         $Start = strpos($Short, "?");
@@ -153,6 +161,9 @@
         }
     }
 
+    //returns a multidimensional array
+    //first dimension: Province abreviations
+    //second dimension: area code => district name(s)
     function areacodes(){
         return array(
             "AB" => array(403 => "S Alberta", 587 => "Province-wide", 780 => "N Alberta (Edmonton)", 825 => "Province-wide"),
@@ -167,6 +178,9 @@
         );
     }
 
+    //returns either:
+    //array("province" => Province abreviation, "areacode" => area code, "district" => district name) of the phone number
+    //or false if it's not a valid canadian area code
     function qualifyareacode($phone){
         //$phone = preg_replace("/[^0-9]/", "", $phone);
         //if(left($phone,1) == 0 || left($phone,1) == 1){$phone = right($phone, strlen($phone)-1);}
@@ -181,6 +195,7 @@
         return false;
     }
 
+    //sanitizes a phone number
     function phonenumber($phone, $qualifyareacode = true){
         $phone = preg_replace("/[^0-9]/", "", $phone); // note: strip out everything but numbers
         if (left($phone, 1) == 0 || left($phone, 1) == 1) {
@@ -194,6 +209,7 @@
         return $phone;
     }
 
+    //used for input labels of forms
     function newrow($new = false, $name = false, $class = "", $required = false, $columns = 9, $labelStr = "", $style = ""){
         $id = str_replace(" ", "_", strtolower($name)) . "_label";
         if ($required) {$required = " required";}
@@ -212,6 +228,7 @@
         }
     }
 
+    //get the font awesome of types of variables
     function fontawesome($profiletype, $icontype = 0){
         switch ($icontype) {
             case 0://user types
@@ -242,30 +259,7 @@
         }
     }
 
-    /*
-    function fontawesome($profiletype, $icontype = 0) {
-        switch ($icontype) {
-            case 0://user types
-                switch ($profiletype) {
-                    case 1:
-                        $icon = "user-secret";
-                        break;//super
-                    case 2:
-                        $icon = "shopping-basket";
-                        break;//user
-                    case 3:
-                        $icon = "user-plus";
-                        break;//owner
-                    case 4:
-                        $icon = "user";
-                        break;//employee
-                }
-        }
-        if (isset($icon) && $icon) {
-            echo '<i class="fa fa-' . $icon . '"></i>';
-        }
-    }
-*/
+    //unified error handling
     function handleexception($e){
         $Message = $e->getMessage();
         if (debugmode()) {
@@ -275,29 +269,30 @@
         return $Message;
     }
 
-//starts listening for SQL queries
+    //starts listening for SQL queries
     function initialize($Source = ""){
         DB::enableQueryLog();
         handle_action();
     }
 
-//encodes text to a URL-compatible string
+    //encodes text to a URL-compatible string
     function Encode($str){
         return trim(htmlentities(addslashes($str)));
     }
 
-//decodes a URL-compatible string back to text
+    //decodes a URL-compatible string back to text
     function Decode($str){
         return html_entity_decode(stripslashes($str));
     }
 
-//allows you to call a function from another controller
+    //allows you to call a function from another controller
     function call($controller, $action, $parameters = array()){
         $app = app();
         $controller = $app->make($controller);
         return $controller->callAction($app, $app['router'], $action, $parameters);
     }
 
+    //handles possessing and firing of users
     function handle_action($Action = ""){
         //http://localhost/didueat/public/restaurant/users?action=test
         if (!$Action) {
@@ -305,18 +300,6 @@
         }
         if ($Action) {
             switch ($Action) {
-                case "test":
-
-                    $ob = new \App\Http\Models\Hours();
-                    $Test = $ob->get_restaurant(1);
-
-                    //$Test = call("UsersController", "test");
-                    //$Test = App::make('UsersController')->test();
-                    //$Test = \App\Http\Controllers\UsersController::test();//static method in a model
-                    debug($Test);
-                    die();
-
-                    break;
                 case "user_possess":
                     login(getpost("ID"));
                     break;
@@ -332,11 +315,12 @@
         return false;
     }
 
-//count orders
+    //count orders
     function countOrders($type = 'pending'){
         return DB::table('reservations')->where('status', $type)->count();
     }
 
+    //returns base web root path
     function webroot($Local = false){
         if ($Local) {
             return app_path() . "/";
@@ -345,14 +329,14 @@
     }
 
 ////////////////////////////////////Profile API/////////////////////////////////////////
-//read from session
+    //read from session
     function read($Name){
         if (\Session::has('session_' . $Name)) {
             return \Session::get('session_' . $Name);
         }
     }
 
-//write to session
+    //write to session
     function write($Name, $Value, $Save = false){
         \Session::put('session_' . $Name, $Value);
         if ($Save) {
@@ -360,17 +344,17 @@
         }
     }
 
-//returns the salt used for MD5ing
+    //returns the salt used for MD5ing
     function salt(){
         return "18eb00e8-f835-48cb-bbda-49ee6960261f";
     }
 
-//enumerate all profiles
+    //enumerate all profiles
     function enum_profiles($Key, $Value){
         return enum_all('profiles', array($Key => $Value));
     }
 
-//get a specific profile, if not specified it will get the current user's profile
+    //get a specific profile, if not specified it will get the current user's profile
     function get_profile($ID = ""){
         if (!$ID) {
             $ID = read("ID");
@@ -378,7 +362,7 @@
         return get_entry("profiles", $ID);
     }
 
-//check if the email address is in use by someone who is not $NotByUserID
+    //check if the email address is in use by someone who is not $NotByUserID
     function is_email_in_use($EmailAddress, $NotByUserID = 0){
         $EmailAddress = clean_email($EmailAddress);
         if ($NotByUserID) {
@@ -388,9 +372,9 @@
         }
     }
 
-//gets a profile type
-//if $GetByType is true: it gets the profile type specified by $ProfileID
-//otherwise it gets the profile type of the user specified by $ProfileID
+    //gets a profile type
+    //if $GetByType is true: it gets the profile type specified by $ProfileID
+    //otherwise it gets the profile type of the user specified by $ProfileID
     function get_profile_type($ProfileID = false, $GetByType = false){
         if (!$ProfileID && $GetByType) {
             $ProfileID = get_entry("profiles", read("ID"), "id")->profile_type;
@@ -411,11 +395,12 @@
         }
     }
 
+    //unified date format
     function get_date_format(){
         return "D M d, g:i A";
     }
 
-//generates a random password of $Length digits
+    //generates a random password of $Length digits
     function randomPassword($Length = 8){
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
         $pass = "";
@@ -427,7 +412,7 @@
         return $pass;
     }
 
-//checks if $EmailAddress is valid, returns it if it is. otherwise returns nothing
+    //checks if $EmailAddress is valid, returns it if it is. otherwise returns nothing
     function is_valid_email($EmailAddress){
         //http://php.net/manual/en/function.filter-var.php
         //filter_var can also validate: FILTER_VALIDATE_IP FILTER_VALIDATE_INT FILTER_VALIDATE_BOOLEAN FILTER_VALIDATE_URL FILTER_SANITIZE_STRING
@@ -438,16 +423,12 @@
         }
     }
 
-//encrypts the password using salt
+    //encrypts the password using salt
     function encryptpassword($Password){
-        /*if(is_encrypted($Password)){
-            return $Password;
-        }*/
-        //return \bcrypt($Password);
         return \crypt($Password, salt());
     }
 
-//login as a specific profile
+    //login as a specific profile
     function login($Profile, $IsPossessing = false){
         if (is_numeric($Profile)) {
             $Profile = get_profile($Profile);
@@ -498,7 +479,7 @@
         return $Profile->id;
     }
 
-//gets the restaurant of the current user
+    //gets the restaurant of the current user
     function get_current_restaurant(){
         $Profile = read('id');
         if ($Profile) {
@@ -506,6 +487,7 @@
         }
     }
 
+    //returns if the date specified is today (or any date $relative days from today)
     function istoday($date = false, $relative = 0){
         if(!$date){
             $date = date("dmY");//no date specified, assume you're checking today
@@ -529,22 +511,7 @@
         return jddayofweek(cal_to_jd(CAL_GREGORIAN, date("m", $date), date("d", $date), date("Y", $date)), 1);
     }
 
-//check if a profile has permission to do something, no longer works since the profile type system is now hardcoded instead
-    function check_permission($Permission, $UserID = ""){
-        if (!$UserID) {
-            $UserID = read("id");
-        }
-        if (!$UserID) {
-            echo 'You are not logged in';
-            die();
-        }
-        $Permission = strtolower($Permission);
-        $PType = get_profile_type($UserID);
-        if (isset($PType->$Permission)) {
-            return $PType->$Permission;
-        }
-    }
-
+    //make a GUID
     function guidv4(){
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
@@ -556,12 +523,12 @@
     }
 
 /////////////////////////////////////Date API////////////////////////////////////////
-//returns the current date/time
+    //returns the current date/time
     function now(){
         return date("Y-m-d H:i:s");
     }
 
-//returns date stamp of a date/time
+    //returns date stamp of a date/time
     function parse_date($Date){
         if (strpos($Date, "-")) {
             return strtotime($Date);
@@ -569,86 +536,27 @@
         return $Date;
     }
 
-    function get_day_of_week($Date){//0 is sunday, 6=saturday
+    function get_day_of_week($Date){//ie: 0 is sunday, 6=saturday
         return date('w', parse_date($Date));
     }
 
-    function get_time($Date){//800
+    function get_time($Date){//ie: 800
         return date('Gi', parse_date($Date));
     }
 
-    function get_year($Date){//2015
+    function get_year($Date){//ie: 2015
         return date('Y', parse_date($Date));
     }
 
-    function get_month($Date){//01-12
+    function get_month($Date){//ie: 01-12 (with leading zero)
         return date('m', parse_date($Date));
     }
 
-    function get_day($Date){//3 (no leading zero)
+    function get_day($Date){//ie: 3 (no leading zero)
         return date('j', parse_date($Date));
     }
 
-/////////////////////////////////Event log API////////////////////////////////////
-//event logging for security, no longer used
-    function logevent($Event, $DoRestaurant = true, $restaurant_id = 0){
-        $UserID = read('ID');
-        if (!$UserID) {
-            $UserID = 0;
-            $DoRestaurant = false;
-        }
-        if ($DoRestaurant) {
-            if (!$restaurant_id) {
-                $restaurant_id = get_profile($UserID)->restaurant_id;
-            }
-        }
-        $Date = now();
-        new_entry("eventlog", "ID", array("userid" => $UserID, "restaurant_id" => $restaurant_id, "date" => $Date, "text" => $Event));
-    }
-
-//returns the type ID of type string given
-    function data_type_name($Type){
-        $Values = array("Email Address", "Phone Number", "Postal Code");
-        if ($Type < 0 or $Type >= count($Values)) {
-            return "Unknown";
-        }
-        return $Values[$Type];
-    }
-
-//returns the type ID of the data given
-    function data_type($Data){
-        if (strpos($Data, "@")) {
-            return 0;
-        } //email
-        if (clean_postalcode($Data)) {
-            return 2;
-        }//postal code
-        if (clean_phone($Data)) {
-            return 1;
-        } //phone number
-
-        return -1;
-    }
-
-//cleans/sanitizes data by it's type
-    function clean_data($Data){
-        switch (data_type($Data)) {
-            case -1:
-                return trim($Data);
-                break;
-            case 0:
-                return clean_email($Data);
-                break;
-            case 1:
-                return clean_phone($Data);
-                break;
-            case 2:
-                return clean_postalcode($Data);
-                break;
-        }
-    }
-
-//check if a table exists in the database
+    //check if a table exists in the database
     function tableexists($Table, $Column = ""){
         if ($Column) {
             return \Schema::hasColumn($Table, $Column);
@@ -656,9 +564,9 @@
         return \Schema::hasTable($Table);
     }
 
-//gets an array of columns for a table
-//$Ignore an array of columns that will be filtered from the results
-//$Full if true, will return more data than just an array of column names
+    //gets an array of columns for a table
+    //$Ignore an array of columns that will be filtered from the results
+    //$Full if true, will return more data than just an array of column names
     function getColumnNames($Table, $Ignore = "", $Full = false){
         if (!is_array($Ignore)) {
             $Ignore = array($Ignore);
@@ -685,19 +593,12 @@
         return $Columns;
     }
 
-//sanitize a phone number
-    function clean_phone($Phone){
-        $Phone = kill_non_numeric($Phone, "+"); //add a check to be sure only the first digit is a +
-        if ($Phone != "+") {
-            return $Phone;
-        }
-    }
-
-//sanitize an email address
+    //sanitize an email address
     function clean_email($Email){
         return strtolower(trim($Email));
     }
 
+    //if $Value, return $True, else return $False
     function iif($Value, $True, $False = ""){
         if ($Value) {
             return $True;
@@ -705,7 +606,7 @@
         return $False;
     }
 
-//sanitize a postal code
+    //sanitize a postal code
     function clean_postalcode($PostalCode, $delimeter = " "){
         $PostalCode = str_replace(" ", "", strtoupper(trim($PostalCode)));
         if (validateCanadaZip($PostalCode)) {
@@ -713,14 +614,14 @@
         }
     }
  
-//check if data is a valid postal code
+    //check if data is a valid postal code
     function validateCanadaZip($PostalCode){//function by Roshan Bhattara(http://roshanbh.com.np)
         return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
     }
 
-//write text to royslog.txt
+    //write text to royslog.txt
     function debugprint($text){
-$todaytime = date("Y-m-d")." ".date("h:i:s a");
+        $todaytime = date("Y-m-d")." ".date("h:i:s a");
         $path = "royslog.txt";
         $dashes = "----------------------------------------------------------------------------------------------\r\n";
         if (is_array($text)) {
@@ -729,15 +630,8 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         file_put_contents($path, $dashes . $todaytime."  --  ". str_replace("%dashes%", $dashes, str_replace("<BR>", "\r\n", $text)) . "\r\n", FILE_APPEND);
     }
 
-//get the current function and line number
-    function debug_string_backtrace(){
-        $BACK = debug_backtrace(0);
-        $BACK[2]["line"] = $BACK[1]["line"];
-        return $BACK[2];
-    }
-
-//implodes uusing both the key and value
-//[key]$SmallGlue[value]$BigGlue[key]$SmallGlue[value]
+    //implodes uusing both the key and value
+    //[key]$SmallGlue[value]$BigGlue[key]$SmallGlue[value]
     function implode2($Array, $SmallGlue, $BigGlue){
         foreach ($Array as $Key => $Value) {
             $Array[$Key] = $Key . $SmallGlue . $Value;
@@ -745,7 +639,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return implode_data($Array, $BigGlue);
     }
 
-//like implode, but makes sure it's being run on an array first
+    //like implode, but makes sure it's being run on an array first
     function implode_data($Data, $Delimeter = ","){
         if (is_array($Data)) {
             return implode($Delimeter, $Data);
@@ -753,53 +647,17 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $Data;
     }
 
-//a clone of CakePHP's debug function
-    function debug222($Iterator, $DoStacktrace = true){
-        if ($DoStacktrace) {
-            $Backtrace = debug_string_backtrace();
-            echo '<B>';
-            if (isset($Backtrace["file"])) {
-                echo $Backtrace["file"];
-            }
-            if (isset($Backtrace["line"])) {
-                echo ' (line ' . $Backtrace["line"] . ')';
-            }
-            if (isset($Backtrace["function"])) {
-                echo ' From function: ' . $Backtrace["function"];
-            }
-            echo '();</B> ';
-        }
-
-        if (is_array($Iterator)) {
-            echo '(array)<BR>';
-            var_dump($Iterator);
-        } else if (is_object($Iterator)) {
-            if (is_iterable($Iterator)) {
-                echo '(object array)<BR>';
-                foreach ($Iterator as $It) {
-                    debug($It, false);
-                }
-            } else {
-                echo '(object)<BR>';
-                var_dump($Iterator);
-            }
-        } else {
-            echo '(value)<BR>';
-            echo $Iterator . "<BR>";
-        }
-    }
-
-//checks if a variable can be used in a foreach() loop
+    //checks if a variable can be used in a foreach() loop
     function is_iterable($var){
         return (is_array($var) || $var instanceof Traversable);
     }
 
-//returns an array of table names in this database
+    //returns an array of table names in this database
     function enum_tables(){
         return collapsearray(DB::select('SHOW TABLES'));
     }
 
-//collapses a multidimensional array into a single one
+    //collapses a multidimensional array into a single one
     function collapsearray($Array, $Key = ""){
         $NewArray = array();
         foreach ($Array as $Value) {
@@ -844,7 +702,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
 
     }
 
-//SELECT * FROM $table WHERE $column = $value
+    //Alias of select_field_where, but takes the query as Colun/Value parameters instead of an array
     function select_field($table, $column, $value, $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = ""){
         if (is_array($column) && is_array($value)) {
             $cnt = 0;
@@ -858,7 +716,16 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return select_field_where($table, $secondParam, $getcol, $OrderBy, $Dir, $GroupBy);
     }
 
-//$getcol = false, returns all results after the get(), true returns before the get()
+    /*Quick database query
+        $table = which table to search
+        $where = array of column => value, search parameters
+        $getcol =
+                false, returns all results after the get()
+                true returns before the get()
+                "COUNT()" returns the count of the results
+                a string returns that specific column
+        $OrderBy/$Dir/$GroupBy = order by column/direction (ASC/DESC)/group by column
+    */
     function select_field_where($table, $where = array(), $getcol = "", $OrderBy = "", $Dir = "ASC", $GroupBy = ""){
         $query = DB::table($table);
         if ($getcol) {
@@ -900,18 +767,18 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//SELECT * FROM $Table WHERE $conditions
+    //SELECT * FROM $Table WHERE $conditions
     function enum_all($Table, $conditions = "1=1", $order = "", $Dir = "ASC"){
         return select_field_where($Table, $conditions, false, $order, $Dir);
     }
 
-//SELECT * FROM $Table WHERE $key = $value
+    //SELECT * FROM $Table WHERE $key = $value
     function enum_anything($Table, $Key, $Value){
         return select_field_where($Table, array($Key => $Value), false);
     }
 
-//SELECT * FROM $Table WHERE $PrimaryKey = $value, return fist result
-//if $PrimaryKey is blank, get it from the database
+    //SELECT * FROM $Table WHERE $PrimaryKey = $value, return fist result
+    //if $PrimaryKey is blank, get it from the database
     function get_entry($Table, $Value, $PrimaryKey = "id"){
         if (!$PrimaryKey) {
             $PrimaryKey = get_primary_key($Table);
@@ -919,8 +786,8 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return select_field_where($Table, array($PrimaryKey => $Value));
     }
 
-/////////////////////////RAW SQL
-//gets the primary key of a table
+    /////////////////////////RAW SQL
+    //gets the primary key of a table
     function get_primary_key($Table){
         if (is_string($Table)) {
             $Table = getColumnNames($Table, "", true);
@@ -934,23 +801,23 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//SELECT * FROM $Table
+    //SELECT * FROM $Table
     function enum_table($Table){
         return select_query("SELECT * FROM " . $Table . " WHERE 1=1");
     }
 
-//returns Laravel's connection to the Pdo object to run raw SQL
+    //returns Laravel's connection to the Pdo object to run raw SQL
     function getDatasource(){
         return DB::connection()->getPdo();
     }
 
-//run an SQL query
+    //run an SQL query
     function select_query($Query){
         $con = getDatasource();
         return $con->query($Query);
     }
 
-//get the first result of a query
+    //get the first result of a query
     function first($query){
         if (is_array($query)) {
             if (count($query)) {
@@ -966,12 +833,12 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//count how many tables are in the database
+    //count how many tables are in the database
     function table_count($Table, $Conditions = "1=1"){
         return count(select_field_where($Table, $Conditions, false));
     }
 
-//convert an iterable object to an array
+    //convert an iterable object to an array
     function my_iterator_to_array($entries, $PrimaryKey, $Key){
         $data = array();
         foreach ($entries as $profiletype) {
@@ -984,28 +851,18 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $data;
     }
 
-//count how many rows are in a table that match $conditions
+    //count how many rows are in a table that match $conditions
     function get_row_count($Table, $Conditions = "1=1"){
         return table_count($Table, $Conditions);
     }
 
-//remove empty values from an array
-    function remove_empties($Array){
-        foreach ($Array as $Key => $Value) {
-            if (!$Value) {
-                unset($Array[$Key]);
-            }
-        }
-        return $Array;
-    }
-
-//get all SQL queries that have run since initialize() was called
+    //get all SQL queries that have run since initialize() was called
     function getallQueries(){
         $queries = DB::getQueryLog();
         return collapsearray($queries, "query");
     }
 
-//get the last SQL query that was wun
+    //get the last SQL query that was run
     function lastQuery(){
         $queries = DB::getQueryLog();
         $queries = end($queries);
@@ -1015,7 +872,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $queries["query"];
     }
 
-//check if an array is associative (the keys are strings) or not (the keys are numbers)
+    //check if an array is associative (the keys are strings) or not (the keys are numbers)
     function isassocarray($my_array){
         if (!is_array($my_array)) {
             return false;
@@ -1026,7 +883,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return !(array_unique(array_map("is_int", array_keys($my_array))) === array(true));
     }
 
-//go through an iterable object to find the one where $Fieldname = $Value
+    //go through an iterable object to find the one where $Fieldname = $Value
     function getIterator($Objects, $Fieldname, $Value){
         foreach ($Objects as $Object) {
             if ($Object->$Fieldname == $Value) {
@@ -1036,23 +893,23 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return false;
     }
 
-//get the left-most $length digits of $text
+    //get the left-most $length digits of $text
     function left($text, $length){
         return substr($text, 0, $length);
     }
 
-//get the right-most $length digits of $text
+    //get the right-most $length digits of $text
     function right($text, $length){
         return substr($text, -$length);
     }
 
-//convert an associative array to an object
+    //convert an associative array to an object
     function array_to_object($Array){
         $object = (object)$Array;
         return $object;
     }
 
-//add a new row to a table
+    //add a new row to a table
     function new_anything($Table, $Data, $Column = "ID"){
         if (!is_array($Data)) {
             $Data = array($Column = $Data);
@@ -1060,7 +917,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return DB::table($Table)->insertGetId($Data);
     }
 
-//delete all rows in a table that match $conditions
+    //delete all rows in a table that match $conditions
     function delete_all($Table, $Conditions = ""){
         if ($Conditions) {
             DB::table($Table)->where($Conditions)->delete();
@@ -1069,18 +926,18 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//updates an existing entry in the database
-//only use when you know the primary key value exists
+    //updates an existing entry in the database
+    //only use when you know the primary key value exists
     function update_database($Table, $PrimaryKey, $Value, $Data){
         DB::table($Table)->where($PrimaryKey, $Value)->update($Data);
         $Data[$PrimaryKey] = $Value;
         return $Data;
     }
 
-//SELECT * FROM $Table WHERE $PrimaryKey = $Value
-//if found, edit it using $Data
-//if not found, create it
-//returns $Data with the primary key added
+    //SELECT * FROM $Table WHERE $PrimaryKey = $Value
+    //if found, edit it using $Data
+    //if not found, create it
+    //returns $Data with the primary key added
     function edit_database($Table, $PrimaryKey, $Value, $Data, $IncludeKey = true){
         $entry = false;
         if ($PrimaryKey && $Value) {
@@ -1098,12 +955,12 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $Data;
     }
 
-//adds a new row to the database filled with $Data
+    //adds a new row to the database filled with $Data
     function new_entry($Table, $PrimaryKey, $Data){
         return edit_database($Table, $PrimaryKey, "", $Data);
     }
 
-//gets the protected value of an object ("_properties" is one used by most objects)
+    //gets the protected value of an object ("_properties" is one used by most objects)
     function getProtectedValue($obj, $name = "_properties"){
         $array = (array)$obj;
         $prefix = chr(0) . '*' . chr(0);
@@ -1112,12 +969,12 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//remove anything that isn't a number from $text
+    //remove anything that isn't a number from $text
     function kill_non_numeric($text, $allowmore = ""){
         return preg_replace("/[^0-9" . $allowmore . "]/", "", $text);
     }
 
-//resize an image
+    //resize an image
     function resize($file, $sizes, $CropToFit = false, $AllowSmaller = false, $delimeter = "x"){
         if (is_array($sizes)) {
             $images = array();
@@ -1132,15 +989,15 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//get the directory of a file path
-//HOME/WINDOWS/TEST.JPG returns HOME/WINDOWS
+    //get the directory of a file path
+    //HOME/WINDOWS/TEST.JPG returns HOME/WINDOWS
     function getdirectory($path){
         return pathinfo(str_replace("\\", "/", $path), PATHINFO_DIRNAME);
     }
 
-//get the filename of a file path
-//$WithExtension = true, HOME/WINDOWS/TEST.JPG returns TEST.JPG
-//$WithExtension = false, HOME/WINDOWS/TEST.JPG returns TEST
+    //get the filename of a file path
+    //$WithExtension = true, HOME/WINDOWS/TEST.JPG returns TEST.JPG
+    //$WithExtension = false, HOME/WINDOWS/TEST.JPG returns TEST
     function getfilename($path, $WithExtension = false){
         if ($WithExtension) {
             return pathinfo($path, PATHINFO_BASENAME); //filename only, with extension
@@ -1149,13 +1006,13 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//get the extension of a file path
-//HOME/WINDOWS/TEST.JPG returns jpg
+    //get the lower-cased extension of a file path
+    //HOME/WINDOWS/TEST.JPG returns jpg
     function getextension($path){
         return strtolower(pathinfo($path, PATHINFO_EXTENSION)); // extension only, no period
     }
 
-//loads a jpg/png/gif/bmp as an image object
+    //loads a jpg/png/gif/bmp as an image object
     function loadimage($filename){
         if (file_exists($filename)) {
             //get image extension.
@@ -1187,7 +1044,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//loads a BMP manually
+    //loads a BMP manually, as PHP lacks the ability to by itself
     function imagecreatefrombmp($filename){
         $file = fopen($filename, "rb");
         $read = fread($file, 10);
@@ -1224,8 +1081,8 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $image;
     }
 
-//copies an image ($file) to a new location
-//$sizes contains an array of key=path, value=size
+    //copies an image ($file) to a new location
+    //$sizes contains an array of key=path, value=size
     function copyimages($sizes, $file, $name, $CropToFit = false, $AllowSmaller = false){
         if (file_exists($file) && !is_dir($file)) {
             foreach ($sizes as $path => $size) {
@@ -1238,8 +1095,9 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-// this is the function that will create the thumbnail image from the uploaded image
-// the resize will be done considering the width and height defined, but without deforming the image
+    //create the thumbnail image from the uploaded image while maintaining the aspect ratio
+    //$CropToFit: if true, the image will be cropped to the new_size, otherwise it'll be centered inside of it with empty space around it
+    //$Resize: if true, the image will be the size of the thumbnail, otherwise it'll be centered inside of it with empty space around it
     function make_thumb($input_filename, $output_filename, $new_width, $new_height, $CropToFit = false, $Resize = false){
         $src_img = loadimage($input_filename);
         if ($src_img) {
@@ -1314,7 +1172,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//automatically handle uploading of files
+    //automatically handle uploading of files
     function handle_upload($Dir){
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             if (right($Dir, 1) != "/") {
@@ -1334,7 +1192,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         }
     }
 
-//convert a relative path with ..'s to a full path name
+    //convert a relative path with ..'s to a full path name
     function resolve_path($str){
         $str = str_replace('\\', '/', $str);
         $array = explode('/', $str);
@@ -1357,7 +1215,7 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $domain . '/' . implode('/', $parents);
     }
 
-//gets a key from the get or post, or returns $default if it doesn't exist
+    //gets a key from the get or post, or returns $default if it doesn't exist
     function getpost($Key, $Default = ""){
         if (isset($_GET[$Key])) {
             return $_GET[$Key];
@@ -1368,20 +1226,23 @@ $todaytime = date("Y-m-d")." ".date("h:i:s a");
         return $Default;
     }
 
-function roundToQuarterHour($timestring, $minutes = 15) {
-    $minutes=$minutes*60;
-    return ceil($timestring / $minutes) * $minutes;
-}
+    //round time to $minutes
+    function roundToQuarterHour($timestring, $minutes = 15) {
+        $minutes=$minutes*60;
+        return ceil($timestring / $minutes) * $minutes;
+    }
 
-function datename($date){
-    if(istoday($date)){return "Today";}
-    if(istoday($date, 1)){return "Tomorrow";}
-    if(istoday($date, 2)){return "The day after tomorrow";}
-    if(istoday($date, -1)){return "Yesterday";}
-    if(istoday($date, -2)){return "The day before yesterday";}
-    return date('F d, Y', $date);
-}
+    //get shorter date name
+    function datename($date){
+        if(istoday($date)){return "Today";}
+        if(istoday($date, 1)){return "Tomorrow";}
+        if(istoday($date, 2)){return "The day after tomorrow";}
+        if(istoday($date, -1)){return "Yesterday";}
+        if(istoday($date, -2)){return "The day before yesterday";}
+        return date('F d, Y', $date);
+    }
 
+    //generate a dropdown of future order times
     function get_time_interval($Restaurant, $isDelivery = false){
         $period = 15;
         $mintime = 20;
@@ -1416,19 +1277,22 @@ function datename($date){
         }
     }
 
-//checks if $Text is encrypted, might not work if the encrpytion key is changed
+    //checks if $Text is encrypted, might not work if the encrpytion key is changed
     function is_encrypted($Text){
         return strpos($Text, "eyJpdiI6I") === 0;
     }
 
+    //check if debug mode is on
     function debugmode(){
         return config('app.debug') || isset($_GET["debugmode"]);
     }
+
+    //check if this is the live server
     function islive(){
         return strpos(strtolower($_SERVER['HTTP_HOST']), "didueat.ca") !== false;
     }
 
-//if the server is localhost, print whatever file is specified in red text
+    //if debugmode, print whatever file is specified in red text
     function printfile($File, $Ret = false){//cannot use __FILE__ due to caching
         $showdebug = false;
         if (debugmode() || $showdebug) {
@@ -1442,7 +1306,7 @@ function datename($date){
         }
     }
 
-// Function to get the client ip address
+    //get the client ip address
     function get_client_ip_server(){
         foreach (array("HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "HTTP_X_FORWARDED", "HTTP_FORWARDED_FOR", "HTTP_FORWARDED", "REMOTE_ADDR") as $field) {
             if (isset($_SERVER[$field])) {
@@ -1452,7 +1316,7 @@ function datename($date){
         return 'UNKNOWN';
     }
 
-//gets browser information about the user
+    //gets browser information about the user
     function getBrowser(){
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
         $bname = 'Unknown';
@@ -1525,7 +1389,7 @@ function datename($date){
         );
     }
 
-//gets the user's OS
+    //gets the user's OS
     function getOS(){
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $os_platform = "Unknown OS Platform";
@@ -1590,8 +1454,8 @@ function datename($date){
     }
 
     if (!function_exists("priority")) {
-        function priority($Alpha, $Beta = false)
-        {
+        //returns the first parameter with data
+        function priority($Alpha, $Beta = false) {
             if ($Alpha) {
                 return $Alpha;
             }
@@ -1602,6 +1466,7 @@ function datename($date){
         }
     }
 
+    //if $restaurant has $field, return it. OTherwise return old($field)
     function priority2($resturant, $Field, $Old = ""){
         if (!$Old) {
             $Old = $Field;
@@ -1612,7 +1477,7 @@ function datename($date){
         return old($Old);
     }
 
-//code is broken, will only return 12:00 AM
+    //gets the time of $time
     function getTime($time){
         if (strpos($time, "AM") !== false || strpos($time, "PM") !== false || strpos($time, ":") === false) {
             return $time;
@@ -1637,7 +1502,7 @@ function datename($date){
         return $hour . ':' . $min . ' ' . $suffix;
     }
 
-//rounds down by 0.5
+    //rounds down by 0.5
     function roundDownToHalf($number){
         $remainder = ($number * 10) % 10;
         $half = ($remainder > 0) ? 0.5 : 0;
@@ -1645,7 +1510,7 @@ function datename($date){
         return number_format($value, 1, '.', '');
     }
 
-//gets a rating
+    //gets a rating
     function rating_get($target_id = 0, $rating_id = 0, $type = ""){
         $fetch = App\Http\Models\RatingUsers::select(DB::raw('SUM(rating) as rating'))->where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->first();
         $numberOfratings = App\Http\Models\RatingUsers::where('target_id', $target_id)->where('rating_id', $rating_id)->where('type', $type)->count();
@@ -1653,7 +1518,7 @@ function datename($date){
         return roundDownToHalf($fetch->rating / $numberOfratings);
     }
 
-//prints a rating
+    //prints a rating
     function rating_initialize($type = "rating", $load_type = "", $target_id = 0, $TwoLines = false, $class_name = 'update-rating', $add_rate_brn = true, $starts = false, $Color = "", $NeedsVARs = true, $average = false) {
         $html = '<DIV>';
         if($NeedsVARs) {
@@ -1768,7 +1633,7 @@ function datename($date){
         }
     }
 
-//converts a CSV array into one where each value is in a single quote
+    //converts a CSV array into one where each value is in a single quote
     function strToTagsConversion($string = "") {
         $html = "";
         if ($string) {
@@ -1779,6 +1644,7 @@ function datename($date){
         return $html;
     }
 
+    //replaces the middle of a valid credit card number with $maskingCharacter (invalid cards show as such)
     function obfuscate($CardNumber, $maskingCharacter = "*"){
         if (!isvalid_creditcard($CardNumber)) {
             return "[INVALID CARD NUMBER]";
@@ -1786,6 +1652,7 @@ function datename($date){
         return substr($CardNumber, 0, 4) . str_repeat($maskingCharacter, strlen($CardNumber) - 8) . substr($CardNumber, -4);
     }
 
+    //checks if a credit card is valid, returns what kind of card it is if it's valid, or $Invalid if it's not
     function isvalid_creditcard($CardNumber, $Invalid = ""){
         $CardNumber = preg_replace('/\D/', '', $CardNumber);
         // http://stackoverflow.com/questions/174730/what-is-the-best-way-to-validate-a-credit-card-in-php
@@ -1842,6 +1709,7 @@ function datename($date){
         return $Invalid;
     }
 
+    //checks if a card is valid
     function luhn_check($number){
         // Strip any non-digits (useful for credit card numbers with spaces and hyphens)
         $number = preg_replace('/\D/', '', $number);
@@ -1870,11 +1738,12 @@ function datename($date){
         return ($total % 10 == 0) ? TRUE : FALSE;
     }
 
+    //checks page views
     function ViewsCountsType($id = 0, $type = ""){
         return \App\Http\Models\PageViews::getView($id, $type);
     }
 
-    function cuisinelist(){//why is this hard-coded? Because it's much faster than a database call
+    function cuisinelist(){
         return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Cafe','Canadian','Caribbean','Chicken','Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French','Game and Exotic','German','Greek','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese','Korean','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pizza','Polish','Portuguese','Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Sushi','Thai','Vegan','Vietnamese','Wings');
     }
 

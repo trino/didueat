@@ -6,16 +6,14 @@
     use App\Http\Models\Profiles;
     use App\Http\Models\Restaurants;
 
-    class SubscribersController extends Controller
-    {
+    class SubscribersController extends Controller {
 
         /**
          * Constructor
          * @param null
          * @return redirect
          */
-        public function __construct()
-        {
+        public function __construct() {
             date_default_timezone_set('America/Toronto');
         }
 
@@ -24,8 +22,7 @@
          * @param null
          * @return view
          */
-        public function index()
-        {
+        public function index() {
             $data['title'] = 'Subscribers List';
             return view('dashboard.subscribers.index', $data);
         }
@@ -34,8 +31,7 @@
          * Listing Ajax
          * @return Response
          */
-        public function listingAjax()
-        {
+        public function listingAjax() {
             $per_page = \Input::get('showEntries');
             $page = \Input::get('page');
             $cur_page = $page;
@@ -65,8 +61,8 @@
             return view('dashboard.subscribers.ajax.list', $data);
         }
 
-        public function send()
-        {
+        //sends a newslaetter to all subscribers
+        public function send() {
             $array['mail_subject'] = \Input::get('subject');
             $array['body'] = \Input::get('newsletter');
             $Emails = \App\Http\Models\Newsletter::select('email')->where('status', 1)->get();

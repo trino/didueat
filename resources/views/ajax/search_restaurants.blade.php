@@ -110,7 +110,6 @@
                     <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
 
                     <span class="list-inline-item">Cuisine: {{ str_replace(",", ", ", $value["cuisine"]) }}</span><br>
-                    <!--span class="list-inline-item ">{{ select_field("cuisine", "id", $value['id'], "name") }}</span-->
 
                     @if($value["is_delivery"])
 

@@ -6,16 +6,14 @@
     use App\Http\Models\Profiles;
     use App\Http\Models\Restaurants;
 
-    class UserReviewsController extends Controller
-    {
+    class UserReviewsController extends Controller {
 
         /**
          * Constructor
          * @param null
          * @return redirect
          */
-        public function __construct()
-        {
+        public function __construct() {
             date_default_timezone_set('America/Toronto');
         }
 
@@ -24,8 +22,7 @@
          * @param $id
          * @return view
          */
-        public function index($id = 0)
-        {
+        public function index($id = 0) {
             $post = \Input::all();
             if (isset($post) && count($post) > 0 && !is_null($post)) {
                 if (!isset($post['id']) || empty($post['id'])) {//check for missing data
@@ -57,8 +54,7 @@
          * Listing Ajax
          * @return Response
          */
-        public function listingAjax()
-        {
+        public function listingAjax() {
             $per_page = \Input::get('showEntries');
             $page = \Input::get('page');
             $cur_page = $page;

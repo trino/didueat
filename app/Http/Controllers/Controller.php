@@ -59,6 +59,10 @@ abstract class Controller extends BaseController {
         if($redirect) {return \Redirect::to($redirect);}
     }
 
+    /*makes a new account
+        $SourceFunction: a note of where the function was called, ie: HomeController@Makeaccount
+        $post: post data, if false: will be obtained
+    */
     public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
         $email_verification = false;
         //var_dump($post);
@@ -157,28 +161,13 @@ abstract class Controller extends BaseController {
 
     //convert text to a slug
     function createslug($text) {
-        // replace non letter or digits by -
-        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
-
-        // trim
-        $text = trim($text, '-');
-
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // lowercase
-        $text = strtolower($text);
-
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+~', '', $text);
-
-        if (empty($text)) {
-            return 'n-a';
-        }
-        //test for same slug in db
-        $text = $this->chkSlug($text);
-
-
+        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);// replace non letter or digits by -
+        $text = trim($text, '-');// trim
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);// transliterate
+        $text = strtolower($text);// lowercase
+        $text = preg_replace('~[^-\w]+~', '', $text);// remove unwanted characters
+        if (empty($text)) {return 'n-a';}
+        $text = $this->chkSlug($text);//test for same slug in db
         return $text;
     }
 

@@ -24,33 +24,20 @@ class CreditCardsController extends Controller {
         $post = \Input::all();
         //check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
-            if (!isset($post['first_name']) || empty($post['first_name'])) {
-                return $this->failure('[First Name] field is missing','credit-cards/list/'.$type, true);
-            }
-            if (!isset($post['last_name']) || empty($post['last_name'])) {
-                return $this->failure('[Last Name] field is missing','credit-cards/list/'.$type, true);
-            }
-            if (!isset($post['card_number']) || empty($post['card_number'])) {
-                return $this->failure('[Card Number] field is missing','credit-cards/list/'.$type, true);
-            }
-            if (!isset($post['ccv']) || empty($post['ccv'])) {
-                return $this->failure('[CCV] field is missing','credit-cards/list/'.$type, true);
-            }
-            if (!isset($post['expiry_month']) || empty($post['expiry_month'])) {
-                return $this->failure('[Expiry Month] field is missing','credit-cards/list/'.$type, true);
-            }
-            if (!isset($post['expiry_year']) || empty($post['expiry_year'])) {
-                return $this->failure('[Expiry Year] field is missing','credit-cards/list/'.$type, true);
+            foreach(array('first_name' => "First Name", 'last_name' => "Last Name", 'card_number' => 'Card Number', 'ccv' => "CCV", 'expiry_month' => 'Expiry Month', 'expiry_year' => "Expiry Year") as $field => $text){
+                if (!isset($post[$field]) || empty($post[$field])) {//check for missing data
+                    return $this->failure('[' . $text . '] field is missing','credit-cards/list/'.$type, true);
+                }
             }
             
             \DB::beginTransaction();
             try {//save credit card info
                 if(isset($post['user_type']) && !empty($post['user_type'])){
                     if($post['user_type'] == "restaurant" && isset($post['select_restaurant_id'])){
-                        $post['user_id'] = $post['select_restaurant_id'];//for some reason this ends up being the user id
+                        $post['user_id'] = $post['select_restaurant_id'];//if it's a restaurant, use the restaurant id instead of the user id
                     }
                     if($post['user_type'] == "user" && isset($post['select_user_id'])){
-                        $post['user_id'] = $post['select_user_id'];
+                        $post['user_id'] = $post['select_user_id'];//if it's a user, use the user id
                     }
                 } else {
                     $post['user_type'] = \Session::get('session_type_user');
@@ -59,15 +46,13 @@ class CreditCardsController extends Controller {
                 
                 $creditcard = \App\Http\Models\CreditCard::findOrNew(isset($post['id'])?$post['id']:0);
                 $creditcard->populate(array_filter($post));
-                if(!\Session::has('invalid-data')) {
+                if(!\Session::has('invalid-data')) {//check if populate resulted in invalid data
                     $creditcard->save();
                     \DB::commit();
-                    if($post['user_type'] == "restaurant"){
-                        //$this->updatestore($post['user_id']);
-                    }
+                    //if($post['user_type'] == "restaurant"){//$this->updatestore($post['user_id']);}
                     return $this->success('Credit card has been saved successfully.', 'credit-cards/list/' . $type);
                 } else {
-                    \Session::forget('invalid-data');
+                    \Session::forget('invalid-data');//forget invalid data and just show the error message
                     return $this->failure('The credit card number was not valid', 'credit-cards/list/'.$type, true);
                 }
             } catch (\Exception $e) {
@@ -174,6 +159,7 @@ class CreditCardsController extends Controller {
         }
     }
 
+    //when a credit card was required, this would keep the store status updated when you add/delete cards. No longer used
     public function updatestore($ID=0){
         if($ID && false){
             $Cards = \App\Http\Models\CreditCard::where(array("user_type" => "restaurant", 'user_id' => $ID))->count();
@@ -191,6 +177,7 @@ class CreditCardsController extends Controller {
         $this->saveSequence('\App\Http\Models\CreditCard');
     }
 
+    //pay with stripe.
     //return app('App\Http\Controllers\CreditCardsController')->stripepayment();
     public function stripepayment($OrderID = false, $StripeToken = false, $description = false, $amount = false, $currency = "cad"){
         if(!$OrderID && !$StripeToken && !$description && !$amount){

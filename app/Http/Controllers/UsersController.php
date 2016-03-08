@@ -225,6 +225,7 @@ class UsersController extends Controller {
         }
     }
 
+    //handle updating a profile image
     public function save_profile_image($Keyname = "image", $UserID = false){
         if(!$UserID){
             $UserID= \Session::get('session_id');
