@@ -323,8 +323,7 @@ class RestaurantController extends Controller {
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
-                (!isset($id))? $upCr=" Profile Has Been Updated" : $upCr=" Registration Completed";
-                return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant".$upCr), 'restaurant/info/' . $post['id']);
+                return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
