@@ -47,7 +47,7 @@ Thank you">Email Support</a></li>
                            class="simplemodal">Allergy</a>
                     </li>
 
-                    @if(Session::get('session_type_user') == "super" || true && false)
+                    @if(Session::get('session_type_user') == "super" || true)
                         <li class="list-inline-item">
 
                             <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
