@@ -541,7 +541,7 @@ class RestaurantController extends Controller {
                 \App\Http\Models\Menus::where('parent', $c->id)->delete();
             }
             \App\Http\Models\Menus::where('parent', $id)->delete();
-            echo $id;
+
             $this->handleimageupload($id, $existingImg);
         } else { // new menu item (which may include image upload)
             $arr['uploaded_on'] = date('Y-m-d H:i:s');
@@ -556,13 +556,14 @@ class RestaurantController extends Controller {
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();//save changes
-            echo $id = $ob2->id;
-            $this->handleimageupload($id);
+
+            $this->handleimageupload($ob2->id);
         }
     }
 
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
+        echo $id;
         $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
             $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
@@ -585,14 +586,14 @@ class RestaurantController extends Controller {
                 $ext = end($imgExp);
                 $newName = $id . '.' . $ext;
 
+                if (!file_exists($destinationPathMenu)) {
+                    mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
+                }
+
+                $destinationPathMenu = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id);
+                $filename = $destinationPathMenu . '/' . $newName;
+
                 if($image_file != "" && $image_file != "undefined") {
-                    if (!file_exists($destinationPathMenu)) {
-                        mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
-                    }
-
-                    $destinationPathMenu = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id);
-                    $filename = $destinationPathMenu . '/' . $newName;
-
                     // rename existing images with timestamp, if they exist,
                     if (isset($image_file)) {
                         $oldImgExpl = explode(".", $image_file);
@@ -607,19 +608,19 @@ class RestaurantController extends Controller {
                             rename($destinationPathMenu . '/' . $image_file, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                         }
                     }
-
-                    $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// use for copying and saving original file
-
-                    $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
-
-                    copyimages($sizes, $filename, $newName, true);
-
-                    @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
-
-                    $men = new \App\Http\Models\Menus();
-                    // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
-                    $men->where('id', $id)->update(['image' => $newName]); // same menu # but filetype may have changed
                 }
+
+                $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// use for copying and saving original file
+
+                $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
+
+                copyimages($sizes, $filename, $newName, true);
+
+                @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
+
+                $men = new \App\Http\Models\Menus();
+                // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
+                $men->where('id', $id)->update(['image' => $newName]); // same menu # but filetype may have changed
             }
         }
         die();
