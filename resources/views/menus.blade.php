@@ -20,8 +20,6 @@
 
             @foreach($menus_list as $value)
                 <?php
-
-                
                     $has_iconImage = false;
                     $has_bigImage = false;
 
@@ -33,7 +31,6 @@
                         $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
                         $has_bigImage = true;
                     }
-                    
 
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                     $min_p = get_price($value->id);
@@ -68,9 +65,6 @@
                                 ?>
 
                                 <h4 class="card-title">
-
-
-
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}" type=""
                                        class="card-link" data-toggle="modal"
@@ -94,37 +88,29 @@
 
 
                                         @if($dis)
-                                            <strike class="text-muted"
-                                                    style="font-size:60%;">${{number_format($value->price,2)}}</strike>
+                                            <strike class="text-muted" style="font-size:60%;">${{number_format($value->price,2)}}</strike>
                                         @endif
 
                                         <a href="#" id="{{ $value->id }}"
-                                        data-res-id="{{ $value->restaurant_id }}" type="button"
-                                        data-toggle="modal"
-                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                                        class="btn btn-sm btn-primary">
+                                            data-res-id="{{ $value->restaurant_id }}" type="button"
+                                            data-toggle="modal"
+                                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
+                                            class="btn btn-sm btn-primary">
 
                                             @if($main_price>0)
-                                            ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
+                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
                                             @else
-Order
-                                                @endif
-
-
+                                                Order
+                                            @endif
                                         </a>
-
                                     </div>
-
-
                                 </h4>
 
                                 <div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
-
                                     <p class="card-text m-a-0">
                                         {{$dis}}
                                     </p>
-
                                 </div>
 
 
@@ -141,7 +127,7 @@ Order
 
                                 <!--p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                 @if($value->uploaded_on)
-                                        Submitted: {{$value->uploaded_on}}
+                                    Submitted: {{$value->uploaded_on}}
                                 @endif
 
                                 <?php
@@ -154,17 +140,17 @@ Order
 
 
                                 @if(false) <!-- no tags yet -->
-                                @if(isset($restaurant->tags) && $restaurant->tags != "")
-                                    <?php
-                                    $tags = $restaurant->tags;
-                                    $tags = explode(',', $tags);
-                                    for ($i = 0; $i < 5; $i++) {
-                                        if (isset($tags[$i])) {
-                                            echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                    @if(isset($restaurant->tags) && $restaurant->tags != "")
+                                        <?php
+                                        $tags = $restaurant->tags;
+                                        $tags = explode(',', $tags);
+                                        for ($i = 0; $i < 5; $i++) {
+                                            if (isset($tags[$i])) {
+                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            }
                                         }
-                                    }
-                                    ?>
-                                @endif
+                                        ?>
+                                    @endif
                                 @endif
 
 
@@ -173,6 +159,13 @@ Order
 
                             <div class="col-md-12">
                                 @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                                    <div class="btn-group pull-left" role="group" style="vertical-align: middle">
+                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
+                                        <label class="c-input c-checkbox p-r-1" id="enable{{ $value->id }}">
+                                            <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}" onclick="enableitem({{ $value->id }});" type="checkbox" class="is_active">Enable Item
+                                            <span class="c-indicator"></span>
+                                        </label>
+                                    </div>
                                     <div class="btn-group pull-right" role="group">
 
                                         <a id="up_parent_{{ $value->id.'_'.$catid }}"
@@ -215,3 +208,20 @@ Order
 @endif
 
 <div class="clearfix"></div>
+<SCRIPT>
+    function enableitem(id){
+        var checked = $("#check" + id).is(":checked");
+        $("#enable" + id).hide();
+        $("#spinner" + id).show();
+
+        $.post("{{ url('restaurant/enable') }}", {
+            value: checked,
+            id: id,
+            _token: "{{ csrf_token() }}"
+        }, function (result) {
+            if(result){alert(result);}
+            $("#enable" + id).show();
+            $("#spinner" + id).hide();
+        });
+    }
+</SCRIPT>

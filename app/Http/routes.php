@@ -102,7 +102,8 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
     Route::get('notification/addresses/edit/{id}',                  'NotificationAddressesController@ajaxEditAddressForm');
     Route::get('notification/addresses/delete/{id}',                'NotificationAddressesController@deleteAddresses')->where('id', '[0-9]+');
     Route::get('notification/addresses/default/{id}',               'NotificationAddressesController@defaultAddresses')->where('id', '[0-9]+');
-    
+
+    Route::post("restaurant/enable",                                'RestaurantController@enable');
     Route::resource('restaurant/menu-manager',                      'RestaurantController@menuManager');
 });
 

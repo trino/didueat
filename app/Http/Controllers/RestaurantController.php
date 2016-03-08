@@ -780,11 +780,13 @@ class RestaurantController extends Controller {
 
     //quick redirect to a restaurant's page using it's slug, and it's subpage ($path2)
     public function redfront($path, $slug, $path2) {
-        if(isset($_GET['menuadd']))
-        $query = '?menuadd=1';
-        else
-        if(isset($_GET['sorted']))
-        $query = '?sorted=1';
+        if(isset($_GET['menuadd'])) {
+            $query = '?menuadd=1';
+        } else {
+            if (isset($_GET['sorted'])) {
+                $query = '?sorted=1';
+            }
+        }
         return \Redirect::to($path . '/' . $slug . '/' . $path2.$query);
     }
 
@@ -837,5 +839,16 @@ class RestaurantController extends Controller {
         if($menu_id)
         \App\Http\Models\Menus::where('id', $menu_id)->update(array('is_active' => $is_active));
         die();
+    }
+
+    public function enable(){
+        $post = \Input::all();
+        $Item = select_field("menus", "id", $post["id"]);
+        if($Item->restaurant_id == read("restaurant_id")){
+            if($post["value"] == "false") {$post["value"] = 0;} else {$post["value"] = 1;}
+            update_database("menus", "id", $post["id"], array("is_active" => $post["value"]));
+        } else {
+            return "You do not own this item";
+        }
     }
 }
