@@ -493,6 +493,7 @@ class HomeController extends Controller {
     //save a ratings change
     public function ratingSave() {
         $post = \Input::all();
+        $response = 200;
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//rating_id:rating_id, target_id:target_id, type:type
                 $post['user_id'] = (\Session::has('session_id'))?\Session::get('session_id'):0;
@@ -513,15 +514,15 @@ class HomeController extends Controller {
                         $ob->update();
                     }
                     
-                    return \Response::json(array('type' => 'success', 'response' => "Thank you for your review"), 400);
+                    return \Response::json(array('type' => 'success', 'response' => "Thank you for your review"), $response);
                 } else {
-                    return \Response::json(array('type' => 'error', 'response' => "You already reviewed"), 400);
+                    return \Response::json(array('type' => 'error', 'response' => "You already reviewed"), $response);
                 }
             } catch (Exception $e) {
-                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), 400);
+                return \Response::json(array('type' => 'error', 'response' => $e->getMessage()), $response);
             }
         } else {
-            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), 400);
+            return \Response::json(array('type' => 'error', 'response' => 'Invalid request made!'), $response);
         }
     }
     

@@ -114,6 +114,7 @@
 
                     updatereview(target_id);
                 }, 500);
+                //$('#ratingModal #rating-form').hide();
             }
         });
         e.preventDefault();
