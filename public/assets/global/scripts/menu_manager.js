@@ -70,6 +70,12 @@ function ajaxuploadbtn(button_id, doc) {
         name: 'myfile',
         data: {'_token': token, 'setSize': 'No'},
         onSubmit: function (file, ext) {
+        var thisext = ext.toLowerCase();
+        var imgTypes = ['jpg','png','gif','jpeg'];
+        if(imgTypes.indexOf(thisext) == -1) {
+          alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
+          return false;
+        }
             button.text('Uploading...');
             this.disable();
             interval = window.setInterval(function () {
