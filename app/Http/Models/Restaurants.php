@@ -15,6 +15,7 @@ class Restaurants extends BaseModel {
      */
     public function populate($data,$addlogo = false) {
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
+        if(!isset($data["open"])){$data["open"] = 0;}
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}
 
@@ -45,6 +46,7 @@ class Restaurants extends BaseModel {
         }
 
         $this->is_complete = $this->restaurant_opens($this);
+        if(!$this->is_complete){$this->open = false;}
     }
 
     //exmaple: \App\Http\Models\Restaurants::restaurant_opens($rest);

@@ -1,18 +1,16 @@
 <?php
-    $RestaurantID=$Restaurant; // copy ID before it variable changes
+    $RestaurantID=$Restaurant; // copy ID before the variable changes
     $Restaurant = select_field("restaurants", "id", $Restaurant);
-
-
     $post = \Input::all(); // testing for intial setup
     
     if ($Restaurant) {
         $MissingData = [];
         $MissingDataOptional = [];
-
         
         if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
             $MissingData[] = "<a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">Pickup and/or delivery options</a>";
         }
+
         /* dont need logo
         if (!$Restaurant->logo) {
             $MissingData[] = "Your Restaurant Logo <a href=\"" . url('restaurant/info') . "#setlogo\">(<u>Set Restaurant Logo</u>)</a>";
@@ -68,47 +66,27 @@
             $MissingData[] = "<a href=\"" . url('restaurants/'.$Restaurant->slug.'/menu') . "\">At least one menu item must be added and enabled</a>";
         }
 
+        echo '<div class="alert alert-success " style="margin-bottom: 0px !important;"><div class="container" style="margin-top:0rem !important;"><div class="row">';
+        printfile("views/common/required_to_open.php");
         if ($MissingData) {
-
-
-            ?>
-
-            <div class="alert alert-success " style="margin-bottom: 0px !important;">
-                <div class="container" style="margin-top:0rem !important;">
-                    <div class="row">
-
-<?
-            printfile("views/common/required_to_open.php");
-
-    $missingHeadInitialReg="";
-    $missingHead="";
-    if (isset($post['initialRestSignup'])) {
-        $missingHeadInitialReg = '<h4>PARTIAL REGISTRATION COMPLETED!</h4>';
-    }
-
-            if (Session::get('session_type_user') == "restaurant") {
-
-
-                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following to start accepting orders:</h5>";
-
-
-
+            $missingHeadInitialReg="";
+            $missingHead="";
+            if (isset($post['initialRestSignup'])) {
+                $missingHeadInitialReg = '<h4>PARTIAL REGISTRATION COMPLETED!</h4>';
             }
 
+            if (Session::get('session_type_user') == "restaurant") {
+                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following to start accepting orders:</h5>";
+            }
 
             $MissingData = array_merge($MissingData, $MissingDataOptional);
-
             $MissingData = "<div>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
-            echo '<div class="col-md-12"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div>';
-
-
-            ?>
-
-                        </div>
-                        </div>
-                        </div>
-                        <?
+        } else {
+            $missingHead =  '<h4>Your restaurant is complete!</h4>';
+            $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
+            $MissingData= "Current status: " . iif($business_day, "Open", "Closed") . " and " . iif(!$Restaurant->open, "<B>NOT</B> ") . "accepting orders. ";
         }
+        echo '<div class="col-md-12"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div></div></div></div>';
     }
 
 

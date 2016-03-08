@@ -47,14 +47,12 @@
         foreach($query as $value){
             $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/small-' . $value['logo'] : 'small-smiley-logo.png';
             $value['tags'] = str_replace(",", ", ", $value['tags']);
-
             if ($value['is_delivery']) {
                 $Delivery_enable = "Delivery";
             }
             if ($value['is_pickup']) {
                 $Pickup_enable = "Pickup";
             }
-
             if(!isset($delivery_type)){
                 $delivery_type = "is_pickup";
             }
@@ -62,14 +60,15 @@
             $Day = current_day_of_week();
             $open = offsettime($value[$Day . "_open" . $key], $difference);
             $close = offsettime($value[$Day . "_close" . $key], $difference);
-            $is_open = $open <= $user_time && $close >= $user_time;
+            $is_open = $open <= $user_time && $close >= $user_time && $value['open'];
+
             $openedRest=$is_open;
             if(isset($value['openedRest'])){
                 $openedRest = $value['openedRest'];
             }
             $grayout=" grayout";
             $Message = "View Menu";
-            if($openedRest){
+            if($is_open){
                 $grayout="";
                 $Message = "Order Online";
             }

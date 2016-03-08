@@ -32,7 +32,7 @@
             $business_day = false;
         }
     }
-    if(!$business_day){
+    if(!$business_day || !$restaurant->open){
         if(Session::get('session_type_user') == "super"){
             $checkout .= " (SUPER)";
         } else if(debugmode()){
@@ -154,11 +154,10 @@
 
                 @if(!isset($order))
                     <div class="form-group pull-right " style="margin-bottom: 0 !important;">
-                        @if($is_my_restro || $business_day || debugmode())
+                        @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
                         @else
-
-                            <a class="btn btn-danger-outline disabled" href="#"  >Currently Closed</a>
+                            <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
                         @endif
                     </div>
                 @endif

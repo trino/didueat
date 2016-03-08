@@ -21,9 +21,6 @@
          $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
 
-        ?>
-<?
-
 echo newrow($new, "Restaurant Name", "",true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
     <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required
@@ -35,19 +32,21 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     @endif
 <? echo newrow(); ?>
 
-
-
 <?= newrow($new, "Restaurant Phone Number", "", true); ?>
     <input type="text" name="phone" id="phone" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->phone))?$restaurant->phone: old("phone")}}" required>
 </div></div>
-
-
 
 <?php if(!$new){
     echo newrow($new, "Description", "", false, 9);
     echo '<textarea name="description" class="form-control"' . $is_disabled . '>';
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
+
+    if($restaurant->is_complete){
+        echo newrow($new, "Accept orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
+        if($restaurant->open){echo " CHECKED";}
+        echo '>Yes<span class="c-indicator"></span></label></DIV></DIV>';
+    }
 }
 echo '<DIV id="cuisinelist">';
 echo newrow($new, "Cuisine", "", true, 9, '<br>(Select up to 3)');

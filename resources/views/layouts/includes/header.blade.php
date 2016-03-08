@@ -85,10 +85,10 @@
     </div>
 </nav>
 <?php
-$AreaCodes = array();
-foreach (areacodes() as $Region) {
-    $AreaCodes = array_merge($AreaCodes, array_keys($Region));
-}
+    $AreaCodes = array();
+    foreach (areacodes() as $Region) {
+        $AreaCodes = array_merge($AreaCodes, array_keys($Region));
+    }
 ?>
 <SCRIPT>
     function modalcheck() {
@@ -103,10 +103,9 @@ foreach (areacodes() as $Region) {
         switch (window.location.hash) {
             @if(!read("id"))
                 case "#login":
-                $('.reserve_login').trigger("click");
-                break;
-                @endif
-
+                    $('.reserve_login').trigger("click");
+                    break;
+            @endif
         }
     });
 </SCRIPT>

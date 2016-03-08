@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <?php
-    if (!isset($userAddress)) {
-        $userAddress = "";
-    }
-    if (!isset($radiusSelect)) {
-        $radiusSelect = "";
-    }
-    $nextPath = "";
-    if (Request::path() !== null && Request::path() != "/") {
-        $nextPath = "/" . Request::path();
-    }
-    ?>
+        $start_loading_time = microtime(true);
 
-    <?php $start_loading_time = microtime(true); ?>
+        if (!isset($userAddress)) {
+            $userAddress = "";
+        }
+        if (!isset($radiusSelect)) {
+            $radiusSelect = "";
+        }
+        $nextPath = "";
+        if (Request::path() !== null && Request::path() != "/") {
+            $nextPath = "/" . Request::path();
+        }
+
+        $first = false;
+        $type = "hidden";
+    ?>
     <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
 
     <meta charset="utf-8">
@@ -103,84 +105,63 @@
         </style>
     @endif
 
-<SCRIPT>
-    var baseurl = "{{ url('/') }}";
-    var debugmode = "{{ debugmode() }}";
-    function debugalert(message) {
-        if (debugmode) {
-            alert(message);
+    <SCRIPT>
+        var baseurl = "{{ url('/') }}";
+        var debugmode = "{{ debugmode() }}";
+        function debugalert(message) {
+            if (debugmode) {
+                alert(message);
+            }
         }
-    }
-</SCRIPT>
-
+    </SCRIPT>
 </head>
 <body>
-
-
-<div class="overlay_loader">
-    <div class="overlay">
-        <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+    <div class="overlay_loader">
+        <div class="overlay">
+            <img src="{{ asset('assets/images/ajax-loading.gif') }}"/>
+        </div>
     </div>
-</div>
 
+    <div class="bg-success">
+    <div class="container-fluid" style="margin-bottom: 53px;">
+        @include('layouts.includes.header')
+    </div>
+        <div class="clearfix"></div>
+    </div>
 
-<?php
-$first = false;
-$type = "hidden";
-?>
+    <div class="container-fluid">
+        @include('common.alert_messages')
+    </div>
 
-<div class="bg-success">
-<div class="container-fluid" style="margin-bottom: 53px;">
-    @include('layouts.includes.header')
-</div>
-    <div class="clearfix"></div>
-</div>
+    <div class="container-fluid">
+        @yield('content')
+    </div>
 
+    <div class="container-fluid" >
+        @include('layouts.includes.footer')
+    </div>
 
-<! --test -->
-<! --test -->
-<div class="container-fluid">
-    @include('common.alert_messages')
-</div>
+    @if(!read("id"))
+        @include('popups.login')
+        @include('popups.signup')
+        @include('popups.forgot-password')
+    @endif
 
-<div class="container-fluid">
-    @yield('content')
-</div>
-
-<div class="container-fluid" >
-    @include('layouts.includes.footer')
-</div>
-
-@if(!read("id"))
-    @include('popups.login')
-    @include('popups.signup')
-    @include('popups.forgot-password')
-@endif
-
-@if(\Session::has('session_id'))
-@include('popups.navigation_bar')
-@endif
-
-
-
+    @if(\Session::has('session_id'))
+        @include('popups.navigation_bar')
+    @endif
 
 </body>
 </html>
 <script>
     $( window ).load(function() {
-    $('.overlay_loader').hide();
-});
-</script>
+        $('.overlay_loader').hide();
+    });
 
-
-
-<script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-74638591-1', 'auto');
     ga('send', 'pageview');
-
 </script>
