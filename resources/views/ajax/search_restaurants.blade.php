@@ -81,13 +81,16 @@
 
 
             <div class="list-group-item">
-                <div class="col-md-3 col-xs-3 p-a-0">
-                    <div class="p-r-1">
+                <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
+                    <div class="p-r-1" >
 
                     <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <img style="max-width:100%;" class="" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                        <div class="clearfix"></div>
+
                     </a>
-                        </div>
+
+                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-9 p-a-0">
