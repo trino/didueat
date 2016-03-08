@@ -115,6 +115,12 @@
         }
 
         var token = "{{ csrf_token() }}";
+        var path = window.location.pathname;
+        if (path.replace('didueat', '') != path) {
+            var base_url = 'http://localhost/didueat/public/';
+        }else {
+            var base_url = window.location.protocol + '//didueat.ca/';
+        }
     </SCRIPT>
 </head>
 <body>
