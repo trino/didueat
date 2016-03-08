@@ -332,8 +332,9 @@ var FormValidation = function () {
 
 }();
 
+//the above functions were here before I got here. I wouldn't touch them if I were you.
 
-//Custom validators
+//adds Custom validators
 function add_all(pattern, phone){
     if(pattern){add_matchpattern();}
     if(phone){add_checkphone();}
@@ -344,6 +345,7 @@ function add_all(pattern, phone){
     });
 }
 
+//adds pattern validation. What pattern? I don't know
 function add_matchpattern() {
     jQuery.validator.addMethod("matchPattern", function (value, element) {
         var patt = "/((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i";
@@ -351,6 +353,7 @@ function add_matchpattern() {
     });
 }
 
+//adds phone validation
 function add_checkphone() {
     jQuery.validator.addMethod("checkPhone", function (value, element) {
         value = value.replace(/\D/g,'');
@@ -362,6 +365,7 @@ function add_checkphone() {
     });
 }
 
+//removes existing validation rules from a form, adds all custom validators, then calls makerules()
 function validateform(formID, rules){
     //$("#" + formID + ' > input, select, textarea').rules('remove');
     $("#" + formID).removeData('validator');
@@ -370,6 +374,8 @@ function validateform(formID, rules){
     $("#" + formID).validate(makerules(rules));
 }
 
+//simplifies rule creation
+//ie: makerules({fieldname: "phonenumber required"});
 function makerules(validation){
     var rules = new Object();
     var messages = new Object();

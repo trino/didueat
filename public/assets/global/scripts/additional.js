@@ -1,24 +1,10 @@
-var token;
-var path = window.location.pathname;
-if (path.replace('didueat', '') != path) {
-    var base_url = 'http://localhost/didueat/public/';
-}else {
-    var base_url = window.location.protocol + '//didueat.ca/';
-}
-$.ajax({
-    url: base_url + 'restaurant/getToken',
-    success: function (res) {
-        token = res;
-    }
-});
-
 $('.is_active').live('change',function(){
     var stat = 0;
     if($(this).is(':checked')) {
         stat = 1;
     }
-     var id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
-   var $_parent = $(this).closest('.modal-content').find('.newmenu');
+    var id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
+    var $_parent = $(this).closest('.modal-content').find('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
     var $thi = $(this);
    $.ajax({
@@ -68,6 +54,7 @@ $(".sorting_child").live('click', function () {
         }
     });
     $th = $(this);
+
     $.ajax({
         url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
         data: 'ids=' + order + '&_token='+token,
@@ -279,11 +266,11 @@ $('.savebtn').live('click', function () {
     var pprice = $_parent.find('.newprice').val();
     if (pprice == '') {
         if(chi==0){
-        alert('Price must be a number');
-        $_parent.find('.newprice').focus();
-        $_parent.find('.newprice').attr('style', 'border:1px solid red;');
-        $('.overlay_loader').hide();
-        return false;
+            alert('Price must be a number');
+            $_parent.find('.newprice').focus();
+            $_parent.find('.newprice').attr('style', 'border:1px solid red;');
+            $('.overlay_loader').hide();
+            return false;
         }
     }
 
@@ -297,8 +284,9 @@ $('.savebtn').live('click', function () {
     }
     var ch_en = check_enabled(id,cat_id,is_active,$_parent.find('.is_active'),base_url);
     
-    if(ch_en=='0')
-    return false;
+    if(ch_en=='0') {
+        return false;
+    }
     
     if(!discount_per && $_parent.find('.allow_dis').is(':checked')) {
         alert('Discount Percentage cannot be empty');

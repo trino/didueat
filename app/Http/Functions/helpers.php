@@ -1743,10 +1743,12 @@
         return \App\Http\Models\PageViews::getView($id, $type);
     }
 
+    //hard-coded cuisine list
     function cuisinelist(){
         return array('American','Asian','Bagels','BBQ','Breakfast','Burgers','Cafe','Canadian','Caribbean','Chicken','Chinese','Creole','Deli','Desserts','English','Ethiopian','Fast Food','Filipino','Fish and Chips','French','Game and Exotic','German','Greek','Halal','Health Food','Ice Cream','Indian','Irish','Italian','Jamaican','Japanese','Korean','Malaysian','Mediterranean','Mexican','Middle Eastern','Persian','Pizza','Polish','Portuguese','Pub','Sandwiches','Seafood','Southern','South Western','Steakhouse','Sushi','Thai','Vegan','Vietnamese','Wings');
     }
 
+    //table headers
     function TH($data, $name = "", $sort = true){
         if (is_array($data)) {
             echo '<thead><tr>';
@@ -1777,10 +1779,12 @@
         }
     }
 
+    //get the price of a menu item
     function get_price($id) {
         return $submenus = \App\Http\Models\Menus::get_price($id);
     }
 
+    //make a popup
     function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0){
         if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
         echo '<div class="alert alert-' . $Success . '" role="alert"';

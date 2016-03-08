@@ -160,7 +160,6 @@ Route::get('restaurant/redfront/{path}/{slug}/{path2}/{query}',     'RestaurantC
 Route::get('restaurant/loadChild/{id}/{flag}',                      'RestaurantController@loadChild');
 Route::get('restaurant/saveCat',                                    'RestaurantController@saveCat');
 Route::post('restaurant/saveCat',                                   'RestaurantController@saveCat');
-Route::get('restaurant/getToken',                                   'HomeController@getToken');
 
 Route::post('reviews/users/get',                                    'UserReviewsController@ajaxGetReviewUsersList');
 

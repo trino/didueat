@@ -1,14 +1,11 @@
 $('.add_item').live('click', function () {
     var id = $(this).attr('id').replace('add_item', '');
-
     if (id == 0) {
         $('.addnew').show();
-
         $('.addnew').load(base_url + 'restaurant/menu_form/0', function () {
             ajaxuploadbtn('newbrowse0_1');
         });
-    }
-    else {
+    } else {
         $('#parent' + id).load(base_url + 'restaurant/menu_form/' + id, function () {
             ajaxuploadbtn('newbrowse' + id + '_1');
         });
@@ -36,28 +33,13 @@ $('.additem').live('click', function () {
 '<a id="save0" class="btn btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
             
         });
-    }
-    else {
+    } else {
         $('#menumanager2').load(base_url + 'restaurant/menu_form/' + id + '/' + res_id, function () {
             $('.overlay_loader').hide();
             ajaxuploadbtn('newbrowse' + id + '_1');
             $('#addMenuModel .modal-footer').prepend('<a id="add_additional'+id+'" class="btn  btn-secondary-outline  add_additional ignore ignore2 ignore1" href="javascript:void(0)">+ Advanced Options</a>'+
 '<a id="save'+id+'" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
         });
-    }
-});
-
-var token;
-var path = window.location.pathname;
-if (path.replace('didueat', '') != path) {
-    var base_url = 'http://localhost/didueat/public/';
-}else {
-    var base_url = window.location.protocol + '//didueat.ca/';
-}
-$.ajax({
-    url: base_url + 'restaurant/getToken',
-    success: function (res) {
-        token = res;
     }
 });
 
@@ -70,12 +52,12 @@ function ajaxuploadbtn(button_id, doc) {
         name: 'myfile',
         data: {'_token': token, 'setSize': 'No'},
         onSubmit: function (file, ext) {
-        var thisext = ext.toLowerCase();
-        var imgTypes = ['jpg','png','gif','jpeg'];
-        if(imgTypes.indexOf(thisext) == -1) {
-          alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
-          return false;
-        }
+            var thisext = ext.toLowerCase();
+            var imgTypes = ['jpg','png','gif','jpeg'];
+            if(imgTypes.indexOf(thisext) == -1) {
+              alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
+              return false;
+            }
             button.text('Uploading...');
             this.disable();
             interval = window.setInterval(function () {

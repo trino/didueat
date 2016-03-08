@@ -113,6 +113,8 @@
                 alert(message);
             }
         }
+
+        var token = "{{ csrf_token() }}";
     </SCRIPT>
 </head>
 <body>

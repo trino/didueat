@@ -531,12 +531,6 @@ class HomeController extends Controller {
         }
     }
 
-    //return the session ID token
-    public function getToken() {
-        echo csrf_token();
-        die();
-    }
-
     public function home($Type){
       if($Type != "faq"){
         return view("home." . $Type);      

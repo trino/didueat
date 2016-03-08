@@ -1,16 +1,7 @@
+//get an element by it's ID
 function getelement(name) {
     return document.getElementById(name);
 }
-
-$(document).ready(function() {
-    var element = getelement("country");
-    if (element) {
-        var evnt = element["onchange"];
-        if (typeof(evnt) == "function") {
-            evnt.call(element);
-        }
-    }
-});
 
 //Google Api Codes.
 $('#formatted_address, #formatted_address1, #formatted_address2, #formatted_address3, #formatted_address4').keydown(function (e) {
@@ -60,6 +51,7 @@ function initAutocomplete(){
     formatted_address.addListener('place_changed', fillInAddress1);
 }
 
+//check if an element is defined and has a value
 function isvalid(variable, element){
     if( !isundefined(variable) && $("#" + element).is(':visible') ){
         var element = document.getElementById(element);
@@ -256,10 +248,12 @@ function fillInAddress() {
     return place;
 }
 
+//returns true if a variable is not defined
 function isundefined(variable){
     return typeof variable === 'undefined';
 }
 
+//stringify any variable
 function simpleStringify (object){
     var simpleObject = {};
     for (var prop in object ){
@@ -277,6 +271,7 @@ function simpleStringify (object){
     return JSON.stringify(simpleObject); // returns cleaned up JSON
 }
 
+//make a cookie value that expires in exdays
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 86400000));//24 * 60 * 60 * 1000
@@ -284,6 +279,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + "; " + expires;
 }
 
+//gets a cookie value
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -295,6 +291,7 @@ function getCookie(cname) {
     return "";
 }
 
+//deletes a cookie valie
 function removeCookie(cname) {
     $.removeCookie(cname);
     $('#search-form #name').val('');
@@ -302,10 +299,12 @@ function removeCookie(cname) {
     //createCookie(cname, "", -1);
 }
 
+//creates a cookie value that expires in 1 year
 function createCookieValue(cname, cvalue) {
     setCookie(cname, cvalue, 365);
 }
 
+//calculates the distance between 2 GPS coordinates in KM
 function calcdistance(lat1, lon1, lat2, lon2) {
     var R = 6371; // km
     var dLat = toRad(lat2-lat1);
@@ -323,6 +322,7 @@ function toRad(Value) {
     return Value * Math.PI / 180;
 }
 
+//unescapes javascript text
 function unescapetext (str) {
     // this prevents any overhead from creating the object each time
     var element = document.createElement('div');
