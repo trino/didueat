@@ -164,14 +164,14 @@
                             <div class="">
                                 <strong class="">Enter # of items</strong>
                             </div>
-                            <div class="">
+                            <div class="multiplepart">
                                 <?php $r3 = rand('1000000', '999999999'); ?>
                                 <input type="hidden" class="up_t"
-                                       @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) value="0"
-                                       @else value="1" @endif />
+                                       <?php if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)){?> value="0"
+                                       <?php }elseif(isset($child->exact_upto) && $child->exact_upto == 2){?> value="2"<?php }else{?> value="1"<?php }?> />
                                     <LABEL class="c-input c-radio">
                                 <input type="radio"
-                                       onclick="$(this).parent().find('.up_t').val(0);"
+                                       onclick="$(this).closest('.multiplepart').find('.up_t').val(0);"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
                                        @endif class="up_to up_to_selected" value="0"
                                        name="{{ $r3 }}">
@@ -182,15 +182,25 @@
 </LABEL>
                                     <LABEL class="c-input c-radio">
                                 <input
-                                        type="radio" onclick="$(this).parent().find('.up_t').val(1);" class="up_to"
+                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(1);" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
                                         <span class="c-indicator"></span>
 
                                     </LABEL>
+                                    
+                                    <LABEL class="c-input c-radio">
+                                <input
+                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(2);$('.howmany').hide();" class="up_to"
+                                        value="1" name="{{ $r3 }}"
+                                        <?php if(isset($child->exact_upto) && $child->exact_upto == 2){$two = 1;?> checked="checked"<?php }else{$two=0;}?> />
+                                Unlimited
+                                        <span class="c-indicator"></span>
+
+                                    </LABEL>
 <div class="row">
-<div class=" col-md-4">
+<div class=" col-md-4 howmany" <?php if($two==1){?>style="display:none;"<?php }?>>
                                 <input placeholder="How many?" min="0"  type="number" id="itemno{{ $r3 }}"
                                        class="itemno form-control"
                                        value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
