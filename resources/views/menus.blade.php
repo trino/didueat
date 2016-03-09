@@ -220,7 +220,10 @@
             id: id,
             _token: "{{ csrf_token() }}"
         }, function (result) {
-            if(!result){alert("Unable to enable/disable this item");}
+            if(!result){
+                alert("Unable to enable/disable this item");
+                $("#check" + id).prop('checked', false);
+            }
             $("#enable" + id).show();
             $("#spinner" + id).hide();
         });

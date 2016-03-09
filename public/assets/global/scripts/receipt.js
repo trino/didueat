@@ -1,5 +1,8 @@
 total_items = 0;
 
+//change the quantity of an item
+//id: id of the item
+//opr: direction. "plus" is up, anything else is down
 function changeqty(id, opr) {
     var num = Number($('.number' + id).text());
     if (num == '1') {
@@ -16,6 +19,8 @@ function changeqty(id, opr) {
     showloader();
 }
 
+
+//show the loading blocker
 function showloader(){
     $(".cart-addon-gif").show();
     $('.pricetitle').hide();
@@ -25,6 +30,7 @@ function showloader(){
     }, 200);
 }
 
+//clear the shopping cart
 function clearCartItems() {
    var con = confirm('Are you sure you want to clear your cart?');
    if(con==true) {
@@ -50,12 +56,15 @@ function clearCartItems() {
    }
 }
 
+//scroll down to the receipt
 function scrolltocheckout(){
     $('html, body').animate({
         scrollTop: $("#cartsz").offset().top
     }, 1000);
 }
 
+
+//show the checkout form, if the cart has met the minimum requirements
 function checkout() {
     var del = $('#delivery_flag').val();
     var minimum_delivery = $('#minimum_delivery').val();
@@ -91,6 +100,7 @@ function checkout() {
     }
 }
 
+//handle the pickup/delivery radio buttons
 function delivery(t) {
     var df = $('input.df').val();
     if (t == 'show') {
@@ -142,6 +152,7 @@ function delivery(t) {
     }
 }
 
+//handle the printer
 function printDiv(divName) {
     var printContents = document.getElementById(divName).innerHTML;
     var originalContents = document.body.innerHTML;
@@ -151,11 +162,12 @@ function printDiv(divName) {
 }
 
 $(function(){
-
+    //seems to be debug code, as it won't do anything but alert text
     $('.modal').on('hidden',function(){
         alert('blured');
     })
-        
+
+    //appears to recalculate the total when switched from pickup to delivery
     $('.del-goods').live('click', function () {
         $(this).parent().remove();
         var subtotal = 0;
@@ -164,7 +176,6 @@ $(function(){
             subtotal = Number(subtotal) + Number(sub);
         })
         subtotal = parseFloat(subtotal);
-        //subtotal = Number(subtotal) - Number(amount);
         subtotal = subtotal.toFixed(2);
         $('div.subtotal').text(subtotal);
         $('input.subtotal').val(subtotal);
@@ -185,23 +196,14 @@ $(function(){
         $('div.grandtotal').text(gtotal);
         $('input.grandtotal').val(gtotal);
     });
-    
+
+    //not sure what these do
     $('.addspan').live('click',function(){
         handlespan(this, true);
     });
-
     $('.remspan').live('click',function(){
         handlespan(this, false);
     });
-        
-    $('.decrease').live('click', function () {
-        direction(this, false);
-    });
-
-    $('.increase').live('click', function () {
-        direction(this, true);
-    });
-
     function handlespan(tthis, dir){
         var td = $(tthis).parent().parent().closest('td');
         var td_id =td.attr('id');
@@ -272,6 +274,14 @@ $(function(){
         showloader();
     }
 
+    //handle the +/- buttons on the receipt
+    $('.decrease').live('click', function () {
+        direction(this, false);
+    });
+
+    $('.increase').live('click', function () {
+        direction(this, true);
+    });
     function direction(tthis, dir){
         var menuid = $(tthis).attr('id');
         var numid = menuid.replace('dec', '').replace('inc', '');
@@ -362,7 +372,8 @@ $(function(){
         }
         updatecart();
     }
-          
+
+    //not sure what this does
     $('body').on('click','.changemodalP',function(){
             var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
             var ids = "";

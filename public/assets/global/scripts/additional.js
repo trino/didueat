@@ -1,3 +1,4 @@
+//duplicate of check_enabled
 $('.is_active').live('change',function(){
     var stat = 0;
     if($(this).is(':checked')) {
@@ -20,6 +21,12 @@ $('.is_active').live('change',function(){
         }) 
 })
 
+//handles the enabling/disabling of menu items
+//id: menu item id
+//cat_id: unknown
+//stat: status (0/1)
+//$thi: the element to uncheck if something goes wrong
+//base_url: mirror of the base)url global variable
 function check_enabled(id,cat_id,stat,$thi,base_url) {
     var $ajax = $.ajax({
             url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
@@ -65,7 +72,7 @@ $(".sorting_child").live('click', function () {
     });
 });
 */
-
+//handles sorting of children
 $(".sorting_child").live('click', function () {
     
     var start=0;
@@ -76,22 +83,17 @@ $(".sorting_child").live('click', function () {
         sort = 'up';
     }
     var $real = $(this).closest('.cmore');
-    
     var html1 = $real.html();
     var id1 = $real.attr('id');
     
     if(sort=='up'){
-    var html2 = $(this).closest('.cmore').prev().html();
-    var id2 = $(this).closest('.cmore').prev().attr('id');
-    var $change = $(this).closest('.cmore').prev();
-    
-    }
-    else
-    {
-    var html2 = $(this).closest('.cmore').next().html();
-    var id2 = $(this).closest('.cmore').next().attr('id'); 
-    var $change = $(this).closest('.cmore').next();
-    
+        var html2 = $(this).closest('.cmore').prev().html();
+        var id2 = $(this).closest('.cmore').prev().attr('id');
+        var $change = $(this).closest('.cmore').prev();
+    } else {
+        var html2 = $(this).closest('.cmore').next().html();
+        var id2 = $(this).closest('.cmore').next().attr('id');
+        var $change = $(this).closest('.cmore').next();
     }
     
     $real.html(html2);
@@ -109,6 +111,8 @@ $(".sorting_child").live('click', function () {
     allpar.find('.cmore').first().find('.moveup').attr('disabled','');
     allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
+
+//handle sorting of addons
 $(".addon_sorting").live('click', function () {
     var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
     var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
@@ -140,6 +144,7 @@ $(".addon_sorting").live('click', function () {
 
 });
 
+//handle adding additons
 $('.add_additional').live('click', function () {
     var id = $(this).attr('id').replace('add_additional', '').replace(';', '');
     $('.additional' + id).show();
@@ -156,6 +161,7 @@ $('.add_additional').live('click', function () {
     });
 })
 
+//handle removing of normal items
 $('.removenormal').live('click', function () {
     $_this = $(this);
     if (confirm('Are you sure you want to delete this addon?')) {
@@ -163,6 +169,7 @@ $('.removenormal').live('click', function () {
     }
 })
 
+//handle removing the last item
 $('.removelast').live('click', function () {
     $_this = $(this);
     var tot = $_this.closest('.newmenu').find('.newaction').length;
@@ -182,6 +189,8 @@ $('.removelast').live('click', function () {
         })
     }
 });
+
+//unknown
 $('.delcmore').live('click',function(){
     var $aitem = $(this).closest('.aitems');
    $(this).closest('.cmore').remove(); 
@@ -194,8 +203,9 @@ $('.delcmore').live('click',function(){
             allpar.find('.cmore').first().find('.moveup').attr('disabled','');
             allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
+
+//handle adding more something
 $('.addmorebtn').live('click', function () {
-    
     var id = 0;
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore">' +
@@ -222,6 +232,7 @@ $('.addmorebtn').live('click', function () {
             allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
 
+//unknown
 $('.is_multiple').live('change', function () {
     if ($(this).val() == 0) {
         $(this).closest('.radios').find('.exact').show();
@@ -230,6 +241,7 @@ $('.is_multiple').live('change', function () {
     }
 });
 
+//handle discount days
 $('.days_discount_all').live('click',function(){
    $_parent = $(this).closest('.newmenu');
    if($(this).is(':checked')) {
@@ -245,6 +257,7 @@ $('.days_discount_all').live('click',function(){
    } 
 });
 
+//handle the save button
 $('.savebtn').live('click', function () {
     $('.overlay_loader').show();
     var id = $(this).attr('id').replace('save', '');
@@ -490,6 +503,7 @@ function toggleMore(id,msgIns){
     }
 }
 
+//handles the cuisine/genre check boxes
 function chkCBs(cb){
     if(cb){
         if(cbchkd > 2){

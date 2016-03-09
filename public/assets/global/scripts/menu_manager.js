@@ -1,3 +1,4 @@
+//handles the add_item (not additem) button
 $('.add_item').live('click', function () {
     var id = $(this).attr('id').replace('add_item', '');
     if (id == 0) {
@@ -12,8 +13,8 @@ $('.add_item').live('click', function () {
     }
 });
 
+//handles the additem (not add_item) button
 $('.additem').live('click', function () {
-    
     $('.savebtn').remove();
     $('.add_additional').remove();
     var id = $(this).attr('id').replace('add_item', '');
@@ -36,8 +37,8 @@ $('.additem').live('click', function () {
     });
 });
 
+//handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
-
     var button = $('#' + button_id), interval;
     act = base_url + 'restaurant/uploadimg';
     new AjaxUpload(button, {
