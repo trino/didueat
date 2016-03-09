@@ -382,6 +382,7 @@ function makerules(validation){
     var startmessage = "Please enter ";
     var temprules, ruletype;
     var defaulttext = "Please fill out this field";
+    var usecurrentuser = false;
     for (var property in validation) {
         if (validation.hasOwnProperty(property)) {
             rules[property] = new Object();
@@ -403,12 +404,22 @@ function makerules(validation){
                         rules[property]["checkPhone"] = true;
                         messages[property]["checkPhone"] = startmessage + "a valid phone number";
                         break;
+                    case "currentuser":
+                        usecurrentuser = true;
+                        break;
                     case "email":
                         rules[property]["email"] = true;
-                        rules[property]["remote"] = {
-                            url: baseurl + "/auth/validate/email/ajax",
-                            type: "post"
-                        };
+                        if(usecurrentuser){
+                            rules[property]["remote"] = {
+                                url: baseurl + "/auth/validate/email/ajax/" + currentuser,
+                                type: "post"
+                            };
+                        } else {
+                            rules[property]["remote"] = {
+                                url: baseurl + "/auth/validate/email/ajax",
+                                type: "post"
+                            };
+                        }
                         messages[property]["remote"] = "This email address is already in use";
                         rules[property]["requiresperiod"] = true;0
                         messages[property]["requiresperiod"] = startmessage + "a valid email address.";

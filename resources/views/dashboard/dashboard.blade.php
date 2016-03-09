@@ -20,7 +20,7 @@
                     {!! Form::open(array('url' => '/dashboard', 'id'=>'profileForm','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
                     <div id="registration-error" class="alert alert-danger" style="display: none;"></div>
 
-                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "emaillocked" => true, "disabled" => array("mobile", "phone", "name")))
+                    @include("common.contactinfo", array("user_detail" => $user_detail, "mobile" => true, "disabled" => array()))
 
                     <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
@@ -63,7 +63,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-           validateform("profileForm", {mobile: "phone required"});
+           currentuser = {{ read("id") }};
+           validateform("profileForm", {email: "currentuser email", mobile: "phone required"});
 
             ajaxuploadbtn('uploadbtn');
 
