@@ -25,7 +25,7 @@
                 <?php
                     $Today = \App\Http\Models\Restaurants::getbusinessday($restaurant);
                 //    echo "<p><strong>Hours</strong> " . converttime(getfield($restaurant, $Today . "_open")) . " - " . converttime(getfield($restaurant, $Today . "_close")) . "</p>";
-                    echo '<p><strong>Phone</strong> ' . $restaurant->phone . '</p>';
+                    echo '<p><strong>Phone</strong> <A HREF="tel:' . $restaurant->phone . '">' . phonenumber($restaurant->phone, true) . '</A></p>';
 
                         /*
                     if($restaurant->is_delivery){
