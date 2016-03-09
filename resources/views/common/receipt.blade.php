@@ -1,46 +1,46 @@
 <?php
-    printfile("views/common/receipt.blade.php");
-    $ordertype = false;
-    $em=0;
-    if(isset($email_msg)){
-        $em = 1;
+printfile("views/common/receipt.blade.php");
+$ordertype = false;
+$em=0;
+if(isset($email_msg)){
+    $em = 1;
+}
+if (isset($order)) {
+    if ($order->order_type) {
+        $ordertype = "Delivery";
+    } else {
+        $ordertype = "Pickup";
     }
-    if (isset($order)) {
-        if ($order->order_type) {
-            $ordertype = "Delivery";
-        } else {
-            $ordertype = "Pickup";
-        }
-    }
-    if (!isset($profile)) {
-        $profile = false;
-    }
-    if (!isset($type)) {
-        $type = false;
-    }
-    if (!isset($checkout_modal)) {
-        $checkout_modal = true;
-    }
+}
+if (!isset($profile)) {
+    $profile = false;
+}
+if (!isset($type)) {
+    $type = false;
+}
+if (!isset($checkout_modal)) {
+    $checkout_modal = true;
+}
 
-    $checkout = "Checkout";
-    $is_my_restro = false;
-    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+$checkout = "Checkout";
+$is_my_restro = false;
+$business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
-    if(read("restaurant_id")){
-        $is_my_restro = $restaurant->id == read("restaurant_id");
-        if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
-            $business_day = false;
-        }
+if(read("restaurant_id")){
+    $is_my_restro = $restaurant->id == read("restaurant_id");
+    if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
+        $business_day = false;
     }
-    if(!$business_day || !$restaurant->open){
-        if(Session::get('session_type_user') == "super"){
-            $checkout .= " (SUPER)";
-        } else if(debugmode()){
-            $checkout .= " (DEBUG)";
-        } else if ($is_my_restro) {
-            $checkout .= " (OWNER)";
-        }
+}
+if(!$business_day || !$restaurant->open){
+    if(Session::get('session_type_user') == "super"){
+        $checkout .= " (SUPER)";
+    } else if(debugmode()){
+        $checkout .= " (DEBUG)";
+    } else if ($is_my_restro) {
+        $checkout .= " (OWNER)";
     }
+}
 ?>
 
 @if(false && !isset($order))
@@ -94,10 +94,10 @@
                                             <input type="radio" id="pickup1" name="delevery_type"
                                                    class="deliverychecked"
                                                    onclick="delivery('hide');"
-                                                    @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
-                                                        CHECKED TITLE="Only does pickup"
+                                                   @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
+                                                   CHECKED TITLE="Only does pickup"
                                                     @endif
-                                            >
+                                                    >
                                             <span class="c-indicator"></span>
                                             <strong>Pickup</strong>
                                         </label>
@@ -153,11 +153,13 @@
                 </div>
 
                 @if(!isset($order))
-                    <div class="form-group pull-right " style="margin-bottom: 0 !important;">
+                    <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-secondary" href="tel:{{ $restaurant->phone }}">Call {{ $restaurant->phone }}</a>
+                            <a class="btn btn-primary btn-block" style="width: 100%;" href="tel:{{ $restaurant->phone }}">Call: {{ $restaurant->phone }}</a>
+
+
                         @else
                             <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
                         @endif
@@ -178,14 +180,14 @@
                     <!--div class="form-group ">
                         <div class="col-xs-12">
                     @if(\Session::has('is_logged_in'))
-                        <?php
-                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                            echo "<p>Welcome " . $profile->name . "</p>";
-                        ?>
+                    <?php
+                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                    echo "<p>Welcome " . $profile->name . "</p>";
+                    ?>
                     @endif
 
-                        </div>
-                    </div-->
+                            </div>
+                        </div-->
 
                     @include('popups.addaddress',['loaded_from'=>'reservation'])
 
@@ -228,14 +230,14 @@
     $(function () {
         show_header();
 
-        @if($ordertype)
-            @if($ordertype == "Delivery")
-                var ordertype = "is_delivery";
+                @if($ordertype)
+                    @if($ordertype == "Delivery")
+                        var ordertype = "is_delivery";
+                @else
+                    var ordertype = "is_pickup";
+                @endif
             @else
-                var ordertype = "is_pickup";
-            @endif
-        @else
-            var ordertype = getCookie("delivery_type");
+                var ordertype = getCookie("delivery_type");
         @endif
         if (ordertype == "is_delivery"){
             $('#delivery1').click();
@@ -289,7 +291,7 @@
                 reservation_address: "required",
                 @if(!read("id"))
                     email: "email required",
-                    password: "required minlength 3",
+                password: "required minlength 3",
                 @endif
             });
         }

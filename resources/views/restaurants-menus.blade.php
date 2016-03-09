@@ -32,7 +32,7 @@
                 <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our system.</p>
 
                 <div class="col-md-4 col-md-offset-4 ">
-                    <a href="#" id="add_item0" type="button btn-primary btn-block"
+                    <a href="#" id="add_item0" type="button"
                        class="btn btn-primary additem  btn-block"
                        data-toggle="modal"
                        data-target="#addMenuModel">
@@ -88,12 +88,16 @@
                                 {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
                                     {!! (isset($restaurant->province))? 'ON':'' !!}
-                                    {!! (isset($restaurant->postal_code))?$restaurant->postal_code.' ':'' !!}
+
                                 </span>
 
 
                                 <div class="clearfix"></div>
-                                @if($restaurant->is_delivery)
+
+                                <span class="list-inline-item">{{ str_replace(",", ", ", $restaurant->cuisine) }}</span>
+
+
+                            @if($restaurant->is_delivery)
                                     @if(!$restaurant->is_pickup)
                                         <span class="list-inline-item"><strong>Delivery only</strong></span>
                                     @endif
@@ -109,7 +113,6 @@
                                     <span class="list-inline-item"><strong>Pickup only</strong></span>
                                 @endif
 
-                                <span class="list-inline-item"><strong>{{ str_replace(",", ", ", $restaurant->cuisine) }}</strong></span>
 
                                 <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
                                 </span>

@@ -43,7 +43,7 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     echo '</textarea>' . newrow();
 
     if($restaurant->is_complete){
-        echo newrow($new, "Accept orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
+        echo newrow($new, "Accept Online Orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
         if($restaurant->open){echo " CHECKED";}
         echo '>Yes<span class="c-indicator"></span></label></DIV></DIV>';
     }
