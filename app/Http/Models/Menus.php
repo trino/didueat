@@ -19,6 +19,7 @@ class Menus extends BaseModel {
         $this->copycells($cells, $data);
     }
 
+    //on save, makes sure the store is open if that's all it needed
     public function save(array $options = array()) {
         parent::save($options);
         if(isset($this->restaurant_id)) {
@@ -65,21 +66,17 @@ class Menus extends BaseModel {
         }
         return $query;
     }
-    
+
+    //I don't understand what this should do
     public static function get_price($id) {
-        
         $submenus = \App\Http\Models\Menus::where('parent', $id)->get();
         //$minprice = \App\Http\Models\Menus::where('parent', $id)->min('price');
         $minprice = 10000;
-        foreach($submenus as $sub)
-        {
-              //echo $sub->id.",";
-              $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->min('price');
-             
-             if($minprice < $minmenu_price)
-                $minprice= $minprice;
-             else
-                $minprice = $minmenu_price;
+        foreach($submenus as $sub) {
+             $minmenu_price = \App\Http\Models\Menus::where('parent', $sub->id)->min('price');
+             if($minprice >= $minmenu_price) {
+                 $minprice = $minmenu_price;
+             }
         }
        return $minprice;
         

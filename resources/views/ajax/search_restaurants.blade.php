@@ -1,4 +1,23 @@
 <?php
+    function toseconds($Time){
+        $Time = explode(":", $Time);
+        return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
+    }
+    function timediff($Start, $End){//end is the bigger time
+        $Start = toseconds($Start);
+        $End = toseconds($End);
+        $Diff = abs($End - $Start);
+        if ($Diff >= 3600){
+            $Diff = round($Diff / 3600,2);
+            $Unit = "hour";
+        } else {
+            $Diff = ceil($Diff / 60);
+            if(!$Diff){$Diff = 1;}
+            $Unit = "minute";
+        }
+        return $Diff . " " . $Unit . iif($Diff <> 1, "s");
+    }
+
     function offsettime($time, $hours = 0) {
         if ($hours) {
             $time = explode(":", $time);
@@ -26,9 +45,9 @@
     $user_gmt = \Session::get('session_gmt', $server_gmt);
     $difference = $server_gmt - $user_gmt;
     $server_time = date('H:i:s');
-    $user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
+    $user_time = $server_time;//date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
     if (!isset($sql)) {
-        $sql = "Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
+        $sql = "TIME ZONE IGNORED";//"Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
     }
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
     if (is_object($count)) {
@@ -58,9 +77,18 @@
             }
             $key = iif($delivery_type == "is_delivery", "_del");
             $Day = current_day_of_week();
-            $open = offsettime($value[$Day . "_open" . $key], $difference);
-            $close = offsettime($value[$Day . "_close" . $key], $difference);
+            $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
+            $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
             $is_open = $open <= $user_time && $close >= $user_time && $value['open'];
+
+            $MoreTime = "";
+            if(!$is_open && $value['open']){
+                if($open > $user_time){
+                    $MoreTime = "Opens in: ~" . timediff($open, $user_time);
+                } else if ($close < $user_time) {
+                    $MoreTime = "Closed: ~" . timediff($user_time, $close) . " ago";
+                }
+            }
 
             $openedRest=$is_open;
             if(isset($value['openedRest'])){
@@ -73,12 +101,7 @@
                 $Message = "Order Online";
             }
             ob_start();
-            ?>
-
-
-
-
-
+        ?>
 
             <div class="list-group-item">
                 <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
@@ -102,7 +125,7 @@
 
                     <div>
                         @if(!$openedRest)
-                            <div class="smallT "> Currently Closed</div>
+                            <div class="smallT "> Currently @if(!$value['open']) not accepting orders @else closed @endif </div>
                         @endif
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                         <div  class="clearfix"></div>
@@ -134,6 +157,10 @@
                         <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}" TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
                     @endif
 
+                    @if($MoreTime)
+                        <span class="list-inline-item">{{ $MoreTime }}</span>
+                    @endif
+
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -158,14 +185,12 @@
             }
         }
 
-        if($openStr != ""){
+        if($openStr){
             echo $openStr;
         }
-        if($openStr != "" && $closedStr != ""){
-            //echo '<hr width="100%" align="center" color="#000" /><h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
+        if($openStr && $closedStr){
             echo $closedStr;
-        } else if($closedStr != ""){
-            //echo '<h2 style="margin:2px;margin-left:auto;margin-right:auto;text-align:center;text-decoration:underline">Restaurants Currently Closed</h2><div class="instruct ctr">(But please feel free to browse their menus!)</div>';
+        } else if($closedStr){
             echo $closedStr;
         }
     ?>
@@ -175,9 +200,9 @@
 <script>
     <?php
         echo "
-        var totalCnt=".$totalCnt.";
-        var openCnt=".$openCnt.";
-        var closedCnt=".$closedCnt.";";
+        var totalCnt = " . $totalCnt . ";
+        var openCnt = " . $openCnt . ";
+        var closedCnt = " . $closedCnt . ";";
     ?>
     var openCntMsg="";
     var closedCntMsg="";

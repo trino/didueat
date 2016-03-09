@@ -183,7 +183,7 @@
                     @if(\Session::has('is_logged_in'))
                         <?php
                             $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                            echo "<p>Welcome " . $profile->name . "</p>";
+                            if($profile) {echo "<p>Welcome " . $profile->name . "</p>";}
                         ?>
                     @endif
 
