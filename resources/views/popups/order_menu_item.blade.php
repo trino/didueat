@@ -28,7 +28,9 @@
                         @endif
 
                     @else
+                    <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">
                         ${{$dis_price=number_format($min_p,2)}}+
+                    </span>
                     @endif
 
                         <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
@@ -167,7 +169,7 @@
 
                                                                     </div>
 
-<div class=" col-md-7  @if ($sub->sing_mul == '1')  @else  col-xs-7 @endif p-l-0">
+                                        <div class=" col-md-7  @if ($sub->sing_mul == '1')  @else  col-xs-7 @endif p-l-0">
                                                                     <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
                                                                     @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
@@ -184,7 +186,7 @@
 
                                                                         <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
-</div>
+                                        </div>
 
                                                                 </div>
 
