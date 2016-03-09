@@ -4,15 +4,15 @@
 
   @foreach($query as $value)
     <?php
-    
-      $item_image = asset('assets/images/big-menu-default.jpg');
-      $item_image1 = asset('assets/images/icon-menu-default.jpg');
-      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
-        $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
-      }
-      if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
-        $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
-      }
+        //check for images and if they exist
+        $item_image1 = asset('assets/images/icon-menu-default.jpg');
+        if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
+            $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
+        }
+        $item_image = asset('assets/images/big-menu-default.jpg');
+        if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
+            $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
+        }
     ?>
 
     <!--new box layout-->
@@ -78,7 +78,7 @@
               <table width="100%">
                 <tbody>
                 <?php
-                $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+                    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
                 ?>
                 @foreach($submenus as $sub)
                   <tr class="zxcx">

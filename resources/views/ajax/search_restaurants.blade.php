@@ -1,8 +1,10 @@
 <?php
+    //convert a 24hr time into seconds
     function toseconds($Time){
         $Time = explode(":", $Time);
         return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
     }
+    //get a rough estimate of the difference between 2 times
     function timediff($Start, $End){//end is the bigger time
         $Start = toseconds($Start);
         $End = toseconds($End);
@@ -18,6 +20,7 @@
         return $Diff . " " . $Unit . iif($Diff <> 1, "s");
     }
 
+    //used for getting the time in the user's time zone
     function offsettime($time, $hours = 0) {
         if ($hours) {
             $time = explode(":", $time);
@@ -45,13 +48,14 @@
     $user_gmt = \Session::get('session_gmt', $server_gmt);
     $difference = $server_gmt - $user_gmt;
     $server_time = date('H:i:s');
-    $user_time = $server_time;//date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));
+    $user_time = $server_time;//the live server's timezone is different than expected, just use the server time and be done with it
+    //$user_time = date('H:i:s', strtotime(iif($difference > -1, '+') . $difference . ' hours'));//get the user's time
     if (!isset($sql)) {
         $sql = "TIME ZONE IGNORED";//"Server GMT: " . $server_gmt . " User GMT: " . $user_gmt . " Difference: " . $difference . " hours Server Time: " . $server_time . " User Time: " . $user_time;
     }
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
     if (is_object($count)) {
-        echo "Count should not be an object!!!";
+        echo "Count should not be an object!!!";//an error has occured, abort
         return;
     }
 
@@ -75,12 +79,14 @@
             if(!isset($delivery_type)){
                 $delivery_type = "is_pickup";
             }
+            //check if the store is opened, based on it's hours
             $key = iif($delivery_type == "is_delivery", "_del");
             $Day = current_day_of_week();
             $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
             $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
             $is_open = $open <= $user_time && $close >= $user_time && $value['open'];
 
+            //show how long it is/was till the store opens/closed
             $MoreTime = "";
             if(!$is_open && $value['open']){
                 if($open > $user_time){
@@ -168,7 +174,7 @@
 
 
 
-            <?php
+            <?php//i don't know what this mess of code does
                 if(isset($openedRest) && $openedRest == 1){
                     $openStr.="".ob_get_contents();
                 } else{
@@ -203,6 +209,7 @@
         var totalCnt = " . $totalCnt . ";
         var openCnt = " . $openCnt . ";
         var closedCnt = " . $closedCnt . ";";
+        //updates the text to show if all stores are open/closed
     ?>
     var openCntMsg="";
     var closedCntMsg="";

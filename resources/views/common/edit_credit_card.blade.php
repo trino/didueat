@@ -5,6 +5,7 @@
     $starting_day = 01;
     $ending_day = 31;
 
+    //decrypt the data
     $encryptedfields = array("first_name", "last_name", "card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
     foreach ($encryptedfields as $field) {
         if (isset($credit_cards_list->$field) && is_encrypted($credit_cards_list->$field)) {

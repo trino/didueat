@@ -6,6 +6,7 @@
         @foreach($detail as $value)
             <tr>
                 <?php
+                    //get their profile picture
                     $profile = select_field("profiles", "id", $value->user_id);
                     $logo_name = "small-didueatdefault.png";
                     $logo = trim($value->user_id . "/icon-" . trim($profile->photo));

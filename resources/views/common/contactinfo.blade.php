@@ -2,12 +2,11 @@
     printfile("views/common/contactinfo.blade.php");
     $size = "2";
 
-    if (!isset($new)) {
-        $new = false;
-    }
+    //if (!isset($new)) {$new = false;}
     $new = false;
 
     $PasswordRequired = iif(isset($user_detail), "", " REQUIRED");
+    //copies user/old data to the proper variables
     $Fields = array("name", "email", "phone", "mobile", "subscribed", "password");//, "confirm_password");
     foreach ($Fields as $Field) {
         if (isset($user_detail->$Field)) {
@@ -17,11 +16,13 @@
         }
     }
 
+    //which name to use for the phone number input
     $phonetype = "phone";
     if(isset($mobile) && $mobile){
         $phonetype = "mobile";
     }
 
+    //handles the disabling of fields
     if(!isset($disabled)){$disabled = array();}
     if(!function_exists("isdisabled")){
         function isdisabled($disabled, $field){
@@ -91,9 +92,9 @@ echo newrow(false, " ", "", false, 7, false); ?>
 <SCRIPT>
     var visitortime = new Date();
     var visitortimezone = -visitortime.getTimezoneOffset() / 60;
-    $(".gmt").val(visitortimezone);
+    $(".gmt").val(visitortimezone);//save the user's timezone offset
 
     $(document).ready(function () {
-        setTimeout(function () {$("#password").val("");}, 500);
+        setTimeout(function () {$("#password").val("");}, 500);//overwrite chrome's autocomplete
     });
 </SCRIPT>
