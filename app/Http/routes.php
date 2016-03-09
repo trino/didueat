@@ -105,6 +105,7 @@ Route::group(['middleware' => ['logged', 'role:restaurant']], function() {
 
     Route::post("restaurant/enable",                                'RestaurantController@enable');
     Route::resource('restaurant/menu-manager',                      'RestaurantController@menuManager');
+    Route::get('restaurant/deletemenuimage/{id}',                   'RestaurantController@deletemenuimage');
 });
 
 // Routes After Logged in and Role Admin Check

@@ -14,24 +14,11 @@
                     <select class="cat_id form-control" >
                         <option value="">Category</option>
                         @foreach($category as $cat)
-                            <option value="{{ $cat->id }}"
-                                    @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
+                            <option value="{{ $cat->id }}" @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-
-            @if(false)
-                @if(count($category))
-                    <!--div class="catblock" style="display: none;">
-                        <input type="text" class="form-control cat_title" placeholder="Add new category"/>
-                        <a href="javascript:void(0);" class="btn btn-sm btn-primary" id="save_cat">Create</a>
-                        <div class="clearfix"></div>
-                    </div-->
-                @else
-                    <input type="text" placeholder="Add new category" class="form-control cat_id"/>
-                @endif
-            @endif
 
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
@@ -48,6 +35,9 @@
                             <span id="fullSize" class="smallT"></span>
                         </div>
                         <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">{{ $browseBtnTxt }}</a>
+                        @if(isset($model) && $model->image)
+                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');">Delete image</a>
+                        @endif
                         <div id="browseMsg" class="label smRd"> (Optional)</div>
                     @else
                         Save the item before uploading an image
@@ -110,7 +100,7 @@
                 ?>
                     <script class="ignore ignore2 ignore1">
                         $(function () {
-// can we delete this?
+                            // can we delete this?
                         });
                     </script>
             <?php } ?>
@@ -138,27 +128,6 @@
 
 
 <script>
-/*
-
-$(document).ready(function () {
-    
-    @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
-
-   var menuImageW=parseInt(document.getElementById('menuImage').clientWidth);
-           if(menuImageW > 450){
-              var menuImageH=parseInt(document.getElementById('menuImage').clientHeight);
-              var new_menuImageH=450/menuImageW*menuImageH;
-              document.getElementById('menuImage').style.width=450+"px"
-              document.getElementById('menuImage').style.height=new_menuImageH+"px";
-              document.getElementById('fullSize').innerHTML="Full size image is "+menuImageW+" x "+menuImageH+" pixels";
-           }
-@endif
-    
-    });
-
-*/
-
-
     $(function () {
         $('#save_cat').live('click', function () {
             $('.overlay_loader').show();

@@ -793,4 +793,13 @@ class RestaurantController extends Controller {
             return "You do not own this item";
         }
     }
+
+    public function deletemenuimage($id){
+        $restaurant_id = select_field("menus", "id", $id, "restaurant_id");
+        $slug = select_field("restaurants", "id", $restaurant_id, "slug");
+        $dir = public_path('assets/images/restaurants/' . $restaurant_id . "/menus/" . $id);
+        $this->deleteDir($dir);
+        mkdir($dir);
+        return $this->success("Menu images deleted", "restaurants/" . $slug . "/menu");
+    }
 }
