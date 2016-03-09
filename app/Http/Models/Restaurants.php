@@ -14,6 +14,8 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data,$addlogo = false) {
+        $use_delivery_hours = true;//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
+
         $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
         if(!isset($data["open"])){$data["open"] = 0;}
 
@@ -34,13 +36,14 @@ class Restaurants extends BaseModel {
         $this->copycells($cells, $data);
 
         //This sets delivery times to pickup times
-        //update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
-        foreach($weekdays as $day){
-            foreach(array("_open", "_close") as $fieldname) {
-                $srcfield = $day . $fieldname;
-                if (isset($this->$srcfield)) {
-                    $field = $day . $fieldname . "_del";
-                    $this->$field = $this->$srcfield;
+        if(!$use_delivery_hours) {
+            foreach ($weekdays as $day) {
+                foreach (array("_open", "_close") as $fieldname) {
+                    $srcfield = $day . $fieldname;
+                    if (isset($this->$srcfield)) {
+                        $field = $day . $fieldname . "_del";
+                        $this->$field = $this->$srcfield;
+                    }
                 }
             }
         }
