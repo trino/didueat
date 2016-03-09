@@ -142,13 +142,13 @@
                                 @if(false) <!-- no tags yet -->
                                     @if(isset($restaurant->tags) && $restaurant->tags != "")
                                         <?php
-                                        $tags = $restaurant->tags;
-                                        $tags = explode(',', $tags);
-                                        for ($i = 0; $i < 5; $i++) {
-                                            if (isset($tags[$i])) {
-                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            $tags = $restaurant->tags;
+                                            $tags = explode(',', $tags);
+                                            for ($i = 0; $i < 5; $i++) {
+                                                if (isset($tags[$i])) {
+                                                    echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                                }
                                             }
-                                        }
                                         ?>
                                     @endif
                                 @endif
@@ -209,6 +209,7 @@
 
 <div class="clearfix"></div>
 <SCRIPT>
+    //enable/disable a menu item via ajax
     function enableitem(id){
         var checked = $("#check" + id).is(":checked");
         $("#enable" + id).hide();
