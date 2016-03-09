@@ -62,7 +62,7 @@ border-top: 1px solid #ddd;
 
 .smallT{ color: red;}
 
-.smT{font-size:12px;font-weight:normal}
+.smT{font-size:12px;font-weight:normal;line-height:1 !important;}
 
 .grayout{filter: alpha(opacity=50);opacity: 0.5;}
 
@@ -221,6 +221,9 @@ border-top: 1px solid #ddd;
     .list-group, .list-group-item, .card {
         border-radius: 0 !important;
     }
+    
+    .worksImg{padding-right:8px;padding-bottom:5px !important;float:left}
+    .bigBlt{line-height:1.25 !important;margin-top:0px !important}
 
 }
 

@@ -84,8 +84,8 @@
         </div>
         
 
-        <div>
-           A huge increase in your customer base is within reach. Using {{ DIDUEAT  }}'s simple set-up, you customize your presentation, and create your own menus and pricing. When a customer places an order from you, {{ DIDUEAT  }} processes the entire transaction on its secure payment system, and sends you the complete order electronically. Seconds later you receive notification, with precise details of the customer's order.<div class="smBR"><br/><br/></div>
+        <div class="col-sm-12">
+           <span class="bd">A huge increase in your customer base is within reach!</span> Using {{ DIDUEAT  }}'s simple set-up, you customize your presentation, and create your own menus and pricing. When a customer places an order from you, {{ DIDUEAT  }} processes the entire transaction on its secure payment system, and sends you the complete order electronically. Seconds later you receive notification, with precise details of the customer's order.<div class="smBR"><br/><br/></div>
             
 <span class="bd">Sign up now, risk free, and let the {{ DIDUEAT  }} team bring customers to YOU!</span><div class="smBR"><br/><br/></div>
         
