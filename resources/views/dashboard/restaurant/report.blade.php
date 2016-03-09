@@ -1,12 +1,6 @@
 @extends('layouts.default')
 @section('content')
-
     <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
-
-
-
-
-
 
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <div class="container">
@@ -17,8 +11,7 @@
                 <div class="restaurentsList deleteme">
                     <div class="toprint">
                         <h3 class="p-b-1">My Orders
-                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
-                               onclick="return printDiv('toprint')">Print</a>
+                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
                         </h3>
                         <hr class="p-t-1"/>
                         <div class="noprint row">
@@ -26,39 +19,25 @@
                             <div class="col-md-12">
                                 <form id="report-form" method="get">
 
-
-
-
-
-
-
                                     <div class="input-group">
                                         <div class="input-group-btn">
-
-                                        <input type="text" class="datepicker form-control" name="from"
-                                               placeholder="From"
-                                               value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
-</div>
-                                        <div class="input-group-btn">
-
-                                        <input type="text" class="datepicker form-control" name="to" placeholder="To"
-                                               value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
-</div>
-                                        <div class="input-group-btn">
-                                            <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
-                                                   onclick="return checkFilter();">
+                                            <input type="text" class="datepicker form-control" name="from" placeholder="From"
+                                                value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?>{{ old('from') }}<?php }?>">
                                         </div>
 
+                                        <div class="input-group-btn">
+                                            <input type="text" class="datepicker form-control" name="to" placeholder="To"
+                                                value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?>{{ old('to') }}<?php }?>">
+                                        </div>
+
+                                        <div class="input-group-btn">
+                                            <input type="submit" id="check_filter" class="btn btn-primary" value="Go" onclick="return checkFilter();">
+                                        </div>
                                     </div>
-
-
-
 
                                     <div class="clearfix"></div>
                                 </form>
-
                             </div>
-
 
                             <div class="clearfix"></div>
                         </div>
@@ -81,8 +60,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <br>
-                                No orders found
+                                <br>No orders found
                             @endif
 
                             <div class="clearfix"></div>
@@ -90,6 +68,7 @@
                             <div class="clearfix hidden-xs"></div>
 
                             <script>
+                                //makes sure the end date isn't before the start date, for searching between 2 dates
                                 function checkFilter() {
                                     var date1 = $('.date1').val();
                                     var date2 = $('.date2').val();
@@ -119,13 +98,7 @@
                         </div>
 
                         <hr class="p-t-1"/>
-
-
-
-                        <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
-                           onclick="return printDiv('toprint')">Print</a>
-
-
+                        <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
                     </div>
                 </div>
 
@@ -136,6 +109,7 @@
 
 
     <script>
+        //send to the print preview screen
         function printDiv(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var originalContents = document.body.innerHTML;

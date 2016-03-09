@@ -99,6 +99,7 @@
 
     var AreaCodes = [{{  implode(", ", $AreaCodes) }}];
 
+    //check the #hash part of the URL for any special commands
     $(document).ready(function () {
         switch (window.location.hash) {
             @if(!read("id"))

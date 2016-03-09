@@ -19,14 +19,13 @@
 
 
             @foreach($menus_list as $value)
-                <?php
+                <?php //load images, duplicate code
                     $has_iconImage = false;
-                    $has_bigImage = false;
-
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
                         $item_iconImg = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_iconImage = true;
                     }
+                    $has_bigImage = false;
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
                         $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
                         $has_bigImage = true;

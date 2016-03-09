@@ -55,12 +55,15 @@
 </div>
 
 <script type="text/javascript">
+    //sets the order id
     function setid(id){
        document.getElementById("orderid").value = id;
     }
+    //gets the order id
     function getid(){
         return document.getElementById("orderid").value;
     }
+    //seems to be broken
     function confirm2(Action){
         var element = document.getElementById(Action + "text").value.length;
         if(element==0){
@@ -71,6 +74,7 @@
      //   return confirm('Are you sure you want to ' + Action + ' order # ' + getid() + '?');
     }
 
+    //handle loading of modals
     $(document).ready(function (){
         $('body').on('click', '.orderApproveModal', function(){
             var id = $(this).attr('data-id');

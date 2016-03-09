@@ -174,7 +174,7 @@
 
 
 
-            <?php//i don't know what this mess of code does
+            <?php //i don't know what this mess of code does
                 if(isset($openedRest) && $openedRest == 1){
                     $openStr.="".ob_get_contents();
                 } else{

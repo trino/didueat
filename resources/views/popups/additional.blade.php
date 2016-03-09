@@ -1,91 +1,84 @@
 <div class="m-t-1 menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
-    printfile("views/popups/additional.blade.php");
-    $r1 = rand('1000000', '999999999');
-    $r2 = rand('1000000', '999999999');
+        printfile("views/popups/additional.blade.php");
+        $r1 = rand('1000000', '999999999');
+        $r2 = rand('1000000', '999999999');
     ?>
-
 
     <div class=" row">
 
         <div class="col-md-8 form-group">
-
-            <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)"
-                   value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
-
+            <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
         </div>
-            <div class="col-md-4 form-group">
 
+        <div class="col-md-4 form-group">
             <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
-</div>
-
+        </div>
 
         <div class="col-md-12 form-group">
-
-            <textarea class="form-control cdescription" style="display: none;"
-                      placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
+            <textarea class="form-control cdescription" style="display: none;" placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
         </div>
 
-
         <div class="additionalitems  ">
-
-
             <div class="aitems ">
 
                 <div class="addmore " id="addmore{{ (isset($child))? $child->id : 0 }}">
                     @if(isset($child->id))
                         <?php
-                        $mod = new \App\Http\Controllers\RestaurantController();
-                        $more = $mod->getMore($child->id);
-                        if($more){
-                        $i = 0;
-                        foreach($more as $cc){
-                        $i++;
+                            $mod = new \App\Http\Controllers\RestaurantController();
+                            $more = $mod->getMore($child->id);
+                            if($more){
+                                $i = 0;
+                                foreach($more as $cc){
+                                    $i++;
+                                    ?>
+                                        <div class="cmore m-b-1" id="cmore{{ $cc->id }}">
+
+                                            <div class=" ">
+                                                <div class="col-md-5">
+                                                    <input class="form-control cctitle" type="text" placeholder="Item" value="{{ $cc->menu_item }}"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input class="form-control ccprice pricechk margin-left-10" type="text" placeholder="Optional $" value="{{ $cc->price }}"/></div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                                        <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
+                                                            class="btn btn-sm btn-secondary sorting_child moveup" <?php if($i==1){?>disabled=""<?php }?>><i class="fa fa-arrow-up"></i>
+                                                        </button>
+                                                        <button href="javascript:void(0)" <?php if($i==count($more)){?>disabled=""<?php }?> id="child_down_{{ $cc->id }}"
+                                                            class="btn btn-sm btn-secondary sorting_child movedown"><i class="fa fa-arrow-down"></i>
+                                                        </button>
+                                                        <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                           <div class="clearfix"></div>
+                                        </div>
+                                    <?php
+                                }
+                            }
                         ?>
-                        <div class="cmore m-b-1" id="cmore{{ $cc->id }}">
-
-                            <div class=" ">
-                                <div class="col-md-5 "><input class="form-control cctitle" type="text"
-                                                              placeholder="Item" value="{{ $cc->menu_item }}"/></div>
-                                <div class="col-md-3  "><input class="form-control ccprice pricechk margin-left-10"
-                                                               type="text" placeholder="Optional $"
-                                                               value="{{ $cc->price }}"/></div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                    <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child moveup" <?php if($i==1){?>disabled=""<?php }?>><i class="fa fa-arrow-up"></i></button>
-                                    <button href="javascript:void(0)" <?php if($i==count($more)){?>disabled=""<?php }?> id="child_down_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child movedown"><i
-                                                class="fa fa-arrow-down"></i></button>
-                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >
-                                    <i class="fa fa-times"></i> </button>
-                                </div>
-                            </div>
-
-                           <div class="clearfix"></div>
-                        </div>
-                        <?php }
-                        } ?>
                     @else
                         <div class="cmore">
-                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
+                            <div class="col-md-6">
+                                <input class="form-control cctitle" type="text" placeholder="Item Name"/>
                             </div>
-                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
-                                                            placeholder="Optional Price"/></div>
-
-
+                            <div class="col-md-4">
+                                <input class="form-control ccprice" type="number" step="any" min="0" placeholder="Optional Price"/>
+                            </div>
                             <div class="col-md-2">
                                 <a href="javascript:void(0);" class="pull-right btn btn-sm  btn-secondary-outline"
                                    onclick="$(this).parent().parent().remove();" ><i class="fa fa-times"></i>
                                 </a>
                                 <!--div class="resturant-arrows">
-                                <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
-                                <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
-                            </div-->
+                                    <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
+                                    <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
+                                </div-->
                             </div>
-
                             <div class="clearfix"></div>
                         </div>
                     @endif
@@ -109,7 +102,6 @@
                                               @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 1)) checked="checked" @endif>
                                     Required
                                     <span class="c-indicator"></span>
-
                                 </label>
 
                                 <label class="c-input c-radio"><input type="radio" onclick="$(this).closest('.radios').find('.is_req').val(0);"
@@ -117,18 +109,20 @@
                                               @if((isset($child->req_opt) && $child->req_opt == 0)) checked="checked" @endif>
                                     Optional
                                     <span class="c-indicator"></span>
-
                                 </label>
-
-
                                 <input type="hidden" class="is_req"
-                                       @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 1)) value="1"
-                                       @else value="0" @endif />
+                                       @if(!isset($child->req_opt) || (isset($child->req_opt) && $child->req_opt == 1))
+                                            value="1"
+                                       @else
+                                            value="0"
+                                       @endif
+                                />
                             </div>
                         </div>
+
                         <div class="clearfix"></div>
                         <br>
-                        <div class="">
+                        <div>
                             <div class=""><strong class="">Customer can select</strong></div>
 
                             <div class="infolist">
@@ -137,7 +131,6 @@
                                               @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) checked="checked" @endif>
                                     Single Item
                                     <span class="c-indicator"></span>
-
                                 </LABEL>
 
                                 <LABEL class="c-input c-radio"><input type="radio" value="0" class="is_multiple mul_ch"
@@ -146,18 +139,20 @@
                                               @if((isset($child->sing_mul) && $child->sing_mul == 0)) checked="checked" @endif>
                                     Multiple Items
                                     <span class="c-indicator"></span>
-
                                 </LABEL>
+
                                 <input type="hidden" class="is_mul"
-                                       @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) value="1"
-                                       @else value="0" @endif />
+                                       @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1))
+                                            value="1"
+                                       @else
+                                            value="0"
+                                       @endif
+                                />
                             </div>
                         </div>
                     </div>
                     <br>
-                    <div @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) style="display: none;"
-                         @endif class="infolist exact">
-
+                    <div @if(!isset($child->sing_mul) || (isset($child->sing_mul) && $child->sing_mul == 1)) style="display: none;" @endif class="infolist exact">
                         <div class="">
 
                             <div class="">
@@ -168,83 +163,71 @@
                                 <input type="hidden" class="up_t"
                                        <?php if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)){?> value="0"
                                        <?php }elseif(isset($child->exact_upto) && $child->exact_upto == 2){?> value="2"<?php }else{?> value="1"<?php }?> />
-                                    <LABEL class="c-input c-radio">
-                                <input type="radio"
+
+                                <LABEL class="c-input c-radio">
+                                    <input type="radio"
                                        onclick="$(this).closest('.multiplepart').find('.up_t').val(0);$(this).closest('.multiplepart').find('.howmany').show();"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
                                        @endif class="up_to up_to_selected" value="0"
                                        name="{{ $r3 }}">
+                                    Up to
+                                    <span class="c-indicator"></span>
+                                </LABEL>
 
-                                Up to
-                                        <span class="c-indicator"></span>
-
-</LABEL>
-                                    <LABEL class="c-input c-radio">
-                                <input
+                                <LABEL class="c-input c-radio">
+                                    <input
                                         type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(1);$(this).closest('.multiplepart').find('.howmany').show();" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
-                                Exactly
-                                        <span class="c-indicator"></span>
-
-                                    </LABEL>
+                                    Exactly
+                                    <span class="c-indicator"></span>
+                                </LABEL>
                                     
-                                    <LABEL class="c-input c-radio">
-                                <input
+                                <LABEL class="c-input c-radio">
+                                    <input
                                         type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(2);$(this).closest('.multiplepart').find('.howmany').hide();" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         <?php if(isset($child->exact_upto) && $child->exact_upto == 2){$two = 1;?> checked="checked"<?php }else{$two=0;}?> />
-                                Unlimited
+                                    Unlimited
                                         <span class="c-indicator"></span>
+                                </LABEL>
 
-                                    </LABEL>
-<div class="row">
-<div class=" col-md-4 howmany" <?php if($two==1){?>style="display:none;"<?php }?>>
-                                <input placeholder="How many?" min="0"  type="number" id="itemno{{ $r3 }}"
-                                       class="itemno form-control"
-                                       value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
-                            </div>
+                                <div class="row">
+                                    <div class=" col-md-4 howmany" <?php if($two==1){?>style="display:none;"<?php }?>>
+                                        <input placeholder="How many?" min="0"  type="number" id="itemno{{ $r3 }}"
+                                           class="itemno form-control"
+                                           value="{{ (isset($child->exact_upto_qty) && $child->exact_upto_qty)? $child->exact_upto_qty : '' }}"></div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class=" col-md-12">
-                    <div class="newaction_wrap ">
-                        @if(!isset($cmodel) || (isset($ccount) && $ccount == $k))
-                            <?php if (!isset($menu_id)) {
-                                $menu_id = 0;
-                            }
-                            if (isset($_GET['menu_id']))
-                                $menu_id = $_GET['menu_id'];
-                            ?>
 
-                        @endif
-
+                    <div class=" col-md-12">
+                        <div class="newaction_wrap ">
+                            @if(!isset($cmodel) || (isset($ccount) && $ccount == $k))
+                                <?php
+                                    if (!isset($menu_id)) {
+                                        $menu_id = 0;
+                                    }
+                                    if (isset($_GET['menu_id'])){
+                                        $menu_id = $_GET['menu_id'];
+                                    }
+                                ?>
+                            @endif
+                        </div>
+                        <?php
+                        if(isset($cmodel) && count($cmodel) > 1){ ?>
+                            <div class="resturant-arrows ">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
+                            </div>
+                        <?php } ?>
                     </div>
-                    <?php
-                    if(isset($cmodel) && count($cmodel) > 1)
-                    {
-                    ?>
-
-                    <div class="resturant-arrows ">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting"
-                           id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
-                        <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting"
-                           id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
-                    </div>
-                    <?php
-                    }
-                    ?>
-                </div>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
             </div>
-
-
         </div>
-
-
     </div>
-
-
 </div>
 

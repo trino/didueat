@@ -150,18 +150,20 @@
 
             @if(old('city'))
                 $(document).ready(function () {
-                        cities("{{ url('ajax') }}", "{{ old('city') }}");
-                    });
+                    cities("{{ url('ajax') }}", "{{ old('city') }}");
+                });
             @endif
 
+            //handle hiding/loading of delivery-only options (duplicate code)
             $('body').on('change', '#is_delivery', function () {
-                        if ($(this).is(':checked')) {
-                            $('#is_delivery_options').show();
-                        } else {
-                            $('#is_delivery_options').hide();
-                        }
-                    });
+                if ($(this).is(':checked')) {
+                    $('#is_delivery_options').show();
+                } else {
+                    $('#is_delivery_options').hide();
+                }
+            });
 
+            //handle uploading of an image
             function ajaxuploadbtn(button_id) {
                 var button = $('#' + button_id), interval;
                 act = base_url + 'uploadimg/restaurant';
