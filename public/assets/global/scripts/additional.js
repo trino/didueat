@@ -67,6 +67,9 @@ $(".sorting_child").live('click', function () {
 */
 
 $(".sorting_child").live('click', function () {
+    
+    var start=0;
+    
     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
     var sort = 'down';
     if ($(this).attr('id') == 'child_up_' + pid) {
@@ -97,27 +100,14 @@ $(".sorting_child").live('click', function () {
     $change.html(html1);
     $change.attr('id',id1);
     
-    /*alert(html2);
-    return;
-    var order = '';
-    $(this).closest('.subcat').find('.cmore').each(function (index) {
-        var val = $(this).attr('id').replace('cmore', '');
-        if (order == '') {
-            order = val;
-        } else {
-            order = order + ',' + val;
-        }
-    });
-    $th = $(this);
-
-    $.ajax({
-        url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
-        data: 'ids=' + order + '&_token='+token,
-        type: 'post',
-        success: function (res) {
-            $th.closest('.addmore').load(base_url+"restaurant/loadChild/" + res + '/0');
-        }
-    });*/
+    var allpar = $(this).closest('.addmore');
+    allpar.find('.cmore').each(function(){
+        $(this).find('button').each(function(){
+            $(this).removeAttr('disabled');
+        })
+    })
+    allpar.find('.cmore').first().find('.moveup').attr('disabled','');
+    allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
 $(".addon_sorting").live('click', function () {
     var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
@@ -192,7 +182,18 @@ $('.removelast').live('click', function () {
         })
     }
 });
-
+$('.delcmore').live('click',function(){
+    var $aitem = $(this).closest('.aitems');
+   $(this).closest('.cmore').remove(); 
+   var allpar = $aitem.find('.addmore');
+            allpar.find('.cmore').each(function(){
+                $(this).find('button').each(function(){
+                    $(this).removeAttr('disabled');
+                })
+            })
+            allpar.find('.cmore').first().find('.moveup').attr('disabled','');
+            allpar.find('.cmore').last().find('.movedown').attr('disabled','');
+});
 $('.addmorebtn').live('click', function () {
     
     var id = 0;
@@ -205,12 +206,20 @@ $('.addmorebtn').live('click', function () {
         '<div class="col-md-4">'+
         '<div class="btn-group pull-right" role="group" aria-label="Basic example">'+
         '<button href="javascript:void(0)" id="child_up_'+id+'" '+
-        'class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>'+
-        '<button href="javascript:void(0)" id="child_down_'+id+'" '+
-        'class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-down"></i></button>'+
-        '<button href="javascript:void(0);" class="btn btn-sm btn-secondary" onclick="$(this).closest(\'.cmore\').remove();" >'+
+        'class="btn btn-sm btn-secondary sorting_child moveup"><i class="fa fa-arrow-up"></i></button>'+
+        '<button href="javascript:void(0)" disabled="disabled" id="child_down_'+id+'" '+
+        'class="btn btn-sm btn-secondary sorting_child movedown"><i class="fa fa-arrow-down"></i></button>'+
+        '<button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >'+
         '<i class="fa fa-times"></i> </button>'+
         '</div></div><div class="clearfix"></div></div>');
+        var allpar = $(this).closest('.aitems').find('.addmore');
+            allpar.find('.cmore').each(function(){
+                $(this).find('button').each(function(){
+                    $(this).removeAttr('disabled');
+                })
+            })
+            allpar.find('.cmore').first().find('.moveup').attr('disabled','');
+            allpar.find('.cmore').last().find('.movedown').attr('disabled','');
 });
 
 $('.is_multiple').live('change', function () {

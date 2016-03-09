@@ -55,12 +55,11 @@
                             <div class="col-md-4">
                                 <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                     <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>
-                                    <button href="javascript:void(0)" id="child_down_{{ $cc->id }}"
-                                       class="btn btn-sm btn-secondary sorting_child"><i
+                                       class="btn btn-sm btn-secondary sorting_child moveup" <?php if($i==1){?>disabled=""<?php }?>><i class="fa fa-arrow-up"></i></button>
+                                    <button href="javascript:void(0)" <?php if($i==count($more)){?>disabled=""<?php }?> id="child_down_{{ $cc->id }}"
+                                       class="btn btn-sm btn-secondary sorting_child movedown"><i
                                                 class="fa fa-arrow-down"></i></button>
-                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
-                                   onclick="$(this).closest('.cmore').remove();" >
+                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >
                                     <i class="fa fa-times"></i> </button>
                                 </div>
                             </div>
