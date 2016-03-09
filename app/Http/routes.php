@@ -48,6 +48,7 @@ Route::get('auth/forgot-password',                                  'Auth\AuthCo
 Route::post('auth/forgot-password',                                 'Auth\AuthController@postForgotPassword');
 Route::post('auth/forgot-password/ajax',                            'Auth\AuthController@postAjaxForgotPassword');
 Route::post('auth/validate/email/ajax',                             'Auth\AuthController@postAjaxValidateEmail');
+Route::post('auth/validate/email/ajax/{CurrentUser}',               'Auth\AuthController@postAjaxValidateEmail');
 Route::resource('restaurant/view',                                  'RestaurantController@restaurantInfo');
 Route::resource('home/faq',                                         'HomeController@home2');
 

@@ -322,17 +322,13 @@ class AuthController extends Controller {
      * @param  $email
      * @return string
      */
-    public function postAjaxValidateEmail() {
+    public function postAjaxValidateEmail($CurrentUser = 0) {
         if (\Input::has('email')) {
             try {
-                $user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->count();
-                if ($user > 0) {
-                    echo "false";
-                    die;
-                } else {
-                    echo "true";
-                    die;
-                }
+                $user = is_email_in_use(\Input::get('email'), $CurrentUser);
+                //$user = \App\Http\Models\Profiles::where('email', \Input::get('email'))->count();
+                echo iif($user, "false", "true");//false if is in use, and can't use this email address. True if not in use and can use it
+                die;
             } catch (Exception $e) {
                 echo json_encode(array('type' => 'error', 'message' => handleexception($e)));
                 die;
