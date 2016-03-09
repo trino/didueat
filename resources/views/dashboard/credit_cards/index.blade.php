@@ -69,6 +69,7 @@
         }
     }
 
+    //handles the edit credit card button
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){
@@ -92,7 +93,8 @@
             }
         });
     });
-    
+
+    //handles the up/down arrow buttons
     $('body').on('click', '.up, .down', function () {
         var row = $(this).parents("tr:first");
         var token = $('#addNewForm input[name=_token]').val();
@@ -126,6 +128,7 @@
         });
     });
 
+    //returns the type of credit card if it's valid
     function validateCardNumber(number) {
         number = number.replace(/\D/g,'');
         if (luhnCheck(number)){
@@ -162,6 +165,8 @@
         return false;
     }
 
+    //verifies if the card number is valid
+    //does not check if the card actually exists though
     function luhnCheck(val) {
         var sum = 0;
         for (var i = 0; i < val.length; i++) {
@@ -177,6 +182,7 @@
         return (sum % 10) == 0;
     }
 
+    //adds it to the form validator
     jQuery.validator.addMethod("creditcard", function (value, element) {
         return validateCardNumber(value);
     });

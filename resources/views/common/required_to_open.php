@@ -1,4 +1,5 @@
 <?php
+    //handles the popup for showing everything required to open a store
     $RestaurantID=$Restaurant; // copy ID before the variable changes
     $Restaurant = select_field("restaurants", "id", $Restaurant);
     $post = \Input::all(); // testing for intial setup

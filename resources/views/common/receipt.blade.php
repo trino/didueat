@@ -1,5 +1,6 @@
 <?php
     printfile("views/common/receipt.blade.php");
+    //the receipt that goes in an order
     $ordertype = false;
     $em=0;
     if(isset($email_msg)){
@@ -217,6 +218,7 @@
         }
     }
 
+    //handles changes of addresses
     function addresschanged(thiss) {
         $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
         $("#formatted_address").val(thiss.getAttribute("ADDRESS"));
@@ -246,8 +248,8 @@
         } else {
             $('#pickup1').click();
         }
-        //save address
 
+        //handles any address additions, adds them to the SELECT dropdown
         $('#edit-form').submit(function (e) {
             if ($(this).hasClass('reservation')) {
                 e.preventDefault();
@@ -285,6 +287,7 @@
         })
     });
 
+    //form validation
     $(document).ready(function () {
         if (typeof validateform != "undefined") {
             validateform("profiles", {

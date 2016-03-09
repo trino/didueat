@@ -56,6 +56,7 @@
             }
         });
 
+        //handle image uploading (duplicate code)
         function ajaxuploadbtn(button_id) {
             var button = $('#' + button_id), interval;
             act = base_url + 'restaurant/uploadimg/restaurant';
