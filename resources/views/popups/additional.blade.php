@@ -8,13 +8,13 @@
 
     <div class=" row">
 
-        <div class="col-md-9 form-group">
+        <div class="col-md-8 form-group">
 
             <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)"
                    value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
 
         </div>
-            <div class="col-md-3 form-group">
+            <div class="col-md-4 form-group">
 
             <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
 </div>
@@ -45,14 +45,14 @@
                         <div class="cmore m-b-1" id="cmore{{ $cc->id }}">
 
                             <div class=" ">
-                                <div class="col-md-6 "><input class="form-control cctitle" type="text"
+                                <div class="col-md-5 "><input class="form-control cctitle" type="text"
                                                               placeholder="Item" value="{{ $cc->menu_item }}"/></div>
                                 <div class="col-md-3  "><input class="form-control ccprice pricechk margin-left-10"
                                                                type="text" placeholder="Optional $"
                                                                value="{{ $cc->price }}"/></div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="btn-group pull-right" role="group" aria-label="Basic example">
                                     <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
                                        class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>
