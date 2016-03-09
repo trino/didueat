@@ -140,15 +140,23 @@ $('.removelast').live('click', function () {
 });
 
 $('.addmorebtn').live('click', function () {
+    
+    var id = 0;
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore">' +
         '<div class=" ignore ignore2 ignore1">' +
-        '<div class="col-md-6"><input class="form-control cctitle" type="text" placeholder="Item Name" /></div>' +
-        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="number" step="any" min="0" placeholder="Optional Price" /></div>' +
+        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item Name" /></div>' +
+        '<div class="col-md-3"><input class="form-control ccprice pricechk" type="number" step="any" min="0" placeholder="Optional Price" /></div>' +
         '</div>' +
-        '<div class="col-md-2 ignore top-padd ignore2">' +
-        '<a href="javascript:void(0);" class="btn btn-sm btn-secondary-outline pull-right" onclick="$(this).parent().parent().remove();"><i class="fa fa-times"></i></a>' +
-        '</div><div class="clearfix"></div></div>');
+        '<div class="col-md-4">'+
+        '<div class="btn-group pull-right" role="group" aria-label="Basic example">'+
+        '<button href="javascript:void(0)" id="child_up_'+id+'" '+
+        'class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>'+
+        '<button href="javascript:void(0)" id="child_down_'+id+'" '+
+        'class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-down"></i></button>'+
+        '<button href="javascript:void(0);" class="btn btn-sm btn-secondary" onclick="$(this).closest(\'.cmore\').remove();" >'+
+        '<i class="fa fa-times"></i> </button>'+
+        '</div></div><div class="clearfix"></div></div>');
 });
 
 $('.is_multiple').live('change', function () {

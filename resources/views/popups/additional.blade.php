@@ -171,7 +171,7 @@
                                        <?php }elseif(isset($child->exact_upto) && $child->exact_upto == 2){?> value="2"<?php }else{?> value="1"<?php }?> />
                                     <LABEL class="c-input c-radio">
                                 <input type="radio"
-                                       onclick="$(this).closest('.multiplepart').find('.up_t').val(0);"
+                                       onclick="$(this).closest('.multiplepart').find('.up_t').val(0);$(this).closest('.multiplepart').find('.howmany').show();"
                                        @if(!isset($child->exact_upto) || (isset($child->exact_upto) && $child->exact_upto == 0)) checked="checked"
                                        @endif class="up_to up_to_selected" value="0"
                                        name="{{ $r3 }}">
@@ -182,7 +182,7 @@
 </LABEL>
                                     <LABEL class="c-input c-radio">
                                 <input
-                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(1);" class="up_to"
+                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(1);$(this).closest('.multiplepart').find('.howmany').show();" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         @if(isset($child->exact_upto) && $child->exact_upto == 1) checked="checked" @endif>
                                 Exactly
@@ -192,7 +192,7 @@
                                     
                                     <LABEL class="c-input c-radio">
                                 <input
-                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(2);$('.howmany').hide();" class="up_to"
+                                        type="radio" onclick="$(this).closest('.multiplepart').parent().find('.up_t').val(2);$(this).closest('.multiplepart').find('.howmany').hide();" class="up_to"
                                         value="1" name="{{ $r3 }}"
                                         <?php if(isset($child->exact_upto) && $child->exact_upto == 2){$two = 1;?> checked="checked"<?php }else{$two=0;}?> />
                                 Unlimited
