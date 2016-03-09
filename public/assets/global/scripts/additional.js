@@ -405,16 +405,17 @@ $('.savebtn').live('click', function () {
 });
 
 
-var morevisible=false;
-function toggleMore(){
-    if(!morevisible){
-        document.getElementById('moreInfo').style.display='block'
-        document.getElementById('readmore').innerHTML="Hide More";
-        morevisible=true;
+var morevisible=[false,false];
+
+function toggleMore(id,msgIns){
+    if(!morevisible[id]){
+        document.getElementById('moreInfo'+id).style.display='block'
+        document.getElementById('readmore'+id).innerHTML="Hide";
+        morevisible[id]=true;
     } else{
-        document.getElementById('moreInfo').style.display='none'
-        document.getElementById('readmore').innerHTML="Read More";
-        morevisible=false;
+        document.getElementById('moreInfo'+id).style.display='none'
+        document.getElementById('readmore'+id).innerHTML=msgIns+" More";
+        morevisible[id]=false;
     }
 }
 

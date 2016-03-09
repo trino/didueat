@@ -34,7 +34,7 @@ border-top: 1px solid #ddd;
 
 .instruct {
     font-size: 16px;
-    color: #f00;
+    color: #e9232d;
     margin-left: auto;
     margin-right: auto;
     text-align: center
@@ -46,6 +46,12 @@ border-top: 1px solid #ddd;
 
 .smRd{}
 
+.bigBlt{}
+
+.worksImg{padding-right:10px;padding-bottom:25px !important;float:left}
+
+.und{text-decoration:underline}
+
 @-moz-document url-prefix() {
     .glyphUp{position:relative;top:-17px;margin-bottom:-17px}
 }
@@ -55,6 +61,8 @@ border-top: 1px solid #ddd;
 .bigT{font-size:24px;line-height:26px;margin-top:6px}
 
 .smallT{ color: red;}
+
+.smT{font-size:12px;font-weight:normal}
 
 .grayout{filter: alpha(opacity=50);opacity: 0.5;}
 
@@ -167,6 +175,9 @@ border-top: 1px solid #ddd;
         padding: 0 !important;
         margin: 0 !important;
     }
+    
+    .worksImg{padding-right:6px;padding-bottom:10px !important;float:left}
+    .bigBlt{line-height:1.15 !important;margin-top:0px !important}
 
 }
 

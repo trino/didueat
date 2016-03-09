@@ -23,83 +23,82 @@
             <div class="clearfix"></div>
 
             <div class="col-md-12 clearfix">
-                <h4 class="p-t-0 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase between 15
-                    - 25% a year!</h4>
+                <h4 class="p-t-0 p-b-0 banner-text-shadow">Put your menu online. Average revenue increase of 15-25% a year!</h4>
 
             </div>
 
 
-            <div class="col-md-12 clearfix">
+            <div class="col-md-12 clearfix" style="margin:0px;color:#000;border:solid #e9232d 2px;background:#f4f7f8;padding:12px !important;text-align:left">
 
+                <span class="und bd" style="color:#e9232d;font-size:19px !important">How It Works</span>&nbsp; {{ DIDUEAT  }} connects restaurants to customers looking for a handy way to satisfy their cravings. Instead of an exhaustive menu to browse, we do things a bit differently -- our restaurants each feature a Meal of the Day. Using a cellphone or computer, it is a quick and easy process for customers to order -- simply select a food category, and then choose an appetizing meal. {{ DIDUEAT  }}'s secure checkout is on the same page, and enables customers to pick up their meals, or have them delivered. It's that simple -- simple for the customer, and simple for the restaurant!
 
-                <span class="  ">
-                How It Works
-                {{ DIDUEAT  }} is dedicated to connecting local restaurants to hungry customers. Instead of having an
-                exhausting menu for customers to look through, we do things a bit differently. Our restaurants feature a
-                meal of
-                the day for each day of the week. The customer simply selects the food category they feel like having,
-                choose the meal that appeals to them, place their order through the site, pick up/wait for delivery, and
-                enjoy.
-                That's it!
+                &nbsp;<a HREF="#" onclick="toggleMore(0,'Read');return false" style="text-decoration:none;color:#00f">
+                    <span id="readmore0" style="cursor:default;text-decoration:underline; color: #00f;font-weight: bold;">Read More</span>
+                </a><div class="smBR"><br/><br/></div>
+                
+                <span id="moreInfo0" class="p-t-0" style="display:none">
+                    <div class="smBR"></div>{{ DIDUEAT  }} prides itself on its easy ordering system -- helping customers spend less time searching for and ordering their meals! Improving on the emerging trend towards centralized meal ordering apps, {{ DIDUEAT  }} makes the process easier and faster than ever before. Don't miss out on the next big thing in restaurant ordering! Book an appointment with one of our sales reps, and we'll be happy to describe {{ DIDUEAT  }} in further detail.<div class="smBR"><br/><br/></div>
+                    
+                <span class="und bd" style="color:#e9232d;font-size:17px !important">A Limited Time Offer!</span>&nbsp; <a HREF="#" onclick="toggleMore(1,'Learn');return false" style="text-decoration:none;color:#00f"><span id="readmore1" style="cursor:default;text-decoration:underline; color: #00f;font-weight: bold;">Learn More</span></a><br/>
+                 <span id="moreInfo1" class="p-t-0" style="display:none">
+                    <div class="smBR"></div>
+                    There will never be a better time to sign up with {{ DIDUEAT  }}! For a limited time, {{ DIDUEAT  }} is offering its premium sign-up package for free, helping you every step of the way so you can start getting more business as quickly as possible. {{ DIDUEAT  }} will complete your registration, offer first-hand instruction to familiarize you with the system, and will even work with you on your image portfolio (including your logo and photos of your menu items).</span>
 
-                <a HREF="#" onclick="toggleMore();return false" style="text-decoration:none;color:#00f"><br>
-                    <span id="readmore" style="text-decoration:underline; color: white;font-weight: bold;">Read More</span>
-                </a>
-</span><br>
-                <span id="moreInfo" class="p-t-0" style="display:none">
-                    <div class="smBR"></div>We pride ourselves on our easy ordering system so customers spend less time ordering and enjoy more time
-            eating. What are you waiting for? Sign up now and let the {{ DIDUEAT  }} team bring the customers to you.
-            By putting your restaurant online with {{ DIDUEAT  }}, you'll be getting more business from hungry customers
-            in your local area
-            Diners on our sites browse your menu and place an order from their computer or web app. Once that's
-            done, our system sends you the order to be made and delivered just like you do now.
-            You'll only pay on orders we send you!
+<br/>       
+        <div class="col-sm-3" style="text-align:left">
+            <img class="p-b-1 worksImg"  src="{{ asset('assets/images/click.png') }}">
 
-<br/><br/>
+            <h4>Free Sign Up</h4>
 
-        <div class="col-sm-3   ">
-            <img class="p-b-1"  src="{{ asset('assets/images/click.png') }}">
-
-            <h4>Sign Up</h4>
-
-            <p>Sign up or contact us to book an appointment</p>
+            <p class="bigBlt">Sign up online, or contact us to book an appointment</p>
         </div>
 
-        <div class="col-sm-3   ">
-            <img class="p-b-1" src="{{ asset('assets/images/clip.png') }}">
+        <div class="col-sm-3" style="text-align:left">
+            <img class="p-b-1 worksImg" src="{{ asset('assets/images/clip.png') }}">
 
             <h4>Create Menu</h4>
 
-            <p>Do it yourself menu creation, update anytime</p>
+            <p class="bigBlt">Do it yourself menu creation; update anytime</p>
         </div>
 
-        <div class="col-sm-3   ">
-            <img class="p-b-1"  src="{{ asset('assets/images/box.png') }}">
+        <div class="col-sm-3" style="text-align:left">
+            <img class="p-b-1 worksImg"  src="{{ asset('assets/images/box.png') }}">
 
             <h4>Receive Orders</h4>
 
-            <p>Start receiving orders in as little as 10 minutes</p>
+            <p class="bigBlt">Start receiving orders in as little as 10 minutes</p>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-3" style="text-align:left">
             <div class="pricing-head pricing-head-active">
                 <h4>Pricing <span>Plan</span></h4>
 
             </div>
             <ul class="pricing-content list-unstyled">
                 <li><i class="fa fa-tags"></i> 10% Commission</li>
-                <li><i class="fa fa-tags"></i> Paid out Monthly</li>
+                <li><i class="fa fa-tags"></i> Account Paid Monthly</li>
                 <li><i class="fa fa-tags"></i> No Contract</li>
-                <li><i class="fa fa-tags"></i> Unsubscribe Anytime</li>
+                <li><i class="fa fa-tags"></i> Unsubscribe at Anytime</li>
             </ul>
 
         </div>
+        
+
+        <div>
+           A huge increase in your customer base is within reach. Using {{ DIDUEAT  }}'s simple set-up, you customize your presentation, and create your own menus and pricing. When a customer places an order from you, {{ DIDUEAT  }} processes the entire transaction on its secure payment system, and sends you the complete order electronically. Seconds later you receive notification, with precise details of the customer's order.<div class="smBR"><br/><br/></div>
+            
+<span class="bd">Sign up now, risk free, and let the {{ DIDUEAT  }} team bring customers to YOU!</span><div class="smBR"><br/><br/></div>
+        
+<span class="smT">For full details, please refer to {{ DIDUEAT  }}'s <a HREF="{{ asset('home/terms') }}" class="lnk smT">Terms of Use</a> page.</span>
+
+</div>
+        
             </span>
-
-
-        </div>
-        </div>
     </div>
+        </div>
+
+
+        </div>
     </div>
 </div>
 </div>

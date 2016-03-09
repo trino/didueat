@@ -102,3 +102,4 @@ public/assets/images/checkbox_d2.png
 *.env
 public/debugmode.ip
 resources/views/home/faq.blade.php
+old-and-new-db-compare.txt
