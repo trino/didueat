@@ -26,7 +26,6 @@
 
                     <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a><div id="browseMsg" class="label smRd"></div>
 
-
                     <input type="hidden" name="photo" id="hiddenLogo"/>
                     <img style="max-width:100%;"  id="picture" class="logopic"
                          @if($user_detail->photo)

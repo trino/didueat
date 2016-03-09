@@ -125,10 +125,10 @@ class Restaurants extends BaseModel {
     //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
     public static function getbusinessday($restaurant, $date = false, $delivery = false){
-        if(!$date){$date = time();}
+        if(!$date){$date = now(true);}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);
-        $Yesterday = current_day_of_week($date - (24*60*60));
+        $Yesterday = current_day_of_week($date - 86400);
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
@@ -201,9 +201,11 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = current_day_of_week();
-        $now = date('H:i:s');
-        $Yesterday = current_day_of_week(-1);
+        $date = now(true);
+        $data['date'] = date("l F j, Y - H:i (g:i A)", $date);
+        $DayOfWeek = current_day_of_week($date);
+        $now = date('H:i:s', $date);
+        $Yesterday = current_day_of_week($date - 86400);
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
@@ -221,7 +223,7 @@ class Restaurants extends BaseModel {
             $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
         }
         
-        $SQL .= $order . $limit;
+        $SQL .= $order . $limit . " -- Using date: " . $data['date'];
         
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
