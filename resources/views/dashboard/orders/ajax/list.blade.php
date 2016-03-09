@@ -109,7 +109,7 @@
 
                             echo '</td><TD>';
                                 if (Session::get('session_type_user') == "super" || $type=='restaurant'){
-                                    if ($value->time) {
+                                    if ($value->time && $value->status != "pending") {
                                         echo '<FONT COLOR="';
                                         $delay = (strtotime($value->time) - strtotime($value->order_time));
                                         if ($delay < 60) {

@@ -2,7 +2,7 @@
     printfile("dashboard/restaurant/hours.blade.php");
     $layout = false;
     $day_of_week = getweekdays();
-    $use_delivery_hours = false;
+    $use_delivery_hours = true;//don't forget to update the restaurants model
 
     $restaurantID = \Session::get('session_restaurant_id');
     if (!$restaurantID) {
@@ -106,13 +106,6 @@
                 }
             }
 
-            /*
-            foreach ($day_of_week as $key => $value) {
-            $opentime = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-            $closetime = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-            printrow($layout, $key, $value, $opentime, $closetime, "_del", "is_delivery_options is_delivery_2", $is_disabled);
-            }*/
-
             function printrow($layout, $key, $value, $opentime, $closetime, $suffix = "", $class = "", $is_disabled = false, $del_class = false){
                 $inputclass = "form-control time ";
                 $closed = "";
@@ -158,7 +151,7 @@
 
     <div class="col-md-12 col-xs-12 p-a-0" >
         @if($use_delivery_hours)
-            <DIV CLASS="is_delivery_options">
+            <DIV CLASS="is_delivery_options col-md-12">
                 <h4 class="pull-left p-r-1">Delivery Hours</h4>
                 <LABEL class="">
                     <LABEL class="c-input c-checkbox pull-left" valign="bottom">
@@ -171,24 +164,23 @@
 
                 <DIV CLASS="is_delivery_2">
                     <?php
-                        /*foreach ($day_of_week as $key => $value) {
-                            if (strpos($value, ">") === false) {
-                                $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
-                                $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
-                                printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
-                            }
-                        }*/
+                    foreach ($day_of_week as $key => $value) {
+                        if (strpos($value, ">") === false) {
+                            $opentime_del = (isset($open_del[$key])) ? $open_del[$key] : getTime($open_del[$key]);
+                            $closetime_del = (isset($close_del[$key])) ? $close_del[$key] : getTime($close_del[$key]);
+                            printrow($layout, $key, $value, $opentime_del, $closetime_del, "_del", "", $is_disabled);
+                        }
+                    }
                     ?>
                 </DIV>
             </div>
-        </div>
-    @endif
+        @endif
 
-    <div class="col-md-12">
-        <hr class="m-y-1" align="center"/>
-        <button type="submit" class="btn btn-primary pull-right">Save</button>
+        <div class="col-md-12">
+            <hr class="m-y-1" align="center"/>
+            <button type="submit" class="btn btn-primary pull-right">Save</button>
+        </div>
     </div>
-</div>
 </div>
 
 <script>
@@ -201,7 +193,9 @@
             $('#is_delivery_options').hide();
             $('.is_delivery_options').hide();
         }
-        //same(false);
+        @if($use_delivery_hours)
+            same(false);
+        @endif
     }
 
     function closed(event, ID) {
@@ -228,10 +222,12 @@
     }
 
     function change(type, id) {
-        /*if (document.getElementById("samehours").checked) {
-            var value = document.getElementById(type + "[" + id + "]").value;
-            document.getElementById(type + "_del[" + id + "]").value = value;
-        }*/
+        @if($use_delivery_hours)
+            if (document.getElementById("samehours").checked) {
+                var value = document.getElementById(type + "[" + id + "]").value;
+                document.getElementById(type + "_del[" + id + "]").value = value;
+            }
+        @endif
     }
 
     function same(event) {
