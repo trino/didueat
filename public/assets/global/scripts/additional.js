@@ -36,7 +36,7 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
     });
     return $ajax.responseText;
 }
-
+/*
 $(".sorting_child").live('click', function () {
     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
     var sort = 'down';
@@ -64,7 +64,61 @@ $(".sorting_child").live('click', function () {
         }
     });
 });
+*/
 
+$(".sorting_child").live('click', function () {
+    var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
+    var sort = 'down';
+    if ($(this).attr('id') == 'child_up_' + pid) {
+        sort = 'up';
+    }
+    var $real = $(this).closest('.cmore');
+    
+    var html1 = $real.html();
+    var id1 = $real.attr('id');
+    
+    if(sort=='up'){
+    var html2 = $(this).closest('.cmore').prev().html();
+    var id2 = $(this).closest('.cmore').prev().attr('id');
+    var $change = $(this).closest('.cmore').prev();
+    
+    }
+    else
+    {
+    var html2 = $(this).closest('.cmore').next().html();
+    var id2 = $(this).closest('.cmore').next().attr('id'); 
+    var $change = $(this).closest('.cmore').next();
+    
+    }
+    
+    $real.html(html2);
+    $real.attr('id',id2);
+    
+    $change.html(html1);
+    $change.attr('id',id1);
+    
+    /*alert(html2);
+    return;
+    var order = '';
+    $(this).closest('.subcat').find('.cmore').each(function (index) {
+        var val = $(this).attr('id').replace('cmore', '');
+        if (order == '') {
+            order = val;
+        } else {
+            order = order + ',' + val;
+        }
+    });
+    $th = $(this);
+
+    $.ajax({
+        url: base_url+"restaurant/orderCat/" + pid + '/' + sort,
+        data: 'ids=' + order + '&_token='+token,
+        type: 'post',
+        success: function (res) {
+            $th.closest('.addmore').load(base_url+"restaurant/loadChild/" + res + '/0');
+        }
+    });*/
+});
 $(".addon_sorting").live('click', function () {
     var menu_id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
     var pid = $(this).attr('id').replace('addon_up_', '').replace('addon_down_', '');
@@ -145,8 +199,8 @@ $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore">' +
         '<div class=" ignore ignore2 ignore1">' +
-        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item Name" /></div>' +
-        '<div class="col-md-3"><input class="form-control ccprice pricechk" type="number" step="any" min="0" placeholder="Optional Price" /></div>' +
+        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item Name" value="" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
+        '<div class="col-md-3"><input class="form-control ccprice pricechk" type="number" step="any" value="" min="0" placeholder="Optional Price" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
         '</div>' +
         '<div class="col-md-4">'+
         '<div class="btn-group pull-right" role="group" aria-label="Basic example">'+
