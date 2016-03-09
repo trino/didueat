@@ -357,11 +357,11 @@ function add_matchpattern() {
 function add_checkphone() {
     jQuery.validator.addMethod("checkPhone", function (value, element) {
         value = value.replace(/\D/g,'');
-        if (value.length != 10) {return false;}
+        if (value.length != 10) {return false;}//must be 10 digits
         var firstdigit = value.substring(0, 1);
-        if(firstdigit == 0 || firstdigit == 1){return false;}
+        if(firstdigit == 0 || firstdigit == 1){return false;}//do not allow 0 or 1 to be the first number
         firstdigit = value.substring(0, 3);
-        return AreaCodes.indexOf(Number(firstdigit)) > -1;
+        return AreaCodes.indexOf(Number(firstdigit)) > -1;//only allow canadian area codes from the helper
     });
 }
 

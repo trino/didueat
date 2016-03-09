@@ -196,15 +196,20 @@
     }
 
     //sanitizes a phone number
-    function phonenumber($phone, $qualifyareacode = true){
-        $phone = preg_replace("/[^0-9]/", "", $phone); // note: strip out everything but numbers
-        if (left($phone, 1) == 0 || left($phone, 1) == 1) {
+    //$qualifyareacode: if true, only valid canadian area codes will be accepted
+    //$format: if true, it will be formatted into "(012) 345-6789"
+    function phonenumber($phone, $format = false, $qualifyareacode = true){
+        $phone = preg_replace("/[^0-9]/", "", $phone); // strip out everything but numbers
+        if (left($phone, 1) == 0 || left($phone, 1) == 1) {//do not allow 0 or 1 to be the first number
             $phone = right($phone, strlen($phone) - 1);
         }
         if(strlen($phone) > 10){$phone = left($phone, 10);}//MUST BE 10 DIGITS!!!!
         if(strlen($phone) < 10){$phone = 0;}//MUST BE 10 DIGITS!!!!
         if($qualifyareacode){
             if(!qualifyareacode($phone)){$phone = "";}
+        }
+        if($format){
+            $phone = preg_replace("/([0-9]{3})([0-9]{3})([0-9]{4})/", "($1) $2-$3", $phone);
         }
         return $phone;
     }

@@ -84,9 +84,9 @@
                                                    name="delevery_type"
                                                    onclick="delivery('show');"
                                                    @if(!isset($restaurant->is_pickup) || !$restaurant->is_pickup)
-                                                   CHECKED TITLE="Only does delivery"
-                                                    @endif
-                                                    >
+                                                        CHECKED TITLE="Only does delivery"
+                                                   @endif
+                                            >
                                             <span class="c-indicator"></span>
                                             <strong>Delivery</strong>
                                         </label>
@@ -98,9 +98,9 @@
                                                    class="deliverychecked"
                                                    onclick="delivery('hide');"
                                                    @if(!isset($restaurant->is_delivery) || !$restaurant->is_delivery)
-                                                   CHECKED TITLE="Only does pickup"
-                                                    @endif
-                                                    >
+                                                        CHECKED TITLE="Only does pickup"
+                                                   @endif
+                                            >
                                             <span class="c-indicator"></span>
                                             <strong>Pickup</strong>
                                         </label>
@@ -160,9 +160,7 @@
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary btn-block" style="width: 100%;" href="tel:{{ $restaurant->phone }}">Call: {{ $restaurant->phone }}</a>
-
-
+                            <a class="btn btn-primary btn-block" style="width: 100%;" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
                             <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
                         @endif
@@ -183,10 +181,10 @@
                     <!--div class="form-group ">
                         <div class="col-xs-12">
                     @if(\Session::has('is_logged_in'))
-                    <?php
-                        $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                        echo "<p>Welcome " . $profile->name . "</p>";
-                    ?>
+                        <?php
+                            $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                            echo "<p>Welcome " . $profile->name . "</p>";
+                        ?>
                     @endif
 
                             </div>
