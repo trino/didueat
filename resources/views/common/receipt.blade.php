@@ -1,46 +1,49 @@
 <?php
-printfile("views/common/receipt.blade.php");
-$ordertype = false;
-$em=0;
-if(isset($email_msg)){
-    $em = 1;
-}
-if (isset($order)) {
-    if ($order->order_type) {
-        $ordertype = "Delivery";
-    } else {
-        $ordertype = "Pickup";
+    printfile("views/common/receipt.blade.php");
+    $ordertype = false;
+    $em=0;
+    if(isset($email_msg)){
+        $em = 1;
     }
-}
-if (!isset($profile)) {
-    $profile = false;
-}
-if (!isset($type)) {
-    $type = false;
-}
-if (!isset($checkout_modal)) {
-    $checkout_modal = true;
-}
+    if (isset($order)) {
+        if ($order->order_type) {
+            $ordertype = "Delivery";
+        } else {
+            $ordertype = "Pickup";
+        }
+    }
+    if(isset($_GET["delivery_type"])){
+        $ordertype = $_GET["delivery_type"];
+    }
+    if (!isset($profile)) {
+        $profile = false;
+    }
+    if (!isset($type)) {
+        $type = false;
+    }
+    if (!isset($checkout_modal)) {
+        $checkout_modal = true;
+    }
 
-$checkout = "Checkout";
-$is_my_restro = false;
-$business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
+    $checkout = "Checkout";
+    $is_my_restro = false;
+    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
 
-if(read("restaurant_id")){
-    $is_my_restro = $restaurant->id == read("restaurant_id");
-    if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
-        $business_day = false;
+    if(read("restaurant_id")){
+        $is_my_restro = $restaurant->id == read("restaurant_id");
+        if(!$is_my_restro && !debugmode() && Session::get('session_type_user') != "super"){
+            $business_day = false;
+        }
     }
-}
-if(!$business_day || !$restaurant->open){
-    if(Session::get('session_type_user') == "super"){
-        $checkout .= " (SUPER)";
-    } else if(debugmode()){
-        $checkout .= " (DEBUG)";
-    } else if ($is_my_restro) {
-        $checkout .= " (OWNER)";
+    if(!$business_day || !$restaurant->open){
+        if(Session::get('session_type_user') == "super"){
+            $checkout .= " (SUPER)";
+        } else if(debugmode()){
+            $checkout .= " (DEBUG)";
+        } else if ($is_my_restro) {
+            $checkout .= " (OWNER)";
+        }
     }
-}
 ?>
 
 @if(false && !isset($order))
@@ -181,8 +184,8 @@ if(!$business_day || !$restaurant->open){
                         <div class="col-xs-12">
                     @if(\Session::has('is_logged_in'))
                     <?php
-                    $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                    echo "<p>Welcome " . $profile->name . "</p>";
+                        $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
+                        echo "<p>Welcome " . $profile->name . "</p>";
                     ?>
                     @endif
 
@@ -230,15 +233,16 @@ if(!$business_day || !$restaurant->open){
     $(function () {
         show_header();
 
-                @if($ordertype)
-                    @if($ordertype == "Delivery")
-                        var ordertype = "is_delivery";
-                @else
-                    var ordertype = "is_pickup";
-                @endif
+        @if($ordertype)
+            @if($ordertype == "Delivery" || $ordertype == "is_delivery")
+                var ordertype = "is_delivery";
             @else
-                var ordertype = getCookie("delivery_type");
+                var ordertype = "is_pickup";
+            @endif
+        @else
+            var ordertype = getCookie("delivery_type");
         @endif
+
         if (ordertype == "is_delivery"){
             $('#delivery1').click();
         } else {

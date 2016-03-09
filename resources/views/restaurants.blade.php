@@ -123,7 +123,7 @@ if ($useHamilton) {
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_delivery"
                                                    checked
-                                                   onclick="createCookieValue('delivery_type', this.value)"/>
+                                                   onclick="setdeliverytype(this.value);"/>
                                             <span class="c-indicator"></span>
                                             Delivery
                                         </label>
@@ -134,7 +134,7 @@ if ($useHamilton) {
                                         <label class="c-input c-radio ">
                                             <input type="radio" name="delivery_type" id="delivery_type"
                                                    value="is_pickup"
-                                                   onclick="createCookieValue('delivery_type', this.value)"/>
+                                                   onclick="setdeliverytype(this.value);"/>
                                             <span class="c-indicator"></span>
                                             Pickup
                                         </label>
@@ -267,6 +267,23 @@ if ($useHamilton) {
     <script type="text/javascript">
         var elementname = '#formatted_address2';
         onloadpage();
+
+        function setdeliverytype(deliverytype){
+            createCookieValue('delivery_type', deliverytype);
+            var text, replacewith = "delivery_type="
+            if(deliverytype == "is_pickup"){
+                replacewith = replacewith + "is_delivery";
+            } else {
+                replacewith = replacewith + "is_pickup";
+            }
+            deliverytype ="delivery_type=" + deliverytype;
+            $('.restaurant-url').each(function() {
+                text = $(this).attr('href');
+                text = text.replace(replacewith, deliverytype);
+                $(this).attr('href', text);
+            });
+        }
+
         function keypress(event) {
             if (event.keyCode == 13) {
                 submitform(event, 0);

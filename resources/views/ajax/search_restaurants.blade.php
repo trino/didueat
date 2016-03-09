@@ -83,23 +83,20 @@
             <div class="list-group-item">
                 <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
                     <div class="p-r-1" >
-
-                    <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
-                        <img style="max-width:100%;" class="" alt="" src="{{ asset('assets/images/' . $logo) }}">
-                        <div class="clearfix"></div>
-
-                    </a>
-
+                        <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url">
+                            <img style="max-width:100%;" class="" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                            <div class="clearfix"></div>
+                        </a>
                     </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="col-md-9 p-a-0">
-                    <a class="card-link" href="{{ url('restaurants/'.$value['slug'].'/menu') }}">
+                    <a class="card-link restaurant-url" href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}">
                         <h4 style="margin-bottom: 0 !important;">
                             {{ $value['name'] }}
                             <div class="pull-right">
-                            <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}" class="btn  @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
-                                </div>
+                                <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url btn @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
+                            </div>
                         </h4>
                     </a>
 
@@ -161,9 +158,6 @@
             }
         }
 
-                    ?>
-
-<?
         if($openStr != ""){
             echo $openStr;
         }
