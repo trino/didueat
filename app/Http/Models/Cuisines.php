@@ -7,6 +7,7 @@ class Cuisines extends BaseModel {
 
     protected $table = 'cuisines';
     protected $primaryKey = 'id';
+    public $timestamps = false;
 
     /**
      * @param array
