@@ -121,6 +121,9 @@ class RestaurantController extends Controller {
             return $this->failure(handleexception($e), 'restaurant/list');
         }
     }
+    public function bringonline(){
+        return $this->restaurantStatus();
+    }
 
     /**
      * create a New Restaurant
