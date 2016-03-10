@@ -797,11 +797,19 @@ class RestaurantController extends Controller {
     }
 
     public function deletemenuimage($id){
-        $restaurant_id = select_field("menus", "id", $id, "restaurant_id");
-        $slug = select_field("restaurants", "id", $restaurant_id, "slug");
+//        $restaurant_id = select_field("menus", "id", $id, "restaurant_id"); // take from Session instead of db
+        $restaurant_id = \Session::get('session_restaurant_id');
         $dir = public_path('assets/images/restaurants/' . $restaurant_id . "/menus/" . $id);
         $this->deleteDir($dir);
-        mkdir($dir);
-        return $this->success("Menu images deleted", "restaurants/" . $slug . "/menu");
+//        mkdir($dir); // why recreate? If restaurant uploads image in future, it will recreate the directory
+        if(isset(\Session::get('_previous')['url'])){
+		        $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
+          $thisSlug=end($thisSlugA);
+        }
+        else{
+          $thisSlug = select_field("restaurants", "id", $restaurant_id, "slug"); // don't do db call for slug unless needed
+        }
+        update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
+        return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
     }
 }
