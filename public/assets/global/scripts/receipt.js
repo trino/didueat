@@ -223,36 +223,46 @@ $(function(){
             all += Number($(this).text());
         });
         if(dir){//addspan
-            if(all >extra_no) {
+            if(all >extra_no && upto!='2') {
                 $('.error_'+td_id).show();
                 $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
                 $('.error_'+td_id).fadeOut(2000);
                 return false;
             }
             var nqty = '';
-            var id = $(this).attr('id').replace('addspan_','');
+            var id = $(tthis).attr('id').replace('addspan_','');
+            var qty = Number($(tthis).parent().find('.span_'+id).text());            
+            qty = Number(qty)+ Number(1);
+                    
+            $(tthis).parent().find('.span_'+id).html(qty);            
+                        
         } else {//remspan
-            if(all <=extra_no) {
+            if(all <=extra_no && upto!='2') {
                 $('.error_' + td_id).html("");
             }
-            var id = $(this).attr('id').replace('remspan_','');
+            var id = $(tthis).attr('id').replace('remspan_','');
+            var qty = Number($(tthis).parent().find('.span_'+id).text());            
+            if(qty !=0)
+                qty = Number(qty) -Number(1);
+            $(tthis).parent().find('.span_'+id).html(qty);            
+                        
         }
-        var qty = Number($(this).parent().find('.span_'+id).text());
+        var qty = Number($(tthis).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-        var chk = $(this).parent().parent().find('#extra_'+id)
+        var chk = $(tthis).parent().parent().find('#extra_'+id)
         var tit = chk.attr('title');
         var title = tit.split("_");
-        if(qty !=0) {
+        if(qty !=0) 
+         {
             title[1]= title[1].replace('x('+qty+")","");
             title[0] = title[0].replace('-'+qty,'');
-            qty = Number(qty) -Number(1);
-            $(this).parent().find('.span_'+id).html(qty);
-        }
+            
+         }
         if(qty ==0) {
-            if(dir) {//addspan
-                chk.removeClass('checked');
-                chk.prop('checked', false);
-            }
+            
+            chk.removeClass('checked');
+            chk.prop('checked', false);
+         
             chk.removeAttr('checked');
             newtitle = title[1];
             newprice = price;
@@ -268,9 +278,9 @@ $(function(){
         }
         newtitle = title[0] + "_" + newtitle + "_" + newprice + "_" + title[3];
         newtitle = newtitle.replace(" x(1)","");
-        $(this).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
-        $(this).parents('.buttons').find('label.changemodalP').click();
-        $(this).parents('.buttons').find('label.changemodalP').click();
+        $(tthis).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
+        $(tthis).parents('.buttons').find('label.changemodalP').click();
+        $(tthis).parents('.buttons').find('label.changemodalP').click();
         showloader();
     }
 

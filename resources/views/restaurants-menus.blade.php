@@ -488,7 +488,7 @@
                                     } else {
                                         $('.error_' + catid).html("");
                                     }
-                                } else {
+                                } else if(upto == '1'){
                                     if (cnn == 0) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
@@ -525,7 +525,7 @@
                                     } else {
                                         $('.error_' + catid).html("");
                                     }
-                                } else {
+                                } else if(upto == '1'){
                                     if (multiples == 0 && cnn > 0 && cnn != extra_no) {
                                         err++;
                                         td_index = $('#td_' + catid).index();
