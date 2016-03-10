@@ -70,7 +70,10 @@
 
     if(isset($query) && $count > 0 && is_iterable($query)){
         foreach($query as $value){
-            $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/small-' . $value['logo'] : 'small-smiley-logo.png';
+            $logo = 'small-smiley-logo.png';
+            if($value['logo'] && file_exists(public_path('assets/images/restaurants/' . $value['id'] . '/small-' . $value['logo']))){
+                $logo = 'restaurants/' . $value['id'] . '/small-' . $value['logo'];
+            }
             $value['tags'] = str_replace(",", ", ", $value['tags']);
             if ($value['is_delivery']) {
                 $Delivery_enable = "Delivery";
