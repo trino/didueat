@@ -66,6 +66,8 @@
     $closedCnt=0;
     $openStr="";
     $closedStr="";
+    $Day = current_day_of_week();
+
     if(isset($query) && $count > 0 && is_iterable($query)){
         foreach($query as $value){
             $logo = ($value['logo'] != "") ? 'restaurants/' . $value['id'] . '/small-' . $value['logo'] : 'small-smiley-logo.png';
@@ -81,30 +83,27 @@
             }
             //check if the store is opened, based on it's hours
             $key = iif($delivery_type == "is_delivery", "_del");
-            $Day = current_day_of_week();
-            $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
-            $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
-            $is_open = $open <= $user_time && $close >= $user_time && $value['open'];
+            $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($value)) && $value['open'];
 
-            //show how long it is/was till the store opens/closed
             $MoreTime = "";
-            if(!$is_open && $value['open']){
-                if($open > $user_time){
-                    $MoreTime = "Opens in: ~" . timediff($open, $user_time);
-                } else if ($close < $user_time) {
-                    $MoreTime = "Closed: ~" . timediff($user_time, $close) . " ago";
+            $grayout="";
+            $Message = "Order Online";
+            if(!$is_open){
+                $grayout=" grayout";
+                $Message = "View Menu";
+                $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
+                $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
+                if($value['open']){
+                    if($open == $close){
+                        $MoreTime = "Doesn't open today";
+                    } else if($open > $user_time){
+                        $MoreTime = "Opens in: ~" . timediff($open, $user_time);
+                    } else if ($close < $user_time) {
+                        $MoreTime = "Closed: ~" . timediff($user_time, $close) . " ago";
+                    }
+                } else {
+                    $MoreTime = "Not accepting orders";
                 }
-            }
-
-            $openedRest=$is_open;
-            if(isset($value['openedRest'])){
-                $openedRest = $value['openedRest'];
-            }
-            $grayout=" grayout";
-            $Message = "View Menu";
-            if($is_open){
-                $grayout="";
-                $Message = "Order Online";
             }
             ob_start();
         ?>
@@ -130,8 +129,8 @@
                     </a>
 
                     <div>
-                        @if(!$openedRest)
-                            <div class="smallT "> Currently @if(!$value['open']) not accepting orders @else closed @endif </div>
+                        @if(!$is_open)
+                            <div class="smallT">Currently closed</div>
                         @endif
                         {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                         <div  class="clearfix"></div>
@@ -158,13 +157,8 @@
                         <span class="list-inline-item">Distance: {{ round($value['distance'],2) }} km</span>
                     @endif
 
-                    @if(false)
-                        {{ $value['address'] }}, {{ $value['city'] }}, {{ $value['province'] }}, {{ select_field("countries", 'id', $value['country'], 'name') }}
-                        <span class="label label-pill label-{{ iif($is_open, "warning", "danger") }}" TITLE="{{ $Day }}">Hours: {{ left($open, strlen($open) - 3) . " - " . left($close, strlen($close) - 3) }}</span>
-                    @endif
-
-                    @if($MoreTime)
-                        <span class="list-inline-item">{{ $MoreTime }}</span>
+                    @if(isset($MoreTime) && $MoreTime)
+                        <span class="list-inline-item" style="color: red;">{{ $MoreTime }}</span>
                     @endif
 
                 </div>
@@ -175,7 +169,7 @@
 
 
             <?php //i don't know what this mess of code does
-                if(isset($openedRest) && $openedRest == 1){
+                if(isset($is_open) && $is_open == 1){
                     $openStr.="".ob_get_contents();
                 } else{
                     $closedStr.="".ob_get_contents();
@@ -183,7 +177,7 @@
                 ob_end_clean();
                 // move counter outside buffer
                 $totalCnt++;
-                if(isset($openedRest) && $openedRest == 1){
+                if(isset($is_open) && $is_open == 1){
                     $openCnt++;
                 } else{
                     $closedCnt++;

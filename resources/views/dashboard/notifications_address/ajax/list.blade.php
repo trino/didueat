@@ -92,7 +92,7 @@
             @else
                 <tbody>
                     <tr>
-                        <td><span class="text-muted">No Notifcations Yet</span></td>
+                        <td><span class="text-muted">No Notifcations Methods Yet</span></td>
                     </tr>
             @endif
             </tbody>

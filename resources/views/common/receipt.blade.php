@@ -36,14 +36,18 @@
             $business_day = false;
         }
     }
+
+    $title = "";
     if(!$business_day || !$restaurant->open){
         if(Session::get('session_type_user') == "super"){
-            $checkout .= " (SUPER)";
+            $reason = "SUPER";
         } else if(debugmode()){
-            $checkout .= " (DEBUG)";
+            $reason = "DEBUG MODE";
         } else if ($is_my_restro) {
-            $checkout .= " (OWNER)";
+            $reason = "OWNER";
         }
+        $title = "Closed, but bypassing because: " . $reason;
+        $checkout .= " (" . $reason . ")";
     }
 ?>
 
@@ -159,14 +163,11 @@
                 @if(!isset($order))
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();">{{ $checkout }}</a>
+                            <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
                             <a class="btn btn-primary btn-block" style="" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
-
                             <a class="btn btn-danger-outline disabled  btn-block" href="#">Currently Closed</a>
-
-
                         @endif
                     </div>
                 @endif
