@@ -1,5 +1,6 @@
 <?php
     printfile("views/dashboard/user/ajax/list.blade.php");
+    $restaurants = enum_all("restaurants");
 ?>
 
 @if(\Session::has('message'))
@@ -60,53 +61,53 @@
             @endif
             <tbody>
                 @if($recCount > 0)
-                @foreach($Query as $key => $value)
-                    <?php
-
-                        $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-
-                    foreach($Addresses as $Address){
-                            $value->phone = phonenumber($Address->phone);
-                            if($value->phone){
-                                break;
+                    @foreach($Query as $key => $value)
+                        <?php
+                            $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
+                            foreach($Addresses as $Address){
+                                $value->phone = phonenumber($Address->phone);
+                                if($value->phone){
+                                    break;
+                                }
                             }
-                        }
+                            $restaurant="";
+                            if($value->restaurant_id>0){
+                                $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
+                                $restaurant = $restaurant->name;
+                            }
+                        ?>
+                        <tr>
+                            <td>{{ $value->id }}</td>
+                            <td>{{ $value->name }}</td>
+                            <!--td>{{ $value->email }}</td-->
+                            <td>{{ $restaurant }}</td>
+                            <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
+                            <td>{{ phonenumber($value->phone, true) }}</td>
+                            <td>
+                                <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
+                                    Edit
+                                </a-->
+                                @if($value->id != \Session::get('session_id'))
+                                    <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                       onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
-                    ?>
-                <tr>
-                    <td>{{ $value->id }}</td>
-                    <td>{{ $value->name }}</td>
-                    <!--td>{{ $value->email }}</td-->
-                    <td><? if($value->restaurant_id>0){echo 'yes';} ?></td>
-                    <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
-                    <td>{{ $value->phone }}</td>
-                    <td>
-                        <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
-                            Edit
-                        </a-->
-                        @if($value->id != \Session::get('session_id'))
-
-                            <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
-                               onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
-
-                            <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
-                               onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
+                                    <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                       onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
-                <tr>
-                    <td><span class="text-muted">No Records</span></td>
-                </tr>
+                    <tr>
+                        <td><span class="text-muted">No Records</span></td>
+                    </tr>
                 @endif
             </tbody>
         </table>
     </div>
     @if(Session::get('session_type_user') == "super"  && $recCount > 10)
-
-    <div class="card-footer clearfix">
-        {!! $Pagination !!}
-    </div>
-        @endif
+        <div class="card-footer clearfix">
+            {!! $Pagination !!}
+        </div>
+    @endif
 </div>
