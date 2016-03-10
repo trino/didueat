@@ -116,7 +116,7 @@ class RestaurantController extends Controller {
             $ob = \App\Http\Models\Restaurants::find($id);
             update_database("restaurants", "id", $id, array("open" => 1- $ob->open));
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "closed", "open"), 'restaurant/list');
+            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "disabled", "enabled"), 'restaurant/list');
         } catch (\Exception $e) {
             return $this->failure(handleexception($e), 'restaurant/list');
         }

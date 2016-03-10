@@ -102,11 +102,13 @@
                         <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
                         <td>
                             @if($value->open == true)
-                                Open <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
-                                   onclick="return confirm('Are you sure you want to close {{ addslashes("'" . $value->name . "'") }} ?');">Close</a>
+                                <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Enabled</A>
+                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
+                                   onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
                             @else
                                 <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm"
-                                   onclick="return confirm('Are you sure you want to open {{ addslashes("'" . $value->name . "'") }} ?');">Open</a> Closed
+                                   onclick="return confirm('Are you sure you want to enable {{ addslashes("'" . $value->name . "'") }} ?');">Enable</a>
+                                <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Disabled</A>
                             @endif
                         </td>
                     @endif
