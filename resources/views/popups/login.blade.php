@@ -61,6 +61,7 @@
         var visitortimezone = -visitortime.getTimezoneOffset() / 60;
         $(".gmt").val(visitortimezone);
 
+        //save/delete data from the cookie
         $('#login-ajax-form').submit(function (e) {
             if ($("#login-remember").is(":checked")){
                 createCookieValue("login-email", $("#login-email").val() );
@@ -71,6 +72,7 @@
             }
         });
 
+        //attempt to get data from the cookie
         $(document).ready(function() {
             if(getCookie("login-email")){
                 $("#login-email").val(getCookie("login-email"));

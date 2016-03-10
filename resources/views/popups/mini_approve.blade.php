@@ -25,6 +25,7 @@
         </div>
     </div>
     <SCRIPT>
+        //make sure the note is filled in before submitting
         function confirm2(Action){
             var element = document.getElementById("text").value.length;
             if(element==0){

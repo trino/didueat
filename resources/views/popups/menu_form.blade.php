@@ -1,9 +1,8 @@
 <div class="newmenu ignore" id="newmenu{{ $menu_id }}">
-<?php 
-  printfile("views/popups/menu_form.blade.php"); 
-  $browseBtnTxt="Upload Image";
-?>
-
+    <?php
+          printfile("views/popups/menu_form.blade.php");
+          $browseBtnTxt="Upload Image";
+    ?>
     <div class=" ignore row">
         <div class="display:none;">
 
@@ -112,20 +111,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
     $(function () {

@@ -48,27 +48,24 @@
         if (trim(\Session::get('session_restaurant_id'))) {
             makelink(array('orders/list/restaurant' => 'Restaurant Orders',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Restaurant Menu",
-                    'notification/addresses' => "Order Notifications",
+                    'notification/addresses' => "Notification Methods",
                     'restaurant/info' => "Restaurant Details"
                 //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");
         }
 
+        $data = array('user/info' => "My Settings");
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
-            makelink(array(
-                    'orders/list/user' => 'My Orders',
-                    'user/info' => "My Settings",
-                    'user/addresses' => "Delivery Address",
-                /*
-                    'credit-cards/list/user' => "My Credit Cards",
-                */
-                    'auth/logout' => "Log out"
-            ), "My Profile");
-        } else {
-            makelink(array('user/info' => "My Settings",
-                    'auth/logout' => "Log out"
-            ), "My Profile");
+            $data["orders/list/user"] = "My Orders";
+            $data["user/addresses"] = "Delivery Address";
+            $data["auth/logout"] = "Log out";
         }
+        $data["auth/logout"] = "Log out";
+        if (read("oldid")){
+            $data['restaurant/users/action/user_depossess/' . read("oldid")] = "De-Possess";
+        }
+        makelink($data, "My Profile");
+
         ?>
     </UL>
 </div>

@@ -82,13 +82,7 @@
                         echo '<strong>Hours</strong>';
                     }
 
-
-echo "<table>";
-
-
-
-
-
+                    echo "<table>";
 
                     foreach ($days as $day) {
                         echo '<tr><td>' . $day . '&nbsp;</td><td>&nbsp;</td>';

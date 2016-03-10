@@ -23,12 +23,6 @@
 
 
                 @if(Session::has('is_logged_in'))
-                    @if (read("oldid"))
-                        <a style="padding-left:6px !important;"
-                           href="{{ url('restaurant/users/action/user_depossess/' . read("oldid")) }} "
-                           class="nav-link pull-right">De-Possess</a>
-                    @endif
-
                     <a href="#" data-toggle="modal" data-target="#navigationModal"
                        style="padding-top:2px;padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
                        onclick="modalcheck();">
