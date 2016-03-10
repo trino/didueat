@@ -157,7 +157,7 @@
                         <span class="list-inline-item">Distance: {{ round($value['distance'],2) }} km</span>
                     @endif
 
-                    @if(isset($MoreTime) && $MoreTime)
+                    @if(isset($MoreTime) && $MoreTime && debugmode())
                         <span class="list-inline-item" style="color: red;">{{ $MoreTime }}</span>
                     @endif
 

@@ -87,14 +87,10 @@
                                             <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
                                                 <hr class="clearfix" style="margin: 10px 0;"/>
 
-                                                <input type="hidden" value="{{ $sub->exact_upto_qty }}"
-                                                       id="extra_no_{{ $sub->id }}">
-                                                <input type="hidden" value="{{ $sub->req_opt }}"
-                                                       id="required_{{ $sub->id }}">
-                                                <input type="hidden" value="{{ $sub->sing_mul }}"
-                                                       id="multiple_{{ $sub->id }}">
-                                                <input type="hidden" value="{{ $sub->exact_upto }}"
-                                                       id="upto_{{ $sub->id }}">
+                                                <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
+                                                <input type="hidden" value="{{ $sub->req_opt }}" id="required_{{ $sub->id }}">
+                                                <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
+                                                <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
                                                 <div class="infolist col-xs-12">
                                                     <div style="display: none;">
@@ -160,7 +156,7 @@
                                                                                                   ></i></a>
                                                                            
                                                                         <span id="sprice_{{$mm->price}}"
-                                                                              class="span_{{ $mm->id }} allspan">0</span>
+                                                                              class="span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</span>
 
                                                                         <a id="addspan_{{ $mm->id }}"
                                                                            class="addspan btn btn-sm btn-primary-outline "

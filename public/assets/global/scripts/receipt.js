@@ -32,8 +32,8 @@ function showloader(){
 
 //clear the shopping cart
 function clearCartItems() {
-   var con = confirm('Are you sure you want to clear your cart?');
-   if(con==true) {
+    var con = confirm('Are you sure you want to clear your cart?');
+    if(con==true) {
         $('.receipt_main table.orders tr').remove();
         $('.subtotal').val(0);
         $('.subtotal').text('$0.00');
@@ -51,9 +51,9 @@ function clearCartItems() {
         $('.grandtotal').text('$0.00');
         total_items = 0;
         updatecart();
-   } else {
-       return false;
-   }
+    } else {
+        return false;
+    }
 }
 
 //scroll down to the receipt
@@ -68,7 +68,7 @@ function scrolltocheckout(){
 function checkout() {
     var del = $('#delivery_flag').val();
     var minimum_delivery = $('#minimum_delivery').val();
-    
+
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
     if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
@@ -92,7 +92,7 @@ function checkout() {
         }
         //$('.receipt_main').hide();
 
-       // $('.profiles').show().effect("pulsate", { times:1 }, 1000);
+        // $('.profiles').show().effect("pulsate", { times:1 }, 1000);
         $('.profiles').fadeIn("slow");
 
         scrolltocheckout();
@@ -197,92 +197,89 @@ $(function(){
         $('input.grandtotal').val(gtotal);
     });
 
-    //not sure what these do
+    //handle add/remove span
     $('.addspan').live('click',function(){
         handlespan(this, true);
     });
     $('.remspan').live('click',function(){
         handlespan(this, false);
     });
+
+    function showerror(td_id, text){
+        $('.error_'+td_id).stop(true, true);
+        $('.error_'+td_id).show();
+        $('.error_' + td_id).html(text);
+        $('.error_'+td_id).fadeOut(2000);
+        return false;
+    }
     function handlespan(tthis, dir){
         var td = $(tthis).parent().parent().closest('td');
         var td_id =td.attr('id');
         td_id = td_id.replace('td_','');
         var extra_no = $('#extra_no_' + td_id).val();
-        var nqty = '';
+
         var upto = $('#upto_' + td_id).val();
-        var all = 0;
-        if(dir){//addspan
-            var ut = 'exactly';
-            if(upto=='0') {
-                ut = 'up to';
-            }
-            all = 1;
+        var ut = 'exactly';
+        if(upto=='0') {
+            ut = 'up to';
         }
-        td.find('.allspan').each(function(){
+        var all = 1;
+
+        $(tthis).parent().parent().parent().parent().find('.allspan').each(function(){
             all += Number($(this).text());
         });
-        if(dir){//addspan
-            if(all >extra_no && upto!='2') {
-                $('.error_'+td_id).show();
-                $('.error_' + td_id).html("Cannot select more than " + extra_no+' options');
-                $('.error_'+td_id).fadeOut(2000);
-                return false;
+
+        $('.error_' + td_id).html("");
+        if(dir) {
+            if (all > extra_no) {
+                return showerror(td_id, "Cannot select more than " + extra_no + ' options');
             }
-            var nqty = '';
-            var id = $(tthis).attr('id').replace('addspan_','');
-            var qty = Number($(tthis).parent().find('.span_'+id).text());            
-            qty = Number(qty)+ Number(1);
-                    
-            $(tthis).parent().find('.span_'+id).html(qty);            
-                        
-        } else {//remspan
-            if(all <=extra_no && upto!='2') {
-                $('.error_' + td_id).html("");
-            }
-            var id = $(tthis).attr('id').replace('remspan_','');
-            var qty = Number($(tthis).parent().find('.span_'+id).text());            
-            if(qty !=0)
-                qty = Number(qty) -Number(1);
-            $(tthis).parent().find('.span_'+id).html(qty);            
-                        
         }
+
+        var nqty = '';
+        var id = $(tthis).attr('id').replace('addspan_', '').replace('remspan_','');
         var qty = Number($(tthis).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
-        var chk = $(tthis).parent().parent().find('#extra_'+id)
+        var chk = $(tthis).parent().parent().find('#extra_'+id);
+
         var tit = chk.attr('title');
         var title = tit.split("_");
-        if(qty !=0) 
-         {
-            title[1]= title[1].replace('x('+qty+")","");
-            title[0] = title[0].replace('-'+qty,'');
-            
-         }
-        if(qty ==0) {
-            
+        title[1]= title[1].replace(' x('+qty+")","");
+        title[0] = title[0].replace('-'+qty,'');
+
+        if(dir) {
+            qty = Number(qty) + Number(1);
+        } else if(qty>0) {
+            qty = Number(qty) - Number(1);
+        } else {
+            return false;
+        }
+        $(tthis).parent().find('.span_'+id).html(qty);
+        if(qty == 0) {
             chk.removeClass('checked');
-            chk.prop('checked', false);
-         
             chk.removeAttr('checked');
-            newtitle = title[1];
-            newprice = price;
+            chk.prop('checked',false);
+            newtitle= title[1];
+            newprice= price;
         } else {
             chk.prop('checked',true);
             chk.attr('checked','checked');
             if(!chk.hasClass('checked')) {
                 chk.addClass('checked');
             }
-            newtitle= title[1] + " x(" + qty + ")";
+            newtitle= title[1]+" x("+qty+")";
             newprice= Number(price)*Number(qty);
-            title[0] = title[0] + "-" + qty;
         }
-        newtitle = title[0] + "_" + newtitle + "_" + newprice + "_" + title[3];
+
+        newtitle = title[0]+"_"+newtitle+"_"+newprice+"_"+title[3];
         newtitle = newtitle.replace(" x(1)","");
         $(tthis).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(tthis).parents('.buttons').find('label.changemodalP').click();
         $(tthis).parents('.buttons').find('label.changemodalP').click();
+
         showloader();
     }
+
 
     //handle the +/- buttons on the receipt
     $('.decrease').live('click', function () {
@@ -385,24 +382,24 @@ $(function(){
 
     //not sure what this does
     $('body').on('click','.changemodalP',function(){
-            var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
-            var ids = "";
-            var app_title = "";
-            var price = 0;
+        var menu_id = $(this).parents('.modal').find('.add_menu_profile').attr('id').replace('profilemenu','');
+        var ids = "";
+        var app_title = "";
+        var price = 0;
 
-            $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
+        $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function (index) {
 
-                if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
-                    var tit = $(this).attr('title');
-                    var title = tit.split("_");
-                    var x = index;
-                    if (title[0] != "") {
-                        ids = ids + "_" + title[0];
-                    }
-                    app_title = app_title + "," + title[1];
-                    price = Number(price) + Number(title[2]);
+            if ($(this).hasClass('checked')||($(this).is(':checked') && $(this).attr('title') != "" && $(this).attr('title')!='___')) {
+                var tit = $(this).attr('title');
+                var title = tit.split("_");
+                var x = index;
+                if (title[0] != "") {
+                    ids = ids + "_" + title[0];
                 }
-            });
+                app_title = app_title + "," + title[1];
+                price = Number(price) + Number(title[2]);
+            }
+        });
         $('.modalprice'+menu_id).html('$'+price.toFixed(2));
         $('.Mprice'+menu_id).val(price);
         if($('.strikedprice'+menu_id).text()!="") {
@@ -411,8 +408,8 @@ $(function(){
             $('.strikedprice'+menu_id).text('$'+Number(price+sP-Number($('.displayprice'+menu_id).val())).toFixed(2));
         }
     })
-        
-}) 
+
+})
 
 //updates the cart in the header
 function updatecart(){
