@@ -198,7 +198,7 @@ $('.addmorebtn').live('click', function () {
     
     var id = 0;
     $(this).closest('.aitems').find('.addmore').append(
-        '<div class="cmore">' +
+        '<div class="cmore m-b-1">' +
         '<div class=" ignore ignore2 ignore1">' +
         '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item Name" value="" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
         '<div class="col-md-3"><input class="form-control ccprice pricechk" type="number" step="any" value="" min="0" placeholder="Optional Price" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
@@ -256,7 +256,7 @@ $('.savebtn').live('click', function () {
     var mul = 0;
     $_parent.find('.mul_ch').each(function(){
         var $rad = $(this).closest('.radios');
-        if($(this).is(':checked')) {
+        if($(this).is(':checked') && $rad.find('.up_t').val()!='2') {
             if($rad.find('.itemno').val()=='') {
                 $rad.find('.itemno').attr('style','border:1px solid red');
                 alert('Please select number of selection');

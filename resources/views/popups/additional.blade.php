@@ -69,21 +69,23 @@
                         <?php }
                         } ?>
                     @else
-                        <div class="cmore">
-                            <div class="col-md-6  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
+                        <div class="cmore m-b-1">
+                            <div class="col-md-5  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
                             </div>
-                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
+                            <div class="col-md-3   "><input class="form-control ccprice" type="number" step="any" min="0"
                                                             placeholder="Optional Price"/></div>
 
 
-                            <div class="col-md-2">
-                                <a href="javascript:void(0);" class="pull-right btn btn-sm  btn-secondary-outline"
-                                   onclick="$(this).parent().parent().remove();" ><i class="fa fa-times"></i>
-                                </a>
-                                <!--div class="resturant-arrows">
-                                <a href="javascript:void(0)" id="child_up_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-up"></i></a>
-                                <a href="javascript:void(0)" id="child_down_{{ (isset($cc))? $cc->id : 0 }}" class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-angle-down"></i></a>
-                            </div-->
+                            <div class="col-md-4">
+                                <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                    <button href="javascript:void(0)" id="child_up_0"
+                                       class="btn btn-sm btn-secondary sorting_child moveup" disabled=""><i class="fa fa-arrow-up"></i></button>
+                                    <button href="javascript:void(0)" disabled="" id="child_down_0"
+                                       class="btn btn-sm btn-secondary sorting_child movedown"><i
+                                                class="fa fa-arrow-down"></i></button>
+                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >
+                                    <i class="fa fa-times"></i> </button>
+                                </div>
                             </div>
 
                             <div class="clearfix"></div>
