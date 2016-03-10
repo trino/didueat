@@ -55,17 +55,17 @@
                                            }
                                        }
 
+                                       echo '<label class="c-input c-checkbox pull-left"><INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck"';
                                        if($candisable){
-                                           echo '<label class="c-input c-checkbox pull-left">';
-                                           echo '<INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck" ONCLICK="add_enable(' . $value->id . ');"';
+                                           echo ' ONCLICK="add_enable(' . $value->id . ');"';
                                            if ($value->enabled) {
                                                echo ' CHECKED';
                                            }
-                                           echo '><span class="c-indicator"></span></label>';
                                        } else {
-                                           //echo " CHECKED DISABLED";
+                                           echo " CHECKED DISABLED";
                                            $value->note = "This is required";
                                        }
+                                       echo '><span class="c-indicator"></span></label>';
                                    ?>
 
                             </td>
