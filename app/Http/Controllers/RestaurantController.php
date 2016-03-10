@@ -810,4 +810,11 @@ class RestaurantController extends Controller {
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
     }
+
+    public function bringonline($status = true){
+        $restaurant_id = \Session::get('session_restaurant_id');// take from Session instead of db
+        $thisSlug = select_field("restaurants", "id", $restaurant_id, "slug");
+        update_database("restaurants", "id", $restaurant_id, array("open" => $status)); // delete image from menus tbl
+        return $this->success("Restaurant is now online", "restaurants/" . $thisSlug . "/menu");
+    }
 }
