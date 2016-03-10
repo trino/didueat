@@ -43,28 +43,20 @@ Thank you">Email Support</a></li>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy"
-                           class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
                     </li>
 
                     @if(Session::get('session_type_user') == "super" || true)
                         <li class="list-inline-item">
-
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}
-                                Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}Debug Mode</a>
                         </li>
                     @endif
 
                     <li class="list-inline-item">
                         <h3>
-
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i
-                                        class="fa fa-facebook"></i></A>&nbsp;<A
-                                    href="https://mobile.twitter.com/didueatcanada" target="_blank"><i
-                                        class="fa fa-twitter"></i></A>&nbsp;<A href="https://www.instagram.com/didueat/"
-                                                                               target="_blank"><i
-                                        class="fa fa-instagram"></i></A>
-
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
                         </h3>
                     </li>
 
@@ -76,7 +68,7 @@ Thank you">Email Support</a></li>
                 <p>
                     Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in theworld by
                     <a href="http://trinoweb.com/" target="_blank">
-                        <B>
+                        <B CLASS="nowrap">
                             <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
                         </B>
                     </a>
@@ -109,7 +101,7 @@ Thank you">Email Support</a></li>
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+        //loads the simple modal
         $('body').on('click', '.simplemodal', function () {
             var id = $(this).attr('data-id');
             $("#allergyModal #modal_loader").show();
@@ -124,6 +116,7 @@ Thank you">Email Support</a></li>
             });
         });
 
+        //loads the review detail modal
         $('body').on('click', '.reviews_detail', function () {
             var rating_id = $(this).attr('data-rating-id');
             var type = $(this).attr('data-type');
@@ -148,6 +141,7 @@ Thank you">Email Support</a></li>
             });
         });
 
+        //handles rating modal
         $('body').on('click', '.rating-it-btn', function () {
             var isAlreadyRated = $(this).attr('data-count-exist');
             var rating_id = $(this).attr('data-rating-id');
@@ -171,16 +165,17 @@ Thank you">Email Support</a></li>
             $('#rating-form #data-type').val(type);
         });
 
+        //handles clicking of a rating star, and keyboard events
         $('body').on('keyup', '#ratingInput', function () {
             var value = $(this).val();
             $('#rating-form #ratingInputHidden').val(value);
         });
-
         $('body').on('click', '.update-rating', function () {
             var value = $(this).val();
             $('#rating-form #rating_id').val(value);
         });
 
+        //handles submission of the subscribe form
         $('body').on('submit', '#subscribe-email', function (e) {
             var email = $('#subscribe-email input[name=email]').val();
             var token = $('#subscribe-email input[name=_token]').val();
@@ -204,15 +199,13 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles window resizing
         var wd = $(window).width();
         var ht = $(window).height();
-
         var headr_ht = $('.container-fluid').height();
         var htt = Number(ht) - Number(headr_ht);
         $('.top-cart-block').css({'height': htt});
-
         handleresizing(wd);
-
         function handleresizing(wd) {
             //console.log(wd);
             if (wd < '753') {
@@ -229,11 +222,11 @@ Thank you">Email Support</a></li>
                 $('#cartsz').closest('#printableArea').attr("class", "col-lg-4 col-md-5 col-sm-12");
             }
         }
-
         $(window).resize(function () {
             handleresizing($(window).width());
         });
 
+        //handles submission of the search menu form (should be moved to where it's used)
         $('body').on('submit', '#searchMenuForm', function (e) {
             var term = $('#searchMenuForm input[name=search_term]').val();
             if (term.trim() != "") {
@@ -242,6 +235,7 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles submission of the search restaurant form (should be moved to where it's used)
         $('body').on('submit', '#searchRestaurantForm', function (e) {
             var term = $('#searchRestaurantForm input[name=search_term]').val();
             if (term.trim() != "") {
@@ -250,6 +244,7 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles submission of the search menu duplicate form (should be moved to where it's used, and duplicates merged)
         $('body').on('submit', '#searchMenuForm2', function (e) {
             var term = $('#searchMenuForm2 input[name=search_term]').val();
             if (term.trim() != "") {
@@ -258,6 +253,7 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles submission of the search restaurant duplicate form (should be moved to where it's used, and duplicates merged)
         $('body').on('submit', '#searchRestaurantForm2', function (e) {
             var term = $('#searchRestaurantForm2 input[name=search_term]').val();
             if (term.trim() != "") {
@@ -266,19 +262,18 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //boilerplate API
         function getvalue(ElementID) {
             return document.getElementById(ElementID).value;
         }
-
         function setvalue(ElementID, Value) {
             document.getElementById(ElementID).innerHTML = Value;
         }
-
         function escapechars(text) {
             return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
         }
 
-
+        //handles submission of the forgot password form (should be moved to where it's used)
         $('body').on('submit', '#forgot-pass-form', function (e) {
             var token = $("#forgot-pass-form input[name=_token]").val();
             var email = $("#forgot-pass-form input[name=email]").val();
@@ -305,8 +300,8 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles submission of the login form (should be moved to where it's used)
         $('body').on('submit', '#login-ajax-form', function (e) {
-
             e.preventDefault();
             var data = $('#login-ajax-form').serialize();
             var reserv = $(this).attr('data-route');
@@ -345,7 +340,7 @@ Thank you">Email Support</a></li>
                                 }
                                 if (directtorest) {
                                     window.location = "{{ url('orders/list/restaurant') }}";
-                                } else {
+                                } else {//handles logging in without a refresh
                                     $('.reserve_login').hide();
                                     $('.reservation_address').show();
                                     $('#fullname').val(arr.name);
@@ -366,8 +361,9 @@ Thank you">Email Support</a></li>
                                     //$('.reservation_signin').hide();
                                     $('.close').click();
                                     $('.addressdropdown').load(document.URL + ' .addressdropdown>', function () {
-                                        if ($('.profile_delivery_detail').is(':visible'))
+                                        if ($('.profile_delivery_detail').is(':visible')) {
                                             $('.reservation_address_dropdown').attr('required', 'required');
+                                        }
                                     });
                                     //only loads header
                                     $('.header-nav').load(document.URL + ' .header-nav>');
@@ -394,6 +390,7 @@ Thank you">Email Support</a></li>
 
         });
 
+        //handles submission of the resend email form (should be moved to where it's used)
         $('body').on('click', '#resendMeEmail', function (e) {
             var url = $(this).attr('href');
             $('#registration-success p').html('Please wait email is being send...');
@@ -404,6 +401,7 @@ Thank you">Email Support</a></li>
             e.preventDefault();
         });
 
+        //handles submission of the register form (should be moved to where it's used)
         $('body').on('submit', '#register-form', function (e) {
             var token = $("#register-form input[name=_token]").val();
                     <?php
@@ -422,9 +420,9 @@ Thank you">Email Support</a></li>
             $.post("{{ url('auth/register/ajax') }}", {
                 _token: token,
                 <?php
-                foreach( $fields as $field){
-                    echo $field . ': ' . $field . ',' . "\r\n";
-                }
+                    foreach( $fields as $field){
+                        echo $field . ': ' . $field . ',' . "\r\n";
+                    }
                 ?>
                 subscribed: subscribed
             }, function (result) {
@@ -455,20 +453,19 @@ Thank you">Email Support</a></li>
             }
         }
 
+        //checks if it's a valud URL
         function ValidURL(textval) {
             var urlregex = new RegExp(
-                    "^(http|https|ftp)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
+                    "^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&amp;%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|ca|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&amp;%\$#\=~_\-]+))*$");
             return urlregex.test(textval);
         }
 
+        //returns true if the URL is the dashboard
         function checkUrl(textval) {
-            if (textval.replace('/dashboard', '') != textval) {
-                return true;
-            } else {
-                return false;
-            }
+            return textval.replace('/dashboard', '') != textval;
         }
 
+        //handles the "Load more" button on the restaurant search page, and should really be moved to where it's actually used
         $('.loadmore').click(function () {
             $('.overlay_loader').show();
             ur = $('.next a').attr('href');
@@ -493,6 +490,7 @@ Thank you">Email Support</a></li>
 
         });
 
+        //handles the time picker
         var TimeFormat = 12;//valid options are 12 and 24
         if ($('.time').length) {
             $('.time').timepicker();
@@ -543,6 +541,7 @@ Thank you">Email Support</a></li>
         }
     });
 
+    //when a review is submitted, this will update the review stars.
     function updatereview(target_id) {
         var reviews = $("#reviewcount" + target_id).html();
         reviews = Number(reviews.replace(/\D/g, '')) + 1;

@@ -19,14 +19,13 @@
 
 
             @foreach($menus_list as $value)
-                <?php
+                <?php //load images, duplicate code
                     $has_iconImage = false;
-                    $has_bigImage = false;
-
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image))) {
                         $item_iconImg = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/icon-' . $value->image);
                         $has_iconImage = true;
                     }
+                    $has_bigImage = false;
                     if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image))) {
                         $item_bigImage = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/big-' . $value->image);
                         $has_bigImage = true;
@@ -142,13 +141,13 @@
                                 @if(false) <!-- no tags yet -->
                                     @if(isset($restaurant->tags) && $restaurant->tags != "")
                                         <?php
-                                        $tags = $restaurant->tags;
-                                        $tags = explode(',', $tags);
-                                        for ($i = 0; $i < 5; $i++) {
-                                            if (isset($tags[$i])) {
-                                                echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                            $tags = $restaurant->tags;
+                                            $tags = explode(',', $tags);
+                                            for ($i = 0; $i < 5; $i++) {
+                                                if (isset($tags[$i])) {
+                                                    echo "<span class='tags'>" . $tags[$i] . "</span>";
+                                                }
                                             }
-                                        }
                                         ?>
                                     @endif
                                 @endif
@@ -209,6 +208,7 @@
 
 <div class="clearfix"></div>
 <SCRIPT>
+    //enable/disable a menu item via ajax
     function enableitem(id){
         var checked = $("#check" + id).is(":checked");
         $("#enable" + id).hide();
@@ -219,7 +219,10 @@
             id: id,
             _token: "{{ csrf_token() }}"
         }, function (result) {
-            if(result){alert(result);}
+            if(!result){
+                alert("Unable to enable/disable this item");
+                $("#check" + id).prop('checked', false);
+            }
             $("#enable" + id).show();
             $("#spinner" + id).hide();
         });

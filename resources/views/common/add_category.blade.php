@@ -11,6 +11,7 @@
 </div> 
 
 <script>
+    //adds a new category
     $(function() {
         $('#save_cat').click(function() {
             $('.overlay_loader').show();

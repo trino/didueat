@@ -119,6 +119,7 @@
                                         } else {
                                             echo 'RED">';
                                         }
+                                        //check how much time has passed
                                         $delay = array($secondsTitle => $delay, "total" => "");
                                         $total = array();
                                         foreach ($secondsper as $timeperiod => $seconds) {
@@ -176,6 +177,7 @@
 </div>
 
 <SCRIPT>
+    //notify the store of a pending order
     function notifystore(event, OrderID) {
         var element = event.target;
         element.setAttribute("disabled", "true");

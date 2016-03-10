@@ -1,4 +1,5 @@
 <?php
+    //handles a few of the alerts
     Session();
     $data = array("menuadd", "sorted");
     foreach ($data as $get) {

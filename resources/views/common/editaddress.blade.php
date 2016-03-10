@@ -69,16 +69,14 @@
 
         <?php
             $addresses = \App\Http\Models\ProfilesAddresses::where('user_id', read("id"))->orderBy('order', 'ASC')->get();
-
             if(!isset($type)){
-
-            if($addresses->count()){
-            ?>
+                if($addresses->count()){
+        ?>
             <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>&nbsp;<i class="fa fa-caret-down"></i>&nbsp;
             </button>
             <div class="dropdown-menu dropdown-menu-left">
-                <?php
+                <?php //address dropdown as an A HREF instead of SELECT OPTION
                     foreach ($addresses as $address) {
                         if (!$sec) {
                             $sec = $address->id;
@@ -104,7 +102,7 @@
             <SPAN @if(!$addresses->count()) id="show-addaddress" style="display:none;" @endif >
                 <select class=" form-control reservation_address_dropdown required" name="reservation_address" id="reservation_address" required ONCHANGE="addresschange('editaddress');">
                     <option value="">Select Address</option>
-                    <?php
+                    <?php //address selection dropdown, could use common.addressbar
                         $sec = false;
                         foreach ($addresses as $address) {
                             if (!$sec) {
@@ -231,7 +229,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         });
     </SCRIPT>
 @else
-    <?php
+    <?php //handle initializing the autocomplete
         if (!isset($_GET['route'])) {
             includeJS(url("assets/global/scripts/provinces.js"));
             if (!includeJS("https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete", "async defer")) {
@@ -250,6 +248,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 <DIV id="error-message" style="color: red" class="col-md-12"></div>
 <DIV CLASS="clearfix"></DIV>
 <SCRIPT>
+    //check if the address is complete
     function isaddress_incomplete(){
         var incomplete = !$("#formatted_address").val() || !$("#city").val() || !$("#province").val() || !$("#postal_code").val() || !$("#country").val();
         $("#error-message").text("");
@@ -264,6 +263,6 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
     }
 
     @if($mini && !$Commas)
-        $(".commas").hide();
+        $(".commas").hide();//hide the commas if there is no data yet
     @endif
 </SCRIPT>

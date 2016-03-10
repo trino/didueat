@@ -37,10 +37,20 @@ class BaseModel extends Model {
         return $ob;
     }
 
+    //sanitizes text
     public function cleantext($text){
         return str_replace('"', "''", trim($text));
     }
 
+    //copy array cells to object fields, handling certain type parameters
+    //24hr: 1:00 am will be converted to 01:00
+    //creditcard: will verify the credit card is valid and encrypt it, otherwise it'll be empty
+    //number: will verify the value is numeric, otherwise it'll be empty
+    //phone: will verify the value is a valid phone number, otherwise it'll be empty
+    //postalcode: will verify the value is a valid candian postal code, otherwise it'll be empty
+    //encrypted: will encrypt the value (ie: for credit card data)
+    //password: will hash the value, thus obfuscating the data
+    //any validation failures will be added to the "invalid-data" session value
     public function copycells($cells, $data){
         foreach ($cells as $key => $cell) {
             if(is_numeric($key)) {
@@ -101,6 +111,7 @@ class BaseModel extends Model {
         return $data;
     }
 
+    //session flash mini-popup
     public function flash($success, $message, $title){
         \Session::flash('message', $message);
         \Session::flash('message-type', iif($success, 'alert-success', 'alert-danger'));
@@ -113,7 +124,6 @@ class BaseModel extends Model {
      * @param $password
      * @return encrypted string
      */
-
     public function encryptPassword($password) {
         if($password) {return encryptpassword($password);}
     }

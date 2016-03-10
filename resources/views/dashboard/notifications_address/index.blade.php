@@ -59,6 +59,7 @@
 
 
 <script type="text/javascript">
+    //send some text to the user
     function toast(message){
         $("#toast").html(message);
     }
@@ -67,6 +68,7 @@
         $("#editForm").trigger("change");
     }
 
+    //makesure the notification method is valid
     function validateNotif(f){
         toast("");
         if(!f.is_email.checked && !f.is_call.checked && !f.is_sms.checked){
@@ -110,6 +112,8 @@
         }
     }
 
+
+    //edit the note
     function editnote(ID) {
         return;
         var element = document.getElementById('note_' + ID);
@@ -120,11 +124,15 @@
             element.setSelectionRange(0, element.value.length);
         }
     }
+
+    //detect when enter is pressed
     function editnote_keypress(ID) {
         if (event.keyCode == 13) {
             editnote_event(ID);
         }
     }
+
+    //send the new note to the server
     function editnote_event(ID) {
         var element = document.getElementById('text_note_' + ID);
         var value = element.value;
@@ -145,6 +153,7 @@
         });
     }
 
+    //enable/disable the notification method
     var ignore1 = false;
     function add_enable(ID) {
         if (ignore1) {
@@ -171,6 +180,7 @@
         });
     }
 
+    //bring up the "add new notification method" form
     $('body').on('click', '.editRow, #addNew', function() {
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){
@@ -201,6 +211,7 @@
         return pattern.test(emailAddress);
     };
 
+    //handle keypresses on the address, check if it's valud
     $('body').on('keyup', '.address', function () {
         var ep_emailval = $(this).val();
         if (!isValidEmailAddress(ep_emailval)) {
@@ -217,6 +228,7 @@
         }
     });
 
+    //handle the up/down arrows to change the priority (which doesn't actually do anything)
     $('body').on('click', '.up, .down', function () {
         var row = $(this).parents("tr:first");
         var token = $('#addNewForm input[name=_token]').val();

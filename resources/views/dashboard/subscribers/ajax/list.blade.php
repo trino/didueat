@@ -1,7 +1,7 @@
 {{ printfile("views/dashboard/subscribers/ajax/list.blade.php") }}
 
 @if(\Session::has('message'))
-{!! message_show("Message!", \Session::get('message')) !!}
+    {!! message_show("Message!", \Session::get('message')) !!}
 @endif
 
 <div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
@@ -43,9 +43,8 @@
                         Send Message
                     </button>
                 </h4>
-
             </div>
-                @include('common.table_controls')
+            @include('common.table_controls')
         </div>
     </div>
 

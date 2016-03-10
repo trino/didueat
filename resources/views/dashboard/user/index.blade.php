@@ -12,52 +12,47 @@
 <script src="{{ asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js') }}" type="text/javascript"></script>
 
 <div class="container">
+    <div class="row">
+        @include('layouts.includes.leftsidebar')
 
+        <div class="col-lg-9">
+            <?php printfile("views/dashboard/user/index.blade.php"); ?>
 
+            <div id="ajax_message_jgrowl"></div>
 
+            <!-- Panels Start -->
+            <div id="loadPageData"></div>
 
-<div class="row">
-    @include('layouts.includes.leftsidebar')
-
-    <div class="col-lg-9">
-        <?php printfile("views/dashboard/user/index.blade.php"); ?>
-
-        <div id="ajax_message_jgrowl"></div>
-
-        <!-- Panels Start -->
-        <div id="loadPageData">
-            
         </div>
-
     </div>
-</div>
 
 
-<div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        {!! Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="editModelLabel">Edit</h4>
-            </div>
-            <div class="modal-body" id="contents">
+    <div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            {!! Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')) !!}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="editModelLabel">Edit</h4>
+                </div>
+                <div class="modal-body" id="contents">
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
+            {!! Form::close() !!}
         </div>
-        {!! Form::close() !!}
     </div>
-</div>
 </div>
 
 
 <script type="text/javascript">
+    //handle adding/editing an address
     $('body').on('click', '.editRow, #addNew', function () {
         var id = $(this).attr('data-id');
         if(id == null || id == undefined || id == ""){

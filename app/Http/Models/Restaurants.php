@@ -52,6 +52,7 @@ class Restaurants extends BaseModel {
         if(!$this->is_complete){$this->open = false;}
     }
 
+    //checks if the restaurant is now open, and sends an email to the restaurant if it wasn't open before
     //exmaple: \App\Http\Models\Restaurants::restaurant_opens($rest);
     public static function restaurant_opens($restaurant, $update_database = false){
         if(!is_object($restaurant)) {
@@ -125,10 +126,10 @@ class Restaurants extends BaseModel {
     //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
     public static function getbusinessday($restaurant, $date = false, $delivery = false){
-        if(!$date){$date = time();}
+        if(!$date){$date = now(true);}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);
-        $Yesterday = current_day_of_week($date - (24*60*60));
+        $Yesterday = current_day_of_week($date - 86400);
         if(!is_object($restaurant)) {
             $restaurant = get_entry("restaurants", $restaurant);
         }
@@ -178,6 +179,7 @@ class Restaurants extends BaseModel {
             }
         }
 
+        //handle hard-coded addresses
         $IsHardcoded=false;
         if(isset($data["formatted_address"]) && $data["formatted_address"]){
             $IsHardcoded = true;
@@ -201,9 +203,12 @@ class Restaurants extends BaseModel {
             $order = " ORDER BY " . $data['SortOrder'];
         }
 
-        $DayOfWeek = current_day_of_week();
-        $now = date('H:i:s');
-        $Yesterday = current_day_of_week(-1);
+        //handles hours of operation
+        $date = now(true);
+        $data['date'] = date("l F j, Y - H:i (g:i A)", $date);
+        $DayOfWeek = current_day_of_week($date);
+        $now = date('H:i:s', $date);
+        $Yesterday = current_day_of_week($date - 86400);
         $DeliveryHours = isset($data['delivery_type']) && $data['delivery_type'] == "is_delivery";
         $open = "open" . iif($DeliveryHours, "_del");
         $close = "close" . iif($DeliveryHours, "_del");
@@ -214,14 +219,16 @@ class Restaurants extends BaseModel {
 
         (isset($data['earthRad']))? $earthRad=$data['earthRad'] : $earthRad=6371;//why? Because the default will be in kilometers
 
+        //handles distance
         $data['radius']=iif(debugmode(), 30, "max_delivery_distance");
         if (!$IsHardcoded && isset($data['radius']) && $data['radius'] != "" && isset($data['latitude']) && $data['latitude'] && isset($data['longitude']) && $data['longitude']) {
             $SQL = "SELECT *, ( " . $earthRad . " * acos( cos( radians('" . $data['latitude'] . "') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('" . $data['longitude']."') ) + sin( radians('" . $data['latitude']."') ) * sin( radians( latitude ) ) ) ) AS distance, $asopenedRest FROM restaurants $where HAVING distance <= " . $data['radius'];
         } else {
             $SQL = "SELECT *, 0 AS distance, $asopenedRest FROM restaurants " . $where;
         }
-        
-        $SQL .= $order . $limit;
+
+        //assemble the final query, with a comment showing which date was used
+        $SQL .= $order . $limit . " -- Using date: " . $data['date'];
         
         if($ReturnSQL){return $SQL;}
         $query = \DB::select(\DB::raw($SQL));
@@ -229,6 +236,8 @@ class Restaurants extends BaseModel {
         return json_decode(json_encode($query),true);
     }
 
+    //save the restaurant, checking if it was complete before hand, and if it is afterwards
+    //if it was not complete before, but is after, notify the store by email that it is now open
     public function save(array $options = array()) {
         $ret=false;
         if($this->is_complete) {

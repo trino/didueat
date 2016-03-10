@@ -529,8 +529,15 @@
 
 /////////////////////////////////////Date API////////////////////////////////////////
     //returns the current date/time
-    function now(){
-        return date("Y-m-d H:i:s");
+    function now($totime = false){
+        $now = time();
+        if(debugmode()){
+            if (isset($_GET["now"]) && $_GET["now"]) {
+                $now = strtotime($_GET["now"]);
+            }
+        }
+        if($totime){return $now;}
+        return date("Y-m-d H:i:s", $now);
     }
 
     //returns date stamp of a date/time

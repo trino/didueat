@@ -31,7 +31,7 @@
 
     <script type="text/javascript">
 
-
+        //handle the up/down change priority buttons
         $('body').on('click', '.up, .down', function () {
             var row = $(this).parents("tr:first");
             var token = $('#addressesForm input[name=_token]').val();

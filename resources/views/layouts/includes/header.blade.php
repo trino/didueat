@@ -40,10 +40,11 @@
                         } else {
                             echo asset('assets/images/icon-didueatdefault.png');
                         }
-                        ?>" class="img-circle" style="margin-left:6px !important;height: 32px;width:32px;">
+                        ?>" class="img-circle hidden-sm-down" style="margin-left:6px !important;height: 30px;width:30px;">
 
 
                         <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
+                        <i style="" class="fa fa-bars hidden-md-up  fa-2x"></i>
 
 
                     </a>
@@ -99,6 +100,7 @@
 
     var AreaCodes = [{{  implode(", ", $AreaCodes) }}];
 
+    //check the #hash part of the URL for any special commands
     $(document).ready(function () {
         switch (window.location.hash) {
             @if(!read("id"))

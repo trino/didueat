@@ -1,5 +1,6 @@
 <?php
     printfile("views/common/receipt.blade.php");
+    //the receipt that goes in an order
     $ordertype = false;
     $em=0;
     if(isset($email_msg)){
@@ -158,11 +159,14 @@
                 @if(!isset($order))
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
+                            <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary btn-block" style="width: 100%;" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
+                            <a class="btn btn-primary btn-block" style="" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
-                            <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
+
+                            <a class="btn btn-danger-outline disabled  btn-block" href="#">Currently Closed</a>
+
+
                         @endif
                     </div>
                 @endif
@@ -183,7 +187,7 @@
                     @if(\Session::has('is_logged_in'))
                         <?php
                             $profile = \DB::table('profiles')->select('profiles.id', 'profiles.name', 'profiles.email', 'profiles.phone')->where('profiles.id', \Session::get('session_id'))->first();
-                            echo "<p>Welcome " . $profile->name . "</p>";
+                            if($profile) {echo "<p>Welcome " . $profile->name . "</p>";}
                         ?>
                     @endif
 
@@ -217,6 +221,7 @@
         }
     }
 
+    //handles changes of addresses
     function addresschanged(thiss) {
         $("#phone").val(thiss.getAttribute("PHONE"));//if(!$("#phone").val()){ }
         $("#formatted_address").val(thiss.getAttribute("ADDRESS"));
@@ -246,8 +251,8 @@
         } else {
             $('#pickup1').click();
         }
-        //save address
 
+        //handles any address additions, adds them to the SELECT dropdown
         $('#edit-form').submit(function (e) {
             if ($(this).hasClass('reservation')) {
                 e.preventDefault();
@@ -285,6 +290,7 @@
         })
     });
 
+    //form validation
     $(document).ready(function () {
         if (typeof validateform != "undefined") {
             validateform("profiles", {

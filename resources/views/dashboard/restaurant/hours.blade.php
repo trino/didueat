@@ -184,6 +184,7 @@
 </div>
 
 <script>
+    //handle showing/hiding of delivery-only options
     is_delivery_change();
     function is_delivery_change() {
         if ($('#is_delivery').is(':checked')) {
@@ -198,6 +199,7 @@
         @endif
     }
 
+    //close/open a day
     function closed(event, ID) {
         closed_element(event, ID, "open");
         closed_element(event, ID, "close");
@@ -205,6 +207,7 @@
         closed_element(event, ID, "close_del");
     }
 
+    //close/open an input
     function closed_element(event, ID, name) {
         var element = document.getElementById(name + "[" + ID + "]");
         if(element) {
@@ -221,6 +224,7 @@
         }
     }
 
+    //an input was changed, handle it
     function change(type, id) {
         @if($use_delivery_hours)
             if (document.getElementById("samehours").checked) {
@@ -230,6 +234,7 @@
         @endif
     }
 
+    //check if the delivery hours should be the same as the pickup hours
     function same(event) {
         @if($use_delivery_hours)
             if (document.getElementById("samehours").checked) {

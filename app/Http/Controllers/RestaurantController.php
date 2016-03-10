@@ -783,15 +783,17 @@ class RestaurantController extends Controller {
     }
 
     //ajax enable/disable menu item
-    public function enable(){
+    public function enable($limit = 25){
         $post = \Input::all();
         $Item = select_field("menus", "id", $post["id"]);
         if($Item->restaurant_id == read("restaurant_id")){//check if the user owns the restaurant for the item
+            $count = \App\Http\Models\Menus::where(['restaurant_id'=>$Item->restaurant_id,'is_active'=>1])->count();
             if($post["value"] == "false") {$post["value"] = 0;} else {$post["value"] = 1;}
+            if($post["value"] && $count >= $limit){ return 0; }
             update_database("menus", "id", $post["id"], array("is_active" => $post["value"]));
-        } else {
-            return "You do not own this item";
+            return 1;
         }
+        return 0;
     }
 
     public function deletemenuimage($id){

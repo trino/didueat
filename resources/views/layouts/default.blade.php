@@ -108,6 +108,7 @@
     <SCRIPT>
         var baseurl = "{{ url('/') }}";
         var debugmode = "{{ debugmode() }}";
+        //only do an alert if debugmode is on
         function debugalert(message) {
             if (debugmode) {
                 alert(message);
