@@ -87,7 +87,7 @@
             $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
             $MissingData= "Current status: " . iif($business_day, "Open", "Closed") . " and " . iif(!$Restaurant->open, "<B>NOT</B> ") . "accepting orders. ";
             if(!$Restaurant->open){
-                $MissingData .= '<A HREF="' . url("restaurant/bringonline") . '">Bring Online</A>';
+                $MissingData .= '<A HREF="' . url("restaurant/list/status/0") . '">Bring Online</A>';
             }
         }
         echo '<div class="col-md-12"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div></div></div></div>';

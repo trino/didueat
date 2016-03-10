@@ -110,20 +110,13 @@ class RestaurantController extends Controller {
      */
     public function restaurantStatus($id = 0) {
         if (!isset($id) || empty($id) || $id == 0) {//check for missing data
-            return $this->failure("[Restaurant Id] is missing!", 'restaurant/list');
+            $id = \Session::get('session_restaurant_id');// take from Session instead of db
         }
-
         try {
             $ob = \App\Http\Models\Restaurants::find($id);
-            if ($ob->open == 1) {
-                $ob->populate(array('open' => 0));
-            } else {
-                $ob->populate(array('open' => 1));
-            }
-            $ob->save();
-            
+            update_database("restaurants", "id", $id, array("open" => 1- $ob->open));
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "open", "closed"), 'restaurant/list');
+            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "closed", "open"), 'restaurant/list');
         } catch (\Exception $e) {
             return $this->failure(handleexception($e), 'restaurant/list');
         }
@@ -809,12 +802,5 @@ class RestaurantController extends Controller {
         }
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
-    }
-
-    public function bringonline($status = true){
-        $restaurant_id = \Session::get('session_restaurant_id');// take from Session instead of db
-        $thisSlug = select_field("restaurants", "id", $restaurant_id, "slug");
-        update_database("restaurants", "id", $restaurant_id, array("open" => $status)); // delete image from menus tbl
-        return $this->success("Restaurant is now online", "restaurants/" . $thisSlug . "/menu");
     }
 }
