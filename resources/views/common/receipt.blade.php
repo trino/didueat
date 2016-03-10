@@ -159,11 +159,14 @@
                 @if(!isset($order))
                     <div class="form-group" style="margin-bottom: 0 !important;">
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
-                            <a href="javascript:void(0)" class="btn btn-primary" onclick="checkout();">{{ $checkout }}</a>
+                            <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary btn-block" style="width: 100%;" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
+                            <a class="btn btn-primary btn-block" style="" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
-                            <a class="btn btn-danger-outline disabled" href="#">Currently Closed</a>
+
+                            <a class="btn btn-danger-outline disabled  btn-block" href="#">Currently Closed</a>
+
+
                         @endif
                     </div>
                 @endif
