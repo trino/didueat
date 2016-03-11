@@ -211,8 +211,8 @@ $('.addmorebtn').live('click', function () {
     $(this).closest('.aitems').find('.addmore').append(
         '<div class="cmore m-b-1">' +
         '<div class=" ignore ignore2 ignore1">' +
-        '<div class="col-md-5"><input class="form-control cctitle" type="text" placeholder="Item Name" value="" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
-        '<div class="col-md-3"><input class="form-control ccprice pricechk" type="number" step="any" value="" min="0" placeholder="Optional Price" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
+        '<div class="col-md-4"><input class="form-control cctitle" type="text" placeholder="Item Name" value="" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
+        '<div class="col-md-4"><input class="form-control ccprice pricechk" type="number" step="any" value="" min="0" placeholder="Optional Price" onkeyup="$(this).attr(\'value\',$(this).val());" /></div>' +
         '</div>' +
         '<div class="col-md-4">'+
         '<div class="btn-group pull-right" role="group" aria-label="Basic example">'+
