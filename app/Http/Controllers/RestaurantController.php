@@ -657,6 +657,7 @@ class RestaurantController extends Controller {
         $child = \App\Http\Models\Menus::where('parent', $id)->get();
         foreach ($child as $c) {
             \App\Http\Models\Menus::where('parent', $c->id)->delete();
+            \App\Http\Models\Menus::where('id', $c->id)->delete();
         }
         \App\Http\Models\Menus::where('parent', $id)->delete();
         $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
