@@ -39,6 +39,7 @@
 
     $title = "";
     if(!$business_day || !$restaurant->open){
+        $reason = "";
         if(Session::get('session_type_user') == "super"){
             $reason = "SUPER";
         } else if(debugmode()){

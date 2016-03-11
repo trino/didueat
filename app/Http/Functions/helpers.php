@@ -625,7 +625,7 @@
             return left($PostalCode, 3) . $delimeter . right($PostalCode, 3);
         }
     }
- 
+
     //check if data is a valid postal code
     function validateCanadaZip($PostalCode){//function by Roshan Bhattara(http://roshanbh.com.np)
         return preg_match("/^([a-ceghj-npr-tv-z]){1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}[a-ceghj-npr-tv-z]{1}[0-9]{1}$/i", $PostalCode);
@@ -1810,7 +1810,7 @@
                 case "nostores": $Message = '<span><span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
-                
+
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
