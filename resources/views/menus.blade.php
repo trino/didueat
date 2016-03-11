@@ -99,7 +99,7 @@
                                             @if($main_price>0)
                                                 ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
                                             @else
-                                                Order
+                                                ${{number_format($min_p,2)}}+
                                             @endif
                                         </a>
                                     </div>
