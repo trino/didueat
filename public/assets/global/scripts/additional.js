@@ -76,7 +76,7 @@ $(".sorting_child").live('click', function () {
 $(".sorting_child").live('click', function () {
     
     var start=0;
-    
+    var allpar = $(this).closest('.addmore');
     var pid = $(this).attr('id').replace('child_up_', '').replace('child_down_', '');
     var sort = 'down';
     if ($(this).attr('id') == 'child_up_' + pid) {
@@ -102,8 +102,9 @@ $(".sorting_child").live('click', function () {
     $change.html(html1);
     $change.attr('id',id1);
     
-    var allpar = $(this).closest('.addmore');
+    
     allpar.find('.cmore').each(function(){
+        //alert('test');
         $(this).find('button').each(function(){
             $(this).removeAttr('disabled');
         })
