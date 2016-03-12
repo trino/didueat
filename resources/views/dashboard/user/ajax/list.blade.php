@@ -88,11 +88,14 @@
                                     Edit
                                 </a-->
                                 @if($value->id != \Session::get('session_id'))
-                                    <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                                    <a type="button"  href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                        onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
-                                    <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                    <a type="button"  href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                        onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
+                                    </div>
                                 @endif
                             </td>
                         </tr>

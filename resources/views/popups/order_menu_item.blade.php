@@ -5,7 +5,11 @@
      role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header m-b-0" style="border-bottom: 0 !important;">
+
+
+
+
+            <div class="modal-body m-a-0 p-b-0" style="border-bottom: 0 !important;">
 
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
@@ -13,7 +17,7 @@
                 </button>
                 <h4 class="modal-title" id="viewDetailModel">
                     <?php echo $value->menu_item; ?>
-<br>
+
                     @if($value->price>0)
                         @if($dis)
                                     <span class='label label-warning'>{{$dis}}</span>
@@ -42,25 +46,33 @@
                 </h4>
 
             </div>
+
+
+            @if ($has_bigImage)
+                <div class="modal-body m-a-0 p-a-0" style="">
+
+
+                        <img style="max-width:100%;" class="popimage_{{ $value->id }}"
+                             src="{{ $item_bigImage }}"/>
+
+
+                </div>
+
+            @endif
+
+
+
             <div class="modal-body product-popup  p-y-0 m-y-0">
                 <div class="product-page product-pop-up">
                     <div class="row">
 
                         @if (Session::get('session_type_user') == "super" )
-                                <!--div class="col-sm-12 col-xs-12">
+                                <div class="col-sm-12 col-xs-12">
                                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
-                                           </div-->
+                                           </div>
                         @endif
 
-                        @if ($has_bigImage)
-                            <div class="col-sm-12 col-xs-12 p-a-0 m-b-1 ctr">
 
-                                <img style="max-width:100%;" class="popimage_{{ $value->id }}"
-                                     src="{{ $item_bigImage }}"/>
-
-                            </div>
-
-                        @endif
 
 
                         <div class="subitems_{{ $value->id }} optionals">

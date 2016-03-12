@@ -86,14 +86,20 @@
             }
             //check if the store is opened, based on it's hours
             $key = iif($delivery_type == "is_delivery", "_del");
-            $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($value)) && $value['open'];
+            $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($value), $value['open']);
 
             $MoreTime = "";
             $grayout="";
             $Message = "Order Online";
+			
+			if(			!$value['open']){
+				
+				            $Message = "View Menu";
+
+			}
+			
             if(!$is_open){
                 $grayout=" grayout";
-                $Message = "View Menu";
                 $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
                 $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
                 if($value['open']){
@@ -135,12 +141,13 @@
                         @if(!$is_open)
                             <div class="smallT">Currently closed</div>
                         @endif
-                        {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
+  {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
                         <div  class="clearfix"></div>
                     </div>
-                    <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
+					                         <span class="list-inline-item"> {{ str_replace(",", ", ", $value["cuisine"]) }}</span>
 
-                    <span class="list-inline-item">Cuisine: {{ str_replace(",", ", ", $value["cuisine"]) }}</span><br>
+                 
+                    <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
 
                     @if($value["is_delivery"])
 
@@ -217,9 +224,9 @@
             openCntMsg=openCnt+" Open";
             closedCntMsg=" and "+closedCnt+" Closed";
         } else if(closedCnt == totalCnt){
-            closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
+           // closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
-        document.getElementById('openClosed').innerHTML=spBR+"<BR>("+openCntMsg+closedCntMsg+")";
+        document.getElementById('openClosed').innerHTML=spBR+""+openCntMsg+closedCntMsg+"";
     }
 </script>
 
