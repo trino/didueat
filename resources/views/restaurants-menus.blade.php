@@ -84,6 +84,11 @@
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
                                     <div class="clearfix"></div>
                                 </div>
+                                <span class="list-inline-item">{{ str_replace(",", ", ", $restaurant->cuisine) }}</span>
+
+                                <div class="clearfix"></div>
+
+
                                 <span class="card-text m-b-0 list-inline-item">
                                 {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
                                     {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
@@ -92,9 +97,6 @@
                                 </span>
 
 
-                                <div class="clearfix"></div>
-
-                                <span class="list-inline-item">{{ str_replace(",", ", ", $restaurant->cuisine) }}</span>
 
 
                             @if($restaurant->is_delivery)

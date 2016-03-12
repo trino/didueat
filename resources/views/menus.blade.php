@@ -62,6 +62,7 @@
 
                                     }
                                 ?>
+                                    <div class="" style="width: 70%;float:left;">
 
                                 <h4 class="card-title">
                                     <a href="#" id="{{ $value->id }}"
@@ -81,18 +82,16 @@
 
                                     </a>
 
+</div>
+
+                                    <div class="" style="width: 30%;float: right">
 
 
-                                 <div class="pull-right">
-
-
-                                        @if($dis)
-                                            <strike class="text-muted" style="font-size:60%;">${{number_format($value->price,2)}}</strike>
-                                        @endif
 
                                         <a href="#" id="{{ $value->id }}"
                                             data-res-id="{{ $value->restaurant_id }}" type="button"
                                             data-toggle="modal"
+                                           style="float: right;"
                                             data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                                             class="btn btn-sm btn-primary">
 
@@ -102,6 +101,11 @@
                                                 ${{number_format($min_p,2)}}+
                                             @endif
                                         </a>
+
+                                        @if($dis)
+                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
+                                        @endif
+
                                     </div>
                                 </h4>
 
