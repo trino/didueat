@@ -33,7 +33,7 @@
 
                 <div class="col-md-4 col-md-offset-4 ">
                     <a href="#" id="add_item0" type="button"
-                       class="btn btn-primary additem  btn-block"
+                       class="btn btn-success btn-lg additem  btn-block"
                        data-toggle="modal"
                        data-target="#addMenuModel">
                         Add Menu Item
@@ -71,7 +71,7 @@
 
                         <div class="col-md-9 p-a-0">
                             <div class="">
-                                <h2 class="card-title">
+                                <h2 class="card-title" style="margin-bottom:  0 !important;">
                                     {!! (isset($restaurant->name))?$restaurant->name:'' !!}
                                 </h2>
                                 <?
@@ -97,6 +97,7 @@
                                 </span>
 
 
+                                <div class="clearfix"></div>
 
 
                             @if($restaurant->is_delivery)
@@ -153,7 +154,7 @@
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
                                             }
                                             else {
-                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
+                                             //   $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
                                             }
                                         },
                                         error: function (res) {
@@ -161,7 +162,7 @@
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
                                             }
                                             else {
-                                                $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
+                                            //    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
                                             }
                                         }
                                     });

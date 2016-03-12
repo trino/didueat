@@ -28,7 +28,7 @@
     $value = (isset($restaurant->max_delivery_distance)) ? $restaurant->max_delivery_distance : old("max_delivery_distance");
     $is_delivery = old('is_delivery') || (isset($restaurant->is_delivery) && $restaurant->is_delivery > 0);
 ?>
-<?= newrow($new, "We Offer Pickup",null, false,6,null); ?>
+<?= newrow($new, "I Offer Pickup",null, false,6,null); ?>
 
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_pickup" {{ $is_disabled }} id="is_pickup"
@@ -38,7 +38,7 @@
 </DIV></DIV>
 
 
-<?= newrow($new, "We Offer Delivery",null, false,6,null); ?>
+<?= newrow($new, "I Offer Delivery",null, false,6,null); ?>
 <LABEL class="c-input c-checkbox">
     <input type="checkbox" name="is_delivery" {{ $is_disabled }} id="is_delivery"
            value="1" {{ ($is_delivery)?'checked':'' }} />
@@ -71,7 +71,7 @@
 <div class="row">
 
     <div class="col-md-12 col-xs-12 p-t-1" >
-        <h4>Hours of Operation</h4>
+        <h4>Pickup Hours</h4>
 
         <?php
             function getkey($object, $key) {

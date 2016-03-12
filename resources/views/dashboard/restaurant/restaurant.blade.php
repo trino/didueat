@@ -21,6 +21,17 @@
          $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
 
+
+
+ if(!$new){
+    if($restaurant->is_complete){
+        echo newrow($new, "Accept Online Orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
+        if($restaurant->open){echo " CHECKED";}
+        echo '>Yes<span class="c-indicator"></span></label></DIV></DIV>';
+    }
+}
+
+
 echo newrow($new, "Restaurant Name", "",true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
     <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required
@@ -42,11 +53,7 @@ echo newrow($new, "Restaurant Name", "",true); ?>
     if (isset($restaurant->description)){ echo $restaurant->description; } else { echo old('description');}
     echo '</textarea>' . newrow();
 
-    if($restaurant->is_complete){
-        echo newrow($new, "Accept Online Orders", "", false, 9) . '<label class="c-input c-checkbox"><input name="open" type="checkbox" value="1"';
-        if($restaurant->open){echo " CHECKED";}
-        echo '>Yes<span class="c-indicator"></span></label></DIV></DIV>';
-    }
+
 }
 echo '<DIV id="cuisinelist">';
 echo newrow($new, "Cuisine", "", true, 9, '<br>(Select up to 3)');

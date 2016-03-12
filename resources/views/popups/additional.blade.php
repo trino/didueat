@@ -1,21 +1,23 @@
-<div class="m-t-1 menuwrapper subber" id="sub{{ (isset($child))? $child->id : 0 }}">
+<div class="row  menuwrapper subber" style="padding: 0 !important; border:0 !important;" id="sub{{ (isset($child))? $child->id : 0 }}">
     <?php
         printfile("views/popups/additional.blade.php");
         $r1 = rand('1000000', '999999999');
         $r2 = rand('1000000', '999999999');
     ?>
 
-    <div class=" row">
+    <div class=" p-a-1">
+    <div class=" card">
 
-        <div class="col-md-8 form-group">
+        <div class="card-header">
             <input class="form-control ctitle " type="text" placeholder="Addon (e.g. Pizza Toppings, Sides)" value="{{ (isset($child->menu_item))? $child->menu_item : '' }}"/>
+        <div class="clearfix"></div>
         </div>
 
-        <div class="col-md-4 form-group">
-            <a href="javascript:void(0)" class="btn btn-sm btn-danger removelast pull-right" onclick="">Delete Addon</a>
-        </div>
+        <div class="card-block">
+        <div class="row">
 
-        <div class="col-md-12 form-group">
+
+        <div class="form-group" style="display: none;" >
             <textarea class="form-control cdescription" style="display: none;" placeholder="Description">{{ (isset($child->description))? $child->description : "" }}</textarea>
         </div>
 
@@ -221,17 +223,36 @@
                                 ?>
                             @endif
                         </div>
-                        <?php
-                        if(isset($cmodel) && count($cmodel) > 1){ ?>
-                            <div class="resturant-arrows ">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-up"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-angle-down"></i></a>
-                            </div>
-                        <?php } ?>
+
                     </div>
                     <div class="clearfix"></div>
             </div>
         </div>
+
+            <div class="clearfix"></div>
+
+
+        </div>
+        </div>
+
+
+        <div class=" card-footer">
+            <div class=" pull-right">
+
+                <?php
+                if(isset($cmodel) && count($cmodel) > 1){ ?>
+                <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-arrow-up"></i></button>
+                <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-arrow-down"></i></button>
+                <?php } ?>
+                <button href="javascript:void(0)" class="btn btn-sm btn-secondary removelast pull-right" onclick="">Delete Addon</button>
+
+
+            </div>                    <div class="clearfix"></div>
+
+        </div>
+
+
+    </div>
     </div>
 </div>
 

@@ -42,10 +42,11 @@
 
            </div>
 
-           <div class="form-group ">
+           <div class="modal-body">
                 <DIV class="col-sm-12" ID="toast" style="color: red;"></DIV>
+               <div class="clearfix"></div>
+
            </div>
-           <div class="clearfix"></div>
 
            <div class="modal-footer">
                <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal">Close</button>

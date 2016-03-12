@@ -67,8 +67,12 @@
             $MissingData[] = "<a href=\"" . url('restaurants/'.$Restaurant->slug.'/menu') . "\">At least one menu item must be added and enabled</a>";
         }
 
-        echo '<div class="alert alert-success " style="margin-bottom: 0px !important;"><div class="container" style="margin-top:0rem !important;"><div class="row">';
+        echo '<div class="alert alert-warning " style="margin-bottom: 0px !important;"><div class="container" style="margin-top:0rem !important;"><div class="row">';
+
+
         printfile("views/common/required_to_open.php");
+
+
         if ($MissingData) {
             $missingHeadInitialReg="";
             $missingHead="";
@@ -83,14 +87,16 @@
             $MissingData = array_merge($MissingData, $MissingDataOptional);
             $MissingData = "<div>&bull; " . implode("<br/>&bull; ", $MissingData) . "</div>";
         } else {
-            $missingHead =  '<h4>Your restaurant is complete!</h4>';
+
+            $missingHead =  '';
             $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
-            $MissingData= "Status: " . iif($business_day, "Open", "Closed") . " / " . iif(!$Restaurant->open, "<B>Not </B> ") . "Online. ";
+            $MissingData= "Hi ".explode(' ', Session::get('session_name'))[0].", You're Currently " . iif($business_day, "Open", "Closed") . " & " . iif(!$Restaurant->open, "Not ") . "Accepting Orders ";
             if(!$Restaurant->open){
-                $MissingData .= '<A HREF="' . url("restaurant/bringonline") . '">Bring Online</A>';
+                $MissingData .= '<A HREF="' . url("restaurant/bringonline") . '">Start Accepting Orders</A>';
             }
+
         }
-        echo '<div class="col-md-12"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div></div></div></div>';
+        echo '<div class="col-md-12 text-md-center"><div ID="invalid-data">' . $missingHead . '' . $MissingData . '</DIV></div></div></div></div>';
     }
 
 

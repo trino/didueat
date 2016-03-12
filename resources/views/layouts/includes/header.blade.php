@@ -38,7 +38,7 @@
 
 
                         <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
-                        <i style="" class="fa fa-bars hidden-md-up  fa-2x"></i>
+                        <i class="fa fa-bars hidden-md-up"  style="font-size: 28px !important;"></i>
 
 
                     </a>

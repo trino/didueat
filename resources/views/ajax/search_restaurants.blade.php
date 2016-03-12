@@ -142,9 +142,11 @@
                             <div class="smallT">Currently closed</div>
                         @endif
   {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-                        <div  class="clearfix"></div>
+
+                            <span class="list-inline-item"> {{ str_replace(",", ", ", $value["cuisine"]) }}</span>
+
+                            <div  class="clearfix"></div>
                     </div>
-					                         <span class="list-inline-item"> {{ str_replace(",", ", ", $value["cuisine"]) }}</span>
 
                  
                     <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
@@ -233,8 +235,8 @@
 <div id="loadMoreBtnContainer">
     @if($hasMorePage > 0)
         <div class="row">
-            <div class="col-md-12 col-md-offset-5">
-                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn custom-default-btn" title="Load more restaurants...">Load More ...</button>
+            <div class="col-md-12 ">
+                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-secondary-outline btn-lg btn-block" title="Load more restaurants...">Load More ...</button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
             </div>
         </div>

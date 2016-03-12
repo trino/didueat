@@ -56,7 +56,7 @@
                         <h3>Reviews</h3>
                         <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                     @endif
-                <p>{!! (isset($restaurant->description)&&$restaurant->description!='')? '<h4>Description</h4>'.$restaurant->description:'' !!}</p>
+                {!! (isset($restaurant->description)&&$restaurant->description!='')? '<strong>Description</strong><br>'.$restaurant->description:'' !!}
 
                 <?php
                     $needsdeliveryhours=false;
@@ -76,11 +76,8 @@
                         }
                     }
 
-                    if ($needsdeliveryhours) {
                         echo '<strong>Pickup Hours</strong>';
-                    } else {
-                        echo '<strong>Hours</strong>';
-                    }
+
 
                     echo "<table>";
 
@@ -98,13 +95,6 @@
                             echo ' to ';
                             echo ' ' . converttime($close) . '</td>';
 
-                            if ($needsdeliveryhours) {
-                                echo '<td>' . converttime($open_del) . '';
-                                echo ' to ';
-                                echo '' . converttime($close_del) . '</td>';
-                            } else {
-                                echo '';
-                            }
 
                         }
 
@@ -112,7 +102,40 @@
                     }
 
                     echo "</table>";
-                ?>
+
+
+                    if ($needsdeliveryhours) {
+                        echo '<br><strong>Delivery Hours</strong>';
+                    }
+
+
+
+                    if ($needsdeliveryhours) {
+                        echo "<table>";
+
+                        foreach ($days as $day) {
+                            echo '<tr><td>' . $day . '</td>';
+
+                            $open_del = getfield($restaurant, $day . "_open_del");
+                            $close_del = getfield($restaurant, $day . "_close_del");
+
+                            if ($open == $close) {
+                                echo '<td>Closed</td>';
+                            } else {
+                                echo '<td>' . converttime($open_del) . '';
+                                echo ' to ';
+                                echo '' . converttime($close_del) . '</td>';
+                            }
+                            echo"</tr>";
+                        }
+
+                        echo "</table>";
+                    }
+
+
+
+
+                    ?>
 
 
                 <div class="clearfix"></div>

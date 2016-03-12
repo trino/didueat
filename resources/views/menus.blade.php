@@ -6,7 +6,8 @@
 
         <DIV class="list-group m-b-1" id="">
 
-            <div class="list-group-item parents " id="">
+
+            <div class="list-group-item parents" style="background-color: #f5f5f5;" id="">
                 <div class="">
                     <div class="row">
 
@@ -15,6 +16,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
 

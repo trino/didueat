@@ -7,7 +7,7 @@
         <div class="modal-content">
 
 
-            <div class="modal-body m-a-0 p-b-0" style="border-bottom: 0 !important;">
+            <div class="modal-header  m-b-0 p-b-0" style="border-bottom: 0 !important;">
 
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
@@ -43,6 +43,7 @@
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
 
+
             </div>
 
 
@@ -64,9 +65,9 @@
                     <div class="row">
 
                         @if (Session::get('session_type_user') == "super" )
-                            <div class="col-sm-12 col-xs-12">
+                            <!--div class="col-sm-12 col-xs-12">
                                 <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
-                            </div>
+                            </div-->
                         @endif
 
 
@@ -83,7 +84,7 @@
                                     <tbody>
                                     <tr>
                                         <td colspan="2" class=" p-t-1">
-                                            <div class="col-xs-12  p-b-0">{{ $value->description }}</div>
+                                            <p class="col-md-12">{{ $value->description }}</p>
 
                                         </td>
                                     </tr>
@@ -92,7 +93,7 @@
 
                                         <tr class="zxcx">
                                             <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
-                                                <hr class="clearfix" style="margin: 10px 0;"/>
+<hr class="m-t-0" />
 
                                                 <input type="hidden" value="{{ $sub->exact_upto_qty }}"
                                                        id="extra_no_{{ $sub->id }}">
@@ -112,7 +113,7 @@
                                                                class="chk">
                                                     </div>
                                                     <strong>
-                                                        {{ ucfirst($sub->menu_item) }}     </strong>
+                                                        {{ ucfirst($sub->menu_item) }}     </strong><br>
                                                            <span class="limit-options">
                                                                <?php
                                                                if ($sub->exact_upto == 0) {
@@ -124,15 +125,15 @@
                                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
                                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
                                                                    }
-                                                                   echo "(Optional)";
+                                                                   echo "Optional";
                                                                } elseif ($sub->req_opt == '1') {
                                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
                                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
                                                                    }
-                                                                   echo "(Required)";
+                                                                   echo "Required";
                                                                }
                                                                ?>
-                                                               </span>
+                                                                                                                 </span>
 
                                                     <div class="clearfix"></div>
                                                     <span class="error_{{ $sub->id }} errormsg"></span>

@@ -1802,17 +1802,23 @@
         echo '<div class="alert alert-' . $Success . '" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
         if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
-        echo '><div class="container" style="margin-top:0 !important;line-height: 2rem !important; "><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+        echo '>
+<div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">
+';
+        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-                case "nostores": $Message = '<span><span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span></span>'; break;
+
+                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
-
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
+        }else
+        {
+
         }
 
         if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}

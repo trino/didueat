@@ -28,7 +28,7 @@
             </div>
 
 
-            <div class="col-md-12 clearfix" style="margin:0px;color:#000;border:solid #e9232d 2px;background:#f4f7f8;padding:12px !important;text-align:left">
+            <div class="col-md-12 clearfix" style="margin:0px;color:#000;background:#f4f7f8;padding:12px !important;text-align:left">
 
                 <span class="und bd" style="color:#e9232d;font-size:19px !important">How It Works</span>&nbsp; {{ DIDUEAT  }} connects restaurants to customers looking for a handy way to satisfy their cravings. Instead of an exhaustive menu to browse, we do things a bit differently -- our restaurants each feature a Meal of the Day. Using a cellphone or computer, it is a quick and easy process for customers to order -- simply select a food category, and then choose an appetizing meal. {{ DIDUEAT  }}'s secure checkout is on the same page, and enables customers to pick up their meals, or have them delivered. It's that simple -- simple for the customer, and simple for the restaurant!
 

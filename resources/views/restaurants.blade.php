@@ -103,7 +103,9 @@ if ($useHamilton) {
 
             <div class="" id="results_show" style="display: none;">
                 <div class="col-lg-8 m-b-2">
-                    <?php popup(true, "message:nostores", false, false, '15'); ?>
+                    <?php popup(true, "message:nostores", false, false, ''); ?>
+
+
                     @include('ajax.search_restaurants')
                 </div>
                 <div class="col-lg-4" ID="filter-results">
@@ -199,7 +201,29 @@ if ($useHamilton) {
                     </div>
 
 
-                </div>
+                    <div class="col-lg-4 hidden-md-down">
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+</div>
+                    </div>
             </div>
 
             <div id="icons_show">
