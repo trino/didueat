@@ -231,7 +231,7 @@ $(function(){
 
         $('.error_' + td_id).html("");
         if(dir) {
-            if (all > extra_no) {
+            if (all > extra_no && upto!='2') {
                 return showerror(td_id, "Cannot select more than " + extra_no + ' options');
             }
         }
