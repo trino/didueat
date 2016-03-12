@@ -91,13 +91,13 @@
             $MoreTime = "";
             $grayout="";
             $Message = "Order Online";
-			
+
 			if(			!$value['open']){
-				
+
 				            $Message = "View Menu";
 
 			}
-			
+
             if(!$is_open){
                 $grayout=" grayout";
                 $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
@@ -148,7 +148,7 @@
                             <div  class="clearfix"></div>
                     </div>
 
-                 
+
                     <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
 
                     @if($value["is_delivery"])

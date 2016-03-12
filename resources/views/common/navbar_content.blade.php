@@ -5,7 +5,14 @@
         if(!function_exists("makelink")){
             function makelink($URL, $Name) {
                 if (is_array($URL)) {
-                    echo '<li><div class="card "><div class="card-header title"><h4 class="card-title">';
+
+
+                    echo '<li><div class="card "><div class="card-header title"
+
+
+
+><h4 class="card-title">';
+
                     $FontAwesome = '<i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
                     if($Name == "My Profile"){
                         $FontAwesome = '<i class="fa fa-user" style="color:#0275d8 !important;margin-right:.3em;"></i> ';

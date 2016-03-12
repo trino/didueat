@@ -613,7 +613,7 @@
                  */
                 $('#list' + ids).remove();
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
-                $('#list' + ids).html('<td class="receipt_image" style="width:45px;">' +
+                $('#list' + ids).html('<td class="receipt_image" style="width:50px !important;">' +
 
 
                         '<a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline  " href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +

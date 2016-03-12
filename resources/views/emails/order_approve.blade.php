@@ -26,11 +26,13 @@
                                 (The above note is written by the restaurant staff)
                                 <br /><br />
                                 <? } ?>
-                                If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
+                                If you have any questions about your order, login to contact the restaurant directly. <!--a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a-->
                                 <br /><br />
                                 Regards,
                                 <br />
                                 Team <?php echo \Config::get('app.company_name'); ?>
+                                @include("emails.footer")
+
                             </td>
                         </tr>
                     </table>

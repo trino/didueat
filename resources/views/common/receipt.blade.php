@@ -178,7 +178,7 @@
 
             <!-- display profile info -->
             @if(!isset($email))
-                <div class="profiles" style="display: none;">
+                <div class="profiles p-t-1" style="display: none;">
 
                     <div class="form-group">
                         <h4 style="padding-top: 60px; margin-top: -60px;" class="profile_delevery_type"></h4>

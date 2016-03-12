@@ -12,7 +12,7 @@
                 <div class="modal-body ">
 @endif
 
-<div class="p-b-0" id="modal_contents">
+<div class="p-b-0 " id="modal_contents">
     <div class="row">
         <?php
             printfile("views/popups/checkout.blade.php");
@@ -29,7 +29,7 @@
                 <div class="form-group">
                    <span class="reserve_login">Please </span>
                     <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
-                    <span class="reserve_login">Or Sign Up Below:</span>
+                    <span class="reserve_login">or Sign up below:</span>
                 </div>
             </div>
         @endif
