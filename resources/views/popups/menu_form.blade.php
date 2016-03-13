@@ -37,7 +37,7 @@
                         @if(isset($model) && $model->image)
                             <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');">Delete image</a>
                         @endif
-                        <div id="browseMsg" class="label smRd"> (Optional)</div>
+                        <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
                     @else
                         Save the item before uploading an image
                     @endif

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
-            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 42px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
         </a>
         <a style="" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
@@ -38,7 +38,7 @@
 
 
                         <span class="hidden-sm-down" style="">{{explode(' ', Session::get('session_name'))[0] }}</span>
-                        <i class="fa fa-bars hidden-md-up"  style="font-size: 28px !important;"></i>
+                        <i class="fa fa-bars hidden-md-up"  style="font-size: 27px !important;"></i>
 
 
                     </a>
