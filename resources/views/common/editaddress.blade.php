@@ -178,7 +178,7 @@
     </DIV></DIV>
 @else
     <?= newrow($new, "City", "", $required, 5); ?>
-    <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city" onfocus="this.blur();"
+    <input required <?= $readonly; ?> type="text" id="city" name="city" class="form-control city"
            value="{{ (isset($addresse_detail->city))?$addresse_detail->city:old('city') }}" {{$required}}>
     </div></div>
 
@@ -189,13 +189,14 @@
     </div></div>
 
     <?= newrow($new, "Postal Code", "", $required, 5); ?>
-    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" onfocus="this.blur();"
+    <input <?= $readonly; ?> type="text" name="postal_code" id="postal_code" 
            class="form-control postal_code" placeholder="" {{$required}}
            value="{{ (isset($addresse_detail->postal_code))?$addresse_detail->postal_code: old('postal_code') }}">
     </div></div>
+    <DIV id="pcNotFnd" style="display:none;margin-top:0px;margin-bottom:10px;color: red" class="col-md-12 pull-right"></div>
 
     <?= newrow($new, "Country", "", $required, 5); ?>
-    <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control" onfocus="this.blur();"
+    <input <?= $readonly; ?> type="text" id="country" name="country" class="form-control"
            value="{{ (isset($addresse_detail->country))?$addresse_detail->country:old('country') }}" {{$required}}>
     </div></div>
     </div>

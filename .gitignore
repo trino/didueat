@@ -104,3 +104,5 @@ public/debugmode.ip
 resources/views/home/faq.blade.php
 old-and-new-db-compare.txt
 latest_dbMarch8.sql
+latest_march12_db.sql
+public/assets/images/box2.gif

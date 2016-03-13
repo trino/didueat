@@ -75,7 +75,8 @@ function fillInAddress1() {
     // Get the place details from the formatted_address object.
     var place = formatted_address.getPlace();
     var lat = place.geometry.location.lat();
-    var lng = place.geometry.location.lng();    
+    var lng = place.geometry.location.lng();
+    var pcFnd=false;
     
     if(!isundefined(formatted_address)){
         $('#formatted_addressForDB').val(place.formatted_address); // formatted_address is google maps variable, and not part of address_components
@@ -96,6 +97,7 @@ function fillInAddress1() {
     $('#postal_code').val('');
     //provinces('{{ addslashes(url("ajax")) }}', '');
     $(".commas").show();
+    
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
 
@@ -124,6 +126,7 @@ function fillInAddress1() {
             if(addressType == "postal_code"){
                 $('#postal_code').val(val);
                 $('span.postal_code').text(val);
+                pcFnd=true;
             }
             
             /*  formatted_address is not part of the google maps address_components array
@@ -144,8 +147,18 @@ function fillInAddress1() {
             }
         }
     }
-    isaddress_incomplete();
-    return place;
+
+    if(!pcFnd){
+      document.getElementById('postal_code').readOnly=false;
+      document.getElementById('pcNotFnd').innerHTML="Sorry, we are unable to locate a postal code for this address. Please enter it manually.";
+      document.getElementById('pcNotFnd').style.display="block";
+      document.getElementById('postal_code').focus();
+      return place;
+    }
+    else{
+      isaddress_incomplete();
+      return place;
+    }
 }
 
 function fillInAddress() {
