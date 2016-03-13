@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
         <a class="hidden-sm-down" href="{{ url('/') }}">
-            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
+            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 42px;"/>
         </a>
         <a style="" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>

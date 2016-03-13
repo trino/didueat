@@ -453,7 +453,7 @@ body {
     font-family: 'Roboto', sans-serif;
 
     background-color: #F4F7F8;
-
+    line-height: 1.6 !important;
 }
 
 .navbar, .row, .container {
@@ -647,6 +647,7 @@ body {
 
 .static-rating {
     border: none;
+
     float: left;
 }
 

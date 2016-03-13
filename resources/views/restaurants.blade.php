@@ -54,10 +54,10 @@ if ($useHamilton) {
 @extends('layouts.default')
 @section('content')
 
-    <div class="jumbotron jumbotron-fluid  bg-warning  main-bg-image">
-        <div class="container " style="margin-top: 0 !important;">
-            <div class="row text-md-center" style="padding:1.25rem !important;">
-
+    <div class="jumbotron jumbotron-fluid  bg-warning main-bg-image">
+        <div class="container" style="margin-top: 0 !important;">
+            <div class="row text-md-center " style="padding:0 1.25rem !important;">
+                <div class="container hidden-md-down"></div>
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
                     <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span
                                 style="font-size: 136%"> Hamilton Restaurants</span></h1>
@@ -87,15 +87,18 @@ if ($useHamilton) {
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
 
+                <div class="container hidden-md-down"></div>
 
             </div>
         </div>
     </div>
 
     @include("popups.rating")
-
-    <div class="container" style="">
+    <div class="container hidden-md-down">
+    </div>
+    <div class="container" style="margin-top: 0 !important;">
 
         <?php printfile("views/restaurants.blade.php"); ?>
 
@@ -227,7 +230,7 @@ if ($useHamilton) {
             </div>
 
             <div id="icons_show">
-                <div class="col-lg-12 p-b-1 p-t-1 text-xs-center">
+                <div class="col-lg-12 p-b-1 text-xs-center" style="padding-top:1rem !important;">
                     <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
 <hr>
                 </div>
@@ -273,9 +276,11 @@ if ($useHamilton) {
 
                 <div class="col-lg-12 text-xs-center p-t-0"><hr>
                     <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
-               <h2>READY TO ORDER SOME FOOD?</h2>
-                        <a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a>
+               <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
+                        <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
 
+
+                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
 
                     </div>
                 </div>

@@ -207,7 +207,7 @@
         }
     ?>
 </div>
-<div class="m-b-1"></div>
+
 
 <script>
     <?php
@@ -236,7 +236,7 @@
     @if($hasMorePage > 0)
         <div class="row">
             <div class="col-md-12 ">
-                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-secondary-outline btn-lg btn-block" title="Load more restaurants...">Load More ...</button>
+                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-link btn-lg btn-block" title="Load more restaurants...">Load More ...</button>
                 <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
             </div>
         </div>

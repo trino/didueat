@@ -56,7 +56,7 @@
                         <h3>Reviews</h3>
                         <p>{!! rating_initialize((session('session_id'))?"rating":"static-rating", "restaurant", $restaurant->id) !!}</p>
                     @endif
-                {!! (isset($restaurant->description)&&$restaurant->description!='')? '<strong>Description</strong><br>'.$restaurant->description:'' !!}
+                {!! (isset($restaurant->description)&&$restaurant->description!='')? '<strong>Description</strong><br>'.$restaurant->description .'<br><br>':'' !!}
 
                 <?php
                     $needsdeliveryhours=false;
