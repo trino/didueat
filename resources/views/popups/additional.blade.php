@@ -41,7 +41,8 @@
                                                     <input class="form-control cctitle" type="text" placeholder="Item" value="{{ $cc->menu_item }}"/>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input class="form-control ccprice pricechk margin-left-10" type="text" placeholder="Optional $" value="{{ $cc->price }}"/></div>
+                                                    <input class="form-control ccprice pricechk margin-left-10" type="number" placeholder="Optional Price" value="{{ $cc->price }}" step="0.10" min="0"
+                                                            /></div>
                                                 </div>
 
                                                 <div class="col-md-4">
@@ -69,7 +70,7 @@
                         <div class="cmore m-b-1">
                             <div class="col-md-4  "><input class="form-control cctitle" type="text" placeholder="Item Name"/>
                             </div>
-                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="any" min="0"
+                            <div class="col-md-4   "><input class="form-control ccprice" type="number" step="0.10" min="0"
                                                             placeholder="Optional Price"/></div>
 
 
