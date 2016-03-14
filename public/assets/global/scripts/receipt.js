@@ -68,7 +68,7 @@ function scrolltocheckout(){
 function checkout() {
     var del = $('#delivery_flag').val();
     var minimum_delivery = $('#minimum_delivery').val();
-
+    
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
     if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
@@ -241,7 +241,7 @@ $(function(){
         var qty = Number($(tthis).parent().find('.span_'+id).text());
         var price  = Number($('.span_'+id).attr('id').replace('sprice_',""));
         var chk = $(tthis).parent().parent().find('#extra_'+id);
-
+        
         var tit = chk.attr('title');
         var title = tit.split("_");
         title[1]= title[1].replace(' x('+qty+")","");
@@ -276,7 +276,7 @@ $(function(){
         $(tthis).parent().parent().find('.spanextra_'+id).attr('title',newtitle);
         $(tthis).parents('.buttons').find('label.changemodalP').click();
         $(tthis).parents('.buttons').find('label.changemodalP').click();
-
+        if(price!=0)
         showloader();
     }
 

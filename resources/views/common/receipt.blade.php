@@ -155,6 +155,7 @@
                                 <div class="grandtotal inlineblock pull-right">${{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}</div>
                                 <input type="hidden" name="g_total" class="grandtotal" value="{{ (isset($order)) ? number_format($order->g_total,2) : '0.00' }}"/>
                                 <input type="hidden" name="res_id" value="{{ (isset($restaurant->id))? $restaurant->id : '' }}"/>
+                                <input type="hidden" id="minimum_delivery" value="{{(isset($restaurant->minimum))?$restaurant->minimum:'0'}}"/>
                             </td>
                         </tr>
                         </tbody>
