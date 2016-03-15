@@ -40,7 +40,7 @@
                         </div>
 
                         @if(!read("id"))
-                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="$('#ratingModal').modal('hide');">Log in to review</a>
+                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="setupratinglogin();">Log in to review</a>
                         @endif
                     </div>
 
@@ -69,6 +69,11 @@
     </div>
 </div>
 <SCRIPT>
+    function setupratinglogin(){
+        $('#ratingModal').modal('hide');
+        needsrating = true;
+    }
+
     $('body').on('submit', '#rating-form', function (e) {
         var ratingbox = $('#rating-form #ratingInputHidden').val();
         var rating = $('#rating-form #rating_id').val();

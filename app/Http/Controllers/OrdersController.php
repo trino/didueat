@@ -256,8 +256,9 @@
             //list of words to replace for easier pronunciation by the computer
             $CallMessage = str_replace(array(DIDUEAT), array("did you eat"), strtolower($Message));
             if($IncludeVan && islive()){$this->sendSMS("9055315331", $Message, strtolower($IncludeVan) == "call");}
-            $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0);
+            $ret = array("email" => array(), "sms" => array(), "call" => array(), "total" => 0, "ret");
             foreach ($NotificationAddresses as $NotificationAddress) {
+                //debugprint( var_export($NotificationAddress, true) );
                 if ($NotificationAddress->address) {
                     $NotificationAddress->address = trim($NotificationAddress->address);
                     if ($NotificationAddress->type == "Email") {
@@ -269,11 +270,11 @@
                         }
                     } else if ($NotificationAddress->is_sms) {
                         if($SMS) {
-                            $this->sendSMS($NotificationAddress->address, $Message);
+                            $ret["ret"]["sms " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $Message);
                             $ret["sms"][] = $NotificationAddress->address;
                         }
                     } else if ($Calls) {
-                        $this->sendSMS($NotificationAddress->address, $CallMessage, true);
+                        $ret["ret"]["call " . $NotificationAddress->address] = $this->sendSMS($NotificationAddress->address, $CallMessage, true);
                         $ret["call"][] = $NotificationAddress->address;
                     }
                     $ret["total"] = $ret["total"] + 1;
@@ -435,7 +436,8 @@
         //$0.0075 per SMS, + $1 per month
         function sendSMS($Phone, $Message, $Call = false){//works if you can get the from number....
             //https://www.twilio.com/
-            if (islive()) {
+            debugprint( iif($Call, "Calling", "Sending an SMS to") . ": " . $Phone . " - " .  $Message);
+            //if (islive()) {
                 $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
                 $token = "3fd30e06e99b5c9882610a033ec59cbd";
                 $fromnumber = "2897685936";
@@ -448,7 +450,8 @@
                     $data = array("From" => $fromnumber, "To" => $Phone, "Body" => $Message);
                 }
                 return $this->cURL($URL, http_build_query($data), $sid, $token);
-            }
+            //}
+            return "Is not live, did not contact";
         }
 
         //change an order status without being logged in

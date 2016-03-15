@@ -405,12 +405,12 @@ class UsersController extends Controller {
 
                 $userArray3["profile_type"] = "restaurant";
                 $userArray3['mail_subject'] = '[' . $userArray3["name"] . '] placed a new order. Please log in to ' . DIDUEAT. ' for more details. Thank you.';
-                app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt", "SMS");
-                
+                //notifystore($RestaurantID, $Message, $EmailParameters = [], $EmailTemplate = "emails.newsletter", $IncludeVan = false, $Emails = true, $Calls = true, $SMS = true) {
+                $ret = app('App\Http\Controllers\OrdersController')->notifystore($res1->restaurant_id, $userArray3['mail_subject'], $userArray3, "emails.receipt");
+                //debugprint( var_export($ret, true) );
+
                 //CC
-                if($post['payment_type']=='cc')
-                {
-                    
+                if($post['payment_type']=='cc') {
                     if(isset($post["stripeToken"]) && $post["stripeToken"]){
                         if (app('App\Http\Controllers\CreditCardsController')->stripepayment($oid, $post["stripeToken"], $ob2->guid, $post['g_total'])) {
                         //    $this->success("Your order has been paid.");

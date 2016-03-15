@@ -45,29 +45,31 @@
                             </td-->
 
                             <td class="text-xs-center">
-
-                                   <?php
-                                       $candisable = true;
-                                       foreach(array("email", "phone", "mobile") as $field){
-                                           if($value->address == $restaurant->$field){
-                                               $candisable = false;
-                                               break;
-                                           }
+                               <?php
+                                   $candisable = true;
+                                   foreach(array("email", "phone", "mobile") as $field){
+                                       if($value->address == $restaurant->$field){
+                                           $candisable = false;
+                                           break;
                                        }
+                                   }
 
-                                       echo '<label class="c-input c-checkbox pull-left"><INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck"';
-                                       if($candisable){
-                                           echo ' ONCLICK="add_enable(' . $value->id . ');"';
-                                           if ($value->enabled) {
-                                               echo ' CHECKED';
-                                           }
-                                       } else {
-                                           echo " CHECKED DISABLED";
-                                           $value->note = "This is required";
+                                   echo '<label class="c-input c-checkbox pull-left"><INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck"';
+                                   if($candisable){
+                                       echo ' ONCLICK="add_enable(' . $value->id . ');"';
+                                       if ($value->enabled) {
+                                           echo ' CHECKED';
                                        }
-                                       echo '><span class="c-indicator"></span></label>';
-                                   ?>
+                                   } else {
+                                       echo " CHECKED DISABLED";
+                                       $value->note = "This is required";
+                                   }
+                                   echo '><span class="c-indicator"></span></label>';
 
+                                   if($value->type != "Email"){
+                                       $value->address = phonenumber($value->address, true);
+                                   }
+                               ?>
                             </td>
 
                             <td>{{ $value->type }}: {{ $value->address }}</td>
@@ -76,12 +78,10 @@
                             <td>
                                 <div class=" pull-right ">
                                     @if (Session::get('session_type_user') == "super")
-                                        <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel"
-                                           data-id="{{ $value->id }}">Edit</a>
+                                        <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel" data-id="{{ $value->id }}">Edit</a>
                                     @endif
                                     @if($candisable)
-                                        <a href="{{ url('notification/addresses/delete/'.$value->id) }}"
-                                            class="btn btn-secondary-outline btn-sm"
+                                        <a href="{{ url('notification/addresses/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                             onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }}?');"><i class="fa fa-times"></i></a>
                                     @endif
                                 </div>
