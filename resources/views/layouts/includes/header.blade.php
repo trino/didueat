@@ -33,7 +33,6 @@
                          $logoTS="?i=".Session::get('flash')['logoTS'];
                         }
                         $filename = 'assets/images/users/' . read("id") . "/icon-" . read('photo');
-                        debugprint("PDB: ".$filename);
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {
                             echo asset($filename).$logoTS;
                         } else {
