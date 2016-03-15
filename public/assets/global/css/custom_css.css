@@ -1,7 +1,13 @@
 hr {
-border-top: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     border-bottom: 1px solid #fff;
 }
+
+.slimhr{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 .exp_cir{
     width:80px;
     height:80px;
@@ -13,9 +19,9 @@ border-top: 1px solid #ddd;
 }
 
 .label{
-
     font-weight: normal !important;
 }
+
 .glyphicon-chevron-down:before{content:"\e114"}
 .glyphicon-chevron-up:before{content:"\e113"}
 
