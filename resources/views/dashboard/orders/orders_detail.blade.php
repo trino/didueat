@@ -5,7 +5,7 @@
         <?php
             printfile("views/dashboard/orders/orders_detail.blade.php");
             $profiletype = Session::get('session_profiletype');
-            $CanApprove = $profiletype == 1 || Session::get('session_restaurant_id') == $restaurant->id;//is admin, or (is pending and is owner of the restaurant)
+            $CanApprove = $profiletype == 1 || ($order->status == "pending" && Session::get('session_restaurant_id') == $restaurant->id);//is admin, or (is pending and is owner of the restaurant)
             //$order->status == "pending", "cancelled", or "approved"
             echo '<INPUT TYPE="HIDDEN" ID="orderid" VALUE="' . $order->id . '">';
             $paid_for = 0;
@@ -69,7 +69,6 @@
 
                                     @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "paid_for"=> $paid_for))
                                         @if(!$CanApprove)
-
                                             @if($order->order_type == 0 && false)
                                                 @include("common.gmaps", array("address" => $restaurant->formatted_address))
                                             @endif

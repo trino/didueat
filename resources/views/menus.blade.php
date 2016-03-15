@@ -1,4 +1,4 @@
-<?php printfile("views/menus.blade.php"); ?>
+<?php printfile("views/menus.blade.php"); //edit loadmenus in homecontroller if you want disabled items to show ?>
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">

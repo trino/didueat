@@ -5,14 +5,7 @@
         if(!function_exists("makelink")){
             function makelink($URL, $Name) {
                 if (is_array($URL)) {
-
-
-                    echo '<li><div class="card "><div class="card-header title"
-
-
-
-><h4 class="card-title">';
-
+                    echo '<li><div class="card "><div class="card-header title"><h4 class="card-title">';
                     $FontAwesome = '<i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
                     if($Name == "My Profile"){
                         $FontAwesome = '<i class="fa fa-user" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
@@ -38,6 +31,7 @@
                     if (Request::path() == $URL) {
                         echo ' active';
                     }
+                    if($URL=="notification/addresses"){$Name="Notification Methods";}
                     echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
                 }
             }
@@ -56,11 +50,11 @@
         }
   
         if (trim(\Session::get('session_restaurant_id'))) {
-            makelink(array('orders/list/restaurant' => 'Orders',
+            makelink(array('restaurant/info' => "Settings",
+                    'orders/list/restaurant' => 'Orders',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notification methods",
-                    'restaurant/info' => "Settings"
-                //,'credit-cards/list/restaurant' => "Credit Card"
+                    'notification/addresses' => "Notification methods"
+                    //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");
         }
 
