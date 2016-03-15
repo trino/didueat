@@ -58,7 +58,7 @@
         if (trim(\Session::get('session_restaurant_id'))) {
             makelink(array('orders/list/restaurant' => 'Orders',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notifications",
+                    'notification/addresses' => "Notification methods",
                     'restaurant/info' => "Settings"
                 //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");

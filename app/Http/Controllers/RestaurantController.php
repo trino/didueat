@@ -116,7 +116,7 @@ class RestaurantController extends Controller {
             $ob = \App\Http\Models\Restaurants::find($id);
             update_database("restaurants", "id", $id, array("open" => 1- $ob->open));
             event(new \App\Events\AppEvents($ob, "Restaurant Status Changed"));
-            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "disabled", "enabled"), 'restaurant/list');
+            return $this->success('Restaurant status has been changed to: ' . iif($ob->open, "closed", "open"), 'restaurant/list');
         } catch (\Exception $e) {
             return $this->failure(handleexception($e), 'restaurant/list');
         }
@@ -476,16 +476,16 @@ class RestaurantController extends Controller {
             if ($type == 'restaurant') {
                 $RestaurantID = read("restaurant_id");
                 $path = 'assets/images/restaurants/' . $RestaurantID;
-//                edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));  // added in restaurantInfo()
+                //edit_database("restaurants", "id", $RestaurantID, array("logo" => $file));  // added in restaurantInfo()
             } else if ($type == 'user') {
                 $path = 'assets/images/users/' . read("id");
-//                \App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));  // added in dashboard()
+                //\App\Http\Models\ProfilesImages::makenew(array('filename' => $file, 'user_id' => read("id")));  // added in dashboard()
             } else {
                 $path = 'assets/images/products';
                 $sizes=false;//where do these go? Shouldn't there be a product ID? -> temp img uploaded into /products, and deleted after rendering sizes
             }
             if(!is_dir(public_path($path))){
-                mkdir(public_path($path));
+                mkdir(public_path($path), 0777, true);
             }
             move_uploaded_file($_FILES['myfile']['tmp_name'], public_path($path) . '/' . $file);
             if($sizes){
