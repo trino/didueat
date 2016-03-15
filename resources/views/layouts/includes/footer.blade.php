@@ -48,7 +48,7 @@ Thank you">Email Support</a></li>
 
                     @if($_SERVER['REMOTE_ADDR']=='24.36.161.100' || $_SERVER['REMOTE_ADDR']=='::1')
                         <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
                         </li>
                     @endif
 
