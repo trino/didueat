@@ -1,7 +1,6 @@
 <?php printfile("views/dashboard/notifications_address/ajax/edit.blade.php"); ?>
 <div class="modal-body">
     <div class="row">
-
         <?= newrow(false, "Contact me by", "", true); ?>
             <div class="reach_type">
                 <label class="form-control-nobord c-input c-radio">
@@ -43,4 +42,49 @@
     function uncheck(ID) {
         $('#' + ID).attr('checked', false);
     }
+
+    //makesure the notification method is valid
+    function validateNotif(f){
+        toast("");
+        if(!f.is_email.checked && !f.is_call.checked && !f.is_sms.checked){
+            toast("Please select one of the options for Contact Me By");
+            return false;
+        }
+        phonetype="";
+        notifType="";
+        if(f.is_call.checked){
+            phonetype="Phone";
+            notifType="Phone";
+        } else if(f.is_sms.checked){
+            phonetype="Cellphone";
+            notifType="Text Msg";
+        } else {
+            notifType="Email";
+        }
+
+        f.type.value=notifType;
+        var x=f.address.value;
+
+        if(f.is_email.checked){
+            // email
+            var filter=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+            if(!filter.test(x)){
+                if(x) {toast("Please Enter a Valid Email Address");}
+                f.address.focus()
+                return false;
+            }
+        } else{
+            // verify it is a number, at the correct length
+            var cleanedPhone = x.replace(/\D/g,'');
+            if(cleanedPhone.length != 10){
+                if(x) {toast("Your " + phonetype + " Number must have exactly 10 digits.");}
+                f.address.focus();
+                return false
+            }
+            //don't worry about invalid characters, the model will remove them all
+            return true;
+        }
+    }
+
 </SCRIPT>
