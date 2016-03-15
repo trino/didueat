@@ -46,7 +46,7 @@
                     <h4 class="card-title">Your Profile</h4>
                 </div>
                 <div class="card-block ">
-                    @include("common.contactinfo", array("new"=>false, "mobile" => true))
+                    @include("common.contactinfo", array("new"=>false, "ismobile" => true))
                 </div>
                 <div class="card-block p-t-0 ">
                     <p class="text-muted  "  align="center" >
