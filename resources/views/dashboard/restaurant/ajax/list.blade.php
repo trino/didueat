@@ -101,7 +101,9 @@
                     @else
                         <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
                         <td>
-                            @if($value->open == true)
+                            @if(!$value->is_complete)
+                                <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Incomplete</A>
+                            @elseif($value->open == true)
                                 <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Enabled</A>
                                     <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
                                    onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
