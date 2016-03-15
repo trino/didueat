@@ -33,7 +33,7 @@
                         @else
                             src="{{ asset('assets/images/small-didueatdefault.png') ."?" . date('U') }}" />
                         @endif
-                        <span id="fullSize" class="smallT"></span>
+                        <!-- <span id="fullSize" class="smallT"></span> -->
 
                     </div>
                 </div>

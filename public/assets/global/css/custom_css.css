@@ -56,6 +56,8 @@ border-top: 1px solid #ddd;
     .glyphUp{position:relative;top:-17px;margin-bottom:-17px}
 }
 
+.hideIt{display:none}
+
 .padL{margin:0px;margin-left:44px;padding-left:55px; white-space: pre-line;}
 
 .bigT{font-size:24px;line-height:26px;margin-top:6px}

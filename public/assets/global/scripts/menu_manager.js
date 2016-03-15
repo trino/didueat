@@ -37,19 +37,45 @@ $('.additem').live('click', function () {
     });
 });
 
+var toggleMenuImgH=true;
+function toggleFullSizeMenu(){
+ if(toggleMenuImgH){
+   document.getElementById('menuImage').style.height="100%";
+   document.getElementById('menuImage').style.cursor="zoom-out";
+   toggleMenuImgH=false;
+ }
+ else{
+   document.getElementById('menuImage').style.height="300px";
+   document.getElementById('menuImage').style.cursor="zoom-in";
+   toggleMenuImgH=true;
+ } 
+////
+}
+
 //handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
     var button = $('#' + button_id), interval;
-    act = base_url + 'restaurant/uploadimg';
+    var printedMenuFileType = $('#imgType').val();
+    var uploadMenuIcon = $('#menuIcon').is(':checked');
+    var act = base_url + 'restaurant/uploadimg';
     new AjaxUpload(button, {
         action: act,
         name: 'myfile',
         data: {'_token': token, 'setSize': 'No'},
         onSubmit: function (file, ext) {
             var thisext = ext.toLowerCase();
-            var imgTypes = ['jpg','png','gif','jpeg'];
+            if(printedMenuFileType == "" && !uploadMenuIcon){
+               var imgTypes = ['jpg','png','gif','jpeg'];
+               var allowedTypesTxt = "jpg, jpeg, png or gif";
+               var fileTypePre = "Please ";
+            }
+            else{
+               var imgTypes = [printedMenuFileType];
+               var allowedTypesTxt = printedMenuFileType;
+               var fileTypePre = "Since the existing image is a photo of a printed menu, your upload must use the same filetype.\n\nSo Please ";
+            }
             if(imgTypes.indexOf(thisext) == -1) {
-              alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
+              alert(fileTypePre+'Upload Only The Following Image Types:\n\n'+allowedTypesTxt);
               return false;
             }
             button.text('Uploading...');
@@ -70,6 +96,7 @@ function ajaxuploadbtn(button_id, doc) {
                 window.clearInterval(interval);
                 document.getElementById(button_id).style.display="none";
                 $('#menuImage').attr('src', base_url+"assets/images/spacer.gif");
+                $('#menuImage').attr('style', "display:none");
                 document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('.hiddenimg').val(img);

@@ -513,8 +513,9 @@ class RestaurantController extends Controller {
                 $arr[$Key] = 1;
             }
         }
+/*
         
-        if (!is_numeric($arr['cat_id'])) {
+        if (!is_numeric($arr['cat_id'])) {  // is this code needed? What is category table used for?
             $arrs['title'] = $arr['cat_id'];
             $arrs['res_id'] = $arr['restaurant_id'];
             $ob2 = new \App\Http\Models\Category();
@@ -522,6 +523,8 @@ class RestaurantController extends Controller {
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
         }
+
+*/
 
         if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with possibility of new image
             $id = $_GET['id'];
@@ -532,6 +535,9 @@ class RestaurantController extends Controller {
 
             //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
+            
+            $testV=print_r($child,true);
+            debugprint("PDB: ".$testV);
             foreach ($child as $c) {
                 \App\Http\Models\Menus::where('parent', $c->id)->delete();  // this should be in one db call using "where in"
             }
@@ -594,7 +600,10 @@ class RestaurantController extends Controller {
                         $oldImgExpl = explode(".", $image_file);
 
                         $todaytime = date("Ymdhis");
-                        foreach (array("icon-", "small-", "big-") as $file) {
+                        foreach (array("icon-", "small-", "big-", "menu-") as $file) {
+                            if(isset($_POST['printedMenu']) && $_POST['printedMenu'] != "" && $file == "menu-"){
+                             continue;
+                            }
                             if (file_exists($destinationPathMenu . '/' . $file . $image_file)) {
                                 rename($destinationPathMenu . '/' . $file . $image_file, $destinationPathMenu . '/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
@@ -605,27 +614,43 @@ class RestaurantController extends Controller {
                     }
                 }
 
-                $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// use for copying and saving original file
+               $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
 
-                $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
-                
-                                
-	              if(isset($_POST['printedMenu'])){
-	                // if an image of a printed menu should be created
-	                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
-	                if($imgVs[0] < $imgVs[1]){ // portrait -- if not portrait aspect, do not render a printed menu image
-	                  $menuDimensions="600x".$imgVs[1]/$imgVs[0]*600;
-	                  $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/menu-']=$menuDimensions;
-	                }
+               $imgUpArr = ['image' => $newName];
+               $menuIconOnly=false;
+               
+               $printedMenuB="";
+	              if(isset($_POST['printedMenu']) && $_POST['printedMenu'] != "0"){
+                 if(isset($_POST['menuIcon']) && $_POST['menuIcon'] != "0"){
+                    // means a menu img already exists, and we are now uploading the menu icons for improved display
+                   $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB];
+                   $menuIconOnly=true;
+                 }
+                 else{
+			                // if an image of a printed menu is being uploaded
+			                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
+			                if($imgVs[0] < $imgVs[1]){ // portrait -- if not portrait aspect, do not render a printed menu image
+			                  $menuDimensions="600x".$imgVs[1]/$imgVs[0]*600;
+			                  $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/menu-']=$menuDimensions;
+			                }
+		                 $printedMenuB=1;
+		                 $imgUpArr['printedMenu'] = 1;
+                 }
 	              }
+               
+               if(!$printedMenuB){
+                   $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
+               }
                
                 copyimages($sizes, $filename, $newName, true);
 
                 @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
-
-                $men = new \App\Http\Models\Menus();
-                // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
-                $men->where('id', $id)->update(['image' => $newName]); // same menu # but filetype may have changed
+                
+                if(!$menuIconOnly){
+			                $men = new \App\Http\Models\Menus();
+			                // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
+			                $men->where('id', $id)->update($imgUpArr); // same menu # and prefix, but ext may have changed
+                }
             }
         }
         die();

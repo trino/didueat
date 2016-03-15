@@ -2,6 +2,7 @@
     <?php
           printfile("views/popups/menu_form.blade.php");
           $browseBtnTxt="Upload Image";
+          $imgType="";
     ?>
     <div class=" ignore row">
         <div class="display:none;">
@@ -24,14 +25,25 @@
                     @if(isset($model) || true)
                         <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
                             <img id="menuImage" class="ignore"
-                                @if(isset($model) && $model->image && strpos($model->image, ".") !== false )
-                                src="{{ asset('assets/images/restaurants/' . $model->restaurant_id . "/menus/" . $model->id . '/small-' . $model->image) ."?" . date('U') }}"/>
-                                <?php $browseBtnTxt="Browse";?>
-                            @else
-                                src="{{ asset('assets/images/spacer.gif') }}" style="display:none" />
-                            @endif
+                                <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
+                                
+                                $browseBtnTxt="Browse";
+                                $imgExp = explode('.', $model->image);
+                                $imgType = end($imgExp);
+                                
+                                if(isset($model->printedMenu) && $model->printedMenu == 1){
+                         echo ' style="height:300px;cursor:zoom-in" onclick="toggleFullSizeMenu()" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/menu-' . $model->image).'?'.date('U').'"';
+                                }
+                                else{
+                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'"';
+                                }
+                            }
+                            else{
+                               echo ' src="'.asset('assets/images/spacer.gif').'" style="display:none"';
+                            }
+                            ?> />
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
-                            <span id="fullSize" class="smallT"></span>
+                            <!-- <span id="fullSize" class="smallT"></span> -->
                         </div>
                         <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">{{ $browseBtnTxt }}</a>
                         @if(isset($model) && $model->image)
@@ -40,6 +52,20 @@
                         <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
                     @else
                         Save the item before uploading an image
+                    @endif
+                    
+                    @if(read("profiletype") == 2 && (!isset($model) || (isset($model->printedMenu) && $model->printedMenu == 1)))
+                   
+                   <input name="imgType" type="hidden" id="imgType" value="{{ $imgType }}" />
+															    <label class="c-input c-checkbox p-r-1">
+
+															        <input type="checkbox" class="menuIcon" id="menuIcon" />Upload as Menu Icon only
+
+															        <span class="c-indicator"></span>
+															    </label>
+                    @else
+                      <input type="checkbox" class="hideIt" id="menuIcon" checked="false" />
+                      <input name="imgType" type="hidden" id="imgType" value="" />
                     @endif
                 </div>
             </div>
