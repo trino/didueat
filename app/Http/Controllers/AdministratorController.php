@@ -93,6 +93,7 @@ class AdministratorController extends Controller {
                     copyimages($sizes, $filename, $newName, true);
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
                     $post['photo'] = $newName;
+                    \Session::put('session_photo', $newName);
                     $addlogo=true;
                 }
 

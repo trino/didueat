@@ -498,9 +498,8 @@ class RestaurantController extends Controller {
         die();
     }
 
-    //add a menu item
+    //add or edit a menu item
     public function menuadd() {
-    // for editing too
         \Session::flash('message', \Input::get('message'));
         $arr['uploaded_by'] = \Session::get('session_ID');
         
@@ -534,7 +533,7 @@ class RestaurantController extends Controller {
             //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
             foreach ($child as $c) {
-                \App\Http\Models\Menus::where('parent', $c->id)->delete();
+                \App\Http\Models\Menus::where('parent', $c->id)->delete();  // this should be in one db call using "where in"
             }
             \App\Http\Models\Menus::where('parent', $id)->delete();
 
@@ -575,7 +574,7 @@ class RestaurantController extends Controller {
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
                 // means image is being uploaded, not just changes to the menu text and options
-                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
+                
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id);
 
                 $imgExp = explode('.', $_POST['image']);
@@ -609,7 +608,17 @@ class RestaurantController extends Controller {
                 $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// use for copying and saving original file
 
                 $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
-
+                
+                                
+	              if(isset($_POST['printedMenu'])){
+	                // if an image of a printed menu should be created
+	                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
+	                if($imgVs[0] < $imgVs[1]){ // portrait -- if not portrait aspect, do not render a printed menu image
+	                  $menuDimensions="600x".$imgVs[1]/$imgVs[0]*600;
+	                  $sizes['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/menu-']=$menuDimensions;
+	                }
+	              }
+               
                 copyimages($sizes, $filename, $newName, true);
 
                 @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image

@@ -26,6 +26,16 @@
         <span class="c-indicator"></span>
     </label>
 
+@if(read("profiletype") == 2)
+
+    <label class="c-input c-checkbox p-r-1">
+
+        <input type="checkbox" class="printedMenu"/>Printed Menu
+
+        <span class="c-indicator"></span>
+    </label>
+
+@endif
 
 </div>
 
