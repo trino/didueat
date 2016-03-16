@@ -43,7 +43,7 @@
     }
     //check if the store is opened, based on it's hours
     $key = iif($delivery_type == "is_delivery", "_del");
-    $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($Restaurant), $Restaurant['open']);
+    $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($Restaurant));
     $Day = current_day_of_week();
 
     $MoreTime = "";
@@ -54,7 +54,10 @@
         $Message = "View Menu";
     }
 
+    $user_time = date('H:i:s');
+
     if(!$is_open){
+        $MoreTime="Currently closed";
         $grayout=" grayout";
         $open = $Restaurant[$Day . "_open" . $key];// offsettime($Restaurant[$Day . "_open" . $key], $difference);
         $close = $Restaurant[$Day . "_close" . $key];//offsettime($Restaurant[$Day . "_close" . $key], $difference);
@@ -96,7 +99,7 @@
 
         <div>
             @if(!$is_open)
-                <div class="smallT">Currently closed</div>
+                <div class="smallT">{{ $MoreTime }}</div>
             @endif
             {!! rating_initialize("static-rating", "restaurant", $Restaurant['id']) !!}
 
@@ -123,11 +126,6 @@
         @if(isset($latitude) && $radius && $Restaurant['distance'])
             <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
         @endif
-
-        @if(isset($MoreTime) && $MoreTime && debugmode())
-            <span class="list-inline-item" style="color: red;">{{ $MoreTime }}</span>
-        @endif
-
     </div>
     <div class="clearfix"></div>
 </div>
