@@ -22,108 +22,35 @@
         //popup(false, $restaurant->name . " is currently closed", "Oops");
     }
 
-    if($is_my_restro){
-    ?>
-    <div class="card  m-b-0" style="border-radius:0 !important;">
-        <div class="card-block ">
-            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                <h4 class="card-title text-xs-center m-b-0">Limit of 25 menu items</h4>
+    if($is_my_restro){ ?>
+        <div class="card  m-b-0" style="border-radius:0 !important;">
+            <div class="card-block ">
+                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+                    <h4 class="card-title text-xs-center m-b-0">Limit of 25 menu items</h4>
 
-                <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our system.</p>
+                    <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our system.</p>
 
-                <div class="col-md-4 col-md-offset-4 ">
-                    <a href="#" id="add_item0" type="button"
-                       class="btn btn-success btn-lg additem  btn-block"
-                       data-toggle="modal"
-                       data-target="#addMenuModel">
-                        Add Menu Item
-                    </a>
+                    <div class="col-md-4 col-md-offset-4 ">
+                        <a href="#" id="add_item0" type="button"
+                           class="btn btn-success btn-lg additem  btn-block"
+                           data-toggle="modal"
+                           data-target="#addMenuModel">
+                            Add Menu Item
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
             </div>
         </div>
-    </div>
-    <?
-    }
-    ?>
+    <? } ?>
 
     <div class="container" >
         <?= printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
-                @if(!$is_my_restro)
-
-                    <div class="list-group-item m-b-1">
-                        <div class="col-md-3 col-xs-3 p-a-0">
-                            <div class="p-r-1">
-                                <img style="max-width:100%;" class="img-rounded pull-left"
-                                     @if(isset($restaurant->logo) && !empty($restaurant->logo) && file_exists(public_path('assets/images/restaurants/' . $restaurant->id . '/small-' . $restaurant->logo)))
-                                        src="{{ asset('assets/images/restaurants/'.$restaurant->id.'/small-'.$restaurant->logo) }}"
-                                     @else
-                                        src="{{ asset('assets/images/small-smiley-logo.png') }}"
-                                     @endif
-                                 alt="">
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div class="col-md-9 p-a-0">
-                            <div class="">
-                                <h2 class="card-title" style="margin-bottom:  0 !important;">
-                                    {!! (isset($restaurant->name))?$restaurant->name:'' !!}
-                                </h2>
-                                <?
-                                    $business_day = \App\Http\Models\Restaurants::getbusinessday($restaurant->id);
-                                    if(!$business_day){
-                                        echo '<div class="smallT ">Currently Closed</div>';
-                                    }
-                                ?>
-                                <div id="restaurant_rating">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "restaurant", $restaurant->id, false, 'update-rating', true, false, '') !!}
-                                </div>
-                                <span class="list-inline-item">{{ str_replace(",", ", ", $restaurant->cuisine) }}</span>
-
-                                <div class="clearfix"></div>
-
-
-                                <span class="card-text m-b-0 list-inline-item">
-                                    {!! (isset($restaurant->address))?$restaurant->address.',':'' !!}
-                                    {!! (isset($restaurant->city))?$restaurant->city.', ':'' !!}
-                                    {!! (isset($restaurant->province))? 'ON':'' !!}
-                                    {!! (isset($restaurant->province))? 'ON':'' !!}
-                                </span>
-
-
-                                <div class="clearfix"></div>
-
-
-                            @if($restaurant->is_delivery)
-                                    @if(!$restaurant->is_pickup)
-                                        <span class="list-inline-item"><strong>Delivery only</strong></span>
-                                    @endif
-                                    <span class="list-inline-item">
-                                        <?= '<strong>Delivery</strong> ' . asmoney($restaurant->delivery_fee, $free = true); ?>
-                                    </span>
-
-                                    <span class="list-inline-item">
-                                        <?= '<strong>Minimum</strong> ' . asmoney($restaurant->minimum, $free = false); ?>
-                                    </span>
-
-                                @elseif($restaurant->is_pickup)
-                                    <span class="list-inline-item"><strong>Pickup only</strong></span>
-                                @endif
-
-
-                                <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
-                                </span>
-
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-
+                @if(!$is_my_restro || debugmode())
+                    @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $restaurant))
                 @endif
 
                 <div class="">
@@ -136,8 +63,8 @@
                     <div class=" menu_div">
                         @if(isset($restaurant))
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
-                            @endif
-                            @foreach($category as $cat)
+                        @endif
+                        @foreach($category as $cat)
                                     <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
@@ -173,7 +100,6 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
-
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
         </div>
