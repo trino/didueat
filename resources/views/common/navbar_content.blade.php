@@ -1,7 +1,7 @@
 <div class="page-sidebar" aria-expanded="true">
     <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" style="margin-bottom:0px !important">
         <?php
-        printfile("views/dashboard/layouts/leftsidebar.blade.php");
+        printfile("views/common/navbar_content.blade.php");
         if(!function_exists("makelink")){
             function makelink($URL, $Name) {
                 if (is_array($URL)) {
@@ -38,21 +38,20 @@
         }
 
         if (Session::get('session_type_user') == "super") {
-            if (true) {
-                makelink(array('orders/list/admin' => 'Orders',
-                        'users/list' => "Users",
-                        'restaurant/list' => "Restaurants",
-                        'subscribers/list' => "Subscribers",
-                        'user/reviews' => "Reviews",
-                        'eventlogs/list' => "Event Log",
-                        'home/debug' => "Debug Log"
-                ), "Admin");
-            }
+            makelink(array('orders/list/admin' => 'Orders',
+                    'users/list' => "Users",
+                    'restaurant/list' => "Restaurants",
+                    'subscribers/list' => "Subscribers",
+                    'user/reviews' => "Reviews",
+                    'eventlogs/list' => "Event Log",
+                    'home/debug' => "Debug Log"
+            ), "Admin");
         }
   
         if (trim(\Session::get('session_restaurant_id'))) {
+            $Pending_orders = select_field_where("reservations", array("restaurant_id" => \Session::get('session_restaurant_id'), "status" => "pending"), "COUNT()");
             makelink(array('restaurant/info' => "Settings",
-                    'orders/list/restaurant' => 'Orders',
+                    'orders/list/restaurant' => 'Orders (' . $Pending_orders . '<i class="fa fa-exclamation-triangle"></i>)',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
                     'notification/addresses' => "Notification methods"
                     //,'credit-cards/list/restaurant' => "Credit Card"
