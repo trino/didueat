@@ -55,8 +55,6 @@ function toggleFullSizeMenu(){
 //handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
     var button = $('#' + button_id), interval;
-    var printedMenuFileType = $('#imgType').val();
-    var uploadMenuIcon = $('#menuIcon').is(':checked');
     var act = base_url + 'restaurant/uploadimg';
     new AjaxUpload(button, {
         action: act,
@@ -64,18 +62,9 @@ function ajaxuploadbtn(button_id, doc) {
         data: {'_token': token, 'setSize': 'No'},
         onSubmit: function (file, ext) {
             var thisext = ext.toLowerCase();
-            if(printedMenuFileType == "" && !uploadMenuIcon){
-               var imgTypes = ['jpg','png','gif','jpeg'];
-               var allowedTypesTxt = "jpg, jpeg, png or gif";
-               var fileTypePre = "Please ";
-            }
-            else{
-               var imgTypes = [printedMenuFileType];
-               var allowedTypesTxt = printedMenuFileType;
-               var fileTypePre = "Since the existing image is a photo of a printed menu, your upload must use the same filetype.\n\nSo Please ";
-            }
+            var imgTypes = ['jpg','png','gif','jpeg'];
             if(imgTypes.indexOf(thisext) == -1) {
-              alert(fileTypePre+'Upload Only The Following Image Types:\n\n'+allowedTypesTxt);
+              alert('Please Upload Only The Following Image Types:\n\njpg, jpeg, png or gif');
               return false;
             }
             button.text('Uploading...');
@@ -95,8 +84,8 @@ function ajaxuploadbtn(button_id, doc) {
             var img = resp[1];
                 window.clearInterval(interval);
                 document.getElementById(button_id).style.display="none";
-                $('#menuImage').attr('src', base_url+"assets/images/spacer.gif");
-                $('#menuImage').attr('style', "display:none");
+                document.getElementById('menuImage').style.display="none";
+                document.getElementById('deleteMenuImg').style.display="none";
                 document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('.hiddenimg').val(img);

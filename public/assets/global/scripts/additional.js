@@ -396,16 +396,6 @@ $('.savebtn').live('click', function () {
             })
         }
     }
-    
-    var printedMenu=0;
-    if($_parent.find('.printedMenu').is(':checked')) {
-        printedMenu = 1;
-    }
-    
-    var menuIcon=0;
-    if($_parent.find('.menuIcon').is(':checked')) {
-        menuIcon = 1;
-    }
 
     var checkprc = 0;
     $_parent.find('.pricechk').each(function () {
@@ -440,7 +430,7 @@ $('.savebtn').live('click', function () {
     
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&printedMenu='+printedMenu+'&menuIcon='+menuIcon+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
+        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
         type: 'post',
         success: function (res) {
             if ($_parent.find('.menuwrapper').length > 0) {

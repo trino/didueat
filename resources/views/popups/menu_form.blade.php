@@ -3,6 +3,73 @@
           printfile("views/popups/menu_form.blade.php");
           $browseBtnTxt="Upload Image";
           $imgType="";
+          $testImg="";
+          (isset($GLOBALS['imgTst']) && $GLOBALS['imgTst']==true)? $testImg=true : $testImg=false;
+          
+if($testImg){
+?>
+
+
+<script>
+function previewFile() {
+  var dataurl = null;
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+  
+  var imgName=file.name.toLowerCase()
+  imgName=imgName.split(/(\\|\/)/g).pop();
+  imgNameSpl=imgName.split(".");
+  var imgName=imgNameSpl[0];
+  var imgExt=imgNameSpl[1];
+
+  document.getElementById('imgName').value=imgName;
+//  document.getElementById('imgExt').value=imgExt;
+  
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+     preview.onload = function () {
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(preview, 0, 0);
+            var MAX_WIDTH = 800;
+            var MAX_HEIGHT = 600;
+            var width = preview.width;
+            var height = preview.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(preview, 0, 0, width, height);
+            dataurl = canvas.toDataURL("image/jpeg",0.1); // set quality to .7
+
+document.getElementById('imgPre').src=dataurl;
+document.getElementById('my_hidden').value=dataurl
+document.getElementById('imgPre').style.display="none"
+document.getElementById('submit').style.display="inline"
+     }
+  }, false);
+
+ reader.readAsDataURL(file);
+
+}
+</script>
+
+
+<?php
+}
+          
     ?>
     <div class=" ignore row">
         <div class="display:none;">
@@ -28,45 +95,27 @@
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";
-                                $imgExp = explode('.', $model->image);
-                                $imgType = end($imgExp);
-                                
-                                if(isset($model->printedMenu) && $model->printedMenu == 1){
-                         echo ' style="height:300px;cursor:zoom-in" onclick="toggleFullSizeMenu()" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/menu-' . $model->image).'?'.date('U').'"';
-                                }
-                                else{
+
                          echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'"';
-                                }
+
                             }
                             else{
                                echo ' src="'.asset('assets/images/spacer.gif').'" style="display:none"';
                             }
                             ?> />
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
+                            <input name="imgName" type="hidden" id="imgName" />
                             <!-- <span id="fullSize" class="smallT"></span> -->
                         </div>
                         <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">{{ $browseBtnTxt }}</a>
                         @if(isset($model) && $model->image)
-                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');">Delete image</a>
+                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');">Delete image</a>
                         @endif
                         <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
                     @else
                         Save the item before uploading an image
                     @endif
                     
-                    @if(read("profiletype") == 2 && (!isset($model) || (isset($model->printedMenu) && $model->printedMenu == 1)))
-                   
-                   <input name="imgType" type="hidden" id="imgType" value="{{ $imgType }}" />
-															    <label class="c-input c-checkbox p-r-1">
-
-															        <input type="checkbox" class="menuIcon" id="menuIcon" />Upload as Menu Icon only
-
-															        <span class="c-indicator"></span>
-															    </label>
-                    @else
-                      <input type="checkbox" class="hideIt" id="menuIcon" checked="false" />
-                      <input name="imgType" type="hidden" id="imgType" value="" />
-                    @endif
                 </div>
             </div>
 

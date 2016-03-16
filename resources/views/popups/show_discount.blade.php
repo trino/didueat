@@ -26,17 +26,6 @@
         <span class="c-indicator"></span>
     </label>
 
-@if(read("profiletype") == 2)
-
-    <label class="c-input c-checkbox p-r-1">
-
-        <input <?php if(!isset($model) || (isset($model->printedMenu) && $model->printedMenu == 1)){?>checked="checked"
-               <?php }?> type="checkbox" class="printedMenu"/>Printed Menu&nbsp;<img src="{{ asset('assets/images/question.gif') }}" title="For Didu Eat Administrators only, so that menus can be uploaded in portrait form (note, if a menu image is rendered, the 'big-' version of the image will NOT be rendered.)">
-
-        <span class="c-indicator"></span>
-    </label>
-
-@endif
 
 </div>
 
