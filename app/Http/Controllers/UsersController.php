@@ -422,8 +422,7 @@ class UsersController extends Controller {
                     
                 }
                 echo '6';
-                
-                
+
                 \DB::commit();
             } catch(\Illuminate\Database\QueryException $e) {
                 \DB::rollback();

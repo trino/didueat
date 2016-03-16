@@ -15,7 +15,7 @@ class Restaurants extends BaseModel {
      */
     public function populate($data,$addlogo = false) {
         $use_delivery_hours = !isset($data["samehours"]);//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg', 'payment_methods');
         if(!isset($data["open"])){$data["open"] = 0;}
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}
@@ -240,7 +240,16 @@ class Restaurants extends BaseModel {
     public function save(array $options = array()) {
         $ret=false;
         if($this->is_complete) {
-            $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
+            $OldData = select_field("restaurants", "id", $this->id);
+            //check for changes in the phone number and email address
+            if($OldData->phone != $this->phone){
+                update_database("notification_addresses", "address", $OldData->phone, array("address" => $this->phone));
+            }
+            if($OldData->email != $this->email){
+                update_database("notification_addresses", "address", $OldData->email, array("address" => $this->email));
+            }
+
+            $Was_Complete = $OldData->is_complete;
             if(!$Was_Complete){
                 $this->is_complete=false;
                 $this->restaurant_opens($this, true);

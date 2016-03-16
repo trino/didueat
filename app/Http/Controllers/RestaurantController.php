@@ -270,6 +270,7 @@ class RestaurantController extends Controller {
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
+                $update['payment_methods'] = $post["payment_methods"];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
