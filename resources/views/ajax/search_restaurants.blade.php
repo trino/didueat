@@ -102,6 +102,11 @@
            // closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
         document.getElementById('openClosed').innerHTML=spBR+""+openCntMsg+closedCntMsg+"";
+        totalCnt = totalCnt + Number($("#countRows").text());
+        $("#countRows").text(totalCnt);
+        if(totalCnt){
+            $("#countRowsS").text("s");
+        }
     }
 </script>
 
@@ -116,4 +121,4 @@
     @endif
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
-<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/><img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
