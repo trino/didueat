@@ -49,11 +49,12 @@
     if(isset($query) && $count > 0 && is_iterable($query)){
         foreach($query as $value){
             ob_start();
+            $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
             ?>
                 @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true))
             <?php
 
-            if(isset($is_open) && $is_open == 1){
+            if($is_open){
                 $openStr.="".ob_get_contents();
             } else{
                 $closedStr.="".ob_get_contents();

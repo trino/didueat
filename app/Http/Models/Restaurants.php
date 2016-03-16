@@ -125,6 +125,7 @@ class Restaurants extends BaseModel {
     //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
     public static function getbusinessday($restaurant, $date = false, $delivery = false){
+        if(is_array($restaurant)){$restaurant = array_to_object($restaurant);}
         if(!$date){$date = now(true);}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);

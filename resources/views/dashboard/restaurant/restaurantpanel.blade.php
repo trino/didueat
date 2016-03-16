@@ -43,7 +43,7 @@
     }
     //check if the store is opened, based on it's hours
     $key = iif($delivery_type == "is_delivery", "_del");
-    $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($Restaurant));
+    $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
     $Day = current_day_of_week();
 
     $MoreTime = "";
