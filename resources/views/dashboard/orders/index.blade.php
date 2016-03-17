@@ -13,15 +13,15 @@
     <div class="container">
         <?php printfile("views/dashboard/orders/index.blade.php"); ?>
 
-    <div class="row">
-        @include('layouts.includes.leftsidebar')
-        <div class="col-lg-9">
-            <div id="ajax_message_jgrowl"></div>
-            <div id="loadPageData">
-                
+        <div class="row">
+            @include('layouts.includes.leftsidebar')
+            <div class="col-lg-9">
+                <div id="ajax_message_jgrowl"></div>
+                <div id="loadPageData">
+
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     @include('popups.approve_cancel')
