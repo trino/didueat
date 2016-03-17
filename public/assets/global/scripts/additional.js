@@ -519,3 +519,5 @@ function chkCBs(cb){
         return false;
     }
 }
+
+bigView=true; // for zooming in on menu images for restaurant admin

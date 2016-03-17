@@ -70,7 +70,8 @@ document.getElementById('submit').style.display="inline"
 <?php
 }
           
-    ?>
+?>
+
     <div class=" ignore row">
         <div class="display:none;">
 
@@ -96,7 +97,7 @@ document.getElementById('submit').style.display="inline"
                                 
                                 $browseBtnTxt="Browse";
 
-                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'"';
+                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'" style="cursor:zoom-in" onclick="if(bigView){this.src=\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/big-' . $model->image).'\';bigView=false;this.style.cursor=\'zoom-out\';}else{this.src=\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'\';bigView=true;this.style.cursor=\'zoom-in\';}"';
 
                             }
                             else{
