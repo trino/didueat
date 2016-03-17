@@ -1,21 +1,13 @@
-<?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
-
-<div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}"
-     tabindex="-1"
-     role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
+<div class="modal clearfix " id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
-
-            <div class="modal-header  m-b-0 p-b-0" style="border-bottom: 0 !important;">
-
-                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
-                        aria-label="Close" id="clear_<?php echo $value->id; ?>">
+            <div class="modal-header m-b-0 p-b-0" style="border-bottom: 0 !important; position:relative; z-index: 999; top: -25px">
+                <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="viewDetailModel">
-                    <?php echo $value->menu_item; ?>
-
+                <h4 class="modal-title" id="viewDetailModel" >
+                    <SPAN CLASS="stroke-white-1px">{{ $value->menu_item }}</SPAN>
                     @if($value->price>0)
                         @if($dis)
                             <span class='label label-warning'>{{$dis}}</span>
@@ -26,8 +18,9 @@
                                ${{number_format($dis_price=$main_price,2)}}
                             </span>
                         @else
-                            <span style="color:#0275d8"
-                                  class="pricetitle modalprice<?php echo $value->id; ?>">${{$dis_price=number_format($value->price,2)}}</span>
+                            <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">
+                                ${{$dis_price=number_format($value->price,2)}}
+                            </span>
                         @endif
 
                     @else
@@ -37,33 +30,20 @@
                     @endif
 
                     <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
-
-
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
-
-
             </div>
 
-
             @if ($has_bigImage)
-                <div class="modal-body m-a-0 p-a-0" style="">
-
-
-                    <img style="max-width:100%;" class="popimage_{{ $value->id }}"
-                         src="{{ $item_bigImage }}"/>
-
-
+                <div class="modal-body m-a-0 p-a-0" style="z-index: 1; position: relative; top: -76px">
+                    <img style="max-width:100%;" class="popimage popimage_{{ $value->id }}" src="{{ $item_bigImage }}"/>
                 </div>
-
             @endif
 
-
-            <div class="modal-body product-popup  p-y-0 m-y-0">
+            <div class="modal-body product-popup p-y-0 m-y-0 stroke-white-1px" style="z-index: 999; position: relative; top: -140px">
                 <div class="product-page product-pop-up">
                     <div class="row">
-
                         @if (Session::get('session_type_user') == "super" )
                             <!--div class="col-sm-12 col-xs-12">
                                 <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
@@ -72,7 +52,6 @@
 
 
                         <div class="subitems_{{ $value->id }} optionals">
-
                             <div style="display:none;">
                                 <input type="checkbox" style="display: none;" checked="checked"
                                        title="{{ $value->id.'_<b>'.$value->menu_item.'</b>_'.$main_price.'_' }}"
@@ -224,7 +203,7 @@
                 </div>
             </div>
 
-            <div class="modal-footer m-t-1">
+            <div class="modal-footer m-t-1" oldstyle="position: relative; top: -140px">
                 <div class=" pull-left">
                     <button type="button" class="btn btn-secondary-outline btn-sm hidden-md-up" data-dismiss="modal">
                         Close
