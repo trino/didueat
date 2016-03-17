@@ -508,8 +508,8 @@
 
     //date: leave blank for today, a negative number will be in relation to today (ie: -1 with units=day, will be yesterday)
     function current_day_of_week($date = 0, $units = "day"){
-        if ($date < 0) {
-            $date = strtotime($date . ' ' . $units, time());
+        if ($date < 8) {
+            $date = strtotime(iif($date>0, "+") . $date . ' ' . $units, time());
         } else if (!$date) {
             $date = time();
         }
@@ -1844,7 +1844,11 @@
             $Units = array();
             foreach (array($day => 86400, $hour => 3600, $minute => 60) as $unit => $secondsper) {
                 if ($Seconds >= $secondsper) {
-                    $div = floor($Seconds / $secondsper);
+                    if($unit == $minute && !$IncludeSeconds) {
+                        $div = ceil($Seconds / $secondsper);
+                    } else {
+                        $div = floor($Seconds / $secondsper);
+                    }
                     $Units[] = $div . " " . $unit . iif($div != 1, "s");
                     $Seconds = $Seconds % $secondsper;
                 }

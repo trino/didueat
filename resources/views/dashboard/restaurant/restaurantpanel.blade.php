@@ -3,23 +3,19 @@
         printfile("dashboard/restaurant/restaurantpanel.blade.php");
         //convert a 24hr time into seconds
         function toseconds($Time){
-            $Time = explode(":", $Time);
-            return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
+            if(strpos($Time, ":") !== false){
+                $Time = explode(":", $Time);
+                return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
+            }
+            return $Time;
         }
         //get a rough estimate of the difference between 2 times
-        function timediff($Start, $End){//end is the bigger time
+        function timediff($Start, $End = false){//end is the bigger time
             $Start = toseconds($Start);
+            if(!$End){$End = time();}
             $End = toseconds($End);
             $Diff = abs($End - $Start);
-            if ($Diff >= 3600){
-                $Diff = round($Diff / 3600,2);
-                $Unit = "hour";
-            } else {
-                $Diff = ceil($Diff / 60);
-                if(!$Diff){$Diff = 1;}
-                $Unit = "minute";
-            }
-            return $Diff . " " . $Unit . iif($Diff <> 1, "s");
+            return durationtotext($Diff, false, ", ");
         }
     }
 
@@ -41,7 +37,7 @@
     //check if the store is opened, based on it's hours
     $key = iif($delivery_type == "is_delivery", "_del");
     $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
-    $Day = current_day_of_week();
+
 
     $MoreTime = "";
     $grayout="";
@@ -53,18 +49,20 @@
 
     $user_time = date('H:i:s');
 
+    $Day = current_day_of_week();
     if(!$is_open){
         $MoreTime="Currently closed";
         $grayout=" grayout";
-        $open = $Restaurant[$Day . "_open" . $key];// offsettime($Restaurant[$Day . "_open" . $key], $difference);
-        $close = $Restaurant[$Day . "_close" . $key];//offsettime($Restaurant[$Day . "_close" . $key], $difference);
         if($Restaurant['open']){
-            if($open == $close){
-                $MoreTime = "Doesn't open today";
-            } else if($open > $user_time){
-                $MoreTime = "Opens in: ~" . timediff($open, $user_time);
-            } else if ($close < $user_time) {
-                $MoreTime = "Closed: ~" . timediff($user_time, $close) . " ago";
+            for($day = 0; $day <7; $day++){
+                $Day = current_day_of_week($day);
+                $open = $Restaurant[$Day . "_open" . $key];
+                $close = $Restaurant[$Day . "_close" . $key];
+                if($open && $close && $open != $close){
+                    $Date =  strtotime ($open, time() + ($day * 86400));
+                    $MoreTime = "Opens in " . timediff($Date);
+                    break;
+                }
             }
         } else {
             $MoreTime = "Not accepting orders";
