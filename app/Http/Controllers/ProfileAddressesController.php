@@ -147,7 +147,7 @@ class ProfileAddressesController extends Controller {
         try {
             $ob = \App\Http\Models\ProfilesAddresses::find($id);
             $ob->delete();
-            return $this->success("Address has been deleted successfully!", 'user/addresses');
+            //return $this->success("Address has been deleted successfully!", 'user/addresses');
         } catch(\Exception $e) {
             return $this->failure(handleexception($e),'user/addresses');
         }

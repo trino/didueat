@@ -81,6 +81,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
+    Route::post('user/addresses/delete/{id}',                       'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
     Route::post('restaurant/users/action/{type}/{id}',              'UsersController@usersAction');
     Route::get('user/info',                                         'AdministratorController@dashboard');
@@ -144,6 +145,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::resource('user/reviews',                                 'UserReviewsController@index');
     Route::post('user/reviews/list/ajax',                           'UserReviewsController@listingAjax');
     Route::get('user/reviews/action/{id}',                          'UserReviewsController@reviewAction');
+    Route::post('user/reviews/action/{id}',                         'UserReviewsController@reviewAction');
     Route::get('user/reviews/edit/{id}',                            'UserReviewsController@ajaxEditUserReviewForm');
 });
 

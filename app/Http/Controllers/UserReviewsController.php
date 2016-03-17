@@ -92,8 +92,8 @@
         public function reviewAction($id = 0){
             $ob = \App\Http\Models\RatingUsers::find($id);
             $ob->delete();
-
-            return $this->success('Review has been deleted successfully!', 'user/reviews');
+            //return $this->listingAjax();
+            //return $this->success('Review has been deleted successfully!', 'user/reviews');
         }
 
         /**
