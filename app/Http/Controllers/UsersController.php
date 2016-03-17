@@ -219,7 +219,8 @@ class UsersController extends Controller {
                     return $this->failure("'" . $type . "' is not handled", 'users/list');
             }
             event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            return $this->success("message:" . $type, 'users/list');
+            //return $this->success("message:" . $type, 'users/list');
+            return $this->listingAjax();
         } catch (\Exception $e) {
             return $this->failure( handleexception($e), 'users/list');
         }

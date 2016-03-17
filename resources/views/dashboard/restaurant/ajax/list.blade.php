@@ -25,7 +25,7 @@
                 @if($recCount > 0)
                     @foreach($Query as $key => $value)
                         <?php $logo = defaultlogo($value, true); ?>
-                        <tr>
+                        <tr id="restaurant{{ $value->id }}">
                             <td>{{ $value->id }}</td>
                             <td><img src="{{ $logo }}" width="90"/></td>
                             <td>{{ $value->name }}</td>
@@ -96,7 +96,8 @@
                                 <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm">Orders</a>
                                 <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm">Menu</a>
                                 <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                <a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
+                                <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+                                <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             </td>
                         </tr>
                     @endforeach
@@ -114,3 +115,19 @@
         <div class="card-footer clearfix">{!! $Pagination !!}    </div>
     @endif
 </div>
+<SCRIPT>
+    var Restaurants = '{{ $recCount }}';
+    function deleterestaurant(ID, Name){
+        if(confirm('Are you sure you want to delete restaurant "' + Name + '"?')) {
+            $("#delete" + ID).html('<i class="fa fa-spinner fa-spin"></i>');
+            $.post("{{ url('restaurant/list/delete') }}/" + ID, {_token: "{{ csrf_token() }}"}, function (result) {
+                Restaurants=Restaurants-1;
+                if(Restaurants) {
+                    $("#restaurant" + ID).fadeOut();
+                } else {
+                    $("#loadPageData").html(result);
+                }
+            });
+        }
+    }
+</SCRIPT>

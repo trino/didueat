@@ -82,6 +82,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
+    Route::post('restaurant/users/action/{type}/{id}',              'UsersController@usersAction');
     Route::get('user/info',                                         'AdministratorController@dashboard');
     Route::resource('user/images',                                  'UsersController@images');
     Route::resource('restaurant/info',                              'RestaurantController@restaurantInfo');
@@ -119,10 +120,12 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::get('users/edit/{id}',                                   'UsersController@ajaxEditUserForm');
     Route::post('users/update',                                     'UsersController@userUpdate');
     Route::get('users/action/{type}/{id}',                          'UsersController@usersAction');
+    Route::post('users/action/{type}/{id}',                         'UsersController@usersAction');
 
     Route::get('restaurant/list',                                   'RestaurantController@index');
     Route::post('restaurant/list/ajax',                             'RestaurantController@listingAjax');
     Route::get('restaurant/list/delete/{id}',                       'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
+    Route::post('restaurant/list/delete/{id}',                      'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
     Route::get('restaurant/list/status/{id}',                       'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
     Route::get('restaurant/orders/history/{id}',                    'OrdersController@history')->where('id', '[0-9]+');
     Route::resource('restaurant/add/new',                           'RestaurantController@addRestaurants');
