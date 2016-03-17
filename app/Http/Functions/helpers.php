@@ -1264,9 +1264,11 @@
         for ($i = 0; $i <= $length; $i++) {
             $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
             if($business_day) {
+                /*
                 if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
                     echo '<OPTION DISABLED>New business day</OPTION>';
                 }
+                */
                 $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
                 $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
                 $hour = date("G:H:s", $date);

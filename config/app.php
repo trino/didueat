@@ -1,7 +1,7 @@
 <?php
 
 $filename = getcwd() . "/debugmode.ip";
-$debugmode = true;
+$debugmode = false;
 $GLOBALS['imgTst']=true;
 if(file_exists($filename)) {
     $filename = file_get_contents($filename);

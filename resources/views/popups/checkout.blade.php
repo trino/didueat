@@ -132,9 +132,9 @@
         <div class="clearfix"></div>
     </div>
 
-    <div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
+    <!--div class="col-xs-12 form-group text-xs-center p-a-0 m-t-1" style="color: red;font-size:90%;">
         Please review your order before proceeding!
-    </div>
+    </div-->
 
     <div class="col-xs-12 p-t-1">
             <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
