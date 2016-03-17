@@ -48,6 +48,14 @@
 
         // $Data["Date format"] = get_date_format();
 
+        if(isset($hash)){
+            $hash="";
+            foreach ($Data as $Key => $Value) {
+                $hash .= $Key . $Value;
+            }
+            $Data["Hash"] = hashtext($hash);
+        }
+
         foreach ($Data as $Key => $Value) {
             echo '<TR class="infolist noprint"><TD class="padright15"><strong>' . $Key . '</strong> </TD><TD WIDTH="5"></TD><TD>' . $Value . "</TD></TR>";
         }

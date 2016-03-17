@@ -1,4 +1,5 @@
 <?php
+    ini_set('session.gc_maxlifetime', 86400);//force long session
     define("MAX_DELIVERY_DISTANCE", 30);
     define("TINY_THUMB", '64x64');
     define("MED_THUMB", '165x165');
@@ -1871,5 +1872,20 @@
         }
         if(isset($Filename) && $Filename && file_exists(public_path('assets/images/' . $Filename))) {$Default = $Filename;}
         return asset('assets/images/' . $Default);
+    }
+
+    function hashtext($HTML){
+        $HTML = striptag($HTML, array("script"));
+        $HTML = str_replace(array("\r\n", ">", " ", "+", "	"), "", html_entity_decode($HTML));
+        return md5($HTML . "super secret special sauce seed");//never change this seed
+    }
+    function striptag($HTML, $Tag){
+        if(is_array($Tag)){
+            foreach($Tag as $HTMLtag){
+                $HTML = striptag($HTML, $HTMLtag);
+            }
+            return strip_tags($HTML);
+        }
+        return preg_replace('#<' . $Tag . '(.*?)>(.*?)</' . $Tag . '>#is', '', $HTML);
     }
 ?>

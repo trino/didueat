@@ -32,6 +32,7 @@ Route::get('auth/logout',                                           'Auth\AuthCo
 
 Route::get('home/faq',                                              'HomeController@home2');
 Route::get('home/{type}',                                           'HomeController@home');
+Route::post('home/{type}',                                          'HomeController@home');
 
 Route::get('orders/alertstore',                                     'OrdersController@alertstore');
 Route::get('orders/list/{action}/email/{email}/{guid}',             'OrdersController@orderstatus');
