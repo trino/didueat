@@ -56,23 +56,23 @@
             @if($recCount > 0)
 
                 <thead>
-                <tr>
-                    <th>Order #</th>
-                    <th>
-                        @if($type=='user')
-                            Restaurant
-                        @else
-                            Customer
-                        @endif
-                    </th>
-                    <th>Ordered On</th>
-                    <th>Status</th>
-                    @if (Session::get('session_type_user') == "super" || $type=='restaurant')
+                    <tr>
+                        <th>Order #</th>
+                        <th>
+                            @if($type=='user')
+                                Restaurant
+                            @else
+                                Customer
+                            @endif
+                        </th>
+                        <th>Ordered On</th>
+                        <th>Status</th>
+                        @if (Session::get('session_type_user') == "super" || $type=='restaurant')
 
-                    <TH>Response Time</TH>
-                    @endif
-                    <th></th>
-                </tr>
+                        <TH>Response Time</TH>
+                        @endif
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
 
@@ -80,7 +80,7 @@
                 <?php
                   $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
                 ?>
-                    <tr>
+                    <tr id="order{{ $value->id }}">
                         <td>
                             <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn {{ statuscolor($value->status) }} btn-sm">{{ $value->guid }}</a>
                         </td>
@@ -142,10 +142,17 @@
 
                         <td>
                             @if(Session::get('session_profiletype') == 1)
-                                <a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
+                                <!--a href="{{ url('orders/list/delete/'.$type.'/'.$value->id) }}"
                                    class="btn btn-secondary-outline btn-sm pull-right"
                                    onclick="return confirm('Are you sure you want to delete order #{{ $value->id }}?');">
                                     <i class="fa fa-times"></i>
+                                </a-->
+
+
+                                <a
+                                   class="btn btn-secondary-outline btn-sm pull-right"
+                                   onclick="deleteorder({{ $value->id }});">
+                                    <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                 </a>
                             @endif
                             @if($type == "admin" )
@@ -176,6 +183,15 @@
 </div>
 
 <SCRIPT>
+    function deleteorder(ID){
+        if(confirm('Are you sure you want to delete order #' + ID + '?')) {
+            $("#fa" + ID).attr("class", "fa fa-spinner fa-spin");
+            $.post("{{ url('orders/list/delete/' . $type) }}/" + ID, {_token: "{{ csrf_token() }}"}, function (result) {
+                $("#order" + ID).fadeOut();
+            });
+        }
+    }
+
     //notify the store of a pending order
     function notifystore(event, OrderID) {
         var element = event.target;

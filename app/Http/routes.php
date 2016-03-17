@@ -69,6 +69,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
     Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
     Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
+    Route::post('orders/list/delete/{type}/{id}',                   'OrdersController@deleteOrder')->where('id', '[0-9]+');
     Route::get('orders/report',                                     'OrdersController@report');
     
     //Profiles Addresses Routes

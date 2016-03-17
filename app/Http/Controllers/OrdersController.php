@@ -195,7 +195,9 @@
             try {
                 $ob = \App\Http\Models\Reservations::find($id);
                 $ob->delete();
-                return $this->success('Order has been deleted successfully!', 'orders/list/' . $type);
+                //return $this->success('Order has been deleted successfully!', 'orders/list/' . $type);
+                $this->success('Order has been deleted successfully!');
+                return $this->listingAjax($type);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'orders/list/' . $type);
             }
