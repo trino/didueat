@@ -61,9 +61,10 @@ echo newrow($new, "I Offer Pickup",null, false,6,null); ?>
            onchange="$('#max_delivery_distance_label').html('Max Delivery Distance<br/><span>(' + p.value + ' km)</span>');">
     </DIV></DIV>
 
-    <?= newrow($new, "Estimated delivery time", "", true, 2); ?>
-        <input type="number" step="any" min="0" name="aprox_time" {{ $is_disabled }} class="form-control" placeholder="ETA"
-            value="{{ (isset($restaurant->aprox_time))?$restaurant->aprox_time:old('aprox_time') }}"/>
+    <?= newrow($new, "Estimated delivery time", "", true, 2);
+        $range = durationtotext(array(15,120,15), false, " ", "", "hour", "min");
+        makeselect("aprox_time", $range, (isset($restaurant->aprox_time))?$restaurant->aprox_time:old('aprox_time'));
+    ?>
     </DIV></DIV>
 </div>
 

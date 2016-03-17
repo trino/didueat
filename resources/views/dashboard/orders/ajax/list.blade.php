@@ -2,6 +2,20 @@
     echo printfile("views/dashboard/orders/ajax/list.blade.php");
     $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
     $secondsTitle = "sec";
+
+    function statuscolor($Status, $Color = false){
+        switch ($Status) {
+            case "approved":
+                return iif($Color, 'GREEN', "btn-success");
+                break;
+            case "cancelled":
+                return iif($Color, 'RED', "btn-danger");
+                break;
+            case "pending":
+                return iif($Color, 'ORANGE', "btn-warning");
+                break;
+        }
+    }
 ?>
 
 @if(\Session::has('message'))
@@ -62,14 +76,13 @@
                 </thead>
                 <tbody>
 
-
                 @foreach($Query as $value)
                 <?php
                   $resto = DB::table('restaurants')->select('name', 'slug')->where('id', '=', $value->restaurant_id)->get();
                 ?>
                     <tr>
                         <td>
-                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn btn-primary  btn-sm">{{ $value->guid }}</a>
+                            <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn {{ statuscolor($value->status) }} btn-sm">{{ $value->guid }}</a>
                         </td>
                         <td>
                             @if($type=='user')
@@ -89,25 +102,11 @@
                             }
                             echo date($dateformat, $date);
                             echo '<HR class="m-a-0">(For ' . iif($value->order_type, "Delivery", "Pickup") . iif($value->order_till, ' later') . ')';
-                            echo '</td><TD>';
+                            echo '</td>';
 
-                            echo '<FONT COLOR="';
-                            switch ($value->status) {
-                                case "approved":
-                                    echo 'GREEN';
-                                    break;
-                                case "cancelled":
-                                    echo 'RED';
-                                    break;
-                                case "pending":
-                                    echo 'ORANGE';
-                                    break;
-                            }
-                            echo '">' . ucfirst($value->status);
+                            echo '<TD><FONT COLOR="' . statuscolor($value->status, true) . '">' . ucfirst($value->status) . '</FONT></td>';
 
-                            echo '</FONT>';
-
-                            echo '</td><TD>';
+                            echo '<TD>';
                                 if (Session::get('session_type_user') == "super" || $type=='restaurant'){
                                     if ($value->time && $value->status != "pending") {
                                         echo '<FONT COLOR="';

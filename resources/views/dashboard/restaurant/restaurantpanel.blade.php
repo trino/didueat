@@ -27,10 +27,7 @@
         $Restaurant = getProtectedValue($Restaurant, "attributes");
     }
 
-    $logo = 'small-smiley-logo.png';
-    if($Restaurant['logo'] && file_exists(public_path('assets/images/restaurants/' . $Restaurant['id'] . '/small-' . $Restaurant['logo']))){
-        $logo = 'restaurants/' . $Restaurant['id'] . '/small-' . $Restaurant['logo'];
-    }
+    $logo = defaultlogo($Restaurant);
     $Restaurant['tags'] = str_replace(",", ", ", $Restaurant['tags']);
     if ($Restaurant['is_delivery']) {
         $Delivery_enable = "Delivery";
@@ -78,7 +75,7 @@
     <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1" >
             <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url">
-                <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
+                <img style="max-width:100%;" class="img-rounded" alt="" src="{{ $logo }}">
                 <div class="clearfix"></div>
             </a>
         </div>
