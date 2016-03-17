@@ -92,12 +92,12 @@ document.getElementById('submit').style.display="inline"
                 <div class="form-group">
                     @if(isset($model) || true)
                         <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
-                            <img id="menuImage" class="ignore"
+                            <span id="zoomMsg">Click Image to Zoom</span><br/><img id="menuImage" class="ignore"
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";
 
-                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'" style="cursor:zoom-in" onclick="if(bigView){this.src=\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/big-' . $model->image).'\';bigView=false;this.style.cursor=\'zoom-out\';}else{this.src=\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'\';bigView=true;this.style.cursor=\'zoom-in\';}"';
+                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'" style="position:relative;cursor:zoom-in" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.'\')"';
 
                             }
                             else{

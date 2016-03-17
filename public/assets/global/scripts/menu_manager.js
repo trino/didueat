@@ -38,14 +38,23 @@ $('.additem').live('click', function () {
 });
 
 var toggleMenuImgH=true;
-function toggleFullSizeMenu(){
+function toggleFullSizeMenu(path,imgroot){
  if(toggleMenuImgH){
-   document.getElementById('menuImage').style.height="100%";
+   var img = new Image();
+			img.src = path+"/big-"+imgroot;
+   document.getElementById('zoomMsg').innerHTML="Loading...";
+			img.onload = function() {
+     document.getElementById('zoomMsg').innerHTML="Click Image to Zoom Out";
+}
+   document.getElementById('menuImage').src=path+"/big-"+imgroot;
+   document.getElementById('menuImage').style.left="-16px";
    document.getElementById('menuImage').style.cursor="zoom-out";
    toggleMenuImgH=false;
  }
  else{
-   document.getElementById('menuImage').style.height="300px";
+   document.getElementById('zoomMsg').innerHTML="Click Image to Zoom";
+   document.getElementById('menuImage').src=path+"/small-"+imgroot;
+   document.getElementById('menuImage').style.left="0px";
    document.getElementById('menuImage').style.cursor="zoom-in";
    toggleMenuImgH=true;
  } 
@@ -85,7 +94,9 @@ function ajaxuploadbtn(button_id, doc) {
                 window.clearInterval(interval);
                 document.getElementById(button_id).style.display="none";
                 document.getElementById('menuImage').style.display="none";
-                document.getElementById('deleteMenuImg').style.display="none";
+                if(document.getElementById('deleteMenuImg')){
+                  document.getElementById('deleteMenuImg').style.display="none";
+                }
                 document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('.hiddenimg').val(img);

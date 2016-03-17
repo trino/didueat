@@ -556,7 +556,7 @@ class RestaurantController extends Controller {
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();//save changes
-
+            
             $this->handleimageupload($ob2->id);
         }
     }
@@ -565,6 +565,7 @@ class RestaurantController extends Controller {
     public function handleimageupload($id, $existingImg = ""){
         echo $id;
         $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
+        
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
@@ -582,7 +583,7 @@ class RestaurantController extends Controller {
                    $ext="jpg"; // uploading from phone requires jpg
                 }
 				            $newName = $id . '.' . $ext;//handle image saving
-                
+                debugprint("PDB: ".$restID . '/menus/' . $id);
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id);
 
                 if (!file_exists($destinationPathMenu)) {
