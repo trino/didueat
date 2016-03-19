@@ -705,7 +705,7 @@ body {
 .static-rating > .checked-stars ~ label {
     color: #f0ad4e !important
 }
-
+.cat_name{margin-bottom:5px;}
 /*
 
 .btn-primary {

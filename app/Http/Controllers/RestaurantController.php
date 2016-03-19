@@ -498,7 +498,7 @@ class RestaurantController extends Controller {
         }
         die();
     }
-
+    
     //add or edit a menu item
     public function menuadd() {
         \Session::flash('message', \Input::get('message'));
@@ -510,22 +510,23 @@ class RestaurantController extends Controller {
         foreach ($Copy as $Key) {
             if (isset($_POST[$Key])) {
                 $arr[$Key] = $_POST[$Key];
-                if($Key=='cat_id')
-                $arr[$Key] = 1;
+                //if($Key=='cat_id')
+                //$arr[$Key] = 1;
             }
         }
-/*
+
         
-        if (!is_numeric($arr['cat_id'])) {  // is this code needed? What is category table used for?
-            $arrs['title'] = $arr['cat_id'];
-            $arrs['res_id'] = $arr['restaurant_id'];
+        if (!($arr['cat_id']) && $arr['cat_name']) {
+            $arrs['title'] = $arr['cat_name'];
+            //$arrs['res_id'] = $arr['restaurant_id'];
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arrs);
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
         }
+        unset($arr['cat_name']);
 
-*/
+
 
         if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with possibility of new image
             $id = $_GET['id'];
