@@ -1,4 +1,5 @@
 <?php
+    ini_set('session.gc_maxlifetime', 86400);//force long session
     define("MAX_DELIVERY_DISTANCE", 30);
     define("TINY_THUMB", '64x64');
     define("MED_THUMB", '165x165');
@@ -508,8 +509,8 @@
 
     //date: leave blank for today, a negative number will be in relation to today (ie: -1 with units=day, will be yesterday)
     function current_day_of_week($date = 0, $units = "day"){
-        if ($date < 0) {
-            $date = strtotime($date . ' ' . $units, time());
+        if ($date < 8) {
+            $date = strtotime(iif($date>0, "+") . $date . ' ' . $units, time());
         } else if (!$date) {
             $date = time();
         }
@@ -1264,9 +1265,11 @@
         for ($i = 0; $i <= $length; $i++) {
             $business_day = \App\Http\Models\Restaurants::getbusinessday($Restaurant, $date);
             if($business_day) {
+                /*
                 if($PreviousBusinessDay && $business_day != $PreviousBusinessDay){
                     echo '<OPTION DISABLED>New business day</OPTION>';
                 }
+                */
                 $open = getfield($Restaurant, $business_day . "_open" . iif($isDelivery, "_del"));
                 $close = getfield($Restaurant, $business_day . "_close" . iif($isDelivery, "_del"));
                 $hour = date("G:H:s", $date);
@@ -1802,26 +1805,87 @@
         echo '<div class="alert alert-' . $Success . '" role="alert"';
         if($ID){ echo ' ID="' . $ID  . '"';}
         if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
-        echo '>
-<div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">
-';
+        echo '><div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-
                 case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
-        }else
-        {
-
         }
-
         if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
         echo $Message . '</div></div>';
+    }
+
+    function makeselect($Name, $Items, $SelectedValue = false){
+        echo '<SELECT NAME="' . $Name . '" ID="' . $Name . '" CLASS="form-control">';
+            foreach($Items as $Key => $Value){
+                echo '<OPTION VALUE="' . $Key . '"';
+                if ($Key == $SelectedValue || $Value == $SelectedValue){
+                    echo ' SELECTED';
+                }
+                echo '>' . $Value . '</OPTION>';
+            }
+        echo '</SELECT>';
+    }
+
+    //if $Seconds is an array: $Seconds[0] = start, $Seconds[1] = end, $Seconds[2] = step (but all in minutes)
+    function durationtotext($Seconds, $IncludeSeconds = false, $Delimeter = " ", $day = "day", $hour = "hour", $minute = "minute", $second = "second") {
+        if(is_array($Seconds)){
+            $range = array();
+            for($minutes = $Seconds[0]; $minutes <= $Seconds[1]; $minutes+=$Seconds[2]){
+                $range[$minutes] = durationtotext($minutes*60, $IncludeSeconds, $Delimeter, $day, $hour, $minute, $second);
+            }
+            return $range;
+        } else {
+            $Units = array();
+            foreach (array($day => 86400, $hour => 3600, $minute => 60) as $unit => $secondsper) {
+                if ($Seconds >= $secondsper) {
+                    if($unit == $minute && !$IncludeSeconds) {
+                        $div = ceil($Seconds / $secondsper);
+                    } else {
+                        $div = floor($Seconds / $secondsper);
+                    }
+                    $Units[] = $div . " " . $unit . iif($div != 1, "s");
+                    $Seconds = $Seconds % $secondsper;
+                }
+            }
+            if ($Seconds && $IncludeSeconds) {
+                $Units[] = $Seconds . " " . $second . iif($Seconds != 1, "s");
+            }
+            return implode($Delimeter, $Units);
+        }
+    }
+
+    function defaultlogo($Data, $Thumbnail = false){
+        ////(isset($value->logo) && $value->logo != "") ? 'restaurants/' . $value->id . '/thumb_' . $value->logo : 'default.png';
+        if(is_object($Data)){$Data = getProtectedValue($Data, "attributes");}
+        if(array_key_exists("logo", $Data)) {//is a restaurant
+            $Default = iif($Thumbnail, 'default.png', 'small-smiley-logo.png');
+            if($Data["logo"]) {$Filename = 'restaurants/' . $Data["id"] . iif($Thumbnail, "/icon-", '/small-') . $Data["logo"];}
+        } else if (property_exists($Data, "photo")) {
+            die("GVSDUFDGHD");
+        }
+        if(isset($Filename) && $Filename && file_exists(public_path('assets/images/' . $Filename))) {$Default = $Filename;}
+        return asset('assets/images/' . $Default);
+    }
+
+    function hashtext($HTML){
+        $HTML = striptag($HTML, array("script"));
+        $HTML = str_replace(array("\r\n", ">", " ", "+", "	"), "", html_entity_decode($HTML));
+        return md5($HTML . "super secret special sauce seed");//never change this seed
+    }
+    function striptag($HTML, $Tag){
+        if(is_array($Tag)){
+            foreach($Tag as $HTMLtag){
+                $HTML = striptag($HTML, $HTMLtag);
+            }
+            return strip_tags($HTML);
+        }
+        return preg_replace('#<' . $Tag . '(.*?)>(.*?)</' . $Tag . '>#is', '', $HTML);
     }
 ?>

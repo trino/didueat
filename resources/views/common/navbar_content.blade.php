@@ -1,18 +1,11 @@
 <div class="page-sidebar" aria-expanded="true">
     <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" style="margin-bottom:0px !important">
         <?php
-        printfile("views/dashboard/layouts/leftsidebar.blade.php");
+        printfile("views/common/navbar_content.blade.php");
         if(!function_exists("makelink")){
             function makelink($URL, $Name) {
                 if (is_array($URL)) {
-
-
-                    echo '<li><div class="card "><div class="card-header title"
-
-
-
-><h4 class="card-title">';
-
+                    echo '<li><div class="card "><div class="card-header title"><h4 class="card-title">';
                     $FontAwesome = '<i class="fa fa-cutlery" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
                     if($Name == "My Profile"){
                         $FontAwesome = '<i class="fa fa-user" style="color:#0275d8 !important;margin-right:.3em;"></i> ';
@@ -38,29 +31,31 @@
                     if (Request::path() == $URL) {
                         echo ' active';
                     }
+                    if($URL=="notification/addresses"){$Name="Notification Methods";}
                     echo '"><i class="fa fa-angle-right pull-right" style="margin-top: .3em;"></i> ' . $Name . '</a></LI>';
                 }
             }
         }
 
         if (Session::get('session_type_user') == "super") {
-            if (true) {
-                makelink(array('orders/list/admin' => 'Orders',
-                        'users/list' => "Users",
-                        'restaurant/list' => "Restaurants",
-                        'subscribers/list' => "Subscribers",
-                        'user/reviews' => "Reviews",
-                        'eventlogs/list' => "Event Log"
-                ), "Admin");
-            }
+            makelink(array('orders/list/admin' => 'Orders',
+                    'users/list' => "Users",
+                    'restaurant/list' => "Restaurants",
+                    'subscribers/list' => "Subscribers",
+                    'user/reviews' => "Reviews",
+                    'eventlogs/list' => "Event Log",
+                    'home/debug' => "Debug Log"
+            ), "Admin");
         }
   
         if (trim(\Session::get('session_restaurant_id'))) {
-            makelink(array('orders/list/restaurant' => 'Orders',
+            $Pending_orders = select_field_where("reservations", array("restaurant_id" => \Session::get('session_restaurant_id'), "status" => "pending"), "COUNT()");
+            if(!$Pending_orders){$Pending_orders=0;}
+            makelink(array('restaurant/info' => "Settings",
+                    'orders/list/restaurant' => 'Orders (' . $Pending_orders . iif($Pending_orders, '<i class="fa fa-exclamation-triangle" style="color: red;"></i>') . ')',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",
-                    'notification/addresses' => "Notifications",
-                    'restaurant/info' => "Settings"
-                //,'credit-cards/list/restaurant' => "Credit Card"
+                    'notification/addresses' => "Notification methods"
+                    //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");
         }
 
@@ -68,7 +63,6 @@
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             $data["orders/list/user"] = "Orders";
             $data["user/addresses"] = "Delivery Address";
-            $data["auth/logout"] = "Log out";
         }
         $data["auth/logout"] = "Log out";
         if (read("oldid")){

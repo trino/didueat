@@ -6,32 +6,31 @@
             $order = select_field("reservations", "id", $orderid);
             $restaurant = select_field("restaurants", "id", $order->restaurant_id);
             $user_detail = select_field("profiles", "id", $order->user_id);
+            $email_msg=1;
         ?>
         <!--h4 style="">Order Status:&nbsp; <span style="color:#f00">{{$order->status}}</span><br/><span style="font-weight:normal;">Note: You will receive a confirmation email when your order has been finalized</span></span></h4>
         
-<h3 style="margin-left:10px">Please indicate whether you Accept or Decline this order:  <span style="color:#FF0000">(Is this needed. What if user doesn't check email)</span>
-
-    <div style="margin-left:10px">
-
-        <a href="{{ url("/orders/list/approve/email/" . $email . "/" . $order->guid) }}">Accept</a>&nbsp; &nbsp;
-        <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $order->guid) }}">Decline</a>
-
-</div></h3-->
-
+        <h3 style="margin-left:10px">Please indicate whether you Accept or Decline this order:  <span style="color:#FF0000">(Is this needed. What if user doesn't check email) ANSWER: Yes, it's for the store</span>
+            <div style="margin-left:10px">
+                <a href="{{ url("/orders/list/approve/email/" . $email . "/" . $order->guid) }}">Accept</a>&nbsp; &nbsp;
+                <a href="{{ url("/orders/list/cancel/email/" . $email . "/" . $order->guid) }}">Decline</a>
+            </div>
+        </h3-->
 
         <div class="row" >
             <div class="col-md-6">
-            <?php
-            $email_msg=1;
-            ?>
-            {{ DIDUEAT }} order received. Please see order details below:
-                </div>
-            <div class="col-md-6">
-                @include('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail))
+                {{ DIDUEAT }} order received. Please see order details below:
+            </div>
+            <div class="col-md-6" class="orderinfo">
+                <?= $receipt = view('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail)); ?>
             </div>
 
-            <div class="col-md-6" >
-                @include('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true))
+            <div class="col-md-6" class="receipt">
+                <?= $view = view('common.receipt', array("order" => $order, "restaurant" => $restaurant, "user_detail" => $user_detail, "email" => true, "hash" => true));  ?>
+            </div>
+
+            <div class="col-md-6" class="hash">
+                <?= hashtext($receipt . $view); ?>
             </div>
             <div class="clearfix"></div>
         </div>

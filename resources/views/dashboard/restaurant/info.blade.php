@@ -3,8 +3,6 @@
 
     <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 
-
-
     <div class="container">
 
 
@@ -19,12 +17,13 @@
 
 
                 <input type="hidden" name="id" value="{{ ((isset($resturant->id))?$resturant->id:0) }}"/>
-<?
-                $is_disabled = false;
-                if (isset($route) && $route == "restaurant/view/{view}") {
-                    $is_disabled = " DISABLED";
-                }
+                <?
+                    $is_disabled = false;
+                    if (isset($route) && $route == "restaurant/view/{view}") {
+                        $is_disabled = " DISABLED";
+                    }
                 ?>
+
                 <div class="card">
                     <div class="card-header"><a name="PickupAndDelivery"></a>
                         <h4 class="card-title">Hours & Delivery</h4>
@@ -33,63 +32,54 @@
                         @include("dashboard.restaurant.hours", array("new" => false, "restaurant" => $resturant, "is_disabled" => $is_disabled, "style" => 2, "showDeliveryOptions" => true))
                         <div class="clearfix"></div>
                     </div>
-
-
-
-
                 </div>
-
-
 
                 <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Restaurant Settings</h4>
+                    <div class="card-header">
+                        <h4 class="card-title">Payment methods</h4>
+                    </div>
+                    <div class="card-block">
+                        @include("dashboard.restaurant.payment", array("edit" => true, "restaurant" => $resturant))
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
 
-                <div class="card-block">
-<!--div class="row">
-<div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Restaurant Settings</h4>
+                    </div>
 
-                    <label class="c-input c-radio">
-                        <input id="radio1" name="radio" type="radio">
-                        <span class="c-indicator"></span>
-                        Restaurant Live (Accept Orders)
-                    </label>
-                    <label class="c-input c-radio">
-                        <input id="radio2" name="radio" type="radio">
-                        <span class="c-indicator"></span>
-                        Restaurant Offline (Closed)
-                    </label>
-</div>
-</div-->
-                <?php
-                    echo view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));
-                    ?>
+                    <div class="card-block">
+                        <!--div class="row">
+                            <div class="col-md-12">
+                                <label class="c-input c-radio">
+                                    <input id="radio1" name="radio" type="radio">
+                                    <span class="c-indicator"></span>
+                                    Restaurant Live (Accept Orders)
+                                </label>
+                                <label class="c-input c-radio">
+                                    <input id="radio2" name="radio" type="radio">
+                                    <span class="c-indicator"></span>
+                                    Restaurant Offline (Closed)
+                                </label>
+                                </div>
+                        </div-->
+                        <?= view('dashboard.restaurant.restaurant', array("restaurant" => $resturant, 'cuisine_list' => $cuisine_list, "new" => false, "is_disabled" => $is_disabled));  ?>
+                    </div>
                 </div>
-            </div>
 
                 {!! Form::close() !!}
 
-
-
-
-
                 <div class="card"><a name="RestaurantAddress"></a>
-
                     <div class="card-header">
                         <h4 class="card-title">Restaurant Address</h4>
                     </div>
                     <div class="card-block ">
-                    <div class="row">
-                        <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false, "restEdit" => true, "mini" => true)); ?>
-                    </div>
+                        <div class="row">
+                            <?= view('common.editaddress', array("addresse_detail" => $resturant, "is_disabled" => $is_disabled, "restSignUp" => false, "restEdit" => true, "mini" => true)); ?>
+                        </div>
                     </div>
                 </div>
-
-
-
-
-
 
 
             @if(!$is_disabled)

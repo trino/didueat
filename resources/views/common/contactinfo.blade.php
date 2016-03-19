@@ -18,7 +18,7 @@
 
     //which name to use for the phone number input
     $phonetype = "phone";
-    if(isset($mobile) && $mobile){
+    if(isset($ismobile) && $ismobile){
         $phonetype = "mobile";
     }
 

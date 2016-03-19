@@ -19,7 +19,7 @@ class ProfilesAddresses extends BaseModel {
             $data["address"] = $data["formatted_address"];
         }
         $data["country"]= "Canada";
-        if(strpos($data["address"], ",")){
+        if(isset($data["address"]) && strpos($data["address"], ",")){
             $data["address"] = trim(strstr($data["address"], ',', true));
         }
         $this->copycells($cells, $data);

@@ -31,8 +31,6 @@
                                 Regards,
                                 <br />
                                 Team <?php echo \Config::get('app.company_name'); ?>
-                                @include("emails.footer")
-
                             </td>
                         </tr>
                     </table>

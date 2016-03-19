@@ -270,6 +270,7 @@ class RestaurantController extends Controller {
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
+                $update['payment_methods'] = $post["payment_methods"];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
                 $update['delivery_fee'] = (isset($post['is_delivery']))?$post['delivery_fee']:0;
@@ -498,9 +499,8 @@ class RestaurantController extends Controller {
         die();
     }
 
-    //add a menu item
+    //add or edit a menu item
     public function menuadd() {
-    // for editing too
         \Session::flash('message', \Input::get('message'));
         $arr['uploaded_by'] = \Session::get('session_ID');
         
@@ -514,8 +514,9 @@ class RestaurantController extends Controller {
                 $arr[$Key] = 1;
             }
         }
+/*
         
-        if (!is_numeric($arr['cat_id'])) {
+        if (!is_numeric($arr['cat_id'])) {  // is this code needed? What is category table used for?
             $arrs['title'] = $arr['cat_id'];
             $arrs['res_id'] = $arr['restaurant_id'];
             $ob2 = new \App\Http\Models\Category();
@@ -523,6 +524,8 @@ class RestaurantController extends Controller {
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
         }
+
+*/
 
         if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with possibility of new image
             $id = $_GET['id'];
@@ -533,8 +536,9 @@ class RestaurantController extends Controller {
 
             //delete all child items
             $child = \App\Http\Models\Menus::where('parent', $id)->get();
+
             foreach ($child as $c) {
-                \App\Http\Models\Menus::where('parent', $c->id)->delete();
+                \App\Http\Models\Menus::where('parent', $c->id)->delete();  // this should be in one db call using "where in"
             }
             \App\Http\Models\Menus::where('parent', $id)->delete();
 
@@ -562,25 +566,24 @@ class RestaurantController extends Controller {
         echo $id;
         $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
-            $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
-            $image_file = $mns->image; // use for naming and renaming
-            $destinationPath = public_path('assets/images/products');
-            $filename = $destinationPath . "/" . $_POST['image'];
-            if($existingImg){
-                $oldImgExpl=explode(".",$existingImg);
-            }
-            $uploadedImgExpl = explode('.', $_POST['image']);
-            $ext = end($uploadedImgExpl);
-            $newName = $id . '.' . $ext;//handle image saving
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
                 // means image is being uploaded, not just changes to the menu text and options
-                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
+                
+				            $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
+				            $image_file = $mns->image; // use for naming and renaming
+				            $destinationPath = public_path('assets/images/products');
+				            $filename = $destinationPath . "/" . $_POST['image'];
+                if(!isset($_POST['imgName']) || $_POST['imgName'] == ""){
+							            $uploadedImgExpl = explode('.', $_POST['image']);
+							            $ext = end($uploadedImgExpl);
+                }
+                else{
+                   $ext="jpg"; // uploading from phone requires jpg
+                }
+				            $newName = $id . '.' . $ext;//handle image saving
+                
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id);
-
-                $imgExp = explode('.', $_POST['image']);
-                $ext = end($imgExp);
-                $newName = $id . '.' . $ext;
 
                 if (!file_exists($destinationPathMenu)) {
                     mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
@@ -589,34 +592,39 @@ class RestaurantController extends Controller {
                 $destinationPathMenu = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id);
                 $filename = $destinationPathMenu . '/' . $newName;
 
-                if($image_file != "" && $image_file != "undefined") {
-                    // rename existing images with timestamp, if they exist,
-                    if (isset($image_file)) {
-                        $oldImgExpl = explode(".", $image_file);
-
-                        $todaytime = date("Ymdhis");
+                $todaytime = date("Ymdhis");
+				            if($existingImg){
+				                $oldImgExpl=explode(".",$existingImg);
                         foreach (array("icon-", "small-", "big-") as $file) {
-                            if (file_exists($destinationPathMenu . '/' . $file . $image_file)) {
-                                rename($destinationPathMenu . '/' . $file . $image_file, $destinationPathMenu . '/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                            if (file_exists($destinationPathMenu . '/' . $file . $existingImg)) {
+                                rename($destinationPathMenu . '/' . $file . $existingImg, $destinationPathMenu . '/' . $file . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                             }
                         }
-                        if (file_exists($destinationPathMenu . '/' . $file . $image_file)) { // for original file with no prefix
-                            rename($destinationPathMenu . '/' . $image_file, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
+                        if (file_exists($destinationPathMenu . '/' . $existingImg)) { // for original file with no prefix
+                            rename($destinationPathMenu . '/' . $existingImg, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                         }
                     }
-                }
 
-                $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// use for copying and saving original file
 
-                $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => BIG_SQ];
+               $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
 
+	                // if an image of a printed menu should be created
+	                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
+                 $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
+
+
+               
+                   $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
+
+               
                 copyimages($sizes, $filename, $newName, true);
 
                 @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
 
+             
                 $men = new \App\Http\Models\Menus();
                 // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
-                $men->where('id', $id)->update(['image' => $newName]); // same menu # but filetype may have changed
+                $men->where('id', $id)->update(['image' => $newName]); // same menu # and prefix, but ext may have chngd
             }
         }
         die();

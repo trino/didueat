@@ -174,7 +174,12 @@ abstract class Controller extends BaseController {
     //checks if a slug is in use, if it is, randomize it
     function chkSlug($txt) {
         if (\App\Http\Models\Restaurants::where('slug', $txt)->first()) {
-            $txt = $this->chkSlug($txt . rand(0, 999));
+            $number = 1;
+            $txt .= "-";
+            while(\App\Http\Models\Restaurants::where('slug', $txt . $number)->first()){
+                $number++;
+            }
+            $txt .= $number;
         }
         return $txt;
     }

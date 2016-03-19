@@ -55,14 +55,14 @@ class AdministratorController extends Controller {
                     $destinationPath = public_path('assets/images/users/'.$post['user_idDir']);
                     
                     $imgVs=getimagesize($destinationPath."/".$post['photo']);
-    
+
+                    $todaytime = date("Ymdhis");
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/users/' . $post['user_idDir'], 0777, true);
                     }
                     else{
                         // rename existing images with timestamp, if they exist,
                         $oldImgExpl=explode(".",$ob->photo);
-                        $todaytime = date("Ymdhis");
                         foreach(array("/icon-", "/small-", "/big-") as $file){ 
                             if(file_exists($destinationPath.$file.$ob->photo)){
                                 rename($destinationPath.$file.$ob->photo, $destinationPath.$file.$oldImgExpl[0]."_".$todaytime.".".$oldImgExpl[1]);
@@ -93,6 +93,8 @@ class AdministratorController extends Controller {
                     copyimages($sizes, $filename, $newName, true);
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
                     $post['photo'] = $newName;
+                    \Session::put('session_photo', $newName);
+                    \Session::flash('logoTS', $todaytime);
                     $addlogo=true;
                 }
 

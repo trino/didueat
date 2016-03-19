@@ -20,13 +20,15 @@
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
                                 <h2>Dear {{ $name }},</h2>
-                                Thank you for registering with {{ DIDUEAT  }}. We invite you to enjoy the convenience of ordering your food online -- with your computer, tablet or cellphone.
+                                Thank you for registering with {{ DIDUEAT  }}.
                                 @if(isset($restaurant_id) && $restaurant_id)
                                    <br/><br/>As a restaurant, there are a few quick tasks you need to complete before you are completely ready to sell your food with {{ DIDUEAT  }}:<br/><br/>
                                    &bull; Pickup and/or delivery options (ie, minimum orders and delivery charge)<br/>
                                    &bull; Hours of operation<br/>
                                    &bull; At least one menu item must be added and enabled<br/>
                                    &bull; You may also wish to upload your restaurant's logo, although this is optional
+                                @else
+                                 We invite you to enjoy the convenience of ordering your food online -- with your computer, tablet or cellphone.
                                 @endif                                
                                 <br/><br/>As a reminder, your login credentials have been included below:
                                 <br /><br />  

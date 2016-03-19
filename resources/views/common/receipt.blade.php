@@ -146,9 +146,20 @@
                                     <input type="hidden"
                                            value="{{ (isset($order)) ? number_format($order->delivery_fee,2) : (isset($restaurant->delivery_fee))?number_format($restaurant->delivery_fee,2):'0.00' }}"
                                            class="df" name="delivery_fee"/>
-                                    <input type="hidden" value="0" id="delivery_flag" name="order_type"/></div>
+                                    <input type="hidden" value="0" id="delivery_flag" name="order_type"/>
+                                </div>
                             </td>
                         </tr>
+                        <tr <?php if (isset($order) && $order->order_type == '1') echo ''; else echo "style='display:none'"; ?> id="df2">
+                            <td><strong>Minimum</strong></td>
+                            <td>
+                                <div class="pull-right ">
+                                    <span class="df">${{ number_format($restaurant->minimum,2) }}</span>
+                                </div>
+                            </td>
+                        </tr>
+
+
                         <tr>
                             <td><strong>Total</strong></td>
                             <td>

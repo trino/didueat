@@ -14,9 +14,8 @@ class Restaurants extends BaseModel {
      * @return Array
      */
     public function populate($data,$addlogo = false) {
-        $use_delivery_hours = true;//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
-
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg');
+        $use_delivery_hours = !isset($data["samehours"]);//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city', 'province', 'country', 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg', 'payment_methods', 'aprox_time');
         if(!isset($data["open"])){$data["open"] = 0;}
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}
@@ -126,6 +125,7 @@ class Restaurants extends BaseModel {
     //only returns a value if the store is open at the time specified
     //example use \App\Http\Models\Restaurants::getbusinessday($rest);
     public static function getbusinessday($restaurant, $date = false, $delivery = false){
+        if(is_array($restaurant)){$restaurant = array_to_object($restaurant);}
         if(!$date){$date = now(true);}
         $now = date('H:i:s', $date);
         $Today = current_day_of_week($date);
@@ -241,7 +241,16 @@ class Restaurants extends BaseModel {
     public function save(array $options = array()) {
         $ret=false;
         if($this->is_complete) {
-            $Was_Complete = select_field("restaurants", "id", $this->id, "is_complete");
+            $OldData = select_field("restaurants", "id", $this->id);
+            //check for changes in the phone number and email address
+            if($OldData->phone != $this->phone){
+                update_database("notification_addresses", "address", $OldData->phone, array("address" => $this->phone));
+            }
+            if($OldData->email != $this->email){
+                update_database("notification_addresses", "address", $OldData->email, array("address" => $this->email));
+            }
+
+            $Was_Complete = $OldData->is_complete;
             if(!$Was_Complete){
                 $this->is_complete=false;
                 $this->restaurant_opens($this, true);

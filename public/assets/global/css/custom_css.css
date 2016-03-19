@@ -1,7 +1,13 @@
 hr {
-border-top: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     border-bottom: 1px solid #fff;
 }
+
+.slimhr{
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 .exp_cir{
     width:80px;
     height:80px;
@@ -13,9 +19,29 @@ border-top: 1px solid #ddd;
 }
 
 .label{
-
     font-weight: normal !important;
 }
+
+.stroke-black-1px{
+    text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+}
+
+.stroke-white-1px{
+    text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}
+.popimage{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
 .glyphicon-chevron-down:before{content:"\e114"}
 .glyphicon-chevron-up:before{content:"\e113"}
 
@@ -55,6 +81,8 @@ border-top: 1px solid #ddd;
 @-moz-document url-prefix() {
     .glyphUp{position:relative;top:-17px;margin-bottom:-17px}
 }
+
+.hideIt{display:none}
 
 .padL{margin:0px;margin-left:44px;padding-left:55px; white-space: pre-line;}
 
@@ -297,6 +325,7 @@ a.anchor {
 
 .container {
     margin-top: 1rem !important;
+
 }
 
 .form-group {

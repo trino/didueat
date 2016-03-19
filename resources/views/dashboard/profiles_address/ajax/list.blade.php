@@ -37,7 +37,7 @@
             <tbody>
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
-                    <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}">
+                    <tr class="rows" data-id="{{ $value->id }}" data-order="{{ $key }}" id="address{{ $value->id }}">
                         @if($recCount > 1)
                             <td style="min-width: 100px;">{{ $key+1 }}
                                     <div class="btn-group-vertical">
@@ -47,12 +47,9 @@
                             </td>
                         @endif
 
-                        <?php
-                            (isset($value->apartment) && strlen($value->apartment) > 0) ? $aptV = "Apt " . $value->apartment . ", " : $aptV = "";
-                        ?>
-
                         <td>
                             <?php
+                                (isset($value->apartment) && strlen($value->apartment) > 0) ? $aptV = "Apt " . $value->apartment . ", " : $aptV = "";
                                 if (isset($value->notes) && $value->notes!='') {
                                     echo '<b>' . $value->notes . '</b><br>';
                                 }
@@ -64,24 +61,39 @@
                             <div class="btn-group">
                             <button data-id="{{ $value->id }}" data-user_id="{{ $value->user_id }}" data-addOrEdit="edit" class="btn btn-secondary-outline editRow btn-sm" data-toggle="modal"
                                data-target="#editModel"><strong>Edit</strong></button>
-                            <A href="{{ url('user/addresses/delete/' . $value->id) }}"
+                            <!--A href="{{ url('user/addresses/delete/' . $value->id) }}"
                                class="btn btn-secondary-outline btn-sm"
                                onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }}?');"><i class="fa fa-times"></i></A>
+                            </div-->
+                                <A class="btn btn-secondary-outline btn-sm"
+                                   onclick="deleteaddress('{{ $value->id }}', '{{ addslashes($value->address) }}');">
+                                    <i id="delete{{ $value->id }}" class="fa fa-times"></i>
+                                </A>
                             </div>
                         </td>
 
                     </tr>
                 @endforeach
-            @else
-                <tr>
-                    <td><span class="text-muted">No delivery addresses</span></td>
-                </tr>
             @endif
+            <tr ID="noaddresses" @if($recCount > 0) style="display: none;" @endif >
+                <td><span class="text-muted">No delivery addresses</span></td>
+            </tr>
             </tbody>
         </table>
-
-
     </div>
-
-
 </div>
+<SCRIPT>
+    var Addresses = '{{ $recCount }}';
+    function deleteaddress(ID, Name){
+        if(confirm('Are you sure you want to delete address "' + Name + '"?')) {
+            $("#delete" + ID).attr('class', "fa fa-spinner fa-spin");
+            $.post("{{ url('user/addresses/delete') }}/" + ID, {_token: "{{ csrf_token() }}"}, function (result) {
+                Addresses=Addresses-1;
+                $("#address" + ID).fadeOut();
+                if(Addresses == 0) {
+                    $("#noaddresses").fadeIn();
+                }
+            });
+        }
+    }
+</SCRIPT>

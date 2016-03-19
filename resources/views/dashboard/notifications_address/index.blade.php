@@ -69,51 +69,6 @@
         $("#editForm").trigger("change");
     }
 
-    //makesure the notification method is valid
-    function validateNotif(f){
-        toast("");
-        if(!f.is_email.checked && !f.is_call.checked && !f.is_sms.checked){
-            toast("Please select one of the options for Contact Me By");
-            return false;
-        }
-        phonetype="";
-        notifType="";
-        if(f.is_call.checked){
-            phonetype="Phone";
-            notifType="Phone";
-        } else if(f.is_sms.checked){
-            phonetype="Cellphone";
-            notifType="Text Msg";
-        } else {
-            notifType="Email";
-        }
-
-        f.type.value=notifType;
-
-        if(f.is_email.checked){
-            // email
-            var x=f.address.value;
-            var filter=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-            if(!filter.test(x)){
-                toast("Please Enter a Valid Email Address");
-                f.address.focus()
-                return false;
-            }
-        } else{
-            // verify it is a number, at the correct length
-            var cleanedPhone = f.address.value.replace(/\D/g,'');
-            if(cleanedPhone.length != 10){
-                toast("Your " + phonetype + " Number must have exactly 10 digits.");
-                f.address.focus();
-                return false
-            }
-            //don't worry about invalid characters, the model will remove them all
-            return true;
-        }
-    }
-
-
     //edit the note
     function editnote(ID) {
         return;

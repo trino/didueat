@@ -37,10 +37,25 @@ $('.additem').live('click', function () {
     });
 });
 
+var toggleMenuImgH=true;
+function toggleFullSizeMenu(){
+ if(toggleMenuImgH){
+   document.getElementById('menuImage').style.height="100%";
+   document.getElementById('menuImage').style.cursor="zoom-out";
+   toggleMenuImgH=false;
+ }
+ else{
+   document.getElementById('menuImage').style.height="300px";
+   document.getElementById('menuImage').style.cursor="zoom-in";
+   toggleMenuImgH=true;
+ } 
+////
+}
+
 //handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
     var button = $('#' + button_id), interval;
-    act = base_url + 'restaurant/uploadimg';
+    var act = base_url + 'restaurant/uploadimg';
     new AjaxUpload(button, {
         action: act,
         name: 'myfile',
@@ -69,7 +84,8 @@ function ajaxuploadbtn(button_id, doc) {
             var img = resp[1];
                 window.clearInterval(interval);
                 document.getElementById(button_id).style.display="none";
-                $('#menuImage').attr('src', base_url+"assets/images/spacer.gif");
+                document.getElementById('menuImage').style.display="none";
+                document.getElementById('deleteMenuImg').style.display="none";
                 document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('.hiddenimg').val(img);

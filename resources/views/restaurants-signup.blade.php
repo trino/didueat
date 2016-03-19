@@ -99,7 +99,7 @@
                   <li>100% secure payment system with {{ DIDUEAT  }}.</li>
                   <li>No hastles collecting payments from customers. {{ DIDUEAT  }} will have collected full payment for you before sending you the order notification and details.</li>
                   <li>Satisfies customer preferences to complete their orders in one step, instead of having to call you to read out their order details, and then make a separate payment with you.</li>
-                  <li>All order details are stored electronically for your easy access.</li>
+                  <li>All order details are stored electronically for your easy, private access.</li>
                   <li>{{ DIDUEAT  }}'s customer support line and chat service filter out nuisance calls from customers so that you deal only with legitimate issues.</li>
                   <li>You will be 'future ready' by preparing yourself for the emerging trend in the restaurant ordering process.</li>
                 </ul>

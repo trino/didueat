@@ -48,7 +48,7 @@ Thank you">Email Support</a></li>
 
                     @if($_SERVER['REMOTE_ADDR']=='24.36.161.100' || $_SERVER['REMOTE_ADDR']=='::1')
                         <li class="list-inline-item">
-                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }}Debug Mode</a>
+                            <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
                         </li>
                     @endif
 
@@ -99,7 +99,7 @@ Thank you">Email Support</a></li>
 
 
 <script type="text/javascript">
-
+    var lastrating, needsrating = false;
     $(document).ready(function () {
         //loads the simple modal
         $('body').on('click', '.simplemodal', function () {
@@ -143,6 +143,7 @@ Thank you">Email Support</a></li>
 
         //handles rating modal
         $('body').on('click', '.rating-it-btn', function () {
+            lastrating = this;
             var isAlreadyRated = $(this).attr('data-count-exist');
             var rating_id = $(this).attr('data-rating-id');
             var target_id = $(this).attr('data-target-id');
@@ -370,6 +371,9 @@ Thank you">Email Support</a></li>
                                     $('.password_reservation').hide();
                                     $('.password_reservation').removeAttr('required');
 
+                                    if(needsrating){
+                                        $('#ratingModal').modal('show');
+                                    }
                                     $('#ordered_email').rules('remove');
                                     validateform("profiles", {reservation_address: "required"});//phone, mobile, password, email
                                 }

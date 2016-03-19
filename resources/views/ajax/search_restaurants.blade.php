@@ -1,25 +1,4 @@
 <?php
-    //convert a 24hr time into seconds
-    function toseconds($Time){
-        $Time = explode(":", $Time);
-        return $Time[0] * 3600 + $Time[1] * 60 + $Time[2];
-    }
-    //get a rough estimate of the difference between 2 times
-    function timediff($Start, $End){//end is the bigger time
-        $Start = toseconds($Start);
-        $End = toseconds($End);
-        $Diff = abs($End - $Start);
-        if ($Diff >= 3600){
-            $Diff = round($Diff / 3600,2);
-            $Unit = "hour";
-        } else {
-            $Diff = ceil($Diff / 60);
-            if(!$Diff){$Diff = 1;}
-            $Unit = "minute";
-        }
-        return $Diff . " " . $Unit . iif($Diff <> 1, "s");
-    }
-
     //used for getting the time in the user's time zone
     function offsettime($time, $hours = 0) {
         if ($hours) {
@@ -66,146 +45,40 @@
     $closedCnt=0;
     $openStr="";
     $closedStr="";
-    $Day = current_day_of_week();
 
     if(isset($query) && $count > 0 && is_iterable($query)){
         foreach($query as $value){
-            $logo = 'small-smiley-logo.png';
-            if($value['logo'] && file_exists(public_path('assets/images/restaurants/' . $value['id'] . '/small-' . $value['logo']))){
-                $logo = 'restaurants/' . $value['id'] . '/small-' . $value['logo'];
-            }
-            $value['tags'] = str_replace(",", ", ", $value['tags']);
-            if ($value['is_delivery']) {
-                $Delivery_enable = "Delivery";
-            }
-            if ($value['is_pickup']) {
-                $Pickup_enable = "Pickup";
-            }
-            if(!isset($delivery_type)){
-                $delivery_type = "is_pickup";
-            }
-            //check if the store is opened, based on it's hours
-            $key = iif($delivery_type == "is_delivery", "_del");
-            $is_open = \App\Http\Models\Restaurants::getbusinessday(array_to_object($value), $value['open']);
-
-            $MoreTime = "";
-            $grayout="";
-            $Message = "Order Online";
-
-			if(			!$value['open']){
-
-				            $Message = "View Menu";
-
-			}
-
-            if(!$is_open){
-                $grayout=" grayout";
-                $open = $value[$Day . "_open" . $key];// offsettime($value[$Day . "_open" . $key], $difference);
-                $close = $value[$Day . "_close" . $key];//offsettime($value[$Day . "_close" . $key], $difference);
-                if($value['open']){
-                    if($open == $close){
-                        $MoreTime = "Doesn't open today";
-                    } else if($open > $user_time){
-                        $MoreTime = "Opens in: ~" . timediff($open, $user_time);
-                    } else if ($close < $user_time) {
-                        $MoreTime = "Closed: ~" . timediff($user_time, $close) . " ago";
-                    }
-                } else {
-                    $MoreTime = "Not accepting orders";
-                }
-            }
             ob_start();
-        ?>
+            $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
+            ?>
+                @include("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true))
+            <?php
 
-            <div class="list-group-item">
-                <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
-                    <div class="p-r-1" >
-                        <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url">
-                            <img style="max-width:100%;" class="img-rounded" alt="" src="{{ asset('assets/images/' . $logo) }}">
-                            <div class="clearfix"></div>
-                        </a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-9 p-a-0">
-                    <a class="card-link restaurant-url" href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}">
-                        <h4 style="margin-bottom: 0 !important;">
-                            {{ $value['name'] }}
-                            <div class="pull-right">
-                                <a href="{{ url('restaurants/'.$value['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url btn @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
-                            </div>
-                        </h4>
-                    </a>
-
-                    <div>
-                        @if(!$is_open)
-                            <div class="smallT">Currently closed</div>
-                        @endif
-  {!! rating_initialize("static-rating", "restaurant", $value['id']) !!}
-
-                            <span class="list-inline-item"> {{ str_replace(",", ", ", $value["cuisine"]) }}</span>
-
-                            <div  class="clearfix"></div>
-                    </div>
-
-
-                    <div>{{ $value['address'] }}, {{ $value['city'] }}</div>
-
-                    @if($value["is_delivery"])
-
-                        @if(!$value["is_pickup"])
-                            <span class="list-inline-item"><strong>Delivery only</strong></span>
-                        @endif
-
-                        <span class="list-inline-item">Delivery: {{ asmoney($value['delivery_fee'],$free=true) }}</span>
-                        <span class="list-inline-item">Minimum: {{ asmoney($value['minimum'],$free=false) }}</span>
-
-                    @elseif($value["is_pickup"])
-                        <span class="list-inline-item"><strong>Pickup only</strong></span>
-                    @endif
-
-                    <!--span class="label label-warning">Tags: {{ $value['tags'] }}</span-->
-                    @if(isset($latitude) && $radius && $value['distance'])
-                        <span class="list-inline-item">Distance: {{ round($value['distance'],2) }} km</span>
-                    @endif
-
-                    @if(isset($MoreTime) && $MoreTime && debugmode())
-                        <span class="list-inline-item" style="color: red;">{{ $MoreTime }}</span>
-                    @endif
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
-
-
-
-
-            <?php //i don't know what this mess of code does
-                if(isset($is_open) && $is_open == 1){
-                    $openStr.="".ob_get_contents();
-                } else{
-                    $closedStr.="".ob_get_contents();
-                }
-                ob_end_clean();
-                // move counter outside buffer
-                $totalCnt++;
-                if(isset($is_open) && $is_open == 1){
-                    $openCnt++;
-                } else{
-                    $closedCnt++;
-                }
+            if($is_open){
+                $openStr.="".ob_get_contents();
+            } else{
+                $closedStr.="".ob_get_contents();
+            }
+            ob_end_clean();
+            // move counter outside buffer
+            $totalCnt++;
+            if(isset($is_open) && $is_open == 1){
+                $openCnt++;
+            } else{
+                $closedCnt++;
             }
         }
+    }
 
-        if($openStr){
-            echo $openStr;
-        }
-        if($openStr && $closedStr){
-            echo $closedStr;
-        } else if($closedStr){
-            echo $closedStr;
-        }
-    ?>
+    if($openStr){
+        echo $openStr;
+    }
+    if($openStr && $closedStr){
+        echo $closedStr;
+    } else if($closedStr){
+        echo $closedStr;
+    }
+?>
 </div>
 
 
@@ -229,6 +102,11 @@
            // closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
         document.getElementById('openClosed').innerHTML=spBR+""+openCntMsg+closedCntMsg+"";
+        totalCnt = totalCnt + Number($("#countRows").text());
+        $("#countRows").text(totalCnt);
+        if(totalCnt){
+            $("#countRowsS").text("s");
+        }
     }
 </script>
 
@@ -243,4 +121,4 @@
     @endif
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
-<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/><img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>

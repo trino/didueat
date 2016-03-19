@@ -70,7 +70,7 @@ function checkout() {
     var minimum_delivery = $('#minimum_delivery').val();
     
     var noitems = $('.subtotal').text() == '0' || $('#subtotal1').val() == '0'  || $('#subtotal1').val() == '0.00';
-    if($('#pickup1').hasClass('deliverychecked')) {
+    if($('#pickup1').is(':checked')) {// if($('#pickup1').hasClass('deliverychecked')) {
         //donothing
     } else {
         if(Number($('#subtotal1').val()) == 0){
@@ -114,6 +114,7 @@ function delivery(t) {
         });
         $('#pickup1').removeClass('deliverychecked');
         $('#df').show();
+        $('#df2').show();
         $('.profile_delevery_type').text('Delivery');
         $('.profile_delivery_detail').show();
         createCookieValue('delivery_type', 'is_delivery');
@@ -146,6 +147,7 @@ function delivery(t) {
             $('div .grandtotal').text('$'+grandtotal.toFixed(2));
             $('input .grandtotal').val(grandtotal.toFixed(2));
             $('#df').hide();
+            $('#df2').hide();
             $('#delivery_flag').val('0');
             $('#cart-total').text('$' + grandtotal.toFixed(2));
         }
