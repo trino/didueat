@@ -18,7 +18,7 @@
         $first = false;
         $type = "hidden";
     ?>
-    <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
+    <title>{{ (isset($title))?$title.' - Didueat':'Didueat' }}</title>
 
     <meta charset="utf-8">
     <!--meta content="width=device-width, initial-scale=1.0" name="viewport"-->
@@ -28,7 +28,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}" name="keywords">
+    <meta content="{{ (isset($keyword))?$keyword:'' }}" name="keywords">
     <meta content="DiduEat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>

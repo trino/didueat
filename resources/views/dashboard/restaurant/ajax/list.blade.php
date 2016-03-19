@@ -27,7 +27,7 @@
             @include('common.table_controls')
         </div>
     </div>
-
+    
     <div class="card-block p-a-0">
         <table class="table table-responsive m-b-0">
             <?php
@@ -40,6 +40,7 @@
             <tbody>
                 @if($recCount > 0)
                 @foreach($Query as $key => $value)
+                <?php //echo $value->id;?>
                 <?php $resLogo = (isset($value->logo) && $value->logo != "") ? 'restaurants/' . $value->id . '/thumb_' . $value->logo : 'default.png'; ?>
                 <tr>
                     <td>{{ $value->id }}</td>
