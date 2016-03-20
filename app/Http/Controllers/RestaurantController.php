@@ -516,7 +516,7 @@ class RestaurantController extends Controller {
         }
 
         
-        if (!($arr['cat_id']) && $arr['cat_name']) {
+        if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) {
             $arrs['title'] = $arr['cat_name'];
             //$arrs['res_id'] = $arr['restaurant_id'];
             $ob2 = new \App\Http\Models\Category();
