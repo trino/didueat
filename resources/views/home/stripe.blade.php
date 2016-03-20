@@ -28,8 +28,7 @@
 	<input name="orderID" type="hidden" class="S_orderID" value='{{ (isset($orderID))?$orderID:"" }}' />
 	<input type="hidden" name="stripeToken" value="" class="stripeToken"/>
 
-	@if($CreditCards)
-		<div class="form-group row editcard">
+	<? if($CreditCards){ ?>		<div class="form-group row editcard">
 			<label class="col-xs-5 text-xs-right">
 				Saved Card
 			</label>
@@ -37,7 +36,7 @@
 				<div class="input-icon">
 					<SELECT name="cardid" ID="cardid" class="form-control" onchange="changecard();">
 						<OPTION VALUE="">New Card</OPTION>
-						<?php
+						<?
 							foreach($CreditCards as $CreditCard){
 								$CardNumber = obfuscate(\Crypt::decrypt($CreditCard->card_number));
 								$Month = \Crypt::decrypt($CreditCard->expiry_month);
@@ -51,28 +50,26 @@
 				</div>
 			</div>
 		</div>
-	@endif
+	<?}?>
 
 	<div class="form-group row editcard">
-		<label aria-required="true" class="col-xs-3 text-xs-right required" id="card_number">Card #@if(debugmode())<i class="fa fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i>@endif</label>
-		<div class="col-xs-9">
+		<!--label aria-required="true" class="col-xs-3 text-xs-right required" id="card_number">Card #@if(debugmode())<i class="fa fa-credit-card" onclick="$('#cardnumber').val('4242424242424242');" TITLE="Click to use DEBUG MODE card"></i>@endif</label-->
+		<div class="col-xs-12">
 			<div class="input-icon">
-				<input aria-required="true" autocomplete="off" name="cardnumber" id="cardnumber" class="form-control" type="text" size="20" data-stripe="number" required/>
+				<input aria-required="true" autocomplete="off" name="cardnumber" placeholder="Card Number" id="cardnumber" class="form-control" type="text" size="20" data-stripe="number" required/>
 			</div>
 		</div>
 	</div>
 
 	<div class="form-group row editcard">
-		<label aria-required="true" class="col-xs-3 text-xs-right required" id="cvc">CVC</label>
-		<div class="col-xs-4">
+		<!--label aria-required="true" class="col-xs-3 text-xs-right required" id="cvc">CVC</label-->
+		<div class="col-xs-3">
 			<div class="input-icon">
-				<input aria-required="true" autocomplete="off"  name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc" required/>
+				<input aria-required="true" autocomplete="off" placeholder="CVC" name="cardcvc" class="form-control" type="text" size="4" data-stripe="cvc" required/>
 			</div>
 		</div>
-	</div>
 
-	<div class="form-group row editcard">
-		<label aria-required="true" class="col-xs-3 text-xs-right required" id="expiry">Expiry</label>
+		<!--label aria-required="true" class="col-xs-3 text-xs-right required" id="expiry">Expiry</label-->
 		<div class="col-xs-5">
 			<div class="input-icon">
 				<SELECT aria-required="true" name="cardmonth" class="form-control lesspadding" data-stripe="exp-month">
@@ -91,7 +88,7 @@
 				</SELECT>
 			</div>
 		</div>
-		<div class="col-xs-4 p-l-0">
+		<div class="col-xs-4">
 			<div class="input-icon">
 				<SELECT aria-required="true" name="cardyear" class="form-control lesspadding" data-stripe="exp-year">
 					<?php
