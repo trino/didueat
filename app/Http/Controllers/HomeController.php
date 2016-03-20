@@ -391,7 +391,7 @@ class HomeController extends Controller {
         if(count($menus_list)) {
             return view('menus', $data);
         }else {
-            return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
+            //return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
         }
     }
 

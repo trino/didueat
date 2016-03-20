@@ -384,7 +384,8 @@
                             $('.extra-' + catid).each(function () {
                                 if ($(this).is(":checked")) {
                                     var mid = $(this).attr('id').replace('extra_', '');
-                                    var qty = Number($(this).parent().parent().find('.span_' + mid).text().trim());
+                                    var qty = Number($(this).parents().find('.span_' + mid).text().trim());
+                                   
                                     if (qty != "") {
                                         cnn += Number(qty);
                                     } else {
@@ -468,6 +469,7 @@
                                     }
                                 }
                             }
+                           
                             if (cnn > 0) {
                                 su = $(this).val();
                                 extratitle = extratitle + " " + su + ":";

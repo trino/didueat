@@ -1,4 +1,4 @@
-<?php printfile("views/menus.blade.php"); //edit loadmenus in homecontroller if you want disabled items to show ?>
+<?php printfile("views/menus.blade.php"); ?>
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
@@ -12,7 +12,7 @@
                     <div class="row">
 
                         <div class="col-md-12">
-                            <h4 class="card-title">Online Menu</h4>
+                            <h4 class="card-title"><?php echo \App\Http\Models\Category::where('id',$catid)->first()->title;?></h4>
                         </div>
                     </div>
                 </div>
