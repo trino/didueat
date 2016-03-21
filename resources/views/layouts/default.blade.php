@@ -2,7 +2,20 @@
 <html lang="en">
 <head>
     <?php
+        
         $start_loading_time = microtime(true);
+        
+        if(Session::has('menuTS')){
+          $GLOBALS['menuTS']=Session('menuTS');
+        }
+        else{
+         $GLOBALS['menuTS']="Paul:";
+        }
+        $preUpRe="false";
+        if(isset($_COOKIE['pvrbck'])){
+          $preUpRe="true";
+        }
+        echo '<script>preUpRe='.$preUpRe.';</script>';
 
         if (!isset($userAddress)) {
             $userAddress = "";
@@ -17,7 +30,9 @@
 
         $first = false;
         $type = "hidden";
+        
     ?>
+    
     <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
 
     <meta charset="utf-8">

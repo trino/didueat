@@ -1,8 +1,7 @@
 <?php
 
 $filename = getcwd() . "/debugmode.ip";
-$debugmode = false;
-$GLOBALS['imgTst']=false;
+$debugmode = true;
 if(file_exists($filename)) {
     $filename = file_get_contents($filename);
     $debugmode = $filename == $_SERVER['REMOTE_ADDR'];

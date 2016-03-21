@@ -29,8 +29,8 @@
 
                         <img src="<?php
                         $logoTS="";
-                        if(isset(Session::get('flash')['logoTS'])){
-                         $logoTS="?i=".Session::get('flash')['logoTS'];
+                        if(Session::has('logoTS')){
+                         $logoTS="?i=".Session('logoTS');
                         }
                         $filename = 'assets/images/users/' . read("id") . "/icon-" . read('photo');
                         if (Session::has('session_photo') && file_exists(public_path($filename))) {

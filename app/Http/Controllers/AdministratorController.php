@@ -24,6 +24,8 @@ class AdministratorController extends Controller {
     public function dashboard($is_first_login=false) {
 
         $post = \Input::all();
+        $todaytime = date("Ymdhis");
+
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             //check for missing name/email
             if (!isset($post['name']) || empty($post['name'])) {
@@ -56,7 +58,6 @@ class AdministratorController extends Controller {
                     
                     $imgVs=getimagesize($destinationPath."/".$post['photo']);
 
-                    $todaytime = date("Ymdhis");
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/users/' . $post['user_idDir'], 0777, true);
                     }
@@ -94,7 +95,6 @@ class AdministratorController extends Controller {
                     @unlink($destinationPath.'/'.$post['photo']); // unlink needs server path, not http path
                     $post['photo'] = $newName;
                     \Session::put('session_photo', $newName);
-                    \Session::flash('logoTS', $todaytime);
                     $addlogo=true;
                 }
 
@@ -124,6 +124,7 @@ class AdministratorController extends Controller {
                 }
 
                 login($ob);//log in as this user
+                \Session::flash('logoTS', $todaytime);
                 return $this->success("Profile updated successfully", 'dashboard');
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'dashboard');

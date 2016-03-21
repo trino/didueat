@@ -75,7 +75,7 @@
             }
 
             if (Session::get('session_type_user') == "restaurant") {
-                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following to start accepting orders:</h5>";
+                $missingHead = $missingHeadInitialReg."<h4>Hi ".explode(' ', Session::get('session_name'))[0].", complete the following to start accepting orders:</h4>";
             }
 
             $MissingData = array_merge($MissingData, $MissingDataOptional);
