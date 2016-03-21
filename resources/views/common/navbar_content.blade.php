@@ -50,6 +50,7 @@
   
         if (trim(\Session::get('session_restaurant_id'))) {
             $Pending_orders = select_field_where("reservations", array("restaurant_id" => \Session::get('session_restaurant_id'), "status" => "pending"), "COUNT()");
+            if(!$Pending_orders){$Pending_orders=0;}
             makelink(array('restaurant/info' => "Settings",
                     'orders/list/restaurant' => 'Orders (' . $Pending_orders . iif($Pending_orders, '<i class="fa fa-exclamation-triangle" style="color: red;"></i>') . ')',
                     'restaurants/' . select_field('restaurants', 'id', \Session::get('session_restaurant_id'), 'slug') . '/menu' => "Your Menu",

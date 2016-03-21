@@ -3,7 +3,6 @@
     <div class="container">
         <div class="row">
             @include('layouts.includes.leftsidebar')
-
             <div class="col-lg-9">
                 <?php
                     printfile("views/home/debug.blade.php");
@@ -18,6 +17,11 @@
                         echo '<h4 class="card-title">Debug log</H4><PRE>Log file is empty</PRE>';
                     }
                 ?>
+                <FORM METHOD="post">
+                    <TEXTAREA NAME="hash" style="width:100%;"><?php if(isset($_POST["hash"])){echo $_POST["hash"];} ?></textarea>
+                    <?php if(isset($_POST["hash"])){echo hashtext($_POST["hash"]); }?>
+                    <INPUT TYPE="submit" style="float: right;" class="btn btn-success">
+                </FORM>
             </div>
         </div>
     </div>

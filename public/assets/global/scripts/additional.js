@@ -331,13 +331,15 @@ $('.savebtn').live('click', function () {
 
     var cat_id = $_parent.find('.cat_id').val();
     var cat_name = $_parent.find('.cat_name').val();
-    if (!cat_id || cat_id == '') {
-        alert('Please select a category');
+    if ((!cat_id || cat_id == '')&& cat_name=='') {
+        alert('Please select or create a category');
         $_parent.find('.cat_id').attr('style', 'border:1px solid red;');
+        $_parent.find('.cat_name').attr('style', 'border:1px solid red;');
         $_parent.find('.cat_id').focus();
         $('.overlay_loader').hide();
         return false;
     }
+    
 
     var ptitle = encodeURIComponent($_parent.find('.newtitle').val());
     if (ptitle == '') {

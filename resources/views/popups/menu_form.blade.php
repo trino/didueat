@@ -73,19 +73,20 @@ document.getElementById('submit').style.display="inline"
 ?>
 
     <div class=" ignore row">
-        <div class="display:none;">
+        <div class="">
 
-            <div class="col-md-6 "  style="display:none;">
+            <div class="col-md-6 "  style="">
                 <div><strong>Category:</strong></div>
-                <input class="form-control cat_name" value="<?php if(isset($model) && $model->cat_name){echo $model->cat_name;}?>" />
                 <div>
                     <select class="cat_id form-control" >
                         <option value="">Category</option>
                         @foreach($category as $cat)
-                            <option value="{{ $cat->id }}" @if($cat->id == 1) selected="selected" @endif>{{ $cat->title }}</option>
+                            <option value="{{ $cat->id }}" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>>{{ $cat->title }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> OR 
+                <input class="form-control cat_name" value="" /> 
+                
             </div>
 
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">

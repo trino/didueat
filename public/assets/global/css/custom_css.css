@@ -22,6 +22,26 @@ hr {
     font-weight: normal !important;
 }
 
+.stroke-black-1px{
+    text-shadow:
+    -1px -1px 0 black,
+    1px -1px 0 black,
+    -1px 1px 0 black,
+    1px 1px 0 black;
+}
+
+.stroke-white-1px{
+    text-shadow:
+    -1px -1px 0 white,
+    1px -1px 0 white,
+    -1px 1px 0 white,
+    1px 1px 0 white;
+}
+.popimage{
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
 .glyphicon-chevron-down:before{content:"\e114"}
 .glyphicon-chevron-up:before{content:"\e113"}
 
@@ -296,6 +316,8 @@ a.anchor {
 }
 .close {
     font-size: 2rem !important;
+    opacity: 1 !important;
+    font-weight: normal;
 }
 
 .container-fluid {
@@ -685,7 +707,7 @@ body {
 .static-rating > .checked-stars ~ label {
     color: #f0ad4e !important
 }
-
+.cat_name{margin-bottom:5px;}
 /*
 
 .btn-primary {

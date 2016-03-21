@@ -32,6 +32,7 @@ Route::get('auth/logout',                                           'Auth\AuthCo
 
 Route::get('home/faq',                                              'HomeController@home2');
 Route::get('home/{type}',                                           'HomeController@home');
+Route::post('home/{type}',                                          'HomeController@home');
 
 Route::get('orders/alertstore',                                     'OrdersController@alertstore');
 Route::get('orders/list/{action}/email/{email}/{guid}',             'OrdersController@orderstatus');
@@ -68,6 +69,7 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('orders/list/approve/{type}',                       'OrdersController@changeOrderApprove');
     Route::post('orders/list/disapprove/{type}',                    'OrdersController@changeOrderDisapprove');
     Route::get('orders/list/delete/{type}/{id}',                    'OrdersController@deleteOrder')->where('id', '[0-9]+');
+    Route::post('orders/list/delete/{type}/{id}',                   'OrdersController@deleteOrder')->where('id', '[0-9]+');
     Route::get('orders/report',                                     'OrdersController@report');
     
     //Profiles Addresses Routes
@@ -79,7 +81,9 @@ Route::group(['middleware' => ['logged']], function() {
     Route::post('user/addresses/{id}',                              'ProfileAddressesController@index');
     Route::get('user/addresses/edit/{id}',                          'ProfileAddressesController@addressesFind');
     Route::get('user/addresses/delete/{id}',                        'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
+    Route::post('user/addresses/delete/{id}',                       'ProfileAddressesController@addressesDelete')->where('id', '[0-9]+');
     Route::get('restaurant/users/action/{type}/{id}',               'UsersController@usersAction');
+    Route::post('restaurant/users/action/{type}/{id}',              'UsersController@usersAction');
     Route::get('user/info',                                         'AdministratorController@dashboard');
     Route::resource('user/images',                                  'UsersController@images');
     Route::resource('restaurant/info',                              'RestaurantController@restaurantInfo');
@@ -117,10 +121,12 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::get('users/edit/{id}',                                   'UsersController@ajaxEditUserForm');
     Route::post('users/update',                                     'UsersController@userUpdate');
     Route::get('users/action/{type}/{id}',                          'UsersController@usersAction');
+    Route::post('users/action/{type}/{id}',                         'UsersController@usersAction');
 
     Route::get('restaurant/list',                                   'RestaurantController@index');
     Route::post('restaurant/list/ajax',                             'RestaurantController@listingAjax');
     Route::get('restaurant/list/delete/{id}',                       'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
+    Route::post('restaurant/list/delete/{id}',                      'RestaurantController@restaurantDelete')->where('id', '[0-9]+');
     Route::get('restaurant/list/status/{id}',                       'RestaurantController@restaurantStatus')->where('id', '[0-9]+');
     Route::get('restaurant/orders/history/{id}',                    'OrdersController@history')->where('id', '[0-9]+');
     Route::resource('restaurant/add/new',                           'RestaurantController@addRestaurants');
@@ -139,6 +145,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::resource('user/reviews',                                 'UserReviewsController@index');
     Route::post('user/reviews/list/ajax',                           'UserReviewsController@listingAjax');
     Route::get('user/reviews/action/{id}',                          'UserReviewsController@reviewAction');
+    Route::post('user/reviews/action/{id}',                         'UserReviewsController@reviewAction');
     Route::get('user/reviews/edit/{id}',                            'UserReviewsController@ajaxEditUserReviewForm');
 });
 

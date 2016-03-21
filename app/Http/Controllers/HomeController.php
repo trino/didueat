@@ -30,8 +30,10 @@ class HomeController extends Controller {
     }
 
     public function index() {
-        $data['title'] = 'All Restaurants Page';
+        $data['title'] = 'Home';
+        $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
         $data['cuisine'] = cuisinelist();
+        $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         $data['tags'] = \App\Http\Models\Tag::where('is_active', 1)->get();
        // $data['top_ten'] = $this->getTopTen();
         $data['query'] = 0;
@@ -389,7 +391,7 @@ class HomeController extends Controller {
         if(count($menus_list)) {
             return view('menus', $data);
         }else {
-            return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
+            //return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
         }
     }
 

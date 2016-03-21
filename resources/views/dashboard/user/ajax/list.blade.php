@@ -1,6 +1,6 @@
 <?php
-printfile("views/dashboard/user/ajax/list.blade.php");
-$restaurants = enum_all("restaurants");
+    printfile("views/dashboard/user/ajax/list.blade.php");
+    $restaurants = enum_all("restaurants");
 ?>
 
 @if(\Session::has('message'))
@@ -24,70 +24,58 @@ $restaurants = enum_all("restaurants");
     <div class="card-block p-a-0">
         <table class="table table-responsive  m-b-0 ">
             @if($recCount > 0)
-
-                <thead class="">
-                <tr>
-                    <th>
-                        <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
-                        ID
-                        <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
-                        Name
-                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <th >
-                        <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
-                        Restaurant
-                        <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th>
-                    <!--th >
-                        <a class="sortOrder" data-meta="email" data-order="ASC" data-title="Email" title="Sort [Email] ASC"><i class="fa fa-caret-down"></i></a>
-                        Email
-                        <a class="sortOrder" data-meta="email" data-order="DESC" data-title="Email" title="Sort [Email] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th-->
-                    <!--th>
-                        <a class="sortOrder" data-meta="profile_type" data-order="ASC" data-title="Type" title="Sort [Type] ASC"><i class="fa fa-caret-down"></i></a>
-                        Type
-                        <a class="sortOrder" data-meta="profile_type" data-order="DESC" data-title="Type" title="Sort [Type] DESC"><i class="fa fa-caret-up"></i></a>
-                    </th-->
-                    <th>
-                        Phone Number
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th></th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>
+                            <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
+                            ID
+                            <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>
+                        <th >
+                            <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
+                            Name
+                            <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>
+                        <th >
+                            <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
+                            Restaurant
+                            <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th></th>
+                    </tr>
                 </thead>
             @endif
             <tbody>
             @if($recCount > 0)
                 @foreach($Query as $key => $value)
-
                     <?php
-                    $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
-                    foreach($Addresses as $Address){
-                        $value->phone = phonenumber($Address->phone);
-                        if($value->phone){
-                            break;
+                        $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
+                        foreach($Addresses as $Address){
+                            $value->phone = phonenumber($Address->phone);
+                            if($value->phone){
+                                break;
+                            }
                         }
-                    }
-                    $restaurant="";
-                    $restaurant_slug="";
-                    if($value->restaurant_id>0){
-                        $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
-                        if(isset($restaurant->name)){
-                            $restaurant = $restaurant->name;
+                        $restaurant="";
+                        $restaurant_slug="";
+                        if($value->restaurant_id>0){
+                            $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
+                            if(isset($restaurant->name)){
+                                $restaurant = $restaurant->name;
+                            }
+                            if(isset($restaurant->slug)){
+                                $restaurant_slug = $restaurant->slug;
+                            }
                         }
-                        if(isset($restaurant->slug)){
-                            $restaurant_slug = $restaurant->slug;
-                        }
-                    }
                     ?>
 
-                    <tr>
+                    <tr id="user{{ $value->id }}">
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
                         <!--td>{{ $value->email }}</td-->
@@ -103,15 +91,16 @@ $restaurants = enum_all("restaurants");
                         <td>{{ phonenumber($value->phone, true) }}</td>
                         <td>{{ $value->email }}</td>
                         <td>
-                            <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">
-                                    Edit
-                                </a-->
+                            <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
                                 <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                    onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
-                                <a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
-                                   onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a>
+                                <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                   onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+
+                                <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}"
+                                   onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             @endif
                         </td>
                     </tr>
@@ -130,3 +119,19 @@ $restaurants = enum_all("restaurants");
         </div>
     @endif
 </div>
+<SCRIPT>
+    var Users = "{{ $recCount }}";
+    function deleteuser(ID, Name){
+        if(confirm('Are you sure you want to fire "' + Name + '"?')) {
+            $("#delete" + ID).html('<i class="fa fa-spinner fa-spin"></i>');
+            $.post("{{ url('users/action/user_fire')}}/" + ID, {_token: "{{ csrf_token() }}"}, function (result) {
+                Users=Users-1;
+                if(Users) {
+                    $("#user" + ID).fadeOut();
+                } else {
+                    $("#loadPageData").html(result);
+                }
+            });
+        }
+    }
+</SCRIPT>
