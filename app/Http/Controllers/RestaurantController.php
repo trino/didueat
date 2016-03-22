@@ -564,38 +564,46 @@ class RestaurantController extends Controller {
 
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
-        echo $id;
-        $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
-        
+    
+       echo $id;
+       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
+    
+       $todaytime = date("Ymdhis");
+       $success=false;
+       $thisresult=false;
+    
+
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
 
             if (isset($_POST['image']) && $_POST['image'] != '') {
                 // means image is being uploaded, not just changes to the menu text and options
-                
 				            $restID = $mns->restaurant_id;//\Session::get('session_restaurant_id');
-				            $image_file = $mns->image; // use for naming and renaming
-				            $destinationPath = public_path('assets/images/products');
-				            $filename = $destinationPath . "/" . $_POST['image'];
-                if(!isset($_POST['imgName']) || $_POST['imgName'] == ""){
+        
+                $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id); // where actual menu imgs end up
+				                            
+                if(!isset($_COOKIE['pvrbck'])){
+
+                // regular file upload with enctype="multipart/form-data"
 							            $uploadedImgExpl = explode('.', $_POST['image']);
 							            $ext = end($uploadedImgExpl);
+                
+				               $destinationPath = public_path('assets/images/products'); //a temp path for file upload
                 }
                 else{
-                   $ext="jpg"; // uploading from phone requires jpg
+                // means just using pre-upload resize
+                   $ext="jpg"; // uploading from phone requires jpg for all
                 }
+                
 				            $newName = $id . '.' . $ext;//handle image saving
-                debugprint("PDB: ".$restID . '/menus/' . $id);
-                $destinationPathMenu = public_path('assets/images/restaurants/' . $restID . '/menus/' . $id);
+
 
                 if (!file_exists($destinationPathMenu)) {
                     mkdir('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id, 0777, true);
-                }
+                 }
 
-                $destinationPathMenu = public_path('assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id);
                 $filename = $destinationPathMenu . '/' . $newName;
 
-                $todaytime = date("Ymdhis");
-				            if($existingImg){
+				            if(isset($existingImg) && $existingImg != ""){
 				                $oldImgExpl=explode(".",$existingImg);
                         foreach (array("icon-", "small-", "big-") as $file) {
                             if (file_exists($destinationPathMenu . '/' . $file . $existingImg)) {
@@ -605,32 +613,51 @@ class RestaurantController extends Controller {
                         if (file_exists($destinationPathMenu . '/' . $existingImg)) { // for original file with no prefix
                             rename($destinationPathMenu . '/' . $existingImg, $destinationPathMenu . '/' . $oldImgExpl[0] . "_" . $todaytime . "." . $oldImgExpl[1]);
                         }
+
                     }
 
+             if(!isset($_COOKIE['pvrbck'])){
 
-               $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
+                $thisresult = copy($destinationPath . '/' . $_POST['image'], $destinationPathMenu . '/' . $newName);// for copying & saving original file
+             }
 
-	                // if an image of a printed menu should be created
-	                $imgVs=getimagesize($destinationPath."/".$_POST['image']);
-                 $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
+													else{
+
+																$img = $_POST['image'];
+																$img = str_replace('data:image/jpeg;base64,', '', $img); //data:image/jpeg;base64,
+																$img = str_replace(' ', '+', $img);
+																$data = base64_decode($img); 
+																$success = file_put_contents($filename, $data);
+
+													}
+
+             if($success || $thisresult){
+	               $imgVs=getimagesize($filename);
+                $bigDimensions="600x".$imgVs[1]/$imgVs[0]*600;
 
 
                
-                   $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
+                $sizes = ['assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/small-' => MED_THUMB, 'assets/images/restaurants/' . $mns->restaurant_id . '/menus/' . $id . '/big-' => $bigDimensions];
 
-               
                 copyimages($sizes, $filename, $newName, true);
-
-                @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
-
+                if(!isset($_COOKIE['pvrbck'])){
+                   @unlink($destinationPath . '/' . $_POST['image']); // delete temp upload image
+                }
              
                 $men = new \App\Http\Models\Menus();
                 // as with logo upload, this step should be incorporated with the rest of the db call in this fn, so as not to overuse db
                 $men->where('id', $id)->update(['image' => $newName]); // same menu # and prefix, but ext may have chngd
+                
+                write("menuTS", $todaytime, true);
+             }
+     else{
+     debugprint("PDB: resize before upload did not work.");
+     }
             }
         }
         die();
     }
+
 
     //unknown
     public function orderCat($cid, $sort) {

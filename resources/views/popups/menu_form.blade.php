@@ -2,74 +2,7 @@
     <?php
           printfile("views/popups/menu_form.blade.php");
           $browseBtnTxt="Upload Image";
-          $imgType="";
-          $testImg="";
-          (isset($GLOBALS['imgTst']) && $GLOBALS['imgTst']==true)? $testImg=true : $testImg=false;
-          
-if($testImg){
-?>
-
-
-<script>
-function previewFile() {
-  var dataurl = null;
-  var preview = document.querySelector('img');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
-  
-  var imgName=file.name.toLowerCase()
-  imgName=imgName.split(/(\\|\/)/g).pop();
-  imgNameSpl=imgName.split(".");
-  var imgName=imgNameSpl[0];
-  var imgExt=imgNameSpl[1];
-
-  document.getElementById('imgName').value=imgName;
-//  document.getElementById('imgExt').value=imgExt;
-  
-  reader.addEventListener("load", function () {
-    preview.src = reader.result;
-     preview.onload = function () {
-            var canvas = document.createElement("canvas");
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(preview, 0, 0);
-            var MAX_WIDTH = 800;
-            var MAX_HEIGHT = 600;
-            var width = preview.width;
-            var height = preview.height;
-
-            if (width > height) {
-              if (width > MAX_WIDTH) {
-                height *= MAX_WIDTH / width;
-                width = MAX_WIDTH;
-              }
-            } else {
-              if (height > MAX_HEIGHT) {
-                width *= MAX_HEIGHT / height;
-                height = MAX_HEIGHT;
-              }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(preview, 0, 0, width, height);
-            dataurl = canvas.toDataURL("image/jpeg",0.1); // set quality to .7
-
-document.getElementById('imgPre').src=dataurl;
-document.getElementById('my_hidden').value=dataurl
-document.getElementById('imgPre').style.display="none"
-document.getElementById('submit').style.display="inline"
-     }
-  }, false);
-
- reader.readAsDataURL(file);
-
-}
-</script>
-
-
-<?php
-}
-          
+          $imgType="";          
 ?>
 
     <div class=" ignore row">
@@ -92,24 +25,42 @@ document.getElementById('submit').style.display="inline"
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
                     @if(isset($model) || true)
-                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
-                            <span id="zoomMsg">Click Image to Zoom</span><br/><img id="menuImage" class="ignore"
+                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;"><img src="" alt="" id="imgPre">
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";
+                                
+                                $menuTSv2="";
+                                if(isset($menuTSv)){
+                                  $menuTSv2=$menuTSv;
+                                }
 
-                         echo ' src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'?'.date('U').'" style="position:relative;cursor:zoom-in" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.'\')"';
+                         echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
 
                             }
                             else{
-                               echo ' src="'.asset('assets/images/spacer.gif').'" style="display:none"';
+                               echo '<img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
                             }
-                            ?> />
-                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
-                            <input name="imgName" type="hidden" id="imgName" />
+                            ?>
+                            <input type="text" name="image" id="hiddenimg" class="hiddenimg" />
+                            <input name="imgName" type="text" id="imgName" />imgName
                             <!-- <span id="fullSize" class="smallT"></span> -->
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse{{ $menu_id }}_1">{{ $browseBtnTxt }}</a>
+                        
+																								<?php
+
+																								if(isset($_COOKIE['pvrbck'])){
+																								   echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
+																								<span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload">
+																								</span>';
+
+																								}
+																								else{
+																								 echo '<a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse'. $menu_id.'_1">'.$browseBtnTxt.'</a>';
+																								}
+
+																								?>
+
                         @if(isset($model) && $model->image)
                             <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');">Delete image</a>
                         @endif

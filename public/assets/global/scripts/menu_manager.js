@@ -61,8 +61,104 @@ function toggleFullSizeMenu(path,imgroot){
 ////
 }
 
+var cntr1=0;
+function reduceFile(button_id) {
+ 
+  var msgElem = document.getElementById(button_id).parentNode
+  msgElem.childNodes[1].innerHTML="Uploading...";
+  var dataurl = null;
+  var preview = document.getElementById('imgPre');
+  var file    = document.getElementById('photoUpload').files[0];
+  var reader  = new FileReader();
+  var thispath    = base_url + '/assets/images/restaurant';
+  
+/*
+
+  var imgName=file.name.toLowerCase()
+  imgName=imgName.split(/(\\|\/)/g).pop();
+  imgNameSpl=imgName.split(".");
+  var imgName=imgNameSpl[0];
+
+  document.getElementById('imgName').value=imgName;
+
+*/
+    
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+
+     preview.onload = function (reader) {
+     
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(preview, 0, 0);
+            var MAX_WIDTH = 600;
+            var MAX_HEIGHT = 5000;
+            var width = preview.width;
+            var height = preview.height;
+
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(preview, 0, 0, width, height);
+            dataurl = canvas.toDataURL("image/jpeg"); 
+
+if(cntr1 == 0){
+											document.getElementById('menuImage').style.display="none"
+ 										document.getElementById('imgPre').src=dataurl;
+											document.getElementById('hiddenimg').value=dataurl
+											document.getElementById('hiddenimg').readOnly=true;
+           msgElem.style.display="none";
+           document.getElementById('imgPre').style.display="none";
+           if(document.getElementById('deleteMenuImg')){
+              document.getElementById('deleteMenuImg').style.display="none";
+           }
+           document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
+           document.getElementById('zoomMsg').style.display="none";
+cntr1++;
+return;
+}
+
+    if (reader.removeEventListener) {
+        reader.removeEventListener("load", arguments.callee,false);
+    } else if (reader.detachEvent) {
+        reader.detachEvent("load", arguments.callee,false);
+    }
+
+           return true;
+
+    }
+  }, false);
+
+ reader.readAsDataURL(file);
+
+
+
+
+}
+/*
+
+function ajaxuploadbtn(button_id, doc) {
+// remove reference to this in jQuery
+}
+
+*/
+
 //handles ajax uploading of an image
 function ajaxuploadbtn(button_id, doc) {
+    if(preUpRe){
+     return false;
+    }
     var button = $('#' + button_id), interval;
     var act = base_url + 'restaurant/uploadimg';
     new AjaxUpload(button, {
@@ -94,11 +190,11 @@ function ajaxuploadbtn(button_id, doc) {
                 window.clearInterval(interval);
                 document.getElementById(button_id).style.display="none";
                 document.getElementById('menuImage').style.display="none";
+                $('#imgName').val(1);
                 if(document.getElementById('deleteMenuImg')){
                   document.getElementById('deleteMenuImg').style.display="none";
-                  document.getElementById('zoomMsg').style.display="none";
                 }
-                document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
+                document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();
                 $('.hiddenimg').val(img);
 
