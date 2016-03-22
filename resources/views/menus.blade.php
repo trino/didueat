@@ -19,15 +19,18 @@
 
             </div>
 <?php
-
-
     $menuTSv="?i=";
     $menuTS=read('menuTS');
     if($menuTS){
          $menuTSv="?i=".$menuTS;
          Session::forget('session_menuTS');
     }
-
+    $alts = array(
+            "product-pop-up" => "Product info",
+            "up_parent" => "Up",
+            "down_parent" => "Down",
+            "deleteMenu" => "Delete this item"
+    );
 ?>
 
             @foreach($menus_list as $value)
@@ -81,7 +84,8 @@
 
                                 <h4 class="card-title">
                                     <a href="#" id="{{ $value->id }}"
-                                       data-res-id="{{ $value->restaurant_id }}" type=""
+                                       data-res-id="{{ $value->restaurant_id }}"
+                                       title="{{ $alts["product-pop-up"] }}"
                                        class="card-link" data-toggle="modal"
                                        data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
 
@@ -106,7 +110,8 @@
                                         <a href="#" id="{{ $value->id }}"
                                             data-res-id="{{ $value->restaurant_id }}" type="button"
                                             data-toggle="modal"
-                                           style="float: right;"
+                                            style="float: right;"
+                                            title="{{ $alts["product-pop-up"] }}"
                                             data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
                                             class="btn btn-sm btn-primary">
 
@@ -186,12 +191,12 @@
                                     </div>
                                     <div class="btn-group pull-right" role="group">
 
-                                        <a id="up_parent_{{ $value->id.'_'.$catid }}"
+                                        <a id="up_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["up_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                            <i class="fa fa-arrow-up"></i></a>
 
-                                        <a id="down_parent_{{ $value->id.'_'.$catid }}"
+                                        <a id="down_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["down_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                             <i class="fa fa-arrow-down"></i></a>
@@ -203,6 +208,7 @@
 
                                         <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
                                            class="btn btn-sm btn-primary-outline"
+                                           title="{{ $alts["deleteMenu"] }}"
                                            onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
                                     </div>
 

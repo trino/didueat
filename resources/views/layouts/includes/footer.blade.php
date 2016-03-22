@@ -2,15 +2,27 @@
     <hr>
 
     <footer class="text-muted p-b-1 p-l-1 p-r-1">
-        <?php printfile("views/dashboard/layouts/includes/footer.blade.php"); ?>
+        <?php
+            printfile("views/dashboard/layouts/includes/footer.blade.php");
+            $alts = array(
+                    "home/about" => "About " . DIDUEAT,
+                    "home/faq" => "Frequently asked questions",
+                    "contactus" => "Contact us",
+                    "restaurants/signup" => "Sign up as a restaurant owner",
+                    "allergy" => "Information on allergies",
+                    "socmed" => "View us on social media",
+                    "home/terms" => "Terms of use",
+                    "trinoweb" => "More about the webmasters"
+            );
+        ?>
         <div class="row text-xs-center">
             <div class="col-lg-12 ">
 
 
                 <ul class="list-inline">
                     @include('popups.simplemodal')
-                    <li class="list-inline-item"><a href="{{ url("home/about") }}">About</a></li>
-                    <li class="list-inline-item"><a href="{{ url("home/faq") }}">FAQ</a></li>
+                    <li class="list-inline-item"><a href="{{ url("home/about") }}" title="{{ $alts["home/about"] }}">About</a></li>
+                    <li class="list-inline-item"><a href="{{ url("home/faq") }}" title="{{ $alts["home/faq"] }}">FAQ</a></li>
 
 
                     <li class="list-inline-item"><a href="mailto:info@didueat.ca?subject=Contact%20Me%20Regarding%20Didu%20Eat&body=
@@ -24,7 +36,7 @@ Name:
 %3A%0A%0A
 Contact Number:
 %3A%0A%0A
-Thank you">Email Support</a></li>
+Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
 
 
                 <?php
@@ -37,13 +49,13 @@ Thank you">Email Support</a></li>
 
                     if (!$IsOnSignup &&  (!Session::get('session_type_user') == "restaurant" || debugmode())) {?>
                         <li class="list-inline-item">
-                            <a href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
+                            <a href="{{ url("restaurants/signup") }}" title="{{ $alts["restaurants/signup"] }}">Restaurant Sign Up</a>
                         </li>
                     <?php } ?>
 
 
                     <li class="list-inline-item">
-                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" class="simplemodal">Allergy</a>
+                        <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li>
 
                     @if($_SERVER['REMOTE_ADDR']=='24.36.161.100' || $_SERVER['REMOTE_ADDR']=='::1')
@@ -54,9 +66,9 @@ Thank you">Email Support</a></li>
 
                     <li class="list-inline-item">
                         <h3>
-                            <A href="https://www.facebook.com/didueatcanada/" target="_blank"><i class="fa fa-facebook"></i></A>&nbsp;
-                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank"><i class="fa fa-twitter"></i></A>&nbsp;
-                            <A href="https://www.instagram.com/didueat/" target="_blank"><i class="fa fa-instagram"></i></A>
+                            <A href="https://www.facebook.com/didueatcanada/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-facebook"></i></A>&nbsp;
+                            <A href="https://mobile.twitter.com/didueatcanada" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-twitter"></i></A>&nbsp;
+                            <A href="https://www.instagram.com/didueat/" target="_blank" title="{{ $alts["socmed"] }}"><i class="fa fa-instagram"></i></A>
                         </h3>
                     </li>
 
@@ -67,7 +79,7 @@ Thank you">Email Support</a></li>
             <div class="col-lg-12 " style="font-size: 90%;">
                 <p>
                     Designed and built with all the <i class="fa fa-heart" style="color:#d9534f!important"></i> in theworld by
-                    <a href="http://trinoweb.com/" target="_blank">
+                    <a href="http://trinoweb.com/" target="_blank" title="{{ $alts["trinoweb"] }}">
                         <B CLASS="nowrap">
                             <SPAN style="color:green;">TRIN<i class="fa fa-globe"></i></SPAN><SPAN style="color:black;">WEB</SPAN>
                         </B>
@@ -87,7 +99,7 @@ Thank you">Email Support</a></li>
                         ?>
                     @endif
 
-                    <a href="{{ url("home/terms") }}">Terms of Use</a>
+                    <a href="{{ url("home/terms") }}" title="{{ $alts["home/terms"] }}">Terms of Use</a>
 
                 </p>
 

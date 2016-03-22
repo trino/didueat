@@ -50,13 +50,21 @@
         $title = "Closed, but bypassing because: " . $reason;
         $checkout .= " (" . $reason . ")";
     }
+
+    $alts = array(
+            "cart-items" => "Number of items in your cart",
+            "cart-total" => "Total cost of your cart",
+            "cartsz" => "View the contents of your cart",
+            "call" => "Call the store (Only works on cellphones, or if you have Skype installed)",
+            "closed" => "This restaurant is currently closed"
+    );
 ?>
 
 @if(false && !isset($order))
     <div class="top-cart-info">
-        <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items">0 items</a>
-        <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total">$0.00</a>
-        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;'); ">
+        <a href="javascript:void(0);" class="top-cart-info-count" id="cart-items" title="{{ $alts["cart-items"] }}">0 items</a>
+        <a href="javascript:void(0);" class="top-cart-info-value" id="cart-total" title="{{ $alts["cart-total"] }}">$0.00</a>
+        <a href="javascript:void(0);" onclick="$('#cartsz').modal();$('#cartsz').addClass('modal');$('#cartsz').attr('style',$('#cartsz').attr('style')+'padding-left:15px;');" title="{{ $alts["cartsz"] }}">
             <i class="fa fa-shopping-cart"></i>Cart
         </a>
     </div>
@@ -69,7 +77,6 @@
         <div class="card-header">
             <h4 class="card-title">Receipt</h4>
         </div>
-
 
         <div class="card-block">
 
@@ -178,9 +185,9 @@
                         @if($is_my_restro || ($business_day && $restaurant->open) || debugmode())
                             <a href="javascript:void(0)" class="btn btn-primary  btn-block" onclick="checkout();" TITLE="{{ $title }}">{{ $checkout }}</a>
                         @elseif($business_day && !$restaurant->open)
-                            <a class="btn btn-primary btn-block" style="" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
+                            <a class="btn btn-primary btn-block" title="{{ $alts["call"] }}" href="tel:{{ $restaurant->phone }}">Call: {{ phonenumber($restaurant->phone, true) }}</a>
                         @else
-                            <a class="btn btn-danger-outline disabled  btn-block" href="#">Currently Closed</a>
+                            <a class="btn btn-danger-outline disabled  btn-block" href="#"title="{{ $alts["closed"] }}">Currently Closed</a>
                         @endif
                     </div>
                 @endif

@@ -21,6 +21,10 @@
          $GLOBALS['thisIdentity']="Restaurant%20Name:%20%20%20".$restaurant->name."%20%20(Restaurant ID:%20".Session::get('session_restaurant_id').",%20Profile ID:%20".Session::get('session_ID').")";
     }
 
+    $alts = array(
+        "browse" => "Browse for a picture to upload"
+    );
+
 echo newrow($new, "Restaurant Name", "",true); ?>
     <input name="initialRestSignup" type="hidden" value="1" />
     <input type="text" name="restname" id="restname" class="form-control" {{ $is_disabled }} value="{{ (isset($restaurant->name) && $restaurant->name)?$restaurant->name: old("restname") }}" required
@@ -78,7 +82,7 @@ if(!$minimum && isset($restaurant->id)){
         echo newrow($new, "Logo", "", "", 7);
         $logoname = 'assets/images/restaurants/'. $restaurant->id .'/small-' . $restaurant->logo;
         ?>
-        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg">Browse</a><div id="browseMsg" class="label smRd"></div>
+        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success pull-left rightmarg" title="{{ $alts["browse"] }}">Browse</a><div id="browseMsg" class="label smRd"></div>
 
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>

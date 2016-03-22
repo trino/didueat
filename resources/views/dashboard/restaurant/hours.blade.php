@@ -2,7 +2,7 @@
     printfile("dashboard/restaurant/hours.blade.php");
     $layout = false;
     $day_of_week = getweekdays();
-    $use_delivery_hours = true;//don't forget to update the restaurants model
+    $use_delivery_hours = true;
 
     $restaurantID = \Session::get('session_restaurant_id');
     if (!$restaurantID) {

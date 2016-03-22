@@ -3,6 +3,9 @@
         printfile("views/popups/additional.blade.php");
         $r1 = rand('1000000', '999999999');
         $r2 = rand('1000000', '999999999');
+        $alts = array(
+            "addmorebtn" => "Add more"
+        );
     ?>
 
     <div class=" p-a-1">
@@ -92,7 +95,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <a href="javascript:void(0);" class="m-t-1 btn btn-sm btn-success btn-small addmorebtn">Add More</a>
+                    <a href="javascript:void(0);" class="m-t-1 btn btn-sm btn-success btn-small addmorebtn" title="{{ $alts["addmorebtn"] }}">Add More</a>
                 </div>
                 <div class="clearfix"></div>
                 <br class=""/>

@@ -1,9 +1,17 @@
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
+        <?php
+            $alts = array(
+                    "cart-header" => "Checkout",
+                    "navigationModal" => "Bring up the options menu",
+                    "login" => "Log in with your email address and password",
+                    "signup" => "Create a new account"
+            );
+        ?>
         <a class="hidden-sm-down" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
         </a>
-        <a style="" class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
+        <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
         </a>
 
@@ -12,10 +20,8 @@
         <ul class="nav navbar-nav pull-right ">
             <li class="nav-item ">
 
-                <A ID="cart-header" style="display:none;" CLASS="btn-responsive anchor btn  btn-warning"
-                   onclick="return scrolltocheckout();">
+                <A ID="cart-header" style="display:none;" CLASS="btn-responsive anchor btn btn-warning" onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
-
                     <SPAN class="cart-header-items cart-header-show"></SPAN>
                     <SPAN class="cart-header-total cart-header-show"></SPAN>
                     <i class="fa fa-shopping-cart cart-header-show"></i>
@@ -23,7 +29,7 @@
 
 
                 @if(Session::has('is_logged_in'))
-                    <a href="#" data-toggle="modal" data-target="#navigationModal"
+                    <a href="#" data-toggle="modal" data-target="#navigationModal" title="{{ $alts["navigationModal"] }}"
                        style="padding-top:2px;padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
                        onclick="modalcheck();">
 
@@ -55,9 +61,9 @@
                     <!--li class="nav-item"><a href="{{ url('auth/logout') }}" class="nav-link">Log out</a></li-->
                 @else
                     <div class="btn-group">
-                        <a class="btn  btn-primary-outline reserve_login btn-responsive" data-toggle="modal"
+                        <a class="btn  btn-primary-outline reserve_login btn-responsive" data-toggle="modal" title="{{ $alts["login"] }}"
                            data-target="#loginModal" onclick="$('#login-ajax-form').attr('data-route', 'reservation');">Login</a>
-                        <a class="btn btn-primary btn-responsive" data-toggle="modal" data-target="#signupModal">Signup</a>
+                        <a class="btn btn-primary btn-responsive" data-toggle="modal" data-target="#signupModal" title="{{ $alts["signup"] }}">Signup</a>
 
                     </div>
 

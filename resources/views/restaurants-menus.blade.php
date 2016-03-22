@@ -22,6 +22,10 @@
         //popup(false, $restaurant->name . " is currently closed", "Oops");
     }
 
+    $alts = array(
+        "add_item" => "Add Item"
+    );
+
     if($is_my_restro){ ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
@@ -34,6 +38,7 @@
                         <a href="#" id="add_item0" type="button"
                            class="btn btn-success btn-lg additem  btn-block"
                            data-toggle="modal"
+                           title="{{ $alts["add_item"] }}"
                            data-target="#addMenuModel">
                             Add Menu Item
                         </a>

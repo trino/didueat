@@ -1,26 +1,28 @@
 <div class="newmenu" id="newmenu{{ $menu_id }}">
-    <?php printfile("views/common/menu_form.blade.php"); ?>
+    <?php
+        printfile("views/common/menu_form.blade.php");
+        $alts = array(
+            "browse" => "Browse for a picture"
+        );
+    ?>
     <p>&nbsp;</p>
 
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="col-sm-5 col-xs-12">
             <div class="menuimg menuimg{{ $menu_id }}_1"
-                 @if(isset($model) && $model->image) style="min-height:0;" @endif>
+                @if(isset($model) && $model->image) style="min-height:0;" @endif>
                 @if(isset($model) && $model->image)
                     <img src="{{ asset('assets/images/products/'.$model->image) }}"/>
                     <input type="hidden" class="hiddenimg" value="{{ $model->image }}"/>
                 @endif
             </div>
             <br/>
-            <a href="javascript:void(0)" class="btn btn-success newbrowse" id="newbrowse{{ $menu_id }}_1">Image</a>
+            <a href="javascript:void(0)" class="btn btn-success newbrowse" title="{{ $alts["browse"] }}" id="newbrowse{{ $menu_id }}_1">Image</a>
         </div>
         <div class="col-sm-7 col-xs-12 >
-            <input class="form-control newtitle" type="text" placeholder="Title"
-                   value="{{ (isset($model->menu_item))? $model->menu_item : '' }}"/><br/>
-            <input class="form-control newprice" type="text" placeholder="$"
-                   value="{{ (isset($model->price))? $model->price : '' }}"/><br/>
-            <textarea class="form-control newdesc"
-                      placeholder="Description">{{ (isset($model->description))? $model->description : '' }}</textarea>
+            <input class="form-control newtitle" type="text" placeholder="Title"value="{{ (isset($model->menu_item))? $model->menu_item : '' }}"/><br/>
+            <input class="form-control newprice" type="text" placeholder="$" value="{{ (isset($model->price))? $model->price : '' }}"/><br/>
+            <textarea class="form-control newdesc" placeholder="Description">{{ (isset($model->description))? $model->description : '' }}</textarea>
         </div>
         <div class="clearfix"></div>
     </div>

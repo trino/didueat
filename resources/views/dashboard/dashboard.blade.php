@@ -4,7 +4,13 @@
     <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
  
     <div class="container">
-        <?php printfile("views/dashboard/dashboard.blade.php"); ?>
+        <?php
+            printfile("views/dashboard/dashboard.blade.php");
+            $alts = array(
+                    "upload" => "Upload a picture",
+                    "yourpic" => "Your profile picture"
+            );
+        ?>
         <div class="row">
             @include('layouts.includes.leftsidebar')
 
@@ -23,10 +29,10 @@
 
                         <?= newrow(false, "Profile Photo", "", "", 7); ?>
 
-                        <a href="javascript:void(0);" id="uploadbtn" class="btn btn-success">Browse</a><div id="browseMsg" class="label smRd"></div>
+                        <a href="javascript:void(0);" id="uploadbtn" title="{{ $alts["upload"] }}" class="btn btn-success">Browse</a><div id="browseMsg" class="label smRd"></div>
 
                         <input type="hidden" name="photo" id="hiddenLogo"/>
-                        <img style="max-width:100%;"  id="picture" class="logopic"
+                        <img style="max-width:100%;"  id="picture" class="logopic" alt="{{ $alts["yourpic"] }}"
                              @if($user_detail->photo)
                              test="assets/images/users/{{ $user_detail->id . "/small-" . $user_detail->photo }}"
                              src="{{ asset('assets/images/users/' . $user_detail->id . "/small-" . $user_detail->photo) ."?" . date('U') }}"/>

@@ -4,6 +4,9 @@
     <?php
         printfile("views/emails/registration_welcome.blade.php");
         $requireEmailVerify=false;
+        $alts = array(
+            "verify" => "Verify your email address is valid"
+        );
     ?>
         <table align="left" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
             <tr>
@@ -39,7 +42,7 @@
                                 @if(!$is_email_varified && $requireEmailVerify)
                                     Please click on the verification link below to activate your account.
                                     <br /><br />
-                                    <a href="{{ url('auth/verify_email') }}/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank">Activate Now</a>
+                                    <a href="{{ url('auth/verify_email') }}/<?php echo base64_encode($email) ?>" style="padding: 6px 12px; background-color: #31a3c9; border-color: #3C5C7B; color: #FFFFFF; text-decoration: none;" target="_blank" title="{{ $alts["verify"] }}">Activate Now</a>
                                     <br /><br />
                                     Please note that your account will not be activated until you verify your email address.
                                     <br /><br />                        

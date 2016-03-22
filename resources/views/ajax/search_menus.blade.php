@@ -1,6 +1,18 @@
 <h1><span id="countRows">{{ $count }}</span> Menu Items Found</h1>
 <div class="row">
-  <?php printfile("views/ajax/search_menus.blade.php"); ?>
+  <?php
+    printfile("views/ajax/search_menus.blade.php");
+    $alts=array(
+            "product-pop-up" => "Product information",
+            "buttons" => "IDK",
+            "remspan" => "Remove Item",
+            "addspan" => "Add Item",
+            "minus" => "Remove 1",
+            "plus" => "Add 1",
+            "add" => "Add items to cart",
+            "reset" => "Clear these items"
+    );
+  ?>
 
   @foreach($query as $value)
     <?php
@@ -23,14 +35,16 @@
           <div class="col-md-9">
             <div class="new-layout-box-content">
               <div class="restaurant-name">
-                <a
-                  href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                  class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}"><h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2></a>
+                <a title="{{ $alts["product-pop-up"] }}"
+                        href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
+                        class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
+                    <h2>{{ select_field('restaurants', 'id', $value->restaurant_id, 'name') }}</h2>
+                </a>
               </div>
-              <a
-                href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
-                class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
-              <h3>{{ $value->menu_item }} <span class="menu-tag">${{ $value->price }}</span></h3>
+              <a title="{{ $alts["product-pop-up"] }}"
+                    href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus') }}"
+                    class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
+                <h3>{{ $value->menu_item }} <span class="menu-tag">${{ $value->price }}</span></h3>
               </a>
               <p class="box-des">{{ substr($value->description, 0, 300) }}</p>
               <div class="row">
@@ -41,7 +55,7 @@
           <div class="col-md-3">
             <div class="menu-img">
               <a href="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}">
+                class="{{ (Request::is('restaurants/*')) ? 'fancybox-fast-view' : '' }}" title="{{ $alts["product-pop-up"] }}">
                 <div class="card-image">
                     Icon<img class="img-responsive" src="{{ $item_image1 }}" alt="{{ $item_image1 }}" style="width:32px;height:32px;padding-left:10px">
                 </div>
@@ -124,7 +138,7 @@
                           @foreach($mini_menus as $mm)
                             <div class="col-xs-6 col-md-6" class="btn default btnxx pad-17">
                               <div class="pad-17">
-                                <a title="" id="buttons_{{ $mm->id }}" class="buttons btn-plain" href="javascript:void(0);">
+                                <a title="{{ $alts["buttons"] }}" id="buttons_{{ $mm->id }}" class="buttons btn-plain" href="javascript:void(0);">
                                   <button class="btn btn-primary btn-curved"></button>
                                   <LABEL>
                                     <input type="{{ ($sub->sing_mul == '1') ? 'radio' : 'checkbox' }}" id="extra_{{ $mm->id }}"
@@ -134,9 +148,9 @@
                                   </LABEL>
                                   <b style="display:none;"></b>
                                 </a>
-                                <b style="display:none;"><a onclick="" id="remspan_{{ $mm->id }}" class="remspan plain" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                <b style="display:none;"><a id="remspan_{{ $mm->id }}" title="{{ $alts["remspan"] }}" class="remspan plain" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
                                   <span id="sprice_0" class="span_{{ $mm->id }} allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
-                                  <a onclick="" id="addspan_{{ $mm->id }}" class="addspan plain" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                  <a id="addspan_{{ $mm->id }}" title="{{ $alts["addspan"] }}" class="addspan plain" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
                                 </b>
                               </div>
                               <div class="clearfix"></div>
@@ -155,14 +169,14 @@
             <div class="clearfix"></div>
             <div class="col-xs-12 add-btn">
               <div class="add-minus-btn left-float">
-                <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
+                <a class="btn btn-primary minus" title="{{ $alts["minus"] }}" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','minus')">-</a>
 
                 <div class="number{{ $value->id }}">1</div>
-                <a class="btn btn-primary add" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>
+                <a class="btn btn-primary add" title="{{ $alts["plus"] }}" href="javascript:void(0);" onclick="changeqty('{{ $value->id }}','plus')">+</a>
               </div>
-              <a id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end btn-spc right-float"
+              <a id="profilemenu{{ $value->id }}" class="btn btn-primary add_menu_profile add_end btn-spc right-float" title="{{ $alts["add"] }}"
                  href="javascript:void(0);">Add</a>
-              <button id="clear_{{ $value->id }}" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
+              <button id="clear_{{ $value->id }}" title="{{ $alts["reset"] }}" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
                 RESET
               </button>
               <div class="clearfix"></div>

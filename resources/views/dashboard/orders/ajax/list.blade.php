@@ -1,5 +1,5 @@
 <?php
-    echo printfile("views/dashboard/orders/ajax/list.blade.php");
+    printfile("views/dashboard/orders/ajax/list.blade.php");
     $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
     $secondsTitle = "sec";
     function statuscolor($Status, $Color = false){
@@ -15,6 +15,14 @@
                 break;
         }
     }
+    $alts = array(
+            "print" => "Print preview",
+            "notifyall" => "Notify stores for every pending order",
+            "notifyone" => "Notify the store for this order",
+            "order_detail" => "View the order",
+            "restaurants/menu" => "View the restaurant",
+            "deleteorder" => "Delete this order"
+    );
 ?>
 
 @if(\Session::has('message'))
@@ -34,11 +42,11 @@
                     Orders
 
                     @if (Session::get('session_type_user') == "super" || $type=='restaurant')
-                        <a class="btn btn-secondary btn-sm" href="{{ url('orders/report') }}" class="">Print Report</a>
+                        <a class="btn btn-secondary btn-sm" title="{{ $alts["print"] }}" href="{{ url('orders/report') }}">Print Report</a>
                     @endif
 
                     @if($type == "admin" && false)
-                        <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
+                        <a class="btn btn-primary btn-sm" title="{{ $alts["notifyall"] }}" ONCLICK="notifystore(event, 0);">Notify All</a>
                     @endif
                 </h4>
 
@@ -80,11 +88,11 @@
                     ?>
                         <tr id="order{{ $value->id }}">
                             <td>
-                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" class="btn {{ statuscolor($value->status) }} btn-sm">{{ $value->guid }}</a>
+                                <a href="{{ url('orders/order_detail/' . $value->id . '/' . $type) }}" title="{{ $alts["order_detail"] }}" class="btn {{ statuscolor($value->status) }} btn-sm">{{ $value->guid }}</a>
                             </td>
                             <td>
                                 @if($type=='user')
-                                    <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" >{{ $resto[0]->name }}</a>
+                                    <a HREF="{{ url('restaurants/'. $resto[0]->slug .'/menu') }}" title="{{ $alts["restaurants/menu"] }}">{{ $resto[0]->name }}</a>
                                 @else
                                     {{$value->ordered_by }}
                                 @endif
@@ -145,15 +153,15 @@
                                        onclick="return confirm('Are you sure you want to delete order #{{ $value->id }}?');">
                                         <i class="fa fa-times"></i>
                                     </a-->
-                                    <a
+                                    <a title="{{ $alts["deleteorder"] }}"
                                        class="btn btn-secondary-outline btn-sm pull-right"
                                        onclick="deleteorder({{ $value->id }});">
                                         <i ID="fa{{ $value->id }}" class="fa fa-times"></i>
                                     </a>
                                 @endif
                                 @if($type == "admin" )
-                                    <a class="btn btn-secondary-outline btn-sm  pull-right"
-                                       ONCLICK="notifystore(event,{{ $value->id}} );">Notify</a>
+                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="{{ $alts["notifyone"] }}"
+                                       ONCLICK="notifystore(event, {{ $value->id}});">Notify</a>
                                 @endif
                             </td>
                         </tr>

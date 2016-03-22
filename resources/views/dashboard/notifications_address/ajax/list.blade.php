@@ -1,4 +1,11 @@
-{{ printfile("views/dashboard/notifications_address/ajax/list.blade.php") }}
+<?php
+    printfile("views/dashboard/notifications_address/ajax/list.blade.php");
+    $alts = array(
+            "add" => "Add a notification method",
+            "edit" => "Edit this notification method",
+            "delete" => "Delete this notification method"
+    );
+?>
 
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
@@ -10,7 +17,7 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     Notification Methods
-                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
+                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel" title="{{ $alts["add"] }}">Add</a>
                 </h4>
 
                 <p class="card-subtitle text-muted">Notify me by these methods when I receive an order</p>
@@ -83,10 +90,10 @@
                         <td>
                             <div class=" pull-right ">
                                 @if (Session::get('session_type_user') == "super" && $value->id)
-                                    <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel" data-id="{{ $value->id }}">Edit</a>
+                                    <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel" title="{{ $alts["edit"] }}" data-id="{{ $value->id }}">Edit</a>
                                 @endif
                                 @if($candisable)
-                                    <a href="{{ url('notification/addresses/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                    <a href="{{ url('notification/addresses/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" title="{{ $alts["delete"] }}"
                                         onclick="return confirm('Are you sure you want to delete {{ addslashes($value->address) }}?');"><i class="fa fa-times"></i></a>
                                 @endif
                             </div>

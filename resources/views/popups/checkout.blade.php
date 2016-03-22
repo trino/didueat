@@ -22,13 +22,16 @@
             if (!$type) {
                 unset($type);
             }
+            $alts = array(
+                "login" => "Log in as an existing user"
+            );
         ?>
 
         @if(!read("id"))
             <div class="col-sm-12">
                 <div class="form-group">
                    <span class="reserve_login">Please </span>
-                    <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();">Log in</a>
+                    <a class="reserve_login" href="#" data-target="#loginModal" data-toggle="modal" onclick="checkout_login();" title="{{ $alts["login"] }}">Log in</a>
                     <span class="reserve_login">or Sign up below:</span>
                 </div>
             </div>

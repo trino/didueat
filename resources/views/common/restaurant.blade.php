@@ -16,7 +16,9 @@
     if (isset($restaurant->logo) && $restaurant->logo) {
         $restaurant_logo = asset('assets/images/restaurants/' . $restaurant->logo);
     }
-
+    $alts = array(
+        "terms" => "Terms and conditions"
+    );
     // means they are logged in and have already registered as a restaurant
     if(Session::get('session_type_user') != "restaurant"){ ?>
         <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
@@ -50,7 +52,7 @@
                 </div>
                 <div class="card-block p-t-0 ">
                     <p class="text-muted  "  align="center" >
-                        By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
+                        By signing up, you agree to the <a href="#" title="{{ $alts["terms"] }}" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.
                     </p>
 
                     <input type="submit" class="btn btn-primary btn-block" value="Sign up">

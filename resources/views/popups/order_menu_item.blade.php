@@ -1,7 +1,7 @@
 @if (Session::get('session_type_user') == "super" )
-        <!--div class="col-sm-12 col-xs-12">
-                                <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
-                            </div-->
+    <!--div class="col-sm-12 col-xs-12">
+        <p class="">Views: {{ ViewsCountsType($value->id, "menu") }}</p>
+    </div-->
 @endif
 
 <div class="modal" id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog"
@@ -22,17 +22,22 @@
                 }
             </style>
 
-
-
-
             @if ($has_bigImage)
                 <img src="{{$item_bigImage }}" style="max-width:100%;" class=""/>
             @endif
 
-            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.65); @endif"
-                 class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
+            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.65); @endif" class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
 
-                <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
+                <?php
+                    printfile("resources/views/popups/order_menu_item.blade.php");
+                    $alts = array(
+                            "addspan" => "Add this addon",
+                            "remspan" => "Remove this addon",
+                            "add" => "Add these items to your cart",
+                            "minus" => "Remove 1 item",
+                            "plus" => "Add 1 item"
+                    );
+                ?>
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>
@@ -165,7 +170,7 @@
                                                                 } ?> class="pull-left p-a-0 col-md-5 col-xs-5"
                                                                      style="">
 
-                                                                    <a id="remspan_{{ $mm->id }}"
+                                                                    <a id="remspan_{{ $mm->id }}" title="{{ $alts["remspan"] }}"
                                                                        class="remspan btn btn-secondary-outline btn-sm "
                                                                        href="javascript:;"><i class="fa fa-minus"
                                                                                 ></i></a>
@@ -173,7 +178,7 @@
                                                                         <span id="sprice_{{$mm->price}}"
                                                                               class="span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</span>
 
-                                                                    <a id="addspan_{{ $mm->id }}"
+                                                                    <a id="addspan_{{ $mm->id }}" title="{{ $alts["addspan"] }}"
                                                                        class="addspan btn btn-sm btn-primary-outline "
                                                                        href="javascript:;"><i class="fa fa-plus"
                                                                                 ></i></a>
@@ -240,15 +245,15 @@
                                    </button-->
                     </div>
                     <div class="pull-right" style="margin-left:.5rem;">
-                        <a id="profilemenu{{ $value->id }}"
+                        <a id="profilemenu{{ $value->id }}" title="{{ $alts["add"] }}"
                            class="btn  btn-primary add_menu_profile add_end"
                            href="javascript:void(0);">Add</a>
                     </div>
-                    <div class="pull-right">Qty <a class="btn  btn-secondary" href="javascript:void(0);"
+                    <div class="pull-right">Qty <a class="btn  btn-secondary" href="javascript:void(0);" title="{{ $alts["minus"] }}"
                                                    onclick="changeqty('{{ $value->id }}', 'minus')"><i
                                     class="fa fa-minus"></i></a>
                         <span class="number{{ $value->id }}">1</span>
-                        <a class="btn  btn-secondary" href="javascript:void(0);"
+                        <a class="btn  btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}"
                            onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
