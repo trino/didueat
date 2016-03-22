@@ -42,8 +42,8 @@
                                echo '<img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
                             }
                             ?>
-                            <input type="text" name="image" id="hiddenimg" class="hiddenimg" />
-                            <input name="imgName" type="text" id="imgName" />imgName
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
+                            <input name="imgName" type="hidden" id="imgName" />
                             <!-- <span id="fullSize" class="smallT"></span> -->
                         </div>
                         
