@@ -60,7 +60,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <br>No orders found
+                                <br>No orders placed by you between {{ $_GET['from'] }} and {{ $_GET['to'] }} were found
                             @endif
 
                             <div class="clearfix"></div>
