@@ -96,7 +96,6 @@
         }
 
         function collapseall(value){
-            //$('.questions').next().attr('aria-expanded').trigger('click');
             var temp;
             $(".questions").each(function() {
                 temp = $(this).next().attr('aria-expanded');
