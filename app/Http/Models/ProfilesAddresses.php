@@ -53,4 +53,14 @@ class ProfilesAddresses extends BaseModel {
 
         return $query;
     }
+
+    public function save(array $options = array()) {
+        $requiredfields = array('formatted_address', 'address', 'city', 'province', 'latitude', 'longitude');
+        foreach($requiredfields as $field){
+            if(!isset($this->$field) || !$this->$field){
+                return false;
+            }
+        }
+        parent::save($options);
+    }
 }
