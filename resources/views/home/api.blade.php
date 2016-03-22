@@ -66,8 +66,10 @@
                 </div>
                 <div class="clearfix"></div>
                 <?php
+                $GLOBALS["sections"][ $GLOBALS["currentsection"] ][] = $Name;
                 return $currentNumber;
             }
+            $GLOBALS["currentsection"] = $currentNumber;
             echo '<div class="col-lg-12"><button class="btn btn-danger col-lg-12 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">' . $currentNumber . '</button></div>';
         }
     ?>
