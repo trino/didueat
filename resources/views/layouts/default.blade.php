@@ -8,9 +8,6 @@
         if(Session::has('menuTS')){
           $GLOBALS['menuTS']=Session('menuTS');
         }
-        else{
-         $GLOBALS['menuTS']="Paul:";
-        }
         $preUpRe="false";
         if(isset($_COOKIE['pvrbck'])){
           $preUpRe="true";

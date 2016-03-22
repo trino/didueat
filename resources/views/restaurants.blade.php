@@ -7,6 +7,23 @@ $latlngStr = "";
 $locationStr = "";
 $useCookie = false;
 $useHamilton = true;
+$is_pickup_checked="";
+$is_delivery_checked="";
+if(isset($_COOKIE['delivery_type'])){
+   switch ($_COOKIE['delivery_type']){
+   case "is_delivery":
+     $is_delivery_checked="checked";
+   break;
+   case "is_pickup":
+     $is_pickup_checked="checked";
+   break;
+   default:
+     $is_delivery_checked="checked";
+     $is_pickup_checked="checked";
+   }
+}
+
+
 
 /*
 if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
@@ -124,11 +141,12 @@ if ($useHamilton) {
 
                                 <div class="p-l-0 p-r-1 pull-left">
                                     <div class="form-group">
-                                        <label class="c-input c-radio ">
-                                            <input type="radio" name="delivery_type" id="delivery_type"
+                                    <input name="delivery_type" type="hidden" id="delivery_type" />
+                                        <label class="c-input c-checkbox ">
+                                            <input type="checkbox" name="deliverycb" id="deliverycb"
                                                    value="is_delivery"
-                                                   checked
-                                                   onclick="setdeliverytype(this.value);"/>
+                                                  {{ $is_delivery_checked }}
+                                                   onclick="setdeliverytype();"/>
                                             <span class="c-indicator"></span>
                                             Delivery
                                         </label>
@@ -136,10 +154,11 @@ if ($useHamilton) {
                                 </div>
                                 <div class="p-l-0 pull-left">
                                     <div class="form-group">
-                                        <label class="c-input c-radio ">
-                                            <input type="radio" name="delivery_type" id="delivery_type"
+                                        <label class="c-input c-checkbox ">
+                                            <input type="checkbox" name="pickupcb" id="pickupcb"
                                                    value="is_pickup"
-                                                   onclick="setdeliverytype(this.value);"/>
+                                                  {{ $is_pickup_checked }}
+                                                   onclick="setdeliverytype();"/>
                                             <span class="c-indicator"></span>
                                             Pickup
                                         </label>
@@ -297,15 +316,32 @@ if ($useHamilton) {
         var elementname = '#formatted_address2';
         onloadpage();
 
-        function setdeliverytype(deliverytype){
-            createCookieValue('delivery_type', deliverytype);
+        function setdeliverytype(){
+            deliverytype=""
             var text, replacewith = "delivery_type="
-            if(deliverytype == "is_pickup"){
-                replacewith = replacewith + "is_delivery";
-            } else {
-                replacewith = replacewith + "is_pickup";
+            if(document.getElementById('deliverycb').checked && document.getElementById('pickupcb').checked){
+               deliverytype = "both";
+               replacewith = replacewith + "both";
             }
-            deliverytype ="delivery_type=" + deliverytype;
+            else{
+			            if(document.getElementById('pickupcb').checked){
+                   deliverytype = "is_pickup";
+                   replacewith = replacewith + "is_pickup";
+			            } else {
+                   deliverytype = "is_delivery"; // the default
+                   replacewith = replacewith + "is_delivery";
+                   if(!document.getElementById('deliverycb').checked){
+                      alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
+                      document.getElementById('deliverycb').checked="true";
+                   }
+			            }
+            }
+            document.getElementById('delivery_type').value=deliverytype;
+            createCookieValue('delivery_type', deliverytype);
+			         replacewith = replacewith + deliverytype;
+            deliverytype = "delivery_type=" + deliverytype;
+                        
+                        
             $('.restaurant-url').each(function() {
                 text = $(this).attr('href');
                 text = text.replace(replacewith, deliverytype);

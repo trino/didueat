@@ -52,7 +52,7 @@ function toggleFullSizeMenu(path,imgroot){
    toggleMenuImgH=false;
  }
  else{
-   document.getElementById('zoomMsg').innerHTML="Click Image to Zoom";
+   document.getElementById('zoomMsg').innerHTML="Click Image to Zoom In";
    document.getElementById('menuImage').src=path+"/small-"+imgroot;
    document.getElementById('menuImage').style.left="0px";
    document.getElementById('menuImage').style.cursor="zoom-in";
@@ -96,6 +96,7 @@ function ajaxuploadbtn(button_id, doc) {
                 document.getElementById('menuImage').style.display="none";
                 if(document.getElementById('deleteMenuImg')){
                   document.getElementById('deleteMenuImg').style.display="none";
+                  document.getElementById('zoomMsg').style.display="none";
                 }
                 document.getElementById('browseMsg').innerHTML="<img src='"+base_url+"assets/images/uploaded-checkbox.png') }}' border='0' />&nbsp;<span class='instruct bd'>Click Save to Finish Uploading</span>";
                 this.enable();

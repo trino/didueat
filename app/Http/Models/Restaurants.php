@@ -166,7 +166,12 @@ class Restaurants extends BaseModel {
             $where .= " AND (minimum BETWEEN '".$data['minimum']."' and '".($data['minimum']+5)."')";
         }
         if (isset($data['delivery_type']) && $data['delivery_type'] != "") {
-            $where .= " AND ".$data['delivery_type']." = '1'";
+            if($data['delivery_type'] == "both"){
+               $where .= " AND (is_delivery = 1 OR is_pickup = 1)"; 
+            }
+            else{
+               $where .= " AND ".$data['delivery_type']." = 1";
+            }
         }
 
         if (isset($data['name']) && $data['name'] != "") {
