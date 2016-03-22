@@ -491,7 +491,7 @@ class HomeController extends Controller {
                 case "createuser":
                     $this->ismissing($_POST, array("name", "email", "password"));
                     if(\App\Http\Models\Profiles::where('email', '=', $_POST["email"])->first()) {$this->status(false, "email is in use");}
-                    $this->status(true, $this->registeruser("HomeController@Ajax", $_POST, 2)->id, "userid");
+                    $this->status(true, $this->registeruser("HomeController@Ajax", $_POST, 2)->id, "id");
                     break;
 
                 case "checkaddress":
@@ -519,7 +519,7 @@ class HomeController extends Controller {
                     }
                     if(!count($genres) || count($genres) > 3){$this->status(false, "1-3 genres are required");}
                     $_POST["cuisines"]=implode(",", $genres);
-                    $this->status(true, app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true)->id, "restid");
+                    $this->status(true, app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true)->id, "id");
                     break;
 
                 default:
