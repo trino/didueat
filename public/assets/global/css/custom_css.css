@@ -713,7 +713,7 @@ body {
 
 .static-rating {
     border: none;
-
+    height: 20px;
     float: left;
 }
 
