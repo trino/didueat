@@ -23,58 +23,61 @@
             </style>
 
 
-            <div class="modal-body p-y-0">
 
 
-                <div class="row">
+            @if ($has_bigImage)
+                <img src="{{$item_bigImage }}" style="max-width:100%;" class="m-b-1"/>
+            @endif
 
-                        @if ($has_bigImage)
-                        <img src=" {{$item_bigImage }}" style="max-width:100%;" class="m-b-1"/>
-                        <div style="background-color: rgba(0,0,0,0.35);" class=" bg-success bg-inverse col-md-12 p-y-1 m-b-1 fronttext ">
-                        @else
-                        <div style="" class="col-md-12 p-y-1 m-b-1 ">
-                        @endif
+            <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.65); @endif"
+                 class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
 
-                        <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
-                        <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
-                                aria-label="Close" id="clear_<?php echo $value->id; ?>">
-                            <span aria-hidden="true "  style="">&times;</span>
-                        </button>
-                        <h4 class="modal-title" id="viewDetailModel">
-                           {{ $value->menu_item }}
-                            @if($value->price>0)
-                                @if($dis)
-                                    <span class='label label-warning'>{{$dis}}</span>
-                                    <br>
-                                    <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
-                                    <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
-                                    <span style="color:#0275d8" class="pricetitle modalprice<?php echo $value->id; ?>">
+                <?php printfile("resources/views/popups/order_menu_item.blade.php"); ?>
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
+                        aria-label="Close" id="clear_<?php echo $value->id; ?>">
+                    <span aria-hidden="true " style="color:white;">&times;</span>
+                </button>
+
+                <h4 class="modal-title" id="viewDetailModel">
+
+                    {{ $value->menu_item }} &ndash;
+                    @if($value->price>0)
+                    @if($dis)
+                            <!--span class=''>{{$dis}}</span-->
+
+                    <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
+                    <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
+                                    <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
                                ${{number_format($dis_price=$main_price,2)}}
                             </span>
-                                @else
-                                    <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+                    @else
+                        <span class="pricetitle modalprice<?php echo $value->id; ?>">
                                 ${{$dis_price=number_format($value->price,2)}}
                             </span>
-                                @endif
-                            @else
-                                <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+                    @endif
+                    @else
+                        <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
                             ${{$dis_price=number_format($min_p,2)}}+
                             </span>
-                            @endif
-                            <span class="fa fa-spinner fa-spin cart-addon-gif"
-                                  style="color:#0275d8; display: none;"></span>
-                            <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-                            <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
-                        </h4>
+                    @endif
 
-                    </div>
-
+                    <span class="fa fa-spinner fa-spin cart-addon-gif"
+                          style="color:#0275d8; display: none;"></span>
+                    <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+                    <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
+                </h4>
 
 
-                        <div class="col-md-12 m-b-1">{{ $value->description }}</div>
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="row">
 
 
 
+                    <div class="col-md-12">{{ $value->description }}</div>
 
 
                     <div class="col-md-12 subitems_{{ $value->id }} optionals">
@@ -136,6 +139,7 @@
 
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
+
                                                 <div class="list clearfix row">
                                                     <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
                                                     <? $a = 0; ?>
@@ -218,10 +222,14 @@
                         </div>
                     </div>
 
-         </div>
+                </div>
 
-                <div class="card-footer row">
-                    <div class="">
+
+            </div>
+
+
+            <div class="card-footer">
+                <div class="">
                     <div class=" pull-left">
                         <button type="button" class="btn btn-link btn-sm hidden-md-up"
                                 data-dismiss="modal">
@@ -244,10 +252,9 @@
                            onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus"></i></a>
                     </div>
                 </div>
-                </div>
-
-
+                <div class="clearfix"></div>
             </div>
+
         </div>
     </div>
 </div>

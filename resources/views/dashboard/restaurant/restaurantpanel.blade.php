@@ -34,8 +34,7 @@
     if(!isset($delivery_type)){
         $delivery_type = "is_pickup";
     }
-    //check if the store is opened, based on it's hours
-    $key = iif($delivery_type == "is_delivery", "_del");
+    $key = iif($delivery_type == "is_delivery", "_del"); //check if store is open
     $is_open = \App\Http\Models\Restaurants::getbusinessday($Restaurant);
 
 

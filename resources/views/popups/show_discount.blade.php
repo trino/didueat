@@ -15,7 +15,7 @@
     <span class="disabled" style="display: none;">Disabled</span>
 
 
-    <label class="c-input c-checkbox">
+    <!--label class="c-input c-checkbox">
 
         <input <?php if(isset($model->has_discount) && $model->has_discount == 1){?>checked="checked"
                <?php }?> type="checkbox" class="allow_dis"
@@ -24,7 +24,7 @@
 
 
         <span class="c-indicator"></span>
-    </label>
+    </label-->
 
 
 </div>
