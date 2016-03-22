@@ -26,7 +26,7 @@
 
 
             @if ($has_bigImage)
-                <img src="{{$item_bigImage }}" style="max-width:100%;" class="m-b-1"/>
+                <img src="{{$item_bigImage }}" style="max-width:100%;" class=""/>
             @endif
 
             <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.65); @endif"

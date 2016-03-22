@@ -439,7 +439,7 @@
         function sendSMS($Phone, $Message, $Call = false){//works if you can get the from number....
             //https://www.twilio.com/
             debugprint( iif($Call, "Calling", "Sending an SMS to") . ": " . $Phone . " - " .  $Message);
-            //if (islive()) {
+            if (islive()) {
                 $sid = 'AC81b73bac3d9c483e856c9b2c8184a5cd';
                 $token = "3fd30e06e99b5c9882610a033ec59cbd";
                 $fromnumber = "2897685936";
@@ -452,7 +452,7 @@
                     $data = array("From" => $fromnumber, "To" => $Phone, "Body" => $Message);
                 }
                 return $this->cURL($URL, http_build_query($data), $sid, $token);
-            //}
+            }
             return "Is not live, did not contact";
         }
 

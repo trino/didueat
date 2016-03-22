@@ -132,7 +132,7 @@
                                 </div>
 
 
-                                <p class="card-text m-a-0">
+                                <p class="card-text m-a-0  text-muted">
                                     <?php
                                         if (strlen($value->description) > 65) {
                                             echo substr($value->description, 0, 65) . '...';
