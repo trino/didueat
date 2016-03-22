@@ -49,14 +49,13 @@
 
         function newFAQ($currentNumber, $Name = false, $Purpose = false, $RequiredFields = false, $Returns = false){
             if(is_numeric($currentNumber)){ ?>
-                <div class="col-lg-9">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-11">
                     <?php $currentNumber++; ?>
-                    <button type="button" class="btn btn-info col-lg-9 btn-responsive2 questions" data-toggle="collapse" data-target="#faq{{ $currentNumber }}" onclick="chngIcon({{ $currentNumber }})" id="{{ $Name }}">
-                        {{ $Name }}
-                        <div id="ic{{ $currentNumber }}" class="glyphicon glyphicon-chevron-down pull-right glyphUp padL"></div>
+                    <button type="button" class="btn btn-info col-lg-12 btn-responsive2 questions" data-toggle="collapse" data-target="#faq{{ $currentNumber }}" onclick="chngIcon({{ $currentNumber }})" id="{{ $Name }}">{{ $Name }}<div id="ic{{ $currentNumber }}" class="glyphicon glyphicon-chevron-down pull-right glyphUp padL"></div>
                     </button>
 
-                    <div id="faq{{ $currentNumber }}" class="collapse col-lg-9 faqTxt">
+                    <div id="faq{{ $currentNumber }}" class="collapse col-lg-12 faqTxt">
                         <?php
                             $ret = requiredfields($RequiredFields, $Returns);
                             echo $ret . $Purpose;
@@ -65,10 +64,11 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
                 <?php
                 return $currentNumber;
             }
-            echo '<div class="col-lg-9"><button class="btn btn-danger col-lg-9 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">' . $currentNumber . '</button></div>';
+            echo '<div class="col-lg-12"><button class="btn btn-danger col-lg-12 questions btn-responsive2" style="cursor:not-allowed;font-weight:bold">' . $currentNumber . '</button></div>';
         }
     ?>
     <script>
@@ -92,11 +92,23 @@
                 $('#ic'+idn).attr('class','glyphicon glyphicon-chevron-down pull-right glyphUp padL')
             }
         }
+
+        function collapseall(value){
+            //$('.questions').next().attr('aria-expanded').trigger('click');
+            var temp;
+            $(".questions").each(function() {
+                temp = $(this).next().attr('aria-expanded');
+                if(temp == null || temp === undefined){temp = "false";}
+                if (temp == value){
+                    $(this).trigger("click");
+                }
+            });
+        }
     </script>
     <div class="container">
         <div class="card-block">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-10">
 
                     <div class="clearfix"></div>
 
@@ -118,7 +130,10 @@
                         newFAQ("Info");
                         $CN = newFAQ($CN, "Genres", "Valid genres are: " . implode(", ", cuisinelist()));
                     ?>
-
+                </div>
+                <div class="col-md-2">
+                    <A onclick="collapseall('true');">Collapse All</A><BR>
+                    <A onclick="collapseall('false');">Expand All</A>
                 </div>
             </div>
         </div>
