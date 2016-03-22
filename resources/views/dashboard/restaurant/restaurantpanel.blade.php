@@ -120,6 +120,10 @@
         @if(isset($latitude) && $radius && $Restaurant['distance'])
             <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
         @endif
+
+        @if(isset($details) && $details)
+        <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
+        @endif
     </div>
     <div class="clearfix"></div>
 </div>
