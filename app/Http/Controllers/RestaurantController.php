@@ -160,7 +160,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
-    public function restaurantInfo($id = 0, $DoProfile = false) {
+    public function restaurantInfo($id = 0, $DoProfile = false, $ReturnData = false) {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
@@ -270,6 +270,7 @@ class RestaurantController extends Controller {
                     }
                     if(isset($post[$value])) {$update[$key] = $post[$value];}
                 }
+                if(!isset($post["payment_methods"])){$post["payment_methods"] = 0;}
                 $update['payment_methods'] = $post["payment_methods"];
                 $update['is_pickup'] = (isset($post['is_pickup']))?1:0;
                 $update['is_delivery'] = (isset($post['is_delivery']))?1:0;
@@ -302,6 +303,13 @@ class RestaurantController extends Controller {
                     \App\Http\Models\Cuisines::makenew(array('restID' => $post['id'], 'cuisine' => $cuisinesExpl[$i]));
                 }
 
+                if($DoProfile){//check for missing data
+                    foreach(array("name", "email", "password") as $field){
+                        if(!isset($post[$field]) || !$post[$field]){
+                            $DoProfile=false;
+                        }
+                    }
+                }
                 if($DoProfile){
                     $update=$post;
                     $restaurant_id = $post['id'];
@@ -311,6 +319,7 @@ class RestaurantController extends Controller {
                 }
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
+                if($ReturnData){return $ob;}
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
