@@ -162,6 +162,7 @@ class RestaurantController extends Controller {
      */
     public function restaurantInfo($id = 0, $DoProfile = false, $ReturnData = false) {
         $post = \Input::all();
+        if($ReturnData){$this->statusmode=true;}
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
             if(!isset($post['id'])){$post['id']=$id;}
             if (!isset($post['restname']) || empty($post['restname'])) {

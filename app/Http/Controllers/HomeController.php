@@ -490,7 +490,7 @@ class HomeController extends Controller {
                 //api required: restaurant creation
                 case "createuser":
                     $this->ismissing($_POST, array("name", "email", "password"));
-                    if(\App\Http\Models\Profiles::where('email', '=', $_POST["email"])->first()) {$this->status(false, "email is in use");}
+                    if(is_email_in_use($_POST["email"])) {$this->status(false, "email is in use");}
                     $this->status(true, $this->registeruser("HomeController@Ajax", $_POST, 2)->id, "id");
                     break;
 
@@ -500,9 +500,8 @@ class HomeController extends Controller {
                     break;
 
                 case "createrestaurant":
-                    //rest name, phone number, cuisines, address (city, province, lattitude, longitude, postal code, unit/apt), username, cell phone, email, password
                     $this->ismissing($_POST, array("restname", "name", "email" => "email", "password" => "password", "phone" => "phone", "mobile" => "phone", "cuisines", "city", "province", "country", "postal_code" => "postalcode", "latitude" => "number", "longitude" => "number"));
-                    if(\App\Http\Models\Profiles::where('email', '=', $_POST["email"])->first()) {$this->status(false, "email is in use");}
+                    if(is_email_in_use($_POST["email"])) {$this->status(false, "email is in use");}
 
                     //make sure the genres are correct
                     $genres = explode(",", $_POST["cuisines"]);
@@ -519,7 +518,9 @@ class HomeController extends Controller {
                     }
                     if(!count($genres) || count($genres) > 3){$this->status(false, "1-3 genres are required");}
                     $_POST["cuisines"]=implode(",", $genres);
-                    $this->status(true, app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true)->id, "id");
+                    $Data = app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true);
+                    var_dump($Data );die();
+                    $this->status(true, $Data, "id");
                     break;
 
                 default:

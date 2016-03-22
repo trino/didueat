@@ -36,7 +36,7 @@
                             $Fields[$ID] = "A number";
                             break;
                         case "genres":
-                            $Fields[$ID] = "A comma delimeted list of genres";
+                            $Fields[$ID] = "A comma delimeted list of 1-3 genres";
                             $OnClick = "$('#Genres').trigger('click');";
                             break;
                     }
@@ -113,7 +113,7 @@
 
                         $CN = newFAQ($CN, "createuser", "Creates a new user",  array("name", "email" => "uniqueemail", "password" => "password"), '"id" containing the id of the created user');
 
-                        $CN = newFAQ($CN, "createrestaurant", 'Creates a new restaurant<BR><A HREF="' . url("ajax") . ' ?type=createrestaurant&address=183%20Lottridge%20Street&province=Ontario&country=canada&city=hamilton&postal_code=L7P3C3&restname=testrest&name=rest%20owner&email=roy+testrest@gmail.com&password=123456&phone=9055123067&mobile=9055123067&latitude=43.2331903&longitude=-79.76136639999999&cuisines=bbq">Example API call</A>',  array("restname", "name", "email" => "uniqueemail", "password" => "password", "phone" => "phone", "mobile" => "phone", "cuisines" => "genres", "city", "province", "country", "postal_code" => "postalcode", "latitude" => "number", "longitude" => "number"), '"id" containing the id of the created restaurant');
+                        $CN = newFAQ($CN, "createrestaurant", 'Creates a new restaurant<BR><A HREF="' . url("ajax") . '?type=createrestaurant&address=183%20Lottridge%20Street&province=Ontario&country=canada&city=hamilton&postal_code=L7P3C3&restname=testrest&name=rest%20owner&email=roy+testrest@gmail.com&password=123456&phone=9055123067&mobile=9055123067&latitude=43.2331903&longitude=-79.76136639999999&cuisines=bbq">Example API call</A>',  array("restname", "name", "email" => "uniqueemail", "password" => "password", "phone" => "phone", "mobile" => "phone", "cuisines" => "genres", "city", "province", "country", "postal_code" => "postalcode", "latitude" => "number", "longitude" => "number"), '"id" containing the id of the created restaurant');
 
                         newFAQ("Info");
                         $CN = newFAQ($CN, "Genres", "Valid genres are: " . implode(", ", cuisinelist()));

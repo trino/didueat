@@ -370,6 +370,7 @@
 
     //check if the email address is in use by someone who is not $NotByUserID
     function is_email_in_use($EmailAddress, $NotByUserID = 0){
+        $EmailAddress = str_replace(" ", "+", trim($EmailAddress));
         $EmailAddress = clean_email($EmailAddress);
         if ($NotByUserID) {
             return first("SELECT * FROM profiles WHERE Email = '" . $EmailAddress . "' AND ID != " . $NotByUserID);
