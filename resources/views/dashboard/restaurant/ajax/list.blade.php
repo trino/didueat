@@ -133,7 +133,7 @@
 
     </div>
 
-    @if(Session::get('session_type_user') == "super"  && $recCount > 10)
+    @if((Session::get('session_type_user') == "super" || read("profiletype") == 3)  && $recCount > 10)
         <div class="card-footer clearfix">{!! $Pagination !!}    </div>
     @endif
 </div>

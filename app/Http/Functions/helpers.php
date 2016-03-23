@@ -73,8 +73,8 @@
      * @return Response
      */
     function getPagination($recCount, $no_of_paginations, $cur_page, $first_btn, $last_btn, $previous_btn, $next_btn){
-        $html = "";
-        /* -----Calculating the starting and endign values for the loop----- */
+        $html = '<div class="pull-right"><div class="dataTables_paginate paging_bs_normal" id="datatable1_paginate"><ul class="pagination">';
+        /* -----Calculating the starting and ending values for the loop----- */
         if ($cur_page >= 7) {
             $start_loop = $cur_page - 3;
             if ($no_of_paginations > $cur_page + 3)
@@ -94,56 +94,49 @@
             }
         }
 
-        $html .= '<div class="pull-right">';
-        $html .= '<div class="dataTables_paginate paging_bs_normal" id="datatable1_paginate">';
-        $html .= '<ul class="pagination">';
-
         if ($first_btn && $cur_page > 1) {
-            $html .= '<li p="1" class="first prev page-item  clickable"><a href="#"   class="page-link" >First</a></li>';
+            $html .= '<li p="1" class="first prev page-item clickable"><a href="#" class="page-link">First</a></li>';
         } else if ($first_btn) {
-            $html .= '<li p="1" class="first prev page-item  disabled"><a  class="page-link" >First</a></li>';
+            $html .= '<li p="1" class="first prev page-item disabled"><a class="page-link">First</a></li>';
         }
 
         if ($previous_btn && $cur_page > 1) {
             $pre = $cur_page - 1;
-            $html .= '<li p=' . $pre . ' class="prev page-item  clickable"><a href="#"   class="page-link" >Previous</a></li>';
+            $html .= '<li p=' . $pre . ' class="prev page-item clickable"><a href="#" class="page-link">Previous</a></li>';
         } else if ($previous_btn) {
-            $html .= '<li class="prev disabled page-item "><a  class="page-link" >Previous</a></li>';
+            $html .= '<li class="prev disabled page-item"><a class="page-link">Previous</a></li>';
         }
 
         for ($i = $start_loop; $i <= $end_loop; $i++) {
             if ($cur_page == $i) {
-                $html .= '<li p=' . $i . ' class="active page-item "><a  class="page-link" >' . $i . '</a></li>';
+                $html .= '<li p=' . $i . ' class="active page-item "><a class="page-link">' . $i . '</a></li>';
             } else {
-                $html .= '<li p=' . $i . ' class="clickable page-item " ><a href="#"   class="page-link" >' . $i . '</a></li>';
+                $html .= '<li p=' . $i . ' class="clickable page-item"><a href="#" class="page-link">' . $i . '</a></li>';
             }
         }
 
         // TO ENABLE THE NEXT BUTTON
         if ($next_btn && $cur_page < $no_of_paginations) {
             $nex = $cur_page + 1;
-            $html .= '<li p=' . $nex . ' class="next clickable page-item "><a href="#"   class="page-link"  >Next</a></li>';
+            $html .= '<li p=' . $nex . ' class="next clickable page-item"><a href="#" class="page-link">Next</a></li>';
         } else if ($next_btn) {
-            $html .= '<li class="next disabled page-item "><a  class="page-link" >Next</a></li>';
+            $html .= '<li class="next disabled page-item"><a  class="page-link" >Next</a></li>';
         }
 
         // TO ENABLE THE END BUTTON
         if ($last_btn && $cur_page < $no_of_paginations) {
-            $html .= '<li p=' . $no_of_paginations . ' class="page-item last next clickable"><a href="#"   class="page-link" >Last</a></li>';
+            $html .= '<li p=' . $no_of_paginations . ' class="page-item last next clickable"><a href="#" class="page-link">Last</a></li>';
         } else if ($last_btn) {
-            $html .= '<li p=' . $no_of_paginations . ' class="page-item last next disabled"><a  class="page-link" >Last</a></li>';
+            $html .= '<li p=' . $no_of_paginations . ' class="page-item last next disabled"><a class="page-link">Last</a></li>';
         }
 
-        $html .= '</ul>';
-        $html .= '</div>';
-        $html .= '</div>';
+        $html .= '</ul></div></div><div class="pull-left">';
 
-        $html .= '<div class="pull-left">';
         if (!$no_of_paginations) {
             $cur_page = 0;
         }
-        $html .= '<div ><p class="" a="' . $no_of_paginations . '">Total Records ' . $recCount . '. Showing Page ' . $cur_page . ' of ' . $no_of_paginations . '</p><div>';
-        $html .= '</div>';
+
+        $html .= '<div ><p a="' . $no_of_paginations . '">Total Records ' . $recCount . '. Showing page ' . $cur_page . ' of ' . $no_of_paginations . '</p><div></div>';
 
         return $html;
     }

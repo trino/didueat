@@ -26,7 +26,7 @@
         "add_item" => "Add Item"
     );
 
-    if($is_my_restro){ ?>
+    if(read("profiletype") == 3 || $is_my_restro){ ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">
@@ -60,9 +60,7 @@
 
                 <div class="">
                     <div class="overlay overlay_reservation">
-                        <div class="loadmoreajaxloader">
-
-                        </div>
+                        <div class="loadmoreajaxloader"></div>
                     </div>
                     <div class="clearfix"></div>
                     <div class=" menu_div">
@@ -111,9 +109,8 @@
     </div>
     </div>
 
-    @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
-        <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog"
-             aria-labelledby="addMenuModelLabel" aria-hidden="true">
+    @if(read("profiletype") == 3 || read('restaurant_id') == $restaurant->id)
+        <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -130,8 +127,6 @@
             </div>
         </div>
     @endif
-
-
 
     @include('popups.more_detail')
 
