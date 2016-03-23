@@ -48,7 +48,7 @@
            <div class="clearfix"></div>
 
            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal" TITLE="Close">Close</button>
                <button type="submit" class="btn btn-primary saveNewBtn">Save</button>
            </div>
        </div>

@@ -4,14 +4,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="orderApproveModalLabel">Accept Order</h4>
             </div>
             {!! Form::open(array('url' => '/orders/list/approve/'.$type, 'id'=>'approve-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
-                <?php printfile("views/popups/approve_cancel.blade.php (approve)"); ?>
+                <?php
+                    printfile("views/popups/approve_cancel.blade.php (approve)");
+                    $alts = array(
+                            "accept" => "Approve of this order",
+                            "decline" => "Cancel this order"
+                    );
+                ?>
                 <DIV ID="message" align="center"></DIV>
                 <label>Note to Customer</label>
                 <textarea name="note" rows="4" id="approvetext" class="form-control" maxlength="5000"></textarea>
@@ -19,7 +25,7 @@
             </div>
             <div class="modal-footer">
                 <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button-->
-                <button class="btn btn-primary" value=" Approve " onclick="$('.overlay_loader').show();return confirm2('approve');">Accept</button>
+                <button class="btn btn-primary" value=" Approve " onclick="$('.overlay_loader').show();return confirm2('approve');" title="{{ $alts["accept"] }}">Accept</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}            
@@ -46,7 +52,7 @@
                 <input type="hidden" name="id" class="orderid" value="" />
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn  btn-danger" onclick="$('.overlay_loader').show();return confirm2('cancel');"/>Decline</button>
+                <button type="submit" class="btn  btn-danger" onclick="$('.overlay_loader').show();return confirm2('cancel');" title="{{ $alts["decline"] }}"/>Decline</button>
                 <div class="clearfix"></div>
             </div>
             {!! Form::close() !!}

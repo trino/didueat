@@ -1,5 +1,4 @@
 <?php
-    //no restaurants found, allow the user to subscribe to the newsletter if they haven't already done so
     printfile($SQL . "<BR>views/dashboard/restaurant/ajax/noresults.blade.php");
     $is_subscribed = false;
     if(read("email")){

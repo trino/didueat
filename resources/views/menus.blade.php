@@ -2,9 +2,10 @@
     printfile("views/menus.blade.php");
     $alts = array(
             "product-pop-up" => "Product info",
-            "up_parent" => "Up",
-            "down_parent" => "Down",
-            "deleteMenu" => "Delete this item"
+            "up_parent" => "Move this up",
+            "down_parent" => "Move this down",
+            "deleteMenu" => "Delete this item",
+            "edititem" => "Edit this item"
     );
 
     $menuTSv="?i=";
@@ -208,7 +209,7 @@
                                            href="javascript:void(0);">
                                             <i class="fa fa-arrow-down"></i></a>
 
-                                        <button id="add_item{{ $value->id }}" type="button"
+                                        <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
                                                 class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>

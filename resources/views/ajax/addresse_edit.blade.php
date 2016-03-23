@@ -18,7 +18,7 @@
 <?php echo view("common.editaddress", array("addresse_detail" => $addresse_detail, "apartment" => true, "dontinclude" => true)); ?>
 
 <button type="submit" class="btn btn-primary pull-right">Submit</button>
-<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-secondary pull-right" data-dismiss="modal" TITLE="Close" TITLE="Close">Close</button>
 
 <input type="hidden" name="id" value="{{ (isset($addresse_detail->id))?$addresse_detail->id:'' }}"/>
     {!! Form::close() !!}

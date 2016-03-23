@@ -2,7 +2,8 @@
     printfile("views/dashboard/credit_cards/ajax/list.blade.php");
     $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
     $alts = array(
-        "delete" => "Delete card"
+            "delete" => "Delete this credit card",
+            "add" => "Add a credit card"
     );
 ?>
 
@@ -16,7 +17,7 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     My Credit Cards <!-- ({{ ucwords($type) }}) -->
-                    <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">
+                    <button type="button" class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel" title="{{ $alts["add"] }}">
                         Add
                     </button>
                 </h4>

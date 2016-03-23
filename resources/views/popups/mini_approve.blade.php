@@ -17,7 +17,7 @@
                 <input type="hidden" name="id" value="" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" TITLE="Close" TITLE="Close">Close</button>
                 <button class="btn btn-primary" onclick="return confirm2('{{ $action }}');">{{ ucfirst($action) }}</button>
                 <div class="clearfix"></div>
             </div>

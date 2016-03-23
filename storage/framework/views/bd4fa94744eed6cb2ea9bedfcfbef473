@@ -28,7 +28,7 @@
                 </DIV></DIV>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" TITLE="Close">Close</button>
                 <button type="submit" class="btn btn-primary">Send</button>
             </div>
             <?php echo Form::close(); ?>

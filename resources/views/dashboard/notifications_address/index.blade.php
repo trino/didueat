@@ -32,7 +32,7 @@
        <input name="type" type="hidden" />
        <div class="modal-content">
            <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
                <h4 class="modal-title" id="editModalLabel">Edit Addresss</h4>
@@ -49,7 +49,7 @@
            </div>
 
            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-secondary saveNewBtn" data-dismiss="modal" TITLE="Close">Close</button>
                <button type="submit" class="btn btn-primary saveNewBtn">Save</button>
            </div>
        </div>

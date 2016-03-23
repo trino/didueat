@@ -4,7 +4,10 @@
         $r1 = rand('1000000', '999999999');
         $r2 = rand('1000000', '999999999');
         $alts = array(
-            "addmorebtn" => "Add more"
+                "addmorebtn" => "Add more",
+                "child_up" => "Move up",
+                "child_down" => "Move down",
+                "delete" => "Delete this item"
         );
     ?>
 
@@ -50,13 +53,13 @@
 
                                                 <div class="col-md-4">
                                                     <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                                        <button href="javascript:void(0)" id="child_up_{{ $cc->id }}"
+                                                        <button href="javascript:void(0)" id="child_up_{{ $cc->id }}" title="{{ $alts["child_up"] }}"
                                                             class="btn btn-sm btn-secondary sorting_child moveup" <?php if($i==1){?>disabled=""<?php }?>><i class="fa fa-arrow-up"></i>
                                                         </button>
-                                                        <button href="javascript:void(0)" <?php if($i==count($more)){?>disabled=""<?php }?> id="child_down_{{ $cc->id }}"
+                                                        <button href="javascript:void(0)" <?php if($i==count($more)){?>disabled=""<?php }?> id="child_down_{{ $cc->id }}" title="{{ $alts["child_down"] }}"
                                                             class="btn btn-sm btn-secondary sorting_child movedown"><i class="fa fa-arrow-down"></i>
                                                         </button>
-                                                        <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore">
+                                                        <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" title="{{ $alts["delete"] }}">
                                                             <i class="fa fa-times"></i>
                                                         </button>
                                                     </div>
@@ -79,15 +82,13 @@
 
                             <div class="col-md-4">
                                 <div class="btn-group pull-right" role="group" aria-label="Basic example">
-                                    <button href="javascript:void(0)" id="child_up_0"
+                                    <button href="javascript:void(0)" id="child_up_0" title="{{ $alts["child_up"] }}"
                                        class="btn btn-sm btn-secondary sorting_child moveup" disabled=""><i class="fa fa-arrow-up"></i></button>
-                                    <button href="javascript:void(0)" disabled="" id="child_down_0"
-                                       class="btn btn-sm btn-secondary sorting_child movedown"><i
-                                                class="fa fa-arrow-down"></i></button>
-                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" >
-                                    <i class="fa fa-times"></i> </button>
+                                    <button href="javascript:void(0)" disabled="" id="child_down_0" title="{{ $alts["child_down"] }}"
+                                       class="btn btn-sm btn-secondary sorting_child movedown"><i class="fa fa-arrow-down"></i></button>
+                                    <button href="javascript:void(0);" class="btn btn-sm btn-secondary delcmore" title="{{ $alts["delete"] }}">
+                                        <i class="fa fa-times"></i> </button>
                                 </div>
-
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -235,27 +236,25 @@
 
             <div class="clearfix"></div>
 
-
         </div>
         </div>
 
 
         <div class=" card-footer">
             <div class=" pull-right">
-
-                <?php
-                if(isset($cmodel) && count($cmodel) > 1){ ?>
-                <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-arrow-up"></i></button>
-                <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}"><i class="fa fa-arrow-down"></i></button>
+                <?php if(isset($cmodel) && count($cmodel) > 1){ ?>
+                    <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_up_{{ (isset($child)) ? $child->id : 0 }}" title="{{ $alts["child_up"] }}">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                    <button href="javascript:void(0)" class="btn btn-sm btn-secondary addon_sorting" id="addon_down_{{ (isset($child)) ? $child->id : 0 }}" title="{{ $alts["child_down"] }}">
+                        <i class="fa fa-arrow-down"></i>
+                    </button>
                 <?php } ?>
                 <button href="javascript:void(0)" class="btn btn-sm btn-secondary removelast pull-right" onclick="">Delete Addon</button>
 
-
-            </div>                    <div class="clearfix"></div>
-
+            </div>
+            <div class="clearfix"></div>
         </div>
-
-
     </div>
     </div>
 </div>

@@ -12,7 +12,7 @@
 
                 <div class="p-r-1">
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                     </div>

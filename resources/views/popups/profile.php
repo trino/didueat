@@ -1,7 +1,8 @@
 <?php
     printfile("common/profile.php");
     $alts = array(
-        "back" => "Go back"
+        "back" => "Go back",
+        "checkout" => "Finish your order and send it to the restaurant"
     );
 ?>
 <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
@@ -84,7 +85,7 @@
     <div class="form-group">
         <div class="col-xs-12">
             <a href="javascript:void(0)" class="btn btn-default back" title="<?= $alts["back"]; ?>">Back</a>
-            <button type="submit" class="btn btn-primary">Checkout</button>
+            <button type="submit" class="btn btn-primary" title="<?= $alts["checkout"]; ?>">Checkout</button>
         </div>
         <div class="clearfix"></div>
     </div>

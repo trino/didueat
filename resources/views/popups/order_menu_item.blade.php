@@ -38,7 +38,7 @@
                             "plus" => "Add 1 item"
                     );
                 ?>
-                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>
                 </button>
@@ -236,8 +236,7 @@
             <div class="card-footer">
                 <div class="">
                     <div class=" pull-left">
-                        <button type="button" class="btn btn-link btn-sm hidden-md-up"
-                                data-dismiss="modal">
+                        <button type="button" class="btn btn-link btn-sm hidden-md-up" title="Close" data-dismiss="modal">
                             Close
                         </button>
                         <!--button id="clear_{{ $value->id }}" class="btn btn-warning resetslider" type="button">
