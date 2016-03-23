@@ -104,8 +104,7 @@
 
                       <div class="infolist col-xs-12">
                         <div style="display: none;">
-                          <input type="checkbox" value="{{ $sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;"
-                                 checked="checked" class="chk">
+                          <input type="checkbox" value="{{ $sub->menu_item }}" title="___" id="{{ $sub->id }}" style="display: none;" checked="checked" class="chk">
                         </div>
                         <a href="javascript:void(0);"><strong>{{ $sub->menu_item }}</strong></a>
                         <span><em> </em></span>

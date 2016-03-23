@@ -12,7 +12,12 @@
             {!! Form::open(array('id'=>'rating-form','class'=>'form-horizontal form-without-legend','method'=>'post','role'=>'form')) !!}
             <div class="modal-body">
 
-                <?php printfile("views/popups/rating.blade.php"); ?>
+                <?php
+                    printfile("views/popups/rating.blade.php");
+                    $alts = array(
+                        "login" => "Log in as an existing user"
+                    );
+                ?>
 
                 <div class="row">
 
@@ -40,7 +45,7 @@
                         </div>
 
                         @if(!read("id"))
-                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="setupratinglogin();">Log in to review</a>
+                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="setupratinglogin();" title="{{ $alts["login"] }}">Log in to review</a>
                         @endif
                     </div>
 

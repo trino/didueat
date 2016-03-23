@@ -41,7 +41,6 @@
     $MoreTime = "";
     $grayout="";
     $Message = "Order Online";
-
     if(!$Restaurant['open']){
         $Message = "View Menu";
     }
@@ -68,7 +67,10 @@
         }
     }
     $alts = array(
-        "restaurants/menu" => "View Restaurant"
+            "restaurants/menu" => "View Restaurant",
+            "View Menu" => "View this restaurant's menu",
+            "Order Online" => "Order from this restaurant's menu",
+            "moredetails" => "View more information about this restaurant"
     );
 ?>
 <div class="list-group-item">
@@ -88,7 +90,7 @@
                 {{ $Restaurant['name'] }}
                 @if(isset($order))
                     <div class="pull-right">
-                        <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url btn @if($Message=='View Menu')btn-secondary @else btn-primary @endif hidden-sm-down">{{ $Message }}</a>
+                        <a href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url btn @if($Message=='View Menu') btn-secondary @else btn-primary @endif hidden-sm-down" title="{{ $alts[$Message] }}">{{ $Message }}</a>
                     </div>
                 @endif
             </h4>
@@ -125,7 +127,7 @@
         @endif
 
         @if(isset($details) && $details)
-        <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
+            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel" title="{{ $alts["moredetails"] }}">More Details</a>
         @endif
     </div>
     <div class="clearfix"></div>

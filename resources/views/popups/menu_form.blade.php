@@ -65,7 +65,7 @@
 																								?>
 
                         @if(isset($model) && $model->image)
-                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="delete">Delete image</a>
+                            <a href="{{ url("restaurant/deletemenuimage/" . $menu_id) }}" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="{{ $alts["delete"] }}">Delete image</a>
                         @endif
                         <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
                     @else

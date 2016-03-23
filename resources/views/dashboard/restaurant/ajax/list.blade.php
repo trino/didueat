@@ -3,9 +3,12 @@
     $alts = array(
             "enable" => "Enable this restaurant's ability to accept orders",
             "disable" => "Disable this restaurant's ability to accept orders",
+            "enabled" => "This restaurant is accepting orders",
+            "disabled" => "This restaurant is not accepting orders",
             "orders" => "View this restaurant's orders",
             "menu" => "View this restaurant's menu",
-            "edit" => "Edit this restaurant"
+            "edit" => "Edit this restaurant",
+            "incomplete" => "This restaurant is incomplete and can not be opened"
     );
 ?>
 
@@ -42,7 +45,7 @@
                             <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
                             <td>
                                 @if(!$value->is_complete)
-                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Incomplete</A><HR CLASS="slimhr">
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["incomplete"] }}">Incomplete</A><HR CLASS="slimhr">
                                     <?php
                                         $reasons = array();
                                         if(!$value->has_creditcard){
@@ -92,13 +95,13 @@
                                         }
                                     ?>
                                 @elseif($value->open == true)
-                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Enabled</A>
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["enabled"] }}">Enabled</A>
                                     <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm" title="{{ $alts["disable"] }}"
                                        onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
                                 @else
                                     <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm" title="{{ $alts["enable"] }}"
                                        onclick="return confirm('Are you sure you want to enable {{ addslashes("'" . $value->name . "'") }} ?');">Enable</a>
-                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Disabled</A>
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["disabled"] }}">Disabled</A>
                                 @endif
                             </td>
 

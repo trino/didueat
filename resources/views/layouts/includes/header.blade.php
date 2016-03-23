@@ -2,16 +2,17 @@
     <div class="container" style="margin-top:0px !important;">
         <?php
             $alts = array(
+                    "home" => "Go back to the home page",
                     "cart-header" => "Checkout",
                     "navigationModal" => "Bring up the options menu",
                     "login" => "Log in with your email address and password",
                     "signup" => "Create a new account"
             );
         ?>
-        <a class="hidden-sm-down" href="{{ url('/') }}">
+        <a class="hidden-sm-down" href="{{ url('/') }}" title="{{ $alts["home"] }}">
             <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
         </a>
-        <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}">
+        <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
             <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
         </a>
 

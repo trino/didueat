@@ -1,47 +1,44 @@
-<?php printfile("views/menus.blade.php"); ?>
-
-@if(!isset($_GET['page']))
-    <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-@endif
-
-        <DIV class="list-group m-b-1" id="">
-
-
-            <div class="list-group-item parents" style="background-color: #f5f5f5;" id="">
-                <div class="">
-                    <div class="row">
-
-                        <div class="col-md-8">
-                            <h4 class="card-title"><?php echo \App\Http\Models\Category::where('id',$catid)->first()->title;?></h4>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="btn-group pull-right" aria-label="Basic example" role="group">
-                                <a id="" class="btn btn-sm btn-secondary" disabled="" href="<?php echo url("restaurant/orderCat/".$catid."/up");?>">
-                                <i class="fa fa-arrow-up"></i>
-                                </a>
-                                <a id="" class="btn btn-sm btn-secondary" href="<?php echo url("restaurant/orderCat/".$catid."/down");?>">
-                                <i class="fa fa-arrow-down"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
 <?php
-    $menuTSv="?i=";
-    $menuTS=read('menuTS');
-    if($menuTS){
-         $menuTSv="?i=".$menuTS;
-         Session::forget('session_menuTS');
-    }
+    printfile("views/menus.blade.php");
     $alts = array(
             "product-pop-up" => "Product info",
             "up_parent" => "Up",
             "down_parent" => "Down",
             "deleteMenu" => "Delete this item"
     );
+
+    $menuTSv="?i=";
+    $menuTS=read('menuTS');
+    if($menuTS){
+        $menuTSv="?i=".$menuTS;
+        Session::forget('session_menuTS');
+    }
 ?>
+
+@if(!isset($_GET['page']))
+    <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
+@endif
+
+<DIV class="list-group m-b-1" id="">
+    <div class="list-group-item parents" style="background-color: #f5f5f5;" id="">
+        <div class="">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="card-title"><?= \App\Http\Models\Category::where('id',$catid)->first()->title;?></h4>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group pull-right" aria-label="Basic example" role="group">
+                        <a title="{{ $alts["up_parent"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat/".$catid."/up");?>">
+                            <i class="fa fa-arrow-up"></i>
+                        </a>
+                        <a title="{{ $alts["down_parent"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat/".$catid."/down");?>">
+                            <i class="fa fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
             @foreach($menus_list as $value)
                 <?php //load images, duplicate code
