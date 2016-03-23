@@ -13,7 +13,7 @@ return [
 
     'url' => 'http://localhost/didueat/public/',
     'admin_mail' => 'info@didueat.ca',
-    'company_name' => 'Didu Eat',
+    'company_name' => 'Didueat',
 
     /*
     |--------------------------------------------------------------------------

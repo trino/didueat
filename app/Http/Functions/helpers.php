@@ -4,7 +4,7 @@
     define("TINY_THUMB", '64x64');
     define("MED_THUMB", '165x165');
     define("BIG_SQ", '600x600');
-    define("DIDUEAT", 'Didu Eat');
+    define("DIDUEAT", 'Didueat');
 /*
     define("SMALL_THUMB", '120x120');
     define("MAX_IMG_SIZE_P", '600x800');

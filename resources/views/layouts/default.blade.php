@@ -40,8 +40,8 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}" name="keywords">
-    <meta content="DiduEat" name="author">
+    <meta content="{{ (isset($keyword))?$keyword.' | ':'' }}{{ DIDUEAT }}" name="keywords">
+    <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
     <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">

@@ -289,6 +289,10 @@ class HomeController extends Controller {
      * @return view
      */
     public function signupRestaurants() {
+        $data['title'] = 'Signup';
+        $data['keyword'] = 'Signup, Join Didueat,Register your Restaurant, didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+        $data['cuisine'] = cuisinelist();
+        $data['meta_description'] = "Didueat prides itself on its easy ordering system. Helping customers spend less time searching for and ordering their meals! Improving on the emerging trend towards centralized meal ordering apps, Didueat makes the process easier and faster than ever before. Don't miss out on the next big thing in restaurant ordering";
         $Redirect = 'restaurants/signup';
         $post = \Input::all();
         $email_verification = false;
@@ -338,7 +342,7 @@ class HomeController extends Controller {
 
             return app('App\Http\Controllers\RestaurantController')->restaurantInfo(0,true);
         } else {
-            $data['title'] = "Signup Restaurants Page";
+            //$data['title'] = "Signup Restaurants Page";
 //            $data['countries_list'] = \App\Http\Models\Countries::get();
 //            $data['states_list'] = \App\Http\Models\States::get();
 //            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
@@ -362,7 +366,16 @@ class HomeController extends Controller {
         if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
+        $data['keyword'] = $res_slug->name.','.$res_slug->cuisine.' Cuisine'.','.$res_slug->phone.','.$res_slug->formatted_address.',Didueat,didueat.ca,Online food,Online food order,Canada online food';
+        $data['keyword'] = str_replace(',,',',',$data['keyword']);
+        $data['keyword'] = str_replace(',,',',',$data['keyword']);
+        $data['keyword'] = str_replace(',,',',',$data['keyword']);
+        $data['keyword'] = str_replace(',,',',',$data['keyword']); 
         $data['meta_description'] = $res_slug->description;
+        if(!$data['meta_description'])
+        {
+            $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
+        }
         $data['slug'] = $slug;
         $data['restaurant'] = $res_slug;
         \App\Http\Models\PageViews::insertView($res_slug->id, "restaurant");//update it's page views
@@ -618,8 +631,20 @@ class HomeController extends Controller {
     }
 
     public function home($Type){
+      if($Type=='about')
+      {
+        $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
+        $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+        $data['title'] = ucfirst($Type);
+      }
+      if($Type=='terms')  
+      {
+        $data['meta_description'] = "These terms of use apply to all users of the Website including users who upload any materials to the Website, users who use services provided through this Website, and users who simply view the content on or available through this website. Please read these terms carefully before ordering any products through the Website. ";
+        $data['keyword'] = 'Terms and Conditions,Didueat Terms,Didueat Conditions,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+        $data['title'] = ucfirst($Type);
+      }
       if($Type != "faq"){
-        return view("home." . $Type);      
+        return view("home." . $Type,$data);      
       }
     }
 
@@ -630,7 +655,9 @@ class HomeController extends Controller {
             $dataSupp['paymsg'] = 'Thank you for your payment';
             $dataSupp['paid'] = true;
         } else {
-            $data['title'] = 'Please Confirm Your Payment';
+            $data['title'] = 'FAQ';
+            $data['keyword'] = 'FAQ,Questions,Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+            $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
             $dataSupp['paymsg'] = 'Please confirm your payment';
             $dataSupp['paid'] = false;
         }
