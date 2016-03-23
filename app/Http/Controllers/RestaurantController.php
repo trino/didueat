@@ -413,7 +413,7 @@ class RestaurantController extends Controller {
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
-        $data['category'] = \App\Http\Models\Category::orderBy('display_order', 'ASC')->get();
+        $data['category'] = \App\Http\Models\Category::where('res_id',$res_id)->orderBy('display_order', 'ASC')->get();
 
         if ($id != 0) {
             $data['model'] = \App\Http\Models\Menus::where('id', $id)->get()[0];
@@ -495,7 +495,7 @@ class RestaurantController extends Controller {
         
         if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) {
             $arrs['title'] = $arr['cat_name'];
-            $arrs['res_id'] = \Session::get('session_restaurant_id'));
+            $arrs['res_id'] = \Session::get('session_restaurant_id');
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arrs);
             $ob2->save();
