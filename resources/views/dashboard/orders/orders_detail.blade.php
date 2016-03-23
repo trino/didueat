@@ -18,6 +18,11 @@
                     $order->status = "waiting";
                 }
             }
+            $alts=array(
+                    "approve" => "Accept this order",
+                    "decline" => "Decline this order",
+                    "cantdecline" => "Unable to decline this order"
+            );
         ?>
         <div class="row">
 
@@ -91,11 +96,11 @@
 
                             @if($order->status != "cancelled")
                                 @if($order->status == "waiting")
-                                    <a class="btn btn-secondary">Can't Decline</a>
+                                    <a class="btn btn-secondary" title="{{ $alts["cantdecline"] }}">Can't Decline</a>
                                 @else
                                     <a href="#cancel-popup-dialog"
                                        class="btn btn-danger orderCancelModal " data-toggle="modal"
-                                       data-target="#orderCancelModal"
+                                       data-target="#orderCancelModal" title="{{ $alts["decline"] }}"
                                        id="cancel-popup" data-id="{{ $order->id }}">Decline</a>
                                 @endif
                             @endif
@@ -103,7 +108,7 @@
                                 <a href="#approve-popup-dialog"
                                    class="btn btn-primary orderApproveModal " data-toggle="modal"
                                    data-target="#orderApproveModal"
-                                   id="approve-popup"
+                                   id="approve-popup" title="{{ $alts["approve"] }}"
                                    data-id="{{ $order->id }}">Accept</a>
                             @endif
                         </div>

@@ -31,6 +31,11 @@
     $GUID = "";//guidv4();
     if(!isset($mini)){$mini = false;}
     $Commas = false;
+
+    $alts = array(
+            "contactus" => "Contact us",
+            "add" => "Create a new address"
+    );
 ?>
 
 <input type="hidden" name="latitude" id="latitude" value="{{ (isset($addresse_detail->latitude))?$addresse_detail->latitude: old('latitude') }}"/>
@@ -55,7 +60,7 @@
                             %3A%0A%0A
                             Contact Number:
                             %3A%0A%0A
-                            Thank you" style="text-decoration:underline">Email Support</a></p>
+                            Thank you" style="text-decoration:underline" title="{{ $alts["contactus"] }}">Email Support</a></p>
 
             </div>
         </div>
@@ -92,7 +97,7 @@
                         echo '</a>';
                     }
                 ?>
-                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" class="dropdown-item">Add New Address</a>
+                <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" title="{{ $alts["add"] }}" class="dropdown-item">Add New Address</a>
             </div>
             <?php }
             }else{
@@ -120,7 +125,7 @@
                 or
             </SPAN>
         
-            <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class=" addNew " data-id='0' value="add_address">Add New Address</a>
+            <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" class="addNew" title="{{ $alts["add"] }}" data-id='0' value="add_address">Add New Address</a>
             <?php
             }
             ?>

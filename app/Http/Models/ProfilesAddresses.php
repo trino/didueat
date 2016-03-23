@@ -14,7 +14,7 @@ class ProfilesAddresses extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('user_id', 'location', 'formatted_address', 'country', 'address', 'phone' => "phone", 'mobile' => "phone", 'postal_code', 'apartment', 'city', 'province', 'order', 'latitude', 'longitude', 'notes');
+        $cells = array('user_id', 'location', 'formatted_address', 'country' => "ucfirst", 'address', 'phone' => "phone", 'mobile' => "phone", 'postal_code' => "postalcode", 'apartment', 'city' => "ucfirst", 'province' => "ucfirst", 'order', 'latitude', 'longitude', 'notes');
         if(!isset($data["address"]) && isset($data["formatted_address"])){
             $data["address"] = $data["formatted_address"];
         }
@@ -52,5 +52,15 @@ class ProfilesAddresses extends BaseModel {
         }
 
         return $query;
+    }
+
+    public function save(array $options = array()) {
+        $requiredfields = array('formatted_address', 'address', 'city', 'province', 'latitude', 'longitude');
+        foreach($requiredfields as $field){
+            if(!isset($this->$field) || !$this->$field){
+                return false;
+            }
+        }
+        parent::save($options);
     }
 }

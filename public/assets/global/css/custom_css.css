@@ -42,6 +42,23 @@ hr {
     border-top-left-radius: 4px;
 }
 
+.double-input .form-control {
+    width: 50%;
+    border-right-width: 0px;
+}
+.double-input .form-control:focus {
+    border-right-width: 1px;
+}
+
+.triple-input .form-control {
+    width: 33.3%;
+    border-right-width: 0px;
+}
+.triple-input .form-control:focus {
+    border-right-width: 1px;
+}
+
+
 .glyphicon-chevron-down:before{content:"\e114"}
 .glyphicon-chevron-up:before{content:"\e113"}
 
@@ -696,7 +713,7 @@ body {
 
 .static-rating {
     border: none;
-
+    height: 20px;
     float: left;
 }
 

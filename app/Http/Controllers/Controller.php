@@ -50,6 +50,7 @@ abstract class Controller extends BaseController {
 
     //automates the flash/flash with input and redirect for the failure condition
     public function failure($message, $redirect = false, $withInput = false, $type = 'alert-danger', $title = 'Oops!'){
+        if(isset($this->statusmode) && $this->statusmode){$this->status($type == 'alert-success', $message);}
         \Session::flash('message', $message);
         \Session::flash('message-type', $type);
         \Session::flash('message-short', $title);
@@ -58,32 +59,29 @@ abstract class Controller extends BaseController {
         }
         if($redirect) {return \Redirect::to($redirect);}
     }
-
+    function status($Status, $Reason, $Text = "Reason") {
+        $NewStatus = array("Status" => $Status, $Text => $Reason);
+        echo json_encode($NewStatus);
+        die();
+    }
     /*makes a new account
         $SourceFunction: a note of where the function was called, ie: HomeController@Makeaccount
         $post: post data, if false: will be obtained
     */
-    public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true){
+    public function registeruser($SourceFunction, $post=false, $profile_type=2, $restaurantid=0, $browser_info=false, $createdby = false, $login = true) {
         $email_verification = false;
-        //var_dump($post);
-        if(!$post){
-            $post = \Input::all();
-        }
-        if(!$browser_info) {
-            $browser_info = getBrowser();
-        }
-        
-        if($createdby){
-            $post['created_by'] = \Session::get('session_id');
-        }
+        if (!$post) {$post = \Input::all();}
+        if (!$browser_info) {$browser_info = getBrowser();}
+        if ($createdby) {$post['created_by'] = \Session::get('session_id');}
 
         $profile['restaurant_id'] = $restaurantid;
         $profile['profile_type'] = $profile_type;  // restaurant
-        if(!isset($post['ordered_by'])){$post['ordered_by']=0;}
+        if (!isset($post['ordered_by'])) {$post['ordered_by'] = 0;}
         $profile['name'] = $post['name'];
+        $post['email']=str_replace(" ", "+", $post['email']);
         $profile['email'] = $post['email'];
-        if(isset($post['phone'])) {$profile['phone'] = $post['phone'];}
-        if(isset($post['mobile'])) {$profile['mobile'] = $post['mobile'];}
+        if (isset($post['phone'])) {$profile['phone'] = $post['phone'];}
+        if (isset($post['mobile'])) {$profile['mobile'] = $post['mobile'];}
         $profile['password'] = $post['password'];
         $profile['subscribed'] = (isset($post['subscribed'])) ? 1 : 0;
         $profile['is_email_varified'] = iif($email_verification, 0, 1);
@@ -92,8 +90,7 @@ abstract class Controller extends BaseController {
         $profile['browser_name'] = $browser_info['name'];
         $profile['browser_version'] = $browser_info['version'];
         $profile['browser_platform'] = $browser_info['platform'];
-        if(isset($_POST['gmt']))
-        $profile['gmt'] = $post['gmt'];
+        if (isset($_POST['gmt'])) {$profile['gmt'] = $post['gmt'];}
         $profile['status'] = 'active';
 
         $user = new \App\Http\Models\Profiles();
@@ -106,12 +103,8 @@ abstract class Controller extends BaseController {
             $post["user_id"] = $user->id;
             $post["formatted_address"] = $post['formatted_addressForDB'];
             $post['address'] = "";
-            if(isset($post['formatted_address'])) {
-                $post['address'] = $post['formatted_address'];
-            }
-            if($post["formatted_address"] || $post['address']) {
-                \App\Http\Models\ProfilesAddresses::makenew($post);
-            }
+            if(isset($post['formatted_address'])) {$post['address'] = $post['formatted_address'];}
+            if($post["formatted_address"] || $post['address']) {\App\Http\Models\ProfilesAddresses::makenew($post);}
         }
 
         if($restaurantid){
@@ -119,9 +112,7 @@ abstract class Controller extends BaseController {
             \App\Http\Models\NotificationAddresses::makenew(array("user_id" => $user->id, "address" => $post["phone"], "type" => "Phone", "enabled" => 1, "is_call" => 1));
         }
 
-        if($user->id && $login){
-            login($user->id);
-        }
+        if($user->id && $login){login($user->id);}
 
         $userArray = $user->toArray();
         $userArray['mail_subject'] = 'Thank you for your registration at ' . DIDUEAT;

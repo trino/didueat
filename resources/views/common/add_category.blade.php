@@ -1,12 +1,17 @@
 <div class="add_category_popup">
-    <?php printfile("views/common/add_category.blade.php"); ?>
+    <?php
+        printfile("views/common/add_category.blade.php");
+        $alts = array(
+            "save" => "Save changes"
+        );
+    ?>
     <h2>Add Category</h2>
     <div class="category_titles margin-bottom-10">
         <strong>Category Title :</strong>
         <input type="text" class="form-control cat_title"/>
     </div>
     <p>
-        <a href="javascript:void(0);" class="btn btn-primary" id="save_cat">Save</a>
+        <a href="javascript:void(0);" class="btn btn-primary" title="{{ $alts["save"] }}" id="save_cat">Save</a>
     </p>
 </div> 
 

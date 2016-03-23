@@ -1,6 +1,11 @@
 @extends('layouts.default')
 @section('content')
-    <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
+    <?php
+        printfile("views/dashboard/restaurant/report.blade.php");
+        $alts = array(
+            "print" => "Print preview"
+        );
+    ?>
 
     <link href="{{ asset('assets/global/css/timepicker.css') }}" rel="stylesheet"/>
     <div class="container">
@@ -11,7 +16,7 @@
                 <div class="restaurentsList deleteme">
                     <div class="toprint">
                         <h3 class="p-b-1">My Orders
-                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
+                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" title="{{ $alts["print"] }}" onclick="return printDiv('toprint')">Print</a>
                         </h3>
                         <hr class="p-t-1"/>
                         <div class="noprint row">
@@ -60,7 +65,7 @@
                                     </div>
                                 @endforeach
                             @else
-                                <br>No orders found
+                                <br>No orders placed by you between {{ $_GET['from'] }} and {{ $_GET['to'] }} were found
                             @endif
 
                             <div class="clearfix"></div>
@@ -98,7 +103,7 @@
                         </div>
 
                         <hr class="p-t-1"/>
-                        <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
+                        <a href="javascript:void(0);" title="{{ $alts["print"] }}" class="btn btn-secondary noprint pull-right" onclick="return printDiv('toprint')">Print</a>
                     </div>
                 </div>
 

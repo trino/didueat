@@ -23,6 +23,17 @@
             $('#ic'+idn).attr('class','glyphicon glyphicon-chevron-down pull-right glyphUp padL')
          }
     }
+
+    function collapseall(value){
+        var temp;
+        $(".btn-responsive2").each(function() {
+            temp = $(this).next().attr('aria-expanded');
+            if(temp == null || temp === undefined){temp = "false";}
+            if (temp == value){
+                $(this).trigger("click");
+            }
+        });
+    }
 </script>
 
 <br/>
@@ -54,6 +65,11 @@
             </div>
         
             <br/>
+        </div>
+
+        <div class="col-md-3">
+            <A onclick="collapseall('true');">Collapse All</A><BR>
+            <A onclick="collapseall('false');">Expand All</A>
         </div>
         
         <div class="clearfix"></div>

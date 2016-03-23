@@ -1,12 +1,18 @@
 @extends('layouts.default')
 @section('content')
 
-        <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
+    <!--link href="{{ asset('assets/global/css/components.css') }}" id="style_components" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/css/plugins.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/global/scripts/jqueryui/jquery-ui.css') }}" rel="stylesheet"-->
 <script src="{{ asset('assets/global/scripts/form-validation.js') }}"></script>
 
-<?php printfile("views/restaurants-signup.blade.php"); $Layout = "rows"; ?>
+<?php
+    printfile("views/restaurants-signup.blade.php"); $Layout = "rows";
+    $alts = array(
+        "contactus" => "Contact us",
+        "home/terms" => "Terms of Use"
+    );
+?>
 
 
 <div class="jumbotron jumbotron-fluid  bg-success signup-bg-image">
@@ -48,7 +54,7 @@
 
             <h4>Free Sign Up</h4>
 
-            <p class="bigBlt">Sign up online, or <a href="mailto:info@didueat.ca">contact us</a> to book an appointment</p>
+            <p class="bigBlt">Sign up online, or <a href="mailto:info@didueat.ca" title="{{ $alts["contactus"] }}">contact us</a> to book an appointment</p>
         </div>
 
         <div class="col-sm-3" style="text-align:left">
@@ -106,7 +112,7 @@
                 
                 </span>
         
-<span class="smT">For full details, please refer to {{ DIDUEAT  }}'s <a HREF="{{ asset('home/terms') }}" class="lnk smT">Terms of Use</a> page.</span>
+<span class="smT">For full details, please refer to {{ DIDUEAT  }}'s <a HREF="{{ asset('home/terms') }}" title="{{ $alts["home/terms"] }}" class="lnk smT">Terms of Use</a> page.</span>
 
 </div>
         

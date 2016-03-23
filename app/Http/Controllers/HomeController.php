@@ -441,6 +441,7 @@ class HomeController extends Controller {
     function ajax(){
         if (!isset($_POST["type"])) {$_POST = $_GET;}
         if (isset($_POST["type"])) {
+            $this->statusmode = true;
             switch (strtolower($_POST["type"])) {
                 case "restsearch":
                     //name and phone
@@ -473,6 +474,55 @@ class HomeController extends Controller {
                     echo rating_initialize($_POST["rating_type"], $_POST["rating_loadtype"], $_POST["targetid"], $_POST["rating_twolines"], $_POST["rating_class"], $_POST["rating_button"], $_POST["rating_starts"], $_POST["rating_color"], false);
                     break;
 
+                case "login":
+                    $this->ismissing($_POST, array("email", "password"));
+                    $user = \App\Http\Models\Profiles::where('email', '=', $_POST["email"])->first();
+                    if($user) {
+                        $password = encryptpassword($_POST["password"]);
+                        if ($password == $user->password) {
+                            login($user);
+                            $this->status(true, csrf_token(), "_token");
+                        }
+                    }
+                    $this->status(false, "User not found or password mismatch");
+                    break;
+
+                //api required: restaurant creation
+                case "createuser":
+                    $this->ismissing($_POST, array("name", "email", "password"));
+                    if(is_email_in_use($_POST["email"])) {$this->status(false, "email is in use");}
+                    $this->status(true, $this->registeruser("HomeController@Ajax", $_POST, 2)->id, "id");
+                    break;
+
+                case "checkaddress":
+                    $this->ismissing($_POST, array("address"));
+                    echo file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($_POST["address"]));
+                    break;
+
+                case "createrestaurant":
+                    $this->ismissing($_POST, array("restname", "name", "email" => "email", "password" => "password", "phone" => "phone", "mobile" => "phone", "cuisines", "city", "province", "country", "postal_code" => "postalcode", "latitude" => "number", "longitude" => "number"));
+                    if(is_email_in_use($_POST["email"])) {$this->status(false, "email is in use");}
+
+                    //make sure the genres are correct
+                    $genres = explode(",", $_POST["cuisines"]);
+                    $genrelist = cuisinelist();
+                    foreach($genres as $ID => $genre){
+                        $Found = false;
+                        foreach($genrelist as $genreitem){
+                            if (strcasecmp($genreitem, $genre) == 0){
+                                $genres[$ID] = $genreitem;
+                                $Found = true;
+                            }
+                        }
+                        if(!$Found){$this->status(false, $genre . " is not a recognized genre"); }
+                    }
+                    if(!count($genres) || count($genres) > 3){$this->status(false, "1-3 genres are required");}
+                    $_POST["cuisines"]=implode(",", $genres);
+                    $Data = app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true);
+                    var_dump($Data );die();
+                    $this->status(true, $Data, "id");
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
             }
@@ -480,6 +530,40 @@ class HomeController extends Controller {
             echo "type not specified";
         }
         die();
+    }
+
+    function ismissing($Data, $Fields){
+        foreach($Fields as $ID => $Field){
+            $IsValid = false;
+            if(is_numeric($ID)) {
+                $IsValid = isset($Data[$Field]) && $Data[$Field];
+            } else {
+                if (isset($Data[$ID]) && $Data[$ID]) {
+                    switch (strtolower($Field)){
+                        case "password":
+                            $IsValid = strlen($Data[$ID]) > 3;
+                            break;
+                        case "email":
+                            $Data[$ID] = str_replace(" ", "+", $Data[$ID]);
+                            $IsValid = is_valid_email($Data[$ID]);
+                            break;
+                        case "phone":
+                            $IsValid = phonenumber($Data[$ID]);
+                            break;
+                        case "postalcode":
+                            $IsValid = clean_postalcode($Data[$ID]);
+                            break;
+                        case "number":
+                            $IsValid = is_numeric($Data[$ID]);
+                            break;
+                    }
+                }
+            }
+            if($IsValid){unset($Fields[$ID]);}
+        }
+        if(count($Fields)){
+            $this->status(false, "[" . implode(", ", $Fields) . "] missing or invalid");
+        }
     }
 
     //check which restaurant a notification address belongs to

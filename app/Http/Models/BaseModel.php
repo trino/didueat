@@ -63,6 +63,9 @@ class BaseModel extends Model {
                     $this->$key = $this->cleantext($data[$key]);
                     if($this->$key) {
                         switch ($cell) {
+                            case "ucfirst":
+                                $this->$key = ucfirst($this->$key);
+                                break;
                             case "24hr":
                                 if( strpos(strtolower($this->$key), "m") !== false ){
                                     $this->$key = converttime($this->$key);//convert 12hr time to 24hr time

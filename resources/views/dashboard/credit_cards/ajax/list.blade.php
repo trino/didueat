@@ -1,6 +1,9 @@
 <?php
     printfile("views/dashboard/credit_cards/ajax/list.blade.php");
     $encryptedfields = array("card_number", "expiry_date", "expiry_month", "expiry_year", "ccv");
+    $alts = array(
+        "delete" => "Delete card"
+    );
 ?>
 
 @if(\Session::has('message'))
@@ -68,7 +71,7 @@
                                         Edit
                                     </a-->
                                     <a href="{{ url('credit-cards/delete/'.$value->id."/".$type) }}"
-                                       class="btn btn-secondary-outline btn-sm "
+                                       class="btn btn-secondary-outline btn-sm" title="{{ $alts["delete"] }}"
                                        onclick="return confirm('Are you sure you want to delete this card:  {{ addslashes("'" . $value->card_number . "'") }} ?');"><i class="fa fa-times"></i></a>
                                 </div>
                             </td>

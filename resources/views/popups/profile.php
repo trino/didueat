@@ -1,4 +1,9 @@
-<?php printfile("common/profile.php"); ?>
+<?php
+    printfile("common/profile.php");
+    $alts = array(
+        "back" => "Go back"
+    );
+?>
 <meta name="_token" class="csrftoken" content="{{ csrf_token() }}"/>
 <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
 
@@ -78,7 +83,7 @@
     </div>
     <div class="form-group">
         <div class="col-xs-12">
-            <a href="javascript:void(0)" class="btn btn-default back">Back</a>
+            <a href="javascript:void(0)" class="btn btn-default back" title="<?= $alts["back"]; ?>">Back</a>
             <button type="submit" class="btn btn-primary">Checkout</button>
         </div>
         <div class="clearfix"></div>

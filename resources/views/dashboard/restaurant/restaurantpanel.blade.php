@@ -67,11 +67,14 @@
             $MoreTime = "Not accepting orders";
         }
     }
+    $alts = array(
+        "restaurants/menu" => "View Restaurant"
+    );
 ?>
 <div class="list-group-item">
     <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1" >
-            <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url">
+            <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
                 <img style="max-width:100%;" class="img-rounded" alt="" src="{{ $logo }}">
                 <div class="clearfix"></div>
             </a>
@@ -80,7 +83,7 @@
     </div>
 
     <div class="col-md-9 p-a-0">
-        <a class="card-link restaurant-url" href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}">
+        <a class="card-link restaurant-url" href="{{ url('restaurants/'.$Restaurant['slug'].'/menu') }}?delivery_type={{ $delivery_type }}" title="{{ $alts["restaurants/menu"] }}">
             <h4 style="margin-bottom: 0 !important;">
                 {{ $Restaurant['name'] }}
                 @if(isset($order))
@@ -99,7 +102,7 @@
 
             <span class="list-inline-item"> {{ str_replace(",", ", ", $Restaurant["cuisine"]) }}</span>
 
-            <div  class="clearfix"></div>
+            <div class="clearfix"></div>
         </div>
 
 
@@ -119,6 +122,10 @@
 
         @if(isset($latitude) && $radius && $Restaurant['distance'])
             <span class="list-inline-item">Distance: {{ round($Restaurant['distance'],2) }} km</span>
+        @endif
+
+        @if(isset($details) && $details)
+        <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
         @endif
     </div>
     <div class="clearfix"></div>

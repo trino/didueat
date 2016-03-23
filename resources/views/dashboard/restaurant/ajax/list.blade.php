@@ -1,4 +1,13 @@
-{{ printfile("views/dashboard/restaurant/ajax/list.blade.php") }}
+<?php
+    printfile("views/dashboard/restaurant/ajax/list.blade.php");
+    $alts = array(
+            "enable" => "Enable this restaurant's ability to accept orders",
+            "disable" => "Disable this restaurant's ability to accept orders",
+            "orders" => "View this restaurant's orders",
+            "menu" => "View this restaurant's menu",
+            "edit" => "Edit this restaurant"
+    );
+?>
 
 @if(\Session::has('message'))
     {!! message_show("Message!", \Session::get('message')) !!}
@@ -84,10 +93,10 @@
                                     ?>
                                 @elseif($value->open == true)
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Enabled</A>
-                                        <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm"
+                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm" title="{{ $alts["disable"] }}"
                                        onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
                                 @else
-                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm"
+                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm" title="{{ $alts["enable"] }}"
                                        onclick="return confirm('Are you sure you want to enable {{ addslashes("'" . $value->name . "'") }} ?');">Enable</a>
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Disabled</A>
                                 @endif
@@ -95,11 +104,11 @@
 
 
                             <td>
-                                <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm">Orders</a>
-                                <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm">Menu</a>
-                                <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
+                                <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm" title="{{ $alts["menu"] }}">Menu</a>
+                                <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["edit"] }}">Edit</a>
                                 <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
-                                <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
+                                <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             </td>
                         </tr>
                     @endforeach

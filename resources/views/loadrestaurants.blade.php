@@ -1,11 +1,17 @@
 <div class="col-md-12 col-sm-12 col-xs-12">
-    <?php printfile("views/loadrestaurants.blade.php"); ?>
+    <?php
+        printfile("views/loadrestaurants.blade.php");
+        $alts = array(
+                "restaurants/menu" => "View menu",
+                "nextpage" => "Next Page"
+        );
+    ?>
     <table class="table table-bordered table-hover">
         <tbody>
         @foreach ($restaurants_list as $value)
             <tr>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}">
+                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" title="{{ $alts["restaurants/menu"] }}">
                         @if(!empty($value->logo))
                             <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
                         @else
@@ -15,7 +21,7 @@
                 </td>
                 <td width="80%">
                     <h2>
-                        <a href="{{ url('restaurants/'.$value->slug.'/menu') }}">{!! $value->name !!} </a>
+                        <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" title="{{ $alts["restaurants/menu"] }}">{!! $value->name !!} </a>
                     </h2>
                     <ul class="blog-info">
                         <li>
@@ -24,7 +30,7 @@
                         </li>
                     </ul>
                 <td width="10%">
-                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" class=" btn btn-success">Order Online</a></td>
+                    <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" class=" btn btn-success" title="{{ $alts["restaurants/menu"] }}">Order Online</a></td>
                 </td>
             </tr>
         @endforeach
@@ -33,5 +39,5 @@
 </div>
 
 <div style="display: none;" class="nxtpage">
-    <li class="next"><a href="{{ $restaurants_list->nextPageUrl() }}">Next &gt;&gt;</a></li>
+    <li class="next"><a href="{{ $restaurants_list->nextPageUrl() }}" title="{{ $alts["nextpage"] }}">Next &gt;&gt;</a></li>
 </div>

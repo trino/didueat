@@ -1,7 +1,12 @@
 <?php
-    //this page makes an dropdown with a list of all the user's addresses
-    $sec =false;
+    printfile("views/common/addressbar.blade.php");
+    $sec = false;
     $type1 = "hidden";
+    $alts = array(
+            "add" => "Create a new address",
+            "thisaddress" => "Select this address",
+            "toggle" => "Show/Hide the dropdown"
+    );
 ?>
 <ul class="nav navbar-nav">
 
@@ -15,7 +20,7 @@
                         if($addresses->count()){
                     ?>
 
-                    <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button style="border-right:0;" type="button" class="btn btn-secondary " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ $alts["toggle"] }}">
                         <span class="sr-only">Toggle Dropdown</span>&nbsp;
                         <i class="fa fa-caret-down"></i>&nbsp;
                     </button>
@@ -29,7 +34,7 @@
                                 if (!trim($address->location)) {
                                     $address->location = "Address: " . $address->id;
                                 }
-                                echo '  <a class="dropdown-item" ';
+                                echo '  <a class="dropdown-item" title="' . $alts["thisaddress"] . '"';
                                 echo ' VALUE="' . $address->id . '" CITY="' . $address->city . '" PROVINCE="' . $address->province . '" APARTMENT="' . $address->apartment . '" ';
                                 echo 'COUNTRY="' . $address->country . '" PHONE="' . $address->phone . '" MOBILE="' . $address->mobile . '" ';
                                 echo 'ID="add' . $address->id . '" ADDRESS="' . $address->address . '" POSTAL="' . $address->postal_code . '" NOTES="' . $address->notes . '" onclick="addresschanged(this)">';
@@ -37,7 +42,7 @@
                                 echo '</a>';
                             }
                         ?>
-                        <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" id="addNew" class="dropdown-item">Add New Address</a>
+                        <a href="#" data-target="#editModel" data-toggle="modal" data-route="reservation" title="{{ $alts["add"] }}" id="addNew" class="dropdown-item">Add New Address</a>
                     </div>
 
                     <?php } ?>

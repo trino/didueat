@@ -1,6 +1,10 @@
 <?php
     printfile("views/dashboard/user/ajax/list.blade.php");
     $restaurants = enum_all("restaurants");
+    $alts = array(
+            "possess" => "Log in as this user",
+            "delete" => "Delete this user"
+    );
 ?>
 
 @if(\Session::has('message'))
@@ -93,13 +97,13 @@
                         <td>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
-                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
+                                <a href="{{ url('users/action/user_possess/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" title="{{ $alts["possess"] }}"
                                    onclick="return confirm('Are you sure you want to possess {{ addslashes("'" . $value->name . "'") }} ?');">Possess</a>
 
                                 <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
 
-                                <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}"
+                                <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             @endif
                         </td>

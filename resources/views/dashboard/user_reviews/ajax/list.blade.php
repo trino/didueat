@@ -1,4 +1,10 @@
-{{ printfile("views/dashboard/user_reviews/ajax/list.blade.php") }}
+<?php
+    printfile("views/dashboard/user_reviews/ajax/list.blade.php");
+    $alts = array(
+            "edit" => "Edit this rating",
+            "delete" => "Delete this rating"
+    );
+?>
 
 @if(\Session::has('message'))
 {!! message_show("Message!", \Session::get('message')) !!}
@@ -72,9 +78,9 @@
                             <td>{{ substr($rating->comments, 0, 100) }}</td>
                             <td>{{ $rating->created_at  }}</td>
                             <td>
-                                <a class="btn btn-secondary-outline btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}">Edit</a>
+                                <a class="btn btn-secondary-outline btn-sm editRow" data-toggle="modal" data-target="#editModel"  data-id="{{ $rating->id }}" title="{{ $alts["edit"] }}">Edit</a>
                                 <!--a href="{{ url('user/reviews/action/'.$rating->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure to delete review  {{ addslashes("'" . $rating->rating . "'") }} ?');"><i class="fa fa-times"></i></a-->
-                                <a class="btn btn-secondary-outline btn-sm" onclick="deleterating('{{ $rating->id }}', '{{ addslashes("'" . $rating->comments . "'") }}');">
+                                <a class="btn btn-secondary-outline btn-sm" onclick="deleterating('{{ $rating->id }}', '{{ addslashes("'" . $rating->comments . "'") }}');" title="{{ $alts["delete"] }}">
                                     <i ID="delete{{ $rating->id }}" class="fa fa-times"></i>
                                 </a>
                             </td>

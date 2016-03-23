@@ -20,6 +20,9 @@
                             if(!isset($data['message'])){
                                 $data['message']=$body;
                             }
+                            $alts = array(
+                                    "contactus" => "Contact us"
+                            );
                         ?>
                         <tr>
                             <td align="left" valign="top"><!-- BEGIN BODY // -->
@@ -29,7 +32,7 @@
                                 
                                 {{ $data['message'] }}
                                 <br /><br />
-                                If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>"><?php echo \Config::get('app.admin_mail'); ?></a>.
+                                If you have any questions, please contact us at <a href="mailto:<?php echo \Config::get('app.admin_mail'); ?>" title="{{ $alts["contactus"] }}"><?php echo \Config::get('app.admin_mail'); ?></a>.
                                 <br /><br />
                                 Regards,
                                 <br />

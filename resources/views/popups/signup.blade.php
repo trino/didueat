@@ -13,13 +13,13 @@
             <div id="registration-error" style="display: none;"></div>
 
             <div id="registration-success" class="note note-success" style="display: none;">
-                <?php printfile("views/popups/signup.blade.php (success popup)"); ?>
-                    <div class="alert alert-success" role="alert">Success! Welcome to {{ DIDUEAT  }}!</div>
-
-
-
-
-
+                <?php
+                    printfile("views/popups/signup.blade.php (success popup)");
+                    $alts = array(
+                        "terms" => "Terms of use"
+                    );
+                ?>
+                <div class="alert alert-success" role="alert">Success! Welcome to {{ DIDUEAT  }}!</div>
             </div>
 
             {!! Form::open(array('url' => '/auth/register', 'id'=>'register-form','class'=>'form-horizontal','method'=>'post','role'=>'form')) !!}
@@ -32,7 +32,7 @@
                             <div class="col-md-3"></div>
 
                             <div class="col-md-9 m-a-0">
-                                <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" class="simplemodal">Terms & Conditions</a>.</p>
+                                <p class="text-muted" style="font-size:90%">By signing up, you agree to the <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.terms" title="{{ $alts["terms"] }}" class="simplemodal">Terms & Conditions</a>.</p>
                             </div>
                         </div>
 
