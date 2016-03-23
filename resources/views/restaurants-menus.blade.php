@@ -50,7 +50,7 @@
     <? } ?>
 
     <div class="container" >
-        <?= printfile("views/restaurants-menus.blade.php"); ?>
+        <?php printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
 
             <div class="col-lg-8 col-md-7 col-sm-12 ">
@@ -68,11 +68,9 @@
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
                         @endif
                         @foreach($category as $cat)
-                                    <!--  {{ $cat->title }} -->
+                            <!--  {{ $cat->title }} -->
                             <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;">
-
-                            </div>
+                            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;"></div>
                             <!-- add menu item -->
                             <script>
                                 $(function () {
@@ -81,24 +79,22 @@
                                         success: function (res) {
                                             if (res != 'no') {
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
-                                            }
-                                            else {
+                                            } else {
                                              //   $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
                                             }
                                         },
                                         error: function (res) {
                                             if (res != 'no') {
                                                 $("#postswrapper_{{ $cat->id }}").html(res);
-                                            }
-                                            else {
+                                            } else {
                                             //    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
                                             }
                                         }
                                     });
                                 });
                             </script>
-                            @endforeach
-                                    <!--input type="file" accept="image/*;capture=camera"-->
+                        @endforeach
+                        <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
             </div>
@@ -170,8 +166,8 @@
                         var message = unescapetext("{{ $restaurant->name }}") + " will only deliver within {{ $restaurant->max_delivery_distance }} km, " + address + " is " + distance.toFixed(2) + " km away.";
                         @if(debugmode())
                             if (where == "addresscheck") {
-                            return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
-                        }
+                                return confirm(message + " Would you like to bypass this restriction? (DEBUG MODE)");
+                            }
                         @endif
                         alert(message);
                         return false;

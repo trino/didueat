@@ -37,7 +37,7 @@ class Menus extends BaseModel {
      * @param $sortBy
      * @return response
      */
-    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '') {
+    public static function searchMenus($term = '', $per_page = 10, $start = 0, $type = '', $sortType = 'display_order', $sortBy = 'ASC', $priceFrom = '', $priceTo = '', $hasAddon = '', $hasImage = '', &$reccount = 0) {
         $query = \App\Http\Models\Menus::Where('parent', 0)
             ->Where(function ($query) use ($term, $priceFrom, $priceTo, $hasAddon, $hasImage) {
                 if ($term != "") {
@@ -60,6 +60,7 @@ class Menus extends BaseModel {
                 }
             })->orderBy($sortType, $sortBy);
 
+        $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);
             $query->skip($start);

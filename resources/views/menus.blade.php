@@ -59,6 +59,8 @@
 
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                     $min_p = get_price($value->id);
+
+                    $canedit = read("profiletype") == 3 && $value->uploaded_by == read("id");
                 ?>
 
                 <div class="list-group-item parents" id="parent{{ $value->id }}">
@@ -189,7 +191,7 @@
 
 
                             <div class="col-md-12">
-                                @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                                @if(read('restaurant_id') == $restaurant->id || $canedit)
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                         <label class="c-input c-checkbox p-r-1" id="enable{{ $value->id }}">
@@ -219,7 +221,10 @@
                                            title="{{ $alts["deleteMenu"] }}"
                                            onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
                                     </div>
-
+                                @elseif(read("profiletype") == 3)
+                                    <button class="btn btn-sm btn-primary-outline pull-right" DISABLED>
+                                        <strong>Can Not Edit</strong>
+                                    </button>
                                 @endif
 
 

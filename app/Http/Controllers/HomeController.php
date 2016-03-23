@@ -202,12 +202,11 @@ class HomeController extends Controller {
      * @return view
      */
     public function searchMenus($term = '') {
-        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list')->get();//search all menus for $term
-        $data['count'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();//count previous results
+        $data['query'] = \App\Http\Models\Menus::searchMenus($term, 10, 0, 'list', 'display_order', 'ASC', '', '', '', '', $reccount)->get();//search all menus for $term
+        $data['count'] = $reccount;//\App\Http\Models\Menus::searchMenus($term, 10, 0, 'count')->count();//count previous results
         $data['start'] = $data['query']->count();//count previous results
         $data['term'] = $term;
         $data['title'] = "Search Menus";
-
         return view('home', $data);
     }
 
@@ -367,13 +366,11 @@ class HomeController extends Controller {
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
         $data['keyword'] = $res_slug->name.','.$res_slug->cuisine.' Cuisine'.','.$res_slug->phone.','.$res_slug->formatted_address.',Didueat,didueat.ca,Online food,Online food order,Canada online food';
-        $data['keyword'] = str_replace(',,',',',$data['keyword']);
-        $data['keyword'] = str_replace(',,',',',$data['keyword']);
-        $data['keyword'] = str_replace(',,',',',$data['keyword']);
-        $data['keyword'] = str_replace(',,',',',$data['keyword']); 
+        while(strpos($data['keyword'], ",,") !== false ) {
+            $data['keyword'] = str_replace(',,', ',', $data['keyword']);
+        }
         $data['meta_description'] = $res_slug->description;
-        if(!$data['meta_description'])
-        {
+        if(!$data['meta_description']) {
             $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
         }
         $data['slug'] = $slug;
@@ -393,14 +390,13 @@ class HomeController extends Controller {
     function loadmenus($catid, $resid) {
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
-        if(\Session::has('session_restaurant_id')) {//is yours, doesn't need to be active
+        if(read('restaurant_id') == $resid || read("profiletype") != 2) {//is yours, doesn't need to be active
             $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
         }else {//is not yours, needs to be active
             $menus_list = \App\Http\Models\Menus::where('restaurant_id', $resid)->where('parent', 0)->where('is_active', 1)->where('cat_id', $catid)->orderBy('display_order', 'ASC')->get();//->paginate(5);
         }
         $data['menus_list'] = $menus_list;
         $data['catid'] = $catid;
-        //var_dump(count($menus_list));
         if(count($menus_list)) {
             return view('menus', $data);
         }else {
