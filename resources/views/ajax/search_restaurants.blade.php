@@ -78,17 +78,22 @@
     } else if($closedStr){
         echo $closedStr;
     }
+
+    $alts = array(
+        "loadmore" => "Load more restaurants",
+        "loading" => "Loading..."
+    );
 ?>
 </div>
 
 
 <script>
     <?php
+        //updates the text to show if all stores are open/closed
         echo "
         var totalCnt = " . $totalCnt . ";
         var openCnt = " . $openCnt . ";
         var closedCnt = " . $closedCnt . ";";
-        //updates the text to show if all stores are open/closed
     ?>
     var openCntMsg="";
     var closedCntMsg="";
@@ -114,11 +119,11 @@
     @if($hasMorePage > 0)
         <div class="row">
             <div class="col-md-12 ">
-                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-link btn-lg btn-block" title="Load more restaurants...">Load More ...</button>
-                <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+                <button id="loadingbutton" data-id="{{ $start }}" align="center" class="loadMoreRestaurants btn btn-link btn-lg btn-block" title="{{ $alts["loadmore"] }}">Load More ...</button>
+                <img class="loadingbar" src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>
             </div>
         </div>
     @endif
     <input type="hidden" id="countTotalResult" value="{{ $count }}"/>
 </div>
-<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/><img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/>
+<img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;"/><img id='parentLoadingbar' src="{{ asset('assets/images/loader.gif') }}" style="display: none;" alt="{{ $alts["loading"] }}"/>

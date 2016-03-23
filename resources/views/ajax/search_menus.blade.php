@@ -10,7 +10,8 @@
             "minus" => "Remove 1",
             "plus" => "Add 1",
             "add" => "Add items to cart",
-            "reset" => "Clear these items"
+            "reset" => "Clear these items",
+            "popimage" => "This menu item's image"
     );
   ?>
 
@@ -74,7 +75,7 @@
             <h2 style="color:white;">{{ $value->menu_item }}: $ {{ $value->price }}</h2>
           </div>
           <div class="col-sm-12 col-xs-12">
-            <img class="popimage_{{ $value->id }}" style="width:600px;height:600px;" src="{{ $item_image }}"/>
+            <img class="popimage_{{ $value->id }}" style="width:600px;height:600px;" src="{{ $item_image }}" alt="{{ $alts["popimage"] }}"/>
           </div>
           <div class="clearfix"></div>
 

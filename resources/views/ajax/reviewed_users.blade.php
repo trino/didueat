@@ -1,4 +1,9 @@
-<?= printfile("views/ajax/reviewed_users.blade.php"); ?>
+<?php
+    printfile("views/ajax/reviewed_users.blade.php");
+    $alts = array(
+            "logo" => "Your profile logo"
+    );
+?>
 
 @if(isset($detail) && !is_null($detail) && count($detail) > 0)
     <table class="table table-striped" id="modal_table_max_height">
@@ -14,7 +19,7 @@
                         $logo_name = 'users/' . $logo;
                     }
                 ?>
-                <td width="10%"><img src="{{ asset('assets/images/' . $logo_name) }}" width="55" class="img-circle"/></td>
+                <td width="10%"><img src="{{ asset('assets/images/' . $logo_name) }}" width="55" class="img-circle" alt="{{ $alts["logo"] }}"/></td>
                 <td width="90%">
                     {{ $profile->name }} &nbsp;-&nbsp; (<i>{{ date("d M, Y", strtotime($value->created_at)) }}</i>)<br />
                     {!! rating_initialize("static-rating", $type, $value->target_id, false, 'update-rating', false, false, "", true, $value->rating) !!}

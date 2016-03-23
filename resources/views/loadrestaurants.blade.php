@@ -3,7 +3,8 @@
         printfile("views/loadrestaurants.blade.php");
         $alts = array(
                 "restaurants/menu" => "View menu",
-                "nextpage" => "Next Page"
+                "nextpage" => "Next Page",
+                "logo" => "Your restaurant's logo"
         );
     ?>
     <table class="table table-bordered table-hover">
@@ -12,10 +13,11 @@
             <tr>
                 <td width="10%">
                     <a href="{{ url('restaurants/'.$value->slug.'/menu') }}" title="{{ $alts["restaurants/menu"] }}">
+                        <img class="img-responsive full-width" alt="{{ $alts["logo"] }}"
                         @if(!empty($value->logo))
-                            <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
+                            src="{{ asset('assets/images/restaurants/'.$value->id.'/thumb_'.$value->logo) }}">
                         @else
-                            <img class="img-responsive full-width" alt="" src="{{ asset('assets/images/default.png') }}">
+                            src="{{ asset('assets/images/default.png') }}">
                         @endif
                     </a>
                 </td>

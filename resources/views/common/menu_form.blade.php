@@ -2,7 +2,8 @@
     <?php
         printfile("views/common/menu_form.blade.php");
         $alts = array(
-            "browse" => "Browse for a picture"
+                "browse" => "Browse for a picture",
+                "products" => "The current picture"
         );
     ?>
     <p>&nbsp;</p>
@@ -12,7 +13,7 @@
             <div class="menuimg menuimg{{ $menu_id }}_1"
                 @if(isset($model) && $model->image) style="min-height:0;" @endif>
                 @if(isset($model) && $model->image)
-                    <img src="{{ asset('assets/images/products/'.$model->image) }}"/>
+                    <img src="{{ asset('assets/images/products/'.$model->image) }}" alt="{{ $alts["products"] }}"/>
                     <input type="hidden" class="hiddenimg" value="{{ $model->image }}"/>
                 @endif
             </div>

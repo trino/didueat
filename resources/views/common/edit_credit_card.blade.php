@@ -130,7 +130,7 @@
 
 <?= newrow($new, "CCV", "", true, 5); ?>
 <input type="text" name="ccv" class="form-control"
-       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="" required size="3" maxlength="3"><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px" /><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is this located?</u></a>
+       value="{{ (isset($credit_cards_list->ccv))?$credit_cards_list->ccv:'' }}" id="ccv" placeholder="" required size="3" maxlength="3"><img src="{{ asset('assets/images/ccvimgph.gif') }}" id="ccvimgid" border="0" style="position:relative;z-index:250;left:100px"/><br/><a href="#" onclick="return false" onmouseout="document.getElementById('ccvimgid').src=ccvimgph.src;document.getElementById('ccvimgid').style.marginBottom='0px';document.getElementById('ccvimgid').style.top='0px';" onmouseover="document.getElementById('ccvimgid').src=ccvimg.src;document.getElementById('ccvimgid').style.top='-206px';document.getElementById('ccvimgid').style.marginBottom='-206px';"><u>Where is this located?</u></a>
 </div></div>
 
 @if ( isset($credit_cards_list->id))

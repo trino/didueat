@@ -4,11 +4,20 @@
     </div-->
 @endif
 
-<div class="modal" id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog"
-     aria-labelledby="viewDetailModelLabel" aria-hidden="true">
+<div class="modal" id="product-pop-up_{{ (isset($value->id))?$value->id:'' }}" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
+            <?php
+                printfile("resources/views/popups/order_menu_item.blade.php");
+                $alts = array(
+                        "addspan" => "Add this addon",
+                        "remspan" => "Remove this addon",
+                        "add" => "Add these items to your cart",
+                        "minus" => "Remove 1 item",
+                        "plus" => "Add 1 item",
+                        "bigimage" => "This item's picture"
+                );
+            ?>
             <style>
                 .image {
                     position: relative;
@@ -23,21 +32,10 @@
             </style>
 
             @if ($has_bigImage)
-                <img src="{{$item_bigImage }}" style="max-width:100%;" class=""/>
+                <img src="{{$item_bigImage }}" style="max-width:100%;" alt="{{ $alts["bigimage"] }}"/>
             @endif
 
             <div style=" width:100%; border:0; @if ($has_bigImage)background-color: rgba(0,0,0,0.65); @endif" class=" bg-inverse card-header @if ($has_bigImage) fronttext @else bg-success @endif">
-
-                <?php
-                    printfile("resources/views/popups/order_menu_item.blade.php");
-                    $alts = array(
-                            "addspan" => "Add this addon",
-                            "remspan" => "Remove this addon",
-                            "add" => "Add these items to your cart",
-                            "minus" => "Remove 1 item",
-                            "plus" => "Add 1 item"
-                    );
-                ?>
                 <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>

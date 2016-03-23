@@ -9,8 +9,12 @@
 <?php
     printfile("views/restaurants-signup.blade.php"); $Layout = "rows";
     $alts = array(
-        "contactus" => "Contact us",
-        "home/terms" => "Terms of Use"
+            "contactus" => "Contact us",
+            "home/terms" => "Terms of Use",
+            "click" => "Sign up",
+            "clip" => "Create a menu",
+            "box" => "Receive orders",
+            "arrow" => "Payment handling"
     );
 ?>
 
@@ -50,7 +54,7 @@
 
 <br/>       
         <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg"  src="{{ asset('assets/images/click.png') }}">
+            <img class="p-b-1 worksImg"  src="{{ asset('assets/images/click.png') }}" alt="{{ $alts["click"] }}">
 
             <h4>Free Sign Up</h4>
 
@@ -58,7 +62,7 @@
         </div>
 
         <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg" src="{{ asset('assets/images/clip.png') }}">
+            <img class="p-b-1 worksImg" src="{{ asset('assets/images/clip.png') }}" alt="{{ $alts["clip"] }}">
 
             <h4>Create Menu</h4>
 
@@ -66,7 +70,7 @@
         </div>
 
         <div class="col-sm-3" style="text-align:left">
-            <img class="p-b-1 worksImg" style="padding-bottom:10px !important"  src="{{ asset('assets/images/box.png') }}">
+            <img class="p-b-1 worksImg" style="padding-bottom:10px !important"  src="{{ asset('assets/images/box.png') }}" title="{{ $alts["box"] }}">
 
             <h4>Receive Orders</h4>
 
@@ -94,7 +98,7 @@
 
 <span class="bd">Sign up now, risk free, and let the {{ DIDUEAT  }} team bring customers to YOU!</span><div class="smBR"><br/><br/></div>
 
-<span class="bd"><img src="{{ asset('assets/images/arrow.gif') }}" style="padding-right:2px;position:relative;top:-2px" />Your best choice is to accept customer payment through {{ DIDUEAT  }}, instead of collecting from the customer yourself.</span>&nbsp;<a HREF="#" onclick="toggleMore(2,'Learn');return false" style="text-decoration:none;color:#00f"><span id="readmore2" style="cursor:default;text-decoration:underline; color: #00f;font-weight: bold;">Learn More</span></a><br/><div class="smBR"><br/><br/></div>
+<span class="bd"><img src="{{ asset('assets/images/arrow.gif') }}" style="padding-right:2px;position:relative;top:-2px" alt="{{ $alts["arrow"] }}"/>Your best choice is to accept customer payment through {{ DIDUEAT  }}, instead of collecting from the customer yourself.</span>&nbsp;<a HREF="#" onclick="toggleMore(2,'Learn');return false" style="text-decoration:none;color:#00f"><span id="readmore2" style="cursor:default;text-decoration:underline; color: #00f;font-weight: bold;">Learn More</span></a><br/><div class="smBR"><br/><br/></div>
 
 
                 <span id="moreInfo2" class="p-t-0" style="display:none">

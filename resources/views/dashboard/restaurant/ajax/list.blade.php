@@ -8,7 +8,8 @@
             "orders" => "View this restaurant's orders",
             "menu" => "View this restaurant's menu",
             "edit" => "Edit this restaurant",
-            "incomplete" => "This restaurant is incomplete and can not be opened"
+            "incomplete" => "This restaurant is incomplete and can not be opened",
+            "logo" => "This restaurant's logo"
     );
 ?>
 
@@ -40,7 +41,7 @@
                         <?php $logo = defaultlogo($value, true); ?>
                         <tr id="restaurant{{ $value->id }}">
                             <td>{{ $value->id }}</td>
-                            <td><img src="{{ $logo }}" width="90"/></td>
+                            <td><img src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>{{ $value->name }}</td>
                             <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
                             <td>

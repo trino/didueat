@@ -15,7 +15,8 @@
                 <?php
                     printfile("views/popups/rating.blade.php");
                     $alts = array(
-                        "login" => "Log in as an existing user"
+                            "login" => "Log in as an existing user",
+                            "loading" => "Loading..."
                     );
                 ?>
 
@@ -66,7 +67,7 @@
                     <div class="form-group" id="reviews"></div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" id="modal_contents"><img src="{{ asset('assets/images/loader.gif') }}"/>
+                    <div class="form-group" id="modal_contents"><img src="{{ asset('assets/images/loader.gif') }}" alt="{{ $alts["loading"] }}"/>
                     </div>
                 </div>
             </div>

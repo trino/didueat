@@ -19,7 +19,7 @@
 
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" id="modal_loader"><img src="{{ asset('assets/images/loader.gif') }}"/></div>
+                    <div class="form-group" id="modal_loader"><img src="{{ asset('assets/images/loader.gif') }}" alt="Loading..."/></div>
                 </div>
             </div>
         </div>

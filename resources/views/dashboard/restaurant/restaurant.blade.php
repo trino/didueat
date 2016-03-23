@@ -22,7 +22,8 @@
     }
 
     $alts = array(
-        "browse" => "Browse for a picture to upload"
+            "browse" => "Browse for a picture to upload",
+            "logo" => "The restaurant's current picture"
     );
 
 echo newrow($new, "Restaurant Name", "",true); ?>
@@ -87,13 +88,12 @@ if(!$minimum && isset($restaurant->id)){
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>
 
-            <img id="picture" class="logopic" align=""
+            <img id="picture" class="logopic" alt="{{ $alts["logo"] }}"
                 @if(isset($restaurant->logo) && $restaurant->logo != "")
                     title="{{ $logoname }}"
                     src="{{ asset($logoname) ."?" . date('U') }}"/>
                 @else
                     src="{{ asset('assets/images/small-smiley-logo.png') }}"/>
-
                 @endif
                     <!-- <span id="fullSize" class="smallT"></span> -->
         </div>

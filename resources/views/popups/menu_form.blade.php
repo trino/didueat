@@ -4,7 +4,8 @@
         $browseBtnTxt="Upload Image";
         $imgType="";
         $alts = array(
-            "delete" => "Delete image"
+                "delete" => "Delete image",
+                "imgPre" => "This item's picture"
         );
     ?>
 
@@ -28,7 +29,7 @@
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
                     @if(isset($model) || true)
-                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;"><img src="" alt="" id="imgPre">
+                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;"><img src="" alt="{{ $alts["imgPre"] }}" id="imgPre">
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";

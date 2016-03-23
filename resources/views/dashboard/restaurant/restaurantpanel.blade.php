@@ -70,14 +70,15 @@
             "restaurants/menu" => "View Restaurant",
             "View Menu" => "View this restaurant's menu",
             "Order Online" => "Order from this restaurant's menu",
-            "moredetails" => "View more information about this restaurant"
+            "moredetails" => "View more information about this restaurant",
+            "logo" => "This restaurant's logo"
     );
 ?>
 <div class="list-group-item">
     <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1" >
             <a href="{{ url('restaurants/' . $Restaurant['slug'] . '/menu') }}?delivery_type={{ $delivery_type }}" class="restaurant-url" title="{{ $alts["restaurants/menu"] }}">
-                <img style="max-width:100%;" class="img-rounded" alt="" src="{{ $logo }}">
+                <img style="max-width:100%;" class="img-rounded" alt="{{ $alts["logo"] }}" src="{{ $logo }}">
                 <div class="clearfix"></div>
             </a>
         </div>
