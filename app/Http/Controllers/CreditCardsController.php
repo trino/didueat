@@ -94,8 +94,7 @@ class CreditCardsController extends Controller {
             $data["user_id"] = read("id");
         }
 
-        $Query = \App\Http\Models\CreditCard::listing($data, "list")->get();
-        $recCount = \App\Http\Models\CreditCard::listing($data)->count();
+        $Query = \App\Http\Models\CreditCard::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
 
         $data['Query'] = $Query;

@@ -48,9 +48,8 @@ class EventLogsController extends Controller {
             'order' => (\Input::get('order')) ? \Input::get('order') : 'DESC',
             'searchResults' => \Input::get('searchResults')
         );
-        
-        $Query = \App\Http\Models\Eventlog::listing($data, "list")->get();
-        $recCount = \App\Http\Models\Eventlog::listing($data)->count();
+
+        $Query = \App\Http\Models\Eventlog::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;

@@ -78,8 +78,7 @@ class NotificationAddressesController extends Controller {
             'searchResults' => \Input::get('searchResults')
         );
         
-        $Query = \App\Http\Models\NotificationAddresses::listing($data, "list")->get();
-        $recCount = \App\Http\Models\NotificationAddresses::listing($data)->count();
+        $Query = \App\Http\Models\NotificationAddresses::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;

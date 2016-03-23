@@ -4,7 +4,6 @@ namespace App\Http\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Cuisines extends BaseModel {
-
     protected $table = 'cuisines';
     protected $primaryKey = 'id';
     public $timestamps = false;
@@ -18,5 +17,4 @@ class Cuisines extends BaseModel {
         $cells=array('restID','cuisine');
         $this->copycells($cells, $data);
     }
-
 }

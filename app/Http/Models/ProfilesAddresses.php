@@ -25,7 +25,7 @@ class ProfilesAddresses extends BaseModel {
         $this->copycells($cells, $data);
     }
 
-    public static function listing($array = "", $type = "") {
+    public static function listing($array = "", $type = "", &$reccount = 0) {
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
         $meta = $array['meta'];
@@ -46,6 +46,7 @@ class ProfilesAddresses extends BaseModel {
                     }
                 })
                 ->orderBy($meta, $order);
+        $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);
             $query->skip($start);

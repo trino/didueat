@@ -83,7 +83,7 @@ class Restaurants extends BaseModel {
         return true;
     }
     
-    public static function listing($array = "", $type = "") {
+    public static function listing($array = "", $type = "", &$reccount = 0) {
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
         $incomplete = $array['incomplete'];
@@ -114,7 +114,7 @@ class Restaurants extends BaseModel {
                 }
             })
             ->orderBy($meta, $order);
-
+        $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);
             $query->skip($start);

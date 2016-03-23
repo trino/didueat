@@ -92,8 +92,7 @@ class ProfileAddressesController extends Controller {
             'searchResults' => \Input::get('searchResults')
         );
 
-        $Query = \App\Http\Models\ProfilesAddresses::listing($data, "list")->get();
-        $recCount = \App\Http\Models\ProfilesAddresses::listing($data)->count();
+        $Query = \App\Http\Models\ProfilesAddresses::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;

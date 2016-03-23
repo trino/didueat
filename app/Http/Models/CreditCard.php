@@ -21,7 +21,7 @@ class CreditCard extends BaseModel {
         }
     }
     
-    public static function listing($array = "", $type = "") {
+    public static function listing($array = "", $type = "", &$reccount = 0) {
         $query_type = $array['type'];
         $searchResults = $array['searchResults'];
         $meta = $array['meta'];
@@ -52,14 +52,11 @@ class CreditCard extends BaseModel {
                     }
                 })
                 ->orderBy($meta, $order);
-
+        $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);
             $query->skip($start);
         }
-
-        debugprint("SQL : " . $query->toSql() );
-
         return $query;
     }
 }

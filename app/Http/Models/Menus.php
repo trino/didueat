@@ -70,7 +70,6 @@ class Menus extends BaseModel {
     //I don't understand what this should do
     public static function get_price($id) {
         $submenus = \App\Http\Models\Menus::where('parent', $id)->get();
-        
         //$minprice = \App\Http\Models\Menus::where('parent', $id)->min('price');
         if($submenus->count()> 0){
             $minprice = 10000;
@@ -79,16 +78,13 @@ class Menus extends BaseModel {
                  if(isset($minmenu_price) && $minprice > $minmenu_price) {
                       $minprice = $minmenu_price;
                       
+                 } else {
+                     $minprice = $minprice;
                  }
-                 else
-                      $minprice = $minprice;
             }
-            
+        } else {
+            $minprice = 0;
         }
-        else
-            $minprice=0;
-       return $minprice;
-       
-        
+        return $minprice;
     }
 }

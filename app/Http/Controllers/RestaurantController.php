@@ -56,8 +56,7 @@ class RestaurantController extends Controller {
             $data["incomplete"] = true;
         }
         
-        $Query = \App\Http\Models\Restaurants::listing($data, "list")->get();
-        $recCount = \App\Http\Models\Restaurants::listing($data)->count();
+        $Query = \App\Http\Models\Restaurants::listing($data, "list", $recCount)->get();
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;
