@@ -1,0 +1,137 @@
+<?php echo e(printfile("views/dashboard/restaurant/ajax/list.blade.php")); ?>
+
+
+<?php if(\Session::has('message')): ?>
+    <?php echo message_show("Message!", \Session::get('message')); ?>
+
+<?php endif; ?>
+
+<div class="card">
+    <div class="card-header ">
+        <div class="row">
+            <div class="col-lg-9">
+                <h4 class="card-title">
+                    Restaurants
+                </h4>
+            </div>
+            <?php echo $__env->make('common.table_controls', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        </div>
+    </div>
+    
+    <div class="card-block p-a-0">
+        <table class="table table-responsive m-b-0">
+            <?php
+                TH(array("id" => "ID", 'logo' => array("sort" => false), "name", "rating", "status", "" => array("sort" => false)));
+            ?>
+            <tbody>
+                <?php if($recCount > 0): ?>
+
+                    <?php foreach($Query as $key => $value): ?>
+                        <?php $logo = defaultlogo($value, true); ?>
+                        <tr id="restaurant<?php echo e($value->id); ?>">
+                            <td><?php echo e($value->id); ?></td>
+                            <td><img src="<?php echo e($logo); ?>" width="90"/></td>
+                            <td><?php echo e($value->name); ?></td>
+                            <td NOWRAP><?php echo rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false); ?></td>
+                            <td>
+                                <?php if(!$value->is_complete): ?>
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Incomplete</A><HR CLASS="slimhr">
+                                    <?php
+                                        $reasons = array();
+                                        if(!$value->has_creditcard){
+                                            //$reasons["fa-credit-card"] = "Missing Credit Card information";
+                                        }
+                                        if(!$value->is_delivery){
+                                            $reasons["fa-car"] = "Delivery is disabled";
+                                        }
+                                        if(!$value->is_pickup){
+                                            $reasons["fa-bicycle"] = "Pickup is disabled";
+                                        }
+                                        if (!$value->latitude || !$value->longitude) {
+                                            $reasons["fa-envelope"] = "Missing address";
+                                        }
+                                        if ($value->max_delivery_distance < 2 && $value->is_delivery) {
+                                            $reasons["fa-hand-lizard-o"] = "Maximum delivery distance might be too small";
+                                        }
+                                        if (!$value->minimum || $value->minimum == "0.00") {
+                                            $reasons["fa-usd"] = "Minimum delivery charge might be missing";
+                                        }
+                                        //check hours of operation
+                                        $weekdays = getweekdays();
+                                        $someHoursNotOK = false; // to encourage restaurant to finish setting up hours
+                                        $DayOfWeek = current_day_of_week();
+                                        $now = date('H:i:s');
+                                        foreach ($weekdays as $weekday) {
+                                            foreach (array("_close", "_close_del") as $field) { // only the close needs to be checked, as 12:00 is often an opening time
+                                                $field = $weekday . $field;
+                                                if ($value->$field != "12:00:00" && $value->$field != "00:00:00") {
+                                                    $weekdays = false;
+                                                } else {
+                                                    $someHoursNotOK = true;
+                                                }
+                                            }
+                                        }
+                                        if ($weekdays || $someHoursNotOK) {
+                                            $reasons["fa-clock-o"] = "Hours of operations";
+                                        }
+
+
+                                        foreach($reasons as $icon => $title){
+                                            if(is_numeric($icon)){
+                                                echo $title;
+                                            } else {
+                                                echo '<i class="fa ' . $icon . '" title="' . $title . '"></i>&nbsp;';
+                                            }
+                                        }
+                                    ?>
+                                <?php elseif($value->open == true): ?>
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Enabled</A>
+                                        <a href="<?php echo e(url('restaurant/list/status/'.$value->id)); ?>" class="btn btn-warning btn-sm"
+                                       onclick="return confirm('Are you sure you want to disable <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">Disable</a>
+                                <?php else: ?>
+                                    <a href="<?php echo e(url('restaurant/list/status/'.$value->id)); ?>" class="btn  btn-success btn-sm"
+                                       onclick="return confirm('Are you sure you want to enable <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">Enable</a>
+                                    <a class="btn btn-secondary-outline btn-sm" style="cursor: default;">Disabled</A>
+                                <?php endif; ?>
+                            </td>
+
+
+                            <td>
+                                <a href="<?php echo e(url('orders/list/restaurant/' . $value['id'])); ?>" class="btn btn-info btn-sm">Orders</a>
+                                <a href="<?php echo e(url('restaurants/' . $value->slug . '/menu/')); ?>" class="btn btn-info btn-sm">Menu</a>
+                                <a href="<?php echo e(url('restaurant/info/'.$value->id)); ?>" class="btn btn-info btn-sm">Edit</a>
+                                <!--a href="<?php echo e(url('restaurant/list/delete/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">X</a-->
+                                <a class="btn btn-secondary-outline btn-sm" id="delete<?php echo e($value->id); ?>" onclick="deleterestaurant('<?php echo e($value->id); ?>', '<?php echo e(addslashes("'" . $value->name . "'")); ?>');">X</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td><span class="text-muted">No Restaurants Found</span></td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+
+    </div>
+
+    <?php if(Session::get('session_type_user') == "super"  && $recCount > 10): ?>
+        <div class="card-footer clearfix"><?php echo $Pagination; ?>    </div>
+    <?php endif; ?>
+</div>
+<SCRIPT>
+    var Restaurants = '<?php echo e($recCount); ?>';
+    function deleterestaurant(ID, Name){
+        if(confirm('Are you sure you want to delete restaurant "' + Name + '"?')) {
+            $("#delete" + ID).html('<i class="fa fa-spinner fa-spin"></i>');
+            $.post("<?php echo e(url('restaurant/list/delete')); ?>/" + ID, {_token: "<?php echo e(csrf_token()); ?>"}, function (result) {
+                Restaurants=Restaurants-1;
+                if(Restaurants) {
+                    $("#restaurant" + ID).fadeOut();
+                } else {
+                    $("#loadPageData").html(result);
+                }
+            });
+        }
+    }
+</SCRIPT>

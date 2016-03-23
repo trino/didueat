@@ -1,0 +1,148 @@
+<?php foreach($query as $value): ?>
+    <?php
+        $item_image = asset('assets/images/default_menu.jpg');
+        $item_image1 = asset('assets/images/default_menu.jpg');
+        if ($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))){
+            $item_image1 = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image);
+        }
+        if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image))){
+            $item_image = asset('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb_' . $value->image);
+        }
+    ?>
+    <div id="<?php echo e($start); ?>" class="col-md-4 col-sm-6 col-xs-12  parentDiv no-padding " style="">
+        <div class="card ">
+            <div class="sticker sticker-new"></div>
+            <div class="col-md-9 no-padding">
+                <div class="card-content">
+                    <a href="<?php echo e((Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menus')); ?>" class="<?php echo e((Request::is('restaurants/*')) ? 'fancybox-fast-view' : ''); ?>">
+                        <strong><?php echo e($value->menu_item); ?></strong>
+                        <?php echo e($value->description); ?>
+
+                    </a>
+                </div>
+                <div class="card-action">
+                    <a href="" class="">McDonalds Eastgate</a>
+                </div>
+            </div>
+            <div class="col-md-3 no-padding">
+                <div class="card-image">
+                    <?php if($value->image != '' && file_exists(public_path('assets/images/restaurants/' . $value->restaurant_id . '/menus/' . $value->id . '/thumb1_' . $value->image))): ?>
+                    <img style="" src="<?php echo e($item_image1); ?>">
+                    <?php endif; ?>
+                    <span class="card-title"><span style="color:red;">$<?php echo e($value->price); ?></span></span>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+    <div id="product-pop-up_<?php echo e($value->id); ?>" class="popup-dialog-800" style="display: none;">
+        <div class="product-page product-pop-up p-popup">
+            <div class="modal-body">
+                <div class="col-sm-12 col-xs-12 title">
+                    <h2 style="color:white;"><?php echo e($value->menu_item); ?>: $ <?php echo e($value->price); ?></h2>
+                </div>
+                <div class="col-sm-12 col-xs-12">
+                    <img class="popimage_<?php echo e($value->id); ?>" width="150" src="<?php echo e($item_image); ?>" />
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="product-titles">
+                    <h2><?php echo e($value->description); ?></h2>
+                </div>
+
+                <div class="subitems_<?php echo e($value->id); ?> optionals">
+                    <div class="clearfix space10"></div>
+                    <div style="display:none;">
+                        <input type="checkbox" style="display: none;" checked="checked" title="<?php echo e($value->id.'_'.$value->menu_item.'-_'.$value->price.'_'); ?>" value="" class="chk">
+                    </div>
+                    <div class="banner bannerz no-overflow">
+                        <table width="100%">
+                            <tbody>
+                                <?php
+                                    $submenus = \App\Http\Models\Menus::where('parent', $value->id)->get();
+                                ?>
+                                <?php foreach($submenus as $sub): ?>
+                                <tr class="zxcx">
+                                    <td width="100%" id="td_<?php echo e($sub->id); ?>" class="valign-top">                                        
+                                        <input type="hidden" value="<?php echo e($sub->exact_upto_qty); ?>" id="extra_no_<?php echo e($sub->id); ?>">
+                                        <input type="hidden" value="<?php echo e($sub->req_opt); ?>" id="required_<?php echo e($sub->id); ?>">
+                                        <input type="hidden" value="<?php echo e($sub->sing_mul); ?>" id="multiple_<?php echo e($sub->id); ?>">
+                                        <input type="hidden" value="<?php echo e($sub->exact_upto); ?>" id="upto_<?php echo e($sub->id); ?>">
+                                        
+                                        <div style="" class="infolist col-xs-12">
+                                            <div style="display: none;">
+                                                <input type="checkbox" value="<?php echo e($sub->menu_item); ?>" title="___" id="<?php echo e($sub->id); ?>" style="display: none;" checked="checked" class="chk">
+                                            </div>
+                                            <a href="javascript:void(0);"><strong><?php echo e($sub->menu_item); ?></strong></a>
+                                            <span><em> </em></span>
+                                            <span class="limit-options right-float">
+                                            <?php
+                                                if ($sub->exact_upto == 0)
+                                                    $upto = "up to ";
+                                                else
+                                                    $upto = "exactly ";
+                                                if ($sub->req_opt == '0') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "(Select " . $upto . $sub->exact_upto_qty . " Items) ";
+                                                    echo "(Optional)";
+
+                                                } elseif ($sub->req_opt == '1') {
+                                                    if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0')
+                                                        echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+
+                                                    echo "(Mandatory)";
+                                                } ?>
+                                            </span>
+
+                                            <div class="clearfix"></div>
+                                            <span class="error_<?php echo e($sub->id); ?> strong-error"></span>
+                                            <div class="list clearfix">
+                                                <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->get(); ?>
+                                                <?php foreach($mini_menus as $mm): ?>
+                                                <div class="col-xs-6 col-md-6"
+                                                     class="subin btn default btnxx pad-17">
+                                                    <div class="pad-17">
+                                                        <a title="" id="buttons_<?php echo e($mm->id); ?>" class="buttons btn-plain" href="javascript:void(0);">
+                                                            <button class="btn btn-primary btn-curved"></button>
+                                                            <input type="<?php echo e(($sub->sing_mul == '1') ? 'radio' : 'checkbox'); ?>" id="extra_<?php echo e($mm->id); ?>" title="<?php echo e($mm->id.'_<br/> '.$mm->menu_item.'_'.$mm->price.'_'.$sub->menu_item); ?>" class="extra-<?php echo e($sub->id); ?>" name="extra_<?php echo e($sub->id); ?>" value="post" /> &nbsp;&nbsp; <?php echo e($mm->menu_item); ?> &nbsp;&nbsp; <?php if ($mm->price) echo "(+ $" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?>
+                                                            <b style="display:none;"></b>
+                                                        </a>
+                                                        <b style="display:none;"><a onclick="" id="remspan_<?php echo e($mm->id); ?>" class="remspan plain" href="javascript:;"><b>&nbsp;&nbsp;-&nbsp;&nbsp;</b></a>
+                                                            <span id="sprice_0" class="span_<?php echo e($mm->id); ?> allspan">&nbsp;&nbsp;1&nbsp;&nbsp;</span>
+                                                            <a onclick="" id="addspan_<?php echo e($mm->id); ?>" class="addspan plain" href="javascript:;"><b>&nbsp;&nbsp;+&nbsp;&nbsp;</b></a>
+                                                        </b>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <?php endforeach; ?>
+                                                <input type="hidden" value="" class="chars_<?php echo e($sub->id); ?>">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 add-btn">
+                        <div class="add-minus-btn left-float">
+                            <a class="btn btn-primary minus" href="javascript:void(0);" onclick="changeqty('<?php echo e($value->id); ?>','minus')">-</a>
+                            <div class="number<?php echo e($value->id); ?>">1</div>
+                            <a class="btn btn-primary add" href="javascript:void(0);" onclick="changeqty('<?php echo e($value->id); ?>','plus')">+</a>
+                        </div>
+                        <a id="profilemenu<?php echo e($value->id); ?>" class="btn btn-primary add_menu_profile add_end btn-spc right-float" href="javascript:void(0);">Add</a>
+                        <button id="clear_<?php echo e($value->id); ?>" data-dismiss="modal" class="btn btn-warning resetslider" type="button">
+                            RESET
+                        </button>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>

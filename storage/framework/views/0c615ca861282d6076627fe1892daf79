@@ -1,0 +1,89 @@
+<?php $__env->startSection('content'); ?>
+
+<meta name="_token" content="<?php echo e(csrf_token()); ?>"/>
+<script type="text/javascript">
+    window.showEntries = 10;
+    window.page = 1;
+    window.pageUrlLoad = "<?php echo e(url('users/list/ajax') . "?" . http_build_query($_GET)); ?>";
+</script>
+<script src="<?php echo e(asset('assets/global/scripts/custom-datatable/blockUI.js')); ?>" type="text/javascript"></script>
+<!--script src="<?php echo e(asset('assets/global/scripts/custom-datatable/toastr.min.js')); ?>"></script-->
+<script src="<?php echo e(asset('assets/global/scripts/custom-datatable/custom-plugin-datatable.js')); ?>" type="text/javascript"></script>
+
+<div class="container">
+
+
+
+
+<div class="row">
+    <?php echo $__env->make('layouts.includes.leftsidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+    <div class="col-lg-9">
+        <?php printfile("views/dashboard/user/index.blade.php"); ?>
+
+        <div id="ajax_message_jgrowl"></div>
+
+        <!-- Panels Start -->
+        <div id="loadPageData">
+            
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal clearfix" id="editModel" tabindex="-1" role="dialog" aria-labelledby="editModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <?php echo Form::open(array('url' => '/users/update', 'name'=>'editForm', 'id'=>'addNewForm', 'class'=>'form-horizontal form-restaurants','method'=>'post','role'=>'form')); ?>
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editModelLabel">Edit</h4>
+            </div>
+            <div class="modal-body" id="contents">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <?php echo Form::close(); ?>
+
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    $('body').on('click', '.editRow, #addNew', function () {
+        var id = $(this).attr('data-id');
+        if(id == null || id == undefined || id == ""){
+            id = 0;
+            $('#editLabel').text('Add Address');
+        }
+        $('#editModel #ajaxloader').show();
+        $('#editModel #contents').html('');
+        $.get("<?php echo e(url('users/edit')); ?>/" + id, {}, function (result) {
+            $('#editModel #ajaxloader').hide();
+            try {
+                if (jQuery.parseJSON(result).type == "error") {
+                    var json = jQuery.parseJSON(result);
+                    $('#editModel #message').show();
+                    $('#editModel #message p').html(json.message);
+                    $('#editModel #contents').html('');
+                }
+            } catch (e) {
+                $('#editModel #message').hide();
+                $('#editModel #contents').html(result);
+            }
+        });
+    });
+</script>
+<script src="<?php echo e(url("assets/global/scripts/provinces.js")); ?>" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initAutocomplete" title="edituser.blade" async defer></script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

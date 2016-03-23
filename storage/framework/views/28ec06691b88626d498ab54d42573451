@@ -1,0 +1,111 @@
+<?php echo e(printfile("views/dashboard/notifications_address/ajax/list.blade.php")); ?>
+
+
+<?php if(\Session::has('message')): ?>
+    <?php echo message_show("Message!", \Session::get('message')); ?>
+
+<?php endif; ?>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-lg-9">
+                <h4 class="card-title">
+                    Notification Methods
+                    <a class="btn btn-primary btn-sm" id="addNew" data-toggle="modal" data-target="#editModel">Add</a>
+                </h4>
+
+                <p class="card-subtitle text-muted">Notify me by these methods when I receive an order</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card-block p-a-0">
+        <table class="table table-responsive m-b-0">
+            <?php if($recCount > 0): ?>
+                <thead>
+                    <tr>
+                        <th>Enable</th>
+                        <th>Notify</th>
+                        <th>Note</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($Query as $key => $value): ?>
+                        <tr class="rows" data-id="<?php echo e($value->id); ?>" data-order="<?php echo e($key); ?>">
+                            <!--td style="min-width: 100px;"><?php echo e($key+1); ?>
+
+                                <?php if($recCount > 1): ?>
+                                    &nbsp;
+                                    <div class="btn-group-vertical">
+                                        <a class="btn btn-secondary-outline up btn-sm"><i class="fa fa-arrow-up"></i></a>
+                                        <a class="btn btn-secondary-outline down btn-sm"><i
+                                                    class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                <?php endif; ?>
+                            </td-->
+
+                            <td class="text-xs-center">
+
+                                   <?php
+                                       $candisable = true;
+                                       foreach(array("email", "phone", "mobile") as $field){
+                                           if($value->address == $restaurant->$field){
+                                               $candisable = false;
+                                               break;
+                                           }
+                                       }
+
+                                       if($candisable){
+                                           echo '<label class="c-input c-checkbox pull-left">';
+                                           echo '<INPUT TYPE="CHECKBOX" ID="add_enable_' . $value->id . '" CLASS="fullcheck" ONCLICK="add_enable(' . $value->id . ');"';
+                                           if ($value->enabled) {
+                                               echo ' CHECKED';
+                                           }
+                                           echo '><span class="c-indicator"></span></label>';
+                                       } else {
+                                           //echo " CHECKED DISABLED";
+                                           $value->note = "This is required";
+                                       }
+                                   ?>
+
+                            </td>
+
+                            <td><?php echo e($value->type); ?>: <?php echo e($value->address); ?></td>
+                            <td id="note_<?php echo e($value->id); ?>" value="<?php echo e($value->note); ?>" onclick="editnote(<?php echo e($value->id); ?>);"><?php echo e($value->note); ?></td>
+
+                            <td>
+                                <div class=" pull-right ">
+                                    <?php if(Session::get('session_type_user') == "super"): ?>
+                                        <a class="btn btn-secondary-outline btn-sm editRow " data-toggle="modal" data-target="#editModel"
+                                           data-id="<?php echo e($value->id); ?>">Edit</a>
+                                    <?php endif; ?>
+                                    <?php if($candisable): ?>
+                                        <a href="<?php echo e(url('notification/addresses/delete/'.$value->id)); ?>"
+                                            class="btn btn-secondary-outline btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete <?php echo e(addslashes($value->address)); ?>?');"><i class="fa fa-times"></i></a>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+
+                        </tr>
+                    <?php endforeach; ?>
+            <?php else: ?>
+                <tbody>
+                    <tr>
+                        <td><span class="text-muted">No Notifcations Yet</span></td>
+                    </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php if(Session::get('session_type_user') == "super"  && $recCount > 10): ?>
+        <div class="card-footer clearfix">
+            <?php echo $Pagination; ?>
+
+        </div>
+    <?php endif; ?>
+</div>

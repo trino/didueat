@@ -1,0 +1,45 @@
+<?php printfile("views/dashboard/restaurant/load_child.blade.php"); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<?php if($child): ?>
+
+
+
+    <?php
+        $i = 0;
+        foreach($child as $cc){
+            $i++;
+            ?>
+            <div class="cmore ignore ignore1 m-b-1" id="cmore<?php echo e($cc->id); ?>">
+
+                    <div class="">
+                        <div class="col-md-5 ">
+                            <input class="form-control cctitle ignore ignore2 ignore1" type="text" placeholder="Item" value="<?php echo e($cc->menu_item); ?>" />
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-control ccprice ignore ignore2 ignore1 pricechk" type="text" placeholder="Price" value="<?php echo e($cc->price); ?>" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                                <div class="btn-group pull-right" role="group" aria-label="Basic example">
+                                    <button href="javascript:void(0)" id="child_up_<?php echo e($cc->id); ?>"
+                                       class="btn btn-sm btn-secondary sorting_child"><i class="fa fa-arrow-up"></i></button>
+                                    <button href="javascript:void(0)" id="child_down_<?php echo e($cc->id); ?>"
+                                       class="btn btn-sm btn-secondary sorting_child"><i
+                                                class="fa fa-arrow-down"></i></button>
+                                <button href="javascript:void(0);" class="btn btn-sm btn-secondary"
+                                   onclick="$(this).closest('.cmore').remove();" >
+                                    <i class="fa fa-times"></i> </button>
+                                </div>
+                            </div>
+                    <div class="clearfix ignore ignore2 ignore1"></div>
+                
+            </div>
+        <?php } ?>
+
+
+
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.blank', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

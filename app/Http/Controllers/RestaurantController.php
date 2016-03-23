@@ -495,7 +495,7 @@ class RestaurantController extends Controller {
         
         if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) {
             $arrs['title'] = $arr['cat_name'];
-            //$arrs['res_id'] = $arr['restaurant_id'];
+            $arrs['res_id'] = \Session::get('session_restaurant_id'));
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arrs);
             $ob2->save();
@@ -638,7 +638,41 @@ class RestaurantController extends Controller {
 
     //unknown
     public function orderCat($cid, $sort) {
-        $_POST['ids'] = explode(',', $_POST['ids']);
+        $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
+        //echo $res->id;die();
+        $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
+        $arr = array();
+        foreach($cats as $k=>$c)
+        {
+            //echo $k;
+            if($cid==$c->id)
+            {
+                $key = $k;
+            }
+            $arr[] = $c->id;
+        }
+        //die();
+        if($sort=='up' && $key!=0)
+        {
+            $nkey = $key--;
+            $temp = $arr[$nkey];
+            $arr[$nkey] = $cid;
+            $arr[$key] = $temp; 
+        }
+        elseif($sort=='down' && $key!=count($arr))
+        {
+            $nkey = $key++;
+            $temp = $arr[$nkey];
+            $arr[$nkey] = $cid;
+            $arr[$key] = $temp;
+        }
+        
+        foreach($arr as $k=>$a)
+        {
+            \App\Http\Models\Category::where('id', $a)->update(array('display_order' => ($k + 1)));
+        }
+        return \Redirect::to('/restaurants/' . $res->slug . '/menu');
+        /*$_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
         if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
             //do nothing
@@ -657,7 +691,7 @@ class RestaurantController extends Controller {
         foreach ($_POST['ids'] as $k => $id) {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
-        die();
+        die();*/
     }
 
 

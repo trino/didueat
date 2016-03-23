@@ -1,0 +1,267 @@
+<?php if(Session::get('session_type_user') == "super" ): ?>
+    <!--div class="col-sm-12 col-xs-12">
+        <p class="">Views: <?php echo e(ViewsCountsType($value->id, "menu")); ?></p>
+    </div-->
+<?php endif; ?>
+
+<div class="modal" id="product-pop-up_<?php echo e((isset($value->id))?$value->id:''); ?>" tabindex="-1" role="dialog"
+     aria-labelledby="viewDetailModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <style>
+                .image {
+                    position: relative;
+                    max-width: 100% !important; /* for IE 6 */
+                }
+
+                .fronttext {
+                    position: absolute;
+                    top: 0px;
+                    left: 0;
+                }
+            </style>
+
+            <?php if($has_bigImage): ?>
+                <img src="<?php echo e($item_bigImage); ?>" style="max-width:100%;" class=""/>
+            <?php endif; ?>
+
+            <div style=" width:100%; border:0; <?php if($has_bigImage): ?>background-color: rgba(0,0,0,0.65); <?php endif; ?>" class=" bg-inverse card-header <?php if($has_bigImage): ?> fronttext <?php else: ?> bg-success <?php endif; ?>">
+
+                <?php
+                    printfile("resources/views/popups/order_menu_item.blade.php");
+                    $alts = array(
+                            "addspan" => "Add this addon",
+                            "remspan" => "Remove this addon",
+                            "add" => "Add these items to your cart",
+                            "minus" => "Remove 1 item",
+                            "plus" => "Add 1 item"
+                    );
+                ?>
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
+                        aria-label="Close" id="clear_<?php echo $value->id; ?>">
+                    <span aria-hidden="true " style="color:white;">&times;</span>
+                </button>
+
+                <h4 class="modal-title" id="viewDetailModel">
+
+                    <?php echo e($value->menu_item); ?> &ndash;
+                    <?php if($value->price>0): ?>
+                    <?php if($dis): ?>
+                            <!--span class=''><?php echo e($dis); ?></span-->
+
+                    <strike class="text-muted strikedprice<?php echo e($value->id); ?>">$<?php echo e($dis_price=number_format($value->price,2)); ?></strike>
+                    <input type="hidden" class="mainPrice<?php echo e($value->id); ?>" value="<?php echo e($dis_price); ?>"/>
+                                    <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+                               $<?php echo e(number_format($dis_price=$main_price,2)); ?>
+
+                            </span>
+                    <?php else: ?>
+                        <span class="pricetitle modalprice<?php echo $value->id; ?>">
+                                $<?php echo e($dis_price=number_format($value->price,2)); ?>
+
+                            </span>
+                    <?php endif; ?>
+                    <?php else: ?>
+                        <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+                            $<?php echo e($dis_price=number_format($min_p,2)); ?>+
+                            </span>
+                    <?php endif; ?>
+
+                    <span class="fa fa-spinner fa-spin cart-addon-gif"
+                          style="color:#0275d8; display: none;"></span>
+                    <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="<?php echo e($dis_price); ?>"/>
+                    <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="<?php echo e($dis_price); ?>"/>
+                </h4>
+
+
+                <div class="clearfix"></div>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="row">
+
+
+
+                    <div class="col-md-12"><?php echo e($value->description); ?></div>
+
+
+                    <div class="col-md-12 subitems_<?php echo e($value->id); ?> optionals">
+                        <div style="display:none;">
+                            <input type="checkbox" style="display: none;" checked="checked"
+                                   title="<?php echo e($value->id.'_<b>'.$value->menu_item.'</b>_'.$main_price.'_'); ?>"
+                                   value="" class="chk">
+                        </div>
+
+                        <div class="banner bannerz">
+
+                            <table style="min-width:100%;">
+                                <tbody>
+
+                                <?php foreach($submenus as $sub): ?>
+
+                                    <tr class="zxcx">
+                                        <td width="100%" id="td_<?php echo e($sub->id); ?>" class="valign-top">
+
+                                            <input type="hidden" value="<?php echo e($sub->exact_upto_qty); ?>"
+                                                   id="extra_no_<?php echo e($sub->id); ?>">
+                                            <input type="hidden" value="<?php echo e($sub->req_opt); ?>"
+                                                   id="required_<?php echo e($sub->id); ?>">
+                                            <input type="hidden" value="<?php echo e($sub->sing_mul); ?>"
+                                                   id="multiple_<?php echo e($sub->id); ?>">
+                                            <input type="hidden" value="<?php echo e($sub->exact_upto); ?>"
+                                                   id="upto_<?php echo e($sub->id); ?>">
+
+                                            <div class="infolist">
+                                                <div style="display: none;">
+                                                    <input type="checkbox"
+                                                           value="<?php echo e('<br/>'.$sub->menu_item); ?>"
+                                                           title="___" id="<?php echo e($sub->id); ?>"
+                                                           style="display: none;" checked="checked"
+                                                           class="chk">
+                                                </div>
+                                                <strong>
+                                                    <?php echo e(ucfirst($sub->menu_item)); ?>     </strong><br>
+                                                           <span class="limit-options">
+                                                               <?php
+                                                               if ($sub->exact_upto == 0) {
+                                                                   $upto = "up to ";
+                                                               } elseif ($sub->exact_upto == '1') {
+                                                                   $upto = "exactly ";
+                                                               }
+                                                               if ($sub->req_opt == '0') {
+                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                       echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                   }
+                                                                   echo "Optional";
+                                                               } elseif ($sub->req_opt == '1') {
+                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                       echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                   }
+                                                                   echo "Required";
+                                                               }
+                                                               ?>
+                                                                                                                 </span>
+
+                                                <div class="clearfix"></div>
+                                                <span class="error_<?php echo e($sub->id); ?> errormsg"></span>
+
+                                                <div class="list clearfix row">
+                                                    <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
+                                                    <? $a = 0; ?>
+                                                    <?php foreach($mini_menus as $mm): ?>
+
+                                                        <? $a++; ?>
+
+                                                        <div class="col-xs-12 col-sm-6 form-group"
+                                                                >
+
+                                                            <div id="buttons_<?php echo e($mm->id); ?>"
+                                                                 class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
+                                                                 href="javascript:void(0);">
+                                                                <?php
+                                                                if ($mm->price != 0)
+                                                                    $extra_price = '(+$' . $mm->price . ')_';
+                                                                else
+                                                                    $extra_price = '_';
+                                                                ?>
+
+                                                                <div <?php if ($sub->sing_mul == '1') {
+                                                                    echo "style='display:none'";
+                                                                } ?> class="pull-left p-a-0 col-md-5 col-xs-5"
+                                                                     style="">
+
+                                                                    <a id="remspan_<?php echo e($mm->id); ?>" title="<?php echo e($alts["remspan"]); ?>"
+                                                                       class="remspan btn btn-secondary-outline btn-sm "
+                                                                       href="javascript:;"><i class="fa fa-minus"
+                                                                                ></i></a>
+
+                                                                        <span id="sprice_<?php echo e($mm->price); ?>"
+                                                                              class="span_<?php echo e($mm->id); ?> qty_<?php echo e($value->id); ?> allspan">0</span>
+
+                                                                    <a id="addspan_<?php echo e($mm->id); ?>" title="<?php echo e($alts["addspan"]); ?>"
+                                                                       class="addspan btn btn-sm btn-primary-outline "
+                                                                       href="javascript:;"><i class="fa fa-plus"
+                                                                                ></i></a>
+
+                                                                </div>
+
+                                                                <div class=" <?php if($sub->sing_mul == '1'): ?>  col-md-12 <?php else: ?>  col-xs-7 <?php endif; ?> p-l-0">
+                                                                    <LABEL class="changemodalP <?php if($sub->sing_mul =='1'): ?> c-input c-radio <?php endif; ?>
+                                                                    <?php if($sub->sing_mul == '1'): ?>  <?php else: ?>  p-l-0 <?php endif; ?> ">
+
+                                                                        <input type="<?php echo e(($sub->sing_mul == '1') ? 'radio' : 'checkbox'); ?>"
+                                                                               id="extra_<?php echo e($mm->id); ?>"
+                                                                               title="<?php echo e($mm->id.'_ '.$mm->menu_item.$extra_price.$mm->price.'_'.$sub->menu_item); ?>"
+                                                                               class="extra-<?php echo e($sub->id); ?> spanextra_<?php echo $mm->id; ?>"
+                                                                               name="extra_<?php echo e($sub->id); ?>"
+                                                                               value="post" <?php if ($sub->sing_mul == '0') echo "style='display:none'"; ?> />
+
+                                                                        <?php if($sub->sing_mul =='1'): ?>
+                                                                            <span class="c-indicator"></span>
+                                                                        <?php endif; ?>
+
+                                                                        <span class="list-inline-item ver"><?php echo e($mm->menu_item); ?> <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
+                                                                    </LABEL>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <?
+                                                        if ($a & 1) {
+                                                            echo '';
+                                                        } else {
+                                                            echo '<div class="clearfix" ></div>';
+                                                        }
+                                                        ?>
+                                                    <?php endforeach; ?>
+                                                    <input type="hidden" value=""
+                                                           class="chars_<?php echo e($sub->id); ?>">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="card-footer">
+                <div class="">
+                    <div class=" pull-left">
+                        <button type="button" class="btn btn-link btn-sm hidden-md-up"
+                                data-dismiss="modal">
+                            Close
+                        </button>
+                        <!--button id="clear_<?php echo e($value->id); ?>" class="btn btn-warning resetslider" type="button">
+                                       Reset
+                                   </button-->
+                    </div>
+                    <div class="pull-right" style="margin-left:.5rem;">
+                        <a id="profilemenu<?php echo e($value->id); ?>" title="<?php echo e($alts["add"]); ?>"
+                           class="btn  btn-primary add_menu_profile add_end"
+                           href="javascript:void(0);">Add</a>
+                    </div>
+                    <div class="pull-right">Qty <a class="btn  btn-secondary" href="javascript:void(0);" title="<?php echo e($alts["minus"]); ?>"
+                                                   onclick="changeqty('<?php echo e($value->id); ?>', 'minus')"><i
+                                    class="fa fa-minus"></i></a>
+                        <span class="number<?php echo e($value->id); ?>">1</span>
+                        <a class="btn  btn-secondary" href="javascript:void(0);" title="<?php echo e($alts["plus"]); ?>"
+                           onclick="changeqty('<?php echo e($value->id); ?>', 'plus')"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

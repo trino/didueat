@@ -1,0 +1,9 @@
+<?php printfile("view/common/gmaps.blade.php<BR>"); ?>
+<?php if(isset($address) && !empty($address)): ?>
+
+    <div id="gmap_display" style="height:100%; width:100%;max-width:100%;">
+        <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=<?php echo e($address); ?>&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU"></iframe>
+    </div>
+<?php else: ?>
+    No address is on file
+<?php endif; ?>

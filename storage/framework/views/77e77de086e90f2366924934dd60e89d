@@ -1,0 +1,172 @@
+<?php $__env->startSection('content'); ?>
+
+    <?php printfile("views/dashboard/restaurant/report.blade.php"); ?>
+
+
+
+
+
+
+    <link href="<?php echo e(asset('assets/global/css/timepicker.css')); ?>" rel="stylesheet"/>
+    <div class="container">
+        <div class="row">
+            <?php echo $__env->make('layouts.includes.leftsidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+            <div class="col-lg-9">
+                <div class="restaurentsList deleteme">
+                    <div class="toprint">
+                        <h3 class="p-b-1">My Orders
+                            <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
+                               onclick="return printDiv('toprint')">Print</a>
+                        </h3>
+                        <hr class="p-t-1"/>
+                        <div class="noprint row">
+                            <div class="col-md-12">Filter by Date</div>
+                            <div class="col-md-12">
+                                <form id="report-form" method="get">
+
+
+
+
+
+
+
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+
+                                        <input type="text" class="datepicker form-control" name="from"
+                                               placeholder="From"
+                                               value="<?php if(isset($_GET['from']))echo $_GET['from'];else{?><?php echo e(old('from')); ?><?php }?>">
+</div>
+                                        <div class="input-group-btn">
+
+                                        <input type="text" class="datepicker form-control" name="to" placeholder="To"
+                                               value="<?php if(isset($_GET['to']))echo $_GET['to'];else{?><?php echo e(old('to')); ?><?php }?>">
+</div>
+                                        <div class="input-group-btn">
+                                            <input type="submit" id="check_filter" class="btn btn-primary" value="Go"
+                                                   onclick="return checkFilter();">
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="clearfix"></div>
+                                </form>
+
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <div id="toprint">
+                            <?php if(isset($orders) && count($orders) > 0): ?>
+                                <?php foreach($orders as $order): ?>
+                                    <div class="restaurentDetail card">
+
+                                        <?php $restaurant = get_entry("restaurants", "id", $order->restaurant_id); ?>
+                                        <div class="col-md-6">
+                                            <?php echo $__env->make('common.orderinfo', array("order" => $order, "restaurant" => $restaurant, "layout" => true), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <?php echo $__env->make('common.receipt', array("type" => "report"), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <br>
+                                No orders found
+                            <?php endif; ?>
+
+                            <div class="clearfix"></div>
+
+                            <div class="clearfix hidden-xs"></div>
+
+                            <script>
+                                function checkFilter() {
+                                    var date1 = $('.date1').val();
+                                    var date2 = $('.date2').val();
+                                    if (date1 == '' || date2 == '') {
+                                        alert('Date can\'t be blank');
+                                        return false;
+                                    } else {
+                                        date1 = date1.replace('-', '').replace('-', '');
+                                        date2 = date2.replace('-', '').replace('-', '');
+
+                                        date1 = parseFloat(date1);
+                                        date2 = parseFloat(date2);
+
+                                        if (date1 > date2) {
+                                            alert('Starting date cannot be greater than end date');
+                                            return false;
+                                        }
+                                        return true;
+                                    }
+                                }
+                            </script>
+                            <style>
+                                .date1, .date2 {
+                                    padding-left: 5px;
+                                }
+                            </style>
+                        </div>
+
+                        <hr class="p-t-1"/>
+
+
+
+                        <a href="javascript:void(0);" class="btn btn-secondary noprint pull-right"
+                           onclick="return printDiv('toprint')">Print</a>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+
+        $(function () {
+            $(".datepicker").datepicker({"dateFormat": 'yy-mm-dd'});
+
+            $('.clearitems').click(function () {
+                $('.orders').html('');
+                $('.tax input').val('0');
+                var tax = 0;
+                var df = $('.df').val();
+                $('#subtotal1').val('0');
+                $('.subtotal').first().text('0.00');
+
+                var subtotal = 0;
+                if ($('#pickup1').hasClass("deliverychecked")) {
+                    grandtotal = 0;
+                } else {
+                    grandtotal = Number(df) + Number(subtotal) + Number(tax);
+                }
+
+                $('.grandtotal').text(grandtotal.toFixed(2));
+                $('.grandtotal').val(grandtotal.toFixed(2));
+
+                $('#cart-total').text('$' + grandtotal.toFixed(2));
+            });
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.default', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

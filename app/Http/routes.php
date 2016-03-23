@@ -159,7 +159,7 @@ Route::post('restaurant/menuadd',                                   'RestaurantC
 Route::get('restaurant/menuadd',                                    'RestaurantController@menuadd');
 Route::post('restaurant/check_enable/{id}/{cat}/{limit}/{status}',  'RestaurantController@check_enable');
 Route::get('restaurant/check_enable/{id}/{cat}/{limit}/{status}',   'RestaurantController@check_enable');
-Route::get('restaurant/orderCat',                                   'RestaurantController@orderCat');
+Route::get('restaurant/orderCat/{id}/{sort}',                       'RestaurantController@orderCat');
 Route::post('restaurant/orderCat/{id}/{sort}',                      'RestaurantController@orderCat');
 Route::get('restaurant/deleteMenu/{id}',                            'RestaurantController@deleteMenu');
 Route::get('restaurant/deleteMenu/{id}/{slug}',                     'RestaurantController@deleteMenu');

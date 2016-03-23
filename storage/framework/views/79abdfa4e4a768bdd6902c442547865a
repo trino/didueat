@@ -1,8 +1,8 @@
 <?php printfile("views/menus.blade.php"); ?>
 
-@if(!isset($_GET['page']))
-    <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
-@endif
+<?php if(!isset($_GET['page'])): ?>
+    <div id="loadmenus_<?php echo e((isset($catid))?$catid:0); ?>">
+<?php endif; ?>
 
         <DIV class="list-group m-b-1" id="">
 
@@ -43,7 +43,7 @@
     );
 ?>
 
-            @foreach($menus_list as $value)
+            <?php foreach($menus_list as $value): ?>
                 <?php //load images, duplicate code
                     
                     $has_iconImage = false;
@@ -63,7 +63,7 @@
                     $min_p = get_price($value->id);
                 ?>
 
-                <div class="list-group-item parents" id="parent{{ $value->id }}">
+                <div class="list-group-item parents" id="parent<?php echo e($value->id); ?>">
                     <div class="">
                         <div class="row">
 
@@ -93,21 +93,22 @@
                                     <div class="" style="width: 70%;float:left;">
 
                                 <h4 class="card-title">
-                                    <a href="#" id="{{ $value->id }}"
-                                       data-res-id="{{ $value->restaurant_id }}"
-                                       title="{{ $alts["product-pop-up"] }}"
+                                    <a href="#" id="<?php echo e($value->id); ?>"
+                                       data-res-id="<?php echo e($value->restaurant_id); ?>"
+                                       title="<?php echo e($alts["product-pop-up"]); ?>"
                                        class="card-link" data-toggle="modal"
-                                       data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}">
+                                       data-target="<?php echo e((Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu')); ?>">
 
-                                        @if($has_iconImage)
-                                            <img src="{{ $item_iconImg }}"
+                                        <?php if($has_iconImage): ?>
+                                            <img src="<?php echo e($item_iconImg); ?>"
                                                  class="img-rounded" style="height:32px;width:32px;"
-                                                 alt="{{ $value->menu_item }}"/>
-                                        @else
+                                                 alt="<?php echo e($value->menu_item); ?>"/>
+                                        <?php else: ?>
                                                     <!--i class="fa fa-arrow-right" style="font-size:20px;padding:0px;color:#fafafa;width:25px;height:25px;"></i-->
-                                        @endif
+                                        <?php endif; ?>
 
-                                        {{ $value->menu_item }}
+                                        <?php echo e($value->menu_item); ?>
+
 
                                     </a>
 
@@ -117,32 +118,35 @@
 
 
 
-                                        <a href="#" id="{{ $value->id }}"
-                                            data-res-id="{{ $value->restaurant_id }}" type="button"
+                                        <a href="#" id="<?php echo e($value->id); ?>"
+                                            data-res-id="<?php echo e($value->restaurant_id); ?>" type="button"
                                             data-toggle="modal"
                                             style="float: right;"
-                                            title="{{ $alts["product-pop-up"] }}"
-                                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
+                                            title="<?php echo e($alts["product-pop-up"]); ?>"
+                                            data-target="<?php echo e((Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu')); ?>"
                                             class="btn btn-sm btn-primary">
 
-                                            @if($main_price>0)
-                                                ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
-                                            @else
-                                                ${{number_format($min_p,2)}}+
-                                            @endif
+                                            <?php if($main_price>0): ?>
+                                                $<?php echo e(number_format(($main_price>0)?$main_price:$min_p,2)); ?>
+
+                                            <?php else: ?>
+                                                $<?php echo e(number_format($min_p,2)); ?>+
+                                            <?php endif; ?>
                                         </a>
 
-                                        @if($dis)
-                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
-                                        @endif
+                                        <?php if($dis): ?>
+                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">$<?php echo e(number_format($value->price,2)); ?></strike>
+                                        <?php endif; ?>
 
                                     </div>
                                 </h4>
 
                                 <div class="clearfix">
-                                    {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
+                                    <?php echo rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id); ?>
+
                                     <p class="card-text m-a-0">
-                                        {{$dis}}
+                                        <?php echo e($dis); ?>
+
                                     </p>
                                 </div>
 
@@ -158,10 +162,12 @@
 
                                 </p>
 
-                                <!--p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
-                                @if($value->uploaded_on)
-                                    Submitted: {{$value->uploaded_on}}
-                                @endif
+                                <!--p class="card-text m-a-0 text-muted"> Category: <?php echo e($value->cat_name); ?>
+
+                                <?php if($value->uploaded_on): ?>
+                                    Submitted: <?php echo e($value->uploaded_on); ?>
+
+                                <?php endif; ?>
 
                                 <?php
                                     if($value->uploaded_by){
@@ -172,8 +178,8 @@
                                         </p-->
 
 
-                                @if(false) <!-- no tags yet -->
-                                    @if(isset($restaurant->tags) && $restaurant->tags != "")
+                                <?php if(false): ?> <!-- no tags yet -->
+                                    <?php if(isset($restaurant->tags) && $restaurant->tags != ""): ?>
                                         <?php
                                             $tags = $restaurant->tags;
                                             $tags = explode(',', $tags);
@@ -183,46 +189,46 @@
                                                 }
                                             }
                                         ?>
-                                    @endif
-                                @endif
+                                    <?php endif; ?>
+                                <?php endif; ?>
 
 
                             </div>
 
 
                             <div class="col-md-12">
-                                @if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id)
+                                <?php if(Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id): ?>
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
-                                        <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
-                                        <label class="c-input c-checkbox p-r-1" id="enable{{ $value->id }}">
-                                            <input {{ iif($value->is_active, "CHECKED") }} id="check{{ $value->id }}" onclick="enableitem({{ $value->id }});" type="checkbox" class="is_active">Enable Item
+                                        <span class="fa fa-spinner fa-spin" id="spinner<?php echo e($value->id); ?>" style="color:blue; display: none;"></span>
+                                        <label class="c-input c-checkbox p-r-1" id="enable<?php echo e($value->id); ?>">
+                                            <input <?php echo e(iif($value->is_active, "CHECKED")); ?> id="check<?php echo e($value->id); ?>" onclick="enableitem(<?php echo e($value->id); ?>);" type="checkbox" class="is_active">Enable Item
                                             <span class="c-indicator"></span>
                                         </label>
                                     </div>
                                     <div class="btn-group pull-right" role="group">
 
-                                        <a id="up_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["up_parent"] }}"
+                                        <a id="up_parent_<?php echo e($value->id.'_'.$catid); ?>" title="<?php echo e($alts["up_parent"]); ?>"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                            <i class="fa fa-arrow-up"></i></a>
 
-                                        <a id="down_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["down_parent"] }}"
+                                        <a id="down_parent_<?php echo e($value->id.'_'.$catid); ?>" title="<?php echo e($alts["down_parent"]); ?>"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
                                            href="javascript:void(0);">
                                             <i class="fa fa-arrow-down"></i></a>
 
-                                        <button id="add_item{{ $value->id }}" type="button"
+                                        <button id="add_item<?php echo e($value->id); ?>" type="button"
                                                 class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
-                                        <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
+                                        <a href="<?php echo e(url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug)); ?>"
                                            class="btn btn-sm btn-primary-outline"
-                                           title="{{ $alts["deleteMenu"] }}"
+                                           title="<?php echo e($alts["deleteMenu"]); ?>"
                                            onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
                                     </div>
 
-                                @endif
+                                <?php endif; ?>
 
 
                             </div>
@@ -232,14 +238,14 @@
                     <div class="clearfix"></div>
                 </div>
 
-                @include('popups.order_menu_item')
-            @endforeach
+                <?php echo $__env->make('popups.order_menu_item', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php endforeach; ?>
 
 
-            @if(!isset($_GET['page']))
+            <?php if(!isset($_GET['page'])): ?>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
 <div class="clearfix"></div>
 <SCRIPT>
@@ -249,10 +255,10 @@
         $("#enable" + id).hide();
         $("#spinner" + id).show();
 
-        $.post("{{ url('restaurant/enable') }}", {
+        $.post("<?php echo e(url('restaurant/enable')); ?>", {
             value: checked,
             id: id,
-            _token: "{{ csrf_token() }}"
+            _token: "<?php echo e(csrf_token()); ?>"
         }, function (result) {
             if(!result){
                 alert("Unable to enable/disable this item");

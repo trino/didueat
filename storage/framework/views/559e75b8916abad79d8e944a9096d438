@@ -1,0 +1,172 @@
+<div class="newmenu ignore" id="newmenu<?php echo e($menu_id); ?>">
+    <?php
+        printfile("views/popups/menu_form.blade.php");
+        $browseBtnTxt="Upload Image";
+        $imgType="";
+        $alts = array(
+            "delete" => "Delete image"
+        );
+    ?>
+
+    <div class=" ignore row">
+        <div class="">
+
+            <div class="col-md-6 "  style="">
+                <div><strong>Category:</strong></div>
+                <div>
+                    <select class="cat_id form-control" >
+                        <option value="">Category</option>
+                        <?php foreach($category as $cat): ?>
+                            <option value="<?php echo e($cat->id); ?>" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>><?php echo e($cat->title); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div> OR 
+                <input class="form-control cat_name" value="" /> 
+                
+            </div>
+
+            <div class=" ignore col-md-12" style="margin-bottom:3px; ">
+                <div class="form-group">
+                    <?php if(isset($model) || true): ?>
+                        <div class="menuimg ignore menuimg<?php echo e($menu_id); ?>_1" style="min-height:0;"><img src="" alt="" id="imgPre">
+                                <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
+                                
+                                $browseBtnTxt="Browse";
+                                
+                                $menuTSv2="";
+                                if(isset($menuTSv)){
+                                  $menuTSv2=$menuTSv;
+                                }
+
+                         echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
+
+                            }
+                            else{
+                               echo '<img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
+                            }
+                            ?>
+                            <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
+                            <input name="imgName" type="hidden" id="imgName" />
+                            <!-- <span id="fullSize" class="smallT"></span> -->
+                        </div>
+                        
+																								<?php
+
+																								if(isset($_COOKIE['pvrbck'])){
+																								   echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
+																								<span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload">
+																								</span>';
+
+																								}
+																								else{
+																								 echo '<a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse'. $menu_id.'_1">'.$browseBtnTxt.'</a>';
+																								}
+
+																								?>
+
+                        <?php if(isset($model) && $model->image): ?>
+                            <a href="<?php echo e(url("restaurant/deletemenuimage/" . $menu_id)); ?>" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="delete">Delete image</a>
+                        <?php endif; ?>
+                        <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
+                    <?php else: ?>
+                        Save the item before uploading an image
+                    <?php endif; ?>
+                    
+                </div>
+            </div>
+
+            <div class="col-md-9 ">
+                <div class="form-group">
+                    <input class="form-control newtitle ignore" type="text" placeholder="Name" value="<?php echo e((isset($model->menu_item))? $model->menu_item : ""); ?>"/></div>
+                </div>
+
+                <div class="col-md-3 ">
+                    <div class="form-group">
+                        <input class="form-control newprice pricechk ignore" min="0" type="number" placeholder="Price" value="<?php echo e((isset($model->price))? $model->price : ""); ?>"/>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea class="form-control newdesc ignore" placeholder="Description"><?php echo e((isset($model->description))? $model->description : ""); ?></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="hidden" id="res_slug" value="<?php echo e($res_slug); ?>"/>
+                    </div>
+                </div>
+        </div>
+
+        <div class="clearfix ignore"></div>
+    </div>
+
+
+    <div class=" row">
+        <?php echo $__env->make('popups.show_discount', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <div class="col-md-12">
+            <div class="additional additional<?php echo e($menu_id); ?> ignore" style="<?php if(isset($cmodel) && count($cmodel)){?> display:block;<?php }else{?> display:none;<?php }?>">
+            <?php
+            $k = 0;
+            if(isset($cmodel)){
+                if (isset($_GET['menu_id'])) {
+                     $menu_id = $_GET['menu_id'];
+                }
+                    // echo $menu_id;
+                foreach($cmodel as $child){
+                    //die('here');
+                    $k++;
+                    if ($k == 1){
+                        echo "<div class='ignore subcat' id='subcat" . $menu_id . "'>";
+                    }
+                    ?>
+                        <?php echo $__env->make('popups.additional', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+                    <?php
+                }
+                if ($k > 0){
+                    echo "</div>";
+                }
+                ?>
+                    <script class="ignore ignore2 ignore1">
+                        $(function () {
+                            // can we delete this?
+                        });
+                    </script>
+            <?php } ?>
+    </div>
+
+    </div>
+    </div>
+    <div class="clearfix ignore"></div>
+
+
+</div>
+
+<script>
+    $(function () {
+        $('#save_cat').live('click', function () {
+            $('.overlay_loader').show();
+            var cat = $('.cat_title').val();
+            if (cat == '') {
+                $('.overlay_loader').hide();
+                alert('Please enter category title');
+                return false;
+            } else {
+                $.ajax({
+                    url: "<?php echo e(url('restaurant/saveCat/')); ?>",
+                    data: 'title=' + cat + "&_token=<?php echo e(csrf_token()); ?>&res_id=<?php echo e((isset($restaurant->id))? $restaurant->id : $res_id); ?>",
+                    type: 'post',
+                    success: function (res) {
+                        $('.overlay_loader').hide();
+                        alert('Category added successfully');
+                        $('.cat_id').append('<option value="' + res + '" selected="selected">' + cat + '</option>');
+                        $('.cat_title').val('');
+                        $('.catblock').fadeOut('slow');
+                    }
+                });
+            }
+        });
+
+    });
+</script>
