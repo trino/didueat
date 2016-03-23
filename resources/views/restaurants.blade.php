@@ -22,6 +22,10 @@ if(isset($_COOKIE['delivery_type'])){
      $is_pickup_checked="checked";
    }
 }
+else{
+     $is_delivery_checked="checked";
+     $is_pickup_checked="checked";
+}
 
 
 

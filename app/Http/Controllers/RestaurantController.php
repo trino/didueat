@@ -185,7 +185,7 @@ class RestaurantController extends Controller {
                 // logo update will not work until after a restaurant is signed up
                 if (isset($post['restLogoTemp']) && $post['restLogoTemp'] != '') {
                     $im = explode('.', urldecode($post['logo']));
-                    $ext = end($im);
+                    $ext = strtolower(end($im));
                     $newName=$ob->slug.".".$ext;
     
                     $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
@@ -215,15 +215,7 @@ class RestaurantController extends Controller {
                     
                     $sizes = ['assets/images/restaurants/' . urldecode($post['id']) . '/icon-' => TINY_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/small-' => MED_THUMB, 'assets/images/restaurants/' . urldecode($post['id']) . '/big-' => BIG_SQ];
 
-/*
 
-                    // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
-                    ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
-                    
-                    ($imgVs[0] > 362)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=BIG_SQ : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
-                    ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/restaurants/' . urldecode($post['id']) . '/big-']=$largImg;
-
-*/
                     copyimages($sizes, $filename, $newName, true);
 
                     @unlink($destinationPath.'/'.$post['logo']); // delete temp upload image
@@ -231,31 +223,6 @@ class RestaurantController extends Controller {
                     $addlogo=true;
                 }
 
-/*
-                    if (isset($post['logo']) && $post['logo'] && $id) {
-                    $im = explode('.', $post['logo']);
-                    $ext = end($im);
-                    $res = \App\Http\Models\Restaurants::findOrNew($post['id']);
-                    $newName = $res->logo;
-                    if ($newName != $post['logo']){
-                        $newName = $res->slug . '.' . $ext;
-                        if(file_exists(public_path('assets/images/restaurants/'.$post['id'].'/'.$newName))){
-                            @unlink(public_path('assets/images/restaurants/'.$post['id'].'/'.$newName));
-                        }
-                    }
-                    if (!file_exists(public_path('assets/images/restaurants/' . $post['id']))) {
-                        mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
-                    }
-                    $destinationPath = public_path('assets/images/restaurants/' . $post['id']);
-                    $filename = $destinationPath . "/" . $newName;
-                    copy(public_path('assets/images/restaurants/' . $post['logo']), $filename);
-                    @unlink(public_path('assets/images/restaurants/' . $post['logo']));
-                    $sizes = ['assets/images/restaurants/' . $post['id'] . '/thumb_' => MED_THUMB, 'assets/images/restaurants/' . $post['id'] . '/thumb1_' => SMALL_THUMB];
-                    copyimages($sizes, $filename, $newName);
-                    $update['logo'] = $newName;
-                    $addlogo=true;
-                }
-*/
 
                 $update['name'] = $post['restname'];
                 if (!$post['id']){
@@ -355,7 +322,7 @@ class RestaurantController extends Controller {
                 
                 if (\Input::hasFile('menu_image')) {//handle uploading of image
                     $image = \Input::file('menu_image');
-                    $ext = $image->getClientOriginalExtension();
+                    $ext = strtolower($image->getClientOriginalExtension());
                     $newName = substr(md5(uniqid(rand())), 0, 8) . '.' . $ext;
                     $destinationPath = public_path('assets/images/products');
                     $image->move($destinationPath, $newName);
@@ -468,7 +435,7 @@ class RestaurantController extends Controller {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
-            $ext = end($arr);
+            $ext = strtolower(end($arr));
             $file = date('YmdHis') . '.' . $ext;
             $MakeCornerTransparent = false;
             
@@ -565,12 +532,12 @@ class RestaurantController extends Controller {
     //handles image uploading for menu items
     public function handleimageupload($id, $existingImg = ""){
     
-       echo $id;
-       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
-    
-       $todaytime = date("Ymdhis");
-       $success=false;
-       $thisresult=false;
+	       echo $id;
+	       $mns = \App\Http\Models\Menus::where('id', $id)->get()[0];
+	    
+	       $todaytime = date("Ymdhis");
+	       $success=false;
+	       $thisresult=false;
     
 
         if ($mns->parent == '0') {//handle image uploading and thumbnail generation
@@ -585,7 +552,7 @@ class RestaurantController extends Controller {
 
                 // regular file upload with enctype="multipart/form-data"
 							            $uploadedImgExpl = explode('.', $_POST['image']);
-							            $ext = end($uploadedImgExpl);
+							            $ext = strtolower(end($uploadedImgExpl));
                 
 				               $destinationPath = public_path('assets/images/products'); //a temp path for file upload
                 }

@@ -51,7 +51,7 @@ class AdministratorController extends Controller {
                 $addlogo='';
                 if (isset($post['userPhotoTemp']) && $post['userPhotoTemp'] != '') {
                     $im = explode('.', $post['photo']);
-                    $ext = end($im);
+                    $ext = strtolower(end($im));
                     $newName="profile.".$ext;
     
                     $destinationPath = public_path('assets/images/users/'.$post['user_idDir']);
@@ -80,15 +80,6 @@ class AdministratorController extends Controller {
                     copy($post['userPhotoTemp'], $destinationPath.'/' .$newName); // use for copying and saving original image
                     
                     $sizes = ['assets/images/users/' . urldecode($post['user_idDir']) . '/icon-' => TINY_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/small-' => MED_THUMB, 'assets/images/users/' . urldecode($post['user_idDir']) . '/big-' => BIG_SQ];
-
-
-/*
-                    // decide if img size is too small to make larger img size, and to determine if the largest size will be portrait or landscape
-                    ($imgVs[0] > $imgVs[1])? $largImg=MAX_IMG_SIZE_L : $largImg=MAX_IMG_SIZE_P;
-                    ($imgVs[0] > 362)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=BIG_SQ : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/med-']=$imgVs[0].'x'.$imgVs[1];
-                    ($imgVs[0] < 800 && $imgVs[1] < 800)? $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$imgVs[0].'x'.$imgVs[1] : $sizes['assets/images/users/' . urldecode($post['user_idDir']) . '/big-']=$largImg;
-
-*/
 
 
                     copyimages($sizes, $filename, $newName, true);
