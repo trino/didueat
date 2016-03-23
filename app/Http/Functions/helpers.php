@@ -1198,7 +1198,7 @@
             }
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
-            $ext = end($arr);
+            $ext = strtolower(end($arr));
             $file = date('YmdHis') . '.' . $ext; //unique filename
             move_uploaded_file($_FILES['myfile']['tmp_name'], APP . '../webroot/' . $Dir . $file);
             $file_path = webroot(true) . $Dir . $file;

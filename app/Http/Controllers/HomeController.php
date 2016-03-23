@@ -423,7 +423,7 @@ class HomeController extends Controller {
         if (isset($_FILES['myfile']['name']) && $_FILES['myfile']['name']) {
             $name = $_FILES['myfile']['name'];
             $arr = explode('.', $name);
-            $ext = end($arr);
+            $ext = strtolower(end($arr));
             $file = date('YmdHis') . '.' . $ext;
             if ($type == 'restaurant') {
                 $path = 'assets/images/restaurants';

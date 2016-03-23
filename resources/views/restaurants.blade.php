@@ -1,72 +1,74 @@
 <?php
-    $first = false;
-    $type = "hidden";
-    //$localIPTst = $_SERVER['REMOTE_ADDR'];
-    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-    $latlngStr = "";
-    $locationStr = "";
-    $useCookie = false;
-    $useHamilton = true;
-    $is_pickup_checked="";
-    $is_delivery_checked="";
-    if(isset($_COOKIE['delivery_type'])){
-       switch ($_COOKIE['delivery_type']){
-       case "is_delivery":
-         $is_delivery_checked="checked";
-       break;
-       case "is_pickup":
-         $is_pickup_checked="checked";
-       break;
-       default:
-         $is_delivery_checked="checked";
-         $is_pickup_checked="checked";
-       }
-    }
+$first = false;
+$type = "hidden";
+//$localIPTst = $_SERVER['REMOTE_ADDR'];
+//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+$latlngStr = "";
+$locationStr = "";
+$useCookie = false;
+$useHamilton = true;
+$is_pickup_checked="";
+$is_delivery_checked="";
+if(isset($_COOKIE['delivery_type'])){
+   switch ($_COOKIE['delivery_type']){
+   case "is_delivery":
+     $is_delivery_checked="checked";
+   break;
+   case "is_pickup":
+     $is_pickup_checked="checked";
+   break;
+   default:
+     $is_delivery_checked="checked";
+     $is_pickup_checked="checked";
+   }
+}
+else{
+     $is_delivery_checked="checked";
+     $is_pickup_checked="checked";
+}
 
-    /*
-    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-        $Province = "";
-        if (function_exists('geoip_record_by_name')) {
-            $info = geoip_record_by_name($localIPTst);
-            $City = $info['city'];
-            $Country = $info['country_name'];
-            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-                $Province = $info['region'];
-            }
-        } else {
-            $ip = $localIPTst;
-            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-            $City = $details->city;
-            if ($details->country == "US"){$Country = "United States";}
-            if ($details->country == "CA"){$Country = "Canada";}
-            if(isset($Country)){
-                $Province = $details->region;
-            } else {
-                $Country = $details->country;
-            }
-            $latlng = explode(",", $details->loc);
-            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+
+
+/*
+if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+    $Province = "";
+    if (function_exists('geoip_record_by_name')) {
+        $info = geoip_record_by_name($localIPTst);
+        $City = $info['city'];
+        $Country = $info['country_name'];
+        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+            $Province = $info['region'];
         }
     } else {
-        // get city [, province/state], and country from cookie or session, once implemented
+        $ip = $localIPTst;
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        $City = $details->city;
+        if ($details->country == "US"){$Country = "United States";}
+        if ($details->country == "CA"){$Country = "Canada";}
+        if(isset($Country)){
+            $Province = $details->region;
+        } else {
+            $Country = $details->country;
+        }
+        $latlng = explode(",", $details->loc);
+        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
     }
-    */
+} else {
+    // get city [, province/state], and country from cookie or session, once implemented
+}
+*/
 
-    if ($useHamilton) {
-        $City = "Hamilton";
-        $Province = "Ontario";
-        $Country = "Canada";
-        $latHam = "43.2566983";
-        $lonHam = "-79.8690719";
-        $loc = "43.2566983,-79.8690719";
-    } else if (is_object($details)) {
-        $loc = $details->loc;
-    }
+if ($useHamilton) {
+    $City = "Hamilton";
+    $Province = "Ontario";
+    $Country = "Canada";
+    $latHam = "43.2566983";
+    $lonHam = "-79.8690719";
+    $loc = "43.2566983,-79.8690719";
+} else if (is_object($details)) {
+    $loc = $details->loc;
+}
 
-    $alts = array(
-        "viewcity" => "Search for all restaurants in this city",
-        "signup" => "Sign up"
-    );
 ?>
 
 
@@ -99,7 +101,7 @@
                         <h5 class="m-t-1 display-5 banner-text-shadow">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white"
                                           class="search-city" onclick="submitform(event, 0);return false;"
-                                          city="{{ $City }}" province="{{ $Province }}" title="{{ $alts["viewcity"] }}"
+                                          city="{{ $City }}" province="{{ $Province }}"
                                           country="{{ $Country }}">{{ $City . ", " . $Province }}</a>
                         </h5>
 
@@ -301,7 +303,7 @@
                         <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
 
 
-                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign Up</a>
+                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}">Restaurant Sign Up</a>
 
                     </div>
                 </div>
