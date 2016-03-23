@@ -9,7 +9,8 @@
             "menu" => "View this restaurant's menu",
             "edit" => "Edit this restaurant",
             "incomplete" => "This restaurant is incomplete and can not be opened",
-            "logo" => "This restaurant's logo"
+            "logo" => "This restaurant's logo",
+            "delete" => "Delete this restaurant"
     );
 ?>
 
@@ -97,22 +98,28 @@
                                     ?>
                                 @elseif($value->open == true)
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["enabled"] }}">Enabled</A>
-                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm" title="{{ $alts["disable"] }}"
-                                       onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
+                                    @if(read("type_user") == "admin")
+                                        <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn btn-warning btn-sm" title="{{ $alts["disable"] }}"
+                                            onclick="return confirm('Are you sure you want to disable {{ addslashes("'" . $value->name . "'") }} ?');">Disable</a>
+                                    @endif
                                 @else
-                                    <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm" title="{{ $alts["enable"] }}"
-                                       onclick="return confirm('Are you sure you want to enable {{ addslashes("'" . $value->name . "'") }} ?');">Enable</a>
+                                    @if(read("type_user") == "admin")
+                                        <a href="{{ url('restaurant/list/status/'.$value->id) }}" class="btn  btn-success btn-sm" title="{{ $alts["enable"] }}"
+                                            onclick="return confirm('Are you sure you want to enable {{ addslashes("'" . $value->name . "'") }} ?');">Enable</a>
+                                    @endif
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["disabled"] }}">Disabled</A>
                                 @endif
                             </td>
 
 
                             <td>
-                                <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
                                 <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm" title="{{ $alts["menu"] }}">Menu</a>
-                                <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["edit"] }}">Edit</a>
-                                <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
-                                <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
+                                @if(read("type_user") == "admin")
+                                    <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
+                                    <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["edit"] }}">Edit</a>
+                                    <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+                                    <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

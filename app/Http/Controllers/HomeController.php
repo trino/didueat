@@ -532,8 +532,12 @@ class HomeController extends Controller {
                     if(!count($genres) || count($genres) > 3){$this->status(false, "1-3 genres are required");}
                     $_POST["cuisines"]=implode(",", $genres);
                     $Data = app('App\Http\Controllers\RestaurantController')->restaurantInfo(0, true, true);
-                    var_dump($Data );die();
                     $this->status(true, $Data, "id");
+                    break;
+
+                case "promoteuser":
+                    update_database("profiles", "id", $_POST["id"], array("profile_type" => iif($_POST["checked"] == "true", 3, 2) ));
+                    echo "Profile type of profile ID # " . $_POST["id"] . " was changed to " . iif($_POST["checked"] == "true", "3 (userplus)", "2 (user)");
                     break;
 
                 default:
@@ -631,21 +635,20 @@ class HomeController extends Controller {
     }
 
     public function home($Type){
-      if($Type=='about')
-      {
-        $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
-        $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
-        $data['title'] = ucfirst($Type);
-      }
-      if($Type=='terms')  
-      {
-        $data['meta_description'] = "These terms of use apply to all users of the Website including users who upload any materials to the Website, users who use services provided through this Website, and users who simply view the content on or available through this website. Please read these terms carefully before ordering any products through the Website. ";
-        $data['keyword'] = 'Terms and Conditions,Didueat Terms,Didueat Conditions,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
-        $data['title'] = ucfirst($Type);
-      }
-      if($Type != "faq"){
-        return view("home." . $Type,$data);      
-      }
+        $data= array();
+        if($Type=='about') {
+            $data['meta_description'] = "Having great local food delivered helps us all keep up with our busy lives. By connecting you to local restaurants, Didueat makes great food more accessible, opening up more possibilities for food lovers and more business for local small business owners. ";
+            $data['keyword'] = 'Didueat,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+            $data['title'] = ucfirst($Type);
+        }
+        if($Type=='terms') {
+            $data['meta_description'] = "These terms of use apply to all users of the Website including users who upload any materials to the Website, users who use services provided through this Website, and users who simply view the content on or available through this website. Please read these terms carefully before ordering any products through the Website. ";
+            $data['keyword'] = 'Terms and Conditions,Didueat Terms,Didueat Conditions,didueat.ca,Online food,Online food order,Canada online food,Canada Restaurants,Ontario Restaurants,Hamilton Restaurants';
+            $data['title'] = ucfirst($Type);
+        }
+        if($Type != "faq"){
+            return view("home." . $Type, $data);
+        }
     }
 
     public function home2(){//deals with payment
@@ -672,7 +675,7 @@ class HomeController extends Controller {
             \Session::flash('paymentMade', true); // store for just next pg
             return $this->success("Payment made successfully", 'home/faq');
         } else {
-          return view('home.faq', $data);
+            return view('home.faq', $data);
         }
 
   }

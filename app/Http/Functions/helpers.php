@@ -457,14 +457,15 @@
             $Profile->profile_type = 2;
         }
 
-        if ($Profile->profile_type == 1) {
-            $session_type_user = "super";
-        } else if ($Profile->profile_type == 2) {
-            if ($Profile->restaurant_id) {
-                $session_type_user = 'restaurant';
-            } else {
-                $session_type_user = 'user';
-            }
+        $session_type_user = 'user';
+        switch($Profile->profile_type){
+            case 1: $session_type_user = "super"; break;
+            case 2:
+                if ($Profile->restaurant_id) {
+                    $session_type_user = 'restaurant';
+                }
+                break;
+            case 3: $session_type_user = "userplus"; break;
         }
 
         \Session::put('session_type_user', $session_type_user);

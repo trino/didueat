@@ -3,7 +3,8 @@
     $restaurants = enum_all("restaurants");
     $alts = array(
             "possess" => "Log in as this user",
-            "delete" => "Delete this user"
+            "delete" => "Delete this user",
+            "plus" => "If checked, this user can upload menus"
     );
 ?>
 
@@ -35,6 +36,7 @@
                             ID
                             <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                         </th>
+                        <TH>Type</TH>
                         <th >
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Name
@@ -68,19 +70,28 @@
                         }
                         $restaurant="";
                         $restaurant_slug="";
+                        $usertype = "User";
                         if($value->restaurant_id>0){
                             $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
-                            if(isset($restaurant->name)){
-                                $restaurant = $restaurant->name;
-                            }
-                            if(isset($restaurant->slug)){
-                                $restaurant_slug = $restaurant->slug;
-                            }
+                            $usertype = "Restaurant";
+                            if(isset($restaurant->name)){$restaurant = $restaurant->name;}
+                            if(isset($restaurant->slug)){$restaurant_slug = $restaurant->slug;}
                         }
+                        if($value->profile_type == 1){$usertype = "Admin";}
                     ?>
 
                     <tr id="user{{ $value->id }}">
-                        <td>{{ $value->id }}</td>
+                        <td>{{ $value->id }}</TD>
+                        <TD nowrap>
+                            @if($usertype == "User")
+                                <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
+                                <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
+                                    <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
+                                    <span class="c-indicator"></span>
+                                </LABEL>
+                            @endif
+                            {{ $usertype }}
+                        </td>
                         <td>{{ $value->name }}</td>
                         <!--td>{{ $value->email }}</td-->
                         <td>{{ $restaurant }}
@@ -92,7 +103,7 @@
 
                         </td>
                         <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
-                        <td>{{ phonenumber($value->phone, true) }}</td>
+                        <td nowrap>{{ phonenumber($value->phone, true) }}</td>
                         <td>{{ $value->email }}</td>
                         <td>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
@@ -137,5 +148,26 @@
                 }
             });
         }
+    }
+
+    function promoteuser(event){
+        var me = $(event.target);
+        var id = me.attr("userid");
+        var checked = me.is(":checked");
+        $("#userplus" + id).hide();
+        $("#spinner" + id).show();
+
+        $.post("{{ url('ajax') }}", {
+            type: "promoteuser",
+            id: id,
+            checked: checked,
+            _token: "{{ csrf_token() }}"
+        }, function (result) {
+            if(result){
+                alert(result);
+            }
+            $("#userplus" + id).show();
+            $("#spinner" + id).hide();
+        });
     }
 </SCRIPT>
