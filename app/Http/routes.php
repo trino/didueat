@@ -166,6 +166,10 @@ Route::post('restaurant/check_enable/{id}/{cat}/{limit}/{status}',  'RestaurantC
 Route::get('restaurant/check_enable/{id}/{cat}/{limit}/{status}',   'RestaurantController@check_enable');
 Route::get('restaurant/orderCat/{id}/{sort}',                       'RestaurantController@orderCat');
 Route::post('restaurant/orderCat/{id}/{sort}',                      'RestaurantController@orderCat');
+
+Route::get('restaurant/orderCat2/{id}/{sort}',                       'RestaurantController@orderCat2');
+Route::post('restaurant/orderCat2/{id}/{sort}',                      'RestaurantController@orderCat2');
+
 Route::get('restaurant/deleteMenu/{id}',                            'RestaurantController@deleteMenu');
 Route::get('restaurant/deleteMenu/{id}/{slug}',                     'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                                 'RestaurantController@red');

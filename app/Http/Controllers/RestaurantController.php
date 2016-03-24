@@ -636,7 +636,7 @@ class RestaurantController extends Controller {
 
 
     //unknown
-    public function orderCat($cid, $sort) {
+    public function orderCat2($cid, $sort) {
         $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
         //echo $res->id;die();
         $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
@@ -644,6 +644,7 @@ class RestaurantController extends Controller {
         foreach($cats as $k=>$c)
         {
             //echo $k;
+            //echo $c->id;
             if($cid==$c->id)
             {
                 $key = $k;
@@ -653,14 +654,16 @@ class RestaurantController extends Controller {
         //die();
         if($sort=='up' && $key!=0)
         {
-            $nkey = $key--;
+            
+            $nkey = $key-1;
+            $nkey;
             $temp = $arr[$nkey];
             $arr[$nkey] = $cid;
             $arr[$key] = $temp; 
         }
         elseif($sort=='down' && $key!=count($arr))
         {
-            $nkey = $key++;
+            $nkey = $key+1;
             $temp = $arr[$nkey];
             $arr[$nkey] = $cid;
             $arr[$key] = $temp;
@@ -691,6 +694,29 @@ class RestaurantController extends Controller {
             \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
         }
         die();*/
+    }
+    
+    public function orderCat($cid, $sort) {
+        $_POST['ids'] = explode(',', $_POST['ids']);
+        $key = array_search($cid, $_POST['ids']);
+        if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
+            //do nothing
+        } else {
+            if ($sort == 'down') {
+                $new = $key + 1;
+            }else {
+                $new = $key - 1;
+            }
+            $temp = $_POST['ids'][$new];
+            $_POST['ids'][$new] = $cid;
+            $_POST['ids'][$key] = $temp;
+        }
+        $child = \App\Http\Models\Menus::where('id', $cid)->get()[0];
+        echo $child->parent;
+        foreach ($_POST['ids'] as $k => $id) {
+            \App\Http\Models\Menus::where('id', $id)->update(array('display_order' => ($k + 1)));
+        }
+        die();
     }
 
 

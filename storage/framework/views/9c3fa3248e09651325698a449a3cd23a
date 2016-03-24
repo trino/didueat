@@ -1,74 +1,75 @@
 <?php
-$first = false;
-$type = "hidden";
-//$localIPTst = $_SERVER['REMOTE_ADDR'];
-//$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
-$latlngStr = "";
-$locationStr = "";
-$useCookie = false;
-$useHamilton = true;
-$is_pickup_checked="";
-$is_delivery_checked="";
-if(isset($_COOKIE['delivery_type'])){
-   switch ($_COOKIE['delivery_type']){
-   case "is_delivery":
-     $is_delivery_checked="checked";
-   break;
-   case "is_pickup":
-     $is_pickup_checked="checked";
-   break;
-   default:
-     $is_delivery_checked="checked";
-     $is_pickup_checked="checked";
-   }
-}
-else{
-     $is_delivery_checked="checked";
-     $is_pickup_checked="checked";
-}
-
-
-
-/*
-if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
-    $Province = "";
-    if (function_exists('geoip_record_by_name')) {
-        $info = geoip_record_by_name($localIPTst);
-        $City = $info['city'];
-        $Country = $info['country_name'];
-        if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
-            $Province = $info['region'];
+    $first = false;
+    $type = "hidden";
+    //$localIPTst = $_SERVER['REMOTE_ADDR'];
+    //$localIPTst = "24.36.50.14"; // needed for wamp -- remove from remote server
+    $latlngStr = "";
+    $locationStr = "";
+    $useCookie = false;
+    $useHamilton = true;
+    $is_pickup_checked="";
+    $is_delivery_checked="";
+    if(isset($_COOKIE['delivery_type'])){
+       switch ($_COOKIE['delivery_type']){
+           case "is_delivery":
+                $is_delivery_checked="checked";
+                break;
+           case "is_pickup":
+                $is_pickup_checked="checked";
+                break;
+           default:
+                $is_delivery_checked="checked";
+                $is_pickup_checked="checked";
         }
     } else {
-        $ip = $localIPTst;
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        $City = $details->city;
-        if ($details->country == "US"){$Country = "United States";}
-        if ($details->country == "CA"){$Country = "Canada";}
-        if(isset($Country)){
-            $Province = $details->region;
-        } else {
-            $Country = $details->country;
-        }
-        $latlng = explode(",", $details->loc);
-        $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+         $is_delivery_checked="checked";
+         $is_pickup_checked="checked";
     }
-} else {
-    // get city [, province/state], and country from cookie or session, once implemented
-}
-*/
 
-if ($useHamilton) {
-    $City = "Hamilton";
-    $Province = "Ontario";
-    $Country = "Canada";
-    $latHam = "43.2566983";
-    $lonHam = "-79.8690719";
-    $loc = "43.2566983,-79.8690719";
-} else if (is_object($details)) {
-    $loc = $details->loc;
-}
+    /*
+    if ((!isset($_COOKIE['userC']) && !read('is_logged_in')) || !$useCookie) {
+        $Province = "";
+        if (function_exists('geoip_record_by_name')) {
+            $info = geoip_record_by_name($localIPTst);
+            $City = $info['city'];
+            $Country = $info['country_name'];
+            if ($info['country_name'] == "United States" || $info['country_name'] == "Canada") {
+                $Province = $info['region'];
+            }
+        } else {
+            $ip = $localIPTst;
+            $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+            $City = $details->city;
+            if ($details->country == "US"){$Country = "United States";}
+            if ($details->country == "CA"){$Country = "Canada";}
+            if(isset($Country)){
+                $Province = $details->region;
+            } else {
+                $Country = $details->country;
+            }
+            $latlng = explode(",", $details->loc);
+            $latlngStr = "&latitude=" . $latlng[0] . "&longitude=" . $latlng[1];
+        }
+    } else {
+        // get city [, province/state], and country from cookie or session, once implemented
+    }
+    */
 
+    if ($useHamilton) {
+        $City = "Hamilton";
+        $Province = "Ontario";
+        $Country = "Canada";
+        $latHam = "43.2566983";
+        $lonHam = "-79.8690719";
+        $loc = "43.2566983,-79.8690719";
+    } else if (is_object($details)) {
+        $loc = $details->loc;
+    }
+
+    $alts = array(
+            "city" => "View restaurants for this city",
+            "signup" => "Sign up as a restaurant owner"
+    );
 ?>
 
 
@@ -80,12 +81,8 @@ if ($useHamilton) {
             <div class="row text-md-center " style="padding:0 1.25rem !important;">
                 <div class="container hidden-md-down"></div>
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span
-                                style="font-size: 136%"> Hamilton Restaurants</span></h1>
-
+                    <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span style="font-size: 136%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
-
-
                 </div>
 
                 <div class="col-md-offset-3  col-md-6 text-md-center">
@@ -101,7 +98,7 @@ if ($useHamilton) {
                         <h5 class="m-t-1 display-5 banner-text-shadow">
                             or show me <a style="cursor:pointer;text-decoration: underline; color:white"
                                           class="search-city" onclick="submitform(event, 0);return false;"
-                                          city="<?php echo e($City); ?>" province="<?php echo e($Province); ?>"
+                                          city="<?php echo e($City); ?>" province="<?php echo e($Province); ?>" title="<?php echo e($alts["city"]); ?>"
                                           country="<?php echo e($Country); ?>"><?php echo e($City . ", " . $Province); ?></a>
                         </h5>
 
@@ -307,7 +304,7 @@ if ($useHamilton) {
                         <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
 
 
-                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="<?php echo e(url("restaurants/signup")); ?>">Restaurant Sign Up</a>
+                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="<?php echo e(url("restaurants/signup")); ?>" title="<?php echo e($alts["signup"]); ?>">Restaurant Sign Up</a>
 
                     </div>
                 </div>

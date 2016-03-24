@@ -29,10 +29,10 @@
                 </div>
                 <div class="col-md-4">
                     <div class="btn-group pull-right" aria-label="Basic example" role="group">
-                        <a title="{{ $alts["up_parent"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat/".$catid."/up");?>">
+                        <a title="{{ $alts["up_parent"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/".$catid."/up");?>">
                             <i class="fa fa-arrow-up"></i>
                         </a>
-                        <a title="{{ $alts["down_parent"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat/".$catid."/down");?>">
+                        <a title="{{ $alts["down_parent"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/".$catid."/down");?>">
                             <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>

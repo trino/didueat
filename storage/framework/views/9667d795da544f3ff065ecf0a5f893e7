@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title" id="simpleModalLabel">Checkout</h4>
@@ -23,7 +23,8 @@
                 unset($type);
             }
             $alts = array(
-                "login" => "Log in as an existing user"
+                "login" => "Log in as an existing user",
+                "checkout" => "Send the order to the store"
             );
         ?>
 
@@ -142,7 +143,7 @@
 
     <div class="col-xs-12 p-t-1">
             <!--a href="javascript:history.go(0)" class="btn  btn-secondary clearitems">Cancel</a-->
-            <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();" id="chkOut">Place Order</button>
+            <button type="submit" class="btn btn-primary btn-block " onclick="return addresscheck();" id="chkOut" title="<?php echo e($alts["checkout"]); ?>">Place Order</button>
             <input type="hidden" name="hidden_rest_id" id="hidden_rest_id" value="<?php echo e((isset($restaurant->id))?$restaurant->id:0); ?>"/>
     </div>
 

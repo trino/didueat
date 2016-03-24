@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="ratingModalLabel">Your Feedback</h4>
@@ -13,7 +13,13 @@
 
             <div class="modal-body">
 
-                <?php printfile("views/popups/rating.blade.php"); ?>
+                <?php
+                    printfile("views/popups/rating.blade.php");
+                    $alts = array(
+                            "login" => "Log in as an existing user",
+                            "loading" => "Loading..."
+                    );
+                ?>
 
                 <div class="row">
 
@@ -42,7 +48,7 @@
                         </div>
 
                         <?php if(!read("id")): ?>
-                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="setupratinglogin();">Log in to review</a>
+                            <a href="#" class="btn btn-primary hide-on-login" data-toggle="modal" data-target="#loginModal" onclick="setupratinglogin();" title="<?php echo e($alts["login"]); ?>">Log in to review</a>
                         <?php endif; ?>
                     </div>
 
@@ -64,7 +70,7 @@
                     <div class="form-group" id="reviews"></div>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group" id="modal_contents"><img src="<?php echo e(asset('assets/images/loader.gif')); ?>"/>
+                    <div class="form-group" id="modal_contents"><img src="<?php echo e(asset('assets/images/loader.gif')); ?>" alt="<?php echo e($alts["loading"]); ?>"/>
                     </div>
                 </div>
             </div>

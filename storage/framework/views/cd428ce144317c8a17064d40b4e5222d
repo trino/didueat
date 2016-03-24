@@ -41,7 +41,6 @@
     $MoreTime = "";
     $grayout="";
     $Message = "Order Online";
-
     if(!$Restaurant['open']){
         $Message = "View Menu";
     }
@@ -68,14 +67,18 @@
         }
     }
     $alts = array(
-        "restaurants/menu" => "View Restaurant"
+            "restaurants/menu" => "View Restaurant",
+            "View Menu" => "View this restaurant's menu",
+            "Order Online" => "Order from this restaurant's menu",
+            "moredetails" => "View more information about this restaurant",
+            "logo" => "This restaurant's logo"
     );
 ?>
 <div class="list-group-item">
     <div class="col-md-3 col-xs-3 p-a-0" style="z-index: 1;">
         <div class="p-r-1" >
             <a href="<?php echo e(url('restaurants/' . $Restaurant['slug'] . '/menu')); ?>?delivery_type=<?php echo e($delivery_type); ?>" class="restaurant-url" title="<?php echo e($alts["restaurants/menu"]); ?>">
-                <img style="max-width:100%;" class="img-rounded" alt="" src="<?php echo e($logo); ?>">
+                <img style="max-width:100%;" class="img-rounded" alt="<?php echo e($alts["logo"]); ?>" src="<?php echo e($logo); ?>">
                 <div class="clearfix"></div>
             </a>
         </div>
@@ -89,7 +92,7 @@
 
                 <?php if(isset($order)): ?>
                     <div class="pull-right">
-                        <a href="<?php echo e(url('restaurants/'.$Restaurant['slug'].'/menu')); ?>?delivery_type=<?php echo e($delivery_type); ?>" class="restaurant-url btn <?php if($Message=='View Menu'): ?>btn-secondary <?php else: ?> btn-primary <?php endif; ?> hidden-sm-down"><?php echo e($Message); ?></a>
+                        <a href="<?php echo e(url('restaurants/'.$Restaurant['slug'].'/menu')); ?>?delivery_type=<?php echo e($delivery_type); ?>" class="restaurant-url btn <?php if($Message=='View Menu'): ?> btn-secondary <?php else: ?> btn-primary <?php endif; ?> hidden-sm-down" title="<?php echo e($alts[$Message]); ?>"><?php echo e($Message); ?></a>
                     </div>
                 <?php endif; ?>
             </h4>
@@ -127,7 +130,7 @@
         <?php endif; ?>
 
         <?php if(isset($details) && $details): ?>
-        <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel">More Details</a>
+            <a class="list-inline-item" class="clearfix" href="#" data-toggle="modal" data-target="#viewMapModel" title="<?php echo e($alts["moredetails"]); ?>">More Details</a>
         <?php endif; ?>
     </div>
     <div class="clearfix"></div>

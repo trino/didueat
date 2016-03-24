@@ -4,11 +4,20 @@
     </div-->
 <?php endif; ?>
 
-<div class="modal" id="product-pop-up_<?php echo e((isset($value->id))?$value->id:''); ?>" tabindex="-1" role="dialog"
-     aria-labelledby="viewDetailModelLabel" aria-hidden="true">
+<div class="modal" id="product-pop-up_<?php echo e((isset($value->id))?$value->id:''); ?>" tabindex="-1" role="dialog" aria-labelledby="viewDetailModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
+            <?php
+                printfile("resources/views/popups/order_menu_item.blade.php");
+                $alts = array(
+                        "addspan" => "Add this addon",
+                        "remspan" => "Remove this addon",
+                        "add" => "Add these items to your cart",
+                        "minus" => "Remove 1 item",
+                        "plus" => "Add 1 item",
+                        "bigimage" => "This item's picture"
+                );
+            ?>
             <style>
                 .image {
                     position: relative;
@@ -23,22 +32,11 @@
             </style>
 
             <?php if($has_bigImage): ?>
-                <img src="<?php echo e($item_bigImage); ?>" style="max-width:100%;" class=""/>
+                <img src="<?php echo e($item_bigImage); ?>" style="max-width:100%;" alt="<?php echo e($alts["bigimage"]); ?>"/>
             <?php endif; ?>
 
             <div style=" width:100%; border:0; <?php if($has_bigImage): ?>background-color: rgba(0,0,0,0.65); <?php endif; ?>" class=" bg-inverse card-header <?php if($has_bigImage): ?> fronttext <?php else: ?> bg-success <?php endif; ?>">
-
-                <?php
-                    printfile("resources/views/popups/order_menu_item.blade.php");
-                    $alts = array(
-                            "addspan" => "Add this addon",
-                            "remspan" => "Remove this addon",
-                            "add" => "Add these items to your cart",
-                            "minus" => "Remove 1 item",
-                            "plus" => "Add 1 item"
-                    );
-                ?>
-                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal"
+                <button type="button" class="close close<?php echo $value->id; ?>" data-dismiss="modal" title="Close"
                         aria-label="Close" id="clear_<?php echo $value->id; ?>">
                     <span aria-hidden="true " style="color:white;">&times;</span>
                 </button>
@@ -238,8 +236,7 @@
             <div class="card-footer">
                 <div class="">
                     <div class=" pull-left">
-                        <button type="button" class="btn btn-link btn-sm hidden-md-up"
-                                data-dismiss="modal">
+                        <button type="button" class="btn btn-link btn-sm hidden-md-up" title="Close" data-dismiss="modal">
                             Close
                         </button>
                         <!--button id="clear_<?php echo e($value->id); ?>" class="btn btn-warning resetslider" type="button">

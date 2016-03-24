@@ -139,7 +139,7 @@
 <body>
     <div class="overlay_loader">
         <div class="overlay">
-            <img src="<?php echo e(asset('assets/images/ajax-loading.gif')); ?>"/>
+            <img src="<?php echo e(asset('assets/images/ajax-loading.gif')); ?>" alt="Loading..."/>
         </div>
     </div>
 
