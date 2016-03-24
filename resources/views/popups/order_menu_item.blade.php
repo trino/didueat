@@ -45,31 +45,28 @@
 
                     {{ $value->menu_item }} &ndash;
                     @if($value->price>0)
-                    @if($dis)
+                        @if($dis)
                             <!--span class=''>{{$dis}}</span-->
-
-                    <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
-                    <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
-                                    <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
-                               ${{number_format($dis_price=$main_price,2)}}
+                            <strike class="text-muted strikedprice{{$value->id}}">${{$dis_price=number_format($value->price,2)}}</strike>
+                            <input type="hidden" class="mainPrice{{$value->id}}" value="{{$dis_price}}"/>
+                            <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
+                                ${{number_format($dis_price=$main_price,2)}}
                             </span>
-                    @else
-                        <span class="pricetitle modalprice<?php echo $value->id; ?>">
-                                ${{$dis_price=number_format($value->price,2)}}
+                        @else
+                            <span class="pricetitle modalprice<?php echo $value->id; ?>">
+                                    ${{$dis_price=number_format($value->price,2)}}
                             </span>
-                    @endif
+                        @endif
                     @else
                         <span style="" class="pricetitle modalprice<?php echo $value->id; ?>">
                             ${{$dis_price=number_format($min_p,2)}}+
-                            </span>
+                        </span>
                     @endif
 
-                    <span class="fa fa-spinner fa-spin cart-addon-gif"
-                          style="color:#0275d8; display: none;"></span>
+                    <span class="fa fa-spinner fa-spin cart-addon-gif" style="color:#0275d8; display: none;"></span>
                     <input type="hidden" class="displayprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                     <input type="hidden" class="Mprice<?php echo $value->id; ?>" value="{{$dis_price}}"/>
                 </h4>
-
 
                 <div class="clearfix"></div>
             </div>
@@ -77,9 +74,6 @@
 
             <div class="modal-body">
                 <div class="row">
-
-
-
                     <div class="col-md-12">{{ $value->description }}</div>
 
 
@@ -100,14 +94,10 @@
                                     <tr class="zxcx">
                                         <td width="100%" id="td_{{ $sub->id }}" class="valign-top">
 
-                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}"
-                                                   id="extra_no_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->req_opt }}"
-                                                   id="required_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->sing_mul }}"
-                                                   id="multiple_{{ $sub->id }}">
-                                            <input type="hidden" value="{{ $sub->exact_upto }}"
-                                                   id="upto_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto_qty }}" id="extra_no_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->req_opt }}" id="required_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->sing_mul }}" id="multiple_{{ $sub->id }}">
+                                            <input type="hidden" value="{{ $sub->exact_upto }}" id="upto_{{ $sub->id }}">
 
                                             <div class="infolist">
                                                 <div style="display: none;">
@@ -121,66 +111,57 @@
                                                     {{ ucfirst($sub->menu_item) }}     </strong><br>
                                                            <span class="limit-options">
                                                                <?php
-                                                               if ($sub->exact_upto == 0) {
-                                                                   $upto = "up to ";
-                                                               } elseif ($sub->exact_upto == '1') {
-                                                                   $upto = "exactly ";
-                                                               }
-                                                               if ($sub->req_opt == '0') {
-                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                       echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                   if ($sub->exact_upto == 0) {
+                                                                       $upto = "up to ";
+                                                                   } elseif ($sub->exact_upto == '1') {
+                                                                       $upto = "exactly ";
                                                                    }
-                                                                   echo "Optional";
-                                                               } elseif ($sub->req_opt == '1') {
-                                                                   if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
-                                                                       echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                   if ($sub->req_opt == '0') {
+                                                                       if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                       }
+                                                                       echo "Optional";
+                                                                   } elseif ($sub->req_opt == '1') {
+                                                                       if ($sub->exact_upto_qty > 0 && $sub->sing_mul == '0' && $sub->exact_upto != 2) {
+                                                                           echo "Select " . $upto . $sub->exact_upto_qty . " Items ";
+                                                                       }
+                                                                       echo "Required";
                                                                    }
-                                                                   echo "Required";
-                                                               }
                                                                ?>
-                                                                                                                 </span>
+                                                           </span>
 
                                                 <div class="clearfix"></div>
                                                 <span class="error_{{ $sub->id }} errormsg"></span>
 
                                                 <div class="list clearfix row">
-                                                    <?php $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get(); ?>
-                                                    <? $a = 0; ?>
+                                                    <?php
+                                                        $mini_menus = \App\Http\Models\Menus::where('parent', $sub->id)->orderBy('display_order', 'ASC')->get();
+                                                        $a = 0;
+                                                    ?>
                                                     @foreach($mini_menus as $mm)
+                                                        <?php
+                                                            $a++;
+                                                            if ($mm->price != 0){
+                                                                $extra_price = '(+$' . $mm->price . ')_';
+                                                            }else{
+                                                                $extra_price = '_';
+                                                            }
+                                                        ?>
 
-                                                        <? $a++; ?>
-
-                                                        <div class="col-xs-12 col-sm-6 form-group"
-                                                                >
-
-                                                            <div id="buttons_{{ $mm->id }}"
-                                                                 class="buttons <?php if ($sub->sing_mul != '1') { ?> <?php }?>"
-                                                                 href="javascript:void(0);">
-                                                                <?php
-                                                                if ($mm->price != 0)
-                                                                    $extra_price = '(+$' . $mm->price . ')_';
-                                                                else
-                                                                    $extra_price = '_';
-                                                                ?>
-
+                                                        <div class="col-xs-12 col-sm-6 form-group">
+                                                            <div id="buttons_{{ $mm->id }}" class="buttons" href="javascript:void(0);">
                                                                 <div <?php if ($sub->sing_mul == '1') {
                                                                     echo "style='display:none'";
-                                                                } ?> class="pull-left p-a-0 col-md-5 col-xs-5"
-                                                                     style="">
-
+                                                                } ?> class="pull-left p-a-0 col-md-5 col-xs-5">
                                                                     <a id="remspan_{{ $mm->id }}" title="{{ $alts["remspan"] }}"
                                                                        class="remspan btn btn-secondary-outline btn-sm "
-                                                                       href="javascript:;"><i class="fa fa-minus"
-                                                                                ></i></a>
+                                                                       href="javascript:;"><i class="fa fa-minus"></i></a>
 
-                                                                        <span id="sprice_{{$mm->price}}"
-                                                                              class="span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</span>
+                                                                        <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</span>
 
                                                                     <a id="addspan_{{ $mm->id }}" title="{{ $alts["addspan"] }}"
                                                                        class="addspan btn btn-sm btn-primary-outline "
-                                                                       href="javascript:;"><i class="fa fa-plus"
-                                                                                ></i></a>
-
+                                                                       href="javascript:;"><i class="fa fa-plus"></i></a>
                                                                 </div>
 
                                                                 <div class=" @if ($sub->sing_mul == '1')  col-md-12 @else  col-xs-7 @endif p-l-0">
@@ -205,16 +186,13 @@
                                                             </div>
 
                                                         </div>
-                                                        <?
-                                                        if ($a & 1) {
-                                                            echo '';
-                                                        } else {
-                                                            echo '<div class="clearfix" ></div>';
-                                                        }
+                                                        <?php
+                                                            if (!($a & 1)) {
+                                                                echo '<div class="clearfix" ></div>';
+                                                            }
                                                         ?>
                                                     @endforeach
-                                                    <input type="hidden" value=""
-                                                           class="chars_{{ $sub->id }}">
+                                                    <input type="hidden" value="" class="chars_{{ $sub->id }}">
                                                 </div>
                                             </div>
                                         </td>
@@ -247,7 +225,10 @@
                            href="javascript:void(0);">Add</a>
                     </div>
                     <div class="pull-right">Qty
-                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());">
+                        <?php
+                            $usedropdown = true;
+                        ?>
+                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());" class="btn btn-secondary" @if(!$usedropdown) style="display:none;" @endif >
                             <?php
                                 for($i = 1; $i <= 25; $i++){
                                     echo '<OPTION';
@@ -256,13 +237,15 @@
                                 }
                             ?>
                         </SELECT>
-                        <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["minus"] }}" onclick="changeqty('{{ $value->id }}', 'minus')">
-                            <i class="fa fa-minus"></i>
-                        </a>
-                        <span class="number{{ $value->id }}">1</span>
-                        <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}" onclick="changeqty('{{ $value->id }}', 'plus')">
-                            <i class="fa fa-plus"></i>
-                        </a>
+                        @if($usedropdown) <SPAN STYLE="display: none;"> @endif
+                            <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["minus"] }}" onclick="changeqty('{{ $value->id }}', 'minus')">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                            <span class="number{{ $value->id }}">1</span>
+                            <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}" onclick="changeqty('{{ $value->id }}', 'plus')">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        @if($usedropdown) </SPAN> @endif
                     </div>
                 </div>
                 <div class="clearfix"></div>

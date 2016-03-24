@@ -349,3 +349,12 @@ function unescapetext (str) {
     }
     return str;
 }
+
+//lets you change the url without reloading
+function ChangeUrl(page, url) {
+    if (typeof (history.pushState) != "undefined") {
+        var obj = {Page: page, Url: url};
+        history.pushState(obj, obj.Page, obj.Url);
+        return true;
+    }
+}

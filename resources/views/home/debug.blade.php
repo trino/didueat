@@ -9,6 +9,7 @@
                     $filename = public_path("royslog.txt");
                     if (file_exists($filename) && isset($_GET["delete"])){
                         unlink($filename);
+                        $doit=true;
                     }
                     if (file_exists($filename)){
                         echo '<h4 class="card-title">Debug log<a class="btn btn-danger btn-sm" href="' . url("home/debug") . '?delete" style="float: right;" onclick="return confirm(' . "'Are you sure you want to delete the log file?'" . ');">Delete log file</a></h4>';
@@ -25,4 +26,14 @@
             </div>
         </div>
     </div>
+    @if(isset($_GET["delete"]))
+        <script src="{{ url("assets/global/scripts/provinces.js") }}" type="text/javascript"></script>
+        <SCRIPT>
+            $( document ).ready(function() {
+                var URL = window.location + "";
+                URL = URL.replace("?delete", "");
+                ChangeUrl("Debug Log", URL);
+            });
+        </SCRIPT>
+    @endif
 @stop
