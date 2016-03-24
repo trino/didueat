@@ -249,7 +249,7 @@
                     <div class="pull-right">Qty
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());">
                             <?php
-                                for($i = 0; $i <= 25; $i++){
+                                for($i = 1; $i <= 25; $i++){
                                     echo '<OPTION';
                                     if($i == 1){echo ' SELECTED';}
                                     echo '>' . $i . '</OPTION>';

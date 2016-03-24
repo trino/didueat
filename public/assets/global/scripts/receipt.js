@@ -8,8 +8,10 @@ function changeqty(id, opr) {
     if (isNaN(opr)) {
         if (opr == 'plus') {
             num++;
-        } else if(opr == 'minus') {
+        } else if(opr == 'minus' && num > 1) {
             num--;
+        } else {
+            return false;
         }
         $("#select" + id).val(num);
     } else {
