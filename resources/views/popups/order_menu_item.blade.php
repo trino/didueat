@@ -246,12 +246,23 @@
                            class="btn  btn-primary add_menu_profile add_end"
                            href="javascript:void(0);">Add</a>
                     </div>
-                    <div class="pull-right">Qty <a class="btn  btn-secondary" href="javascript:void(0);" title="{{ $alts["minus"] }}"
-                                                   onclick="changeqty('{{ $value->id }}', 'minus')"><i
-                                    class="fa fa-minus"></i></a>
+                    <div class="pull-right">Qty
+                        <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());">
+                            <?php
+                                for($i = 0; $i <= 25; $i++){
+                                    echo '<OPTION';
+                                    if($i == 1){echo ' SELECTED';}
+                                    echo '>' . $i . '</OPTION>';
+                                }
+                            ?>
+                        </SELECT>
+                        <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["minus"] }}" onclick="changeqty('{{ $value->id }}', 'minus')">
+                            <i class="fa fa-minus"></i>
+                        </a>
                         <span class="number{{ $value->id }}">1</span>
-                        <a class="btn  btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}"
-                           onclick="changeqty('{{ $value->id }}', 'plus')"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-secondary" href="javascript:void(0);" title="{{ $alts["plus"] }}" onclick="changeqty('{{ $value->id }}', 'plus')">
+                            <i class="fa fa-plus"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

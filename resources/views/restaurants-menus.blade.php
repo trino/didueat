@@ -330,6 +330,7 @@
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
                 $('.number' + menu).html('1');
+                $('#select' + menu).val('1');
 //alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
@@ -614,6 +615,7 @@
                     }
                 });
                 $('.number' + menu_id).text('1');
+                $('#select' + menu_id).val('1');
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk')) {
                         $(this).removeAttr("checked");

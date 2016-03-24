@@ -2,15 +2,18 @@ total_items = 0;
 
 //change the quantity of an item
 //id: id of the item
-//opr: direction. "plus" is up, anything else is down
+//opr: direction. "plus" is up, "minus" is down
 function changeqty(id, opr) {
     var num = Number($('.number' + id).text());
-    if (num == '1') {
+    if (isNaN(opr)) {
         if (opr == 'plus') {
             num++;
+        } else if(opr == 'minus') {
+            num--;
         }
+        $("#select" + id).val(num);
     } else {
-        (opr == 'plus') ? num++ : --num;
+        num = opr;
     }
     $('.number' + id).text(num);
     var price = $('.Mprice'+id).val();
