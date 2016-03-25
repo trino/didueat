@@ -15,8 +15,8 @@
 <TABLE>
     <THEAD>
         <TR>
-            <TH>Method</TH>
-            <TH>Pickup</TH>
+            <TH style="padding-right:5px">Method</TH>
+            <TH style="padding-right:20px">Pickup</TH>
             <TH CLASS="is_delivery_options" {{ $Style }}>Delivery</TH>
         </TR>
     </THEAD>

@@ -84,3 +84,4 @@ config/app.php
 .env
 *.env
 public/debugmode.ip
+resources/views/restaurants-menus2.blade.php
