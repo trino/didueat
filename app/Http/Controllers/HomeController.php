@@ -127,8 +127,25 @@ class HomeController extends Controller {
                 $SQL = "";
                 if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
 
-                //$SQL = is_null($data['query']);
-                //$SQL = var_export($data['query']);
+                if(read("id")) {
+                    $hasaddress = true;
+                    foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
+                        if (!isset($data) || !$data[$field]) {
+                            $hasaddress = false;
+                        }
+                    }
+                    if ($hasaddress) {
+                        $searchname = "Last search";
+                        $ID = select_field_where("profiles_addresses", array("user_id" => read("id"), "location" => $searchname));
+                        if(!$ID){$ID = 0;} else {$ID = $ID->id;}
+                        $add = \App\Http\Models\ProfilesAddresses::findOrNew($ID);
+                        $data["user_id"] = read("id");
+                        $data["location"] = $searchname;
+                        $data["phone"] = read("phone");
+                        $add->populate($data);
+                        $add->save();
+                    }
+                }
 
                 if (!is_null($data['query']) && count($data['query']) > 0){
                     return view('ajax.search_restaurants', $data);

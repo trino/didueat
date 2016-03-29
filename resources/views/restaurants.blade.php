@@ -368,6 +368,19 @@
             if (getCookie('longitude')) {
                 $('#longitude').val(getCookie('longitude'));
             }
+            if (getCookie('city')) {
+                $('#city').val(getCookie('city'));
+            }
+            if (getCookie('country')) {
+                $('#country').val(getCookie('country'));
+            }
+            if (getCookie('province')) {
+                $('#province').val(getCookie('province'));
+            }
+            if (getCookie('postal_code')) {
+                $('#postal_code').val(getCookie('postal_code'));
+            }
+
             if (getCookie('delivery_type')) {
                 $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
             }
@@ -407,6 +420,10 @@
         $('body').on('click', '#clearSearch', function () {
             removeCookie('cname');
             removeCookie('radius');
+            removeCookie('city');
+            removeCookie('province');
+            removeCookie('country');
+            removeCookie('postal_code');
             removeCookie('latitude');
             removeCookie('longitude');
             removeCookie('minimum');
@@ -449,6 +466,11 @@
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
 
+            var city = $('#city').val();
+            var province = $('#province').val();
+            var country = $('#country').val();
+            var postal_code = $('#postal_code').val();
+
             <?php
               (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
               echo "var earthRad = ".$earthRad.";";
@@ -458,6 +480,11 @@
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
+            createCookieValue('city', city);
+            createCookieValue('province', province);
+            createCookieValue('country', country);
+            createCookieValue('postal_code', postal_code);
+
             createCookieValue('userC', earthRad); // other delimited items can be added in stage 2
 
             var token = $('#search-form input[name=_token]').val();
@@ -473,7 +500,7 @@
                 if (!address_alias) {
                     return false;
                 }
-                var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
+                var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize() ; // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
             }
 
             if (start == 0) {
