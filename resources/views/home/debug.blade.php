@@ -19,9 +19,20 @@
                     }
                 ?>
                 <FORM METHOD="post">
-                    <TEXTAREA NAME="hash" style="width:100%;"><?php if(isset($_POST["hash"])){echo $_POST["hash"];} ?></textarea>
-                    <?php if(isset($_POST["hash"])){echo hashtext($_POST["hash"]); }?>
-                    <INPUT TYPE="submit" style="float: right;" class="btn btn-success">
+                    <TEXTAREA NAME="hash" style="width:100%;" placeholder="Email hash verifier"><?php if(isset($_POST["hash"])){echo $_POST["hash"];} ?></textarea>
+                    <?php
+                        if(isset($_POST["hash"])){
+                            $hash = hashtext($_POST["hash"]);
+                            echo $hash;
+                            if(isset($_POST["hash2"]) && $_POST["hash2"]){
+                                echo iif($hash == trim($_POST["hash2"]), '<FONT COLOR="green"> is a match</FONT>', '<FONT COLOR="red"> is <B>NOT</B> a match</FONT>');
+                            }
+                            echo '<BR>';
+                        }
+                    ?>
+                    <INPUT TYPE="text" name="hash2" placeholder="Hash to compare" value="<?php if(isset($_POST["hash2"])){echo $_POST["hash2"];} ?>">
+                    <INPUT TYPE="submit" style="float: right;" class="btn btn-success" value="Verify Hash">
+                    <DIV CLASS="clearfix"></DIV>
                 </FORM>
             </div>
         </div>

@@ -11,7 +11,6 @@
         popup(false, "You can not place orders as a restaurant owner", "Oops");
     }
 
-
     $is_my_restro = false;
     if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
         $is_my_restro = true;

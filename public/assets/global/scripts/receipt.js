@@ -434,3 +434,11 @@ function updatecart(){
         $(".cart-header-gif").hide();
     }, 1000);
 }
+
+window.onbeforeunload = function (e) {
+    if (total_items) {
+        var message = "You have not finished your order. Leaving this page will empty your cart.", e = e || window.event;
+        if (e) {e.returnValue = message;}// For IE and Firefox
+        return message;// For Safari
+    }
+};
