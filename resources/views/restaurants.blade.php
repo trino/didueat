@@ -9,6 +9,7 @@
     $useHamilton = true;
     $is_pickup_checked="";
     $is_delivery_checked="";
+    $is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
     if(isset($_COOKIE['delivery_type'])){
        switch ($_COOKIE['delivery_type']){
            case "is_delivery":
@@ -153,6 +154,7 @@
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="p-l-0 pull-left">
                                     <div class="form-group">
                                         <label class="c-input c-checkbox ">
@@ -165,6 +167,19 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                <div class="p-l-0 pull-right">
+                                    <div class="form-group">
+                                        <label class="c-input c-checkbox ">
+                                            <input type="checkbox" name="is_menu" id="is_menu"
+                                                   {{ $is_menu_checked }}
+                                                   />
+                                            <span class="c-indicator"></span>
+                                            Show Menus
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <!--label class="c-input c-checkbox">
                                     <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
                                            onclick="createCookieValue('is_complete', this.value)"/>
@@ -245,8 +260,9 @@
                         <br>
                         <br>
                         <br>
-</div>
                     </div>
+
+                </div>
             </div>
 
             <div id="icons_show">
@@ -396,6 +412,9 @@
             if (getCookie('SortOrder')) {
                 $('#search-form #SortOrder').val(getCookie('SortOrder'));
             }
+            if(getCookie("is_menu")){
+                $('#search-form #is_menu').attr("checked", true);
+            }
 
             /*
              if (getCookie('cname') || getCookie('latitude2') || getCookie('longitude2') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')) {
@@ -427,6 +446,7 @@
             removeCookie('latitude');
             removeCookie('longitude');
             removeCookie('minimum');
+            removeCookie('is_menu');
             removeCookie('cuisine');
             removeCookie('rating');
             removeCookie('SortOrder');
@@ -470,6 +490,7 @@
             var province = $('#province').val();
             var country = $('#country').val();
             var postal_code = $('#postal_code').val();
+            var is_menu = $('#is_menu').is(":checked");
 
             <?php
               (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
@@ -484,6 +505,7 @@
             createCookieValue('province', province);
             createCookieValue('country', country);
             createCookieValue('postal_code', postal_code);
+            createCookieValue('is_menu', is_menu);
 
             createCookieValue('userC', earthRad); // other delimited items can be added in stage 2
 
