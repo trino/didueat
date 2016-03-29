@@ -104,7 +104,7 @@
     </div>
     </div>
 
-    @if(read("profiletype") == 3 || read('restaurant_id') == $restaurant->id)
+    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
         <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

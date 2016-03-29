@@ -8,6 +8,10 @@
         return '<LABEL class="c-input c-checkbox"><input type="' . $type . '" name="' . $name . '" ' . $is_disabled . $Checked . $onclick . ' id="' . $type . '" value="1"/><span class="c-indicator"></span></LABEL>';
     }
     $Style="";
+    if(!$restaurant){
+        echo "RESTAURANT NOT FOUND";
+        return;
+    }
     if(!$restaurant->is_delivery){
         $Style = ' STYLE="display: none;"';
     }
