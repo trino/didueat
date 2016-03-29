@@ -420,7 +420,7 @@ class RestaurantController extends Controller {
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
         }
 
-        return view('dashboard.restaurant.menu_form', $data);
+        return view('popups.menu_form', $data);
     }
 
     //get more menu items
