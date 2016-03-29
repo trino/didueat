@@ -918,7 +918,7 @@
     }
 
     //add a new row to a table
-    function new_anything($Table, $Data, $Column = "ID"){
+    function new_anything($Table, $Data){
         if (!is_array($Data)) {
             $Data = array($Column = $Data);
         }

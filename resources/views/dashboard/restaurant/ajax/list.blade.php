@@ -10,7 +10,8 @@
             "edit" => "Edit this restaurant",
             "incomplete" => "This restaurant is incomplete and can not be opened",
             "logo" => "This restaurant's logo",
-            "delete" => "Delete this restaurant"
+            "delete" => "Delete this restaurant",
+            "fixmenus" => "Fix old menu item's categories so they show up properly. Only needs to be done once, ever"
     );
 ?>
 
@@ -24,6 +25,10 @@
             <div class="col-lg-9">
                 <h4 class="card-title">
                     Restaurants
+
+                    @if(debugmode())
+                        <A HREF="?fixmenus" STYLE="float:right;" class="btn btn-info btn-sm" title="{{ $alts["fixmenus"] }}">Fix menus</A>
+                    @endif
                 </h4>
             </div>
             @include('common.table_controls')
