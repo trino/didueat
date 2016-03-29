@@ -1858,7 +1858,10 @@
 
     function defaultlogo($Data, $Thumbnail = false){
         ////(isset($value->logo) && $value->logo != "") ? 'restaurants/' . $value->id . '/thumb_' . $value->logo : 'default.png';
-        if(is_object($Data)){$Data = getProtectedValue($Data, "attributes");}
+        if(is_object($Data)){
+            $Data2 = getProtectedValue($Data, "attributes");
+            if($Data2){$Data = $Data2;} else {$Data = get_object_vars($Data);}
+        }
         if(array_key_exists("logo", $Data)) {//is a restaurant
             $Default = iif($Thumbnail, 'default.png', 'small-smiley-logo.png');
             if($Data["logo"]) {$Filename = 'restaurants/' . $Data["id"] . iif($Thumbnail, "/icon-", '/small-') . $Data["logo"];}

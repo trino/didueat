@@ -536,8 +536,15 @@ class HomeController extends Controller {
                     echo "Profile type of profile ID # " . $_POST["id"] . " was changed to " . iif($_POST["checked"] == "true", "3 (userplus)", "2 (user)");
                     break;
 
+                case "deletepic":
+                    if(read("profiletype") == 1 || read("id") == $_POST["userid"]){
+                        @unlink(public_path("assets/images/users/" . $_POST["userid"] . "/" . $_POST["filename"]));
+                    }
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
+                    if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
             }
         } else {
             echo "type not specified";

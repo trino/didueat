@@ -15,7 +15,7 @@ class Restaurants extends BaseModel {
      */
     public function populate($data,$addlogo = false) {
         $use_delivery_hours = !isset($data["samehours"]);//update $use_delivery_hours in dashboard/restaurant/hours.blade.php if this policy changes
-        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city' => "ucfirst", 'province' => "ucfirst", 'country' => "ucfirst", 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg', 'payment_methods', 'aprox_time');
+        $cells = array('name', 'slug', 'email', 'cuisine', 'phone' => "phone", 'mobile' => "phone", 'website', 'formatted_address', 'address', 'apartment', 'city' => "ucfirst", 'province' => "ucfirst", 'country' => "ucfirst", 'postal_code' => "postalcode", 'latitude', 'longitude', 'description', 'is_delivery', 'is_pickup', 'max_delivery_distance', 'delivery_fee', 'hours', 'days', 'holidays', 'minimum', 'rating', 'tags', 'open', 'sameas', 'ip_address', 'browser_name', 'browser_version', 'browser_platform','initialReg', 'payment_methods', 'aprox_time', 'uploaded_by');
         if(!isset($data["open"])){$data["open"] = 0;}
 
         if(!isset($data["max_delivery_distance"]) || !$data["max_delivery_distance"]){$data["max_delivery_distance"] = 5;}

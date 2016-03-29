@@ -147,10 +147,13 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::get('user/reviews/action/{id}',                          'UserReviewsController@reviewAction');
     Route::post('user/reviews/action/{id}',                         'UserReviewsController@reviewAction');
     Route::get('user/reviews/edit/{id}',                            'UserReviewsController@ajaxEditUserReviewForm');
+    Route::get('user/uploads/{UserID}',                             'UsersController@uploads');
 });
 
 Route::get('restaurant/list',                                       'RestaurantController@index');
 Route::post('restaurant/list/ajax',                                 'RestaurantController@listingAjax');
+
+Route::get('user/uploads',                                          'UsersController@uploads');
 
 Route::get('restaurant/menu_form/{id}',                             'RestaurantController@menu_form');
 Route::get('restaurant/menu_form/{id}/{rid}',                       'RestaurantController@menu_form');
@@ -170,6 +173,7 @@ Route::post('restaurant/orderCat2/{id}/{sort}',                      'Restaurant
 
 Route::get('restaurant/deleteMenu/{id}',                            'RestaurantController@deleteMenu');
 Route::get('restaurant/deleteMenu/{id}/{slug}',                     'RestaurantController@deleteMenu');
+Route::post('restaurant/deleteMenu/{id}/{slug}',                    'RestaurantController@deleteMenu');
 Route::get('restaurant/red/{path}',                                 'RestaurantController@red');
 
 Route::get('restaurant/redfront/{path}/{slug}/{path2}',             'RestaurantController@redfront');

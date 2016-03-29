@@ -27,7 +27,7 @@
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive  m-b-0 ">
+        <table class="table table-responsive m-b-0 ">
             @if($recCount > 0)
                 <thead>
                     <tr>
@@ -113,6 +113,8 @@
 
                                 <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+
+                                <a href="{{ url('user/uploads/'.$value->id) }}" class="btn btn-secondary-outline btn-sm">Uploads</a>
 
                                 <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
