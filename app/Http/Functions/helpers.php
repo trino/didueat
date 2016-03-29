@@ -458,7 +458,7 @@
                     $session_type_user = 'restaurant';
                 }
                 break;
-            case 3: $session_type_user = "userplus"; break;
+            //case 3: $session_type_user = "userplus"; break;
         }
 
         \Session::put('session_type_user', $session_type_user);

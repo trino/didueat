@@ -57,7 +57,7 @@
                     'notification/addresses' => "Notification methods"
                     //,'credit-cards/list/restaurant' => "Credit Card"
             ), "My Restaurant");
-        } else if(read("profiletype") == 3){
+        } else {//if(read("profiletype") == 3){
             makelink(array(
                     'restaurant/list' => "Restaurants",
             ), "Restaurants");

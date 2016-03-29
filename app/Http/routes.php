@@ -149,7 +149,7 @@ Route::group(['middleware' => ['logged', 'role:super']], function() {
     Route::get('user/reviews/edit/{id}',                            'UserReviewsController@ajaxEditUserReviewForm');
 });
 
-Route::group(['middleware' => ['logged', 'role:userplus']], function() {
+Route::group(['middleware' => ['logged', 'role:user']], function() {
     Route::get('restaurant/list',                                   'RestaurantController@index');
     Route::post('restaurant/list/ajax',                             'RestaurantController@listingAjax');
 });

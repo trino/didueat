@@ -83,7 +83,7 @@
                     <tr id="user{{ $value->id }}">
                         <td>{{ $value->id }}</TD>
                         <TD nowrap>
-                            @if($usertype == "User")
+                            @if(false)
                                 <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                 <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
                                     <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
