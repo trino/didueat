@@ -25,7 +25,7 @@
         "add_item" => "Add Item"
     );
 
-    if(!read("restaurant_id") || $is_my_restro){ ?>
+    if( (!read("restaurant_id") && !$restaurant->open) || $is_my_restro){ ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">

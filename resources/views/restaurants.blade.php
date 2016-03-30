@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
 
-                                <div class="p-l-0 pull-right">
+                                <!--div class="p-l-0 pull-right">
                                     <div class="form-group">
                                         <label class="c-input c-checkbox ">
                                             <input type="checkbox" name="is_menu" id="is_menu"
@@ -178,7 +178,7 @@
                                             Show Menus
                                         </label>
                                     </div>
-                                </div>
+                                </div-->
 
                                 <!--label class="c-input c-checkbox">
                                     <input type="checkbox" name="is_complete" id="is_complete" value="true" checked

@@ -19,7 +19,7 @@
 
             <div class="col-lg-9">
                 <?php
-                    printfile("views/dashboard/user/uploads.blade.php");
+                    printfile("views/dashboard/user/uploads.blade.php<BR>");
                     $ProfileName = select_field("profiles", "id", $userid)->name;
                     $Restaurants = enum_anything("restaurants", "uploaded_by", $userid);
                     $ProfilePics = array();
@@ -88,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-9">
+            <!--div class="col-lg-9">
                 <div class="card">
                     <div class="card-header ">
                         <div class="row">
@@ -101,17 +101,17 @@
                     </div>
 
                     <div class="card-block p-a-0">
-                        <?php
+                        <?php /*
                             $PicID = 0;
                             foreach($ProfilePics as $ProfilePic){
                                 echo '<div ID="deletepic' . $PicID . '" align="center" class="col-md-2"><IMG SRC="' . asset("assets/images/users/" . $userid . "/" . $ProfilePic) . '" class="thumbnail"><BR>';
                                 echo $ProfilePic . ' <a style="float:right;" ID="deletepicbtn' . $PicID . '" class="btn btn-danger-outline btn-sm" title="' . $alts["deletepic"] . '" onclick="deletepic(' . $PicID . ', ' . $userid . ", '" . $ProfilePic . "'" . ');">X</a></div>';
                                 $PicID++;
                             }
-                        ?>
+                        */ ?>
                     </div>
                 </div>
-            </div>
+            </div-->
 
 
         </div>
