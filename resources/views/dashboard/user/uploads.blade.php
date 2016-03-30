@@ -22,7 +22,11 @@
                     printfile("views/dashboard/user/uploads.blade.php");
                     $ProfileName = select_field("profiles", "id", $userid)->name;
                     $Restaurants = enum_anything("restaurants", "uploaded_by", $userid);
-                    $ProfilePics = scandir(public_path("assets/images/users/" . $userid));
+                    $ProfilePics = array();
+                    $dir = public_path("assets/images/users/" . $userid);
+                    if (is_dir($dir)){
+                        $ProfilePics = scandir($dir);
+                    }
                     unset($ProfilePics[0]);//. (root)
                     unset($ProfilePics[1]);//.. (up a dir)
                     $MenuItems = enum_anything("menus", "uploaded_by", $userid);

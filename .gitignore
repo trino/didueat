@@ -56,7 +56,6 @@ nbproject
 public/royslog.txt
 config/app.php
 .idea/misc.xml
-.idea/misc.xml
 *.xml
 *.CPT
 *.blade_backup*
@@ -84,4 +83,3 @@ config/app.php
 .env
 *.env
 public/debugmode.ip
-resources/views/restaurants-menus2.blade.php
