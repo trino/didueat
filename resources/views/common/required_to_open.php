@@ -5,8 +5,8 @@
     $post = \Input::all(); // testing for intial setup
     
     if ($Restaurant) {
-        $MissingData = [];
-        $MissingDataOptional = [];
+        $MissingData = array();
+        $MissingDataOptional = array();
         
         if (!$Restaurant->is_delivery && !$Restaurant->is_pickup) {
             $MissingData[] = "<a href=\"" . url('restaurant/info') . "#PickupAndDelivery\">Pickup and/or delivery options</a>";
@@ -26,10 +26,10 @@
         }
 
         if ($Restaurant->max_delivery_distance < 2 && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Delivery area</a>";
+            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">[OPTIONAL] Delivery area</a>";
         }
         if ((!$Restaurant->minimum || $Restaurant->minimum == "0.00") && $Restaurant->is_delivery) {
-            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">Minimum delivery sub-total</a>";
+            $MissingDataOptional[] = "<a href=\"" . url('restaurant/info') . "#HoursOpen\">[OPTIONAL] Minimum delivery sub-total</a>";
         }
 
         //check hours of operation
