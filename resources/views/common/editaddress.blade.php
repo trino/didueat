@@ -141,11 +141,12 @@
     @else
         <div class="nowrap <?php if (isset($type)) echo '';?>" <?php if (isset($type)&& read('id')) echo "style='display:none'";?>>
             <input type="text" name="<?php echo (isset($type)) ? 'address' : 'formatted_address' . $GUID;?>" required
-                   id="formatted_address<?php if (isset($type)) echo '';?>" class="form-control formatted_address"
+                   id="formatted_address" class="form-control formatted_address"
                    placeholder="Enter your address"
                    autocomplete="off"
                    onclick="$(this).attr('autocomplete', 'false');"  
                    value="<?php
+            $checkCookie = true;
             if (old('formatted_address')) {
                 echo old('formatted_address');
                 //} else if(isset($addresse_detail->address) && isset($addresse_detail->city) && isset($addresse_detail->province) && isset($addresse_detail->country)) {
@@ -270,5 +271,17 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 
     @if($mini && !$Commas)
         $(".commas").hide();//hide the commas if there is no data yet
+    @endif
+
+    @if($checkCookie)
+        if(getCookie("address")){
+            $("#formatted_address").val(getCookie("address"));
+            $("#city").val(getCookie("city"));
+            $("#country").val(getCookie("country"));
+            $("#postal_code").val(getCookie("postal_code"));
+            $("#province").val(getCookie("province"));
+            $("#latitude").val(getCookie("latitude"));
+            $("#longitude").val(getCookie("longitude"));
+        }
     @endif
 </SCRIPT>
