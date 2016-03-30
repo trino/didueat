@@ -58,7 +58,7 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                         <a href="#" data-toggle="modal" data-target="#allergyModal" data-id="popups.allergy" title="{{ $alts["allergy"] }}" class="simplemodal">Allergy</a>
                     </li>
 
-                    @if($_SERVER['REMOTE_ADDR']=='24.36.161.100' || $_SERVER['REMOTE_ADDR']=='::1')
+                    @if(!islive())
                         <li class="list-inline-item">
                             <a href="{{ url("home/debugmode") . "?url=" . protocol() . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}">{{ iif(debugmode(), "Deactivate", "Activate") }} Debug Mode</a>
                         </li>
@@ -369,6 +369,10 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                                     $(".show-on-login").show();
                                     $(".hide-on-login").hide();
 
+                                    //enable ratings
+                                    $(".static-rating").attr('class', 'rating');
+                                    $(".rating input[type=radio]").attr("class", "update-rating");
+
                                     $('.hidden_elements').hide();
                                     $('#fullname, #ordered_email, #ordered_contact').attr('readonly', 'readonly')
                                     //$('.reservation_signin').hide();
@@ -560,17 +564,21 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
     //when a review is submitted, this will update the review stars.
     function updatereview(target_id) {
         var reviews = $("#reviewcount" + target_id).html();
-        reviews = Number(reviews.replace(/\D/g, '')) + 1;
+        if (isundefined(reviews)){
+            var reviews = 1;
+        } else {
+            reviews = Number(reviews.replace(/\D/g, '')) + 1;
+        }
         $("#reviewcount" + target_id).html("Reviews (" + reviews + ")");
 
         var element = document.getElementById("ratingtarget" + target_id);
-        var rating_type = element.getAttribute("rating-type");
-        var rating_loadtype = element.getAttribute("rating-loadtype");
-        var rating_twolines = element.getAttribute("rating-twolines");
-        var rating_class = element.getAttribute("rating-class");
-        var rating_button = element.getAttribute("rating-button");
-        var rating_starts = element.getAttribute("rating-starts");
-        var rating_color = element.getAttribute("rating-color");
+        var rating_type = getAttribute(element, "rating-type");
+        var rating_loadtype = getAttribute(element, "rating-loadtype");
+        var rating_twolines = getAttribute(element, "rating-twolines");
+        var rating_class = getAttribute(element, "rating-class");
+        var rating_button = getAttribute(element, "rating-button");
+        var rating_starts = getAttribute(element, "rating-starts");
+        var rating_color = getAttribute(element, "rating-color");
 
         $.ajax({
             url: "{{ url('/ajax') }}",
@@ -581,6 +589,11 @@ Thank you" title="{{ $alts["contactus"] }}">Email Support</a></li>
                 $("#ratingtarget" + target_id).html(msg);
             }
         })
+    }
+    function getAttribute(element, atttribute){
+        if (element.hasAttribute(atttribute)){
+            return element.getAttribute(atttribute);
+        }
     }
 </script>
 
