@@ -65,18 +65,24 @@
                                     <TH>Item name</TH>
                                     <TH>Category</TH>
                                     <TH>Price</TH>
+                                    <TH>Sales</TH>
                                     <TH></TH>
                                 </TR>
                             </THEAD>
                             <?php
                                 $Restaurants = enum_all("restaurants");
                                 foreach($MenuItems as $MenuItem){
+                                    //SELECT * FROM reservations WHERE 3 IN (menu_ids)
+                                    //$count = first("SELECT COUNT(" . $MenuItem->id . " IN (menu_ids)) as count FROM reservations")["count"];
+                                    $count = iterator_count(select_query("SELECT * FROM reservations WHERE FIND_IN_SET(" . $MenuItem->id . ", menu_ids) > 0"));
+
                                     $Restaurant = getIterator($Restaurants, "id", $MenuItem->restaurant_id);
                                     echo '<TR ID="deleteitem' . $MenuItem->id . '"><TD>' . $MenuItem->id . '</TD>';
                                     echo '<TD>' . $Restaurant->name . '</TD>';
                                     echo '<TD>' . $MenuItem->menu_item . '</TD>';
                                     echo '<TD>' . $MenuItem->cat_name . '</TD>';
                                     echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
+                                    echo '<TD>' . $count . '</TD>';
                                     echo '<TD><a style="float:right;" ID="deleteitembtn' . $MenuItem->menu_item . '" class="btn btn-danger-outline btn-sm" title="' . $alts["deleteitem"] . '" onclick="deleteitem(' . $MenuItem->id . ", '" . addslashes($MenuItem->menu_item) . "', '" .  $Restaurant->slug . "'" . ');">X</a></TD></TR>';
                                 }
                             ?>

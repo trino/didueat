@@ -273,7 +273,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
         $(".commas").hide();//hide the commas if there is no data yet
     @endif
 
-    @if($checkCookie)
+    @if(isset($checkCookie) && $checkCookie)
         if(getCookie("address")){
             $("#formatted_address").val(getCookie("address"));
             $("#city").val(getCookie("city"));

@@ -25,8 +25,8 @@
         "add_item" => "Add Item"
     );
 
-    //profile is not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
-    if( (!read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
+    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
+    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">
@@ -293,10 +293,12 @@
                                 //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                             } else if (msg == '786') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
