@@ -241,6 +241,7 @@
 
             }
         };
+
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -702,6 +703,12 @@
                     }
                 });
             });
+
+            @if(isset($_GET["menuitem"]) && $_GET["menuitem"])
+                setTimeout(function(){
+                    $("#{{ $_GET["menuitem"] }}").trigger("click");
+                }, 500);
+            @endif
         });
         updatecart();
     </script>

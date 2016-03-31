@@ -79,7 +79,7 @@
                                     $Restaurant = getIterator($Restaurants, "id", $MenuItem->restaurant_id);
                                     echo '<TR ID="deleteitem' . $MenuItem->id . '"><TD>' . $MenuItem->id . '</TD>';
                                     echo '<TD>' . $Restaurant->name . '</TD>';
-                                    echo '<TD>' . $MenuItem->menu_item . '</TD>';
+                                    echo '<TD><A HREF="' . url('restaurants/' . $Restaurant->slug . '/menu?menuitem=') . $MenuItem->id . '">' . $MenuItem->menu_item . '</A></TD>';
                                     echo '<TD>' . $MenuItem->cat_name . '</TD>';
                                     echo '<TD>' . asmoney($MenuItem->price, true) . '</TD>';
                                     echo '<TD>' . $count . '</TD>';
