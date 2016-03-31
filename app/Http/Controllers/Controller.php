@@ -102,6 +102,10 @@ abstract class Controller extends BaseController {
         if(isset($post['formatted_addressForDB']) && (isset($post['formatted_address']) || isset($post['address']))) {
             $post["user_id"] = $user->id;
             $post["formatted_address"] = $post['formatted_addressForDB'];
+            $firstcomma = strpos($post["formatted_address"], ",");
+            if($firstcomma !== false){
+                $post["formatted_address"] = left($post["formatted_address"], $firstcomma);
+            }
             $post['address'] = "";
             if(isset($post['formatted_address'])) {$post['address'] = $post['formatted_address'];}
             if($post["formatted_address"] || $post['address']) {\App\Http\Models\ProfilesAddresses::makenew($post);}

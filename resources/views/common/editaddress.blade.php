@@ -275,6 +275,7 @@ if(!read('id') || \Route::currentRouteName() == 'restaurants.signup.index' || $p
 
     @if(isset($checkCookie) && $checkCookie)
         if(getCookie("address")){
+            $("#formatted_addressForDB").val(getCookie("address"));
             $("#formatted_address").val(getCookie("address"));
             $("#city").val(getCookie("city"));
             $("#country").val(getCookie("country"));
