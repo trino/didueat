@@ -72,10 +72,9 @@
                         $restaurant_slug="";
                         $usertype = "User";
                         if($value->restaurant_id>0){
-                            $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
                             $usertype = "Restaurant";
-                            if(isset($restaurant->name)){$restaurant = $restaurant->name;}
-                            if(isset($restaurant->slug)){$restaurant_slug = $restaurant->slug;}
+                            $restaurant = $value->restname;
+                            $restaurant_slug = $value->restslug;
                         }
                         if($value->profile_type == 1){$usertype = "Admin";}
                     ?>
@@ -94,14 +93,7 @@
                         </td>
                         <td>{{ $value->name }}</td>
                         <!--td>{{ $value->email }}</td-->
-                        <td>{{ $restaurant }}
-
-
-                                    <!--? echo url('restaurants/'.$restaurant_slug.'/menu'); ?-->
-
-
-
-                        </td>
+                        <td><A HREF="{{ url("restaurants/" . $restaurant_slug . "/menu") }}">{{ $restaurant }}</A></td>
                         <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
                         <td nowrap>{{ phonenumber($value->phone, true) }}</td>
                         <td>{{ $value->email }}</td>

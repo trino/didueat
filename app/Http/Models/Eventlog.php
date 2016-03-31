@@ -30,8 +30,8 @@ class Eventlog extends BaseModel {
         $query = Eventlog::select('*')
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
-                          $query->orWhere('type', 'LIKE', "%$searchResults%")
-                                ->orWhere('text', 'LIKE', "%$searchResults%")
+                          $query->orWhere('type',       'LIKE', "%$searchResults%")
+                                ->orWhere('text',       'LIKE', "%$searchResults%")
                                 ->orWhere('created_at', 'LIKE', "%$searchResults%");
                     }
                 })

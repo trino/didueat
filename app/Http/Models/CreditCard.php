@@ -41,7 +41,7 @@ class CreditCard extends BaseModel {
                 ->Where(function($query) use ($searchResults) {                    
                     if($searchResults != ""){
                         debugprint("searchResults: " .  $searchResults);
-                        $query->orWhere('first_name',     'LIKE',     "%$searchResults%")
+                        $query->orWhere('first_name',       'LIKE',     "%$searchResults%")
                                 ->orWhere('last_name',      'LIKE',     "%$searchResults%")
                                 ->orWhere('card_type',      'LIKE',     "%$searchResults%")
                                 ->orWhere('card_number',    'LIKE',     "%$searchResults%")

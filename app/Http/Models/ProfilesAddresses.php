@@ -35,14 +35,14 @@ class ProfilesAddresses extends BaseModel {
         $query = ProfilesAddresses::select('*')->where('user_id', \Session::get('session_id'))
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
-                          $query->orWhere('location', 'LIKE', "%$searchResults%")
-                                ->orWhere('mobile', 'LIKE', "%$searchResults%")
-                                ->orWhere('postal_code', 'LIKE', "%$searchResults%")
-                                ->orWhere('phone', 'LIKE', "%$searchResults%")
-                                ->orWhere('apartment', 'LIKE', "%$searchResults%")
-                                ->orWhere('address', 'LIKE', "%$searchResults%")
-                                ->orWhere('notes', 'LIKE', "%$searchResults%")
-                                ->orWhere('city', 'LIKE', "%$searchResults%");
+                          $query->orWhere('location',       'LIKE', "%$searchResults%")
+                                ->orWhere('mobile',         'LIKE', "%$searchResults%")
+                                ->orWhere('postal_code',    'LIKE', "%$searchResults%")
+                                ->orWhere('phone',          'LIKE', "%$searchResults%")
+                                ->orWhere('apartment',      'LIKE', "%$searchResults%")
+                                ->orWhere('address',        'LIKE', "%$searchResults%")
+                                ->orWhere('notes',          'LIKE', "%$searchResults%")
+                                ->orWhere('city',           'LIKE', "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);

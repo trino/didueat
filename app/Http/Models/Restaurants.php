@@ -101,16 +101,16 @@ class Restaurants extends BaseModel {
                     //->orWhere('has_creditcard', '0');
                 }
                 if($city){
-                    $query->Where('city', 'LIKE', "%$city%");
+                    $query->Where('city',               'LIKE', "%$city%");
                 }
                 if ($searchResults) {
-                    $query->orWhere('name', 'LIKE', "%$searchResults%")
-                        ->orWhere('cuisine', 'LIKE', "%$searchResults%")
-                        ->orWhere('email', 'LIKE', "%$searchResults%")
-                        ->orWhere('website', 'LIKE', "%$searchResults%")
-                        ->orWhere('phone', 'LIKE', "%$searchResults%")
-                        ->orWhere('mobile', 'LIKE', "%$searchResults%")
-                        ->orWhere('formatted_address', 'LIKE', "%$searchResults%");
+                    $query->orWhere('name',             'LIKE', "%$searchResults%")
+                        ->orWhere('cuisine',            'LIKE', "%$searchResults%")
+                        ->orWhere('email',              'LIKE', "%$searchResults%")
+                        ->orWhere('website',            'LIKE', "%$searchResults%")
+                        ->orWhere('phone',              'LIKE', "%$searchResults%")
+                        ->orWhere('mobile',             'LIKE', "%$searchResults%")
+                        ->orWhere('formatted_address',  'LIKE', "%$searchResults%");
                 }
             })
             ->orderBy($meta, $order);
