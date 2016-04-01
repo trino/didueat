@@ -1,8 +1,0 @@
-id,category,item_name,description,price,has_addon,parent_id,required_or_optional,single_or_multiple,exact_or_upto,exact_or_upto_qty,has_discount,discount_percentage,discount_days
-1,Fast Food,Momo with drink,Tasty Momo server with pickles or sauce along with your favaurate cold drink,$10 ,1,0,,,,,1,10,"Sun,Mon,Tue"
-2,,Choose Drink,,,,1,1,1,,,,,
-3,,Choose Sauce,,,,1,1,1,,,,,
-4,,Coke,,1,,2,,,,,,,
-5,,Fanta,,1,,2,,,,,,,
-6,,Minced Pickle,,1,,3,,,,,,,
-7,,Tomato Sauce,,0,,3,,,,,,,
