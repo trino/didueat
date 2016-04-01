@@ -4,7 +4,8 @@
         $browseBtnTxt="Upload Image";
         $imgType="";
         $alts = array(
-            "delete" => "Delete image"
+                "delete" => "Delete image",
+                "imgPre" => "This item's picture"
         );
     ?>
 
@@ -28,7 +29,7 @@
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
                     <?php if(isset($model) || true): ?>
-                        <div class="menuimg ignore menuimg<?php echo e($menu_id); ?>_1" style="min-height:0;"><img src="" alt="" id="imgPre">
+                        <div class="menuimg ignore menuimg<?php echo e($menu_id); ?>_1" style="min-height:0;"><img src="" alt="<?php echo e($alts["imgPre"]); ?>" id="imgPre">
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";
@@ -65,7 +66,7 @@
 																								?>
 
                         <?php if(isset($model) && $model->image): ?>
-                            <a href="<?php echo e(url("restaurant/deletemenuimage/" . $menu_id)); ?>" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="delete">Delete image</a>
+                            <a href="<?php echo e(url("restaurant/deletemenuimage/" . $menu_id)); ?>" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="<?php echo e($alts["delete"]); ?>">Delete image</a>
                         <?php endif; ?>
                         <div id="browseMsg" class="label  text-muted" > (Min. 600x600px)</div>
                     <?php else: ?>
