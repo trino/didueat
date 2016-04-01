@@ -98,6 +98,12 @@ if(!$minimum && isset($restaurant->id)){
                     <!-- <span id="fullSize" class="smallT"></span> -->
         </div>
     </div></div>
+    <div class="form-group row editaddress ">
+        <label id="import_csv" class="col-md-3 text-md-right">Import Menu CSV</label>
+        <div class="col-md-7">
+            <input type="file" name="import_csv" class="form-control" />
+        </div>
+    </div>
  
     <?= newrow($new, "", "", "", 12, true);?>
         <hr class="m-y-1" align="center"/>

@@ -15,7 +15,7 @@ class Menus extends BaseModel {
      * @return Array
      */
     public function populate($data) {
-        $cells = array('restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on');
+        $cells = array('restaurant_id', 'menu_item', 'description', 'price', 'rating', 'additional', 'has_addon', 'image', 'type', 'parent', 'req_opt', 'sing_mul', 'exact_upto', 'exact_upto_qty', 'display_order', 'cat_id', 'has_discount', 'discount_per', 'days_discount', 'is_active', 'uploaded_by', 'cat_name', 'uploaded_on','temp_id');
         $this->copycells($cells, $data);
     }
 

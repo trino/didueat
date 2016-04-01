@@ -34,7 +34,7 @@
     }
     printfile("<BR>" . $sql . "<BR>views/ajax/search_restaurants.blade.php");
     if (is_object($count)) {
-        echo "Count should not be an object!!!";//an error has occured, abort
+        echo "Count should not be an object!!!";
         return;
     }
 
@@ -50,10 +50,7 @@
         foreach($query as $value){
             ob_start();
             $is_open = \App\Http\Models\Restaurants::getbusinessday($value);
-            ?>
-                <?php echo $__env->make("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-            <?php
-
+            ?> <?php echo $__env->make("dashboard.restaurant.restaurantpanel", array("Restaurant" => $value, "order" => true, "is_menu" => isset($is_menu)), array_except(get_defined_vars(), array('__data', '__path')))->render(); ?> <?php
             if($is_open){
                 $openStr.="".ob_get_contents();
             } else{
@@ -88,12 +85,9 @@
 
 
 <script>
-    <?php
-        //updates the text to show if all stores are open/closed
-        echo "
-        var totalCnt = " . $totalCnt . ";
-        var openCnt = " . $openCnt . ";
-        var closedCnt = " . $closedCnt . ";";
+    <?= "var totalCnt = " . $totalCnt . ";
+         var openCnt = " . $openCnt . ";
+         var closedCnt = " . $closedCnt . ";";
     ?>
     var openCntMsg="";
     var closedCntMsg="";
@@ -104,7 +98,7 @@
             openCntMsg=openCnt+" Open";
             closedCntMsg=" and "+closedCnt+" Closed";
         } else if(closedCnt == totalCnt){
-           // closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
+            //closedCntMsg="Sorry, but all restaurants are currently closed. In the meantime, you can view the restaurants, and place your order when they are open";
         }
         document.getElementById('openClosed').innerHTML=spBR+""+openCntMsg+closedCntMsg+"";
         totalCnt = totalCnt + Number($("#countRows").text());

@@ -258,7 +258,10 @@ class RestaurantController extends Controller {
 
                 $ob->populate($update,$addlogo);
                 $isnowopen = $ob->save();
-
+                if($id==0)
+                {
+                    $id = $ob->id;
+                }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                 }
@@ -293,10 +296,13 @@ class RestaurantController extends Controller {
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 if($ReturnData){return $ob;}
+                if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name'])
+                $this->import_csv($id,$_FILES['import_csv']);
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
+            
         } else {
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
@@ -316,6 +322,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
+     
     public function menuManager() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
@@ -921,5 +928,89 @@ class RestaurantController extends Controller {
         }
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
+    }
+    
+    public function import_csv($id,$file)
+    {
+        
+        $name = explode('.',$file['name']);
+        $ext = end($name);
+        $new = date('Y_m_d_h_i_s').'_'.rand(1,1000).'.'.$ext;
+        $path = 'assets/csv';
+        if(strtolower($ext)=='csv'){
+        move_uploaded_file($file['tmp_name'], public_path($path) . '/' . $new);
+        $file = fopen(public_path($path) . '/' . $new,"r");
+        $i=0;
+        while($row = fgetcsv($file))
+        {
+            $arr['restaurant_id'] = $id;
+            $arr['uploaded_by'] = \Session::get('session_id');
+            $arr['uploaded_on'] = date('Y-m-d H:i:s');
+            $arr['is_active'] = 1;
+            $i++;
+            if($i==1)
+            continue;
+            $temp_id = $id.'_'.$row[0];
+            $arr['temp_id'] = $temp_id;
+            $cat = $row[1];
+            if($cat){
+            $model = \App\Http\Models\Category::where('title','like',$cat)->get();
+            if(isset($model[0]))
+            {
+                $mod = $model[0];
+                $arr['cat_id'] = $mod->id;
+            }
+            else
+            {
+                $ob2 = \App\Http\Models\Category::findOrNew(0);
+                $cats = \App\Http\Models\Category::where('res_id',$id)->orderBy('display_order', 'DESC')->get();
+                if(isset($cats[0]))
+                $cc['display_order']=$cats[0]->display_order+1;
+                else
+                $cc['display_order']=1;
+                $cc['title'] = $cat;
+                $cc['res_id'] = $id;
+                $ob2->populate($cc,true);
+                $ob2->save();
+                $arr['cat_id'] = $ob2->id;
+            }
+            }
+            else{
+                $arr['cat_id'] = 0;
+            }
+            
+            $arr['menu_item'] = $row[2];
+            $arr['description'] = $row[3];
+            $arr['price'] = str_replace('$','',$row[4]);
+            $arr['has_addon'] = $row[5];
+            $parent_id = $row[6];
+            if($parent_id){
+            $model2 = \App\Http\Models\Menus::where('temp_id',$id.'_'.$parent_id)->get();
+            if(isset($model2[0])){
+                $mod2 = $model2[0];
+            $arr['parent'] = $mod2->id;
+            }
+            }
+            $arr['req_opt'] = $row[7];
+            $arr['sing_mul']= $row[8];
+            $arr['exact_upto'] = $row[9]; 
+            $arr['exact_upto_qty'] = $row[10];
+            $arr['has_discount'] = $row[11];
+            
+            $arr['discount_per'] = $row[12];
+            $arr['days_discount'] = $row[13];
+            $ob = \App\Http\Models\Menus::findOrNew(0);
+                $ob->populate($arr,true);
+                $ob->save();
+                unset($arr);
+                unset($model);
+                unset($model2);
+                
+                
+        }
+        fclose($file);
+        
+         \App\Http\Models\Menus::where('temp_id','<>','')->update(['temp_id'=>'']);
+        }
     }
 }
