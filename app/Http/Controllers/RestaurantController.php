@@ -471,6 +471,14 @@ class RestaurantController extends Controller {
 
         return view('popups.menu_form', $data);
     }
+    
+    public function loadPrevious()
+    {
+        $lastid =  \App\Http\Models\Menus::where('parent','<>','0')->orderBy('id', 'DESC')->first();
+        $id = $lastid->parent;
+        $data['child'] = \App\Http\Models\Menus::where('id', $id)->first();
+        return view('dashboard.restaurant.additional', $data);
+    }
 
     //get more menu items
     public function getMore($id) {

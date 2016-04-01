@@ -17,6 +17,7 @@ $('.add_item').live('click', function () {
 $('.additem').live('click', function () {
     $('.savebtn').remove();
     $('.add_additional').remove();
+    $('.loadPrevious').remove();
     var id = $(this).attr('id').replace('add_item', '');
     
     
@@ -32,7 +33,7 @@ $('.additem').live('click', function () {
     $('#menumanager2').load(base_url + 'restaurant/menu_form/' + id + '/' + res_id, function () {
         $('.overlay_loader').hide();
         ajaxuploadbtn('newbrowse' + id + '_1');
-        $('#addMenuModel .modal-footer').prepend('<a id="add_additional'+id+'" class="btn btn-secondary-outline  add_additional ignore ignore2 ignore1" href="javascript:void(0)">Advance Addons</a>'+
+        $('#addMenuModel .modal-footer').prepend('<a class="btn btn-warning loadPrevious" id="loadPrevious'+id+'">Load Previous</a><a id="add_additional'+id+'" class="btn btn-secondary-outline  add_additional ignore ignore2 ignore1" href="javascript:void(0)">Advance Addons</a>'+
 '<a id="save'+id+'" class="btn  btn-primary savebtn ignore ignore2 ignore1" href="javascript:void(0)">Save</a>');
     });
 });
