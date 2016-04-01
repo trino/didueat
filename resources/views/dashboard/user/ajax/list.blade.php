@@ -27,7 +27,7 @@
     </div>
 
     <div class="card-block p-a-0">
-        <table class="table table-responsive  m-b-0 ">
+        <table class="table table-responsive m-b-0 ">
             @if($recCount > 0)
                 <thead>
                     <tr>
@@ -72,10 +72,9 @@
                         $restaurant_slug="";
                         $usertype = "User";
                         if($value->restaurant_id>0){
-                            $restaurant = getIterator($restaurants, "id", $value->restaurant_id);
                             $usertype = "Restaurant";
-                            if(isset($restaurant->name)){$restaurant = $restaurant->name;}
-                            if(isset($restaurant->slug)){$restaurant_slug = $restaurant->slug;}
+                            $restaurant = $value->restname;
+                            $restaurant_slug = $value->restslug;
                         }
                         if($value->profile_type == 1){$usertype = "Admin";}
                     ?>
@@ -83,7 +82,7 @@
                     <tr id="user{{ $value->id }}">
                         <td>{{ $value->id }}</TD>
                         <TD nowrap>
-                            @if($usertype == "User")
+                            @if(false)
                                 <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
                                 <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
                                     <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
@@ -94,14 +93,7 @@
                         </td>
                         <td>{{ $value->name }}</td>
                         <!--td>{{ $value->email }}</td-->
-                        <td>{{ $restaurant }}
-
-
-                                    <!--? echo url('restaurants/'.$restaurant_slug.'/menu'); ?-->
-
-
-
-                        </td>
+                        <td><A HREF="{{ url("restaurants/" . $restaurant_slug . "/menu") }}">{{ $restaurant }}</A></td>
                         <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
                         <td nowrap>{{ phonenumber($value->phone, true) }}</td>
                         <td>{{ $value->email }}</td>
@@ -113,6 +105,8 @@
 
                                 <!--a href="{{ url('users/action/user_fire/'.$value->id) }}" class="btn btn-secondary-outline btn-sm"
                                    onclick="return confirm('Are you sure you want to fire  {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
+
+                                <a href="{{ url('user/uploads/'.$value->id) }}" class="btn btn-secondary-outline btn-sm">Uploads</a>
 
                                 <a class="btn btn-secondary-outline btn-sm" id="delete{{$value->id}}" title="{{ $alts["delete"] }}"
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>

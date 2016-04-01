@@ -453,5 +453,9 @@ class UsersController extends Controller {
         */
         return json_encode($user);
     }
-     
+
+    function uploads($UserID = false){
+        if(!$UserID){$UserID = read("id");}
+        return view('dashboard.user.uploads', array("userid" => $UserID));
+    }
 }

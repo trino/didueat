@@ -11,7 +11,6 @@
         popup(false, "You can not place orders as a restaurant owner", "Oops");
     }
 
-
     $is_my_restro = false;
     if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
         $is_my_restro = true;
@@ -26,7 +25,8 @@
         "add_item" => "Add Item"
     );
 
-    if(read("profiletype") == 3 || $is_my_restro){ ?>
+    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
+    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
         <div class="card  m-b-0" style="border-radius:0 !important;">
             <div class="card-block ">
                 <div class="container" style="margin-top: 0 !important;padding:0 !important;">
@@ -105,7 +105,7 @@
     </div>
     </div>
 
-    @if(read("profiletype") == 3 || read('restaurant_id') == $restaurant->id)
+    @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
         <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -241,6 +241,7 @@
 
             }
         };
+
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -293,10 +294,12 @@
                                 //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                             } else if (msg == '786') {
                                 hide=false;
+                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
@@ -330,6 +333,7 @@
                 var menu = $(this).attr('id');
                 menu = menu.replace('clear_', '');
                 $('.number' + menu).html('1');
+                $('#select' + menu).val('1');
 //alert(menu);
                 $('.subitems_' + menu).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk'))
@@ -614,6 +618,7 @@
                     }
                 });
                 $('.number' + menu_id).text('1');
+                $('#select' + menu_id).val('1');
                 $('.subitems_' + menu_id).find('input:checkbox, input:radio').each(function () {
                     if (!$(this).hasClass('chk')) {
                         $(this).removeAttr("checked");
@@ -698,6 +703,12 @@
                     }
                 });
             });
+
+            @if(isset($_GET["menuitem"]) && $_GET["menuitem"])
+                setTimeout(function(){
+                    $("#{{ $_GET["menuitem"] }}").trigger("click");
+                }, 500);
+            @endif
         });
         updatecart();
     </script>

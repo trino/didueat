@@ -29,7 +29,7 @@ class Newsletter extends BaseModel {
         $query = Newsletter::select('*')
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
-                          $query->orWhere('email', 'LIKE', "%$searchResults%")
+                          $query->orWhere('email',      'LIKE', "%$searchResults%")
                                 ->orWhere('created_at', 'LIKE', "%$searchResults%");
                     }
                 })

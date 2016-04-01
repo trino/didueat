@@ -71,6 +71,7 @@ function getplace(){
 }
 
 function fillInAddress1() {
+    console.log("fillInAddress1");
     //this should be merged with fillInAddress, there should be no duplicate code
     // Get the place details from the formatted_address object.
     var place = formatted_address.getPlace();
@@ -162,7 +163,7 @@ function fillInAddress1() {
 }
 
 function fillInAddress() {
-
+    console.log("fillInAddress");
     if($('#formatted_address').is(':visible')){
         // meaning edit page is showing, as the top search field uses formatted_address2
         document.getElementById('verifyAddress').style.display="block";
@@ -348,4 +349,13 @@ function unescapetext (str) {
         element.textContent = '';
     }
     return str;
+}
+
+//lets you change the url without reloading
+function ChangeUrl(page, url) {
+    if (typeof (history.pushState) != "undefined") {
+        var obj = {Page: page, Url: url};
+        history.pushState(obj, obj.Page, obj.Url);
+        return true;
+    }
 }

@@ -2,15 +2,20 @@ total_items = 0;
 
 //change the quantity of an item
 //id: id of the item
-//opr: direction. "plus" is up, anything else is down
+//opr: direction. "plus" is up, "minus" is down
 function changeqty(id, opr) {
     var num = Number($('.number' + id).text());
-    if (num == '1') {
+    if (isNaN(opr)) {
         if (opr == 'plus') {
             num++;
+        } else if(opr == 'minus' && num > 1) {
+            num--;
+        } else {
+            return false;
         }
+        $("#select" + id).val(num);
     } else {
-        (opr == 'plus') ? num++ : --num;
+        num = opr;
     }
     $('.number' + id).text(num);
     var price = $('.Mprice'+id).val();
@@ -429,3 +434,12 @@ function updatecart(){
         $(".cart-header-gif").hide();
     }, 1000);
 }
+
+var checkingout = false;
+window.onbeforeunload = function (e) {
+    if (total_items && !checkingout) {
+        var message = "You have not finished your order. Leaving this page will empty your cart.", e = e || window.event;
+        if (e) {e.returnValue = message;}// For IE and Firefox
+        return message;// For Safari
+    }
+};

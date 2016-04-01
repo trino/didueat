@@ -41,6 +41,11 @@ class RestaurantController extends Controller {
         $page -= 1;
         $start = $page * $per_page;
 
+        if(isset($_GET["fixmenus"])){
+            $this->fixcategories();
+            echo '<FONT COLOR="RED">FIXING ALL CATEGORIES</FONT><BR>';
+        }
+
         $data = array(
             'page' => $page,
             'cur_page' => $cur_page,
@@ -134,11 +139,12 @@ class RestaurantController extends Controller {
         $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//populate data array from the post
+                $post["uploaded_by"] = read("id");
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
 
-                $this->restaurantInfo($ob->id);
+                $this->restaurantInfo($ob->id, read("id"));
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
@@ -403,12 +409,48 @@ class RestaurantController extends Controller {
         return false;
     }
 
+    function fixcategories($res_id = false){
+        if(!$res_id){//all
+            $restaurants = enum_all("restaurants");
+            foreach($restaurants as $restaurant){
+                $this->fixcategories($restaurant->id);
+            }
+        } else {//one
+            $MenuItems = enum_anything("menus", "restaurant_id", $res_id);
+            foreach ($MenuItems as $MenuItem) {
+                $CategoryName = trim($MenuItem->cat_name);
+                $NeedsUpdate=false;
+                if (!$CategoryName) {
+                    $CategoryName = "Main";
+                    update_database("menus", "id", $MenuItem->id, array("cat_name" => $CategoryName));
+                    $NeedsUpdate=true;
+                }
+                $Category = select_field_where("category", array("res_id" => $res_id, "title" => $CategoryName));
+                if ($Category) {
+                    if($MenuItem->cat_id <> $Category->id){
+                        $NeedsUpdate = true;
+                    }
+                } else {
+                    $Display_order = first("SELECT max(display_order) as maximum FROM category WHERE res_id = " . $res_id)["maximum"] + 1;
+                    $Category = new_anything("category", array("title" => $CategoryName, "display_order" => $Display_order, "res_id" => $res_id));
+                    $NeedsUpdate=true;
+                }
+                if($NeedsUpdate){
+                    if(is_object($Category)){$Category = $Category->id;}
+                    update_database("menus", "id", $MenuItem->id, array("cat_id" => $Category));
+                }
+            }
+        }
+    }
+
     //return a menu item and it's child items
     public function menu_form($id, $res_id = 0) {
         $data['menu_id'] = $id;
         if(!$res_id){
             $res_id = \Session::get('session_restaurant_id');
         }
+
+        $this->fixcategories($res_id);
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
@@ -420,7 +462,7 @@ class RestaurantController extends Controller {
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
         }
 
-        return view('dashboard.restaurant.menu_form', $data);
+        return view('popups.menu_form', $data);
     }
 
     //get more menu items
