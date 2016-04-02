@@ -457,7 +457,7 @@ class RestaurantController extends Controller {
             $res_id = \Session::get('session_restaurant_id');
         }
 
-        $this->fixcategories($res_id);
+        //$this->fixcategories($res_id);
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
