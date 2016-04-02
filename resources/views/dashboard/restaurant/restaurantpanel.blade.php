@@ -135,7 +135,7 @@
 </div>
 
 <?php
-if(isset($is_menu)){
+if(isset($is_menu) &&false){
     $menuitems = enum_all("menus", array("restaurant_id" => $Restaurant["id"], "is_active" => 1));
     if($menuitems){
         echo '<div class="list-group-item"><table class="table table-responsive m-b-0"><THEAD><TR><TH>Item</TH><TH>Cost</TH></TR></THEAD>';

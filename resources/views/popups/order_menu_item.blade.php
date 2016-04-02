@@ -230,7 +230,7 @@
                         ?>
                         <SELECT id="select{{ $value->id }}" onchange="changeqty('{{ $value->id }}', $(this).val());" class="btn btn-secondary" @if(!$usedropdown) style="display:none;" @endif >
                             <?php
-                                for($i = 1; $i <= 25; $i++){
+                                for($i = 1; $i <= 10; $i++){
                                     echo '<OPTION';
                                     if($i == 1){echo ' SELECTED';}
                                     echo '>' . $i . '</OPTION>';
