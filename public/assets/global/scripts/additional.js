@@ -13,10 +13,10 @@ $('.is_active').live('change',function(){
             success:function(res) {
                 res = res.trim();
                 //alert('0_'+res+'_'+'0');
-                if(res=='0') {
+                /*if(res=='0') {
                     alert('You can only enable 25 items');
                     $thi.prop('checked', false);
-                }
+                }*/
             }
         }) 
 })
@@ -41,7 +41,8 @@ function check_enabled(id,cat_id,stat,$thi,base_url) {
             },
             async: false
     });
-    return $ajax.responseText;
+    //return $ajax.responseText;
+    return '1';
 }
 /*
 $(".sorting_child").live('click', function () {
