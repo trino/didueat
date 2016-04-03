@@ -158,7 +158,8 @@ Route::get('user/uploads',                                          'UsersContro
 Route::get('restaurant/menu_form/{id}',                             'RestaurantController@menu_form');
 Route::get('restaurant/menu_form/{id}/{rid}',                       'RestaurantController@menu_form');
 Route::get('restaurant/additional',                                 'RestaurantController@additional');
-Route::get('restaurant/loadPrevious',                               'RestaurantController@loadPrevious');
+Route::get('restaurant/alladdons/{resid}',                          'RestaurantController@alladdons');
+Route::get('restaurant/loadPrevious/{addonid}',                     'RestaurantController@loadPrevious');
 Route::get('restaurant/uploadimg',                                  'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg',                                 'RestaurantController@uploadimg');
 Route::post('restaurant/uploadimg/{type}',                          'RestaurantController@uploadimg')->where('type', '[a-z]+');

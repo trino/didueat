@@ -163,20 +163,24 @@ $('.add_additional').live('click', function () {
     });
 })
 //handle loading previuos additons
-$('.loadPrevious').live('click', function () {
+$('.loadPrevious').live('change', function () {
     var id = $(this).attr('id').replace('loadPrevious', '').replace(';', '');
     $('.additional' + id).show();
     var c = 0;
     $('.newaction').each(function () {
         $(this).html('<a href="javascript:void(0)" class="btn btn-sm btn-danger removenormal">Remove</a>');
     });
+    var addon_id = $(this).val();
     var ajax_load = '';
-    $.ajax({
-        url: base_url + 'restaurant/loadPrevious?menu_id=' + id,
-        success: function (res) {
-            $('.additional' + id).append(res);
-        }
-    });
+    if(addon_id!=0)
+    {
+        $.ajax({
+            url: base_url + 'restaurant/loadPrevious/'+addon_id,
+            success: function (res) {
+                $('.additional' + id).append(res);
+            }
+        });
+    }
 })
 
 //handle removing of normal items
