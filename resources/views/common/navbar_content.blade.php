@@ -66,7 +66,7 @@
         $data = array('user/info' => "Settings");
         if (!\Session::get('session_restaurant_id') || Session::get('session_type_user') == "super") {
             $data["orders/list/user"] = "Orders";
-            $data["user/addresses"] = "Delivery Address";
+            $data["user/addresses"] = "Address";
             $data["user/uploads"] = "Uploads";
         }
         $data["auth/logout"] = "Log out";

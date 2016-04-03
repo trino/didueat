@@ -153,7 +153,7 @@
 </div>
 
 <div class="">
-    <div class="container-fluid" style="margin-bottom: 51px;">
+    <div class="container-fluid" style="margin-bottom: 46px;">
         @include('layouts.includes.header')
     </div>
     <div class="clearfix"></div>

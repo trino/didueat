@@ -30,18 +30,18 @@
         <table class="table table-responsive m-b-0 ">
             @if($recCount > 0)
                 <thead>
-                    <tr>
+                    <tr>  <th></th>
                         <th>
                             <a class="sortOrder" data-meta="id" data-order="ASC" data-title="ID" title="Sort [ID] ASC"><i class="fa fa-caret-down"></i></a>
                             ID
                             <a class="sortOrder" data-meta="id" data-order="DESC" data-title="ID" title="Sort [ID] DESC"><i class="fa fa-caret-up"></i></a>
                         </th>
-                        <TH>Type</TH>
                         <th >
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Name
                             <a class="sortOrder" data-meta="name" data-order="DESC" data-title="Name" title="Sort [Name] DESC"><i class="fa fa-caret-up"></i></a>
-                        </th>
+                        </th>                        <TH>Type</TH>
+
                         <th >
                             <a class="sortOrder" data-meta="name" data-order="ASC" data-title="Name" title="Sort [Name] ASC"><i class="fa fa-caret-down"></i></a>
                             Restaurant
@@ -53,22 +53,15 @@
                         <th>
                             Email
                         </th>
-                        <th></th>
+
                     </tr>
                 </thead>
             @endif
             <tbody>
             @if($recCount > 0)
 
-<?
-                echo "<pre>";
-               //     print_r($Query);
-                echo "</pre>";
-?>
+
                 @foreach($Query as $key => $value)
-
-                    {{ $value->id }}
-
 
                     <?php
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
@@ -90,23 +83,6 @@
                     ?>
 
                     <tr id="user{{ $value->id }}">
-                        <td>{{ $value->id }}</TD>
-                        <TD nowrap>
-                            @if(false)
-                                <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
-                                <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
-                                    <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
-                                    <span class="c-indicator"></span>
-                                </LABEL>
-                            @endif
-                            {{ $usertype }}
-                        </td>
-                        <td>{{ $value->name }}</td>
-                        <!--td>{{ $value->email }}</td-->
-                        <td><A HREF="{{ url("restaurants/" . $restaurant_slug . "/menu") }}">{{ $restaurant }}</A></td>
-                        <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
-                        <td nowrap>{{ phonenumber($value->phone, true) }}</td>
-                        <td>{{ $value->email }}</td>
                         <td>
                             <!--a class="btn btn-info btn-sm editRow" data-toggle="modal" data-id="{{ $value->id }}" data-target="#editModel">Edit</a-->
                             @if($value->id != \Session::get('session_id'))
@@ -122,6 +98,25 @@
                                    onclick="deleteuser('{{$value->id}}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>
                             @endif
                         </td>
+
+                        <td>{{ $value->id }}</TD>                        <td>{{ $value->name }}</td>
+
+                        <TD nowrap>
+                            @if(false)
+                                <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
+                                <LABEL class="c-input c-checkbox" title="{{ $alts["plus"] }}" id="userplus{{ $value->id }}">
+                                    <input type="checkbox" userid="{{ $value->id }}" onclick="promoteuser(event);" {{ iif($value->profile_type == 3, 'checked') }} />
+                                    <span class="c-indicator"></span>
+                                </LABEL>
+                            @endif
+                            {{ $usertype }}
+                        </td>
+                        <!--td>{{ $value->email }}</td-->
+                        <td><A HREF="{{ url("restaurants/" . $restaurant_slug . "/menu") }}">{{ $restaurant }}</A></td>
+                        <!--td> select_field('profiletypes', 'id', $value->profile_type, 'name') </td-->
+                        <td nowrap>{{ phonenumber($value->phone, true) }}</td>
+                        <td>{{ $value->email }}</td>
+
                     </tr>
                 @endforeach
             @else

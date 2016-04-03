@@ -73,9 +73,7 @@
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
-
 <?
-
                     //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
                     if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
                     <div class="card  m-b-0" style="border-radius:0 !important;">
