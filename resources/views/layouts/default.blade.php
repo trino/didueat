@@ -2,34 +2,34 @@
 <html lang="en">
 <head>
     <?php
-        
-        $start_loading_time = microtime(true);
-        
-        if(Session::has('menuTS')){
-          $GLOBALS['menuTS']=Session('menuTS');
-        }
-        $preUpRe="false";
-        if(isset($_COOKIE['pvrbck'])){
-          $preUpRe="true";
-        }
-        echo '<script>preUpRe='.$preUpRe.';</script>';
 
-        if (!isset($userAddress)) {
-            $userAddress = "";
-        }
-        if (!isset($radiusSelect)) {
-            $radiusSelect = "";
-        }
-        $nextPath = "";
-        if (Request::path() !== null && Request::path() != "/") {
-            $nextPath = "/" . Request::path();
-        }
+    $start_loading_time = microtime(true);
 
-        $first = false;
-        $type = "hidden";
-        
+    if (Session::has('menuTS')) {
+        $GLOBALS['menuTS'] = Session('menuTS');
+    }
+    $preUpRe = "false";
+    if (isset($_COOKIE['pvrbck'])) {
+        $preUpRe = "true";
+    }
+    echo '<script>preUpRe=' . $preUpRe . ';</script>';
+
+    if (!isset($userAddress)) {
+        $userAddress = "";
+    }
+    if (!isset($radiusSelect)) {
+        $radiusSelect = "";
+    }
+    $nextPath = "";
+    if (Request::path() !== null && Request::path() != "/") {
+        $nextPath = "/" . Request::path();
+    }
+
+    $first = false;
+    $type = "hidden";
+
     ?>
-    
+
     <title>{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT  }}</title>
 
     <meta charset="utf-8">
@@ -44,11 +44,13 @@
     <meta content="Didueat" name="author">
     <meta name="content-language" content="en-CA"/>
     <meta http-equiv="content-language" content="en-CA"/>
-    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}" name="description">
+    <meta content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}"
+          name="description">
 
     <meta property="og:site_name" content="DiduEat">
     <meta property="og:title" content="{{ (isset($title))?$title.' | ':'' }}{{ DIDUEAT }}">
-    <meta property="og:description" content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
+    <meta property="og:description"
+          content="{{ (isset($meta_description))? substr($meta_description,0,160):'didueat.ca is very good from all over the world.' }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="-CUSTOMER VALUE-">
     <meta property="og:url" content="{{ url('/') . $nextPath }}">
@@ -56,10 +58,11 @@
     <!-- CSS -->
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
     <!-- Safari doesn't trust the certificate from here:    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="{{ asset('assets/global/css/font-awesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity=""
+          crossorigin="anonymous">
     <!--link href="{{ asset('assets/global/css/bootstrap.css') }}" rel="stylesheet"-->
     <link href="{{ asset('assets/global/css/custom_css.css') }}" rel="stylesheet">
 
@@ -112,7 +115,8 @@
             th {
                 border: 3px solid purple;
             }
-            form{
+
+            form {
                 border: 3px solid black;
             }
         </style>
@@ -132,58 +136,65 @@
         var path = window.location.pathname;
         if (path.replace('didueat', '') != path) {
             var base_url = 'http://localhost/didueat/public/';
-        }else {
+        } else {
             var base_url = window.location.protocol + '//didueat.ca/';
         }
     </SCRIPT>
 </head>
 <body>
-    <div class="overlay_loader">
-        <div class="overlay">
-            <img src="{{ asset('assets/images/ajax-loading.gif') }}" alt="Loading..."/>
-        </div>
+<div class="overlay_loader">
+    <div class="overlay">
+        <img src="{{ asset('assets/images/ajax-loading.gif') }}" alt="Loading..."/>
     </div>
+</div>
 
-    <div class="bg-success">
+<div class="">
     <div class="container-fluid" style="margin-bottom: 53px;">
         @include('layouts.includes.header')
     </div>
-        <div class="clearfix"></div>
-    </div>
+    <div class="clearfix"></div>
+</div>
 
-    <div class="container-fluid">
-        @include('common.alert_messages')
-    </div>
+<div class="container-fluid">
+    @include('common.alert_messages')
+</div>
 
-    <div class="container-fluid">
-        @yield('content')
-    </div>
+<div class="container-fluid">
+    @yield('content')
+</div>
 
-    <div class="container-fluid" >
-        @include('layouts.includes.footer')
-    </div>
+<div class="container-fluid">
+    @include('layouts.includes.footer')
+</div>
 
-    @if(!read("id"))
-        @include('popups.login')
-        @include('popups.signup')
-        @include('popups.forgot-password')
-    @endif
+@if(!read("id"))
+    @include('popups.login')
+    @include('popups.signup')
+    @include('popups.forgot-password')
+@endif
 
-    @if(\Session::has('session_id'))
-        @include('popups.navigation_bar')
-    @endif
+@if(\Session::has('session_id'))
+    @include('popups.navigation_bar')
+@endif
 
 </body>
 </html>
 <script>
-    $( window ).load(function() {
+    $(window).load(function () {
         $('.overlay_loader').hide();
     });
 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
     ga('create', 'UA-74638591-1', 'auto');
     ga('send', 'pageview');
 </script>

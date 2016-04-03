@@ -59,7 +59,17 @@
             @endif
             <tbody>
             @if($recCount > 0)
+
+<?
+                echo "<pre>";
+               //     print_r($Query);
+                echo "</pre>";
+?>
                 @foreach($Query as $key => $value)
+
+                    {{ $value->id }}
+
+
                     <?php
                         $Addresses = select_field_where("profiles_addresses", array("user_id" => $value->id, 'CHAR_LENGTH(phone) > 0'), false);
                         foreach($Addresses as $Address){

@@ -88,6 +88,8 @@ class UsersController extends Controller {
         );
         
         $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
+
+
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;

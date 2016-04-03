@@ -1,27 +1,41 @@
+<?php
+$alts = array(
+        "home" => "Go back to the home page",
+        "cart-header" => "Checkout",
+        "navigationModal" => "Bring up the options menu",
+        "login" => "Log in with your email address and password",
+        "signup" => "Create a new account"
+);
+?>
 <nav class="navbar navbar-fixed-top navbar-dark bg-success header-nav">
     <div class="container" style="margin-top:0px !important;">
-        <?php
-            $alts = array(
-                    "home" => "Go back to the home page",
-                    "cart-header" => "Checkout",
-                    "navigationModal" => "Bring up the options menu",
-                    "login" => "Log in with your email address and password",
-                    "signup" => "Create a new account"
-            );
-        ?>
-        <a class="hidden-sm-down" href="{{ url('/') }}" title="{{ $alts["home"] }}">
-            <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
-        </a>
-        <a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
-            <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
-        </a>
 
 
 
-        <ul class="nav navbar-nav pull-right ">
+
+
+        <ul class="nav navbar-nav pull-left " style="">
+            <li class="nav-item ">
+                <!--a class="hidden-sm-down" href="{{ url('/') }}" title="{{ $alts["home"] }}">
+                    <img class="pull-left" src="{{ asset('assets/images/logo.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
+                </a-->
+                </li>
+
+            <li class="nav-item ">
+                <!--a class="hidden-md-up pull-left  nav-link" href="{{ url('/') }}" title="{{ $alts["home"] }}">
+                    <img class="pull-left" src="{{ asset('assets/images/icon.png') }}" alt="{{ DIDUEAT }}" style="height: 38px;"/>
+                </a-->
+                DiduEat
+            </li>
+
+            </ul>
+
+
+
+        <ul class="nav navbar-nav pull-right " style="">
             <li class="nav-item ">
 
-                <A ID="cart-header" style="display:none;" CLASS="btn-responsive anchor btn btn-warning" onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
+                <A ID="cart-header" style="display:none;border-radius: 0;" CLASS="anchor btn bg-warning" onclick="return scrolltocheckout();" title="{{ $alts["cart-header"] }}">
                     <span class="fa fa-spinner fa-spin cart-header-gif"></SPAN>
                     <SPAN class="cart-header-items cart-header-show"></SPAN>
                     <SPAN class="cart-header-total cart-header-show"></SPAN>
@@ -31,7 +45,7 @@
 
                 @if(Session::has('is_logged_in'))
                     <a href="#" data-toggle="modal" data-target="#navigationModal" title="{{ $alts["navigationModal"] }}"
-                       style="padding-top:2px;padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
+                       style="padding-left:6px !important; color:white; text-decoration: none;" class="pull-right"
                        onclick="modalcheck();">
 
                         <img src="<?php
