@@ -104,6 +104,10 @@
                 border: 1px solid red !important;
             }
 
+            .div {
+                border: 1px solid red !important;
+            }
+
             tr {
                 border: 3px solid pink;
             }
@@ -149,7 +153,7 @@
 </div>
 
 <div class="">
-    <div class="container-fluid" style="margin-bottom: 53px;">
+    <div class="container-fluid" style="margin-bottom: 51px;">
         @include('layouts.includes.header')
     </div>
     <div class="clearfix"></div>

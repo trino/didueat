@@ -361,6 +361,7 @@ a.anchor {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
+    opacity: 1 !important;
 }
 
 .container-fluid {

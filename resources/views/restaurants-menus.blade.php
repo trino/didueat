@@ -24,31 +24,7 @@
     $alts = array(
         "add_item" => "Add Item"
     );
-
-    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
-    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
-        <div class="card  m-b-0" style="border-radius:0 !important;">
-            <div class="card-block ">
-                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                    <!--h4 class="card-title text-xs-center m-b-0">Limit of 25 menu items</h4>
-
-                    <p class="card-title text-xs-center m-b-0">Be creative, 95% of your menu can be uploaded with our system.</p-->
-
-                    <div class="col-md-4 col-md-offset-4 ">
-                        <a href="#" id="add_item0" type="button"
-                           class="btn btn-success btn-lg additem  btn-block"
-                           data-toggle="modal"
-                           title="{{ $alts["add_item"] }}"
-                           data-target="#addMenuModel">
-                            Add Menu Item
-                        </a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    <? } ?>
-
+?>
     <div class="container" >
         <?php printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
@@ -97,6 +73,37 @@
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
+
+<?
+
+                    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
+                    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
+                    <div class="card  m-b-0" style="border-radius:0 !important;">
+                        <div class="card-block ">
+                            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+                                <h4 class="card-title text-xs-center m-b-0">Add Menu Item</h4>
+
+                                <p class="card-title text-xs-center m-b-0">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
+
+                                <div class="col-md-4 col-md-offset-4 ">
+                                    <a href="#" id="add_item0" type="button"
+                                       class="btn btn-success btn-lg additem  btn-block"
+                                       data-toggle="modal"
+                                       title="{{ $alts["add_item"] }}"
+                                       data-target="#addMenuModel">
+                                        Add Menu Item
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <? } ?>
+
+
+
+
+
             </div>
             <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))

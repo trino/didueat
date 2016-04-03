@@ -5,7 +5,7 @@
         $imgType="";
         $alts = array(
                 "delete" => "Delete image",
-                "imgPre" => "This item's picture"
+                "imgPre" => ""
         );
     ?>
 

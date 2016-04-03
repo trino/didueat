@@ -229,6 +229,31 @@
     </div>
 
     <div class="clearfix"></div>
+
+    <div class="col-lg-4 hidden-md-down">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+
 </div>
 </div>
 
