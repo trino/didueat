@@ -22,7 +22,8 @@
     }
 
     $alts = array(
-        "browse" => "Browse for a picture to upload"
+            "browse" => "Browse for a picture to upload",
+            "logo" => "The restaurant's current picture"
     );
 
 echo newrow($new, "Restaurant Name", "",true); ?>
@@ -87,17 +88,22 @@ if(!$minimum && isset($restaurant->id)){
         <div class="clearfix pull-left">
             <input type="hidden" name="logo" id="hiddenLogo"/>
 
-            <img id="picture" class="logopic" align=""
+            <img id="picture" class="logopic" alt="<?php echo e($alts["logo"]); ?>"
                 <?php if(isset($restaurant->logo) && $restaurant->logo != ""): ?>
                     title="<?php echo e($logoname); ?>"
                     src="<?php echo e(asset($logoname) ."?" . date('U')); ?>"/>
                 <?php else: ?>
                     src="<?php echo e(asset('assets/images/small-smiley-logo.png')); ?>"/>
-
                 <?php endif; ?>
                     <!-- <span id="fullSize" class="smallT"></span> -->
         </div>
     </div></div>
+    <div class="form-group row editaddress ">
+        <label id="import_csv" class="col-md-3 text-md-right">Import Menu CSV</label>
+        <div class="col-md-7">
+            <input type="file" name="import_csv" class="form-control" />
+        </div>
+    </div>
  
     <?= newrow($new, "", "", "", 12, true);?>
         <hr class="m-y-1" align="center"/>

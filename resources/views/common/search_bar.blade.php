@@ -1,5 +1,6 @@
 @if(Request::path() == '/' || (isset($searchTerm) && Request::path() == "restaurants/".$searchTerm) || (isset($slug) && Request::path() == "restaurants/".$slug."/menu"))
     <div>
+        <FORM ID="addressbar">
         <div class="input-group input-group-lg">
             @if(read("id") && false)
                 <div class="input-group-btn">
@@ -41,17 +42,24 @@
             <script>
                     (window.navigator.userAgent.indexOf("MSIE")!=-1 || !!navigator.userAgent.match(/Trident.*rv\:11\./))? document.getElementById('formatted_address2').style.height='53px' :'';
             </script>
-            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;">
-            <input type="{{ $Type }}" name="latitude" id="longitude" style="color: black;">
-                @if(debugmode())
-                    <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
-                @endif
+            <input type="{{ $Type }}" name="latitude" id="latitude" style="color: black;" placeholder="latitude">
+            <input type="{{ $Type }}" name="longitude" id="longitude" style="color: black;" placeholder="longitude">
+
+            <input type="{{ $Type }}" name="city" id="city" style="color: black;" placeholder="city">
+            <input type="{{ $Type }}" name="province" id="province" style="color: black;" placeholder="province">
+            <input type="{{ $Type }}" name="postal_code" id="postal_code" style="color: black;" placeholder="postal_code">
+            <input type="{{ $Type }}" name="country" id="country" style="color: black;" placeholder="country">
+
+            @if(debugmode())
+                <A class="btn" onclick="googlemap(this);" target="_blank"><i class="fa fa-globe" style="color:blue;"></i></A>
+            @endif
             <span class="input-group-btn" style="vertical-align: top;">
                 <button class="btn  btn-success dueBtn btn-responsive" oldstyle="display: none;" id="header-search-button" onclick="$('#search-form-submit').trigger('click');" title="{{ $alts["search"] }}">
                     <i class="fa fa-search"></i>
                 </button>
             </span>
         </div>
+        </FORM>
     </div>
 
     <script>

@@ -88,6 +88,8 @@ class UsersController extends Controller {
         );
         
         $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
+
+
         $no_of_paginations = ceil($recCount / $per_page);
         
         $data['Query'] = $Query;
@@ -453,5 +455,9 @@ class UsersController extends Controller {
         */
         return json_encode($user);
     }
-     
+
+    function uploads($UserID = false){
+        if(!$UserID){$UserID = read("id");}
+        return view('dashboard.user.uploads', array("userid" => $UserID));
+    }
 }

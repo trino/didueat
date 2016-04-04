@@ -150,21 +150,9 @@
 
                                                         <div class="col-xs-12 col-sm-6 form-group">
                                                             <div id="buttons_{{ $mm->id }}" class="buttons" href="javascript:void(0);">
-                                                                <div <?php if ($sub->sing_mul == '1') {
-                                                                    echo "style='display:none'";
-                                                                } ?> class="pull-left p-a-0 col-md-5 col-xs-5">
-                                                                    <a id="remspan_{{ $mm->id }}" title="{{ $alts["remspan"] }}"
-                                                                       class="remspan btn btn-secondary-outline btn-sm "
-                                                                       href="javascript:;"><i class="fa fa-minus"></i></a>
 
-                                                                        <span id="sprice_{{$mm->price}}" class="span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</span>
 
-                                                                    <a id="addspan_{{ $mm->id }}" title="{{ $alts["addspan"] }}"
-                                                                       class="addspan btn btn-sm btn-primary-outline "
-                                                                       href="javascript:;"><i class="fa fa-plus"></i></a>
-                                                                </div>
-
-                                                                <div class=" @if ($sub->sing_mul == '1')  col-md-12 @else  col-xs-7 @endif p-l-0">
+                                                                <div style=" @if ($sub->sing_mul == '1')  width:100%; @else  width:65%; @endif float:left;">
                                                                     <LABEL class="changemodalP @if($sub->sing_mul =='1') c-input c-radio @endif
                                                                     @if ($sub->sing_mul == '1')  @else  p-l-0 @endif ">
 
@@ -182,6 +170,23 @@
                                                                         <span class="list-inline-item ver">{{ $mm->menu_item }} <?php if ($mm->price) echo "(+$" . number_format(str_replace('$', '', $mm->price), 2) . ")"; ?> </span>
                                                                     </LABEL>
                                                                 </div>
+
+
+                                                                <div
+                                                                    style="width:35%;float:left;   @if ($sub->sing_mul == '1')display:none; @endif"
+                                                                class="pull-left p-a-0">
+
+                                                                    <a id="addspan_{{ $mm->id }}" title="{{ $alts["addspan"] }}"
+                                                                       class="addspan btn btn-sm  pull-right p-r-0"
+                                                                       href="javascript:;"><strong><i class="fa fa-plus"></i></strong></a>
+
+                                                                    <a id="sprice_{{$mm->price}}" style="margin-top:2px;" class=" btn pull-right p-a-0 span_{{ $mm->id }} qty_{{ $value->id }} allspan">0</a>
+
+                                                                    <a id="remspan_{{ $mm->id }}" title="{{ $alts["remspan"] }}"
+                                                                       class="remspan btn pull-right btn-sm "
+                                                                       href="javascript:;"><i style="color: #dadada" class="fa fa-minus"></i></a>
+                                                                </div>
+
 
                                                             </div>
 

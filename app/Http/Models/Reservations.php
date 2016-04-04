@@ -59,16 +59,16 @@ class Reservations extends BaseModel {
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
                           $query->orWhere('id', '=', $searchResults)
-                                ->orWhere('ordered_by', 'LIKE', "%$searchResults%")
-                                ->orWhere('contact', 'LIKE', "%$searchResults%")
-                                ->orWhere('payment_mode', 'LIKE', "%$searchResults%")
-                                ->orWhere('address1', 'LIKE', "%$searchResults%")
-                                ->orWhere('address2', 'LIKE', "%$searchResults%")
-                                ->orWhere('city', 'LIKE', "%$searchResults%")
-                                ->orWhere('postal_code', 'LIKE', "%$searchResults%")
-                                ->orWhere('note', 'LIKE', "%$searchResults%")
-                                ->orWhere('status', 'LIKE', "%$searchResults%")
-                                ->orWhere('remarks', 'LIKE', "%$searchResults%");
+                                ->orWhere('ordered_by',     'LIKE', "%$searchResults%")
+                                ->orWhere('contact',        'LIKE', "%$searchResults%")
+                                ->orWhere('payment_mode',   'LIKE', "%$searchResults%")
+                                ->orWhere('address1',       'LIKE', "%$searchResults%")
+                                ->orWhere('address2',       'LIKE', "%$searchResults%")
+                                ->orWhere('city',           'LIKE', "%$searchResults%")
+                                ->orWhere('postal_code',    'LIKE', "%$searchResults%")
+                                ->orWhere('note',           'LIKE', "%$searchResults%")
+                                ->orWhere('status',         'LIKE', "%$searchResults%")
+                                ->orWhere('remarks',        'LIKE', "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);

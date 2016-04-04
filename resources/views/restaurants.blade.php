@@ -9,6 +9,7 @@
     $useHamilton = true;
     $is_pickup_checked="";
     $is_delivery_checked="";
+    $is_menu_checked = iif(isset($_COOKIE["is_menu"]) && $_COOKIE["is_menu"], " CHECKED");
     if(isset($_COOKIE['delivery_type'])){
        switch ($_COOKIE['delivery_type']){
            case "is_delivery":
@@ -81,7 +82,7 @@
             <div class="row text-md-center " style="padding:0 1.25rem !important;">
                 <div class="container hidden-md-down"></div>
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span style="font-size: 136%"> Hamilton Restaurants</span></h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span style="font-size: 124%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
                 </div>
 
@@ -153,6 +154,7 @@
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="p-l-0 pull-left">
                                     <div class="form-group">
                                         <label class="c-input c-checkbox ">
@@ -165,6 +167,19 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                <!--div class="p-l-0 pull-right">
+                                    <div class="form-group">
+                                        <label class="c-input c-checkbox ">
+                                            <input type="checkbox" name="is_menu" id="is_menu"
+                                                   {{ $is_menu_checked }}
+                                                   />
+                                            <span class="c-indicator"></span>
+                                            Show Menus
+                                        </label>
+                                    </div>
+                                </div-->
+
                                 <!--label class="c-input c-checkbox">
                                     <input type="checkbox" name="is_complete" id="is_complete" value="true" checked
                                            onclick="createCookieValue('is_complete', this.value)"/>
@@ -245,8 +260,9 @@
                         <br>
                         <br>
                         <br>
-</div>
                     </div>
+
+                </div>
             </div>
 
             <div id="icons_show">
@@ -368,6 +384,19 @@
             if (getCookie('longitude')) {
                 $('#longitude').val(getCookie('longitude'));
             }
+            if (getCookie('city')) {
+                $('#city').val(getCookie('city'));
+            }
+            if (getCookie('country')) {
+                $('#country').val(getCookie('country'));
+            }
+            if (getCookie('province')) {
+                $('#province').val(getCookie('province'));
+            }
+            if (getCookie('postal_code')) {
+                $('#postal_code').val(getCookie('postal_code'));
+            }
+
             if (getCookie('delivery_type')) {
                 $("#search-form input[name=delivery_type][value=" + getCookie('delivery_type') + "]").prop('checked', true);
             }
@@ -382,6 +411,9 @@
             }
             if (getCookie('SortOrder')) {
                 $('#search-form #SortOrder').val(getCookie('SortOrder'));
+            }
+            if(getCookie("is_menu")){
+                $('#search-form #is_menu').attr("checked", true);
             }
 
             /*
@@ -407,9 +439,14 @@
         $('body').on('click', '#clearSearch', function () {
             removeCookie('cname');
             removeCookie('radius');
+            removeCookie('city');
+            removeCookie('province');
+            removeCookie('country');
+            removeCookie('postal_code');
             removeCookie('latitude');
             removeCookie('longitude');
             removeCookie('minimum');
+            removeCookie('is_menu');
             removeCookie('cuisine');
             removeCookie('rating');
             removeCookie('SortOrder');
@@ -449,6 +486,12 @@
             var longitude = $('#longitude').val().trim();
             var address_alias = $('#formatted_address2').val();
 
+            var city = $('#city').val();
+            var province = $('#province').val();
+            var country = $('#country').val();
+            var postal_code = $('#postal_code').val();
+            var is_menu = $('#is_menu').is(":checked");
+
             <?php
               (!is_null(Session::get('earthRad')))? $earthRad=Session::get('earthRad') : $earthRad=6371;
               echo "var earthRad = ".$earthRad.";";
@@ -458,6 +501,12 @@
             createCookieValue('longitude', longitude);
             createCookieValue('latitude', latitude);
             createCookieValue('address', address_alias);
+            createCookieValue('city', city);
+            createCookieValue('province', province);
+            createCookieValue('country', country);
+            createCookieValue('postal_code', postal_code);
+            createCookieValue('is_menu', is_menu);
+
             createCookieValue('userC', earthRad); // other delimited items can be added in stage 2
 
             var token = $('#search-form input[name=_token]').val();
@@ -473,7 +522,7 @@
                 if (!address_alias) {
                     return false;
                 }
-                var data = $('#search-form').serialize() + "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias;
+                var data = $('#search-form').serialize() + "&" + $('#addressbar').serialize() ; // "&latitude=" + latitude + "&longitude=" + longitude + "&earthRad=" + earthRad + "&formatted_address=" + address_alias + "&city";
             }
 
             if (start == 0) {

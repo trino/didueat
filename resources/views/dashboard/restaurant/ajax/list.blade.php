@@ -10,8 +10,10 @@
             "edit" => "Edit this restaurant",
             "incomplete" => "This restaurant is incomplete and can not be opened",
             "logo" => "This restaurant's logo",
-            "delete" => "Delete this restaurant"
+            "delete" => "Delete this restaurant",
+            "fixmenus" => "Fix old menu item's categories so they show up properly. Only needs to be done once, ever"
     );
+    if(!isset($note)){$note = "";}
 ?>
 
 @if(\Session::has('message'))
@@ -23,7 +25,11 @@
         <div class="row">
             <div class="col-lg-9">
                 <h4 class="card-title">
-                    Restaurants
+                    Restaurants {{ $note }}
+
+                    @if(debugmode() && !$note)
+                        <A HREF="?fixmenus" STYLE="float:right;" class="btn btn-info btn-sm" title="{{ $alts["fixmenus"] }}">Fix menus</A>
+                    @endif
                 </h4>
             </div>
             @include('common.table_controls')
@@ -43,7 +49,7 @@
                             <td>{{ $value->id }}</td>
                             <td><img src="{{ $logo }}" width="90" alt="{{ $alts["logo"] }}"/></td>
                             <td>{{ $value->name }}</td>
-                            <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value['id'], true, 'update-rating', false) !!}</td>
+                            <td NOWRAP>{!! rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false) !!}</td>
                             <td>
                                 @if(!$value->is_complete)
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="{{ $alts["incomplete"] }}">Incomplete</A><HR CLASS="slimhr">
@@ -114,7 +120,7 @@
                             <td>
                                 <a href="{{ url('restaurants/' . $value->slug . '/menu/') }}" class="btn btn-info btn-sm" title="{{ $alts["menu"] }}">Menu</a>
                                 @if(read("type_user") == "super")
-                                    <a href="{{ url('orders/list/restaurant/' . $value['id']) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
+                                    <a href="{{ url('orders/list/restaurant/' . $value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["orders"] }}">Orders</a>
                                     <a href="{{ url('restaurant/info/'.$value->id) }}" class="btn btn-info btn-sm" title="{{ $alts["edit"] }}">Edit</a>
                                     <!--a href="{{ url('restaurant/list/delete/'.$value->id) }}" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete {{ addslashes("'" . $value->name . "'") }} ?');">X</a-->
                                     <a class="btn btn-secondary-outline btn-sm" id="delete{{ $value->id }}" title="{{ $alts["delete"] }}" onclick="deleterestaurant('{{ $value->id }}', '{{ addslashes("'" . $value->name . "'") }}');">X</a>

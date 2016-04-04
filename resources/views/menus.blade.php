@@ -20,7 +20,7 @@
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
 @endif
 
-<DIV class="list-group m-b-1" id="">
+<DIV class="list-group m-y-1" id="">
     <div class="list-group-item parents" style="background-color: #f5f5f5;" id="">
         <div class="">
             <div class="row">
@@ -90,7 +90,7 @@
 
                                     }
                                 ?>
-                                    <div class="" style="width: 70%;float:left;">
+                                    <div class="" style="width: 100%;float:left;">
 
                                 <h4 class="card-title">
                                     <a href="#" id="{{ $value->id }}"
@@ -109,32 +109,24 @@
 
                                         {{ $value->menu_item }}
 
-                                    </a>
-
-</div>
-
-                                    <div class="" style="width: 30%;float: right">
-
-
-
-                                        <a href="#" id="{{ $value->id }}"
-                                            data-res-id="{{ $value->restaurant_id }}" type="button"
-                                            data-toggle="modal"
-                                            style="float: right;"
-                                            title="{{ $alts["product-pop-up"] }}"
-                                            data-target="{{ (Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu') }}"
-                                            class="btn btn-sm btn-primary">
-
+                                        &ndash;
                                             @if($main_price>0)
                                                 ${{number_format(($main_price>0)?$main_price:$min_p,2)}}
                                             @else
                                                 ${{number_format($min_p,2)}}+
                                             @endif
-                                        </a>
+                                            @if($dis)
+                                                <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
+                                            @endif
 
-                                        @if($dis)
-                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
-                                        @endif
+
+
+                                    </a>
+
+</div>
+
+                                    <div class="" style="">
+
 
                                     </div>
                                 </h4>

@@ -1,5 +1,5 @@
 <?php
-    echo printfile("views/dashboard/orders/ajax/list.blade.php");
+    printfile("views/dashboard/orders/ajax/list.blade.php");
     $secondsper = array("day" => 86400, "hr" => 3600, "min" => 60);//"week" => 604800,
     $secondsTitle = "sec";
     function statuscolor($Status, $Color = false){
@@ -15,6 +15,14 @@
                 break;
         }
     }
+    $alts = array(
+            "print" => "Print preview",
+            "notifyall" => "Notify stores for every pending order",
+            "notifyone" => "Notify the store for this order",
+            "order_detail" => "View the order",
+            "restaurants/menu" => "View the restaurant",
+            "deleteorder" => "Delete this order"
+    );
 ?>
 
 <?php if(\Session::has('message')): ?>
@@ -35,11 +43,11 @@
                     Orders
 
                     <?php if(Session::get('session_type_user') == "super" || $type=='restaurant'): ?>
-                        <a class="btn btn-secondary btn-sm" href="<?php echo e(url('orders/report')); ?>" class="">Print Report</a>
+                        <a class="btn btn-secondary btn-sm" title="<?php echo e($alts["print"]); ?>" href="<?php echo e(url('orders/report')); ?>">Print Report</a>
                     <?php endif; ?>
 
                     <?php if($type == "admin" && false): ?>
-                        <a class="btn btn-primary btn-sm" ONCLICK="notifystore(event, 0);">Notify All</a>
+                        <a class="btn btn-primary btn-sm" title="<?php echo e($alts["notifyall"]); ?>" ONCLICK="notifystore(event, 0);">Notify All</a>
                     <?php endif; ?>
                 </h4>
 
@@ -81,11 +89,11 @@
                     ?>
                         <tr id="order<?php echo e($value->id); ?>">
                             <td>
-                                <a href="<?php echo e(url('orders/order_detail/' . $value->id . '/' . $type)); ?>" class="btn <?php echo e(statuscolor($value->status)); ?> btn-sm"><?php echo e($value->guid); ?></a>
+                                <a href="<?php echo e(url('orders/order_detail/' . $value->id . '/' . $type)); ?>" title="<?php echo e($alts["order_detail"]); ?>" class="btn <?php echo e(statuscolor($value->status)); ?> btn-sm"><?php echo e($value->guid); ?></a>
                             </td>
                             <td>
                                 <?php if($type=='user'): ?>
-                                    <a HREF="<?php echo e(url('restaurants/'. $resto[0]->slug .'/menu')); ?>" ><?php echo e($resto[0]->name); ?></a>
+                                    <a HREF="<?php echo e(url('restaurants/'. $resto[0]->slug .'/menu')); ?>" title="<?php echo e($alts["restaurants/menu"]); ?>"><?php echo e($resto[0]->name); ?></a>
                                 <?php else: ?>
                                     <?php echo e($value->ordered_by); ?>
 
@@ -147,15 +155,15 @@
                                        onclick="return confirm('Are you sure you want to delete order #<?php echo e($value->id); ?>?');">
                                         <i class="fa fa-times"></i>
                                     </a-->
-                                    <a
+                                    <a title="<?php echo e($alts["deleteorder"]); ?>"
                                        class="btn btn-secondary-outline btn-sm pull-right"
                                        onclick="deleteorder(<?php echo e($value->id); ?>);">
                                         <i ID="fa<?php echo e($value->id); ?>" class="fa fa-times"></i>
                                     </a>
                                 <?php endif; ?>
                                 <?php if($type == "admin" ): ?>
-                                    <a class="btn btn-secondary-outline btn-sm  pull-right"
-                                       ONCLICK="notifystore(event,<?php echo e($value->id); ?> );">Notify</a>
+                                    <a class="btn btn-secondary-outline btn-sm pull-right" title="<?php echo e($alts["notifyone"]); ?>"
+                                       ONCLICK="notifystore(event, <?php echo e($value->id); ?>);">Notify</a>
                                 <?php endif; ?>
                             </td>
                         </tr>

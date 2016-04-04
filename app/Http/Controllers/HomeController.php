@@ -127,8 +127,25 @@ class HomeController extends Controller {
                 $SQL = "";
                 if (debugmode()) {$SQL = "SQL=" . $data['sql'] . "<BR>" . str_replace("&", "<BR>", print_r($post["data"], true));}
 
-                //$SQL = is_null($data['query']);
-                //$SQL = var_export($data['query']);
+                if(read("id")) {
+                    $hasaddress = true;
+                    foreach (array("latitude", "longitude", "formatted_address", "city", "province", "postal_code", "country") as $field) {
+                        if (!isset($data) || empty($data[$field])) {
+                            $hasaddress = false;
+                        }
+                    }
+                    if ($hasaddress) {
+                        $searchname = "Last search";
+                        $ID = select_field_where("profiles_addresses", array("user_id" => read("id"), "location" => $searchname));
+                        if(!$ID){$ID = 0;} else {$ID = $ID->id;}
+                        $add = \App\Http\Models\ProfilesAddresses::findOrNew($ID);
+                        $data["user_id"] = read("id");
+                        $data["location"] = $searchname;
+                        $data["phone"] = read("phone");
+                        $add->populate($data);
+                        $add->save();
+                    }
+                }
 
                 if (!is_null($data['query']) && count($data['query']) > 0){
                     return view('ajax.search_restaurants', $data);
@@ -536,8 +553,15 @@ class HomeController extends Controller {
                     echo "Profile type of profile ID # " . $_POST["id"] . " was changed to " . iif($_POST["checked"] == "true", "3 (userplus)", "2 (user)");
                     break;
 
+                case "deletepic":
+                    if(read("profiletype") == 1 || read("id") == $_POST["userid"]){
+                        @unlink(public_path("assets/images/users/" . $_POST["userid"] . "/" . $_POST["filename"]));
+                    }
+                    break;
+
                 default:
                     echo $_POST["type"] . " is not handled";
+                    if(debugmode()){ echo "\r\n" . var_export($_POST, true);}
             }
         } else {
             echo "type not specified";

@@ -29,9 +29,9 @@ class NotificationAddresses extends BaseModel {
         $query = NotificationAddresses::select('*')->where('user_id', \Session::get('session_id'))
                 ->Where(function($query) use ($searchResults) {
                     if($searchResults != ""){
-                          $query->orWhere('address', 'LIKE', "%$searchResults%")
-                                ->orWhere('note', 'LIKE', "%$searchResults%")
-                                ->orWhere('type', 'LIKE', "%$searchResults%");
+                          $query->orWhere('address',    'LIKE', "%$searchResults%")
+                                ->orWhere('note',       'LIKE', "%$searchResults%")
+                                ->orWhere('type',       'LIKE', "%$searchResults%");
                     }
                 })
                 ->orderBy($meta, $order);

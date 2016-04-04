@@ -38,20 +38,22 @@ class Profiles extends BaseModel {
     public static function listing($array = "", $type = "", &$reccount = 0){
         //echo "<pre>".print_r($array)."</pre>"; exit();
         $searchResults = $array['searchResults'];
-        $meta = $array['meta'];
+        $meta = "profiles." . $array['meta'];
         $order = $array['order'];
         $per_page = $array['per_page'];
         $start = $array['start'];
-        
-        $query = Profiles::select('*')
+        $query = Profiles::select('profiles.*', 'restaurants.name as restname', 'restaurants.slug as restslug')
                 ->Where(function($query) use ($searchResults){
                     if($searchResults != ""){
-                          $query->orWhere('name', 'LIKE', "%$searchResults%")
-                                ->orWhere('email', 'LIKE', "%$searchResults%")
-                                ->orWhere('created_at', 'LIKE', "%$searchResults%");
+                          $query->orWhere('profiles.name', 'LIKE', "%$searchResults%")
+                                ->orWhere('profiles.email', 'LIKE', "%$searchResults%")
+                                ->orWhere('profiles.created_at', 'LIKE', "%$searchResults%")
+                                ->orWhere('restaurants.name', 'LIKE', "%$searchResults%");
                     }
                 })
-                ->orderBy($meta, $order);
+                ->orderBy($meta, $order)
+                ->join('restaurants', 'profiles.restaurant_id', '=', 'restaurants.id');
+
         $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);

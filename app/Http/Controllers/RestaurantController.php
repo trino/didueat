@@ -41,6 +41,11 @@ class RestaurantController extends Controller {
         $page -= 1;
         $start = $page * $per_page;
 
+        if(isset($_GET["fixmenus"])){
+            $this->fixcategories();
+            echo '<FONT COLOR="RED">FIXING ALL CATEGORIES</FONT><BR>';
+        }
+
         $data = array(
             'page' => $page,
             'cur_page' => $cur_page,
@@ -134,11 +139,12 @@ class RestaurantController extends Controller {
         $post = \Input::all();//check for missing data
         if (isset($post) && count($post) > 0 && !is_null($post)) {
             try {//populate data array from the post
+                $post["uploaded_by"] = read("id");
                 $ob = \App\Http\Models\Restaurants::findOrNew(0);
                 $ob->populate(array(),false);
                 $ob->save();
 
-                $this->restaurantInfo($ob->id);
+                $this->restaurantInfo($ob->id, read("id"));
                 return $this->success('Restaurant created successfully!', '/restaurant/list');
             } catch (\Exception $e) {
                 return $this->failure("RestaurantController/addRestaurants:" . handleexception($e), '/restaurant/add/new');
@@ -252,7 +258,10 @@ class RestaurantController extends Controller {
 
                 $ob->populate($update,$addlogo);
                 $isnowopen = $ob->save();
-
+                if($id==0)
+                {
+                    $id = $ob->id;
+                }
                 if(!$post['id']){
                     $post['id'] = $ob->id;
                 }
@@ -287,10 +296,13 @@ class RestaurantController extends Controller {
 
                 event(new \App\Events\AppEvents($ob, "Restaurant " . iif($id, "Updated", "Created")));
                 if($ReturnData){return $ob;}
+                if(isset($_FILES['import_csv']) && $_FILES['import_csv']['name'])
+                $this->import_csv($id,$_FILES['import_csv']);
                 return $this->success(iif($isnowopen, "Your restaurant is now open", "Restaurant Profile Has Been Updated"), 'restaurant/info/' . $post['id']);
             } catch (\Exception $e) {
                 return $this->failure(handleexception($e), 'restaurant/info/' . $post['id']);
             }
+            
         } else {
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
@@ -310,6 +322,7 @@ class RestaurantController extends Controller {
      * @param null
      * @return view
      */
+     
     public function menuManager() {
         $post = \Input::all();
         if (isset($post) && count($post) > 0 && !is_null($post)) {//check for missing data
@@ -403,12 +416,48 @@ class RestaurantController extends Controller {
         return false;
     }
 
+    function fixcategories($res_id = false){
+        if(!$res_id){//all
+            $restaurants = enum_all("restaurants");
+            foreach($restaurants as $restaurant){
+                $this->fixcategories($restaurant->id);
+            }
+        } else {//one
+            $MenuItems = enum_anything("menus", "restaurant_id", $res_id);
+            foreach ($MenuItems as $MenuItem) {
+                $CategoryName = trim($MenuItem->cat_name);
+                $NeedsUpdate=false;
+                if (!$CategoryName) {
+                    $CategoryName = "Main";
+                    update_database("menus", "id", $MenuItem->id, array("cat_name" => $CategoryName));
+                    $NeedsUpdate=true;
+                }
+                $Category = select_field_where("category", array("res_id" => $res_id, "title" => $CategoryName));
+                if ($Category) {
+                    if($MenuItem->cat_id <> $Category->id){
+                        $NeedsUpdate = true;
+                    }
+                } else {
+                    $Display_order = first("SELECT max(display_order) as maximum FROM category WHERE res_id = " . $res_id)["maximum"] + 1;
+                    $Category = new_anything("category", array("title" => $CategoryName, "display_order" => $Display_order, "res_id" => $res_id));
+                    $NeedsUpdate=true;
+                }
+                if($NeedsUpdate){
+                    if(is_object($Category)){$Category = $Category->id;}
+                    update_database("menus", "id", $MenuItem->id, array("cat_id" => $Category));
+                }
+            }
+        }
+    }
+
     //return a menu item and it's child items
     public function menu_form($id, $res_id = 0) {
         $data['menu_id'] = $id;
         if(!$res_id){
             $res_id = \Session::get('session_restaurant_id');
         }
+
+        //$this->fixcategories($res_id);
 
         $data['res_id'] = $res_id;
         $data['res_slug'] = select_field('restaurants', 'id', $res_id, 'slug');
@@ -420,7 +469,24 @@ class RestaurantController extends Controller {
             $data['ccount'] = \App\Http\Models\Menus::where('parent', $id)->count();
         }
 
-        return view('dashboard.restaurant.menu_form', $data);
+        return view('popups.menu_form', $data);
+    }
+    
+    public function loadPrevious($addonid)
+    {
+        if(!isset($addonid))
+        {
+            $lastid =  \App\Http\Models\Menus::where('parent','<>','0')->orderBy('id', 'DESC')->first();
+            $addonid = $lastid->parent;
+        }
+        $data['child'] = \App\Http\Models\Menus::where('id', $addonid)->first();
+        return view('dashboard.restaurant.additional', $data);
+    }
+    public function alladdons($resid)
+    {
+        $data['menus'] = \App\Http\Models\Menus::where('restaurant_id',$resid)->where('parent','0')->get();
+        return view('popups.all_addons',$data);
+        
     }
 
     //get more menu items
@@ -879,5 +945,89 @@ class RestaurantController extends Controller {
         }
         update_database("menus", "id", $id, array("image" => "")); // delete image from menus tbl
         return $this->success("Menu image deleted", "restaurants/" . $thisSlug . "/menu");
+    }
+    
+    public function import_csv($id,$file)
+    {
+        
+        $name = explode('.',$file['name']);
+        $ext = end($name);
+        $new = date('Y_m_d_h_i_s').'_'.rand(1,1000).'.'.$ext;
+        $path = 'assets/csv';
+        if(strtolower($ext)=='csv'){
+        move_uploaded_file($file['tmp_name'], public_path($path) . '/' . $new);
+        $file = fopen(public_path($path) . '/' . $new,"r");
+        $i=0;
+        while($row = fgetcsv($file))
+        {
+            $arr['restaurant_id'] = $id;
+            $arr['uploaded_by'] = \Session::get('session_id');
+            $arr['uploaded_on'] = date('Y-m-d H:i:s');
+            $arr['is_active'] = 1;
+            $i++;
+            if($i==1)
+            continue;
+            $temp_id = $id.'_'.$row[0];
+            $arr['temp_id'] = $temp_id;
+            $cat = $row[1];
+            if($cat){
+            $model = \App\Http\Models\Category::where('title','like',$cat)->get();
+            if(isset($model[0]))
+            {
+                $mod = $model[0];
+                $arr['cat_id'] = $mod->id;
+            }
+            else
+            {
+                $ob2 = \App\Http\Models\Category::findOrNew(0);
+                $cats = \App\Http\Models\Category::where('res_id',$id)->orderBy('display_order', 'DESC')->get();
+                if(isset($cats[0]))
+                $cc['display_order']=$cats[0]->display_order+1;
+                else
+                $cc['display_order']=1;
+                $cc['title'] = $cat;
+                $cc['res_id'] = $id;
+                $ob2->populate($cc,true);
+                $ob2->save();
+                $arr['cat_id'] = $ob2->id;
+            }
+            }
+            else{
+                $arr['cat_id'] = 0;
+            }
+            
+            $arr['menu_item'] = $row[2];
+            $arr['description'] = $row[3];
+            $arr['price'] = str_replace('$','',$row[4]);
+            $arr['has_addon'] = $row[5];
+            $parent_id = $row[6];
+            if($parent_id){
+            $model2 = \App\Http\Models\Menus::where('temp_id',$id.'_'.$parent_id)->get();
+            if(isset($model2[0])){
+                $mod2 = $model2[0];
+            $arr['parent'] = $mod2->id;
+            }
+            }
+            $arr['req_opt'] = $row[7];
+            $arr['sing_mul']= $row[8];
+            $arr['exact_upto'] = $row[9]; 
+            $arr['exact_upto_qty'] = $row[10];
+            $arr['has_discount'] = $row[11];
+            
+            $arr['discount_per'] = $row[12];
+            $arr['days_discount'] = $row[13];
+            $ob = \App\Http\Models\Menus::findOrNew(0);
+                $ob->populate($arr,true);
+                $ob->save();
+                unset($arr);
+                unset($model);
+                unset($model2);
+                
+                
+        }
+        fclose($file);
+        
+         \App\Http\Models\Menus::where('temp_id','<>','')->update(['temp_id'=>'']);
+        }
     }
 }

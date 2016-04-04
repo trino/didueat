@@ -1,3 +1,15 @@
+.btn-lg, .btn-group-lg > .btn {
+    font-size: 1rem !important;
+
+}
+
+.navbar {
+    padding: 0rem;
+}
+h1,h2,h3,h4,h5,h6 {
+
+    font-family: 'Roboto Slab', serif !important;
+}
 hr {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #fff;
@@ -279,7 +291,7 @@ hr {
     }
 
     .navbar {
-        padding: .5rem 0rem;
+        padding: 0rem;
     }
 
     .list-group, .list-group-item, .card {
@@ -353,6 +365,7 @@ a.anchor {
 .close {
     font-size: 2rem !important;
     font-weight: normal;
+    opacity: 1 !important;
 }
 
 .container-fluid {
