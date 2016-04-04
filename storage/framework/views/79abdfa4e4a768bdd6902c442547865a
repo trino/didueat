@@ -90,7 +90,7 @@
 
                                     }
                                 ?>
-                                    <div class="" style="width: 70%;float:left;">
+                                    <div class="" style="width: 100%;float:left;">
 
                                 <h4 class="card-title">
                                     <a href="#" id="<?php echo e($value->id); ?>"
@@ -110,33 +110,25 @@
                                         <?php echo e($value->menu_item); ?>
 
 
-                                    </a>
-
-</div>
-
-                                    <div class="" style="width: 30%;float: right">
-
-
-
-                                        <a href="#" id="<?php echo e($value->id); ?>"
-                                            data-res-id="<?php echo e($value->restaurant_id); ?>" type="button"
-                                            data-toggle="modal"
-                                            style="float: right;"
-                                            title="<?php echo e($alts["product-pop-up"]); ?>"
-                                            data-target="<?php echo e((Request::is('restaurants/*')) ? '#product-pop-up_' . $value->id : url('restaurants/' . select_field('restaurants', 'id', $value->restaurant_id, 'slug') . '/menu')); ?>"
-                                            class="btn btn-sm btn-primary">
-
+                                        &ndash;
                                             <?php if($main_price>0): ?>
                                                 $<?php echo e(number_format(($main_price>0)?$main_price:$min_p,2)); ?>
 
                                             <?php else: ?>
                                                 $<?php echo e(number_format($min_p,2)); ?>+
                                             <?php endif; ?>
-                                        </a>
+                                            <?php if($dis): ?>
+                                                <strike class="text-muted btn btn-sm btn-link" style="float: right">$<?php echo e(number_format($value->price,2)); ?></strike>
+                                            <?php endif; ?>
 
-                                        <?php if($dis): ?>
-                                            <strike class="text-muted btn btn-sm btn-link" style="float: right">$<?php echo e(number_format($value->price,2)); ?></strike>
-                                        <?php endif; ?>
+
+
+                                    </a>
+
+</div>
+
+                                    <div class="" style="">
+
 
                                     </div>
                                 </h4>

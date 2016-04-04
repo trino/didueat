@@ -589,13 +589,16 @@ class RestaurantController extends Controller {
         } else { // new menu item (which may include image upload)
             $arr['uploaded_on'] = date('Y-m-d H:i:s');
             $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
-            if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
+            if (isset($orders_mod[0])) {
+                //if the restaurant has more than 0 menus, get the first one
                 $orders = $orders_mod[0];
                 if (!isset($arr['display_order'])) {
                     $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
                 }
+                //echo $arr['display_order'];
+                //die('here');
             }
-
+            //die('there');
             $ob2 = new \App\Http\Models\Menus();
             $ob2->populate($arr);
             $ob2->save();//save changes

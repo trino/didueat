@@ -5,7 +5,7 @@
         $imgType="";
         $alts = array(
                 "delete" => "Delete image",
-                "imgPre" => "This item's picture"
+                "imgPre" => ""
         );
     ?>
 
@@ -51,19 +51,19 @@
                             <!-- <span id="fullSize" class="smallT"></span> -->
                         </div>
                         
-																								<?php
+							<?php
 
-																								if(isset($_COOKIE['pvrbck'])){
-																								   echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
-																								<span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload">
-																								</span>';
+							if(isset($_COOKIE['pvrbck'])){
+							   echo '<span class="btn btn-sm btn-file btn-success blue newbrowse ignore" id="menuImgUp">
+							<span>'.$browseBtnTxt.'</span><input type="file" onchange="reduceFile(\'photoUpload\')" name="photoUpload" id="photoUpload">
+							</span>';
 
-																								}
-																								else{
-																								 echo '<a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse'. $menu_id.'_1">'.$browseBtnTxt.'</a>';
-																								}
+							}
+							else{
+							 echo '<a href="javascript:void(0)" class="btn btn-sm btn-success blue newbrowse ignore" id="newbrowse'. $menu_id.'_1">'.$browseBtnTxt.'</a>';
+							}
 
-																								?>
+							?>
 
                         <?php if(isset($model) && $model->image): ?>
                             <a href="<?php echo e(url("restaurant/deletemenuimage/" . $menu_id)); ?>" id="deleteMenuImg" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the image for this menu item?');" title="<?php echo e($alts["delete"]); ?>">Delete image</a>

@@ -82,7 +82,7 @@
             <div class="row text-md-center " style="padding:0 1.25rem !important;">
                 <div class="container hidden-md-down"></div>
                 <div class="col-md-offset-2 text-xs-center col-md-8 " style="">
-                    <h1 class="banner-text-shadow"><span style="font-size: 131%">Pickup & Delivery from </span><span style="font-size: 136%"> Hamilton Restaurants</span></h1>
+                    <h1 class="banner-text-shadow"><span style="font-size: 119%">Pickup & Delivery from </span><span style="font-size: 124%"> Hamilton Restaurants</span></h1>
                     <div class="clearfix"></div>
                 </div>
 

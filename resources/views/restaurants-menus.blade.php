@@ -50,6 +50,8 @@
                             <!-- add menu item -->
                             <script>
                                 $(function () {
+                                    
+                                    
                                     $.ajax({
                                         url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
                                         success: function (res) {
@@ -58,6 +60,7 @@
                                             } else {
                                              //   $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
                                             }
+                                            
                                         },
                                         error: function (res) {
                                             if (res != 'no') {
@@ -65,11 +68,13 @@
                                             } else {
                                             //    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
                                             }
+                                            
                                         }
                                     });
                                 });
                             </script>
                         @endforeach
+                        
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
