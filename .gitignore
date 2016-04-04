@@ -85,3 +85,7 @@ config/app.php
 *.env
 public/debugmode.ip
 resources/views/restaurants-menus2.blade.php
+app/Http/Controllers/HomeController_backupMarch31.php
+app/Http/Controllers/RestaurantController_backupMarch27.php
+app/Http/Controllers/RestaurantController_backupMarch31.php
+public/assets/global/scripts/menu_manager_backupMarch31.js
