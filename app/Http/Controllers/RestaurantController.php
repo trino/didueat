@@ -194,9 +194,9 @@ class RestaurantController extends Controller {
                     $ext = strtolower(end($im));
                     $newName=$ob->slug.".".$ext;
     
-                    $destinationPath = public_path('assets/images/restaurants/'.urldecode($post['id']));
+                    $destinationPath = public_path('assets/images/restaurants/' . urldecode($post['id']));
                     
-                    $imgVs=getimagesize($destinationPath."/".$post['logo']);
+                    //$imgVs=getimagesize($destinationPath."/".$post['logo']);
     
                     if (!file_exists($destinationPath)) {
                         mkdir('assets/images/restaurants/' . $post['id'], 0777, true);
