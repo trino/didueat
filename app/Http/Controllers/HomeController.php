@@ -378,6 +378,7 @@ class HomeController extends Controller {
     public function menusRestaurants($slug) {
         //echo $slug;die();
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
+        if(!$res_slug){return $this->failure("Restaurant not found", "/");}
         $category = \App\Http\Models\Category::where('res_id',$res_slug->id)->orderBy('display_order','ASC')->get();//gets a category, I don't know which one
         if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         $data['category'] = $category;
