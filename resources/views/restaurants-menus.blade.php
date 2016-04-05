@@ -741,7 +741,7 @@
         }
 
         function makeselect(start, end, selected){
-            var tempstr;
+            var tempstr, tempstr2;
             for(i=start; i<=end; i++){
                 tempstr = tempstr + '<OPTION VALUE="' + i + '"';
                 if(selected == i){
