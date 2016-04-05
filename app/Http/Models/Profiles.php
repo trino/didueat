@@ -52,7 +52,7 @@ class Profiles extends BaseModel {
                     }
                 })
                 ->orderBy($meta, $order)
-                ->join('restaurants', 'profiles.restaurant_id', '=', 'restaurants.id');
+                ->leftJoin('restaurants', 'profiles.restaurant_id', '=', 'restaurants.id');
 
         $reccount = $query->count();
         if ($type == "list") {
