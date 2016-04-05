@@ -1796,18 +1796,16 @@
 
     //make a popup
     function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0){
-        $FirstMessage="";
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
-            $FirstMessage = $Message;
             switch($Message){
-                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; break;
+                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; $Success = "card"; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
-        if ($FirstMessage == "nostores"){
+        if ($Success == "card"){
             echo '<div class="card"><div class="card-block">' . $Message . '</div></div>';
         } else {
             if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
