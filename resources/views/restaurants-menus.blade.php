@@ -716,7 +716,7 @@
 
             @if(isset($_GET["menuitem"]) && $_GET["menuitem"])
                 setTimeout(function(){
-                    $("#{{ $_GET["menuitem"] }}").trigger("click");
+                    $("#add_item{{ $_GET["menuitem"] }}").trigger("click");
                 }, 500);
             @endif
         });
