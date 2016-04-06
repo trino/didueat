@@ -7,6 +7,8 @@ $('.is_active').live('change',function(){
     var id = $(this).closest('.newmenu').attr('id').replace('newmenu','');
     var $_parent = $(this).closest('.modal-content').find('.newmenu');
     var cat_id = $_parent.find('.cat_id').val();
+   // if(!cat_id)
+    //cat_id = -1;
     var $thi = $(this);
    $.ajax({
             url:base_url+'restaurant/check_enable/'+id+'/'+cat_id+'/25/'+stat,
