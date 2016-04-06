@@ -11,7 +11,7 @@
 
     <div class=" ignore row">
         <div class="">
-
+            <input type="hidden" class="rest_id" value="<?php echo $rest_id;?>" />
             <div class="col-md-6 "  style="">
                 <div><strong>Category:</strong></div>
                 <div>

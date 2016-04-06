@@ -382,6 +382,7 @@ class HomeController extends Controller {
         $category = \App\Http\Models\Category::where('res_id',$res_slug->id)->orderBy('display_order','ASC')->get();//gets a category, I don't know which one
         if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         $data['category'] = $category;
+        $data['rest_id'] = $res_slug->id;
         $data['title'] = $res_slug->name;
         $data['keyword'] = $res_slug->name.','.$res_slug->cuisine.' Cuisine'.','.$res_slug->phone.','.$res_slug->formatted_address.',Didueat,didueat.ca,Online food,Online food order,Canada online food';
         while(strpos($data['keyword'], ",,") !== false ) {

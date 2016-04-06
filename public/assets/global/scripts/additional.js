@@ -450,10 +450,10 @@ $('.savebtn').live('click', function () {
     if ($_parent.find('.menuwrapper').length > 0) {
         phas_addon = 1;
     }
-    
+    var res_id = $_parent.find('.rest_id').val();
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
+        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+res_id+'&cat_name='+cat_name,
         type: 'post',
         success: function (res) {
             if ($_parent.find('.menuwrapper').length > 0) {

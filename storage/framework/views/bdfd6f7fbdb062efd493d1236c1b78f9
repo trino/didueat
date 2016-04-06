@@ -31,9 +31,7 @@
                     $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                     ?>
                         <tr id="list<?php echo e($order->listid); ?>" class="infolist">
-                            <td class="receipt_image" style='<?php if(isset($order)): ?> width:20%; <?php else: ?> width:50px !important; <?php endif; ?>'>
-                            <?php if(isset($order)): ?>         <span class="count"><?php echo e($arr_qty[$k]); ?></span><?php endif; ?>
-                            </td>
+                            <td class="receipt_image" style='<?php if(isset($order)): ?> width:20%; <?php else: ?> width:50px !important; <?php endif; ?>'> <?php if(isset($order)): ?>         <span class="count"><?php echo e($arr_qty[$k]); ?></span><?php endif; ?> </td>
 
                             <td <?php if(isset($order)): ?> style='width:55%;' <?php endif; ?>>
                                 <input type="hidden" class="count" name="qtys[]" value="<?php echo e($arr_qty[$k]); ?>"/>
