@@ -7,6 +7,7 @@
                 "delete" => "Delete image",
                 "imgPre" => ""
         );
+        $cats_order=[];
     ?>
 
     <div class=" ignore row">
@@ -18,18 +19,19 @@
                     <select class="cat_id form-control" >
                         <option value="">Category</option>
                         @foreach($category as $cat)
-                            <option value="{{ $cat->id }}" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>>{{ $cat->title }}</option>
+                        <?php $cats_order[]=$cat->display_order;?>
+                            <option value="{{ $cat->id }}~~{{ $cat->title }}" <?php if(isset($model) && $model->cat_id==$cat->id){?>selected="selected"<?php }?>>{{ $cat->title }}</option>
                         @endforeach
                     </select>
                 </div> OR 
                 <input class="form-control cat_name" value="" /> 
-                
+                <?php $highestCatOrder=max($cats_order);?>
             </div>
 
             <div class=" ignore col-md-12" style="margin-bottom:3px; ">
                 <div class="form-group">
                     @if(isset($model) || true)
-                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;"><img src="" alt="{{ $alts["imgPre"] }}" id="imgPre">
+                        <div class="menuimg ignore menuimg{{ $menu_id }}_1" style="min-height:0;">
                                 <?php if(isset($model) && $model->image && strpos($model->image, ".") !== false ){
                                 
                                 $browseBtnTxt="Browse";
@@ -39,18 +41,19 @@
                                   $menuTSv2=$menuTSv;
                                 }
 
-                         echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
+                         echo '<span id="zoomMsg">Click Image to Zoom In</span><br/><img id="menuImage" class="ignore" alt="'.$alts["imgPre"].'" src="'.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id . '/small-' . $model->image).'" style="position:relative;cursor:zoom-in;padding-bottom:3px" onclick="toggleFullSizeMenu(\''.asset('assets/images/restaurants/' . $model->restaurant_id . '/menus/' . $model->id) .'\',\''.$model->image.$menuTSv2.'\')" />';
 
                             }
                             else{
-                               echo '<img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
+                               echo '<span id="zoomMsg"></span><img id="menuImage" class="ignore" src="'.asset('assets/images/spacer.gif').'" />';
                             }
                             ?>
                             <input type="hidden" name="image" id="hiddenimg" class="hiddenimg" />
                             <input name="imgName" type="hidden" id="imgName" />
-                            <!-- <span id="fullSize" class="smallT"></span> -->
+                            <input name="highestCatOrder" id="highestCatOrder" type="hidden" value='{{ (isset($highestCatOrder))? $highestCatOrder:'' }}' />
+                            <img src="{{ asset('assets/images/spacer.gif') }}" id="imgPre" style="z-index:0">
                         </div>
-                        
+
 							<?php
 
 							if(isset($_COOKIE['pvrbck'])){

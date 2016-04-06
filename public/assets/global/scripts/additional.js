@@ -360,7 +360,7 @@ $('.savebtn').live('click', function () {
         $('.overlay_loader').hide();
         return false;
     }
-    
+    var highestCatOrder = $_parent.find('#highestCatOrder').val();
 
     var ptitle = encodeURIComponent($_parent.find('.newtitle').val());
     if (ptitle == '') {
@@ -453,7 +453,7 @@ $('.savebtn').live('click', function () {
     
     $.ajax({
         url: base_url + 'restaurant/menuadd?id=' + id,
-        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name,
+        data: '&menu_item=' + ptitle + '&description=' + pdesc + '&price=' + pprice + '&image=' + img + '&has_addon=' + phas_addon + '&parent=0&_token=' + token + '&cat_id=' + cat_id+'&has_discount='+has_discount+'&discount_per='+discount_per+'&days_discount='+days_discount+'&is_active='+is_active+'&restaurant_id='+$('#res_id').val()+'&cat_name='+cat_name+'&highestCatOrder='+highestCatOrder,
         type: 'post',
         success: function (res) {
             if ($_parent.find('.menuwrapper').length > 0) {

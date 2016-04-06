@@ -2,6 +2,8 @@
     printfile("views/menus.blade.php");
     $alts = array(
             "product-pop-up" => "Product info",
+            "up_cat" => "Move Category up",
+            "down_cat" => "Move Category down",
             "up_parent" => "Move this up",
             "down_parent" => "Move this down",
             "deleteMenu" => "Delete this item",
@@ -14,35 +16,155 @@
         $menuTSv="?i=".$menuTS;
         Session::forget('session_menuTS');
     }
+    
+$prevCat="";
+$catNameStr=[];
+$parentCnt=[];
+$thisCatCnt=0;
+$itemPosnForJS=[];
+// $catCnt set in restaurants-menus.blade
+
 ?>
+
+<script>
+var catPosn=[];
+var itemPosn=[];
+var restSlug="{{ $restaurant->slug }}";
+</script>
 
 @if(!isset($_GET['page']))
     <div id="loadmenus_{{ (isset($catid))?$catid:0 }}">
 @endif
 
-<DIV class="list-group m-y-1" id="">
-    <div class="list-group-item parents" style="background-color: #f5f5f5;" id="">
+
+
+
+<?php
+ $menus_listA=[];
+ $menus_sortA=[];
+ $cats_listA=[];
+ $cats_listA2=[];
+ $thisCnt=0;
+
+ foreach($menus_list as $value){
+   $catsListCnt=0;
+   foreach ($cats as $row) {
+			   if($row == $value->cat_id){
+			     $menus_listA[$thisCnt]=$value;
+        $cats_listA[$row]=$catsOrder[$catsListCnt];
+        $menus_sortA[$row][$thisCnt]=$value->display_order;
+        $thisCnt++;
+        break;
+			   }
+        $catsListCnt++;
+   }
+ }
+ 
+asort($cats_listA);
+
+foreach ($cats_listA as $key => $row) {
+  asort($menus_sortA[$key]);
+  foreach ($menus_sortA[$key] as $key2 => $row2) {
+     $cats_listA2[$key2]=$row;
+  }
+}
+
+
+$valueA=[];
+$catIDNum=[];
+$cnt2=0;
+while(list($key,$thisOrder) = each($cats_listA2)){
+ $valueA[$cnt2]=$menus_listA[$key]; // this contains full menus list for resto
+ $catIDNum[$cnt2]=$menus_listA[$key]->cat_id;
+ $cnt2++;
+}
+
+?>
+
+
+@while(list($index,$value) = each($valueA))
+
+
+<?php
+
+$noUpCatSort=false;
+$thisUpMenuVisib="visible";
+$thisDownMenuVisib="visible";
+$parentCnt[$thisCatCnt]=$value->id; // for js sorting with ajax, not implemented yet
+$itemPosnForJS[$value->cat_id][$value->id]=$value->display_order; 
+$catPosn[]=$thisCatCnt;
+if($prevCat == ""){
+ $noUpCatSort=true;
+}
+
+if($index < ($thisCnt-1)){ // means it's not the last item
+   $nextIndx=($index+1);
+   if($value->cat_id != $catIDNum[$nextIndx]){
+      $thisDownMenuVisib="hidden";
+   }
+}
+else{
+  $thisDownMenuVisib="hidden"; // last item in array
+}
+
+//echo "\$prevCat: ".$prevCat."  --  \$index: ".$index."  --  \$nextIndx: ".$nextIndx."  -- totalItems-1: ".($thisCnt-1)."  --  cat_id: ".$value->cat_id."  --   next CatID: ".$catIDNum[$nextIndx]."  --  ".$value->menu_item."  --  ".$value->display_order;
+
+if($value->cat_id != $prevCat){ // means it's a new category
+  $thisUpMenuVisib="hidden";
+  $catMenuCnt=0; // reset count for this category
+  if($prevCat!=""){ // means it's not the first category
+    echo '</div><!-- end of previous category --><hr width="100%" align="center" style="border-top:solid #000 2px" />';
+  }
+  $prevCat=$value->cat_id; // also used as current cat_id until next loop
+  
+  $catNameStr[$prevCat] = $value->cat_name;
+  
+  
+  ($noUpCatSort)? $thisUpCatSort="hidden" : $thisUpCatSort="visible";
+  ($thisCatCnt >= ($catCnt-1))? $thisDownCatSort="hidden" : $thisDownCatSort="visible";
+  
+?>
+
+  <DIV class="list-group m-y-1" id="c{{ $thisCatCnt }}" style="border: solid navy 4px"><!-- start of this category -->
+    <div class="list-group-item parents"><!-- start of category heading -->
         <div class="">
             <div class="row">
-                <div class="col-md-8">
-                    <h4 class="card-title"><?= \App\Http\Models\Category::where('id',$catid)->first()->title;?></h4>
+                <div class="col-md-8"><a name="<?= $value->cat_name;?>"></a>
+                    <h4 class="card-title"><?= $value->cat_name;?></h4>
                 </div>
+
+<!-- To sort Categories -->
+
                 <div class="col-md-4">
                     <div class="btn-group pull-right" aria-label="Basic example" role="group">
-                        <a title="{{ $alts["up_parent"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/".$catid."/up");?>">
+                      <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" id="up{{ $thisCatCnt }}" style="visibility:{{ $thisUpCatSort }} !important" href="#" onclick="chngCatPosn({{ $thisCatCnt }},'up');return false">
+     <!-- <a title="{{ $alts["up_cat"] }}" class="btn btn-sm btn-secondary" disabled="" href="<?= url("restaurant/orderCat2/".$value->cat_id."/up");?>"> -->
                             <i class="fa fa-arrow-up"></i>
                         </a>
-                        <a title="{{ $alts["down_parent"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/".$catid."/down");?>">
+                        
+                      <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" id="down{{ $thisCatCnt }}" style="visibility:{{ $thisDownCatSort }} !important" href="#" onclick="chngCatPosn({{ $thisCatCnt }},'down');return false">
+       <!-- <a title="{{ $alts["down_cat"] }}" class="btn btn-sm btn-secondary" href="<?= url("restaurant/orderCat2/".$value->cat_id."/down");?>"> -->
                             <i class="fa fa-arrow-down"></i>
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </div> 
 
-            @foreach($menus_list as $value)
-                <?php //load images, duplicate code
+<div class="col-md-6" id="save{{ $thisCatCnt }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs({{ $thisCatCnt }})" /><span id="saveCatOrderMsg{{ $thisCatCnt }}"></span></div>
+
+<div class="col-md-6 pull-right" id="saveMenus{{ $value->cat_id }}" style="display:none;color:#f00"><input name="saveOrderChng" type="button" value="Save Category Sorting" onclick="saveMenuOrder({{ $value->cat_id }},false,false)" /><span id="saveMenuOrderMsg{{ $value->cat_id }}"></span></div>
+                
+            </div>
+
+        </div>
+    </div><!-- end of category heading -->
+    
+<?php
+  $thisCatCnt++;
+}
+
+
+
+//load images, duplicate code
                     
                     $has_iconImage = false;
 
@@ -63,11 +185,12 @@
                     $canedit = read("profiletype") == 3 && $value->uploaded_by == read("id");
                 ?>
 
-                <div class="list-group-item parents" id="parent{{ $value->id }}">
+                <div class="list-group-item parents" id="parent{{ $value->cat_id }}_{{ $value->display_order }}"><!-- start of menu item -->
                     <div class="">
                         <div class="row">
 
-                            <div class="col-md-12">
+                            <div class="col-md-12"><!-- start div 4 -->
+                            
                                 <?php
                                     $main_price = $value->price;
                                     $dis = '';
@@ -90,9 +213,11 @@
 
                                     }
                                 ?>
-                                    <div class="" style="width: 100%;float:left;">
-
+                                
                                 <h4 class="card-title">
+                                
+                                <div class="" style="width: 100%;float:left;">
+
                                     <a href="#" id="{{ $value->id }}"
                                        data-res-id="{{ $value->restaurant_id }}"
                                        title="{{ $alts["product-pop-up"] }}"
@@ -118,18 +243,23 @@
                                             @if($dis)
                                                 <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
                                             @endif
+                                            @if($dis)
+                                                <strike class="text-muted btn btn-sm btn-link" style="float: right">${{number_format($value->price,2)}}</strike>
+                                            @endif
 
 
 
                                     </a>
-
-</div>
+                                   </div>
 
                                     <div class="" style="">
 
 
                                     </div>
                                 </h4>
+
+
+
 
                                 <div class="clearfix">
                                     {!! rating_initialize((session('session_id'))?"static-rating":"static-rating", "menu", $value->id) !!}
@@ -150,7 +280,8 @@
 
                                 </p>
 
-                                <!--p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
+                                <!--
+                                <p class="card-text m-a-0 text-muted"> Category: {{ $value->cat_name }}
                                 @if($value->uploaded_on)
                                     Submitted: {{$value->uploaded_on}}
                                 @endif
@@ -161,7 +292,8 @@
                                         echo "by: " . $uploaded_by->name . "";
                                     }
                                 ?>
-                                        </p-->
+                                        </p>
+                                -->
 
 
                                 @if(false) <!-- no tags yet -->
@@ -179,10 +311,10 @@
                                 @endif
 
 
-                            </div>
-
-
-                            <div class="col-md-12">
+                            </div><!-- End div 4 -->
+                            
+                            
+                            <div class="col-md-12"><!-- start div 5 -->
                                 @if(read('restaurant_id') == $restaurant->id || $canedit)
                                     <div class="btn-group pull-left" role="group" style="vertical-align: middle">
                                         <span class="fa fa-spinner fa-spin" id="spinner{{ $value->id }}" style="color:blue; display: none;"></span>
@@ -192,26 +324,25 @@
                                         </label>
                                     </div>
                                     <div class="btn-group pull-right" role="group">
-
-                                        <a id="up_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["up_parent"] }}"
+                                        <a id="up_parent_{{ $value->id.'_'.$value->cat_id }}" title="{{ $alts["up_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
-                                           href="javascript:void(0);">
+                                           href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'up', {{ $catMenuCnt }});return false" style="visibility:{{ $thisUpMenuVisib }} !important">
                                            <i class="fa fa-arrow-up"></i></a>
-
-                                        <a id="down_parent_{{ $value->id.'_'.$catid }}" title="{{ $alts["down_parent"] }}"
+                                    
+                                        <a id="down_parent_{{ $value->id.'_'.$value->cat_id }}" title="{{ $alts["down_parent"] }}"
                                            class="btn btn-sm btn-primary-outline sorting_parent"
-                                           href="javascript:void(0);">
+                                           href="javascript:void(0);" onclick="menuItemSort({{ $value->id }}, {{ $value->cat_id }}, {{ $value->display_order }}, 'down', {{ $catMenuCnt }});return false" style="visibility:{{ $thisDownMenuVisib }} !important">
                                             <i class="fa fa-arrow-down"></i></a>
-
+                                    
                                         <button id="add_item{{ $value->id }}" type="button" title="{{ $alts["edititem"] }}"
                                                 class="btn btn-sm btn-primary-outline additem" data-toggle="modal"
                                                 data-target="#addMenuModel"><strong>Edit</strong>
                                         </button>
 
-                                        <a href="{{ url('restaurant/deleteMenu/' . $value->id . '/' . $restaurant->slug) }}"
+                                        <a href="#" 
                                            class="btn btn-sm btn-primary-outline"
                                            title="{{ $alts["deleteMenu"] }}"
-                                           onclick="return confirm('This will delete the menu item. Do you wish to proceed?\n\nOptionally, you can disable the display of the menu item by deselecting the Enable checkbox on the menu edit pop-up.\nThis will save the menu item for future use.')"><i class="fa fa-times"></i></a>
+                                           onclick="deleteMenuItem(<?php echo $value->cat_id.', '.$value->id.', '.$value->display_order;?>);return false"><i class="fa fa-times"></i></a>
                                     </div>
                                 @elseif(read("profiletype") == 3)
                                     <button class="btn btn-sm btn-primary-outline pull-right" DISABLED>
@@ -220,24 +351,77 @@
                                 @endif
 
 
-                            </div>
+                            </div><!-- end div 5 -->
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
                 </div>
-
+<?php
+ $catMenuCnt++;
+?>
                 @include('popups.order_menu_item')
-            @endforeach
+            @endwhile
+
+      </div> <!-- end of last category -->
 
 
-            @if(!isset($_GET['page']))
+<?php
+
+$catIDforJS = array_keys($catNameStr);
+$catIDforJS_Str = implode(",",$catIDforJS);
+$catNameStrJS = implode("','",$catNameStr);
+
+$objComma="";
+$itemPosnForJSStr="";
+foreach ($itemPosnForJS as $key => $row) { // $key is cat id
+  $objStrJS="";
+  foreach ($itemPosnForJS[$key] as $key2 => $row2) {
+    $objComma=", ";
+    if($objStrJS == ""){
+    $objComma="";
+    }
+    $objStrJS.=$objComma.$key2.":".$row2;
+  }
+    $itemPosnForJSStr.="\n itemPosn[".$key."]={".$objStrJS."};"; // [catID]={menuID:displayOrder}
+}
+
+
+?>
+
+
+@if(!isset($_GET['page']))
         </div>
     </div>
 @endif
 
 <div class="clearfix"></div>
+
 <SCRIPT>
+
+<?php echo $itemPosnForJSStr;?>
+
+var itemPosnOrig=itemPosn;
+var menuSortChngs=[];
+var catOrigPosns=[<?php echo $catIDforJS_Str;?>]; // as original cat posns as indexes, with the values being the db cat_id
+var currentCatOrderIDs=catOrigPosns;//Not sure if we'll need this - surrounding cat divs stay same on pg (indexes in array), but value chng to the cat_id
+catNameA=['<?php echo $catNameStrJS;?>'];
+catPosns=[]; // index is for surrounding cat divs, but the posn changes as user adjust order
+
+catNameLnks="";
+for(var i=0;i<catNameA.length;i++){
+  var spaces="&nbsp; &nbsp; &nbsp;";
+  if(i == 0){
+    spaces="";
+  }
+  catPosns[i]=i;
+  catNameLnks+=spaces+"<a HREF='#"+catNameA[i]+"'>"+catNameA[i]+"</a>";
+  
+  // menuSortChngs same indexing as catNameA (use for loop to get catid index, then use index on catNameA), prompt user to save if exiting pg
+  menuSortChngs[catOrigPosns[i]]=false; 
+}
+document.getElementById('categoryLinks').innerHTML="<b><u>View Menu Categories</u>:</b> &nbsp; &nbsp; "+catNameLnks;
+
     //enable/disable a menu item via ajax
     function enableitem(id){
         var checked = $("#check" + id).is(":checked");

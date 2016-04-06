@@ -151,10 +151,6 @@ class RestaurantController extends Controller {
             }
         } else {
             $data['title'] = "Add New Restaurants";
-//            $data['countries_list'] = \App\Http\Models\Countries::get();
-//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
-            
-//            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
             $data['cuisine_list'] = cuisinelist();
             return view('dashboard.restaurant.addrestaurant', $data);
         }
@@ -306,10 +302,6 @@ class RestaurantController extends Controller {
         } else {
 // not from submit, so load data
             $data['title'] = "Resturant Manage";
-//            $data['countries_list'] = \App\Http\Models\Countries::get();
-//            $data['cuisine_list'] = \App\Http\Models\Cuisine::get();
-
-//            $data['cuisine_list'] = array('Canadian','American','Italian','Italian/Pizza','Chinese','Vietnamese','Japanese','Thai','French','Greek','Pizza','Desserts','Pub','Sports','Burgers','Vegan','German','Fish and Chips');
             $data['cuisine_list'] = cuisinelist();
             $data['resturant'] = \App\Http\Models\Restaurants::find(($id > 0) ? $id : \Session::get('session_restaurant_id'));
             $data["route"] = \Route::getCurrentRoute()->getPath();
@@ -557,17 +549,25 @@ class RestaurantController extends Controller {
             }
         }
 
+$newCatID=false;
         
-        if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) {
+        if (!($arr['cat_id']) && (isset($arr['cat_name']) && $arr['cat_name'])) { // new entered category typed
             $arrs['title'] = $arr['cat_name'];
             $arrs['res_id'] = \Session::get('session_restaurant_id');
+            if(isset($_POST['highestCatOrder'])){
+               $arrs['display_order'] = ($_POST['highestCatOrder'] + 1);
+            }
             $ob2 = new \App\Http\Models\Category();
             $ob2->populate($arrs);
             $ob2->save();
             $arr['cat_id'] = $ob2->id;
+            $newCatID=true;
         }
-        unset($arr['cat_name']);
-
+        else{ // category from the dropdown, delimited with ~~
+		          $catidnameExp = explode("~~",$arr['cat_id']);
+		          $arr['cat_id'] = $catidnameExp[0];
+		          $arr['cat_name'] = $catidnameExp[1];
+        }
 
 
         if (isset($_GET['id']) && $_GET['id']) { // modifying existing menu item with possibility of new image
@@ -588,12 +588,21 @@ class RestaurantController extends Controller {
             $this->handleimageupload($id, $existingImg);
         } else { // new menu item (which may include image upload)
             $arr['uploaded_on'] = date('Y-m-d H:i:s');
-            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('parent', 0)->orderBy('display_order', 'desc')->get();
-            if (is_array($orders_mod) && count($orders_mod)) {//if the restaurant has more than 0 menus, get the first one
-                $orders = $orders_mod[0];
-                if (!isset($arr['display_order'])) {
-                    $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
-                }
+            
+            if($newCatID){
+                $arr['display_order']=1;
+            }
+            else{
+			            $orders_mod = \App\Http\Models\Menus::where('restaurant_id', \Session::get('session_restaurant_id'))->where('cat_id', $arr['cat_id'])->where('parent', 0)->orderBy('display_order', 'desc')->get();
+
+			            if (count($orders_mod) > 0) {//if resto cat has more than 0 menus, get the 1st one (which will be the highest #)
+			                $orders = $orders_mod[0];
+			                if (!isset($arr['display_order']) || $arr['display_order'] == "") {
+			                    $arr['display_order'] = $orders->display_order + 1;//if it doesn't have a display order, make them sequential
+			                }
+			            }
+
+            
             }
 
             $ob2 = new \App\Http\Models\Menus();
@@ -692,9 +701,7 @@ class RestaurantController extends Controller {
                 
                 write("menuTS", $todaytime, true);
              }
-     else{
-     debugprint("PDB: resize before upload did not work.");
-     }
+
             }
         }
         die();
@@ -703,43 +710,52 @@ class RestaurantController extends Controller {
 
     //unknown
     public function orderCat2($cid, $sort) {
-        $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
+        if(isset(\Session::get('_previous')['url'])){
+		          $thisSlugA=explode("/",\Session::get('_previous')['url'],-1); // this is much faster than db call
+            $thisSlug=end($thisSlugA);
+        } else{
+            $thisSlug = select_field("restaurants", "id", \Session::get('session_restaurant_id'), "slug"); // don't do db call for slug unless needed
+        }
+        
+//        $res = \App\Http\Models\Restaurants::where('id', \Session::get('session_restaurant_id'))->get()[0];
         //echo $res->id;die();
         $cats = \App\Http\Models\Category::where('res_id', \Session::get('session_restaurant_id'))->orderBy('display_order', 'ASC')->get();
         $arr = array();
+        $key="";
         foreach($cats as $k=>$c)
         {
-            //echo $k;
-            //echo $c->id;
+
             if($cid==$c->id)
             {
                 $key = $k;
             }
             $arr[] = $c->id;
+            
         }
         //die();
-        if($sort=='up' && $key!=0)
-        {
-            
-            $nkey = $key-1;
-            $nkey;
-            $temp = $arr[$nkey];
-            $arr[$nkey] = $cid;
-            $arr[$key] = $temp; 
-        }
-        elseif($sort=='down' && $key!=count($arr))
-        {
-            $nkey = $key+1;
-            $temp = $arr[$nkey];
-            $arr[$nkey] = $cid;
-            $arr[$key] = $temp;
+        if($key != ""){
+			        if($sort=='up' && $key!=0)
+			        {
+			            
+			            $nkey = $key-1;
+			            $temp = $arr[$nkey];
+			            $arr[$nkey] = $cid;
+			            $arr[$key] = $temp; 
+			        }
+			        elseif($sort=='down' && $key!=count($arr))
+			        {
+			            $nkey = $key+1;
+			            $temp = $arr[$nkey];
+			            $arr[$nkey] = $cid;
+			            $arr[$key] = $temp;
+			        }
         }
         
         foreach($arr as $k=>$a)
         {
             \App\Http\Models\Category::where('id', $a)->update(array('display_order' => ($k + 1)));
         }
-        return \Redirect::to('/restaurants/' . $res->slug . '/menu');
+        return \Redirect::to('/restaurants/' . $thisSlug . '/menu');
         /*$_POST['ids'] = explode(',', $_POST['ids']);
         $key = array_search($cid, $_POST['ids']);
         if (($key == 0 && $sort == 'up') || ($key == (count($_POST['ids']) - 1) && $sort == 'down')) {
@@ -789,31 +805,56 @@ class RestaurantController extends Controller {
     //delete a menu item ($id)
     //if $slug is given, return to that restaurant's menu
     //otherwise return to the menu-manager
-    public function deleteMenu($id, $slug = '') {
+    public function deleteMenu($id = '', $slug = '') {
+        if($id == "" && isset($_POST['id'])){
+          $id=$_POST['id'];
+        }
+        if($slug == "" && isset($_POST['slug'])){
+          $slug=$_POST['slug'];
+        }
         $res_id = \App\Http\Models\Menus::where('id', $id)->get()[0]->restaurant_id;
+            //  $catID = '', $thisMenuDisplayOrder = '', $catMenuCnt = ''
 
-        \App\Http\Models\Menus::where('id', $id)->delete();
-        $child = \App\Http\Models\Menus::where('parent', $id)->get();
-        foreach ($child as $c) {
-            \App\Http\Models\Menus::where('parent', $c->id)->delete();
-            \App\Http\Models\Menus::where('id', $c->id)->delete();
-        }
-        \App\Http\Models\Menus::where('parent', $id)->delete();
-        $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
-        $this->deleteDir($dir);
-        \Session::flash('message', 'Item deleted successfully');
-        \Session::flash('message-type', 'alert-success');
-        \Session::flash('message-short', '');
+        if(isset($_POST['catID'])){
 
-        $wasopen = select_field("restaurants", "id", $res_id, "is_complete");
-        if($wasopen && !\App\Http\Models\Restaurants::restaurant_opens($res_id)){
-            edit_database("restaurants", "id", $res_id, array("is_complete" => false));
-        }
+			        \App\Http\Models\Menus::where('id', $id)->delete();
+			        $child = \App\Http\Models\Menus::where('parent', $id)->get();
+			        foreach ($child as $c) {
+			            \App\Http\Models\Menus::where('parent', $c->id)->delete(); // should use wherein
+			            \App\Http\Models\Menus::where('id', $c->id)->delete();
+			        }
+			        \App\Http\Models\Menus::where('parent', $id)->delete();
+			        $dir = public_path('assets/images/restaurants/' . $res_id . "/menus/" . $id);
+			        $this->deleteDir($dir);
 
-        if (!$slug) {
-            return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
-        }else {
-            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
+			        $wasopen = select_field("restaurants", "id", $res_id, "is_complete");
+			        if($wasopen && !\App\Http\Models\Restaurants::restaurant_opens($res_id)){  // should do this without an extra db call, with post var
+			            edit_database("restaurants", "id", $res_id, array("is_complete" => false));
+			        }
+			        
+			        $menuOrderLimit="";
+			        if($_POST['catMenuCnt'] != ""){
+			          $menuOrderLimit=($_POST['catMenuCnt']-$_POST['thisMenuDisplayOrder']);
+			        }
+
+			        
+			// update menus set display_order=(display_order-1) where cat_id=7 AND display_order>$thisDisplayOrder $menuOrderLimit
+
+			        \App\Http\Models\Menus::where('cat_id', $_POST['catID'])->where('parent', 0)->where('display_order', '>', $_POST['thisMenuDisplayOrder'])->take($menuOrderLimit)->decrement('display_order', 1);
+                      
+           if(!isset($_POST['id'])){
+					        \Session::flash('message', 'Item deleted successfully');
+					        \Session::flash('message-type', 'alert-success');
+					        \Session::flash('message-short', '');
+					        if (!$slug) {
+					            return $this->success('Item has been deleted successfully!', 'restaurant/menus-manager');
+					        }else {
+					            return $this->success('Item has been deleted successfully!', 'restaurants/' . $slug . '/menu');
+					        }
+           }
+           else{
+             die();
+           }
         }
     }
 
@@ -887,6 +928,34 @@ class RestaurantController extends Controller {
         }else {
             return view('dashboard.restaurant.load_child', $data);
         }
+    }
+    
+    public function menuOrderSort(){ // save order within one category
+        if(isset($_POST['newMenuOrder'])){
+		        $newMenuOrderExpl=explode(",",$_POST['newMenuOrder']);
+		        foreach ($newMenuOrderExpl as $updatePair) {
+              $updatePairExpl=explode(":",$updatePair);
+              \App\Http\Models\Menus::where('id', $updatePairExpl[0])->update(array('display_order' => $updatePairExpl[1]));
+          }
+        }
+        else{
+          return false;
+        }
+    ////
+    }
+    
+    public function menuCatSort(){
+        if(isset($_POST['newCatOrder'])){
+		        $newCatOrderExpl=explode(",",$_POST['newCatOrder']);
+		        foreach ($newCatOrderExpl as $updatePair) {
+              $updatePairExpl=explode(":",$updatePair);
+		            \App\Http\Models\Category::where('id', $updatePairExpl[0])->update(array('display_order' => ($updatePairExpl[1] + 1)));
+          }
+        }
+        else{
+          return false;
+        }
+    ////
     }
 
     //save a category change

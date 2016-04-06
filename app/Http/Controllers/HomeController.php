@@ -377,8 +377,10 @@ class HomeController extends Controller {
      */
     public function menusRestaurants($slug) {
         //echo $slug;die();
+        
         $res_slug = \App\Http\Models\Restaurants::where('slug', $slug)->first();//load restaurant by its slug
-        $category = \App\Http\Models\Category::where('res_id',$res_slug->id)->orderBy('display_order','ASC')->get();//gets a category, I don't know which one
+        // category table isn't really needed. Just insert into cat_name field in menus tbl
+        $category = \App\Http\Models\Category::where('res_id',$res_slug->id)->orderBy('display_order','ASC')->get();// all cats for resto in display_order
         if(!$res_slug){return $this->failure("Restaurant '" . $slug . "' not found", "/");}
         $data['category'] = $category;
         $data['title'] = $res_slug->name;
@@ -401,10 +403,12 @@ class HomeController extends Controller {
         } else {
             return view('restaurants-menus', $data);
         }
+        
     }
 
     //loads menus view, containing menus of restaurant = $resid where category = $catid
     function loadmenus($catid, $resid) {
+// this might not be needed now, as the menus are loaded from blade call            
         $res_slug = \App\Http\Models\Restaurants::where('id', $resid)->first();
         $data['restaurant'] = $res_slug;
         if(read('restaurant_id') == $resid || read("profiletype") != 2) {//is yours, doesn't need to be active
@@ -419,6 +423,7 @@ class HomeController extends Controller {
         }else {
             //return '<div class="alert alert-danger " style="margin-bottom:1rem !important;" role="alert">No menu items yet<br><div class="clearfix"></div></div>';
         }
+        
     }
 
     //loads contact us view

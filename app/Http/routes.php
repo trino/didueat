@@ -165,6 +165,13 @@ Route::post('restaurant/uploadimg',                                 'RestaurantC
 Route::post('restaurant/uploadimg/{type}',                          'RestaurantController@uploadimg')->where('type', '[a-z]+');
 Route::post('restaurant/menuadd',                                   'RestaurantController@menuadd');
 Route::get('restaurant/menuadd',                                    'RestaurantController@menuadd');
+
+Route::post('restaurant/menuCatSort',                               'RestaurantController@menuCatSort');
+Route::get('restaurant/menuCatSort',                                'RestaurantController@menuCatSort');
+
+Route::post('restaurant/menuOrderSort',                             'RestaurantController@menuOrderSort');
+Route::get('restaurant/menuOrderSort',                              'RestaurantController@menuOrderSort');
+
 Route::post('restaurant/check_enable/{id}/{cat}/{limit}/{status}',  'RestaurantController@check_enable');
 Route::get('restaurant/check_enable/{id}/{cat}/{limit}/{status}',   'RestaurantController@check_enable');
 Route::get('restaurant/orderCat/{id}/{sort}',                       'RestaurantController@orderCat');
@@ -173,9 +180,9 @@ Route::post('restaurant/orderCat/{id}/{sort}',                      'RestaurantC
 Route::get('restaurant/orderCat2/{id}/{sort}',                       'RestaurantController@orderCat2');
 Route::post('restaurant/orderCat2/{id}/{sort}',                      'RestaurantController@orderCat2');
 
-Route::get('restaurant/deleteMenu/{id}',                            'RestaurantController@deleteMenu');
-Route::get('restaurant/deleteMenu/{id}/{slug}',                     'RestaurantController@deleteMenu');
-Route::post('restaurant/deleteMenu/{id}/{slug}',                    'RestaurantController@deleteMenu');
+Route::get('restaurant/deleteMenu',                                 'RestaurantController@deleteMenu');
+Route::post('restaurant/deleteMenu',                                'RestaurantController@deleteMenu');
+
 Route::get('restaurant/red/{path}',                                 'RestaurantController@red');
 
 Route::get('restaurant/redfront/{path}/{slug}/{path2}',             'RestaurantController@redfront');

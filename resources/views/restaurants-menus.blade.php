@@ -11,6 +11,7 @@
         popup(false, "You can not place orders as a restaurant owner", "Oops");
     }
 
+
     $is_my_restro = false;
     if (Session::has('session_restaurant_id') && Session::get('session_restaurant_id') == $restaurant->id) {
         $is_my_restro = true;
@@ -24,7 +25,40 @@
     $alts = array(
         "add_item" => "Add Item"
     );
-?>
+
+    if(read("profiletype") == 3 || $is_my_restro){ 
+    ?>
+        <div class="card  m-b-0" style="border-radius:0 !important;">
+            <div class="card-block ">
+                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+
+                    <div class="col-md-4 col-md-offset-4 ">
+                        <a href="#" id="add_item0" type="button"
+                           class="btn btn-success btn-lg additem  btn-block"
+                           data-toggle="modal"
+                           title="{{ $alts["add_item"] }}"
+                           data-target="#addMenuModel">
+                            Add Menu Item
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    <? } ?>
+
+
+        <div class="card  m-b-0" style="border-radius:0 !important;">
+            <div class="card-block ">
+                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+                    <div id="categoryLinks" style="padding-left:15px"></div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+
     <div class="container" >
         <?php printfile("views/restaurants-menus.blade.php"); ?>
         <div class="row">
@@ -38,77 +72,45 @@
                     <div class="overlay overlay_reservation">
                         <div class="loadmoreajaxloader"></div>
                     </div>
+                    <div id="saveOrderChngBtn" style="display:none"><input name="saveOrderChng" type="button" value="Save All Category Order Changes" onclick="saveCatOrderChngs()" /><span id="saveCatOrderMsg"></span></div>
+
                     <div class="clearfix"></div>
                     <div class=" menu_div">
                         @if(isset($restaurant))
                             <input type="hidden" id="res_id" value="{{ $restaurant->id }}"/>
                         @endif
-                        @foreach($category as $cat)
-                            <!--  {{ $cat->title }} -->
-                            <div id="postswrapper_{{ $cat->id }}" class="loadcontent"></div>
-                            <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;"></div>
-                            <!-- add menu item -->
-                            <script>
-                                $(function () {
-                                    $.ajax({
-                                        url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
-                                        success: function (res) {
-                                            if (res != 'no') {
-                                                $("#postswrapper_{{ $cat->id }}").html(res);
-                                            } else {
-                                             //   $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
-                                            }
-                                        },
-                                        error: function (res) {
-                                            if (res != 'no') {
-                                                $("#postswrapper_{{ $cat->id }}").html(res);
-                                            } else {
-                                            //    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
-                                            }
-                                        }
-                                    });
-                                });
-                            </script>
-                        @endforeach
+
+<?php
+$cats=[];
+$catsOrder=[];
+$catCnt=0;
+foreach ($category as $cat) {
+ $cats[$catCnt]=$cat->id;
+ $catsOrder[$catCnt]=$cat->display_order;
+ $catCnt++;
+}
+
+if(read('restaurant_id') == $restaurant->id || read("profiletype") != 2) {//is yours, doesn't need to be active
+   $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->orderBy('cat_id', 'ASC')->orderBy('display_order', 'ASC')->get();
+}
+else{//is not yours, needs to be active
+   $menus_list = App\Http\Models\Menus::where('restaurant_id', $restaurant->id)->where('parent', '0')->whereIn('cat_id', $cats)->where('is_active', 1)->orderBy('display_order', 'ASC')->get();
+}
+
+
+?>
+
+@if(count($menus_list))
+@include('menus',$menus_list)
+@endif
+
+                        
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
-<?
-                    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
-                    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
-                    <div class="card  m-b-0" style="border-radius:0 !important;">
-                        <div class="card-block ">
-                            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                                <h4 class="card-title text-xs-center m-b-0">Add Menu Item</h4>
-
-                                <p class="card-title text-xs-center m-b-0">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
-
-                                <div class="col-md-4 col-md-offset-4 ">
-                                    <a href="#" id="add_item0" type="button"
-                                       class="btn btn-success btn-lg additem  btn-block"
-                                       data-toggle="modal"
-                                       title="{{ $alts["add_item"] }}"
-                                       data-target="#addMenuModel">
-                                        Add Menu Item
-                                    </a>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <? } ?>
-
-
-
-
-
-            </div>
             <div class="col-lg-4 col-md-5 col-sm-12" id="printableArea">
                 @include('common.receipt', array("is_my_restro" => $is_my_restro, "is_open"=>$business_day, "checkout_modal" => $checkout_modal))
             </div>
-        </div>
-    </div>
-    </div>
 
     @if(!read('restaurant_id') || read('restaurant_id') == $restaurant->id)
         <div class="modal clearfix" id="addMenuModel" tabindex="-1" role="dialog" aria-labelledby="addMenuModelLabel" aria-hidden="true">
@@ -127,6 +129,13 @@
                 </div>
             </div>
         </div>
+    </div>
+  </div>
+  </div>
+    </div>
+        </div>
+            </div>
+  
     @endif
 
     @include('popups.more_detail')
@@ -246,7 +255,6 @@
 
             }
         };
-
         $(document).ready(function () {
             var delivery_type = getCookie("delivery_type");
             if (!delivery_type) {
@@ -299,12 +307,10 @@
                                 //$('.email_error').fadeOut(2000);
                             } else if (msg == '6') {
                                 hide=false;
-                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=1')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received</span>");
                             } else if (msg == '786') {
                                 hide=false;
-                                checkingout=true;
                                 window.location = "{{url('orders/list/user?flash=2')}}";
                                 $('.top-cart-content ').html("<span class='thankyou'>Thank you! Your order has been received and your account has been created</span>");
                             } else {
@@ -677,6 +683,9 @@
                     $(this).parent().remove();
                 }
             });
+            
+            
+/*
             $(".sorting_parent").live('click', function () {
                 var path = window.location.pathname + '?sorted';
                 //alert(path);
@@ -708,12 +717,8 @@
                     }
                 });
             });
+*/
 
-            @if(isset($_GET["menuitem"]) && $_GET["menuitem"])
-                setTimeout(function(){
-                    $("#{{ $_GET["menuitem"] }}").trigger("click");
-                }, 500);
-            @endif
         });
         updatecart();
     </script>
