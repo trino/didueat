@@ -1796,24 +1796,27 @@
 
     //make a popup
     function popup($Success, $Message, $Title = "", $ID = "", $Margin = 0){
-        if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
-        echo '<div class="alert alert-' . $Success . '" role="alert"';
-        if($ID){ echo ' ID="' . $ID  . '"';}
-        if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
-        echo '><div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">';
-        echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-
         if(left($Message, 8) == "message:"){
             $Message = right($Message, strlen($Message)-8);
             switch($Message){
-                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; break;
+                case "nostores": $Message = '<span id="countRows">No</span> Restaurant<span id="countRowsS">s</span> Found in your Area<span id="openClosed" class="smRd"></span>'; $Success = "card"; break;
                 case "menuadd": $Message = "Menu item saved successfully"; break;
                 case "sorted": $Message = "Menu item moved successfully"; break;
                 case "user_fire":case "user_hire": case "user_possess": case "user_depossess": $Message = "User has been " . str_replace("eed", "ed", str_replace("user_", "", $Message) . "ed"); break;
             }
         }
-        if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
-        echo $Message . '</div></div>';
+        if ($Success == "card"){
+            echo '<div class="card"><div class="card-block">' . $Message . '</div></div>';
+        } else {
+            if(!$Success || $Success === "danger"){$Success = "danger";} else{$Success = "success";}
+            echo '<div class="alert alert-' . $Success . '" role="alert"';
+            if($ID){ echo ' ID="' . $ID  . '"';}
+            if($Margin){ echo ' style="margin-bottom: ' . $Margin . 'px !important;"';}
+            echo '><div class="container text-md-center" style="margin-top:0 !important;line-height: 2rem !important; ">';
+            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+            if($Title) {echo '<STRONG>' . $Title . '</STRONG>&nbsp;';}
+            echo $Message . '</div></div>';
+        }
     }
 
     function makeselect($Name, $Items, $SelectedValue = false){

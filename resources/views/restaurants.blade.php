@@ -240,26 +240,7 @@
 
 
                     <div class="col-lg-4 hidden-md-down">
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                     </div>
 
                 </div>
@@ -267,15 +248,12 @@
 
             <div id="icons_show">
                 <div class="col-lg-12 p-b-1 text-xs-center" style="padding-top:1rem !important;">
-                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2>
-<hr>
+                    <h2 class="text-muted ">WHY ORDER FROM {{ strtoupper(DIDUEAT)  }}?</h2><hr>
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x "
-                                                           style="line-height: inherit;"></i></div>
-                        <br>
-                        <br>
+                        <div class="exp_cir bg-success"><i class="fa fa-map-marker fa-2x " style="line-height: inherit;"></i></div>
+                        <br><br>
                         <h4>Local</h4>
                         <footer>
                             Steel Town's best restaurants
@@ -284,10 +262,8 @@
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x "
-                                                           style="line-height: inherit;"></i></div>
-                        <br>
-                        <br>
+                        <div class="exp_cir bg-warning"><i class="fa fa-cutlery fa-2x " style="line-height: inherit;"></i></div>
+                        <br><br>
                         <h4>Efficient</h4>
                         <footer>
                             The fastest way to order food
@@ -296,10 +272,8 @@
                 </div>
                 <div class="col-lg-4 text-xs-center">
                     <div class="card card-block text-xs-center m-b-0">
-                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i>
-                        </div>
-                        <br>
-                        <br>
+                        <div class="exp_cir bg-info"><i class="fa fa-usd fa-2x " style="line-height: inherit;"></i></div>
+                        <br><br>
                         <h4>Discounts</h4>
                         <footer>
                             There's a deal everyday
@@ -308,22 +282,16 @@
                 </div>
                 <div class="clearfix"></div>
                 @if(!Session::has('is_logged_in'))
-
-
-                <div class="col-lg-12 text-xs-center p-t-0"><hr>
-                    <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
-               <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
-                        <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
-
-
-                        <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign Up</a>
-
+                    <div class="col-lg-12 text-xs-center p-t-0"><hr>
+                        <div class="text-xs-center m-b-0 p-a-1 text-muted" style="width: 100%">
+                            <h2>ADVERTISE FOR FREE. GO ONLINE ANYTIME.</h2>
+                            <!--a class="btn btn-lg btn-success-outline btn-responsive" data-toggle="modal" data-target="#signupModal">SIGN UP NOW!</a-->
+                            <a class="btn btn-lg btn-success-outline btn-responsive"  href="{{ url("restaurants/signup") }}" title="{{ $alts["signup"] }}">Restaurant Sign Up</a>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
 
-@endif
-
+                @endif
             </div>
         </div>
     </div>
@@ -339,26 +307,24 @@
             if(document.getElementById('deliverycb').checked && document.getElementById('pickupcb').checked){
                deliverytype = "both";
                replacewith = replacewith + "both";
-            }
-            else{
-			            if(document.getElementById('pickupcb').checked){
+            } else{
+                if(document.getElementById('pickupcb').checked){
                    deliverytype = "is_pickup";
                    replacewith = replacewith + "is_pickup";
-			            } else {
+                } else {
                    deliverytype = "is_delivery"; // the default
                    replacewith = replacewith + "is_delivery";
                    if(!document.getElementById('deliverycb').checked){
                       alert("At least Delivery or Pickup must be checked (or both). We are checking Delivery as the default, but you may adjust as you see fit");
                       document.getElementById('deliverycb').checked="true";
                    }
-			            }
+                }
             }
             document.getElementById('delivery_type').value=deliverytype;
             createCookieValue('delivery_type', deliverytype);
-			         replacewith = replacewith + deliverytype;
+            replacewith = replacewith + deliverytype;
             deliverytype = "delivery_type=" + deliverytype;
-                        
-                        
+
             $('.restaurant-url').each(function() {
                 text = $(this).attr('href');
                 text = text.replace(replacewith, deliverytype);
@@ -416,7 +382,7 @@
                 $('#search-form #is_menu').attr("checked", true);
             }
 
-            /*
+             /*
              if (getCookie('cname') || getCookie('latitude2') || getCookie('longitude2') || getCookie('minimum') || getCookie('cuisine') || getCookie('rating') || getCookie('SortOrder')) {
              $('#search-form #clearSearch').show();
              } else {
@@ -559,6 +525,7 @@
                     $('#loadMoreBtnContainer').remove();
                 });
             }
+            return false;
         }
 
         $('body').on('click', '.loadMoreRestaurants', function (e) {

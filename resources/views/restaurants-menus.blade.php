@@ -78,30 +78,35 @@
                         <!--input type="file" accept="image/*;capture=camera"-->
                     </div>
                 </div>
-<?
-                    //profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
-                    if( (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
-                    <div class="card  m-b-0" style="border-radius:0 !important;">
-                        <div class="card-block ">
-                            <div class="container" style="margin-top: 0 !important;padding:0 !important;">
-                                <h4 class="card-title text-xs-center m-b-0">Add Menu Item</h4>
+                <?php
+                    //is an admin, profile is logged in and not a rest. employee and rest. is not open, or is an employee of the rest., or was uploaded by this user
+                    if(!read("id") || read("profiletype") == 1 || (read("id") && !read("restaurant_id") && !$restaurant->open) || $is_my_restro || $restaurant->uploaded_by == read("id") ){ ?>
+                        <div class="card  m-b-0" style="border-radius:0 !important;">
+                            <div class="card-block ">
+                                <div class="container" style="margin-top: 0 !important;padding:0 !important;">
+                                    <h4 class="card-title text-xs-center m-b-0">Add Menu Item</h4>
 
-                                <p class="card-title text-xs-center m-b-0">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
+                                    <p class="card-title text-xs-center m-b-0">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
 
-                                <div class="col-md-4 col-md-offset-4 ">
-                                    <a href="#" id="add_item0" type="button"
-                                       class="btn btn-success btn-lg additem  btn-block"
-                                       data-toggle="modal"
-                                       title="{{ $alts["add_item"] }}"
-                                       data-target="#addMenuModel">
-                                        Add Menu Item
-                                    </a>
+                                    <div class="col-md-4 col-md-offset-4 ">
+                                        <a href="#" id="add_item0" type="button"
+                                           class="btn btn-success btn-lg additem btn-block"
+                                           data-toggle="modal"
+                                           title="{{ $alts["add_item"] }}"
+                                           @if(read("id"))
+                                                data-target="#addMenuModel"
+                                           @else
+                                                data-target="#loginModal" onclick="clickedadditem = true;"
+                                           @endif
+                                           >
+                                           Add Menu Item
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="clearfix"></div>
                             </div>
                         </div>
-                    </div>
-                    <? } ?>
+                <?php } ?>
 
 
 
@@ -140,6 +145,14 @@
 
     <script type="text/javascript">
         var checkout_modal = "{{ $checkout_modal }}";
+        var clickedadditem = false;
+
+        function onlogin(){
+            $("#add_item0").attr("data-target", "#addMenuModel");
+            if(clickedadditem){
+                $("#add_item0").trigger("click");
+            }
+        }
 
         function addresschange(where) {
             //code for adding addresses to the drop down is in views/common/receipt.blade.php
@@ -552,12 +565,13 @@
                 $('.orders').prepend('<tr id="list' + ids + '" class="infolist" ></tr>');
                 $('#list' + ids).html('<td class="receipt_image" style="width:50px !important;">' +
 
+                        '<SELECT class="btn btn-secondary" ID="itemsel' + ids + '" onchange="changeitem(' + "'" + ids + "'" + ')">' + makeselect(0,10, pre_cnt) + '</SELECT>' +
 
-                        '<a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline  " href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
+                        '<SPAN style="display:none;"><a id="inc' + ids + '" class="clearfix increase btn btn-sm  btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-plus"></i></a>' +
 
-                        '<div class="clearfix "><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" class="count" name="qtys[]" value="' + pre_cnt + '" </div>' +
+                        '<div class="clearfix"><span class="count" style="padding-left:15px;">' + pre_cnt + '</span><input type="hidden" id="qty' + ids + '" class="count" name="qtys[]" value="' + pre_cnt + '" </div>' +
 
-                        '<br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a>' +
+                        '<br><a id="dec' + ids + '" class="clearfix decrease  btn btn-sm btn-secondary-outline" href="javascript:void(0);"><i class="fa fa-minus"></i></a></SPAN>' +
 
                         '<input class="amount" type="hidden" value="' + price.toFixed(2) + '"/>' +
                         '</td>' +
@@ -648,6 +662,7 @@
 
                 updatecart();
             });
+
             function inArray(needle, haystack) {
                 var length = haystack.length;
                 for (var i = 0; i < length; i++) {
@@ -716,11 +731,39 @@
 
             @if(isset($_GET["menuitem"]) && $_GET["menuitem"])
                 setTimeout(function(){
-                    $("#{{ $_GET["menuitem"] }}").trigger("click");
+                    $("#add_item{{ $_GET["menuitem"] }}").trigger("click");
                 }, 500);
             @endif
         });
         updatecart();
+
+        function changeitem(id){
+            var CURRENT = $('#qty'+ id).val(), DESIRED = $('#itemsel'+ id).val(), QTY = 0, DIR = "";
+            if(CURRENT > DESIRED){
+                DIR = "dec" + id;
+                QTY = CURRENT - DESIRED;
+            } else if (CURRENT < DESIRED) {
+                DIR = "inc" + id;
+                QTY = DESIRED - CURRENT;
+            }
+            if(QTY){
+                for(i=0; i<QTY; i++){
+                    $("#" + DIR).trigger("click");
+                }
+            }
+        }
+
+        function makeselect(start, end, selected){
+            var tempstr, tempstr2;
+            for(i=start; i<=end; i++){
+                tempstr = tempstr + '<OPTION VALUE="' + i + '"';
+                if(selected == i){
+                    tempstr = tempstr + ' SELECTED';
+                }
+                tempstr = tempstr + '>' + i + '</OPTION>';
+            }
+            return tempstr;
+        }
     </script>
     <script type="text/javascript">
         //Google Api Codes.

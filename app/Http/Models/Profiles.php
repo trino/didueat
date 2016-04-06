@@ -52,12 +52,14 @@ class Profiles extends BaseModel {
                     }
                 })
                 ->orderBy($meta, $order)
-                ->join('restaurants', 'profiles.restaurant_id', '=', 'restaurants.id');
+                ->leftJoin('restaurants', 'profiles.restaurant_id', '=', 'restaurants.id');
+
+        debugprint("PROFILE LISTING " .  $query->toSql());
 
         $reccount = $query->count();
         if ($type == "list") {
             $query->take($per_page);
-            $query->skip($start);
+            if($start){$query->skip($start);}
         }
         return $query;
     }

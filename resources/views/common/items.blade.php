@@ -31,9 +31,7 @@
                     $image = (isset($m->image) && !empty($m->image)) ? $m->image : 'default.png';
                     ?>
                         <tr id="list{{ $order->listid }}" class="infolist">
-                            <td class="receipt_image" style='@if(isset($order)) width:20%; @else width:50px !important; @endif'>
-                            @if(isset($order))         <span class="count">{{ $arr_qty[$k] }}</span>@endif
-                            </td>
+                            <td class="receipt_image" style='@if(isset($order)) width:20%; @else width:50px !important; @endif'> @if(isset($order))         <span class="count">{{ $arr_qty[$k] }}</span>@endif </td>
 
                             <td @if(isset($order)) style='width:55%;' @endif>
                                 <input type="hidden" class="count" name="qtys[]" value="{{ $arr_qty[$k] }}"/>

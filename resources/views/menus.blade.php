@@ -60,7 +60,7 @@
                     $submenus = \App\Http\Models\Menus::where('parent', $value->id)->orderBy('display_order', 'ASC')->get();
                     $min_p = get_price($value->id);
 
-                    $canedit = read("profiletype") == 3 && $value->uploaded_by == read("id");
+                    $canedit = read("profiletype") == 1 || (read("profiletype") == 3 && $value->uploaded_by == read("id"));
                 ?>
 
                 <div class="list-group-item parents" id="parent{{ $value->id }}">

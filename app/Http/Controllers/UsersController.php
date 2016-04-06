@@ -71,7 +71,7 @@ class UsersController extends Controller {
      * @return Response
      */
     public function listingAjax() {
-        $per_page = \Input::get('showEntries');
+        $per_page = \Input::get('showEntries', 20);//if(!$per_page){$per_page=20;}
         $page = \Input::get('page');
         $cur_page = $page;
         $page -= 1;
@@ -88,7 +88,6 @@ class UsersController extends Controller {
         );
         
         $Query = \App\Http\Models\Profiles::listing($data, "list", $recCount)->get();
-
 
         $no_of_paginations = ceil($recCount / $per_page);
         
@@ -202,9 +201,11 @@ class UsersController extends Controller {
         }
         try {
             $ob = \App\Http\Models\Profiles::find($id);//search for user $id
+            event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
             switch ($type){
                 case "user_fire"://fire user by deleting them
                     $ob->delete();
+                    return $this->listingAjax();
                     break;
                 case "user_hire"://hire user by changing the profile type to employee
                     $ob->populate(array('profile_type' => 1));
@@ -219,9 +220,7 @@ class UsersController extends Controller {
                 default:
                     return $this->failure("'" . $type . "' is not handled", 'users/list');
             }
-            event(new \App\Events\AppEvents($ob, "User Status Changed"));//log event
-            //return $this->success("message:" . $type, 'users/list');
-            return $this->listingAjax();
+            return $this->success("message:" . $type, 'users/list');
         } catch (\Exception $e) {
             return $this->failure( handleexception($e), 'users/list');
         }
