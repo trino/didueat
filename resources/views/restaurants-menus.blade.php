@@ -49,9 +49,8 @@
                             <div id="loadmoreajaxloader_{{ $cat->id }}" style="display: none;"></div>
                             <!-- add menu item -->
                             <script>
-                                $(function () {
-                                    
-                                    
+                                $(function () {                                    
+                                    $('.overlay_loader').show();
                                     $.ajax({
                                         url: "{{ url('/restaurants/loadmenus/' . $cat->id . '/' . $restaurant->id) }}",
                                         success: function (res) {
@@ -60,6 +59,7 @@
                                             } else {
                                              //   $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">7777No menu items yet<div class="clearfix"></div></div>');
                                             }
+                                            $('.overlay_loader').hide();
                                             
                                         },
                                         error: function (res) {
@@ -68,7 +68,7 @@
                                             } else {
                                             //    $("#postswrapper_{{ $cat->id }}").html('<div class="alert alert-danger" role="alert">88888N4o menu items yet<div class="clearfix"></div></div>');
                                             }
-                                            
+                                            $('.overlay_loader').hide();
                                         }
                                     });
                                 });

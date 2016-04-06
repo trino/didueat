@@ -53,6 +53,7 @@
                             <td><?php echo e($value->name); ?></td>
                             <td NOWRAP><?php echo rating_initialize("static-rating", "restaurant", $value->id, true, 'update-rating', false); ?></td>
                             <td>
+                            <div class="btn-group-vertical">                            
                                 <?php if(!$value->is_complete): ?>
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="<?php echo e($alts["incomplete"]); ?>">Incomplete</A><HR CLASS="slimhr">
                                     <?php
@@ -116,10 +117,12 @@
                                     <?php endif; ?>
                                     <a class="btn btn-secondary-outline btn-sm" style="cursor: default;" title="<?php echo e($alts["disabled"]); ?>">Disabled</A>
                                 <?php endif; ?>
+                                </div>                                
                             </td>
 
 
                             <td>
+                            <div class="btn-group-vertical">
                                 <a href="<?php echo e(url('restaurants/' . $value->slug . '/menu/')); ?>" class="btn btn-info btn-sm" title="<?php echo e($alts["menu"]); ?>">Menu</a>
                                 <?php if(read("type_user") == "super"): ?>
                                     <a href="<?php echo e(url('orders/list/restaurant/' . $value->id)); ?>" class="btn btn-info btn-sm" title="<?php echo e($alts["orders"]); ?>">Orders</a>
@@ -127,7 +130,9 @@
                                     <!--a href="<?php echo e(url('restaurant/list/delete/'.$value->id)); ?>" class="btn btn-secondary-outline btn-sm" onclick="return confirm('Are you sure you want to delete <?php echo e(addslashes("'" . $value->name . "'")); ?> ?');">X</a-->
                                     <a class="btn btn-secondary-outline btn-sm" id="delete<?php echo e($value->id); ?>" title="<?php echo e($alts["delete"]); ?>" onclick="deleterestaurant('<?php echo e($value->id); ?>', '<?php echo e(addslashes("'" . $value->name . "'")); ?>');">X</a>
                                 <?php endif; ?>
+                                </div>
                             </td>
+                            
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
